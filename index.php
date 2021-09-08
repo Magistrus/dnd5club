@@ -45,13 +45,42 @@
         <!-- Page Content-->
         <div class="container">
             <div class="row">
-                <div id="left-block"  class="col overflow-auto h-vh-100">
-                    <div>
-                        <h1>A Bootstrap 5 Starter Template</h1>
-                        <p>A complete project boilerplate built with Bootstrap</p>
-                        <div id="test-1" class="btn">
-                            MEGA
+                <div id="left_block"  class="col overflow-auto h-vh-100">
+                    <div id="test-1" class="btn">
+                        MEGA
+                    </div>
+
+                    <div class="card-container">
+                        <div class="card">
+                            <div class="infimation">
+                                <p>Тут будет много текста</p>
+                            </div>
+                            <div class="icon">
+                                <p>Тут будет иконка</p>
+                            </div>
                         </div>
+                        <div class="card">
+                            <div class="infimation">
+                                <p>Тут будет много текста</p>
+                            </div>
+                            <div class="icon">
+                                <p>Тут будет иконка</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="infimation">
+                                <p>Тут будет много текста</p>
+                            </div>
+                            <div class="icon">
+                                <p>Тут будет иконка</p>
+                            </div>
+                        </div>
+                    </div>
+                    Width: <output id="width">0</output><br>
+                    Height: <output id="height">0</output><br>
+                    <textarea id="textbox">Resize me</textarea><br>
+                    
+                    <div>                       
                         <p>Вот вам яркий пример современных тенденций - сложившаяся структура организации играет определяющее значение для модели развития. Есть над чем задуматься: ключевые особенности структуры проекта, инициированные исключительно синтетически, призваны к ответу. В рамках спецификации современных стандартов, предприниматели в сети интернет могут быть подвергнуты целой серии независимых исследований. С другой стороны, высокое качество позиционных исследований создаёт необходимость включения в производственный план целого ряда внеочередных мероприятий с учётом комплекса благоприятных перспектив.</p>
 
                         <p>Господа, перспективное планирование, в своём классическом представлении, допускает внедрение существующих финансовых и административных условий. Но интерактивные прототипы ограничены исключительно образом мышления. Прежде всего, внедрение современных методик предопределяет высокую востребованность своевременного выполнения сверхзадачи. Элементы политического процесса лишь добавляют фракционных разногласий и смешаны с не уникальными данными до степени совершенной неузнаваемости, из-за чего возрастает их статус бесполезности. Не следует, однако, забывать, что укрепление и развитие внутренней структуры выявляет срочную потребность экономической целесообразности принимаемых решений.</p>
@@ -83,7 +112,7 @@
                         <p>Безусловно, консультация с широким активом требует определения и уточнения модели развития. Имеется спорная точка зрения, гласящая примерно следующее: диаграммы связей, вне зависимости от их уровня, должны быть своевременно верифицированы. Предприниматели в сети интернет призваны к ответу. Мы вынуждены отталкиваться от того, что социально-экономическое развитие играет важную роль в формировании экспериментов, поражающих по своей масштабности и грандиозности. Лишь многие известные личности ассоциативно распределены по отраслям.</p>
                     </div>
                 </div>
-                <div id="right-block" class="col">
+                <div id="right_block" class="col">
                     <div>
                         <h1>A Bootstrap 5 Starter Template</h1>
                         <p>A complete project boilerplate built with Bootstrap</p>
@@ -108,8 +137,23 @@
         
         <script>
             document.getElementById('test-1').onclick = function() {
-                document.getElementById('right-block').classList.toggle('block-hide');
+                document.getElementById('right_block').classList.toggle('block-hide');
+                document.getElementById('left_block').classList.toggle('block-width-100');
             }
+        </script>
+
+        <script>
+            function outputsize() {
+            width.value = left_block.offsetWidth;
+            if (width.value > 800) {
+                document.getElementById('left_block').classList.toggle('block-width-100000000');
+            }
+            // height.value = left_block.offsetHeight
+            }
+            outputsize()
+
+            new ResizeObserver(outputsize).observe(left_block)
+
         </script>
 
     </body>
