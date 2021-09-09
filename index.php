@@ -21,7 +21,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
     </head>
-    <body class="d-flex overflow-hidden" data-simplebar>
+    <body class="d-flex overflow-hidden">
         <!-- Nav Bar-->
         <nav class="navbar">
             <p>Menu</p>
@@ -47,6 +47,12 @@
                 <div id="right_block" data-simplebar>
                     <div class="header_block">
                         <h3>Название класса</h3>
+                        <div id="btn_full_screen" class="btn_full_screen">
+                            <div class="icon-action icon-full-screen"></div>
+                        </div>
+                        <div id="btn_close" class="btn_close">
+                            <div class="icon-action icon-close"></div>
+                        </div>
                     </div>
                     <div class="container_right">
                         <h1>Привет всем</h1>
@@ -100,6 +106,11 @@
             document.getElementById('test-1').onclick = function() {
                 document.getElementById('container').classList.toggle('block-information');
             }
+
+            document.getElementById('btn_close').onclick = function() {
+                document.getElementById('container').classList.toggle('block-information');
+            }
+
         </script>
 
         <script>

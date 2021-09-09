@@ -23,7 +23,23 @@
   --g-300: #E5E5E5;
 }
 
-/********* icons *********/
+/********* Icon Action *********/
+.icon-action {
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+.icon-full-screen {
+  background-image: url(/assets/icon/full_screen.svg);
+}
+
+.icon-close {
+  background-image: url(/assets/icon/close.svg);
+}
+
+/********* Icons Classes *********/
 
 .all-classes {
   background-image: url(/assets/icon/classes.svg);

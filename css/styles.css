@@ -33,7 +33,7 @@ body {
   margin: 0 -8px;
 }
 
-.card-container .card {
+.card-container .card-classes {
   background: var(--g-50);
   border-radius: 16px;
   display: flex;
@@ -46,27 +46,27 @@ body {
   padding: 16px 24px 16px 16px;
 }
 
-.card-container .card:hover {
+.card-container .card-classes:hover {
   cursor: pointer;
   background-color: var(--g-200);
 }
 
-/* .card-container .card:last-child {
+/* .card-container .card-classes:last-child {
   flex: 0 0 21%;
   min-width: 300px;
 } */
 
-.card-container .card .infimation {
+.card-container .card-classes .infimation {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
 }
 
-.card-container .card .infimation p.additionally {
+.card-container .card-classes .infimation p.additionally {
   margin-top: auto;
 }
 
-.card-container .card .icon {
+.card-container .card-classes .icon {
   display: block;
   width: 83px;
   height: 83px;
@@ -100,8 +100,8 @@ body {
 /******** Левый блок ********/
 #left_block {
   transition: margin-right 0.6s;
-  /* overflow: hidden; */
-  margin-right: 48px;
+  /* overflow-x: hidden; */
+  margin-right: 0px;
   margin-left: 72px;
   position: relative;
 }
@@ -112,7 +112,7 @@ body {
 
 .block-information #left_block {
   transition: margin-right 0.6s;
-  margin-right: calc(56% + 22px);
+  margin-right: calc(56% + 0px);
 }
 
 #left_block .container_left {
@@ -130,6 +130,31 @@ body {
   position: fixed;
   border-left: 1px solid var(--g-300);
   background-color: var(--g-50);
+}
+
+#right_block .header_block h3 {
+  margin-right: auto;
+}
+
+#right_block .header_block .btn_full_screen,
+#right_block .header_block .btn_close {
+  background-color: var(--g-50);
+  border-left: 1px solid var(--g-300);
+  width: 72px;
+  height: 72px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#right_block .header_block .btn_full_screen:hover,
+#right_block .header_block .btn_close:hover {
+  background-color: var(--g-200);
+  cursor: pointer;
+}
+
+#right_block .header_block {
+  background-color: var(--main-bg);
 }
 
 .block-information #right_block {

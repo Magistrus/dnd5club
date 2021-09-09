@@ -1,6 +1,6 @@
 <div class="card-container">
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Бард</h5>
             <p class="en_title encaption_text">Bard</p>
@@ -10,7 +10,7 @@
         </div>
     </div>
  
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Варвар</h5>
             <p class="en_title encaption_text">Barbarian</p>
@@ -20,7 +20,7 @@
         </div>
     </div>
  
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Воин</h5>
             <p class="en_title encaption_text">Fighter</p>
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Волшебник</h5>
             <p class="en_title encaption_text">Wizard</p>
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Друид</h5>
             <p class="en_title encaption_text">Druid</p>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Жрец</h5>
             <p class="en_title encaption_text">Cleric</p>
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Изобретатель</h5>
             <p class="en_title encaption_text">Artificer</p>
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Колдун</h5>
             <p class="en_title encaption_text">Warlock</p>
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Монах</h5>
             <p class="en_title encaption_text">Monk</p>
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Паладин</h5>
             <p class="en_title encaption_text">Paladin</p>
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Плут</h5>
             <p class="en_title encaption_text">Rogue</p>
@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Следопыт</h5>
             <p class="en_title encaption_text">Ranger</p>
@@ -120,7 +120,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-classes">
         <div class="infimation">
             <h5>Чародей</h5>
             <p class="en_title encaption_text">Sorcerer</p>
