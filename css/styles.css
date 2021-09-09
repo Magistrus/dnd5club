@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto';
+  font-size: 13px;
 }
 
 .overflow-hidden {
@@ -12,18 +13,18 @@ body {
 
 .container {
   width: 100%;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .row {
+  margin-left: -24px;
+  margin-right: -24px;
   display: flex;
-}
-
-.col {
-  flex: 1 0 auto;
-}
-
-.overflow-auto {
-  overflow: auto!important;
+  flex-wrap: wrap;
 }
 
 .h-vh-100 {
@@ -34,38 +35,63 @@ body {
 .card-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 -8px;
 }
 
-.card {
+.card-container .card {
   background: #f5f5f5;
   border-radius: 16px;
   display: flex;
-  flex: 0 0 auto;
-  width: 50%;
-  min-width: 400px;
+  flex: 1 0 auto;
+  margin: 0 8px;
+  max-width: 33%;
+  min-width: 300px;
+  flex-direction: row;
+  padding: 16px 24px 16px 16px;
+}
+
+.card-container .card .infimation {
+  background: blue;
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.card-container .card .icon {
+  display: block;
+  width: 83px;
+  height: 83px;
+  background-color: bisque;
 }
 
 /******** Левый блок ********/
 #left_block {
-  width: 50%;
+  width: 100%;
   transition: width 1s;
+  padding: 24px;
+  overflow-x: hidden;
+  flex: 1 0 0%;
 }
 
-#left_block.block-width-100 {
-  width: 100%; !important;
-  transition: width 1s;
+#left_block.block-full-width {
+  flex-basis: 100% !important;
+  /* transition: flex-basis 1s; */
 }
 
 /******** Правй блок ********/
 #right_block {
-  width: 50%;
-  transition: width 1s;
+  width: 100%;
+  transition: right 1s;
+  padding: 24px;
+  flex: 1 0 0%;
 }
 
 #right_block.block-hide {
-  /* width: 1px !important; */
-  transition: width 1s;
-  right: -1000px;
+  display: none;
+  /* transition: right 1s; */
+  /* width: 0%; */
+  /* right: -1000px; */
+  /* position: relative; */
 }
 
 /******** Кнопки ********/
