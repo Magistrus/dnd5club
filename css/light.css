@@ -1,0 +1,79 @@
+.main_bg {
+  background-color: #ffffff;
+}
+
+.text_color {
+  color: #171717;
+}
+
+
+/* icons */
+
+.all-classes {
+  background-image: url(/assets/icon/classes.svg);
+  background-position: 0px 0px;
+}
+
+.bard {
+  background-image: url(/assets/icon/bard_big.svg);
+}
+
+.barbarian {
+  background-image: url(/assets/icon/barbarian_big.svg);
+  background-position: 0px -168px;
+}
+
+.fighter {
+  background-image: url(/assets/icon/fighter_big.svg);
+  background-position: 0px -252px;
+}
+
+.wizard {
+  background-image: url(/assets/icon/wizard_big.svg);
+  background-position: 0px -336px;
+}
+
+.druid {
+  background-image: url(/assets/icon/druid_big.svg);
+  background-position: 0px -84px;
+}
+
+.cleric {
+  background-image: url(/assets/icon/cleric_big.svg);
+  background-position: 0px -84px;
+}
+
+.artificer {
+  background-image: url(/assets/icon/artificer_big.svg);
+  background-position: 0px -84px;
+}
+
+.warlock {
+  background-image: url(/assets/icon/warlock_big.svg);
+  background-position: 0px -84px;
+}
+
+.monk {
+  background-image: url(/assets/icon/monk_big.svg);
+  background-position: 0px -84px;
+}
+
+.paladin {
+  background-image: url(/assets/icon/paladin_big.svg);
+  background-position: 0px -84px;
+}
+
+.rogue {
+  background-image: url(/assets/icon/rogue_big.svg);
+  background-position: 0px -84px;
+}
+
+.ranger {
+  background-image: url(/assets/icon/ranger_big.svg);
+  background-position: 0px -84px;
+}
+
+.sorcerer {
+  background-image: url(/assets/icon/sorcerer_big.svg);
+  background-position: 0px -84px;
+}

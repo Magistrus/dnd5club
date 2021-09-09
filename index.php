@@ -12,12 +12,18 @@
 
         <!-- Core theme CSS -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/typography.css" rel="stylesheet" />
+        <link href="css/light.css" rel="stylesheet" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
         <!-- Core CSS Bootstrap-->
         <!-- <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> -->
 
     </head>
-    <body class="d-flex overflow-hidden">
+    <body class="d-flex overflow-hidden main_bg text_color">
         <!-- Nav Bar-->
         <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
@@ -54,7 +60,13 @@
                             <?php include("pages/card-container.php"); ?>
 
                             Width: <output id="width">0</output><br>
-                        
+
+                            <h1>Привет всем</h1>
+                            <h2>Привет всем</h2>
+                            <h3>Привет всем</h3>
+                            <h4>Привет всем</h4>
+                            <h5>Привет всем</h5>
+
                         <div>                       
                     <div>                       
                         <p>Вот вам яркий пример современных тенденций - сложившаяся структура организации играет определяющее значение для модели развития. Есть над чем задуматься: ключевые особенности структуры проекта, инициированные исключительно синтетически, призваны к ответу. В рамках спецификации современных стандартов, предприниматели в сети интернет могут быть подвергнуты целой серии независимых исследований. С другой стороны, высокое качество позиционных исследований создаёт необходимость включения в производственный план целого ряда внеочередных мероприятий с учётом комплекса благоприятных перспектив.</p>

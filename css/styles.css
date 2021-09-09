@@ -59,7 +59,8 @@ body {
   display: block;
   width: 83px;
   height: 83px;
-  background-color: bisque;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /******** Левый блок ********/
@@ -71,7 +72,7 @@ body {
 
 .block-information #left_block {
   transition: margin-right 1s;
-  margin-right: calc(50% - 0px);
+  margin-right: calc(56% - 0px);
 }
 
 .container_left {
@@ -80,9 +81,9 @@ body {
 
 /******** Правй блок ********/
 #right_block {
-  width: calc(50% - 0px);
+  width: calc(56% - 0px);
   top: 0;
-  right: calc(-50% - 0px);
+  right: calc(-56% - 0px);
   background-color: cadetblue;
   transition: right 1s;
   position: fixed;
