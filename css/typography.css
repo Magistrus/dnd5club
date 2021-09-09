@@ -1,28 +1,58 @@
 h1 {
   font-size: 60px;
   font-weight: 300;
+  margin: 0;
 }
 
 h2 {
   font-size: 48px;
   font-weight: 400;
+  margin: 0;
 }
 
 h3 {
   font-size: 28px;
   font-weight: 300;
+  line-height: 32px;
+  margin: 0;
 }
 
 h4 {
   font-size: 22px;
   font-weight: 300;
+  margin: 0;
 }
 
 h5 {
   font-size: 16px;
   font-weight: 400;
+  line-height: 28px;
+  margin: 0;
+}
+
+p {
+  font-size: 13px;
+  font-weight: 300;
+  margin: 0;
 }
 
 b {
-  font-size: 400;
+  font-weight: 400;
+}
+
+.btn_text {
+  font-weight: 500;
+}
+
+.small_btn {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.caption_text {
+  font-size: 11px;
+}
+
+.uppercase_text {
+  text-transform: uppercase;
 }

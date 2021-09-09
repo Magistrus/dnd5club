@@ -4,8 +4,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto';
-  font-weight: 300;
-  font-size: 13px;
 }
 
 .overflow-hidden {
@@ -42,18 +40,28 @@ body {
   background: #f5f5f5;
   border-radius: 16px;
   display: flex;
-  flex: 1 0 auto;
-  margin: 0 8px;
-  max-width: 33%;
-  min-width: 300px;
+  flex: 1 0 21%;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 16px;
+  /* min-width: 300px; */
   flex-direction: row;
   padding: 16px 24px 16px 16px;
 }
 
+/* .card-container .card:last-child {
+  flex: 0 0 21%;
+  min-width: 300px;
+} */
+
 .card-container .card .infimation {
-  background: blue;
   display: flex;
   flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.card-container .card .infimation p.additionally {
+  margin-top: auto;
 }
 
 .card-container .card .icon {
