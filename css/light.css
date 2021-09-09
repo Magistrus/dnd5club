@@ -1,21 +1,26 @@
-.main_bg {
-  background-color: #ffffff;
+:root {
+  --main-bg: #ffffff;
+  --text-color:#171717;
+  --text-g-color:#A4A4A4;
 }
 
-.secondary_bg {
-  background-color: #FBFBFB;
+/********* primary *********/
+:root {
+  --p-50: #EAEBF6;
+  --p-100: #C9CCE9;
+  --p-200: #A6ABDA;
+  --p-300: #848ACB;
+  --p-400: #6B6FBF;
+  --p-500: #5355B4;
+  --p-600: #4D4DAA;
 }
 
-.text_color {
-  color: #171717;
-}
-
-.text_gray_color {
-  color: #A4A4A4;
-}
-
-.border-color {
-  border-color: #E5E5E5 !important;
+/********* Gray *********/
+:root {
+  --g-50: #FBFBFB;
+  --g-100: #F6F6F6;
+  --g-200: #F1F1F1;
+  --g-300: #E5E5E5;
 }
 
 /********* icons *********/

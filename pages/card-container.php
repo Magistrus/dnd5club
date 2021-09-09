@@ -3,7 +3,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Бард</h5>
-            <p class="en_title encaption_text text_gray_color">Bard</p>
+            <p class="en_title encaption_text">Bard</p>
             <p class="additionally uppercase_text">PBH / HIT D8</p>
         </div>
         <div class="icon bard">
@@ -13,7 +13,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Варвар</h5>
-            <p class="en_title encaption_text text_gray_color">Barbarian</p>
+            <p class="en_title encaption_text">Barbarian</p>
             <p class="additionally uppercase_text">PBH / HIT D12</p>
         </div>
         <div class="icon barbarian">
@@ -23,7 +23,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Воин</h5>
-            <p class="en_title encaption_text text_gray_color">Fighter</p>
+            <p class="en_title encaption_text">Fighter</p>
             <p class="additionally uppercase_text">PBH / HIT D10</p>
         </div>
         <div class="icon fighter">
@@ -33,7 +33,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Волшебник</h5>
-            <p class="en_title encaption_text text_gray_color">Wizard</p>
+            <p class="en_title encaption_text">Wizard</p>
             <p class="additionally uppercase_text">PBH / HIT D6</p>
         </div>
         <div class="icon wizard">
@@ -43,7 +43,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Друид</h5>
-            <p class="en_title encaption_text text_gray_color">Druid</p>
+            <p class="en_title encaption_text">Druid</p>
             <p class="additionally uppercase_text">PBH / HIT D8</p>
         </div>
         <div class="icon druid">
@@ -53,7 +53,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Жрец</h5>
-            <p class="en_title encaption_text text_gray_color">Cleric</p>
+            <p class="en_title encaption_text">Cleric</p>
             <p class="additionally uppercase_text">PBH / HIT D8</p>
         </div>
         <div class="icon cleric">
@@ -63,7 +63,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Изобретатель</h5>
-            <p class="en_title encaption_text text_gray_color">Artificer</p>
+            <p class="en_title encaption_text">Artificer</p>
             <p class="additionally uppercase_text">TCE / HIT D8</p>
         </div>
         <div class="icon artificer">
@@ -73,7 +73,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Колдун</h5>
-            <p class="en_title encaption_text text_gray_color">Warlock</p>
+            <p class="en_title encaption_text">Warlock</p>
             <p class="additionally uppercase_text">PBH / HIT D8</p>
         </div>
         <div class="icon warlock">
@@ -83,7 +83,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Монах</h5>
-            <p class="en_title encaption_text text_gray_color">Monk</p>
+            <p class="en_title encaption_text">Monk</p>
             <p class="additionally uppercase_text">PBH / HIT D8</p>
         </div>
         <div class="icon monk">
@@ -93,7 +93,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Паладин</h5>
-            <p class="en_title encaption_text text_gray_color">Paladin</p>
+            <p class="en_title encaption_text">Paladin</p>
             <p class="additionally uppercase_text">PBH / HIT D10</p>
         </div>
         <div class="icon paladin">
@@ -103,7 +103,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Плут</h5>
-            <p class="en_title encaption_text text_gray_color">Rogue</p>
+            <p class="en_title encaption_text">Rogue</p>
             <p class="additionally uppercase_text">PBH / HIT D8</p>
         </div>
         <div class="icon rogue">
@@ -113,7 +113,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Следопыт</h5>
-            <p class="en_title encaption_text text_gray_color">Ranger</p>
+            <p class="en_title encaption_text">Ranger</p>
             <p class="additionally uppercase_text">PBH / HIT D10</p>
         </div>
         <div class="icon ranger">
@@ -123,7 +123,7 @@
     <div class="card">
         <div class="infimation">
             <h5>Чародей</h5>
-            <p class="en_title encaption_text text_gray_color">Sorcerer</p>
+            <p class="en_title encaption_text">Sorcerer</p>
             <p class="additionally uppercase_text">PBH / HIT D6</p>
         </div>
         <div class="icon sorcerer">
