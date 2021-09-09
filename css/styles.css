@@ -38,10 +38,11 @@ body {
   border-radius: 16px;
   display: flex;
   flex: 1 0 21%;
+  max-width: 21%;
+  min-width: 200px;
   margin-left: 8px;
   margin-right: 8px;
   margin-bottom: 16px;
-  min-width: 200px;
   flex-direction: row;
   padding: 16px 24px 16px 16px;
 }
@@ -175,4 +176,13 @@ body {
   display: inline-block;
   vertical-align: middle;
   user-select: none;
+}
+
+table {
+  width: 100%;
+}
+
+table td {
+  border:1px solid var(--g-300);
+  height: 30px;
 }
