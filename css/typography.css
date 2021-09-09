@@ -1,21 +1,26 @@
 h1 {
   font-size: 60px;
+  font-weight: 300;
 }
 
 h2 {
   font-size: 48px;
+  font-weight: 400;
 }
 
 h3 {
   font-size: 28px;
+  font-weight: 300;
 }
 
 h4 {
   font-size: 22px;
+  font-weight: 300;
 }
 
 h5 {
   font-size: 16px;
+  font-weight: 400;
 }
 
 b {

@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto';
+  font-weight: 300;
   font-size: 13px;
 }
 
@@ -63,16 +64,27 @@ body {
   background-position: center;
 }
 
+/******** Меню ********/
+.navbar {
+  height: 100vh;
+  width: 72px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid;
+}
+
 /******** Левый блок ********/
 #left_block {
   transition: margin-right 1s;
   overflow-x: hidden;
-  margin-right: 0px;
+  margin-right: 48px;
+  margin-left: 72px;
 }
 
 .block-information #left_block {
   transition: margin-right 1s;
-  margin-right: calc(56% - 0px);
+  margin-right: calc(56% + 24px);
 }
 
 .container_left {
@@ -84,9 +96,9 @@ body {
   width: calc(56% - 0px);
   top: 0;
   right: calc(-56% - 0px);
-  background-color: cadetblue;
   transition: right 1s;
   position: fixed;
+  border-left: 1px solid;
 }
 
 .block-information #right_block {

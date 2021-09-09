@@ -2,12 +2,19 @@
   background-color: #ffffff;
 }
 
+.secondary_bg {
+  background-color: #FBFBFB;
+}
+
 .text_color {
   color: #171717;
 }
 
+.border-color {
+  border-color: #E5E5E5 !important;
+}
 
-/* icons */
+/********* icons *********/
 
 .all-classes {
   background-image: url(/assets/icon/classes.svg);

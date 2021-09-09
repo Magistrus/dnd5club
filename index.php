@@ -11,9 +11,10 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
         <!-- Core theme CSS -->
-        <link href="css/styles.css" rel="stylesheet" />
-        <link href="css/typography.css" rel="stylesheet" />
+        <link href="css/simplebar.css" rel="stylesheet" />
         <link href="css/light.css" rel="stylesheet" />
+        <link href="css/typography.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,35 +24,17 @@
         <!-- <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> -->
 
     </head>
-    <body class="d-flex overflow-hidden main_bg text_color">
+    <body class="d-flex overflow-hidden main_bg text_color" data-simplebar>
         <!-- Nav Bar-->
-        <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
+        <nav class="navbar border-color main_bg">
+            <p>Menu</p>
+        </nav>
         <!-- Nav Bar End-->
 
         <!-- Page Content-->
         <div id="container" class="container">
             <div class="row">
-                <div id="left_block"  class="h-vh-100">
+                <div id="left_block" class="h-vh-100" data-simplebar>
                         <div class="container_left">
                             <div id="test-1" class="btn">
                                 MEGA
@@ -61,11 +44,6 @@
 
                             Width: <output id="width">0</output><br>
 
-                            <h1>Привет всем</h1>
-                            <h2>Привет всем</h2>
-                            <h3>Привет всем</h3>
-                            <h4>Привет всем</h4>
-                            <h5>Привет всем</h5>
 
                         <div>                       
                     <div>                       
@@ -100,17 +78,13 @@
                         <p>Безусловно, консультация с широким активом требует определения и уточнения модели развития. Имеется спорная точка зрения, гласящая примерно следующее: диаграммы связей, вне зависимости от их уровня, должны быть своевременно верифицированы. Предприниматели в сети интернет призваны к ответу. Мы вынуждены отталкиваться от того, что социально-экономическое развитие играет важную роль в формировании экспериментов, поражающих по своей масштабности и грандиозности. Лишь многие известные личности ассоциативно распределены по отраслям.</p>
                     </div>
                 </div>
-                <div id="right_block" class="h-vh-100">
+                <div id="right_block" class="h-vh-100 border-color secondary_bg" data-simplebar>
                     <div class="container_right">
-                        <h1>A Bootstrap 5 Starter Template</h1>
-                        <p>A complete project boilerplate built with Bootstrap</p>
-                        <p>Bootstrap v5.1.0</p>
-                        <p>Bootstrap v5.1.0</p>
-                        <p>Bootstrap v5.1.0</p>
-                        <p>Bootstrap v5.1.0</p>
-                        <p>Bootstrap v5.1.0</p>
-                        <p>Bootstrap v5.1.0</p>
-                        <p>Bootstrap v5.1.0</p>
+                        <h1>Привет всем</h1>
+                        <h2>Привет всем</h2>
+                        <h3>Привет всем</h3>
+                        <h4>Привет всем</h4>
+                        <h5>Привет всем</h5>
                     </div>
                 </div>
             </div>
@@ -122,6 +96,7 @@
 
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script src="js/simplebar.min.js"></script>
         
         <script>
             document.getElementById('test-1').onclick = function() {
