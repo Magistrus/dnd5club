@@ -43,17 +43,19 @@
         <!-- Nav Bar End-->
 
         <!-- Page Content-->
-        <div class="container">
+        <div id="container" class="container">
             <div class="row">
                 <div id="left_block"  class="h-vh-100">
-                    <div id="test-1" class="btn">
-                        MEGA
-                    </div>
+                        <div class="container_left">
+                            <div id="test-1" class="btn">
+                                MEGA
+                            </div>
 
-                    <?php include("pages/card-container.php"); ?>
+                            <?php include("pages/card-container.php"); ?>
 
-                    Width: <output id="width">0</output><br>
-                    
+                            Width: <output id="width">0</output><br>
+                        
+                        <div>                       
                     <div>                       
                         <p>Вот вам яркий пример современных тенденций - сложившаяся структура организации играет определяющее значение для модели развития. Есть над чем задуматься: ключевые особенности структуры проекта, инициированные исключительно синтетически, призваны к ответу. В рамках спецификации современных стандартов, предприниматели в сети интернет могут быть подвергнуты целой серии независимых исследований. С другой стороны, высокое качество позиционных исследований создаёт необходимость включения в производственный план целого ряда внеочередных мероприятий с учётом комплекса благоприятных перспектив.</p>
 
@@ -86,8 +88,8 @@
                         <p>Безусловно, консультация с широким активом требует определения и уточнения модели развития. Имеется спорная точка зрения, гласящая примерно следующее: диаграммы связей, вне зависимости от их уровня, должны быть своевременно верифицированы. Предприниматели в сети интернет призваны к ответу. Мы вынуждены отталкиваться от того, что социально-экономическое развитие играет важную роль в формировании экспериментов, поражающих по своей масштабности и грандиозности. Лишь многие известные личности ассоциативно распределены по отраслям.</p>
                     </div>
                 </div>
-                <div id="right_block" class="">
-                    <div>
+                <div id="right_block" class="h-vh-100">
+                    <div class="container_right">
                         <h1>A Bootstrap 5 Starter Template</h1>
                         <p>A complete project boilerplate built with Bootstrap</p>
                         <p>Bootstrap v5.1.0</p>
@@ -111,8 +113,7 @@
         
         <script>
             document.getElementById('test-1').onclick = function() {
-                document.getElementById('right_block').classList.toggle('block-hide');
-                // document.getElementById('left_block').classList.toggle('block-full-width');
+                document.getElementById('container').classList.toggle('block-information');
             }
         </script>
 

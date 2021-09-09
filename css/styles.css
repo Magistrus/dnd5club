@@ -23,8 +23,6 @@ body {
 .row {
   margin-left: -24px;
   margin-right: -24px;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .h-vh-100 {
@@ -66,32 +64,37 @@ body {
 
 /******** Левый блок ********/
 #left_block {
-  width: 100%;
-  transition: width 1s;
-  padding: 24px;
+  transition: margin-right 1s;
   overflow-x: hidden;
-  flex: 1 0 0%;
+  margin-right: 0px;
 }
 
-#left_block.block-full-width {
-  flex-basis: 100% !important;
-  /* transition: flex-basis 1s; */
+.block-information #left_block {
+  transition: margin-right 1s;
+  margin-right: calc(50% - 0px);
+}
+
+.container_left {
+  padding: 24px;
 }
 
 /******** Правй блок ********/
 #right_block {
-  width: 100%;
+  width: calc(50% - 0px);
+  top: 0;
+  right: calc(-50% - 0px);
+  background-color: cadetblue;
   transition: right 1s;
-  padding: 24px;
-  flex: 1 0 0%;
+  position: fixed;
 }
 
-#right_block.block-hide {
-  display: none;
-  /* transition: right 1s; */
-  /* width: 0%; */
-  /* right: -1000px; */
-  /* position: relative; */
+.block-information #right_block {
+  right: 0px;
+  transition: right 1s;
+}
+
+.container_right {
+  padding: 24px;
 }
 
 /******** Кнопки ********/
