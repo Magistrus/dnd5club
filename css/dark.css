@@ -1,26 +1,14 @@
 :root {
-  --main-bg: #1b1b1b;
+  --bg-main: #212529;
+  --bg-secondary: #272B2F;
   --text-color:#ffffff;
   --text-g-color:#A4A4A4;
-}
-
-/********* primary *********/
-:root {
-  --p-50: #EAEBF6;
-  --p-100: #C9CCE9;
-  --p-200: #A6ABDA;
-  --p-300: #848ACB;
-  --p-400: #6B6FBF;
-  --p-500: #5355B4;
-  --p-600: #4D4DAA;
-}
-
-/********* Gray *********/
-:root {
-  --g-50: #FBFBFB;
-  --g-100: #F6F6F6;
-  --g-200: #F1F1F1;
-  --g-300: #E5E5E5;
+  --nav-hover: #353B40;
+  --card-hover: #353B40;
+  --border: #35393D;
+  --primary: #4D4DAA;
+  --primary-hover: #44439E;
+  --primary-active: #3D3992;
 }
 
 /********* Logo *********/
@@ -30,7 +18,7 @@
   display: block;
   width: 40px;
   height: 40px;
-  background-image: url(/assets/icon/logo.svg);
+  background-image: url(/assets/icon/logo_dark.svg);
 }
 
 /********* Icon Menu *********/
@@ -74,7 +62,7 @@
 }
 
 /********* Icons Classes *********/
-.card-container .card-classes .icon {
+.card_container .card_classes .icon {
   display: block;
   width: 83px;
   height: 83px;
@@ -82,7 +70,7 @@
   background-position: center;
 }
 
-.all-classes {
+.all_classes {
   background-image: url(/assets/icon/classes.svg);
 }
 
