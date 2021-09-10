@@ -151,7 +151,7 @@ body {
 
 .block_information #left_block {
   transition: margin-right 0.6s;
-  margin-right: calc(56% + 0px);
+  margin-right: calc(56vw + 0px);
 }
 
 #left_block .container_left {
@@ -164,9 +164,9 @@ body {
 
 /******** Правй блок ********/
 #right_block {
-  width: calc(56% - 0px);
+  width: calc(56vw - 0px);
   top: 0;
-  right: calc(-56% - 0px);
+  right: calc(-56vw - 0px);
   transition: right 0.6s;
   position: fixed;
   border-left: 1px solid var(--g-300);

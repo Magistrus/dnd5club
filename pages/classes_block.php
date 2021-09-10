@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 
-            <div>                       
+            </div>                       
     </div>
     <div id="right_block">
         <div class="header_block">
