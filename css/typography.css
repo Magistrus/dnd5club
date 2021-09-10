@@ -37,6 +37,7 @@ h5 {
 
 p {
   font-size: 13px;
+  line-height: 16px;
   font-weight: 300;
   margin: 0;
   color: var(--text-color);
