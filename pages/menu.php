@@ -4,8 +4,15 @@
         <li class="nav_item">
             <a class="nav_link" href="classes.php"><div class="nav_icon icon_character"></div><span>Персонаж</span></a>
         </li>
-        <li class="nav_item">
+        <li class="nav_item dropdown">
             <a class="nav_link" href="#"><div class="nav_icon icon_spells"></div><span>Заклинания</span></a>
+
+            <ul class="d-menu" style="display: none;">
+					<li><a href="#">Menu 1.1</a></li>
+					<li><a href="#">Menu 1.2</a></li>
+					<li><a href="#">Menu 1.3</a></li>
+					<li><a href="#">Menu 1.4</a></li>
+            </ul>
         </li>
         <li class="nav_item">
             <a class="nav_link" href="#"><div class="nav_icon icon_inventory"></div><span>Инвентарь</span></a>
