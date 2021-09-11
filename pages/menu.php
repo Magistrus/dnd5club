@@ -1,22 +1,39 @@
 <nav id="navbar" class="navbar">
     <a class="logo icon_logo_menu" href="index.php"></a>
     <ul class="navbar_nav">
-        <li class="nav_item">
-            <a class="nav_link" href="classes.php"><div class="nav_icon icon_character"></div><span>Персонаж</span></a>
+        <li id="dropdown_character" class="nav_item dropdown_item">
+            <a class="nav_link" href="#">
+                <div class="nav_icon icon_character"></div>
+                <span>Персонаж</span>
+                <div class="nav_icon right_icon folded"></div>
+            </a>
+        
+            <ul class="d_menu">
+					<li><a href="classes.php">Классы</a></li>
+					<li><a href="#">Рассы</a></li>
+					<li><a href="#">Опции и особенности</a></li>
+					<li><a href="#">Предыстории</a></li>
+					<li><a href="#">Черты</a></li>
+            </ul>        
         </li>
-        <li class="nav_item dropdown">
-            <a class="nav_link" href="#"><div class="nav_icon icon_spells"></div><span>Заклинания</span></a>
 
-            <ul class="d-menu" style="display: none;">
-					<li><a href="#">Menu 1.1</a></li>
-					<li><a href="#">Menu 1.2</a></li>
-					<li><a href="#">Menu 1.3</a></li>
-					<li><a href="#">Menu 1.4</a></li>
+        <li class="nav_item">
+            <a class="nav_link" href="#"><div class="nav_icon icon_spells"></div><span>Заклинания</span></a>
+        </li>
+
+        <li id="dropdown_inventory" class="nav_item dropdown_item">
+            <a class="nav_link" href="#">
+                <div class="nav_icon icon_inventory"></div>
+                <span>Инвентарь</span>
+                <div class="nav_icon right_icon folded"></div>
+            </a>
+            <ul class="d_menu">
+					<li><a href="#">Оружие</a></li>
+					<li><a href="#">Доспехи</a></li>
+					<li><a href="#">Снаряжение</a></li>
             </ul>
         </li>
-        <li class="nav_item">
-            <a class="nav_link" href="#"><div class="nav_icon icon_inventory"></div><span>Инвентарь</span></a>
-        </li>
+
         <li onclick="switchTheme()" class="nav_item">
             <a class="nav_link" href="#"><div class="nav_icon icon_dark_mod"></div><span>Dark Mod</span></a>
         </li>

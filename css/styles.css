@@ -59,7 +59,8 @@ body {
   height: 40px;
   margin-bottom: 24px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
   border-radius: 8px;
   transition: background-color 0.6s;
 }
@@ -76,6 +77,9 @@ body {
   display: flex;
   align-items: center;
   padding-left: 8px;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .navbar .navbar_nav .nav_item:last-child {
@@ -92,6 +96,51 @@ body {
  margin-top: auto;
 }
 
+.navbar .navbar_nav .dropdown_item.open {
+  background-color: var(--nav-hover);
+  height: auto;
+}
+
+.navbar .navbar_nav .dropdown_item.open .nav_link .folded {
+  background-image: url(/assets/icon/unfolded_light.svg);
+}
+
+.navbar .navbar_nav .dropdown_item .right_icon {
+  right: 8px;
+  position: absolute;
+}
+
+.navbar .navbar_nav .dropdown_item.open .d_menu {
+  display:flex;
+}
+
+.navbar .navbar_nav .dropdown_item .d_menu {
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+.navbar .navbar_nav .dropdown_item .d_menu li {
+  height: 40px;
+  display: flex;
+  padding-left: 40px;
+}
+
+.navbar .navbar_nav .dropdown_item .d_menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.navbar .navbar_nav .nav_item.dropdown_item.open .d_menu li:hover  {
+  background-color: var(--nav-hover-dd);
+}
 
 
 /******** Карточки ********/

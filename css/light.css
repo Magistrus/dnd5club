@@ -4,6 +4,7 @@
   --text-color:#171717;
   --text-g-color:#A4A4A4;
   --nav-hover: #F1F1F1;
+  --nav-hover-dd: #e9e9e9;
   --card-hover: #F1F1F1;
   --border: #E5E5E5;
   --primary: #4D4DAA;
@@ -29,6 +30,7 @@
   width: 24px;
   height: 24px;
 }
+
 .icon_character {
   background-image: url(/assets/icon/character.svg);
 }
@@ -53,12 +55,17 @@
   width: 24px;
   height: 24px;
 }
+
+.folded {
+  background-image: url(/assets/icon/folded_light.svg);
+}
+
 .icon_full_screen {
-  background-image: url(/assets/icon/full_screen.svg);
+  background-image: url(/assets/icon/full_screen_light.svg);
 }
 
 .icon_close {
-  background-image: url(/assets/icon/close.svg);
+  background-image: url(/assets/icon/close_light.svg);
 }
 
 /********* Icons Classes *********/
