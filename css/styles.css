@@ -158,6 +158,7 @@ body {
 
 .navbar .navbar_nav .nav_item .nav_link span {
   margin-left: 16px;
+  font-size: 15px;
 }
 
 .navbar .copyright_block {
@@ -205,6 +206,7 @@ body {
   padding-left: 8px;
   margin-top: 8px;
   margin-bottom: 8px;
+  font-size: 15px;
 }
 
 .navbar .navbar_nav .nav_item.dropdown_item.open .d_menu li:hover  {

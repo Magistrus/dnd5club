@@ -5,11 +5,11 @@
     </div>
     <ul class="navbar_nav">
         <li id="dropdown_character" class="nav_item dropdown_item">
-            <a class="nav_link" href="#">
+            <button class="nav_link">
                 <div class="nav_icon icon_character"></div>
                 <span>Персонаж</span>
                 <div class="nav_icon right_icon folded"></div>
-            </a>
+            </button>
         
             <ul class="d_menu">
 					<li><a href="classes.php">Классы</a></li>
@@ -25,11 +25,11 @@
         </li>
 
         <li id="dropdown_inventory" class="nav_item dropdown_item">
-            <a class="nav_link" href="#">
+            <button class="nav_link">
                 <div class="nav_icon icon_inventory"></div>
                 <span>Инвентарь</span>
                 <div class="nav_icon right_icon folded"></div>
-            </a>
+            </button>
             <ul class="d_menu">
 					<li><a href="#">Оружие</a></li>
 					<li><a href="#">Доспехи</a></li>
