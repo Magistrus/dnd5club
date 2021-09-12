@@ -9,7 +9,7 @@
         <!-- Page Content-->
         <div id="container" class="container">
             <div class="row">
-                <p>Пусто</p>
+                <?php include("pages/classes_block.php"); ?>
             </div>
         </div>
         <!-- Page Content End-->
