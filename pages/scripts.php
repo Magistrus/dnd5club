@@ -50,7 +50,7 @@
 
 <!-- Скрыть / показать меню  -->
 <script>
-	document.getElementById('body').onclick = function() {
+	document.getElementById('close_menu').onclick = function() {
 		document.getElementById('body').classList.toggle('compact_menu');
 	}
 </script>

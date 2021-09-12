@@ -1,5 +1,8 @@
 <nav id="navbar" class="navbar">
-    <a class="logo" href="index.php"></a>
+    <div class="nav_head">
+        <a class="logo" href="index.php"></a>
+        <button id="close_menu" class="close_menu"></button>
+    </div>
     <ul class="navbar_nav">
         <li id="dropdown_character" class="nav_item dropdown_item">
             <a class="nav_link" href="#">
@@ -35,7 +38,7 @@
         </li>
 
         <li onclick="switchTheme()" class="nav_item">
-            <a class="nav_link" href="#"><div class="nav_icon icon_dark_mod"></div><span>Dark Mod</span></a>
+            <button class="nav_link" href="#"><div class="nav_icon icon_dark_mod"></div><span>Dark Mod</span></button>
         </li>
     </ul>
     <div class="copyright_block">

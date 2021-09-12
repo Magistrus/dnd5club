@@ -4,7 +4,7 @@
   --text-color:#ffffff;
   --text-g-color:#A4A4A4;
   --nav-hover: #353B40;
-  --nav-hover-dd: #e9e9e9;
+  --nav-hover-dd: #4D5359;
   --card-hover: #353B40;
   --border: #35393D;
   --primary: #7B61FF;
@@ -14,15 +14,17 @@
 
 /********* Logo *********/
 :root {
-  --icon_logo_menu: url(/assets/icon/dark/logo.svg);
+  --icon-logo-menu: url(/assets/icon/dark/logo.svg);
 }
 
 /********* Icon Menu *********/
 :root {
+  --open-menu: url(/assets/icon/dark/menu/open_menu.svg);
+  --close-menu: url(/assets/icon/dark/menu/close_menu.svg);
   --icon-character: url(/assets/icon/dark/menu/character.svg);
-  --icon_spells: url(/assets/icon/dark/menu/spells.svg);
-  --icon_inventory: url(/assets/icon/dark/menu/inventory.svg);
-  --icon_dark_mod: url(/assets/icon/dark/menu/dark_mod.svg);
+  --icon-spells: url(/assets/icon/dark/menu/spells.svg);
+  --icon-inventory: url(/assets/icon/dark/menu/inventory.svg);
+  --icon-dark-mod: url(/assets/icon/dark/menu/dark_mod.svg);
 }
 
 /********* Icon Action *********/

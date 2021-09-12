@@ -18,6 +18,12 @@ body {
   margin-left: 270px;
   padding-left: 24px;
   padding-right: 24px;
+  transition: margin-left 0.6s;
+}
+
+.compact_menu .container {
+  margin-left: 72px;
+  transition: margin-left 0.6s;
 }
 
 .row {
@@ -57,16 +63,32 @@ body {
   z-index: 10;
   display: flex;
   flex-direction: column;
+  transition: width 0.6s;
 }
 
-.navbar .logo {
-  height: 72px;
-  width: 270px;
-  border-bottom: 1px solid var(--border);
+.navbar .nav_head {
   display: flex;
-  background-image: var(--icon_logo_menu);
+  flex-direction: row;
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar .nav_head .logo {
+  height: 72px;
+  width: 72px;
+  display: flex;
+  background-image: var(--icon-logo-menu);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.navbar .nav_head .close_menu {
+  height: 72px;
+  width: 72px;
+  display: flex;
+  background-image: var(--close-menu);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: auto;
 }
 
 .navbar .nav_icon {
@@ -82,15 +104,15 @@ body {
 }
 
 .navbar .icon_spells {
-  background-image: var(--icon_spells);
+  background-image: var(--icon-spells);
 }
 
 .navbar .icon_inventory {
-  background-image: var(--icon_inventory);
+  background-image: var(--icon-inventory);
 }
 
 .navbar .icon_dark_mod {
-  background-image: var(--icon_dark_mod);
+  background-image: var(--icon-dark-mod);
 }
 
 .navbar .navbar_nav {
@@ -187,6 +209,48 @@ body {
 
 .navbar .navbar_nav .nav_item.dropdown_item.open .d_menu li:hover  {
   background-color: var(--nav-hover-dd);
+}
+
+.compact_menu .navbar {
+  width: 72px;
+  transition: width 0.6s;
+}
+
+.compact_menu .navbar .nav_head .close_menu {
+  width: 24px;
+  height: 24px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  position: absolute;
+  top: 60px;
+  left: 24px;
+}
+
+.compact_menu .navbar .nav_head .close_menu {
+  background-image: var(--open-menu);
+}
+
+.compact_menu .navbar .navbar_nav .nav_item .nav_link span {
+  display: none;
+}
+
+.compact_menu .navbar .navbar_nav .dropdown_item .right_icon {
+  display: none;
+}
+
+.compact_menu .navbar .copyright_block  {
+  display: none;
+}
+
+.compact_menu .navbar .navbar_nav .dropdown_item.open {
+  width: 240px;
+}
+
+.compact_menu .navbar .navbar_nav .nav_item.dropdown_item.open .nav_link span {
+  display: block;
+  color: var(--primary);
+  font-weight: 500;
 }
 
 
@@ -379,6 +443,12 @@ body {
 }
 
 /******** Кнопки ********/
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
 .btn {
   padding: 16px 8px;
   background-color: black;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <?php include("pages/head.php"); ?>
-    <body class="d-flex overflow-hidden">
+    <body id="body" class="d-flex overflow-hidden">
         <!-- Nav Bar-->
         <?php include("pages/menu.php"); ?>
         <!-- Nav Bar End-->

@@ -14,15 +14,17 @@
 
 /********* Logo *********/
 :root {
-  --icon_logo_menu: url(/assets/icon/light/logo.svg);
+  --icon-logo-menu: url(/assets/icon/light/logo.svg);
 }
 
 /********* Icon Menu *********/
 :root {
+  --open-menu: url(/assets/icon/light/menu/open_menu.svg);
+  --close-menu: url(/assets/icon/light/menu/close_menu.svg);
   --icon-character: url(/assets/icon/light/menu/character.svg);
-  --icon_spells: url(/assets/icon/light/menu/spells.svg);
-  --icon_inventory: url(/assets/icon/light/menu/inventory.svg);
-  --icon_dark_mod: url(/assets/icon/light/menu/dark_mod.svg);
+  --icon-spells: url(/assets/icon/light/menu/spells.svg);
+  --icon-inventory: url(/assets/icon/light/menu/inventory.svg);
+  --icon-dark-mod: url(/assets/icon/light/menu/dark_mod.svg);
 }
 
 /********* Icon Action *********/
