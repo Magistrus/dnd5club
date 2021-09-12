@@ -16,7 +16,7 @@
 <script>
 	function outputsize() {
 		width.value = left_block.offsetWidth;
-			if (width.value > 900) {
+			if (width.value < 900) {
 				document.getElementById('card_wrapper').classList.toggle('width_card_50');
 			}
 	}
