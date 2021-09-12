@@ -25,6 +25,26 @@ body {
   margin-right: -24px;
 }
 
+.icon_action {
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.folded {
+  background-image: var(--folded);
+}
+
+.icon_full_screen {
+  background-image: var(--icon_full_screen);
+}
+
+.icon_close {
+  background-image: var(--icon_close);
+}
+
 /******** Меню ********/
 .navbar {
   height: 100vh;
@@ -44,6 +64,33 @@ body {
   width: 270px;
   border-bottom: 1px solid var(--border);
   display: flex;
+  background-image: var(--icon_logo_menu);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navbar .nav_icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.navbar .icon_character {
+  background-image: var(--icon-character);
+}
+
+.navbar .icon_spells {
+  background-image: var(--icon_spells);
+}
+
+.navbar .icon_inventory {
+  background-image: var(--icon_inventory);
+}
+
+.navbar .icon_dark_mod {
+  background-image: var(--icon_dark_mod);
 }
 
 .navbar .navbar_nav {
@@ -102,7 +149,7 @@ body {
 }
 
 .navbar .navbar_nav .dropdown_item.open .nav_link .folded {
-  background-image: url(/assets/icon/unfolded_light.svg);
+  background-image: var(--unfolded);
 }
 
 .navbar .navbar_nav .dropdown_item .right_icon {
@@ -144,14 +191,14 @@ body {
 
 
 /******** Карточки ********/
-.card_container {
+.card_wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 -8px;
 }
 
-.card_container .card_classes {
+.card_wrapper .card {
   background: var(--bg-secondary);
   border-radius: 16px;
   display: flex;
@@ -166,26 +213,92 @@ body {
   transition: max-width 0.6s;
 }
 
-.card_container.width_card_50 .card_classes {
+.card_wrapper.width_card_50 .card {
   flex: 1 0 calc(50% - 56px);
   max-width: calc(50% - 56px);
   transition: max-width 0.6s;
 }
 
-.card_container .card_classes:hover {
+.card_wrapper .card:hover {
   cursor: pointer;
   background-color: var(--card-hover);
 }
 
-.card_container .card_classes .infimation {
+.card_wrapper .card .infimation {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
 }
 
-.card_container .card_classes .infimation p.additionally {
+.card_wrapper .card .infimation p.additionally {
   margin-top: auto;
 }
+
+/******** Классы ********/
+.card_wrapper .card .icon {
+  display: block;
+  width: 83px;
+  height: 83px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.all_classes {
+  background-image: var(--all-classes);
+}
+
+.bard {
+  background-image: var(--bard);
+}
+
+.barbarian {
+  background-image: var(--barbarian);
+}
+
+.fighter {
+  background-image: var(--fighter);
+}
+
+.wizard {
+  background-image: var(--wizard);
+}
+
+.druid {
+  background-image: var(--druid);
+}
+
+.cleric {
+  background-image: var(--cleric);
+}
+
+.artificer {
+  background-image: var(--artificer);
+}
+
+.warlock {
+  background-image: var(--warlock);
+}
+
+.monk {
+  background-image: var(--monk);
+}
+
+.paladin {
+  background-image: var(--paladin);
+}
+
+.rogue {
+  background-image: var(--rogue);
+}
+
+.ranger {
+  background-image: var(--ranger);
+}
+
+.sorcerer {
+  background-image: var(--sorcerer);
+}
+
 
 /******** Общее по блокам ********/
 .header_block {

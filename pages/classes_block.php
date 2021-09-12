@@ -1,4 +1,4 @@
-<div id="container_classes" class="">
+<div id="container_card" class="">
     <div id="left_block">
             <div class="header_block">
                 <h3>Классы</h3>
@@ -9,8 +9,8 @@
                 </div>
                 Width: <output id="width">0</output><br>
 
-                <div id="card_container" class="card_container">
-                    <div class="card_classes">
+                <div id="card_wrapper" class="card_wrapper">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Бард</h5>
                             <p class="en_title encaption_text">Bard</p>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Варвар</h5>
                             <p class="en_title encaption_text">Barbarian</p>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Воин</h5>
                             <p class="en_title encaption_text">Fighter</p>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Волшебник</h5>
                             <p class="en_title encaption_text">Wizard</p>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Друид</h5>
                             <p class="en_title encaption_text">Druid</p>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Жрец</h5>
                             <p class="en_title encaption_text">Cleric</p>
@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Изобретатель</h5>
                             <p class="en_title encaption_text">Artificer</p>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Колдун</h5>
                             <p class="en_title encaption_text">Warlock</p>
@@ -90,7 +90,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Монах</h5>
                             <p class="en_title encaption_text">Monk</p>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Паладин</h5>
                             <p class="en_title encaption_text">Paladin</p>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Плут</h5>
                             <p class="en_title encaption_text">Rogue</p>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Следопыт</h5>
                             <p class="en_title encaption_text">Ranger</p>
@@ -130,7 +130,7 @@
                         </div>
                     </div>
 
-                    <div class="card_classes">
+                    <div class="card">
                         <div class="infimation">
                             <h5>Чародей</h5>
                             <p class="en_title encaption_text">Sorcerer</p>

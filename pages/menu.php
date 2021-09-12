@@ -1,5 +1,5 @@
 <nav id="navbar" class="navbar">
-    <a class="logo icon_logo_menu" href="index.php"></a>
+    <a class="logo" href="index.php"></a>
     <ul class="navbar_nav">
         <li id="dropdown_character" class="nav_item dropdown_item">
             <a class="nav_link" href="#">

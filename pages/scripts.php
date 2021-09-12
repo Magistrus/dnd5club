@@ -4,11 +4,11 @@
 <!-- Скрыть / показать правый блок -->
 <script>
 	document.getElementById('test-1').onclick = function() {
-		document.getElementById('container_classes').classList.toggle('block_information');
+		document.getElementById('container_card').classList.toggle('block_information');
 	}
 
 	document.getElementById('btn_close').onclick = function() {
-		document.getElementById('container_classes').classList.toggle('block_information');
+		document.getElementById('container_card').classList.toggle('block_information');
 	}
 </script>
 
@@ -17,7 +17,7 @@
 	function outputsize() {
 		width.value = left_block.offsetWidth;
 			if (width.value > 900) {
-				document.getElementById('card_container').classList.toggle('width_card_50');
+				document.getElementById('card_wrapper').classList.toggle('width_card_50');
 			}
 	}
 	outputsize()
@@ -46,13 +46,17 @@
 		}
 
 	}
+</script>  
+
+<!-- Скрыть / показать меню  -->
+<script>
+	document.getElementById('body').onclick = function() {
+		document.getElementById('body').classList.toggle('compact_menu');
+	}
 </script>
 
-<!-- Скрыть показать меню  -->
 
-
-
-<!-- Развернуть свернуть пункты меню  -->
+<!-- Развернуть / свернуть пункты меню  -->
 <script>
 	document.getElementById('dropdown_character').onclick = function() {
 		document.getElementById('dropdown_character').classList.toggle('open');

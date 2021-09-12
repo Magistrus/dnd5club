@@ -7,128 +7,46 @@
   --nav-hover-dd: #e9e9e9;
   --card-hover: #353B40;
   --border: #35393D;
-  --primary: #4D4DAA;
+  --primary: #7B61FF;
   --primary-hover: #44439E;
   --primary-active: #3D3992;
 }
 
 /********* Logo *********/
-.icon_logo_menu {
-  background-repeat: no-repeat;
-  background-position: center;
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-image: url(/assets/icon/logo_dark.svg);
+:root {
+  --icon_logo_menu: url(/assets/icon/dark/logo.svg);
 }
 
 /********* Icon Menu *********/
-.nav_icon {
-  background-position: center;
-  background-repeat: no-repeat;
-  display: block;
-  width: 24px;
-  height: 24px;
-}
-
-.icon_character {
-  background-image: url(/assets/icon/character.svg);
-}
-
-.icon_spells {
-  background-image: url(/assets/icon/spells.svg);
-}
-
-.icon_inventory {
-  background-image: url(/assets/icon/inventory.svg);
-}
-
-.icon_dark_mod {
-  background-image: url(/assets/icon/dark_mod.svg);
+:root {
+  --icon-character: url(/assets/icon/dark/menu/character.svg);
+  --icon_spells: url(/assets/icon/dark/menu/spells.svg);
+  --icon_inventory: url(/assets/icon/dark/menu/inventory.svg);
+  --icon_dark_mod: url(/assets/icon/dark/menu/dark_mod.svg);
 }
 
 /********* Icon Action *********/
-.icon_action {
-  background-position: center;
-  background-repeat: no-repeat;
-  display: block;
-  width: 24px;
-  height: 24px;
-}
-
-.folded {
-  background-image: url(/assets/icon/folded_light.svg);
-}
-
-.icon_full_screen {
-  background-image: url(/assets/icon/full_screen.svg);
-}
-
-.icon_close {
-  background-image: url(/assets/icon/close.svg);
+:root {
+--folded: url(/assets/icon/dark/folded.svg);
+--unfolded: url(/assets/icon/dark/unfolded.svg);
+--icon_full_screen: url(/assets/icon/dark/full_screen.svg);
+--icon_close: url(/assets/icon/dark/close.svg);
 }
 
 /********* Icons Classes *********/
-.card_container .card_classes .icon {
-  display: block;
-  width: 83px;
-  height: 83px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.all_classes {
-  background-image: url(/assets/icon/classes.svg);
-}
-
-.bard {
-  background-image: url(/assets/icon/bard_big.svg);
-}
-
-.barbarian {
-  background-image: url(/assets/icon/barbarian_big.svg);
-}
-
-.fighter {
-  background-image: url(/assets/icon/fighter_big.svg);
-}
-
-.wizard {
-  background-image: url(/assets/icon/wizard_big.svg);
-}
-
-.druid {
-  background-image: url(/assets/icon/druid_big.svg);
-}
-
-.cleric {
-  background-image: url(/assets/icon/cleric_big.svg);
-}
-
-.artificer {
-  background-image: url(/assets/icon/artificer_big.svg);
-}
-
-.warlock {
-  background-image: url(/assets/icon/warlock_big.svg);
-}
-
-.monk {
-  background-image: url(/assets/icon/monk_big.svg);
-}
-
-.paladin {
-  background-image: url(/assets/icon/paladin_big.svg);
-}
-
-.rogue {
-  background-image: url(/assets/icon/rogue_big.svg);
-}
-
-.ranger {
-  background-image: url(/assets/icon/ranger_big.svg);
-}
-
-.sorcerer {
-  background-image: url(/assets/icon/sorcerer_big.svg);
+:root {
+  --all-classes: url(/assets/icon/dark/classes/all_classes.svg);
+  --bard: url(/assets/icon/dark/classes/bard_big.svg);
+  --barbarian: url(/assets/icon/dark/classes/barbarian_big.svg);
+  --fighter: url(/assets/icon/dark/classes/fighter_big.svg);
+  --wizard: url(/assets/icon/dark/classes/wizard_big.svg);
+  --druid: url(/assets/icon/dark/classes/druid_big.svg);
+  --cleric: url(/assets/icon/dark/classes/cleric_big.svg);
+  --artificer: url(/assets/icon/dark/classes/artificer_big.svg);
+  --warlock: url(/assets/icon/dark/classes/warlock_big.svg);
+  --monk: url(/assets/icon/dark/classes/monk_big.svg);
+  --paladin: url(/assets/icon/dark/classes/paladin_big.svg);
+  --rogue: url(/assets/icon/dark/classes/rogue_big.svg);
+  --ranger: url(/assets/icon/dark/classes/ranger_big.svg);
+  --sorcerer: url(/assets/icon/dark/classes/sorcerer_big.svg);
 }
