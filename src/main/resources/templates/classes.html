@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-<body id="body" class="d-flex overflow-hidden" layout:fragment="content">
-	<div id="container" class="container">
-		<div class="row">
-			<div id="container_card" class="">
-				<div id="left_block">
-					<div class="header_block">
-						<h3>Классы</h3>
-					</div>
-					<div class="container_left" data-simplebar>
-						<div id="card_wrapper" class="card_wrapper">
-							<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo('${class.id}', '${class.capitalazeName}')|" th:each="class : ${classes}">
-								<div class="infimation">
-									<h5 th:text="${class.capitalazeName}">Class name</h5>
-									<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
-									<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
-								</div>
-								<div class="icon" th:classappend="${class.englishName.toLowerCase()}"></div>
-							</div>
+<body id="body" class="d-flex overflow-hidden" >
+	<div id="container_card" class="" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Классы</h3>
+			</div>
+			<div class="container_left" data-simplebar>
+				<div id="card_wrapper" class="card_wrapper">
+					<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo('${class.id}','${class.capitalazeName}','${class.englishName}')|" th:each="class : ${classes}">
+						<div class="infimation">
+							<h5 th:text="${class.capitalazeName}">Class name</h5>
+							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
+							<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
 						</div>
+						<div class="icon" th:classappend="${class.englishName.toLowerCase()}"></div>
 					</div>
-				</div>
-				<div id="right_block">
-					<div class="header_block">
-						<h3 id="class_name">Название класса</h3>
-						<div id="btn_full_screen" class="btn_full_screen">
-							<div class="icon_action icon_full_screen"></div>
-						</div>
-						<div id="btn_close" class="btn_close">
-							<div class="icon_action icon_close"></div>
-						</div>
-					</div>
-					<div id= "info" class="container_right" data-simplebar></div>
 				</div>
 			</div>
 		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="class_name">Название класса</h3>
+				<div id="btn_full_screen" class="btn_full_screen">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info" class="container_right" data-simplebar></div>
+		</div>
 	</div>
 	<script>
-		function blockInfo(id, name) {
+		function blockInfo(id, name, englishName) {
 			var rightContainer = document.getElementById('container_card');
-			
 			document.getElementById('class_name').innerHTML = name;
 			var element = document.getElementById("info");
 			var url = '/classes/fragment/' + id;
 			//element.innerHTML = $("#info").load(url);
-			rightContainer.classList.toggle('block_information');
+
+			rightContainer.classList.add(englishName);
+			if (rightContainer.classList.contains('')) {
+				rightContainer.classList.add('block_information');
+			} else {
+				rightContainer.classList.add('block_information');
+			}
 		}
 		document.getElementById('btn_close').onclick = function() {
 			document.getElementById('container_card').classList
