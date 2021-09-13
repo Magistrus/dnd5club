@@ -31,7 +31,7 @@ public class ClassController {
 		return "classes";
 	}
 	
-	@GetMapping("/fragment/{id}")
+	@GetMapping("/classes/fragment/{id}")
 	public String getFragmentClasses(Model model, Device device, @PathVariable Integer id) {
 		model.addAttribute("device", device);
 		HeroClass heroClass = classRepository.findById(id).get();
