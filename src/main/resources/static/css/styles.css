@@ -135,7 +135,7 @@ body {
 
 .navbar .navbar_nav .nav_item:hover {
   cursor: pointer;
-  background-color: var(--nav-hover);
+  background-color: var(--hover);
   transition: background-color 0.6s;
 }
 
@@ -166,7 +166,7 @@ body {
 }
 
 .navbar .navbar_nav .dropdown_item.open {
-  background-color: var(--nav-hover);
+  background-color: var(--hover);
   height: auto;
 }
 
@@ -209,7 +209,7 @@ body {
 }
 
 .navbar .navbar_nav .nav_item.dropdown_item.open .d_menu li:hover  {
-  background-color: var(--nav-hover-dd);
+  background-color: var(--hover);
 }
 
 .compact_menu .navbar {
@@ -314,7 +314,7 @@ body {
 
 .card_wrapper .card:hover {
   cursor: pointer;
-  background-color: var(--card-hover);
+  background-color: var(--hover);
 }
 
 .card_wrapper .card .infimation {
@@ -459,16 +459,35 @@ body {
 
 #right_block .header_block .btn_full_screen:hover,
 #right_block .header_block .btn_close:hover {
-  background-color: var(--card-hover);
+  background-color: var(--hover);
   cursor: pointer;
 }
 
-#right_block .container_right {
+#right_block .info_wrapper {
   height: calc(100vh - 73px);
 }
 
-#right_block > .container_right  > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+#right_block > .info_wrapper  > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
   padding: 24px;
+}
+
+#right_block .info_wrapper {
+  position: relative;
+  display: flex;
+}
+
+#right_block .info_wrapper .categories_block {
+  position: absolute;
+  width: 290px;
+  bottom: 0;
+  left: 0;
+  top: 0;
+}
+
+#right_block .info_wrapper .content_block {
+  margin-left: 264px;
+  padding-left: 24px;
+  border-left: 1px solid var(--border);
 }
 
 /******** Кнопки ********/
