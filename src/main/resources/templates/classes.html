@@ -10,7 +10,7 @@
 					</div>
 					<div class="container_left" data-simplebar>
 						<div id="card_wrapper" class="card_wrapper">
-							<div class="card" th:each="class : ${classes}">
+							<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo('${class.id}')|" th:each="class : ${classes}">
 								<div class="infimation">
 									<h5 th:text="${class.capitalazeName}">Class name</h5>
 									<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
@@ -31,11 +31,19 @@
 							<div class="icon_action icon_close"></div>
 						</div>
 					</div>
-					<div class="container_right" data-simplebar>
-					</div>
+					<div id= "info" class="container_right" data-simplebar></div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		function blockInfo(id) {
+			document.getElementById('container_card').classList.toggle('block_information');
+		}
+		document.getElementById('btn_close').onclick = function() {
+			document.getElementById('container_card').classList
+					.toggle('block_information');
+		}
+	</script>
 </body>
 </html>
