@@ -278,10 +278,32 @@ body {
   transition: max-width 0.6s;
 }
 
-.card_wrapper.width_card_50 .card {
-  flex: 1 0 calc(50% - 56px);
-  max-width: calc(50% - 56px);
-  transition: max-width 0.6s;
+@media (max-width: 1500px) {
+  .block_information .card_wrapper .card {
+    flex: 1 0 calc(100% - 56px);
+    max-width: calc(100% - 56px);
+  }
+}
+
+@media (max-width: 1250px) {
+  .card_wrapper .card {
+    flex: 1 0 calc(33% - 56px);
+    max-width: calc(33% - 56px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .card_wrapper .card {
+    flex: 1 0 calc(50% - 56px);
+    max-width: calc(50% - 56px);
+  }
+}
+
+@media (max-width: 800px) {
+  .card_wrapper .card {
+    flex: 1 0 calc(100% - 56px);
+    max-width: calc(100% - 56px);
+  }
 }
 
 .card_wrapper .card:hover {
