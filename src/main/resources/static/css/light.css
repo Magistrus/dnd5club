@@ -1,0 +1,54 @@
+:root {
+  --bg-main: #ffffff;
+  --bg-secondary: #FBFBFB;
+  --text-color:#171717;
+  --text-g-color:#A4A4A4;
+  --nav-hover: #F1F1F1;
+  --nav-hover-dd: #e9e9e9;
+  --card-hover: #F1F1F1;
+  --border: #E5E5E5;
+  --primary: #4D4DAA;
+  --primary-hover: #44439E;
+  --primary-active: #3D3992;
+}
+
+/********* Logo *********/
+:root {
+  --icon-logo-menu: url(/resources/assets/icon/light/logo.svg);
+}
+
+/********* Icon Menu *********/
+:root {
+  --open-menu: url(/resources/assets/icon/light/menu/open_menu.svg);
+  --close-menu: url(/resources/assets/icon/light/menu/close_menu.svg);
+  --icon-character: url(/resources/assets/icon/light/menu/character.svg);
+  --icon-spells: url(/resources/assets/icon/light/menu/spells.svg);
+  --icon-inventory: url(/resources/assets/icon/light/menu/inventory.svg);
+  --icon-dark-mod: url(/resources/assets/icon/light/menu/dark_mod.svg);
+}
+
+/********* Icon Action *********/
+:root {
+--folded: url(/resources/assets/icon/light/folded.svg);
+--unfolded: url(/resources/assets/icon/light/unfolded.svg);
+--icon_full_screen: url(/resources/assets/icon/light/full_screen.svg);
+--icon_close: url(/resources/assets/icon/light/close.svg);
+}
+
+/********* Icons Classes *********/
+:root {
+  --all-classes: url(/resources/assets/icon/light/classes/all_classes.svg);
+  --bard: url(/resources/assets/icon/light/classes/bard_big.svg);
+  --barbarian: url(/resources/assets/icon/light/classes/barbarian_big.svg);
+  --fighter: url(/resources/assets/icon/light/classes/fighter_big.svg);
+  --wizard: url(/resources/assets/icon/light/classes/wizard_big.svg);
+  --druid: url(/resources/assets/icon/light/classes/druid_big.svg);
+  --cleric: url(/resources/assets/icon/light/classes/cleric_big.svg);
+  --artificer: url(/resources/assets/icon/light/classes/artificer_big.svg);
+  --warlock: url(/resources/assets/icon/light/classes/warlock_big.svg);
+  --monk: url(/resources/assets/icon/light/classes/monk_big.svg);
+  --paladin: url(/resources/assets/icon/light/classes/paladin_big.svg);
+  --rogue: url(/resources/assets/icon/light/classes/rogue_big.svg);
+  --ranger: url(/resources/assets/icon/light/classes/ranger_big.svg);
+  --sorcerer: url(/resources/assets/icon/light/classes/sorcerer_big.svg);
+}
