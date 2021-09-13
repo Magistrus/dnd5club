@@ -38,13 +38,18 @@
 			var element = document.getElementById("info");
 			var url = '/classes/fragment/' + id;
 			//element.innerHTML = $("#info").load(url);
-			rightContainer.classList.add(englishName);
-
-			rightContainer.classList.toggle('block_information');
+			if (rightContainer.classList.contains('block_information')){
+				if (rightContainer.classList.contains(englishName)){
+					rightContainer.classList.remove('block_information', englishName);
+				}
+			}
+			else
+			{
+				rightContainer.classList.add('block_information', englishName);
+			}
 		}
 		document.getElementById('btn_close').onclick = function() {
-			document.getElementById('container_card').classList
-					.toggle('block_information');
+			document.getElementById('container_card').classList.toggle('block_information');
 		}
 	</script>
 	</div>
