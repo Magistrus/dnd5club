@@ -1,0 +1,470 @@
+/******** Основной стиль ********/
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto';
+  background-color: var(--bg-main);
+}
+
+.overflow-hidden {
+  overflow: hidden!important;
+}
+
+.container {
+  width: 100%;
+  position: relative;
+  margin-right: auto;
+  margin-left: 270px;
+  padding-left: 24px;
+  padding-right: 24px;
+  transition: margin-left 0.6s;
+}
+
+.compact_menu .container {
+  margin-left: 72px;
+  transition: margin-left 0.6s;
+}
+
+.row {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.icon_action {
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.folded {
+  background-image: var(--folded);
+}
+
+.icon_full_screen {
+  background-image: var(--icon_full_screen);
+}
+
+.icon_close {
+  background-image: var(--icon_close);
+}
+
+/******** Меню ********/
+.navbar {
+  height: 100vh;
+  /* width: 72px; */
+  width: 270px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid var(--border);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.6s;
+}
+
+.navbar .nav_head {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar .nav_head .logo {
+  height: 72px;
+  width: 72px;
+  display: flex;
+  background-image: var(--icon-logo-menu);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navbar .nav_head .close_menu {
+  height: 72px;
+  width: 72px;
+  display: flex;
+  background-image: var(--close-menu);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: auto;
+}
+
+.navbar .nav_icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.navbar .icon_character {
+  background-image: var(--icon-character);
+}
+
+.navbar .icon_spells {
+  background-image: var(--icon-spells);
+}
+
+.navbar .icon_inventory {
+  background-image: var(--icon-inventory);
+}
+
+.navbar .icon_dark_mod {
+  background-image: var(--icon-dark-mod);
+}
+
+.navbar .navbar_nav {
+  padding: 0 16px;  
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.navbar .navbar_nav .nav_item {
+  position: relative;
+  list-style: none;
+  height: 40px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  border-radius: 8px;
+  transition: background-color 0.6s;
+}
+
+.navbar .navbar_nav .nav_item:hover {
+  cursor: pointer;
+  background-color: var(--nav-hover);
+  transition: background-color 0.6s;
+}
+
+.navbar .navbar_nav .nav_item .nav_link {
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.navbar .navbar_nav .nav_item:last-child {
+  margin-top: auto;
+  margin-bottom: 0px;
+}
+
+.navbar .navbar_nav .nav_item .nav_link span {
+  margin-left: 16px;
+  font-size: 15px;
+}
+
+.navbar .copyright_block {
+ padding: 16px;
+ margin-top: auto;
+}
+
+.navbar .navbar_nav .dropdown_item.open {
+  background-color: var(--nav-hover);
+  height: auto;
+}
+
+.navbar .navbar_nav .dropdown_item.open .nav_link .folded {
+  background-image: var(--unfolded);
+}
+
+.navbar .navbar_nav .dropdown_item .right_icon {
+  right: 8px;
+  position: absolute;
+}
+
+.navbar .navbar_nav .dropdown_item.open .d_menu {
+  display:flex;
+}
+
+.navbar .navbar_nav .dropdown_item .d_menu {
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+.navbar .navbar_nav .dropdown_item .d_menu li {
+  height: 40px;
+  display: flex;
+  padding-left: 40px;
+}
+
+.navbar .navbar_nav .dropdown_item .d_menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.navbar .navbar_nav .nav_item.dropdown_item.open .d_menu li:hover  {
+  background-color: var(--nav-hover-dd);
+}
+
+.compact_menu .navbar {
+  width: 72px;
+  transition: width 0.6s;
+}
+
+.compact_menu .navbar .nav_head .close_menu {
+  width: 24px;
+  height: 24px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  position: absolute;
+  top: 60px;
+  left: 24px;
+}
+
+.compact_menu .navbar .nav_head .close_menu {
+  background-image: var(--open-menu);
+}
+
+.compact_menu .navbar .navbar_nav .nav_item .nav_link span {
+  display: none;
+}
+
+.compact_menu .navbar .navbar_nav .dropdown_item .right_icon {
+  display: none;
+}
+
+.compact_menu .navbar .copyright_block  {
+  display: none;
+}
+
+.compact_menu .navbar .navbar_nav .dropdown_item.open {
+  width: 240px;
+}
+
+.compact_menu .navbar .navbar_nav .nav_item.dropdown_item.open .nav_link span {
+  display: block;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/******** Карточки ********/
+.card_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 -8px;
+}
+
+.card_wrapper .card {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  display: flex;
+  flex: 1 0 calc(25% - 56px);
+  max-width: calc(25% - 56px);
+  /* min-width: 280px; */
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 16px;
+  flex-direction: row;
+  padding: 16px 24px 16px 16px;
+  transition: max-width 0.6s;
+}
+
+.card_wrapper.width_card_50 .card {
+  flex: 1 0 calc(50% - 56px);
+  max-width: calc(50% - 56px);
+  transition: max-width 0.6s;
+}
+
+.card_wrapper .card:hover {
+  cursor: pointer;
+  background-color: var(--card-hover);
+}
+
+.card_wrapper .card .infimation {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.card_wrapper .card .infimation p.additionally {
+  margin-top: auto;
+}
+
+/******** Классы ********/
+.card_wrapper .card .icon {
+  display: block;
+  width: 83px;
+  height: 83px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.all_classes {
+  background-image: var(--all-classes);
+}
+
+.bard {
+  background-image: var(--bard);
+}
+
+.barbarian {
+  background-image: var(--barbarian);
+}
+
+.fighter {
+  background-image: var(--fighter);
+}
+
+.wizard {
+  background-image: var(--wizard);
+}
+
+.druid {
+  background-image: var(--druid);
+}
+
+.cleric {
+  background-image: var(--cleric);
+}
+
+.artificer {
+  background-image: var(--artificer);
+}
+
+.warlock {
+  background-image: var(--warlock);
+}
+
+.monk {
+  background-image: var(--monk);
+}
+
+.paladin {
+  background-image: var(--paladin);
+}
+
+.rogue {
+  background-image: var(--rogue);
+}
+
+.ranger {
+  background-image: var(--ranger);
+}
+
+.sorcerer {
+  background-image: var(--sorcerer);
+}
+
+
+/******** Общее по блокам ********/
+.header_block {
+  display: flex;
+  align-items: center;
+  height: 72px;
+  border-bottom: 1px solid var(--border);
+  padding-left: 24px;
+  position: sticky;
+  background-color: var(--bg-main);
+}
+
+/******** Левый блок ********/
+#left_block {
+  transition: margin-right 0.6s;
+  overflow-x: hidden;
+  margin-right: 0px;
+  margin-left: 0px;
+  position: relative;
+}
+
+.block_information #left_block {
+  transition: margin-right 0.6s;
+  margin-right: calc(56vw + 0px);
+}
+
+#left_block .container_left {
+  height: calc(100vh - 73px);
+}
+
+#left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+  padding: 24px;
+}
+
+/******** Правй блок ********/
+#right_block {
+  width: calc(56vw - 0px);
+  top: 0;
+  right: calc(-56vw - 1px);
+  transition: right 0.6s;
+  position: fixed;
+  border-left: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+}
+
+.block_information #right_block {
+  right: 0px;
+  transition: right 0.6s;
+}
+
+#right_block .header_block h3 {
+  margin-right: auto;
+}
+
+#right_block .header_block .btn_full_screen,
+#right_block .header_block .btn_close {
+  background-color: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  width: 72px;
+  height: 72px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#right_block .header_block .btn_full_screen:hover,
+#right_block .header_block .btn_close:hover {
+  background-color: var(--card-hover);
+  cursor: pointer;
+}
+
+#right_block .container_right {
+  height: calc(100vh - 73px);
+}
+
+#right_block > .container_right  > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+  padding: 24px;
+}
+
+/******** Кнопки ********/
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 16px 8px;
+  background-color: black;
+  color: aqua;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  user-select: none;
+}
+
+table {
+  width: 100%;
+}
+
+table td {
+  border:1px solid var(--border);
+  height: 30px;
+}
