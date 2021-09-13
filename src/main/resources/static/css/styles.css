@@ -278,6 +278,13 @@ body {
   transition: max-width 0.6s;
 }
 
+@media (max-width: 2000px) {
+  .block_information .card_wrapper .card {
+    flex: 1 0 calc(50% - 56px);
+    max-width: calc(50% - 56px);
+  }
+}
+
 @media (max-width: 1500px) {
   .block_information .card_wrapper .card {
     flex: 1 0 calc(100% - 56px);
