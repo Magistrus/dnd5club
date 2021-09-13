@@ -10,11 +10,11 @@
 					</div>
 					<div class="container_left" data-simplebar>
 						<div id="card_wrapper" class="card_wrapper">
-							<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo('${class.id}')|" th:each="class : ${classes}">
+							<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo('${class.id}', '${class.capitalazeName}')|" th:each="class : ${classes}">
 								<div class="infimation">
 									<h5 th:text="${class.capitalazeName}">Class name</h5>
 									<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
-									<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT D8</p>
+									<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
 								</div>
 								<div class="icon" th:classappend="${class.englishName.toLowerCase()}"></div>
 							</div>
@@ -23,7 +23,7 @@
 				</div>
 				<div id="right_block">
 					<div class="header_block">
-						<h3>Название класса</h3>
+						<h3 id="class_name">Название класса</h3>
 						<div id="btn_full_screen" class="btn_full_screen">
 							<div class="icon_action icon_full_screen"></div>
 						</div>
@@ -37,8 +37,14 @@
 		</div>
 	</div>
 	<script>
-		function blockInfo(id) {
-			document.getElementById('container_card').classList.toggle('block_information');
+		function blockInfo(id, name) {
+			var rightContainer = document.getElementById('container_card');
+			
+			document.getElementById('class_name').innerHTML = name;
+			var element = document.getElementById("info");
+			var url = '/classes/fragment/' + id;
+			//element.innerHTML = $("#info").load(url);
+			rightContainer.classList.toggle('block_information');
 		}
 		document.getElementById('btn_close').onclick = function() {
 			document.getElementById('container_card').classList
