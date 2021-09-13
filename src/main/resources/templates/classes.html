@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-<body id="body" class="d-flex overflow-hidden" >
+<body id="body" class="d-flex overflow-hidden">
 	<div id="container_card" class="" layout:fragment="content">
 		<div id="left_block">
 			<div class="header_block">
@@ -8,7 +8,7 @@
 			</div>
 			<div class="container_left" data-simplebar>
 				<div id="card_wrapper" class="card_wrapper">
-					<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo('${class.id}','${class.capitalazeName}','${class.englishName}')|" th:each="class : ${classes}">
+					<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo(this, '${class.id}','${class.capitalazeName}','${class.englishName}')|" th:each="class : ${classes}">
 						<div class="infimation">
 							<h5 th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
@@ -31,27 +31,31 @@
 			</div>
 			<div id="info" class="container_right" data-simplebar></div>
 		</div>
-			<script>
-		function blockInfo(id, name, englishName) {
-			var rightContainer = document.getElementById('container_card');
-			document.getElementById('class_name').innerHTML = name;
-			var element = document.getElementById("info");
-			var url = '/classes/fragment/' + id;
-			//element.innerHTML = $("#info").load(url);
-			if (rightContainer.classList.contains('block_information')){
-				if (rightContainer.classList.contains(englishName)){
-					rightContainer.classList.remove('block_information', englishName);
+		<script>
+			function blockInfo(element, id, name, englishName) {
+				var rightContainer = document.getElementById('container_card');
+				document.getElementById('class_name').innerHTML = name;
+				var element = document.getElementById("info");
+				var url = '/classes/fragment/' + id;
+				//element.innerHTML = $("#info").load(url);
+				if (rightContainer.classList.contains('block_information')) {
+					if (rightContainer.classList.contains(englishName)) {
+						rightContainer.classList.remove('block_information',
+								englishName);
+					} else {
+						rightContainer.className = 'block_information '
+								+ englishName;
+					}
+				} else {
+					rightContainer.classList.add('block_information',
+							englishName);
 				}
 			}
-			else
-			{
-				rightContainer.classList.add('block_information', englishName);
+			document.getElementById('btn_close').onclick = function() {
+				document.getElementById('container_card').classList
+						.toggle('block_information');
 			}
-		}
-		document.getElementById('btn_close').onclick = function() {
-			document.getElementById('container_card').classList.toggle('block_information');
-		}
-	</script>
+		</script>
 	</div>
 </body>
 </html>
