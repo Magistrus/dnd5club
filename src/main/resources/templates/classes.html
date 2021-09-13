@@ -31,26 +31,20 @@
 			</div>
 			<div id="info" class="container_right" data-simplebar></div>
 		</div>
-	</div>
-	<script>
+			<script>
 		function blockInfo(id, name, englishName) {
 			var rightContainer = document.getElementById('container_card');
 			document.getElementById('class_name').innerHTML = name;
 			var element = document.getElementById("info");
 			var url = '/classes/fragment/' + id;
 			//element.innerHTML = $("#info").load(url);
-
-			rightContainer.classList.add(englishName);
-			if (rightContainer.classList.contains('')) {
-				rightContainer.classList.add('block_information');
-			} else {
-				rightContainer.classList.add('block_information');
-			}
+			rightContainer.classList.toggle('block_information');
 		}
 		document.getElementById('btn_close').onclick = function() {
 			document.getElementById('container_card').classList
 					.toggle('block_information');
 		}
 	</script>
+	</div>
 </body>
 </html>
