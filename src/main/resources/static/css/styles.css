@@ -51,12 +51,6 @@ body {
   background-image: var(--icon_close);
 }
 
-@media (max-width: 1400px) {
-  .container {
-    margin-left: 72px;
-  } 
-}
-
 /******** Меню ********/
 .navbar {
   height: 100vh;
@@ -258,12 +252,6 @@ body {
   display: block;
   color: var(--primary);
   font-weight: 500;
-}
-
-@media (max-width: 1400px) {
-  .navbar {
-    width: 72px;
-  }  
 }
 
 /******** Карточки ********/
