@@ -4,12 +4,10 @@ $(document).ready(function() {
 		  elem = $("#body"); // лучше сохранять объект в переменную, многократно чтобы не насиловать 
 									  // страницу для поиска нужного элемента
 	  if(windowWidth < 1400){
-		elem.removeClass('compact_menu');
 		elem.addClass('compact_menu');
 	  }
 	  else{
 		elem.removeClass('compact_menu');
-		elem.addClass('compact_menu');
 	  }
 	}
   
