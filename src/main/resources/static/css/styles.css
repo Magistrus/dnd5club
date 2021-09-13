@@ -280,8 +280,8 @@ body {
 
 @media (max-width: 2000px) {
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(500% - 56px);
-    max-width: calc(500% - 56px);
+    flex: 1 0 calc(50% - 56px);
+    max-width: calc(50% - 56px);
   }
 }
 
