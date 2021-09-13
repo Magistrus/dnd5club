@@ -38,6 +38,8 @@
 			var element = document.getElementById("info");
 			var url = '/classes/fragment/' + id;
 			//element.innerHTML = $("#info").load(url);
+			rightContainer.classList.add(englishName);
+
 			rightContainer.classList.toggle('block_information');
 		}
 		document.getElementById('btn_close').onclick = function() {
