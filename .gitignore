@@ -13,3 +13,5 @@ buildNumber.properties
 .settings/
 
 .classpath
+
+src/main/resources/application.properties
