@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -56,5 +57,13 @@ public class ClassController {
 		model.addAttribute("archetypeTraits", archetypeTraits);
 		model.addAttribute("order", "[[ 1, 'asc' ]]");
 		return "classView :: heroClass";
+	}
+
+	@GetMapping("/classes/{englishName}/architype/name")
+	@ResponseBody
+	public String getArchitypeName(Model model, Device device, @PathVariable String englishName) {
+		model.addAttribute("device", device);
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		return heroClass.getAblativeName(); 
 	}
 }
