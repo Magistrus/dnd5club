@@ -8,9 +8,9 @@
 			</div>
 			<div class="container_left" data-simplebar>
 				<div id="card_wrapper" class="card_wrapper">
-					<div th:id="${class.englishName}" class="card" th:attr="onclick=|blockInfo(this, '${class.id}','${class.capitalazeName}','${class.englishName}')|" th:each="class : ${classes}">
+					<div th:id="${class.englishName}" class="card" th:each="class : ${classes}">
 						<div class="infimation">
-							<h5 th:text="${class.capitalazeName}">Class name</h5>
+							<h5 id = "header_class_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
 							<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
 						</div>
@@ -44,26 +44,27 @@
 			</div>
 		</div>
 		<script>
-			function blockInfo(element, id, name, englishName) {
+			$('.card').on('click', function() {
+				var englishName = this.id.replace(' ', '_');
 				var rightContainer = document.getElementById('container_card');
-				document.getElementById('class_name').innerHTML = name;
+				document.getElementById('class_name').innerHTML = this.querySelector("#header_class_name").textContent;
 				var element = document.getElementById("info");
-				var url = '/classes/fragment/' + id;
+				//var url = '/classes/fragment/' + id;
 				//element.innerHTML = $("#info").load(url);
+				// проверяем открыта ли правая панель
 				if (rightContainer.classList.contains('block_information')) {
 					if (rightContainer.classList.contains(englishName)) {
-						rightContainer.classList.remove('block_information',
-								englishName);
+						rightContainer.classList.remove('block_information', englishName);
 					} else {
 						rightContainer.className = 'block_information ' + englishName;
 					}
 				} else {
 					rightContainer.classList.add('block_information', englishName);
 				}
-			}
+			});
+			
 			document.getElementById('btn_close').onclick = function() {
-				document.getElementById('container_card').classList
-						.toggle('block_information');
+				document.getElementById('container_card').classList.toggle('block_information');
 			}
 		</script>
 	</div>
