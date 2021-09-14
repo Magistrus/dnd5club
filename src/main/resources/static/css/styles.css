@@ -266,7 +266,7 @@ body {
   padding: 0px 16px 0px 16px;
   white-space: nowrap;
   opacity: 0.6;
-  transition: all 0.6s ease;
+  transition: all 0.3s ease;
   text-align: center;
   line-height: 40px;
 }
@@ -300,7 +300,7 @@ body {
   top: -8px;
   opacity: 1;
   pointer-events: auto;
-  transition: all 0.6s ease;
+  transition: all 0.3s ease;
 }
 
 .navbar .nav_links li .sub_menu .link_name {
@@ -378,10 +378,16 @@ body {
     flex: 1 0 calc(50% - 58px);
     max-width: calc(50% - 58px);
   }
+
+  .block_information .card_wrapper .card {
+    flex: 1 0 calc(50% - 58px);
+    max-width: calc(50% - 58px);
+  }
 }
 
-@media (max-width: 800px) {
-  .card_wrapper .card {
+@media (max-width: 700px) {
+  .card_wrapper .card,
+  .block_information .card_wrapper .card {
     flex: 1 0 calc(100% - 58px);
     max-width: calc(100% - 58px);
   }
@@ -471,7 +477,6 @@ body {
   background-image: var(--sorcerer);
 }
 
-
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
@@ -505,6 +510,13 @@ body {
   padding: 24px;
 }
 
+@media (max-width: 1000px) {
+  .block_information #left_block {
+    transition: margin-right 0.6s;
+    margin-right: calc(0vw + 0px);
+  }
+}
+
 /******** Правй блок ********/
 #right_block {
   width: calc(56vw - 0px);
@@ -514,6 +526,7 @@ body {
   position: fixed;
   border-left: 1px solid var(--border);
   background-color: var(--bg-secondary);
+  overflow: hidden;
 }
 
 .block_information #right_block {
@@ -640,6 +653,20 @@ body {
   padding-top: 24px;
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
+}
+
+@media (max-width: 1000px) {
+  #right_block {
+    width: calc(100vw - 0px);
+    right: calc(-100vw - 0px);
+    position: fixed;
+    border: 1px solid var(--border);
+    z-index: 101;
+  }
+
+  #right_block .header_block .btn_full_screen{
+    display: none;
+  }
 }
 
 /******** Кнопки ********/
