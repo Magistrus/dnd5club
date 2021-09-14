@@ -23,7 +23,7 @@
 	</head>
 
 	<body id="body" class="d-flex overflow-hidden">
-		<div th:insert="fragments/menu :: menu"></div>
+		<div th:replace="fragments/menu :: menu"></div>
 		<div id="container" class="container">
 			<div class="row">
 				<div layout:fragment="content"></div>
