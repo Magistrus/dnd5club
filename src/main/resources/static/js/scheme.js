@@ -11,8 +11,8 @@ $(document).ready(function() {
 });
 
 function switchTheme() {
-	var check = document.getElementById('theme_css').classList[0] === 'light';
 	var element = document.getElementById('theme_css');
+	var check = element.classList[0] === 'light';
 	if (check) {
 		document.cookie = "theme=dark";
 		setThemeDark(element);
