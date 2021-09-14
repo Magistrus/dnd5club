@@ -63,8 +63,12 @@ body {
   transition: width 0.6s ease;
 }
 
-.compact_menu .navbar{
+.compact_menu .navbar {
   width: 72px;
+}
+
+.navbar nav {
+  height: calc(100vh - 97px);
 }
 
 .navbar .nav_head {

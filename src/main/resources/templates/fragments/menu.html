@@ -1,117 +1,119 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-<nav class="navbar" th:fragment="menu">
+<div class="navbar" th:fragment="menu">
 	<div class="nav_head">
 		<a class="logo" href="/"></a>
 		<button class="close_menu"></button>
 	</div>
-	<ul class="nav-links">
-		<li>
-			<a href="#">
-				<i class="icon_bestiary"></i>
-				<span class="link_name">Бестиарий</span>
-			</a>
-			<ul class="sub-menu blank">
-				<li class="link_name"><span>Бестиарий</span></li>
-			</ul>
-		</li>
-		<li>
-			<div class="dropdown">
+	<nav>
+		<ul class="nav-links">
+			<li>
 				<a href="#">
-					<i class="icon_character"></i>
-					<span class="link_name">Персонаж</span>
+					<i class="icon_bestiary"></i>
+					<span class="link_name">Бестиарий</span>
 				</a>
-				<i class="arrow folded"></i>
-			</div>
-			<ul class="sub-menu">
-				<li class="link_name"><span>Персонаж</span></li>
-				<li><a th:href="@{/classes}">Классы</a></li>
-				<li><a href="#">Рассы</a></li>
-				<li><a href="#">Опции и особенности</a></li>
-				<li><a href="#">Предыстории</a></li>
-				<li><a href="#">Черты</a></li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">
-				<i class="icon_spells"></i>
-				<span class="link_name">Заклинания</span>
-			</a>
-			<ul class="sub-menu blank">
-				<li class="link_name"><span>Заклинания</span></li>
-			</ul>
-		</li>
-		<li>
-			<div class="dropdown">
+				<ul class="sub-menu blank">
+					<li class="link_name"><span>Бестиарий</span></li>
+				</ul>
+			</li>
+			<li>
+				<div class="dropdown">
+					<a href="#">
+						<i class="icon_character"></i>
+						<span class="link_name">Персонаж</span>
+					</a>
+					<i class="arrow folded"></i>
+				</div>
+				<ul class="sub-menu">
+					<li class="link_name"><span>Персонаж</span></li>
+					<li><a th:href="@{/classes}">Классы</a></li>
+					<li><a href="#">Рассы</a></li>
+					<li><a href="#">Опции и особенности</a></li>
+					<li><a href="#">Предыстории</a></li>
+					<li><a href="#">Черты</a></li>
+				</ul>
+			</li>
+			<li>
 				<a href="#">
-					<i class="icon_inventory "></i>
-					<span class="link_name">Инвентарь</span>
+					<i class="icon_spells"></i>
+					<span class="link_name">Заклинания</span>
 				</a>
-				<i class="arrow folded"></i>
-			</div>
-			<ul class="sub-menu">
-				<li class="link_name"><span>Инвентарь</span></li>
-				<li><a href="#">Доспехи</a></li>
-				<li><a href="#">Оружие</a></li>
-				<li><a href="#">Снаряжение</a></li>
-			</ul>
-		</li>
-		<li>
-			<div class="dropdown">
+				<ul class="sub-menu blank">
+					<li class="link_name"><span>Заклинания</span></li>
+				</ul>
+			</li>
+			<li>
+				<div class="dropdown">
+					<a href="#">
+						<i class="icon_inventory "></i>
+						<span class="link_name">Инвентарь</span>
+					</a>
+					<i class="arrow folded"></i>
+				</div>
+				<ul class="sub-menu">
+					<li class="link_name"><span>Инвентарь</span></li>
+					<li><a href="#">Доспехи</a></li>
+					<li><a href="#">Оружие</a></li>
+					<li><a href="#">Снаряжение</a></li>
+				</ul>
+			</li>
+			<li>
+				<div class="dropdown">
+					<a href="#">
+						<i class="icon_treasures"></i>
+						<span class="link_name">Сокровища</span>
+					</a>
+					<i class="arrow folded"></i>
+				</div>
+				<ul class="sub-menu">
+					<li class="link_name"><span>Сокровища</span></li>
+					<li><a href="#">Драгоценности</a></li>
+					<li><a href="#">Магические предметы</a></li>
+				</ul>
+			</li>
+			<li>
 				<a href="#">
-					<i class="icon_treasures"></i>
-					<span class="link_name">Сокровища</span>
+					<i class="icon_gods"></i>
+					<span class="link_name">Боги</span>
 				</a>
-				<i class="arrow folded"></i>
-			</div>
-			<ul class="sub-menu">
-				<li class="link_name"><span>Сокровища</span></li>
-				<li><a href="#">Драгоценности</a></li>
-				<li><a href="#">Магические предметы</a></li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">
-				<i class="icon_gods"></i>
-				<span class="link_name">Боги</span>
-			</a>
-			<ul class="sub-menu blank">
-				<li class="link_name"><span>Боги</span></li>
-			</ul>
-		</li>
-		<li>
-			<div class="dropdown">
+				<ul class="sub-menu blank">
+					<li class="link_name"><span>Боги</span></li>
+				</ul>
+			</li>
+			<li>
+				<div class="dropdown">
+					<a href="#">
+						<i class="icon_workshop"></i>
+						<span class="link_name">Мастерская</span>
+					</a>
+					<i class="arrow folded"></i>
+				</div>
+				<ul class="sub-menu">
+					<li class="link_name"><span>Мастерская</span></li>
+					<li><a href="#">Ширма</a></li>
+					<li><a href="#">Состояния и болезни</a></li>
+					<li><a href="#">Правила и термины</a></li>
+					<li><a href="#">Время простоя</a></li>
+					<li><a href="#">Покупка магических вещей</a></li>
+					<li><a href="#">Таверна на скорую руку</a></li>
+					<li><a href="#">Дикая магия</a></li>
+					<li><a href="#">Безумие</a></li>
+					<li><a href="#">Торговец</a></li>
+					<li><a href="#">Сокровищница</a></li>
+					<li><a href="#">Случайные столкновения</a></li>
+					<li><a href="#">Источники</a></li>
+				</ul>
+			</li>
+			<li onclick="switchTheme()">
 				<a href="#">
-					<i class="icon_workshop"></i>
-					<span class="link_name">Мастерская</span>
+					<i class="icon_dark_mod"></i>
+					<span class="link_name">Dark Mod</span>
 				</a>
-				<i class="arrow folded"></i>
-			</div>
-			<ul class="sub-menu">
-				<li class="link_name"><span>Мастерская</span></li>
-				<li><a href="#">Ширма</a></li>
-				<li><a href="#">Состояния и болезни</a></li>
-				<li><a href="#">Правила и термины</a></li>
-				<li><a href="#">Время простоя</a></li>
-				<li><a href="#">Покупка магических вещей</a></li>
-				<li><a href="#">Таверна на скорую руку</a></li>
-				<li><a href="#">Дикая магия</a></li>
-				<li><a href="#">Безумие</a></li>
-				<li><a href="#">Торговец</a></li>
-				<li><a href="#">Сокровищница</a></li>
-				<li><a href="#">Случайные столкновения</a></li>
-				<li><a href="#">Источники</a></li>
-			</ul>
-		</li>
-		<li onclick="switchTheme()">
-			<a href="#">
-				<i class="icon_dark_mod"></i>
-				<span class="link_name">Dark Mod</span>
-			</a>
-			<ul class="sub-menu blank">
-				<li class="link_name"><span>Dark Mod</span></li>
-			</ul>
-		</li>
-	</ul>
-</nav>
+				<ul class="sub-menu blank">
+					<li class="link_name"><span>Dark Mod</span></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+</div>
 </html>
