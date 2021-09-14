@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-<nav id="navbar" class="navbar" th:fragment="menu">
+<nav class="navbar" th:fragment="menu">
 	<div class="nav_head">
 		<a class="logo" href="/"></a>
-		<button id="close_menu" class="close_menu"></button>
+		<button class="close_menu"></button>
 	</div>
-	<ul class="navbar_nav">
-		<li id="dropdown_character" class="nav_item dropdown_item">
-			<button class="nav_link">
-				<div class="nav_icon icon_character"></div>
-				<span>Персонаж</span>
-				<div class="nav_icon right_icon folded"></div>
-			</button>
-			<ul class="d_menu">
+	<ul class="nav-links">
+		<li>
+			<a href="#">
+				<i class="icon_spells"></i>
+				<span class="link_name">Заклинания</span>
+			</a>
+			<ul class="sub-menu blank">
+				<li class="link_name"><span>Заклинания 2</span></li>
+			</ul>
+		</li>
+		<li>
+			<div class="dropdown">
+				<a href="#">
+					<i class="icon_character"></i>
+					<span class="link_name">Персонаж</span>
+				</a>
+				<i class="arrow folded"></i>
+			</div>
+			<ul class="sub-menu">
+				<li class="link_name"><span>Персонаж</span></li>
 				<li><a th:href="@{/classes}">Классы</a></li>
 				<li><a href="#">Рассы</a></li>
 				<li><a href="#">Опции и особенности</a></li>
@@ -20,28 +32,15 @@
 				<li><a href="#">Черты</a></li>
 			</ul>
 		</li>
-		<li class="nav_item"><a class="nav_link" href="#"><div class="nav_icon icon_spells"></div> <span>Заклинания</span></a></li>
-		<li id="dropdown_inventory" class="nav_item dropdown_item">
-			<button class="nav_link">
-				<div class="nav_icon icon_inventory"></div>
-				<span>Инвентарь</span>
-				<div class="nav_icon right_icon folded"></div>
-			</button>
-			<ul class="d_menu">
-				<li><a href="#">Оружие</a></li>
-				<li><a href="#">Доспехи</a></li>
-				<li><a href="#">Снаряжение</a></li>
+		<li onclick="switchTheme()">
+			<a href="#">
+				<i class="icon_dark_mod"></i>
+				<span class="link_name">Dark Mod</span>
+			</a>
+			<ul class="sub-menu blank">
+				<li class="link_name"><span>Dark Mod</span></li>
 			</ul>
 		</li>
-		<li onclick="switchTheme()" class="nav_item">
-			<button class="nav_link" href="#">
-				<div class="nav_icon icon_dark_mod"></div>
-				<span>Dark Mod</span>
-			</button>
-		</li>
 	</ul>
-	<div class="copyright_block">
-		<p class="caption_text">Материалы на данном сайте приведены исключительно в справочных и ознакомительных целях и не заменяют необходимость покупки официальных материалов по игре. Весь графический материал и система Dungeons&Dragons является собственностью корпорации Wizards of the Coast.</p>
-	</div>
 </nav>
 </html>

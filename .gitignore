@@ -15,3 +15,7 @@ buildNumber.properties
 .classpath
 
 src/main/resources/application.properties
+
+.factorypath
+
+.project
