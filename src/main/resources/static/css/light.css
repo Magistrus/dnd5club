@@ -22,6 +22,10 @@
   --icon-character: url(/resources/assets/icon/light/menu/character.svg);
   --icon-spells: url(/resources/assets/icon/light/menu/spells.svg);
   --icon-inventory: url(/resources/assets/icon/light/menu/inventory.svg);
+  --icon-treasures: url(/resources/assets/icon/light/menu/treasures.svg);
+  --icon-bestiary: url(/resources/assets/icon/light/menu/bestiary.svg);
+  --icon-workshop: url(/resources/assets/icon/light/menu/workshop.svg);
+  --icon-gods: url(/resources/assets/icon/light/menu/gods.svg);
   --icon-dark-mod: url(/resources/assets/icon/light/menu/dark_mod.svg);
 }
 
