@@ -31,10 +31,10 @@ public class ClassController {
 		return "classes";
 	}
 	
-	@GetMapping("/classes/fragment/{id}")
-	public String getFragmentClasses(Model model, Device device, @PathVariable Integer id) {
+	@GetMapping("/classes/fragment/{englishName}")
+	public String getFragmentClasses(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);
-		HeroClass heroClass = classRepository.findById(id).get();
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		List<ClassFetureDto> features = new ArrayList<>();
 		heroClass.getTraits().stream()
 			.filter(f -> !f.isArchitype())
