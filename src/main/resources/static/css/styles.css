@@ -177,6 +177,22 @@ body {
   background-image: var(--icon-inventory);
 }
 
+.navbar .icon_treasures {
+  background-image: var(--icon-treasures);
+}
+
+.navbar .icon_bestiary {
+  background-image: var(--icon-bestiary);
+}
+
+.navbar .icon_workshop{
+  background-image: var(--icon-workshop);
+}
+
+.navbar .icon_gods {
+  background-image: var(--icon-gods);
+}
+
 .navbar .icon_dark_mod {
   background-image: var(--icon-dark-mod);
 }
