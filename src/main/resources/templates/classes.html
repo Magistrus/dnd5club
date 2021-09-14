@@ -48,21 +48,25 @@
 				var englishName = this.id.replace(' ', '_');
 				var rightContainer = document.getElementById('container_card');
 				document.getElementById('class_name').innerHTML = this.querySelector("#header_class_name").textContent;
-				var element = document.getElementById("info");
-				//var url = '/classes/fragment/' + id;
-				//element.innerHTML = $("#info").load(url);
+				//var url = '/classes/fragment/' + englishName;
+				//$(".content_block").load(url);
 				// проверяем открыта ли правая панель
 				if (rightContainer.classList.contains('block_information')) {
 					if (rightContainer.classList.contains(englishName)) {
 						rightContainer.classList.remove('block_information', englishName);
 					} else {
 						rightContainer.className = 'block_information ' + englishName;
+						setActive(this);
 					}
 				} else {
 					rightContainer.classList.add('block_information', englishName);
+					setActive(this);
 				}
 			});
-			
+			function setActive(element){
+				$(".card").removeClass('active');
+				element.classList.toggle('active');
+			}
 			document.getElementById('btn_close').onclick = function() {
 				document.getElementById('container_card').classList.toggle('block_information');
 			}
