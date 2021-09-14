@@ -335,8 +335,8 @@ body {
   background: var(--bg-secondary);
   border-radius: 16px;
   display: flex;
-  flex: 1 0 calc(25% - 56px);
-  max-width: calc(25% - 56px);
+  flex: 1 0 calc(25% - 58px);
+  max-width: calc(25% - 58px);
   /* min-width: 280px; */
   margin-left: 8px;
   margin-right: 8px;
@@ -344,46 +344,51 @@ body {
   flex-direction: row;
   padding: 16px 24px 16px 16px;
   transition: max-width 0.6s;
+  border:1px solid var(--bg-secondary);
 }
 
 @media (max-width: 2000px) {
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(50% - 56px);
-    max-width: calc(50% - 56px);
+    flex: 1 0 calc(50% - 58px);
+    max-width: calc(50% - 58px);
   }
 }
 
 @media (max-width: 1500px) {
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(100% - 56px);
-    max-width: calc(100% - 56px);
+    flex: 1 0 calc(100% - 58px);
+    max-width: calc(100% - 58px);
   }
 }
 
 @media (max-width: 1250px) {
   .card_wrapper .card {
-    flex: 1 0 calc(33% - 56px);
-    max-width: calc(33% - 56px);
+    flex: 1 0 calc(33% - 58px);
+    max-width: calc(33% - 58px);
   }
 }
 
 @media (max-width: 1000px) {
   .card_wrapper .card {
-    flex: 1 0 calc(50% - 56px);
-    max-width: calc(50% - 56px);
+    flex: 1 0 calc(50% - 58px);
+    max-width: calc(50% - 58px);
   }
 }
 
 @media (max-width: 800px) {
   .card_wrapper .card {
-    flex: 1 0 calc(100% - 56px);
-    max-width: calc(100% - 56px);
+    flex: 1 0 calc(100% - 58px);
+    max-width: calc(100% - 58px);
   }
 }
 
 .card_wrapper .card:hover {
   cursor: pointer;
   background-color: var(--hover);
+}
+
+.card_wrapper .card.active {
+  border:1px solid var(--primary);
 }
 
 .card_wrapper .card .infimation {
