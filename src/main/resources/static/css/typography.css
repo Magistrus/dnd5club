@@ -67,3 +67,7 @@ b {
 .uppercase_text {
   text-transform: uppercase;
 }
+
+.capitalize_text{
+	text-transform: capitalize;
+}

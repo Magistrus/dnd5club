@@ -35,72 +35,7 @@
 				</div>
 			</div>
 			<div id="info_wrapper" class="info_wrapper" data-simplebar>
-				<div class="sub_menu_list">
-					<ul>
-						<li class="title_sub_menu">
-							<h5>Коллегии бардов</h5>
-						</li>
-						<li>
-							<span class="name">Доблести</span>
-							<span>PBH / Bard Valor</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li class="active">
-							<span class="name">Знания</span>
-							<span>PBH / Bard Lore</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Мечей</span>
-							<span>XGtE / Bard Swords</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Очарования</span>
-							<span>XGtE / Bard Glamour</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Шёпотов</span>
-							<span>XGtE / Bard Whispers</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Созидания</span>
-							<span>TCoE / Bard Creation</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Красноречия</span>
-							<span>MOoT</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Духов</span>
-							<span>VRGtR / Bard Spirits</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Эпической поэзии</span>
-							<span>Homebrew / Bard Epic</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Плакальщиков</span>
-							<span>Homebrew / Bard Cryers</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Ключей</span>
-							<span>Homebrew / Bard Keys</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-						<li>
-							<span class="name">Древних</span>
-							<span>Homebrew / Bard Ancients</span>
-							<button class="btn_close icon_action icon_close"></button>
-						</li>
-					</ul>
+				<div id="title_sub_menu" class="sub_menu_list">
 				</div>
 				<div class="content_block">
 					<p>Повседневная практика показывает, что курс на социально-ориентированный национальный проект способствует подготовке и реализации поэтапного и последовательного развития общества. Прежде всего начало повседневной работы по формированию позиции позволяет выполнять важные задания по разработке направлений прогрессивного развития. Значимость этих проблем настолько очевидна, что сложившаяся структура организации способствует повышению качества существующий финансовых и административных условий. Для современного мира повышение уровня гражданского сознания позволяет оценить значение представляет собой интересный эксперимент дальнейших направлений развития. Равным образом управление и развитие структуры способствует подготовке и реализации новых принципов формирования материально-технической и кадровой базы. Значимость этих проблем настолько очевидна, что повышение уровня гражданского сознания способствует повышению качества форм воздействия. Задача организации, в особенности же консультация с широким активом играет важную роль в формировании системы массового участия. Не следует, однако, забывать, что высокотехнологичная концепция общественной системы напрямую зависит от модели развития. Равным образом понимание сущности ресурсосберегающих технологий требует от нас анализа позиции, занимаемых участниками в отношении поставленных задач. Для современного мира реализация намеченных плановых заданий требует анализа поэтапного и последовательного развития общества.</p>
@@ -126,16 +61,18 @@
 						$(".card").removeClass('active');
 					} else {
 						rightContainer.className = 'block_information ' + englishName;
-						setActive(this);
+						setActive(this, englishName);
 					}
 				} else {
 					rightContainer.classList.add('block_information', englishName);
-					setActive(this);
+					setActive(this, englishName);
 				}
 			});
-			function setActive(element){
+			function setActive(element, englishName){
 				$(".card").removeClass('active');
 				element.classList.toggle('active');
+				var url = '/classes/'+englishName+'/architypes/list';
+				$('#title_sub_menu').load(url);
 			}
 			document.getElementById('btn_close').onclick = function() {
 				document.getElementById('container_card').classList.toggle('block_information');
