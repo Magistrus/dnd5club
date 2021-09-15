@@ -12,7 +12,7 @@ $('.card').on('click', 	function() {
 			$(".card").removeClass('active');
 		} else {
 			rightContainer.className = 'block_information ' + englishName;
-					setActiveClass(this, englishName);
+			setActiveClass(this, englishName);
 		}
 	} else {
 		rightContainer.classList.add('block_information', englishName);
@@ -26,11 +26,23 @@ function setActiveClass(element, englishName) {
 	$(".content_block").load(url);
 	var url = '/classes/' + englishName + '/architypes/list';
 	$('#title_sub_menu').load(url, function() {
+		var elements = $('.close_archetypes');
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].addEventListener('click', function(event) {
+				this.parentElement.classList.remove('active');
+				var selecedClassName = $('.card.active')[0];
+				var url = '/classes/fragment/' + selecedClassName.id;
+				$(".content_block").load(url);
+			});
+		}
 		var elements = $('li.sub_menu');
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].addEventListener('click', function(event) {
-				var selecedClassName = $('.card.active')[0].id;
-				setActiveArchetype(this, selecedClassName, this.id);
+				var selecedClassName = $('.card.active')[0];
+				const checkLi = event.target.tagName;
+				if (checkLi === 'SPAN'){
+					setActiveArchetype(this, selecedClassName.id, this.id);
+				}
 			});
 		}
 	});

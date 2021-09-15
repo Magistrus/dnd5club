@@ -12,7 +12,7 @@
 						<div class="infimation">
 							<h5 id="header_class_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
-							<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
+							<p th:text="|${class.book.source} / к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
 						</div>
 						<div class="icon" th:classappend="|icon_${class.englishName.toLowerCase().replace(' ', '_')}|"></div>
 					</div>
