@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -65,6 +66,7 @@ public class ClassController {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		return heroClass.getArchetypeName(); 
 	}
+
 	@GetMapping("/classes/{englishName}/architypes/list")
 	public String getArchitypeList(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);

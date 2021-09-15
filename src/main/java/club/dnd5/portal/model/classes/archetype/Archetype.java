@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.SpellcasterType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
@@ -89,5 +91,9 @@ public class Archetype {
 
 	public boolean isSetting() {
 		return book.getType() != null && book.getType() == TypeBook.SETTING;
+	}
+
+	public String getCapitalizeName() {
+		return StringUtils.capitalizeWords(name.toLowerCase());
 	}
 }
