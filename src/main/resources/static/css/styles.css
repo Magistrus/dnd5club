@@ -777,3 +777,7 @@ table td {
 .sorcerer {
   background-image: var(--sorcerer);
 }
+
+.icon_blood_hunter {
+  background-image: var(--blood-hunter);
+}
