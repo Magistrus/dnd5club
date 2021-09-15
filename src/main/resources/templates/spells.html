@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 <body id="body">
-	<div layout:fragment="content">
-		<h1>ЗАКЛИНАНИЯ</h1>
+	<div id="list_page_two_block" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Заклинания</h3>
+			</div>
+			<div class="container_left" data-simplebar>
+				<ul class="">
+					<li class="title_list_menu">
+						<h5 th:text = "${archetypeName}">Спиок заклинаний</h5>
+					</li>
+					<li class="sub_menu" th:id = "${archetype.englishName.replace(' ', '_')}" th:each="archetype : ${archetypes}"><span th:text ="${archetype.capitalizeName}" class="name">Имя</span> <span th:text="|${archetype.book.source} / ${archetype.englishName}|">PBH / Bard Valor</span>
+						<button class="btn_close icon_action icon_close"></button></li>
+				</ul>
+			</div>
+		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="class_name">Название класса</h3>
+				<div class="header_sub_menu">
+					<button class="active"><i class="icon_action icon_skills"></i><span>Навыки</span></button>
+					<button><i class="icon_action icon_description"></i><span>Описание</span></button>
+					<button><i class="icon_action icon_spells-w"></i><span>Заклинания</span></button>
+				</div>
+				<div id="btn_full_screen" class="btn_full_screen">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div id="title_sub_menu" class="sub_menu_list">
+				</div>
+				<div class="content_block">
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
