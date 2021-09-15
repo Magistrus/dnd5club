@@ -120,6 +120,8 @@ body {
   padding: 0px;
   margin: 24px 0 0 0;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .compact_menu .navbar .nav_links {
@@ -138,6 +140,10 @@ body {
   margin-left: 16px;
   margin-right: 16px;
   border-radius: 8px;
+}
+
+.navbar .nav_links li:last-child {
+  margin-top: auto;
 }
 
 .compact_menu .navbar .nav_links li {
@@ -694,6 +700,10 @@ table td {
 
 .icon_workshop{
   background-image: var(--icon-workshop);
+}
+
+.icon_instruments{
+  background-image: var(--icon-instruments);
 }
 
 .icon_gods {
