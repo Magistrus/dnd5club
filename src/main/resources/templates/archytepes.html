@@ -5,7 +5,7 @@
 		<li class="title_sub_menu">
 			<h5 th:text = "${archetypeName}" id="title_sub_menu">префикс подклассов</h5>
 		</li>
-		<li th:each="archetype : ${archetypes}"><span th:text ="${archetype.name}" class="name">Имя</span> <span class ="capitalize_text" th:text="|${archetype.book.source} / ${archetype.englishName}|">PBH / Bard Valor</span>
+		<li th:each="archetype : ${archetypes}"><span th:text ="${archetype.capitalizeName}" class="name">Имя</span> <span th:text="|${archetype.book.source} / ${archetype.englishName}|">PBH / Bard Valor</span>
 			<button class="btn_close icon_action icon_close"></button></li>
 	</ul>
 </body>
