@@ -158,4 +158,13 @@ public class HeroClass {
 				.collect(Collectors.toList());
 		return levelArhitypeFeats;
 	}
+	public List<ArchetypeTrait> getArhitypeTraitNames(int arhitypeId, int level){
+		List<ArchetypeTrait> levelArhitypeFeats = archetypes
+				.stream()
+				.filter(a -> a.getId() == arhitypeId)
+				.flatMap(a -> a.getFeats().stream())
+				.filter(t-> t.getLevel() == level)
+				.collect(Collectors.toList());
+		return levelArhitypeFeats;
+	}
 }
