@@ -7,13 +7,7 @@
 				<h3>Заклинания</h3>
 			</div>
 			<div class="container_left" data-simplebar>
-				<ul class="">
-					<li class="title_list_menu">
-						<h5 th:text = "${archetypeName}">Спиок заклинаний</h5>
-					</li>
-					<li class="sub_menu" th:id = "${archetype.englishName.replace(' ', '_')}" th:each="archetype : ${archetypes}"><span th:text ="${archetype.capitalizeName}" class="name">Имя</span> <span th:text="|${archetype.book.source} / ${archetype.englishName}|">PBH / Bard Valor</span>
-						<button class="btn_close icon_action icon_close"></button></li>
-				</ul>
+				список
 			</div>
 		</div>
 		<div id="right_block">
@@ -35,6 +29,7 @@
 				<div id="title_sub_menu" class="sub_menu_list">
 				</div>
 				<div class="content_block">
+					описание
 				</div>
 			</div>
 		</div>
