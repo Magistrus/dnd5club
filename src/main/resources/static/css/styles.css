@@ -463,6 +463,7 @@ body {
 }
 
 #right_block .header_block .header_sub_menu button {
+  padding: 1px 12px 1px 6px;
   height: 40px;
   width: 40px;
   border-radius: 8px;
@@ -776,4 +777,8 @@ table td {
 
 .sorcerer {
   background-image: var(--sorcerer);
+}
+
+.icon_blood_hunter {
+  background-image: var(--blood-hunter);
 }
