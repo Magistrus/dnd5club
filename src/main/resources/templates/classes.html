@@ -56,19 +56,23 @@
 						$(".card").removeClass('active');
 					} else {
 						rightContainer.className = 'block_information ' + englishName;
-						setActive(this, englishName);
+						setActiveClass(this, englishName);
 					}
 				} else {
 					rightContainer.classList.add('block_information', englishName);
-					setActive(this, englishName);
+					setActiveClass(this, englishName);
 				}
 			});
-			function setActive(element, englishName){
+			function setActiveClass(element, englishName){
 				$(".card").removeClass('active');
 				element.classList.toggle('active');
-				var url = '/classes/'+englishName+'/architypes/list';
+				var url = '/classes/'+ englishName +'/architypes/list';
 				$('#title_sub_menu').load(url);
 			}
+			$(".sub_menu").on('click', function() {
+				$('.sub_menu').removeClass('active');
+				this.classList.add('active');
+			});
 			document.getElementById('btn_close').onclick = function() {
 				document.getElementById('container_card').classList.toggle('block_information');
 			}
