@@ -16,10 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.repository.classes.ClassRepository;
 
 @Controller
@@ -57,7 +57,7 @@ public class ClassController {
 		model.addAttribute("heroClass", heroClass);
 		model.addAttribute("archetypeTraits", archetypeTraits);
 		model.addAttribute("order", "[[ 1, 'asc' ]]");
-		return "classView :: heroClass";
+		return "class :: view";
 	}
 
 	@GetMapping("/classes/{englishName}/architype/name")
@@ -74,5 +74,46 @@ public class ClassController {
 		model.addAttribute("archetypeName", heroClass.getArchetypeName());
 		model.addAttribute("archetypes", heroClass.getArchetypes());
 		return "archytepes :: title_sub_menu"; 
+	}
+	
+	@GetMapping("/classes/{className}/architypes/{archetypeName}")
+	public String getByClassIdAndByArchetypeId(Model model, Device device, @PathVariable String className, @PathVariable String archetypeName) {
+		//archetypeName = archetypeName.replace('_', ' ');
+		model.addAttribute("device", device);
+		HeroClass heroClass = classRepository.findByEnglishName(className);
+		List<ClassFetureDto> features = new ArrayList<>();
+		heroClass.getTraits().stream()
+			.filter(f -> !f.isArchitype())
+			.map(f -> new ClassFetureDto(f, heroClass.getName()))
+			.forEach(f -> features.add(f));
+		Archetype archetype = heroClass.getArchetypes()
+				.stream()
+				.filter(a -> archetypeName.replace('_', ' ').equalsIgnoreCase(a.getEnglishName()))
+				.findFirst().orElseGet(Archetype::new);
+
+		ClassFetureDto feature = new ClassFetureDto();
+		feature.setId(archetype.getId());
+		feature.setLevel(archetype.getLevel());
+		feature.setDescription(archetype.getDescription());
+		feature.setName(archetype.getName());
+		feature.setPrefix("ad");
+		if (archetype.getBook() != null) {
+			feature.setType("Источник: " + archetype.getBook().getName()
+					+ (archetype.getPage() == null ? "" : ", стр. " + archetype.getPage()));
+		}
+		features.add(feature);
+		archetype.getFeats().stream()
+			.map(f -> new ClassFetureDto(f, archetype.getGenitiveName()))
+			.forEach(f -> features.add(f));
+
+		Collections.sort(features, Comparator.comparing(ClassFetureDto::getLevel).thenComparing(ClassFetureDto::getOrder));
+		model.addAttribute("archetypeName", archetype.getName());
+		
+		model.addAttribute("heroClass", heroClass);
+		model.addAttribute("features", features);
+		model.addAttribute("selectedArchetypeId", archetype.getId());
+		model.addAttribute("selectedArchetype", archetype);
+		model.addAttribute("archetypeSpells", archetype.getSpells().stream().filter(s-> s.getLevel() != 0).collect(Collectors.toList()));
+		return "archetype :: view";
 	}
 }

@@ -8,5 +8,6 @@
 		<li class="sub_menu" th:id = "${archetype.englishName.replace(' ', '_')}" th:each="archetype : ${archetypes}"><span th:text ="${archetype.capitalizeName}" class="name">Имя</span> <span th:text="|${archetype.book.source} / ${archetype.englishName}|">PBH / Bard Valor</span>
 			<button class="btn_close icon_action icon_close"></button></li>
 	</ul>
+	
 </body>
 </html>
