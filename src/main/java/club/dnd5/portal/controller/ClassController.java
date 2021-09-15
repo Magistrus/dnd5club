@@ -61,9 +61,16 @@ public class ClassController {
 
 	@GetMapping("/classes/{englishName}/architype/name")
 	@ResponseBody
-	public String getArchitypeName(Model model, Device device, @PathVariable String englishName) {
+	public String getArchitypeName(@PathVariable String englishName) {
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		return heroClass.getArchetypeName(); 
+	}
+	@GetMapping("/classes/{englishName}/architypes/list")
+	public String getArchitypeList(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
-		return heroClass.getAblativeName(); 
+		model.addAttribute("archetypeName", heroClass.getArchetypeName());
+		model.addAttribute("archetypes", heroClass.getArchetypes());
+		return "archytepes :: title_sub_menu"; 
 	}
 }
