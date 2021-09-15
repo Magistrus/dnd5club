@@ -41,6 +41,11 @@ p {
   font-weight: 300;
   margin: 0;
   color: var(--text-color);
+  margin-bottom: 6px;
+}
+
+ul {
+  color: var(--text-color);
 }
 
 b {
