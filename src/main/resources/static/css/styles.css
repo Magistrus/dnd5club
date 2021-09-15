@@ -407,7 +407,7 @@ body {
 
 /******** Левый блок ********/
 #left_block {
-  transition: margin-right 0.6s;
+  transition: margin-right 0.3s;
   overflow-x: hidden;
   margin-right: 0px;
   margin-left: 0px;
@@ -415,7 +415,7 @@ body {
 }
 
 .block_information #left_block {
-  transition: margin-right 0.6s;
+  transition: margin-right 0.3s;
   margin-right: calc(56vw + 0px);
 }
 
@@ -429,7 +429,7 @@ body {
 
 @media (max-width: 1000px) {
   .block_information #left_block {
-    transition: margin-right 0.6s;
+    transition: margin-right 0.3s;
     margin-right: calc(0vw + 0px);
   }
 }
@@ -439,7 +439,7 @@ body {
   width: calc(56vw - 0px);
   top: 0;
   right: calc(-56vw - 1px);
-  transition: right 0.6s;
+  transition: right 0.3s;
   position: fixed;
   border-left: 1px solid var(--border);
   background-color: var(--bg-secondary);
@@ -448,7 +448,7 @@ body {
 
 .block_information #right_block {
   right: 0px;
-  transition: right 0.6s;
+  transition: right 0.3s;
 }
 
 #right_block .header_block .header_sub_menu {
@@ -459,7 +459,7 @@ body {
 #right_block .header_block .header_sub_menu button.active  {
   width: auto;
   background-color: var(--primary);
-  transition: all 0.6s;
+  transition: all 0.3s;
 }
 
 #right_block .header_block .header_sub_menu button {
@@ -727,58 +727,58 @@ table td {
   background: var(--icon-description);
 }
 
-.bard {
+.icon_bard {
   background-image: var(--bard);
 }
 
-.barbarian {
+.icon_barbarian {
   background-image: var(--barbarian);
 }
 
-.fighter {
+.icon_fighter {
   background-image: var(--fighter);
 }
 
-.wizard {
+.icon_wizard {
   background-image: var(--wizard);
 }
 
-.druid {
+.icon_druid {
   background-image: var(--druid);
 }
 
-.cleric {
+.icon_cleric {
   background-image: var(--cleric);
 }
 
-.artificer {
+.icon_artificer {
   background-image: var(--artificer);
 }
 
-.warlock {
+.icon_warlock {
   background-image: var(--warlock);
 }
 
-.monk {
+.icon_monk {
   background-image: var(--monk);
 }
 
-.paladin {
+.icon_paladin {
   background-image: var(--paladin);
 }
 
-.rogue {
+.icon_rogue {
   background-image: var(--rogue);
 }
 
-.ranger {
+.icon_ranger {
   background-image: var(--ranger);
 }
 
-.sorcerer {
+.icon_sorcerer {
   background-image: var(--sorcerer);
 }
 
-.blood_hunter {
+.icon_blood_hunter {
   background-image: var(--blood_hunter);
 }
