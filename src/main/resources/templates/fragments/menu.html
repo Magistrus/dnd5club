@@ -8,7 +8,7 @@
 	<nav>
 		<ul class="nav_links">
 			<li>
-				<a href="#">
+				<a th:href="@{/bestiary}">
 					<i class="icon_bestiary"></i>
 					<span class="link_name">Бестиарий</span>
 				</a>
@@ -27,14 +27,14 @@
 				<ul class="sub_menu">
 					<li class="link_name"><span>Персонаж</span></li>
 					<li><a th:href="@{/classes}">Классы</a></li>
-					<li><a href="#">Рассы</a></li>
+					<li><a th:href="@{/race}">Рассы</a></li>
 					<li><a href="#">Опции и особенности</a></li>
 					<li><a href="#">Предыстории</a></li>
 					<li><a href="#">Черты</a></li>
 				</ul>
 			</li>
 			<li>
-				<a href="#">
+				<a th:href="@{/spells}">
 					<i class="icon_spells"></i>
 					<span class="link_name">Заклинания</span>
 				</a>
