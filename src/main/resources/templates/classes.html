@@ -10,9 +10,9 @@
 				<div id="card_wrapper" class="card_wrapper">
 					<div th:id="${class.englishName}" class="card" th:each="class : ${classes}">
 						<div class="infimation">
-							<h5 id = "header_class_name" th:text="${class.capitalazeName}">Class name</h5>
+							<h5 id="header_class_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
-							<p th:text="|${class.book.source} / Кость хитов к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
+							<p th:text="|${class.book.source} / к${class.diceHp}|" class="additionally uppercase_text">Source / HIT Dice</p>
 						</div>
 						<div class="icon" th:classappend="|icon_${class.englishName.toLowerCase().replace(' ', '_')}|"></div>
 					</div>
@@ -23,9 +23,15 @@
 			<div class="header_block">
 				<h3 id="class_name">Название класса</h3>
 				<div class="header_sub_menu">
-					<button class="active"><i class="icon_action icon_skills"></i><span>Навыки</span></button>
-					<button><i class="icon_action icon_description"></i><span>Описание</span></button>
-					<button><i class="icon_action icon_spells-w"></i><span>Заклинания</span></button>
+					<button class="active">
+						<i class="icon_action icon_skills"></i><span>Навыки</span>
+					</button>
+					<button>
+						<i class="icon_action icon_description"></i><span>Описание</span>
+					</button>
+					<button>
+						<i class="icon_action icon_spells-w"></i><span>Заклинания</span>
+					</button>
 				</div>
 				<div id="btn_full_screen" class="btn_full_screen">
 					<div class="icon_action icon_full_screen"></div>
@@ -35,57 +41,11 @@
 				</div>
 			</div>
 			<div id="info_wrapper" class="info_wrapper" data-simplebar>
-				<div id="title_sub_menu" class="sub_menu_list">
-				</div>
-				<div class="content_block">
-				</div>
+				<div id="title_sub_menu" class="sub_menu_list"></div>
+				<div class="content_block"></div>
 			</div>
 		</div>
-		<script>
-			$('.card').on('click', function() {
-				var englishName = this.id.replace(' ', '_');
-				var rightContainer = document.getElementById('container_card');
-				document.getElementById('class_name').innerHTML = this.querySelector("#header_class_name").textContent;
-				// проверяем открыта ли правая панель
-				if (rightContainer.classList.contains('block_information')) {
-					if (rightContainer.classList.contains(englishName)) {
-						rightContainer.classList.remove('block_information', englishName);
-						$(".card").removeClass('active');
-					} else {
-						rightContainer.className = 'block_information ' + englishName;
-						setActiveClass(this, englishName);
-					}
-				} else {
-					rightContainer.classList.add('block_information', englishName);
-					setActiveClass(this, englishName);
-				}
-			});
-			function setActiveClass(element, englishName){
-				$(".card").removeClass('active');
-				element.classList.toggle('active');
-				var url = '/classes/fragment/' + englishName;
-				$(".content_block").load(url);
-				var url = '/classes/'+ englishName +'/architypes/list';
-				$('#title_sub_menu').load(url, function(){
-					var elements = $('li.sub_menu');
-					for (var i = 0; i < elements.length; i++) {
-						elements[i].addEventListener('click', function(event) {
-							var selecedClassName = $('.card.active')[0].id;
-							setActiveArchetype(this, selecedClassName, this.id);
-					    });
-					}
-				});
-			}
-			function setActiveArchetype(element, className, archetypeName){
-				$('li.sub_menu').removeClass('active');
-				element.classList.add('active');
-				var url = '/classes/'+ className +'/architypes/' + archetypeName;
-				$(".content_block").load(url);
-			}
-			document.getElementById('btn_close').onclick = function() {
-				document.getElementById('container_card').classList.toggle('block_information');
-			}
-		</script>
 	</div>
 </body>
+<script th:src="@{/resources/js/classes.js}" layout:fragment="js-script"></script>
 </html>
