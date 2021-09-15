@@ -120,6 +120,8 @@ body {
   padding: 0px;
   margin: 24px 0 0 0;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .compact_menu .navbar .nav_links {
@@ -138,6 +140,10 @@ body {
   margin-left: 16px;
   margin-right: 16px;
   border-radius: 8px;
+}
+
+.navbar .nav_links li:last-child {
+  margin-top: auto;
 }
 
 .compact_menu .navbar .nav_links li {
@@ -168,38 +174,6 @@ body {
   display: block;
   min-width: 40px;
   height: 40px;
-}
-
-.navbar .icon_character {
-  background-image: var(--icon-character);
-}
-
-.navbar .icon_spells {
-  background-image: var(--icon-spells);
-}
-
-.navbar .icon_inventory {
-  background-image: var(--icon-inventory);
-}
-
-.navbar .icon_treasures {
-  background-image: var(--icon-treasures);
-}
-
-.navbar .icon_bestiary {
-  background-image: var(--icon-bestiary);
-}
-
-.navbar .icon_workshop{
-  background-image: var(--icon-workshop);
-}
-
-.navbar .icon_gods {
-  background-image: var(--icon-gods);
-}
-
-.navbar .icon_dark_mod {
-  background-image: var(--icon-dark-mod);
 }
 
 .navbar .nav_links li.showMenu i.folded {
@@ -342,13 +316,12 @@ body {
   display: flex;
   flex: 1 0 calc(25% - 58px);
   max-width: calc(25% - 58px);
-  /* min-width: 280px; */
   margin-left: 8px;
   margin-right: 8px;
   margin-bottom: 16px;
   flex-direction: row;
   padding: 16px 24px 16px 16px;
-  transition: max-width 0.6s;
+  /* transition: max-width 0.6s; */
   border:1px solid var(--bg-secondary);
 }
 
@@ -421,62 +394,6 @@ body {
   background-position: center;
 }
 
-.all_classes {
-  background-image: var(--all-classes);
-}
-
-.bard {
-  background-image: var(--bard);
-}
-
-.barbarian {
-  background-image: var(--barbarian);
-}
-
-.fighter {
-  background-image: var(--fighter);
-}
-
-.wizard {
-  background-image: var(--wizard);
-}
-
-.druid {
-  background-image: var(--druid);
-}
-
-.cleric {
-  background-image: var(--cleric);
-}
-
-.artificer {
-  background-image: var(--artificer);
-}
-
-.warlock {
-  background-image: var(--warlock);
-}
-
-.monk {
-  background-image: var(--monk);
-}
-
-.paladin {
-  background-image: var(--paladin);
-}
-
-.rogue {
-  background-image: var(--rogue);
-}
-
-.ranger {
-  background-image: var(--ranger);
-}
-
-.sorcerer {
-  background-image: var(--sorcerer);
-}
-
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
@@ -534,8 +451,63 @@ body {
   transition: right 0.6s;
 }
 
-#right_block .header_block h3 {
-  margin-right: auto;
+#right_block .header_block .header_sub_menu {
+  margin-left: 24px;
+  display: flex;
+}
+
+#right_block .header_block .header_sub_menu button.active  {
+  width: auto;
+  background-color: var(--primary);
+  transition: all 0.6s;
+}
+
+#right_block .header_block .header_sub_menu button {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.6s;
+  overflow: hidden;
+  background-color: var(--hover);
+}
+
+#right_block .header_block .header_sub_menu button:hover {
+  width: auto;
+  background-color: var(--hover);
+  transition: all 0.6s;
+}
+
+#right_block .header_block .header_sub_menu button .icon_action {
+  margin-right: 0px;
+  flex: 1 0 24px;
+}
+
+#right_block .header_block .header_sub_menu button:hover .icon_action,
+#right_block .header_block .header_sub_menu button.active .icon_action {
+  margin-right: 8px;
+}
+
+#right_block .header_block .header_sub_menu button .skills {
+  background: var(--icon-skills);
+}
+
+#right_block .header_block .header_sub_menu button .description {
+  background: var(--icon-description);
+}
+
+#right_block .header_block .header_sub_menu span {
+  color: #ffffff;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+#right_block .header_block .header_sub_menu button:hover span,
+#right_block .header_block .header_sub_menu button.active span {
+  opacity: 1;
+  transition: all 0.3s;
 }
 
 #right_block .header_block .btn_full_screen,
@@ -547,6 +519,12 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: absolute;
+  right: 0;
+}
+
+#right_block .header_block .btn_full_screen {
+  right: 73px;
 }
 
 #right_block .header_block .btn_full_screen:hover,
@@ -590,18 +568,18 @@ body {
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background-color 0.3s;
 }
 
 #right_block .info_wrapper .sub_menu_list li:hover {
   background-color: var(--hover);
-  transition: all 0.3s;
+  transition: background-color 0.3s;
 }
 
 #right_block .info_wrapper .sub_menu_list li.active {
   border-left: 3px solid var(--primary);
   background-color: var(--hover);
-  transition: all 0.3s;
+  transition: background-color 0.3s;
 }
 
 #right_block .info_wrapper .sub_menu_list li span.name {
@@ -657,7 +635,7 @@ body {
 
 @media (max-width: 1000px) {
   #right_block {
-    width: calc(100vw - 0px);
+    width: calc(100vw - 2px);
     right: calc(-100vw - 0px);
     position: fixed;
     border: 1px solid var(--border);
@@ -693,4 +671,109 @@ table {
 table td {
   border:1px solid var(--border);
   height: 30px;
+}
+
+/******** Иконки ********/
+.icon_character {
+  background-image: var(--icon-character);
+}
+
+.icon_spells {
+  background-image: var(--icon-spells);
+}
+
+.icon_spells-w {
+  background-image: var(--icon-spells-w);
+}
+
+.icon_inventory {
+  background-image: var(--icon-inventory);
+}
+
+.icon_treasures {
+  background-image: var(--icon-treasures);
+}
+
+.icon_bestiary {
+  background-image: var(--icon-bestiary);
+}
+
+.icon_workshop{
+  background-image: var(--icon-workshop);
+}
+
+.icon_instruments{
+  background-image: var(--icon-instruments);
+}
+
+.icon_gods {
+  background-image: var(--icon-gods);
+}
+
+.icon_dark_mod {
+  background-image: var(--icon-dark-mod);
+}
+
+.icon_all_classes {
+  background-image: var(--all-classes);
+}
+
+.icon_skills {
+  background: var(--icon-skills);
+}
+
+.icon_description {
+  background: var(--icon-description);
+}
+
+.bard {
+  background-image: var(--bard);
+}
+
+.barbarian {
+  background-image: var(--barbarian);
+}
+
+.fighter {
+  background-image: var(--fighter);
+}
+
+.wizard {
+  background-image: var(--wizard);
+}
+
+.druid {
+  background-image: var(--druid);
+}
+
+.cleric {
+  background-image: var(--cleric);
+}
+
+.artificer {
+  background-image: var(--artificer);
+}
+
+.warlock {
+  background-image: var(--warlock);
+}
+
+.monk {
+  background-image: var(--monk);
+}
+
+.paladin {
+  background-image: var(--paladin);
+}
+
+.rogue {
+  background-image: var(--rogue);
+}
+
+.ranger {
+  background-image: var(--ranger);
+}
+
+.sorcerer {
+  background-image: var(--sorcerer);
 }

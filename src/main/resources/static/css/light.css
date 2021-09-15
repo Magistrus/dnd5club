@@ -21,12 +21,17 @@
   --close-menu: url(/resources/assets/icon/light/menu/close_menu.svg);
   --icon-character: url(/resources/assets/icon/light/menu/character.svg);
   --icon-spells: url(/resources/assets/icon/light/menu/spells.svg);
+  --icon-spells-w: url(/resources/assets/icon/light/menu/spells-w.svg);
   --icon-inventory: url(/resources/assets/icon/light/menu/inventory.svg);
   --icon-treasures: url(/resources/assets/icon/light/menu/treasures.svg);
   --icon-bestiary: url(/resources/assets/icon/light/menu/bestiary.svg);
   --icon-workshop: url(/resources/assets/icon/light/menu/workshop.svg);
+  --icon-instruments: url(/resources/assets/icon/light/menu/instruments.svg);
   --icon-gods: url(/resources/assets/icon/light/menu/gods.svg);
   --icon-dark-mod: url(/resources/assets/icon/light/menu/dark_mod.svg);
+
+  --icon-skills: url(/resources/assets/icon/light/classes/skills.svg);
+  --icon-description: url(/resources/assets/icon/light/classes/description.svg);
 }
 
 /********* Icon Action *********/
