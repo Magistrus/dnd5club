@@ -2,7 +2,7 @@ $(document).ready(function() {
 	function checkWidth() {
 	  var windowWidth = $('body').innerWidth(),
 	  elem = $("#body"); 
-	  var check =localStorage.getItem('compact_menu') 
+	  var check = localStorage.getItem('compact_menu') 
 	  if(check === 'true')
 	  {
 		  elem.addClass('compact_menu');
