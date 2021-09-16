@@ -8,6 +8,7 @@ $(document).ready(function() {
 	{
 		setThemeDark(element);
 	}
+	saveThemeToSession(element);
 });
 
 function switchTheme() {
@@ -20,15 +21,7 @@ function switchTheme() {
 		localStorage.setItem('theme', 'light');
 		setThemeLight(element);
 	}
-	$.ajax({
-	    type: 'POST',
-	    url: '/session/theme',
-	    data: { 
-	        'theme': element.classList[0], 
-	    },
-	    success: function(msg){
-	    }
-	});
+	saveThemeToSession(element);
 }
 
 function setThemeDark(element){
@@ -41,4 +34,16 @@ function setThemeLight(element){
 	element.href = 'resources/css/light.css';
 	element.classList.remove('dark')
 	element.classList.add('light');
+}
+
+function saveThemeToSession(element){
+	$.ajax({
+	    type: 'POST',
+	    url: '/session/theme',
+	    data: { 
+	        'theme': element.classList[0], 
+	    },
+	    success: function(msg){
+	    }
+	});	
 }
