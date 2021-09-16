@@ -32,6 +32,10 @@ body {
   margin-right: -24px;
 }
 
+.mt-0 {
+  margin-top: 0px;
+}
+
 .icon_action {
   background-position: center;
   background-repeat: no-repeat;
@@ -412,7 +416,7 @@ body {
 
 /******** Левый блок ********/
 #left_block {
-  transition: margin-right 0.3s;
+  /* transition: margin-right 0.3s; */
   overflow-x: hidden;
   margin-right: 0px;
   margin-left: 0px;
@@ -420,7 +424,7 @@ body {
 }
 
 .block_information #left_block {
-  transition: margin-right 0.3s;
+  /* transition: margin-right 0.3s; */
   margin-right: calc(56vw + 0px);
 }
 
@@ -434,7 +438,7 @@ body {
 
 @media (max-width: 1000px) {
   .block_information #left_block {
-    transition: margin-right 0.3s;
+    /* transition: margin-right 0.3s; */
     margin-right: calc(0vw + 0px);
   }
 }
@@ -444,7 +448,7 @@ body {
   width: calc(56vw - 0px);
   top: 0;
   right: calc(-56vw - 1px);
-  transition: right 0.3s;
+  /* transition: right 0.3s; */
   position: fixed;
   border-left: 1px solid var(--border);
   background-color: var(--bg-secondary);
@@ -453,7 +457,7 @@ body {
 
 .block_information #right_block {
   right: 0px;
-  transition: right 0.3s;
+  /* transition: right 0.3s; */
 }
 
 #right_block .header_block .header_sub_menu {
