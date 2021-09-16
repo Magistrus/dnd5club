@@ -783,3 +783,6 @@ table td {
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
 }
+table thead.hide{
+  display:none;
+}

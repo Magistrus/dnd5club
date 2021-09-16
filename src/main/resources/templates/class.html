@@ -6,6 +6,7 @@
 <body>
 	<div th:object="${heroClass}" th:fragment="view">
 		<th:block th:fragment="classInfo">
+			<h4>Классовые умения</h4>
 			<h5>Хиты</h5>
 			<p>
 				<b>Кость Хитов:</b> 1к[[*{diceHp}]] за каждый уровень
@@ -103,7 +104,7 @@
 			</tbody>
 		</table>
 		<hr>
-		<div>Умения</div>
+		<h4>Умения</h4>
 		<th:block th:each="feature : ${features}">
 			<h5 th:text="${feature.name}" th:id="${'c'+feature.id}"></h5>
 			<p class="caption_text" th:text="${feature.type}"></p>
