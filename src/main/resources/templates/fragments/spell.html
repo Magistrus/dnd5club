@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/datatable-layout}">
+<head>
+<title th:text="${spell.name}"></title>
+</head>
+<body>
+	<div th:object="${spell}" th:fragment="view">
+		<h4>
+			<span th:text="*{name}"></span> <small th:text="|[*{englishName}]|"></small>
+		</h4>
+		<em> <th:block th:text="(${spell.level}!=0) ? ${spell.level} + ' уровень' : 'Заговор'" /> , <th:block th:text="*{school.name}" /> <th:block
+				th:text="${spell.ritual != null && spell.ritual} ? ' (ритуал)' : '' "
+			/></em>
+		<p>
+			<strong>Время накладывания:</strong>
+			<th:block th:each="time, iterStat : *{times}">
+				<span th:text="|${iterStat.last ? time.name : time.name + ' или '}|"></span>
+			</th:block>
+		</p>
+		<p>
+			<strong>Дистанция:</strong> <span th:text="*{distance}"></span>
+		</p>
+		<div>
+			<strong>Компоненты:</strong> <span data-toggle="popover" data-placement="auto" th:if="${spell.verbalComponent}"
+				title="Вербальный - Большинство заклинаний требуют произношения таинственных слов. Сами по себе слова не являются источником силы заклинания; просто комбинация звуков с особой тональностью вызывает резонанс в прядях магии, приводя их в движение. Таким образом, персонаж с кляпом во рту или в области заклинания тишина, не может активировать заклинания с вербальным компонентом."
+			>В</span> <span data-toggle="popover" data-placement="auto" th:if="${spell.somaticComponent}"
+				title="Cоматический - Заклинание может требовать энергичной жестикуляции или замысловатой последовательности телодвижений. Если у заклинания есть соматический компонент, у заклинателя должна быть свободной хотя бы одна рука для исполнения этих жестов."
+			>C</span> <span class="invert" data-toggle="popover" data-placement="auto" th:if="${spell.materialComponent}"
+				title="Mатериальный - У заклинателя должна быть одна свободная рука для доступа к материальным компонентам, но это может быть та же самая рука, что используется для выполнения соматического компонента. Персонаж может использовать мешочек с компонентами или заклинательную фокусировку вместо указанных компонентов. Однако, если для компонента указана цена, у персонажа для накладывания заклинания должен быть именно такой компонент."
+			>М</span> <span th:if="${spell.additionalMaterialComponent}"> (<th:block th:text="${spell.additionalMaterialComponent}" />)
+			</span>
+		</div>
+		<p>
+			<strong>Длительность:</strong> <span th:text="*{duration}"></span>
+		</p>
+	</div>
+	<div class="col-auto">
+		<div th:if="${spell.book}">
+			<div class="text-color-opacity text-right" th:title="*{book.englishName}" th:text="|Источник: ${spell.book.name}${spell.page eq null?'':', стр.' + spell.page} [*{book.source}]|"></div>
+		</div>
+	</div>
+	<hr class="mb-2 mt-2" align="center" size="5" color="#822000" />
+	<th:block th:utext="*{description}" />
+	<div th:if="${spell.upperLevel}">
+		<hr class="mb-2 mt-1" align="center" size="5" color="#822000" />
+		<strong>На более высоких уровнях: </strong>
+		<div th:utext="*{upperLevel}"></div>
+	</div>
+</body>
+</html>
