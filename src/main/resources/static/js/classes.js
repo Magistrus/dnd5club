@@ -40,9 +40,9 @@ function setActiveClass(element, englishName) {
 			elements[i].addEventListener('click', function(event) {
 				var selecedClassName = $('.card.active')[0];
 				const checkLi = event.target.tagName;
-				if (checkLi === 'SPAN'){
+				if (checkLi === 'SPAN' || checkLi === 'LI'){
 					setActiveArchetype(this, selecedClassName.id, this.id);
-				}
+				} 
 			});
 		}
 	});
