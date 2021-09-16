@@ -9,13 +9,9 @@
 		<table>
 			<thead>
 				<tr align="center">
-					<th rowspan="2" style="width: 5%"><a class="text-reset text-decoration-none" href="#" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top"
-						data-content="Уровень в классе"
-					>Ур.</a></th>
-					<th align="center" rowspan="2" style="width: 5%"><a class="text-reset text-decoration-none" href="#" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top"
-						data-content="Бонус мастерства"
-					>БМ</a></th>
-					<th align="center" rowspan="2">Умения</th>
+					<th rowspan="2" style="width: 24px">Ур.</th>
+					<th rowspan="2" style="width: 24px">БМ</th>
+					<th rowspan="2">Умения</th>
 					<th th:each="featurelevelDefinition : *{featureLevelDefenitions}" align="center" rowspan="2" th:text="${featurelevelDefinition.name}" style="width: 5%">Умения класса</th>
 					<th th:each="featurelevelDefinition : ${selectedArchetype.featureLevelDefenitions}" align="center" rowspan="2" th:text="${featurelevelDefinition.name}" style="width: 5%">Умения архетипа</th>
 					<th th:unless="${heroClass.levelDefenitions.empty and selectedArchetype.levelDefenitions.empty}" align="center" colspan="9">Ячейки заклинаний на уровень заклинаний</th>
@@ -90,9 +86,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<h4>Умения</h4>
 		<th:block th:each="feature : ${features}">
-			<h5 class="title" th:text="${feature.name}" th:id="|${feature.prefix}${feature.id}|"></h5>
+			<h4 class="dote" th:text="${feature.name}" th:id="|${feature.prefix}${feature.id}|"></h4>
 			<div class="caption_text" th:text="${feature.type}"></div>
 			<p th:utext="${feature.description}" />
 			<div th:if="${feature.prefix eq 'ad'}">

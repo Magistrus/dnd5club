@@ -96,6 +96,10 @@ b {
   color: var(--text-g-color);
 }
 
+h4 + .caption_text {
+  margin-top: -6px;
+}
+
 .uppercase_text {
   text-transform: uppercase;
 }
