@@ -101,7 +101,7 @@
 			</tbody>
 		</table>
 		<th:block th:each="feature : ${features}">
-			<h5 th:text="${feature.name}" th:id="${'c'+feature.id}"></h5>
+			<h4 class="dote" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
 			<p class="caption_text" th:text="${feature.type}"></p>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
