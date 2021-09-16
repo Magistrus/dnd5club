@@ -6,7 +6,7 @@
 <body>
 	<div th:object="${heroClass}" th:fragment="view">
 		<th:block th:fragment="classInfo">
-			<h4>Классовые умения</h4>
+			<h4 class="dote">Классовые особенности</h4>
 			<h5>Хиты</h5>
 			<p>
 				<b>Кость Хитов:</b> 1к[[*{diceHp}]] за каждый уровень
@@ -40,7 +40,7 @@
 				Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
 			</p>
 		</th:block>
-		<table>
+		<table class="classes_tablet">
 			<thead>
 				<tr align="center">
 					<th rowspan="2" style="width: 5%"><a class="text-reset text-decoration-none" href="#" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top"
@@ -103,8 +103,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<hr>
-		<h4>Умения</h4>
+		<h4 class="dote">Умения</h4>
 		<th:block th:each="feature : ${features}">
 			<h5 th:text="${feature.name}" th:id="${'c'+feature.id}"></h5>
 			<p class="caption_text" th:text="${feature.type}"></p>

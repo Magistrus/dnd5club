@@ -23,7 +23,27 @@ h3 {
 h4 {
   font-size: 22px;
   font-weight: 300;
-  margin: 0;
+  margin: 8px 0 8px 0;
+  color: var(--text-color);
+  position: relative;
+}
+
+h4.dote:before {
+  content:'';
+  position: absolute;
+  left: -24px;
+  top: 5px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--primary);
+  border-radius: 4px;
+}
+
+h4 {
+  font-size: 22px;
+  font-weight: 300;
+  margin: 8px 0 8px 0;
   color: var(--text-color);
 }
 
@@ -31,7 +51,7 @@ h5 {
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
-  margin: 0;
+  margin: 12px 0 4px 0;
   color: var(--text-color);
 }
 
@@ -39,17 +59,23 @@ p {
   font-size: 13px;
   line-height: 16px;
   font-weight: 300;
-  margin: 0;
+  margin: 0 0 8px 0;
   color: var(--text-color);
-  margin-bottom: 6px;
+}
+
+a {
+  color: var(--link-color);
 }
 
 ul {
   color: var(--text-color);
+  list-style: none;
+  line-height: 16px;
+  padding-left: 24px;
 }
 
 b {
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-color);
 }
 
@@ -71,4 +97,36 @@ b {
 
 .uppercase_text {
   text-transform: uppercase;
+}
+
+/********* Таблицы *********/
+table {
+  width: 100%;
+  color: var(--text-color);
+  border-spacing: inherit;
+  border-radius: 8px;
+  border: 2px solid var(--border-table);
+}
+
+table thead {
+  margin-left: -1px;
+}
+
+table tr {
+  /* border-right:1px solid var(--border-table); */
+}
+
+table td {
+  border-right: 1px solid var(--border-table);
+  border-bottom: 1px solid var(--border-table);
+  height: 30px;
+}
+
+table td:last-child {
+  border-right: 0px solid var(--border-table);
+  height: 30px;
+}
+
+.classes_tablet {
+
 }

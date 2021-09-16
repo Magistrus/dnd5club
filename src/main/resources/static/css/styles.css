@@ -375,6 +375,10 @@ body {
   border:1px solid var(--primary);
 }
 
+.card_wrapper .card .infimation #header_class_name {
+  margin: 0;
+}
+
 .card_wrapper .card .infimation {
   display: flex;
   flex: 1 0 auto;
@@ -621,6 +625,10 @@ body {
   border-bottom: none;
 }
 
+#right_block .info_wrapper .sub_menu_list li.title_sub_menu h5{
+  margin: 0;
+}
+
 #right_block .info_wrapper .sub_menu_list li.title_sub_menu:hover {
   background: none !important;
 }
@@ -629,7 +637,7 @@ body {
   margin-left: 266px;
   margin-top: -24px;
   margin-bottom: -24px;
-  padding-left: 24px;
+  padding-left: 48px;
   padding-top: 24px;
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
@@ -664,15 +672,6 @@ button {
   display: inline-block;
   vertical-align: middle;
   user-select: none;
-}
-
-table {
-  width: 100%;
-}
-
-table td {
-  border:1px solid var(--border);
-  height: 30px;
 }
 
 /******** Иконки ********/
@@ -782,7 +781,4 @@ table td {
 
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
-}
-table thead.hide{
-  display:none;
 }
