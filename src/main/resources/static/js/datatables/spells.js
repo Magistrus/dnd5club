@@ -10,7 +10,7 @@ $(document).ready(function() {
 		serverSide : true,
 		ajax : '/data/spells',
 		deferRender: true,
-		scrollY: "75vh",
+		scrollY: "85vh",
 		scrollX: "65vh",
 		scrollCollapse: true,
 		scroller: true,
@@ -142,5 +142,12 @@ $(document).ready(function() {
 			}
 		},
 		ordering : true,
+	});
+	$('#spells tbody').on('click', 'tr', function () {
+		var tr = $(this).closest('tr');
+		var table = $('#spells').DataTable();
+		var row = table.row( tr );
+		var url = '/spells/fragment/' + row.data().id;
+		$(".content_block").load(url);
 	});
 });

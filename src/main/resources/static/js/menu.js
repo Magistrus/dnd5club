@@ -8,7 +8,6 @@ let arrow = document.querySelectorAll(".arrow");
 
 	let sidebar = document.querySelector("#body");
 	let sidebarBtn = document.querySelector(".close_menu");
-	console.log(sidebarBtn);
 	sidebarBtn.addEventListener("click", ()=>{
 	sidebar.classList.toggle("compact_menu");
 });
