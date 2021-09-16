@@ -4,7 +4,7 @@ $(document).ready(function() {
 		var column = table.column( $(this).attr('data-column') );
 		column.visible( ! column.visible() );
 	});
-	var table = $('#spells').DataTable( {
+	var table = $('#spells').DataTable({
 		stateSave: true,
 		dom: 't',
 		serverSide : true,
@@ -14,7 +14,7 @@ $(document).ready(function() {
 		scrollX: "65vh",
 		scrollCollapse: true,
 		scroller: true,
-		paging: false,
+		//paging: false,
 		select: {
 			style: 'single'
 		},
