@@ -601,7 +601,7 @@ body {
 }
 
 #right_block .info_wrapper .sub_menu_list li .sub_info {
-  display: flex;
+  display: block;
 }
 
 #right_block .info_wrapper .sub_menu_list li span {
@@ -617,7 +617,7 @@ body {
   width: 32px;
   height: 32px;
   position: absolute;
-  top: 14px;
+  top: 16px;
   right: 8px;
   cursor: pointer;
   border-radius: 8px;
