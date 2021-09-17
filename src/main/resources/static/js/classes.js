@@ -7,6 +7,41 @@ $(document).ready(function() {
 		setActiveClass(element, id);
 	}
 });
+$('#class_traits').on('click', function() {
+	$('#class_description')[0].classList.remove('active');
+	$('#class_spells')[0].classList.remove('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+	var selectedArchetype = $('li.sub_menu.active'); 
+	if(selectedArchetype.length === 1){
+		setActiveArchetype(selectedArchetype[0], selectedClass.id, selectedArchetype[0].id);
+	}
+	else {
+		setActiveClass(selectedClass, selectedClass.id);
+	}
+});
+$('#class_description').on('click', function() {
+	$('#class_traits')[0].classList.remove('active');
+	$('#class_spells')[0].classList.remove('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+	var selectedArchetype = $('li.sub_menu.active'); 
+	if(selectedArchetype.length === 1){
+		var url = '/classes/'+selectedClass.id+'/archetype/'+selectedArchetype[0].id+'/description';
+		$(".content_block").load(url);
+	}
+	else {
+		var url = '/classes/' + selectedClass.id + '/description';
+		$(".content_block").load(url);
+	}
+});
+$('#class_spells').on('click', function() {
+	$('#class_description')[0].classList.remove('active');
+	$('#class_traits')[0].classList.remove('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+});
+
 $('#btn_full_screen').on('click', function() {
 	// тут должен быт код по раскрытию на весь экран
 });
