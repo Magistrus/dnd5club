@@ -52,14 +52,18 @@
 	</div>
 </body>
 <script th:src="@{/resources/js/classes.js}" layout:fragment="js-script"></script>
-<script async th:src="@{/resources/js/sticky-sidebar.min.js}"></script>
 
-<script type="text/javascript">
-	var sidebar = new StickySidebar('.sub_menu_list', {
-	  topSpacing: 120,
-	  bottomSpacing: 20,
-	  containerSelector: 'юsimplebar-content',
-	  innerWrapperSelector: '.1111'
-	});
+
+<script th:src="@{https://abouolia.github.io/sticky-sidebar/js/rAF.js}" defer></script>
+<script th:src="@{https://abouolia.github.io/sticky-sidebar/js/ResizeSensor.js}" defer></script>
+<script th:src="@{/resources/js/sticky-sidebar.min.js}" defer></script>
+
+	<script type="text/javascript" defer>
+		var sidebar = new StickySidebar('.sub_menu_list', {
+			topSpacing: 120,
+			bottomSpacing: 20,
+			containerSelector: '.simplebar-content',
+			innerWrapperSelector: '.1111'
+		});
   </script>
 </html>
