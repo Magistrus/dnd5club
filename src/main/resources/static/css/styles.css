@@ -594,12 +594,16 @@ body {
 
 #right_block .info_wrapper .sub_menu_list li span.name {
   color: var(--text-color);
-}
-
-#right_block .info_wrapper .sub_menu_list li span {
   text-decoration: none;
   width: 100%;
   display: block;
+}
+
+#right_block .info_wrapper .sub_menu_list li .sub_info {
+  display: flex;
+}
+
+#right_block .info_wrapper .sub_menu_list li span {
   color: var(--text-g-color);
 }
 
