@@ -91,18 +91,18 @@
 			<div class="caption_text" th:text="${feature.type}"></div>
 			<p th:utext="${feature.description}" />
 			<div th:if="${feature.prefix eq 'ad'}">
-				<table class="table-striped mx-auto" th:unless=${archetypeSpells.empty}>
+				<table th:unless=${archetypeSpells.empty}>
 					<thead>
-						<tr>
-							<th th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
+						<tr >
+							<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
 							</th>
-							<th th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
+							<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
 							</th>
-							<th class="text-center">Заклинания</th>
+							<th align="left" >Заклинания</th>
 						</tr>
 					</thead>
 					<tr th:each="element : ${selectedArchetype.levelSpells}">
-						<td class="text-center" th:text="${element.key}"></td>
+						<td align="center" th:text="${element.key}"></td>
 						<td><a class="text-danger" th:href="@{'/hero/spells/spell/' + ${spell.id}}" tabindex="0" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="auto"
 							th:title="${spell.name}" th:attr="data-bs-content=${spell.description}" th:each="spell, iterStat : ${element.value}"
 							th:text="${iterStat.last} ? ${#strings.toLowerCase(spell.name)} : ${#strings.toLowerCase(spell.name)} + ', '"
