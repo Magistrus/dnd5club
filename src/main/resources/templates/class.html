@@ -73,7 +73,7 @@
 					<td align="center" th:text="${'+' + levelDef[level]}" />
 					<td><th:block th:each="trait, iter : ${heroClass.getTraits(level)}">
 							<a class = "tip" th:unless=${trait.architype} th:href="${'#c' + trait.id}" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"
-							 th:data-tipped-options="@{ajax: { url: '/classes/feature/${trait.id}'}}"></a>
+							 th:data-tipped-options="@{ajax: { url: '/classes/feature/{id}'}(id=${trait.id})}"></a>
 						</th:block>
 						</td>
 					<td th:each="featureLevel : *{featureLevelDefenitions}" th:with="byLevel = ${featureLevel.getByLevel(level)}"><th:block th:if="${featureLevel.prefix ne null and byLevel gt 0}"
