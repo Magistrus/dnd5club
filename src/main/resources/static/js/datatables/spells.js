@@ -6,22 +6,15 @@ $(document).ready(function() {
 	});
 	var table = $('#spells').DataTable({
 		stateSave: true,
-		dom: 't',
+		dom: 'ti',
 		serverSide : true,
 		ajax : '/data/spells',
-		deferRender: true,
 		scrollY: "85vh",
-		scrollX: "65vh",
-		scrollCollapse: true,
 		scroller: true,
 		//paging: false,
 		select: {
 			style: 'single'
 		},
-		autoWidth: false,
-		searchPanes: {
-            layout: 'columns-4'
-        },
 		columns : [
 		{
 			data : "name",
@@ -29,17 +22,16 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var school = '';
-					var result = '<h6>' + data + ' <small class="text-secondary">[' + row.englishName + ']';
+					var result = '<h5>' + data + ' <p class="en_title encaption_text">' + row.englishName ;
 					if (row.ritual === 'true') {
-							result+=' <span data-toggle="tooltip" data-placement="top" title="ритуал" class="badge badge-pill badge badge-success">Р</span>'; 
+							result+=' <span title="ритуал">Р</span>'; 
 					}
 					if (row.concentration === 'true') {
-						result+=' <span data-toggle="tooltip" data-placement="top" title="концентрация" class="badge badge-pill badge-info">К</span>';	
+						result+=' <span title="концентрация">К</span>';	
 					}
-					result+='</small></h6><small>';
-					result += '<div class="text-secondary">';
+					result+='</p></h5><small>';
 					result += row.school;
-					result += '</small></div>';
+					result += '</small>';
 					return result;
 				}
 				return data;
@@ -54,66 +46,6 @@ $(document).ready(function() {
 			],
 			buttons: [
 	            {
-					extend: 'colvis',
-					text: 'Столбцы',
-	            	className: 'btn-main btn-sm btn-color-main',
-					buttons: [{
-						text: 'Школа',
-						action: function ( e, dt, node, config ) {
-							dt.column( 0 ).visible( ! dt.column( 0 ).visible() );
-						}
-					},
-					{
-						text: 'Время',
-						action: function ( e, dt, node, config ) {
-							dt.column( 4 ).visible( ! dt.column( 4 ).visible() );
-						}
-					},
-					{
-						text: 'Длительность',
-						action: function ( e, dt, node, config ) {
-							dt.column( 5 ).visible( ! dt.column( 5 ).visible() );
-						}
-					},
-					{
-						text: 'Дистанция',
-						action: function ( e, dt, node, config ) {
-							dt.column( 6 ).visible( ! dt.column( 6 ).visible() );
-						}
-					},
-					{
-						text: 'Ритуал',
-						action: function ( e, dt, node, config ) {
-							dt.column( 7 ).visible( ! dt.column( 7 ).visible() );
-						}
-					},
-					{
-						text: 'Концентрация',
-						action: function ( e, dt, node, config ) {
-							dt.column( 8 ).visible( ! dt.column( 8 ).visible() );
-						}
-					},
-					{
-						text: 'Компоненты',
-						action: function ( e, dt, node, config ) {
-							dt.column( 9 ).visible( ! dt.column( 9 ).visible() );
-							dt.column( 10 ).visible( ! dt.column( 10 ).visible() );
-							dt.column( 11 ).visible( ! dt.column( 11 ).visible() );
-						}
-					},
-					{
-						text: 'Тип урона',
-						action: function ( e, dt, node, config ) {
-							dt.column( 12 ).visible( ! dt.column( 12 ).visible() );
-							table.columns.adjust().draw();
-						}
-					},
-					{
-						text: 'Источник',
-						action: function ( e, dt, node, config ) {
-							dt.column( 13 ).visible( ! dt.column( 13 ).visible() );
-						}
-					}]
 				}],
 				order : [[0, 'asc']],
 				language : {

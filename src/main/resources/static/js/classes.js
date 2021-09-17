@@ -19,11 +19,16 @@ $('#class_traits').on('click', function() {
 	else {
 		setActiveClass(selectedClass, selectedClass.id);
 	}
+	localStorage.setItem('class_info', 'traits');
 });
 $('#class_description').on('click', function() {
 	$('#class_traits')[0].classList.remove('active');
 	$('#class_spells')[0].classList.remove('active');
 	this.classList.add('active');
+	loadDescription();
+	localStorage.setItem('class_info', 'description');
+});
+function loadDescription(){
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active'); 
 	if(selectedArchetype.length === 1){
@@ -34,14 +39,15 @@ $('#class_description').on('click', function() {
 		var url = '/classes/' + selectedClass.id + '/description';
 		$(".content_block").load(url);
 	}
-});
+}
 $('#class_spells').on('click', function() {
 	$('#class_description')[0].classList.remove('active');
 	$('#class_traits')[0].classList.remove('active');
 	this.classList.add('active');
 	var selectedClass = $('.card.active')[0];
+	localStorage.setItem('class_info', 'spells');
+	// тут должна быть загрузка заклинаний класса
 });
-
 $('#btn_full_screen').on('click', function() {
 	// тут должен быт код по раскрытию на весь экран
 });
@@ -70,8 +76,13 @@ $('.card').on('click', 	function() {
 function setActiveClass(element, englishName) {
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
-	var url = '/classes/fragment/' + englishName;
-	$(".content_block").load(url);
+	if (localStorage.getItem('class_info')==='description'){
+		loadDescription();
+	}
+	else {
+		var url = '/classes/fragment/' + englishName;
+		$(".content_block").load(url);
+	}
 	localStorage.setItem('selected_class', element.id)
 	var url = '/classes/' + englishName + '/architypes/list';
 	$('#title_sub_menu').load(url, function() {
@@ -81,8 +92,12 @@ function setActiveClass(element, englishName) {
 				this.parentElement.classList.remove('active');
 				var selecedClassName = $('.card.active')[0];
 				var url = '/classes/fragment/' + selecedClassName.id;
-				$(".content_block").load(url);
-				localStorage.setItem('selected_class', selecedClassName.id) 
+				if (localStorage.getItem('class_info')==='description'){
+					loadDescription();
+				} else {
+					$(".content_block").load(url);
+					localStorage.setItem('selected_class', selecedClassName.id) 
+				}
 			});
 		}
 		var elements = $('li.sub_menu');
@@ -100,6 +115,10 @@ function setActiveClass(element, englishName) {
 function setActiveArchetype(element, className, archetypeName) {
 	$('li.sub_menu').removeClass('active');
 	element.classList.add('active');
-	var url = '/classes/' + className + '/architypes/' + archetypeName;
-	$(".content_block").load(url);
+	if (localStorage.getItem('class_info')==='description'){
+		loadDescription();
+	}else {
+		var url = '/classes/' + className + '/architypes/' + archetypeName;
+		$(".content_block").load(url);
+	}
 }
