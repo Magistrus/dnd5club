@@ -13,7 +13,7 @@
 							<h5 id="header_class_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
-								<span class='tip' th:attr="data-tipped-options=|inline: 'inline-tooltip-source-${class.id}'|" th:text="|${class.book.source} / к${class.diceHp}|"></span> <span
+								<span class='tip' th:attr="data-tipped-options=|inline: 'inline-tooltip-source-${class.id}'|" th:text="${class.book.source}"></span><span th:text="| / к${class.diceHp}|"></span><span
 									th:id="|inline-tooltip-source-${class.id}|" style='display: none' th:text="${class.book.name}"
 								></span>
 							</p>
@@ -30,7 +30,7 @@
 					<button class="active">
 						<i class="icon_action icon_skills"></i><span>Навыки</span>
 					</button>
-					<button>
+					<button id="class_description">
 						<i class="icon_action icon_description"></i><span>Описание</span>
 					</button>
 					<button>
