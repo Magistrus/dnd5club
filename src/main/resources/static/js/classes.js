@@ -85,7 +85,7 @@ function setActiveClass(element, englishName) {
 	}
 	localStorage.setItem('selected_class', element.id)
 	var url = '/classes/' + englishName + '/architypes/list';
-	$('#title_sub_menu').load(url, function() {
+	$('#sub_menu').load(url, function() {
 		var elements = $('.close_archetypes');
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].addEventListener('click', function(event) {
