@@ -52,16 +52,16 @@
 				<th:block th:unless="*{levelDefenitions.empty}">
 					<th:block th:unless="${heroClass.spellcasterType.name() eq 'NONE'}">
 						<tr align="center">
-							<th>1</th>
-							<th>2</th>
-							<th>3</th>
-							<th>4</th>
-							<th>5</th>
-							<th:block th:unless="*{spellcasterType.name() eq 'HALF'}">
-								<th>6</th>
-								<th>7</th>
-								<th>8</th>
-								<th>9</th>
+							<th class="mini_lvl">1</th>
+							<th class="mini_lvl">2</th>
+							<th class="mini_lvl">3</th>
+							<th class="mini_lvl">4</th>
+							<th class="mini_lvl">5</th>
+							<th:block th:unless="*{spellcasterType.name() eq 'HALF'}" class="mini_lvl">
+								<th class="mini_lvl">6</th>
+								<th class="mini_lvl">7</th>
+								<th class="mini_lvl">8</th>
+								<th class="mini_lvl">9</th>
 							</th:block>
 						</tr>
 					</th:block>

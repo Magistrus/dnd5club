@@ -104,9 +104,15 @@ h4 + .caption_text {
   text-transform: uppercase;
 }
 
+/********* Выделение кубов в тексте *********/
+span.dice_text {
+  padding: 3px 3px;
+  border-radius: 4px;
+  background-color: var(--bg-dice);
+}
+
 /********* Таблицы *********/
 table {
-  width: 100%;
   color: var(--text-color);
   border-spacing: inherit;
   border-radius: 8px;
@@ -116,10 +122,15 @@ table {
 
 table thead {
   background-color: var(--bg-sub-menu);
+  font-size: 11px;
 }
 
 table thead th {
   padding: 4px 4px;
+}
+
+table thead th.mini_lvl {
+  width: 12px;
 }
 
 table td {
@@ -132,4 +143,12 @@ table td {
 table td:last-child {
   border-right: 0px solid var(--border-table);
   height: 30px;
+}
+
+table.classes_tablet {
+  margin-left: -24px;
+}
+
+table.classes_tablet tbody tr:hover {
+  background-color: var(--hover);
 }
