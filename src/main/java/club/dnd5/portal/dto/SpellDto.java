@@ -1,6 +1,5 @@
 package club.dnd5.portal.dto;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;

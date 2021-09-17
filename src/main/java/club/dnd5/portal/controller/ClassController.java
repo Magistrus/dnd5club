@@ -19,13 +19,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.HeroClassTrait;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.repository.classes.ClassRepository;
+import club.dnd5.portal.repository.classes.HeroClassTraitRepository;
 
 @Controller
 public class ClassController {
 	@Autowired
 	private ClassRepository classRepository;
+	@Autowired
+	private HeroClassTraitRepository traitRepository;
 
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
@@ -73,7 +77,7 @@ public class ClassController {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("archetypeName", heroClass.getArchetypeName());
 		model.addAttribute("archetypes", heroClass.getArchetypes());
-		return "archetypes :: title_sub_menu"; 
+		return "archetypes :: sub_menu"; 
 	}
 	
 	@GetMapping("/classes/{className}/architypes/{archetypeName}")
@@ -136,7 +140,7 @@ public class ClassController {
 	
 	@GetMapping("/classes/feature/{id}")
 	@ResponseBody
-	public String getClassFeatureDescription() {
-		return "!!!";
+	public String getClassFeatureDescription(@PathVariable Integer id) {
+		return traitRepository.findById(id).map(HeroClassTrait::getDescription).orElse("");
 	}
 }
