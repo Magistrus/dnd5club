@@ -8,7 +8,7 @@
 			</div>
 			<div class="container_left" data-simplebar>
 				<div id="card_wrapper" class="card_wrapper">
-					<div th:id="${class.englishName}" class="card" th:each="class : ${classes}">
+					<div th:id="${class.englishName.replace(' ', '_')}" class="card" th:each="class : ${classes}">
 						<div class="infimation">
 							<h5 id="header_class_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>

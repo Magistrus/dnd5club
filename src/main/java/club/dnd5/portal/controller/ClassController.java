@@ -78,9 +78,8 @@ public class ClassController {
 	
 	@GetMapping("/classes/{className}/architypes/{archetypeName}")
 	public String getByClassIdAndByArchetypeId(Model model, Device device, @PathVariable String className, @PathVariable String archetypeName) {
-		//archetypeName = archetypeName.replace('_', ' ');
 		model.addAttribute("device", device);
-		HeroClass heroClass = classRepository.findByEnglishName(className);
+		HeroClass heroClass = classRepository.findByEnglishName(className.replace("_", " "));
 		List<ClassFetureDto> features = new ArrayList<>();
 		heroClass.getTraits().stream()
 			.filter(f -> !f.isArchitype())
@@ -120,18 +119,24 @@ public class ClassController {
 	@GetMapping("/classes/{name}/description")
 	@ResponseBody
 	public String getClassDescription(@PathVariable String name) {
-		HeroClass heroClass = classRepository.findByEnglishName(name);
+		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
 		return heroClass.getDescription();
 	}
 
 	@GetMapping("/classes/{className}/archetype/{archetypeName}/description")
 	@ResponseBody
 	public String getArchetypeDescription(@PathVariable String className, @PathVariable String archetypeName) {
-		HeroClass heroClass = classRepository.findByEnglishName(className);
+		HeroClass heroClass = classRepository.findByEnglishName(className.replace("_", " "));
 		return heroClass.getArchetypes()
 			.stream()
-			.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName))
+			.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace("_", " ")))
 			.map(Archetype::getDescription)
 			.findFirst().orElse("");
+	}
+	
+	@GetMapping("/classes/feature/{id}")
+	@ResponseBody
+	public String getClassFeatureDescription() {
+		return "!!!";
 	}
 }
