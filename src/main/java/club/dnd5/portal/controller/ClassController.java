@@ -116,4 +116,22 @@ public class ClassController {
 		model.addAttribute("archetypeSpells", archetype.getSpells().stream().filter(s-> s.getLevel() != 0).collect(Collectors.toList()));
 		return "archetype :: view";
 	}
+
+	@GetMapping("/classes/{name}/description")
+	@ResponseBody
+	public String getClassDescription(@PathVariable String name) {
+		HeroClass heroClass = classRepository.findByEnglishName(name);
+		return heroClass.getDescription();
+	}
+
+	@GetMapping("/classes/{className}/archetype/{archetypeName}/description")
+	@ResponseBody
+	public String getArchetypeDescription(@PathVariable String className, @PathVariable String archetypeName) {
+		HeroClass heroClass = classRepository.findByEnglishName(className);
+		return heroClass.getArchetypes()
+			.stream()
+			.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName))
+			.map(Archetype::getDescription)
+			.findFirst().orElse("");
+	}
 }
