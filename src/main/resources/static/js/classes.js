@@ -57,13 +57,17 @@ $('#btn_close').on('click', function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	document.getElementById('class_name').innerHTML = this.querySelector("#header_class_name").textContent;
+	var className = this.querySelector("#header_class_name").textContent;
+	document.getElementById('class_name').innerHTML = className;
+	document.title = className;
+	history.pushState('data to be passed', className, '/classes/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
 		if (rightContainer.classList.contains(englishName)) {
-			rightContainer.classList.remove('block_information',englishName);
+			rightContainer.classList.remove('block_information', englishName);
 			$(".card").removeClass('active');
 			localStorage.removeItem('selected_class');
+			history.pushState('data to be passed', '', '/classes/');
 		} else {
 			rightContainer.className = 'block_information ' + englishName;
 			setActiveClass(this, englishName);
@@ -133,4 +137,6 @@ function setActiveArchetype(element, className, archetypeName) {
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
 		$(".content_block").load(url);
 	}
+	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
+
 }
