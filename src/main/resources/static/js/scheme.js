@@ -16,9 +16,11 @@ function switchTheme() {
 	var check = element.classList[0] === 'light';
 	if (check) {
 		localStorage.setItem('theme', 'dark');
+		Tipped.setDefaultSkin('dark');
 		setThemeDark(element);
 	} else {
 		localStorage.setItem('theme', 'light');
+		Tipped.setDefaultSkin('light');
 		setThemeLight(element);
 	}
 	saveThemeToSession(element);

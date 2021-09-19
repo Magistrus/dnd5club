@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var id = localStorage.getItem('selected_class').replace(' ', '_');
+	var id = localStorage.getItem('selected_class');
 	if (id){
 		var element = $('#'+id)[0];
 		var rightContainer = document.getElementById('container_card');
@@ -74,6 +74,18 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveClass(element, englishName) {
+	switch (localStorage.getItem('class_info')) {
+	case 'description':
+		$('#class_description')[0].classList.add('active');
+		$('#class_traits')[0].classList.remove('active');
+		break;
+	case 'spells':
+		$('#class_spells')[0].classList.add('active');
+		$('#class_traits')[0].classList.remove('active');
+		break;
+	default:
+		$('#class_traits')[0].classList.add('active');
+	}
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
 	if (localStorage.getItem('class_info')==='description'){
