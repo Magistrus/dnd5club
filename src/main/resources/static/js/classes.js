@@ -10,6 +10,9 @@ $(document).ready(function() {
 	        	};
 	        }
 	      },
+	      afterUpdate: function(content, element) {
+
+	      },
 		  maxWidth: 350,
 	      skin: localStorage.getItem('theme'),
 	      radius: false,

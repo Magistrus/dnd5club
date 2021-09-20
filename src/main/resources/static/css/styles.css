@@ -792,7 +792,9 @@ button {
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
 }
-
+.scroll_tooltip{
+     max-height: 250px !important;
+}
 /* #main-content {
   height: 100vh;
 }
