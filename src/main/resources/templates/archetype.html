@@ -104,9 +104,10 @@
 					</thead>
 					<tr th:each="element : ${selectedArchetype.levelSpells}">
 						<td align="center" th:text="${element.key}"></td>
-						<td><a class="text-danger" th:href="@{'/hero/spells/spell/' + ${spell.id}}" tabindex="0" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="auto"
-							th:title="${spell.name}" th:attr="data-bs-content=${spell.description}" th:each="spell, iterStat : ${element.value}"
-							th:text="${iterStat.last} ? ${#strings.toLowerCase(spell.name)} : ${#strings.toLowerCase(spell.name)} + ', '"
+						<td><a class="tip_spell" th:href="@{'/spells/' + ${spell.englishName}}" 
+							th:title="${spell.name}" th:each="spell, iterStat : ${element.value}"
+							th:text="${iterStat.last} ? ${spell.fullName} : ${spell.fullName} + ', '"
+							th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.id})}"
 						></a></td>
 					</tr>
 					<tbody>

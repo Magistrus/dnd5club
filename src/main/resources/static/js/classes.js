@@ -1,4 +1,22 @@
 $(document).ready(function() {
+    Tipped.delegate('.tip_spell', {
+	      ajax: {
+	        url: '/spells',
+	        type: 'post',
+	        success: function(data, textStatus, jqXHR) {
+	            return {
+	              title: data.name + ' <em>' + data.level + '</em>',
+	              content: data.description
+	        	};
+	        }
+	      },
+		  maxWidth: 350,
+	      skin: localStorage.getItem('theme'),
+	      radius: false,
+	      position: 'topleft',
+	      close: true,
+	});
+
 	if (selectedClass){
 		localStorage.setItem('selected_class', selectedClass);
 	}

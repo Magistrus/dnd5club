@@ -85,4 +85,8 @@ public class Spell {
 	@JoinColumn(name = "source")
 	private Book book;
 	private Short page;
+	
+	public String getFullName() {
+		return name.toLowerCase() + " [" + englishName.toLowerCase() +"]";
+	}
 }
