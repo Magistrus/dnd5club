@@ -6,7 +6,7 @@ $(document).ready(function() {
 		localStorage.setItem('selected_archetype', selectedArchetype);
 	}
 	var className = localStorage.getItem('selected_class');
-	if (className){
+	if (className !== 'undefined'){
 		var element = $('#'+className)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', className);
@@ -80,7 +80,7 @@ $('.card').on('click', 	function() {
 		}
 	} else {
 		rightContainer.classList.add('block_information', englishName);
-		setActiveClass(this, englishName);
+		setActiveClass($('#' + englishName)[0], englishName);
 	}
 });
 function setActiveClass(element, englishName) {
@@ -135,8 +135,8 @@ function setActiveClass(element, englishName) {
 		}
 		var archetepyName = localStorage.getItem('selected_archetype');
 		if (archetepyName){
-			var selecedClassName = $('.card.active')[0];
-			setActiveArchetype($('#'+ archetepyName)[0], selecedClassName.id, archetepyName);
+			var selecedClassName = $('#'+ archetepyName);
+			setActiveArchetype(selecedClassName[0], localStorage.getItem('selected_class'), archetepyName);
 		}
 	});
 }

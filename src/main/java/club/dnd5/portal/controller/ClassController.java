@@ -21,6 +21,8 @@ import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.HeroClassTrait;
 import club.dnd5.portal.model.classes.archetype.Archetype;
+import club.dnd5.portal.model.classes.archetype.ArchetypeTrait;
+import club.dnd5.portal.repository.classes.ArchetypeTraitRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.HeroClassTraitRepository;
 
@@ -30,7 +32,9 @@ public class ClassController {
 	private ClassRepository classRepository;
 	@Autowired
 	private HeroClassTraitRepository traitRepository;
-
+	@Autowired
+	private ArchetypeTraitRepository archetypeTraitRepository;
+	
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAll());
@@ -157,5 +161,11 @@ public class ClassController {
 	@ResponseBody
 	public String getClassFeatureDescription(@PathVariable Integer id) {
 		return traitRepository.findById(id).map(HeroClassTrait::getDescription).orElse("");
+	}
+
+	@GetMapping("/classes/archetype/feature/{id}")
+	@ResponseBody
+	public String getArchetyprFeatureDescription(@PathVariable Integer id) {
+		return archetypeTraitRepository.findById(id).map(ArchetypeTrait::getDescription).orElse("");
 	}
 }

@@ -46,13 +46,14 @@
 				<tr th:each="level : ${#numbers.sequence(1, 20)}" align="center">
 					<td align="center" th:text="${level}" />
 					<td align="center" th:text="${'+' + levelDef[level]}" />
-					<td><a class="text-info" th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
+					<td>
+						<a class="text-info tip" th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
 						th:text="${iterStat2.last and heroClass.getTraitsClear(level).empty} ? ${#strings.toLowerCase(architypeTrait.name)} : ${#strings.toLowerCase(architypeTrait.name)} + ', '"
-						th:href="|#a${architypeTrait.id}|" th:onclick="|slowScroll('#a${architypeTrait.id}')|" tabindex="0" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover"
-						data-placement="auto" th:title="${architypeTrait.name}" th:attr="data-bs-content=${architypeTrait.description}"
-					></a> <a th:each="trait, iterStat : ${heroClass.getTraits(level)}" class="text-primary" th:unless=${trait.architype} th:href="|#c${trait.id}|" th:onclick="|slowScroll('#c${trait.id}')|"
-						th:utext="${iterStat.last} ? ${trait.name.toLowerCase()} : ${trait.name.toLowerCase()} + ', '" tabindex="0" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover"
-						data-placement="auto" th:title="${trait.name}" th:attr="data-bs-content=${trait.description}"
+						th:href="|#a${architypeTrait.id}|"
+						th:title="${architypeTrait.name}" th:data-tipped-options="@{ajax: { url: '/classes/archetype/feature/{id}'}(id=${architypeTrait.id})}" 
+					></a> <a class ="tip" th:each="trait, iterStat : ${heroClass.getTraits(level)}" th:unless=${trait.architype} th:href="|#c${trait.id}|"
+						th:utext="${iterStat.last} ? ${trait.name.toLowerCase()} : ${trait.name.toLowerCase()} + ', '" 
+						th:title="${trait.name}" th:data-tipped-options="@{ajax: { url: '/classes/feature/{id}'}(id=${trait.id})}"
 					></a></td>
 					<td th:each="featureLevel : *{featureLevelDefenitions}" th:with="byLevel = ${featureLevel.getByLevel(level)}"><th:block th:if="${featureLevel.prefix ne null and byLevel gt 0}"
 							th:text="${featureLevel.prefix}"
