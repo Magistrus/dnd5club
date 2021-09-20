@@ -37,6 +37,21 @@ public class ClassController {
 		return "classes";
 	}
 	
+	@GetMapping("/classes/{name}")
+	public String getClass(Model model, @PathVariable String name) {
+		model.addAttribute("classes", classRepository.findAll());
+		model.addAttribute("selectedClass", name);
+		return "classes";
+	}
+	
+	@GetMapping("/classes/{name}/{archetype}")
+	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype) {
+		model.addAttribute("classes", classRepository.findAll());
+		model.addAttribute("selectedClass", name);
+		model.addAttribute("selectedArchetype", archetype);
+		return "classes";
+	}
+	
 	@GetMapping("/classes/fragment/{englishName}")
 	public String getFragmentClasses(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);

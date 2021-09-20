@@ -1,10 +1,16 @@
 $(document).ready(function() {
-	var id = localStorage.getItem('selected_class');
-	if (id){
-		var element = $('#'+id)[0];
+	if (selectedClass){
+		localStorage.setItem('selected_class', selectedClass);
+	}
+	if (selectedArchetype){
+		localStorage.setItem('selected_archetype', selectedArchetype);
+	}
+	var className = localStorage.getItem('selected_class');
+	if (className){
+		var element = $('#'+className)[0];
 		var rightContainer = document.getElementById('container_card');
-		rightContainer.classList.add('block_information', id);
-		setActiveClass(element, id);
+		rightContainer.classList.add('block_information', className);
+		setActiveClass(element, className);
 	}
 });
 $('#class_traits').on('click', function() {
@@ -123,8 +129,14 @@ function setActiveClass(element, englishName) {
 				const checkLi = event.target.tagName;
 				if (checkLi === 'SPAN' || checkLi === 'LI'){
 					setActiveArchetype(this, selecedClassName.id, this.id);
+					localStorage.setItem('selected_archetype',  this.id);
 				} 
 			});
+		}
+		var archetepyName = localStorage.getItem('selected_archetype');
+		if (archetepyName){
+			var selecedClassName = $('.card.active')[0];
+			setActiveArchetype($('#'+ archetepyName)[0], selecedClassName.id, archetepyName);
 		}
 	});
 }

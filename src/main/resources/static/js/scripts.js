@@ -27,10 +27,10 @@ $(document).ready(function() {
 	// 	bottomSpacing: 20
 	// });
 
-	$('#sidebar').stickySidebar({
+/*	$('#sidebar').stickySidebar({
 		containerSelector: '#main-content',
         innerWrapperSelector: '.sidebar__inner',
         topSpacing: 20,
         bottomSpacing: 20
-	});
+	});*/
 });
