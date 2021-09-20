@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.SpellDto;
-import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController

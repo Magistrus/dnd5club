@@ -793,12 +793,7 @@ button {
   background-image: var(--blood_hunter);
 }
 
-
-
-
-		
-	
-#main-content {
+/* #main-content {
   height: 100vh;
 }
 
@@ -841,4 +836,4 @@ button {
 			background: rgba(0, 0, 0, 0.02);
 			line-height: 300px;
 			line-height: 95vh;
-		}
+		} */
