@@ -805,6 +805,7 @@ button {
 }
 .tooltip_scroll{
 	overflow: auto;
-	height: 350px;
-	width: 450px;
+	max-height: 350px;
+	max-width: 350px;
+	min-width: 450px;
 }

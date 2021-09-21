@@ -49,22 +49,4 @@
 	<script th:src="@{/resources/js/tipped.min.js}"></script>
 	
 	<script layout:fragment="js-script"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var simpleBar = null;
-			Tipped.delegate('.tip', {
-				maxWidth: 350,
-				skin: localStorage.getItem('theme'),
-			    afterUpdate: function(content, element) {
-			    	simpleBar = new SimpleBar(content);
-			    	content.classList.add('tooltip_scroll');
-			    },
-			    onShow: function(content, element) {
-			    	simpleBar = new SimpleBar(content);
-			    	simpleBar.recalculate();
-			    },
-			});
-		});
-	</script>
 </html>
