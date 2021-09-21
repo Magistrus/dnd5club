@@ -11,8 +11,11 @@ $(document).ready(function() {
 	        }
 	      },
 	      afterUpdate: function(content, element) {
-
+	    	  content.classList.add('tooltip_scroll');
+	    	  content.setAttribute('data-simplebar','');
 	      },
+          onShow: function(content, element) {
+          },
 		  maxWidth: 350,
 	      skin: localStorage.getItem('theme'),
 	      radius: false,

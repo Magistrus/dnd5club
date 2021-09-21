@@ -806,4 +806,6 @@ button {
 .scroll_tooltip{
      max-height: 250px !important;
 }
-
+.tooltip_scroll{
+	max-height:  200px;
+}

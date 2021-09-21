@@ -13,10 +13,10 @@ $(document).ready(function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	var className = this.querySelector("#condition_id").textContent;
+	var conditionName = this.querySelector("#condition_id").textContent;
 	document.getElementById('condition_name').innerHTML = className;
 	document.title = className;
-	history.pushState('data to be passed', className, '/conditions/' + englishName);
+	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
 		if (rightContainer.classList.contains(englishName)) {
