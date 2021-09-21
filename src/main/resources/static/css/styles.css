@@ -680,6 +680,11 @@ body {
   }
 }
 
+/******** Список из таблицы ********/
+.table_list {
+  
+}
+
 /******** Кнопки ********/
 button {
   border: 0;
@@ -805,8 +810,19 @@ button {
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
 }
+
 .tooltip_scroll{
-	overflow: auto;
-	height: 350px;
-	width: 450px;
+	/* overflow: auto;
+	min-height: 50px;
+	max-height: 350px;
+	width: auto;
+	height: auto;
+  max-width: 450px;
+  min-width: 50px; */
+}
+
+.tpd-tooltip .tpd-content-relative .tpd-content-relative-padder .tpd-content {
+  max-width: 550px;
+  max-height: 350px;
+  overflow-y: auto;
 }
