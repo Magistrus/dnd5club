@@ -25,7 +25,7 @@ $('.card').on('click', 	function() {
 			localStorage.removeItem('selected_condition');
 			history.pushState('data to be passed', '', '/conditions/');
 		} else {
-			rightContainer.className = 'block_information ' + englishName;
+			rightContainer.classList.add('block_information', englishName);
 			setActiveCondition(this, englishName);
 		}
 	} else {
