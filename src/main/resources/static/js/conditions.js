@@ -14,7 +14,7 @@ $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
 	var conditionName = this.querySelector("#condition_id").textContent;
-	document.getElementById('condition_name').innerHTML = className;
+	document.getElementById('condition_name').innerHTML = conditionName;
 	document.title = className;
 	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
 	// проверяем открыта ли правая панель
