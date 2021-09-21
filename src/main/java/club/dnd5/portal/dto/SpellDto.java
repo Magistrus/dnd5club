@@ -17,7 +17,6 @@ public class SpellDto {
 	private int id;	
 	private String level;
 	private String name;
-	private String description;
 	private String ritual;
 	private String concentration;
 	private String school;
@@ -27,7 +26,6 @@ public class SpellDto {
 	private String duration;
 	private String upperLevel;
 	private String book;
-	private String damageType;
 	private String englishName;
 	private Boolean consumable = false;
 	
@@ -37,16 +35,15 @@ public class SpellDto {
 		name = StringUtils.capitalizeWords(spell.getName().toLowerCase())
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
-		description = spell.getDescription();
 		ritual = String.valueOf(spell.getRitual());
 		concentration = String.valueOf(spell.getConcentration());
 		school = spell.getSchool().getName();
 		timeCast = spell.getTimes().stream().map(t-> t.getNumber() + " " + t.getUnit().getName(t.getNumber())).collect(Collectors.joining(" или "));
 		distance = spell.getDistance();
 		duration = spell.getDuration();
-		components = spell.getAdditionalMaterialComponent();
+		components = spell.getVerbalComponent() != null ? "Вербальный" : "";
+		components += spell.getAdditionalMaterialComponent();
 		consumable = spell.getConsumable();
-		damageType = spell.getDamageType().isEmpty() ? "" : spell.getDamageType().stream().map(DamageType::getCyrilicName).collect(Collectors.joining(", "));
 		englishName = spell.getEnglishName();
 		book = spell.getBook().getName() + (spell.getPage() != null ? ", стр. " + spell.getPage() : "");
 	}

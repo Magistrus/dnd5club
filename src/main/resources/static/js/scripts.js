@@ -33,21 +33,17 @@ $(document).ready(function() {
         topSpacing: 20,
         bottomSpacing: 20
 	});*/
-	$(document).ready(function() {
-		Tipped.delegate('.tip', {
-			skin: localStorage.getItem('theme'),
-		});
+	Tipped.delegate('.tip', {
+		skin: localStorage.getItem('theme'),
 	});
-	$(document).ready(function() {
-		Tipped.delegate('.tip_scroll', {
-			skin: localStorage.getItem('theme'),
-		    afterUpdate: function(content, element) {
-		    	content.classList.add('tooltip_scroll');
-		    },
-		    onShow: function(content, element) {
-		    	var simpleBar = new SimpleBar(content);
-		    	simpleBar.recalculate();
-		    },
-		});
+	Tipped.delegate('.tip_scroll', {
+		skin: localStorage.getItem('theme'),
+		afterUpdate: function(content, element) {
+			content.classList.add('tooltip_scroll');
+		},
+		onShow: function(content, element) {
+			var simpleBar = new SimpleBar(content);
+	    	simpleBar.recalculate();
+	    },
 	});
 });

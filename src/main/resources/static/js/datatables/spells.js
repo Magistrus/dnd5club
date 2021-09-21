@@ -5,12 +5,14 @@ $(document).ready(function() {
 		column.visible( ! column.visible() );
 	});
 	var table = $('#spells').DataTable({
-		stateSave: true,
+		//stateSave: true,
 		dom: 'ti',
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
+		//iDisplayLength : 10,
 		//paging: false,
+		
 		select: {
 			style: 'single'
 		},
@@ -33,8 +35,8 @@ $(document).ready(function() {
 					return result;
 				}
 				return data;
-				}, 
-			},
+			}, 
+		},
 			],
 			columnDefs : [
 				{
@@ -77,7 +79,13 @@ $(document).ready(function() {
 		var tr = $(this).closest('tr');
 		var table = $('#spells').DataTable();
 		var row = table.row( tr );
-		var url = '/spells/fragment/' + row.data().id;
+		var data = row.data();
+		document.getElementById('level').innerHTML = data.level +', ' data.school;
+		document.getElementById('timecast').innerHTML = data.timeCast;
+		document.getElementById('distance').innerHTML = data.distance;
+		document.getElementById('components').innerHTML = data.components;
+		document.getElementById('duration').innerHTML = data.duration;
+		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
 });
