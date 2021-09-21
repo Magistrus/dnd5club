@@ -16,7 +16,6 @@ $(document).ready(function() {
 		  maxWidth: 350,
 	      skin: localStorage.getItem('theme'),
 	      radius: false,
-	      position: 'topleft',
 	      close: true,
 	});
 
