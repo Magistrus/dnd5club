@@ -1,10 +1,36 @@
 $(document).ready(function() {
-	var id = localStorage.getItem('selected_class').replace(' ', '_');
-	if (id){
-		var element = $('#'+id)[0];
+    Tipped.delegate('.tip_spell', {
+	      ajax: {
+	        url: '/spells',
+	        type: 'post',
+	        success: function(data, textStatus, jqXHR) {
+	            return {
+	              title: data.name + ' <em>' + data.level + '</em>',
+	              content: data.description
+	        	};
+	        }
+	      },
+	      afterUpdate: function(content, element) {
+
+	      },
+		  maxWidth: 350,
+	      skin: localStorage.getItem('theme'),
+	      radius: false,
+	      close: true,
+	});
+
+	if (selectedClass){
+		localStorage.setItem('selected_class', selectedClass);
+	}
+	if (selectedArchetype){
+		localStorage.setItem('selected_archetype', selectedArchetype);
+	}
+	var className = localStorage.getItem('selected_class');
+	if (className !== 'undefined'){
+		var element = $('#'+className)[0];
 		var rightContainer = document.getElementById('container_card');
-		rightContainer.classList.add('block_information', id);
-		setActiveClass(element, id);
+		rightContainer.classList.add('block_information', className);
+		setActiveClass(element, className);
 	}
 });
 $('#class_traits').on('click', function() {
@@ -57,23 +83,42 @@ $('#btn_close').on('click', function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	document.getElementById('class_name').innerHTML = this.querySelector("#header_class_name").textContent;
+	var className = this.querySelector("#header_class_name").textContent;
+	document.getElementById('class_name').innerHTML = className;
+	document.title = className;
+	history.pushState('data to be passed', className, '/classes/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
 		if (rightContainer.classList.contains(englishName)) {
-			rightContainer.classList.remove('block_information',englishName);
+			rightContainer.classList.remove('block_information', englishName);
 			$(".card").removeClass('active');
 			localStorage.removeItem('selected_class');
+			localStorage.removeItem('selected_archetype');
+			history.pushState('data to be passed', '', '/classes/');
 		} else {
 			rightContainer.className = 'block_information ' + englishName;
+			localStorage.removeItem('selected_archetype');
 			setActiveClass(this, englishName);
 		}
 	} else {
 		rightContainer.classList.add('block_information', englishName);
-		setActiveClass(this, englishName);
+		localStorage.removeItem('selected_archetype');
+		setActiveClass($('#' + englishName)[0], englishName);
 	}
 });
 function setActiveClass(element, englishName) {
+	switch (localStorage.getItem('class_info')) {
+	case 'description':
+		$('#class_description')[0].classList.add('active');
+		$('#class_traits')[0].classList.remove('active');
+		break;
+	case 'spells':
+		$('#class_spells')[0].classList.add('active');
+		$('#class_traits')[0].classList.remove('active');
+		break;
+	default:
+		$('#class_traits')[0].classList.add('active');
+	}
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
 	if (localStorage.getItem('class_info')==='description'){
@@ -107,8 +152,14 @@ function setActiveClass(element, englishName) {
 				const checkLi = event.target.tagName;
 				if (checkLi === 'SPAN' || checkLi === 'LI'){
 					setActiveArchetype(this, selecedClassName.id, this.id);
+					localStorage.setItem('selected_archetype',  this.id);
 				} 
 			});
+		}
+		var archetepyName = localStorage.getItem('selected_archetype');
+		if (archetepyName){
+			var selecedArchetypeName = $('#'+ archetepyName);
+			setActiveArchetype(selecedArchetypeName[0], localStorage.getItem('selected_class'), archetepyName);
 		}
 	});
 }
@@ -121,4 +172,6 @@ function setActiveArchetype(element, className, archetypeName) {
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
 		$(".content_block").load(url);
 	}
+	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
+
 }

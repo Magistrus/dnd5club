@@ -17,6 +17,7 @@ public class SpellDto {
 	private int id;	
 	private String level;
 	private String name;
+	private String description;
 	private String ritual;
 	private String concentration;
 	private String school;
@@ -32,10 +33,11 @@ public class SpellDto {
 	
 	public SpellDto(Spell spell) {
 		id = spell.getId();
-		level = spell.getLevel() == 0 ? "Заговор" : String.valueOf(spell.getLevel());
+		level = spell.getLevel() == 0 ? "Заговор" : String.valueOf(spell.getLevel()) + " уровень";
 		name = StringUtils.capitalizeWords(spell.getName().toLowerCase())
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
+		description = spell.getDescription();
 		ritual = String.valueOf(spell.getRitual());
 		concentration = String.valueOf(spell.getConcentration());
 		school = spell.getSchool().getName();
