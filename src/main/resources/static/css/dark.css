@@ -47,18 +47,33 @@
 /********* Icons Classes *********/
 :root {
   --all-classes: url(/resources/assets/icon/dark/classes/all_classes.svg);
-  --bard: url(/resources/assets/icon/dark/classes/bard_big.svg);
-  --barbarian: url(/resources/assets/icon/dark/classes/barbarian_big.svg);
-  --fighter: url(/resources/assets/icon/dark/classes/fighter_big.svg);
-  --wizard: url(/resources/assets/icon/dark/classes/wizard_big.svg);
-  --druid: url(/resources/assets/icon/dark/classes/druid_big.svg);
-  --cleric: url(/resources/assets/icon/dark/classes/cleric_big.svg);
-  --artificer: url(/resources/assets/icon/dark/classes/artificer_big.svg);
-  --warlock: url(/resources/assets/icon/dark/classes/warlock_big.svg);
-  --monk: url(/resources/assets/icon/dark/classes/monk_big.svg);
-  --paladin: url(/resources/assets/icon/dark/classes/paladin_big.svg);
-  --rogue: url(/resources/assets/icon/dark/classes/rogue_big.svg);
-  --ranger: url(/resources/assets/icon/dark/classes/ranger_big.svg);
-  --sorcerer: url(/resources/assets/icon/dark/classes/sorcerer_big.svg);
-  --blood_hunter: url(/resources/assets/icon/dark/classes/blood_hunter_big.svg);
+  --bard-big: url(/resources/assets/icon/dark/classes/bard_big.svg);
+  --barbarian-big: url(/resources/assets/icon/dark/classes/barbarian_big.svg);
+  --fighter-big: url(/resources/assets/icon/dark/classes/fighter_big.svg);
+  --wizard-big: url(/resources/assets/icon/dark/classes/wizard_big.svg);
+  --druid-big: url(/resources/assets/icon/dark/classes/druid_big.svg);
+  --cleric-big: url(/resources/assets/icon/dark/classes/cleric_big.svg);
+  --artificer-big: url(/resources/assets/icon/dark/classes/artificer_big.svg);
+  --warlock-big: url(/resources/assets/icon/dark/classes/warlock_big.svg);
+  --monk-big: url(/resources/assets/icon/dark/classes/monk_big.svg);
+  --paladin-big: url(/resources/assets/icon/dark/classes/paladin_big.svg);
+  --rogue-big: url(/resources/assets/icon/dark/classes/rogue_big.svg);
+  --ranger-big: url(/resources/assets/icon/dark/classes/ranger_big.svg);
+  --sorcerer-big: url(/resources/assets/icon/dark/classes/sorcerer_big.svg);
+  --blood_hunter-big: url(/resources/assets/icon/dark/classes/blood_hunter_big.svg);
+
+  --bard: url(/resources/assets/icon/dark/classes/bard.svg);
+  --barbarian: url(/resources/assets/icon/dark/classes/barbarian.svg);
+  --fighter: url(/resources/assets/icon/dark/classes/fighter.svg);
+  --wizard: url(/resources/assets/icon/dark/classes/wizard.svg);
+  --druid: url(/resources/assets/icon/dark/classes/druid.svg);
+  --cleric: url(/resources/assets/icon/dark/classes/cleric.svg);
+  --artificer: url(/resources/assets/icon/dark/classes/artificer.svg);
+  --warlock: url(/resources/assets/icon/dark/classes/warlock.svg);
+  --monk: url(/resources/assets/icon/dark/classes/monk.svg);
+  --paladin: url(/resources/assets/icon/dark/classes/paladin.svg);
+  --rogue: url(/resources/assets/icon/dark/classes/rogue.svg);
+  --ranger: url(/resources/assets/icon/dark/classes/ranger.svg);
+  --sorcerer: url(/resources/assets/icon/dark/classes/sorcerer.svg);
+  --blood_hunter: url(/resources/assets/icon/dark/classes/blood_hunter.svg);
 }

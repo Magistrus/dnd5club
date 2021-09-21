@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
-	<div id="list_page_two_block" layout:fragment="content">
+	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
 		<div id="left_block">
 			<div class="header_block">
 				<h3>Заклинания</h3>
 			</div>
-			<div class="container_left" data-simplebar>
-				<table id="spells" class="" th:fragment="spellTable">
+			<div class="container_left table_list" data-simplebar>
+				<table id="spells" class="table_list spells_list" th:fragment="spellTable">
 					<thead style="display: none">
 						<tr>
 							<th>Название</th>
@@ -27,8 +27,44 @@
 				</div>
 			</div>
 			<div id="info_wrapper" class="info_wrapper" data-simplebar>
-				<div id="title_sub_menu" class="sub_menu_list"></div>
-				<div class="content_block">sds</div>
+				<div id="sub_menu" class="sub_menu_list sub_spells_info">
+					<ul>
+						<li>
+							<h5>Тип:</h5>
+							<span>Заговор , иллюзия</span>
+						</li>
+						<li>
+							<h5>Время накладывания:</h5>
+							<span>1 действие</span>
+						</li>
+						<li>
+							<h5>Дистанция:</h5>
+							<span>30 футов</span>
+						</li>
+						<li>
+							<h5>Компоненты:</h5>
+							<span>Cоматический, Mатериальный (кусок овечьей шерсти)</span>
+						</li>
+						<li>
+							<h5>Длительность:</h5>
+							<span>1 минута</span>
+						</li>
+						<li>
+							<h5>Классы:</h5>
+							<div class="classes_icon">
+								<a href="#" class="icon icon_bard"></a>
+								<a href="#" class="icon icon_wizard"></a>
+								<a href="#" class="icon icon_druid"></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="content_block">
+					<p>Вы создаёте звук или образ предмета в пределах дистанции, существующий, пока активно заклинание. Иллюзия также оканчивается, если вы отпустите её действием или используете это заклинание ещё раз.</p>
+					<p>Если вы создаёте звук, его громкость может быть как шёпотом, так и криком. Это может быть ваш голос, чей-то другой голос, львиный рык, бой барабанов или любой другой звук. Звук звучит всю длительность заклинания, или вы можете создавать отдельные звуки в разное время, пока заклинание активно.</p>
+					<p>Если вы создаёте образ предмета — например, стул, отпечаток в грязи, или небольшой сундук — он должен помещаться в куб с длиной ребра 5 футов. Образ не может издавать звуки, свет, запах или прочие сенсорные эффекты. Образ нельзя перемещать. Физическое взаимодействие с образом даёт понять, что это иллюзия, потому что сквозь него всё проходит.</p>
+					<p>Если существо действием исследует звук или образ, оно может понять, что это иллюзия, совершив успешную проверку Интеллекта (Анализ) против Сл ваших заклинаний. Если существо распознаёт иллюзию, она для него становится нечёткой.</p>
+				</div>
 			</div>
 		</div>
 	</div>

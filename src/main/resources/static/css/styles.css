@@ -404,13 +404,13 @@ body {
 }
 
 /******** Состояния ********/
-#container_card.condition_page #right_block .info_wrapper .content_block {
+.container_page.condition_page #right_block .info_wrapper .content_block {
   margin-left: 0;
   padding-left: 0;
   border: none;
 }
 
-#container_card.condition_page #right_block .info_wrapper .content_block ul {
+#container_page.condition_page #right_block .info_wrapper .content_block ul {
   list-style: disc;
 }
 
@@ -578,14 +578,15 @@ body {
   border-right: 1px solid var(--border);
 }
 
-#right_block .info_wrapper .sub_menu_list ul {
+/******** Архитипы ********/
+#right_block .info_wrapper .sub_menu_list.archetype ul {
   text-decoration: none;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-#right_block .info_wrapper .sub_menu_list li {
+#right_block .info_wrapper .sub_menu_list.archetype li {
   position: relative;
   padding-top: 16px;
   padding-bottom: 16px;
@@ -595,38 +596,38 @@ body {
   transition: background-color 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list li:hover {
+#right_block .info_wrapper .sub_menu_list.archetype li:hover {
   background-color: var(--hover);
   transition: background-color 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list li.active {
+#right_block .info_wrapper .sub_menu_list.archetype li.active {
   border-left: 3px solid var(--primary);
   background-color: var(--hover);
   transition: background-color 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list li span.name {
+#right_block .info_wrapper .sub_menu_list.archetype li span.name {
   color: var(--text-color);
   text-decoration: none;
   width: 100%;
   display: block;
 }
 
-#right_block .info_wrapper .sub_menu_list li .sub_info {
+#right_block .info_wrapper .sub_menu_list.archetype li .sub_info {
   display: block;
 }
 
-#right_block .info_wrapper .sub_menu_list li span {
+#right_block .info_wrapper .sub_menu_list.archetype li span {
   color: var(--text-g-color);
 }
 
-#right_block .info_wrapper .sub_menu_list li.active .btn_close {
+#right_block .info_wrapper .sub_menu_list.archetype li.active .btn_close {
   opacity: 1;
   transition: all 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list li .btn_close {
+#right_block .info_wrapper .sub_menu_list.archetype li .btn_close {
   width: 32px;
   height: 32px;
   position: absolute;
@@ -638,23 +639,57 @@ body {
   transition: all 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list li .btn_close:hover {
+#right_block .info_wrapper .sub_menu_list.archetype li .btn_close:hover {
   background-color: var(--hover);
 }
 
-#right_block .info_wrapper .sub_menu_list li.title_sub_menu {
+#right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu {
   cursor: auto;
   border-bottom: none;
   background-color: var(--bg-sub-menu);
 }
 
-#right_block .info_wrapper .sub_menu_list li.title_sub_menu h5{
+#right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu h5{
   margin: 0;
 }
 
-#right_block .info_wrapper .sub_menu_list li.title_sub_menu:hover {
+#right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu:hover {
   background-color: var(--bg-sub-menu);
 }
+
+/******** Информация о заклинание ********/
+#right_block .info_wrapper .sub_menu_list.sub_spells_info ul {
+  text-decoration: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#right_block .info_wrapper .sub_menu_list.sub_spells_info li {
+  position: relative;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+#right_block .info_wrapper .sub_menu_list.sub_spells_info li .classes_icon {
+  display:flex;
+  flex-direction: row;
+}
+
+#right_block .info_wrapper .sub_menu_list.sub_spells_info li .icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--hover);
+  border-radius: 8px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
 
 #right_block .info_wrapper .content_block {
   margin-left: 266px;
@@ -664,6 +699,7 @@ body {
   padding-top: 24px;
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
+  height: calc(100vh - 97px);
 }
 
 @media (max-width: 1000px) {
@@ -680,9 +716,33 @@ body {
   }
 }
 
-/******** Список из таблицы ********/
-.table_list {
+/******** Список из таблицы********/
+.table_list_left_block .table_list {
+  border: none;
+  /* margin-left: -24px; */
+}
+
+.table_list_left_block .table_list tr {
+  background: none;
+}
+
+/******** Список из таблицы / заклинания********/
+.table_list_left_block .spells_list {
   
+}
+
+.table_list_left_block.block_information #right_block .header_block .btn_full_screen {
+  right: 0;
+}
+
+@media (min-width: 1000px) {
+  .table_list_left_block.block_information #right_block .header_block .btn_close {
+    display: none;
+  }
+}
+
+.table_list_left_block.block_information #right_block .info_wrapper .{
+  display: none;
 }
 
 /******** Кнопки ********/
@@ -809,6 +869,62 @@ button {
 
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
+}
+
+.icon_bard_big {
+  background-image: var(--bard-big);
+}
+
+.icon_barbarian_big {
+  background-image: var(--barbarian-big);
+}
+
+.icon_fighter_big {
+  background-image: var(--fighter-big);
+}
+
+.icon_wizard_big {
+  background-image: var(--wizard-big);
+}
+
+.icon_druid_big {
+  background-image: var(--druid-big);
+}
+
+.icon_cleric_big {
+  background-image: var(--cleric-big);
+}
+
+.icon_artificer_big {
+  background-image: var(--artificer-big);
+}
+
+.icon_warlock_big {
+  background-image: var(--warlock-big);
+}
+
+.icon_monk_big {
+  background-image: var(--monk-big);
+}
+
+.icon_paladin_big {
+  background-image: var(--paladin-big);
+}
+
+.icon_rogue_big {
+  background-image: var(--rogue-big);
+}
+
+.icon_ranger_big {
+  background-image: var(--ranger-big);
+}
+
+.icon_sorcerer_big {
+  background-image: var(--sorcerer-big);
+}
+
+.icon_blood_hunter_big {
+  background-image: var(--blood_hunter-big);
 }
 
 .tooltip_scroll{
