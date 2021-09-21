@@ -26,12 +26,10 @@ $('.card').on('click', 	function() {
 			history.pushState('data to be passed', '', '/classes/');
 		} else {
 			rightContainer.className = 'block_information ' + englishName;
-			localStorage.removeItem('selected_condition');
 			setActiveCondition(this, englishName);
 		}
 	} else {
 		rightContainer.classList.add('block_information', englishName);
-		localStorage.removeItem('selected_condition');
 		setActiveCondition(this, englishName);
 	}
 });
