@@ -43,13 +43,13 @@ $('#class_traits').on('click', function() {
 	this.classList.add('active');
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active'); 
+	localStorage.setItem('class_info', 'traits');
 	if(selectedArchetype.length === 1){
 		setActiveArchetype(selectedArchetype[0], selectedClass.id, selectedArchetype[0].id);
 	}
 	else {
 		setActiveClass(selectedClass, selectedClass.id);
 	}
-	localStorage.setItem('class_info', 'traits');
 });
 $('#class_description').on('click', function() {
 	$('#class_traits')[0].classList.remove('active');
