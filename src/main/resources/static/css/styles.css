@@ -403,6 +403,12 @@ body {
   background-position: center;
 }
 
+/******** Состояния ********/
+.container_card.condition #right_block .content_block {
+  margin-left: 0;
+  padding-left: 0;
+}
+
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
