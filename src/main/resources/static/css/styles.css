@@ -803,9 +803,8 @@ button {
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
 }
-.scroll_tooltip{
-     max-height: 250px !important;
-}
 .tooltip_scroll{
-	max-height:  200px;
+	overflow: auto;
+	height: 350px;
+	width: 450px;
 }

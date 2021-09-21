@@ -10,13 +10,15 @@ $(document).ready(function() {
 	        	};
 	        }
 	      },
-	      afterUpdate: function(content, element) {
-	    	  content.classList.add('tooltip_scroll');
-	    	  content.setAttribute('data-simplebar','');
-	      },
-          onShow: function(content, element) {
-          },
-		  maxWidth: 350,
+		  afterUpdate: function(content, element) {
+		   	simpleBar = new SimpleBar(content);
+		   	content.classList.add('tooltip_scroll');
+		  },
+		  onShow: function(content, element) {
+		   	simpleBar = new SimpleBar(content);
+		   	simpleBar.recalculate();
+		  },
+	      maxWidth: 350,
 	      skin: localStorage.getItem('theme'),
 	      radius: false,
 	      close: true,
