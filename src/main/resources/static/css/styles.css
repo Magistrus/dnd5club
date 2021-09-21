@@ -569,11 +569,13 @@ body {
 }
 
 #right_block .info_wrapper .sub_menu_list {
-  position: absolute;
+  position: relative;
   width: 290px;
-  bottom: 0;
-  left: 0;
-  top: 0;
+  bottom: -24px;
+  left: -24px;
+  top: -24px;
+  float: left;
+  border-right: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list ul {
@@ -658,7 +660,7 @@ body {
   margin-left: 266px;
   margin-top: -24px;
   margin-bottom: -24px;
-  padding-left: 48px;
+  padding-left: 24px;
   padding-top: 24px;
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
