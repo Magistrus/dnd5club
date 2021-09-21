@@ -83,7 +83,7 @@ $('#btn_close').on('click', function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	var className = this.querySelector("#header_class_name").textContent;
+	var className = this.querySelector("#classes_id").textContent;
 	document.getElementById('class_name').innerHTML = className;
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
