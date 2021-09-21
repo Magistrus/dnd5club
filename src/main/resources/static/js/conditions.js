@@ -15,7 +15,7 @@ $('.card').on('click', 	function() {
 	var rightContainer = document.getElementById('container_card');
 	var conditionName = this.querySelector("#condition_id").textContent;
 	document.getElementById('condition_name').innerHTML = conditionName;
-	document.title = className;
+	document.title = conditionName;
 	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
