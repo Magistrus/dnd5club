@@ -10,7 +10,7 @@
 				<div id="card_wrapper" class="card_wrapper">
 					<div th:id="${class.englishName.replace(' ', '_')}" class="card" th:each="class : ${classes}">
 						<div class="infimation">
-							<h5 id="header_class_name" th:text="${class.capitalazeName}">Class name</h5>
+							<h5 id="classes_id" class="header_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
 								<span class='tip' th:attr="data-tipped-options=|inline: 'inline-tooltip-source-${class.id}'|" th:text="${class.book.source}"></span><span th:text="| / к${class.diceHp}|"></span><span

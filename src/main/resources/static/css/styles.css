@@ -379,7 +379,7 @@ body {
   border:1px solid var(--primary);
 }
 
-.card_wrapper .card .infimation #header_class_name {
+.card_wrapper .card .infimation .header_name {
   margin: 0;
 }
 
