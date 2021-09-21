@@ -403,6 +403,17 @@ body {
   background-position: center;
 }
 
+/******** Состояния ********/
+#container_card.condition_page #right_block .info_wrapper .content_block {
+  margin-left: 0;
+  padding-left: 0;
+  border: none;
+}
+
+#container_card.condition_page #right_block .info_wrapper .content_block ul {
+  list-style: disc;
+}
+
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
