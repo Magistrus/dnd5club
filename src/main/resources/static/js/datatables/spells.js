@@ -9,8 +9,7 @@ $(document).ready(function() {
 		dom: 'ti',
 		serverSide : true,
 		ajax : '/data/spells',
-		scrollY: "85vh",
-		scroller: true,
+		select: true,
 		//paging: false,
 		select: {
 			style: 'single'
@@ -18,7 +17,6 @@ $(document).ready(function() {
 		columns : [
 		{
 			data : "name",
-			width : "20%", 
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var school = '';
