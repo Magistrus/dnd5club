@@ -23,7 +23,7 @@ $('.card').on('click', 	function() {
 			rightContainer.classList.remove('block_information', englishName);
 			$(".card").removeClass('active');
 			localStorage.removeItem('selected_condition');
-			history.pushState('data to be passed', '', '/classes/');
+			history.pushState('data to be passed', '', '/conditions/');
 		} else {
 			rightContainer.className = 'block_information ' + englishName;
 			setActiveCondition(this, englishName);
@@ -40,3 +40,6 @@ function setActiveCondition(element, englishName){
 	var url = '/conditions/fragment/' + englishName;
 	$(".content_block").load(url);
 }
+$('#btn_close').on('click', function() {
+	document.getElementById('container_card').classList.toggle('block_information');
+});
