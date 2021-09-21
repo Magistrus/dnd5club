@@ -809,3 +809,9 @@ button {
 	max-width: 350px;
 	min-width: 450px;
 }
+
+.tpd-tooltip .tpd-content-relative .tpd-content-relative-padder .tpd-content {
+  max-width: 550px;
+  max-height: 350px;
+  overflow-y: auto;
+}

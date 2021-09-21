@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import club.dnd5.portal.model.Language;
 import club.dnd5.portal.model.SkillType;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
