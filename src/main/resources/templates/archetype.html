@@ -4,7 +4,7 @@
 <title th:text="|${archetypeName} - ${heroClass.name}|"></title>
 </head>
 <body>
-	<div th:fragment="view" th:object="${heroClass}">
+	<div style="margin-left: 24px;" th:fragment="view" th:object="${heroClass}">
 		<div th:replace="class :: classInfo"></div>
 		<table class="classes_tablet">
 			<thead>
