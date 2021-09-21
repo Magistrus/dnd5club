@@ -795,29 +795,36 @@ button {
 .scroll_tooltip{
      max-height: 250px !important;
 }
-/* #main-content {
-  height: 100vh;
+
+
+
+
+		
+.main-p {
+  height: 500px;
+  width: 100%;
+  overflow: auto;
 }
 
-		.container{
-			max-width: 700px;
-			margin: 0 auto;
-		}
+.container{
+  max-width: 700px;
+  margin: 0 auto;
+}
 
-		#content{
-			border: 2px dotted green;
-			padding: 18px;
-			margin-left: 215px;
-			min-height: 2000px;
-			color: darkgrey;
-		}
+#content{
+  border: 2px dotted green;
+  padding: 18px;
+  margin-left: 215px;
+  min-height: 2000px;
+  color: darkgrey;
+}
 
-		#sidebar{
-			float: left;
-			width: 200px;
-			color: #ffbdbd;
-			will-change: min-height;
-		}
+#sidebar{
+  float: left;
+  width: 200px;
+  color: #ffbdbd;
+  will-change: min-height;
+}
 
 		#sidebar .sidebar__inner{
 			border: 2px dotted red;
@@ -838,4 +845,4 @@ button {
 			background: rgba(0, 0, 0, 0.02);
 			line-height: 300px;
 			line-height: 95vh;
-		} */
+		}
