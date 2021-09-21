@@ -803,9 +803,71 @@ button {
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
 }
+.icon_bard_big {
+  background-image: var(--bard-big);
+}
+
+.icon_barbarian_big {
+  background-image: var(--barbarian-big);
+}
+
+.icon_fighter_big {
+  background-image: var(--fighter-big);
+}
+
+.icon_wizard_big {
+  background-image: var(--wizard-big);
+}
+
+.icon_druid_big {
+  background-image: var(--druid-big);
+}
+
+.icon_cleric_big {
+  background-image: var(--cleric-big);
+}
+
+.icon_artificer_big {
+  background-image: var(--artificer-big);
+}
+
+.icon_warlock_big {
+  background-image: var(--warlock-big);
+}
+
+.icon_monk_big {
+  background-image: var(--monk-big);
+}
+
+.icon_paladin_big {
+  background-image: var(--paladin-big);
+}
+
+.icon_rogue_big {
+  background-image: var(--rogue-big);
+}
+
+.icon_ranger_big {
+  background-image: var(--ranger-big);
+}
+
+.icon_sorcerer_big {
+  background-image: var(--sorcerer-big);
+}
+
+.icon_blood_hunter_big {
+  background-image: var(--blood_hunter-big);
+}
+
 .tooltip_scroll{
 	overflow-y: auto;
+	min-height: 50px;
 	max-height: 350px;
-	max-width: 350px;
-	min-width: 450px;
+	width: 450px;
 }
+
+/* .tpd-tooltip .tpd-content-relative .tpd-content-relative-padder .tpd-content {
+  max-width: 550px;
+  max-height: 350px;
+  overflow-y: auto;
+} */

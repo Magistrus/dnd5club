@@ -48,7 +48,6 @@ $(document).ready(function() {
 		    	var simpleBar = new SimpleBar(content);
 		    	simpleBar.recalculate();
 		    },
-		    radius: false,
 		});
 	});
 });
