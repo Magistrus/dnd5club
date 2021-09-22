@@ -429,7 +429,7 @@ body {
   border: none;
 }
 
-#container_page.condition_page #right_block .info_wrapper .content_block ul {
+.container_page.condition_page #right_block .info_wrapper .content_block ul {
   list-style: disc;
 }
 
@@ -571,6 +571,10 @@ body {
   width: auto;
   background-color: var(--hover);
   transition: all 0.6s;
+}
+
+#right_block .header_block .header_sub_menu button:hover span {
+  color: var(--text-color);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
@@ -772,6 +776,7 @@ body {
   padding-top: 24px;
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
+  min-height: calc(100vh - 97px);
 }
 
 @media (max-width: 1000px) {
@@ -843,6 +848,7 @@ body {
     display: none;
   }
 }
+
 
 /******** Кнопки ********/
 button {
