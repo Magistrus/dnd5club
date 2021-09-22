@@ -11,19 +11,6 @@
 				</div>
 			</div>
 			<div class="container_left table_list" data-simplebar>
-
-				<table id="" class="table_list spells_list">
-					<tbody>
-						<tr>
-							<td>
-								<div rowspan="2" class="spell_lvl">Уровень</div>
-								<div class="spell_name">Название <span>англ название</span></div>
-								<div calss="spell_school">Школа</div>
-							</td>	
-						</tr>
-					</tbody>
-				</table>
-
 				<table id="spells" class="table_list spells_list" th:fragment="spellTable">
 					<thead style="display: none">
 						<tr>
@@ -48,7 +35,7 @@
 					<ul>
 						<li>
 							<h5>Тип:</h5>
-							<span id="level">-</span>
+							<span id="level" style="text-transform: capitalize;">-</span>
 						</li>
 						<li>
 							<h5>Время накладывания:</h5>
