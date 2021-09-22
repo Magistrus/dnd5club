@@ -1,16 +1,13 @@
 $(document).ready(function() {
-	$('a.toggle-vis').on( 'click', function (e) {
-		e.preventDefault();
-		var column = table.column( $(this).attr('data-column') );
-		column.visible( ! column.visible() );
-	});
 	var table = $('#spells').DataTable({
 		stateSave: true,
 		dom: 'ti',
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
+		iDisplayLength : 50,
 		//paging: false,
+		
 		select: {
 			style: 'single'
 		},
@@ -19,22 +16,18 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var school = '';
-					var result = '<h5>' + data + ' <p class="en_title encaption_text">' + row.englishName ;
-					if (row.ritual === 'true') {
-							result+=' <span title="ритуал">Р</span>'; 
-					}
-					if (row.concentration === 'true') {
-						result+=' <span title="концентрация">К</span>';	
-					}
-					result+='</p></h5><small>';
-					result += row.school;
-					result += '</small>';
+					var result = '<h5>' + data + '</h5>';
+					result+='<p class="en_title encaption_text">' ;
+					result+= '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +row.id+'\'">' + row.bookshort + '</span>';
+					result+= '<span id="inline-tooltip-source-'+ row.id + '" style="display: none">' + row.book + '</span>';
+					result+=  '/ '+ row.englishName;
+					result+= '</p>'; 
+					result+='<small>' + row.school + '</small>';
 					return result;
 				}
 				return data;
-				}, 
-			},
+			}, 
+		},
 			],
 			columnDefs : [
 				{
@@ -77,7 +70,26 @@ $(document).ready(function() {
 		var tr = $(this).closest('tr');
 		var table = $('#spells').DataTable();
 		var row = table.row( tr );
-		var url = '/spells/fragment/' + row.data().id;
+		var data = row.data();
+		document.getElementById('spell_name').innerHTML = data.name;
+		document.getElementById('level').innerHTML = data.level +', ' + data.school;
+		document.getElementById('timecast').innerHTML = data.timeCast;
+		document.getElementById('distance').innerHTML = data.distance;
+		document.getElementById('components').innerHTML = data.components;
+		document.getElementById('duration').innerHTML = data.duration;
+		const classIconsElement = document.getElementById('class_icons');
+		while (classIconsElement.firstChild) {
+			classIconsElement.removeChild(classIconsElement.firstChild);
+		}
+		data.classes.forEach(element => {
+			var a = document.createElement("a");
+			a.href = '/classes/' + element.englishName; 
+			a.title = element.name;
+			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
+			classIconsElement.appendChild(a);
+		});
+		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
+		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
 });

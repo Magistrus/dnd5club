@@ -19,7 +19,11 @@ public class SpellController {
 	public String getSpells() {
 		return "spells";
 	}
-	
+	@GetMapping("/spells/{name}")
+	public String getSpell(Model model, @PathVariable String name) {
+		model.addAttribute("selectedSpell", "name");
+		return "spells";
+	}
 	@GetMapping("/spells/fragment/{id}")
 	public String getSpellFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		model.addAttribute("spell", spellRepository.findById(id).orElseThrow(InvalidAttributesException::new));

@@ -154,7 +154,7 @@ function setActiveClass(element, englishName) {
 			elements[i].addEventListener('click', function(event) {
 				var selecedClassName = $('.card.active')[0];
 				const checkLi = event.target.tagName;
-				if (checkLi === 'SPAN' || checkLi === 'LI'){
+				if (checkLi === 'SPAN' || checkLi === 'LI' || checkLi === 'DIV'){
 					setActiveArchetype(this, selecedClassName.id, this.id);
 					localStorage.setItem('selected_archetype',  this.id);
 				} 
