@@ -11,6 +11,19 @@
 				</div>
 			</div>
 			<div class="container_left table_list" data-simplebar>
+
+				<table id="" class="table_list spells_list">
+					<tbody>
+						<tr>
+							<td rowspan="2" class="spell_lvl">Уровень</td>
+							<td class="spell_name">Название <span>англ название</span></td>
+						</tr>
+						<tr>
+							<td calss="spell_school">Школа</td>
+						</tr>
+					</tbody>
+				</table>
+
 				<table id="spells" class="table_list spells_list" th:fragment="spellTable">
 					<thead style="display: none">
 						<tr>
@@ -60,6 +73,10 @@
 								<a href="#" class="icon icon_wizard"></a>
 								<a href="#" class="icon icon_druid"></a>
 							</div>
+						</li>
+						<li>
+							<h5>Источник:</h5>
+							<span id="source_spell">-</span>
 						</li>
 					</ul>
 				</div>
