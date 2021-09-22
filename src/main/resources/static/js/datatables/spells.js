@@ -83,8 +83,9 @@ $(document).ready(function() {
 		}
 		data.classes.forEach(element => {
 			var a = document.createElement("a");
-			a.href = '/classes/' + element; 
-			a.classList.add('icon', 'icon_' + element);
+			a.href = '/classes/' + element.englishName; 
+			a.title = element.name;
+			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
 			classIconsElement.appendChild(a);
 		});
 		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
