@@ -8,6 +8,8 @@ $(document).ready(function() {
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', selected);
 		setActiveCondition(element, selected);
+		var conditionName = element.querySelector("#condition_id").textContent;
+		document.getElementById('condition_name').innerHTML = conditionName;
 	}
 });
 $('.card').on('click', 	function() {
