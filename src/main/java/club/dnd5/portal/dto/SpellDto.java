@@ -1,14 +1,13 @@
 package club.dnd5.portal.dto;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
-import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.Spell;
-import lombok.AllArgsConstructor;
+import groovy.transform.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +30,8 @@ public class SpellDto {
 	private String book;
 	private String bookshort;
 	private String englishName;
-	private List<HeroClassDto> classes;
+	private Set<ShortClassDto> classes;
+
 	private Boolean consumable = false;
 	
 	public SpellDto(Spell spell) {
@@ -53,18 +53,19 @@ public class SpellDto {
 		consumable = spell.getConsumable();
 		englishName = spell.getEnglishName();
 		classes = spell.getHeroClass().stream()
-				.map(HeroClassDto::new)
-				.collect(Collectors.toList());
+				.map(ShortClassDto::new)
+				.collect(Collectors.toSet());
 		book = spell.getBook().getName() + (spell.getPage() != null ? ", стр. " + spell.getPage() : "");
 		bookshort = spell.getBook().getSource();
 	}
 	
 	@Getter
 	@NoArgsConstructor
-	private class HeroClassDto{
+	@EqualsAndHashCode
+	private class ShortClassDto{
 		private String name;
 		private String englishName;
-		public HeroClassDto(HeroClass heroClass) {
+		public ShortClassDto(HeroClass heroClass) {
 			name = heroClass.getName();
 			englishName = heroClass.getEnglishName();
 		}
