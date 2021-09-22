@@ -5,11 +5,7 @@
 </head>
 <body>
 	<div th:object="${spell}" th:fragment="view">
-<<<<<<< HEAD
 		<div th:utext="*{description}"></div>
-=======
-		<th:block th:utext="*{description}" />
->>>>>>> refs/heads/portal
 		<p th:if="${spell.upperLevel}">
 			<strong>На более высоких уровнях: </strong> <span th:utext="*{upperLevel}"></span>
 		</p>

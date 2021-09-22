@@ -1,10 +1,12 @@
 package club.dnd5.portal.dto;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,9 @@ public class SpellDto {
 	private String duration;
 	private String upperLevel;
 	private String book;
+	private String bookshort;
 	private String englishName;
+	private List<String> classes;
 	private Boolean consumable = false;
 	
 	public SpellDto(Spell spell) {
@@ -47,6 +51,11 @@ public class SpellDto {
 		components += spell.getAdditionalMaterialComponent() != null ? "(" + spell.getAdditionalMaterialComponent()+ ")" : "";
 		consumable = spell.getConsumable();
 		englishName = spell.getEnglishName();
+		classes = spell.getHeroClass().stream()
+				.map(HeroClass::getEnglishName)
+				.map(String::toLowerCase)
+				.collect(Collectors.toList());
 		book = spell.getBook().getName() + (spell.getPage() != null ? ", стр. " + spell.getPage() : "");
+		bookshort = spell.getBook().getSource();
 	}
 }
