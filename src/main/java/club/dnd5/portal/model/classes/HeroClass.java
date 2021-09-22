@@ -158,6 +158,7 @@ public class HeroClass {
 				.collect(Collectors.toList());
 		return levelArhitypeFeats;
 	}
+	
 	public List<ArchetypeTrait> getArhitypeTraitNames(int arhitypeId, int level){
 		List<ArchetypeTrait> levelArhitypeFeats = archetypes
 				.stream()

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var table = $('#spells').DataTable({
-		stateSave: true,
+		//stateSave: true,
 		dom: 'ti',
 		serverSide : true,
 		ajax : '/data/spells',
@@ -16,23 +16,24 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result = '<h5>' + data + '</h5>';
-					result+='<p class="en_title encaption_text">' ;
-					result+= '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +row.id+'\'">' + row.bookshort + '</span>';
-					result+= '<span id="inline-tooltip-source-'+ row.id + '" style="display: none">' + row.book + '</span>';
-					result+=  '/ '+ row.englishName;
-					result+= '</p>'; 
-					result+='<small>' + row.school + '</small>';
+					var result ='<div class="spell_lvl">' + row.level + '</div>';
+					result+='<div class="spell_name">' + row.name;
+					result+='<span>' + row.englishName + '</span></div>';
+					result+='<div class="spell_school">' + row.school + '</div>';
 					return result;
 				}
 				return data;
-			}, 
+			}
+		}, 
+		{
+			data : 'englishName',
+			width : "1%",
 		},
-			],
+		],
 			columnDefs : [
 				{
-					"targets": [ 0 ],
-					"visible": true
+					"targets": [ 1 ],
+					"visible": false
 				},
 			],
 			buttons: [
@@ -72,11 +73,15 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		document.getElementById('spell_name').innerHTML = data.name;
-		document.getElementById('level').innerHTML = data.level +', ' + data.school;
+		document.getElementById('level').innerHTML =  (data.level === 'ЗГ' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
 		document.getElementById('timecast').innerHTML = data.timeCast;
 		document.getElementById('distance').innerHTML = data.distance;
 		document.getElementById('components').innerHTML = data.components;
 		document.getElementById('duration').innerHTML = data.duration;
+		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
+		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+		document.getElementById('source_spell').innerHTML = source;
+
 		const classIconsElement = document.getElementById('class_icons');
 		while (classIconsElement.firstChild) {
 			classIconsElement.removeChild(classIconsElement.firstChild);
@@ -91,5 +96,8 @@ $(document).ready(function() {
 		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);
+	});
+	$('#search').on( 'keyup click', function () {
+		table.tables().search($(this).val()).draw();
 	});
 });
