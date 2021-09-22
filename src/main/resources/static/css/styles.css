@@ -835,36 +835,8 @@ body {
 
 
 /******** Список из таблицы / заклинания********/
-.table_list_left_block .spells_list tr .spell_lvl {
-  float: left;
-  width: 42px;
-  height: 42px;
-  display: block;
-  font-size: 17px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  text-align: center;
-  line-height: 42px;
-  margin-right: 16px;
-}
-
-.table_list_left_block .table_list tr.selected .spell_lvl {
-  border:1px solid var(--primary);
-}
-
-.table_list_left_block .spells_list tr .spell_name {
-  font-size: 15px;
-  line-height: 26px;
-}
-
-.table_list_left_block .spells_list tr .spell_name span {
-  color: var(--text-g-color);
-  margin-left: 8px;
-}
-
-.table_list_left_block .spells_list tr .spell_school {
-  color: var(--text-g-color);
-  text-transform: capitalize;
+.table_list_left_block .spells_list tr h5 {
+  margin-top: 0px;
 }
 
 .table_list_left_block.block_information #right_block .header_block .btn_full_screen {
@@ -901,6 +873,10 @@ button {
 
 .icon_spells {
   background-image: var(--icon-spells);
+}
+
+.icon_spells-w {
+  background-image: var(--icon-spells-w);
 }
 
 .icon_inventory {
