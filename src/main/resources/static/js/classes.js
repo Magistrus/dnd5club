@@ -35,8 +35,6 @@ $(document).ready(function() {
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', className);
 		setActiveClass(element, className);
-		var className = element.querySelector("#classes_id").textContent;
-		document.getElementById('class_name').innerHTML = className;
 	}
 });
 $('#class_traits').on('click', function() {
