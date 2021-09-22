@@ -41,8 +41,10 @@ public class SpellDto {
 		timeCast = spell.getTimes().stream().map(t-> t.getNumber() + " " + t.getUnit().getName(t.getNumber())).collect(Collectors.joining(" или "));
 		distance = spell.getDistance();
 		duration = spell.getDuration();
-		components = spell.getVerbalComponent() != null ? "Вербальный" : "";
-		components += spell.getAdditionalMaterialComponent();
+		components = spell.getVerbalComponent() ? "Вербальный" + (spell.getSomaticComponent() ? ", ":"") : "";
+		components += spell.getSomaticComponent() ? "Соматический" + (spell.getMaterialComponent() ? ", ":""): "";
+		components += spell.getMaterialComponent() ? "Материальный " : "";
+		components += spell.getAdditionalMaterialComponent() != null ? "(" + spell.getAdditionalMaterialComponent()+ ")" : "";
 		consumable = spell.getConsumable();
 		englishName = spell.getEnglishName();
 		book = spell.getBook().getName() + (spell.getPage() != null ? ", стр. " + spell.getPage() : "");

@@ -10,7 +10,7 @@ $(document).ready(function() {
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
-		//iDisplayLength : 10,
+		iDisplayLength : 100,
 		//paging: false,
 		
 		select: {
@@ -80,11 +80,14 @@ $(document).ready(function() {
 		var table = $('#spells').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
-		document.getElementById('level').innerHTML = data.level +', ' data.school;
+		document.getElementById('spell_name').innerHTML = data.name;
+		document.getElementById('level').innerHTML = data.level +', ' + data.school;
 		document.getElementById('timecast').innerHTML = data.timeCast;
 		document.getElementById('distance').innerHTML = data.distance;
 		document.getElementById('components').innerHTML = data.components;
 		document.getElementById('duration').innerHTML = data.duration;
+		history.pushState('data to be passed', '', '/spells/' + data.englishName.replace(' ', '_'));
+
 		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
