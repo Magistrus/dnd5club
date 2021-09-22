@@ -5,8 +5,8 @@ $(document).ready(function() {
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
-		//iDisplayLength : 50,
-		paging: false,
+		iDisplayLength : 50,
+		//paging: false,
 		
 		select: {
 			style: 'single'
@@ -26,13 +26,21 @@ $(document).ready(function() {
 					return result;
 				}
 				return data;
-			}, 
+			}
+		}, 
+		{
+			data : 'englishName',
+			width : "1%",
 		},
 			],
 			columnDefs : [
 				{
 					"targets": [ 0 ],
 					"visible": true
+				},
+				{
+					"targets": [ 1 ],
+					"visible": false
 				},
 			],
 			buttons: [
@@ -91,5 +99,8 @@ $(document).ready(function() {
 		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);
+	});
+	$('#search').on( 'keyup click', function () {
+		table.tables().search($(this).val()).draw();
 	});
 });
