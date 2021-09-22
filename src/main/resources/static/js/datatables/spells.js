@@ -5,8 +5,8 @@ $(document).ready(function() {
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
-		iDisplayLength : 50,
-		//paging: false,
+		//iDisplayLength : 50,
+		paging: false,
 		
 		select: {
 			style: 'single'
