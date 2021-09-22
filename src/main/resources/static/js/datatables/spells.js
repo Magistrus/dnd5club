@@ -10,7 +10,10 @@ $(document).ready(function() {
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
+<<<<<<< HEAD
 		iDisplayLength : 100,
+=======
+>>>>>>> refs/heads/portal
 		//paging: false,
 		
 		select: {
