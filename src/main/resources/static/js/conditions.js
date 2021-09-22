@@ -19,17 +19,17 @@ $('.card').on('click', 	function() {
 	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
-		if (rightContainer.classList.contains(englishName)) {
-			rightContainer.classList.remove('block_information', englishName);
+		if (localStorage.getItem('selected_condition') === englishName) {
+			rightContainer.classList.remove('block_information');
 			$(".card").removeClass('active');
 			localStorage.removeItem('selected_condition');
 			history.pushState('data to be passed', '', '/conditions/');
 		} else {
-			rightContainer.classList.add('block_information', englishName);
+			rightContainer.classList.add('block_information');
 			setActiveCondition(this, englishName);
 		}
 	} else {
-		rightContainer.classList.add('block_information', englishName);
+		rightContainer.classList.add('block_information');
 		setActiveCondition(this, englishName);
 	}
 });

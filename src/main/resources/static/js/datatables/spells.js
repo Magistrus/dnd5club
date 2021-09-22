@@ -73,7 +73,7 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		document.getElementById('spell_name').innerHTML = data.name;
-		document.getElementById('level').innerHTML = data.level +', ' + data.school;
+		document.getElementById('level').innerHTML =  (data.level === 'ЗГ' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
 		document.getElementById('timecast').innerHTML = data.timeCast;
 		document.getElementById('distance').innerHTML = data.distance;
 		document.getElementById('components').innerHTML = data.components;
