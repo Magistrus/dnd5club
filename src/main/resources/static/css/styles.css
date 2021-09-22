@@ -36,6 +36,10 @@ body {
   margin-top: 0px;
 }
 
+.hide_block {
+  display: none !important;
+}
+
 .icon_action {
   background-position: center;
   background-repeat: no-repeat;
@@ -55,6 +59,18 @@ body {
 .icon_close {
   background-image: var(--icon_close);
 }
+
+.icon_filters {
+  background-image: var(--icon_filters);
+}
+
+.tpd-tooltip  .tooltip_scroll{
+	overflow-y: auto;
+	min-height: 50px;
+	max-height: 350px;
+	width: 450px;
+}
+
 
 /******** Меню ********/
 .navbar {
@@ -306,6 +322,7 @@ body {
   transform: translateY(-50%);
 }
 
+
 /******** Карточки ********/
 .card_wrapper {
   display: flex;
@@ -394,6 +411,7 @@ body {
   margin-bottom: 0px;
 }
 
+
 /******** Классы ********/
 .card_wrapper .card .icon {
   display: block;
@@ -402,6 +420,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
 
 /******** Состояния ********/
 .container_page.condition_page #right_block .info_wrapper .content_block {
@@ -414,6 +433,7 @@ body {
   list-style: disc;
 }
 
+
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
@@ -424,6 +444,7 @@ body {
   position: sticky;
   background-color: var(--bg-main);
 }
+
 
 /******** Левый блок ********/
 #left_block {
@@ -439,7 +460,6 @@ body {
   margin-right: calc(58vw + 0px);
 }
 
-
 #left_block .container_left {
   height: calc(100vh - 73px);
 }
@@ -448,12 +468,59 @@ body {
   padding: 24px;
 }
 
+#left_block .header_block .search_int {
+  height: 70px;
+  border-left: 1px solid var(--border);
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  width: 200px;
+  background-image: var(--icon_search);
+  background-repeat: no-repeat;
+  background-position: 24px 24px;
+  padding-left: 64px;
+  position: absolute;
+  right: 72px;
+  top: 0;
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+  font-size: 15px;
+}
+
+#left_block .header_block .search_int:hover  {
+  background-color: var(--hover);
+}
+
+#left_block .header_block .search_int:focus-visible  {
+  outline: none;
+  background-color: var(--hover);
+}
+
+#left_block .header_block .btn_filters {
+  background-color: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  width: 72px;
+  height: 72px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+#left_block .header_block .btn_filters:hover {
+  background-color: var(--hover);
+}
+
+
 @media (max-width: 1000px) {
   .block_information #left_block {
     /* transition: margin-right 0.3s; */
     margin-right: calc(0vw + 0px);
   }
 }
+
 
 /******** Правй блок ********/
 #right_block {
@@ -477,10 +544,14 @@ body {
   display: flex;
 }
 
-#right_block .header_block .header_sub_menu button.active  {
+#right_block .header_block .header_sub_menu button.active {
   width: auto;
-  background-color: var(--primary);
+  background-color: var(--primary-active);
   transition: all 0.3s;
+}
+
+#right_block .header_block .header_sub_menu button:hover.active {
+  background-color: var(--primary);
 }
 
 #right_block .header_block .header_sub_menu button {
@@ -578,6 +649,7 @@ body {
   border-right: 1px solid var(--border);
 }
 
+
 /******** Архитипы ********/
 #right_block .info_wrapper .sub_menu_list.archetype ul {
   text-decoration: none;
@@ -657,6 +729,7 @@ body {
   background-color: var(--bg-sub-menu);
 }
 
+
 /******** Информация о заклинание ********/
 #right_block .info_wrapper .sub_menu_list.sub_spells_info ul {
   text-decoration: none;
@@ -699,7 +772,6 @@ body {
   padding-top: 24px;
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
-  height: calc(100vh - 97px);
 }
 
 @media (max-width: 1000px) {
@@ -716,19 +788,50 @@ body {
   }
 }
 
+
 /******** Список из таблицы********/
+.table_list_left_block #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+  padding: 0px;
+}
+
 .table_list_left_block .table_list {
   border: none;
-  /* margin-left: -24px; */
+  width: 100% !important;
 }
 
 .table_list_left_block .table_list tr {
   background: none;
 }
 
+.table_list_left_block .table_list tr:hover {
+  background: var(--hover);
+  cursor: pointer;
+}
+
+.table_list_left_block .table_list tr:hover td {
+  border-left:3px solid var(--hover);
+}
+
+.table_list_left_block .table_list tr.selected {
+  background: var(--hover);
+}
+
+.table_list_left_block .table_list tr td {
+  border-left:3px solid var(--bg-main);
+}
+
+.table_list_left_block .table_list tr.selected td {
+  border-left:3px solid var(--primary);
+}
+
+.table_list_left_block .table_list tr:hover.selected {
+  background: var(--border);
+}
+
+
 /******** Список из таблицы / заклинания********/
-.table_list_left_block .spells_list {
-  
+.table_list_left_block .spells_list tr h5 {
+  margin-top: 0px;
 }
 
 .table_list_left_block.block_information #right_block .header_block .btn_full_screen {
@@ -741,10 +844,6 @@ body {
   }
 }
 
-.table_list_left_block.block_information #right_block .info_wrapper .{
-  display: none;
-}
-
 /******** Кнопки ********/
 button {
   border: 0;
@@ -755,12 +854,11 @@ button {
 .btn {
   padding: 16px 8px;
   background-color: black;
-  color: aqua;
-  cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   user-select: none;
 }
+
 
 /******** Иконки ********/
 .icon_character {
@@ -925,11 +1023,4 @@ button {
 
 .icon_blood_hunter_big {
   background-image: var(--blood_hunter-big);
-}
-
-.tpd-tooltip  .tooltip_scroll{
-	overflow-y: auto;
-	min-height: 50px;
-	max-height: 350px;
-	width: 450px;
 }
