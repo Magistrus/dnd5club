@@ -1,13 +1,21 @@
 $(document).ready(function() {
 	var table = $('#backgrounds').DataTable({
-		stateSave: true,
-		dom: 'ti',
-		serverSide : true,
 		ajax : '/data/backgrounds',
-		select: true,
-        scrollY: 845,
+		dom: 'tiS',
+		stateSave: true,
+		serverSide : true,
+		
         deferRender: true,
+        scrollY: $(window).height  - 200,
+        scrollCollapse: true,
         scroller: true,
+        scroller: {
+            displayBuffer: 20,
+            rowHeight: 50,
+            loadingIndicator: true
+        },
+        paging: false,
+		select: true,
 		select: {
 			style: 'single'
 		},
@@ -53,7 +61,6 @@ $(document).ready(function() {
 					last : "В конец"
 				},
 		},
-		ordering : true,
 		initComplete: function(settings, json) {
 		    $('#backgrounds tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select(); 

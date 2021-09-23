@@ -1,14 +1,20 @@
 $(document).ready(function() {
 	var table = $('#options').DataTable({
-		stateSave: true,
-		dom: 'ti',
-		serverSide : true,
 		ajax : '/data/options',
-		select: true,
+		dom: 'tiS',
+		stateSave: true,
+		serverSide : true,
         deferRender: true,
-        scrollY: 845,
+        scrollY: $(window).height  - 200,
         scrollCollapse: true,
         scroller: true,
+        scroller: {
+            displayBuffer: 20,
+            rowHeight: 50,
+            loadingIndicator: true
+        },
+        paging: false,
+		select: true,
 		select: {
 			style: 'single'
 		},

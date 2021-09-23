@@ -1,14 +1,20 @@
 $(document).ready(function() {
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
+		dom: 'tiS',
 		stateSave: true,
-		dom: 'ti',
 		serverSide : true,
-		select: true,
         deferRender: true,
-        scrollY: 845,
+        scrollY: $(window).height - 500,
         scrollCollapse: true,
         scroller: true,
+        scroller: {
+            displayBuffer: 20,
+            rowHeight: 40,
+            loadingIndicator: true
+        },
+        paging: false,
+		select: true,
 		select: {
 			style: 'single'
 		},
@@ -72,7 +78,6 @@ $(document).ready(function() {
 				collapse: 'Фильтры (%d)'
 			}
 		},
-		ordering : true,
 		initComplete: function(settings, json) {
 		    $('#spells tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select(); 
