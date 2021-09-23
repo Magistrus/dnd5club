@@ -5,13 +5,17 @@ $(document).ready(function() {
 		serverSide : true,
 		ajax : '/data/spells',
 		select: true,
-		iDisplayLength : 50,
-		//paging: false,
-		
+        deferRender: true,
+        scrollY: 845,
+        scrollCollapse: true,
+        //scroller: true,
 		select: {
 			style: 'single'
 		},
 		columns : [
+		{
+			data : 'level',
+		},
 		{
 			data : "name",
 			render : function(data, type, row) {
@@ -27,12 +31,15 @@ $(document).ready(function() {
 		}, 
 		{
 			data : 'englishName',
-			width : "1%",
 		},
 		],
 			columnDefs : [
 				{
-					"targets": [ 1 ],
+					"targets": [ 0 ],
+					"visible": false
+				},
+				{
+					"targets": [ 2 ],
 					"visible": false
 				},
 			],
@@ -66,6 +73,10 @@ $(document).ready(function() {
 			}
 		},
 		ordering : true,
+		initComplete: function(settings, json) {
+		    $('#spells tbody tr:eq(0)').click();
+		    table.row(':eq(0)', { page: 'current' }).select(); 
+		}
 	});
 	$('#spells tbody').on('click', 'tr', function () {
 		var tr = $(this).closest('tr');
@@ -100,4 +111,5 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+
 });
