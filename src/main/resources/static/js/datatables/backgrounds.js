@@ -77,7 +77,7 @@ $(document).ready(function() {
 		var url = '/backgrounds/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
-	$('#backgrounds').on( 'keyup click', function () {
+	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
 });

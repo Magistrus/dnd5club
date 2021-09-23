@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var table = $('#options').DataTable({
-		//stateSave: true,
+		stateSave: true,
 		dom: 'ti',
 		serverSide : true,
 		ajax : '/data/options',
@@ -87,7 +87,7 @@ $(document).ready(function() {
 		var url = '/options/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
-	$('#options').on( 'keyup click', function () {
+	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
 });

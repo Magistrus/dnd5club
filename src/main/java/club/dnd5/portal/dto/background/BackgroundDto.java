@@ -36,8 +36,8 @@ public class BackgroundDto {
 			skills+= background.getOtherSkills();
 		}
 		toolSkills = background.getToolOwnership();
-		languages = background.getLanguage();
-		equipments = background.getEquipmentsText();
+		languages = background.getLanguage() == null ? "-" : background.getLanguage();
+		equipments = background.getEquipmentsText() == null ? "-": background.getEquipmentsText();
 		startMoney = background.getStartMoney();
 		book = background.getBook().getName();
 		bookshort = background.getBook().getSource();

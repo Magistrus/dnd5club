@@ -1,14 +1,14 @@
 $(document).ready(function() {
 	var table = $('#spells').DataTable({
-		//stateSave: true,
+		ajax : '/data/spells',
+		stateSave: true,
 		dom: 'ti',
 		serverSide : true,
-		ajax : '/data/spells',
 		select: true,
         deferRender: true,
         scrollY: 845,
         scrollCollapse: true,
-        //scroller: true,
+        scroller: true,
 		select: {
 			style: 'single'
 		},

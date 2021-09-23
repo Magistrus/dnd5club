@@ -28,7 +28,7 @@ public class OptionRestController {
 	}
 	
 	@PostMapping("/options/") 
-	public OptionDto getSpell(Integer id) {
+	public OptionDto getOption(Integer id) {
 		return new OptionDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}
 }
