@@ -21,7 +21,6 @@
 		<spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-web-flow.version>2.5.1.RELEASE</spring-web-flow.version>
 		<bootstrap.version>5.0.2</bootstrap.version>
-		<datatables.version>1.10.24</datatables.version>
 		<jquery.version>3.6.0</jquery.version>
 	</properties>
 
@@ -99,11 +98,6 @@
 			<groupId>com.github.darrachequesne</groupId>
 			<artifactId>spring-data-jpa-datatables</artifactId>
 			<version>5.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>datatables</artifactId>
-			<version>${datatables.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
