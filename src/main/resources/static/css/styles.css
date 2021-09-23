@@ -6,10 +6,11 @@ body {
   font-family: 'Roboto';
   background-color: var(--bg-main);
   font-size: 13px;
+  height: 100vh;
 }
 
 .overflow-hidden {
-  overflow: hidden!important;
+  overflow: hidden !important;
 }
 
 .container {
@@ -19,12 +20,10 @@ body {
   margin-left: 270px;
   padding-left: 24px;
   padding-right: 24px;
-  transition: margin-left 0.6s;
 }
 
 .compact_menu .container {
   margin-left: 72px;
-  transition: margin-left 0.6s;
 }
 
 .row {
@@ -38,6 +37,10 @@ body {
 
 .hide_block {
   display: none !important;
+}
+
+ul {
+  list-style: disc;
 }
 
 .icon_action {
@@ -81,7 +84,6 @@ body {
   width: 270px;
   border-right: 1px solid var(--border);
   z-index: 100;
-  transition: width 0.6s ease;
 }
 
 .compact_menu .navbar {
@@ -155,7 +157,7 @@ body {
 .navbar .nav_links li {
   position: relative;
   list-style: none;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   margin-bottom: 24px;
   margin-left: 16px;
   margin-right: 16px;
@@ -188,7 +190,6 @@ body {
 .navbar .nav_links li i {
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
   background-position: center;
   background-repeat: no-repeat;
   display: block;
@@ -215,7 +216,6 @@ body {
   font-size: 15px;
   font-weight: 400;
   color: var(--text-color);
-  /* transition: all 0.6s ease; */
   white-space: nowrap;
 }
 
@@ -252,7 +252,6 @@ body {
   padding: 0px 16px 0px 16px;
   white-space: nowrap;
   opacity: 0.6;
-  transition: all 0.6s ease;
 }
 
 .navbar .nav_links li .sub_menu .link_name {
@@ -260,7 +259,6 @@ body {
   padding: 0px 16px 0px 16px;
   white-space: nowrap;
   opacity: 0.6;
-  transition: all 0.3s ease;
   text-align: center;
   line-height: 40px;
 }
@@ -322,6 +320,55 @@ body {
   transform: translateY(-50%);
 }
 
+@media (max-width: 1000px) {
+  .navbar {
+    /* display: none; */
+    top: calc(100vh - 73px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    width: 100%;
+    border-right:none;
+    background-color: var(--bg-main);
+    position: absolute;
+  }
+
+  .navbar .nav_head {
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+  }
+
+  .navbar .nav_head .close_menu {
+    display: none;
+  }
+
+  .navbar nav {
+    /* display: none; */
+    position: absolute;
+    bottom: 72px;
+    left: 0;
+    right: 0;
+  }
+
+  .navbar .nav_links {
+    justify-content: flex-end;
+    margin: 0px 0px 0px 0px;
+  }
+
+  .navbar .nav_links li {
+    margin-bottom: 8px;
+  }
+
+  .navbar .nav_links li:last-child {
+    margin-top: 0px;
+  }
+}
+
 
 /******** Карточки ********/
 .card_wrapper {
@@ -342,7 +389,7 @@ body {
   margin-bottom: 16px;
   flex-direction: row;
   padding: 16px 24px 16px 16px;
-  /* transition: max-width 0.6s; */
+  transition: background 0.3s ease;
   border:1px solid var(--bg-secondary);
 }
 
@@ -428,11 +475,6 @@ body {
   padding-left: 0;
   border: none;
 }
-
-.container_page.condition_page #right_block .info_wrapper .content_block ul {
-  list-style: disc;
-}
-
 
 /******** Общее по блокам ********/
 .header_block {
