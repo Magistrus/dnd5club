@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/datatable-layout}">
+<head>
+</head>
+<body>
+	<div style="margin-left: 24px;" th:object="${background}" th:fragment="view">
+		<div th:utext="*{description}"></div>
+		<h4 class="dote" th:text="*{skillName}"></h4>
+		<div th:utext="*{skillDescription}"></div>
+	</div>
+</body>
+</html>

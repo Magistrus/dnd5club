@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
-import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.Spell;
 import groovy.transform.EqualsAndHashCode;
@@ -20,18 +19,16 @@ public class SpellDto {
 	private int id;	
 	private String level;
 	private String name;
+	private String englishName;
 	private String ritual;
-	private String concentration;
 	private String school;
 	private String components;
 	private String timeCast;
 	private String distance;
 	private String duration;
-	private String upperLevel;
 	private String book;
 	private String bookshort;
-	private String englishName;
-	//private boolean homebrew;
+	private boolean homebrew;
 	private Set<ShortClassDto> classes;
 
 	private Boolean consumable = false;
@@ -43,7 +40,6 @@ public class SpellDto {
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
 		ritual = String.valueOf(spell.getRitual());
-		concentration = String.valueOf(spell.getConcentration());
 		school = spell.getSchool().getName();
 		timeCast = spell.getTimes().stream().map(t-> t.getNumber() + " " + t.getUnit().getName(t.getNumber())).collect(Collectors.joining(" или "));
 		distance = spell.getDistance();
