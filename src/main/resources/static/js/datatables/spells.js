@@ -5,12 +5,10 @@ $(document).ready(function() {
 		stateSave: true,
 		serverSide : true,
         deferRender: true,
-        scrollY: $(window).height - 500,
+        scrollY: $(window).height-100,
         scrollCollapse: true,
         scroller: true,
         scroller: {
-            displayBuffer: 20,
-            rowHeight: 40,
             loadingIndicator: true
         },
         paging: false,
@@ -39,50 +37,33 @@ $(document).ready(function() {
 			data : 'englishName',
 		},
 		],
-			columnDefs : [
-				{
-					"targets": [ 0 ],
-					"visible": false
-				},
-				{
-					"targets": [ 2 ],
-					"visible": false
-				},
-			],
-			buttons: [
-	            {
-				}],
-				order : [[0, 'asc']],
-				language : {
-					processing : "Загрузка...",
-					searchPlaceholder: "Поиск ",
-					search : "_INPUT_",
-					lengthMenu : "Показывать _MENU_ записей на странице",
-					zeroRecords : "Ничего не найдено",
-					info : "Показано _TOTAL_",
-					infoEmpty : "Нет доступных записей",
-					infoFiltered : "из _MAX_",
-					paginate : {
-						first : "В начало",
-						previous : "Предыдущая",
-						next : "Следущая",
-						last : "В конец"
-					},
-				searchPanes: {
-				clearMessage : "Сбросить",
-				title : {
-						_: 'Отфильтровано - %d',
-					0: 'Фильтры не активны (Ctrl или Shift для множественного выбора)',
-					1: 'Один фильтр выбран',
-				},
-				collapse: 'Фильтры (%d)'
-			}
+		columnDefs : [
+			{
+				"targets": [ 0 ],
+				"visible": false
+			},
+			{
+				"targets": [ 2 ],
+				"visible": false
+			},
+		],
+		order : [[0, 'asc']],
+		language : {
+			processing : "Загрузка...",
+			searchPlaceholder: "Поиск ",
+			search : "_INPUT_",
+			lengthMenu : "Показывать _MENU_ записей на странице",
+			zeroRecords : "Ничего не найдено",
+			info : "Показано _TOTAL_",
+			infoEmpty : "Нет доступных записей",
+			infoFiltered : "из _MAX_",
 		},
 		initComplete: function(settings, json) {
 		    $('#spells tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select(); 
 		}
 	});
+
 	$('#spells tbody').on('click', 'tr', function () {
 		var tr = $(this).closest('tr');
 		var table = $('#spells').DataTable();
@@ -116,5 +97,4 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
-
 });

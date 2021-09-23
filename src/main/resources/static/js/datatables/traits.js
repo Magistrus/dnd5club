@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	var table = $('#backgrounds').DataTable({
-		ajax : '/data/backgrounds',
+	var table = $('#traits').DataTable({
+		ajax : '/data/traits',
 		dom: 'tiS',
 		stateSave: true,
 		serverSide : true,
@@ -62,26 +62,22 @@ $(document).ready(function() {
 				},
 		},
 		initComplete: function(settings, json) {
-		    $('#backgrounds tbody tr:eq(0)').click();
+		    $('#traits tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select(); 
 		}
 	});
-	$('#backgrounds tbody').on('click', 'tr', function () {
+	$('#traits tbody').on('click', 'tr', function () {
 		var tr = $(this).closest('tr');
-		var table = $('#backgrounds').DataTable();
+		var table = $('#traits').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
-		document.getElementById('background_name').innerHTML = data.name;
-		document.getElementById('traits').innerHTML = data.skills;
-		document.getElementById('traits_tools').innerHTML = data.toolSkills;
-		document.getElementById('languages').innerHTML = data.languages;
-		document.getElementById('equipments').innerHTML = data.equipments;
-		document.getElementById('start_money').innerHTML = data.startMoney + ' зм.';
-		var source = '<span class="tip" data-tipped-backgrounds="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+		document.getElementById('trait_name').innerHTML = data.name;
+		document.getElementById('requirement').innerHTML = data.requirement;
+		var source = '<span class="tip" data-tipped-traits="inline: \'tooltip-background-source-' + data.id+'\'">' + data.bookshort + '</span>';
+		source+= '<span id="tooltip-background-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
-		history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
-		var url = '/backgrounds/fragment/' + data.id;
+		history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
+		var url = '/traits/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
 	$('#search').on( 'keyup click', function () {

@@ -19,11 +19,13 @@ public class OptionController {
 	public String getOptions() {
 		return "options";
 	}
+	
 	@GetMapping("/options/{name}")
 	public String getOption(Model model, @PathVariable String name) {
 		model.addAttribute("selectedOption", "name");
 		return "options";
 	}
+	
 	@GetMapping("/options/fragment/{id}")
 	public String getOptionFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		model.addAttribute("option", repository.findById(id).orElseThrow(InvalidAttributesException::new));

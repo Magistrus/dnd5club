@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
-import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.Spell;
 import groovy.transform.EqualsAndHashCode;
