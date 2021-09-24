@@ -6,11 +6,10 @@ body {
   font-family: 'Roboto';
   background-color: var(--bg-main);
   font-size: 13px;
-  height: 100vh;
 }
 
 .overflow-hidden {
-  overflow: hidden !important;
+  overflow: hidden!important;
 }
 
 .container {
@@ -20,10 +19,12 @@ body {
   margin-left: 270px;
   padding-left: 24px;
   padding-right: 24px;
+  transition: margin-left 0.6s;
 }
 
 .compact_menu .container {
   margin-left: 72px;
+  transition: margin-left 0.6s;
 }
 
 .row {
@@ -37,10 +38,6 @@ body {
 
 .hide_block {
   display: none !important;
-}
-
-ul {
-  list-style: disc;
 }
 
 .icon_action {
@@ -84,6 +81,7 @@ ul {
   width: 270px;
   border-right: 1px solid var(--border);
   z-index: 100;
+  transition: width 0.6s ease;
 }
 
 .compact_menu .navbar {
@@ -157,7 +155,7 @@ ul {
 .navbar .nav_links li {
   position: relative;
   list-style: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   margin-bottom: 24px;
   margin-left: 16px;
   margin-right: 16px;
@@ -190,6 +188,7 @@ ul {
 .navbar .nav_links li i {
   text-align: center;
   cursor: pointer;
+  transition: all 0.3s ease;
   background-position: center;
   background-repeat: no-repeat;
   display: block;
@@ -216,6 +215,7 @@ ul {
   font-size: 15px;
   font-weight: 400;
   color: var(--text-color);
+  /* transition: all 0.6s ease; */
   white-space: nowrap;
 }
 
@@ -252,6 +252,7 @@ ul {
   padding: 0px 16px 0px 16px;
   white-space: nowrap;
   opacity: 0.6;
+  transition: all 0.6s ease;
 }
 
 .navbar .nav_links li .sub_menu .link_name {
@@ -259,6 +260,7 @@ ul {
   padding: 0px 16px 0px 16px;
   white-space: nowrap;
   opacity: 0.6;
+  transition: all 0.3s ease;
   text-align: center;
   line-height: 40px;
 }
@@ -340,7 +342,7 @@ ul {
   margin-bottom: 16px;
   flex-direction: row;
   padding: 16px 24px 16px 16px;
-  transition: background 0.3s ease;
+  /* transition: max-width 0.6s; */
   border:1px solid var(--bg-secondary);
 }
 
@@ -426,6 +428,11 @@ ul {
   padding-left: 0;
   border: none;
 }
+
+.container_page.condition_page #right_block .info_wrapper .content_block ul {
+  list-style: disc;
+}
+
 
 /******** Общее по блокам ********/
 .header_block {
@@ -772,6 +779,20 @@ ul {
   min-height: calc(100vh - 97px);
 }
 
+@media (max-width: 1000px) {
+  #right_block {
+    width: calc(100vw - 2px);
+    right: calc(-100vw - 0px);
+    position: fixed;
+    border: 1px solid var(--border);
+    z-index: 101;
+  }
+
+  #right_block .header_block .btn_full_screen{
+    display: none;
+  }
+}
+
 
 /******** Список из таблицы********/
 .table_list_left_block #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -1032,89 +1053,4 @@ button {
 
 .icon_blood_hunter_big {
   background-image: var(--blood_hunter-big);
-}
-
-
-/********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
-@media (max-width: 1200px) {
-  #right_block .header_block .btn_full_screen{
-    display: none;
-  }
-
-  #right_block .info_wrapper .sub_menu_list {
-    float: none;
-    right: -24px;
-    width: calc(58vw - 0px);
-  }
-
-  #right_block .info_wrapper .content_block {
-    margin-left: -24px;
-  }
-}
-@media (max-width: 1000px) {
-  /************ МЕНЮ ************/
-  .navbar {
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100vh;
-    width: 100%;
-    border-right:none;
-    background-color: var(--bg-main);
-    z-index: 102;
-  }
-
-  .navbar .nav_head {
-    border-top: 1px solid var(--border);
-    border-bottom: none;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: fixed;
-  }
-
-  .navbar .nav_head .close_menu {
-    display: none;
-  }
-
-  .navbar nav {
-    /* display: none; */
-    position: absolute;
-    bottom: 72px;
-    left: 0;
-    right: 0;
-  }
-
-  .navbar .nav_links {
-    justify-content: flex-end;
-    margin: 0px 0px 0px 0px;
-  }
-
-  .navbar .nav_links li {
-    margin-bottom: 8px;
-  }
-
-  .navbar .nav_links li:last-child {
-    margin-top: 0px;
-  }
-
-
-  /************ ТЕЛО СТРАНИЦЫ ************/
-  .container {
-    margin-left: 0px;
-  }
-
-  #right_block {
-    width: calc(100vw - 2px);
-    right: calc(-100vw - 0px);
-    position: fixed;
-    border: 1px solid var(--border);
-    z-index: 101;
-  }
-
-  #right_block .info_wrapper .sub_menu_list {
-    float: none;
-    right: -24px;
-    width: calc(100vw - 0px);
-  }
 }

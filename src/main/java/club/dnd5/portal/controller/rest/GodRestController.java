@@ -13,23 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.classes.OptionDto;
-import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
+import club.dnd5.portal.dto.GodDto;
+import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 
 @RestController
-public class OptionRestController {
+public class GodRestController {
 	@Autowired
-	private OptionDatatableRepository repo;
-	
+	private GodDatatableRepository repo;
 
-	@GetMapping("/data/options")
-	public DataTablesOutput<OptionDto> getData(@Valid DataTablesInput input,
+	@GetMapping("/data/gods")
+	public DataTablesOutput<GodDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
-		return repo.findAll(input, OptionDto::new);
+		return repo.findAll(input, GodDto::new);
 	}
 	
-	@PostMapping("/options/") 
-	public OptionDto getOption(Integer id) {
-		return new OptionDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
+	@PostMapping("/gods/") 
+	public GodDto getGod(Integer id) {
+		return new GodDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}
 }
