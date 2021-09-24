@@ -80,7 +80,7 @@ public class ClassController {
 		model.addAttribute("heroClass", heroClass);
 		model.addAttribute("archetypeTraits", archetypeTraits);
 		model.addAttribute("order", "[[ 1, 'asc' ]]");
-		return "fragments/class :: view";
+		return "class :: view";
 	}
 
 	@GetMapping("/classes/{englishName}/architype/name")
@@ -136,7 +136,7 @@ public class ClassController {
 		model.addAttribute("selectedArchetypeId", archetype.getId());
 		model.addAttribute("selectedArchetype", archetype);
 		model.addAttribute("archetypeSpells", archetype.getSpells().stream().filter(s-> s.getLevel() != 0).collect(Collectors.toList()));
-		return "fragments/archetype :: view";
+		return "archetype :: view";
 	}
 
 	@GetMapping("/classes/{name}/description")

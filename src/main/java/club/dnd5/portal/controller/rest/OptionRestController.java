@@ -20,7 +20,6 @@ import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 public class OptionRestController {
 	@Autowired
 	private OptionDatatableRepository repo;
-	
 
 	@GetMapping("/data/options")
 	public DataTablesOutput<OptionDto> getData(@Valid DataTablesInput input,

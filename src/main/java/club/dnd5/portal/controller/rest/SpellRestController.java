@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.spell.SpellDto;
-import club.dnd5.portal.dto.spell.SpellTipDto;
+import club.dnd5.portal.dto.SpellDto;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController
@@ -29,7 +28,7 @@ public class SpellRestController {
 	}
 	
 	@PostMapping("/spells")
-	public SpellTipDto getSpell(Integer id) {
-		return new SpellTipDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
+	public SpellDto getSpell(Integer id) {
+		return new SpellDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}
 }

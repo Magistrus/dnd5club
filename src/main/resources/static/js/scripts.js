@@ -14,6 +14,9 @@ $(document).ready(function() {
 	  else {
 		elem.removeClass('compact_menu');
 	  }
+	  if(windowWidth < 1000){
+		elem.removeClass('compact_menu');;
+	  }
 	}
 	checkWidth(); // проверит при загрузке страницы
 	$(window).resize(function(){

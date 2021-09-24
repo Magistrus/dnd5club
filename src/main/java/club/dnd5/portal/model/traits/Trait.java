@@ -1,4 +1,4 @@
-package club.dnd5.portal.model.trait;
+package club.dnd5.portal.model.traits;
 
 import java.util.List;
 
