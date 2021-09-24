@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div style="margin-left: 24px;" th:fragment="view" th:object="${heroClass}">
-		<div th:replace="class :: classInfo"></div>
+		<div th:replace="fragments/class :: classInfo"></div>
 		<table class="classes_tablet">
 			<thead>
 				<tr align="center">

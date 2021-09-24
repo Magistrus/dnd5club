@@ -10,7 +10,7 @@
 				<div id="card_wrapper" class="card_wrapper">
 					<div th:id="${race.englishName.replace(' ', '_')}" class="card" th:each="race : ${races}">
 						<div class="infimation">
-							<h5 id="header_race_name" th:text="${race.name}">Class name</h5>
+							<h5 id="race_id" th:text="${race.name}">Class name</h5>
 							<p th:text="${race.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
 								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${race.id}'|" th:text="${race.book.source}"></span><span
@@ -33,9 +33,6 @@
 					<button id="race_description">
 						<i class="icon_action icon_description"></i><span>Описание</span>
 					</button>
-					<button id="race_spells">
-						<i class="icon_action icon_spells-w"></i><span>Заклинания</span>
-					</button>
 				</div>
 				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
 					<div class="icon_action icon_full_screen"></div>
@@ -45,10 +42,16 @@
 				</div>
 			</div>
 			<div id="info_wrapper" class="info_wrapper" data-simplebar>
-				<div id="title_sub_menu" class="sub_menu_list"></div>
+				<div id="sub_menu" class="sub_menu_list archetype"></div>
 				<div class="content_block"></div>
 			</div>
 		</div>
+		<script type="text/javascript" th:inline="javascript" >
+    		var selectedRace = [[${selectedRace}]];
+    		var selectedSubrace = [[${selectedSubrace}]];
+		</script>
 	</div>
 </body>
+<script th:inline="javascript" th:src="@{/resources/js/races.js}" layout:fragment="js-script"></script>
+
 </html>

@@ -6,8 +6,11 @@ for (var i = 0; i < arrow.length; i++) {
 	});
 }
 let sidebar = document.querySelector("#body");
-if (localStorage.getItem('compact_menu')){
+if (localStorage.getItem('compact_menu') ==='true'){
 	sidebar.classList.add("compact_menu");
+}
+else {
+	sidebar.classList.remove("compact_menu");
 }
 let sidebarBtn = document.querySelector(".close_menu");
 sidebarBtn.addEventListener("click", ()=>{

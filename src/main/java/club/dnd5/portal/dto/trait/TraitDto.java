@@ -6,7 +6,7 @@ import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
-import club.dnd5.portal.model.traits.Trait;
+import club.dnd5.portal.model.trait.Trait;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

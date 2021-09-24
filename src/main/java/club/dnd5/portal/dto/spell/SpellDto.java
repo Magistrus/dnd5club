@@ -1,4 +1,4 @@
-package club.dnd5.portal.dto;
+package club.dnd5.portal.dto.spell;
 
 import java.util.Set;
 import java.util.stream.Collectors;

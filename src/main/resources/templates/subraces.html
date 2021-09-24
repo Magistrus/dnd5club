@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+		<div class="sidebar__inner" th:fragment="sub_menu">
+			<ul>
+			<li class="title_sub_menu">
+				<h5 th:text="${archetypeName}" id="title_sub_menu">Подрасы</h5>
+			</li>
+			<li class="sub_menu" th:id="${subrace.englishName.replace(' ', '_')}" th:each="subrace : ${subraces}">
+				<span th:text="${subrace.name}" class="name">Имя</span> 
+				<div class="sub_info">
+					<span class="tip" th:attr="data-tipped-options=|inline: 'inline-tooltip-source-a-${subrace.id}'|" th:text="${subrace.book.source}"></span>
+					<span th:id="|inline-tooltip-source-a-${subrace.id}|" style='display: none' th:text="${subrace.book.name}"></span>
+					<span th:text="|&nbsp;/&nbsp;${subrace.englishName}|"></span>
+				</div>
+				<button class="btn_close icon_action icon_close close_archetypes"></button></li>
+			</ul>
+		</div>
+</body>
+</html>
