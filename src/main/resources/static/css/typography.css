@@ -104,6 +104,7 @@ h4 + .caption_text {
   text-transform: uppercase;
 }
 
+
 /********* Выделение кубов в тексте *********/
 span.dice_text {
   padding: 3px 3px;
@@ -111,7 +112,13 @@ span.dice_text {
   background-color: var(--bg-dice);
 }
 
+
 /********* Таблицы *********/
+.table-responsive {
+  overflow-x: auto;
+  padding-left: 24px;
+}
+
 table {
   color: var(--text-color);
   border-spacing: inherit;
@@ -147,8 +154,44 @@ table td:last-child {
 
 table.classes_tablet {
   margin-left: -24px;
+  width: 100%;
+  overflow: scroll;
 }
 
 table.classes_tablet tbody tr:hover {
   background-color: var(--hover);
+}
+
+
+/********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 60px;
+    font-weight: 300;
+    margin: 0;
+    color: var(--text-color);
+  }
+  
+  h2 {
+    font-size: 48px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--text-color);
+  }
+  
+  h3 {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 26px;
+    margin: 0;
+    color: var(--text-color);
+  }
+  
+  h4 {
+    font-size: 22px;
+    font-weight: 300;
+    margin: 8px 0 8px 0;
+    color: var(--text-color);
+    position: relative;
+  }
 }
