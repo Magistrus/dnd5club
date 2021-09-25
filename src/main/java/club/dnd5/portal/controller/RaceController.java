@@ -38,9 +38,19 @@ public class RaceController {
 	}
 	
 	@GetMapping("/races/fragment/{englishName}")
-	public String getFragmentClasses(Model model, Device device, @PathVariable String englishName) {
+	public String getFragmentRace(Model model, Device device, @PathVariable String englishName) {
 		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("race", race);
+		return "fragments/race :: view";
+	}
+	@GetMapping("/races/{raceName}/subrace/{subraceName}")
+	public String getFragmentSubraces(Model model, Device device, @PathVariable String raceName, @PathVariable String subraceName) {
+		Race race = raceRepository.findByEnglishName(raceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		model.addAttribute("race", race.getSubRaces()
+				.stream()
+				.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))
+				.findFirst()
+				.orElseThrow(IllegalArgumentException::new));
 		return "fragments/race :: view";
 	}
 	

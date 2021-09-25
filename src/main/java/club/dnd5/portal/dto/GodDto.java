@@ -31,8 +31,8 @@ public class GodDto {
 	public GodDto(God god) {
 		id = god.getId();
 		name = god.getName();
-		englishName = god.getEnglishName();
-		commitment = god.getCommitment();
+		englishName = god.getEnglishName() == null ? "" : god.getEnglishName();
+		commitment = god.getPrefixName() + " " + god.getCommitment();
 		sex = god.getSex().getCyrilicName();
 		aligmentShort = god.getAligment().getShortName();
 		alignment = god.getAligment().getCyrilicName();
