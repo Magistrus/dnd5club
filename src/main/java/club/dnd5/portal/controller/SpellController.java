@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
@@ -22,7 +23,7 @@ public class SpellController {
 	
 	@GetMapping("/spells/{name}")
 	public String getSpell(Model model, @PathVariable String name) {
-		model.addAttribute("selectedSpell", "name");
+		model.addAttribute("selectedSpell", StringUtils.capitalizeWords(repository.findByEnglishName(name.replace("_", " ")).getName().toLowerCase()));
 		return "spells";
 	}
 	

@@ -2,16 +2,11 @@ $(document).ready(function() {
 	var table = $('#items_magic').DataTable({
 		ajax : '/data/items/magic',
 		dom: 'tiS',
-		stateSave: true,
 		serverSide : true,
         deferRender: true,
-        scrollY: $(window).height-100,
+        scrollY: "850px",
         scrollCollapse: true,
         scroller: true,
-        scroller: {
-            loadingIndicator: true
-        },
-        paging: false,
 		select: true,
 		select: {
 			style: 'single'
