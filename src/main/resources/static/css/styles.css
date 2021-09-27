@@ -109,6 +109,11 @@ ul {
   background-position: center;
 }
 
+.navbar .nav_head .back_menu,
+.navbar .nav_head .roll_menu {
+  display: none;
+}
+
 .navbar .nav_head .close_menu {
   height: 72px;
   width: 72px;
@@ -1054,14 +1059,22 @@ button {
 @media (max-width: 1000px) {
   /************ МЕНЮ ************/
   .navbar {
+    top: auto;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 100vh;
+    height: 72px;
     width: 100%;
     border-right:none;
     background-color: var(--bg-main);
     z-index: 102;
+    overflow: hidden;
+    transition:height 1s ;
+  }
+
+  .navbar.open {
+    height: 100vh;
+    transition:height 1s ;
   }
 
   .navbar .nav_head {
@@ -1071,11 +1084,23 @@ button {
     left: 0;
     right: 0;
     position: fixed;
+    justify-content: space-between;
   }
 
   .navbar .nav_head .close_menu {
     display: none;
   }
+  
+  .navbar .nav_head .back_menu,
+  .navbar .nav_head .roll_menu {
+    display: block;
+    width: 72px;
+    height: 72px;
+    text-align: center;
+    line-height: 72px;
+    background-color: bisque;
+  }
+
 
   .navbar nav {
     /* display: none; */

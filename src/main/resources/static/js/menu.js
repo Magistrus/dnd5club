@@ -18,3 +18,7 @@ sidebarBtn.addEventListener("click", ()=>{
 	var check = sidebar.classList.contains("compact_menu");
 	localStorage.setItem('compact_menu', check);
 });
+
+$(".roll_menu").click(function(){
+	$(".navbar").toggleClass("open");
+});
