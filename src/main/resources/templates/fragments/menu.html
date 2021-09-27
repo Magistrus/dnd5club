@@ -2,11 +2,13 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 <div class="navbar" th:fragment="menu">
 	<div class="nav_head">
+		<button class="back_menu">Back</button>
 		<a class="logo" href="/"></a>
 		<button class="close_menu"></button>
+		<button class="roll_menu">Menu</button>
 	</div>
 	<nav>
-		<ul class="nav_links">
+		<ul class="nav_links sidebar-menu">
 			<li>
 				<a th:href="@{/creatures}">
 					<i class="icon_bestiary"></i>
@@ -28,7 +30,7 @@
 					<li class="link_name"><span>Персонаж</span></li>
 					<li><a th:href="@{/classes}">Классы</a></li>
 					<li><a th:href="@{/races}">Рассы</a></li>
-					<li><a th:href="@{/options}">Опции и особенности</a></li>
+					<li><a th:href="@{/options}">Особенности классов</a></li>
 					<li><a th:href="@{/backgrounds}">Предыстории</a></li>
 					<li><a th:href="@{/traits}">Черты</a></li>
 				</ul>
@@ -127,5 +129,39 @@
 			</li>
 		</ul>
 	</nav>
+
+	<!-- <ul class="sidebar-menu">
+		<li class="sidebar-header">MAIN NAVIGATION</li>
+		<li>
+		<div class="dropdown">
+		  <a href="#">
+			<i class="fa fa-laptop"></i>
+			<span>UI Elements</span>
+			<i class="fa fa-angle-left pull-right"></i>
+		  </a>
+		</div>
+		  <ul class="sidebar-submenu">
+			<li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
+			<li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+			<li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+			<li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+			<li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+			<li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+		  </ul>
+		</li>
+		<li>
+		<div class="dropdown">
+		  <a href="#">
+			<i class="fa fa-edit"></i> <span>Forms</span>
+			<i class="fa fa-angle-left pull-right"></i>
+		  </a>
+		</div>
+		  <ul class="sidebar-submenu">
+			<li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+			<li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
+			<li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+		  </ul>
+		</li>
+	  </ul> -->
 </div>
 </html>

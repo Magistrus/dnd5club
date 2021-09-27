@@ -12,6 +12,9 @@
 		<link rel="stylesheet" th:href="@{/resources/css/typography.css}" />
 		<link rel="stylesheet" th:href="@{/resources/css/styles.css}" />
 		
+		<!-- Menu -->
+		<link rel="stylesheet" th:href="@{/resources/css/sidebar-menu.css}" />
+
 		<!-- Simplebar -->
 		<link rel="stylesheet" th:href="@{/resources/css/simplebar.css}" />
 
@@ -41,9 +44,14 @@
 
 	<script th:src="@{/resources/js/scripts.js}"></script>
 	<script th:src="@{/resources/js/menu.js}"></script>
+	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
 	<script th:src="@{/resources/js/scheme.js}"></script>
 	<script th:src="@{/resources/js/simplebar.min.js}"></script>
 	<script th:src="@{/resources/js/tipped.min.js}"></script>
+
+	<script>
+		$.sidebarMenu($('.sidebar-menu'))
+	</script>
 	
 	<script layout:fragment="js-script"></script>
 </html>
