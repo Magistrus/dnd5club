@@ -53,7 +53,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				loadingRecords: "Подождите - идет загрузка..."
+				loadingRecords: "Загрузка..."
 		},
 		ordering : true,
 		initComplete: function(settings, json) {

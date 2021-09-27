@@ -51,7 +51,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				loadingRecords: "Подождите - идет загрузка..."
+				loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
 		    $('#traits tbody tr:eq(0)').click();
