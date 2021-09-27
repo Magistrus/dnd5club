@@ -12,6 +12,7 @@ if (localStorage.getItem('compact_menu') ==='true'){
 else {
 	sidebar.classList.remove("compact_menu");
 }
+
 let sidebarBtn = document.querySelector(".close_menu");
 sidebarBtn.addEventListener("click", ()=>{
 	sidebar.classList.toggle("compact_menu");
