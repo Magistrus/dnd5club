@@ -19,3 +19,5 @@ src/main/resources/application.properties
 .factorypath
 
 .project
+
+src/main/resources/application-dev.properties
