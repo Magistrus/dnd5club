@@ -5,7 +5,7 @@ $(document).ready(function() {
 		stateSave: true,
 		serverSide : true,
         deferRender: true,
-        scrollY: $(window).height  - 200,
+        scrollY: 900,
         scrollCollapse: true,
         scroller: true,
         scroller: {
@@ -13,7 +13,6 @@ $(document).ready(function() {
             rowHeight: 50,
             loadingIndicator: true
         },
-        paging: false,
 		select: true,
 		select: {
 			style: 'single'

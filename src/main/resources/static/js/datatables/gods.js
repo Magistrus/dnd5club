@@ -2,19 +2,16 @@ $(document).ready(function() {
 	var table = $('#gods').DataTable({
 		ajax : '/data/gods',
 		dom: 'tiS',
-		stateSave: true,
 		serverSide : true,
-		
         deferRender: true,
-        scrollY: $(window).height  - 200,
+        scrollY: 850,
         scrollCollapse: true,
         scroller: true,
         scroller: {
-            displayBuffer: 20,
-            rowHeight: 50,
+            displayBuffer: 30,
+            rowHeight: 10,
             loadingIndicator: true
         },
-        paging: false,
 		select: true,
 		select: {
 			style: 'single'
