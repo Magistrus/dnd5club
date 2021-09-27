@@ -29,7 +29,7 @@ public class ItemMagicController {
 	
 	@GetMapping("/items/magic/fragment/{id}")
 	public String getMagicItemFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
-		model.addAttribute("magicItem", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		model.addAttribute("item", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		return "fragments/item_magic :: view";
 	}
 }
