@@ -5,10 +5,11 @@
 </head>
 <body>
 	<div style="margin-left: 24px;" th:object="${race}" th:fragment="view">
-		<div th:each ="feature : *{features}">
+		<th:block th:each ="feature : *{features}">
 			<h4 class="dote" th:utext="${feature.name}"></h4>
 			<div th:utext="${feature.description}"></div>
-		</div>
+		</th:block>
+		<h4 class="dote">Имена</h4>
 		<p th:each="nameElement , iterStat: *{names}">
 			<th:block th:unless="${nameElement.value.empty}">
 				<strong th:text="|${nameElement.key.cyrilicName} имена:|"></strong>

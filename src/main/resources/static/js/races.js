@@ -122,6 +122,14 @@ function setActiveRace(element, englishName) {
 		var url = '/races/fragment/' + englishName;
 		$(".content_block").load(url);
 	}
+/*	if (element.classList.contains('show')){
+		
+		$('#sub_menu')[0].style.display = 'show';
+	}
+	else{
+		$('#sub_menu')[0].style.display = 'none';
+		return;
+	}*/
 	localStorage.setItem('selected_race', element.id)
 	var url = '/races/' + englishName + '/subraces/list';
 	$('#sub_menu').load(url, function() {

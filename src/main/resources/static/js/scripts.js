@@ -3,7 +3,7 @@ $(document).ready(function() {
 	  var windowWidth = $('body').innerWidth(),
 	  elem = $("#body"); 
 	  var check = localStorage.getItem('compact_menu') 
-	  if(check === 'true')
+	  if(check === 'true' && windowWidth > 1000)
 	  {
 		  elem.addClass('compact_menu');
 		  return;
