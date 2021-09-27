@@ -43,6 +43,7 @@ public class RaceController {
 		model.addAttribute("race", race);
 		return "fragments/race :: view";
 	}
+	
 	@GetMapping("/races/{raceName}/subrace/{subraceName}")
 	public String getFragmentSubraces(Model model, Device device, @PathVariable String raceName, @PathVariable String subraceName) {
 		Race race = raceRepository.findByEnglishName(raceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);

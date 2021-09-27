@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.Book;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 @Getter

@@ -1,9 +1,8 @@
 package club.dnd5.portal.util;
 
 public final class ChallengeRating {
-	private static int[] sections = { 10, 25, 50, 100, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900, 7200,
-			8400, 10000, 11500, 18000, 20000, 22000, 25000};
-	private static String[] crs = { "1/8", "1/4", "1/2" };
+	//private static int[] sections = { 10, 25, 50, 100, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900, 7200, 8400, 10000, 11500, 18000, 20000, 22000, 25000};
+	//private static String[] crs = { "1/8", "1/4", "1/2" };
 
 	private ChallengeRating() {
 	};

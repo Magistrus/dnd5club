@@ -4,7 +4,6 @@ import java.util.stream.Collectors;
 
 import club.dnd5.portal.model.god.Domain;
 import club.dnd5.portal.model.god.God;
-import club.dnd5.portal.util.HtmlConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
