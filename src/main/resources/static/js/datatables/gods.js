@@ -1,15 +1,13 @@
 $(document).ready(function() {
 	var table = $('#gods').DataTable({
 		ajax : '/data/gods',
-		dom: 'tiS',
+		dom: 't',
 		serverSide : true,
         deferRender: true,
         scrollY: 850,
         scrollCollapse: true,
         scroller: true,
         scroller: {
-            displayBuffer: 30,
-            rowHeight: 10,
             loadingIndicator: true
         },
 		select: true,
@@ -53,12 +51,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				paginate : {
-					first : "В начало",
-					previous : "Предыдущая",
-					next : "Следущая",
-					last : "В конец"
-				},
+				loadingRecords: "Подождите - идет загрузка..."
 		},
 		initComplete: function(settings, json) {
 		    $('#gods tbody tr:eq(0)').click();

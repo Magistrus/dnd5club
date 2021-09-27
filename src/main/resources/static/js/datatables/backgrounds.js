@@ -47,12 +47,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				paginate : {
-					first : "В начало",
-					previous : "Предыдущая",
-					next : "Следущая",
-					last : "В конец"
-				},
+				loadingRecords: "Подождите - идет загрузка..."
 		},
 		initComplete: function(settings, json) {
 		    $('#backgrounds tbody tr:eq(0)').click();

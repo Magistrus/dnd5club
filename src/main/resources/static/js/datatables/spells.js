@@ -4,7 +4,7 @@ $(document).ready(function() {
 		dom: 'tS',
 		serverSide : true,
         deferRender: true,
-        scrollY: "900px",
+        scrollY: 900,
         scrollCollapse: true,
         scroller: true,
         scroller: {
@@ -55,7 +55,7 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-		     loadingRecords: "Подождите - идет загрузка..."
+		    loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
 			if (selectedSpell){
@@ -63,7 +63,7 @@ $(document).ready(function() {
 				table.tables().search(selectedSpell).draw();
 			}
 		    $('#spells tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select(); 
+		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 
@@ -96,9 +96,6 @@ $(document).ready(function() {
 		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);
-	});
-	table.on( 'draw.dt', function () {
-
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
