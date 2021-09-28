@@ -23,6 +23,7 @@ public class CreatureDto {
 	private String cr;
 	private String habitates;
 	private String book;
+	private String bookshort;
 
 	public CreatureDto(Creature creature) {
 		id = creature.getId();
@@ -36,5 +37,6 @@ public class CreatureDto {
 		alignment = creature.getAlignment().getCyrilicName();
 		habitates = creature.getHabitates().stream().map(HabitatType::getName).collect(Collectors.joining(", "));
 		book = creature.getBook().getName() + (creature.getPage() != null ? ", стр. " + creature.getPage() : "");
+		bookshort = creature.getBook().getSource();
 	}
 }

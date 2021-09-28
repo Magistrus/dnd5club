@@ -60,7 +60,7 @@ $(document).ready(function() {
 		initComplete: function(settings, json) {
 			if (selectedCreature){
 				document.getElementById('search').value = selectedCreature; 
-				table.tables().search(selectedSpell).draw();
+				table.tables().search(selectedCreature).draw();
 			}
 		    $('#creatures tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
@@ -73,6 +73,10 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		document.getElementById('creature_name').innerHTML = data.name;
+		document.getElementById('cr').innerHTML = data.cr;
+		document.getElementById('type').innerHTML = data.type;
+		document.getElementById('size').innerHTML = data.size;
+
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;

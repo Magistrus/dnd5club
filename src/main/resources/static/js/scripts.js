@@ -36,4 +36,5 @@ $(document).ready(function() {
 	    	simpleBar.recalculate();
 	    },
 	});
+	$.sidebarMenu($('.sidebar-menu'));
 });

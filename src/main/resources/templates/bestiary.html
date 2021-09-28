@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<head>
+<link rel="stylesheet" th:href="@{/resources/css/statblock.css}" />
+</head>
 <body id="body">
 	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
 		<div id="left_block">
@@ -36,24 +39,23 @@
 				<div id="sub_menu" class="sub_menu_list sub_spells_info">
 					<ul>
 						<li>
-							<h5>Уровень опасности:</h5>
-							<span id="cr" style="text-transform: capitalize;">-</span>
+							<h5>Уровень опасности:</h5> <span id="cr" style="text-transform: capitalize;">-</span>
 						</li>
 						<li>
-							<h5>Тип:</h5>
-							<span id="type">-</span>
+							<h5>Тип:</h5> <span id="type">-</span>
 						</li>
 						<li>
-							<h5>Источник:</h5>
-							<span id="source">-</span>
+							<h5>Размер:</h5> <span id="size">-</span>
+						</li>
+						<li>
+							<h5>Источник:</h5> <span id="source">-</span>
 						</li>
 					</ul>
 				</div>
-				<div class="content_block">
-				</div>
+				<div class="content_block"></div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
+		<script type="text/javascript" th:inline="javascript">
     		var selectedCreature = [[${selectedCreature}]];
 		</script>
 	</div>
