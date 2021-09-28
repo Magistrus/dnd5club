@@ -96,7 +96,7 @@ public class ClassController {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("archetypeName", heroClass.getArchetypeName());
 		model.addAttribute("archetypes", heroClass.getArchetypes());
-		return "archetypes :: sub_menu"; 
+		return "fragments/archetypes_list :: sub_menu"; 
 	}
 	
 	@GetMapping("/classes/{className}/architypes/{archetypeName}")

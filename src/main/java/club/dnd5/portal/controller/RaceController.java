@@ -60,6 +60,6 @@ public class RaceController {
 		model.addAttribute("device", device);
 		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("subraces", race.getSubRaces());
-		return "subraces :: sub_menu"; 
+		return "fragments/subraces_list :: sub_menu"; 
 	}
 }
