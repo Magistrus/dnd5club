@@ -1,15 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 500;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
 		dom: 'tS',
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            loadingIndicator: true
-        },
+		iDisplayLength : 25,
 		select: true,
 		select: {
 			style: 'single'
@@ -58,12 +55,16 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-			if (selectedSpell){
-				document.getElementById('search').value = selectedSpell; 
-				table.tables().search(selectedSpell).draw();
-			}
 		    $('#spells tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
+		    const simpleBar = new SimpleBar(document.getElementById('spell_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=scrollEventHeight;
+		    	}
+		    });
 		}
 	});
 
