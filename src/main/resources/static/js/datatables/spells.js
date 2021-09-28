@@ -62,7 +62,7 @@ $(document).ready(function() {
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
 		    	      table.page.loadMore();
 		    	      simpleBar.recalculate();
-		    	      scrollEventHeight +=scrollEventHeight;
+		    	      scrollEventHeight +=750;
 		    	}
 		    });
 		}
