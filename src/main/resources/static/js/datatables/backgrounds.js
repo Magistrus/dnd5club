@@ -1,8 +1,7 @@
 $(document).ready(function() {
 	var table = $('#backgrounds').DataTable({
 		ajax : '/data/backgrounds',
-		dom: 'tiS',
-		stateSave: true,
+		dom: 't',
 		serverSide : true,
         deferRender: true,
         scrollY: 900,
@@ -47,12 +46,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				paginate : {
-					first : "В начало",
-					previous : "Предыдущая",
-					next : "Следущая",
-					last : "В конец"
-				},
+				loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
 		    $('#backgrounds tbody tr:eq(0)').click();

@@ -51,12 +51,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				paginate : {
-					first : "В начало",
-					previous : "Предыдущая",
-					next : "Следущая",
-					last : "В конец"
-				},
+				loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
 		    $('#traits tbody tr:eq(0)').click();

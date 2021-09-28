@@ -7,6 +7,9 @@ $(document).ready(function() {
         scrollY: "850px",
         scrollCollapse: true,
         scroller: true,
+        scroller: {
+            loadingIndicator: true
+        },
 		select: true,
 		select: {
 			style: 'single'
@@ -52,6 +55,7 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
+			loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
 		    $('#items_magic tbody tr:eq(0)').click();

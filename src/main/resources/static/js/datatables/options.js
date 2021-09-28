@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var table = $('#options').DataTable({
 		ajax : '/data/options',
-		dom: 'tiS',
+		dom: 't',
 		stateSave: true,
 		serverSide : true,
         deferRender: true,
@@ -53,12 +53,7 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				paginate : {
-					first : "В начало",
-					previous : "Предыдущая",
-					next : "Следущая",
-					last : "В конец"
-				},
+				loadingRecords: "Загрузка..."
 		},
 		ordering : true,
 		initComplete: function(settings, json) {

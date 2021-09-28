@@ -1,7 +1,7 @@
 $(document).ready(function() {
-	var table = $('#spells').DataTable({
-		ajax : '/data/spells',
-		dom: 'tS',
+	var table = $('#creatures').DataTable({
+		ajax : '/data/bestiary',
+		dom: 't',
 		serverSide : true,
         deferRender: true,
         scrollY: 900,
@@ -16,16 +16,16 @@ $(document).ready(function() {
 		},
 		columns : [
 		{
-			data : 'level',
+			data : 'exp',
 		},
 		{
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="spell_lvl">' + row.level + '</div>';
+					var result ='<div class="spell_lvl">' + row.cr + '</div>';
 					result+='<div class="spell_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="spell_school">' + row.school + '</div>';
+					result+='<div class="spell_school">' + row.type + '</div>';
 					return result;
 				}
 				return data;
@@ -58,43 +58,26 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-			if (selectedSpell){
-				document.getElementById('search').value = selectedSpell; 
+			if (selectedCreature){
+				document.getElementById('search').value = selectedCreature; 
 				table.tables().search(selectedSpell).draw();
 			}
-		    $('#spells tbody tr:eq(0)').click();
+		    $('#creatures tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 
-	$('#spells tbody').on('click', 'tr', function () {
+	$('#creatures tbody').on('click', 'tr', function () {
 		var tr = $(this).closest('tr');
-		var table = $('#spells').DataTable();
+		var table = $('#creatures').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
-		document.getElementById('spell_name').innerHTML = data.name;
-		document.getElementById('level').innerHTML =  (data.level === 'ЗГ' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
-		document.getElementById('timecast').innerHTML = data.timeCast;
-		document.getElementById('distance').innerHTML = data.distance;
-		document.getElementById('components').innerHTML = data.components;
-		document.getElementById('duration').innerHTML = data.duration;
+		document.getElementById('creature_name').innerHTML = data.name;
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source_spell').innerHTML = source;
-
-		const classIconsElement = document.getElementById('class_icons');
-		while (classIconsElement.firstChild) {
-			classIconsElement.removeChild(classIconsElement.firstChild);
-		}
-		data.classes.forEach(element => {
-			var a = document.createElement("a");
-			a.href = '/classes/' + element.englishName; 
-			a.title = element.name;
-			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
-			classIconsElement.appendChild(a);
-		});
-		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
-		var url = '/spells/fragment/' + data.id;
+		document.getElementById('source').innerHTML = source;
+		history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
+		var url = '/bestiary/fragment/' + data.id;
 		$(".content_block").load(url);
 	});
 	$('#search').on( 'keyup click', function () {
