@@ -4,14 +4,8 @@ $(document).ready(function() {
 		dom: 'tS',
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
+		iDisplayLength : 25,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            displayBuffer: 20,
-            rowHeight: 50,
-            loadingIndicator: true
-        },
 		select: true,
 		select: {
 			style: 'single'

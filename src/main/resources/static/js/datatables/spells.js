@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var scrollEventHeight = 500;
+	var scrollEventHeight = 0;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
 		dom: 'tS',
@@ -55,9 +55,10 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
 		    $('#spells tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
-		    const simpleBar = new SimpleBar(document.getElementById('spell_simplebar'));
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
 		    	      table.page.loadMore();

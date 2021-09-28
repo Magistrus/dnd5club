@@ -1,18 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 0;
 	var table = $('#options').DataTable({
 		ajax : '/data/options',
 		dom: 't',
-		stateSave: true,
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
+		iDisplayLength : 25,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            displayBuffer: 20,
-            rowHeight: 50,
-            loadingIndicator: true
-        },
 		select: true,
 		select: {
 			style: 'single'
@@ -58,7 +52,16 @@ $(document).ready(function() {
 		ordering : true,
 		initComplete: function(settings, json) {
 		    $('#options tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select(); 
+		    table.row(':eq(0)', { page: 'current' }).select();
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=750;
+		    	}
+		    });
 		}
 	});
 	$('#options tbody').on('click', 'tr', function () {

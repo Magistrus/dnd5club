@@ -4,13 +4,13 @@
 	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
 		<div id="left_block">
 			<div class="header_block">
-				<h3>Предыстория</h3>
+				<h3>Предыстории</h3>
 				<input type="text" id="search" class="search_int">
 				<div id="btn_filters" class="btn_filters">
 					<div class="icon_action icon_filters"></div>
 				</div>
 			</div>
-			<div class="container_left table_list" data-simplebar>
+			<div id= "scroll_load_simplebar" class="container_left table_list">
 				<table id="backgrounds" class="table_list spells_list" th:fragment="backgroundsTable">
 					<thead style="display: none">
 						<tr>
