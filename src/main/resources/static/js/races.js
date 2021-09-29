@@ -1,24 +1,5 @@
 $(document).ready(function() {
-    Tipped.delegate('.tip_spell', {
-	    ajax: {
-	        url: '/spells',
-	        type: 'post',
-	        success: function(data, textStatus, jqXHR) {
-	            return {
-	              title: ' <em>' + data.level + ' уровень</em> / ' + data.name,
-	              content: data.description
-	        	};
-	        }
-	    },
-		afterUpdate: function(content, element) {
-			content.classList.add('tooltip_scroll');
-		},
-		onShow: function(content, element) {
-			var simpleBar = new SimpleBar(content);
-		   	simpleBar.recalculate();
-		},
-	    skin: localStorage.getItem('theme'),
-	});
+
 
 	if (selectedRace){
 		localStorage.setItem('selected_race', selectedRace);
@@ -34,8 +15,8 @@ $(document).ready(function() {
 		setActiveRace(element, raceName);
 	}
 });
-$('#class_traits').on('click', function() {
-	$('#class_description')[0].classList.remove('active');
+$('#race_traits').on('click', function() {
+	$('#race_description')[0].classList.remove('active');
 	this.classList.add('active');
 	var selectedRace = $('.card.active')[0];
 	var selectedSubrace = $('li.sub_menu.active'); 
@@ -47,8 +28,8 @@ $('#class_traits').on('click', function() {
 		setActiveRace(selectedRace, selectedRace.id);
 	}
 });
-$('#class_description').on('click', function() {
-	$('#class_traits')[0].classList.remove('active');
+$('#race_description').on('click', function() {
+	$('#race_traits')[0].classList.remove('active');
 	this.classList.add('active');
 	loadDescription();
 	localStorage.setItem('race_info', 'description');
@@ -65,13 +46,6 @@ function loadDescription(){
 		$(".content_block").load(url);
 	}
 }
-$('#class_spells').on('click', function() {
-	$('#class_description')[0].classList.remove('active');
-	$('#class_traits')[0].classList.remove('active');
-	this.classList.add('active');
-	var selectedRace = $('.card.active')[0];
-	// тут должна быть загрузка заклинаний класса
-});
 $('#btn_full_screen').on('click', function() {
 	// тут должен быт код по раскрытию на весь экран
 });
@@ -161,7 +135,7 @@ function setActiveRace(element, englishName) {
 		var archetepyName = localStorage.getItem('selected_subrace');
 		if (archetepyName){
 			var selecedsubraceName = $('#'+ archetepyName);
-			setActiveSubrace(selecedsubraceName[0], localStorage.getItem('selected_race'), archetepyName);
+			//setActiveSubrace(selecedsubraceName[0], localStorage.getItem('selected_race'), archetepyName);
 		}
 	});
 }

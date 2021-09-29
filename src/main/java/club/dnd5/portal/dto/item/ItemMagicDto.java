@@ -39,7 +39,18 @@ public class ItemMagicDto {
 				.replace(" Из ", " из ");
 		englishName = magicItem.getEnglishName();
 		type = magicItem.getType().getCyrilicName();
-		
+		if (!magicItem.getWeapons().isEmpty()) {
+			type += " (" + magicItem.getWeapons().stream().map(Weapon::getName).map(String::toLowerCase)
+					.collect(Collectors.joining(", ")) + ")";
+		}
+		if (!magicItem.getArmors().isEmpty()) {
+			type += " (" +magicItem.getArmors().stream().map(Armor::getName).map(String::toLowerCase)
+					.collect(Collectors.joining(", ")) + ")";
+		}
+		if (magicItem.getSpecial() != null) {
+			type += " (" + magicItem.getSpecial() + ")";
+		}
+		rarity = magicItem.getRarity().getCyrilicName();
 		switch ( magicItem.getRarity()) {
 		case COMMON:
 			shortRarity = "О";
@@ -63,18 +74,6 @@ public class ItemMagicDto {
 			shortRarity = "-";
 			break;
 		}
-		if (!magicItem.getWeapons().isEmpty()) {
-			type += " (" + magicItem.getWeapons().stream().map(Weapon::getName).map(String::toLowerCase)
-					.collect(Collectors.joining(", ")) + ")";
-		}
-		if (!magicItem.getArmors().isEmpty()) {
-			type += " (" +magicItem.getArmors().stream().map(Armor::getName).map(String::toLowerCase)
-					.collect(Collectors.joining(", ")) + ")";
-		}
-		if (magicItem.getSpecial() != null) {
-			type += " (" + magicItem.getSpecial() + ")";
-		}
-		rarity = magicItem.getRarity().getCyrilicName();
 		attunement = magicItem.getCustomization() ? "требуется настройка" : "Нет";
 		attunement += magicItem.getCustSpecial() != null ? " " + magicItem.getCustSpecial() : "";
 		attunement += " " + magicItem.getCustClasses().stream().map(HeroClass::getAblativeName).map(String::toLowerCase)

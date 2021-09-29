@@ -25,7 +25,7 @@ public enum ArmorType {
 	BONECRAFT("костяной доспех"),
 	MAGE_ARMOR("с доспехами мага"),
 	
-	SHIELD("щит"); //9
+	SHIELD("доспех (щит)"); //9
 
 	private String cyrillicName;
 }

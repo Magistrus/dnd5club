@@ -1,25 +1,4 @@
 $(document).ready(function() {
-    Tipped.delegate('.tip_spell', {
-	    ajax: {
-	        url: '/spells',
-	        type: 'post',
-	        success: function(data, textStatus, jqXHR) {
-	            return {
-	              title: ' <em>' + data.level + ' уровень</em> / ' + data.name,
-	              content: data.description
-	        	};
-	        }
-	    },
-		afterUpdate: function(content, element) {
-			content.classList.add('tooltip_scroll');
-		},
-		onShow: function(content, element) {
-			var simpleBar = new SimpleBar(content);
-		   	simpleBar.recalculate();
-		},
-	    skin: localStorage.getItem('theme'),
-	});
-
 	if (selectedClass){
 		localStorage.setItem('selected_class', selectedClass);
 	}
