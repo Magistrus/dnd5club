@@ -11,8 +11,10 @@ import lombok.Setter;
 public class PropertyDto {
 	private String name;
 	private String englishName;
+	private String description;
 	PropertyDto(WeaponProperty property){
 		name = property.getName();
 		englishName = property.getEnglishName();
+		description = property.getDescription();
 	}
 }

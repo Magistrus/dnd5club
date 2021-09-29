@@ -91,7 +91,8 @@ $(document).ready(function() {
 			if (i<data.properties.length-1){
 				a.innerHTML += ', ';
 			}
-			//a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
+			a.title = element.description;
+			a.classList.add('tip_scroll', 'icon_' + element.englishName.toLowerCase());
 			propertyElement.appendChild(a);
 		}
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
