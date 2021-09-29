@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<body id="body">
+	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Доспехи</h3>
+				<input type="text" id="search" class="search_int">
+				<div id="btn_filters" class="btn_filters">
+					<div class="icon_action icon_filters"></div>
+				</div>
+			</div>
+			<div id="scroll_load_simplebar" class="container_left table_list">
+				<table id="armors" class="table_list spells_list" th:fragment="table">
+					<thead style="display: none">
+						<tr>
+							<th>Тип</th>
+							<th>Название</th>
+							<th>English</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="armor_name">Название доспехов</h3>
+				<div id="btn_full_screen" class="btn_full_screen">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div id="sub_menu" class="sub_menu_list sub_spells_info">
+					<ul>
+						<li>
+							<h5>КД:</h5> <span id="ac">-</span>
+						</li>
+						<li>
+							<h5>Тип:</h5> <span id="type">-</span>
+						</li>
+						<li>
+							<h5>Стоимость:</h5> <span id="cost">-</span>
+						</li>
+						<li>
+							<h5>Вес (в фунтах):</h5> <span id="weight">-</span>
+						</li>
+						<li>
+							<h5>Требование к Силе:</h5> <span id="requirements">-</span>
+						</li>
+						<li>
+							<h5>Помеха на Скрытность:</h5> <span id="stealth">-</span>
+						</li>
+						<li>
+							<h5>Источник:</h5> <span id="source">-</span>
+						</li>
+					</ul>
+				</div>
+				<div class="content_block"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script th:src="@{/resources/js/datatables/armors.js}" layout:fragment="js-script"></script>
+</html>
