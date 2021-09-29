@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var scrollEventHeight = 0;
 	var table = $('#weapons').DataTable({
 		ajax : '/data/weapons',
-		dom: 'tiS',
+		dom: 't',
 		serverSide : true,
         deferRender: true,
 		iDisplayLength : 25,
