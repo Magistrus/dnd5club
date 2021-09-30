@@ -27,12 +27,16 @@ function switchTheme() {
 }
 
 function setThemeDark(element){
+	document.getElementById('theme_mode').innerHTML= 'Светлая тема';
+	document.getElementById('theme_mode_link').innerHTML= 'Светлая тема';
 	element.href = '/resources/css/dark.css';
 	element.classList.remove('light')
 	element.classList.add('dark');
 }
 
 function setThemeLight(element){
+	document.getElementById('theme_mode').innerHTML= 'Темная тема';
+	document.getElementById('theme_mode_link').innerHTML= 'Темная тема';
 	element.href = '/resources/css/light.css';
 	element.classList.remove('dark')
 	element.classList.add('light');
