@@ -6,7 +6,7 @@ $(document).ready(function() {
 		localStorage.setItem('selected_subrace', selectedSubrace);
 	}
 	var raceName = localStorage.getItem('selected_race');
-	if (raceName !== 'undefined' && raceName !== null){
+	if (raceName !== 'undefined'){
 		var element = $('#'+raceName)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', raceName);
@@ -49,6 +49,10 @@ $('#btn_full_screen').on('click', function() {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
+	$(".card").removeClass('active');
+	localStorage.removeItem('selected_race');
+	localStorage.removeItem('selected_subrace');
+	history.pushState('data to be passed', 'Расы', '/races/');
 });
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
@@ -101,44 +105,42 @@ function setActiveRace(element, englishName) {
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].addEventListener('click', function(event) {
 				this.parentElement.classList.remove('active');
-				var selecedName = $('.card.active')[0];
-				var url = '/races/fragment/' + selecedName.id;
+				var selecedRaceName = $('.card.active')[0];
+				var url = '/races/fragment/' + selecedRaceName.id;
 				if (localStorage.getItem('race_info')==='description'){
 					loadDescription();
 				} else {
 					$(".content_block").load(url);
-					localStorage.setItem('selected_race', selecedName.id) 
+					localStorage.setItem('selected_race', selecedRaceName.id) 
 				}
 			});
 		}
 		var elements = $('li.sub_menu');
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].addEventListener('click', function(event) {
-				var selecedName = $('.card.active')[0];
+				var selecedRaceName = $('.card.active')[0];
 				const checkLi = event.target.tagName;
 				if (checkLi === 'SPAN' || checkLi === 'LI' || checkLi === 'DIV'){
-					setActiveSubrace(this, selecedName.id, this.id);
+					setActiveSubrace(this, selecedRaceName.id, this.id);
 					localStorage.setItem('selected_subrace',  this.id);
 				} 
 			});
 		}
-		var storeSubrace = localStorage.getItem('selected_subrace');
-		if (storeSubrace){
-			var selecedSubraceName = $('#'+ storeSubrace);
-			if (selecedSubraceName.length > 0){
-				setActiveSubrace(selecedSubraceName[0], localStorage.getItem('selected_race'), storeSubrace);
-			}
+		var archetepyName = localStorage.getItem('selected_subrace');
+		if (archetepyName){
+			var selecedSubraceName = $('#'+ archetepyName);
+			setActiveSubrace(selecedSubraceName[0], localStorage.getItem('selected_race'), archetepyName);
 		}
 	});
 }
-function setActiveSubrace(element, raceName, subraceName) {
+function setActiveSubrace(element, raceName, archetypeName) {
 	$('li.sub_menu').removeClass('active');
 	element.classList.add('active');
 	if (localStorage.getItem('race_info')==='description'){
 		loadDescription();
 	}else {
-		var url = '/races/' + raceName + '/subrace/' + subraceName;
+		var url = '/races/' + raceName + '/subrace/' + archetypeName;
 		$(".content_block").load(url);
 	}
-	history.pushState('data to be passed', raceName, '/races/' + raceName + '/' + subraceName);
+	history.pushState('data to be passed', raceName, '/races/' + raceName + '/' + archetypeName);
 }

@@ -59,6 +59,10 @@ $('#btn_full_screen').on('click', function() {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
+	$(".card").removeClass('active');
+	localStorage.removeItem('selected_class');
+	localStorage.removeItem('selected_archetype');
+	history.pushState('data to be passed', 'Классы', '/classes/');
 });
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
@@ -153,5 +157,4 @@ function setActiveArchetype(element, className, archetypeName) {
 		$(".content_block").load(url);
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
-
 }

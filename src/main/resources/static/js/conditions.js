@@ -42,4 +42,7 @@ function setActiveCondition(element, englishName){
 }
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
+	$(".card").removeClass('active');
+	localStorage.removeItem('selected_condition');
+	history.pushState('data to be passed', 'Классы', '/conditions/');
 });
