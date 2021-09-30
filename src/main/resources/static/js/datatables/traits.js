@@ -72,6 +72,7 @@ $(document).ready(function() {
 		var source = '<span class="tip" data-tipped-traits="inline: \'tooltip-background-source-' + data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="tooltip-background-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
 		var url = '/traits/fragment/' + data.id;
 		$(".content_block").load(url);

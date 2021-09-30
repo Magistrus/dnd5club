@@ -86,6 +86,7 @@ $(document).ready(function() {
 			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
 			classIconsElement.appendChild(a);
 		});*/
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));
 		var url = '/options/fragment/' + data.id;
 		$(".content_block").load(url);

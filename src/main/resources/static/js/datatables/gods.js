@@ -80,6 +80,7 @@ $(document).ready(function() {
 		var source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
 		source+= '<span id="tooltip-race-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
 		var url = '/gods/fragment/' + data.id;
 		$(".content_block").load(url);

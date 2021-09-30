@@ -6,7 +6,7 @@ $(document).ready(function() {
 		localStorage.setItem('selected_archetype', selectedArchetype);
 	}
 	var className = localStorage.getItem('selected_class');
-	if (className !== 'undefined'){
+	if (className){
 		var element = $('#'+className)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', className);

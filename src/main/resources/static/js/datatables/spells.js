@@ -95,6 +95,7 @@ $(document).ready(function() {
 			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
 			classIconsElement.appendChild(a);
 		});
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);

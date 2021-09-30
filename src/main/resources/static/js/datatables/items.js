@@ -76,7 +76,7 @@ $(document).ready(function() {
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
-
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
 		var url = '/items/fragment/' + data.id;
 		$(".content_block").load(url);
