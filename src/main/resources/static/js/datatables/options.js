@@ -81,6 +81,9 @@ $(document).ready(function() {
 		data.optionTypes.forEach(element => {
 			var a = document.createElement("a");
 			a.href = '/classes/' + element.className; 
+			if (element.archetypeName){
+				a.href += '/' + element.archetypeName; 
+			}
 			a.title = element.name;
 			a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase());
 			classIconsElement.appendChild(a);

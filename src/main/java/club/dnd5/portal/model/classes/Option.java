@@ -53,26 +53,33 @@ public class Option {
 	@AllArgsConstructor
 	@Getter
 	public enum OptionType {
-		ARCANE_SHOT("Магические выстрелы: Мистический Лучник", "Fighter"),
-		MANEUVER("Маневры: Мастер боевых искуств", "Fighter"),
+		ARCANE_SHOT("Магические выстрелы: Воин Мистический Лучник", "Fighter", "Arcane_Archer"),
+		MANEUVER("Маневры: Воин Мастер боевых искуств", "Fighter","Battle_Master"),
 		METAMAGIC("Метамагия", "Sorcerer"),
-		ELDRITCH_INVOCATION("Таинственные воззвания","Warlock"),
-		FIGHTING_STYLE("Боевые стили", "Fighter"),
-		ELEMENTAL_DISCIPLINE("Стихийные практики: Путь четырех стихий", "Monk"),
-		ARTIFICER_INFUSION("Инфузии","Artificer"),
-		RUNE("Руны: Рунический рыцарь", "Fighter"),
-		BONE("Договоры", "Warlock"),
-		FIGHTING_STYLE_RANGER("Боевые стили", "Ranger"), 
-		FIGHTING_STYLE_PALADIN("Боевые стили", "Paladin"),
-		FIGHTING_STYLE_BARD("Боевые стили: Колллегия Мечей", "Bard"),
-		FIGHTING_STYLE_BLOODHANTER("Боевые стили", "Blood Hunter"),
-		BLOOD_CURSE("Проклятья крови", "Blood Hunter"),
-		MUTAGEN("Мутагены: Ордена мутантов", "Blood Hunter"),
-		WILD_SHAPE("Формы Дикого Облика", "Druid"), 
-		PHILOSOPHICAL_SCHOOL("Философские школы: Философ Академии","Wizard");
-
+		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","Warlock"),
+		FIGHTING_STYLE("Боевые стили: Воин", "Fighter"),
+		ELEMENTAL_DISCIPLINE("Стихийные практики: Монах Пути четырех стихий", "Monk", "Four_Elements"),
+		ARTIFICER_INFUSION("Инфузии: Изобретатель","Artificer"),
+		RUNE("Руны: Рунический рыцарь", "Fighter", "Rune"),
+		BONE("Договоры: Колдун", "Warlock"),
+		FIGHTING_STYLE_RANGER("Боевые стили: Следопыт", "Ranger"), 
+		FIGHTING_STYLE_PALADIN("Боевые стили: Паладин", "Paladin"),
+		FIGHTING_STYLE_BARD("Боевые стили: Бард Колллегии Мечей", "Bard", "Swords"),
+		FIGHTING_STYLE_BLOODHANTER("Боевые стили: Кровавый охотник", "Blood Hunter"),
+		BLOOD_CURSE("Проклятья крови: Кровавый охотник", "Blood Hunter"),
+		MUTAGEN("Мутагены: Кровавый охотник Ордена мутантов", "Blood Hunter"),
+		WILD_SHAPE("Формы Дикого Облика: Друид", "Druid"), 
+		PHILOSOPHICAL_SCHOOL("Философские школы: Волшебник Философ Академии","Wizard");
+		
 		private String name;
 		private String className;
+		private String arhetypeName;
+		
+		OptionType(String name, String className){
+			this.name = name;
+			this.className = className;
+		}
+		
 		public static OptionType parse(String type) {
 			return Arrays.asList(values()).stream()
 					.filter(t -> t.name.equals(type))

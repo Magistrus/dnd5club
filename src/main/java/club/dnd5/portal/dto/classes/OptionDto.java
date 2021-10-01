@@ -47,9 +47,12 @@ public class OptionDto {
 	private class OptionTypeDto {
 		private String name;
 		private String className;
+		private String archetypeName;
+
 		public OptionTypeDto(OptionType option){
 			name = option.getName();
 			className = option.getClassName();
+			archetypeName = option.getArhetypeName();
 		}
 	}
 }
