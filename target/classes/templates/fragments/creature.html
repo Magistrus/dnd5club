@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/datatable-layout}">
+<head>
+<title th:text="${spell.name}"></title>
+</head>
+<body>
+	<div th:object="${creature}" th:fragment="view">
+		<div id="stat-block" class="stat-block">
+			<hr class="orange-border" />
+			<div class="section-left">
+				<div class="creature-heading">
+					<h1 th:text="|*{name} [*{englishName}]|">
+					</h1>
+					<h2 id="monster-type"
+						th:text="|${creature.size.getSizeName(creature.type)} ${creature.type.cyrilicName}${creature.raceName eq null ? '': ' ' + creature.raceName}, ${creature.alignment.cyrilicName}|"
+					></h2>
+				</div>
+				<svg class="tapered-rule">
+			<polyline points="0,0 600,2.5 0,5"></polyline></svg>
+				<div class="top-stats">
+					<div class="property-line first">
+						<h4>
+							<strong>Класс доспеха</strong>
+						</h4>
+						<p>
+							<span th:text="${creature.AC}"></span>
+							<th:block th:if="${creature.bonusAC}" th:text="${creature.bonusAC}" />
+							<th:block th:unless="${creature.armorTypes.empty}"> (<span th:each="armorType, iterStat : ${creature.armorTypes}"
+									th:text="${iterStat.last ? armorType.cyrillicName: armorType.cyrillicName + ', '}"
+								></span>)</th:block>
+						</p>
+					</div>
+					<div class="property-line">
+						<h4>
+							<strong>Хиты</strong>
+						</h4>
+						<p th:text="${creature.hp}"></p>
+					</div>
+					<div class="property-line last">
+						<h4>
+							<strong>Скорость</strong>
+						</h4>
+						<p th:utext="${creature.allSpeed}">'</p>
+					</div>
+					<svg class="tapered-rule">
+										<polyline points="0,0 600,2.5 0,5"></polyline></svg>
+					<div class="scores">
+						<div class="scores-strength">
+							<h4>
+								<strong>СИЛ</strong>
+							</h4>
+							<p th:text="${creature.strengthText()}"></p>
+						</div>
+						<div class="scores-dexterity">
+							<h4>
+								<strong>ЛОВ</strong>
+							</h4>
+							<p th:text="${creature.dexterityText()}"></p>
+						</div>
+						<div class="scores-constitution">
+							<h4>
+								<strong>ТЕЛ</strong>
+							</h4>
+							<p th:text="${creature.constitutionText()}"></p>
+						</div>
+						<div class="scores-intelligence">
+							<h4>
+								<strong>ИНТ</strong>
+							</h4>
+							<p th:text="${creature.intellectText()}"></p>
+						</div>
+						<div class="scores-wisdom">
+							<h4>
+								<strong>МДР</strong>
+							</h4>
+							<p th:text="${creature.wizdomText()}"></p>
+						</div>
+						<div class="scores-charisma">
+							<h4>
+								<strong>ХАР</strong>
+							</h4>
+							<p th:text="${creature.charismaText()}"></p>
+						</div>
+					</div>
+					<th:block th:with="first=${false}">
+						<svg class="tapered-rule">
+						<polyline points="0,0 600,2.5 0,5"></polyline></svg>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.savingThrows.empty}">
+							<h4>
+								<strong>Спасброски</strong>
+							</h4>
+							<p>
+								<span th:each="st, iterStat : ${creature.savingThrows}" th:text="${iterStat.last ? st.text : st.text +', '}"></span>
+							</p>
+						</div>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.skills.empty}">
+							<h4>
+								<strong>Навыки</strong>
+							</h4>
+							<p>
+								<span th:each="skill, iterStat : ${creature.skills}" th:text="${iterStat.last ? skill.cyrilicText : skill.cyrilicText +', '}"></span>
+							</p>
+						</div>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.vulnerabilityDamages.empty}">
+							<h4>
+								<strong>Уязвимость к урону</strong>
+							</h4>
+							<p>
+								<span th:each="vulnerability, iterStat : ${creature.vulnerabilityDamages}" th:text="${iterStat.last ? vulnerability.cyrilicName : vulnerability.cyrilicName +', '}"></span>
+							</p>
+						</div>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.resistanceDamages.empty}">
+							<h4>
+								<strong>Сопротивление к урону</strong>
+							</h4>
+							<p>
+								<span th:each="resistance, iterStat : ${creature.resistanceDamages}" th:text="${iterStat.last ? resistance.cyrilicName : resistance.cyrilicName +', '}"></span>
+							</p>
+						</div>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.immunityDamages.empty}">
+							<h4>
+								<strong>Иммунитет к урону</strong>
+							</h4>
+							<p>
+								<span th:each="immunity, iterStat : ${creature.immunityDamages}" th:text="${iterStat.last ? immunity.cyrilicName : immunity.cyrilicName +', '}"></span>
+							</p>
+						</div>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.immunityStates.empty}">
+							<h4>
+								<strong>Иммунитет к состояниям</strong>
+							</h4>
+							<p>
+								<span th:each="immunity, iterStat : ${creature.immunityStates}" th:text="${iterStat.last ? immunity.cyrilicName : immunity.cyrilicName +', '}"></span>
+							</p>
+						</div>
+						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}">
+							<h4>
+								<strong>Чувства</strong>
+							</h4>
+							<p th:text="|${creature.sense}${creature.sense.empty ? '': ', '}пассивная Внимательность ${creature.passivePerception}|"></p>
+						</div>
+						<div class="property-line">
+							<h4>
+								<strong>Языки</strong>
+							</h4>
+							<p>
+								<span th:each="language, iterStat : ${creature.languages}" th:text="${iterStat.last ? language.name : language.name + ', '}"></span>
+							</p>
+						</div>
+						<div class="property-line last">
+							<h4>
+								<strong>Опасность</strong>
+							</h4>
+							<p th:text="|${creature.challengeRating} (${creature.exp} опыта)|"></p>
+						</div>
+					</th:block>
+					<svg class="tapered-rule">
+											<polyline points="0,0 600,2.5 0,5"></polyline></svg>
+					<div class="property-block" th:each="feat : ${creature.feats}">
+						<h4>
+							<strong th:text="|${feat.name}.|"></strong>
+						</h4>
+						<p th:utext="${feat.description}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="section-right">
+				<div class="actions" th:unless="${creature.actions.empty}">
+					<h3>Действия</h3>
+					<div class="property-block" th:each="action : ${creature.actions}">
+						<h4>
+							<strong th:text="${action.name}"></strong>.
+						</h4>
+						<p th:utext="${action.description}" />
+					</div>
+				</div>
+				<div class="actions" th:unless="${creature.reactions.empty}">
+					<h3>Реакции</h3>
+					<div class="property-block" th:each="action : ${creature.reactions}">
+						<h4>
+							<strong th:text="${action.name}"></strong>.
+						</h4>
+						<p th:utext="${action.description}" />
+					</div>
+				</div>
+				<div class="actions" th:unless="${creature.bonusActions.empty}">
+					<h3>Бонусные действия</h3>
+					<div class="property-block" th:each="action : ${creature.bonusActions}">
+						<h4>
+							<strong th:text="${action.name}"></strong>.
+						</h4>
+						<p th:utext="${action.description}" />
+					</div>
+				</div>
+				<div class="actions" th:unless="${creature.legendaries.empty}">
+					<h3>Легендарные Действия</h3>
+					<div th:unless="${creature.legendary eq null}" th:utext="${creature.legendary}"></div>
+					<div th:if="${creature.legendary eq null}">
+						<span th:text="${creature.name}"></span> может совершить 3 легендарных действия, выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное действие, и
+						только в конце хода другого существа. <span th:text="${creature.name}"></span> восстанавливает использованные легендарные действия в начале своего хода.
+					</div>
+					<br>
+					<div class="property-block reverse-indent legendary" th:each="action : ${creature.legendaries}">
+						<h4>
+							<strong th:text="${action.name}"></strong>.
+						</h4>
+						<p th:utext="${action.description}" />
+					</div>
+				</div>
+			</div>
+			<hr class="orange-border bottom" />
+		</div>
+	</div>
+</body>
+</html>
