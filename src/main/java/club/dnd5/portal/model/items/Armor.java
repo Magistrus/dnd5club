@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.book.Book;
 import lombok.Getter;
 

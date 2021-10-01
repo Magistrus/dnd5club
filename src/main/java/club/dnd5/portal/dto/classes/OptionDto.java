@@ -7,7 +7,6 @@ import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

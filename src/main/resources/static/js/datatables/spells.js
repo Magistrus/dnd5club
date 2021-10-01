@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var scrollEventHeight = 0;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
-		dom: 'tS',
+		dom: 't',
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
@@ -103,4 +103,7 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+	$('#btn_full_screen').on('click', function() {
+		//$('#left_block')[0].style.display = 'none';
+	})
 });
