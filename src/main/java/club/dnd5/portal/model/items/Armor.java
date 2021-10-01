@@ -7,9 +7,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import club.dnd5.portal.model.ArmorType;
+import club.dnd5.portal.model.book.Book;
 import lombok.Getter;
 
 @Entity
@@ -21,15 +24,19 @@ public class Armor {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private int AC;
 	private int cost;
 	private float weight;
 
 	@Column(nullable = true)
 	private Integer forceRequirements;
 	private boolean stelsHindrance;
-	private int AC;
 
 	@Enumerated(EnumType.ORDINAL)
-	private ArmorType type;
+	private ArmorCategory type;
 	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name = "source")
+	private Book book;
 }

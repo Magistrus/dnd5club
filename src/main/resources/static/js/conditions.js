@@ -13,10 +13,6 @@ $(document).ready(function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	var conditionName = this.querySelector("#condition_id").textContent;
-	document.getElementById('condition_name').innerHTML = conditionName;
-	document.title = conditionName;
-	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
 		if (localStorage.getItem('selected_condition') === englishName) {
@@ -34,6 +30,10 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveCondition(element, englishName){
+	var conditionName = element.querySelector("#condition_id").textContent;
+	document.getElementById('condition_name').innerHTML = conditionName;
+	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
+	document.title = conditionName;
 	localStorage.setItem('selected_condition', englishName);
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
@@ -42,4 +42,7 @@ function setActiveCondition(element, englishName){
 }
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
+	$(".card").removeClass('active');
+	localStorage.removeItem('selected_condition');
+	history.pushState('data to be passed', 'Классы', '/conditions/');
 });

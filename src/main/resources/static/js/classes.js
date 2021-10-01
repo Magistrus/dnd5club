@@ -1,25 +1,4 @@
 $(document).ready(function() {
-    Tipped.delegate('.tip_spell', {
-	    ajax: {
-	        url: '/spells',
-	        type: 'post',
-	        success: function(data, textStatus, jqXHR) {
-	            return {
-	              title: ' <em>' + data.level + ' уровень</em> / ' + data.name,
-	              content: data.description
-	        	};
-	        }
-	    },
-		afterUpdate: function(content, element) {
-			content.classList.add('tooltip_scroll');
-		},
-		onShow: function(content, element) {
-			var simpleBar = new SimpleBar(content);
-		   	simpleBar.recalculate();
-		},
-	    skin: localStorage.getItem('theme'),
-	});
-
 	if (selectedClass){
 		localStorage.setItem('selected_class', selectedClass);
 	}
@@ -27,7 +6,7 @@ $(document).ready(function() {
 		localStorage.setItem('selected_archetype', selectedArchetype);
 	}
 	var className = localStorage.getItem('selected_class');
-	if (className !== 'undefined'){
+	if (className){
 		var element = $('#'+className)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', className);
@@ -80,6 +59,10 @@ $('#btn_full_screen').on('click', function() {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
+	$(".card").removeClass('active');
+	localStorage.removeItem('selected_class');
+	localStorage.removeItem('selected_archetype');
+	history.pushState('data to be passed', 'Классы', '/classes/');
 });
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
@@ -174,5 +157,4 @@ function setActiveArchetype(element, className, archetypeName) {
 		$(".content_block").load(url);
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
-
 }

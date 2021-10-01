@@ -10,7 +10,7 @@
 	<nav>
 		<ul class="nav_links sidebar-menu">
 			<li>
-				<a th:href="@{/creatures}">
+				<a th:href="@{/bestiary}">
 					<i class="icon_bestiary"></i>
 					<span class="link_name">Бестиарий</span>
 				</a>
@@ -69,7 +69,7 @@
 				</div>
 				<ul class="sub_menu">
 					<li class="link_name"><span>Сокровища</span></li>
-					<li><a href="#">Драгоценности</a></li>
+					<li><a th:href="@{/items/jewelry}">Драгоценности</a></li>
 					<li><a th:href="@{/items/magic}">Магические предметы</a></li>
 				</ul>
 			</li>
@@ -92,9 +92,9 @@
 				</div>
 				<ul class="sub_menu">
 					<li class="link_name"><span>Мастерская</span></li>
-					<li><a href="#">Ширма</a></li>
+					<li><a th:href="@{/screen}">Ширма</a></li>
 					<li><a th:href="@{/conditions}">Состояния и болезни</a></li>
-					<li><a href="#">Правила и термины</a></li>
+					<li><a th:href="@{/rules}">Правила и термины</a></li>
 				</ul>
 			</li>
 			<li>
@@ -121,47 +121,13 @@
 			<li onclick="switchTheme()">
 				<a href="#">
 					<i class="icon_dark_mod"></i>
-					<span class="link_name">Dark Mod</span>
+					<span id="theme_mode" class="link_name">Dark Mod</span>
 				</a>
 				<ul class="sub_menu blank">
-					<li class="link_name"><span>Dark Mod</span></li>
+					<li class="link_name"><span id="theme_mode_link">Dark Mod</span></li>
 				</ul>
 			</li>
 		</ul>
 	</nav>
-
-	<!-- <ul class="sidebar-menu">
-		<li class="sidebar-header">MAIN NAVIGATION</li>
-		<li>
-		<div class="dropdown">
-		  <a href="#">
-			<i class="fa fa-laptop"></i>
-			<span>UI Elements</span>
-			<i class="fa fa-angle-left pull-right"></i>
-		  </a>
-		</div>
-		  <ul class="sidebar-submenu">
-			<li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-			<li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-			<li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-			<li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-			<li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-			<li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-		  </ul>
-		</li>
-		<li>
-		<div class="dropdown">
-		  <a href="#">
-			<i class="fa fa-edit"></i> <span>Forms</span>
-			<i class="fa fa-angle-left pull-right"></i>
-		  </a>
-		</div>
-		  <ul class="sidebar-submenu">
-			<li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-			<li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-			<li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-		  </ul>
-		</li>
-	  </ul> -->
 </div>
 </html>

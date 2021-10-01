@@ -1,12 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 0;
 	var table = $('#backgrounds').DataTable({
 		ajax : '/data/backgrounds',
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
+		iDisplayLength : 30,
         scrollCollapse: true,
-        scroller: true,
 		select: true,
 		select: {
 			style: 'single'
@@ -50,7 +50,16 @@ $(document).ready(function() {
 		},
 		initComplete: function(settings, json) {
 		    $('#backgrounds tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select(); 
+		    table.row(':eq(0)', { page: 'current' }).select();
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=750;
+		    	}
+		    }); 
 		}
 	});
 	$('#backgrounds tbody').on('click', 'tr', function () {
@@ -67,6 +76,7 @@ $(document).ready(function() {
 		var source = '<span class="tip" data-tipped-backgrounds="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
 		var url = '/backgrounds/fragment/' + data.id;
 		$(".content_block").load(url);

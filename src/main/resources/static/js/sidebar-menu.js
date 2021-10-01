@@ -39,7 +39,6 @@ $.sidebarMenu = function(menu) {
   });
 }
 
-
 let sidebar = document.querySelector("#body");
 if (localStorage.getItem('compact_menu') ==='true'){
 	sidebar.classList.add("compact_menu");

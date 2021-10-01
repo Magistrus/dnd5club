@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.book.Book;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,5 +54,9 @@ public class Condition {
 		public static Type parse(String type) {
 			return Arrays.asList(values()).stream().filter(t -> t.getName().equals(type)).findFirst().orElse(CONDITION);
 		}
+	}
+	
+	public String getName() {
+		return StringUtils.capitalizeWords(name.toLowerCase());
 	}
 }

@@ -30,7 +30,6 @@
 		
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		
-		<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 	</head>
 
 	<body id="body" class="d-flex overflow-hidden">
@@ -42,15 +41,11 @@
 		</div>
 	</body>
 
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 	<script th:src="@{/resources/js/scripts.js}"></script>
 	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
 	<script th:src="@{/resources/js/scheme.js}"></script>
 	<script th:src="@{/resources/js/simplebar.min.js}"></script>
 	<script th:src="@{/resources/js/tipped.min.js}"></script>
-
-	<script>
-		$.sidebarMenu($('.sidebar-menu'))
-	</script>
-	
 	<script layout:fragment="js-script"></script>
 </html>

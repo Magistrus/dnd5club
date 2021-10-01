@@ -1,15 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 0;
 	var table = $('#creatures').DataTable({
 		ajax : '/data/bestiary',
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
+		iDisplayLength : 25,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            loadingIndicator: true
-        },
 		select: true,
 		select: {
 			style: 'single'
@@ -58,12 +55,17 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-			if (selectedCreature){
-				document.getElementById('search').value = selectedCreature; 
-				table.tables().search(selectedSpell).draw();
-			}
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
 		    $('#creatures tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=750;
+		    	}
+		    });
 		}
 	});
 
@@ -73,9 +75,14 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		document.getElementById('creature_name').innerHTML = data.name;
+		document.getElementById('cr').innerHTML = data.cr;
+		document.getElementById('type').innerHTML = data.type;
+		document.getElementById('size').innerHTML = data.size;
+
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 		var url = '/bestiary/fragment/' + data.id;
 		$(".content_block").load(url);

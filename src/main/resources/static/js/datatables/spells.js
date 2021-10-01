@@ -1,15 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 0;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
 		dom: 'tS',
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            loadingIndicator: true
-        },
+		iDisplayLength : 25,
 		select: true,
 		select: {
 			style: 'single'
@@ -58,12 +55,17 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-			if (selectedSpell){
-				document.getElementById('search').value = selectedSpell; 
-				table.tables().search(selectedSpell).draw();
-			}
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
 		    $('#spells tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=750;
+		    	}
+		    });
 		}
 	});
 
@@ -93,6 +95,7 @@ $(document).ready(function() {
 			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
 			classIconsElement.appendChild(a);
 		});
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 		var url = '/spells/fragment/' + data.id;
 		$(".content_block").load(url);

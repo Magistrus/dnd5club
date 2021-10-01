@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.repository.classes.RaceRepository;
 
@@ -60,6 +63,24 @@ public class RaceController {
 		model.addAttribute("device", device);
 		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("subraces", race.getSubRaces());
-		return "subraces :: sub_menu"; 
+		return "fragments/subraces_list :: sub_menu"; 
+	}
+	
+	@GetMapping("/races/{name}/description")
+	@ResponseBody
+	public String getRaceDescription(@PathVariable String name) {
+		Race race = raceRepository.findByEnglishName(name.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		return race.getDescription();
+	}
+	
+	@GetMapping("/races/{className}/subrace/{archetypeName}/description")
+	@ResponseBody
+	public String getSubraceDescription(@PathVariable String className, @PathVariable String archetypeName) {
+		Race race = raceRepository.findByEnglishName(className.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		return race.getSubRaces()
+			.stream()
+			.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace("_", " ")))
+			.map(Race::getDescription)
+			.findFirst().orElse("");
 	}
 }

@@ -1,17 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 0;
 	var table = $('#traits').DataTable({
 		ajax : '/data/traits',
 		dom: 'tS',
 		serverSide : true,
         deferRender: true,
-        scrollY: 900,
+		iDisplayLength : 30,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            displayBuffer: 20,
-            rowHeight: 50,
-            loadingIndicator: true
-        },
 		select: true,
 		select: {
 			style: 'single'
@@ -55,7 +50,16 @@ $(document).ready(function() {
 		},
 		initComplete: function(settings, json) {
 		    $('#traits tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select(); 
+		    table.row(':eq(0)', { page: 'current' }).select();
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=750;
+		    	}
+		    });
 		}
 	});
 	$('#traits tbody').on('click', 'tr', function () {
@@ -68,6 +72,7 @@ $(document).ready(function() {
 		var source = '<span class="tip" data-tipped-traits="inline: \'tooltip-background-source-' + data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="tooltip-background-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
 		var url = '/traits/fragment/' + data.id;
 		$(".content_block").load(url);

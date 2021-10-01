@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -54,12 +55,15 @@ public class MagicItem {
 	private Byte bonus;
 	
 	@OneToMany
+	@JoinTable(name =  "artifactes_cust_classes") 
 	private List<HeroClass> custClasses;
 	
 	@OneToMany
+	@JoinTable(name =  "artifactes_weapons")
 	private List<Weapon> weapons;
 	
 	@OneToMany
+	@JoinTable(name =  "artifactes_armors")
 	private List<Armor> armors;
 	
 	@OneToMany

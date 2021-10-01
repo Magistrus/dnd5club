@@ -10,7 +10,7 @@
 				<div id="card_wrapper" class="card_wrapper">
 					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${conditions}">
 						<div class="infimation">
-							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Class name</h5>
+							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Название состояния</h5>
 							<p th:text="${condition.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
 								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${condition.id}'|" th:text="${condition.book.source}"></span><span

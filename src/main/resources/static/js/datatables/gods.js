@@ -1,15 +1,12 @@
 $(document).ready(function() {
+	var scrollEventHeight = 0;
 	var table = $('#gods').DataTable({
 		ajax : '/data/gods',
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-        scrollY: 850,
+		iDisplayLength : 25,
         scrollCollapse: true,
-        scroller: true,
-        scroller: {
-            loadingIndicator: true
-        },
 		select: true,
 		select: {
 			style: 'single'
@@ -56,6 +53,15 @@ $(document).ready(function() {
 		initComplete: function(settings, json) {
 		    $('#gods tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select(); 
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
+		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
+		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	      table.page.loadMore();
+		    	      simpleBar.recalculate();
+		    	      scrollEventHeight +=750;
+		    	}
+		    });
 		}
 	});
 	$('#gods tbody').on('click', 'tr', function () {
@@ -74,6 +80,7 @@ $(document).ready(function() {
 		var source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
 		source+= '<span id="tooltip-race-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;
+		document.title = data.name;
 		history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
 		var url = '/gods/fragment/' + data.id;
 		$(".content_block").load(url);
