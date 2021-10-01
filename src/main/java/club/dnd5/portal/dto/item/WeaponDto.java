@@ -30,7 +30,7 @@ public class WeaponDto {
 		englishName = weapon.getEnglishName();
 		cost = weapon.getCost() + " " + weapon.getCurrency().getName();
 		weight = String.valueOf(weapon.getWeight());
-		damage = weapon.getNumberDice() ==null ? "" : weapon.getNumberDice() + (weapon.getDamageDice() == null ? "" : weapon.getDamageDice().getName());
+		damage = weapon.getNumberDice() == null ? "0" : weapon.getNumberDice() + (weapon.getDamageDice() == null ? "" : weapon.getDamageDice().getName());
 		damageType = weapon.getDamageType().getCyrilicName();
 		type = weapon.getType().getName();
 		properties = weapon.getProperties().stream().map(PropertyDto::new).collect(Collectors.toList());
