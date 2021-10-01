@@ -75,12 +75,12 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		document.getElementById('spell_name').innerHTML = data.name;
-		document.getElementById('level').innerHTML =  (data.level === 'ЗГ' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
+		document.getElementById('level').innerHTML =  (data.level === 'З' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
 		document.getElementById('timecast').innerHTML = data.timeCast;
 		document.getElementById('distance').innerHTML = data.distance;
 		document.getElementById('components').innerHTML = data.components;
 		document.getElementById('duration').innerHTML = data.duration;
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
+		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>' + (data.homebrew ? ' [homebrew]' : '');
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source_spell').innerHTML = source;
 

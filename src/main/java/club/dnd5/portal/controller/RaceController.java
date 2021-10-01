@@ -1,5 +1,11 @@
 package club.dnd5.portal.controller;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.mobile.device.Device;
@@ -9,8 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import club.dnd5.portal.model.classes.HeroClass;
-import club.dnd5.portal.model.classes.archetype.Archetype;
+import club.dnd5.portal.model.races.Feature;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.repository.classes.RaceRepository;
 
@@ -33,7 +38,7 @@ public class RaceController {
 	}
 	
 	@GetMapping("/races/{name}/{subrace}")
-	public String getSubraces(Model model, @PathVariable String name, @PathVariable String subrace) {
+	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
 		model.addAttribute("races", raceRepository.findAllByParent(null, Sort.by("name")));
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
@@ -43,6 +48,8 @@ public class RaceController {
 	@GetMapping("/races/fragment/{englishName}")
 	public String getFragmentRace(Model model, Device device, @PathVariable String englishName) {
 		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		List<Feature> features =  race.getFeatures();
+		model.addAttribute("features", features);
 		model.addAttribute("race", race);
 		return "fragments/race :: view";
 	}
@@ -50,6 +57,18 @@ public class RaceController {
 	@GetMapping("/races/{raceName}/subrace/{subraceName}")
 	public String getFragmentSubraces(Model model, Device device, @PathVariable String raceName, @PathVariable String subraceName) {
 		Race race = raceRepository.findByEnglishName(raceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		Set<Integer> replace = race.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
+		List<Feature> features =  race.getSubRaces()
+		.stream()
+		.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))
+		.flatMap(r -> Stream.concat(
+				r.getFeatures().stream(),
+				r.getParent().getFeatures()
+					.stream()
+					.filter(f -> !replace.contains(f.getId()))))
+		//.sorted(Comparator.comparing(Feature::getName))
+		.collect(Collectors.toList());
+		model.addAttribute("features", features);
 		model.addAttribute("race", race.getSubRaces()
 				.stream()
 				.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))

@@ -53,26 +53,26 @@ public class Option {
 	@AllArgsConstructor
 	@Getter
 	public enum OptionType {
-		ARCANE_SHOT("Магические выстрелы: Мистический Лучник (Воин)", "МВ"),
-		MANEUVER("Маневры: Мастер боевых искуств (Воин)", "МА"),
-		METAMAGIC("Метамагия: Чародей", "ММ"),
-		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","ТВ"),
-		FIGHTING_STYLE("Боевые стили: Воин", "БС"),
-		ELEMENTAL_DISCIPLINE("Стихийные практики: Путь четырех стихий (Монах)", "СП"),
-		ARTIFICER_INFUSION("Инфузии: Изобретатель","И"),
-		RUNE("Руны: Рунический рыцарь", "Р"),
-		BONE("Договоры: Колдун", "ДК"),
-		FIGHTING_STYLE_RANGER("Боевые стили: Следопыт", "Б"), 
-		FIGHTING_STYLE_PALADIN("Боевые стили: Паладин", "БС"),
-		FIGHTING_STYLE_BARD("Боевые стили: Колллегия Мечей, Бард", "БС"),
-		FIGHTING_STYLE_BLOODHANTER("Боевые стили: Кровавый охотник", "БС"),
-		BLOOD_CURSE("Проклятья крови: Кровавый Охотник", "ПК"),
-		MUTAGEN("Мутагены: Ордена мутантов, (Кровавый Охотник)", "МУ"),
-		WILD_SHAPE("Формы Дикого Облика: Друид", "ДО"), 
-		PHILOSOPHICAL_SCHOOL("Философские школы: Философ Академии, Волшебник","ФШ");
+		ARCANE_SHOT("Магические выстрелы: Мистический Лучник", "Fighter"),
+		MANEUVER("Маневры: Мастер боевых искуств", "Fighter"),
+		METAMAGIC("Метамагия", "Sorcerer"),
+		ELDRITCH_INVOCATION("Таинственные воззвания","Warlock"),
+		FIGHTING_STYLE("Боевые стили", "Fighter"),
+		ELEMENTAL_DISCIPLINE("Стихийные практики: Путь четырех стихий", "Monk"),
+		ARTIFICER_INFUSION("Инфузии","Artificer"),
+		RUNE("Руны: Рунический рыцарь", "Fighter"),
+		BONE("Договоры", "Warlock"),
+		FIGHTING_STYLE_RANGER("Боевые стили", "Ranger"), 
+		FIGHTING_STYLE_PALADIN("Боевые стили", "Paladin"),
+		FIGHTING_STYLE_BARD("Боевые стили: Колллегия Мечей", "Bard"),
+		FIGHTING_STYLE_BLOODHANTER("Боевые стили", "Blood Hunter"),
+		BLOOD_CURSE("Проклятья крови", "Blood Hunter"),
+		MUTAGEN("Мутагены: Ордена мутантов", "Blood Hunter"),
+		WILD_SHAPE("Формы Дикого Облика", "Druid"), 
+		PHILOSOPHICAL_SCHOOL("Философские школы: Философ Академии","Wizard");
 
 		private String name;
-		private String shortName;
+		private String className;
 		public static OptionType parse(String type) {
 			return Arrays.asList(values()).stream()
 					.filter(t -> t.name.equals(type))

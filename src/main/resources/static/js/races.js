@@ -6,7 +6,7 @@ $(document).ready(function() {
 		localStorage.setItem('selected_subrace', selectedSubrace);
 	}
 	var raceName = localStorage.getItem('selected_race');
-	if (raceName !== 'undefined'){
+	if (raceName){
 		var element = $('#'+raceName)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', raceName);
@@ -81,6 +81,12 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveRace(element, englishName) {
+	if (element.querySelector('#race_id').classList.contains('hide')){
+		document.getElementById('sub_menu').style.display="none";
+	}
+	else {
+		document.getElementById('sub_menu').style.display="block";
+	}
 	switch (localStorage.getItem('race_info')) {
 	case 'description':
 		$('#race_description')[0].classList.add('active');
