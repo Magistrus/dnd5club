@@ -181,15 +181,44 @@ ul {
   border: none;
 }
 
+
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
   align-items: center;
   height: 72px;
-  border-bottom: 1px solid var(--border);
   padding-left: 24px;
   position: sticky;
   background-color: var(--bg-main);
+  background-image: var(--bg-title-img);
+  background-position:top left;
+  background-repeat:no-repeat ;
+  border-bottom: 1px solid var(--border);
+
+  border-image-source: var(--border-title-img);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
+}
+
+.header_block .filter_block {
+  height: 46px;
+  width: auto;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0;
+}
+
+#left_block .header_block.filters {
+  height: 118px;
+}
+
+.header_block.filters h3 {
+  line-height: 72px;
+  top: -24px;
+  position: relative;
 }
 
 
@@ -216,19 +245,19 @@ ul {
 }
 
 #left_block .header_block .search_int {
-  height: 70px;
-  border-left: 1px solid var(--border);
+  height: 44px;
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width: 200px;
+  width: 100%;
   background-image: var(--icon_search);
   background-repeat: no-repeat;
-  background-position: 24px 24px;
-  padding-left: 64px;
+  background-position: 12px 12px;
+  padding-left: 52px;
   position: absolute;
-  right: 72px;
-  top: 0;
+  right: 0px;
+  left: 0;
+  bottom: 0;
   background-color: var(--bg-secondary);
   color: var(--text-color);
   font-size: 15px;
@@ -246,8 +275,8 @@ ul {
 #left_block .header_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  width: 72px;
-  height: 72px;
+  width: 46px;
+  height: 46px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -276,9 +305,19 @@ ul {
   right: calc(-58vw - 1px);
   /* transition: width 0.6s; */
   position: fixed;
-  border-left: 1px solid var(--border);
   background-color: var(--bg-secondary);
+  border-left: 1px solid var(--border);
   overflow: hidden;
+  
+  border-image-source: var(--border-img);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
+}
+
+#right_block .header_block {
+  background-image: var(--bg-title-img-2);
 }
 
 .block_information #right_block {
@@ -397,7 +436,6 @@ ul {
   left: -24px;
   top: -24px;
   float: left;
-  border-right: 1px solid var(--border);
 }
 
 
@@ -494,6 +532,12 @@ ul {
   padding-bottom: 16px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
+
+  border-image-source: var(--border-bottom);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
 }
 
 #right_block .info_wrapper .sub_menu_list.sub_spells_info li .classes_icon {
@@ -524,6 +568,12 @@ ul {
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
   min-height: calc(100vh - 97px);
+
+  border-image-source: var(--border-img);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 1px 25px 0px 0px;
 }
 
 
@@ -551,7 +601,11 @@ ul {
 }
 
 .table_list_left_block .table_list tr.selected {
-  background: var(--hover);
+  background: var(--bg-main);
+
+  background-image: var(--bg-title-img-2);
+  background-position: top left;
+  background-repeat: no-repeat;
 }
 
 .table_list_left_block .table_list tr td {
@@ -564,6 +618,10 @@ ul {
 
 .table_list_left_block .table_list tr:hover.selected {
   background: var(--border);
+
+  background-image: var(--bg-title-img-2);
+  background-position: top left;
+  background-repeat: no-repeat;
 }
 
 
@@ -574,11 +632,11 @@ ul {
   height: 42px;
   display: block;
   font-size: 17px;
-  border: 1px solid var(--border);
   border-radius: 50%;
   text-align: center;
   line-height: 42px;
   margin-right: 16px;
+  border: 1px solid var(--border);
 }
 
 .table_list_left_block .table_list tr.selected .spell_lvl {

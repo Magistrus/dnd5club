@@ -8,10 +8,9 @@
   border-right: 1px solid var(--border);
   z-index: 100;
 
-  /* border-image-source: url(http://usabili.ru/news_imgs/151/border7.png); */
   border-image-source: var(--border-img);
   border-image-slice: 1 1 1 fill;
-  border-image-repeat: stretch repeat;    
+  border-image-repeat: repeat round;    
   border-image-width: auto;
   border-image-outset: 0;
 }
@@ -28,6 +27,12 @@
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid var(--border);
+
+  border-image-source: var(--border-img);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat round;    
+  border-image-width: auto;
+  border-image-outset: 0;
 }
 
 .navbar .nav_head .logo {

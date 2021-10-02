@@ -12,7 +12,15 @@
   --primary: #7B61FF;
   --primary-hover: #44439E;
   --primary-active: #3D3992;
-  --border-img:url(/resources/assets/icon/dark/border.svg);
+}
+
+/********* Logo *********/
+:root {
+  --border-img:url(/resources/assets/style/dark/border.png);
+  --border-title-img:url(/resources/assets/style/dark/border_title.png);
+  --border-bottom:url(/resources/assets/style/dark/border_bottom.png);
+  --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
+  --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
 }
 
 /********* Logo *********/
