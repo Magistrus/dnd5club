@@ -5,8 +5,7 @@
 </head>
 <body>
 	<div th:object="${creature}" th:fragment="view">
-		<div id="stat-block" class="stat-block">
-			<hr class="orange-border" />
+		<div id="stat-block " class="stat-block wide">
 			<div class="section-left">
 				<div class="creature-heading">
 					<h1 th:text="|*{name} [*{englishName}]|">
@@ -208,7 +207,6 @@
 					</div>
 				</div>
 			</div>
-			<hr class="orange-border bottom" />
 		</div>
 	</div>
 </body>

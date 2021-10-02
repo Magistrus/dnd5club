@@ -11,6 +11,8 @@ $(document).ready(function() {
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', className);
 		setActiveClass(element, className);
+		var className = element.querySelector("#classes_id").textContent;
+		document.getElementById('class_name').innerHTML = className;
 	}
 });
 $('#class_traits').on('click', function() {
@@ -67,10 +69,6 @@ $('#btn_close').on('click', function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	var className = this.querySelector("#classes_id").textContent;
-	document.getElementById('class_name').innerHTML = className;
-	document.title = className;
-	history.pushState('data to be passed', className, '/classes/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
 		if (rightContainer.classList.contains(englishName)) {
@@ -91,6 +89,10 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveClass(element, englishName) {
+	var className = element.querySelector("#classes_id").textContent;
+	document.getElementById('class_name').innerHTML = className;
+	document.title = className;
+	history.pushState('data to be passed', className, '/classes/' + englishName);
 	switch (localStorage.getItem('class_info')) {
 	case 'description':
 		$('#class_description')[0].classList.add('active');

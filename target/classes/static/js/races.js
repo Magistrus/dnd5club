@@ -6,7 +6,7 @@ $(document).ready(function() {
 		localStorage.setItem('selected_subrace', selectedSubrace);
 	}
 	var raceName = localStorage.getItem('selected_race');
-	if (raceName !== 'undefined'){
+	if (raceName){
 		var element = $('#'+raceName)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', raceName);
@@ -57,30 +57,36 @@ $('#btn_close').on('click', function() {
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
 	var rightContainer = document.getElementById('container_card');
-	var raceName = this.querySelector("#race_id").textContent;
-	document.getElementById('race_name').innerHTML = raceName;
-	document.title = raceName;
-	history.pushState('data to be passed', raceName, '/races/' + englishName);
 	// проверяем открыта ли правая панель
 	if (rightContainer.classList.contains('block_information')) {
-		if (rightContainer.classList.contains(englishName)) {
-			rightContainer.classList.remove('block_information', englishName);
+		if (localStorage.getItem('selected_race') === englishName) {
+			rightContainer.classList.remove('block_information');
 			$(".card").removeClass('active');
 			localStorage.removeItem('selected_race');
 			localStorage.removeItem('selected_subrace');
 			history.pushState('data to be passed', '', '/races/');
 		} else {
-			rightContainer.raceName = 'block_information ' + englishName;
+			rightContainer.raceName = 'block_information ';
 			localStorage.removeItem('selected_subrace');
 			setActiveRace(this, englishName);
 		}
 	} else {
-		rightContainer.classList.add('block_information', englishName);
+		rightContainer.classList.add('block_information');
 		localStorage.removeItem('selected_subrace');
 		setActiveRace($('#' + englishName)[0], englishName);
 	}
 });
 function setActiveRace(element, englishName) {
+	var raceName = element.querySelector("#race_id").textContent;
+	document.getElementById('race_name').innerHTML = raceName;
+	document.title = raceName;
+	history.pushState('data to be passed', raceName, '/races/' + englishName);
+	if (element.querySelector('#race_id').classList.contains('hide')){
+		document.getElementById('sub_menu').style.display="none";
+	}
+	else {
+		document.getElementById('sub_menu').style.display="block";
+	}
 	switch (localStorage.getItem('race_info')) {
 	case 'description':
 		$('#race_description')[0].classList.add('active');
