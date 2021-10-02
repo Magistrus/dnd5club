@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<body id="body">
+	<div id="container_card" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Расы</h3>
+			</div>
+			<div class="container_left" data-simplebar>
+				<div id="card_wrapper" class="card_wrapper">
+					<div th:id="${race.englishName.replace(' ', '_')}" class="card" th:each="race : ${races}">
+						<div class="infimation">
+							<h5 id="race_id" th:classappend="${race.subRaces.empty} ? 'hide' : 'show'" th:text="${race.capitalazeName}">Class name</h5>
+							<p th:text="${race.englishName}" class="en_title encaption_text">English class name</p>
+							<p class="additionally uppercase_text">
+								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${race.id}'|" th:text="${race.book.source}"></span><span
+									th:id="|inline-tooltip-source-${race.id}|" style='display: none' th:text="${race.book.name}"
+								></span>
+							</p>
+						</div>
+						<div class="icon" th:classappend="|icon_${race.englishName.toLowerCase().replace(' ', '_')}|"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="race_name">Название расы</h3>
+				<div class="header_sub_menu">
+					<button id="race_traits" class="active">
+						<i class="icon_action icon_skills"></i><span>Навыки</span>
+					</button>
+					<button id="race_description">
+						<i class="icon_action icon_description"></i><span>Описание</span>
+					</button>
+				</div>
+				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close tip" title="Закрыть">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div id="sub_menu" class="sub_menu_list archetype"></div>
+				<div class="content_block"></div>
+			</div>
+		</div>
+		<script type="text/javascript" th:inline="javascript" >
+    		var selectedRace = [[${selectedRace}]];
+    		var selectedSubrace = [[${selectedSubrace}]];
+		</script>
+	</div>
+</body>
+<script th:inline="javascript" th:src="@{/resources/js/races.js}" layout:fragment="js-script"></script>
+</html>

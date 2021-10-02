@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<body>
+	<div id="container_card" class="container_page" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Классы</h3>
+			</div>
+			<div class="container_left" data-simplebar>
+				<div id="card_wrapper" class="card_wrapper">
+					<div th:id="${class.englishName.replace(' ', '_')}" class="card" th:each="class : ${classes}">
+						<div class="infimation">
+							<h5 id="classes_id" class="header_name" th:text="${class.capitalazeName}">Class name</h5>
+							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
+							<p class="additionally uppercase_text">
+								<span class='tip' th:attr="data-tipped-options=|inline: 'inline-tooltip-source-${class.id}'|" th:text="${class.book.source}"></span><span th:text="| / к${class.diceHp}|"></span><span
+									th:id="|inline-tooltip-source-${class.id}|" style='display: none' th:text="${class.book.name}"
+								></span>
+							</p>
+						</div>
+						<div class="icon" th:classappend="|icon_${class.englishName.toLowerCase().replace(' ', '_')}_big|"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="class_name">Название класса</h3>
+				<div class="header_sub_menu">
+					<button id="class_traits" class="active">
+						<i class="icon_action icon_skills"></i><span>Навыки</span>
+					</button>
+					<button id="class_description">
+						<i class="icon_action icon_description"></i><span>Описание</span>
+					</button>
+					<button id="class_spells">
+						<i class="icon_action icon_spells"></i><span>Заклинания</span>
+					</button>
+				</div>
+				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close tip" title="Закрыть">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div id="sub_menu" class="sub_menu_list archetype"></div>
+				<div class="content_block"></div>
+			</div>
+		</div>
+		<script type="text/javascript" th:inline="javascript" >
+    		var selectedClass = [[${selectedClass}]];
+    		var selectedArchetype = [[${selectedArchetype}]];
+		</script>
+	</div>
+</body>
+<script th:inline="javascript" th:src="@{/resources/js/classes.js}" layout:fragment="js-script"></script>
+</html>
