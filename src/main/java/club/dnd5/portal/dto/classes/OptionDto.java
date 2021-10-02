@@ -18,7 +18,7 @@ public class OptionDto {
 	private int id; 
 	private String name;
 	private String englishName;
-	private List<String> optionTypes;
+	private List<OptionTypeDto> optionTypes;
 	private String type;
 	private String prerequisite;
 	private Integer level;
@@ -31,9 +31,7 @@ public class OptionDto {
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
 		englishName = option.getEnglishName();
-		optionTypes = option.getOptionTypes().stream()
-				.map(OptionType::getShortName)
-				.collect(Collectors.toList());
+		optionTypes = option.getOptionTypes().stream().map(OptionTypeDto::new).collect(Collectors.toList());
 		type = option.getOptionTypes().stream()
 				.map(OptionType::getName)
 				.collect(Collectors.joining(", "));
@@ -41,5 +39,19 @@ public class OptionDto {
 		level = option.getLevel();
 		book = option.getBook().getName();
 		bookshort = option.getBook().getSource();
+	}
+	
+	@Getter
+	@NoArgsConstructor
+	private class OptionTypeDto {
+		private String name;
+		private String className;
+		private String archetypeName;
+
+		public OptionTypeDto(OptionType option){
+			name = option.getName();
+			className = option.getClassName();
+			archetypeName = option.getArhetypeName();
+		}
 	}
 }

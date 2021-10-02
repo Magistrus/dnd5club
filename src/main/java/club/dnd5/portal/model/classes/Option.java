@@ -53,26 +53,33 @@ public class Option {
 	@AllArgsConstructor
 	@Getter
 	public enum OptionType {
-		ARCANE_SHOT("Магические выстрелы: Мистический Лучник (Воин)", "МВ"),
-		MANEUVER("Маневры: Мастер боевых искуств (Воин)", "МА"),
-		METAMAGIC("Метамагия: Чародей", "ММ"),
-		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","ТВ"),
-		FIGHTING_STYLE("Боевые стили: Воин", "БС"),
-		ELEMENTAL_DISCIPLINE("Стихийные практики: Путь четырех стихий (Монах)", "СП"),
-		ARTIFICER_INFUSION("Инфузии: Изобретатель","И"),
-		RUNE("Руны: Рунический рыцарь", "Р"),
-		BONE("Договоры: Колдун", "ДК"),
-		FIGHTING_STYLE_RANGER("Боевые стили: Следопыт", "Б"), 
-		FIGHTING_STYLE_PALADIN("Боевые стили: Паладин", "БС"),
-		FIGHTING_STYLE_BARD("Боевые стили: Колллегия Мечей, Бард", "БС"),
-		FIGHTING_STYLE_BLOODHANTER("Боевые стили: Кровавый охотник", "БС"),
-		BLOOD_CURSE("Проклятья крови: Кровавый Охотник", "ПК"),
-		MUTAGEN("Мутагены: Ордена мутантов, (Кровавый Охотник)", "МУ"),
-		WILD_SHAPE("Формы Дикого Облика: Друид", "ДО"), 
-		PHILOSOPHICAL_SCHOOL("Философские школы: Философ Академии, Волшебник","ФШ");
-
+		ARCANE_SHOT("Магические выстрелы: Воин Мистический Лучник", "Fighter", "Arcane_Archer"),
+		MANEUVER("Маневры: Воин Мастер боевых искуств", "Fighter","Battle_Master"),
+		METAMAGIC("Метамагия", "Sorcerer"),
+		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","Warlock"),
+		FIGHTING_STYLE("Боевые стили: Воин", "Fighter"),
+		ELEMENTAL_DISCIPLINE("Стихийные практики: Монах Пути четырех стихий", "Monk", "Four_Elements"),
+		ARTIFICER_INFUSION("Инфузии: Изобретатель","Artificer"),
+		RUNE("Руны: Рунический рыцарь", "Fighter", "Rune"),
+		BONE("Договоры: Колдун", "Warlock"),
+		FIGHTING_STYLE_RANGER("Боевые стили: Следопыт", "Ranger"), 
+		FIGHTING_STYLE_PALADIN("Боевые стили: Паладин", "Paladin"),
+		FIGHTING_STYLE_BARD("Боевые стили: Бард Колллегии Мечей", "Bard", "Swords"),
+		FIGHTING_STYLE_BLOODHANTER("Боевые стили: Кровавый охотник", "Blood Hunter"),
+		BLOOD_CURSE("Проклятья крови: Кровавый охотник", "Blood Hunter"),
+		MUTAGEN("Мутагены: Кровавый охотник Ордена мутантов", "Blood Hunter"),
+		WILD_SHAPE("Формы Дикого Облика: Друид", "Druid"), 
+		PHILOSOPHICAL_SCHOOL("Философские школы: Волшебник Философ Академии","Wizard");
+		
 		private String name;
-		private String shortName;
+		private String className;
+		private String arhetypeName;
+		
+		OptionType(String name, String className){
+			this.name = name;
+			this.className = className;
+		}
+		
 		public static OptionType parse(String type) {
 			return Arrays.asList(values()).stream()
 					.filter(t -> t.name.equals(type))

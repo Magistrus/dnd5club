@@ -5,7 +5,7 @@ $(document).ready(function() {
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-		iDisplayLength : 25,
+		iDisplayLength : 30,
         scrollCollapse: true,
 		select: true,
 		select: {
@@ -16,8 +16,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="spell_lvl">'+ row.optionTypes[0]+'</div>';
-					result+='<div class="spell_name">' + row.name;
+					var result ='<div class="spell_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					return result;
 				}
@@ -53,7 +52,7 @@ $(document).ready(function() {
 		initComplete: function(settings, json) {
 		    $('#options tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
-			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
@@ -79,13 +78,16 @@ $(document).ready(function() {
 		while (classIconsElement.firstChild) {
 			classIconsElement.removeChild(classIconsElement.firstChild);
 		}
-/*		data.classes.forEach(element => {
+		data.optionTypes.forEach(element => {
 			var a = document.createElement("a");
-			a.href = '/options/' + element.englishName; 
+			a.href = '/classes/' + element.className; 
+			if (element.archetypeName){
+				a.href += '/' + element.archetypeName; 
+			}
 			a.title = element.name;
-			a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
+			a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase());
 			classIconsElement.appendChild(a);
-		});*/
+		});
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));
 		var url = '/options/fragment/' + data.id;

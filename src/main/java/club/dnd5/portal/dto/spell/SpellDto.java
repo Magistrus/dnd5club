@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.Spell;
 import groovy.transform.EqualsAndHashCode;
@@ -35,7 +36,7 @@ public class SpellDto {
 	
 	public SpellDto(Spell spell) {
 		id = spell.getId();
-		level = spell.getLevel() == 0 ? "ЗГ" : String.valueOf(spell.getLevel());
+		level = spell.getLevel() == 0 ? "З" : String.valueOf(spell.getLevel());
 		name = StringUtils.capitalizeWords(spell.getName().toLowerCase())
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
@@ -54,7 +55,7 @@ public class SpellDto {
 				.map(ShortClassDto::new)
 				.collect(Collectors.toSet());
 		book = spell.getBook().getName() + (spell.getPage() != null ? ", стр. " + spell.getPage() : "");
-		//homebrew = spell.getBook().getType() == TypeBook.CUSTOM;
+		homebrew = spell.getBook().getType() == TypeBook.CUSTOM;
 		bookshort = spell.getBook().getSource();
 	}
 	

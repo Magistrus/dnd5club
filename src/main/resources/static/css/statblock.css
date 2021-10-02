@@ -5,7 +5,7 @@
     display: inline-block;
     vertical-align: top;
     width: 380px;
-    background: #FDF1DC;
+    background: var(--bg-main);
     background-size: cover;
 	background-position: center; 
     background-image: url('../dndimages/statblockparch.jpg');
@@ -37,7 +37,7 @@
 
 .orange-border {
     display: block;
-    background: #E69A28;
+    background: var(--link-color);
     background-size: cover;
 	background-position: center; 
     background-image: url('../dndimages/statblockbar.jpg');

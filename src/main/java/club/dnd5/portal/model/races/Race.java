@@ -181,4 +181,8 @@ public class Race implements Serializable {
 				.collect(Collectors.groupingBy(RaceNickname::getType,
 						Collectors.mapping(RaceNickname::getName, Collectors.toCollection(TreeSet::new))));
 	}
+
+	public String getCapitalazeName() {
+		return StringUtils.capitalize(name.toLowerCase());
+	}
 }
