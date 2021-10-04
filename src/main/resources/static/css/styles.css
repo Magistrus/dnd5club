@@ -209,6 +209,12 @@ ul {
   left: 0px;
   right: 0px;
   bottom: 0;
+
+  border-image-source: var(--border-top);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
 }
 
 #left_block .header_block.filters {
@@ -245,18 +251,18 @@ ul {
 }
 
 #left_block .header_block .search_int {
-  height: 44px;
+  height: 43px;
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width: 100%;
+  width: calc(100% - 102px);
   background-image: var(--icon_search);
   background-repeat: no-repeat;
   background-position: 12px 12px;
   padding-left: 52px;
   position: absolute;
   right: 0px;
-  left: 0;
+  left: -1px;
   bottom: 0;
   background-color: var(--bg-secondary);
   color: var(--text-color);
@@ -275,8 +281,9 @@ ul {
 #left_block .header_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
+  top: 1px;
   width: 46px;
-  height: 46px;
+  height: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -325,72 +332,48 @@ ul {
   /* transition: right 0.3s; */
 }
 
-#right_block .header_block .header_sub_menu {
-  margin-left: 24px;
+#right_block .header_block.sub_menu_block {
+  height: 118px;
+}
+
+#right_block .header_block.sub_menu_block .header_sub_menu {
+  height: 46px;
+  width: auto;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0;
+  background-image: var(--bg-row);
+  border-image-source: var(--border-top);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;
+  border-image-width: auto;
+  border-image-outset: 0;
   display: flex;
 }
 
-#right_block .header_block .header_sub_menu button.active {
-  width: auto;
-  background-color: var(--primary-active);
-  transition: all 0.3s;
-}
-
-#right_block .header_block .header_sub_menu button:hover.active {
-  background-color: var(--primary);
+#right_block .header_block.sub_menu_block h3 {
+  line-height: 72px;
+  top: -24px;
+  position: relative;
 }
 
 #right_block .header_block .header_sub_menu button {
-  padding: 1px 12px 1px 6px;
-  height: 40px;
-  width: 40px;
-  border-radius: 8px;
-  margin-right: 8px;
   display: flex;
+  padding: 0px 32px;
   align-items: center;
-  transition: all 0.6s;
-  overflow: hidden;
-  background-color: var(--hover);
-}
-
-#right_block .header_block .header_sub_menu button:hover {
-  width: auto;
-  background-color: var(--hover);
-  transition: all 0.6s;
-}
-
-#right_block .header_block .header_sub_menu button:hover span {
+  height: 46px;
   color: var(--text-color);
+  background: var(--bg-fog);
+  border-right: 1px solid var(--border);
+}
+
+#right_block .header_block .header_sub_menu button.active {
+  background: var(--bg-fog-active);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
-  margin-right: 0px;
-  flex: 1 0 24px;
-}
-
-#right_block .header_block .header_sub_menu button:hover .icon_action,
-#right_block .header_block .header_sub_menu button.active .icon_action {
-  margin-right: 8px;
-}
-
-#right_block .header_block .header_sub_menu button .skills {
-  background: var(--icon-skills);
-}
-
-#right_block .header_block .header_sub_menu button .description {
-  background: var(--icon-description);
-}
-
-#right_block .header_block .header_sub_menu span {
-  color: #ffffff;
-  opacity: 0;
-  transition: all 0.3s;
-}
-
-#right_block .header_block .header_sub_menu button:hover span,
-#right_block .header_block .header_sub_menu button.active span {
-  opacity: 1;
-  transition: all 0.3s;
+  margin-right: 16px;
 }
 
 #right_block .header_block .btn_full_screen,
@@ -404,10 +387,12 @@ ul {
   align-items: center;
   position: absolute;
   right: 0;
+  top: 0px;
 }
 
 #right_block .header_block .btn_full_screen {
   right: 73px;
+  top: 0px;
 }
 
 #right_block .header_block .btn_full_screen:hover,
@@ -861,5 +846,10 @@ button {
 
   #right_block .info_wrapper .content_block {
     margin-left: -24px;
+  }
+
+  #right_block .header_block .header_sub_menu button {
+    flex: 1 0;
+    justify-content: center;
   }
 }
