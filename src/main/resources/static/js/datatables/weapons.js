@@ -92,7 +92,7 @@ $(document).ready(function() {
 				a.innerHTML += ', ';
 			}
 			a.title = element.description;
-			a.classList.add('tip_scroll', 'icon_' + element.englishName.toLowerCase());
+			a.classList.add('tip_scroll');
 			propertyElement.appendChild(a);
 		}
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
