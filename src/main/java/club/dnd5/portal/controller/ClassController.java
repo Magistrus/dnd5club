@@ -95,7 +95,7 @@ public class ClassController {
 		model.addAttribute("device", device);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("archetypeName", heroClass.getArchetypeName());
-		model.addAttribute("archetypes", heroClass.getArchetypes());
+		model.addAttribute("archetypes", heroClass.getArchetypes().stream().sorted(Comparator.comparing(Archetype::getBook)).collect(Collectors.toList()));
 		return "fragments/archetypes_list :: sub_menu"; 
 	}
 	
