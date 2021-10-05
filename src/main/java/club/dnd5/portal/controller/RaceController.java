@@ -1,5 +1,6 @@
 package club.dnd5.portal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,20 +28,21 @@ public class RaceController {
 	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
-		model.addAttribute("races", raceRepository.findAllByParent(null, Sort.by("name")));
+
+		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		return "races";
 	}
 	
 	@GetMapping("/races/{name}")
 	public String getRace(Model model, @PathVariable String name) {
-		model.addAttribute("races", raceRepository.findAllByParent(null, Sort.by("name")));
+		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		return "races";
 	}
 	
 	@GetMapping("/races/{name}/{subrace}")
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
-		model.addAttribute("races", raceRepository.findAllByParent(null, Sort.by("name")));
+		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
 		return "races";
@@ -101,5 +104,13 @@ public class RaceController {
 			.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace("_", " ")))
 			.map(Race::getDescription)
 			.findFirst().orElse("");
+	}
+	private Sort getRaceSort() {
+		List<Order> orders = new ArrayList<>();
+		Order order1 = new Order(Sort.Direction.DESC, "book.type");
+		orders.add(order1);
+		Order order2 = new Order(Sort.Direction.ASC, "name");
+		orders.add(order2);
+		return Sort.by(orders);
 	}
 }
