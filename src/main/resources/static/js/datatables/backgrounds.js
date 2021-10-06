@@ -60,6 +60,10 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    }); 
+		},
+		drawCallback: function ( settings ) {
+		    $('#backgrounds tbody tr:eq(0)').click();
+		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 	$('#backgrounds tbody').on('click', 'tr', function () {

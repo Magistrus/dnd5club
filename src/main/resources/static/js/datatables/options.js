@@ -61,6 +61,10 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		},
+		drawCallback: function ( settings ) {
+		    $('#options tbody tr:eq(0)').click();
+		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 	$('#options tbody').on('click', 'tr', function () {

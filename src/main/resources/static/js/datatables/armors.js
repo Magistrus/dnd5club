@@ -66,6 +66,10 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		},
+		drawCallback: function ( settings ) {
+		    $('#armors tbody tr:eq(0)').click();
+		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 	$('#armors tbody').on('click', 'tr', function () {
