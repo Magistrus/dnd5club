@@ -86,7 +86,7 @@ $(document).ready(function() {
 		for (var i = 0; i < data.properties.length; i++) {
 			var element = data.properties[i];
 			var a = document.createElement("a");
-			a.href = '/weapons/property' + element.englishName; 
+			a.href = '/weapons/property/' + element.englishName; 
 			a.innerHTML = element.name;
 			if (i<data.properties.length-1){
 				a.innerHTML += ', ';
