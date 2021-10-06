@@ -66,6 +66,10 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		},
+		drawCallback: function ( settings ) {
+		    $('#spells tbody tr:eq(0)').click();
+		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 
@@ -81,7 +85,6 @@ $(document).ready(function() {
 		document.getElementById('components').innerHTML = data.components;
 		document.getElementById('duration').innerHTML = data.duration;
 		
-
 		var source = (data.homebrew ? '<span class="tip dice_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source_spell').innerHTML = source;

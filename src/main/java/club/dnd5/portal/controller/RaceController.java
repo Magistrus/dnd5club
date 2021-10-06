@@ -28,7 +28,6 @@ public class RaceController {
 	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
-
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		return "races";
 	}
