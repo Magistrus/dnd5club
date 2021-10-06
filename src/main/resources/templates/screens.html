@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<body id="body" class="d-flex overflow-hidden">
+	<div id="container_card" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Ширма Мастера</h3>
+			</div>
+			<div class="container_left" data-simplebar>
+				<div id="card_wrapper" class="card_wrapper">
+					<div th:id="${screen.englishName.replace(' ', '_')}" class="card" th:each="screen : ${screens}">
+						<div class="infimation">
+							<h5 id="screen_id" th:classappend="${screen.chields.empty} ? 'hide' : 'show'" th:text="${screen.name}">Screen name</h5>
+							<p th:text="${screen.englishName}" class="en_title encaption_text">English screen name</p>
+							<p class="additionally uppercase_text">
+								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${screen.id}'|" th:text="${screen.book.source}"></span><span th:id="|inline-tooltip-source-${screen.id}|"
+									style='display: none' th:text="${screen.book.name}"
+								></span>
+							</p>
+						</div>
+						<div class="icon" th:classappend="|icon_${screen.englishName.toLowerCase().replace(' ', '_')}|"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="screen_name">Разделы</h3>
+				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close tip" title="Закрыть">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div id="sub_menu" class="sub_menu_list archetype"></div>
+				<div class="content_block"></div>
+			</div>
+			<script type="text/javascript" th:inline="javascript">
+    		var selectedScreen = [[${selectedScreen}]];
+    		var selectedSubscreen = [[${selectedSubscreen}]];
+		</script>
+		</div>
+	</div>
+</body>
+<script th:inline="javascript" th:src="@{/resources/js/screens.js}" layout:fragment="js-script"></script>
+</html>

@@ -9,6 +9,7 @@
 			<li class="sub_menu" th:id="${archetype.englishName.replace(' ', '_')}" th:each="archetype : ${archetypes}">
 				<span th:text="${archetype.capitalizeName}" class="name">Имя</span> 
 				<div class="sub_info">
+					<span class = "tip" th:if="${archetype.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальным подклассом">Homebrew - </span>
 					<span class="tip" th:attr="data-tipped-options=|inline: 'inline-tooltip-source-a-${archetype.id}'|" th:text="${archetype.book.source}"></span>
 					<span th:id="|inline-tooltip-source-a-${archetype.id}|" style='display: none' th:text="${archetype.book.name}"></span>
 					<span th:text="|&nbsp;/&nbsp;${archetype.englishName}|"></span>

@@ -86,13 +86,13 @@ $(document).ready(function() {
 		for (var i = 0; i < data.properties.length; i++) {
 			var element = data.properties[i];
 			var a = document.createElement("a");
-			a.href = '/weapons/property' + element.englishName; 
+			a.href = '/weapons/property/' + element.englishName; 
 			a.innerHTML = element.name;
 			if (i<data.properties.length-1){
 				a.innerHTML += ', ';
 			}
 			a.title = element.description;
-			a.classList.add('tip_scroll', 'icon_' + element.englishName.toLowerCase());
+			a.classList.add('tip_scroll');
 			propertyElement.appendChild(a);
 		}
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
