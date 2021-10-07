@@ -242,6 +242,10 @@ ul {
   margin-right: calc(58vw + 0px);
 }
 
+#left_block .filters + .container_left {
+  height: calc(100vh - 119px);
+}
+
 #left_block .container_left {
   height: calc(100vh - 73px);
 }
@@ -403,6 +407,10 @@ ul {
 
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
+}
+
+#right_block .sub_menu_block + .info_wrapper {
+  height: calc(100vh - 119px);
 }
 
 #right_block > .info_wrapper  > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
