@@ -42,7 +42,7 @@ $(document).ready(function() {
 				"visible": false
 			},
 		],
-		order : [[0, 'asc']],
+		order : [[0, 'asc'], [1, 'asc']],
 		language : {
 			processing : "Загрузка...",
 			searchPlaceholder: "Поиск ",
