@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#creatures').DataTable({
 		ajax : '/data/bestiary',
 		dom: 't',
@@ -68,10 +69,8 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-			if (table.rows( '.selected' ).length === 0){
-			    $('#creatures tbody tr:eq(0)').click();
-			    table.row(':eq(0)', { page: 'current' }).select();
-			}
+			$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
@@ -79,6 +78,7 @@ $(document).ready(function() {
 		var tr = $(this).closest('tr');
 		var table = $('#creatures').DataTable();
 		var row = table.row( tr );
+		rowSelectIndex = row.index();
 		var data = row.data();
 		document.getElementById('creature_name').innerHTML = data.name;
 		document.getElementById('cr').innerHTML = data.cr;
@@ -96,5 +96,6 @@ $(document).ready(function() {
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
+		rowSelectIndex = 0;
 	});
 });
