@@ -82,6 +82,7 @@ $(document).ready(function() {
 		document.getElementById('cr').innerHTML = data.cr;
 		document.getElementById('type').innerHTML = data.type;
 		document.getElementById('size').innerHTML = data.size;
+		document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
 
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
