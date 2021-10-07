@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
 
