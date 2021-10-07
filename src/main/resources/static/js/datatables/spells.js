@@ -112,3 +112,8 @@ $(document).ready(function() {
 		//$('#left_block')[0].style.display = 'none';
 	})
 });
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.toggle('block_information');
+	localStorage.removeItem('selected_spell');
+	history.pushState('data to be passed', 'Заклинания', '/spells/');
+});
