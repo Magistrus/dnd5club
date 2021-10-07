@@ -68,8 +68,10 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#creatures tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if (table.rows( '.selected' ).length === 0){
+			    $('#creatures tbody tr:eq(0)').click();
+			    table.row(':eq(0)', { page: 'current' }).select();
+			}
 		}
 	});
 
