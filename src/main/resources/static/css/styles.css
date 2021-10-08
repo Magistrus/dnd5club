@@ -190,9 +190,9 @@ ul {
   padding-left: 24px;
   position: sticky;
   background-color: var(--bg-main);
-  background-image: var(--bg-title-img), var(--bg-img-main);
+  background-image: var(--bg-title-img);
   background-position:top left;
-  background-repeat:no-repeat, repeat-x ;
+  background-repeat:no-repeat;
   border-bottom: 1px solid var(--border);
 
   border-image-source: var(--border-title-img);
@@ -328,7 +328,7 @@ ul {
 }
 
 #right_block .header_block {
-  background-image: var(--bg-title-img-2), var(--bg-img-main);
+  background-image: var(--bg-title-img-2);
 }
 
 .block_information #right_block {
@@ -347,7 +347,7 @@ ul {
   left: 0px;
   right: 0px;
   bottom: 0;
-  background-image: var(--bg-img-main);
+  background-image: var(--bg-img-row);
   border-image-source: var(--border-top);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;
@@ -373,7 +373,7 @@ ul {
 }
 
 #right_block .header_block .header_sub_menu button.active {
-  background: var(--bg-img-main-2);
+  background: var(--bg-img-row-active);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
@@ -610,9 +610,9 @@ ul {
 .table_list_left_block .table_list tr.selected {
   background: var(--bg-main);
 
-  background-image: var(--bg-img-main-2);
+  background-image: var(--bg-img-row-active);
   background-position: top left;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 .table_list_left_block .table_list tr td {
