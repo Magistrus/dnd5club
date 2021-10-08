@@ -86,7 +86,7 @@ $(document).ready(function() {
 		rowSelectIndex = row.index();
 		var data = row.data();
 		document.getElementById('spell_name').innerHTML = data.name;
-		document.getElementById('level').innerHTML =  (data.level === 'З' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
+		document.getElementById('level').innerHTML =  (data.level === 'Ф' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
 		document.getElementById('timecast').innerHTML = data.timeCast;
 		document.getElementById('distance').innerHTML = data.distance;
 		document.getElementById('components').innerHTML = data.components;
