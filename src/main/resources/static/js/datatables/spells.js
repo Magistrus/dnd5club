@@ -20,7 +20,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="spell_lvl">' + row.level + '</div>';
+					var result ='<div class="spell_lvl">' + (row.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Ф</span>' : row.level) + '</div>';
 					result+='<div class="spell_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="spell_school">' + row.school + '</div>';
@@ -86,7 +86,7 @@ $(document).ready(function() {
 		rowSelectIndex = row.index();
 		var data = row.data();
 		document.getElementById('spell_name').innerHTML = data.name;
-		document.getElementById('level').innerHTML =  (data.level === 'Ф' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
+		document.getElementById('level').innerHTML =  (data.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Фокус</span>, ' : data.level +' уровень, ') + data.school;
 		document.getElementById('timecast').innerHTML = data.timeCast;
 		document.getElementById('distance').innerHTML = data.distance;
 		document.getElementById('components').innerHTML = data.components;
