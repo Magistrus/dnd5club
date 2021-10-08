@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#creatures').DataTable({
 		ajax : '/data/bestiary',
 		dom: 't',
@@ -68,8 +69,10 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#creatures tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if(rowSelectIndex === 0){
+				$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
+			}
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
@@ -77,11 +80,13 @@ $(document).ready(function() {
 		var tr = $(this).closest('tr');
 		var table = $('#creatures').DataTable();
 		var row = table.row( tr );
+		rowSelectIndex = row.index();
 		var data = row.data();
 		document.getElementById('creature_name').innerHTML = data.name;
 		document.getElementById('cr').innerHTML = data.cr;
 		document.getElementById('type').innerHTML = data.type;
 		document.getElementById('size').innerHTML = data.size;
+		document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
 
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
@@ -89,9 +94,19 @@ $(document).ready(function() {
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 		var url = '/bestiary/fragment/' + data.id;
-		$(".content_block").load(url);
+		$(".content_block").load(url, function() {
+			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+				document.getElementById('list_page_two_block').classList.add('block_information');
+			}
+		});
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
+		rowSelectIndex = 0;
 	});
+});
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
+	localStorage.removeItem('selected_creature');
+	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
 });
