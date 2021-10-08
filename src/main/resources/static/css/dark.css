@@ -1,4 +1,5 @@
 :root {
+  --bg-transparent: #ffffff00;
   --bg-main: #212529;
   --bg-secondary: #272B2F;
   --bg-sub-menu: #2C3034;
@@ -20,6 +21,8 @@
   --border-title-img:url(/resources/assets/style/dark/border_title.png);
   --border-top:url(/resources/assets/style/dark/border_top.png);
   --border-bottom:url(/resources/assets/style/dark/border_bottom.png);
+  --border-left:url(/resources/assets/style/dark/border_left.png);
+  --border-blockquote:url(/resources/assets/style/dark/border_blockquote.png);
   --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
   --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
   --bg-img-main:url(/resources/assets/style/dark/bg_main.png);
