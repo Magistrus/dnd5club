@@ -193,13 +193,7 @@ ul {
   background-image: var(--bg-title-img);
   background-position:top left;
   background-repeat:no-repeat;
-  border-bottom: 1px solid var(--border);
-
-  border-image-source: var(--border-title-img);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
+  border-right: 1px solid var(--border);
 }
 
 .header_block .filter_block {
@@ -248,6 +242,13 @@ ul {
 
 #left_block .container_left {
   height: calc(100vh - 73px);
+  border-top: 1px solid var(--border);
+
+  border-image-source: var(--border-top);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0px 0px 0px 0px;
 }
 
 #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -348,6 +349,8 @@ ul {
   right: 0px;
   bottom: 0;
   background-image: var(--bg-img-row);
+
+  border-top:1px solid var(--border);
   border-image-source: var(--border-top);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;
@@ -368,12 +371,13 @@ ul {
   align-items: center;
   height: 46px;
   color: var(--text-color);
-  /* background: var(--bg-fog); */
   border-right: 1px solid var(--border);
+  border-top: 2px solid var(--bg-transparent);
 }
 
 #right_block .header_block .header_sub_menu button.active {
   background: var(--bg-img-row-active);
+  border-top: 2px solid var(--primary-hover);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
@@ -411,6 +415,13 @@ ul {
 
 #right_block .sub_menu_block + .info_wrapper {
   height: calc(100vh - 119px);
+  border-top: 1px solid var(--border);
+
+  border-image-source: var(--border-img);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 1px 25px 0px 1px;
 }
 
 #right_block > .info_wrapper  > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -438,6 +449,7 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  border-right: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list.archetype li {
@@ -567,7 +579,7 @@ ul {
 
 
 #right_block .info_wrapper .content_block {
-  margin-left: 266px;
+  margin-left: 265px;
   margin-top: -24px;
   margin-bottom: -24px;
   padding-left: 24px;
@@ -576,11 +588,11 @@ ul {
   border-left: 1px solid var(--border);
   min-height: calc(100vh - 97px);
 
-  border-image-source: var(--border-img);
+  border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    
   border-image-width: auto;
-  border-image-outset: 1px 25px 0px 0px;
+  border-image-outset: 0px 25px 0px 0px;
 }
 
 
