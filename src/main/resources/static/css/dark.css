@@ -14,7 +14,7 @@
   --primary-active: #3D3992;
 }
 
-/********* Logo *********/
+/********* IMG BG *********/
 :root {
   --border-img:url(/resources/assets/style/dark/border.png);
   --border-title-img:url(/resources/assets/style/dark/border_title.png);
@@ -22,9 +22,8 @@
   --border-bottom:url(/resources/assets/style/dark/border_bottom.png);
   --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
   --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
-  --bg-row:url(/resources/assets/style/dark/bg_row.png);
-  --bg-fog:url(/resources/assets/style/dark/bg_fog.png);
-  --bg-fog-active:url(/resources/assets/style/dark/bg_fog_active.png);
+  --bg-img-main:url(/resources/assets/style/dark/bg_main.png);
+  --bg-img-main-2:url(/resources/assets/style/dark/bg_main_2.png);
 }
 
 /********* Logo *********/
