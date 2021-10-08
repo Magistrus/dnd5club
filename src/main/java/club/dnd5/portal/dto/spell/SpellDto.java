@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SpellDto {
 	private int id;	
-	private String level;
+	private int level;
 	private String name;
 	private String englishName;
 	private String ritual;
@@ -36,7 +36,7 @@ public class SpellDto {
 	
 	public SpellDto(Spell spell) {
 		id = spell.getId();
-		level = spell.getLevel() == 0 ? "З" : String.valueOf(spell.getLevel());
+		level = spell.getLevel();
 		name = StringUtils.capitalizeWords(spell.getName().toLowerCase())
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
