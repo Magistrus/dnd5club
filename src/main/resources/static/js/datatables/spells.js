@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
 		dom: 't',
@@ -68,15 +69,21 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#spells tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if(rowSelectIndex === 0){
+				$('#spells tbody tr:eq('+rowSelectIndex+')').click();
+			}
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
 	$('#spells tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#spells').DataTable();
 		var row = table.row( tr );
+		rowSelectIndex = row.index();
 		var data = row.data();
 		document.getElementById('spell_name').innerHTML = data.name;
 		document.getElementById('level').innerHTML =  (data.level === 'З' ? 'Заговор, ' : data.level +' уровень, ') + data.school;
@@ -107,13 +114,14 @@ $(document).ready(function() {
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
+		rowSelectIndex = 0;
 	});
 	$('#btn_full_screen').on('click', function() {
 		//$('#left_block')[0].style.display = 'none';
 	})
 });
 $('#btn_close').on('click', function() {
-	document.getElementById('list_page_two_block').classList.toggle('block_information');
+	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_spell');
 	history.pushState('data to be passed', 'Заклинания', '/spells/');
 });

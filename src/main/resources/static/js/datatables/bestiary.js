@@ -69,7 +69,9 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-			$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
+			if(rowSelectIndex === 0){
+				$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
+			}
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
@@ -92,10 +94,19 @@ $(document).ready(function() {
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 		var url = '/bestiary/fragment/' + data.id;
-		$(".content_block").load(url);
+		$(".content_block").load(url, function() {
+			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+				document.getElementById('list_page_two_block').classList.add('block_information');
+			}
+		});
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 		rowSelectIndex = 0;
 	});
+});
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
+	localStorage.removeItem('selected_creature');
+	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
 });
