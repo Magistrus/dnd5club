@@ -22,6 +22,8 @@ import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.HeroClassTrait;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.classes.archetype.ArchetypeTrait;
+import club.dnd5.portal.model.image.ImageType;
+import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ArchetypeTraitRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.HeroClassTraitRepository;
@@ -34,7 +36,9 @@ public class ClassController {
 	private HeroClassTraitRepository traitRepository;
 	@Autowired
 	private ArchetypeTraitRepository archetypeTraitRepository;
-	
+	@Autowired
+	private ImageRepository imageRepository;
+
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAll());
@@ -96,6 +100,7 @@ public class ClassController {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("archetypeName", heroClass.getArchetypeName());
 		model.addAttribute("archetypes", heroClass.getArchetypes().stream().sorted(Comparator.comparing(Archetype::getBook)).collect(Collectors.toList()));
+		model.addAttribute("images", imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId()));
 		return "fragments/archetypes_list :: sub_menu"; 
 	}
 	

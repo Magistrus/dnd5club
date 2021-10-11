@@ -3,6 +3,9 @@
 <body>
 		<div class="sidebar__inner" th:fragment="sub_menu">
 			<ul>
+			<li th:unless ="${images.empty}" class="avatar_best">
+				<img id="race_img" th:src="${images[0]}" alt="Title best">
+			</li>
 			<li class="title_sub_menu">
 				<h5 th:text="${archetypeName}" id="title_sub_menu">префикс подклассов</h5>
 			</li>
