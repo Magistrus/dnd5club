@@ -81,12 +81,6 @@ function setActiveRace(element, englishName) {
 	document.getElementById('race_name').innerHTML = raceName;
 	document.title = raceName;
 	history.pushState('data to be passed', raceName, '/races/' + englishName);
-	if (element.querySelector('#race_id').classList.contains('hide')){
-		document.getElementById('sub_menu').style.display="none";
-	}
-	else {
-		document.getElementById('sub_menu').style.display="block";
-	}
 	switch (localStorage.getItem('race_info')) {
 	case 'description':
 		$('#race_description')[0].classList.add('active');
