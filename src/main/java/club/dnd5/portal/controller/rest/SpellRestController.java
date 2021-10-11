@@ -25,7 +25,8 @@ public class SpellRestController {
 	@GetMapping("/data/spells")
 	public DataTablesOutput<SpellDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
-		return repo.findAll(input, SpellDto::new);
+		DataTablesOutput<SpellDto> spells = repo.findAll(input, SpellDto::new);
+		return spells;
 	}
 	
 	@PostMapping("/spells")

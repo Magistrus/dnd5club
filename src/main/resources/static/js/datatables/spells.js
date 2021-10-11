@@ -8,6 +8,7 @@ $(document).ready(function() {
         deferRender: true,
         scrollCollapse: true,
 		iDisplayLength : 25,
+		deferLoading : 57,
 		select: true,
 		select: {
 			style: 'single'
@@ -62,7 +63,7 @@ $(document).ready(function() {
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
-		    	      table.page.loadMore();
+		    		  table.page.loadMore();
 		    	      simpleBar.recalculate();
 		    	      scrollEventHeight +=750;
 		    	}

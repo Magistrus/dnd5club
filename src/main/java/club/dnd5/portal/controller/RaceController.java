@@ -88,6 +88,7 @@ public class RaceController {
 		model.addAttribute("device", device);
 		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("images", imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.getId()));
+		model.addAttribute("race", race);
 		model.addAttribute("subraces", race.getSubRaces());
 		return "fragments/subraces_list :: sub_menu"; 
 	}
