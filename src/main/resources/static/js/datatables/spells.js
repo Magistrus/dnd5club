@@ -8,7 +8,6 @@ $(document).ready(function() {
         deferRender: true,
         scrollCollapse: true,
 		iDisplayLength : 25,
-		deferLoading : 57,
 		select: true,
 		select: {
 			style: 'single'
