@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.dto.bestiary.CreatureDto;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @Controller
@@ -23,7 +23,7 @@ public class BestiaryController {
 	
 	@GetMapping("/bestiary/{name}")
 	public String getCreature(Model model, @PathVariable String name) {
-		model.addAttribute("selectedCreature", StringUtils.capitalizeWords(repository.findByEnglishName(name.replace("_", " ")).getName().toLowerCase()));
+		model.addAttribute("selectedCreature", new CreatureDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "bestiary";
 	}
 	
