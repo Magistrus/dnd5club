@@ -84,6 +84,8 @@ $(document).ready(function() {
 		var data = row.data();
 		document.getElementById('creature_name').innerHTML = data.name;
 		document.getElementById('cr').innerHTML = data.cr;
+		document.getElementById('cr_value').value = data.cr;
+
 		document.getElementById('type').innerHTML = data.type;
 		document.getElementById('size').innerHTML = data.size;
 		document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
