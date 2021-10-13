@@ -110,5 +110,8 @@
 			<div th:utext="${feature.description}"></div>
 		</th:block>
 	</div>
+	<div style="margin-left: 24px;" th:object="${heroClass}" th:fragment="images">
+		<img th:each="image : ${images}" th:src="${image}">
+	</div>
 </body>
 </html>

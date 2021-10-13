@@ -5,5 +5,9 @@ public enum ImageType {
 	SUBCLASS,
 	RACE,
 	CREATURE,
-	GOD
+	GOD,
+	ITEM,
+	MAGIC_ITEM,
+	WEAPON,
+	ARMOR
 }

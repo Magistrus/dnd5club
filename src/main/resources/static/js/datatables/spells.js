@@ -112,7 +112,7 @@ function selectSpell(data){
 	document.getElementById('components').innerHTML = data.components;
 	document.getElementById('duration').innerHTML = data.duration;
 	
-	var source = (data.homebrew ? '<span class="tip dice_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
+	var source = (data.homebrew ? '<span class="tip homebrew_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 	document.getElementById('source_spell').innerHTML = source;
 
