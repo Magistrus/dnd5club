@@ -10,7 +10,7 @@
 				<div id="card_wrapper" class="card_wrapper">
 					<div th:id="${race.englishName.replace(' ', '_')}" class="card" th:each="race : ${races}">
 						<div class="infimation">
-							<h5 id="race_id" th:classappend="${race.subRaces.empty} ? 'hide' : 'show'" th:text="${race.capitalazeName}">Class name</h5>
+							<h5 id="race_id" class="header_name" th:text="${race.capitalazeName}">Class name</h5>
 							<p th:text="${race.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
 							<span class = "tip" th:if="${race.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальной рассой"><span class="dice_text">Homebrew</span></span>

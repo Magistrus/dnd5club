@@ -177,7 +177,7 @@ table td:last-child {
 
 table.classes_tablet {
   margin-left: -24px;
-  width: 100%;
+  width: auto;
   overflow: scroll;
 }
 

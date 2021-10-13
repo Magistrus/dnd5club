@@ -545,13 +545,21 @@ ul {
   border-image-outset: 0;
 }
 
+#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_races,
 #right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best {
   width: 290px;
   overflow: hidden;
   padding-left: 0px;
   padding-bottom: 0px;
+  padding-top: 0px;
   border-bottom: none;
   border-image: none;
+}
+
+#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_races:hover,
+#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best:hover {
+  background: none;
+  cursor: auto;
 }
 
 #right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best img {
