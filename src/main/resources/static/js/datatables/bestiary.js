@@ -57,8 +57,6 @@ $(document).ready(function() {
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
-		    $('#creatures tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
@@ -69,8 +67,19 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-			if(rowSelectIndex === 0){
+			if(rowSelectIndex === 0 && selectedCreature === null){
 				$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
+			}
+			if (selectedCreature){
+				selectCreature(selectedCreature);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedCreature.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
 			}
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
@@ -82,29 +91,39 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		rowSelectIndex = row.index();
 		var data = row.data();
-		document.getElementById('creature_name').innerHTML = data.name;
-		document.getElementById('cr').innerHTML = data.cr;
-		document.getElementById('type').innerHTML = data.type;
-		document.getElementById('size').innerHTML = data.size;
-		document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
-
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
-		var url = '/bestiary/fragment/' + data.id;
-		$(".content_block").load(url, function() {
-			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
-				document.getElementById('list_page_two_block').classList.add('block_information');
-			}
-		});
+		selectCreature(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 		rowSelectIndex = 0;
 	});
 });
+function selectCreature(data){
+	document.getElementById('creature_name').innerHTML = data.name;
+	document.getElementById('cr').innerHTML = data.cr;
+	switch(data.cr){
+	case '1/8': data.cr = 1/8; break;
+	case '1/4': data.cr = 1/4; break;
+	case '1/2': data.cr = 1/2; break;
+	}
+	document.getElementById('cr_value').value = data.cr;
+
+	document.getElementById('type').innerHTML = data.type;
+	document.getElementById('size').innerHTML = data.size;
+	document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
+
+	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
+	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+	document.getElementById('source').innerHTML = source;
+	document.title = data.name;
+	history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
+	var url = '/bestiary/fragment/' + data.id;
+	$(".content_block").load(url, function() {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
+	});
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_creature');
