@@ -102,6 +102,8 @@ function setActiveClass(element, englishName) {
 	document.getElementById('class_name').innerHTML = className;
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
+	$(".card").removeClass('active');
+	element.classList.toggle('active');
 	switch (localStorage.getItem('class_info')) {
 	case 'description':
 		$('.btn_class').removeClass('active');
@@ -115,8 +117,7 @@ function setActiveClass(element, englishName) {
 	case 'images':
 		$('.btn_class').removeClass('active');
 		$('#class_images')[0].classList.add('active');
-		var url = '/classes/images/' + englishName;
-		$(".content_block").load(url);
+		loadImages();
 		break;
 	default:
 		$('.btn_class').removeClass('active');
@@ -124,8 +125,6 @@ function setActiveClass(element, englishName) {
 		var url = '/classes/fragment/' + englishName;
 		$(".content_block").load(url);
 	}
-	$(".card").removeClass('active');
-	element.classList.toggle('active');
 	localStorage.setItem('selected_class', element.id)
 	var url = '/classes/' + englishName + '/architypes/list';
 	$('#sub_menu').load(url, function() {
