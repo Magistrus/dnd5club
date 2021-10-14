@@ -16,6 +16,22 @@
   --primary-active: #3D3992;
 }
 
+/********* IMG BG *********/
+:root {
+  --border-img:url(/resources/assets/style/light/border.png);
+  --border-title-img:url(/resources/assets/style/light/border_title.png);
+  --border-top:url(/resources/assets/style/light/border_top.png);
+  --border-bottom:url(/resources/assets/style/light/border_bottom.png);
+  --border-left:url(/resources/assets/style/light/border_left.png);
+  --border-blockquote:url(/resources/assets/style/light/border_blockquote.png);
+  --bg-title-img:url(/resources/assets/style/light/bg_title.png);
+  --bg-title-img-2:url(/resources/assets/style/light/bg_title_2.png);
+  --bg-img-main:url(/resources/assets/style/light/bg_main.png);
+  --bg-img-main-2:url(/resources/assets/style/light/bg_main_2.png);
+  --bg-img-row:url(/resources/assets/style/light/bg_row.png);
+  --bg-img-row-active:url(/resources/assets/style/light/bg_row_active.png);
+}
+
 /********* Logo *********/
 :root {
   --icon-logo-menu: url(/resources/assets/icon/light/logo.svg);
@@ -32,7 +48,7 @@
   --icon-workshop: url(/resources/assets/icon/light/menu/workshop.svg);
   --icon-instruments: url(/resources/assets/icon/light/menu/instruments.svg);
   --icon-gods: url(/resources/assets/icon/light/menu/gods.svg);
-  --icon-dark-mod: url(/resources/assets/icon/light/menu/dark_mod.svg);
+  --icon-dark-mod: url(/resources/assets/icon/light/menu/light_mod.svg);
 
   --icon-skills: url(/resources/assets/icon/light/classes/skills.svg);
   --icon-description: url(/resources/assets/icon/light/classes/description.svg);
