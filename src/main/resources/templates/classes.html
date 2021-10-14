@@ -13,7 +13,7 @@
 							<h5 id="classes_id" class="header_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally">
-								<span class = "tip" th:if="${class.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальным классом"><span class="dice_text">Homebrew</span></span>
+								<span class = "tip" th:if="${class.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальным классом"><span class="homebrew_text">Homebrew</span></span>
 								<span class="tip uppercase_text" th:attr="data-tipped-options=|inline: 'inline-tooltip-source-${class.id}'|" th:text="${class.book.source}"></span><span th:text="| / к${class.diceHp}|"></span><span
 									th:id="|inline-tooltip-source-${class.id}|" style='display: none' th:text="${class.book.name}"
 								></span>
@@ -34,14 +34,17 @@
 					<div class="icon_action icon_close"></div>
 				</div>
 				<div class="header_sub_menu">
-					<button id="class_traits" class="active">
+					<button id="class_traits" class="btn_class active">
 						<i class="icon_action icon_skills"></i><span>Навыки</span>
 					</button>
-					<button id="class_description">
+					<button id="class_description" class="btn_class">
 						<i class="icon_action icon_description"></i><span>Описание</span>
 					</button>
-					<button id="class_spells">
+					<button id="class_spells" class="btn_class" style="display:none">
 						<i class="icon_action icon_spells"></i><span>Заклинания</span>
+					</button>
+					<button id="class_images" class="btn_class">
+						<i class="icon_description"></i><span>Изображения</span>
 					</button>
 				</div>
 			</div>

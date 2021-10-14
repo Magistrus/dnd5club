@@ -16,8 +16,7 @@ $(document).ready(function() {
 	}
 });
 $('#class_traits').on('click', function() {
-	$('#class_description')[0].classList.remove('active');
-	$('#class_spells')[0].classList.remove('active');
+	$('.btn_class').removeClass('active');
 	this.classList.add('active');
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active'); 
@@ -30,12 +29,17 @@ $('#class_traits').on('click', function() {
 	}
 });
 $('#class_description').on('click', function() {
-	$('#class_traits')[0].classList.remove('active');
-	$('#class_spells')[0].classList.remove('active');
+	$('.btn_class').removeClass('active');
 	this.classList.add('active');
 	loadDescription();
 	localStorage.setItem('class_info', 'description');
 });
+$('#class_images').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	loadImages();
+	localStorage.setItem('class_info', 'images');
+})
 function loadDescription(){
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active'); 
@@ -48,9 +52,14 @@ function loadDescription(){
 		$(".content_block").load(url);
 	}
 }
+function loadImages(){
+	var selectedClass = $('.card.active')[0];
+	var englishName = selectedClass.id.replace(' ', '_');
+	var url = '/classes/images/' + englishName;
+	$(".content_block").load(url);
+}
 $('#class_spells').on('click', function() {
-	$('#class_description')[0].classList.remove('active');
-	$('#class_traits')[0].classList.remove('active');
+	$('.btn_class').removeClass('active');
 	this.classList.add('active');
 	var selectedClass = $('.card.active')[0];
 	localStorage.setItem('class_info', 'spells');
@@ -93,24 +102,26 @@ function setActiveClass(element, englishName) {
 	document.getElementById('class_name').innerHTML = className;
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
-	switch (localStorage.getItem('class_info')) {
-	case 'description':
-		$('#class_description')[0].classList.add('active');
-		$('#class_traits')[0].classList.remove('active');
-		break;
-	case 'spells':
-		$('#class_spells')[0].classList.add('active');
-		$('#class_traits')[0].classList.remove('active');
-		break;
-	default:
-		$('#class_traits')[0].classList.add('active');
-	}
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
-	if (localStorage.getItem('class_info')==='description'){
+	switch (localStorage.getItem('class_info')) {
+	case 'description':
+		$('.btn_class').removeClass('active');
+		$('#class_description')[0].classList.add('active');
 		loadDescription();
-	}
-	else {
+		break;
+	case 'spells':
+		$('.btn_class').removeClass('active');
+		$('#class_spells')[0].classList.add('active');
+		break;
+	case 'images':
+		$('.btn_class').removeClass('active');
+		$('#class_images')[0].classList.add('active');
+		loadImages();
+		break;
+	default:
+		$('.btn_class').removeClass('active');
+		$('#class_traits')[0].classList.add('active');
 		var url = '/classes/fragment/' + englishName;
 		$(".content_block").load(url);
 	}

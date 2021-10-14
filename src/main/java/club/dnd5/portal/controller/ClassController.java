@@ -86,6 +86,13 @@ public class ClassController {
 		model.addAttribute("order", "[[ 1, 'asc' ]]");
 		return "fragments/class :: view";
 	}
+	
+	@GetMapping("/classes/images/{englishName}")
+	public String getClassImages(Model model, Device device, @PathVariable String englishName) {
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		model.addAttribute("images", imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId()));
+		return "fragments/class :: images";
+	}
 
 	@GetMapping("/classes/{englishName}/architype/name")
 	@ResponseBody
