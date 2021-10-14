@@ -194,6 +194,12 @@ ul {
   background-position:top left;
   background-repeat:no-repeat;
   border-right: 1px solid var(--border);
+
+  border-image-source: var(--border-bottom);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
 }
 
 .header_block .filter_block {
@@ -547,7 +553,7 @@ ul {
 
 #right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_races,
 #right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best {
-  width: 290px;
+  width: 289px;
   overflow: hidden;
   padding-left: 0px;
   padding-bottom: 0px;
