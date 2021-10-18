@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ public class SpellRestController {
 	@GetMapping("/data/spells")
 	public DataTablesOutput<SpellDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
+		input.parseSearchPanesFromQueryParams(queryParameters, Arrays.asList("level"));
 		DataTablesOutput<SpellDto> spells = repo.findAll(input, SpellDto::new);
 		return spells;
 	}

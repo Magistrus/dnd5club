@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var rowSelectIndex = 0;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
-		dom: 't',
+		dom: 'Pt',
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
@@ -12,6 +12,14 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            viewCount: false,
+            //dtOpts: {
+              //  select: {
+                //    style: 'multi'
+                //}
+            //}
+        },
 		columns : [
 		{
 			data : 'level',
@@ -53,7 +61,14 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-		    loadingRecords: "Загрузка..."
+		    loadingRecords: "Загрузка...",
+	        searchPanes: {
+	             title: {
+	                 _: 'Выбрано фильтров - %d',
+	                 0: 'Фильтры не выбраны',
+	                 1: 'Один фильт выбран'
+	            }
+	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -65,6 +80,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo(table.table().container());
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedSpell === null){
@@ -102,6 +119,10 @@ $(document).ready(function() {
 	});
 	$('#btn_full_screen').on('click', function() {
 		//$('#left_block')[0].style.display = 'none';
+	})
+	$('#btn_filters').on('click', function() {
+		var table = $('#spells').DataTable();
+		table.searchPanes.container().toggle();
 	})
 });
 function selectSpell(data){
