@@ -83,7 +83,7 @@
 					</div>
 					<th:block th:with="first=${false}">
 						<svg class="tapered-rule">
-						<polyline points="0,0 600,2.5 0,5"></polyline></svg>
+						<polyline points="0,0 450,2.5 0,5"></polyline></svg>
 						<div class="property-line" th:classappend="${firstElement.first ? 'first': ''}" th:unless="${creature.savingThrows.empty}">
 							<h4>
 								<strong>Спасброски</strong>
@@ -154,7 +154,7 @@
 						</div>
 					</th:block>
 					<svg class="tapered-rule">
-											<polyline points="0,0 600,2.5 0,5"></polyline></svg>
+					<polyline points="0,0 450,2.5 0,5"></polyline></svg>
 					<div class="property-block" th:each="feat : ${creature.feats}">
 						<h4>
 							<strong th:text="|${feat.name}.|"></strong>
