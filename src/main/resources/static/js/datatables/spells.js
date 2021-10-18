@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var rowSelectIndex = 0;
 	var table = $('#spells').DataTable({
 		ajax : '/data/spells',
-		dom: 'Pt',
+		dom: 't',
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
@@ -13,16 +13,22 @@ $(document).ready(function() {
 			style: 'single'
 		},
         searchPanes: {
+            initCollapsed: true,
             viewCount: false,
-            //dtOpts: {
-              //  select: {
-                //    style: 'multi'
-                //}
-            //}
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
         },
 		columns : [
 		{
 			data : 'level',
+		},
+		{
+			data : 'school',
 		},
 		{
 			data : "name",
@@ -47,7 +53,11 @@ $(document).ready(function() {
 				"visible": false
 			},
 			{
-				"targets": [ 2 ],
+				"targets": [ 1 ],
+				"visible": false
+			},
+			{
+				"targets": [ 3 ],
 				"visible": false
 			},
 		],
@@ -63,11 +73,14 @@ $(document).ready(function() {
 			infoFiltered : "из _MAX_",
 		    loadingRecords: "Загрузка...",
 	        searchPanes: {
-	             title: {
+	            title: {
 	                 _: 'Выбрано фильтров - %d',
 	                 0: 'Фильтры не выбраны',
 	                 1: 'Один фильт выбран'
-	            }
+	            },
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
 	        }
 		},
 		initComplete: function(settings, json) {
@@ -98,7 +111,7 @@ $(document).ready(function() {
 				});
 				rowSelectIndex = rowIndexes[0];
 			}
-		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
