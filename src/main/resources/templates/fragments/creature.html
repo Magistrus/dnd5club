@@ -194,10 +194,10 @@
 				<div class="actions" th:unless="${creature.legendaries.empty}">
 					<h3>Легендарные Действия</h3>
 					<div th:unless="${creature.legendary eq null}" th:utext="${creature.legendary}"></div>
-					<div th:if="${creature.legendary eq null}">
+					<p th:if="${creature.legendary eq null}">
 						<span th:text="${creature.name}"></span> может совершить 3 легендарных действия, выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное действие, и
 						только в конце хода другого существа. <span th:text="${creature.name}"></span> восстанавливает использованные легендарные действия в начале своего хода.
-					</div>
+					</p>
 					<br>
 					<div class="property-block reverse-indent legendary" th:each="action : ${creature.legendaries}">
 						<h4>
@@ -212,6 +212,10 @@
 		<p><span th:each = "habitat, iter : *{habitates}" th:text="${iter.last ? habitat.name : habitat.name + ', '}"></span></p>
 		<h4 th:if="*{description}">Описание:</h4>
 		<div th:utext="*{description}"></div>
+				<div th:each="race : *{races}">
+			<h4 th:text="${race.name}"></h4>
+			<div th:utext="${race.description}"></div>
+		</div>
 	</div>
 </body>
 </html>
