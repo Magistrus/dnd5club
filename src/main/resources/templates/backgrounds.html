@@ -36,7 +36,7 @@
 				<div id="sub_menu" class="sub_menu_list sub_spells_info">
 					<ul>
 						<li>
-							<h5>Владение навыками:</h5> <span id="traits" style="text-transform: capitalize;">-</span>
+							<h5>Владение навыками:</h5> <span id="traits">-</span>
 						</li>
 						<li>
 							<h5>Владение инструментами:</h5> <span id="traits_tools">-</span>
@@ -59,6 +59,9 @@
 				<div class="content_block"></div>
 			</div>
 		</div>
+		<script type="text/javascript" th:inline="javascript" >
+    		var selectedBackground = [[${selectedBackground}]];
+		</script>
 	</div>
 </body>
 <script th:src="@{/resources/js/datatables/backgrounds.js}" layout:fragment="js-script"></script>

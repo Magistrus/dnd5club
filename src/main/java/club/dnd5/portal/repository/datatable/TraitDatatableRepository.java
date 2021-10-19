@@ -7,4 +7,5 @@ import club.dnd5.portal.model.trait.Trait;
 
 @Repository
 public interface TraitDatatableRepository extends DataTablesRepository<Trait, Integer> {
+	Trait findByEnglishName(String name);
 }

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#traits').DataTable({
 		ajax : '/data/traits',
 		dom: 'tS',
@@ -49,8 +50,6 @@ $(document).ready(function() {
 				loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-		    $('#traits tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -62,8 +61,21 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#traits tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if(rowSelectIndex === 0 && selectedTrait === null){
+				$('#backgrounds tbody tr:eq('+rowSelectIndex+')').click();
+			}
+			if (selectedTrait) {
+				selectTrait(selectedTrait);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedTrait.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 	$('#traits tbody').on('click', 'tr', function () {
@@ -71,20 +83,22 @@ $(document).ready(function() {
 		var table = $('#traits').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
-		document.getElementById('trait_name').innerHTML = data.name;
-		document.getElementById('requirement').innerHTML = data.requirement;
-		var source = '<span class="tip" data-tipped-traits="inline: \'tooltip-background-source-' + data.id+'\'">' + data.bookshort + '</span>';
-		source+= '<span id="tooltip-background-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
-		var url = '/traits/fragment/' + data.id;
-		$(".content_block").load(url);
+		selectTrait(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectTrait(data){
+	document.getElementById('trait_name').innerHTML = data.name;
+	document.getElementById('requirement').innerHTML = data.requirement;
+	var source = '<span class="tip" title="'+data.book+'">' + data.bookshort + '</span>';
+	document.getElementById('source').innerHTML = source;
+	document.title = data.name;
+	history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
+	var url = '/traits/fragment/' + data.id;
+	$(".content_block").load(url);
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
 });
