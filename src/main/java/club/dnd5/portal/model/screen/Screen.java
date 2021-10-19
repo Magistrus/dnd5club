@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.races.Race;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
