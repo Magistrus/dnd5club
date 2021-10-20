@@ -7,6 +7,5 @@ import club.dnd5.portal.model.splells.Spell;
 
 @Repository
 public interface SpellDatatableRepository extends DataTablesRepository<Spell, Integer> {
-
 	Spell findByEnglishName(String name);
 }

@@ -12,9 +12,23 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : 'level',
+		},
+		{
+			data : 'school',
 		},
 		{
 			data : "name",
@@ -39,7 +53,11 @@ $(document).ready(function() {
 				"visible": false
 			},
 			{
-				"targets": [ 2 ],
+				"targets": [ 1 ],
+				"visible": false
+			},
+			{
+				"targets": [ 3 ],
 				"visible": false
 			},
 		],
@@ -53,7 +71,17 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-		    loadingRecords: "Загрузка..."
+		    loadingRecords: "Загрузка...",
+	        searchPanes: {
+	            title: {
+	                 _: 'Выбрано фильтров - %d',
+	                 0: 'Фильтры не выбраны',
+	                 1: 'Один фильт выбран'
+	            },
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -65,6 +93,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo(table.table().container());
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedSpell === null){
@@ -81,7 +111,7 @@ $(document).ready(function() {
 				});
 				rowSelectIndex = rowIndexes[0];
 			}
-		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
@@ -102,6 +132,10 @@ $(document).ready(function() {
 	});
 	$('#btn_full_screen').on('click', function() {
 		//$('#left_block')[0].style.display = 'none';
+	})
+	$('#btn_filters').on('click', function() {
+		var table = $('#spells').DataTable();
+		table.searchPanes.container().toggle();
 	})
 });
 function selectSpell(data){
