@@ -702,6 +702,40 @@ ul {
 }
 
 
+/******** Бестиарий ********/
+.scores {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.scores>div {
+  text-align: center;
+  width: 15%;
+  background-color: var(--hover);
+  border-radius: 4px;
+  min-width: 60px;
+  max-width: 160px;
+  flex: 1 0 15%;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.scores h4 {
+  margin: 10px 0 2px;
+  font-size: 14px;
+  line-height: 1.2em;
+  text-transform: uppercase;
+  color: var(--text-s-color);
+}
+
+.scores p {
+  margin: 0 0 10px;
+  line-height: 1.2em;
+}
+
+
 /******** Кнопки ********/
 button {
   border: 0;
@@ -901,4 +935,8 @@ button {
     justify-content: center;
     padding: 0px;
   }
+  
+  .scores {
+    justify-content: space-between;
+}
 }
