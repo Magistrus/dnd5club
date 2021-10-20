@@ -12,6 +12,7 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+		order : [[0, 'asc']],
 		columns : [
 		{
 			data : "name",
@@ -37,17 +38,16 @@ $(document).ready(function() {
 		buttons: [
 		{
 		}],
-		order : [[0, 'asc']],
-			language : {
-				processing : "Загрузка...",
-				searchPlaceholder: "Поиск ",
-				search : "_INPUT_",
-				lengthMenu : "Показывать _MENU_ записей на странице",
-				zeroRecords : "Ничего не найдено",
-				info : "Показано _TOTAL_",
-				infoEmpty : "Нет доступных записей",
-				infoFiltered : "из _MAX_",
-				loadingRecords: "Загрузка..."
+		language : {
+			processing : "Загрузка...",
+			searchPlaceholder: "Поиск ",
+			search : "_INPUT_",
+			lengthMenu : "Показывать _MENU_ записей на странице",
+			zeroRecords : "Ничего не найдено",
+			info : "Показано _TOTAL_",
+			infoEmpty : "Нет доступных записей",
+			infoFiltered : "из _MAX_",
+			loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
@@ -62,7 +62,7 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedTrait === null){
-				$('#backgrounds tbody tr:eq('+rowSelectIndex+')').click();
+				$('#traits tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedTrait) {
 				selectTrait(selectedTrait);
@@ -83,6 +83,7 @@ $(document).ready(function() {
 		var table = $('#traits').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		rowSelectIndex = row.index();
 		selectTrait(data);
 	});
 	$('#search').on( 'keyup click', function () {
