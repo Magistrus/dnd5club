@@ -237,9 +237,9 @@ public class Creature {
 			return String.format("%d %s", averageHp, suffixHP);
 		}
 		if (bonusHP == null) {
-			return String.format("%d (%d%s)", averageHp, countDiceHp, diceHp.name());
+			return String.format("%d (%d%s)", averageHp, countDiceHp, diceHp.getName());
 		}
-		return String.format("%d (%d%s %s %d)", averageHp, countDiceHp, diceHp.name(), bonusHP >=0 ? "+" : "-", Math.abs(bonusHP));
+		return String.format("%d (%d%s %s %d)", averageHp, countDiceHp, diceHp.getName(), bonusHP >=0 ? "+" : "-", Math.abs(bonusHP));
 	}
 
 	public String getHpFormula() {
