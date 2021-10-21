@@ -5,7 +5,6 @@
 </head>
 <body>
 	<div th:object="${creature}" th:fragment="view">
-		<p id="monster-type" th:text="|${creature.size.getSizeName(creature.type)} ${creature.type.cyrilicName}${creature.raceName eq null ? '': ' ' + creature.raceName}, ${creature.alignment.cyrilicName}|"></p>
 		<p>
 			<strong>Класс доспеха:</strong>
 			<span th:text="${creature.AC}"></span>

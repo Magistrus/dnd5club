@@ -92,6 +92,7 @@ $(document).ready(function() {
 		rowSelectIndex = row.index();
 		var data = row.data();
 		selectCreature(data);
+		selectedCreature = null;
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
@@ -108,7 +109,7 @@ function selectCreature(data){
 	}
 	document.getElementById('cr_value').value = data.cr;
 
-	document.getElementById('type').innerHTML = data.type;
+	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
 	document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
 

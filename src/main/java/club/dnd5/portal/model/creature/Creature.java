@@ -191,6 +191,10 @@ public class Creature {
 	public String getSizeName() {
 		return size.getSizeName(type);
 	}
+	
+	public String getAligment() {
+		return alignment.getName(type);
+	}
 
 	public String strengthText() {
 		return getFormatAbility(strength);

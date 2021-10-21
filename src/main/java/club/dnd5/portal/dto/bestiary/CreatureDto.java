@@ -34,7 +34,7 @@ public class CreatureDto {
 		englishName = creature.getEnglishName();
 		size = creature.getSize().getSizeName(creature.getType());
 		type = creature.getType().getCyrilicName();
-		alignment = creature.getAlignment().getCyrilicName();
+		alignment = creature.getAligment();
 		habitates = creature.getHabitates().stream().map(HabitatType::getName).collect(Collectors.joining(", "));
 		book = creature.getBook().getName() + (creature.getPage() != null ? ", стр. " + creature.getPage() : "");
 		bookshort = creature.getBook().getSource();
