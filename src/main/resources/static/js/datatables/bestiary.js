@@ -100,7 +100,7 @@ $(document).ready(function() {
 });
 function selectCreature(data){
 	document.getElementById('creature_name').innerHTML = data.name;
-	document.getElementById('cr').innerHTML = data.cr;
+	document.getElementById('cr').innerHTML = data.cr + ' (' + data.exp+' опыта)';
 	switch(data.cr){
 	case '1/8': data.cr = 1/8; break;
 	case '1/4': data.cr = 1/4; break;

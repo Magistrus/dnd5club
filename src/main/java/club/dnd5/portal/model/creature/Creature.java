@@ -235,7 +235,7 @@ public class Creature {
 		if (bonusHP == null) {
 			return String.format("%d (%d%s)", averageHp, countDiceHp, diceHp.name());
 		}
-		return String.format("%d (%d%s %s %d)", averageHp, countDiceHp, diceHp.name(), bonusHP>=0 ? "+" : "-", Math.abs(bonusHP));
+		return String.format("%d (%d%s %s %d)", averageHp, countDiceHp, diceHp.name(), bonusHP >=0 ? "+" : "-", Math.abs(bonusHP));
 	}
 
 	public String getHpFormula() {
@@ -252,7 +252,7 @@ public class Creature {
 	}
 	
 	public String getSense() {
-		List<String> sense = new ArrayList<String>(5);
+		List<String> sense = new ArrayList<>(5);
 		if (blindsight != null) {
 			String blind = String.format("слепое зрение %d фт.", blindsight);
 			if (blindsightRadius != null) {
