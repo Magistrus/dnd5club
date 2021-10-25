@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#options').DataTable({
 		ajax : '/data/options',
 		dom: 't',
@@ -50,8 +51,6 @@ $(document).ready(function() {
 		},
 		ordering : true,
 		initComplete: function(settings, json) {
-		    $('#options tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -63,44 +62,62 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#options tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if(rowSelectIndex === 0 && selectedOption === null){
+				$('#options tbody tr:eq('+rowSelectIndex+')').click();
+			}
+			if (selectedOption) {
+				selectOption(selectedOption);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedOption.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 	$('#options tbody').on('click', 'tr', function () {
 		var tr = $(this).closest('tr');
 		var table = $('#options').DataTable();
 		var row = table.row( tr );
+		rowSelectIndex = row.index();
 		var data = row.data();
-		document.getElementById('option_name').innerHTML = data.name;
-		document.getElementById('requirement').innerHTML = data.prerequisite;
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-
-		const classIconsElement = document.getElementById('class_icons');
-		while (classIconsElement.firstChild) {
-			classIconsElement.removeChild(classIconsElement.firstChild);
-		}
-		data.optionTypes.forEach(element => {
-			var a = document.createElement("a");
-			a.href = '/classes/' + element.className; 
-			if (element.archetypeName){
-				a.href += '/' + element.archetypeName; 
-			}
-			a.title = element.name;
-			a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase());
-			classIconsElement.appendChild(a);
-		});
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));
-		var url = '/options/fragment/' + data.id;
-		$(".content_block").load(url);
+		selectOption(data);
+		selectedOption = null;
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectOption(data){
+	document.getElementById('option_name').innerHTML = data.name;
+	document.getElementById('requirement').innerHTML = data.prerequisite;
+	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
+	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+	document.getElementById('source').innerHTML = source;
+
+	const classIconsElement = document.getElementById('class_icons');
+	while (classIconsElement.firstChild) {
+		classIconsElement.removeChild(classIconsElement.firstChild);
+	}
+	data.optionTypes.forEach(element => {
+		var a = document.createElement("a");
+		a.href = '/classes/' + element.className; 
+		if (element.archetypeName){
+			a.href += '/' + element.archetypeName; 
+		}
+		a.title = element.name;
+		a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase());
+		classIconsElement.appendChild(a);
+	});
+	document.title = data.name;
+	history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));
+	var url = '/options/fragment/' + data.id;
+	$(".content_block").load(url);
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
 });

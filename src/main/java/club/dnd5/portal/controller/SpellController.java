@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;

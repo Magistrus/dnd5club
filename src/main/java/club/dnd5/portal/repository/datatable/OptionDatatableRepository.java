@@ -7,4 +7,5 @@ import club.dnd5.portal.model.classes.Option;
 
 @Repository
 public interface OptionDatatableRepository extends DataTablesRepository<Option, Integer> {
+	Option findByEnglishName(String name);
 }

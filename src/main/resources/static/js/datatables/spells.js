@@ -8,6 +8,7 @@ $(document).ready(function() {
         deferRender: true,
         scrollCollapse: true,
 		iDisplayLength : 25,
+		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
 			style: 'single'
@@ -61,7 +62,6 @@ $(document).ready(function() {
 				"visible": false
 			},
 		],
-		order : [[0, 'asc'], [1, 'asc']],
 		language : {
 			processing : "Загрузка...",
 			searchPlaceholder: "Поиск ",
@@ -76,7 +76,7 @@ $(document).ready(function() {
 	            title: {
 	                 _: 'Выбрано фильтров - %d',
 	                 0: 'Фильтры не выбраны',
-	                 1: 'Один фильт выбран'
+	                 1: 'Один фильтр выбран'
 	            },
                 collapseMessage: 'Свернуть все',
                 showMessage: 'Развернуть все',

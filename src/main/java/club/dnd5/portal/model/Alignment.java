@@ -1,30 +1,35 @@
 package club.dnd5.portal.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum Alignment {
-	LAWFUL_GOOD("законно-добрый", "ЗД"), //0 
-	LAWFUL_NEUTRAL("законно-нейтральный", "ЗН"), // 1
-	LAWFUL_EVIL("законно-злой", "ЗЗ"), //2 
-	TRUE_NEUTRAL("законно-нейтральный", "ЗН"), //3
-	NEUTRAL_GOOD("нейтрально-добрый", "НД"), // 4
-	NEUTRAL_EVIL("нейтрально-злой", "НЗ"), //5 
-	CHAOTIC_GOOD("хаотично-добрый", "ХД"), //6
-	CHAOTIC_NEUTRAL("хаотично-нейтральный", "ХН"), //7
-	CHAOTIC_EVIL("хаотично-злой", "ХЗ"), // 8
-	NEUTRAL("нейтральный", "Н"), //9
-	WITHOUT("без мировоззрения", ""), // 10
-	ALL_EVIL("любое злое мировоззрение", ""), // 11
-	ALL("любое мировоззрение", ""), // 12
-	NO_GOOD("любое не доброе мировоззрение", "") // 13
+	LAWFUL_GOOD("ЗД", "законно-добрый", "законно-добрая", "законно-доброе"), //0 
+	LAWFUL_NEUTRAL("ЗН", "законно-нейтральный", "законно-нейтральная", "законно-нейтральное"), // 1
+	LAWFUL_EVIL("ЗЗ", "законно-злой","законно-злая", "законно-злое"), //2 
+	TRUE_NEUTRAL("ЗН", "законно-нейтральный", "законно-нейтральная","законно-нейтральное"), //3
+	NEUTRAL_GOOD("НД", "нейтрально-добрый", "нейтрально-добрая", "нейтрально-доброе"), // 4
+	NEUTRAL_EVIL("НЗ", "нейтрально-злой", "нейтрально-злая", "нейтрально-злое"), //5 
+	CHAOTIC_GOOD("ХД", "хаотично-добрый", "хаотично-добрая","хаотично-доброе"), //6
+	CHAOTIC_NEUTRAL("ХН", "хаотично-нейтральный",  "хаотично-нейтральная",  "хаотично-нейтральное"), //7
+	CHAOTIC_EVIL("ХЗ", "хаотично-злой", "хаотично-злая", "хаотично-злое"), // 8
+	NEUTRAL("Н", "нейтральный",  "нейтральная", "нейтральное"), //9
+	WITHOUT("", "без мировоззрения", "без мировоззрения", "без мировоззрения"), // 10
+	ALL_EVIL("", "любое злое мировоззрение", "любое злое мировоззрение", "любое злое мировоззрение"), // 11
+	ALL("", "любое мировоззрение", "любое мировоззрение", "любое мировоззрение"), // 12
+	NO_GOOD("", "любое не доброе мировоззрение", "любое не доброе мировоззрение", "любое не доброе мировоззрение") // 13
 	;
-
-	private String cyrilicName;
 	private String shortName;
+	private String[] names;
 	
+	Alignment(String shortName, String... names){
+		this.shortName = shortName;
+		this.names = names;
+	}
+
+	public String getCyrilicName() {
+		return names[0];
+	}
 	public static Alignment parse(String alignment) {
 		if (alignment.equals("нейтральный")) {
 			return NEUTRAL;
@@ -58,5 +63,23 @@ public enum Alignment {
 			}
 		}
 		return WITHOUT;
+	}
+
+	public String getName(CreatureType type) {
+		switch (type) {
+		case ABERRATION:
+		case FEY:
+		case OOZE:
+		case UNDEAD:
+		case SLIME:
+		case SMALL_BEAST:
+			return names[1];
+		case FIEND:
+		case MONSTROSITY:
+		case PLANT:
+			return names[2];
+		default:
+			return names[0];
+		}
 	}
 }

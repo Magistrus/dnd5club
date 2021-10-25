@@ -191,6 +191,10 @@ public class Creature {
 	public String getSizeName() {
 		return size.getSizeName(type);
 	}
+	
+	public String getAligment() {
+		return alignment.getName(type);
+	}
 
 	public String strengthText() {
 		return getFormatAbility(strength);
@@ -233,9 +237,9 @@ public class Creature {
 			return String.format("%d %s", averageHp, suffixHP);
 		}
 		if (bonusHP == null) {
-			return String.format("%d (%d%s)", averageHp, countDiceHp, diceHp.name());
+			return String.format("%d (%d%s)", averageHp, countDiceHp, diceHp.getName());
 		}
-		return String.format("%d (%d%s %s %d)", averageHp, countDiceHp, diceHp.name(), bonusHP>=0 ? "+" : "-", Math.abs(bonusHP));
+		return String.format("%d (%d%s %s %d)", averageHp, countDiceHp, diceHp.getName(), bonusHP >=0 ? "+" : "-", Math.abs(bonusHP));
 	}
 
 	public String getHpFormula() {
@@ -252,7 +256,7 @@ public class Creature {
 	}
 	
 	public String getSense() {
-		List<String> sense = new ArrayList<String>(5);
+		List<String> sense = new ArrayList<>(5);
 		if (blindsight != null) {
 			String blind = String.format("слепое зрение %d фт.", blindsight);
 			if (blindsightRadius != null) {

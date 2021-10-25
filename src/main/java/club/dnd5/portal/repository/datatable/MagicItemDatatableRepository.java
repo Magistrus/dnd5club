@@ -7,4 +7,5 @@ import club.dnd5.portal.model.items.MagicItem;
 
 @Repository
 public interface MagicItemDatatableRepository extends DataTablesRepository<MagicItem, Integer> {
+	MagicItem findByEnglishName(String name);
 }

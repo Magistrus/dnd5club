@@ -92,6 +92,7 @@ $(document).ready(function() {
 		rowSelectIndex = row.index();
 		var data = row.data();
 		selectCreature(data);
+		selectedCreature = null;
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
@@ -100,7 +101,7 @@ $(document).ready(function() {
 });
 function selectCreature(data){
 	document.getElementById('creature_name').innerHTML = data.name;
-	document.getElementById('cr').innerHTML = data.cr;
+	document.getElementById('cr').innerHTML = data.cr + ' (' + data.exp+' опыта)';
 	switch(data.cr){
 	case '1/8': data.cr = 1/8; break;
 	case '1/4': data.cr = 1/4; break;
@@ -108,7 +109,7 @@ function selectCreature(data){
 	}
 	document.getElementById('cr_value').value = data.cr;
 
-	document.getElementById('type').innerHTML = data.type;
+	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
 	document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
 

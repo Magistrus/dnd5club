@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.item.ItemMagicDto;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 
 
@@ -23,7 +24,7 @@ public class ItemMagicController {
 	
 	@GetMapping("/items/magic/{name}")
 	public String getMagicItem(Model model, @PathVariable String name) {
-		model.addAttribute("selectedmagicItem", "name");
+		model.addAttribute("selectedItemMagic", new ItemMagicDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "items_magic";
 	}
 	
