@@ -129,7 +129,11 @@ blockquote p:last-child {
 
 .header_separator {
   border-bottom: 1px solid var(--primary);
-  color:var(--primary)
+  background-image: var(--bg-img-header-separator);
+  background-position: 0px -19px;
+  background-repeat: no-repeat;
+  line-height: 50px;
+  padding-left: 12px;
 }
 
 
