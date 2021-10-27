@@ -592,7 +592,6 @@ ul {
 
 
 #right_block .info_wrapper .content_block {
-  margin-left: 265px;
   margin-top: -24px;
   margin-bottom: -24px;
   padding-left: 24px;
@@ -600,7 +599,7 @@ ul {
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
   min-height: calc(100vh - 97px);
-  width: 390px;
+  width: 490px;
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    

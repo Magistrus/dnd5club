@@ -123,7 +123,7 @@ function setActiveClass(element, englishName) {
 		$('.btn_class').removeClass('active');
 		$('#class_traits')[0].classList.add('active');
 		var url = '/classes/fragment/' + englishName;
-		loadContent("content_block_id", url);
+		loadContent("content_block", url);
 	}
 	localStorage.setItem('selected_class', element.id)
 	var url = '/classes/' + englishName + '/architypes/list';
@@ -137,7 +137,7 @@ function setActiveClass(element, englishName) {
 				if (localStorage.getItem('class_info')==='description'){
 					loadDescription();
 				} else {
-					loadContent("content_block_id", url);
+					loadContent("content_block", url);
 					localStorage.setItem('selected_class', selecedClassName.id) 
 				}
 			});
