@@ -911,7 +911,9 @@ button {
   background-image: var(--blood_hunter-big);
 }
 
-
+.search_panes{
+	
+}
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {
   #right_block .header_block .btn_full_screen{
