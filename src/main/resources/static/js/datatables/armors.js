@@ -91,7 +91,7 @@ $(document).ready(function() {
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
 		var url = '/armors/fragment/' + data.id;
-		$(".content_block").load(url);
+		$("#content_block").load(url);
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();

@@ -38,7 +38,7 @@ function setActiveCondition(element, englishName){
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
 	var url = '/conditions/fragment/' + englishName;
-	$(".content_block").load(url);
+	$("#content_block").load(url);
 }
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');

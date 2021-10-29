@@ -98,7 +98,7 @@ function selectTrait(data){
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
 	var url = '/traits/fragment/' + data.id;
-	$(".content_block").load(url);
+	$("#content_block").load(url);
 }
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');

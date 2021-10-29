@@ -53,7 +53,7 @@ function setActiveScreen(element, englishName) {
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
 	var url = '/screens/fragment/' + englishName;
-	$(".content_block").load(url);
+	$("#content_block").load(url);
 	localStorage.setItem('selected_screen', element.id)
 	var url = '/screens/' + englishName + '/subscreens/list';
 	$('#sub_menu').load(url, function() {
@@ -63,7 +63,7 @@ function setActiveScreen(element, englishName) {
 				this.parentElement.classList.remove('active');
 				var selecedScreenName = $('.card.active')[0];
 				var url = '/screens/fragment/' + selecedScreenName.id;
-				$(".content_block").load(url);
+				$("#content_block").load(url);
 				localStorage.setItem('selected_screen', selecedScreenName.id) 
 			});
 		}
@@ -92,7 +92,7 @@ function setActiveSubscreen(element, screenName, archetypeName) {
 		loadDescription();
 	}else {
 		var url = '/screens/' + screenName + '/subscreen/' + archetypeName;
-		$(".content_block").load(url);
+		$("#content_block").load(url);
 	}
 	history.pushState('data to be passed', screenName, '/screens/' + screenName + '/' + archetypeName);
 }
