@@ -52,6 +52,7 @@ public class SpellRestController {
 	public SpellTipDto getSpell(Integer id) {
 		return new SpellTipDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}
+
 	private <T> Specification<T> addSpecification(Specification<T> specification,
 			Specification<T> addSpecification) {
 		if (specification == null) {

@@ -4,12 +4,12 @@
 <title th:text="${race.name}"></title>
 </head>
 <body>
-	<div style="margin-left: 24px;" th:object="${race}" th:fragment="view">
+	<div th:object="${race}" th:fragment="view">
 		<th:block th:each ="feature : ${features}">
-			<h4 class="dote" th:utext="${feature.name}"></h4>
+			<h4 class="header_separator" th:utext="${feature.name}"></h4>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
-		<h4 class="dote">Имена</h4>
+		<h4 class="header_separator">Имена</h4>
 		<p th:each="nameElement , iterStat: *{names}">
 			<th:block th:unless="${nameElement.value.empty}">
 				<strong th:text="|${nameElement.key.cyrilicName} имена:|"></strong>

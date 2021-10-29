@@ -111,5 +111,5 @@ function selectMagicItem(data){
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
 	var url = '/items/magic/fragment/' + data.id;
-	$(".content_block").load(url);
+	$("#content_block").load(url);
 }

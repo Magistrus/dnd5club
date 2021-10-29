@@ -42,21 +42,21 @@ $('#class_images').on('click', function() {
 })
 function loadDescription(){
 	var selectedClass = $('.card.active')[0];
-	var selectedArchetype = $('li.sub_menu.active'); 
+	var selectedArchetype = $('li.sub_menu.active');
+	var url;
 	if(selectedArchetype.length === 1){
-		var url = '/classes/'+selectedClass.id+'/archetype/'+selectedArchetype[0].id+'/description';
-		$(".content_block").load(url);
+		url = '/classes/'+selectedClass.id+'/archetype/'+selectedArchetype[0].id+'/description';
 	}
 	else {
-		var url = '/classes/' + selectedClass.id + '/description';
-		$(".content_block").load(url);
+		url = '/classes/' + selectedClass.id + '/description';
 	}
+	loadContent("content_block", url);
 }
 function loadImages(){
 	var selectedClass = $('.card.active')[0];
 	var englishName = selectedClass.id.replace(' ', '_');
 	var url = '/classes/images/' + englishName;
-	$(".content_block").load(url);
+	loadContent("content_block", url);
 }
 $('#class_spells').on('click', function() {
 	$('.btn_class').removeClass('active');
@@ -123,7 +123,7 @@ function setActiveClass(element, englishName) {
 		$('.btn_class').removeClass('active');
 		$('#class_traits')[0].classList.add('active');
 		var url = '/classes/fragment/' + englishName;
-		$(".content_block").load(url);
+		loadContent("content_block", url);
 	}
 	localStorage.setItem('selected_class', element.id)
 	var url = '/classes/' + englishName + '/architypes/list';
@@ -137,7 +137,7 @@ function setActiveClass(element, englishName) {
 				if (localStorage.getItem('class_info')==='description'){
 					loadDescription();
 				} else {
-					$(".content_block").load(url);
+					loadContent("content_block", url);
 					localStorage.setItem('selected_class', selecedClassName.id) 
 				}
 			});
@@ -167,7 +167,10 @@ function setActiveArchetype(element, className, archetypeName) {
 		loadDescription();
 	}else {
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
-		$(".content_block").load(url);
+		loadContent("content_block", url)
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
+}
+function loadContent(id, url){
+	$('#'+id).load(url);
 }

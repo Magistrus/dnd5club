@@ -4,9 +4,9 @@
 <title th:text="${heroClass.name}"></title>
 </head>
 <body>
-	<div style="margin-left: 24px;" th:object="${heroClass}" th:fragment="view">
+	<div id = "class_content_id" th:object="${heroClass}" th:fragment="view">
 		<th:block th:fragment="classInfo">
-			<h4 class="dote mt-0">Хиты</h4>
+			<h4 class="header_separator mt-0">Хиты</h4>
 			<p>
 				<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
 			</p>
@@ -17,7 +17,7 @@
 				<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
 				первого
 			</p>
-			<h4 class="dote">Владение</h4>
+			<h4 class="header_separator">Владение</h4>
 			<p>
 				<b>Доспехи:</b> <span th:text="*{armor}"></span>
 			</p>
@@ -35,7 +35,7 @@
 				<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
 				<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
 			</p>
-			<h4 class="dote" th:if="*{equipment}">Снаряжение</h4>
+			<h4 class="header_separator" th:if="*{equipment}">Снаряжение</h4>
 			<p th:if="*{equipment}">
 				Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
 			</p>
@@ -105,7 +105,7 @@
 			</table>
 		</div>
 		<th:block th:each="feature : ${features}">
-			<h4 class="dote" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
+			<h4 class="header_separator" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
 			<p class="caption_text" th:text="${feature.type}"></p>
 			<div th:utext="${feature.description}"></div>
 		</th:block>

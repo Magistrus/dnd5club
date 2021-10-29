@@ -37,11 +37,11 @@ function loadDescription(){
 	var selectedSubrace = $('li.sub_menu.active'); 
 	if(selectedSubrace.length === 1){
 		var url = '/races/'+selectedRace.id+'/subrace/'+selectedSubrace[0].id+'/description';
-		$(".content_block").load(url);
+		$("#content_block").load(url);
 	}
 	else {
 		var url = '/races/' + selectedRace.id + '/description';
-		$(".content_block").load(url);
+		$("#content_block").load(url);
 	}
 }
 $('#btn_full_screen').on('click', function() {
@@ -96,7 +96,7 @@ function setActiveRace(element, englishName) {
 	}
 	else {
 		var url = '/races/fragment/' + englishName;
-		$(".content_block").load(url);
+		$("#content_block").load(url);
 	}
 	localStorage.setItem('selected_race', element.id)
 	var url = '/races/' + englishName + '/subraces/list';
@@ -110,7 +110,7 @@ function setActiveRace(element, englishName) {
 				if (localStorage.getItem('race_info')==='description'){
 					loadDescription();
 				} else {
-					$(".content_block").load(url);
+					$("#content_block").load(url);
 					localStorage.setItem('selected_race', selecedRaceName.id) 
 				}
 			});
@@ -140,7 +140,7 @@ function setActiveSubrace(element, raceName, archetypeName) {
 		loadDescription();
 	}else {
 		var url = '/races/' + raceName + '/subrace/' + archetypeName;
-		$(".content_block").load(url);
+		$("#content_block").load(url);
 	}
 	history.pushState('data to be passed', raceName, '/races/' + raceName + '/' + archetypeName);
 }
