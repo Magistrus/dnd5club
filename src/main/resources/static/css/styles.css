@@ -70,6 +70,11 @@ body {
 	width: 450px;
 }
 
+.simplebar-scrollbar:before {
+  border-radius: 0 !important;
+  background-color: var(--primary) !important;
+}
+
 
 /******** Карточки ********/
 .card_wrapper {
@@ -172,7 +177,7 @@ body {
 
 /******** Рассы ********/
 #right_block .info_wrapper .sub_menu_list  li.avatar_races {
-  padding: 0;
+  padding: 0 !important;
 }
 
 #right_block .info_wrapper .sub_menu_list  li.avatar_races img {
@@ -605,7 +610,6 @@ body {
 
 #right_block .info_wrapper .content_block.classes_cont,
 #right_block .info_wrapper .content_block.races_cont {
-  padding: 0 24px 24px 24px;
   min-height: calc(100vh - 143px);
 }
 
