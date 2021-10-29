@@ -164,7 +164,7 @@ function selectSpell(data){
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 	var url = '/spells/fragment/' + data.id;
-	$(".content_block").load(url);
+	$("#content_block").load(url);
 }
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');

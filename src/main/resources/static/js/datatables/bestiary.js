@@ -119,7 +119,7 @@ function selectCreature(data){
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 	var url = '/bestiary/fragment/' + data.id;
-	$(".content_block").load(url, function() {
+	$("#content_block").load(url, function() {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}

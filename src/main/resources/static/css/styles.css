@@ -39,10 +39,6 @@ body {
   display: none !important;
 }
 
-ul {
-  list-style: disc;
-}
-
 .icon_action {
   background-position: center;
   background-repeat: no-repeat;
@@ -174,12 +170,15 @@ ul {
 }
 
 
-/******** Состояния ********/
-.container_page.condition_page #right_block .info_wrapper .content_block {
-  margin-left: 0;
-  padding-left: 0;
-  border: none;
+/******** Рассы ********/
+#right_block .info_wrapper .sub_menu_list  li.avatar_races {
+  padding: 0;
 }
+
+#right_block .info_wrapper .sub_menu_list  li.avatar_races img {
+  max-width: 290px;
+}
+
 
 /******** Общее по блокам ********/
 .header_block {
@@ -429,10 +428,6 @@ ul {
   border-image-outset: 1px 25px 0px 1px;
 }
 
-#right_block > .info_wrapper  > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
-  padding: 24px;
-}
-
 #right_block .info_wrapper {
   position: relative;
   display: flex;
@@ -441,11 +436,17 @@ ul {
 #right_block .info_wrapper .sub_menu_list {
   position: relative;
   width: 290px;
-  bottom: -24px;
-  left: -24px;
-  top: -24px;
-  float: left;
+  flex: 1 0 290px;
 }
+
+#right_block .info_wrapper .sub_menu_list.archetype {
+  height: calc(100vh - 119px);
+}
+
+#right_block .info_wrapper .sub_menu_list.sub_spells_inf {
+  height: calc(100vh - 73px);
+}
+
 
 
 /******** Архитипы ********/
@@ -590,21 +591,22 @@ ul {
   cursor: pointer;
 }
 
-
 #right_block .info_wrapper .content_block {
-  margin-top: -24px;
-  margin-bottom: -24px;
-  padding-left: 24px;
-  padding-top: 24px;
-  padding-bottom: 24px;
   border-left: 1px solid var(--border);
-  min-height: calc(100vh - 97px);
-  min-width: 490px;
+  min-height: calc(100vh - 119px);
+  width: 100%;
+  padding: 24px;
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    
   border-image-width: auto;
   border-image-outset: 0px 25px 0px 0px;
+}
+
+#right_block .info_wrapper .content_block.classes_cont,
+#right_block .info_wrapper .content_block.races_cont {
+  padding: 0 24px 24px 24px;
+  min-height: calc(100vh - 143px);
 }
 
 
@@ -914,20 +916,16 @@ button {
 .search_panes{
 	
 }
+
+
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {
   #right_block .header_block .btn_full_screen{
     display: none;
   }
 
-  #right_block .info_wrapper .sub_menu_list {
-    float: none;
-    right: -24px;
-    width: calc(58vw - 0px);
-  }
-
-  #right_block .info_wrapper .content_block {
-    margin-left: -24px;
+  #right_block .info_wrapper .sub_menu_list.archetype {
+    display: none;
   }
 
   #right_block .header_block .header_sub_menu button {

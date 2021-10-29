@@ -43,7 +43,7 @@ h4.dote:before {
 h4 {
   font-size: 22px;
   font-weight: 300;
-  margin: 24px 0 8px 0;
+  margin: 24px 0 16px 0;
   color: var(--text-color);
 }
 
@@ -57,9 +57,9 @@ h5 {
 
 p {
   font-size: 13px;
-  line-height: 17px;
+  line-height: 20px;
   font-weight: 300;
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   color: var(--text-color);
 }
 
@@ -73,6 +73,10 @@ ul {
   list-style: none;
   line-height: 16px;
   padding-left: 24px;
+}
+
+ul li {
+  line-height: 20px;
 }
 
 b {
@@ -133,7 +137,9 @@ blockquote p:last-child {
   background-position: 0px -19px;
   background-repeat: no-repeat;
   line-height: 50px;
-  padding-left: 12px;
+  padding-left: 24px;
+  margin-left: -24px;
+  margin-right: -24px;
 }
 
 
@@ -148,7 +154,6 @@ span.dice_text {
 /********* Таблицы *********/
 .table-responsive {
   overflow-x: auto;
-  padding-left: 24px;
 }
 
 table {
@@ -185,7 +190,6 @@ table td:last-child {
 }
 
 table.classes_tablet {
-  margin-left: -24px;
   width: auto;
   overflow: scroll;
 }
