@@ -90,7 +90,7 @@
 			</table>
 		</div>
 		<th:block th:each="feature : ${features}">
-			<h4 class="dote" th:text="${feature.name}" th:id="|${feature.prefix}${feature.id}|"></h4>
+			<h4 class="header_separator" th:text="${feature.name}" th:id="|${feature.prefix}${feature.id}|"></h4>
 			<div class="caption_text" th:text="${feature.type}"></div>
 			<p th:utext="${feature.description}" />
 			<div th:if="${feature.prefix eq 'ad'}">
