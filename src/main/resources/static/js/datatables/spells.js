@@ -93,7 +93,7 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo(table.table().container());
+		    table.searchPanes.container().prependTo($('#searchPanes'));
 		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {

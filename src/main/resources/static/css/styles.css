@@ -599,7 +599,7 @@ ul {
   padding-bottom: 24px;
   border-left: 1px solid var(--border);
   min-height: calc(100vh - 97px);
-  width: 490px;
+  min-width: 490px;
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    
