@@ -28,4 +28,15 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: magistrus/dnd5club:latest
+    - name: Run Docker to SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          docker stop dnd5club && docker rm dnd5club
+          docker pull magistrus/dnd5club:latest
+          docker run --network dnd5-mysql-new -p 9090:8080 -d -e spring.profiles.active=prod -e dbhost=mysql-new -e dbport=3306  -e dbuser -e dbpassword -e dbname=dnd5 dnd5club &
       
