@@ -27,5 +27,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: magistrus/dnd5club:latest
+        tags: magistrus/dnd5club:$(date +%s)
       
