@@ -175,16 +175,6 @@ body {
 }
 
 
-/******** Рассы ********/
-#right_block .info_wrapper .sub_menu_list  li.avatar_races {
-  padding: 0 !important;
-}
-
-#right_block .info_wrapper .sub_menu_list  li.avatar_races img {
-  max-width: 290px;
-}
-
-
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
@@ -433,15 +423,65 @@ body {
   border-image-outset: 1px 25px 0px 1px;
 }
 
-#right_block .info_wrapper {
+#right_block .info_wrapper,
+#right_block .info_wrapper .simplebar-content {
   position: relative;
   display: flex;
 }
 
+#right_block .info_wrapper .content_block {
+  border-left: 1px solid var(--border);
+  flex: 1 1 calc(100% - 290px);
+  height: calc(100vh - 121px);
+  padding: 24px;
+  border-image-source: var(--border-left);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0px 25px 0px 0px;
+}
+
 #right_block .info_wrapper .sub_menu_list {
   position: relative;
-  width: 290px;
-  flex: 1 0 290px;
+  flex: 1 1 290px;
+}
+
+#right_block .info_wrapper .sub_menu_list ul {
+  text-decoration: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#right_block .info_wrapper .sub_menu_list li {
+  position: relative;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  border-bottom: 1px solid var(--border);
+
+  border-image-source: var(--border-bottom);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
+}
+
+#right_block .info_wrapper .sub_menu_list li .classes_icon {
+  display:flex;
+  flex-direction: row;
+}
+
+#right_block .info_wrapper .sub_menu_list li .icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--hover);
+  border-radius: 8px;
+  margin-right: 8px;
+  cursor: pointer;
 }
 
 #right_block .info_wrapper .sub_menu_list.archetype {
@@ -454,7 +494,7 @@ body {
 
 
 
-/******** Архитипы ********/
+/******** Архитипы / archetype ********/
 #right_block .info_wrapper .sub_menu_list.archetype ul {
   text-decoration: none;
   list-style: none;
@@ -508,7 +548,7 @@ body {
   width: 32px;
   height: 32px;
   position: absolute;
-  top: 16px;
+  top: 20px;
   right: 8px;
   cursor: pointer;
   border-radius: 8px;
@@ -532,88 +572,6 @@ body {
 
 #right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu:hover {
   background-color: var(--bg-sub-menu);
-}
-
-
-/******** Информация о заклинание ********/
-#right_block .info_wrapper .sub_menu_list.sub_spells_info ul {
-  text-decoration: none;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li {
-  position: relative;
-  padding-bottom: 16px;
-  padding-left: 16px;
-  border-bottom: 1px solid var(--border);
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_races,
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best {
-  width: 289px;
-  overflow: hidden;
-  padding-left: 0px;
-  padding-bottom: 0px;
-  padding-top: 0px;
-  border-bottom: none;
-  border-image: none;
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_races:hover,
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best:hover {
-  background: none;
-  cursor: auto;
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li.avatar_best img {
-  width: 100%;
-  height: auto;
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_info li .icon {
-  display: block;
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: var(--hover);
-  border-radius: 8px;
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-#right_block .info_wrapper .content_block {
-  border-left: 1px solid var(--border);
-  min-height: calc(100vh - 119px);
-  width: 100%;
-  padding: 24px;
-  border-image-source: var(--border-left);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0px 25px 0px 0px;
-}
-
-#right_block .info_wrapper .content_block.races_cont {
-  min-height: calc(100vh - 152px);
-}
-
-#right_block .info_wrapper .content_block.classes_cont {
-  min-height: calc(100vh - 164px);
 }
 
 
@@ -708,16 +666,134 @@ body {
   }
 }
 
+/******** Информация о заклинание / spells ********/
+.spells {
 
-/******** Бестиарий ********/
-.scores {
+}
+
+#right_block.spells .info_wrapper .simplebar-content {
+  display: flex;
+}
+
+#right_block.spells .info_wrapper .sub_menu_list ul {
+  text-decoration: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#right_block.spells .info_wrapper .sub_menu_list li {
+  position: relative;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  border-bottom: 1px solid var(--border);
+
+  border-image-source: var(--border-bottom);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
+}
+
+#right_block.spells .info_wrapper .sub_menu_list li .classes_icon {
+  display:flex;
+  flex-direction: row;
+}
+
+#right_block.spells .info_wrapper .sub_menu_list li .icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--hover);
+  border-radius: 8px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+
+/******** Классы / classes ********/
+.classes {
+
+}
+
+#right_block.classes .info_wrapper .content_block {
+  height:auto;
+}
+
+#right_block .info_wrapper li.avatar {
+  width: 289px;
+  max-height: 400px;
+  overflow: hidden;
+  padding:0 !important;
+  border-bottom: none !important;
+  border-image: none !important;
+}
+
+#right_block .info_wrapper li.avatar:hover {
+  background: none !important;
+  cursor: auto !important;
+}
+
+#right_block .info_wrapper  li.avatar img {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  height: auto;
+  width: 100%;
+  transform: translate(-50%,0%);
+}
+
+#right_block.classes .info_wrapper #content_block h4:first-child {
+  margin-top: -24px;
+}
+
+
+/******** Расы / races ********/
+.races {
+
+}
+
+#right_block.races .info_wrapper .content_block {
+  height:auto;
+}
+
+#right_block.races .info_wrapper .simplebar-content {
+  display: flex;
+}
+
+#right_block.races .info_wrapper .sub_menu_list li.avatar {
+  padding: 0 !important;
+}
+
+#right_block.races .info_wrapper .sub_menu_list li.avatar img {
+  max-width: 290px;
+}
+
+#right_block.races .info_wrapper #content_block h4:first-child {
+  margin-top: -24px;
+}
+
+
+/******** Бестиарий / bestiary ********/
+#right_block.bestiary .info_wrapper .simplebar-content {
+  display: flex;
+}
+
+#right_block.bestiary .info_wrapper .content_block {
+  height:auto;
+}
+
+#right_block.bestiary .scores {
   margin: 20px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.scores>div {
+#right_block.bestiary .scores>div {
   text-align: center;
   width: 15%;
   background-color: var(--hover);
@@ -729,7 +805,7 @@ body {
   margin-bottom: 8px;
 }
 
-.scores h4 {
+#right_block.bestiary .scores h4 {
   margin: 10px 0 2px;
   font-size: 14px;
   line-height: 1.2em;
@@ -737,7 +813,7 @@ body {
   color: var(--text-s-color);
 }
 
-.scores p {
+#right_block.bestiary .scores p {
   margin: 0 0 10px;
   line-height: 1.2em;
 }
@@ -926,9 +1002,18 @@ button {
 
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
-@media (max-width: 1200px) {
+@media (max-width: 1200px) {  
+  #right_block .info_wrapper,
+  #right_block .info_wrapper .simplebar-content {
+    flex-direction: column;
+  }
+  
   #right_block .header_block .btn_full_screen{
     display: none;
+  }
+
+  #right_block .info_wrapper .sub_menu_list {
+    flex:1 1 auto;
   }
 
   #right_block .info_wrapper .sub_menu_list.archetype {
@@ -943,5 +1028,43 @@ button {
   
   .scores {
     justify-content: space-between;
+  }
+
+
+  /******** Бестиарий / bestiary ********/
+  #right_block.bestiary .info_wrapper {
+    height: calc(100vh - 145px);
+  }
+
+  #right_block.bestiary .info_wrapper .simplebar-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #right_block.bestiary .info_wrapper li.avatar {
+    width: 100%;
+    max-height: 600px;
+  }
+
+
+  /******** Информация о заклинание / spells ********/
+  #right_block.spells .info_wrapper {
+    height: calc(100vh - 145px);
+  }
+
+  #right_block.spells .info_wrapper .simplebar-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
 }
+
+@media (max-width: 1000px) {
+  #left_block .container_left {
+    height: calc(100vh - 145px);
+  }
+
+  #right_block .info_wrapper {
+    height: calc(100vh - 145px);
+  }
 }
