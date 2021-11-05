@@ -1013,6 +1013,26 @@ button {
   background-image: var(--blood_hunter-big);
 }
 
+.icon_elf_big {
+  background-image: var(--icon-elf-big);
+}
+
+.icon_half-elf_big {
+  background-image: var(--icon-half-elf-big);
+}
+
+.icon_orc_big {
+  background-image: var(--icon-orc-big);
+}
+
+.icon_half-orc_big {
+  background-image: var(--icon-half-orc-big);
+}
+
+.icon_dwarf_big {
+  background-image: var(--icon-dwarf-big);
+}
+
 .search_panes{
 	
 }

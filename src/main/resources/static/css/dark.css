@@ -100,3 +100,18 @@
   --sorcerer: url(/resources/assets/icon/dark/classes/sorcerer.svg);
   --blood_hunter: url(/resources/assets/icon/dark/classes/blood_hunter.svg);
 }
+
+/********* Race Classes *********/
+:root {
+  --icon-elf-big: url(/resources/assets/icon/dark/race/elf_big.svg);
+  --icon-half-elf-big: url(/resources/assets/icon/dark/race/half_elf_big.svg);
+  --icon-orc-big: url(/resources/assets/icon/dark/race/half_orc_big.svg);
+  --icon-half-orc-big: url(/resources/assets/icon/dark/race/half_orc_big.svg);
+  --icon-dwarf-big: url(/resources/assets/icon/dark/race/dwarf_big.svg);
+  
+  --icon-elf: url(/resources/assets/icon/dark/race/elf.svg);
+  --icon-half-elf: url(/resources/assets/icon/dark/race/half_elf.svg);
+  --icon-orc: url(/resources/assets/icon/dark/race/orc.svg);
+  --icon-half-orc: url(/resources/assets/icon/dark/race/half_orc.svg);
+  --icon-dwarf: url(/resources/assets/icon/dark/race/dwarf.svg);
+}
