@@ -40,7 +40,9 @@
 
 /********* Icon Menu *********/
 :root {
+  --icon-menu: url(/resources/assets/icon/dark/menu/menu.svg);
   --close-menu: url(/resources/assets/icon/dark/menu/close_menu.svg);
+  --icon-user: url(/resources/assets/icon/dark/menu/user.svg);
   --icon-character: url(/resources/assets/icon/dark/menu/character.svg);
   --icon-spells: url(/resources/assets/icon/dark/menu/spells.svg);
   --icon-inventory: url(/resources/assets/icon/dark/menu/inventory.svg);
@@ -49,6 +51,7 @@
   --icon-workshop: url(/resources/assets/icon/dark/menu/workshop.svg);
   --icon-instruments: url(/resources/assets/icon/dark/menu/instruments.svg);
   --icon-gods: url(/resources/assets/icon/dark/menu/gods.svg);
+  --icon-information: url(/resources/assets/icon/dark/menu/information.svg);
   --icon-dark-mod: url(/resources/assets/icon/dark/menu/dark_mod.svg);
 
   --icon-skills: url(/resources/assets/icon/dark/classes/skills.svg);

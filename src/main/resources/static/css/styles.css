@@ -836,6 +836,14 @@ button {
 
 
 /******** Иконки ********/
+.icon_menu {
+  background-image: var(--icon-menu);
+}
+
+.icon_user {
+  background-image: var(--icon-user);
+}
+
 .icon_character {
   background-image: var(--icon-character);
 }
@@ -866,6 +874,10 @@ button {
 
 .icon_gods {
   background-image: var(--icon-gods);
+}
+
+.icon_information {
+  background-image: var(--icon-information);
 }
 
 .icon_dark_mod {
@@ -1048,10 +1060,6 @@ button {
 
 
   /******** Информация о заклинание / spells ********/
-  #right_block.spells .info_wrapper {
-    height: calc(100vh - 145px);
-  }
-
   #right_block.spells .info_wrapper .simplebar-content {
     display: flex;
     flex-direction: column;
@@ -1065,6 +1073,12 @@ button {
   }
 
   #right_block .info_wrapper {
+    height: calc(100vh - 145px);
+  }
+
+
+  /******** Информация о заклинание / spells ********/
+  #right_block.spells .info_wrapper {
     height: calc(100vh - 145px);
   }
 }
