@@ -2,13 +2,22 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 <div class="navbar" th:fragment="menu">
 	<div class="nav_head">
-		<button class="back_menu">Back</button>
+		<button class="user_account"><i class="icon_user"></i></button>
 		<a class="logo" href="/"></a>
 		<button class="close_menu"></button>
-		<button class="roll_menu">Menu</button>
+		<button class="roll_menu"><i class="icon_menu"></i></button>
 	</div>
 	<nav>
 		<ul class="nav_links sidebar-menu">
+			<li class="hidden_li">
+				<a href="#">
+					<i class="icon_user"></i>
+					<span class="link_name">Учетная запись</span>
+				</a>
+				<ul class="sub_menu blank">
+					<li class="link_name"><span>Учетная запись</span></li>
+				</ul>
+			</li>
 			<li>
 				<a th:href="@{/bestiary}">
 					<i class="icon_bestiary"></i>
@@ -116,6 +125,21 @@
 					<li><a href="#">Сокровищница</a></li>
 					<li><a href="#">Случайные столкновения</a></li>
 					<li><a href="#">Источники</a></li>
+				</ul>
+			</li>
+			<li>
+				<div class="dropdown">
+					<a>
+						<i class="icon_information"></i>
+						<span class="link_name">Информация</span>
+					</a>
+					<i class="arrow folded"></i>
+				</div>
+				<ul class="sub_menu">
+					<li class="link_name"><span>Информация</span></li>
+					<li><a href="https://discord.gg/YGFshpuf9x">Наш Discord</a></li>
+					<li><a href="https://boosty.to/dnd5eclub">Мы на Boosty</a></li>
+					<li><a href="https://www.youtube.com/channel/UCMfMw5ZX4_rZ4rv4TlY8j8g">Youtube друзья</a></li>
 				</ul>
 			</li>
 			<li onclick="switchTheme()">

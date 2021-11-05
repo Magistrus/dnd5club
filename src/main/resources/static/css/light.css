@@ -41,7 +41,9 @@
 
 /********* Icon Menu *********/
 :root {
+  --icon-menu: url(/resources/assets/icon/light/menu/menu.svg);
   --close-menu: url(/resources/assets/icon/light/menu/close_menu.svg);
+  --icon-user: url(/resources/assets/icon/light/menu/user.svg);
   --icon-character: url(/resources/assets/icon/light/menu/character.svg);
   --icon-spells: url(/resources/assets/icon/light/menu/spells.svg);
   --icon-inventory: url(/resources/assets/icon/light/menu/inventory.svg);
@@ -50,6 +52,7 @@
   --icon-workshop: url(/resources/assets/icon/light/menu/workshop.svg);
   --icon-instruments: url(/resources/assets/icon/light/menu/instruments.svg);
   --icon-gods: url(/resources/assets/icon/light/menu/gods.svg);
+  --icon-information: url(/resources/assets/icon/light/menu/information.svg);
   --icon-dark-mod: url(/resources/assets/icon/light/menu/light_mod.svg);
 
   --icon-skills: url(/resources/assets/icon/light/classes/skills.svg);

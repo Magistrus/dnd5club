@@ -44,7 +44,7 @@
   background-position: center;
 }
 
-.navbar .nav_head .back_menu,
+.navbar .nav_head .user_account,
 .navbar .nav_head .roll_menu {
   display: none;
 }
@@ -289,12 +289,12 @@
     background-color: var(--bg-main);
     z-index: 102;
     overflow: hidden;
-    transition:height 1s ;
+    transition:height 0.1s ;
   }
 
   .navbar.open {
     height: 100vh;
-    transition:height 1s ;
+    transition:height 0.1s ;
   }
 
   .navbar .nav_head {
@@ -311,16 +311,23 @@
     display: none;
   }
   
-  .navbar .nav_head .back_menu,
+  .navbar .nav_head .user_account,
   .navbar .nav_head .roll_menu {
-    display: block;
     width: 72px;
     height: 72px;
     text-align: center;
     line-height: 72px;
-    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
+  
+  .navbar .nav_head .roll_menu i,
+  .navbar .nav_head .user_account i {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
 
   .navbar nav {
     /* display: none; */
@@ -341,6 +348,10 @@
 
   .navbar .nav_links li:last-child {
     margin-top: 0px;
+  }
+
+  .navbar .hidden_li {
+    display: none;
   }
 
 
