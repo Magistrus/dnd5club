@@ -441,8 +441,13 @@ body {
   border-image-outset: 0px 25px 0px 0px;
 }
 
+#right_block .info_wrapper .sub_menu_list #sub_menu {
+  width: 100%;
+}
+
 #right_block .info_wrapper .sub_menu_list {
   position: relative;
+  width: 290px;
   flex: 1 1 290px;
 }
 
