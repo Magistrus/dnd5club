@@ -151,6 +151,12 @@ span.dice_text {
   background-color: var(--bg-dice);
 }
 
+span.homebrew_text {
+  padding: 3px 3px;
+  border-radius: 4px;
+  background-color: var(--bg-homebrew);
+}
+
 
 /********* Таблицы *********/
 .table-responsive {

@@ -4,6 +4,7 @@
   --bg-secondary: #272B2F;
   --bg-sub-menu: #2C3034;
   --bg-dice: #494777;
+  --bg-homebrew: #23492e;
   --text-color:#e4e4e4;
   --text-g-color:#A4A4A4;
   --text-s-color:#c4c5ff;
@@ -99,4 +100,19 @@
   --ranger: url(/resources/assets/icon/dark/classes/ranger.svg);
   --sorcerer: url(/resources/assets/icon/dark/classes/sorcerer.svg);
   --blood_hunter: url(/resources/assets/icon/dark/classes/blood_hunter.svg);
+}
+
+/********* Race Classes *********/
+:root {
+  --icon-elf-big: url(/resources/assets/icon/dark/race/elf_big.svg);
+  --icon-half-elf-big: url(/resources/assets/icon/dark/race/half_elf_big.svg);
+  --icon-orc-big: url(/resources/assets/icon/dark/race/half_orc_big.svg);
+  --icon-half-orc-big: url(/resources/assets/icon/dark/race/half_orc_big.svg);
+  --icon-dwarf-big: url(/resources/assets/icon/dark/race/dwarf_big.svg);
+  
+  --icon-elf: url(/resources/assets/icon/dark/race/elf.svg);
+  --icon-half-elf: url(/resources/assets/icon/dark/race/half_elf.svg);
+  --icon-orc: url(/resources/assets/icon/dark/race/orc.svg);
+  --icon-half-orc: url(/resources/assets/icon/dark/race/half_orc.svg);
+  --icon-dwarf: url(/resources/assets/icon/dark/race/dwarf.svg);
 }
