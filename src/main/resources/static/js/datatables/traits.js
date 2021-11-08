@@ -79,6 +79,9 @@ $(document).ready(function() {
 		}
 	});
 	$('#traits tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#traits').DataTable();
 		var row = table.row( tr );
