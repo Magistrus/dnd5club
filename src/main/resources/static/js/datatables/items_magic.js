@@ -113,3 +113,6 @@ function selectMagicItem(data){
 	var url = '/items/magic/fragment/' + data.id;
 	$("#content_block").load(url);
 }
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
+});

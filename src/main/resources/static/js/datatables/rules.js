@@ -69,6 +69,9 @@ $(document).ready(function() {
 	});
 
 	$('#rules tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#rules').DataTable();
 		var row = table.row( tr );
@@ -86,4 +89,7 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+});
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
 });

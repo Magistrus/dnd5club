@@ -110,10 +110,11 @@ public class RaceController {
 			.map(Race::getDescription)
 			.findFirst().orElse("");
 	}
+	
 	private Sort getRaceSort() {
-		List<Order> orders = new ArrayList<>();
-		Order order1 = new Order(Sort.Direction.DESC, "book.type");
-		orders.add(order1);
+		List<Order> orders = new ArrayList<>(1);
+		//Order order1 = new Order(Sort.Direction.DESC, "book.type");
+		//orders.add(order1);
 		Order order2 = new Order(Sort.Direction.ASC, "name");
 		orders.add(order2);
 		return Sort.by(orders);

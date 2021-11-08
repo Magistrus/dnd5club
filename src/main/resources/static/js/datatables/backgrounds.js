@@ -106,5 +106,5 @@ function selectBackground(data){
 	$("#content_block").load(url);
 }
 $('#btn_close').on('click', function() {
-	document.getElementById('container_card').classList.toggle('block_information');
+	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
