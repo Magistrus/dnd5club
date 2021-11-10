@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#weapons').DataTable({
 		ajax : '/data/weapons',
 		dom: 't',

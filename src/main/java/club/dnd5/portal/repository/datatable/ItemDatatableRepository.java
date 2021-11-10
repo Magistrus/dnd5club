@@ -7,4 +7,5 @@ import club.dnd5.portal.model.items.Equipment;
 
 @Repository
 public interface ItemDatatableRepository extends DataTablesRepository<Equipment, Integer> {
+	Equipment findByEnglishName(String name);
 }

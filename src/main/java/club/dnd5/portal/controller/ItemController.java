@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.item.ItemDto;
 import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
 
 @Controller
@@ -22,7 +23,7 @@ public class ItemController {
 	
 	@GetMapping("/items/{name}")
 	public String getItem(Model model, @PathVariable String name) {
-		model.addAttribute("selectedItem", "name");
+		model.addAttribute("selectedItem", new ItemDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "items";
 	}
 	
