@@ -433,12 +433,15 @@ body {
   border-left: 1px solid var(--border);
   flex: 1 1 calc(100% - 290px);
   height: calc(100vh - 121px);
-  padding: 24px;
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    
   border-image-width: auto;
   border-image-outset: 0px 25px 0px 0px;
+}
+
+#right_block .info_wrapper .content_block #content_block {
+  padding: 24px;
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -725,7 +728,7 @@ body {
 }
 
 #right_block.classes .info_wrapper .content_block {
-  height:auto;
+  height: auto;
 }
 
 #right_block .info_wrapper li.avatar {
@@ -762,7 +765,7 @@ body {
 }
 
 #right_block.races .info_wrapper .content_block {
-  height:auto;
+  height: auto;
 }
 
 #right_block.races .info_wrapper .simplebar-content {
@@ -1100,7 +1103,6 @@ button {
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {  
-  /* #right_block .info_wrapper, */
   #right_block .info_wrapper .simplebar-content {
     flex-direction: column;
   }
@@ -1110,6 +1112,7 @@ button {
   }
 
   #right_block .info_wrapper .sub_menu_list {
+    width: auto;
     flex:1 1 auto;
   }
 
@@ -1165,5 +1168,16 @@ button {
   /******** Информация о заклинание / spells ********/
   #right_block.spells .info_wrapper {
     height: calc(100vh - 145px);
+  }
+
+
+  /******** Расы / races ********/
+  #right_block.classes .info_wrapper .content_block {
+    height: calc(100vh - 192px);
+  }
+
+  /******** Расы / races ********/
+  #right_block.races .info_wrapper .content_block {
+    height: calc(100vh - 192px);
   }
 }

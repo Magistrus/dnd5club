@@ -4,7 +4,7 @@
 <title th:text="${race.name}"></title>
 </head>
 <body>
-	<div th:object="${race}" th:fragment="view">
+	<th:block th:object="${race}" th:fragment="view">
 		<th:block th:each ="feature : ${features}">
 			<h4 class="header_separator" th:utext="${feature.name}"></h4>
 			<div th:utext="${feature.description}"></div>
@@ -22,6 +22,6 @@
 				<th:block th:each="name , iterStat: ${nameElement.value}" th:text="${iterStat.last} ? ${name} : ${name} + ', '"></th:block>
 			</th:block>
 		</p>
-	</div>
+	</th:block>
 </body>
 </html>
