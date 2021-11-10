@@ -1033,6 +1033,66 @@ button {
   background-image: var(--icon-dwarf-big);
 }
 
+.icon_dragonborn_big {
+  background-image: var(--icon-dragonborn-big);
+}
+
+.icon_gnome_big {
+  background-image: var(--icon-gnome-big);
+}
+
+.icon_goliath_big {
+  background-image: var(--icon-goliath-big);
+}
+
+.icon_halfling_big {
+  background-image: var(--icon-halfling-big);
+}
+
+.icon_human_big {
+  background-image: var(--icon-human-big);
+}
+
+.icon_kenku_big {
+  background-image: var(--icon-kenku-big);
+}
+
+.icon_kobold_big {
+  background-image: var(--icon-kobold-big);
+}
+
+.icon_tabaxi_big {
+  background-image: var(--icon-tabaxi-big);
+}
+
+.icon_tiefling_big {
+  background-image: var(--icon-tiefling-big);
+}
+
+.icon_aarakocra_big {
+  background-image: var(--icon-aarakocra-big);
+}
+
+.icon_aasimar_big {
+  background-image: var(--icon-aasimar-big);
+}
+
+.icon_vedalken_big {
+  background-image: var(--icon-vedalken-big);
+}
+
+.icon_goblin_big {
+  background-image: var(--icon-goblin-big);
+}
+
+.icon_changeling_big {
+  background-image: var(--icon-changeling-big);
+}
+
+.icon_leonin_big {
+  background-image: var(--icon-leonin-big);
+}
+
 .search_panes{
 	
 }
