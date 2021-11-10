@@ -80,6 +80,9 @@ $(document).ready(function() {
 		}
 	});
 	$('#options tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#options').DataTable();
 		var row = table.row( tr );
@@ -119,5 +122,5 @@ function selectOption(data){
 	$("#content_block").load(url);
 }
 $('#btn_close').on('click', function() {
-	document.getElementById('container_card').classList.toggle('block_information');
+	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
