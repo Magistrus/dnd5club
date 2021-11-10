@@ -4,7 +4,7 @@
 <title th:text="${heroClass.name}"></title>
 </head>
 <body>
-	<div id = "class_content_id" th:object="${heroClass}" th:fragment="view">
+	<th:block th:object="${heroClass}" th:fragment="view">
 		<th:block th:fragment="classInfo">
 			<h4 class="header_separator mt-0">Хиты</h4>
 			<p>
@@ -109,9 +109,9 @@
 			<p class="caption_text" th:text="${feature.type}"></p>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
-	</div>
-	<div style="margin-left: 24px;" th:object="${heroClass}" th:fragment="images">
-		<img th:each="image : ${images}" th:src="${image}">
+	</th:block>
+	<div th:object="${heroClass}" th:fragment="images">
+		<img style="width: 100%; height: auto;" th:each="image : ${images}" th:src="${image}">
 	</div>
 </body>
 </html>

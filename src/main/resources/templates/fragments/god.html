@@ -3,8 +3,9 @@
 <head>
 </head>
 <body>
-	<div th:object="${god}" th:fragment="view">
-		<div th:utext="*{description}"></div>
-	</div>
+	<th:block th:object="${god}" th:fragment="view">
+		<th:block th:utext="*{description}">			
+		</th:block>
+	</th:block>
 </body>
 </html>
