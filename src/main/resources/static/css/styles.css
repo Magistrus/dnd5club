@@ -1181,3 +1181,9 @@ button {
     height: calc(100vh - 192px);
   }
 }
+
+@media (max-height: 800px) {
+  .navbar .nav_links li {
+    margin-bottom: 8px !important;
+  }
+}
