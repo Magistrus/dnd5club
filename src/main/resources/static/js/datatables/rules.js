@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#rules').DataTable({
 		ajax : '/data/rules',
 		dom: 'tiS',

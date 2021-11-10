@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#weapons').DataTable({
 		ajax : '/data/weapons',
 		dom: 't',
@@ -74,6 +75,9 @@ $(document).ready(function() {
 	});
 
 	$('#weapons tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#weapons').DataTable();
 		var row = table.row( tr );

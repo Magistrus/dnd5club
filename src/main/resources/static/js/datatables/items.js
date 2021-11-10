@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#items').DataTable({
 		ajax : '/data/items',
 		dom: 'tiS',
@@ -50,8 +51,6 @@ $(document).ready(function() {
 			loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-		    $('#items tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -63,32 +62,53 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#items tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if(rowSelectIndex === 0 && selectedItem === null){
+				$('#items tbody tr:eq('+rowSelectIndex+')').click();
+			}
+			if (selectedItem) {
+				selectItem(selectedItem);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedItem.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
 	$('#items tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#items').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
-		document.getElementById('item_name').innerHTML = data.name;
-		document.getElementById('type').innerHTML = data.type;
-		document.getElementById('cost').innerHTML = data.cost;
-		document.getElementById('weight').innerHTML = data.weight;
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
-		var url = '/items/fragment/' + data.id;
-		$("#content_block").load(url);
+		rowSelectIndex = row.index();
+		selectItem(data);
+		selectedItem = null;
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectItem(data){
+	document.getElementById('item_name').innerHTML = data.name;
+	document.getElementById('type').innerHTML = data.type;
+	document.getElementById('cost').innerHTML = data.cost;
+	document.getElementById('weight').innerHTML = data.weight;
+	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
+	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+	document.getElementById('source').innerHTML = source;
+	document.title = data.name;
+	history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
+	var url = '/items/fragment/' + data.id;
+	$("#content_block").load(url);	
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
