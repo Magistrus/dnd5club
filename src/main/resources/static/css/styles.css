@@ -1100,7 +1100,7 @@ button {
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {  
-  #right_block .info_wrapper,
+  /* #right_block .info_wrapper, */
   #right_block .info_wrapper .simplebar-content {
     flex-direction: column;
   }
