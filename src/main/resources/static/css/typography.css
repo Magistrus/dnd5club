@@ -98,6 +98,9 @@ b {
 .caption_text {
   font-size: 11px;
   color: var(--text-g-color);
+  line-height: 12px;
+  font-weight: 300;
+  margin: 0 0 12px 0;
 }
 
 h4 + .caption_text {
