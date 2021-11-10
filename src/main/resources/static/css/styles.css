@@ -388,7 +388,7 @@ body {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   width: 72px;
-  height: 72px;
+  height: 71px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -827,6 +827,105 @@ body {
 }
 
 
+/******** Фильтры ********/
+.search_panes {
+  position: absolute;
+  color:var(--text-color);
+  z-index: 10;
+  width: 100%; 
+}
+
+.search_panes .dtsp-panesContainer {
+  box-shadow: 0px 10px 10px #00000057;
+  background: var(--bg-main);
+  padding: 0px 24px 24px 24px;
+  margin-top: 1px;
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow {
+  width: auto;
+  height: 36px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow .dtsp-title {
+  display: none;
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow button {
+  color: var(--primary);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow button:disabled {
+  color:var(--text-color);
+  opacity: 0.6;
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow button:hover {
+  color: var(--primary);
+  background: var(--hover);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow .dtsp-clearAll {
+  margin-right: auto;
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane {
+  flex: 0 1 calc(50% - 8px);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dataTables_wrapper {
+  border-radius: 0px;
+  border:1px solid var(--border);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dataTables_wrapper:hover {
+  border-radius: 0px;
+  border:1px solid var(--border);
+}
+
+.search_panes table {
+  border-radius: 0px;
+  border:none;
+  background: var(--bg-main);
+}
+
+.search_panes .dataTable tbody tr {
+  background: var(--bg-main) !important;
+}
+
+.search_panes .dataTable tbody tr.selected {
+  background: var(--primary-active) !important;
+}
+
+.search_panes .dataTable tbody tr:hover {
+  background: var(--hover) !important;
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow {
+  border-radius: 0px;
+  border:1px solid var(--border);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow:hover {
+  background: var(--hover);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow .dtsp-subRow2 .dtsp-buttonGroup button {
+  color: var(--primary);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow .dtsp-subRow2 .dtsp-buttonGroup button:disabled {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+
 /******** Кнопки ********/
 button {
   border: 0;
@@ -1096,10 +1195,6 @@ button {
   background-image: var(--icon-leonin-big);
 }
 
-.search_panes{
-	
-}
-
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {  
@@ -1179,5 +1274,11 @@ button {
   /******** Расы / races ********/
   #right_block.races .info_wrapper .content_block {
     height: calc(100vh - 192px);
+  }
+}
+
+@media (max-height: 800px) {
+  .navbar .nav_links li {
+    margin-bottom: 8px !important;
   }
 }
