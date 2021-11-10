@@ -109,10 +109,13 @@
   --icon-orc-big: url(/resources/assets/icon/dark/race/half_orc_big.svg);
   --icon-half-orc-big: url(/resources/assets/icon/dark/race/half_orc_big.svg);
   --icon-dwarf-big: url(/resources/assets/icon/dark/race/dwarf_big.svg);
-  
-  --icon-elf: url(/resources/assets/icon/dark/race/elf.svg);
-  --icon-half-elf: url(/resources/assets/icon/dark/race/half_elf.svg);
-  --icon-orc: url(/resources/assets/icon/dark/race/orc.svg);
-  --icon-half-orc: url(/resources/assets/icon/dark/race/half_orc.svg);
-  --icon-dwarf: url(/resources/assets/icon/dark/race/dwarf.svg);
+  --icon-dragonborn-big: url(/resources/assets/icon/dark/race/dragonborn_big.svg);
+  --icon-gnome-big: url(/resources/assets/icon/dark/race/gnome_big.svg);
+  --icon-goliath-big: url(/resources/assets/icon/dark/race/goliath_big.svg);
+  --icon-halfling-big: url(/resources/assets/icon/dark/race/halfling_big.svg);
+  --icon-human-big: url(/resources/assets/icon/dark/race/human_big.svg);
+  --icon-kenku-big: url(/resources/assets/icon/dark/race/kenku_big.svg);
+  --icon-kobold-big: url(/resources/assets/icon/dark/race/kobold_big.svg);
+  --icon-tabaxi-big: url(/resources/assets/icon/dark/race/tabaxi_big.svg);
+  --icon-tiefling-big: url(/resources/assets/icon/dark/race/tiefling_big.svg);
 }

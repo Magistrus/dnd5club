@@ -1033,6 +1033,42 @@ button {
   background-image: var(--icon-dwarf-big);
 }
 
+.icon_dragonborn_big {
+  background-image: var(--icon-dragonborn-big);
+}
+
+.icon_gnome_big {
+  background-image: var(--icon-gnome-big);
+}
+
+.icon_goliath_big {
+  background-image: var(--icon-goliath-big);
+}
+
+.icon_halfling_big {
+  background-image: var(--icon-halfling-big);
+}
+
+.icon_human_big {
+  background-image: var(--icon-human-big);
+}
+
+.icon_kenku_big {
+  background-image: var(--icon-kenku-big);
+}
+
+.icon_kobold_big {
+  background-image: var(--icon-kobold-big);
+}
+
+.icon_tabaxi_big {
+  background-image: var(--icon-tabaxi-big);
+}
+
+.icon_tiefling_big {
+  background-image: var(--icon-tiefling-big);
+}
+
 .search_panes{
 	
 }
