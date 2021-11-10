@@ -4,7 +4,7 @@
 <title th:text="${condition.name}"></title>
 </head>
 <body>
-	<div th:object="${condition}" th:utext="*{description}" th:fragment="view">
-	</div>
+	<th:block th:object="${condition}" th:utext="*{description}" th:fragment="view">
+	</th:block>
 </body>
 </html>
