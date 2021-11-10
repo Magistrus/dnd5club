@@ -1069,6 +1069,30 @@ button {
   background-image: var(--icon-tiefling-big);
 }
 
+.icon_aarakocra_big {
+  background-image: var(--icon-aarakocra-big);
+}
+
+.icon_aasimar_big {
+  background-image: var(--icon-aasimar-big);
+}
+
+.icon_vedalken_big {
+  background-image: var(--icon-vedalken-big);
+}
+
+.icon_goblin_big {
+  background-image: var(--icon-goblin-big);
+}
+
+.icon_changeling_big {
+  background-image: var(--icon-changeling-big);
+}
+
+.icon_leonin_big {
+  background-image: var(--icon-leonin-big);
+}
+
 .search_panes{
 	
 }
