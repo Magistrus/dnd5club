@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
+	var rowSelectIndex = 0;
 	var table = $('#armors').DataTable({
 		ajax : '/data/armors',
 		dom: 't',
@@ -73,6 +74,9 @@ $(document).ready(function() {
 		}
 	});
 	$('#armors tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#armors').DataTable();
 		var row = table.row( tr );
@@ -96,4 +100,7 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+});
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
 });

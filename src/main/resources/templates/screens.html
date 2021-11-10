@@ -10,7 +10,7 @@
 				<div id="card_wrapper" class="card_wrapper">
 					<div th:id="${screen.englishName.replace(' ', '_')}" class="card" th:each="screen : ${screens}">
 						<div class="infimation">
-							<h5 id="screen_id" th:classappend="${screen.chields.empty} ? 'hide' : 'show'" th:text="${screen.name}">Screen name</h5>
+							<h5 id="screen_id" th:classappend="${screen.chields.empty} ? 'hide' : 'show'" th:text="${screen.name}">Screen  name</h5>
 							<p th:text="${screen.englishName}" class="en_title encaption_text">English screen name</p>
 							<p class="additionally uppercase_text">
 								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${screen.id}'|" th:text="${screen.book.source}"></span><span th:id="|inline-tooltip-source-${screen.id}|"

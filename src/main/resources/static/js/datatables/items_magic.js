@@ -86,6 +86,9 @@ $(document).ready(function() {
 	});
 
 	$('#items_magic tbody').on('click', 'tr', function () {
+		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+			document.getElementById('list_page_two_block').classList.add('block_information');
+		}
 		var tr = $(this).closest('tr');
 		var table = $('#items_magic').DataTable();
 		var row = table.row( tr );

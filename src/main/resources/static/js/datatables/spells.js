@@ -139,16 +139,16 @@ $(document).ready(function() {
 	})
 });
 function selectSpell(data){
-	document.getElementById('spell_name').innerHTML = data.name;
-	document.getElementById('level').innerHTML =  (data.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Фокус</span>, ' : data.level +' уровень, ') + data.school;
-	document.getElementById('timecast').innerHTML = data.timeCast;
-	document.getElementById('distance').innerHTML = data.distance;
-	document.getElementById('components').innerHTML = data.components;
-	document.getElementById('duration').innerHTML = data.duration;
+	$('#spell_name').html(data.name);
+	$('#level').html((data.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Фокус</span>, ' : data.level +' уровень, ') + data.school);
+	$('#timecast').html(data.timeCast);
+	$('#distance').html(data.distance);
+	$('#components').html(data.components);
+	$('#duration').html(data.duration);
 	
 	var source = (data.homebrew ? '<span class="tip homebrew_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source_spell').innerHTML = source;
+	$('#source_spell').html(source);
 
 	const classIconsElement = document.getElementById('class_icons');
 	while (classIconsElement.firstChild) {
