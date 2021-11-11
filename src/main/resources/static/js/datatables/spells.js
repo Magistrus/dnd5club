@@ -18,10 +18,11 @@ $(document).ready(function() {
             viewCount: false,
             dtOpts: {
                 select: {
-                    style: 'multi'
+                    //style: 'multi'
                 },
 				searching: false,
             },
+            layout: 'columns-4',
 			orderable: false
         },
 		columns : [
@@ -50,6 +51,10 @@ $(document).ready(function() {
 		{
 			data : "classes",
 			searchable: false,
+		},
+		{
+			data : "damageType",
+			searchable: false
 		},
 		{
 			data : "ritual",
@@ -83,6 +88,10 @@ $(document).ready(function() {
 			},
 			{
 				"targets": [ 6 ],
+				"visible": false
+			},
+			{
+				"targets": [ 7 ],
 				"visible": false
 			},
 		],

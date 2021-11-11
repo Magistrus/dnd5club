@@ -66,4 +66,8 @@ public enum DamageType {
 	{
 		return EnumSet.of(PHYSICAL, NO_NOSILVER, NO_ADMANTIT, PHYSICAL_MAGIC);
 	}
+	
+	public static Set<DamageType> getSpellDamage(){
+		return EnumSet.of(FAIR, COLD, LIGHTNING, POISON, ACID, SOUND, NECTOTIC, BLUDGEONING, PIERCING, SLASHING, RADIANT, FORCE);
+	}
 }
