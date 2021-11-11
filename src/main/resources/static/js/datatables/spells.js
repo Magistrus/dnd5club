@@ -18,7 +18,7 @@ $(document).ready(function() {
             viewCount: false,
             dtOpts: {
                 select: {
-                    //style: 'multi'
+                    style: 'multi'
                 },
 				searching: false,
             },
@@ -47,6 +47,18 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : "classes",
+			searchable: false,
+		},
+		{
+			data : "ritual",
+			searchable: false
+		},
+		{
+			data : "concentration",
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
@@ -59,6 +71,18 @@ $(document).ready(function() {
 			},
 			{
 				"targets": [ 3 ],
+				"visible": false
+			},
+			{
+				"targets": [ 4 ],
+				"visible": false
+			},
+			{
+				"targets": [ 5 ],
+				"visible": false
+			},
+			{
+				"targets": [ 6 ],
 				"visible": false
 			},
 		],
@@ -140,7 +164,7 @@ $(document).ready(function() {
 });
 function selectSpell(data){
 	$('#spell_name').html(data.name);
-	$('#level').html((data.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Фокус</span>, ' : data.level +' уровень, ') + data.school);
+	$('#level').html((data.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Фокус</span>, ' : data.level +' уровень, ') + data.school + (data.ritual ? ' (ритуал)' : ''));
 	$('#timecast').html(data.timeCast);
 	$('#distance').html(data.distance);
 	$('#components').html(data.components);

@@ -21,12 +21,13 @@ public class SpellDto {
 	private int level;
 	private String name;
 	private String englishName;
-	private String ritual;
+	private boolean ritual;
 	private String school;
 	private String components;
 	private String timeCast;
 	private String distance;
 	private String duration;
+	private boolean concentration;
 	private String book;
 	private String bookshort;
 	private boolean homebrew;
@@ -40,11 +41,12 @@ public class SpellDto {
 		name = StringUtils.capitalizeWords(spell.getName().toLowerCase())
 				.replace(" И ", " и ").replace(" Или ", " или ").replace(" За ", " за ").replace(" С ", " с ").replace(" На ", " на ").replace(" От ", " от ").replace(" По ", " по ")
 				.replace(" Над ", " над ").replace(" В ", " в ");
-		ritual = String.valueOf(spell.getRitual());
+		ritual = spell.getRitual();
 		school = spell.getSchool().getName();
 		timeCast = spell.getTimes().stream().map(t-> t.getNumber() + " " + t.getUnit().getName(t.getNumber())).collect(Collectors.joining(" или "));
 		distance = spell.getDistance();
 		duration = spell.getDuration();
+		concentration = spell.getConcentration();
 		components = spell.getVerbalComponent() ? "Вербальный" + (spell.getSomaticComponent() ? ", ":"") : "";
 		components += spell.getSomaticComponent() ? "Соматический" + (spell.getMaterialComponent() ? ", ":""): "";
 		components += spell.getMaterialComponent() ? "Материальный " : "";

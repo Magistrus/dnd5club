@@ -21,7 +21,7 @@ $('#btn_close').on('click', function() {
 	$(".card").removeClass('active');
 	localStorage.removeItem('selected_screen');
 	localStorage.removeItem('selected_subscreen');
-	history.pushState('data to be passed', 'Расы', '/screens/');
+	history.pushState('data to be passed', 'Ширма', '/screens/');
 });
 $('.card').on('click', 	function() {
 	var englishName = this.id.replace(' ', '_');
@@ -96,3 +96,6 @@ function setActiveSubscreen(element, screenName, archetypeName) {
 	}
 	history.pushState('data to be passed', screenName, '/screens/' + screenName + '/' + archetypeName);
 }
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
+});
