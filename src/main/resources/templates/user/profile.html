@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<body id="body" class="d-flex overflow-hidden">
+	<div id="container_card" class="container_page" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Профиль</h3>
+			</div>
+			<div class="container_left" data-simplebar>
+				<div id="card_wrapper" class="card_wrapper">
+					<div class="card">
+						<div class="infimation">
+							<h5 id="change_profile_id" class="header_name">Изменить данные профиля</h5>
+						</div>
+						<div class="icon icon_source"></div>
+					</div>
+					<div class="card">
+						<div class="infimation">
+							<h5 id="source_id" class="header_name">Источники</h5>
+						</div>
+						<div class="icon icon_source"></div>
+					</div>
+					<div class="card">
+						<div class="infimation">
+							<h5 id="charachter_id" class="header_name">Персонажи</h5>
+						</div>
+						<div class="icon icon_source"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="right_block" class="classes">
+			<div class="header_block sub_menu_block">
+				<h3 id="profile_name">Название класса</h3>
+				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close tip" title="Закрыть">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper">
+				<div class="sub_menu_list archetype" data-simplebar>
+					<div id="sub_menu"></div>
+				</div>
+				<div class="content_block classes_cont" data-simplebar>
+					<div id="content_block"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

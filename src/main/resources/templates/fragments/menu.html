@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorate="~{layouts/layout}">
 <div class="navbar" th:fragment="menu">
 	<div class="nav_head">
 		<button class="user_account"><i class="icon_user"></i></button>
@@ -15,7 +16,10 @@
 					<span class="link_name">Учетная запись</span>
 				</a>
 				<ul class="sub_menu blank">
-					<li class="link_name"><span>Учетная запись</span></li>
+					<li class="link_name" sec:authorize="isAnonymous()"><a th:href="@{/login}">Вход</a></li>
+					<li class="link_name" sec:authorize="isAuthenticated()"><a th:href="@{/profile}">Профиль</a></li>
+					<li class="link_name" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Выход</a></li>
+					
 				</ul>
 			</li>
 			<li>
