@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-		http.authorizeRequests().and().formLogin().loginPage("/login").permitAll();
+		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/profile", true).permitAll();
 		http.authorizeRequests().and().logout().logoutSuccessUrl("/").permitAll();
 
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
