@@ -63,6 +63,41 @@ body {
   background-image: var(--icon_filters);
 }
 
+.check-input {
+  float: left;
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 0px;
+  border: 1px solid var(--border);
+}
+
+.check-input+label {
+  line-height: 22px;
+}
+
+
+/******** Поля ввода / input ********/
+input {
+  border-radius: 0px;
+  border:1px solid var(--border);
+  outline:none;
+}
+
+input:hover {
+  border:1px solid var(--primary-hover);
+}
+
+input:focus {
+  border:1px solid var(--primary-active);
+}
+
+input::selection {
+  background: var(--border);
+}
+
+
+/******** Скролл ********/
 .tpd-tooltip  .tooltip_scroll{
 	overflow-y: auto;
 	min-height: 50px;
@@ -73,6 +108,84 @@ body {
 .simplebar-scrollbar:before {
   border-radius: 0 !important;
   background-color: var(--primary) !important;
+}
+
+
+/******** Форма входа / login_form ********/
+.login_form {
+  max-width: 300px;
+  background: var(--bg-main);
+  text-align: left;
+  margin: 40px auto;
+  position: relative;
+  color: var(--text-color);
+}
+
+.login_form #login-form input.form-control {
+  height: 30px;
+  background: var(--hover);
+  width: calc(100% - 26px);
+  padding: 6px 12px;
+}
+
+.login_form .header {
+  border-bottom: 1px solid var(--border);
+  display: flex;
+}
+
+.login_form .header h4 {
+  margin: 0;
+  padding: 8px 12px;
+}
+
+.login_form .mfp-close i {
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+
+.login_form .mfp-close {
+  border-left:1px solid var(--border);
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+
+.login_form .mfp-close:hover {
+  /* background: var(--hover); */
+}
+
+.login_form .remember_row {
+  padding: 12px 12px;
+}
+
+.login_form .bottom {
+  border-top: 1px solid var(--border);
+  display: flex;
+}
+
+.login_form .bottom input.button {
+  height: 44px;
+  background: var(--bg-main);
+  padding: 12px 12px;
+  border:none;
+  border-right: 1px solid var(--border);
+  cursor: pointer;
+  color: var(--text-color);
+  margin-right: auto;
+}
+
+.login_form .bottom input.button:hover {
+  background: var(--hover);
+}
+
+.login_form .bottom a {
+  line-height: 44px;
+  margin-right: 12px;
 }
 
 
