@@ -68,6 +68,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: var(--link-color-hover);
+}
+
 ul {
   color: var(--text-color);
   list-style: none;
