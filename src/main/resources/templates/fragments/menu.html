@@ -11,7 +11,7 @@
 	<nav>
 		<ul class="nav_links sidebar-menu">
 			<li class="hidden_li" sec:authorize="isAnonymous()">
-				<a th:href="@{/login}">
+				<a th:href="@{/login}" class="ajax-popup-link">
 					<i class="icon_user"></i>
 					<span class="link_name">Вход в профиль</span>
 				</a>

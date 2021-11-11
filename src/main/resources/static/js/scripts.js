@@ -57,4 +57,8 @@ $(document).ready(function() {
 	    skin: localStorage.getItem('theme'),
 	});
 	$.sidebarMenu($('.sidebar-menu'));
+	$('.ajax-popup-link').magnificPopup({
+		  type: 'ajax',
+		  modal: true
+	});
 });
