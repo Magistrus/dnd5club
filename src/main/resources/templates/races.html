@@ -13,9 +13,8 @@
 							<h5 id="race_id" class="header_name" th:text="${race.capitalazeName}">Class name</h5>
 							<p th:text="${race.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
-							<span class = "tip" th:if="${race.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальной рассой"><span class="homebrew_text">Homebrew</span></span>
-								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${race.id}'|" th:text="${race.book.source}"></span><span
-									th:id="|inline-tooltip-source-${race.id}|" style='display: none' th:text="${race.book.name}"
+								<span class="tip" th:if="${race.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальной рассой"><span class="homebrew_text">Homebrew</span></span> <span class='tip'
+									th:title="${race.book.name}" th:text="${race.book.source}"
 								></span>
 							</p>
 						</div>
@@ -51,7 +50,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
+		<script type="text/javascript" th:inline="javascript">
     		var selectedRace = [[${selectedRace}]];
     		var selectedSubrace = [[${selectedSubrace}]];
 		</script>

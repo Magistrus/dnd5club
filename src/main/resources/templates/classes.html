@@ -13,10 +13,9 @@
 							<h5 id="classes_id" class="header_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally">
-								<span class = "tip" th:if="${class.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальным классом"><span class="homebrew_text">Homebrew</span></span>
-								<span class="tip uppercase_text" th:attr="data-tipped-options=|inline: 'inline-tooltip-source-${class.id}'|" th:text="${class.book.source}"></span><span th:text="| / к${class.diceHp}|"></span><span
-									th:id="|inline-tooltip-source-${class.id}|" style='display: none' th:text="${class.book.name}"
-								></span>
+								<span class="tip" th:if="${class.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальным классом"><span class="homebrew_text">Homebrew</span></span> <span
+									class="tip uppercase_text" th:title="${class.book.name}" th:text="${class.book.source}"
+								></span><span th:text="| / к${class.diceHp}|"></span>
 							</p>
 						</div>
 						<div class="icon" th:classappend="|icon_${class.englishName.toLowerCase().replace(' ', '_')}_big|"></div>
@@ -40,7 +39,7 @@
 					<button id="class_description" class="btn_class">
 						<i class="icon_action icon_description"></i><span>Описание</span>
 					</button>
-					<button id="class_spells" class="btn_class" style="display:none">
+					<button id="class_spells" class="btn_class" style="display: none">
 						<i class="icon_action icon_spells"></i><span>Заклинания</span>
 					</button>
 					<button id="class_images" class="btn_class">
@@ -57,7 +56,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
+		<script type="text/javascript" th:inline="javascript">
     		var selectedClass = [[${selectedClass}]];
     		var selectedArchetype = [[${selectedArchetype}]];
 		</script>

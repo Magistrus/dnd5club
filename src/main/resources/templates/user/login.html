@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<body id="body" class="d-flex overflow-hidden">
+	<div id="container" class="container">
+		<div class="row">
+			<div layout:fragment="content">
+				<div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+				<form id="login-form" th:action="@{/login}" method="post" class="m-t" role="form">
+					<div class="mb-3">
+						<input type="text" name="username" id="username" class="form-control" placeholder="Имя пользователя">
+					</div>
+					<div class="mb-3">
+						<input type="password" name="password" id="password" class="form-control" placeholder="Пароль">
+					</div>
+					<div class="row mb-3 justify-content-between">
+						<div class="col">
+							<label class="form-check-labe" for="remember-me">Запомнить меня <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox"></label>
+						</div>
+						<div class="col ms-auto">
+							<input type="submit" name="submit" class="btn btn-main btn-color-main" value="Вход">
+						</div>
+					</div>
+					<div id="register-link">
+						<a class="btn btn-main btn-color-main" th:href="@{/registration}">Регистрация</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
