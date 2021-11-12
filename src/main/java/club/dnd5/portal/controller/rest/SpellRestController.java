@@ -3,7 +3,6 @@ package club.dnd5.portal.controller.rest;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +48,10 @@ public class SpellRestController {
 		List<MagicSchool> filterSchool = input.getSearchPanes().getOrDefault("school", Collections.emptySet()).stream()
 				.map(MagicSchool::valueOf).collect(Collectors.toList());
 		Specification<Spell> specification = null;
+		if (!input.getSearch().getValue().isEmpty() && input.getSearch().getValue().length() < 3) {
+			//input.getSearch().setRegex(true);
+			//input.getSearch().setValue("^" +input.getSearch().getValue());
+		}
 		if (!filterSchool.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("school").in(filterSchool));
 		}
@@ -99,7 +102,9 @@ public class SpellRestController {
 				.map(t -> new Item(t.getCyrilicName(), t.name(), 0, 0)).collect(Collectors.toList()));
 		options.put("ritual", Arrays.asList(new Item("Да", "true", 0,0), new Item("Нет", "false", 0,0)));
 		options.put("concentration", Arrays.asList(new Item("Есть", "true", 0,0), new Item("Нет", "false", 0,0)));
-		output.getSearchPanes().setOptions(options);
+		if (output.getSearchPanes() != null) {
+			output.getSearchPanes().setOptions(options);
+		}
 		return output;
 	}
 
