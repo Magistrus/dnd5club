@@ -16,6 +16,7 @@ public class CreatureDto {
 	private String name;
 	private String englishName;
 	private String altName;
+	private String AC;
 	private String type;
 	private String size;
 	private String alignment;

@@ -45,15 +45,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
-				"visible": true
-			},
-			{
-				"targets": [ 1 ],
-				"visible": false
-			},
-			{
-				"targets": [ 2 ],
+				"targets": [ 1, 2 ],
 				"visible": false
 			},
 		],
@@ -67,7 +59,17 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-			loadingRecords: "Загрузка..."
+			loadingRecords: "Загрузка...",
+	        searchPanes: {
+	            title: {
+	                 _: 'Выбрано фильтров - %d',
+	                 0: 'Фильтры не выбраны',
+	                 1: 'Один фильтр выбран'
+	            },
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
@@ -118,7 +120,7 @@ $(document).ready(function() {
 	$('#btn_filters').on('click', function() {
 		var table = $('#items').DataTable();
 		table.searchPanes.container().toggle();
-	})
+	});
 });
 function selectItem(data){
 	document.getElementById('item_name').innerHTML = data.name;

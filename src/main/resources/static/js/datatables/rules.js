@@ -30,10 +30,6 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
-				"visible": true
-			},
-			{
 				"targets": [ 1 ],
 				"visible": false
 			},

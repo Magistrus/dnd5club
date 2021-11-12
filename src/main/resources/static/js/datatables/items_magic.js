@@ -12,6 +12,18 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+            layout: 'columns-4',
+			orderable: false
+        },
 		columns : [
 		{
 			data : 'rarity',
@@ -35,11 +47,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
-				"visible": false
-			},
-			{
-				"targets": [ 2 ],
+				"targets": [ 0, 2 ],
 				"visible": false
 			},
 		],
@@ -65,6 +73,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedItemMagic === null){
@@ -99,6 +109,10 @@ $(document).ready(function() {
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
+	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#items_magic').DataTable();
+		table.searchPanes.container().toggle();
 	});
 });
 function selectMagicItem(data){
