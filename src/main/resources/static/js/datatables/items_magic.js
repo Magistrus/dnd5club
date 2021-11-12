@@ -44,11 +44,27 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'type',
+			searchable: false,
+		},
+		{
+			data : 'attunement',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0, 2 ],
-				"visible": false
+				targets: [ 0 ],
+				searchPanes: {
+	                  dtOpts: {
+	                    order:[]
+	                  }
+	            }
+			},
+			{
+				targets: [ 0, 2, 3, 4 ],
+				visible: false
 			},
 		],
 		order : [[0, 'asc']],
@@ -61,7 +77,17 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-			loadingRecords: "Загрузка..."
+			loadingRecords: "Загрузка...",
+	        searchPanes: {
+	            title: {
+	                 _: 'Выбрано фильтров - %d',
+	                 0: 'Фильтры не выбраны',
+	                 1: 'Один фильтр выбран'
+	            },
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
