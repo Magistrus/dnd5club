@@ -156,7 +156,7 @@ function selectCreature(data){
 
 	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
-	document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
+	document.getElementById('creatute_img').src = httpGet('/image/CREATURE/'+data.id);
 
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
@@ -175,3 +175,10 @@ $('#btn_close').on('click', function() {
 	localStorage.removeItem('selected_creature');
 	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
 });
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); 
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}

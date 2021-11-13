@@ -4,6 +4,7 @@
 </head>
 <body>
 	<th:block th:object="${background}" th:fragment="view">
+		<h4 class="header_separator mt-0">Описание</h4>
 		<span th:utext="*{description}"></span>
 		<h4 class="header_separator" th:text="*{skillName}"></h4>
 		<div th:utext="*{skillDescription}"></div>
