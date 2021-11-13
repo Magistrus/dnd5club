@@ -26,7 +26,6 @@ import club.dnd5.portal.dto.background.BackgroundDto;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.background.Background;
-import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 
 @RestController

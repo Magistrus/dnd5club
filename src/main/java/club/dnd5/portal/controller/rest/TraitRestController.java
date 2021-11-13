@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.trait.TraitDto;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
-import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 
