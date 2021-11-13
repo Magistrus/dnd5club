@@ -22,7 +22,7 @@ $(document).ready(function() {
                 },
 				searching: false,
             },
-            layout: 'columns-4',
+            layout: 'columns-3',
 			orderable: false
         },
 		columns : [

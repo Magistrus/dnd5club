@@ -21,7 +21,7 @@ $(document).ready(function() {
 				searching: false,
 				orderable: false
             },
-            layout: 'columns-4',
+            layout: 'columns-3',
 			orderable: false
         },
 		columns : [
@@ -152,8 +152,6 @@ function selectCreature(data){
 	case '1/4': data.cr = 1/4; break;
 	case '1/2': data.cr = 1/2; break;
 	}
-	document.getElementById('cr_value').value = data.cr;
-
 	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
 	document.getElementById('creatute_img').src = httpGet('/image/CREATURE/'+data.id);
