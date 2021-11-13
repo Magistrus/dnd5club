@@ -78,23 +78,19 @@ function setActiveScreen(element, englishName) {
 				} 
 			});
 		}
-		var archetepyName = localStorage.getItem('selected_subscreen');
-		if (archetepyName){
-			var selecedSubscreenName = $('#'+ archetepyName);
-			setActiveSubscreen(selecedSubscreenName[0], localStorage.getItem('selected_screen'), archetepyName);
+		var subScreenName = localStorage.getItem('selected_subscreen');
+		if (subScreenName){
+			var selecedSubscreenName = $('#'+ subScreenName);
+			setActiveSubscreen(selecedSubscreenName[0], localStorage.getItem('selected_screen'), subScreenName);
 		}
 	});
 }
-function setActiveSubscreen(element, screenName, archetypeName) {
+function setActiveSubscreen(element, screenName, subScreen) {
 	$('li.sub_menu').removeClass('active');
 	element.classList.add('active');
-	if (localStorage.getItem('screen_info')==='description'){
-		loadDescription();
-	}else {
-		var url = '/screens/' + screenName + '/subscreen/' + archetypeName;
-		$("#content_block").load(url);
-	}
-	history.pushState('data to be passed', screenName, '/screens/' + screenName + '/' + archetypeName);
+	var url = '/screens/' + screenName + '/subscreen/' + subScreen;
+	$("#content_block").load(url);
+	history.pushState('data to be passed', subScreen, '/screens/' + screenName + '/' + subScreen);
 }
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');

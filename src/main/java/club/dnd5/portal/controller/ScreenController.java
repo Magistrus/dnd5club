@@ -20,20 +20,20 @@ public class ScreenController {
 
 	@GetMapping("/screens")
 	public String getScreens(Model model) {
-		model.addAttribute("screens", repository.findAllByParent(null));
+		model.addAttribute("screens", repository.findAllByParentIsNull());
 		return "screens";
 	}
 	
 	@GetMapping("/screens/{name}")
 	public String getScreen(Model model, @PathVariable String name) {
 		model.addAttribute("selectedScreen", name);
-		model.addAttribute("screens", repository.findAllByParent(null));
+		model.addAttribute("screens", repository.findAllByParentIsNull());
 		return "screens";
 	}
 	
 	@GetMapping("/screens/{name}/{subscreen}")
 	public String getSubscreenList(Model model, @PathVariable String name, @PathVariable String subscreen) {
-		model.addAttribute("screens", repository.findAllByParent(null));
+		model.addAttribute("screens", repository.findAllByParentIsNull());
 		model.addAttribute("selectedScreen", name);
 		model.addAttribute("selectedSubscreen", subscreen);
 		return "screens";
