@@ -43,6 +43,9 @@ $(document).ready(function() {
 				"visible": false
 			},
 		],
+        rowGroup: {
+            dataSrc: 'type',
+        },
 		order : [[0, 'asc']],
 		language : {
 			processing : "Загрузка...",
@@ -81,6 +84,9 @@ $(document).ready(function() {
 		var table = $('#armors').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (data === undefined) {
+			return;
+		}
 		document.getElementById('armor_name').innerHTML = data.name;
 		document.getElementById('ac').innerHTML = data.ac;
 		document.getElementById('type').innerHTML = data.type;
