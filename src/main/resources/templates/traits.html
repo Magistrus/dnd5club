@@ -12,12 +12,16 @@
 					</div>
 				</div>
 			</div>
-			<div id = "searchPanes" class="search_panes"></div>
-			<div id= "scroll_load_simplebar" class="container_left table_list">
+			<div id="searchPanes" class="search_panes"></div>
+			<div id="scroll_load_simplebar" class="container_left table_list">
 				<table id="traits" class="table_list spells_list" th:fragment="optionTable">
 					<thead style="display: none">
 						<tr>
 							<th>Название</th>
+							<th>Название английское</th>
+							<th>Характеристики</th>
+							<th>Навыки</th>
+							<th>Требования</th>
 						</tr>
 					</thead>
 				</table>
@@ -37,12 +41,10 @@
 				<div id="sub_menu" class="sub_menu_list">
 					<ul>
 						<li>
-							<h5>Требования:</h5>
-							<span id="requirement" style="text-transform: capitalize;">-</span>
+							<h5>Требования:</h5> <span id="requirement" style="text-transform: capitalize;">-</span>
 						</li>
 						<li>
-							<h5>Источник:</h5>
-							<span id="source">-</span>
+							<h5>Источник:</h5> <span id="source">-</span>
 						</li>
 					</ul>
 				</div>
@@ -51,7 +53,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
+		<script type="text/javascript" th:inline="javascript">
     		var selectedTrait = [[${selectedTrait}]];
 		</script>
 	</div>

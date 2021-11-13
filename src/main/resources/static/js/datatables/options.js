@@ -72,11 +72,6 @@ $(document).ready(function() {
 				infoFiltered : "из _MAX_",
 				loadingRecords: "Загрузка...",
 		        searchPanes: {
-		            title: {
-		                 _: 'Выбрано фильтров - %d',
-		                 0: 'Фильтры не выбраны',
-		                 1: 'Один фильтр выбран'
-		            },
 	                collapseMessage: 'Свернуть все',
 	                showMessage: 'Развернуть все',
 	                clearMessage: 'Сбросить фильтры'
