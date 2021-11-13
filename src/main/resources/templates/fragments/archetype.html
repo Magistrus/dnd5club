@@ -48,7 +48,7 @@
 						<td align="center" th:text="${level}" />
 						<td align="center" th:text="${'+' + levelDef[level]}" />
 						<td>
-							<a class="text-info tip_scroll" th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
+							<a class="text-info tip_scroll archetype_feet" th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
 							th:text="${iterStat2.last and heroClass.getTraitsClear(level).empty} ? ${#strings.toLowerCase(architypeTrait.name)} : ${#strings.toLowerCase(architypeTrait.name)} + ', '"
 							th:href="|#a${architypeTrait.id}|"
 							th:title="${architypeTrait.name}" th:data-tipped-options="@{ajax: { url: '/classes/archetype/feature/{id}'}(id=${architypeTrait.id})}" 

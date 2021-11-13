@@ -22,7 +22,6 @@ $(document).ready(function() {
                 },
 				searching: false,
             },
-            layout: 'columns-3',
 			orderable: false
         },
 		columns : [

@@ -21,7 +21,6 @@ $(document).ready(function() {
 				searching: false,
 				orderable: false
             },
-            layout: 'columns-3',
 			orderable: false
         },
 		columns : [
