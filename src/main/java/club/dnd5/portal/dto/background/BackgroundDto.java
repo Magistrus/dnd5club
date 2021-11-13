@@ -33,7 +33,7 @@ public class BackgroundDto {
 		englishName = background.getEnglishName();
 		skills = background.getSkills().stream().map(SkillType::getCyrilicName).collect(Collectors.joining(", "));
 		if (background.getOtherSkills() != null) {
-			skills+= background.getOtherSkills();
+			skills+= " " + background.getOtherSkills();
 		}
 		toolSkills = background.getToolOwnership() == null ? "Нет" : background.getToolOwnership();
 		languages = background.getLanguage() == null ? "-" : background.getLanguage();

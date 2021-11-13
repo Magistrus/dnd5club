@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "name",
@@ -27,10 +38,14 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'skills',
+			searchable: false
+		},
 		],
 		columnDefs : [
 		{
-			"targets": [ 1 ],
+			"targets": [ 1, 2 ],
 			"visible": false
 		},
 		],
@@ -47,7 +62,12 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				loadingRecords: "Загрузка..."
+				loadingRecords: "Загрузка...",
+		        searchPanes: {
+	                collapseMessage: 'Свернуть все',
+	                showMessage: 'Развернуть все',
+	                clearMessage: 'Сбросить фильтры'
+		        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
@@ -58,7 +78,9 @@ $(document).ready(function() {
 		    	      simpleBar.recalculate();
 		    	      scrollEventHeight +=750;
 		    	}
-		    }); 
+		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedBackground === null){
@@ -93,6 +115,10 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#backgrounds').DataTable();
+		table.searchPanes.container().toggle();
+	})
 });
 function selectBackground(data){
 	document.getElementById('background_name').innerHTML = data.name;
