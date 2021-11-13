@@ -7,7 +7,7 @@ $(document).ready(function() {
 		serverSide : true,
         deferRender: true,
 		iDisplayLength : 25,
-        scrollCollapse: true,
+        //scrollCollapse: true,
 		select: true,
 		select: {
 			style: 'single'
@@ -35,14 +35,13 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
-				"visible": false
-			},
-			{
-				"targets": [ 2 ],
+				"targets": [ 0,  2 ],
 				"visible": false
 			},
 		],
+        rowGroup: {
+            dataSrc: 'type',
+        },
 		order : [[0, 'asc']],
 		language : {
 			processing : "Загрузка...",
@@ -82,6 +81,9 @@ $(document).ready(function() {
 		var table = $('#weapons').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (data === undefined) {
+			return;
+		}
 		document.getElementById('weapon_name').innerHTML = data.name;
 		document.getElementById('type').innerHTML = data.type;
 		document.getElementById('damage').innerHTML = '<span class="dice_text">' + data.damage+ '</span>' + ' ' + data.damageType;
