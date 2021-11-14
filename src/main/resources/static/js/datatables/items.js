@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "name",
@@ -27,14 +38,14 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'type',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
-				"visible": true
-			},
-			{
-				"targets": [ 1 ],
+				"targets": [ 1, 2 ],
 				"visible": false
 			},
 		],
@@ -48,7 +59,17 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-			loadingRecords: "Загрузка..."
+			loadingRecords: "Загрузка...",
+	        searchPanes: {
+	            title: {
+	                 _: 'Выбрано фильтров - %d',
+	                 0: 'Фильтры не выбраны',
+	                 1: 'Один фильтр выбран'
+	            },
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
@@ -60,6 +81,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedItem === null){
@@ -79,7 +102,6 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-
 	$('#items tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -94,6 +116,10 @@ $(document).ready(function() {
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
+	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#items').DataTable();
+		table.searchPanes.container().toggle();
 	});
 });
 function selectItem(data){

@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "name",
@@ -27,10 +38,22 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'type',
+			searchable: false
+		},
+		{
+			data : 'prerequisite',
+			searchable: false
+		},
+		{
+			data : 'level',
+			searchable: false
+		},
 		],
 		columnDefs : [
 		{
-			"targets": [ 1 ],
+			"targets": [ 1, 2, 3, 4],
 			"visible": false
 		},
 		],
@@ -47,7 +70,12 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				loadingRecords: "Загрузка..."
+				loadingRecords: "Загрузка...",
+		        searchPanes: {
+	                collapseMessage: 'Свернуть все',
+	                showMessage: 'Развернуть все',
+	                clearMessage: 'Сбросить фильтры'
+		        }
 		},
 		ordering : true,
 		initComplete: function(settings, json) {
@@ -60,6 +88,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedOption === null){
@@ -94,6 +124,10 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#options').DataTable();
+		table.searchPanes.container().toggle();
+	})
 });
 function selectOption(data){
 	document.getElementById('option_name').innerHTML = data.name;

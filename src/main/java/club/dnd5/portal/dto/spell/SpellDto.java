@@ -32,6 +32,7 @@ public class SpellDto {
 	private String bookshort;
 	private boolean homebrew;
 	private Set<ShortClassDto> classes;
+	private String damageType;
 
 	private Boolean consumable = false;
 	

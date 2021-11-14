@@ -14,6 +14,7 @@
 					</div>
 				</div>
 			</div>
+			<div id = "searchPanes" class="search_panes"></div>
 			<div id= "scroll_load_simplebar" class="container_left table_list">
 				<table id="creatures" class="table_list spells_list" th:fragment="bestiaryTable">
 					<thead style="display: none">
@@ -21,6 +22,9 @@
 							<th>Уровень опасности</th>
 							<th>Название</th>
 							<th>Английское Название</th>
+							<th>Опасность</th>
+							<th>Тип</th>
+							<th>Размер</th>
 						</tr>
 					</thead>
 				</table>
@@ -44,7 +48,6 @@
 						</li>
 						<li>
 							<h5>Уровень опасности:</h5> <span id="cr" style="text-transform: capitalize;">-</span>
-						    <div><progress id="cr_value" max="30" value="0"></progress></div>
 						</li>
 						<li>
 							<h5>Тип:</h5> <span id="type">-</span>

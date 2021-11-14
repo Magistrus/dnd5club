@@ -3,6 +3,7 @@ package club.dnd5.portal.controller.rest;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.dto.spell.SpellTipDto;
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
@@ -34,7 +36,7 @@ public class SpellRestController {
 	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
 			{ "4", "Жрец" }, { "5", "Колдун" }, { "6", "Паладин" }, { "7", "Следопыт" }, { "8", "Чародей" },
 			{ "14", "Изобретатель" } };
-
+	
 	@Autowired
 	private SpellDatatableRepository repo;
 
@@ -42,10 +44,14 @@ public class SpellRestController {
 	public DataTablesOutput<SpellDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
 		input.parseSearchPanesFromQueryParams(queryParameters,
-				Arrays.asList("level", "school", "classes", "concentration", "ritual"));
+				Arrays.asList("level", "school", "classes", "timeCast", "damageType", "concentration", "ritual"));
 		List<MagicSchool> filterSchool = input.getSearchPanes().getOrDefault("school", Collections.emptySet()).stream()
 				.map(MagicSchool::valueOf).collect(Collectors.toList());
 		Specification<Spell> specification = null;
+		if (!input.getSearch().getValue().isEmpty() && input.getSearch().getValue().length() < 3) {
+			//input.getSearch().setRegex(true);
+			//input.getSearch().setValue("^" +input.getSearch().getValue());
+		}
 		if (!filterSchool.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("school").in(filterSchool));
 		}
@@ -56,6 +62,15 @@ public class SpellRestController {
 				Join<HeroClass, Spell> hero = root.join("heroClass", JoinType.LEFT);
 				query.distinct(true);
 				return cb.and(hero.get("id").in(filterClasses));
+			});
+		}
+		List<DamageType> filterDamageTypes = input.getSearchPanes().getOrDefault("damageType", Collections.emptySet())
+				.stream().map(DamageType::valueOf).collect(Collectors.toList());
+		if (!filterDamageTypes.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<DamageType, Spell> damageType = root.join("damageType", JoinType.LEFT);
+				query.distinct(true);
+				return damageType.in(filterDamageTypes);
 			});
 		}
 		Set<String> concentrations = input.getSearchPanes().getOrDefault("concentration", Collections.emptySet());
@@ -73,17 +88,23 @@ public class SpellRestController {
 		}
 		input.getSearchPanes().remove("school");
 		input.getSearchPanes().remove("classes");
+		input.getSearchPanes().remove("timeCast");
+		input.getSearchPanes().remove("damageType");
 		input.getSearchPanes().remove("concentration");
 		input.getSearchPanes().remove("ritual");
 		DataTablesOutput<SpellDto> output = repo.findAll(input, specification, specification, SpellDto::new);
-		Map<String, List<Item>> options = output.getSearchPanes().getOptions();
+		Map<String, List<Item>> options = output.getSearchPanes() == null ? new HashMap<>() : output.getSearchPanes().getOptions();
 		options.put("school", Arrays.stream(MagicSchool.values()).map(t -> new Item(t.getName(), t.name(), 0, 0))
 				.collect(Collectors.toList()));
 		options.put("classes",
 				Arrays.stream(classesMap).map(t -> new Item(t[1], t[0], 0, 0)).collect(Collectors.toList()));
+		options.put("damageType", DamageType.getSpellDamage().stream()
+				.map(t -> new Item(t.getCyrilicName(), t.name(), 0, 0)).collect(Collectors.toList()));
 		options.put("ritual", Arrays.asList(new Item("Да", "true", 0,0), new Item("Нет", "false", 0,0)));
 		options.put("concentration", Arrays.asList(new Item("Есть", "true", 0,0), new Item("Нет", "false", 0,0)));
-		output.getSearchPanes().setOptions(options);
+		if (output.getSearchPanes() != null) {
+			output.getSearchPanes().setOptions(options);
+		}
 		return output;
 	}
 

@@ -75,9 +75,9 @@ public class ItemMagicDto {
 			break;
 		}
 		attunement = magicItem.getCustomization() ? "требуется настройка" : "Нет";
-		attunement += magicItem.getCustSpecial() != null ? " " + magicItem.getCustSpecial() : "";
+		attunement += "(" + magicItem.getCustSpecial() != null ? " " + magicItem.getCustSpecial() : "";
 		attunement += " " + magicItem.getCustClasses().stream().map(HeroClass::getAblativeName).map(String::toLowerCase)
-					.collect(Collectors.joining(", "));
+					.collect(Collectors.joining(", ")) + ")";
 		String rangeCost;
 		switch (magicItem.getRarity()) {
 		case COMMON:

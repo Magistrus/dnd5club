@@ -18,7 +18,7 @@ $(document).ready(function() {
             viewCount: false,
             dtOpts: {
                 select: {
-                    style: 'multi'
+                    //style: 'multi'
                 },
 				searching: false,
             },
@@ -52,6 +52,10 @@ $(document).ready(function() {
 			searchable: false,
 		},
 		{
+			data : "damageType",
+			searchable: false
+		},
+		{
 			data : "ritual",
 			searchable: false
 		},
@@ -62,27 +66,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
-				"visible": false
-			},
-			{
-				"targets": [ 1 ],
-				"visible": false
-			},
-			{
-				"targets": [ 3 ],
-				"visible": false
-			},
-			{
-				"targets": [ 4 ],
-				"visible": false
-			},
-			{
-				"targets": [ 5 ],
-				"visible": false
-			},
-			{
-				"targets": [ 6 ],
+				"targets": [ 0,1,3,4,5,6,7 ],
 				"visible": false
 			},
 		],

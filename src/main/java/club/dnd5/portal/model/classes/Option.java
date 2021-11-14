@@ -55,21 +55,21 @@ public class Option {
 	public enum OptionType {
 		ARCANE_SHOT("Магические выстрелы: Воин Мистический Лучник", "Fighter", "Arcane_Archer"),
 		MANEUVER("Маневры: Воин Мастер боевых искуств", "Fighter","Battle_Master"),
-		METAMAGIC("Метамагия", "Sorcerer"),
+		METAMAGIC("Метамагия: Чародей", "Sorcerer"),
 		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","Warlock"),
 		FIGHTING_STYLE("Боевые стили: Воин", "Fighter"),
 		ELEMENTAL_DISCIPLINE("Стихийные практики: Монах Пути четырех стихий", "Monk", "Four_Elements"),
 		ARTIFICER_INFUSION("Инфузии: Изобретатель","Artificer"),
 		RUNE("Руны: Рунический рыцарь", "Fighter", "Rune"),
-		BONE("Договоры: Колдун", "Warlock"),
-		FIGHTING_STYLE_RANGER("Боевые стили: Следопыт", "Ranger"), 
-		FIGHTING_STYLE_PALADIN("Боевые стили: Паладин", "Paladin"),
-		FIGHTING_STYLE_BARD("Боевые стили: Бард Колллегии Мечей", "Bard", "Swords"),
-		FIGHTING_STYLE_BLOODHANTER("Боевые стили: Кровавый охотник", "Blood Hunter"),
+		BONE("Договор: Колдун", "Warlock"),
+		FIGHTING_STYLE_RANGER("Боевой стиль: Следопыт", "Ranger"), 
+		FIGHTING_STYLE_PALADIN("Боевой стиль: Паладин", "Paladin"),
+		FIGHTING_STYLE_BARD("Боевой стиль: Бард Колллегии Мечей", "Bard", "Swords"),
+		FIGHTING_STYLE_BLOODHANTER("Боевой стиль: Кровавый охотник", "Blood Hunter"),
 		BLOOD_CURSE("Проклятья крови: Кровавый охотник", "Blood Hunter"),
-		MUTAGEN("Мутагены: Кровавый охотник Ордена мутантов", "Blood Hunter"),
-		WILD_SHAPE("Формы Дикого Облика: Друид", "Druid"), 
-		PHILOSOPHICAL_SCHOOL("Философские школы: Волшебник Философ Академии","Wizard");
+		MUTAGEN("Мутаген: Кровавый охотник Ордена мутантов", "Blood Hunter"),
+		WILD_SHAPE("Форма Дикого Облика: Друид", "Druid"), 
+		PHILOSOPHICAL_SCHOOL("Философская школа: Волшебник Философ Академии","Wizard");
 		
 		private String name;
 		private String className;

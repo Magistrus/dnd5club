@@ -5,13 +5,24 @@ $(document).ready(function() {
 		ajax : '/data/bestiary',
 		dom: 't',
 		serverSide : true,
-        deferRender: true,
 		iDisplayLength : 25,
         scrollCollapse: true,
 		select: true,
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+				orderable: false
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : 'exp',
@@ -32,15 +43,32 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'cr',
+			searchable: false
+		},
+		{
+			data : 'type',
+			searchable: false
+		},
+		{
+			data : 'size',
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0 ],
+				"targets": [0, 2 ,3, 4 ],
 				"visible": false
 			},
 			{
-				"targets": [ 2 ],
-				"visible": false
+				"targets": [ 5 ],
+				"visible": false,
+				searchPanes: {
+	                  dtOpts: {
+	                    order:[]
+	                  }
+	            }
 			},
 		],
 		order : [[0, 'asc'], [1, 'asc']],
@@ -53,7 +81,17 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-		    loadingRecords: "Загрузка..."
+		    loadingRecords: "Загрузка...",
+	        searchPanes: {
+	            title: {
+	                 _: 'Выбрано фильтров - %d',
+	                 0: 'Фильтры не выбраны',
+	                 1: 'Один фильтр выбран'
+	            },
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -65,6 +103,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedCreature === null){
@@ -98,6 +138,10 @@ $(document).ready(function() {
 		table.tables().search($(this).val()).draw();
 		rowSelectIndex = 0;
 	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#creatures').DataTable();
+		table.searchPanes.container().toggle();
+	})
 });
 function selectCreature(data){
 	document.getElementById('creature_name').innerHTML = data.name;
@@ -107,11 +151,9 @@ function selectCreature(data){
 	case '1/4': data.cr = 1/4; break;
 	case '1/2': data.cr = 1/2; break;
 	}
-	document.getElementById('cr_value').value = data.cr;
-
 	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
-	document.getElementById('creatute_img').src = 'https://storage.googleapis.com/dnd5/creatures/'+data.id+'.jpg';
+	document.getElementById('creatute_img').src = httpGet('/image/CREATURE/'+data.id);
 
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
@@ -130,3 +172,10 @@ $('#btn_close').on('click', function() {
 	localStorage.removeItem('selected_creature');
 	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
 });
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); 
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
