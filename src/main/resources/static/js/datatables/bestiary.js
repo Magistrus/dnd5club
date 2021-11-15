@@ -153,7 +153,7 @@ function selectCreature(data){
 	}
 	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
-	document.getElementById('creatute_img').src = httpGet('/image/CREATURE/'+data.id);
+	httpGetImage('/image/CREATURE/'+data.id);
 
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
@@ -172,10 +172,11 @@ $('#btn_close').on('click', function() {
 	localStorage.removeItem('selected_creature');
 	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
 });
-function httpGet(theUrl)
+function httpGetImage(theUrl)
 {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); 
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+	fetch(theUrl).then(function(response) {
+	    return response.text().then(function(text) {
+			document.getElementById('creatute_img').src = text;
+	    });
+	});
 }
