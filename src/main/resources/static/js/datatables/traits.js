@@ -54,20 +54,11 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 		{
-			"targets": [ 1 ],
+			"targets": [ 1, 4 ],
 			"visible": false
 		},
 		{
-			"targets": [ 2 ],
-			"visible": false,
-			searchPanes: {
-                dtOpts: {
-                  order:[]
-                }
-			}
-		},
-		{
-			"targets": [ 3 ],
+			"targets": [ 2, 3 ],
 			"visible": false,
 			searchPanes: {
                 dtOpts: {
