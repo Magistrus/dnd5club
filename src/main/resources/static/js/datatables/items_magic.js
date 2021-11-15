@@ -104,6 +104,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedItemMagic === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
 				$('#items_magic tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedItemMagic) {

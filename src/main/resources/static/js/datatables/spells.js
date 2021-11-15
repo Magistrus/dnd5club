@@ -106,6 +106,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedSpell === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
 				$('#spells tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedSpell) {

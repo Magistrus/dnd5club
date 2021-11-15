@@ -16,6 +16,7 @@ $(document).ready(function() {
 	  }
 	  if(windowWidth < 1000){
 		elem.removeClass('compact_menu');
+		$('#list_page_two_block').removeClass('block_information');
 	  }
 	}
 	checkWidth(); // проверит при загрузке страницы

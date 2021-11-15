@@ -86,6 +86,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedItem === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
 				$('#items tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedItem) {
