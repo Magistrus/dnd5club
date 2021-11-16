@@ -54,20 +54,11 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 		{
-			"targets": [ 1 ],
+			"targets": [ 1, 4 ],
 			"visible": false
 		},
 		{
-			"targets": [ 2 ],
-			"visible": false,
-			searchPanes: {
-                dtOpts: {
-                  order:[]
-                }
-			}
-		},
-		{
-			"targets": [ 3 ],
+			"targets": [ 2, 3 ],
 			"visible": false,
 			searchPanes: {
                 dtOpts: {
@@ -110,6 +101,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedTrait === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
 				$('#traits tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedTrait) {

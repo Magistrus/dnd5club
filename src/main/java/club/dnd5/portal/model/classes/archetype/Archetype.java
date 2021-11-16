@@ -79,10 +79,10 @@ public class Archetype {
 	private Book book;
 	private Short page;
 	
-	public Map<Integer, List<Spell>> getLevelSpells(){
+	public Map<Integer, List<ArchetypeSpell>> getLevelSpells(){
 		return spells.stream().filter(s -> s.getLevel() > 0)
 				.collect(Collectors.groupingBy(ArchetypeSpell::getLevel, TreeMap::new,
-						Collectors.mapping(ArchetypeSpell::getSpell, Collectors.toList())));
+						Collectors.mapping(a -> a, Collectors.toList())));
 	}
 	
 	public boolean isOfficial() {

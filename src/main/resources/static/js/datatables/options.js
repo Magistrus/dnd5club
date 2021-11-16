@@ -93,6 +93,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedOption === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
 				$('#options tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedOption) {

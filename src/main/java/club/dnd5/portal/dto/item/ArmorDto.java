@@ -14,13 +14,14 @@ public class ArmorDto {
 	private String englishName;
 	private String cost;
 	private String ac;
+	private String acFull;
 	private String weight;
 	private String type;
 	private String requirements;
 	private String stealth;
 	private String book;
 	private String bookshort;
-	
+
 	public ArmorDto(Armor armor) {
 		id = armor.getId();
 		name = armor.getName();
@@ -28,10 +29,21 @@ public class ArmorDto {
 		cost = armor.getCost() + " зм.";
 		weight = String.valueOf(armor.getWeight());
 		ac = String.valueOf(armor.getAC());
+		switch (armor.getType()) {
+		case LIGHT:
+			acFull = ac + " + модификатор Лов";
+			break;
+		case MEDIUM:
+			acFull = ac + " + модификатор Лов (макс. 2)";
+			break;
+		default:
+			acFull = ac;
+			break;
+		}
 		type = armor.getType().getName();
-		requirements =  String.valueOf(armor.getForceRequirements() == null ? "Нет":armor.getForceRequirements());
+		requirements = String.valueOf(armor.getForceRequirements() == null ? "Нет" : armor.getForceRequirements());
 		stealth = armor.isStelsHindrance() ? "Есть" : "Нет";
 		book = armor.getBook().getName();
-		bookshort = armor.getBook().getSource(); 
+		bookshort = armor.getBook().getSource();
 	}
 }

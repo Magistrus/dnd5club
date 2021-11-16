@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "type",
@@ -43,6 +54,9 @@ $(document).ready(function() {
 				"visible": false
 			},
 		],
+        rowGroup: {
+            dataSrc: 'type',
+        },
 		order : [[0, 'asc']],
 		language : {
 			processing : "Загрузка...",
@@ -53,7 +67,12 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-			loadingRecords: "Загрузка..."
+			loadingRecords: "Загрузка...",
+	        searchPanes: {
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 		    $('#armors tbody tr:eq(0)').click();
@@ -67,6 +86,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 		    $('#armors tbody tr:eq(0)').click();
@@ -81,8 +102,11 @@ $(document).ready(function() {
 		var table = $('#armors').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (data === undefined) {
+			return;
+		}
 		document.getElementById('armor_name').innerHTML = data.name;
-		document.getElementById('ac').innerHTML = data.ac;
+		document.getElementById('ac').innerHTML = data.acFull;
 		document.getElementById('type').innerHTML = data.type;
 		document.getElementById('cost').innerHTML = data.cost;
 		document.getElementById('weight').innerHTML = data.weight;

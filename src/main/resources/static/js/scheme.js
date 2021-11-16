@@ -8,7 +8,6 @@ $(document).ready(function() {
 	{
 		setThemeDark(element);
 	}
-	saveThemeToSession(element);
 });
 
 function switchTheme() {
@@ -23,7 +22,6 @@ function switchTheme() {
 		Tipped.setDefaultSkin('light');
 		setThemeLight(element);
 	}
-	saveThemeToSession(element);
 }
 
 function setThemeDark(element){
@@ -32,6 +30,7 @@ function setThemeDark(element){
 	element.href = '/resources/css/dark.css';
 	element.classList.remove('light')
 	element.classList.add('dark');
+	saveThemeToSession('dark');
 }
 
 function setThemeLight(element){
@@ -40,14 +39,15 @@ function setThemeLight(element){
 	element.href = '/resources/css/light.css';
 	element.classList.remove('dark')
 	element.classList.add('light');
+	saveThemeToSession('light');
 }
 
-function saveThemeToSession(element){
+function saveThemeToSession(theme){
 	$.ajax({
 	    type: 'POST',
 	    url: '/session/theme',
 	    data: { 
-	        'theme': element.classList[0], 
+	        'theme': theme, 
 	    },
 	    success: function(msg){
 	    }

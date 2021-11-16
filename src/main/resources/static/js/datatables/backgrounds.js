@@ -84,6 +84,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedBackground === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
 				$('#backgrounds tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedBackground) {

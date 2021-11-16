@@ -10,7 +10,7 @@
 <link rel="icon" type="image/x-icon" th:href="@{/resources/assets/favicon.svg}" />
 <!-- Core theme CSS -->
 <link th:href="@{/resources/css/simplebar.css}" rel="stylesheet" />
-<link type="text/css" rel="stylesheet" media="all" th:href="@{|/resources/css/${session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
+<link type="text/css" rel="stylesheet" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'light': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
 <link th:href="@{/resources/css/typography.css}" rel="stylesheet" />
 <link th:href="@{/resources/css/styles.css}" rel="stylesheet" />
 <link th:href="@{/resources/css/sidebar-menu.css}" rel="stylesheet" />

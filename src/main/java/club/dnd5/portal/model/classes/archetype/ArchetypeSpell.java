@@ -22,6 +22,7 @@ public class ArchetypeSpell {
 	private Integer id;
 	private String advenced;
 	private int level;
+	private String type;
 	
 	@OneToOne
 	private Spell spell;
