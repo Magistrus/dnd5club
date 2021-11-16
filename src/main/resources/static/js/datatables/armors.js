@@ -88,7 +88,7 @@ $(document).ready(function() {
 			return;
 		}
 		document.getElementById('armor_name').innerHTML = data.name;
-		document.getElementById('ac').innerHTML = data.ac;
+		document.getElementById('ac').innerHTML = data.acFull;
 		document.getElementById('type').innerHTML = data.type;
 		document.getElementById('cost').innerHTML = data.cost;
 		document.getElementById('weight').innerHTML = data.weight;

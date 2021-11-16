@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "type",
@@ -32,10 +43,14 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'damageType',
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0,  2 ],
+				"targets": [ 0,  2, 3 ],
 				"visible": false
 			},
 		],
@@ -52,7 +67,12 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-			loadingRecords: "Загрузка..."
+			loadingRecords: "Загрузка...",
+	        searchPanes: {
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 		    $('#weapons tbody tr:eq(0)').click();
@@ -66,6 +86,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide()
 		},
 		drawCallback: function ( settings ) {
 		    $('#weapons tbody tr:eq(0)').click();
@@ -116,6 +138,10 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#weapons').DataTable();
+		table.searchPanes.container().toggle();
+	})
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');

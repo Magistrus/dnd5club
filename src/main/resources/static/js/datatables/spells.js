@@ -106,7 +106,7 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedSpell === null){
-				if (!$('#list_page_two_block').hasClass('block_information')){
+				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
 					return;
 				}
 				$('#spells tbody tr:eq('+rowSelectIndex+')').click();
