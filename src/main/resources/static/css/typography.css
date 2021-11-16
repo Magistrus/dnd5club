@@ -118,7 +118,7 @@ h4 + .caption_text {
 blockquote {
   font-family: 'Neucha', cursive;
   padding: 16px 16px 16px 16px;
-  background-color: var(--border);
+  background-color: var(--bg-blockquote);
   border:1px solid var(--border);
   border-radius: 16px;
   
@@ -210,6 +210,12 @@ table.classes_tablet {
 
 table.classes_tablet tbody tr:hover {
   background-color: var(--hover);
+}
+
+table.dataTable tr.dtrg-group td {
+  background-color:var(--hover) !important;
+  cursor:auto;
+  border-left: 3px solid var(--hover);
 }
 
 
