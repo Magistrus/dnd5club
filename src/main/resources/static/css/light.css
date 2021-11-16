@@ -5,6 +5,7 @@
   --bg-sub-menu: #F2F2F2;
   --bg-dice: #d2d1f9;
   --bg-homebrew: #b1d9bd;
+  --bg-blockquote: #21dbca;
   --text-color:#171717;
   --text-g-color:#A4A4A4;
   --text-s-color:#922610;
@@ -108,7 +109,7 @@
 :root {
   --icon-elf-big: url(/resources/assets/icon/light/race/elf_big.svg);
   --icon-half-elf-big: url(/resources/assets/icon/light/race/half_elf_big.svg);
-  --icon-orc-big: url(/resources/assets/icon/light/race/half_orc_big.svg);
+  --icon-orc-big: url(/resources/assets/icon/light/race/orc_big.svg);
   --icon-half-orc-big: url(/resources/assets/icon/light/race/half_orc_big.svg);
   --icon-dwarf-big: url(/resources/assets/icon/light/race/dwarf_big.svg);
   --icon-dragonborn-big: url(/resources/assets/icon/light/race/dragonborn_big.svg);

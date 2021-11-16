@@ -212,10 +212,20 @@ input::selection {
   border:1px solid var(--bg-secondary);
 }
 
-@media (max-width: 2000px) {
-  .block_information .card_wrapper .card {
+.block_information .card_wrapper .card {
+  flex: 1 0 calc(50% - 58px);
+  max-width: calc(50% - 58px);
+}
+
+@media (max-width: 1800px) {
+  .compact_menu .block_information .card_wrapper .card {
     flex: 1 0 calc(50% - 58px);
     max-width: calc(50% - 58px);
+  }
+
+  .block_information .card_wrapper .card {
+    flex: 1 0 calc(100% - 58px);
+    max-width: calc(100% - 58px);
   }
 }
 
@@ -916,14 +926,21 @@ input::selection {
 
 #right_block.bestiary .scores>div {
   text-align: center;
-  width: 15%;
+  max-width: 15%;
+  flex: 1 0 15%;
   background-color: var(--hover);
   border-radius: 4px;
   min-width: 60px;
   max-width: 160px;
-  flex: 1 0 15%;
   margin-right: 8px;
   margin-bottom: 8px;
+}
+
+@media (max-width: 1500px) {
+  #right_block.bestiary .scores>div {
+    max-width: 31%;
+    flex: 1 0 31%;
+  }
 }
 
 #right_block.bestiary .scores h4 {
@@ -1310,7 +1327,7 @@ button {
 
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
-@media (max-width: 1200px) {  
+@media (max-width: 1200px) {
   #right_block .info_wrapper .simplebar-content {
     flex-direction: column;
   }
