@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "type",
@@ -56,7 +67,12 @@ $(document).ready(function() {
 			info : "Показано _TOTAL_",
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
-			loadingRecords: "Загрузка..."
+			loadingRecords: "Загрузка...",
+	        searchPanes: {
+                collapseMessage: 'Свернуть все',
+                showMessage: 'Развернуть все',
+                clearMessage: 'Сбросить фильтры'
+	        }
 		},
 		initComplete: function(settings, json) {
 		    $('#armors tbody tr:eq(0)').click();
@@ -70,6 +86,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 		    $('#armors tbody tr:eq(0)').click();

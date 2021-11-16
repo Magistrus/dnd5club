@@ -18,6 +18,8 @@ public class WeaponDto {
 	private String cost;
 	private String damage;
 	private String damageType;
+	private String versatile;
+	private String distance;
 	private String weight;
 	private String type;
 	private List<PropertyDto> properties;
@@ -32,6 +34,10 @@ public class WeaponDto {
 		weight = String.valueOf(weapon.getWeight());
 		damage = weapon.getNumberDice() == null ? "0" : weapon.getNumberDice() + (weapon.getDamageDice() == null ? "" : weapon.getDamageDice().getName());
 		damageType = weapon.getDamageType().getCyrilicName();
+		if (weapon.getTwoHandDamageDice() != null) {
+			versatile = "1к" + weapon.getTwoHandDamageDice().getMaxValue();
+		}
+		distance = " (дис. " + weapon.getMinDistance() + "/" + weapon.getMaxDistance()+")";
 		type = weapon.getType().getName();
 		properties = weapon.getProperties().stream().map(PropertyDto::new).collect(Collectors.toList());
 		book = weapon.getBook().getName();
