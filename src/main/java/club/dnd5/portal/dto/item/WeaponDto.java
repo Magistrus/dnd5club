@@ -3,6 +3,7 @@ package club.dnd5.portal.dto.item;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.Weapon;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class WeaponDto {
 	private String weight;
 	private String type;
 	private List<PropertyDto> properties;
+	private boolean homebrew;
 	private String book;
 	private String bookshort;
 	
@@ -40,6 +42,7 @@ public class WeaponDto {
 		distance = " (дис. " + weapon.getMinDistance() + "/" + weapon.getMaxDistance()+")";
 		type = weapon.getType().getName();
 		properties = weapon.getProperties().stream().map(PropertyDto::new).collect(Collectors.toList());
+		homebrew = weapon.getBook().getType() == TypeBook.CUSTOM;
 		book = weapon.getBook().getName();
 		bookshort = weapon.getBook().getSource(); 
 	}

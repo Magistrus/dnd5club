@@ -108,9 +108,9 @@ $(document).ready(function() {
 		}
 		$('#weapon_name').html(data.name);
 		$('#type').html(data.type);
-		document.getElementById('damage').innerHTML = '<span class="dice_text">' + data.damage+ '</span>' + ' ' + data.damageType;
-		document.getElementById('cost').innerHTML = data.cost;
-		document.getElementById('weight').innerHTML = data.weight;
+		$('#damage').html('<span class="dice_text">' + data.damage + '</span>' + ' ' + data.damageType);
+		$('#cost').html(data.cost);
+		$('#weight').html(data.weight);
 		var propertyElement = document.getElementById('properties');
 		while (propertyElement.firstChild) {
 			propertyElement.removeChild(propertyElement.firstChild);
@@ -144,9 +144,9 @@ $(document).ready(function() {
 				propertyElement.appendChild(span);
 			}
 		}
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
+		var source = (data.homebrew ? '<span class="tip homebrew_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
+		$('#source').html(source);
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
 		var url = '/weapons/fragment/' + data.id;
