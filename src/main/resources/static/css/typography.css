@@ -150,6 +150,15 @@ blockquote p:last-child {
   margin-top: 32px;
 }
 
+h4.separator_card {
+  width: 100%;
+  margin-left: 8px;
+}
+
+.archetype_feet {
+  color:var(--text-s-color);
+}
+
 
 /********* Выделение кубов в тексте *********/
 span.dice_text {

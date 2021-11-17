@@ -20,21 +20,21 @@
 						</div>
 						<div class="icon" th:classappend="|icon_${condition.englishName.toLowerCase().replace(' ', '_')}|"></div>
 					</div>
-					<h4>Прочие</h4>
-					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${other}">
+					<h4 class="separator_card">Болезни</h4>
+					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${disease}">
 						<div class="infimation">
 							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Название болезни</h5>
 							<p th:text="${condition.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
 								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${condition.id}'|" th:text="${condition.book.source}"></span><span th:id="|inline-tooltip-source-${condition.id}|"
-									style='display: none' th:text="${condition.book.name}"
+								style='display: none' th:text="${condition.book.name}"
 								></span>
 							</p>
 						</div>
 						<div class="icon" th:classappend="|icon_${condition.englishName.toLowerCase().replace(' ', '_')}|"></div>
 					</div>
-					<h4>Болезни</h4>
-					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${disease}">
+					<h4 class="separator_card">Прочие</h4>
+					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${other}">
 						<div class="infimation">
 							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Название болезни</h5>
 							<p th:text="${condition.englishName}" class="en_title encaption_text">English class name</p>
