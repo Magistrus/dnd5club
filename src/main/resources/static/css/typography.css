@@ -156,7 +156,7 @@ h4.separator_card {
 }
 
 .archetype_feet {
-  color:var(--text-s-color);
+  color:var(--text-a-color) !important;
 }
 
 
