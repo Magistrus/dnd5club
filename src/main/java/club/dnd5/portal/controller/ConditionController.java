@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.model.Condition.Type;
 import club.dnd5.portal.repository.ConditionRepository;
 
 @Controller
@@ -15,7 +16,9 @@ public class ConditionController {
 	
 	@GetMapping("/conditions")
 	public String getConditions(Model model) {
-		model.addAttribute("conditions", conditionRepository.findAll());
+		model.addAttribute("conditions", conditionRepository.findAllByType(Type.CONDITION));
+		model.addAttribute("disease", conditionRepository.findAllByType(Type.DISEASE));
+		model.addAttribute("other", conditionRepository.findAllByType(Type.OTHER));
 		return "conditions";
 	}
 
