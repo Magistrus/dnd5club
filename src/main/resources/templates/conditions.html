@@ -4,7 +4,7 @@
 	<div id="container_card" class="container_page condition_page" layout:fragment="content">
 		<div id="left_block">
 			<div class="header_block">
-				<h3>Состояния</h3>
+				<h3>Состояния и болезни</h3>
 			</div>
 			<div class="container_left" data-simplebar>
 				<div id="card_wrapper" class="card_wrapper">
@@ -13,8 +13,34 @@
 							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Название состояния</h5>
 							<p th:text="${condition.englishName}" class="en_title encaption_text">English class name</p>
 							<p class="additionally uppercase_text">
-								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${condition.id}'|" th:text="${condition.book.source}"></span><span
-									th:id="|inline-tooltip-source-${condition.id}|" style='display: none' th:text="${condition.book.name}"
+								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${condition.id}'|" th:text="${condition.book.source}"></span><span th:id="|inline-tooltip-source-${condition.id}|"
+									style='display: none' th:text="${condition.book.name}"
+								></span>
+							</p>
+						</div>
+						<div class="icon" th:classappend="|icon_${condition.englishName.toLowerCase().replace(' ', '_')}|"></div>
+					</div>
+					<h4>Прочие</h4>
+					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${other}">
+						<div class="infimation">
+							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Название болезни</h5>
+							<p th:text="${condition.englishName}" class="en_title encaption_text">English class name</p>
+							<p class="additionally uppercase_text">
+								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${condition.id}'|" th:text="${condition.book.source}"></span><span th:id="|inline-tooltip-source-${condition.id}|"
+									style='display: none' th:text="${condition.book.name}"
+								></span>
+							</p>
+						</div>
+						<div class="icon" th:classappend="|icon_${condition.englishName.toLowerCase().replace(' ', '_')}|"></div>
+					</div>
+					<h4>Болезни</h4>
+					<div th:id="${condition.englishName.replace(' ', '_')}" class="card" th:each="condition : ${disease}">
+						<div class="infimation">
+							<h5 id="condition_id" class="header_name" th:text="${condition.name}">Название болезни</h5>
+							<p th:text="${condition.englishName}" class="en_title encaption_text">English class name</p>
+							<p class="additionally uppercase_text">
+								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${condition.id}'|" th:text="${condition.book.source}"></span><span th:id="|inline-tooltip-source-${condition.id}|"
+									style='display: none' th:text="${condition.book.name}"
 								></span>
 							</p>
 						</div>
@@ -39,7 +65,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
+		<script type="text/javascript" th:inline="javascript">
 			// <![CDATA[
     		var selectedCondition = [[${selectedCondition}]];
     		// ]]>

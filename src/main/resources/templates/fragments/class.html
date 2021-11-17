@@ -5,6 +5,9 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
+		<select id="mobile_selector" style="display: none">
+			<option th:each="archetype : *{archetypes}" th:text="|${archetype.name} ${archetype.book.source}|"></option>
+		</select>
 		<th:block th:fragment="classInfo">
 			<h4 class="header_separator mt-0">Хиты</h4>
 			<p>
