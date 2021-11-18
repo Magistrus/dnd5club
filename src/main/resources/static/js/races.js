@@ -64,7 +64,7 @@ $('.card').on('click', 	function() {
 			$(".card").removeClass('active');
 			localStorage.removeItem('selected_race');
 			localStorage.removeItem('selected_subrace');
-			history.pushState('data to be passed', '', '/races/');
+			history.pushState('data to be passed', 'Расы', '/races/');
 		} else {
 			rightContainer.raceName = 'block_information ';
 			localStorage.removeItem('selected_subrace');

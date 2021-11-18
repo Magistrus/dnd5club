@@ -47,6 +47,11 @@ $(document).ready(function() {
 			data : 'damageType',
 			searchable: false
 		},
+		{
+			data : 'cost',
+			searchable: false,
+			width : "1%",
+		},
 		],
 		columnDefs : [
 			{

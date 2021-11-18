@@ -5,23 +5,45 @@
 </head>
 <body>
 	<th:block th:object="${race}" th:fragment="view">
+		<select id="mobile_selector" style="display: none">
+			<option th:each="subRace : *{subRaces}" th:text="|${subRace.name} ${subRace.book.source}|"></option>
+		</select>
+		<div class="scores">
+				<div class="score">
+				<h4>
+					<strong class="tip" title="Тип существа">ТИП</strong>
+				</h4>
+				<p th:if="*{type}" th:text="*{type.cyrilicName}"></p>
+			</div>
+			<div class="score">
+				<h4>
+					<strong class="tip" title="Увеличение характеристик">ХАР</strong>
+				</h4>
+				<p th:text="${race.abilityBonuses}"></p>
+			</div>
+			<div class="score">
+				<h4>
+					<strong class="tip" title="Размер">РАЗ</strong>
+				</h4>
+				<p th:text="${race.size.cyrilicName}"></p>
+			</div>
+			<div class="score">
+				<h4>
+					<strong class="tip" title="Скорость">СКР</strong>
+				</h4>
+				<p th:text="${race.fullSpeed}"></p>
+			</div>
+			<div th:if="${race.darkvision}" class="score">
+				<h4>
+					<strong class="tip" title="Темное зрение">ТЗ</strong>
+				</h4>
+				<p th:text="|${race.darkvision} фт.|"></p>
+			</div>
+		</div>
 		<th:block th:each ="feature : ${features}">
 			<h4 class="header_separator" th:utext="${feature.name}"></h4>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
-		<h4 class="header_separator">Имена</h4>
-		<p th:each="nameElement , iterStat: *{names}">
-			<th:block th:unless="${nameElement.value.empty}">
-				<strong th:text="|${nameElement.key.cyrilicName} имена:|"></strong>
-				<th:block th:each="name , iterStat: ${nameElement.value}" th:text="${iterStat.last} ? ${name} : ${name} + ', '"></th:block>
-			</th:block>
-		</p>
-		<p th:each="nameElement , iterStat: *{nicknamesGroup}">
-			<th:block th:unless="${nameElement.value.empty}">
-				<strong th:text="${nameElement.key.display}"></strong>
-				<th:block th:each="name , iterStat: ${nameElement.value}" th:text="${iterStat.last} ? ${name} : ${name} + ', '"></th:block>
-			</th:block>
-		</p>
 	</th:block>
 </body>
 </html>

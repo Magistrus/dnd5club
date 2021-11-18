@@ -26,6 +26,7 @@ import org.thymeleaf.util.StringUtils;
 import club.dnd5.portal.model.AbilityBonus;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.CreatureSize;
+import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.Language;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.races.RaceNickname.NicknameType;
@@ -68,7 +69,12 @@ public class Race implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, columnDefinition = "varchar(255) default MEDIUM")
 	private CreatureSize size;
-
+	
+	@Enumerated(EnumType.STRING)
+	private CreatureType type;
+	
+	private Integer darkvision;
+	
 	@Column(columnDefinition = "int default 30")
 	private int speed;
 	private Integer fly;
@@ -109,7 +115,18 @@ public class Race implements Serializable {
 						: String.format("%s %+d", b.getAbility().getShortName(), b.getBonus()))
 				.collect(Collectors.joining(", "));
 	}
-
+	public String getFullSpeed() {
+		if (fly != null) {
+			return String.format("%d фт., летая %d", speed, fly);
+		}
+		if (swim != null) {
+			return String.format("%d фт., плавая %d", speed, swim);
+		}
+		if (climb != null) {
+			return String.format("%d фт., лазая %d", speed, climb);
+		}
+		return String.format("%d фт.", speed);
+	}
 	public List<AbilityBonus> getAbilityValueBonuses() {
 		return bonuses;
 	}

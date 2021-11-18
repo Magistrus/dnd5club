@@ -26,7 +26,6 @@ import club.dnd5.portal.model.classes.FeatureLevelDefinition;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.OptionType;
 import club.dnd5.portal.model.classes.SpellLevelDefinition;
-import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.Setter;
 

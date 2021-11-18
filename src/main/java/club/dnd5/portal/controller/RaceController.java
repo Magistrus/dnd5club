@@ -54,7 +54,7 @@ public class RaceController {
 	@GetMapping("/races/fragment/{englishName}")
 	public String getFragmentRace(Model model, Device device, @PathVariable String englishName) {
 		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		List<Feature> features =  race.getFeatures();
+		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
 		model.addAttribute("race", race);
 		return "fragments/race :: view";
@@ -65,15 +65,15 @@ public class RaceController {
 		Race race = raceRepository.findByEnglishName(raceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		Set<Integer> replace = race.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
 		List<Feature> features =  race.getSubRaces()
-		.stream()
-		.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))
-		.flatMap(r -> Stream.concat(
-				r.getFeatures().stream(),
-				r.getParent().getFeatures()
-					.stream()
-					.filter(f -> !replace.contains(f.getId()))))
-		//.sorted(Comparator.comparing(Feature::getName))
-		.collect(Collectors.toList());
+				.stream()
+				.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))
+				.flatMap(r -> Stream.concat(
+						r.getParent().getFeatures().stream()
+							.filter(f -> !replace.contains(f.getId())).filter(f -> f.isFeature()),
+						r.getFeatures().stream().filter(f -> f.isFeature())
+					)
+				)
+				.collect(Collectors.toList());
 		model.addAttribute("features", features);
 		model.addAttribute("race", race.getSubRaces()
 				.stream()
@@ -94,21 +94,27 @@ public class RaceController {
 	}
 	
 	@GetMapping("/races/{name}/description")
-	@ResponseBody
-	public String getRaceDescription(@PathVariable String name) {
+	public String getRaceDescription(Model model, @PathVariable String name) {
 		Race race = raceRepository.findByEnglishName(name.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		return race.getDescription();
+		model.addAttribute("race", race);
+		List<Feature> features =  race.getFeatures().stream().filter(f -> !f.isFeature()).collect(Collectors.toList());
+		model.addAttribute("features", features);
+		return "fragments/race_description :: view";
 	}
 	
-	@GetMapping("/races/{className}/subrace/{archetypeName}/description")
-	@ResponseBody
-	public String getSubraceDescription(@PathVariable String className, @PathVariable String archetypeName) {
-		Race race = raceRepository.findByEnglishName(className.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		return race.getSubRaces()
-			.stream()
-			.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace("_", " ")))
-			.map(Race::getDescription)
-			.findFirst().orElse("");
+	@GetMapping("/races/{className}/subrace/{subraceName}/description")
+	public String getSubraceDescription(Model model, @PathVariable String className, @PathVariable String subraceName) {
+		Race race = raceRepository.findByEnglishName(subraceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		model.addAttribute("race", race);
+		Set<Integer> replace = race.getParent().getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
+		List<Feature> features =   Stream.concat(
+						race.getParent().getFeatures().stream()
+							.filter(f -> !replace.contains(f.getId())).filter(f -> !f.isFeature()),
+						race.getFeatures().stream().filter(f -> !f.isFeature())
+					)
+				.collect(Collectors.toList());
+		model.addAttribute("features", features);
+		return "fragments/race_description :: view";
 	}
 	
 	private Sort getRaceSort() {
