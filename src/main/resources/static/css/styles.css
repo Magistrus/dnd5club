@@ -554,7 +554,7 @@ input::selection {
 
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
-  flex: 1 1 calc(100% - 290px);
+  flex: 1 0 calc(100% - 290px);
   height: calc(100vh - 121px);
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
@@ -574,7 +574,7 @@ input::selection {
 #right_block .info_wrapper .sub_menu_list {
   position: relative;
   width: 290px;
-  flex: 1 1 290px;
+  flex: 1 0 290px;
 }
 
 #right_block .info_wrapper .sub_menu_list ul {
@@ -615,7 +615,7 @@ input::selection {
   cursor: pointer;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype {
+#right_block .info_wrapper .sub_menu_list.selector_list {
   height: calc(100vh - 119px);
 }
 
@@ -623,10 +623,7 @@ input::selection {
   height: calc(100vh - 73px);
 }
 
-
-
-/******** Архитипы / archetype ********/
-#right_block .info_wrapper .sub_menu_list.archetype ul {
+#right_block .info_wrapper .sub_menu_list.selector_list ul {
   text-decoration: none;
   list-style: none;
   padding: 0;
@@ -634,7 +631,7 @@ input::selection {
   border-right: 1px solid var(--border);
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li {
+#right_block .info_wrapper .sub_menu_list.selector_list li {
   position: relative;
   padding-top: 16px;
   padding-bottom: 16px;
@@ -644,38 +641,38 @@ input::selection {
   transition: background-color 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li:hover {
+#right_block .info_wrapper .sub_menu_list.selector_list li:hover {
   background-color: var(--hover);
   transition: background-color 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li.active {
+#right_block .info_wrapper .sub_menu_list.selector_list li.active {
   border-left: 3px solid var(--primary);
   background-color: var(--hover);
   transition: background-color 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li span.name {
+#right_block .info_wrapper .sub_menu_list.selector_list li span.name {
   color: var(--text-color);
   text-decoration: none;
   width: 100%;
   display: block;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li .sub_info {
+#right_block .info_wrapper .sub_menu_list.selector_list li .sub_info {
   display: block;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li span {
+#right_block .info_wrapper .sub_menu_list.selector_list li span {
   color: var(--text-g-color);
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li.active .btn_close {
+#right_block .info_wrapper .sub_menu_list.selector_list li.active .btn_close {
   opacity: 1;
   transition: all 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li .btn_close {
+#right_block .info_wrapper .sub_menu_list.selector_list li .btn_close {
   width: 32px;
   height: 32px;
   position: absolute;
@@ -687,21 +684,21 @@ input::selection {
   transition: all 0.3s;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li .btn_close:hover {
+#right_block .info_wrapper .sub_menu_list.selector_list li .btn_close:hover {
   background-color: var(--hover);
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu {
+#right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu {
   cursor: auto;
   border-bottom: none;
   background-color: var(--bg-sub-menu);
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu h5{
+#right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu h5{
   margin: 0;
 }
 
-#right_block .info_wrapper .sub_menu_list.archetype li.title_sub_menu:hover {
+#right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu:hover {
   background-color: var(--bg-sub-menu);
 }
 
@@ -797,6 +794,20 @@ input::selection {
   }
 }
 
+/******** Ширма / screens ********/
+.screens {
+
+}
+
+.screens .card_wrapper .icon {
+  display: none;
+}
+
+#right_block.screens .info_wrapper #content_block h4:first-child {
+  margin-top: -24px;
+}
+
+
 /******** Информация о заклинание / spells ********/
 .spells {
 
@@ -877,7 +888,7 @@ input::selection {
   transform: translate(-50%,0%);
 }
 
-#right_block.classes .info_wrapper #content_block h4:first-child {
+#right_block.classes .info_wrapper h4.header_separator:first-child {
   margin-top: -24px;
 }
 
@@ -1341,7 +1352,7 @@ button {
     flex:1 1 auto;
   }
 
-  #right_block .info_wrapper .sub_menu_list.archetype {
+  #right_block.classes .info_wrapper .sub_menu_list {
     display: none;
   }
 

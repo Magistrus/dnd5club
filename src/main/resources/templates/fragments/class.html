@@ -5,11 +5,11 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<select id="mobile_selector" style="display: none">
+		<!-- <select id="mobile_selector" style="display: none">
 			<option th:each="archetype : *{archetypes}" th:text="|${archetype.name} ${archetype.book.source}|"></option>
-		</select>
+		</select> -->
 		<th:block th:fragment="classInfo">
-			<h4 class="header_separator mt-0">Хиты</h4>
+			<h4 class="header_separator">Хиты</h4>
 			<p>
 				<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
 			</p>
