@@ -554,7 +554,7 @@ input::selection {
 
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
-  flex: 1 0 calc(100% - 290px);
+  flex: 1 0 calc(100% - 291px);
   height: calc(100vh - 121px);
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
