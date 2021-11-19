@@ -26,16 +26,13 @@ public class ImageController {
 	}
 
 	private String getDefault(ImageType type) {
-		if (type == ImageType.CREATURE) {
-			Object themeObject = session.getAttribute("theme");
-			String theme = null;
-			if (themeObject == null) {
-				theme = "light";
-			} else {
-				theme = themeObject.toString();
-			}
-			return "/resources/assets/style/" + theme + "/no_img_best.png";
+		Object themeObject = session.getAttribute("theme");
+		String theme = null;
+		if (themeObject == null) {
+			theme = "light";
+		} else {
+			theme = themeObject.toString();
 		}
-		return null;
+		return "/resources/assets/style/" + theme + "/no_img_best.png";
 	}
 }

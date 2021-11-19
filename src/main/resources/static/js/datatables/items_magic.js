@@ -67,7 +67,7 @@ $(document).ready(function() {
 				visible: false
 			},
 		],
-		order : [[0, 'asc']],
+		order : [[0, 'asc'],[1, 'asc']],
 		language : {
 			processing : "Загрузка...",
 			searchPlaceholder: "Поиск ",
@@ -150,7 +150,8 @@ function selectMagicItem(data){
 	document.getElementById('rarity').innerHTML = data.rarity;
 	document.getElementById('attunement').innerHTML = data.attunement;
 	document.getElementById('cost').innerHTML = data.cost;
-
+	httpGetImage('/image/MAGIC_ITEM/'+data.id);
+	
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 	document.getElementById('source').innerHTML = source;
@@ -162,3 +163,11 @@ function selectMagicItem(data){
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+function httpGetImage(theUrl)
+{
+	fetch(theUrl).then(function(response) {
+	    return response.text().then(function(text) {
+			$('#item_magic_img').attr('src', text);
+	    });
+	});
+}

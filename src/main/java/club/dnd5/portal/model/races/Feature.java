@@ -32,6 +32,7 @@ public class Feature {
 	private String englishName;
 	@Column(columnDefinition = "TEXT")
 	private String description;
+	private boolean feature;
 	
 	@ManyToMany
 	private List<Language> lanuages;
