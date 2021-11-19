@@ -195,8 +195,22 @@ input::selection {
 }
 
 .main_page_wrapper .left_block {
-  /* width: 100%; */
   flex:1 0 auto;
+}
+
+.main_page_wrapper .left_block .card_row {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin: 0 -8px; */
+  padding: 0 8px;
+}
+
+.main_page_wrapper .left_block .card_row .card {
+  height: 200px;
+  flex: 1 1 22%;
+  margin: 16px 8px 0px 8px;
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
 }
 
 .main_page_wrapper .news_block {
@@ -583,7 +597,6 @@ input::selection {
 
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
-  width: 100%;
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -925,6 +938,10 @@ input::selection {
 /******** Расы / races ********/
 .races {
 
+}
+
+#right_block.races .info_wrapper .content_block #content_block {
+  width: 100%;
 }
 
 #right_block.races .info_wrapper .content_block {
