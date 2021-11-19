@@ -565,6 +565,7 @@ input::selection {
 
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
+  width: 100%;
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -893,6 +894,16 @@ input::selection {
 }
 
 
+/******** Состояния / conditions ********/
+.conditions {
+
+}
+
+.conditions .content_block ul {
+  list-style: disc;
+}
+
+
 /******** Расы / races ********/
 .races {
 
@@ -916,6 +927,43 @@ input::selection {
 
 #right_block.races .info_wrapper #content_block h4:first-child {
   margin-top: -24px;
+}
+
+.races .content_block .scores {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.races .content_block .scores .score {
+  text-align: center;
+  width: auto;
+  min-width: 18%;
+  max-width: 25%;
+  flex: 1 1 auto;
+  background-color: var(--hover);
+  border-radius: 4px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.races .content_block .scores .score h4 {
+  margin: 10px 0 0 2px !important;
+  font-size: 14px;
+  line-height: 1.2em;
+  text-transform: uppercase;
+  color: var(--text-s-color);
+}
+
+.races .content_block .scores .score p {
+  margin: 0 0 10px 0;
+  line-height: 1.2em;
+}
+
+@media (max-width: 1500px) {
+  .races .content_block .scores .score {
+    min-width: 30%;
+    max-width: 30%;
+  }
 }
 
 
@@ -1336,6 +1384,26 @@ button {
   background-image: var(--icon-leonin-big);
 }
 
+.icon_loxodon_big {
+  background-image: var(--icon-loxodon-big);
+}
+
+.icon_gith_big {
+  background-image: var(--icon-gith-big);
+}
+
+.icon_verdan_big {
+  background-image: var(--icon-verdan-big);
+}
+
+.icon_bearfolk_big {
+  background-image: var(--icon-bearfolk-big);
+}
+
+.icon_simic_hybrid_big {
+  background-image: var(--icon-simic-hybrid-big);
+}
+
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {
@@ -1388,6 +1456,14 @@ button {
     display: flex;
     flex-direction: column;
   }
+
+
+  /******** Расы / races ********/
+  .races .content_block .scores .score {
+    min-width: 45%;
+    max-width: 48%;
+  }
+}
   
 }
 
