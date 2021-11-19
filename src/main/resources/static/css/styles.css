@@ -441,7 +441,7 @@ input::selection {
   position: fixed;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  overflow: hidden;
+  /* overflow: hidden; */
   
   border-image-source: var(--border-img);
   border-image-slice: 1 1 1 fill;
@@ -1405,8 +1405,17 @@ button {
 }
 
 
+.races .info_wrapper .content_block .sub_menu_list {
+  display: none;
+  height: auto !important;
+}
+
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {
+  #right_block .info_wrapper .content_block #content_block {
+    width: auto;
+  }
+  
   #right_block .info_wrapper .simplebar-content {
     flex-direction: column;
   }
@@ -1463,9 +1472,16 @@ button {
     min-width: 45%;
     max-width: 48%;
   }
+
+  .races .info_wrapper > .sub_menu_list {
+    display: none;
+  }
+
+  .races .info_wrapper .content_block .sub_menu_list {
+    display: block;
+  }
 }
-  
-}
+
 
 @media (max-width: 1000px) {
   #left_block .container_left {
@@ -1483,7 +1499,7 @@ button {
   }
 
 
-  /******** Расы / races ********/
+  /******** Классы / classes ********/
   #right_block.classes .info_wrapper .content_block {
     height: calc(100vh - 192px);
   }
@@ -1491,6 +1507,14 @@ button {
   /******** Расы / races ********/
   #right_block.races .info_wrapper .content_block {
     height: calc(100vh - 192px);
+  }
+
+  #right_block.races .info_wrapper .content_block .sub_menu_list li.avatar img {
+    max-width:100%;
+  }
+
+  #right_block.races .info_wrapper .content_block li.avatar {
+    width: 100%;
   }
 }
 
