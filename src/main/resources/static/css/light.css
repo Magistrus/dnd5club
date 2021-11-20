@@ -22,6 +22,16 @@
 }
 
 /********* IMG BG *********/
+:root{
+  --common:#fff;
+  --uncommon:#8aff91;
+  --rare:#a5f1ff;
+  --vert_rare:#e770ff;
+  --legendary:#f6ff00;
+  --artifact:#ff8900;
+}
+
+/********* IMG BG *********/
 :root {
   --border-img:url(/resources/assets/style/light/border.png);
   --border-title-img:url(/resources/assets/style/light/border_title.png);
