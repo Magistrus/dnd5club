@@ -207,11 +207,16 @@ input::selection {
   display: flex;
   flex-wrap: wrap;
   padding: 0px 24px;
+  margin-top: 16px;
+}
+
+.main_page_wrapper .left_block .card_row:first-child {
+  margin-top: 32px;
 }
 
 .main_page_wrapper .left_block .card_row .card {
   flex: 1 1 22%;
-  margin: 16px 8px 0px 8px;
+  margin: 0px 8px 0px 8px;
   background-color: var(--bg-secondary);
   border-radius: 16px;
   display: flex;
