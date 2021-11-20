@@ -683,8 +683,7 @@ input::selection {
   position: relative;
 }
 
-#right_block .info_wrapper .sub_menu_list #sub_menu,
-#right_block .info_wrapper .sub_menu_list .sub_menu {
+#right_block .info_wrapper .sub_menu_list #sub_menu {
   width: 100%;
 }
 
@@ -915,6 +914,27 @@ input::selection {
     display: none;
   }
 }
+
+tbody div.uncommon {
+  border-color: var(--uncommon) !important;
+}
+
+tbody div.rare {
+  border-color: var(--rare) !important;
+}
+
+tbody div.vert_rare {
+  border-color: var(--vert_rare) !important;
+}
+
+tbody div.legendary {
+  border-color: var(--legendary) !important;
+}
+
+tbody div.artifact {
+  border-color: var(--artifact) !important;
+}
+
 
 /******** Ширма / screens ********/
 .screens {
