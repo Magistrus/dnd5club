@@ -207,7 +207,6 @@ input::selection {
   display: flex;
   flex-wrap: wrap;
   padding: 0px 24px;
-  margin-top: 16px;
 }
 
 .main_page_wrapper .left_block .card_row:first-child {
