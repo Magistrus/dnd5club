@@ -286,6 +286,10 @@ input::selection {
   .main_page_wrapper .news_block {
     display: none;
   }
+
+  .main_page_wrapper .left_block .left_cont {
+    height: var(100vh - 73px);
+  }
 }
 
 
