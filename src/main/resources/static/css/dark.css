@@ -6,7 +6,8 @@
   --bg-dice: #494777;
   --bg-homebrew: #23492e;
   --bg-blockquote: #1e2226;
-  --text-color:#e4e4e4;
+  --text-color:#cdcdcd;
+  --text-color-active:#fff;
   --text-g-color:#A4A4A4;
   --text-s-color:#c4c5ff;
   --text-a-color:#34bb3e;
@@ -69,6 +70,16 @@
 --icon_close: url(/resources/assets/icon/dark/close.svg);
 --icon_search: url(/resources/assets/icon/dark/search.svg);
 --icon_filters: url(/resources/assets/icon/dark/filters.svg);
+}
+
+/********* Main Page *********/
+:root {
+  --icon-bestiary-big: url(/resources/assets/icon/dark/main_page/bestiary_big.svg);
+  --icon-spells-big: url(/resources/assets/icon/dark/main_page/spells_big.svg);
+  --icon-inventory-big: url(/resources/assets/icon/dark/main_page/inventory_big.svg);
+  --icon-skills-big: url(/resources/assets/icon/dark/main_page/skills_big.svg);
+  --icon-armors-big: url(/resources/assets/icon/dark/main_page/armors_big.svg);
+  --icon-weapons-big: url(/resources/assets/icon/dark/main_page/weapons_big.svg);
 }
 
 /********* Icons Classes *********/
