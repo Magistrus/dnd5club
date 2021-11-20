@@ -30,6 +30,7 @@ public class ItemMagicDto {
 	private String cost;
 	private String book;
 	private String bookshort;
+	private String rarityEnglish;
 
 	public ItemMagicDto(MagicItem magicItem) {
 		id = magicItem.getId();
@@ -51,6 +52,7 @@ public class ItemMagicDto {
 			type += " (" + magicItem.getSpecial() + ")";
 		}
 		rarity = magicItem.getRarity().getCyrilicName();
+		rarityEnglish = magicItem.getRarity().name().toLowerCase();
 		switch ( magicItem.getRarity()) {
 		case COMMON:
 			shortRarity = "О";

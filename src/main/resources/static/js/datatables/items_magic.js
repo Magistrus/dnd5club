@@ -32,7 +32,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="spell_lvl">' + row.shortRarity + '</div>';
+					var result ='<div class="spell_lvl ' + row.rarityEnglish +'">' + row.shortRarity + '</div>';
 					result+='<div class="spell_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="spell_school">' + row.type + '</div>';
