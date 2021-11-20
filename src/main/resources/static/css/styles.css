@@ -923,8 +923,8 @@ tbody div.rare {
   border-color: var(--rare) !important;
 }
 
-tbody div.vert_rare {
-  border-color: var(--vert_rare) !important;
+tbody div.very_rare {
+  border-color: var(--very_rare) !important;
 }
 
 tbody div.legendary {
