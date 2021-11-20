@@ -302,6 +302,11 @@ input::selection {
 
 .card_wrapper .card.active {
   border:1px solid var(--primary);
+  color:var(--text-color-active);
+
+}
+.card_wrapper .card.active h5 {
+  color:var(--text-color-active);
 }
 
 .card_wrapper .card .infimation .header_name {
@@ -532,6 +537,7 @@ input::selection {
 #right_block .header_block .header_sub_menu button.active {
   background: var(--bg-img-row-active);
   border-top: 2px solid var(--primary-hover);
+  color:var(--text-color-active);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
@@ -684,6 +690,10 @@ input::selection {
   transition: background-color 0.3s;
 }
 
+#right_block .info_wrapper .sub_menu_list.selector_list li.active span.name {
+  color:var(--text-color-active);
+}
+
 #right_block .info_wrapper .sub_menu_list.selector_list li span.name {
   color: var(--text-color);
   text-decoration: none;
@@ -760,6 +770,7 @@ input::selection {
 
 .table_list_left_block .table_list tr.selected {
   background: var(--bg-main);
+  color:var(--text-color-active);
 
   background-image: var(--bg-img-row-active);
   background-position: top left;
