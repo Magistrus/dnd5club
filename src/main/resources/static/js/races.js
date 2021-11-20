@@ -100,7 +100,7 @@ function setActiveRace(element, englishName) {
 	}
 	localStorage.setItem('selected_race', element.id)
 	var url = '/races/' + englishName + '/subraces/list';
-	$('#sub_menu').load(url, function() {
+	$('.sub_menu').load(url, function() {
 		var elements = $('.close_archetypes');
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].addEventListener('click', function(event) {
