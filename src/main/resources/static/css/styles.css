@@ -288,7 +288,13 @@ input::selection {
   }
 
   .main_page_wrapper .left_block .left_cont {
-    height: var(100vh - 73px);
+    height: calc(100vh - 73px);
+  }
+}
+
+@media (max-width: 500px) {
+  .main_page_wrapper .left_block .card_row .card {
+    flex: 1 1 40%;
   }
 }
 
@@ -1620,6 +1626,10 @@ button {
 
   .races .info_wrapper .content_block .sub_menu_list {
     display: block;
+  }
+
+  #right_block.races .info_wrapper .content_block #content_block {
+    width: auto;
   }
 }
 
