@@ -681,6 +681,7 @@ input::selection {
 
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
+  position: relative;
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -1009,8 +1010,42 @@ input::selection {
   transform: translate(-50%,0%);
 }
 
-#right_block.classes .info_wrapper h4.header_separator:first-child {
+#right_block.classes .content_block h4.mt {
+  margin-top: -24px !important;
+}
+
+#right_block.classes .content_block .classes_mobile_selector {
+  display: none;
+  height: 1px !important;
   margin-top: -24px;
+  margin-left: -25px;
+  width: calc(100vw - 42% - 2px);
+  height: 46px;
+  position: fixed;
+  z-index: 2;
+}
+
+#right_block.classes .content_block .classes_mobile_selector select {
+  width: 100%;
+  height: 46px;
+  background-color: var(--bg-main);
+  border:none;
+  border-bottom: 1px solid var(--border);
+  color:var(--text-color);
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+#right_block.classes .content_block .classes_mobile_selector select:hover {
+  background-color: var(--hover);
+}
+
+#right_block.classes .content_block .classes_mobile_selector option {
+  background-color: var(--bg-main);
+}
+
+#right_block.classes .content_block .classes_mobile_selector option::selection {
+  background-color: var(--primary-active);
 }
 
 
@@ -1049,8 +1084,8 @@ input::selection {
   max-width: 290px;
 }
 
-#right_block.races .info_wrapper #content_block h4:first-child {
-  margin-top: -24px;
+#right_block.races h4.header_separator.mt {
+  margin-top: -24px !important;
 }
 
 .races .content_block .scores {
@@ -1580,6 +1615,15 @@ button {
     display: none;
   }
 
+  #right_block.classes .content_block .classes_mobile_selector {
+    display: block;
+    height: 46px !important;
+  }
+
+  #right_block.classes .content_block h4.mt {
+    margin-top: 22px !important;
+  }
+
   #right_block .header_block .header_sub_menu button {
     flex: 1 0;
     justify-content: center;
@@ -1666,6 +1710,10 @@ button {
 
   #right_block.races .info_wrapper .content_block li.avatar {
     width: 100%;
+  }
+
+  #right_block.classes .content_block .classes_mobile_selector {
+    width: calc(100vw - 0% - 2px);
   }
 }
 
