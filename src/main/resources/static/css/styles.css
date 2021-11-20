@@ -653,7 +653,6 @@ input::selection {
 
 #right_block .sub_menu_block + .info_wrapper {
   height: calc(100vh - 119px);
-  border-top: 1px solid var(--border);
 
   border-image-source: var(--border-img);
   border-image-slice: 1 1 1 fill;
@@ -1015,37 +1014,57 @@ input::selection {
 }
 
 #right_block.classes .content_block .classes_mobile_selector {
-  display: none;
-  height: 1px !important;
   margin-top: -24px;
   margin-left: -25px;
+  z-index: 2;
+  position: fixed;
+  display: none;
   width: calc(100vw - 42% - 2px);
   height: 46px;
-  position: fixed;
-  z-index: 2;
+  overflow: hidden;
+}
+
+#right_block.classes .content_block .classes_mobile_selector:after {
+  content: '\25BC';
+  position: absolute;
+  top: 0px;
+  right: 0;
+  padding: 14px 0 0 0;
+  background-color: var(--bg-secondary);
+  transition: .25s all ease;
+  pointer-events: none;
+  color: var(--text-color);
+  width: 46px;
+  height: 31px;
+  text-align: center;
+  /* border-bottom: 1px solid var(--border); */
+}
+
+#right_block.classes .content_block .classes_mobile_selector:hover::after {
+  color: var(--text-color-active);
+  background-color: var(--primary-hover);
 }
 
 #right_block.classes .content_block .classes_mobile_selector select {
-  width: 100%;
-  height: 46px;
-  background-color: var(--bg-main);
-  border:none;
+  appearance: none;
+  outline: 0;
+  border: 0;
   border-bottom: 1px solid var(--border);
-  color:var(--text-color);
+  box-shadow: none;
   padding: 0 16px;
+  flex: 1;
+  color:var(--text-color);
+  background-color: var(--bg-main);
+  background-image: none;
   cursor: pointer;
 }
 
 #right_block.classes .content_block .classes_mobile_selector select:hover {
-  background-color: var(--hover);
+  color: var(--text-color-active);
 }
 
-#right_block.classes .content_block .classes_mobile_selector option {
-  background-color: var(--bg-main);
-}
-
-#right_block.classes .content_block .classes_mobile_selector option::selection {
-  background-color: var(--primary-active);
+#right_block.classes .content_block .classes_mobile_selector select::-ms-expand {
+  display: none;
 }
 
 
@@ -1616,8 +1635,7 @@ button {
   }
 
   #right_block.classes .content_block .classes_mobile_selector {
-    display: block;
-    height: 46px !important;
+    display: flex;
   }
 
   #right_block.classes .content_block h4.mt {
