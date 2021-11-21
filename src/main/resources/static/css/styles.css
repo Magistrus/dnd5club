@@ -486,7 +486,7 @@ input::selection {
   margin-right: calc(58vw + 0px);
 }
 
-#left_block .filters + .container_left {
+#left_block .filters + .search_panes + .container_left {
   height: calc(100vh - 119px);
 }
 
