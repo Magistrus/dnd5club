@@ -881,7 +881,7 @@ input::selection {
   border-left:3px solid var(--primary);
 }
 
-.table_list_left_block .table_list tr td:last-child {
+.table_list_left_block .table_list tr td:nth-child(2) {
   text-align: right;
   padding-right: 16px;
 }
@@ -1287,7 +1287,8 @@ tbody div.artifact {
 }
 
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane {
-  flex: 0 1 calc(50% - 8px);
+  flex: 1 1 calc(50% - 8px);
+  min-width: calc(50% - 8px);
 }
 
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dataTables_wrapper {
