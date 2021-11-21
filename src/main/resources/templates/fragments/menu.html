@@ -3,7 +3,8 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorate="~{layouts/layout}">
 <div class="navbar" th:fragment="menu">
 	<div class="nav_head">
-		<button class="user_account"><i class="icon_user"></i></button>
+		<a sec:authorize="isAnonymous()" th:href="@{/login}" class="user_account ajax-popup-link" ><i class="icon_user"></i></a>
+		<a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="user_account ajax-popup-link" ><i class="icon_user"></i></a>
 		<a class="logo" href="/"></a>
 		<button class="close_menu"></button>
 		<button class="roll_menu"><i class="icon_menu"></i></button>
