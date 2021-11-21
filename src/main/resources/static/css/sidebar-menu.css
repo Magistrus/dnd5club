@@ -348,7 +348,7 @@
   }
 
   .navbar .nav_links li {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
 
   .navbar .nav_links li:last-child {
