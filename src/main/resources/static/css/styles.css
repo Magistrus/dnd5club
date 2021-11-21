@@ -213,9 +213,14 @@ input::selection {
   margin-top: 16px;
 }
 
-.main_page_wrapper .left_block .card_row .card {
+.compact_menu .main_page_wrapper .left_block .card_row .card {
   flex: 1 1 calc(20% - 40px);
   min-width: calc(20% - 40px);
+}
+
+.main_page_wrapper .left_block .card_row .card {
+  flex: 1 1 calc(33% - 40px);
+  min-width: calc(33% - 40px);
   margin: 16px 8px 0px 8px;
   background-color: var(--bg-secondary);
   border-radius: 16px;
@@ -223,7 +228,6 @@ input::selection {
   flex-direction: column;
   align-items: center;
   padding: 8px 12px 16px 12px;
-  transition: background-color 0.6s;
 }
 
 .main_page_wrapper .left_block .card_row a.card:hover {
