@@ -214,14 +214,15 @@ input::selection {
 }
 
 .main_page_wrapper .left_block .card_row .card {
-  flex: 1 1 22%;
+  flex: 1 1 calc(20% - 40px);
+  min-width: calc(20% - 40px);
   margin: 16px 8px 0px 8px;
   background-color: var(--bg-secondary);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 0px 16px 0px;
+  padding: 8px 12px 16px 12px;
   transition: background-color 0.6s;
 }
 
@@ -234,6 +235,7 @@ input::selection {
 .main_page_wrapper .left_block .card_row a.card h4 {
   color:var(--text-color);
   transition: color 0.6s;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -274,15 +276,11 @@ input::selection {
 
 @media (max-width: 1200px) {
   .main_page_wrapper .left_block .card_row .card {
-    flex: 1 1 40%;
+    flex: 1 1 calc(50% - 40px);
+    min-width: calc(50% - 40px);
   }
 }
-
 @media (max-width: 1000px) {
-  .main_page_wrapper .left_block .card_row .card {
-    flex: 1 1 20%;
-  }
-
   .main_page_wrapper .news_block {
     display: none;
   }
@@ -290,11 +288,17 @@ input::selection {
   .main_page_wrapper .left_block .left_cont {
     height: calc(100vh - 73px);
   }
+
+  .main_page_wrapper .left_block .card_row .card {
+    flex: 1 1 calc(25% - 40px);
+    min-width: calc(25% - 40px);
+  }
 }
 
 @media (max-width: 500px) {
   .main_page_wrapper .left_block .card_row .card {
-    flex: 1 1 40%;
+    flex: 1 1 calc(50% - 40px);
+    min-width: calc(50% - 40px);
   }
 }
 
@@ -1391,6 +1395,10 @@ button {
   background: var(--icon-description);
 }
 
+.icon_img {
+  background: var(--icon-img);
+}
+
 .icon_bard {
   background-image: var(--bard);
 }
@@ -1625,6 +1633,14 @@ button {
 
 .icon_armors_big {
   background-image: var(--icon-armors-big);
+}
+
+.icon_races_big {
+  background-image: var(--icon-races-big);
+}
+
+.icon_classes_big {
+  background-image: var(--icon-classes-big);
 }
 
 .races .info_wrapper .content_block .sub_menu_list {

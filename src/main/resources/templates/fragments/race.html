@@ -5,9 +5,6 @@
 </head>
 <body>
 	<th:block th:object="${race}" th:fragment="view">
-		<select id="mobile_selector" style="display: none">
-			<option th:each="subRace : *{subRaces}" th:text="|${subRace.name} ${subRace.book.source}|"></option>
-		</select>
 		<div class="scores">
 				<div class="score">
 				<h4>
