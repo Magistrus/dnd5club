@@ -372,4 +372,8 @@
     border: 1px solid var(--border);
     z-index: 101;
   }
+
+  .navbar nav {
+    height: calc(100vh - 120px);
+  }
 }
