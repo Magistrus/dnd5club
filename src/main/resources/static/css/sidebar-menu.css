@@ -343,7 +343,7 @@
   }
 
   .navbar .nav_links {
-    justify-content: flex-end;
+    justify-content: space-around;
     margin: 0px 0px 0px 0px;
   }
 
