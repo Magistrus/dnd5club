@@ -60,6 +60,6 @@ $(document).ready(function() {
 	$.sidebarMenu($('.sidebar-menu'));
 	$('.ajax-popup-link').magnificPopup({
 		  type: 'ajax',
-		  modal: true
+		  closeOnBgClick: true,
 	});
 });

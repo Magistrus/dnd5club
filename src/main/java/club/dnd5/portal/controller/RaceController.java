@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Feature;
@@ -62,24 +61,16 @@ public class RaceController {
 	
 	@GetMapping("/races/{raceName}/subrace/{subraceName}")
 	public String getFragmentSubraces(Model model, Device device, @PathVariable String raceName, @PathVariable String subraceName) {
-		Race race = raceRepository.findByEnglishName(raceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		Set<Integer> replace = race.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
-		List<Feature> features =  race.getSubRaces()
-				.stream()
-				.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))
-				.flatMap(r -> Stream.concat(
-						r.getParent().getFeatures().stream()
-							.filter(f -> !replace.contains(f.getId())).filter(f -> f.isFeature()),
-						r.getFeatures().stream().filter(f -> f.isFeature())
-					)
+		Race subRace = raceRepository.findByEnglishName(subraceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+		Set<Integer> replaceFeatureIds = subRace.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
+		List<Feature> features =  Stream.concat(
+					subRace.getParent().getFeatures().stream()
+							.filter(f -> !replaceFeatureIds.contains(f.getId())).filter(f -> f.isFeature()),
+					subRace.getFeatures().stream().filter(f -> f.isFeature())
 				)
 				.collect(Collectors.toList());
 		model.addAttribute("features", features);
-		model.addAttribute("race", race.getSubRaces()
-				.stream()
-				.filter(r-> r.getEnglishName().equalsIgnoreCase(subraceName.replace("_", " ")))
-				.findFirst()
-				.orElseThrow(IllegalArgumentException::new));
+		model.addAttribute("race", subRace);
 		return "fragments/race :: view";
 	}
 	
