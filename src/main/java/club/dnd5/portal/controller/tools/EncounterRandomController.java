@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class TreasuryToolController {
-	@GetMapping("/tools/items/magic")
+public class EncounterRandomController {
+	@GetMapping("/tools/wildmagic")
 	public String getTreasuryTool() {
-		return "tools/buying_magic_items";
+		return "tools/wildmagic";
 	}
 }
