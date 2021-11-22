@@ -1712,7 +1712,7 @@ button {
 
   /******** Бестиарий / bestiary ********/
   #right_block.bestiary .info_wrapper {
-    height: calc(100vh - 145px);
+    height: calc(100vh - 192px);
   }
 
   #right_block.bestiary .info_wrapper .simplebar-content {
