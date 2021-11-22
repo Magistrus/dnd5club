@@ -941,11 +941,13 @@ input::selection {
   text-transform: capitalize;
 }
 
+.no_close_left_block.block_information #right_block .header_block .btn_full_screen,
 .table_list_left_block.block_information #right_block .header_block .btn_full_screen {
   right: 0;
 }
 
 @media (min-width: 1000px) {
+  .no_close_left_block.block_information #right_block .header_block .btn_close,
   .table_list_left_block.block_information #right_block .header_block .btn_close {
     display: none;
   }
@@ -1202,7 +1204,21 @@ tbody div.artifact.spell_lvl:after {
 }
 
 
+/******** Предыстории / backgrounds ********/
+.backgrounds {
+
+}
+
+#right_block.backgrounds .content_block h4:nth-child(1) {
+  margin-top: -24px !important;
+}
+
+
 /******** Бестиарий / bestiary ********/
+.bestiary {
+
+}
+
 #right_block.bestiary .info_wrapper .simplebar-content {
   display: flex;
 }
