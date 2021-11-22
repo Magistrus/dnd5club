@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class TreasuryToolController {
-	@GetMapping("/treasury")
+	@GetMapping("/tools/treasury")
 	public String getTreasuryTool() {
 		return "tools/treasury";
 	}
