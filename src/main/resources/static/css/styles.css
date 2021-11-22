@@ -899,17 +899,30 @@ input::selection {
 .table_list_left_block .spells_list tr .spell_lvl {
   float: left;
   width: 42px;
-  height: 42px;
-  display: block;
+  height: 100%;
+  /* display: block; */
   font-size: 17px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   text-align: center;
   line-height: 42px;
   margin-right: 16px;
-  border: 1px solid var(--border);
+  position:relative;
+  /* border: 1px solid var(--border); */
 }
 
-.table_list_left_block .table_list tr.selected .spell_lvl {
+.table_list_left_block .spells_list tr .spell_lvl:after {
+  content: '';
+  position: absolute;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: block;
+  top: 0px;
+  left: 0px;
+}
+
+.table_list_left_block .table_list tr.selected .spell_lvl:after {
   border:1px solid var(--primary);
 }
 
@@ -938,23 +951,23 @@ input::selection {
   }
 }
 
-tbody div.uncommon {
+tbody div.uncommon.spell_lvl:after {
   border-color: var(--uncommon) !important;
 }
 
-tbody div.rare {
+tbody div.rare.spell_lvl:after {
   border-color: var(--rare) !important;
 }
 
-tbody div.very_rare {
+tbody div.very_rare.spell_lvl:after {
   border-color: var(--very_rare) !important;
 }
 
-tbody div.legendary {
+tbody div.legendary.spell_lvl:after {
   border-color: var(--legendary) !important;
 }
 
-tbody div.artifact {
+tbody div.artifact.spell_lvl:after {
   border-color: var(--artifact) !important;
 }
 
