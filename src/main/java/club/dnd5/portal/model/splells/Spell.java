@@ -90,4 +90,12 @@ public class Spell {
 	public String getFullName() {
 		return name.toLowerCase() + " [" + englishName.toLowerCase() +"]";
 	}
+
+	public String getComponents() {
+		return (verbalComponent ? "В" : "") + (somaticComponent ? "C" : "") + (materialComponent ? "М" : "");
+	}
+
+	public String getTimesDescription() {
+		return "";
+	}
 }
