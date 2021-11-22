@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,36 +20,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.item.ItemDto;
-import club.dnd5.portal.model.DamageType;
-import club.dnd5.portal.model.items.Equipment;
-import club.dnd5.portal.model.items.EquipmentType;
-import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
+import club.dnd5.portal.dto.item.TreasureDto;
+import club.dnd5.portal.model.items.Treasure;
+import club.dnd5.portal.model.items.TreasureType;
+import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
 
 @RestController
 public class TreasureRestController {
 	@Autowired
-	private ItemDatatableRepository repo;
+	private TreasureDatatableRepository repo;
 
-	@GetMapping("/data/items")
-	public DataTablesOutput<ItemDto> getData(@Valid DataTablesInput input,
+	@GetMapping("/data/treasures")
+	public DataTablesOutput<TreasureDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
 		input.parseSearchPanesFromQueryParams(queryParameters, Arrays.asList("type"));
-		Specification<Equipment> specification = null;
-		List<EquipmentType> filterTypes = input.getSearchPanes().getOrDefault("type", Collections.emptySet()).stream()
-				.map(EquipmentType::valueOf).collect(Collectors.toList());
+		Specification<Treasure> specification = null;
+		List<TreasureType> filterTypes = input.getSearchPanes().getOrDefault("type", Collections.emptySet()).stream()
+				.map(TreasureType::valueOf).collect(Collectors.toList());
 		if (!filterTypes.isEmpty()) {
-			specification = addSpecification(specification, (root, query, cb) -> {
-				Join<DamageType, Equipment> types = root.join("types", JoinType.LEFT);
-				query.distinct(true);
-				return types.in(filterTypes);
-			});
+			specification = addSpecification(specification, (root, query, cb) -> root.get("type").in(filterTypes));
 		}
 		input.getSearchPanes().clear();
-		DataTablesOutput<ItemDto> output =  repo.findAll(input, specification, specification, ItemDto::new);
-		
+		DataTablesOutput<TreasureDto> output = repo.findAll(input, specification, specification, TreasureDto::new);
+
 		Map<String, List<Item>> options = new HashMap<>();
-		options.put("type", Arrays.stream(EquipmentType.values()).map(t -> new Item(t.getCyrilicName(), t.name(), 0, 0))
+		options.put("type", Arrays.stream(TreasureType.values()).map(t -> new Item(t.getName(), t.name(), 0, 0))
 				.collect(Collectors.toList()));
 		if (output.getSearchPanes() != null) {
 			output.getSearchPanes().setOptions(options);
@@ -59,9 +52,9 @@ public class TreasureRestController {
 		return output;
 	}
 
-	@PostMapping("/items")
-	public ItemDto getSpell(Integer id) {
-		return new ItemDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
+	@PostMapping("/treasures")
+	public TreasureDto getSpell(Integer id) {
+		return new TreasureDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}
 
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
