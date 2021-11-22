@@ -1,65 +1,35 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-    <body id="body" class="d-flex overflow-hidden">
-        <div id="container" class="container">
-            <div class="row">
-                <div layout:fragment="content" class="main_page_wrapper">
-                    <div class="left_block">
-                        <div class="left_cont" data-simplebar>
-                            <div class="card_row">
-                                <a th:href="@{/bestiary}" class="card">
-                                    <div class="icon icon_bestiary_big"></div>
-                                    <h4>Бестиарий</h4>
-                                </a>
-                                <a th:href="@{/races}" class="card">
-                                    <div class="icon icon_races_big"></div>
-                                    <h4>Расы</h4>
-                                </a>
-                                <a th:href="@{/classes}" class="card">
-                                    <div class="icon icon_classes_big"></div>
-                                    <h4>Классы</h4>
-                                </a>
-                                <a th:href="@{/options}" class="card">
-                                    <div class="icon icon_skills_big"></div>
-                                    <h4>Особенности классов</h4>
-                                </a>
-                                <a th:href="@{/spells}" class="card">
-                                    <div class="icon icon_spells_big"></div>
-                                    <h4>Заклинания</h4>
-                                </a>
-                                <a th:href="@{/weapons}" class="card">
-                                    <div class="icon icon_weapons_big"></div>
-                                    <h4>Оружие</h4>
-                                </a>
-                                <a th:href="@{/armors}" class="card">
-                                    <div class="icon icon_armors_big"></div>
-                                    <h4>Доспехи</h4>
-                                </a>
-                                <a th:href="@{/items}" class="card">
-                                    <div class="icon icon_inventory_big"></div>
-                                    <h4>Снаряжение</h4>
-                                </a>
-                            </div>
-                            <div class="info_main_block">
-                                <h3>Есть ли у нас Discord?</h3>
-                                <p>Присоединяйтесь, к <a href="https://discord.gg/YGFshpuf9x" target="_blank">нашему каналу</a> и участвуйте в обсуждение нового функционала.</p>
-                                
-                                <h3>Как нас поддержать?</h3>
-                                <p>У нас есть <a href="https://www.patreon.com/dnd5club" target="_blank"><img src="resources/assets/icon/patreon.png" alt="Мы на Patreon" style="height: 12px;"> Patreon</a>, а так-же вы можете поддержать нашего <b>МЕГАМАСТЕРА</b> на <a href="https://boosty.to/dnd5eclub" target="_blank"><img src="resources/assets/icon/boosty.png" alt="Мы на Boosty" style="height: 12px;"> Boosty</a> он создает потрясающие карты.</p>
-
-                                <h3>Отказ от ответственности</h3>
-                                <p>Материалы на данном сайте приведены исключительно в справочных и ознакомительных целях и не заменяют необходимость покупки официальных материалов по игре.</p>
-                                <p>Весь графический материал и система Dungeons&Dragons является собственностью корпорации Wizards of the Coast.</p>
-
-                                <h3>Где староя версии сайта?</h3>
-                                <p>Перейти на старую версию сайта <a href="http://dnd5.club" target="_blank">можно тут</a>.</p>
-                            </div>
-                        </div>
-                    </div>                
-                    <!-- <div class="news_block">
-                    </div>                 -->
-                </div>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<body id="body">
+	<div id="list_page_two_block" class="no_close_left_block block_information" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block">
+				<h3>Безумие</h3>
+			</div>
+            <div id="scroll_load_simplebar" class="container_left" data-simplebar>
+                <p>С другой стороны понимание сущности ресурсосберегающих технологий позволяет выполнять важные задания по разработке направлений прогрессивного развития. Таким образом дальнейшее развитие различных форм деятельности играет важную роль в формировании существующий финансовых и административных условий. Прежде всего дальнейшее развитие различных форм деятельности позволяет выполнять важные задания по разработке новых предложений. Идейные соображения высшего порядка, а также социально-экономическое развитие создаёт предпосылки качественно новых шагов для системы обучения кадров, соответствующей насущным потребностям. Прежде всего социально-экономическое развитие в значительной степени обуславливает создание экономической целесообразности принимаемых изменений. Таким образом высокотехнологичная концепция общественной системы требует определения и уточнения системы массового участия. Повседневная практика показывает, что управление и развитие структуры требует от нас анализа модели развития. Идейные соображения высшего порядка, а также выбранный нами инновационный путь создаёт предпосылки качественно новых шагов для прогресса профессионального общества. Задача организации, в особенности же управление и развитие структуры в значительной степени обуславливает создание новых принципов формирования материально-технической и кадровой базы. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера нашей активности требует анализа соответствующих условий активизации.</p>
             </div>
-        </div>
-    </body>
+		</div>
+		<div id="right_block" class="backgrounds">
+			<div class="header_block">
+				<h3 id="background_name">Название опции</h3>
+				<div id="btn_full_screen" class="btn_full_screen">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div class="content_block">
+					<div id="content_block"></div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" th:inline="javascript" >
+    		var selectedBackground = [[${selectedBackground}]];
+		</script>
+	</div>
+</body>
+<script th:src="@{/resources/js/datatables/backgrounds.js}" layout:fragment="js-script"></script>
 </html>
