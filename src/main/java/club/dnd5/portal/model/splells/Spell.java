@@ -41,6 +41,7 @@ public class Spell {
 	private Boolean ritual;
 	
 	private String name;
+	@Column(unique = true)
 	private String englishName;
 	
 	@Enumerated(EnumType.ORDINAL)
