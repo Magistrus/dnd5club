@@ -23,7 +23,7 @@ public class TreasureController {
 	
 	@GetMapping("/treasures/{name}")
 	public String getItem(Model model, @PathVariable String name) {
-		model.addAttribute("selectedItem", new TreasureDto(repository.findByEnglishName(name.replace("_", " "))));
+		model.addAttribute("selectedTreasure", new TreasureDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "treasures";
 	}
 	

@@ -10,13 +10,21 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class TreasureDto {
+	private int id;
 	private String name;
+	private String englishName;
 	private int cost;
 	private String type;
+	private String book;
+	private String bookshort;
 	
 	public TreasureDto(Treasure treasure) {
+		id = treasure.getId();
 		name = treasure.getName();
+		englishName = treasure.getEnglishName();
 		type = treasure.getType().getName();
 		cost = treasure.getCost();
+		book = treasure.getBook().getName();
+		bookshort = treasure.getBook().getSource();
 	}
 }

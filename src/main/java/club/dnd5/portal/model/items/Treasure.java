@@ -26,10 +26,11 @@ public class Treasure {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(columnDefinition = "TEXT")
 	private String name;
 	@Column(unique = true)
 	private String englishName;
+	@Column(columnDefinition = "TEXT")
+	private String description;
 	private int cost;
 	
 	@Enumerated(EnumType.STRING)
