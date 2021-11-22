@@ -41,6 +41,7 @@ public class Spell {
 	private Boolean ritual;
 	
 	private String name;
+	@Column(unique = true)
 	private String englishName;
 	
 	@Enumerated(EnumType.ORDINAL)
@@ -88,5 +89,13 @@ public class Spell {
 	
 	public String getFullName() {
 		return name.toLowerCase() + " [" + englishName.toLowerCase() +"]";
+	}
+
+	public String getComponents() {
+		return (verbalComponent ? "В" : "") + (somaticComponent ? "C" : "") + (materialComponent ? "М" : "");
+	}
+
+	public String getTimesDescription() {
+		return "";
 	}
 }

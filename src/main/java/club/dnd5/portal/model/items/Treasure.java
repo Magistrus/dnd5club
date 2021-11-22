@@ -1,4 +1,4 @@
-package club.dnd5.portal.model.races;
+package club.dnd5.portal.model.items;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,26 +11,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import club.dnd5.portal.model.book.Book;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "race_names")
+@Table(name = "treasures")
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
-public class RaceName {
+public class Treasure {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(unique = true)
+	
 	private String name;
+	@Column(unique = true)
+	private String englishName;
+	@Column(columnDefinition = "TEXT")
+	private String description;
+	private int cost;
+	
 	@Enumerated(EnumType.STRING)
-	private Sex sex;
+	private TreasureType type;
 	@ManyToOne
-	@JoinColumn(name = "race_id")
-	private Race race;
+	@JoinColumn(name = "source")
+	private Book book;
+	private Short page;
 }
