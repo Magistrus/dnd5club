@@ -132,7 +132,7 @@ body {
   height: var(--size);
   transition: all 250ms ease;
   border-radius: var(--width);
-  background-color: #000;
+  background-color: #444;
 }
 
 .check:hover::before,
