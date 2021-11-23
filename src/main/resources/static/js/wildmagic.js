@@ -1,5 +1,5 @@
 $('#generate').on('click', function() {
-	var parent = document.createElement("blockquote");
+	var parent = document.createElement("div");
 	var element = document.createElement("p");
 	parent.appendChild(element);
 	var elementin = document.createElement("div");
