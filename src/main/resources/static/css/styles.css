@@ -1479,18 +1479,31 @@ tbody div.artifact.spell_lvl:after {
 
 
 /******** Кнопки ********/
+.btn-wrapper {
+  padding: 16px 0;
+}
+
 button {
   border: 0;
   background: none;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .btn {
-  padding: 16px 8px;
-  background-color: black;
+  padding: 12px 12px;
   display: inline-block;
   vertical-align: middle;
   user-select: none;
+}
+
+.btn_primary {
+  background-color: var(--primary);
+  color:var(--text-btn-color);
+}
+
+.btn_primary:hover {
+  background-color: var(--primary-hover);
 }
 
 
