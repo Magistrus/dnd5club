@@ -25,8 +25,14 @@ public class WildMagicToolController {
 	
 	@GetMapping("/tools/wildmagic/random")
 	@ResponseBody
-	public String getWildMagicRandomText() {
-		List<WildMagic> magics = repo.findAll();
+	public String getWildMagicRandomText(String type) {
+		List<WildMagic> magics = null;
+		if ("base".equals(type)) {
+			magics = repo.findAll().subList(0, 50);	
+		}
+		else {
+			magics = repo.findAll();
+		}
 		if (!magics.isEmpty()) {
 			return magics.get(rnd.nextInt(magics.size())).getDescription();
 		}
