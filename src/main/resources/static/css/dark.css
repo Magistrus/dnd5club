@@ -11,8 +11,9 @@
   --text-g-color:#A4A4A4;
   --text-s-color:#c4c5ff;
   --text-a-color:#34bb3e;
+  --text-btn-color: #f8f8f8;
   --link-color:#a397e4;
-  --link-color-hover:#ccc3ff;
+  --link-color-hover:#f8f8f8;
   --hover: rgba(255, 255, 255, 0.05);
   --border: #35393D;
   --border-table: #35393D;
