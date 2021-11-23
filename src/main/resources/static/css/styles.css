@@ -1029,14 +1029,11 @@ input::selection {
   float: left;
   width: 42px;
   height: 100%;
-  /* display: block; */
   font-size: 17px;
-  /* border-radius: 50%; */
   text-align: center;
   line-height: 42px;
   margin-right: 16px;
   position:relative;
-  /* border: 1px solid var(--border); */
 }
 
 .table_list_left_block .spells_list tr .spell_lvl:after {
@@ -1496,6 +1493,12 @@ tbody div.artifact.spell_lvl:after {
 }
 
 
+/******** Инструменты / tools ********/
+.tools_block_result {
+  border-bottom: 1px solid var(--border);
+}
+
+
 /******** Кнопки ********/
 .btn-wrapper {
   padding: 16px 0;
@@ -1944,6 +1947,7 @@ button {
   #right_block.classes .info_wrapper .content_block {
     height: calc(100vh - 192px);
   }
+
 
   /******** Расы / races ********/
   #right_block.races .info_wrapper .content_block {
