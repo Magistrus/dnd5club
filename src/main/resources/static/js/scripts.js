@@ -39,8 +39,8 @@ $(document).ready(function() {
 	});
     Tipped.delegate('.tip_spell', {
 	    ajax: {
-	        url: '/spells',
-	        type: 'post',
+	        url: '/spells/id',
+	        type: 'get',
 	        success: function(data, textStatus, jqXHR) {
 	            return {
 	              title: ' <em>' + data.level + ' уровень</em> / ' + data.name,
