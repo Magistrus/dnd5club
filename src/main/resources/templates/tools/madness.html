@@ -6,13 +6,19 @@
 			<div class="header_block">
 				<h3>Безумие</h3>
 			</div>
-            <div id="scroll_load_simplebar" class="container_left" data-simplebar>
-                <p>С другой стороны понимание сущности ресурсосберегающих технологий позволяет выполнять важные задания по разработке направлений прогрессивного развития. Таким образом дальнейшее развитие различных форм деятельности играет важную роль в формировании существующий финансовых и административных условий. Прежде всего дальнейшее развитие различных форм деятельности позволяет выполнять важные задания по разработке новых предложений. Идейные соображения высшего порядка, а также социально-экономическое развитие создаёт предпосылки качественно новых шагов для системы обучения кадров, соответствующей насущным потребностям. Прежде всего социально-экономическое развитие в значительной степени обуславливает создание экономической целесообразности принимаемых изменений. Таким образом высокотехнологичная концепция общественной системы требует определения и уточнения системы массового участия. Повседневная практика показывает, что управление и развитие структуры требует от нас анализа модели развития. Идейные соображения высшего порядка, а также выбранный нами инновационный путь создаёт предпосылки качественно новых шагов для прогресса профессионального общества. Задача организации, в особенности же управление и развитие структуры в значительной степени обуславливает создание новых принципов формирования материально-технической и кадровой базы. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера нашей активности требует анализа соответствующих условий активизации.</p>
-            </div>
+			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
+				<div>
+					<input type="checkbox" id="short" name="type" value="SHORT"> <label for="coding">кратковременное</label>
+					<input type="checkbox" id="long" name="type" value="LONG"> <label for="coding">долговременное</label>
+					<input type="checkbox" id="unlimited" name="type" value="UNLIMITED"> <label for="coding">бессрочное</label>
+				</div>
+				<button id="generate" class="btn btn_class small_btn">Сгенерировать</button>
+				<button id="clear" class="btn btn_class small_btn">Очистить</button>
+			</div>
 		</div>
 		<div id="right_block" class="backgrounds">
 			<div class="header_block">
-				<h3 id="background_name">Название опции</h3>
+				<h3 id="background_name">Случайное безумие</h3>
 				<div id="btn_full_screen" class="btn_full_screen">
 					<div class="icon_action icon_full_screen"></div>
 				</div>
@@ -26,10 +32,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
-    		var selectedBackground = [[${selectedBackground}]];
-		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/backgrounds.js}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/madness.js}" layout:fragment="js-script"></script>
 </html>

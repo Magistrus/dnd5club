@@ -48,10 +48,6 @@ public class SpellRestController {
 		List<MagicSchool> filterSchool = input.getSearchPanes().getOrDefault("school", Collections.emptySet()).stream()
 				.map(MagicSchool::valueOf).collect(Collectors.toList());
 		Specification<Spell> specification = null;
-		if (!input.getSearch().getValue().isEmpty() && input.getSearch().getValue().length() < 3) {
-			//input.getSearch().setRegex(true);
-			//input.getSearch().setValue("^" +input.getSearch().getValue());
-		}
 		if (!filterSchool.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("school").in(filterSchool));
 		}
@@ -108,7 +104,7 @@ public class SpellRestController {
 		return output;
 	}
 
-	@PostMapping("/spells")
+	@GetMapping("/spells/id")
 	public SpellTipDto getSpell(Integer id) {
 		return new SpellTipDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}

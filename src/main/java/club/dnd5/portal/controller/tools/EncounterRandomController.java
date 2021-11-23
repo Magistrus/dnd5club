@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class EncounterRandomController {
-	@GetMapping("/tools/wildmagic")
+	@GetMapping("/tools/encounters")
 	public String getTreasuryTool() {
-		return "tools/wildmagic";
+		return "tools/random_encounters";
 	}
 }

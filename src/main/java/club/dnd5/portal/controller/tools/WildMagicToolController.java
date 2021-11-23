@@ -1,12 +1,35 @@
 package club.dnd5.portal.controller.tools;
 
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import club.dnd5.portal.model.splells.WildMagic;
+import club.dnd5.portal.repository.datatable.WildMagicRepository;
 
 @Controller
 public class WildMagicToolController {
-	@GetMapping("/tools/encounters")
+	public static final Random rnd = new Random();
+	
+	@Autowired
+	private WildMagicRepository repo;
+	
+	@GetMapping("/tools/wildmagic")
 	public String getTreasuryTool() {
-		return "tools/random_encounters";
+		return "tools/wildmagic";
+	}
+	
+	@GetMapping("/tools/wildmagic/random")
+	@ResponseBody
+	public String getWildMagicRandomText() {
+		List<WildMagic> magics = repo.findAll();
+		if (!magics.isEmpty()) {
+			return magics.get(rnd.nextInt(magics.size())).getDescription();
+		}
+		return "Нет дикой магии сегодня";
 	}
 }

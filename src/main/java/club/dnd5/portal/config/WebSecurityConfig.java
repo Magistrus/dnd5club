@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/characters/**").hasRole("USER");
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/webjars/**").permitAll();
+		http.authorizeRequests().antMatchers("/robots.txt").permitAll();
 		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
@@ -38,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().and().logout().logoutSuccessUrl("/").permitAll();
 
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+		
 		http.httpBasic();
-		http.csrf().disable();
 	}
 
 	@Autowired
