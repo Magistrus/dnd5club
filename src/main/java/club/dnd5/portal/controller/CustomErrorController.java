@@ -12,12 +12,13 @@ public class CustomErrorController implements ErrorController {
 	@RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
             switch (statusCode) {
                 case 404:
                     return "error_404";
+                case 403:
+                    return "error_403";
                 case 500:
                     return "error_500";
             }

@@ -1,10 +1,15 @@
 $('#generate').on('click', function() {
+	let type = '?type=base'; 
+	if (document.getElementById('additional').checked){
+		type = '?type=add';
+	}
 	var parent = document.createElement("div");
+	parent.classList.add("tools_block_result");
 	var element = document.createElement("p");
 	parent.appendChild(element);
 	var elementin = document.createElement("div");
 	element.appendChild(elementin);
-	fetch('/tools/wildmagic/random').then(data => data.text()) .then(html => elementin.innerHTML = html);
+	fetch('/tools/wildmagic/random' + type).then(data => data.text()) .then(html => elementin.innerHTML = html);
     document.getElementById('content_block').prepend(parent);
 });
 $('#clear').on('click', function() {

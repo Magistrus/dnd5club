@@ -1,5 +1,6 @@
 $('#generate').on('click', function() {
 	var parent = document.createElement("div");
+	parent.classList.add("tools_block_result");
 	var element = document.createElement("p");
 	parent.appendChild(element);
 	var elementin = document.createElement("div");

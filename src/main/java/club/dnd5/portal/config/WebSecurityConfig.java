@@ -28,18 +28,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/characters/**").hasRole("USER");
+		http.authorizeRequests().antMatchers("/profile/**").hasRole("USER");
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/webjars/**").permitAll();
-		http.authorizeRequests().antMatchers("/robots.txt").permitAll();
 		
-		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error");
+		http.authorizeRequests().antMatchers("/robots.txt").permitAll();
 
 		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/profile", true).permitAll();
 		http.authorizeRequests().and().logout().logoutSuccessUrl("/").permitAll();
 
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-		
+        http.cors().and().csrf().disable();
+
 		http.httpBasic();
 	}
 
