@@ -26,10 +26,10 @@ public class MadnessToolController {
 
 	@GetMapping("/tools/madness/random")
 	@ResponseBody
-	public String getMadnessRandomText(Model model, String typeMadness) {
+	public String getMadnessRandomText(Model model, String type) {
 		List<Madness> madnesses;
-		if (typeMadness != null) {
-			MadnessType madnessType = MadnessType.valueOf(typeMadness);
+		if (type != null) {
+			MadnessType madnessType = MadnessType.valueOf(type);
 			madnesses = madnessRepo.findByMadnessType(madnessType);
 		} else {
 			madnesses = madnessRepo.findAll();
@@ -47,7 +47,7 @@ public class MadnessToolController {
 			duration = "до излечения";
 			break;
 		}
-		return String.format("<strong>Тип:</strong> %s <strong>Длительность:</strong> %s <br><br> %s",
+		return String.format("<div><strong>Тип:</strong> %s</div><div><strong>Длительность:</strong> %s</div><br> %s",
 				madness.getMadnessType().getCyrilicName(), duration, madness.getDescription());
 	}
 }
