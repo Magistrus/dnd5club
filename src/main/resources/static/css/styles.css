@@ -170,20 +170,26 @@ body {
    background: #2be;
 }
 
-.toggle+label,
-.check+label {
+label.check_block {
   box-sizing: inherit;
   line-height: 22px;
   color: var(--text-color);
   display: block;
+  margin-bottom: 8px;
 }
 
-.toggle+label {
-  margin-left: 36px;
+label.check_block span {
+  margin-left: 8px;
 }
 
-.check+label {
-  margin-left: 28px;
+.check-wrapper {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.check-wrapper label.check_block {
+  display: inline-block;
+  margin-right: 16px;
 }
 
 
@@ -204,6 +210,20 @@ input:focus {
 
 input::selection {
   background: var(--border);
+}
+
+.btn_text_clear {
+  display: none;
+  width: 45px;
+  height: 45px;
+  z-index: 10;
+  cursor: pointer;
+  position: absolute;
+  right: 45px;
+}
+
+.btn_text_clear .icon_action {
+  margin: 11px auto;
 }
 
 
@@ -603,6 +623,10 @@ input::selection {
 
 /******** Левый блок ********/
 #left_block {
+
+}
+
+#left_block {
   /* transition: margin-right 0.3s; */
   overflow-x: hidden;
   margin-right: 0px;
@@ -680,6 +704,10 @@ input::selection {
   background-color: var(--hover);
 }
 
+
+#left_block.full_width_left_block {
+  margin-right: calc(0vw + 0px);
+}
 
 @media (max-width: 1000px) {
   .block_information #left_block {
@@ -1029,14 +1057,11 @@ input::selection {
   float: left;
   width: 42px;
   height: 100%;
-  /* display: block; */
   font-size: 17px;
-  /* border-radius: 50%; */
   text-align: center;
   line-height: 42px;
   margin-right: 16px;
   position:relative;
-  /* border: 1px solid var(--border); */
 }
 
 .table_list_left_block .spells_list tr .spell_lvl:after {
@@ -1496,9 +1521,28 @@ tbody div.artifact.spell_lvl:after {
 }
 
 
+/******** Инструменты / tools ********/
+#left_block.tools_block .tools_settings {
+  padding: 24px 24px 12px 24px;
+}
+
+#left_block.tools_block.wildmagic .container_left {
+  height: calc(100vh - 202px);
+}
+
+#left_block.tools_block.madness .container_left {
+  height: calc(100vh - 248px);
+}
+
+.tools_block_result {
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0 0 0;
+}
+
+
 /******** Кнопки ********/
 .btn-wrapper {
-  padding: 16px 0;
+  padding: 16px 0 8px 0;
 }
 
 button {
@@ -1506,6 +1550,7 @@ button {
   background: none;
   cursor: pointer;
   font-size: 13px;
+  margin-bottom: 8px;
 }
 
 .btn {
@@ -1944,6 +1989,7 @@ button {
   #right_block.classes .info_wrapper .content_block {
     height: calc(100vh - 192px);
   }
+
 
   /******** Расы / races ********/
   #right_block.races .info_wrapper .content_block {

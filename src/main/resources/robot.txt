@@ -1,3 +1,7 @@
 User-agent: *
-Disallow: /cart/
+Allow: /
+
+Disallow: /profile.html
 Sitemap: http://new.dnd5.club/resources/sitemap.xml
+
+Host: dnd5.club.su
