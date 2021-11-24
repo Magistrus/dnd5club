@@ -1,82 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta name="description" content="" />
-<meta name="author" content="Peterko - https://www.behance.net/peterko" />
-<title>DnD5 Club</title>
-<!-- Favicon-->
-<link rel="icon" type="image/x-icon" th:href="@{/resources/assets/favicon.svg}" />
-<!-- Core theme CSS -->
-<link th:href="@{/resources/css/simplebar.css}" rel="stylesheet" />
-<link type="text/css" rel="stylesheet" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'light': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
-<link th:href="@{/resources/css/typography.css}" rel="stylesheet" />
-<link th:href="@{/resources/css/styles.css}" rel="stylesheet" />
-<link th:href="@{/resources/css/sidebar-menu.css}" rel="stylesheet" />
-<link th:href="@{/resources/css/tipped.css}" rel="stylesheet" />
-<link th:href="@{/resources/css/magnific-popup.css}" rel="stylesheet" />
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta name="author" content="Peterko - https://www.behance.net/peterko" />
+		<title>DnD5 Club онлайн-справочник</title>
+		<meta name="description" content="DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте." />
+		<meta name="keywords" content="d&d, d&d5, dnd, dnd5, dnd5 классы, dnd5 расы, dnd5 бестиарий, dnd5 заклинания, dnd5 руководства, dnd5 предметы, dnd5 магические предметы, dnd5 инструменты, dnd5 время простоя, dnd5 покупка магических вещей, dnd5 таверна на скорую руку, dnd5 дикая магия, dnd5 безумие, dnd5 торговец, dnd5 сокровищница, dnd5 случайные столкновения, dnd5 источники, dnd 5, dnd 5 классы, dnd 5 расы, dnd 5 бестиарий, dnd 5 заклинания, dnd 5 руководства, dnd 5 предметы, dnd 5 магические предметы, dnd 5 инструменты, dnd 5 время простоя, dnd 5 покупка магических вещей, dnd 5 таверна на скорую руку, dnd 5 дикая магия, dnd 5 безумие, dnd 5 торговец, dnd 5 сокровищница, dnd 5 случайные столкновения, dnd 5 источники, d&d 5, d&d 5 классы, d&d 5 расы, d&d 5 бестиарий, d&d 5 заклинания, d&d 5 руководства, d&d 5 предметы, d&d 5 магические предметы, d&d 5 инструменты, d&d 5 время простоя, d&d 5 покупка магических вещей, d&d 5 таверна на скорую руку, d&d 5 дикая магия, d&d 5 безумие, d&d 5 торговец, d&d 5 сокровищница, d&d 5 случайные столкновения, d&d 5 источники, d&d5, d&d5 классы, d&d5 расы, d&d5 бестиарий, d&d5 заклинания, d&d5 руководства, d&d5 предметы, d&d5 магические предметы, d&d5 инструменты, d&d5 время простоя, d&d5 покупка магических вещей, d&d5 таверна на скорую руку, d&d5 дикая магия, d&d5 безумие, d&d5 торговец, d&d5 сокровищница, d&d5 случайные столкновения, d&d5 источники,  dungeons and dragons, dungeons and dragons классы, dungeons and dragons расы, dungeons and dragons бестиарий, dungeons and dragons заклинания, dungeons and dragons руководства, dungeons and dragons предметы, dungeons and dragons магические предметы, dungeons and dragons инструменты, dungeons and dragons время простоя, dungeons and dragons покупка магических вещей, dungeons and dragons таверна на скорую руку, dungeons and dragons дикая магия, dungeons and dragons безумие, dungeons and dragons торговец, dungeons and dragons сокровищница, dungeons and dragons случайные столкновения, dungeons and dragons источники,  подземелья и драконы, подземелья и драконы классы, подземелья и драконы расы, подземелья и драконы бестиарий, подземелья и драконы заклинания, подземелья и драконы руководства, подземелья и драконы предметы, подземелья и драконы магические предметы, подземелья и драконы инструменты, подземелья и драконы время простоя, подземелья и драконы покупка магических вещей, подземелья и драконы таверна на скорую руку, подземелья и драконы дикая магия, подземелья и драконы безумие, подземелья и драконы торговец, подземелья и драконы сокровищница, подземелья и драконы случайные столкновения, подземелья и драконы источники, днд, днд классы, днд расы, днд бестиарий, днд заклинания, днд руководства, днд предметы, днд магические предметы, днд инструменты, днд время простоя, днд покупка магических вещей, днд таверна на скорую руку, днд дикая магия, днд безумие, днд торговец, днд сокровищница, днд случайные столкновения, днд источники">
+		
+		<meta property="og:title" content="DnD5 Club онлайн-справочник">
+		<meta property="og:description" content="DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="http://dnd5.club/">
+		<meta property="og:image" content="http://new.dnd5.club/resources/assets/dnd-meta.jpg">
+		
+		<!-- Simplebar -->
+		<link rel="stylesheet" th:href="@{/resources/css/simplebar.css}" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Neucha&display=swap" rel="stylesheet">
-<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
-<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}"></link>
+		<!-- Tipped -->
+		<link rel="stylesheet" th:href="@{/resources/css/tipped.css}" />
 
-<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-<script th:src="@{/resources/js/jquery.magnific-popup.min.js}"></script>
+		<!-- Modal -->
+		<link rel="stylesheet" th:href="@{/resources/css/magnific-popup.css}" />
 
-<script th:src="@{/resources/js/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{/resources/js/datatables/searchpanes/dataTables.searchPanes.min.js}"></script>
-<script th:src="@{/webjars/datatables-select/1.3.3/js/dataTables.select.min.js}"></script>
-<script th:src="@{/resources/js/datatables/pageLoader/dataTables.pageLoadMore.min.js}"></script>
+		<!-- Favicon-->
+		<link rel="icon" type="image/x-icon" th:href="@{/resources/assets/favicon.svg}" />
 
-<script th:src="@{/resources/js/datatables/jquery.spring-friendly.js}"></script>
-</head>
-<body id="body" class="d-flex overflow-hidden">
-	<div th:replace="fragments/menu :: menu"></div>
-	<div id="container" class="container">
-		<div class="row">
-			<div layout:fragment="content"></div>
+		<!-- Core theme CSS -->
+		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'light': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
+		<link rel="stylesheet" th:href="@{/resources/css/typography.css}" />
+		<link rel="stylesheet" th:href="@{/resources/css/styles.css}" />
+
+		<!-- Menu -->
+		<link rel="stylesheet" th:href="@{/resources/css/sidebar-menu.css}" />
+
+		<!-- Google Font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Neucha&display=swap" rel="stylesheet">
+
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
+		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}"></link>
+
+		<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+		<script th:src="@{/resources/js/jquery.magnific-popup.min.js}"></script>
+
+		<script th:src="@{/resources/js/datatables/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/resources/js/datatables/searchpanes/dataTables.searchPanes.min.js}"></script>
+		<script th:src="@{/webjars/datatables-select/1.3.3/js/dataTables.select.min.js}"></script>
+		<script th:src="@{/resources/js/datatables/pageLoader/dataTables.pageLoadMore.min.js}"></script>
+
+		<script th:src="@{/resources/js/datatables/jquery.spring-friendly.js}"></script>
+	</head>
+	<body id="body" class="d-flex overflow-hidden">
+		<div th:replace="fragments/menu :: menu"></div>
+		<div id="container" class="container">
+			<div class="row">
+				<div layout:fragment="content"></div>
+			</div>
 		</div>
-	</div>
-</body>
-<script th:src="@{/resources/js/scripts.js}"></script>
-<script th:src="@{/resources/js/sidebar-menu.js}"></script>
-<script th:src="@{/resources/js/scheme.js}"></script>
-<script th:src="@{/resources/js/simplebar.min.js}"></script>
-<script th:src="@{/resources/js/tipped.min.js}"></script>
+	</body>
+	<script th:src="@{/resources/js/scripts.js}"></script>
+	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
+	<script th:src="@{/resources/js/scheme.js}"></script>
+	<script th:src="@{/resources/js/simplebar.min.js}"></script>
+	<script th:src="@{/resources/js/tipped.min.js}"></script>
 
-<script layout:fragment="js-script"></script>
-
-<script>
-	var __rm__config = {
-	  projectId: '-Mot7MEuC2C8v9zqrFGU',
-	  locale: 'ru',
-	  contextWidget: 1,
-	  embedBtn: 0,
-	  floatingBtn: 0,
-	};
-</script>
-<script src="https://widget.revisionme.com/app.js" defer id="rm_app_script"></script>
-<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/86582536" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WXD97L1HCX"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WXD97L1HCX');
-</script>
-<script>
-	var __rm__config = {
-	  projectId: '-Mot7MEuC2C8v9zqrFGU',
-	  locale: 'ru',
-	  contextWidget: 1,
-	  embedBtn: 0,
-	  floatingBtn: 0,
-	};
-</script>
-<script src="https://widget.revisionme.com/app.js" defer id="rm_app_script"></script>
+	<script layout:fragment="js-script"></script>
+	<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/86582536" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WXD97L1HCX"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-WXD97L1HCX');
+	</script>
+	<script>
+		var __rm__config = {
+			projectId: '-Mot7MEuC2C8v9zqrFGU',
+			locale: 'ru',
+			contextWidget: 1,
+			embedBtn: 0,
+			floatingBtn: 0,
+		};
+	</script>
+	<script src="https://widget.revisionme.com/app.js" defer id="rm_app_script"></script>
 </html>
