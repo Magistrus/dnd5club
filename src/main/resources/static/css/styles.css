@@ -170,20 +170,26 @@ body {
    background: #2be;
 }
 
-.toggle+label,
-.check+label {
+label.check_block {
   box-sizing: inherit;
   line-height: 22px;
   color: var(--text-color);
   display: block;
+  margin-bottom: 8px;
 }
 
-.toggle+label {
-  margin-left: 36px;
+label.check_block span {
+  margin-left: 8px;
 }
 
-.check+label {
-  margin-left: 28px;
+.check-wrapper {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.check-wrapper label.check_block {
+  display: inline-block;
+  margin-right: 16px;
 }
 
 
@@ -1524,6 +1530,10 @@ tbody div.artifact.spell_lvl:after {
   height: calc(100vh - 202px);
 }
 
+#left_block.tools_block.madness .container_left {
+  height: calc(100vh - 248px);
+}
+
 .tools_block_result {
   border-bottom: 1px solid var(--border);
   padding: 12px 0 0 0;
@@ -1532,7 +1542,7 @@ tbody div.artifact.spell_lvl:after {
 
 /******** Кнопки ********/
 .btn-wrapper {
-  padding: 16px 0;
+  padding: 16px 0 8px 0;
 }
 
 button {
@@ -1540,6 +1550,7 @@ button {
   background: none;
   cursor: pointer;
   font-size: 13px;
+  margin-bottom: 8px;
 }
 
 .btn {
