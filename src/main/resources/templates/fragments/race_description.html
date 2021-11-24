@@ -5,7 +5,7 @@
 </head>
 <body>
 	<th:block th:object="${race}" th:fragment="view">
-		<h4 class="header_separator">Описание</h4>
+		<h4 class="header_separator mt--24">Описание</h4>
 		<th:block th:utext="*{description}"></th:block>
 
 		<th:block th:each="feature : ${features}">

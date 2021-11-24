@@ -186,7 +186,9 @@ table {
   border-spacing: inherit;
   border-radius: 8px;
   border: 2px solid var(--border-table);
-  /* margin-bottom: 24px; */
+  width: 100% !important;
+  overflow: scroll;
+  margin-bottom: 16px;
 }
 
 table thead {
@@ -211,16 +213,14 @@ table td {
 
 table td:last-child {
   border-right: 0px solid var(--border-table);
-  height: 30px;
 }
 
-table.classes_tablet {
-  width: auto;
-  overflow: scroll;
+table.dnd5_table {
   height: 100%;
+  margin-bottom: 0px;
 }
 
-table.classes_tablet tbody tr:hover {
+table tbody tr:hover {
   background-color: var(--hover);
 }
 
