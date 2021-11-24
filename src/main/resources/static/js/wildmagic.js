@@ -7,9 +7,7 @@ $('#generate').on('click', function() {
 	parent.classList.add("tools_block_result");
 	var element = document.createElement("p");
 	parent.appendChild(element);
-	var elementin = document.createElement("div");
-	element.appendChild(elementin);
-	fetch('/tools/wildmagic/random' + type).then(data => data.text()) .then(html => elementin.innerHTML = html);
+	fetch('/tools/wildmagic/random' + type).then(data => data.text()) .then(html => element.innerHTML = html);
     document.getElementById('content_block').prepend(parent);
 });
 $('#clear').on('click', function() {
