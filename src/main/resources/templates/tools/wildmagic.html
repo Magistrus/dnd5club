@@ -2,18 +2,20 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
 	<div id="list_page_two_block" class="no_close_left_block block_information" layout:fragment="content">
-		<div id="left_block">
+		<div id="left_block" class="full_width_left_block tools_block wildmagic">
 			<div class="header_block">
 				<h3>Дикая магия</h3>
 			</div>
-			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
+			<div class="tools_settings">
 				<input id="additional" class="toggle" type="checkbox" name="toggle"> <label for="toggle-1">Использовать дополнительные таблицы</label>
 				<!-- 					<input id="source_add" class="check" type="checkbox" name="source_add"><label for="source_add">Использовать дополнительные таблицы</label>
- -->
+	-->
 				<div class="btn-wrapper">
 					<button id="generate" class="btn btn_primary">Сгенерировать</button>
 					<button id="clear" class="btn btn_primary">Очистить</button>
 				</div>
+			</div>
+			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
 				<div class="content_block">
 					<div id="content_block"></div>
 				</div>
