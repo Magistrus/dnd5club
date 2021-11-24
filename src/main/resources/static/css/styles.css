@@ -1550,7 +1550,6 @@ button {
   background: none;
   cursor: pointer;
   font-size: 13px;
-  margin-bottom: 8px;
 }
 
 .btn {
@@ -1558,6 +1557,7 @@ button {
   display: inline-block;
   vertical-align: middle;
   user-select: none;
+  margin-bottom: 8px;
 }
 
 .btn_primary {
@@ -1976,6 +1976,10 @@ button {
 
   #right_block .info_wrapper {
     height: calc(100vh - 145px);
+  }
+
+  #left_block .filters + .search_panes + .container_left {
+    height: calc(100vh - 190px);
   }
 
 
