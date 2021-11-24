@@ -4,10 +4,13 @@
 	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
 		<div id="left_block" class="spells">
 			<div class="header_block filters">
-				<h3>Заклинания</h3><div id="text_clear" style="display: none; width: 20px; height: 20px; display: block; background: #FFF; z-index: 200; cursor: pointer;position: absolute;">x</div>
+				<h3>Заклинания</h3>
 				<div class="filter_block">
 					<input type="text" id="search" class="search_int" placeholder="Поиск">
-					<div id="btn_filters" class="btn_filters">
+					<div id="text_clear" class="btn_text_clear tip" title="Очистить">
+						<div class="icon_action icon_close"></div>
+					</div>
+					<div id="btn_filters" class="btn_filters tip" title="Фильтры">
 						<div class="icon_action icon_filters"></div>
 					</div>
 				</div>
@@ -33,7 +36,7 @@
 		<div id="right_block" class="spells">
 			<div class="header_block">
 				<h3 id="spell_name">Название заклинания</h3>
-				<div id="btn_full_screen" class="btn_full_screen">
+				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
 					<div class="icon_action icon_full_screen"></div>
 				</div>
 				<div id="btn_close" class="btn_close">

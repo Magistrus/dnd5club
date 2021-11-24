@@ -680,6 +680,19 @@ input::selection {
   background-color: var(--hover);
 }
 
+.btn_text_clear {
+  display: none;
+  width: 45px;
+  height: 45px;
+  z-index: 10;
+  cursor: pointer;
+  position: absolute;
+  right: 45px;
+}
+
+.btn_text_clear .icon_action {
+  margin: 11px auto;
+}
 
 @media (max-width: 1000px) {
   .block_information #left_block {
