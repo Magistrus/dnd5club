@@ -26,10 +26,10 @@ public class MadnessToolController {
 
 	@GetMapping("/tools/madness/random")
 	@ResponseBody
-	public String getMadnessRandomText(Model model, String typeMadness) {
+	public String getMadnessRandomText(Model model, String type) {
 		List<Madness> madnesses;
-		if (typeMadness != null) {
-			MadnessType madnessType = MadnessType.valueOf(typeMadness);
+		if (type != null) {
+			MadnessType madnessType = MadnessType.valueOf(type);
 			madnesses = madnessRepo.findByMadnessType(madnessType);
 		} else {
 			madnesses = madnessRepo.findAll();

@@ -5,7 +5,15 @@ $('#generate').on('click', function() {
 	parent.appendChild(element);
 	var elementin = document.createElement("div");
 	element.appendChild(elementin);
-	fetch('/tools/madness/random').then(data => data.text()) .then(html => elementin.innerHTML = html);
+	let type='';
+	if (document.getElementById('short').checked){
+		type = '?type=SHORT';
+	} else if (document.getElementById('long').checked){
+		type = '?type=LONG';
+	} else if (document.getElementById('unlimited').checked){
+		type = '?type=UNLIMITED';
+	}
+	fetch('/tools/madness/random' + type).then(data => data.text()) .then(html => elementin.innerHTML = html);
     document.getElementById('content_block').prepend(parent);
 });
 $('#clear').on('click', function() {
