@@ -3,8 +3,6 @@ $('#generate').on('click', function() {
 	parent.classList.add("tools_block_result");
 	var element = document.createElement("p");
 	parent.appendChild(element);
-	var elementin = document.createElement("div");
-	element.appendChild(elementin);
 	let type='';
 	if (document.getElementById('short').checked){
 		type = '?type=SHORT';
@@ -13,7 +11,7 @@ $('#generate').on('click', function() {
 	} else if (document.getElementById('unlimited').checked){
 		type = '?type=UNLIMITED';
 	}
-	fetch('/tools/madness/random' + type).then(data => data.text()) .then(html => elementin.innerHTML = html);
+	fetch('/tools/madness/random' + type).then(data => data.text()) .then(html => element.innerHTML = html);
     document.getElementById('content_block').prepend(parent);
 });
 $('#clear').on('click', function() {
