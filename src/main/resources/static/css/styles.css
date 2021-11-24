@@ -35,6 +35,10 @@ body {
   margin-top: 0px;
 }
 
+.mt--24 {
+  margin-top: -24px;
+}
+
 .hide_block {
   display: none !important;
 }
@@ -1139,6 +1143,10 @@ tbody div.artifact.spell_lvl:after {
 
 #right_block.screens .info_wrapper #content_block h4:first-child {
   margin-top: -24px;
+}
+
+#right_block.screens ul {
+  list-style: disc;
 }
 
 
