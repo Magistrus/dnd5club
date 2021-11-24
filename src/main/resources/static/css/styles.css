@@ -291,7 +291,7 @@ input::selection {
 }
 
 .login_form .remember_row {
-  padding: 12px 12px;
+  padding: 12px 12px 4px 12px;
 }
 
 .login_form .bottom {
@@ -1421,7 +1421,7 @@ tbody div.artifact.spell_lvl:after {
 }
 
 
-/******** Фильтры ********/
+/******** Filters / Фильтры ********/
 .search_panes {
   position: absolute;
   color:var(--text-color);
@@ -1450,19 +1450,28 @@ tbody div.artifact.spell_lvl:after {
 }
 
 .search_panes .dtsp-panesContainer .dtsp-titleRow button {
-  color: var(--primary);
+  color: var(--text-btn-color);
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
+  background: var(--primary);
 }
 
 .search_panes .dtsp-panesContainer .dtsp-titleRow button:disabled {
   color:var(--text-color);
   opacity: 0.6;
+  background: var(--bg-main);
+}
+
+.search_panes .dtsp-panesContainer .dtsp-titleRow button:disabled:hover {
+  color:var(--text-color);
+  opacity: 0.6;
+  background: var(--bg-main);
+  cursor: not-allowed !important;
 }
 
 .search_panes .dtsp-panesContainer .dtsp-titleRow button:hover {
-  color: var(--primary);
-  background: var(--hover);
+  color: var(--text-btn-color);
+  background: var(--primary-hover);
 }
 
 .search_panes .dtsp-panesContainer .dtsp-titleRow .dtsp-clearAll {
@@ -1472,6 +1481,7 @@ tbody div.artifact.spell_lvl:after {
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane {
   flex: 1 1 calc(50% - 8px);
   min-width: calc(50% - 8px);
+  margin: 16px 4px 0px 4px !important;
 }
 
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dataTables_wrapper {
@@ -1502,9 +1512,15 @@ tbody div.artifact.spell_lvl:after {
   background: var(--hover) !important;
 }
 
+div.dtsp-panesContainer div.dtsp-searchPanes {
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow {
   border-radius: 0px;
   border:1px solid var(--border);
+  flex-direction: row !important;
 }
 
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow:hover {
@@ -1518,6 +1534,11 @@ tbody div.artifact.spell_lvl:after {
 .search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow .dtsp-subRow2 .dtsp-buttonGroup button:disabled {
   color: var(--text-color);
   opacity: 0.6;
+}
+
+div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
+  height: auto !important;
+  max-height: 200px;
 }
 
 
