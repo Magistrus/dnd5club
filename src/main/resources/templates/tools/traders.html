@@ -6,20 +6,22 @@
 			<div class="header_block">
 				<h3>Торговец</h3>
 			</div>
-			<div id="scroll_load_simplebar" class="container_left">
-				Количество магии в мире: <select id="mageRang" name="mageRang">
+			<div class="tools_settings">
+				<label>Количество магии в мире:</label><select id="mageRang" name="mageRang">
 					<option value="1" th:selected="${mageRang eq 1}">Мало</option>
 					<option value="2" th:selected="${mageRang eq 2}" selected="selected">Норма</option>
 					<option value="3" th:selected="${mageRang eq 3}">Много</option>
 				</select>
-				<div><input id="result" type="number" min="1" name="result" class="form-control" placeholder="Результат проверки Харизмы (Убеждение)"/></div>
+				<div>
+					<label>Результат проверки Харизмы (Убеждение):</label> <input id="result" type="number" min="1" name="result" class="form-control" placeholder="Харизма (Убеждение)" />
+				</div>
 				<div class="btn-wrapper">
 					<button id="generate" class="btn btn_primary">Найти торговца</button>
 				</div>
-			</div>
-			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
-				<div class="content_block">
-					<div id="left_content_block"></div>
+				<div id="scroll_load_simplebar" data-simplebar>
+					<div class="content_block">
+						<div id="left_content_block"></div>
+					</div>
 				</div>
 			</div>
 		</div>
