@@ -1,17 +1,16 @@
 $(document).ready(function() {
+	let className = null;
 	if (selectedClass){
-		localStorage.setItem('selected_class', selectedClass);
+		className = selectedClass;
 	}
 	if (selectedArchetype){
 		localStorage.setItem('selected_archetype', selectedArchetype);
 	}
-	var className = localStorage.getItem('selected_class');
 	if (className){
 		var element = $('#'+className)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', className);
 		setActiveClass(element, className);
-		var className = element.querySelector("#classes_id").textContent;
 		document.getElementById('class_name').innerHTML = className;
 	}
 });

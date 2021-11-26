@@ -1,15 +1,14 @@
 $(document).ready(function() {
+	let raceName = null;
 	if (selectedRace){
-		localStorage.setItem('selected_race', selectedRace);
+		raceName = selectedRace;
 	}
 	if (selectedSubrace){
 		localStorage.setItem('selected_subrace', selectedSubrace);
 	}
-	var raceName = localStorage.getItem('selected_race');
 	if (raceName){
 		var element = $('#'+raceName)[0];
 		var rightContainer = document.getElementById('container_card');
-		rightContainer.classList.add('block_information', raceName);
 		setActiveRace(element, raceName);
 	}
 });
