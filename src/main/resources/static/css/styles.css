@@ -1247,7 +1247,7 @@ tbody div.artifact.spell_lvl:after {
 
 .screens .card_block .block {
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 calc(25% - 49px);
   max-width: calc(25% - 49px);
   border-right:1px solid var(--border);
   border-bottom:1px solid var(--border);
