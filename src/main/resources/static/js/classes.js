@@ -122,7 +122,11 @@ function setActiveClass(element, englishName) {
 		$('.btn_class').removeClass('active');
 		$('#class_traits')[0].classList.add('active');
 		var url = '/classes/fragment/' + englishName;
-		loadContent("content_block", url);
+		$("#content_block").load(url, function() {
+			$('#mobile_selector').change(function () {
+				setActiveArchetype(element, englishName, $('#mobile_selector').val());
+			});
+		});
 	}
 	localStorage.setItem('selected_class', element.id)
 	var url = '/classes/' + englishName + '/architypes/list';
@@ -166,7 +170,11 @@ function setActiveArchetype(element, className, archetypeName) {
 		loadDescription();
 	}else {
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
-		loadContent("content_block", url)
+		$("#content_block").load(url, function() {
+			$('#mobile_selector').change(function () {
+				setActiveArchetype(element, className, $('#mobile_selector').val());
+			});
+		});
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
 }

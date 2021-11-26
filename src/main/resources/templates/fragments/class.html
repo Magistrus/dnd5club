@@ -5,10 +5,12 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<th:block th:fragment="classInfo">
+		<th:block th:fragment="classInfo(selectedArchetype)">
 			<div class="classes_mobile_selector">
 				<select id="mobile_selector">
-					<option th:each="archetype : *{archetypes}" th:text="|${archetype.name} ${archetype.book.source}|"></option>
+					<option th:text="|---*{archetypeName}---|"></option>
+					<option th:each="archetype : *{archetypes}" th:value ="${archetype.englishName}" th:text="|${archetype.name} ${archetype.book.source}|"
+					th:selected="${archetype.englishName eq selectedArchetype}"></option>
 				</select>
 			</div>
 			<h4 class="header_separator mt">Хиты</h4>

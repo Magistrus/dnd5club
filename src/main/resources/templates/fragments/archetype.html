@@ -5,7 +5,7 @@
 </head>
 <body>
 	<th:block th:fragment="view" th:object="${heroClass}">
-		<div th:replace="fragments/class :: classInfo"></div>
+		<div th:replace="fragments/class :: classInfo(${selectedArchetype.englishName})"></div>
 		<div class="table-responsive" data-simplebar>
 			<table class="dnd5_table">
 				<thead>
