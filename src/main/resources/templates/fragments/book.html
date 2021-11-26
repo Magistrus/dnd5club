@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/datatable-layout}">
+<head>
+</head>
+<body>
+	<th:block th:object="${book}" th:fragment="view">
+		<th:block th:utext="*{description}">
+		</th:block>
+	</th:block>
+</body>
+</html>

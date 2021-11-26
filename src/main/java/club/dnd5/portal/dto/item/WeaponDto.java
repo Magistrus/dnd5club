@@ -16,7 +16,7 @@ public class WeaponDto {
 	private int id;
 	private String name;
 	private String englishName;
-	private String cost;
+	private String cost = "-";
 	private String damage;
 	private String damageType;
 	private String versatile;
@@ -32,7 +32,9 @@ public class WeaponDto {
 		id = weapon.getId();
 		name = weapon.getName();
 		englishName = weapon.getEnglishName();
-		cost = weapon.getCost() + " " + weapon.getCurrency().getName();
+		if (weapon.getCost() != null) {
+			cost = weapon.getCost() + " " + weapon.getCurrency().getName();
+		}
 		weight = String.valueOf(weapon.getWeight());
 		damage = weapon.getNumberDice() == null ? "0" : weapon.getNumberDice() + (weapon.getDamageDice() == null ? "" : weapon.getDamageDice().getName());
 		damageType = weapon.getDamageType().getCyrilicName();

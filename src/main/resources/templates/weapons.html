@@ -11,12 +11,15 @@
 				<h3>Оружие</h3>
 				<div class="filter_block">
 					<input type="text" id="search" class="search_int" placeholder="Поиск">
+					<div id="text_clear" class="btn_text_clear tip" title="Очистить">
+						<div class="icon_action icon_close"></div>
+					</div>
 					<div id="btn_filters" class="btn_filters tip" title="Фильтры">
 						<div class="icon_action icon_filters"></div>
 					</div>
 				</div>
 			</div>
-			<div id = "searchPanes" class="search_panes"></div>
+			<div id="searchPanes" class="search_panes"></div>
 			<div id="scroll_load_simplebar" class="container_left table_list">
 				<table id="weapons" class="table_list spells_list" th:fragment="table">
 					<thead style="display: none">
@@ -26,7 +29,6 @@
 							<th>Название</th>
 							<th>Тип урона</th>
 							<th>Стоимость</th>
-							
 						</tr>
 					</thead>
 				</table>
