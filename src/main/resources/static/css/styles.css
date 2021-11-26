@@ -926,12 +926,16 @@ input::selection {
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
   flex: 1 0 calc(100% - 291px);
-  height: auto;
+  height: calc(100vh - 73px);
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    
   border-image-width: auto;
   border-image-outset: 0px 25px 0px 0px;
+}
+
+#right_block.sub_menu_block .info_wrapper .content_block {
+  height: calc(100vh - 119px);
 }
 
 #right_block .info_wrapper .content_block #content_block {
@@ -2092,16 +2096,14 @@ button {
     height: calc(100vh - 190px);
   }
 
+  #right_block.sub_menu_block .info_wrapper .content_block {
+    height: calc(100vh - 192px);
+  }
+
 
   /******** Информация о заклинание / spells ********/
   #right_block.spells .info_wrapper {
     height: calc(100vh - 145px);
-  }
-
-
-  /******** Классы / classes ********/
-  #right_block.classes .info_wrapper .content_block {
-    height: calc(100vh - 192px);
   }
 
 
