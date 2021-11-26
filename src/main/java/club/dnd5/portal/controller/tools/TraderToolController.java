@@ -1,11 +1,14 @@
 package club.dnd5.portal.controller.tools;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
@@ -32,9 +35,32 @@ public class TraderToolController {
 
 	@GetMapping("/tools/trader")
 	public String getTreasuryTool() {
-		return "tools/trader";
+		return "tools/traders";
 	}
-	
+
+	@GetMapping("/tools/trader/result")
+	public String generateTraider(Model model, Integer result, Integer mageRang) {
+		int coef = 0;
+		if (mageRang == 1) {
+			coef = -10;
+		} else if (mageRang == 3) {
+			coef = 10;
+		}
+		List<ItemMagicDto> list = new ArrayList<>();
+		list.addAll(getMagicThings(result + coef, 1, 5, "А", 6));
+		list.addAll(getMagicThings(result + coef, 6, 10, "Б", 4));
+		list.addAll(getMagicThings(result + coef, 11, 15, "В", 4));
+		list.addAll(getMagicThings(result + coef, 16, 20, "Г", 4));
+		list.addAll(getMagicThings(result + coef, 21, 25, "Д", 4));
+		list.addAll(getMagicThings(result + coef, 26, 30, "Е", 4));
+		list.addAll(getMagicThings(result + coef, 31, 35, "Е1", 4));
+		list.addAll(getMagicThings(result + coef, 36, 40, "Ж", 4));
+		list.addAll(getMagicThings(result + coef, 41, 1000, "З", 4));
+		Collections.sort(list, Comparator.comparing(t -> Integer.valueOf(t.getCost())));
+		model.addAttribute("items", list);
+		return "fragments/trader :: view";
+	}
+
 	private List<ItemMagicDto> getMagicThings(Integer result, int start, int end, String tableName, int count) {
 		if (result == null) {
 			result = 1;
