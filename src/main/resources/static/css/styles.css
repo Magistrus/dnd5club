@@ -1716,9 +1716,27 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   height: calc(100vh - 248px);
 }
 
+#left_block.trader .container_left {
+  height: calc(100vh - 248px);
+}
+
 .tools_block_result {
   border-bottom: 1px solid var(--border);
   padding: 12px 0 0 0;
+}
+
+#left_block.trader .table_list {
+  text-align: left;
+}
+
+#left_block.trader .table_list .spell_name {
+  font-size: 15px;
+  line-height: 42px;
+  font-weight: 400;
+  margin-left: 58px;
+  vertical-align: middle;
+  height: 42px;
+  display: table-cell;
 }
 
 
