@@ -39,6 +39,10 @@ body {
   margin-top: -24px;
 }
 
+.w_100 {
+  width: 100%;
+}
+
 .hide_block {
   display: none !important;
 }
@@ -188,14 +192,13 @@ label.check_block span {
 
 .check-wrapper {
   margin-top: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 24px;
 }
 
 .check-wrapper label.check_block {
   display: inline-block;
   margin-right: 16px;
 }
-
 
 
 /******** Тул типы / tool tip ********/
@@ -261,6 +264,53 @@ input::selection {
 
 .btn_text_clear .icon_action {
   margin: 11px auto;
+}
+
+.select_box {
+  color: var(--text-color);
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  margin-right: 24px;
+  position: relative;
+}
+
+.select_box .select {
+  appearance: none;
+  outline: 0;
+  height: 36px;
+  background-color: var(--bg-main);
+  background-image: none;
+  padding: 0px 46px 0 12px;
+  color: var(--text-color);
+  border: 1px solid var(--border);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.select_arrow:before {
+  content: '\25BC';
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 1px;
+  padding: 10px 0 0 0;
+  background-color: var(--bg-secondary);
+  transition: .25s all ease;
+  pointer-events: none;
+  color: var(--text-color);
+  width: 36px;
+  height: 26px;
+  text-align: center;
+  /* border-bottom: 1px solid var(--border); */
+}
+
+.select_box.select_arrow:before {
+  top: 24px !important;
+}
+
+.select_box span + .select     {
+  margin-top: 8px;
 }
 
 
@@ -1462,6 +1512,20 @@ tbody div.artifact.spell_lvl:after {
 }
 
 
+/******** Armors / Броня ********/
+.armors .filters .filter_block .btn_filters {
+  display: none !important;
+}
+
+.armors .filters .filter_block .search_int {
+  width: calc(100% - 54px) !important;
+}
+
+.armors .filters .filter_block .btn_text_clear {
+  right: 0px;
+}
+
+
 /******** Filters / Фильтры ********/
 .search_panes {
   position: absolute;
@@ -1604,7 +1668,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 /******** Кнопки ********/
 .btn-wrapper {
-  padding: 16px 0 8px 0;
+  padding: 0px 0 8px 0;
 }
 
 button {
