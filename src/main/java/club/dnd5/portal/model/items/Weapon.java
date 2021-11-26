@@ -31,7 +31,7 @@ public class Weapon {
 	
 	private String name;
 	private String englishName;
-	private int cost;
+	private Integer cost;
 	
 	@Enumerated(EnumType.ORDINAL)
 	private Currency currency;
