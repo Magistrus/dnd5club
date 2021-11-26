@@ -25,10 +25,10 @@ $(document).ready(function() {
 	});
 
 	Tipped.delegate('.tip', {
-		skin: localStorage.getItem('theme'),
+		skin: 'dnd5',
 	});
 	Tipped.delegate('.tip_scroll', {
-		skin: localStorage.getItem('theme'),
+		skin: 'dnd5',
 		afterUpdate: function(content, element) {
 			content.classList.add('tooltip_scroll');
 		},
@@ -55,7 +55,7 @@ $(document).ready(function() {
 			var simpleBar = new SimpleBar(content);
 		   	simpleBar.recalculate();
 		},
-	    skin: localStorage.getItem('theme'),
+	    skin: 'dnd5',
 	});
 	$.sidebarMenu($('.sidebar-menu'));
 	$('.ajax-popup-link').magnificPopup({

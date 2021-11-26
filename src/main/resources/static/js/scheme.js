@@ -9,21 +9,17 @@ $(document).ready(function() {
 		setThemeDark(element);
 	}
 });
-
 function switchTheme() {
 	var element = document.getElementById('theme_css');
 	var check = element.classList[0] === 'light';
 	if (check) {
 		localStorage.setItem('theme', 'dark');
-		Tipped.setDefaultSkin('dark');
 		setThemeDark(element);
 	} else {
 		localStorage.setItem('theme', 'light');
-		Tipped.setDefaultSkin('light');
 		setThemeLight(element);
 	}
 }
-
 function setThemeDark(element){
 	document.getElementById('theme_mode').innerHTML= 'Светлая тема';
 	document.getElementById('theme_mode_link').innerHTML= 'Светлая тема';

@@ -1,9 +1,9 @@
 $(document).ready(function() {
+	let selected = null;
 	if (selectedCondition){
-		localStorage.setItem('selected_condition', selectedCondition);
+		selected = selectedCondition;
 	}
-	var selected = localStorage.getItem('selected_condition');
-	if (selected !== 'undefined'){
+	if (selected){
 		var element = $('#'+selected)[0];
 		var rightContainer = document.getElementById('container_card');
 		rightContainer.classList.add('block_information', selected);
