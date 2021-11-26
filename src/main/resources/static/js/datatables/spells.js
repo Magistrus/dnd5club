@@ -137,23 +137,6 @@ $(document).ready(function() {
 		selectSpell(row.data());
 		selectedSpell = null;
 	});
-	$('#search').on( 'keyup click', function () {
-		if($(this).val()){
-			$('#text_clear').show();
-		}
-		else {
-			$('#text_clear').hide();
-		}
-		table.tables().search($(this).val()).draw();
-		rowSelectIndex = 0;
-	});
-	$('#btn_full_screen').on('click', function() {
-		//$('#left_block')[0].style.display = 'none';
-	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#spells').DataTable();
-		table.searchPanes.container().toggle();
-	});
 });
 function selectSpell(data){
 	$('#spell_name').html(data.name);
@@ -183,6 +166,25 @@ function selectSpell(data){
 	const url = '/spells/fragment/' + data.id;
 	$("#content_block").load(url);
 }
+var timer, delay = 300;
+$('#search').bind('keydown blur change', function(e) {
+    var _this = $(this);
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+		if($('#search').val()){
+			$('#text_clear').show();
+		}
+		else {
+			$('#text_clear').hide();
+		}
+		const table = $('#spells').DataTable();
+		table.tables().search($('#search').val()).draw();
+    }, delay );
+});
+$('#btn_filters').on('click', function() {
+	var table = $('#spells').DataTable();
+	table.searchPanes.container().toggle();
+});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	const table = $('#spells').DataTable();
@@ -193,4 +195,7 @@ $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_spell');
 	history.pushState('data to be passed', 'Заклинания', '/spells/');
+});
+$('#btn_full_screen').on('click', function() {
+	//$('#left_block')[0].style.display = 'none';
 });
