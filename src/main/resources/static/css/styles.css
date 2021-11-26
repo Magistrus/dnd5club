@@ -2251,7 +2251,7 @@ button {
   background: rgba(0, 0, 0, 0.7);
   transition: opacity 500ms;
   visibility: hidden;
-  opacity: ;
+  opacity: 0;
 }
 
 .overlay.visible {
