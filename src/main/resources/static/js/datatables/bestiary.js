@@ -138,6 +138,12 @@ $(document).ready(function() {
 		selectedCreature = null;
 	});
 	$('#search').on( 'keyup click', function () {
+		if($(this).val()){
+			$('#text_clear').show();
+		}
+		else {
+			$('#text_clear').hide();
+		}
 		table.tables().search($(this).val()).draw();
 		rowSelectIndex = 0;
 	});
@@ -145,6 +151,12 @@ $(document).ready(function() {
 		var table = $('#creatures').DataTable();
 		table.searchPanes.container().toggle();
 	})
+});
+$('#text_clear').on('click', function () {
+	$('#search').val('');
+	var table = $('#creatures').DataTable();
+	table.tables().search($(this).val()).draw();
+	$('#text_clear').hide();
 });
 function selectCreature(data){
 	document.getElementById('creature_name').innerHTML = data.name;
