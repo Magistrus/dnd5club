@@ -2108,10 +2108,6 @@ button {
 
 
   /******** Расы / races ********/
-  #right_block.races .info_wrapper .content_block {
-    height: calc(100vh - 192px);
-  }
-
   #right_block.races .info_wrapper .content_block .sub_menu_list li.avatar img {
     max-width:100%;
   }
