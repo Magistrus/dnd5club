@@ -23,18 +23,25 @@ $(document).ready(function() {
 				}
 				return data;
 			}
-		}, 
+		},
 		{
 			data : 'englishName',
+		},
+		{
+			data: "type",
+			searchable: false
 		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 1 ],
+				"targets": [ 1, 2 ],
 				"visible": false
 			},
 		],
-		order : [[0, 'asc']],
+        rowGroup: {
+            dataSrc: 'type',
+        },
+		order : [[2, 'desc'],[0, 'asc']],
 		language : {
 			processing : "Загрузка...",
 			searchPlaceholder: "Поиск ",
@@ -73,6 +80,10 @@ $(document).ready(function() {
 		var table = $('#books').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (data === undefined) {
+			return;
+		}
+		$('#book_name').html(data.name);
 		document.getElementById('type').innerHTML = data.type;
 		var source = '<span>' + data.id + '</span>';
 		document.getElementById('source').innerHTML = source;

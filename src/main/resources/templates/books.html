@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<head>
+<script th:src="@{/resources/js/datatables/rowGroup/dataTables.rowGroup.js}"></script>
+</head>
 <body id="body">
 	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
 		<div id="left_block">
@@ -22,13 +25,19 @@
 						<tr>
 							<th>Название</th>
 						</tr>
+						<tr>
+							<th>Английское Название</th>
+						</tr>
+						<tr>
+							<th>Категория</th>
+						</tr>
 					</thead>
 				</table>
 			</div>
 		</div>
 		<div id="right_block">
 			<div class="header_block">
-				<h3 id="rule_name">Название источника</h3>
+				<h3 id="book_name">Название источника</h3>
 				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
 					<div class="icon_action icon_full_screen"></div>
 				</div>
