@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<body id="body">
+	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
+		<div id="left_block">
+			<div class="header_block filters">
+				<h3>Источники</h3>
+				<div class="filter_block">
+					<input type="text" id="search" class="search_int" placeholder="Поиск">
+					<div id="btn_filters" class="btn_filters tip" title="Фильтры">
+						<div class="icon_action icon_filters"></div>
+					</div>
+				</div>
+			</div>
+			<div id = "searchPanes" class="search_panes"></div>
+			<div id="scroll_load_simplebar" class="container_left table_list">
+				<table id="books" class="table_list spells_list" th:fragment="table">
+					<thead style="display: none">
+						<tr>
+							<th>Название</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div id="right_block">
+			<div class="header_block">
+				<h3 id="rule_name">Название источника</h3>
+				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
+					<div class="icon_action icon_full_screen"></div>
+				</div>
+				<div id="btn_close" class="btn_close">
+					<div class="icon_action icon_close"></div>
+				</div>
+			</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div id="sub_menu" class="sub_menu_list">
+					<ul>
+						<li>
+							<h5>Категория:</h5> <span id="type">-</span>
+						</li>
+						<li>
+							<h5>Аббревиатура:</h5> <span id="source">-</span>
+						</li>
+					</ul>
+				</div>
+				<div class="content_block">
+					<div id="content_block"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script th:src="@{/resources/js/datatables/books.js}" layout:fragment="js-script"></script>
+</html>
