@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
 	<div id="list_page_two_block" class="no_close_left_block block_information table_list_left_block" layout:fragment="content">
-		<div id="left_block">
+		<div id="left_block" class="trader">
 			<div class="header_block">
 				<h3>Торговец</h3>
 			</div>
@@ -25,12 +25,12 @@
 					<button id="generate" class="btn btn_primary">Найти торговца</button>
 				</div>
 			</div>
-			<div id="scroll_load_simplebar" class="container_left table_list" data-simplebar>
-				<table id="trader_content" class="table_list spells_list">
+			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
+				<table id="trader_content" class="table_list spells_list dataTable">
 				</table>
 			</div>
 		</div>
-		<div id="right_block" class="backgrounds">
+		<div id="right_block" class="trader">
 			<div class="header_block">
 				<h3 id="background_name">В продаже</h3>
 				<div id="btn_full_screen" class="btn_full_screen tip" title="Делаем все что в наших силах">
