@@ -813,7 +813,6 @@ input::selection {
   position: fixed;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  /* overflow: hidden; */
   
   border-image-source: var(--border-img);
   border-image-slice: 1 1 1 fill;
@@ -828,14 +827,14 @@ input::selection {
 
 .block_information #right_block {
   right: 0px;
-  /* transition: right 0.3s; */
+  /* transition: right 0.6s; */
 }
 
-#right_block .header_block.sub_menu_block {
+#right_block.sub_menu_block .header_block {
   height: 118px;
 }
 
-#right_block .header_block.sub_menu_block .header_sub_menu {
+#right_block.sub_menu_block .header_block .header_sub_menu {
   height: 46px;
   width: auto;
   position: absolute;
@@ -853,7 +852,7 @@ input::selection {
   display: flex;
 }
 
-#right_block .header_block.sub_menu_block h3 {
+#right_block.sub_menu_block .header_block h3 {
   line-height: 72px;
   top: -24px;
   position: relative;
@@ -908,7 +907,7 @@ input::selection {
   height: calc(100vh - 73px);
 }
 
-#right_block .sub_menu_block + .info_wrapper {
+#right_block.sub_menu_block .info_wrapper {
   height: calc(100vh - 119px);
 
   border-image-source: var(--border-img);
@@ -927,7 +926,7 @@ input::selection {
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
   flex: 1 0 calc(100% - 291px);
-  height: calc(100vh - 121px);
+  height: auto;
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
   border-image-repeat: repeat repeat;    
@@ -1286,10 +1285,6 @@ tbody div.artifact.spell_lvl:after {
 
 }
 
-#right_block.classes .info_wrapper .content_block {
-  height: auto;
-}
-
 #right_block .info_wrapper li.avatar {
   width: 289px;
   max-height: 400px;
@@ -1387,14 +1382,6 @@ tbody div.artifact.spell_lvl:after {
 
 }
 
-#right_block.races .info_wrapper .content_block #content_block {
-  width: 100%;
-}
-
-#right_block.races .info_wrapper .content_block {
-  height: auto;
-}
-
 #right_block.races .info_wrapper .simplebar-content {
   display: flex;
 }
@@ -1468,9 +1455,6 @@ tbody div.artifact.spell_lvl:after {
   display: flex;
 }
 
-#right_block.bestiary .info_wrapper .content_block {
-  height:auto;
-}
 
 #right_block.bestiary .scores {
   margin: 20px 0;
