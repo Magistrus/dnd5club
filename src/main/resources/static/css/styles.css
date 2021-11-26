@@ -1551,15 +1551,15 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 
 /******** Инструменты / tools ********/
-#left_block.tools_block .tools_settings {
+#left_block .tools_settings {
   padding: 24px 24px 12px 24px;
 }
 
-#left_block.tools_block.wildmagic .container_left {
+#left_block.wildmagic .container_left {
   height: calc(100vh - 202px);
 }
 
-#left_block.tools_block.madness .container_left {
+#left_block.madness .container_left {
   height: calc(100vh - 248px);
 }
 
