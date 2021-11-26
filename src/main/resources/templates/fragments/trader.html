@@ -4,23 +4,19 @@
 </head>
 <body>
 	<th:block th:fragment="view">
-		<div id="scroll_load_simplebar" class="container_left table_list">
-			<table id="traders" class="table_list spells_list">
-				<thead style="display: none">
-					<tr>
-						<th>Название</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item : ${items}">
-						<th>
-							<div th:class="|tip spell_lvl ${item.rarityEnglish}|" title="${item.rarity}" th:text="${item.shortRarity}"></div>
-							<div class="spell_name" th:text="${item.name}"></div>
-						</th>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<thead style="display: none">
+			<tr>
+				<th>Название</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${items}" class="row_selected">
+				<th>
+					<div th:class="|tip spell_lvl ${item.rarityEnglish}|" th:title="${item.rarity}" th:text="${item.shortRarity}"></div>
+					<div class="spell_name" th:text="${item.name}"></div>
+				</th>
+			</tr>
+		</tbody>
 	</th:block>
 </body>
 </html>
