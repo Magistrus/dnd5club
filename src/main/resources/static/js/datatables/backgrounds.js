@@ -116,6 +116,12 @@ $(document).ready(function() {
 		selectedBackground = null;
 	});
 	$('#search').on( 'keyup click', function () {
+		if($(this).val()){
+			$('#text_clear').show();
+		}
+		else {
+			$('#text_clear').hide();
+		}
 		table.tables().search($(this).val()).draw();
 	});
 	$('#btn_filters').on('click', function() {
@@ -137,6 +143,12 @@ function selectBackground(data){
 	var url = '/backgrounds/fragment/' + data.id;
 	$("#content_block").load(url);
 }
+$('#text_clear').on('click', function () {
+	$('#search').val('');
+	var table = $('#backgrounds').DataTable();
+	table.tables().search($(this).val()).draw();
+	$('#text_clear').hide();
+});
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });

@@ -7,13 +7,16 @@
 				<h3>Предыстории</h3>
 				<div class="filter_block">
 					<input type="text" id="search" class="search_int" placeholder="Поиск">
+					<div id="text_clear" class="btn_text_clear tip" title="Очистить">
+						<div class="icon_action icon_close"></div>
+					</div>
 					<div id="btn_filters" class="btn_filters tip" title="Фильтры">
 						<div class="icon_action icon_filters"></div>
 					</div>
 				</div>
 			</div>
-			<div id = "searchPanes" class="search_panes"></div>
-			<div id= "scroll_load_simplebar" class="container_left table_list">
+			<div id="searchPanes" class="search_panes"></div>
+			<div id="scroll_load_simplebar" class="container_left table_list">
 				<table id="backgrounds" class="table_list spells_list" th:fragment="backgroundsTable">
 					<thead style="display: none">
 						<tr>
@@ -44,7 +47,6 @@
 						<li>
 							<h5>Владение инструментами:</h5> <span id="traits_tools">-</span>
 						</li>
-						
 						<li>
 							<h5>Языки:</h5> <span id="languages">-</span>
 						</li>
@@ -64,7 +66,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript" >
+		<script type="text/javascript" th:inline="javascript">
     		var selectedBackground = [[${selectedBackground}]];
 		</script>
 	</div>

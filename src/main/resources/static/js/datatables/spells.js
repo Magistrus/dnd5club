@@ -155,12 +155,6 @@ $(document).ready(function() {
 		table.searchPanes.container().toggle();
 	});
 });
-$('#text_clear').on('click', function () {
-	$('#search').val('');
-	var table = $('#spells').DataTable();
-	table.tables().search($(this).val()).draw();
-	$('#text_clear').hide();
-});
 function selectSpell(data){
 	$('#spell_name').html(data.name);
 	$('#level').html((data.level ===  0 ? '<span class=\"tip\" title=\"Заговор\">Фокус</span>, ' : data.level +' уровень, ') + data.school + (data.ritual ? ' (ритуал)' : ''));
@@ -186,9 +180,15 @@ function selectSpell(data){
 	});
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
-	var url = '/spells/fragment/' + data.id;
+	const url = '/spells/fragment/' + data.id;
 	$("#content_block").load(url);
 }
+$('#text_clear').on('click', function () {
+	$('#search').val('');
+	const table = $('#spells').DataTable();
+	table.tables().search($(this).val()).draw();
+	$('#text_clear').hide();
+});
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_spell');

@@ -19,6 +19,8 @@ public class CustomErrorController implements ErrorController {
                     return "error_404";
                 case 403:
                     return "error_403";
+                case 401:
+                    return "error_401";
                 case 500:
                     return "error_500";
             }
