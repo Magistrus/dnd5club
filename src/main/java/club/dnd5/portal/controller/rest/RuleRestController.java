@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -24,9 +25,10 @@ public class RuleRestController {
 	@GetMapping("/data/rules")
 	public DataTablesOutput<RuleDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
+		input.parseSearchPanesFromQueryParams(queryParameters, Arrays.asList("type"));
 		return repo.findAll(input, RuleDto::new);
 	}
-	
+
 	@PostMapping("/rules")
 	public RuleDto getSpell(Integer id) {
 		return new RuleDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
