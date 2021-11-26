@@ -12,6 +12,17 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+        searchPanes: {
+            initCollapsed: true,
+            viewCount: false,
+            dtOpts: {
+                select: {
+                    //style: 'multi'
+                },
+				searching: false,
+            },
+			orderable: false
+        },
 		columns : [
 		{
 			data : "name",
@@ -29,10 +40,26 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'alignment',
+			searchable: false,
+		},
+		{
+			data : 'domains',
+			searchable: false,
+		},
+		{
+			data : 'rank',
+			searchable: false,
+		},
+		{
+			data : 'sex',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 		{
-			"targets": [ 1 ],
+			"targets": [ 1, 2, 3, 4, 5 ],
 			"visible": false
 		},
 		],
@@ -49,7 +76,17 @@ $(document).ready(function() {
 				info : "Показано _TOTAL_",
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
-				loadingRecords: "Загрузка..."
+				loadingRecords: "Загрузка...",
+		        searchPanes: {
+		            title: {
+		                 _: 'Выбрано фильтров - %d',
+		                 0: 'Фильтры не выбраны',
+		                 1: 'Один фильтр выбран'
+		            },
+	                collapseMessage: 'Свернуть все',
+	                showMessage: 'Развернуть все',
+	                clearMessage: 'Сбросить фильтры'
+		        }
 		},
 		initComplete: function(settings, json) {
 		    $('#gods tbody tr:eq(0)').click();
@@ -63,6 +100,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
+		    table.searchPanes.container().prependTo($('#searchPanes'));
+		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 		    $('#gods tbody tr:eq(0)').click();
@@ -101,6 +140,10 @@ $(document).ready(function() {
 			$('#text_clear').hide();
 		}
 		table.tables().search($(this).val()).draw();
+	});
+	$('#btn_filters').on('click', function() {
+		var table = $('#gods').DataTable();
+		table.searchPanes.container().toggle();
 	});
 });
 $('#text_clear').on('click', function () {

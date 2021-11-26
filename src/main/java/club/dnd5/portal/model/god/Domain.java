@@ -19,10 +19,10 @@ public enum Domain {
 	NONE("Нет"),
 	ORDER("Порядок"),
 	TEMPEST("Буря"),
-	TRICKERY("Обман"),
+	TRICKERY("Хитрость"),
 	WAR("Война"),
 
-	STORM("Буря"),
+	STORM("Шторм"),
 	DECEPTION("Обман"),
 	UNDEFINE("Нет жрецов"); 
 
