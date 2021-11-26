@@ -7,7 +7,6 @@ $(document).ready(function() {
 		serverSide : true,
         deferRender: true,
 		iDisplayLength : 25,
-        //scrollCollapse: true,
 		select: true,
 		select: {
 			style: 'single'
