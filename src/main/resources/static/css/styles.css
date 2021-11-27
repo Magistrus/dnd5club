@@ -2207,13 +2207,6 @@ button {
   }
 }
 
-@media (max-height: 800px) {
-  .navbar .nav_links li {
-    margin-bottom: 8px !important;
-  }
-}
-
-
 
 
 
