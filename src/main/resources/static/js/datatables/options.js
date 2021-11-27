@@ -156,7 +156,7 @@ function selectOption(data){
 			a.href += '/' + element.archetypeName; 
 		}
 		a.title = element.name;
-		a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase());
+		a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase().replace(' ', '_'));
 		classIconsElement.appendChild(a);
 	});
 	document.title = data.name;
