@@ -1815,6 +1815,10 @@ button {
   background-image: var(--icon-information);
 }
 
+.icon_sources {
+  background-image: var(--icon-sources);
+}
+
 .icon_dark_mod {
   background-image: var(--icon-dark-mod);
 }
