@@ -110,7 +110,7 @@
   cursor: pointer;
 }
 
-.navbar .nav_links li:nth-child(11) {
+.navbar .nav_links li:last-child {
   margin-top: auto;
 }
 
