@@ -62,4 +62,8 @@ $(document).ready(function() {
 		  type: 'ajax',
 		  closeOnBgClick: true,
 	});
+	if(!localStorage.getItem('first_visit')){
+		$('#popup1').addClass('visible');
+		localStorage.setItem('first_visit', ' ')
+	}
 });
