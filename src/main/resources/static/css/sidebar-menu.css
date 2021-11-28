@@ -299,7 +299,7 @@
     height: 72px;
     width: 100%;
     border-right:none;
-    background: var(--bg-main);
+    background: var(--bg-main) !important;
     z-index: 102;
     overflow: hidden;
     transition:height 0.1s ;
@@ -348,7 +348,7 @@
     bottom: 72px;
     left: 0;
     right: 0;
-    background: var(--bg-main);
+    background: var(--bg-main) !important;
   }
 
   .navbar .nav_links {
