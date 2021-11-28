@@ -64,9 +64,6 @@ $('#class_spells').on('click', function() {
 	localStorage.setItem('class_info', 'spells');
 	// тут должна быть загрузка заклинаний класса
 });
-$('#btn_full_screen').on('click', function() {
-	// тут должен быт код по раскрытию на весь экран
-});
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
 	$(".card").removeClass('active');
