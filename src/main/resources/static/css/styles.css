@@ -63,6 +63,10 @@ body {
   background-image: var(--icon_full_screen);
 }
 
+.icon_exet_full_screen {
+  background-image: var(--icon_exet_full_screen);
+}
+
 .icon_close {
   background-image: var(--icon_close);
 }
@@ -445,7 +449,7 @@ input::selection {
 }
 
 .full_screen_right_block {
-  
+
 }
 
 
@@ -725,6 +729,10 @@ input::selection {
   font-size: 28px;
 }
 
+.header_block .header_row {
+  display: flex;
+}
+
 
 /******** Левый блок ********/
 #left_block {
@@ -870,6 +878,7 @@ input::selection {
 
 #right_block.sub_menu_block .header_block h3 {
   position: relative;
+  width: 100%;
 }
 
 #right_block .header_block .header_sub_menu button {
@@ -892,30 +901,61 @@ input::selection {
   margin-right: 16px;
 }
 
+#right_block .header_block .btn_exet_full_screen,
 #right_block .header_block .btn_full_screen,
 #right_block .header_block .btn_close {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  width: 72px;
+  min-width: 72px;
+  flex: 1 0 72px;
   height: 72px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
-  right: 0;
-  top: 0px;
+  position: relative;
+  cursor: pointer;
 }
 
+/* #right_block .header_block .btn_exet_full_screen,
 #right_block .header_block .btn_full_screen {
   right: 73px;
   top: 0px;
 }
 
+#right_block .header_block .btn_exet_full_screen:hover,
 #right_block .header_block .btn_full_screen:hover,
 #right_block .header_block .btn_close:hover {
   background-color: var(--hover);
   cursor: pointer;
 }
+
+#right_block .header_block .btn_exet_full_screen {
+  display: none !important;
+}
+
+#right_block .header_block .btn_full_screen {
+  display: flex !important;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_exet_full_screen {
+  display: flex !important;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_full_screen {
+  display: none !important;
+}
+
+.no_close_left_block.block_information #right_block .header_block .btn_full_screen,
+.table_list_left_block.block_information #right_block .header_block .btn_full_screen {
+  right: 0;
+}
+
+@media (min-width: 1000px) {
+  .no_close_left_block.block_information #right_block .header_block .btn_close,
+  .table_list_left_block.block_information #right_block .header_block .btn_close {
+    display: none;
+  }
+} */
 
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
@@ -1202,18 +1242,6 @@ input::selection {
 .table_list_left_block .spells_list tr .spell_school {
   color: var(--text-g-color);
   text-transform: capitalize;
-}
-
-.no_close_left_block.block_information #right_block .header_block .btn_full_screen,
-.table_list_left_block.block_information #right_block .header_block .btn_full_screen {
-  right: 0;
-}
-
-@media (min-width: 1000px) {
-  .no_close_left_block.block_information #right_block .header_block .btn_close,
-  .table_list_left_block.block_information #right_block .header_block .btn_close {
-    display: none;
-  }
 }
 
 tbody div.uncommon.spell_lvl:after {

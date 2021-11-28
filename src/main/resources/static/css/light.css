@@ -77,6 +77,7 @@
 :root {
 --folded: url(/resources/assets/icon/light/folded.svg);
 --icon_full_screen: url(/resources/assets/icon/light/full_screen.svg);
+--icon_exet_full_screen: url(/resources/assets/icon/light/exet_full_screen.svg);
 --icon_close: url(/resources/assets/icon/light/close.svg);
 --icon_search: url(/resources/assets/icon/light/search.svg);
 --icon_filters: url(/resources/assets/icon/light/filters.svg);
