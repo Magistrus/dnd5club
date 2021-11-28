@@ -432,17 +432,18 @@ input::selection {
 }
 
 /******** Правый блок во весь экран / Full screen ********/
-.full_screen_right_block #right_block {
+.full_screen_right_block .block_information #right_block {
   width: calc(100vw - 270px);
 }
 
-.full_screen_right_block.compact_menu #right_block {
+.full_screen_right_block.compact_menu .block_information #right_block {
   width: calc(100vw - 72px);
 }
 
 .full_screen_right_block .block_information #left_block {
   margin-right: 0px;
 }
+
 
 /******** Главная ********/
 .main_page_wrapper h3 {
