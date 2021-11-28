@@ -841,7 +841,6 @@ input::selection {
   left: 0px;
   right: 0px;
   bottom: 0;
-  /* background-image: var(--bg-img-row); */
 
   border-top:1px solid var(--border);
   border-image-source: var(--border-top);
@@ -1004,13 +1003,12 @@ input::selection {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-right: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li {
   position: relative;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
