@@ -876,7 +876,7 @@ input::selection {
   display: flex;
 }
 
-#right_block.sub_menu_block .header_block h3 {
+#right_block .header_block h3 {
   position: relative;
   width: 100%;
 }
@@ -1018,6 +1018,7 @@ input::selection {
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
   position: relative;
+  width: 100%;
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
