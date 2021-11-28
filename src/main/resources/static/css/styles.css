@@ -939,40 +939,6 @@ input::selection {
   display: none;
 }
 
-/* #right_block .header_block .btn_exet_full_screen,
-#right_block .header_block .btn_full_screen {
-  right: 73px;
-  top: 0px;
-}
-
-#right_block .header_block .btn_exet_full_screen {
-  display: none !important;
-}
-
-#right_block .header_block .btn_full_screen {
-  display: flex !important;
-}
-
-#body.full_screen_right_block #right_block .header_block .btn_exet_full_screen {
-  display: flex !important;
-}
-
-#body.full_screen_right_block #right_block .header_block .btn_full_screen {
-  display: none !important;
-}
-
-.no_close_left_block.block_information #right_block .header_block .btn_full_screen,
-.table_list_left_block.block_information #right_block .header_block .btn_full_screen {
-  right: 0;
-}
-
-@media (min-width: 1000px) {
-  .no_close_left_block.block_information #right_block .header_block .btn_close,
-  .table_list_left_block.block_information #right_block .header_block .btn_close {
-    display: none;
-  }
-} */
-
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
   border-top: 1px solid var(--border);
@@ -1018,7 +984,7 @@ input::selection {
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
   position: relative;
-  width: 100%;
+  /* width: 100%; */
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -1549,6 +1515,7 @@ tbody div.artifact.spell_lvl:after {
   margin-right: 4px;
   margin-left: 4px;
   margin-bottom: 8px;
+  padding: 0 12px;
 }
 
 .races .content_block .scores .score h4 {
