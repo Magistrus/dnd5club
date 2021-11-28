@@ -63,6 +63,10 @@ body {
   background-image: var(--icon_full_screen);
 }
 
+.icon_exet_full_screen {
+  background-image: var(--icon_exet_full_screen);
+}
+
 .icon_close {
   background-image: var(--icon_close);
 }
@@ -431,6 +435,24 @@ input::selection {
   position: relative;
 }
 
+/******** Правый блок во весь экран / Full screen ********/
+.full_screen_right_block .block_information #right_block {
+  width: calc(100vw - 270px);
+}
+
+.full_screen_right_block.compact_menu .block_information #right_block {
+  width: calc(100vw - 72px);
+}
+
+.full_screen_right_block .block_information #left_block {
+  margin-right: 0px;
+}
+
+.full_screen_right_block {
+
+}
+
+
 /******** Главная ********/
 .main_page_wrapper h3 {
   display: flex;
@@ -708,7 +730,7 @@ input::selection {
 }
 
 .header_block .header_row {
-
+  display: flex;
 }
 
 
@@ -856,6 +878,7 @@ input::selection {
 
 #right_block.sub_menu_block .header_block h3 {
   position: relative;
+  width: 100%;
 }
 
 #right_block .header_block .header_sub_menu button {
@@ -878,30 +901,77 @@ input::selection {
   margin-right: 16px;
 }
 
+#right_block .header_block .btn_exet_full_screen,
 #right_block .header_block .btn_full_screen,
 #right_block .header_block .btn_close {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  width: 72px;
+  min-width: 72px;
+  flex: 1 0 72px;
   height: 72px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
-  right: 0;
-  top: 0px;
+  position: relative;
+  cursor: pointer;
 }
 
+#right_block .header_block .btn_exet_full_screen:hover,
+#right_block .header_block .btn_full_screen:hover,
+#right_block .header_block .btn_close:hover {
+  background-color: var(--hover);
+}
+
+#right_block .header_block .btn_exet_full_screen {
+  display: none;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_exet_full_screen {
+  display: flex;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_full_screen {
+  display: none;
+}
+
+.no_close_left_block.block_information #right_block .header_block .btn_close,
+.table_list_left_block.block_information #right_block .header_block .btn_close {
+  display: none;
+}
+
+/* #right_block .header_block .btn_exet_full_screen,
 #right_block .header_block .btn_full_screen {
   right: 73px;
   top: 0px;
 }
 
-#right_block .header_block .btn_full_screen:hover,
-#right_block .header_block .btn_close:hover {
-  background-color: var(--hover);
-  cursor: pointer;
+#right_block .header_block .btn_exet_full_screen {
+  display: none !important;
 }
+
+#right_block .header_block .btn_full_screen {
+  display: flex !important;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_exet_full_screen {
+  display: flex !important;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_full_screen {
+  display: none !important;
+}
+
+.no_close_left_block.block_information #right_block .header_block .btn_full_screen,
+.table_list_left_block.block_information #right_block .header_block .btn_full_screen {
+  right: 0;
+}
+
+@media (min-width: 1000px) {
+  .no_close_left_block.block_information #right_block .header_block .btn_close,
+  .table_list_left_block.block_information #right_block .header_block .btn_close {
+    display: none;
+  }
+} */
 
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
@@ -932,7 +1002,7 @@ input::selection {
 
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
-  flex: 1 0 calc(100% - 291px);
+  flex: 1 0 calc(100% - 294px);
   height: calc(100vh - 73px);
   border-image-source: var(--border-left);
   border-image-slice: 1 1 1 fill;
@@ -1188,18 +1258,6 @@ input::selection {
 .table_list_left_block .spells_list tr .spell_school {
   color: var(--text-g-color);
   text-transform: capitalize;
-}
-
-.no_close_left_block.block_information #right_block .header_block .btn_full_screen,
-.table_list_left_block.block_information #right_block .header_block .btn_full_screen {
-  right: 0;
-}
-
-@media (min-width: 1000px) {
-  .no_close_left_block.block_information #right_block .header_block .btn_close,
-  .table_list_left_block.block_information #right_block .header_block .btn_close {
-    display: none;
-  }
 }
 
 tbody div.uncommon.spell_lvl:after {
@@ -1483,13 +1541,12 @@ tbody div.artifact.spell_lvl:after {
 
 .races .content_block .scores .score {
   text-align: center;
-  width: auto;
-  min-width: 18%;
-  max-width: 25%;
-  flex: 1 1 auto;
+  min-width: calc(20% - 8px);
+  flex: 1 1 calc(20% - 8px);
   background-color: var(--hover);
   border-radius: 4px;
-  margin-right: 8px;
+  margin-right: 4px;
+  margin-left: 4px;
   margin-bottom: 8px;
 }
 
@@ -1508,8 +1565,13 @@ tbody div.artifact.spell_lvl:after {
 
 @media (max-width: 1500px) {
   .races .content_block .scores .score {
-    min-width: 30%;
-    max-width: 30%;
+    min-width: calc(33% - 8px);
+    flex: 1 1 calc(33% - 8px);
+  }
+
+  #body.full_screen_right_block .races .content_block .scores .score {
+    min-width: calc(20% - 8px);
+    flex: 1 1 calc(20% - 8px);
   }
 }
 
@@ -2106,30 +2168,48 @@ button {
   #right_block .info_wrapper .content_block #content_block {
     width: auto;
   }
-  
+
   #right_block .info_wrapper .simplebar-content {
     flex-direction: column;
   }
-  
-  #right_block .header_block .btn_full_screen{
-    display: none;
-  }
 
+  #body.full_screen_right_block #right_block .info_wrapper .simplebar-content {
+    flex-direction: row;
+  }
+  
   #right_block .info_wrapper .sub_menu_list {
     width: auto;
     flex:1 1 auto;
+  }
+
+  #body.full_screen_right_block #right_block .info_wrapper .sub_menu_list {
+    width: 290px;
+    flex: 1 0 290px;
   }
 
   #right_block.classes .info_wrapper .sub_menu_list {
     display: none;
   }
 
+  #body.full_screen_right_block #right_block.classes .info_wrapper .sub_menu_list {
+    display: block;
+    min-width: 290px;
+  }
+
   #right_block.classes .content_block .classes_mobile_selector {
     display: flex;
   }
 
+   #body.full_screen_right_block #right_block.classes .content_block .classes_mobile_selector {
+    display: none;
+  }
+
   #right_block.classes .content_block h4.mt {
     margin-top: 22px !important;
+  }
+
+    #body.full_screen_right_block #right_block.classes .content_block h4.mt {
+    margin-top: -24px !important;
   }
 
   #right_block .header_block .header_sub_menu button {
@@ -2168,8 +2248,13 @@ button {
 
   /******** Расы / races ********/
   .races .content_block .scores .score {
-    min-width: 45%;
-    max-width: 48%;
+    min-width: calc(50% - 8px);
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  #body.full_screen_right_block .races .content_block .scores .score {
+    min-width: calc(33% - 8px);
+    flex: 1 1 calc(33% - 8px);
   }
 
   .races .info_wrapper > .sub_menu_list {
@@ -2201,6 +2286,10 @@ button {
 
   #right_block.sub_menu_block .info_wrapper .content_block {
     height: calc(100vh - 192px);
+  }
+
+  #right_block .header_block .btn_full_screen{
+    display: none;
   }
 
 
