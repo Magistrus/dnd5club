@@ -950,6 +950,7 @@ input::selection {
   position: relative;
   width: 290px;
   flex: 1 0 290px;
+  background: var(--bg-sub-menu);
 }
 
 #right_block .info_wrapper .sub_menu_list ul {
@@ -964,12 +965,6 @@ input::selection {
   padding-bottom: 16px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 #right_block .info_wrapper .sub_menu_list li .classes_icon {
@@ -1011,12 +1006,14 @@ input::selection {
   padding-bottom: 12px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
+  border-left: 3px solid transparent;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li:hover {
   background-color: var(--hover);
+  border-left: 3px solid transparent;
   transition: background-color 0.3s;
 }
 
@@ -1069,15 +1066,18 @@ input::selection {
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu {
   cursor: auto;
   border-bottom: none;
-  background-color: var(--bg-sub-menu);
+  background-color: var(--hover);
+  border-left: 3px solid transparent;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu h5{
   margin: 0;
+  font-size: 22px;
+  font-weight: 300;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu:hover {
-  background-color: var(--bg-sub-menu);
+  background-color: var(--hover);
 }
 
 
