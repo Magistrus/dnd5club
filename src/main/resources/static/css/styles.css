@@ -1134,7 +1134,6 @@ input::selection {
 .table_list_left_block .table_list tr:hover.selected {
   background: var(--border);
 
-  background-image: var(--bg-title-img-2);
   background-position: top left;
   background-repeat: no-repeat;
 }
