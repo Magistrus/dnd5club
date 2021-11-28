@@ -723,6 +723,7 @@ input::selection {
   margin-right: 0px;
   margin-left: 0px;
   position: relative;
+  width: calc (100vw - var(--width-right-block));
 }
 
 .block_information #left_block {
@@ -810,7 +811,8 @@ input::selection {
 
 /******** Правй блок ********/
 #right_block {
-  width: calc(58vw - 0px);
+  --width-right-block:calc(58vw - 0px);
+  width: var(--width-right-block);
   top: 0;
   right: calc(-58vw - 1px);
   /* transition: width 0.6s; */
