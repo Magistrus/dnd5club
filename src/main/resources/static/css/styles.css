@@ -916,17 +916,33 @@ input::selection {
   cursor: pointer;
 }
 
-/* #right_block .header_block .btn_exet_full_screen,
-#right_block .header_block .btn_full_screen {
-  right: 73px;
-  top: 0px;
-}
-
 #right_block .header_block .btn_exet_full_screen:hover,
 #right_block .header_block .btn_full_screen:hover,
 #right_block .header_block .btn_close:hover {
   background-color: var(--hover);
-  cursor: pointer;
+}
+
+#right_block .header_block .btn_exet_full_screen {
+  display: none;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_exet_full_screen {
+  display: flex;
+}
+
+#body.full_screen_right_block #right_block .header_block .btn_full_screen {
+  display: none;
+}
+
+.no_close_left_block.block_information #right_block .header_block .btn_close,
+.table_list_left_block.block_information #right_block .header_block .btn_close {
+  display: none;
+}
+
+/* #right_block .header_block .btn_exet_full_screen,
+#right_block .header_block .btn_full_screen {
+  right: 73px;
+  top: 0px;
 }
 
 #right_block .header_block .btn_exet_full_screen {
