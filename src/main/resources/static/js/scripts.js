@@ -21,14 +21,6 @@ $(document).ready(function() {
 	  }
 	}
 
-	document.getElementById('btn_full_screen').onclick = function() {
-		document.getElementById('body').classList.toggle('full_screen_right_block');
-	}
-
-	document.getElementById('btn_exet_full_screen').onclick = function() {
-		document.getElementById('body').classList.toggle('full_screen_right_block');
-	}
-
 	checkWidth(); // проверит при загрузке страницы
 	$(window).resize(function(){
 	  checkWidth(); // проверит при изменении размера окна клиента
