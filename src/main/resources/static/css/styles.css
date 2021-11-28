@@ -1508,8 +1508,8 @@ tbody div.artifact.spell_lvl:after {
 
 .races .content_block .scores .score {
   text-align: center;
-  min-width: calc(20% - 8px);
-  flex: 1 1 calc(20% - 8px);
+  min-width: calc(20% - 32px);
+  flex: 1 1 calc(20% - 32px);
   background-color: var(--hover);
   border-radius: 4px;
   margin-right: 4px;
