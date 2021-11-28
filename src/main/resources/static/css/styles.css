@@ -327,6 +327,11 @@ input::selection {
   background-color: var(--primary) !important;
 }
 
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  top:0px;
+  bottom: 0px;
+}
+
 
 /******** Форма входа / login_form ********/
 .login_form {
@@ -652,7 +657,7 @@ input::selection {
 }
 
 
-/******** Классы ********/
+/******** Классы карточки ********/
 .card_wrapper .card .icon {
   display: block;
   width: 83px;
@@ -665,21 +670,15 @@ input::selection {
 /******** Общее по блокам ********/
 .header_block {
   display: flex;
-  align-items: center;
+  align-items: left;
+  flex-direction: column;
   height: 72px;
-  padding-left: 24px;
   position: sticky;
   background-color: var(--bg-main);
   background-image: var(--bg-title-img);
   background-position:top left;
   background-repeat:no-repeat;
   border-right: 1px solid var(--border);
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 .header_block .filter_block {
@@ -701,10 +700,15 @@ input::selection {
   height: 118px;
 }
 
-.header_block.filters h3 {
+.header_block h3 {
   line-height: 72px;
-  top: -24px;
   position: relative;
+  padding-left: 24px;
+  font-size: 28px;
+}
+
+.header_block .header_row {
+
 }
 
 
@@ -719,6 +723,7 @@ input::selection {
   margin-right: 0px;
   margin-left: 0px;
   position: relative;
+  width: calc (100vw - var(--width-right-block));
 }
 
 .block_information #left_block {
@@ -806,7 +811,8 @@ input::selection {
 
 /******** Правй блок ********/
 #right_block {
-  width: calc(58vw - 0px);
+  --width-right-block:calc(58vw - 0px);
+  width: var(--width-right-block);
   top: 0;
   right: calc(-58vw - 1px);
   /* transition: width 0.6s; */
@@ -837,11 +843,7 @@ input::selection {
 #right_block.sub_menu_block .header_block .header_sub_menu {
   height: 46px;
   width: auto;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  bottom: 0;
-  /* background-image: var(--bg-img-row); */
+  position: relative;
 
   border-top:1px solid var(--border);
   border-image-source: var(--border-top);
@@ -853,8 +855,6 @@ input::selection {
 }
 
 #right_block.sub_menu_block .header_block h3 {
-  line-height: 72px;
-  top: -24px;
   position: relative;
 }
 
@@ -883,7 +883,7 @@ input::selection {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   width: 72px;
-  height: 71px;
+  height: 72px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -905,6 +905,13 @@ input::selection {
 
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
+  border-top: 1px solid var(--border);
+
+  border-image-source: var(--border-top);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
 }
 
 #right_block.sub_menu_block .info_wrapper {
@@ -951,6 +958,7 @@ input::selection {
   position: relative;
   width: 290px;
   flex: 1 0 290px;
+  background: var(--bg-sub-menu);
 }
 
 #right_block .info_wrapper .sub_menu_list ul {
@@ -965,12 +973,6 @@ input::selection {
   padding-bottom: 16px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 #right_block .info_wrapper .sub_menu_list li .classes_icon {
@@ -1004,21 +1006,22 @@ input::selection {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-right: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li {
   position: relative;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
+  border-left: 3px solid transparent;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li:hover {
   background-color: var(--hover);
+  border-left: 3px solid transparent;
   transition: background-color 0.3s;
 }
 
@@ -1071,15 +1074,18 @@ input::selection {
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu {
   cursor: auto;
   border-bottom: none;
-  background-color: var(--bg-sub-menu);
+  background-color: var(--hover);
+  border-left: 3px solid transparent;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu h5{
   margin: 0;
+  font-size: 22px;
+  font-weight: 300;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu:hover {
-  background-color: var(--bg-sub-menu);
+  background-color: var(--hover);
 }
 
 
@@ -1136,7 +1142,6 @@ input::selection {
 .table_list_left_block .table_list tr:hover.selected {
   background: var(--border);
 
-  background-image: var(--bg-title-img-2);
   background-position: top left;
   background-repeat: no-repeat;
 }
@@ -1390,9 +1395,10 @@ tbody div.artifact.spell_lvl:after {
   z-index: 2;
   position: fixed;
   display: none;
-  width: calc(100vw - 42% - 2px);
+  width: calc(100vw - 42% - 10px);
   height: 46px;
   overflow: hidden;
+  border-right: 1px solid var(--border);
 }
 
 #right_block.classes .content_block .classes_mobile_selector:after {
@@ -2207,7 +2213,7 @@ button {
   }
 
   #right_block.classes .content_block .classes_mobile_selector {
-    width: calc(100vw - 0% - 2px);
+    width: calc(100vw - 0% - 10px);
   }
 }
 
