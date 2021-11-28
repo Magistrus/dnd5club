@@ -1543,8 +1543,8 @@ tbody div.artifact.spell_lvl:after {
 
 #right_block.bestiary .scores>div {
   text-align: center;
-  max-width: 15%;
-  flex: 1 0 15%;
+  max-width: calc(20% - 8px);
+  flex: 1 0 calc(20% - 8px);
   background-color: var(--hover);
   border-radius: 4px;
   min-width: 60px;
@@ -1555,8 +1555,15 @@ tbody div.artifact.spell_lvl:after {
 
 @media (max-width: 1500px) {
   #right_block.bestiary .scores>div {
-    max-width: 31%;
-    flex: 1 0 31%;
+    max-width: calc(33% - 8px);
+    flex: 1 0 calc(33% - 8px);
+  }
+}
+
+@media (max-width: 360px) {
+  #right_block.bestiary .scores>div {
+    max-width: calc(50% - 8px);
+    flex: 1 0 calc(50% - 8px);
   }
 }
 
