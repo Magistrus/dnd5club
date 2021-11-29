@@ -20,6 +20,7 @@ public class ItemMagicDto {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private String englishSpellName;
 	private String type;
 
 	private String rarity;

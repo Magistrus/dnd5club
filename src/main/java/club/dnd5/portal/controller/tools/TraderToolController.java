@@ -359,51 +359,61 @@ public class TraderToolController {
 						if (dto.getName().contains("заговор")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 0, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(Заговор: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("1")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 1, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(1-ый уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("2")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 2, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(2-ой уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("3")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 3, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(3-ий уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("4")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 4, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(4-ый уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("5")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 5, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(5-ый уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("6")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 6, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(6-ой уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("7")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 7, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(7-ой уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("8")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 8, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(8-ой уровень: " + spell.getName().toLowerCase() + ")");
 						}
 						if (dto.getName().contains("9")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 9, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
+							dto.setEnglishSpellName(spell.getEnglishName());
 							dto.setName("Свиток Заклинания " + "(9-ый уровень: " + spell.getName().toLowerCase() + ")");
 						}
 					} else if (dto.getName().contains("Оружие")) {

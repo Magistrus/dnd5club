@@ -10,17 +10,15 @@
 				<label class="select_box select_arrow">
 					<span>Количество магии в мире:</span>
 					<select id="mageRang" name="mageRang" class="select select">
-						<option value="1" th:selected="${mageRang eq 1}">Мало</option>
-						<option value="2" th:selected="${mageRang eq 2}" selected="selected">Норма</option>
-						<option value="3" th:selected="${mageRang eq 3}">Много</option>
+						<option value="1">Мало</option>
+						<option value="2" selected="selected">Норма</option>
+						<option value="3">Много</option>
 					</select>
 				</label>
-
 					<label class="select_box">
 						<span>Результат проверки Харизмы (Убеждение):</span>
-						<input id="result" type="number" min="1" name="result" class="form-control select" placeholder="Харизма (Убеждение)" />
+						<input id="result" type="number" min="1" value="1" name="result" class="form-control select" placeholder="Харизма (Убеждение)" />
 					</label>
-
 				<div class="btn-wrapper">
 					<button id="generate" class="btn btn_primary">Найти торговца</button>
 				</div>

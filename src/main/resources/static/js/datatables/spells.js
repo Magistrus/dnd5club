@@ -2,12 +2,12 @@ $(document).ready(function() {
 	var scrollEventHeight = 0;
 	var rowSelectIndex = 0;
 	var table = $('#spells').DataTable({
-		ajax : '/data/spells',
+		ajax : '/data/spells?sourceTypes=' + sourceTypes,
 		dom: 't',
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
-		iDisplayLength : 25,
+		iDisplayLength : 35,
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
