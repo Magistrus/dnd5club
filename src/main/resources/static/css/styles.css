@@ -895,6 +895,7 @@ input::selection {
 
 #right_block .header_block .header_sub_menu button .icon_action {
   margin-right: 16px;
+  stroke:var(--primary);
 }
 
 #right_block .header_block .btn_exet_full_screen,
@@ -1819,18 +1820,6 @@ button {
 /******** Иконки ********/
 .icon_all_classes {
   background-image: var(--all-classes);
-}
-
-.icon_skills {
-  background: var(--icon-skills);
-}
-
-.icon_description {
-  background: var(--icon-description);
-}
-
-.icon_img {
-  background: var(--icon-img);
 }
 
 .icon_bard {
