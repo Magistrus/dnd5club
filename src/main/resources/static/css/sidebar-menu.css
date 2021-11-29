@@ -305,7 +305,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 72px;
+    height: 72px !important;
     width: 100%;
     border-right:none;
     background: var(--bg-main) !important;
@@ -315,8 +315,8 @@
   }
 
   .navbar.open {
-    height: 100vh;
-    transition:height 0.1s ;
+    height: 100% !important;
+    transition: height 0.1s;
   }
 
   .navbar .nav_head {
