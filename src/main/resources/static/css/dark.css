@@ -51,12 +51,6 @@
   --icon-logo-menu: url(/resources/assets/icon/dark/logo.svg);
 }
 
-/********* Icon Menu *********/
-:root {
-  --icon-skills: url(/resources/assets/icon/dark/classes/skills.svg);
-  --icon-description: url(/resources/assets/icon/dark/classes/description.svg);
-  --icon-img: url(/resources/assets/icon/dark/classes/img.svg);
-}
 
 /********* Icon Action *********/
 :root {
