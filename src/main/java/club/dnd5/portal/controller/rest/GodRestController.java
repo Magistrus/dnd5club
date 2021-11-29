@@ -30,8 +30,6 @@ import club.dnd5.portal.model.god.God;
 import club.dnd5.portal.model.god.GodSex;
 import club.dnd5.portal.model.god.Pantheon;
 import club.dnd5.portal.model.god.Rank;
-import club.dnd5.portal.model.items.Rarity;
-import club.dnd5.portal.model.races.Sex;
 import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 
 @RestController

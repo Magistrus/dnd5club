@@ -8,7 +8,24 @@
 			</div>
 			<div class="container_left" data-simplebar>
 				<div id="card_wrapper" class="card_wrapper">
-					<div th:id="${class.englishName.replace(' ', '_')}" class="card" th:each="class : ${classes}">
+					<div th:id="${class.englishName.replace(' ', '_')}" th:class="|card ${class.book.type.name().toLowerCase()}_source|" th:classappend="${class.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+						th:each="class : ${classes}"
+					>
+						<div class="infimation">
+							<h5 id="classes_id" class="header_name" th:text="${class.capitalazeName}">Class name</h5>
+							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>
+							<p class="additionally">
+								<span class="tip" th:if="${class.book.type.name() eq 'CUSTOM'}" title="Homebrew - не является официальным классом"><span class="homebrew_text">Homebrew</span></span> <span
+									class="tip uppercase_text" th:title="${class.book.name}" th:text="${class.book.source}"
+								></span><span th:text="| / к${class.diceHp}|"></span>
+							</p>
+						</div>
+						<div class="icon" th:classappend="|icon_${class.englishName.toLowerCase().replace(' ', '_')}_big|"></div>
+					</div>
+					<h4 class="separator_card tip" title="Напарники - это существа из бестиярия, которые могут расти по уровням. <br>Мастер может разрешить играть вам за напарника.">Напарники</h4>
+					<div th:id="${class.englishName.replace(' ', '_')}" th:class="|card ${class.book.type.name().toLowerCase()}_source|" th:classappend="${class.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+						th:each="class : ${sidekick}"
+					>
 						<div class="infimation">
 							<h5 id="classes_id" class="header_name" th:text="${class.capitalazeName}">Class name</h5>
 							<p th:text="${class.englishName}" class="en_title encaption_text">English class name</p>

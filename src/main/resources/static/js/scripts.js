@@ -1,7 +1,7 @@
 sourceTypes = localStorage.getItem('first_visit');
 $(document).ready(function() {
 	function checkWidth() {
-	  var windowWidth = $('body').innerWidth(),
+	  let windowWidth = $('body').innerWidth(),
 	  elem = $("#body"); 
 	  var check = localStorage.getItem('compact_menu') 
 	  if(check === 'true' && windowWidth > 1000)
@@ -65,8 +65,23 @@ $(document).ready(function() {
 		  type: 'ajax',
 		  closeOnBgClick: true,
 	});
+	if(localStorage.getItem('homebrew_source') == 'true'){
+		$('#homebrew_source').prop('checked', true);
+		$('.custom_source').toggleClass('hide_block');
+	}
+	if(localStorage.getItem('setting_source') == 'true'){
+		$('#setting_source').prop('checked', true);
+		$('.setting_source').toggleClass('hide_block');
+	}
 });
-
 $("#btn_full_screen, #btn_exet_full_screen").click(function () {
 	$("#body").toggleClass("full_screen_right_block");
+});
+$('#homebrew_source').change(function() {
+	localStorage.setItem('homebrew_source', $('#homebrew_source').is(':checked'));
+	$('.custom_source').toggleClass('hide_block');
+});
+$('#setting_source').change(function() {
+	localStorage.setItem('setting_source', $('#setting_source').is(':checked'));
+	$('.setting_source').toggleClass('hide_block');
 });

@@ -7,7 +7,7 @@ $(document).ready(function() {
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
-		iDisplayLength : 35,
+		iDisplayLength : 40,
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
@@ -104,7 +104,22 @@ $(document).ready(function() {
 		    table.searchPanes.container().prependTo($('#searchPanes'));
 		    table.searchPanes.container().hide();
 		},
+		createdRow: function (row, data, dataIndex) {
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			}
+		},
 		drawCallback: function ( settings ) {
+			if(localStorage.getItem('homebrew_source') == 'false'){
+				for(; rowSelectIndex < table.data().count(); rowSelectIndex++){
+					if(!table.rows(rowSelectIndex).data()[0].homebrew){
+						break;
+					}
+				}
+			}
 			if(rowSelectIndex === 0 && selectedSpell === null){
 				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
 					return;
@@ -113,7 +128,7 @@ $(document).ready(function() {
 			}
 			if (selectedSpell) {
 				selectSpell(selectedSpell);
-				var rowIndexes = [];
+				let rowIndexes = [];
 				table.rows( function ( idx, data, node ) {
 					if(data.id === selectedSpell.id){
 						rowIndexes.push(idx);

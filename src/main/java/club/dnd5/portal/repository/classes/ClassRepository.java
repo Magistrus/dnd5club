@@ -1,5 +1,6 @@
 package club.dnd5.portal.repository.classes;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,6 @@ public abstract interface ClassRepository extends JpaRepository<HeroClass, Integ
 
 	@Query("SELECT c FROM HeroClass c WHERE c.book.type IN :types")
 	List<HeroClass> findAllBySources(@Param("types") Iterable<TypeBook> types);
+	
+	Collection<HeroClass> findAllBySidekick(boolean sidekick);
 }

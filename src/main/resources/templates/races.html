@@ -8,7 +8,9 @@
 			</div>
 			<div class="container_left" data-simplebar>
 				<div id="card_wrapper" class="card_wrapper">
-					<div th:id="${race.englishName.replace(' ', '_')}" th:class="|card ${race.book.type.name().toLowerCase()}_source|" th:classappend="${race.book.type.name() eq 'CUSTOM'? '':''}" th:each="race : ${races}">
+					<div th:id="${race.englishName.replace(' ', '_')}" th:class="|card ${race.book.type.name().toLowerCase()}_source|" th:classappend="${race.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+						th:each="race : ${races}"
+					>
 						<div class="infimation">
 							<h5 id="race_id" class="header_name" th:text="${race.capitalazeName}">Class name</h5>
 							<p th:text="${race.englishName}" class="en_title encaption_text">English class name</p>

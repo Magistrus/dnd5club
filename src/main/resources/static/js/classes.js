@@ -158,6 +158,12 @@ function setActiveClass(element, englishName) {
 			var selecedArchetypeName = $('#'+ archetepyName);
 			setActiveArchetype(selecedArchetypeName[0], localStorage.getItem('selected_class'), archetepyName);
 		}
+		if(localStorage.getItem('homebrew_source') == 'true'){
+			$('.custom_source').removeClass('hide_block');
+		}
+		if(localStorage.getItem('setting_source') == 'true'){
+			$('.setting_source').removeClass('hide_block');
+		}
 	});
 }
 function setActiveArchetype(element, className, archetypeName) {

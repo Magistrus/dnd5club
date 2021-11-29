@@ -41,7 +41,8 @@ public class ClassController {
 
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
-		model.addAttribute("classes", classRepository.findAll());
+		model.addAttribute("classes", classRepository.findAllBySidekick(false));
+		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		return "classes";
 	}
 	
