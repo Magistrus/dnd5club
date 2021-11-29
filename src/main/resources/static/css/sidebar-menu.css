@@ -305,12 +305,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 100%;
+    height: fit-content;
+    min-height: 73px;
     width: 100%;
     border-right:none;
-    /* background: var(--bg-main) !important; */
     z-index: 102;
     overflow: hidden;
+  }
+
+  .navbar.open {
+    height: inherit;
   }
 
   .navbar nav {
