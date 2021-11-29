@@ -55,10 +55,6 @@ body {
   height: 24px;
 }
 
-.folded {
-  background-image: var(--folded);
-}
-
 .icon_full_screen {
   background-image: var(--icon_full_screen);
 }
@@ -1821,58 +1817,6 @@ button {
 
 
 /******** Иконки ********/
-.icon_menu {
-  background-image: var(--icon-menu);
-}
-
-.icon_user {
-  background-image: var(--icon-user);
-}
-
-.icon_character {
-  background-image: var(--icon-character);
-}
-
-.icon_spells {
-  background-image: var(--icon-spells);
-}
-
-.icon_inventory {
-  background-image: var(--icon-inventory);
-}
-
-.icon_treasures {
-  background-image: var(--icon-treasures);
-}
-
-.icon_bestiary {
-  background-image: var(--icon-bestiary);
-}
-
-.icon_workshop{
-  background-image: var(--icon-workshop);
-}
-
-.icon_instruments{
-  background-image: var(--icon-instruments);
-}
-
-.icon_gods {
-  background-image: var(--icon-gods);
-}
-
-.icon_information {
-  background-image: var(--icon-information);
-}
-
-.icon_sources {
-  background-image: var(--icon-sources);
-}
-
-.icon_dark_mod {
-  background-image: var(--icon-dark-mod);
-}
-
 .icon_all_classes {
   background-image: var(--all-classes);
 }
