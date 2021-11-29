@@ -54,6 +54,6 @@ sidebarBtn.addEventListener("click", ()=>{
 	localStorage.setItem('compact_menu', check);
 });
 
-$(".roll_menu").click(function(){
+$("#roll_menu").click(function(){
 	$(".navbar").toggleClass("open");
 });
