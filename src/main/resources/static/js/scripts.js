@@ -65,10 +65,6 @@ $(document).ready(function() {
 		  type: 'ajax',
 		  closeOnBgClick: true,
 	});
-	if(!localStorage.getItem('first_visit')){
-		$('#popup1').addClass('visible');
-		localStorage.setItem('first_visit', ' ')
-	}
 	if(localStorage.getItem('homebrew_source') == 'true'){
 		$('#homebrew_source').prop('checked', true);
 		$('.custom_source').toggleClass('hide_block');
