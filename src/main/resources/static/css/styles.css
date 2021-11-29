@@ -968,9 +968,8 @@ input::selection {
 
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
-  /* flex: 1 0 calc(100% - 290px); */
+  flex: 1 0 calc(100% - 290px);
   height: calc(100vh - 73px);
-  /* min-width: calc(100% - 290px); */
 }
 
 #right_block.sub_menu_block .info_wrapper .content_block {
@@ -1583,12 +1582,10 @@ tbody div.artifact.spell_lvl:after {
 
 #right_block.bestiary .scores>div {
   text-align: center;
-  max-width: calc(20% - 8px);
-  flex: 1 0 calc(20% - 8px);
+  min-width: calc(16% - 8px);
+  flex: 1 0 calc(16% - 8px);
   background-color: var(--hover);
   border-radius: 4px;
-  min-width: 60px;
-  max-width: 160px;
   margin-right: 8px;
   margin-bottom: 8px;
 }
