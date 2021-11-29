@@ -55,10 +55,6 @@ body {
   height: 24px;
 }
 
-.folded {
-  background-image: var(--folded);
-}
-
 .icon_full_screen {
   background-image: var(--icon_full_screen);
 }
@@ -899,6 +895,7 @@ input::selection {
 
 #right_block .header_block .header_sub_menu button .icon_action {
   margin-right: 16px;
+  stroke:var(--primary);
 }
 
 #right_block .header_block .btn_exet_full_screen,
@@ -968,13 +965,8 @@ input::selection {
 
 #right_block .info_wrapper .content_block {
   border-left: 1px solid var(--border);
-  flex: 1 0 calc(100% - 294px);
+  flex: 1 0 calc(100% - 291px);
   height: calc(100vh - 73px);
-  border-image-source: var(--border-left);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0px 25px 0px 1px;
 }
 
 #right_block.sub_menu_block .info_wrapper .content_block {
@@ -984,7 +976,19 @@ input::selection {
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
   position: relative;
-  /* width: 100%; */
+}
+
+#right_block .info_wrapper .content_block #content_block:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 290px;
+  height: 100%;
+  background-color: var(--bg-sub-menu);
+  left: -291px;
+  top: 0;
+  z-index: -1;
+  border-right: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -993,9 +997,11 @@ input::selection {
 
 #right_block .info_wrapper .sub_menu_list {
   position: relative;
-  width: 290px;
+  min-width: 290px;
+  max-width: 290px;
   flex: 1 0 290px;
   background: var(--bg-sub-menu);
+  z-index: 2;
 }
 
 #right_block .info_wrapper .sub_menu_list ul {
@@ -1573,12 +1579,10 @@ tbody div.artifact.spell_lvl:after {
 
 #right_block.bestiary .scores>div {
   text-align: center;
-  max-width: calc(20% - 8px);
-  flex: 1 0 calc(20% - 8px);
+  min-width: calc(16% - 8px);
+  flex: 1 0 calc(16% - 8px);
   background-color: var(--hover);
   border-radius: 4px;
-  min-width: 60px;
-  max-width: 160px;
   margin-right: 8px;
   margin-bottom: 8px;
 }
@@ -1814,72 +1818,8 @@ button {
 
 
 /******** Иконки ********/
-.icon_menu {
-  background-image: var(--icon-menu);
-}
-
-.icon_user {
-  background-image: var(--icon-user);
-}
-
-.icon_character {
-  background-image: var(--icon-character);
-}
-
-.icon_spells {
-  background-image: var(--icon-spells);
-}
-
-.icon_inventory {
-  background-image: var(--icon-inventory);
-}
-
-.icon_treasures {
-  background-image: var(--icon-treasures);
-}
-
-.icon_bestiary {
-  background-image: var(--icon-bestiary);
-}
-
-.icon_workshop{
-  background-image: var(--icon-workshop);
-}
-
-.icon_instruments{
-  background-image: var(--icon-instruments);
-}
-
-.icon_gods {
-  background-image: var(--icon-gods);
-}
-
-.icon_information {
-  background-image: var(--icon-information);
-}
-
-.icon_sources {
-  background-image: var(--icon-sources);
-}
-
-.icon_dark_mod {
-  background-image: var(--icon-dark-mod);
-}
-
 .icon_all_classes {
   background-image: var(--all-classes);
-}
-
-.icon_skills {
-  background: var(--icon-skills);
-}
-
-.icon_description {
-  background: var(--icon-description);
-}
-
-.icon_img {
-  background: var(--icon-img);
 }
 
 .icon_bard {
@@ -2155,6 +2095,8 @@ button {
   
   #right_block .info_wrapper .sub_menu_list {
     width: auto;
+    min-width: auto;
+    max-width: 100%;
     flex:1 1 auto;
   }
 
