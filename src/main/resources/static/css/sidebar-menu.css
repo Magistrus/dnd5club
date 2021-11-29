@@ -26,6 +26,7 @@
 .navbar .nav_head {
   display: flex;
   flex-direction: row;
+  background-color: var(--hover);
   border-bottom: 1px solid var(--border);
 
   border-image-source: var(--border-img);
