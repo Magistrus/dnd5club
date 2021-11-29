@@ -82,8 +82,7 @@ $("#btn_full_screen, #btn_exet_full_screen").click(function () {
 	$("#body").toggleClass("full_screen_right_block");
 });
 $('#homebrew_source').change(function() {
-	let s = $('#homebrew_source').is(':checked');
-	localStorage.setItem('homebrew_source', s);
+	localStorage.setItem('homebrew_source', $('#homebrew_source').is(':checked'));
 	$('.custom_source').toggleClass('hide_block');
 });
 $('#setting_source').change(function() {
