@@ -188,7 +188,7 @@ span.homebrew_text {
 table {
   color: var(--text-color);
   border-spacing: inherit;
-  border-radius: 8px;
+  border-radius: 0px;
   border: 2px solid var(--border-table);
   width: 100% !important;
   overflow: scroll;

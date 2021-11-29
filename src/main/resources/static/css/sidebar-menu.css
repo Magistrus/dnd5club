@@ -134,20 +134,26 @@
   display: block
 }
 
-.navbar .nav_links li i {
+.navbar .nav_links li .icon_menu {
   text-align: center;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: block;
+  align-items: center;
   min-width: 40px;
-  height: 40px;
+  height: 24px;
 }
 
-.navbar .nav_links li.showMenu i.folded {
+.navbar .nav_links li .icon_menu path {
+  stroke:var(--primary);
+}
+
+.navbar .nav_links li .icon_menu.arrow path {
+  stroke:var(--text-color);
+}
+
+.navbar .nav_links li.showMenu i.arrow {
   transform: rotate(-180deg);
 }
 
-.compact_menu .navbar .nav_links i.folded {
+.compact_menu .navbar .nav_links i.arrow {
   display: none;
 }
 
@@ -330,7 +336,6 @@
     width: 72px;
     height: 72px;
     text-align: center;
-    line-height: 72px;
     display: flex;
     justify-content: center;
     align-items: center;
