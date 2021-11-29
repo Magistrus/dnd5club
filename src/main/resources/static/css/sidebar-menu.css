@@ -305,18 +305,33 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 72px;
+    height: 100%;
     width: 100%;
     border-right:none;
-    background: var(--bg-main) !important;
+    /* background: var(--bg-main) !important; */
     z-index: 102;
     overflow: hidden;
-    transition:height 0.1s ;
   }
 
-  .navbar.open {
-    height: 100vh;
-    transition:height 0.1s ;
+  .navbar nav {
+    display: none;
+  }
+
+  .navbar.open nav {
+    --height-menu:80vh;
+    display: block;
+    height: var(--height-menu);
+  }
+
+  .navbar.open nav:after {
+    --height-menu-after:calc(100vh - var(--height-menu));
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: var(--height-menu-after);
+    background: var(--bg-main);
+    top: calc(0px - var(--height-menu-after));
   }
 
   .navbar .nav_head {
@@ -338,7 +353,7 @@
     width: 72px;
     height: 72px;
     text-align: center;
-      display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
