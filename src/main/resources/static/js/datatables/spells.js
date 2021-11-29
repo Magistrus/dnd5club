@@ -196,6 +196,3 @@ $('#btn_close').on('click', function() {
 	localStorage.removeItem('selected_spell');
 	history.pushState('data to be passed', 'Заклинания', '/spells/');
 });
-$('#btn_full_screen').on('click', function() {
-	//$('#left_block')[0].style.display = 'none';
-});

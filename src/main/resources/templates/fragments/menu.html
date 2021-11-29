@@ -35,15 +35,6 @@
 				</ul>
 			</li>
 			<li>
-				<a th:href="@{/bestiary}">
-					<i class="icon_bestiary"></i>
-					<span class="link_name">Бестиарий</span>
-				</a>
-				<ul class="sub_menu blank">
-					<li class="link_name"><span>Бестиарий</span></li>
-				</ul>
-			</li>
-			<li>
 				<div class="dropdown">
 					<a>
 						<i class="icon_character"></i>
@@ -55,9 +46,9 @@
 					<li class="link_name"><span>Персонаж</span></li>
 					<li><a th:href="@{/classes}">Классы</a></li>
 					<li><a th:href="@{/races}">Расы</a></li>
+					<li><a th:href="@{/traits}">Черты</a></li>
 					<li><a th:href="@{/options}">Особенности классов</a></li>
 					<li><a th:href="@{/backgrounds}">Предыстории</a></li>
-					<li><a th:href="@{/traits}">Черты</a></li>
 				</ul>
 			</li>
 			<li>
@@ -82,6 +73,15 @@
 					<li><a th:href="@{/weapons}">Оружие</a></li>
 					<li><a th:href="@{/armors}">Доспехи</a></li>
 					<li><a th:href="@{/items}">Снаряжение</a></li>
+				</ul>
+			</li>
+			<li>
+				<a th:href="@{/bestiary}">
+					<i class="icon_bestiary"></i>
+					<span class="link_name">Бестиарий</span>
+				</a>
+				<ul class="sub_menu blank">
+					<li class="link_name"><span>Бестиарий</span></li>
 				</ul>
 			</li>
 			<li>
@@ -130,7 +130,7 @@
 					</a>
 					<i class="arrow folded"></i>
 				</div>
-				<ul class="sub_menu">
+				<ul class="sub_menu end">
 					<li class="link_name"><span>Инструменты</span></li>
 					<li><a th:href="@{/tools/items/magic}">Покупка магических вещей</a></li>
 					<li><a th:href="@{/tools/trader}">Торговец</a></li>
@@ -150,7 +150,7 @@
 					</a>
 					<i class="arrow folded"></i>
 				</div>
-				<ul class="sub_menu">
+				<ul class="sub_menu end">
 					<li class="link_name"><span>Информация</span></li>
 					<li><a href="https://discord.gg/YGFshpuf9x" target="_blank">Наш Discord</a></li>
 					<li><a href="https://boosty.to/dnd5eclub" target="_blank">Мы на Boosty</a></li>
@@ -158,7 +158,7 @@
 					<li><a href="https://www.youtube.com/channel/UCMfMw5ZX4_rZ4rv4TlY8j8g" target="_blank">Youtube друзья</a></li>
 				</ul>
 			</li>
-			<li>
+			<li class="hide_block">
 				<div class="dropdown">
 					<a>
 						<i class="icon_sources"></i>
@@ -166,7 +166,7 @@
 					</a>
 					<i class="arrow folded"></i>
 				</div>
-				<ul class="sub_menu">
+				<ul class="sub_menu end">
 					<li class="link_name"><span>Источники</span></li>
 					<li><label for="setting_source" class="check_block"><input id="setting_source" class="toggle" type="checkbox" name="setting_source"><span>Сеттинги</span></label></li>
 					<li><label for="homebrew_source" class="check_block"><input id="homebrew_source" class="toggle" type="checkbox" name="homebrew_source"><span>Homebrew</span></label></li>

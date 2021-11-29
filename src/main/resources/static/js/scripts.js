@@ -18,8 +18,10 @@ $(document).ready(function() {
 	  if(windowWidth < 1000){
 		elem.removeClass('compact_menu');
 		$('#list_page_two_block').removeClass('block_information');
+		$('#body').removeClass('full_screen_right_block');
 	  }
 	}
+
 	checkWidth(); // проверит при загрузке страницы
 	$(window).resize(function(){
 	  checkWidth(); // проверит при изменении размера окна клиента
@@ -67,4 +69,12 @@ $(document).ready(function() {
 		$('#popup1').addClass('visible');
 		localStorage.setItem('first_visit', ' ')
 	}
+});
+
+$("#btn_full_screen").click(function () {
+	$("#body").toggleClass("full_screen_right_block");
+});
+
+$("#btn_exet_full_screen").click(function () {
+	$("#body").toggleClass("full_screen_right_block");
 });

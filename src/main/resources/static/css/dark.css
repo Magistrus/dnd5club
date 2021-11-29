@@ -42,9 +42,6 @@
   --border-blockquote:url(/resources/assets/style/dark/border_blockquote.png);
   --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
   --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
-  --bg-img-main:url(/resources/assets/style/dark/bg_main.png);
-  --bg-img-main-2:url(/resources/assets/style/dark/bg_main_2.png);
-  --bg-img-row:url(/resources/assets/style/dark/bg_row.png);
   --bg-img-row-active:url(/resources/assets/style/dark/bg_row_active.png);
   --bg-img-header-separator:url(/resources/assets/style/dark/header_separator.png);
 }
@@ -80,6 +77,7 @@
 :root {
 --folded: url(/resources/assets/icon/dark/folded.svg);
 --icon_full_screen: url(/resources/assets/icon/dark/full_screen.svg);
+--icon_exet_full_screen: url(/resources/assets/icon/dark/exet_full_screen.svg);
 --icon_close: url(/resources/assets/icon/dark/close.svg);
 --icon_search: url(/resources/assets/icon/dark/search.svg);
 --icon_filters: url(/resources/assets/icon/dark/filters.svg);
@@ -95,6 +93,8 @@
   --icon-weapons-big: url(/resources/assets/icon/dark/main_page/weapons_big.svg);
   --icon-races-big: url(/resources/assets/icon/dark/main_page/races_big.svg);
   --icon-classes-big: url(/resources/assets/icon/dark/main_page/classes_big.svg);
+  --icon-traits-big: url(/resources/assets/icon/dark/main_page/traits_big.svg);
+  --icon-backgrounds-big: url(/resources/assets/icon/dark/main_page/backgrounds_big.svg);
 }
 
 /********* Icons Classes *********/

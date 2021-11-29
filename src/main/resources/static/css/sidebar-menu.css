@@ -110,7 +110,7 @@
   cursor: pointer;
 }
 
-.navbar .nav_links li:nth-child(11) {
+.navbar .nav_links li:last-child {
   margin-top: auto;
 }
 
@@ -243,7 +243,7 @@
   display: block !important;
 }
 
-.compact_menu .navbar .nav_links li:nth-last-child(-n+3):hover .sub_menu {
+.compact_menu .navbar .nav_links li:hover .sub_menu.end {
   top: auto;
   bottom: -8px;
   opacity: 1;
@@ -299,7 +299,7 @@
     height: 72px;
     width: 100%;
     border-right:none;
-    background-color: var(--bg-main);
+    background: var(--bg-main) !important;
     z-index: 102;
     overflow: hidden;
     transition:height 0.1s ;
@@ -348,6 +348,7 @@
     bottom: 72px;
     left: 0;
     right: 0;
+    background: var(--bg-main) !important;
   }
 
   .navbar .nav_links {
