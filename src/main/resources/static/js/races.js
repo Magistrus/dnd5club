@@ -124,8 +124,13 @@ function setActiveRace(element, englishName) {
 		}
 		var archetepyName = localStorage.getItem('selected_subrace');
 		if (archetepyName){
-			var selecedSubraceName = $('#'+ archetepyName);
-			setActiveSubrace(selecedSubraceName[0], localStorage.getItem('selected_race'), archetepyName);
+			setActiveSubrace(selecedSubraceName[0], localStorage.getItem('selected_race'), $('#'+ archetepyName));
+		}
+		if(localStorage.getItem('homebrew_source') == 'true'){
+			$('.custom_source').removeClass('hide_block');
+		}
+		if(localStorage.getItem('setting_source') == 'true'){
+			$('.setting_source').removeClass('hide_block');
 		}
 	});
 }

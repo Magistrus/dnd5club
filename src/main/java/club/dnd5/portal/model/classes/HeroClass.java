@@ -109,7 +109,7 @@ public class HeroClass {
 	
 	@Enumerated(EnumType.STRING)
 	private Rest slotsReset;
-	
+	private boolean sidekick;
 
 	@ManyToOne
 	@JoinColumn(name = "source")
