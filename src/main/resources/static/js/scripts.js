@@ -1,3 +1,4 @@
+sourceTypes = localStorage.getItem('first_visit');
 $(document).ready(function() {
 	function checkWidth() {
 	  var windowWidth = $('body').innerWidth(),

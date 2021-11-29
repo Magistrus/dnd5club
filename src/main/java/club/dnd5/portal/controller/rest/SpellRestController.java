@@ -3,6 +3,7 @@ package club.dnd5.portal.controller.rest;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.dto.spell.SpellTipDto;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
@@ -46,7 +48,7 @@ public class SpellRestController {
 				Arrays.asList("level", "school", "classes", "timeCast", "damageType", "concentration", "ritual"));
 		List<MagicSchool> filterSchool = input.getSearchPanes().getOrDefault("school", Collections.emptySet()).stream()
 				.map(MagicSchool::valueOf).collect(Collectors.toList());
-		Specification<Spell> specification = null;
+		Specification<Spell> specification = bySources(EnumSet.of(TypeBook.OFFICAL));
 		if (!filterSchool.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("school").in(filterSchool));
 		}
@@ -113,5 +115,9 @@ public class SpellRestController {
 			return Specification.where(addSpecification);
 		}
 		return specification.and(addSpecification);
+	}
+	
+	private <T> Specification<T> bySources(Set<TypeBook> types) {
+		return (root, query, cb) -> root.get("book").get("type").in(types);
 	}
 }
