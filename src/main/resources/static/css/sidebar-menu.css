@@ -402,10 +402,10 @@
   }
 
   #right_block {
-    width: calc(100vw - 2px);
+    width: calc(100vw - 0px);
     right: calc(-100vw - 0px);
     position: fixed;
-    border: 1px solid var(--border);
+    border: none;
     z-index: 101;
   }
 
