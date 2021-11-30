@@ -936,6 +936,13 @@ input::selection {
   display: none;
 }
 
+@media (max-width: 1000px) {
+  .no_close_left_block.block_information #right_block .header_block .btn_close,
+  .table_list_left_block.block_information #right_block .header_block .btn_close {
+    display: flex;
+  }
+}
+
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
   border-top: 1px solid var(--border);
