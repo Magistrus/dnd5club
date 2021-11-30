@@ -355,6 +355,12 @@ input::selection {
   color: var(--primary);
 }
 
+@media (max-width: 1200px) {
+  .dnd5-popup-block {
+    width: 80%;
+  }
+}
+
 /******** Форма входа / login_form ********/
 .login_form {
   max-width: 300px;
@@ -2174,8 +2180,8 @@ button {
 
   /******** Расы / races ********/
   .races .content_block .scores .score {
-    min-width: calc(50% - 8px);
-    flex: 1 1 calc(50% - 8px);
+    min-width: calc(50% - 32px);
+    flex: 1 1 calc(50% - 32px);
   }
 
   #body.full_screen_right_block .races .content_block .scores .score {
