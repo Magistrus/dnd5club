@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<body id="body">
+	<div id="list_page_two_block" class="no_close_left_block block_information" layout:fragment="content">
+		<div id="left_block" class="full_width_left_block tools_block wildmagic">
+			<div class="header_block">
+				<h3>Генератор имен</h3>
+			</div>
+			<div class="tools_settings">
+				<div class="classes_mobile_selector">
+					<select id="mobile_selector">
+						<option value="-1">---Случайная раса---</option>
+						<option th:value="${raceId}" th:text="${race.name}" th:each="race : ${raceNames}"></option>
+					</select>
+				</div>
+				<div class="btn-wrapper">
+					<button id="generate" class="btn btn_primary">Сгенерировать</button>
+					<button id="clear" class="btn btn_primary">Очистить</button>
+				</div>
+			</div>
+			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
+				<div class="content_block">
+					<div id="content_block"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script th:src="@{/resources/js/tools/names.js}" layout:fragment="js-script"></script>
+</html>
