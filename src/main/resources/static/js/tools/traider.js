@@ -12,7 +12,6 @@ $('#generate').on('click', function() {
 		$('table tbody tr.spell_selected').on('click', function(event) {
 			$('.spell_selected').removeClass('selected');
 			$(this).addClass('selected');
-
 			selectSpell($(this).attr('id'))
 		});
 	});
