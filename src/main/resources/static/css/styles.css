@@ -338,6 +338,23 @@ input::selection {
 }
 
 
+/******** Всплывающие окно / popup ********/
+.dnd5-popup-block {
+
+}
+
+.dnd5-popup-block {
+  width: 50%;
+  background: var(--bg-main);
+  margin: 40px auto;
+  padding: 24px 24px 12px 24px;
+  position: relative;
+}
+
+.dnd5-popup-block .mfp-close {
+  color: var(--primary);
+}
+
 /******** Форма входа / login_form ********/
 .login_form {
   max-width: 300px;
@@ -1282,6 +1299,10 @@ tbody div.artifact.spell_lvl:after {
   flex: 1 0 calc(100% - 0px);
 }
 
+#right_block.screens .info_wrapper .content_block #content_block {
+  padding: 0;
+}
+
 .screens .card_wrapper .icon {
   display: none;
 }
@@ -1323,6 +1344,10 @@ tbody div.artifact.spell_lvl:after {
 .screens .card_block .block h5,
 .screens .card_block .block p {
   margin: 0;
+}
+
+.screens .card_block .block h5 {
+  line-height: inherit;
 }
 
 .screens .card_block .block:hover {
