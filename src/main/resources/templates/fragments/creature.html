@@ -14,7 +14,7 @@
 				></span>)</th:block>
 		</p>
 		<p><strong>Хиты:</strong> <span th:text="${creature.hp}"></span></p>
-		<p><strong>Скорость:</strong> <span th:utext="${creature.allSpeed}"></span></p>
+		<p><strong>Скорость:</strong> <span th:utext="${creature.allSpeed}"></span><span th:if="${creature.speedText}" th:text="| ${creature.speedText}|"></span></p>
 		<div class="scores">
 			<div class="scores-strength">
 				<h4>
