@@ -1504,6 +1504,7 @@ tbody div.artifact.spell_lvl:after {
 
 #right_block.races .info_wrapper .sub_menu_list li.avatar {
   padding: 0 !important;
+  border-left: none !important;
 }
 
 #right_block.races .info_wrapper .sub_menu_list li.avatar img {
