@@ -62,14 +62,16 @@ public class RaceController {
 	@GetMapping("/races/{raceName}/subrace/{subraceName}")
 	public String getFragmentSubraces(Model model, Device device, @PathVariable String raceName, @PathVariable String subraceName) {
 		Race subRace = raceRepository.findByEnglishName(subraceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		Set<Integer> replaceFeatureIds = subRace.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
-		List<Feature> features =  Stream.concat(
-					subRace.getParent().getFeatures().stream()
-							.filter(f -> !replaceFeatureIds.contains(f.getId())).filter(f -> f.isFeature()),
-					subRace.getFeatures().stream().filter(f -> f.isFeature())
-				)
-				.collect(Collectors.toList());
-		model.addAttribute("features", features);
+		final Set<Integer> replaceFeatureIds = subRace.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
+		model.addAttribute("features", 
+				subRace.getParent().getFeatures()
+				.stream()
+				.filter(feature -> !replaceFeatureIds.contains(feature.getId()))
+				.filter(feature -> feature.isFeature())
+				.collect(Collectors.toList()));
+		model.addAttribute("subFeatures", subRace.getFeatures().stream()
+				.filter(f -> f.isFeature())
+				.collect(Collectors.toList()));
 		model.addAttribute("race", subRace);
 		return "fragments/race :: view";
 	}
