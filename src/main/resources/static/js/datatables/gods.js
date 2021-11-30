@@ -89,8 +89,6 @@ $(document).ready(function() {
 		        }
 		},
 		initComplete: function(settings, json) {
-		    $('#gods tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select(); 
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -104,33 +102,33 @@ $(document).ready(function() {
 		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
-		    $('#gods tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if(rowSelectIndex === 0 && selectedGod === null){
+				if (!$('#list_page_two_block').hasClass('block_information')){
+					return;
+				}
+				$('#items_magic tbody tr:eq('+rowSelectIndex+')').click();
+			}
+			if (selectedGod) {
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedGod.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+				selectGod(selectedGod);
+			}
+			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 	$('#gods tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}
-		var tr = $(this).closest('tr');
-		var table = $('#gods').DataTable();
-		var row = table.row( tr );
-		var data = row.data();
-		document.getElementById('god_name').innerHTML = data.name;
-		document.getElementById('alignment').innerHTML = data.alignment;
-		document.getElementById('rank').innerHTML = data.rank;
-		document.getElementById('title').innerHTML = data.nicknames;
-		document.getElementById('symbol').innerHTML = data.symbol;
-		document.getElementById('domains').innerHTML = data.domains;
-		document.getElementById('pantheon').innerHTML = data.pantheon;
-
-		var source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
-		source+= '<span id="tooltip-race-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
-		var url = '/gods/fragment/' + data.id;
-		$("#content_block").load(url);
+		let row = $('#gods').DataTable().row( $(this).closest('tr') );
+		rowSelectIndex = row.index();
+		selectGod(row.data());
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -146,6 +144,24 @@ $(document).ready(function() {
 		table.searchPanes.container().toggle();
 	});
 });
+function selectGod(data){
+	$('#god_name').html(data.name);
+	$('#alignment').html(data.alignment);
+	$('#rank').html(data.rank);
+	$('#title').html(data.nicknames);
+	$('#symbol').html(data.symbol);
+	$('#domains').html(data.domains);
+	$('#pantheon').html(data.pantheon);
+
+	var source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
+	source+= '<span id="tooltip-race-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+	document.getElementById('source').innerHTML = source;
+	document.title = data.name;
+	history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
+	var url = '/gods/fragment/' + data.id;
+	$("#content_block").load(url);
+	selectedGod = null;
+}
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	const table = $('#gods').DataTable();
