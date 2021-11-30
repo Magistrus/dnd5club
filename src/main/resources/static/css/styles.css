@@ -55,6 +55,11 @@ body {
   height: 24px;
 }
 
+.icon_menu svg path,
+.icon_action svg path {
+  stroke: var(--primary);
+}
+
 .icon_full_screen {
   background-image: var(--icon_full_screen);
 }
@@ -508,11 +513,17 @@ input::selection {
 }
 
 .main_page_wrapper .left_block .card_row .card .icon {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 83px;
   height: 83px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.main_page_wrapper .left_block .card_row .card .icon svg path {
+  stroke:var(--primary);
 }
 
 .main_page_wrapper .left_block .card_row .card h4 {
@@ -895,7 +906,6 @@ input::selection {
 
 #right_block .header_block .header_sub_menu button .icon_action {
   margin-right: 16px;
-  stroke:var(--primary);
 }
 
 #right_block .header_block .btn_exet_full_screen,
@@ -1115,6 +1125,7 @@ input::selection {
   border-radius: 8px;
   opacity: 0;
   transition: all 0.3s;
+  padding: 0;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li .btn_close:hover {
