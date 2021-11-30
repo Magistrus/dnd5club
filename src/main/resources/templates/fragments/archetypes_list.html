@@ -12,7 +12,11 @@
 						th:attr="data-tipped-options=|inline: 'inline-tooltip-source-a-${archetype.id}'|" th:text="${archetype.book.source}"
 					></span> <span th:id="|inline-tooltip-source-a-${archetype.id}|" style='display: none' th:text="${archetype.book.name}"></span> <span th:text="|&nbsp;/&nbsp;${archetype.englishName}|"></span>
 				</div>
-				<button class="btn_close icon_action icon_close close_archetypes"></button></li>
+				<button class="btn_close icon_action close_archetypes">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>	
+				</button></li>
 		</ul>
 	</div>
 </body>
