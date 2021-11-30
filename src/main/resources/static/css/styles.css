@@ -2057,42 +2057,6 @@ button {
   background-image: var(--icon-bestiary-big);
 }
 
-.icon_spells_big {
-  background-image: var(--icon-spells-big);
-}
-
-.icon_inventory_big {
-  background-image: var(--icon-inventory-big);
-}
-
-.icon_skills_big {
-  background-image: var(--icon-skills-big);
-}
-
-.icon_weapons_big {
-  background-image: var(--icon-weapons-big);
-}
-
-.icon_armors_big {
-  background-image: var(--icon-armors-big);
-}
-
-.icon_races_big {
-  background-image: var(--icon-races-big);
-}
-
-.icon_classes_big {
-  background-image: var(--icon-classes-big);
-}
-
-.icon_traits_big {
-  background-image: var(--icon-traits-big);
-}
-
-.icon_backgrounds_big {
-  background-image: var(--icon-backgrounds-big);
-}
-
 .races .info_wrapper .content_block .sub_menu_list {
   display: none;
   height: auto !important;

@@ -58,19 +58,6 @@
 --icon_filters: url(/resources/assets/icon/light/filters.svg);
 }
 
-/********* Main Page *********/
-:root {
-  --icon-bestiary-big: url(/resources/assets/icon/light/main_page/bestiary_big.svg);
-  --icon-spells-big: url(/resources/assets/icon/light/main_page/spells_big.svg);
-  --icon-inventory-big: url(/resources/assets/icon/light/main_page/inventory_big.svg);
-  --icon-skills-big: url(/resources/assets/icon/light/main_page/skills_big.svg);
-  --icon-armors-big: url(/resources/assets/icon/light/main_page/armors_big.svg);
-  --icon-weapons-big: url(/resources/assets/icon/light/main_page/weapons_big.svg);
-  --icon-races-big: url(/resources/assets/icon/light/main_page/races_big.svg);
-  --icon-classes-big: url(/resources/assets/icon/light/main_page/classes_big.svg);
-  --icon-traits-big: url(/resources/assets/icon/light/main_page/traits_big.svg);
-  --icon-backgrounds-big: url(/resources/assets/icon/light/main_page/backgrounds_big.svg);
-}
 
 /********* Icons Classes *********/
 :root {
