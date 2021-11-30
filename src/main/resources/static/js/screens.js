@@ -50,7 +50,12 @@ function setActiveScreen(element, englishName) {
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
 	var url = '/screens/fragment/' + englishName;
-	$("#content_block").load(url);
+	$("#content_block").load(url, function() {
+		$('.open-popup-link').magnificPopup({
+			  type:'inline',
+			  midClick: true
+		});
+	});
 	localStorage.setItem('selected_screen', element.id)
 	var url = '/screens/' + englishName + '/subscreens/list';
 	$('#sub_menu').load(url, function() {

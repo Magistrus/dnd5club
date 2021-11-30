@@ -4,8 +4,20 @@
 </head>
 <body>
 	<th:block th:object="${screen}" th:fragment="view">
-		<th:block th:utext="*{description}">			
-		</th:block>
+		<div class="card_block">
+			<th:block th:each="scr : *{chields}">
+				<a th:href="|#${scr.englishName.replace(' ', '_')}|" class="open-popup-link">
+					<div class="block">
+						<div class="img"></div>
+						<div class="description">
+							<h5 th:text="${scr.name}"></h5>
+							<p>PHB / Moving</p>
+						</div>
+					</div>
+				</a>
+				<div th:id="${scr.englishName.replace(' ', '_')}" class="white-popup-block mfp-hide" th:utext="${scr.description}"></div>
+			</th:block>
+		</div>
 	</th:block>
 </body>
 </html>
