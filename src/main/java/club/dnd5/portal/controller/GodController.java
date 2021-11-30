@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.GodDto;
 import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 
 @Controller
@@ -22,7 +23,7 @@ public class GodController {
 	
 	@GetMapping("/gods/{name}")
 	public String getGod(Model model, @PathVariable String name) {
-		model.addAttribute("selectedGod", "name");
+		model.addAttribute("selectedGod", new GodDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "gods";
 	}
 	

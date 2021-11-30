@@ -10,11 +10,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="item : ${items}" th:id = "${item.englishName.replace(' ', '_')}" th:class="|${item.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
-				<th>
+			<tr th:each="item : ${items}" th:id = "${item.id}" th:class="|${item.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
+				<td>
 					<div th:class="|tip spell_lvl ${item.rarityEnglish}|" th:title="${item.rarity}" th:text="${item.shortRarity}"></div>
 					<div class="spell_name" th:text="${item.name}"></div>
-				</th>
+				</td>
 			</tr>
 		</tbody>
 	</th:block>

@@ -44,7 +44,7 @@ function loadDescription(){
 	var selectedArchetype = $('li.sub_menu.active');
 	var url;
 	if(selectedArchetype.length === 1){
-		url = '/classes/'+selectedClass.id+'/archetype/'+selectedArchetype[0].id+'/description';
+		url = '/classes/'+selectedClass.id + '/archetype/' + selectedArchetype[0].id + '/description';
 	}
 	else {
 		url = '/classes/' + selectedClass.id + '/description';
@@ -95,7 +95,7 @@ $('.card').on('click', 	function() {
 });
 function setActiveClass(element, englishName) {
 	var className = element.querySelector("#classes_id").textContent;
-	document.getElementById('class_name').innerHTML = className;
+	$('#class_name').html(className);
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
 	$(".card").removeClass('active');
