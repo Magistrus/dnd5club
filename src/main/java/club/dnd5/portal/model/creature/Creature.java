@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -23,7 +24,6 @@ import javax.persistence.Table;
 
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.ArmorType;
-import club.dnd5.portal.model.Condition;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
@@ -109,6 +109,7 @@ public class Creature {
 	private byte charisma = 10;
 
 	@ElementCollection
+    @CollectionTable(name = "creature_immunity_states", joinColumns = @JoinColumn(name = "creature_id"))
 	@Enumerated(EnumType.ORDINAL)
 	private List<Condition> immunityStates;
 

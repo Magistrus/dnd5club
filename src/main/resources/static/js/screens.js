@@ -95,5 +95,5 @@ function setActiveSubscreen(element, screenName, subScreen) {
 	history.pushState('data to be passed', subScreen, '/screens/' + screenName + '/' + subScreen);
 }
 $('#btn_close').on('click', function() {
-	document.getElementById('list_page_two_block').classList.remove('block_information');
+	$('#list_page_two_block').removeClass('block_information');
 });
