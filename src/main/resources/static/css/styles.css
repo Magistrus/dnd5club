@@ -1344,14 +1344,22 @@ tbody div.artifact.spell_lvl:after {
   align-items: center;
 }
 
-.screens .card_block .block .img {
+.screens .card_block .block .icon {
   height: 40px;
   display: block;
-  background-color: #000;
   margin-right: 8px;
   flex: 1 1 40px;
   max-width: 40px;
   min-width: 40px;
+}
+
+.screens .card_block .block .icon svg {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.screens .card_block .block .icon svg path {
+  fill: var(--primary);
 }
 
 .screens .card_block .block h5,
