@@ -756,11 +756,12 @@ input::selection {
 
 #left_block {
   /* transition: margin-right 0.3s; */
+  --width-left-block: calc (100vw - var(--width-right-block));
+  width: var(--width-left-block);
   overflow-x: hidden;
   margin-right: 0px;
   margin-left: 0px;
   position: relative;
-  width: calc (100vw - var(--width-right-block));
 }
 
 .block_information #left_block {
@@ -1332,12 +1333,14 @@ tbody div.artifact.spell_lvl:after {
 .screens .card_block {
   display: flex;
   flex-wrap: wrap;
+  width: var(--width-right-block);
 }
 
 .screens .card_block .block {
   display: flex;
-  flex: 1 1 calc(25% - 49px);
-  max-width: calc(25% - 49px);
+  flex: 1 1 calc(33% - 49px);
+  min-width: calc(33% - 49px);
+  max-width: calc(33% - 49px);
   border-right:1px solid var(--border);
   border-bottom:1px solid var(--border);
   padding: 24px 24px;
@@ -1394,6 +1397,10 @@ tbody div.artifact.spell_lvl:after {
   .screens .card_block .block {
     flex: 1 1 calc(33% - 46px);
     max-width: calc(33% - 46px);
+  }
+  
+  .screens .card_block {
+    width: auto;
   }
 }
 
