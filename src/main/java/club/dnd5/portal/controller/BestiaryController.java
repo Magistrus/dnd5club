@@ -28,12 +28,19 @@ public class BestiaryController {
 	}
 	
 	@GetMapping("/bestiary/fragment/{id}")
-	public String getSpellFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+	public String getCreatureFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		model.addAttribute("firstElement", new FirstElement());
 		return "fragments/creature :: view";
 	}
 	
+	@GetMapping("/bestiary/description/{id}")
+	public String getCreatureDescription(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		model.addAttribute("firstElement", new FirstElement());
+		return "fragments/creature :: description";
+	}
+
 	public static class FirstElement{
 		private boolean first = true;
 		public boolean isFirst() {

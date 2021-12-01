@@ -154,13 +154,18 @@ $(document).ready(function() {
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
-	var table = $('#creatures').DataTable();
+	let table = $('#creatures').DataTable();
 	table.tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
 function selectCreature(data){
-	document.getElementById('creature_name').innerHTML = data.name;
-	document.getElementById('cr').innerHTML = data.cr + ' (' + data.exp+' опыта)';
+	if (!data){
+		return;
+	}
+	$('#statblock').addClass('active');
+	$('#description').removeClass('active');
+	$('#creature_name').html(data.name);
+	$('#cr').html(data.cr + ' (' + data.exp+' опыта)');
 	switch(data.cr){
 	case '1/8': data.cr = 1/8; break;
 	case '1/4': data.cr = 1/4; break;
@@ -169,7 +174,6 @@ function selectCreature(data){
 	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
 	httpGetImage('/image/CREATURE/'+data.id);
-
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 	document.getElementById('source').innerHTML = source;
@@ -182,10 +186,24 @@ function selectCreature(data){
 		}
 	});
 }
+function selectDescription(id){
+	var url = '/bestiary/description/' + id;
+	$("#content_block").load(url);
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_creature');
 	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
+});
+$('#statblock').on('click', function() {
+	let table = $('#creatures').DataTable();
+	selectCreature(table.row({selected: true}).data());
+});
+$('#description').on('click', function() {
+	$('#description').addClass('active');
+	$('#statblock').removeClass('active');
+	let table = $('#creatures').DataTable();
+	selectDescription(table.row({selected: true}).data().id);
 });
 function httpGetImage(theUrl)
 {
