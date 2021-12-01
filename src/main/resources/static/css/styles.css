@@ -1053,9 +1053,23 @@ input::selection {
 
 #right_block .info_wrapper .sub_menu_list li {
   position: relative;
-  padding-bottom: 16px;
-  padding-left: 16px;
+  padding: 16px 16px 16px 16px;
   border-bottom: 1px solid var(--border);
+
+  border-image-source: var(--border-bottom);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
+}
+
+#right_block .info_wrapper .sub_menu_list li h5 {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-b-color);
 }
 
 #right_block .info_wrapper .sub_menu_list li .classes_icon {
@@ -1166,6 +1180,7 @@ input::selection {
   margin: 0;
   font-size: 22px;
   font-weight: 300;
+  text-transform: none;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu:hover {
@@ -1405,19 +1420,6 @@ tbody div.artifact.spell_lvl:after {
   margin: 0;
 }
 
-#right_block.spells .info_wrapper .sub_menu_list li {
-  position: relative;
-  padding-bottom: 16px;
-  padding-left: 16px;
-  border-bottom: 1px solid var(--border);
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
-}
-
 #right_block.spells .info_wrapper .sub_menu_list li .classes_icon {
   display:flex;
   flex-direction: row;
@@ -1434,6 +1436,12 @@ tbody div.artifact.spell_lvl:after {
   border-radius: 8px;
   margin-right: 8px;
   cursor: pointer;
+}
+
+@media (max-height: 800px) {
+  #right_block.spells .info_wrapper .sub_menu_list li {
+    padding: 8px 16px 8px 16px;
+  }
 }
 
 
