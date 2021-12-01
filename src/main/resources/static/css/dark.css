@@ -8,6 +8,7 @@
   --bg-blockquote: #1e2226;
   --text-color:#cdcdcd;
   --text-color-active:#fff;
+  --text-b-color:#fff;
   --text-g-color:#A4A4A4;
   --text-s-color:#c4c5ff;
   --text-a-color:#34bb3e;
@@ -54,27 +55,10 @@
 
 /********* Icon Action *********/
 :root {
---folded: url(/resources/assets/icon/dark/folded.svg);
---icon_full_screen: url(/resources/assets/icon/dark/full_screen.svg);
---icon_exet_full_screen: url(/resources/assets/icon/dark/exet_full_screen.svg);
---icon_close: url(/resources/assets/icon/dark/close.svg);
 --icon_search: url(/resources/assets/icon/dark/search.svg);
 --icon_filters: url(/resources/assets/icon/dark/filters.svg);
 }
 
-/********* Main Page *********/
-:root {
-  --icon-bestiary-big: url(/resources/assets/icon/dark/main_page/bestiary_big.svg);
-  --icon-spells-big: url(/resources/assets/icon/dark/main_page/spells_big.svg);
-  --icon-inventory-big: url(/resources/assets/icon/dark/main_page/inventory_big.svg);
-  --icon-skills-big: url(/resources/assets/icon/dark/main_page/skills_big.svg);
-  --icon-armors-big: url(/resources/assets/icon/dark/main_page/armors_big.svg);
-  --icon-weapons-big: url(/resources/assets/icon/dark/main_page/weapons_big.svg);
-  --icon-races-big: url(/resources/assets/icon/dark/main_page/races_big.svg);
-  --icon-classes-big: url(/resources/assets/icon/dark/main_page/classes_big.svg);
-  --icon-traits-big: url(/resources/assets/icon/dark/main_page/traits_big.svg);
-  --icon-backgrounds-big: url(/resources/assets/icon/dark/main_page/backgrounds_big.svg);
-}
 
 /********* Icons Classes *********/
 :root {

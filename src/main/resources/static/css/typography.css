@@ -58,7 +58,8 @@ h5 {
 p {
   font-size: 13px;
   line-height: 20px;
-  font-weight: 300;
+  font-weight: 400;
+  letter-spacing: 0.2px;
   margin: 0 0 12px 0;
   color: var(--text-color);
 }
@@ -84,9 +85,10 @@ ul li {
   line-height: 20px;
 }
 
+strong,
 b {
-  font-weight: 500;
-  color: var(--text-color);
+  font-weight: 600;
+  color: var(--text-b-color);
 }
 
 .btn_text {

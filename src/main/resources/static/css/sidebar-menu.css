@@ -143,10 +143,6 @@
   height: 24px;
 }
 
-.navbar .nav_links li .icon_menu path {
-  stroke:var(--primary);
-}
-
 .navbar .nav_links li .icon_menu.arrow path {
   stroke:var(--text-color);
 }
