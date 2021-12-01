@@ -229,7 +229,6 @@ public class Creature {
 	}
 
 	public String getHp() {
-		
 		if (bonusHP == null && diceHp == null && suffixHP == null) {
 			return String.format("%d", averageHp);
 		}
