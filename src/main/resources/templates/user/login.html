@@ -2,8 +2,12 @@
 		<!-- <button title="%title%" type="button" class="mfp-close">&#215;</button> -->
 		<div class="header">
 			<h4>Авторизация</h4>
-			<button title="%title%" type="button" class="mfp-close icon_close">
-				<!-- <i class="icon_close"></i> -->
+			<button title="%title%" type="button" class="mfp-close">
+				<i class="icon_action">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>	
+				</i>
 			</button>
 		</div>
 		<div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
