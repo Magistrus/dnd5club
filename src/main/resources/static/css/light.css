@@ -53,13 +53,6 @@
 }
 
 
-/********* Icon Action *********/
-:root {
---icon_search: url(/resources/assets/icon/light/search.svg);
---icon_filters: url(/resources/assets/icon/light/filters.svg);
-}
-
-
 /********* Icons Classes *********/
 :root {
   --all-classes: url(/resources/assets/icon/light/classes/all_classes.svg);

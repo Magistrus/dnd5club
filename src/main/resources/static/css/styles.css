@@ -60,22 +60,6 @@ body {
   stroke: var(--primary);
 }
 
-.icon_full_screen {
-  background-image: var(--icon_full_screen);
-}
-
-.icon_exet_full_screen {
-  background-image: var(--icon_exet_full_screen);
-}
-
-.icon_close {
-  background-image: var(--icon_close);
-}
-
-.icon_filters {
-  background-image: var(--icon_filters);
-}
-
 .checkbox {
   line-height: 22px;
 }
@@ -802,15 +786,23 @@ input::selection {
   padding: 24px;
 }
 
+#left_block .header_block .btn_search_icon {
+  height: 45px;
+  width: 45px;
+  left: -1px;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 #left_block .header_block .search_int {
   height: 43px;
   border-top: none;
   border-bottom: none;
   border-right: none;
   width: calc(100% - 102px);
-  background-image: var(--icon_search);
-  background-repeat: no-repeat;
-  background-position: 12px 12px;
   padding-left: 52px;
   position: absolute;
   right: 0px;
