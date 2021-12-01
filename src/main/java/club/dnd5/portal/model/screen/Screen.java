@@ -40,6 +40,7 @@ public class Screen {
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
+	private String icon;
 	
 	@ManyToOne
 	@JoinColumn(name = "source")
