@@ -1107,8 +1107,8 @@ input::selection {
 
 #right_block .info_wrapper .sub_menu_list.selector_list li {
   position: relative;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   padding-left: 16px;
   border-bottom: 1px solid var(--border);
   border-left: 3px solid transparent;
@@ -1885,6 +1885,23 @@ button {
 
 .btn_primary:hover {
   background-color: var(--primary-hover);
+}
+
+.become-patron-button {
+  background-color: #FC3D51;
+  padding: 10px 16px 10px 46px;
+  color: #fff;
+  border-radius: 30px;
+  display: block;
+  max-width: 108px;
+  background-image: url(/resources/assets/become-patron-button.svg);
+  background-repeat: no-repeat;
+  background-position: 14px;
+  background-size: 26px 26px;
+}
+
+.become-patron-button:hover {
+  background-color: #db3747;
 }
 
 
