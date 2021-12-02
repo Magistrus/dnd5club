@@ -13,5 +13,6 @@ import club.dnd5.portal.model.god.God;
 public interface GodDatatableRepository extends DataTablesRepository<God, Integer> {
 	@Query("SELECT g.pantheon.name AS label, g.pantheon.id AS value, 0 AS total, 0 AS count FROM God g GROUP BY g.pantheon")
 	List<Item> countTotalGodPantheon();
+	
 	God findByEnglishName(String name);
 }

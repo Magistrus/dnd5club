@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class OptionDto {
 	private String type;
 	private String prerequisite;
 	private Integer level;
+	private boolean homebrew;
 	private String book;
 	private String bookshort;
 	
@@ -37,6 +39,7 @@ public class OptionDto {
 				.collect(Collectors.joining(", "));
 		prerequisite = option.getPrerequisite();
 		level = option.getLevel();
+		homebrew = option.getBook().getType() == TypeBook.CUSTOM;
 		book = option.getBook().getName();
 		bookshort = option.getBook().getSource();
 	}

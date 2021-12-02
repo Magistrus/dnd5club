@@ -110,7 +110,15 @@ $(document).ready(function() {
 				rowSelectIndex = rowIndexes[0];
 			}
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
-		}
+		},
+		createdRow: function (row, data, dataIndex) {
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			}
+		},
 	});
 	$('#options tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){

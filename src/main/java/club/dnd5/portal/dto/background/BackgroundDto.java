@@ -6,6 +6,7 @@ import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.background.Background;
+import club.dnd5.portal.model.book.TypeBook;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class BackgroundDto {
 	private String languages;
 	private String equipments;
 	private int startMoney;
+	private boolean homebrew;
 	private String book;
 	private String bookshort;
 	
@@ -39,6 +41,7 @@ public class BackgroundDto {
 		languages = background.getLanguage() == null ? "-" : background.getLanguage();
 		equipments = background.getEquipmentsText() == null ? "-": background.getEquipmentsText();
 		startMoney = background.getStartMoney();
+		homebrew = background.getBook().getType() == TypeBook.CUSTOM;
 		book = background.getBook().getName();
 		bookshort = background.getBook().getSource();
 	}

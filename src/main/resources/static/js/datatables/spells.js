@@ -116,6 +116,7 @@ $(document).ready(function() {
 			if(localStorage.getItem('homebrew_source') == 'false'){
 				for(; rowSelectIndex < table.data().count(); rowSelectIndex++){
 					if(!table.rows(rowSelectIndex).data()[0].homebrew){
+						$('#spells tbody tr:eq('+rowSelectIndex+')').click();
 						break;
 					}
 				}

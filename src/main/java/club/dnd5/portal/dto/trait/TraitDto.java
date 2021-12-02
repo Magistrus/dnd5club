@@ -6,6 +6,7 @@ import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.trait.Trait;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class TraitDto {
 	private String requirement;
 	private String abilities;
 	private String skills;
+	private boolean homebrew;
 	private String book;
 	private String bookshort;
 	
@@ -33,6 +35,7 @@ public class TraitDto {
 		requirement = trait.getRequirement();
 		abilities = trait.getAbilities().stream().map(AbilityType::getCyrilicName).collect(Collectors.joining(", "));
 		skills = trait.getSkills().stream().map(SkillType::getCyrilicName).collect(Collectors.joining(", "));
+		homebrew = trait.getBook().getType() == TypeBook.CUSTOM;
 		book = trait.getBook().getName();
 		bookshort = trait.getBook().getSource();
 	}
