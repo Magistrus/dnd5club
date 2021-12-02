@@ -6,7 +6,7 @@ $(document).ready(function() {
 		dom: 'tS',
 		serverSide : true,
         deferRender: true,
-		iDisplayLength : 30,
+		iDisplayLength : 50,
         scrollCollapse: true,
 		select: true,
 		select: {
@@ -87,7 +87,7 @@ $(document).ready(function() {
 	        }
 		},
 		initComplete: function(settings, json) {
-			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
+			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 500;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
@@ -118,7 +118,15 @@ $(document).ready(function() {
 				rowSelectIndex = rowIndexes[0];
 			}
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
-		}
+		},
+		createdRow: function (row, data, dataIndex) {
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			}
+		},
 	});
 	$('#traits tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){

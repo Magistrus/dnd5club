@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.repository.datatable.NameRepository;
-import club.dnd5.portal.repository.datatable.NicknameRepository;
+//import club.dnd5.portal.repository.datatable.NicknameRepository;
 
 @Controller
 public class NameToolController {
@@ -17,8 +17,8 @@ public class NameToolController {
 	
 	@Autowired
 	private NameRepository nameRepo;
-	@Autowired
-	private NicknameRepository nicknameRepo;
+	//@Autowired
+	//private NicknameRepository nicknameRepo;
 
 	
 	@GetMapping("/tools/names")

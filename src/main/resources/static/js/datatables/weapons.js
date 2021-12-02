@@ -6,7 +6,7 @@ $(document).ready(function() {
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-		iDisplayLength : 25,
+		iDisplayLength : 30,
 		select: true,
 		select: {
 			style: 'single'
@@ -96,7 +96,15 @@ $(document).ready(function() {
 		drawCallback: function ( settings ) {
 		    $('#weapons tbody tr:eq(0)').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
-		}
+		},
+		createdRow: function (row, data, dataIndex) {
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			}
+		},
 	});
 
 	$('#weapons tbody').on('click', 'tr', function () {
