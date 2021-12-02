@@ -6,11 +6,13 @@ $('#generate').on('click', function() {
 	$("#trader_content").load(url, function() {
 		$('table tbody tr.item_selected').on('click', function(event) {
 			$('.item_selected').removeClass('selected');
+			$('.spell_selected').removeClass('selected');
 			$(this).addClass('selected');
 			selectMagicItem($(this).attr('id'))
 		});
 		$('table tbody tr.spell_selected').on('click', function(event) {
 			$('.spell_selected').removeClass('selected');
+			$('.item_selected').removeClass('selected');
 			$(this).addClass('selected');
 			selectSpell($(this).attr('id'))
 		});
