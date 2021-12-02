@@ -268,4 +268,9 @@ table.dataTable tr.dtrg-group td {
     color: var(--text-color);
     position: relative;
   }
+
+  blockquote {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
 }
