@@ -284,6 +284,10 @@ input::selection {
   cursor: pointer;
 }
 
+.select_box .select[type = number] {
+  padding: 0px 12px 0 12px;
+}
+
 .select_arrow:before {
   content: '\25BC';
   display: block;
@@ -1834,11 +1838,15 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 }
 
 #left_block.wildmagic .container_left {
-  height: calc(100vh - 202px);
+  height: calc(100vh - 195px);
+}
+
+#left_block.encounters .container_left {
+  height: calc(100vh - 248px);
 }
 
 #left_block.madness .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100vh - 328px);
 }
 
 #left_block.trader .container_left {
@@ -1862,6 +1870,48 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   vertical-align: middle;
   height: 42px;
   display: table-cell;
+}
+
+@media (max-width: 1000px) {
+  #left_block.wildmagic .container_left {
+    height: calc(100vh - 263px);
+  }
+  
+  #left_block.trader .container_left {
+    height: calc(100vh - 321px);
+  }
+
+  #left_block.encounters .container_left {
+    height: calc(100vh - 321px);
+  }
+}
+
+@media (max-width: 500px) {
+  #left_block.trader .container_left {
+    height: calc(100vh - 406px);
+  }
+
+  #left_block.wildmagic .container_left {
+    height: calc(100vh - 268px);
+  }
+
+  #left_block.madness .container_left {
+    height: calc(100vh - 357px);
+  }
+
+  #left_block.encounters .container_left {
+    height: calc(100vh - 404px);
+  }
+}
+
+@media (max-width: 360px) {
+  #left_block.wildmagic .container_left {
+    height: calc(100vh - 289px);
+  }
+
+  #left_block.encounters .container_left {
+    height: calc(100vh - 451px);
+  }
 }
 
 
