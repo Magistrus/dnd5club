@@ -25,10 +25,20 @@ $('#clear').on('click', function() {
 	  }
 });
 function selectSpell(id){
+	if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+		document.getElementById('list_page_two_block').classList.add('block_information');
+	}
 	const url = '/spells/fragment/' + id;
 	$("#content_block").load(url);
 }
 function selectMagicItem(id){
+	if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+		document.getElementById('list_page_two_block').classList.add('block_information');
+	}
 	var url = '/items/magic/fragment/' + id;
 	$("#content_block").load(url);
 }
+$('#btn_close').on('click', function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
+	localStorage.removeItem('selected_spell');
+});

@@ -14,7 +14,7 @@
 							<option value="3">11-15</option>
 							<option value="4">17-20</option>
 					</select></label> <label class="select_box select_arrow"><span>Окружающая среда</span><select id="type" name="type" class="select">
-							<option th:each="type : ${types}" th:text="${type.name}" th:value="${type}" th:selected="${selectedType eq type}"></option>
+							<option th:each="type : ${types}" th:text="${type.name}" th:value="${type}"></option>
 					</select></label>
 				</div>
 				<div class="btn-wrapper">
@@ -34,7 +34,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="text-center">к100</th>
+					<th>к100</th>
 					<th>Столкновение</th>
 				</tr>
 			</thead>
