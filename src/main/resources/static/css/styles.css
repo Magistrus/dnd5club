@@ -732,12 +732,6 @@ input::selection {
   left: 0px;
   right: 0px;
   bottom: 0;
-
-  border-image-source: var(--border-top);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 #left_block .header_block.filters {
@@ -749,10 +743,22 @@ input::selection {
   position: relative;
   padding-left: 24px;
   font-size: 28px;
+
+  border-image-source: var(--border-bottom);
+  border-image-slice: 1 1 1 fill;
+  border-image-repeat: repeat repeat;    
+  border-image-width: auto;
+  border-image-outset: 0;
 }
 
 .header_block .header_row {
   display: flex;
+}
+
+@media (max-width: 1000px) {
+  .header_block h3 {
+    font-size: 22px;
+  }
 }
 
 
