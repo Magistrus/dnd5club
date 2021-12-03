@@ -755,6 +755,12 @@ input::selection {
   display: flex;
 }
 
+@media (max-width: 1000px) {
+  .header_block h3 {
+    font-size: 22px;
+  }
+}
+
 
 /******** Левый блок ********/
 #left_block {
