@@ -297,12 +297,13 @@
 @media (max-width: 1000px) {
   /************ МЕНЮ ************/
   .navbar {
+    --height-navbar:73px;
     top: auto;
     left: 0;
     right: 0;
     bottom: 0;
     height: fit-content;
-    min-height: 73px;
+    min-height: var(--height-navbar);
     width: 100%;
     border-right:none;
     z-index: 102;
