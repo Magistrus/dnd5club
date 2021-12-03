@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ItemMagicBuyingController {
-	@GetMapping("/tools/treasury")
+	@GetMapping("/tools/items/magic")
 	public String getTreasuryTool() {
-		return "tools/treasury";
+		return "tools/buying_magic_items";
 	}
 }
