@@ -2,6 +2,6 @@ User-agent: *
 Allow: /
 
 Disallow: /profile.html
-Sitemap: http://new.dnd5.club/resources/sitemap.xml
+Sitemap: https://new.dnd5.club/resources/sitemap.xml
 
 Host: dnd5.club
