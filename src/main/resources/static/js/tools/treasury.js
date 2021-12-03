@@ -1,6 +1,6 @@
 $('#generate').on('click', function() {
 	const url = '/tools/treasury/random/?cr='+ $('#cr').val();
-	$("#left_content_block").load(url, function() {
+	$("#left_content_block").load(url, function(){
 		$('table tbody tr.item_selected').on('click', function(event) {
 			$('.item_selected').removeClass('selected');
 			$('.spell_selected').removeClass('selected');
