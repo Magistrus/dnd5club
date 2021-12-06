@@ -739,14 +739,15 @@ input::selection {
 }
 
 #left_block .header_block.filters {
-  height: 118px;
+  height: 117px;
 }
 
 .header_block h3 {
-  line-height: 72px;
+  line-height: 71px;
   position: relative;
   padding-left: 24px;
   font-size: 28px;
+  border-bottom: 1px solid var(--border);
 
   border-image-source: var(--border-bottom);
   border-image-slice: 1 1 1 fill;
@@ -934,9 +935,10 @@ input::selection {
 #right_block .header_block .btn_close {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   min-width: 72px;
   flex: 1 0 72px;
-  height: 72px;
+  height: 71px;
   display: flex;
   justify-content: space-around;
   align-items: center;
