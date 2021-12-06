@@ -739,14 +739,15 @@ input::selection {
 }
 
 #left_block .header_block.filters {
-  height: 118px;
+  height: 117px;
 }
 
 .header_block h3 {
-  line-height: 72px;
+  line-height: 71px;
   position: relative;
   padding-left: 24px;
   font-size: 28px;
+  border-bottom: 1px solid var(--border);
 
   border-image-source: var(--border-bottom);
   border-image-slice: 1 1 1 fill;
@@ -792,13 +793,6 @@ input::selection {
 
 #left_block .container_left {
   height: calc(100vh - 73px);
-  border-top: 1px solid var(--border);
-
-  border-image-source: var(--border-top);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0px 0px 0px 0px;
 }
 
 #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -907,14 +901,8 @@ input::selection {
   height: 46px;
   width: auto;
   position: relative;
-
-  border-top:1px solid var(--border);
-  border-image-source: var(--border-top);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;
-  border-image-width: auto;
-  border-image-outset: 0;
   display: flex;
+  border-bottom: 1px solid var(--border);
 }
 
 #right_block .header_block h3 {
@@ -947,9 +935,10 @@ input::selection {
 #right_block .header_block .btn_close {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   min-width: 72px;
   flex: 1 0 72px;
-  height: 72px;
+  height: 71px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -989,23 +978,10 @@ input::selection {
 
 #right_block .info_wrapper {
   height: calc(100vh - 73px);
-  border-top: 1px solid var(--border);
-
-  border-image-source: var(--border-top);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 #right_block.sub_menu_block .info_wrapper {
   height: calc(100vh - 119px);
-
-  border-image-source: var(--border-img);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 1px 25px 0px 1px;
 }
 
 #right_block .info_wrapper,
@@ -1066,12 +1042,6 @@ input::selection {
   position: relative;
   padding: 16px 16px 16px 16px;
   border-bottom: 1px solid var(--border);
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 #right_block .info_wrapper .sub_menu_list li h5 {
@@ -1117,14 +1087,8 @@ input::selection {
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li {
-  position: relative;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-left: 16px;
-  border-bottom: 1px solid var(--border);
   border-left: 3px solid transparent;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li:hover {
