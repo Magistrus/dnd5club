@@ -41,7 +41,7 @@
 			<tbody>
 				<tr th:each="encounter : ${encounters}">
 					<td th:text="${encounter.k100}"></td>
-					<td th:text="${encounter.description}"></td>
+					<td th:utext="${encounter.description}"></td>
 				</tr>
 			</tbody>
 		</table>
