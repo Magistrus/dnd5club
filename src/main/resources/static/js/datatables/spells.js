@@ -35,10 +35,10 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="tip spell_lvl" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
-					result+='<div class="spell_name">' + row.name;
+					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
+					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="spell_school">' + row.school + '</div>';
+					result+='<div class="secondary_name">' + row.school + '</div></div>';
 					return result;
 				}
 				return data;
@@ -155,7 +155,7 @@ $(document).ready(function() {
 	});
 });
 function selectSpell(data){
-	$('#spell_name').html(data.name);
+	$('#row_name').html(data.name);
 	$('#level').html((data.level ===  0 ? 'Заговор, ' : data.level +' уровень, ') + data.school + (data.ritual ? ' (ритуал)' : ''));
 	$('#timecast').html(data.timeCast);
 	$('#distance').html(data.distance);

@@ -17,7 +17,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="spell_name">' + row.name;
+					var result ='<div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					return result;
 				}

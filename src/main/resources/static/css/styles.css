@@ -965,13 +965,13 @@ input::selection {
 }
 
 .no_close_left_block.block_information #right_block .header_block .btn_close,
-.table_list_left_block.block_information #right_block .header_block .btn_close {
+.table_list_block.block_information #right_block .header_block .btn_close {
   display: none;
 }
 
 @media (max-width: 1000px) {
   .no_close_left_block.block_information #right_block .header_block .btn_close,
-  .table_list_left_block.block_information #right_block .header_block .btn_close {
+  .table_list_block.block_information #right_block .header_block .btn_close {
     display: flex;
   }
 }
@@ -991,9 +991,12 @@ input::selection {
 }
 
 #right_block .info_wrapper .content_block {
-  border-left: 1px solid var(--border);
   flex: 1 0 calc(100% - 291px);
   height: calc(100vh - 73px);
+}
+
+#right_block .info_wrapper #sub_menu + .content_block {
+  border-left: 1px solid var(--border);
 }
 
 #right_block.sub_menu_block .info_wrapper .content_block {
@@ -1164,29 +1167,31 @@ input::selection {
 
 
 /******** Список из таблицы********/
-.table_list_left_block #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+.table_list_block #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
   padding: 0px;
 }
 
-.table_list_left_block .table_list {
+.table_list_block .table_list {
   border: none;
   width: 100% !important;
 }
 
-.table_list_left_block .table_list tr {
-  background: none;
+.table_list_block .table_list thead {
+  display: none !important;
 }
 
-.table_list_left_block .table_list tr:hover {
+.table_list_block .table_list tr {
+  background: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.table_list_block .table_list tr:hover {
   background: var(--hover);
   cursor: pointer;
 }
 
-.table_list_left_block .table_list tr:hover td:first-child {
-  border-left:3px solid var(--hover);
-}
-
-.table_list_left_block .table_list tr.selected {
+.table_list_block .table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
 
@@ -1195,37 +1200,47 @@ input::selection {
   background-repeat: repeat;
 }
 
-.table_list_left_block .table_list tr td {
-  border-left:none;
+.table_list_block .table_list tr td {
   border-right:none;
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 100%;
+  height: auto;
+  min-height: 30px;
+  align-items: center;
+  padding: 8px 10px;
 }
 
-.table_list_left_block .table_list tr td:first-child {
+.table_list_block .table_list tr td:first-child {
   border-left:3px solid var(--bg-main);
 }
 
-.table_list_left_block .table_list tr.selected td:first-child {
+.table_list_block .table_list tr:hover td:first-child {
+  border-left:3px solid var(--hover);
+}
+
+.table_list_block .table_list tr.selected td:first-child {
   border-left:3px solid var(--primary);
 }
 
-.table_list_left_block .table_list tr td:nth-child(2) {
+.table_list_block .table_list tr td:nth-child(2) {
   text-align: right;
   padding-right: 16px;
+  max-width: 60px;
+  justify-content: flex-end;
+  font-size: 15px;
 }
 
-.table_list_left_block .table_list tr:hover.selected {
+.table_list_block .table_list tr:hover.selected {
   background: var(--border);
 
   background-position: top left;
   background-repeat: no-repeat;
 }
 
-
-/******** Список из таблицы / заклинания********/
-.table_list_left_block .spells_list tr .spell_lvl {
-  float: left;
-  width: 42px;
-  height: 100%;
+.table_list_block tr td .info_block {
+  min-width: 42px;
+  height: 42px;
   font-size: 17px;
   text-align: center;
   line-height: 42px;
@@ -1233,7 +1248,7 @@ input::selection {
   position:relative;
 }
 
-.table_list_left_block .spells_list tr .spell_lvl:after {
+.table_list_block tr .info_block:after {
   content: '';
   position: absolute;
   border: 1px solid var(--border);
@@ -1245,42 +1260,48 @@ input::selection {
   left: 0px;
 }
 
-.table_list_left_block .table_list tr.selected .spell_lvl:after {
+.table_list_block .table_list tr.selected .info_block:after {
   border:1px solid var(--primary);
 }
 
-.table_list_left_block .spells_list tr .spell_name {
-  font-size: 15px;
-  line-height: 26px;
+.table_list_block tr td .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.table_list_left_block .spells_list tr .spell_name span {
+.table_list_block tr td .row_name {
+  font-size: 15px;
+}
+
+.table_list_block tr .row_name span {
   color: var(--text-g-color);
   margin-left: 8px;
 }
 
-.table_list_left_block .spells_list tr .spell_school {
+.table_list_block tr .secondary_name {
   color: var(--text-g-color);
   text-transform: capitalize;
+  margin-top: 4px;
 }
 
-tbody div.uncommon.spell_lvl:after {
+.table_list tbody div.uncommon.info_block:after {
   border-color: var(--uncommon) !important;
 }
 
-tbody div.rare.spell_lvl:after {
+.table_list tbody div.rare.info_block:after {
   border-color: var(--rare) !important;
 }
 
-tbody div.very_rare.spell_lvl:after {
+.table_list tbody div.very_rare.info_block:after {
   border-color: var(--very_rare) !important;
 }
 
-tbody div.legendary.spell_lvl:after {
+.table_list tbody div.legendary.info_block:after {
   border-color: var(--legendary) !important;
 }
 
-tbody div.artifact.spell_lvl:after {
+.table_list tbody div.artifact.info_block:after {
   border-color: var(--artifact) !important;
 }
 
@@ -1822,6 +1843,13 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   height: calc(100vh - 248px);
 }
 
+#left_block.treasury h4.header_separator {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  
+} 
+
 .tools_block_result {
   border-bottom: 1px solid var(--border);
   padding: 12px 0 0 0;
@@ -1831,7 +1859,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   text-align: left;
 }
 
-#left_block.trader .table_list .spell_name {
+#left_block.trader .table_list .row_name {
   font-size: 15px;
   line-height: 42px;
   font-weight: 400;
