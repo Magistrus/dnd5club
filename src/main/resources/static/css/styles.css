@@ -1853,6 +1853,10 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   height: calc(100vh - 248px);
 }
 
+#left_block.treasury .container_left {
+  height: calc(100vh - 248px);
+}
+
 .tools_block_result {
   border-bottom: 1px solid var(--border);
   padding: 12px 0 0 0;
@@ -1884,6 +1888,10 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   #left_block.encounters .container_left {
     height: calc(100vh - 321px);
   }
+  
+  #left_block.treasury .container_left {
+    height: calc(100vh - 321px);
+  }  
 }
 
 @media (max-width: 500px) {
