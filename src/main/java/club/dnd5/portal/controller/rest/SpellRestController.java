@@ -52,6 +52,10 @@ public class SpellRestController {
 		}
 		List<Integer> filterClasses = input.getSearchPanes().getOrDefault("classes", Collections.emptySet()).stream()
 				.map(Integer::valueOf).collect(Collectors.toList());
+		String classId = queryParameters.get("classId");
+		if (classId != null) {
+			filterClasses.add(Integer.valueOf(classId));
+		}
 		if (!filterClasses.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> {
 				Join<HeroClass, Spell> hero = root.join("heroClass", JoinType.LEFT);
@@ -59,6 +63,7 @@ public class SpellRestController {
 				return cb.and(hero.get("id").in(filterClasses));
 			});
 		}
+
 		List<DamageType> filterDamageTypes = input.getSearchPanes().getOrDefault("damageType", Collections.emptySet())
 				.stream().map(DamageType::valueOf).collect(Collectors.toList());
 		if (!filterDamageTypes.isEmpty()) {

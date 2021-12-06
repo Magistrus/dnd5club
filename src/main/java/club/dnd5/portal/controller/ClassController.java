@@ -94,7 +94,14 @@ public class ClassController {
 		model.addAttribute("images", imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId()));
 		return "fragments/class :: images";
 	}
-
+	
+	@GetMapping("/classes/spells/{englishName}")
+	public String getClassSpells(Model model, Device device, @PathVariable String englishName) {
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		model.addAttribute("heroClass", heroClass);
+		return "fragments/class_spell :: view";
+	}
+	
 	@GetMapping("/classes/{englishName}/architype/name")
 	@ResponseBody
 	public String getArchitypeName(@PathVariable String englishName) {

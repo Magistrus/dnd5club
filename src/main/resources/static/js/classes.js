@@ -57,12 +57,18 @@ function loadImages(){
 	var url = '/classes/images/' + englishName;
 	loadContent("content_block", url);
 }
+function loadClassSpells() {
+	var selectedClass = $('.card.active')[0];
+	var englishName = selectedClass.id.replace(' ', '_');
+	var url = '/classes/spells/' + englishName;
+	loadContent("content_block", url);
+}
 $('#class_spells').on('click', function() {
 	$('.btn_class').removeClass('active');
 	this.classList.add('active');
 	var selectedClass = $('.card.active')[0];
 	localStorage.setItem('class_info', 'spells');
-	// тут должна быть загрузка заклинаний класса
+	loadClassSpells();
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
@@ -94,6 +100,11 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveClass(element, englishName) {
+	if (element.classList.contains('spellcaster')){
+		$('#class_spells').removeClass('hide_block');
+	} else {
+		$('#class_spells').addClass('hide_block');
+	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').html(className);
 	document.title = className;
@@ -103,21 +114,22 @@ function setActiveClass(element, englishName) {
 	switch (localStorage.getItem('class_info')) {
 	case 'description':
 		$('.btn_class').removeClass('active');
-		$('#class_description')[0].classList.add('active');
+		$('#class_description').addClass('active');
 		loadDescription();
 		break;
 	case 'spells':
 		$('.btn_class').removeClass('active');
-		$('#class_spells')[0].classList.add('active');
+		$('#class_spells').addClass('active');
+		loadClassSpells();
 		break;
 	case 'images':
 		$('.btn_class').removeClass('active');
-		$('#class_images')[0].classList.add('active');
+		$('#class_images').addClass('active');
 		loadImages();
 		break;
 	default:
 		$('.btn_class').removeClass('active');
-		$('#class_traits')[0].classList.add('active');
+		$('#class_traits').addClass('active');
 		var url = '/classes/fragment/' + englishName;
 		$("#content_block").load(url, function() {
 			if(localStorage.getItem('homebrew_source') == 'true'){

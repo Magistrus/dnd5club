@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -129,5 +130,12 @@ public class TavernToolController {
 			generatedNames.clear();
 		}
 		return tavernName;
+	}
+	
+	@GetMapping("/tools/tavern/habitates/random")
+	public String getHabitates(Model model) {
+		model.addAttribute("selected",  habitates.get(rnd.nextInt(habitates.size())));
+		model.addAttribute("habitates",  habitates);
+		return "tools/tavern :: habitates";
 	}
 }
