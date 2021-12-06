@@ -22,7 +22,7 @@
 				<div id ="generate_content_block"></div>
 			</div>
 		</div>
-		<div id="right_block" class="trader">
+		<div id="right_block" class="treasury">
 			<div class="header_block">
 				<div class="header_row">
 					<h3 id="background_name">В сокровищнице</h3>
@@ -60,12 +60,8 @@
 		</div>
 	</div>
 	<div th:fragment="view">
+		<h4 class="header_separator">Всего денег</h4>
 		<table class="table">
-			<thead>
-				<tr>
-					<th colspan="5">Всего денег</th>
-				</tr>
-			</thead>
 			<tbody>
 				<tr>
 					<td th:text="|${coper} мм|"></td>
@@ -77,12 +73,8 @@
 			</tbody>
 		</table>
 		<th:block th:unless="${things.empty}">
+			<h4 class="header_separator">Предметов найдено</h4>
 			<table class="table_list  dataTable">
-				<thead>
-					<tr>
-						<th colspan="5">Предметов найдено</th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr th:id = "${thing.id}" th:each="thing : ${things}" th:class="|${thing.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
 						<td>
@@ -96,20 +88,17 @@
 		<th:block th:if="${treasures}">
 			<th:block th:unless="${treasures.empty}">
 				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Тип</th>
-								<th>Камни и предметы исскуства</th>
-								<th>Базовая<br>стоимость
-								</th>
-							</tr>
-						</thead>
+					<h4 class="header_separator">Камни и предметы исскуства</h4>
+					<table class="table_list table">
 						<tbody>
 							<tr th:each="treasure : ${treasures}">
-								<td th:text="${treasure.type.name}"></td>
-								<td th:text="${treasure.name}"></td>
-								<td th:text="|${treasure.cost} зм.|"></td>
+								<td>
+									<div class="content">
+										<div class="row_name" th:text="${treasure.name}"></div>
+										<div class="secondary_name tip" th:text="${treasure.type.name}" title="Тип"></div>
+									</div>
+								</td>
+								<td class="tip" th:text="|${treasure.cost} зм.|" title="Базовая стоимость"></td>
 							</tr>
 						</tbody>
 					</table>
