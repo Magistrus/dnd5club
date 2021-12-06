@@ -100,6 +100,7 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveClass(element, englishName) {
+	element.scrollIntoView({block: "center", behavior: "smooth"});
 	if (element.classList.contains('spellcaster')){
 		$('#class_spells').removeClass('hide_block');
 	} else {
