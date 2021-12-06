@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
-	<div id="list_page_two_block" class="no_close_left_block block_information table_list_left_block" layout:fragment="content">
+	<div id="list_page_two_block" class="no_close_left_block block_information table_list_block" layout:fragment="content">
 		<div id="left_block" class="treasury">
 			<div class="header_block">
 				<h3>Сокровищница</h3>
@@ -63,30 +63,31 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>мм</th>
-					<th>см</th>
-					<th>эм</th>
-					<th>зм</th>
-					<th>пм</th>
+					<th colspan="5">Всего денег</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td th:text="${coper}"></td>
-					<td th:text="${silver}"></td>
-					<td th:text="${electrum}"></td>
-					<td th:text="${gold}"></td>
-					<td th:text="${platina}"></td>
+					<td th:text="|${coper} мм|"></td>
+					<td th:text="|${silver} см|"></td>
+					<td th:text="|${electrum} эм|"></td>
+					<td th:text="|${gold} зм|"></td>
+					<td th:text="|${platina} пм|"></td>
 				</tr>
 			</tbody>
 		</table>
 		<th:block th:unless="${things.empty}">
-			<table class="table_list spells_list dataTable">
+			<table class="table_list  dataTable">
+				<thead>
+					<tr>
+						<th colspan="5">Предметов найдено</th>
+					</tr>
+				</thead>
 				<tbody>
 					<tr th:id = "${thing.id}" th:each="thing : ${things}" th:class="|${thing.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
 						<td>
-							<div th:class="|tip spell_lvl ${thing.rarityEnglish}|" th:title="${thing.rarity}" th:text="${thing.shortRarity}"></div>
-							<div class="spell_name" th:text="${thing.name}"></div>
+							<div th:class="|tip info_block ${thing.rarityEnglish}|" th:title="${thing.rarity}" th:text="${thing.shortRarity}"></div>
+							<div class="row_name" th:text="${thing.name}"></div>
 						</td>
 					</tr>
 				</tbody>
