@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.races.Sex;
+import club.dnd5.portal.model.tavern.Atmosphere;
 import club.dnd5.portal.model.tavern.TavernaName;
 import club.dnd5.portal.model.tavern.TavernaPrefixName;
 import club.dnd5.portal.model.tavern.TavernaType;
@@ -137,5 +138,13 @@ public class TavernToolController {
 		model.addAttribute("selected",  habitates.get(rnd.nextInt(habitates.size())));
 		model.addAttribute("habitates",  habitates);
 		return "tools/tavern :: habitates";
+	}
+	
+	@GetMapping("/tools/tavern/atmosphere/random")
+	@ResponseBody
+	public String getAtmosphere() {
+		List<Atmosphere> atmospheres = atmosphereRepo.findAll();
+		Atmosphere atmosphere = atmospheres.get(rnd.nextInt(atmospheres.size()));
+		return "<h5>"+atmosphere.getName() + "</h5> <br>" + atmosphere.getDescription();
 	}
 }
