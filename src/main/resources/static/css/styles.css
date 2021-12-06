@@ -1475,6 +1475,7 @@ tbody div.artifact.spell_lvl:after {
   height: 46px;
   overflow: hidden;
   border-right: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
 
 #right_block.classes .content_block .classes_mobile_selector:after {
