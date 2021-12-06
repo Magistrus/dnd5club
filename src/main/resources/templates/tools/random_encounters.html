@@ -34,13 +34,13 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>к100</th>
+					<th style="width: 5%;text-align: center;">к100</th>
 					<th>Столкновение</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="encounter : ${encounters}">
-					<td th:text="${encounter.k100}"></td>
+					<td th:text="${encounter.k100}" style="width: 5%;text-align: center;"></td>
 					<td th:utext="${encounter.description}"></td>
 				</tr>
 			</tbody>
