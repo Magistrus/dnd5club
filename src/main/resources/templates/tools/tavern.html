@@ -13,13 +13,23 @@
 			</div>
 			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
 				<div class="content_block">
-					<h5>Название: <span id="content_block_name"></span></h5>
-					<p>Территория: <span id="content_block_habitate"></span></p>
+					<div>
+						<p>
+							Название: <span id="content_block_name"></span>
+						</p>
+					</div>
+					<div>
+						<span id="content_block_habitate"></span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div></div>
+	<div th:fragment="habitates">
+		<label class="select_box select_arrow"><span>Территория:</span> <select id="habitate_type" class="select">
+				<option th:each="habitate : ${habitates}" th:value="${habitate}" th:text="${habitate.name}" th:selected="${selected eq habitate}"></option>
+		</select></label>
+	</div>
 </body>
 <script th:src="@{/resources/js/tools/tavern.js}" layout:fragment="js-script"></script>
 </html>

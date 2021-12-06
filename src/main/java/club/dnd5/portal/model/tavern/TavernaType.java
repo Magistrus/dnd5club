@@ -3,9 +3,9 @@ package club.dnd5.portal.model.tavern;
 import java.util.Random;
 
 public enum TavernaType {
-	BEER("Пивная", "Кабак"), 
-	INN("Постоялый двор", "Трактир", "Таверна"), 
-	HOTEL("Гостиница", "Отель");
+	BEER("Пивная", "Кабак", "Бар", "Паб", "Дом эля", "Пивоварня"), 
+	INN("Постоялый двор", "Трактир", "Таверна", "Логово"), 
+	HOTEL("Гостиница", "Отель", "Дом", "Гостинный двор");
 	
 	private final Random rnd = new Random();
 

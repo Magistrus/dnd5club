@@ -1,5 +1,6 @@
 $('#generate').on('click', function() {
 	getName();
+	getHabitate();
 });
 $('#clear').on('click', function() {
 	  const myNode = document.getElementById("content_block");
@@ -10,4 +11,8 @@ $('#clear').on('click', function() {
 function getName(){
 	const url = '/tools/tavern/name/';
 	$("#content_block_name").load(url);
+}
+function getHabitate(){
+	const url = '/tools/tavern/habitates/random';
+	$("#content_block_habitate").load(url);
 }
