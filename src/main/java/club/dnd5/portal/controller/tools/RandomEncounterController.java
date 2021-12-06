@@ -1,5 +1,6 @@
 package club.dnd5.portal.controller.tools;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import club.dnd5.portal.model.encounters.RandomEncounter;
 import club.dnd5.portal.repository.datatable.RandomEncounterRepository;
 
 @Controller
-public class EncounterRandomController {
+public class RandomEncounterController {
 	public static final Random rnd = new Random();
 	
 	@Autowired
@@ -35,9 +36,16 @@ public class EncounterRandomController {
 	
 	@GetMapping("/tools/encounters/random")
 	@ResponseBody
-	public String getRandomEncounter(Integer level, HabitatType type) {
+	public String getRandomEncounter(Integer level, String type) {
+		HabitatType habitatType;
+		if ("RANDOM".equals(type)) {
+			habitatType = new ArrayList<>(HabitatType.types()).get(rnd.nextInt(HabitatType.types().size()));
+		}
+		else {
+			habitatType = HabitatType.valueOf(type);
+		}
 		int index = 1 + rnd.nextInt(100);
-		RandomEncounter encounter = repo.findOne(index, level, type);
-		return encounter.getDescription();
+		RandomEncounter encounter = repo.findOne(index, level, habitatType);
+		return "Окружающая среда: <strong>" +  habitatType.getName() + "</strong><br>" + encounter.getDescription();
 	}
 }

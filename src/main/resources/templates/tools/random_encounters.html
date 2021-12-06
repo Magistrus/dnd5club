@@ -14,6 +14,7 @@
 							<option value="3">11-15</option>
 							<option value="4">17-20</option>
 					</select></label> <label class="select_box select_arrow"><span>Окружающая среда</span><select id="type" name="type" class="select">
+							<option value="RANDOM">Случайная</option>
 							<option th:each="type : ${types}" th:text="${type.name}" th:value="${type}"></option>
 					</select></label>
 				</div>
