@@ -12,8 +12,8 @@
 		<tbody>
 			<tr th:each="item : ${items}" th:id = "${item.id}" th:class="|${item.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
 				<td>
-					<div th:class="|tip spell_lvl ${item.rarityEnglish}|" th:title="${item.rarity}" th:text="${item.shortRarity}"></div>
-					<div class="spell_name" th:text="${item.name}"></div>
+					<div th:class="|tip info_block ${item.rarityEnglish}|" th:title="${item.rarity}" th:text="${item.shortRarity}"></div>
+					<div class="row_name" th:text="${item.name}"></div>
 				</td>
 			</tr>
 		</tbody>

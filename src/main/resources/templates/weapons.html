@@ -5,7 +5,7 @@
 <script th:src="@{/resources/js/datatables/rowGroup/dataTables.rowGroup.js}"></script>
 </head>
 <body id="body">
-	<div id="list_page_two_block" class="table_list_left_block block_information" layout:fragment="content">
+	<div id="list_page_two_block" class="table_list_block block_information" layout:fragment="content">
 		<div id="left_block">
 			<div class="header_block filters">
 				<h3>Оружие</h3>
@@ -36,7 +36,7 @@
 			</div>
 			<div id="searchPanes" class="search_panes"></div>
 			<div id="scroll_load_simplebar" class="container_left table_list">
-				<table id="weapons" class="table_list spells_list" th:fragment="table">
+				<table id="weapons" class="table_list" th:fragment="table">
 					<thead style="display: none">
 						<tr>
 							<th>Тип</th>
