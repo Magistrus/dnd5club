@@ -44,7 +44,7 @@ $('.card').on('click', 	function() {
 });
 function setActiveScreen(element, englishName) {
 	var screenName = element.querySelector("#screen_id").textContent;
-	document.getElementById('screen_name').innerHTML = screenName;
+	$('#screen_name').text(screenName);
 	document.title = screenName;
 	history.pushState('data to be passed', screenName, '/screens/' + englishName);
 	$(".card").removeClass('active');

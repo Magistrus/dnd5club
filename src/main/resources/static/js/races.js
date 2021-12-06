@@ -74,7 +74,7 @@ $('.card').on('click', 	function() {
 });
 function setActiveRace(element, englishName) {
 	var raceName = element.querySelector("#race_id").textContent;
-	document.getElementById('race_name').innerHTML = raceName;
+	$('#race_name').text(raceName);
 	document.title = raceName;
 	history.pushState('data to be passed', raceName, '/races/' + englishName);
 	switch (localStorage.getItem('race_info')) {

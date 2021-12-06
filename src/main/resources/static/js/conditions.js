@@ -31,7 +31,7 @@ $('.card').on('click', 	function() {
 });
 function setActiveCondition(element, englishName){
 	var conditionName = element.querySelector("#condition_id").textContent;
-	document.getElementById('condition_name').innerHTML = conditionName;
+	$('#condition_name').text(conditionName);
 	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
 	document.title = conditionName;
 	localStorage.setItem('selected_condition', englishName);

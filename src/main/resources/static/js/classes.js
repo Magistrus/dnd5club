@@ -106,7 +106,7 @@ function setActiveClass(element, englishName) {
 		$('#class_spells').addClass('hide_block');
 	}
 	var className = element.querySelector("#classes_id").textContent;
-	$('#class_name').html(className);
+	$('#class_name').text(className);
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
 	$(".card").removeClass('active');
