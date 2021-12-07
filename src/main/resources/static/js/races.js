@@ -73,6 +73,7 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveRace(element, englishName) {
+	element.scrollIntoView({block: "center", behavior: "smooth"});
 	var raceName = element.querySelector("#race_id").textContent;
 	$('#race_name').text(raceName);
 	document.title = raceName;
