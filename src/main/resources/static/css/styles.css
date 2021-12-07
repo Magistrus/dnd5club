@@ -795,7 +795,7 @@ input::selection {
   height: calc(100vh - 73px);
 }
 
-#left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+#container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
   padding: 24px;
 }
 
@@ -1167,31 +1167,27 @@ input::selection {
 
 
 /******** Список из таблицы********/
-.table_list_block #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
-  padding: 0px;
-}
-
-.table_list_block .table_list {
+.table_list {
   border: none;
   width: 100% !important;
 }
 
-.table_list_block .table_list thead {
+.table_list thead {
   display: none !important;
 }
 
-.table_list_block .table_list tr {
-  background: none;
+.table_list tr {
+  background-color: transparent !important;
   display: flex;
   flex-direction: row;
 }
 
-.table_list_block .table_list tr:hover {
-  background: var(--hover);
+.table_list tr:hover {
+  background-color: var(--hover) !important;
   cursor: pointer;
 }
 
-.table_list_block .table_list tr.selected {
+.table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
 
@@ -1200,7 +1196,7 @@ input::selection {
   background-repeat: repeat;
 }
 
-.table_list_block .table_list tr td {
+.table_list tr td {
   border-right:none;
   display: flex;
   flex-direction: row;
@@ -1211,19 +1207,19 @@ input::selection {
   padding: 8px 10px;
 }
 
-.table_list_block .table_list tr td:first-child {
+.table_list tr td:first-child {
   border-left:3px solid var(--bg-main);
 }
 
-.table_list_block .table_list tr:hover td:first-child {
+.table_list tr:hover td:first-child {
   border-left:3px solid var(--hover);
 }
 
-.table_list_block .table_list tr.selected td:first-child {
+.table_list tr.selected td:first-child {
   border-left:3px solid var(--primary);
 }
 
-.table_list_block .table_list tr td:nth-child(2) {
+.table_list tr td:nth-child(2) {
   text-align: right;
   padding-right: 16px;
   max-width: 60px;
@@ -1231,14 +1227,14 @@ input::selection {
   font-size: 15px;
 }
 
-.table_list_block .table_list tr:hover.selected {
+.table_list tr:hover.selected {
   background: var(--border);
 
   background-position: top left;
   background-repeat: no-repeat;
 }
 
-.table_list_block tr td .info_block {
+.table_list tr td .info_block {
   min-width: 42px;
   height: 42px;
   font-size: 17px;
@@ -1248,7 +1244,7 @@ input::selection {
   position:relative;
 }
 
-.table_list_block tr .info_block:after {
+.table_list tr .info_block:after {
   content: '';
   position: absolute;
   border: 1px solid var(--border);
@@ -1260,26 +1256,26 @@ input::selection {
   left: 0px;
 }
 
-.table_list_block .table_list tr.selected .info_block:after {
+.table_list .table_list tr.selected .info_block:after {
   border:1px solid var(--primary);
 }
 
-.table_list_block tr td .content {
+.table_list tr td .content {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.table_list_block tr td .row_name {
+.table_list tr td .row_name {
   font-size: 15px;
 }
 
-.table_list_block tr .row_name span {
+.table_list tr .row_name span {
   color: var(--text-g-color);
   margin-left: 8px;
 }
 
-.table_list_block tr .secondary_name {
+.table_list tr .secondary_name {
   color: var(--text-g-color);
   text-transform: capitalize;
   margin-top: 4px;
