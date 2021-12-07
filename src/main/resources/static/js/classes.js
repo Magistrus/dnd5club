@@ -101,11 +101,6 @@ $('.card').on('click', 	function() {
 });
 function setActiveClass(element, englishName) {
 	element.scrollIntoView({block: "center", behavior: "smooth"});
-	if (element.classList.contains('spellcaster')){
-		$('#class_spells').removeClass('hide_block');
-	} else {
-		$('#class_spells').addClass('hide_block');
-	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
 	document.title = className;
@@ -134,10 +129,10 @@ function setActiveClass(element, englishName) {
 		var url = '/classes/fragment/' + englishName;
 		$("#content_block").load(url, function() {
 			if(localStorage.getItem('homebrew_source') == 'true'){
-				$('.custom_source').toggleClass('hide_block');
+				$('.custom_source').removeClass('hide_block');
 			}
 			if(localStorage.getItem('setting_source') == 'true'){
-				$('.setting_source').toggleClass('hide_block');
+				$('.setting_source').removeClass('hide_block');
 			}
 			$('#mobile_selector').change(function () {
 				setActiveArchetype(element, englishName, $('#mobile_selector').val());

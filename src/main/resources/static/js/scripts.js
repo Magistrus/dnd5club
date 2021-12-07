@@ -67,11 +67,11 @@ $(document).ready(function() {
 	});
 	if(localStorage.getItem('homebrew_source') == 'true'){
 		$('#homebrew_source').prop('checked', true);
-		$('.custom_source').toggleClass('hide_block');
+		$('.custom_source').removeClass('hide_block');
 	}
 	if(localStorage.getItem('setting_source') == 'true'){
 		$('#setting_source').prop('checked', true);
-		$('.setting_source').toggleClass('hide_block');
+		$('.setting_source').removeClass('hide_block');
 	}
 });
 $("#btn_full_screen, #btn_exet_full_screen").click(function () {
