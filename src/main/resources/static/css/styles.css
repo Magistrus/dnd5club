@@ -46,6 +46,10 @@ hr {
   margin-top: -24px;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .w_100 {
   width: 100%;
 }
@@ -402,10 +406,6 @@ input::selection {
   height: 44px;
 }
 
-.login_form .mfp-close:hover {
-
-}
-
 .login_form .remember_row {
   padding: 12px 12px 4px 12px;
 }
@@ -466,10 +466,6 @@ input::selection {
 
 .full_screen_right_block .block_information #left_block {
   margin-right: 0px;
-}
-
-.full_screen_right_block {
-
 }
 
 
@@ -730,12 +726,13 @@ input::selection {
 }
 
 .header_block .filter_block {
-  height: 46px;
+  height: 45px;
   width: auto;
   position: absolute;
   left: 0px;
   right: 0px;
   bottom: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 #left_block .header_block.filters {
@@ -795,7 +792,7 @@ input::selection {
   height: calc(100vh - 73px);
 }
 
-#left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+#container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
   padding: 24px;
 }
 
@@ -811,7 +808,7 @@ input::selection {
 }
 
 #left_block .header_block .search_int {
-  height: 43px;
+  height: 42px;
   border-top: none;
   border-bottom: none;
   border-right: none;
@@ -1167,31 +1164,28 @@ input::selection {
 
 
 /******** Список из таблицы********/
-.table_list_block #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
-  padding: 0px;
-}
-
-.table_list_block .table_list {
+.table_list {
   border: none;
   width: 100% !important;
+  overflow-x: hidden;
 }
 
-.table_list_block .table_list thead {
+.table_list thead {
   display: none !important;
 }
 
-.table_list_block .table_list tr {
-  background: none;
+.table_list tr {
+  background-color: transparent !important;
   display: flex;
   flex-direction: row;
 }
 
-.table_list_block .table_list tr:hover {
-  background: var(--hover);
+.table_list tr:hover {
+  background-color: var(--hover) !important;
   cursor: pointer;
 }
 
-.table_list_block .table_list tr.selected {
+.table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
 
@@ -1200,7 +1194,7 @@ input::selection {
   background-repeat: repeat;
 }
 
-.table_list_block .table_list tr td {
+.table_list tr td {
   border-right:none;
   display: flex;
   flex-direction: row;
@@ -1211,19 +1205,19 @@ input::selection {
   padding: 8px 10px;
 }
 
-.table_list_block .table_list tr td:first-child {
+.table_list tr td:first-child {
   border-left:3px solid var(--bg-main);
 }
 
-.table_list_block .table_list tr:hover td:first-child {
+.table_list tr:hover td:first-child {
   border-left:3px solid var(--hover);
 }
 
-.table_list_block .table_list tr.selected td:first-child {
+.table_list tr.selected td:first-child {
   border-left:3px solid var(--primary);
 }
 
-.table_list_block .table_list tr td:nth-child(2) {
+.table_list tr td:nth-child(2) {
   text-align: right;
   padding-right: 16px;
   max-width: 60px;
@@ -1231,14 +1225,14 @@ input::selection {
   font-size: 15px;
 }
 
-.table_list_block .table_list tr:hover.selected {
+.table_list tr:hover.selected {
   background: var(--border);
 
   background-position: top left;
   background-repeat: no-repeat;
 }
 
-.table_list_block tr td .info_block {
+.table_list tr td .info_block {
   min-width: 42px;
   height: 42px;
   font-size: 17px;
@@ -1248,7 +1242,7 @@ input::selection {
   position:relative;
 }
 
-.table_list_block tr .info_block:after {
+.table_list tr .info_block:after {
   content: '';
   position: absolute;
   border: 1px solid var(--border);
@@ -1260,26 +1254,54 @@ input::selection {
   left: 0px;
 }
 
-.table_list_block .table_list tr.selected .info_block:after {
+.table_list .table_list tr.selected .info_block:after {
   border:1px solid var(--primary);
 }
 
-.table_list_block tr td .content {
+.table_list tr td .content {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 100%;
 }
 
-.table_list_block tr td .row_name {
+.table_list tr td .content .content_description {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.table_list tr td .secondary_name.s2,
+.table_list tr td .secondary_name.s3 {
+  justify-content: flex-end;
+  display: flex;
+}
+
+.table_list tr td .secondary_name.s2 {
+  --width-content-c2: auto;
+  flex: 0 0 var(--width-content-c2);
+  min-width: var(--width-content-c2);
+  max-width: var(--width-content-c2);
+  margin-left: auto;
+}
+
+.table_list tr td .secondary_name.s3 {
+  --width-content-c3:300px;
+  flex: 0 0 var(--width-content-c3);
+  min-width: var(--width-content-c3);
+  max-width: var(--width-content-c3);
+}
+
+.table_list tr td .row_name {
   font-size: 15px;
 }
 
-.table_list_block tr .row_name span {
+.table_list tr .row_name span {
   color: var(--text-g-color);
   margin-left: 8px;
 }
 
-.table_list_block tr .secondary_name {
+.table_list tr .secondary_name {
   color: var(--text-g-color);
   text-transform: capitalize;
   margin-top: 4px;
@@ -1303,6 +1325,32 @@ input::selection {
 
 .table_list tbody div.artifact.info_block:after {
   border-color: var(--artifact) !important;
+}
+
+@media (max-width: 1000px) {
+  .table_list tr td .secondary_name.s2 {
+    display: none;
+  }
+
+  .table_list tr td .secondary_name.s3 {
+    margin-left: auto;
+  }
+}
+@media (max-width: 600px) {
+  .table_list tr td .row_name {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table_list tr .row_name span {
+    margin-left: 0px;
+  }
+
+  .table_list tr td .secondary_name.s2,
+  .table_list tr td .secondary_name.s3 {
+    justify-content: flex-start;
+    margin-left: 0;
+  }
 }
 
 
@@ -1416,6 +1464,16 @@ input::selection {
 /******** Информация о заклинание / spells ********/
 .spells {
 
+}
+
+@media (min-width: 1000px) {
+  #left_block.spells  {
+    margin-right: calc(38vw + 0px);
+  }
+}
+
+#right_block.spells {
+  --width-right-block:calc(38vw - 0px);
 }
 
 #right_block.spells .info_wrapper .simplebar-content {
@@ -1626,6 +1684,23 @@ input::selection {
 #right_block.backgrounds .content_block h4:nth-child(1) {
   margin-top: -24px !important;
 }
+
+
+/******** Оружие / Weapons ********/
+.weapons {
+
+}
+
+@media (min-width: 1000px) {
+  #left_block.weapons  {
+    margin-right: calc(38vw + 0px);
+  }
+}
+
+#right_block.weapons {
+  --width-right-block:calc(38vw - 0px);
+}
+
 
 
 /******** Бестиарий / bestiary ********/

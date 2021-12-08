@@ -6,7 +6,7 @@ $(document).ready(function() {
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
-		iDisplayLength : 40,
+		iDisplayLength : 50,
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
@@ -35,9 +35,9 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
-					result+='<div class="row_name">' + row.name;
+					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="secondary_name">' + row.school + '</div>';
+					result+='<div class="secondary_name">' + row.school + '</div></div>';
 					return result;
 				}
 				return data;
@@ -87,15 +87,15 @@ $(document).ready(function() {
 	        }
 		},
 		initComplete: function(settings, json) {
-			/*scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
-		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+			scrollEventHeight = document.getElementById('class_content_block').offsetHeight - 300;
+			var simpleBar = SimpleBar.instances.get(document.getElementById('class_content_block'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
-		    		  table.page.loadMore();
-		    	      simpleBar.recalculate();
-		    	      scrollEventHeight +=750;
-		    	}
-		    });*/
+	    		  table.page.loadMore();
+	    	      simpleBar.recalculate();
+	    	      scrollEventHeight +=750;
+	    		}
+	    	});
 		    table.searchPanes.container().prependTo($('#searchPanes'));
 		    table.searchPanes.container().hide();
 		},
@@ -108,12 +108,19 @@ $(document).ready(function() {
 			}
 		},
 	});
-
 	$('#spells tbody').on('click', 'tr', function () {
 		var tr = $(this).closest('tr');
 		var table = $('#spells').DataTable();
 		var row = table.row( tr );
-		//selectSpell(row.data());
+		$.get('/spells/fragment/' + row.data().id)
+		  .done(function( spellData ) {
+				$.magnificPopup.open({
+					  items: {
+					      src: spellData,
+					      type: 'inline'
+					  },
+				});
+		  });
 	});
 });
 function selectSpell(data){

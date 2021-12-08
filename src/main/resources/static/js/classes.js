@@ -101,6 +101,15 @@ $('.card').on('click', 	function() {
 });
 function setActiveClass(element, englishName) {
 	element.scrollIntoView({block: "center", behavior: "smooth"});
+	if(element.classList.contains('spellcaster')){
+		$('#class_spells').removeClass('hide_block');
+	}
+	else {
+		$('#class_spells').addClass('hide_block');
+		$('#class_spells').removeClass('active');
+		$('#class_traits').addClass('active');
+		localStorage.setItem('class_info', 'traits');
+	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
 	document.title = className;
