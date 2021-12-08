@@ -116,7 +116,7 @@ $(document).ready(function() {
 		  .done(function( spellData ) {
 				$.magnificPopup.open({
 					  items: {
-					      src: spellData,
+					      src: '<div class="dnd5-popup-block">' + spellData + '</div>',
 					      type: 'inline'
 					  },
 				});
