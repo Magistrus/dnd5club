@@ -7,6 +7,7 @@
   width: 270px;
   border-right: 1px solid var(--border);
   z-index: 100;
+  /* transition: width 0.3s; */
 
   border-image-source: var(--border-img);
   border-image-slice: 1 1 1 fill;
@@ -17,6 +18,7 @@
 
 .compact_menu .navbar {
   width: 72px;
+  /* transition: width 0.3s; */
 }
 
 .navbar nav {
