@@ -19,12 +19,7 @@
 			</div>
 		</div>
 	</body>
-	<script th:src="@{/resources/js/scripts.js}"></script>
-	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
-	<script th:src="@{/resources/js/scheme.js}"></script>
-	<script th:src="@{/resources/js/simplebar.min.js}"></script>
-	<script th:src="@{/resources/js/tipped.min.js}"></script>
-
+	<th:block th:replace="layouts/layout :: mainJS"/>
 	<script layout:fragment="js-script"></script>
 	<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/86582536" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
