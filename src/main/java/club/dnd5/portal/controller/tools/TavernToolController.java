@@ -133,14 +133,14 @@ public class TavernToolController {
 		return tavernName;
 	}
 	
-	@GetMapping("/tools/tavern/habitates/random")
+	@GetMapping("/tools/tavern/habitates/")
 	public String getHabitates(Model model) {
 		model.addAttribute("selected",  habitates.get(rnd.nextInt(habitates.size())));
 		model.addAttribute("habitates",  habitates);
 		return "tools/tavern :: habitates";
 	}
 	
-	@GetMapping("/tools/tavern/atmosphere/random")
+	@GetMapping("/tools/tavern/atmosphere/")
 	@ResponseBody
 	public String getAtmosphere() {
 		List<Atmosphere> atmospheres = atmosphereRepo.findAll();

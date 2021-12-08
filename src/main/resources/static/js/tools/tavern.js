@@ -14,10 +14,10 @@ function getName(){
 	$("#content_block_name").load(url);
 }
 function getHabitate(){
-	const url = '/tools/tavern/habitates/random';
+	const url = '/tools/tavern/habitates/';
 	$("#content_block_habitate").load(url);
 }
 function getAtmosphere() {
-	const url = '/tools/tavern/atmosphere/random';
+	const url = '/tools/tavern/atmosphere/';
 	$("#content_block_atmosphere").load(url);
 }
