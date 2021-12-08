@@ -21,10 +21,12 @@ body {
   margin-left: 270px;
   padding-left: 24px;
   padding-right: 24px;
+  /* transition: margin-left 0.3s; */
 }
 
 .compact_menu .container {
   margin-left: 72px;
+  /* transition: margin-left 0.3s; */
 }
 
 hr {
@@ -353,6 +355,19 @@ input::selection {
 
 .dnd5-popup-block .mfp-close {
   color: var(--primary);
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.dnd5-popup-block .header {
+  margin-top: -12px;
+  height: 44px;
+}
+
+.dnd5-popup-block .header h4 {
+  margin: 0;
+  line-height: 44px;
 }
 
 @media (max-width: 1200px) {
@@ -480,6 +495,33 @@ input::selection {
 
 .main_page_wrapper .left_block .left_cont {
   height: 100vh;
+}
+
+.main_page_wrapper .left_block .left_cont .search_row {
+  height: 72px;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.main_page_wrapper .left_block .left_cont .search_row .btn_search_icon {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+
+.main_page_wrapper .left_block .left_cont .search_row input {
+  height: 72px;
+  width: calc(100% - 88px);
+  padding: 0px 24px 0px 64px;
+  background-color: var(--bg-secondary);
+  border: none;
+  font-size: 20px;
+}
+
+.main_page_wrapper .left_block .left_cont .search_row input:focus {
+  background-color: var(--hover);
 }
 
 .main_page_wrapper .left_block .card_row {
@@ -780,8 +822,12 @@ input::selection {
 }
 
 .block_information #left_block {
-  /* transition: margin-right 0.6s; */
-  margin-right: calc(58vw + 0px);
+  /* transition: margin-right 0.3s; */
+  margin-right: calc(54vw + 0px);
+}
+
+body.compact_menu .block_information #left_block {
+  margin-right: calc(59vw + 0px);
 }
 
 #left_block .filters + .search_panes + .container_left {
@@ -837,7 +883,7 @@ input::selection {
   border-left: 1px solid var(--border);
   top: 1px;
   width: 46px;
-  height: 45px;
+  height: 44px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -865,11 +911,11 @@ input::selection {
 
 /******** Правй блок ********/
 #right_block {
-  --width-right-block:calc(58vw - 0px);
+  --width-right-block:calc(54vw - 0px);
   width: var(--width-right-block);
   top: 0;
   right: calc(-58vw - 1px);
-  /* transition: width 0.6s; */
+  /* transition: width 0.3s; */
   position: fixed;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
@@ -879,6 +925,10 @@ input::selection {
   border-image-repeat: repeat repeat;    
   border-image-width: auto;
   border-image-outset: 0;
+}
+
+body.compact_menu #right_block {
+  --width-right-block:calc(59vw - 0px);
 }
 
 #right_block .header_block {
@@ -925,6 +975,42 @@ input::selection {
 
 #right_block .header_block .header_sub_menu button .icon_action {
   margin-right: 16px;
+}
+
+@media (max-width: 1200px) {
+  #right_block .header_block .header_sub_menu button {
+    flex: 1 0;
+    justify-content: center;
+    padding: 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  #right_block .header_block .header_sub_menu button .icon_action {
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  #right_block.classes .header_block .header_sub_menu button .icon_action {
+    margin-right: 0px;
+  }
+
+  #right_block.classes .header_block .header_sub_menu button span {
+    display: none;
+  }
+
+  #right_block.classes .header_block .header_sub_menu button.active {
+    padding: 0 16px;
+  }
+
+  #right_block.classes .header_block .header_sub_menu button.active .icon_action {
+    margin-right: 8px;
+  }
+
+  #right_block.classes .header_block .header_sub_menu button.active span {
+    display: block;
+  }
 }
 
 #right_block .header_block .btn_exet_full_screen,
@@ -1003,6 +1089,10 @@ input::selection {
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
   position: relative;
+}
+
+#right_block.races .info_wrapper .content_block #content_block {
+  width: 100%;
 }
 
 #right_block .info_wrapper .content_block #content_block:after {
@@ -1327,15 +1417,17 @@ input::selection {
   border-color: var(--artifact) !important;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
   .table_list tr td .secondary_name.s2 {
     display: none;
   }
 
   .table_list tr td .secondary_name.s3 {
     margin-left: auto;
+    --width-content-c3: auto;
   }
 }
+
 @media (max-width: 600px) {
   .table_list tr td .row_name {
     display: flex;
@@ -1468,13 +1560,22 @@ input::selection {
 
 @media (min-width: 1000px) {
   #left_block.spells  {
-    margin-right: calc(38vw + 0px);
+    margin-right: calc(42vw + 0px);
+  }
+
+  body.compact_menu #left_block.spells {
+    margin-right: calc(48vw + 0px);
   }
 }
 
 #right_block.spells {
-  --width-right-block:calc(38vw - 0px);
+  --width-right-block:calc(42vw - 0px);
 }
+
+body.compact_menu #right_block.spells {
+  --width-right-block:calc(48vw - 0px);
+}
+
 
 #right_block.spells .info_wrapper .simplebar-content {
   display: flex;
@@ -1693,14 +1794,21 @@ input::selection {
 
 @media (min-width: 1000px) {
   #left_block.weapons  {
-    margin-right: calc(38vw + 0px);
+    margin-right: calc(42vw + 0px);
+  }
+
+  body.compact_menu #left_block.weapons {
+    margin-right: calc(48vw + 0px);
   }
 }
 
 #right_block.weapons {
-  --width-right-block:calc(38vw - 0px);
+  --width-right-block:calc(42vw - 0px);
 }
 
+body.compact_menu #right_block.weapons {
+  --width-right-block:calc(48vw - 0px);
+}
 
 
 /******** Бестиарий / bestiary ********/
