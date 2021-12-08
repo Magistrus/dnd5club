@@ -46,6 +46,10 @@ hr {
   margin-top: -24px;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .w_100 {
   width: 100%;
 }
@@ -730,12 +734,13 @@ input::selection {
 }
 
 .header_block .filter_block {
-  height: 46px;
+  height: 45px;
   width: auto;
   position: absolute;
   left: 0px;
   right: 0px;
   bottom: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 #left_block .header_block.filters {
@@ -811,7 +816,7 @@ input::selection {
 }
 
 #left_block .header_block .search_int {
-  height: 43px;
+  height: 42px;
   border-top: none;
   border-bottom: none;
   border-right: none;
@@ -1170,6 +1175,7 @@ input::selection {
 .table_list {
   border: none;
   width: 100% !important;
+  overflow-x: hidden;
 }
 
 .table_list thead {
@@ -1264,6 +1270,34 @@ input::selection {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 100%;
+}
+
+.table_list tr td .content .content_description {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.table_list tr td .secondary_name.s2,
+.table_list tr td .secondary_name.s3 {
+  justify-content: flex-end;
+  display: flex;
+}
+
+.table_list tr td .secondary_name.s2 {
+  --width-content-c2: auto;
+  flex: 0 0 var(--width-content-c2);
+  min-width: var(--width-content-c2);
+  max-width: var(--width-content-c2);
+  margin-left: auto;
+}
+
+.table_list tr td .secondary_name.s3 {
+  --width-content-c3:300px;
+  flex: 0 0 var(--width-content-c3);
+  min-width: var(--width-content-c3);
+  max-width: var(--width-content-c3);
 }
 
 .table_list tr td .row_name {
@@ -1299,6 +1333,32 @@ input::selection {
 
 .table_list tbody div.artifact.info_block:after {
   border-color: var(--artifact) !important;
+}
+
+@media (max-width: 1000px) {
+  .table_list tr td .secondary_name.s2 {
+    display: none;
+  }
+
+  .table_list tr td .secondary_name.s3 {
+    margin-left: auto;
+  }
+}
+@media (max-width: 600px) {
+  .table_list tr td .row_name {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table_list tr .row_name span {
+    margin-left: 0px;
+  }
+
+  .table_list tr td .secondary_name.s2,
+  .table_list tr td .secondary_name.s3 {
+    justify-content: flex-start;
+    margin-left: 0;
+  }
 }
 
 
@@ -1412,6 +1472,20 @@ input::selection {
 /******** Информация о заклинание / spells ********/
 .spells {
 
+}
+
+/* #left_block.spells  {
+  margin-right: calc(38vw + 0px);
+} */
+
+@media (min-width: 1000px) {
+  #left_block.spells  {
+    margin-right: calc(38vw + 0px);
+  }
+}
+
+#right_block.spells {
+  --width-right-block:calc(38vw - 0px);
 }
 
 #right_block.spells .info_wrapper .simplebar-content {

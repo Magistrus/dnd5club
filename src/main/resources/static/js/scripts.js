@@ -20,6 +20,9 @@ $(document).ready(function() {
 		$('#list_page_two_block').removeClass('block_information');
 		$('#body').removeClass('full_screen_right_block');
 	  }
+	  if(windowWidth > 1000){
+		$('#list_page_two_block').addClass('block_information');
+	  }
 	}
 
 	checkWidth(); // проверит при загрузке страницы
