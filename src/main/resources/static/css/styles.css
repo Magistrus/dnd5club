@@ -898,7 +898,7 @@ body.compact_menu .block_information #left_block {
 
 
 #left_block.full_width_left_block {
-  margin-right: calc(0vw + 0px);
+  margin-right: calc(0vw + 0px) !important;
 }
 
 @media (max-width: 1000px) {
@@ -2030,8 +2030,12 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 0px;
-  
 } 
+
+#left_block.encounters .content_block #content_block {
+  padding: 24px;
+  position: relative;
+}
 
 .tools_block_result {
   border-bottom: 1px solid var(--border);
