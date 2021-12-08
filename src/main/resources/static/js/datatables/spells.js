@@ -38,7 +38,9 @@ $(document).ready(function() {
 					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="secondary_name">' + row.school + '</div></div>';
+					result+='<div class="content_description"><div class="secondary_name s1">' + row.school + '</div>';
+					result+='<div class="secondary_name s2 tip" title="Время накладывания">' + row.timeCast + '</div>';
+                    result+='<div class="secondary_name s3"><span class="tip" title="Длительность">' + row.duration + '</span></div></div></div>';
 					return result;
 				}
 				return data;
