@@ -30,6 +30,7 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveCondition(element, englishName){
+	element.scrollIntoView({block: "center", behavior: "smooth"});
 	var conditionName = element.querySelector("#condition_id").textContent;
 	$('#condition_name').text(conditionName);
 	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
