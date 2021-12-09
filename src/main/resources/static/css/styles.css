@@ -1630,20 +1630,22 @@ body.compact_menu #right_block.spells {
   padding:0 !important;
   border-bottom: none !important;
   border-image: none !important;
+  z-index: 1;
 }
 
 #right_block .info_wrapper li.avatar:hover {
-  background: none !important;
+  background: var(--bg-main) !important;
   cursor: auto !important;
 }
 
 #right_block .info_wrapper  li.avatar img {
   position: relative;
   left: 50%;
-  top: 50%;
-  height: auto;
+  top: 0%;
+  height: 100%;
   width: 100%;
   transform: translate(-50%,0%);
+  object-fit: cover;
 }
 
 #right_block.classes .content_block h4.mt {
@@ -1891,19 +1893,16 @@ body.compact_menu #right_block.weapons {
   }
 
   #right_block.bestiary .info_wrapper li.avatar {
-    width: 378px;
-    max-height: 292px;
+    width: 180px;
+    height: 180px;
     position: absolute;
-    margin-left: 0 !important;
-  }
-
-  #right_block.bestiary .info_wrapper .sub_menu_list li{
-    margin-left: 378px;
-    border-left: 1px solid var(--border);
-  }
-
-  #right_block.bestiary .info_wrapper li.avatar img {
-    width: 110%;
+    right: 16px;
+    top: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-main);
+    box-shadow: 0px 6px 21px #00000036;
   }
 }
 
@@ -1913,20 +1912,15 @@ body.compact_menu #right_block.weapons {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   #right_block.bestiary .info_wrapper li.avatar {
-    width: 100%;
-    max-height: auto;
+    width: calc(100% - 2px);
     position: relative;
-  }
-
-  #right_block.bestiary .info_wrapper .sub_menu_list li{
-    margin-left: 0;
-    border-left: none;
-  }
-
-  #right_block.bestiary .info_wrapper li.avatar img {
-    width: 100%;
+    border-radius: 0;
+    right: 0;
+    top: 0;
+    height: 300px;
+    box-shadow: none;
   }
 }
 
@@ -1954,10 +1948,10 @@ body.compact_menu #right_block.weapons {
 }
 
 .search_panes .dtsp-panesContainer {
-  box-shadow: 0px 10px 10px #00000057;
+  box-shadow: 0px 10px 21px #00000036;
   background: var(--bg-main);
   padding: 0px 24px 24px 24px;
-  margin-top: 1px;
+  margin-top: 0px;
 }
 
 .search_panes .dtsp-panesContainer .dtsp-titleRow {
