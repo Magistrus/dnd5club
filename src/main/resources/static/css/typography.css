@@ -57,10 +57,10 @@ h5 {
 
 p {
   font-size: 13px;
-  line-height: 20px;
+  line-height: 18px;
   font-weight: 400;
   letter-spacing: 0.2px;
-  margin: 0 0 12px 0;
+  margin: 0 0 8px 0;
   color: var(--text-color);
 }
 

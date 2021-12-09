@@ -914,7 +914,7 @@ body.compact_menu .block_information #left_block {
   --width-right-block:calc(54vw - 0px);
   width: var(--width-right-block);
   top: 0;
-  right: calc(-58vw - 1px);
+  right: calc(-59vw - 1px);
   /* transition: width 0.3s; */
   position: fixed;
   background-color: var(--bg-secondary);
@@ -1126,12 +1126,17 @@ body.compact_menu #right_block {
   list-style: none;
   padding: 0;
   margin: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list li {
   position: relative;
   padding: 16px 16px 16px 16px;
   border-bottom: 1px solid var(--border);
+}
+
+#right_block .info_wrapper .sub_menu_list li:last-child {
+  border-bottom: none;
 }
 
 #right_block .info_wrapper .sub_menu_list li h5 {
@@ -1845,6 +1850,20 @@ body.compact_menu #right_block.weapons {
   }
 }
 
+@media (max-width: 1200px) {
+  #right_block.bestiary .scores>div {
+    max-width: calc(16% - 8px);
+    flex: 1 0 calc(16% - 8px);
+  }
+}
+
+@media (max-width: 500px) {
+  #right_block.bestiary .scores>div {
+    max-width: calc(33% - 8px);
+    flex: 1 0 calc(33% - 8px);
+  }
+}
+
 @media (max-width: 360px) {
   #right_block.bestiary .scores>div {
     max-width: calc(50% - 8px);
@@ -1863,6 +1882,52 @@ body.compact_menu #right_block.weapons {
 #right_block.bestiary .scores p {
   margin: 0 0 10px;
   line-height: 1.2em;
+}
+
+@media (max-width: 1200px) {
+  #right_block.bestiary .info_wrapper .simplebar-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #right_block.bestiary .info_wrapper li.avatar {
+    width: 378px;
+    max-height: 292px;
+    position: absolute;
+    margin-left: 0 !important;
+  }
+
+  #right_block.bestiary .info_wrapper .sub_menu_list li{
+    margin-left: 378px;
+    border-left: 1px solid var(--border);
+  }
+
+  #right_block.bestiary .info_wrapper li.avatar img {
+    width: 110%;
+  }
+}
+
+@media (max-width: 1000px) {
+  #right_block.bestiary .info_wrapper {
+    height: calc(100vh - 192px);
+  }
+}
+
+@media (max-width: 800px) {
+  #right_block.bestiary .info_wrapper li.avatar {
+    width: 100%;
+    max-height: auto;
+    position: relative;
+  }
+
+  #right_block.bestiary .info_wrapper .sub_menu_list li{
+    margin-left: 0;
+    border-left: none;
+  }
+
+  #right_block.bestiary .info_wrapper li.avatar img {
+    width: 100%;
+  }
 }
 
 
@@ -2435,22 +2500,6 @@ button {
   
   .scores {
     justify-content: space-between;
-  }
-
-
-  /******** Бестиарий / bestiary ********/
-  #right_block.bestiary .info_wrapper {
-    height: calc(100vh - 192px);
-  }
-
-  #right_block.bestiary .info_wrapper .simplebar-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #right_block.bestiary .info_wrapper li.avatar {
-    width: 100%;
-    max-height: 600px;
   }
 
 
