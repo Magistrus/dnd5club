@@ -9,6 +9,7 @@ $(document).ready(function() {
 	if (raceName){
 		var element = $('#'+raceName)[0];
 		var rightContainer = document.getElementById('container_card');
+		rightContainer.classList.add('block_information');
 		setActiveRace(element, raceName);
 	}
 });
