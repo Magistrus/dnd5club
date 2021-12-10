@@ -56,7 +56,7 @@ function loadDescription(){
 	else {
 		url = '/classes/' + selectedClass.id + '/description';
 	}
-	loadContent("content_block", url, function() {
+	$('#content_block').load(url, url, function() {
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('spells');
 		$('#info_wrapper').removeClass('images');
@@ -67,7 +67,7 @@ function loadImages(){
 	var selectedClass = $('.card.active')[0];
 	var englishName = selectedClass.id.replace(' ', '_');
 	var url = '/classes/images/' + englishName;
-	loadContent("content_block", url, function() {
+	$('#content_block').load(url, function() {
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('spells');
@@ -78,7 +78,7 @@ function loadClassSpells() {
 	var selectedClass = $('.card.active')[0];
 	var englishName = selectedClass.id.replace(' ', '_');
 	var url = '/classes/spells/' + englishName;
-	loadContent("content_block", url, function() {
+	$('#content_block').load(url, function() {
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('images');
@@ -179,7 +179,7 @@ function setActiveClass(element, englishName) {
 				if (localStorage.getItem('class_info')==='description'){
 					loadDescription();
 				} else {
-					loadContent("content_block", url);
+					$('#content_block').load(url);
 					localStorage.setItem('selected_class', selecedClassName.id) 
 				}
 			});
@@ -219,10 +219,11 @@ function setActiveArchetype(element, className, archetypeName) {
 			$('#mobile_selector').change(function () {
 				setActiveArchetype(element, className, $('#mobile_selector').val());
 			});
+			$('#info_wrapper').removeClass('description');
+			$('#info_wrapper').removeClass('spells');
+			$('#info_wrapper').removeClass('images');
+			$('#info_wrapper').addClass('traits');
 		});
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
-}
-function loadContent(id, url){
-	$('#'+id).load(url);
 }
