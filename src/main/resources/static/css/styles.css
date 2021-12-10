@@ -1691,12 +1691,12 @@ body.compact_menu #right_block.spells {
 }
 
 #right_block.classes .content_block .classes_mobile_selector {
-  margin-top: -24px;
-  margin-left: -25px;
+  margin-top: -16px;
+  margin-left: -16px;
   z-index: 2;
   position: fixed;
   display: none;
-  width: calc(100vw - 42% - 10px);
+  width: calc(100vw - 42% - 0px);
   height: 46px;
   overflow: hidden;
   border-right: 1px solid var(--border);
