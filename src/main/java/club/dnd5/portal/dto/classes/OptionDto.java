@@ -37,7 +37,13 @@ public class OptionDto {
 		type = option.getOptionTypes().stream()
 				.map(OptionType::getName)
 				.collect(Collectors.joining(", "));
-		prerequisite = option.getPrerequisite();
+		if (option.getLevel() == null) {
+			prerequisite = option.getPrerequisite();
+		} else if ("Нет".equals(option.getPrerequisite())) {
+			prerequisite = String.format("%d уровень", option.getLevel());
+		} else {
+			prerequisite = String.format("%d уровень, %s", option.getLevel(), option.getPrerequisite());
+		}
 		level = option.getLevel();
 		homebrew = option.getBook().getType() == TypeBook.CUSTOM;
 		book = option.getBook().getName();

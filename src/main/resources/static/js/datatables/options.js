@@ -147,8 +147,8 @@ $(document).ready(function() {
 	})
 });
 function selectOption(data){
-	document.getElementById('option_name').innerHTML = data.name;
-	document.getElementById('requirement').innerHTML = data.prerequisite;
+	$('#option_name').text(data.name);
+	$('#requirement').text(data.prerequisite);
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 	document.getElementById('source').innerHTML = source;
