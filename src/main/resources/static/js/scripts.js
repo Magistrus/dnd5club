@@ -69,10 +69,12 @@ $(document).ready(function() {
 	if(localStorage.getItem('homebrew_source') == 'true'){
 		$('#homebrew_source').prop('checked', true);
 		$('.custom_source').removeClass('hide_block');
+		$('#source_id').addClass('active');
 	}
 	if(localStorage.getItem('setting_source') == 'true'){
 		$('#setting_source').prop('checked', true);
 		$('.setting_source').removeClass('hide_block');
+		$('#source_id').addClass('active');
 	}
 	let path = $(location).attr('pathname');
 	if (path.startsWith('/classes') || path.startsWith('/races') || path.startsWith('/traits') || path.startsWith('/options') || path.startsWith('/backgrounds')){
@@ -99,10 +101,21 @@ $("#btn_full_screen, #btn_exet_full_screen").click(function () {
 $('#homebrew_source').change(function() {
 	localStorage.setItem('homebrew_source', $('#homebrew_source').is(':checked'));
 	$('.custom_source').toggleClass('hide_block');
+	$('#source_id').addClass('active');
+	if ($('#homebrew_source').is(':checked')) {
+		$('#source_id').addClass('active');	
+	} else if (!$('#setting_source').is(':checked')){
+		$('#source_id').removeClass('active');
+	}
 });
 $('#setting_source').change(function() {
 	localStorage.setItem('setting_source', $('#setting_source').is(':checked'));
 	$('.setting_source').toggleClass('hide_block');
+	if ($('#setting_source').is(':checked')) {
+		$('#source_id').addClass('active');	
+	} else if (!$('#homebrew_source').is(':checked')){
+		$('#source_id').removeClass('active');
+	}
 });
 $('li').click(function () {
 	localStorage.setItem('selected_item_menu', this.id);
