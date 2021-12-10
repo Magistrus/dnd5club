@@ -1162,9 +1162,9 @@ body.compact_menu #right_block {
 }
 
 #right_block .info_wrapper .sub_menu_list li h5 {
-  margin: 0 0 4px 0;
-  font-size: 15px;
-  font-weight: 400;
+  margin: 0 0 0px 0;
+  font-size: 13px;
+  font-weight: 500;
   line-height: 20px;
   color: var(--text-b-color);
   letter-spacing: 0.2px;
@@ -1662,16 +1662,17 @@ body.compact_menu #right_block.spells {
 }
 
 #right_block .info_wrapper li.avatar {
-  width: 289px;
+  width: 290px;
   max-height: 400px;
   overflow: hidden;
   padding:0 !important;
   border-image: none !important;
   z-index: 1;
+  background: var(--bg-sub-menu);
 }
 
 #right_block .info_wrapper li.avatar:hover {
-  background: var(--bg-main) !important;
+  background: var(--bg-sub-menu) !important;
   cursor: auto !important;
 }
 
@@ -2487,6 +2488,7 @@ button {
 @media (max-width: 1200px) {
   #right_block .info_wrapper .content_block #content_block {
     width: auto;
+    padding: 16px;
   }
 
   #right_block .info_wrapper .simplebar-content {
