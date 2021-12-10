@@ -39,6 +39,13 @@ $('#class_images').on('click', function() {
 	loadImages();
 	localStorage.setItem('class_info', 'images');
 })
+$('#class_spells').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+	localStorage.setItem('class_info', 'spells');
+	loadClassSpells();
+});
 function loadDescription(){
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active');
@@ -50,26 +57,31 @@ function loadDescription(){
 		url = '/classes/' + selectedClass.id + '/description';
 	}
 	loadContent("content_block", url);
+	$('#info_wrapper').removeClass('traits');
+	$('#info_wrapper').removeClass('spells');
+	$('#info_wrapper').removeClass('images');
+	$('#info_wrapper').addClass('description');
 }
 function loadImages(){
 	var selectedClass = $('.card.active')[0];
 	var englishName = selectedClass.id.replace(' ', '_');
 	var url = '/classes/images/' + englishName;
 	loadContent("content_block", url);
+	$('#info_wrapper').removeClass('traits');
+	$('#info_wrapper').removeClass('description');
+	$('#info_wrapper').removeClass('spells');
+	$('#info_wrapper').addClass('images');
 }
 function loadClassSpells() {
 	var selectedClass = $('.card.active')[0];
 	var englishName = selectedClass.id.replace(' ', '_');
 	var url = '/classes/spells/' + englishName;
 	loadContent("content_block", url);
+	$('#info_wrapper').removeClass('traits');
+	$('#info_wrapper').removeClass('description');
+	$('#info_wrapper').removeClass('images');
+	$('#info_wrapper').addClass('spells');
 }
-$('#class_spells').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	var selectedClass = $('.card.active')[0];
-	localStorage.setItem('class_info', 'spells');
-	loadClassSpells();
-});
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
 	$(".card").removeClass('active');
@@ -133,6 +145,10 @@ function setActiveClass(element, englishName) {
 		loadImages();
 		break;
 	default:
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').addClass('traits');
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
 		var url = '/classes/fragment/' + englishName;
