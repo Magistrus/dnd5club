@@ -1117,6 +1117,11 @@ body.compact_menu #right_block {
   position: relative;
 }
 
+#right_block .info_wrapper.spells .content_block #content_block {
+  padding: 0px;
+  width: 100%;
+}
+
 #right_block.races .info_wrapper .content_block #content_block {
   width: 100%;
 }
