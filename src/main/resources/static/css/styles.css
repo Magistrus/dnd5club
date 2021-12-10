@@ -502,7 +502,11 @@ input::selection {
 }
 
 .full_screen_right_block .block_information #left_block {
-  margin-right: 0px;
+  margin-right: 0px !important;
+}
+
+.full_screen_right_block .block_information #left_block .container_left {
+  overflow: hidden !important;
 }
 
 
