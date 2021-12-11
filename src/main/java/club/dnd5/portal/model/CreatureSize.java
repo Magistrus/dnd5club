@@ -9,7 +9,8 @@ public enum CreatureSize {
 	MEDIUM("Средний (Medium - 1 клетка)", "Средняя (Medium - 1 клетка)", "Среднее (Medium - 1 клетка)"), // 2
 	LARGE("Большой (Large - 2х2 клетки)", "Большая (Large - 2х2 клетки)", "Большое (Large - 2х2 клетки)"), // 3
 	HUGE("Огромный (Huge - 3х3 клетки)", "Огромная (Huge - 3х3 клетки)", "Огромное (Huge - 3х3 клетки)"), // 4
-	GARGANTUAN("Громадный (Gargantuan - 4х4 клетки или больше)", "Громадная (Gargantuan)- 4х4 клетки или больше", "Громадное (Gargantuan) - 4х4 клетки или больше"); 
+	GARGANTUAN("Громадный (Gargantuan - 4х4 клетки или больше)", "Громадная (Gargantuan)- 4х4 клетки или больше", "Громадное (Gargantuan) - 4х4 клетки или больше"),
+	SMALL_MEDIUM("Средний или Маленький");
 
 	private String [] names;
 	CreatureSize(String... names){
