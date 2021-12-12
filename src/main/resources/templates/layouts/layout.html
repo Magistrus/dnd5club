@@ -34,7 +34,7 @@
 		<link rel="icon" type="image/x-icon" th:href="@{/resources/assets/favicon.svg}" />
 
 		<!-- Core theme CSS -->
-		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'light': session.theme}.css?v=2|}" id="theme_css" th:class="${session.theme}" />
+		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'light': session.theme}.css|?v=2}" id="theme_css" th:class="${session.theme}" />
 		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v=5}" />
 		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=10}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
