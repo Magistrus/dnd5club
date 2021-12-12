@@ -22,7 +22,8 @@ public enum PersonalizationType {
 	WHERE_ARE_YOU_FROM("Откуда вы?"),
 	HERITAGE("Наследие"), 
 	DISFIGURED("Обезображенный"), 
-	CREED("Убеждение");
+	CREED("Убеждение"),
+	BAUBLE("Безделушка");
 
 	private String name;
 }
