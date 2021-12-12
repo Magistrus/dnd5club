@@ -122,3 +122,5 @@ $('#setting_source').change(function() {
 $('li').click(function () {
 	localStorage.setItem('selected_item_menu', this.id);
 });
+
+window.scrollTo(0,1);
