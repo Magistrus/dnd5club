@@ -74,6 +74,7 @@ $(document).ready(function() {
 	if(localStorage.getItem('setting_source') == 'true'){
 		$('#setting_source').prop('checked', true);
 		$('.setting_source').removeClass('hide_block');
+		$('.module_source').removeClass('hide_block');
 		$('#source_id').addClass('active');
 	}
 	let path = $(location).attr('pathname');
@@ -111,6 +112,7 @@ $('#homebrew_source').change(function() {
 $('#setting_source').change(function() {
 	localStorage.setItem('setting_source', $('#setting_source').is(':checked'));
 	$('.setting_source').toggleClass('hide_block');
+	$('.module_source').toggleClass('hide_block');
 	if ($('#setting_source').is(':checked')) {
 		$('#source_id').addClass('active');	
 	} else if (!$('#homebrew_source').is(':checked')){
