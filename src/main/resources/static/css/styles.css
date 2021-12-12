@@ -3,12 +3,11 @@ body {
   display: flex;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto';
+  font-family: 'Open Sans';
   background-color: var(--bg-main);
   font-size: 13px;
   height: 100vh;
   outline: none;
-  letter-spacing: 0.2px;
 }
 
 .overflow-hidden {
@@ -1176,14 +1175,12 @@ body.compact_menu #right_block {
   font-weight: 500;
   line-height: 20px;
   color: var(--text-b-color);
-  letter-spacing: 0.2px;
 }
 
 #right_block .info_wrapper .sub_menu_list li span {
   font-size: 13px;
   line-height: 18px;
   font-weight: 400;
-  letter-spacing: 0.2px;
   margin: 0 0 8px 0;
   color: var(--text-color);
 }
@@ -1408,7 +1405,6 @@ body.compact_menu #right_block {
 
 .table_list tr td .row_name {
   font-size: 15px;
-  letter-spacing: normal;
 }
 
 .table_list tr .row_name span {
@@ -2230,6 +2226,7 @@ button {
   background: none;
   cursor: pointer;
   font-size: 13px;
+  font-family: 'Open Sans';
 }
 
 .btn {
