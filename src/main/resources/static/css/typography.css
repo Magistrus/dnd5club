@@ -46,7 +46,7 @@ h5 {
   font-weight: 400;
   line-height: 28px;
   margin: 16px 0 0px 0;
-  color: var(--text-color-title);
+  color: var(--text-color);
 }
 
 p {
