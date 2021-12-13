@@ -30,8 +30,8 @@ public class RobotsController {
 		InputStream resourceAsStream = null;
 		try {
 			ClassLoader classLoader = getClass().getClassLoader();
-			resourceAsStream = classLoader.getResourceAsStream("manifest.webmanifest");
-			response.addHeader("Content-disposition", "filename=manifest.webmanifest");
+			resourceAsStream = classLoader.getResourceAsStream("manifest.json");
+			response.addHeader("Content-disposition", "filename=manifest.json");
 			response.setContentType("text/plain");
 			IOUtils.copy(resourceAsStream, response.getOutputStream());
 			response.flushBuffer();
