@@ -2113,6 +2113,93 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 }
 
 
+.filter_container {
+  height: 500px;
+  width: 100%;
+}
+
+.filter_container .filter_block {
+  width: 100%;
+  display: block;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.filter_container .filter_block .header {
+  width: 100%;
+  height: 39px;
+  border-bottom:1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.filter_container .filter_block .header h5 {
+  margin: 0;
+  width: calc(100% - 112px);
+  padding: 0 16px;
+}
+
+.filter_container .filter_block .header button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter_container .filter_block .header button:hover {
+  background-color: var(--primary-hover);
+}
+
+.filter_container .filter_block .header button:hover path {
+  stroke: var(--text-b-color);
+}
+
+.filter_container .filter_block .filter_crumbs_box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter_container .filter_block .filter_crumbs_box label {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: block;
+}
+
+.filter_container .filter_block .filter_crumbs_box label span {
+  position: relative;
+  border-radius: 4px;
+  transition: 0.4s;
+  padding: 0 8px;
+  margin: 4px 4px;
+  height: 22px;
+  color: var(--text-color);
+  background-color: var(--bg-sub-menu);
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 7px;
+       column-gap: 7px;  
+}
+
+.filter_container .filter_block .filter_crumbs_box label input {
+  pointer-events: none;
+  display: none;
+}
+
+.filter_container .filter_block .filter_crumbs_box label input:checked + span {
+  background-color: var(--primary-active);
+  color: var(--text-btn-color);
+}
+
+.filter_container .filter_block .filter_crumbs_box.hide {
+  display: none;
+}
+
+
 /******** Инструменты / tools ********/
 #left_block .tools_settings {
   padding: 24px 24px 12px 24px;
