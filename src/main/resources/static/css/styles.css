@@ -74,7 +74,7 @@ hr {
   content: "";
   position: absolute;
   display: block;
-  top: 12px;
+  top: 13px;
   right: 2px;
   width: 6px;
   height: 6px;
@@ -84,7 +84,6 @@ hr {
 }
 
 .icon_menu.active:after{
-  top: 20px;
   right: 8px;
   border: 2px solid var(--bg-main);
 }

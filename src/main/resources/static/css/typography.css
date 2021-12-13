@@ -157,13 +157,13 @@ h4.separator_card {
 
 /********* Выделение кубов в тексте *********/
 span.dice_text {
-  padding: 3px 3px;
+  padding: 0px 3px;
   border-radius: 4px;
   background-color: var(--bg-dice);
 }
 
 span.homebrew_text {
-  padding: 3px 3px;
+  padding: 0px 3px;
   border-radius: 4px;
   background-color: var(--bg-homebrew);
   text-transform: none;
