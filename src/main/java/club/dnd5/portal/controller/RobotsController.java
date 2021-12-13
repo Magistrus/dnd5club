@@ -22,7 +22,20 @@ public class RobotsController {
 			response.flushBuffer();
 		} catch (Exception e) {
 			
-		} finally {
+		} 
+	}
+
+	@GetMapping("/manifest.webmanifest")
+	public void manifest(HttpServletResponse response) {
+		InputStream resourceAsStream = null;
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			resourceAsStream = classLoader.getResourceAsStream("manifest.webmanifest");
+			response.addHeader("Content-disposition", "filename=manifest.webmanifest");
+			response.setContentType("text/plain");
+			IOUtils.copy(resourceAsStream, response.getOutputStream());
+			response.flushBuffer();
+		} catch (Exception e) {
 			
 		}
 	}

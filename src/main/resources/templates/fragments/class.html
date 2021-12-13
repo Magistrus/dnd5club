@@ -9,7 +9,7 @@
 			<div class="classes_mobile_selector">
 				<select id="mobile_selector">
 					<option th:text="|---*{archetypeName}---|"></option>
-					<option th:each="archetype : *{archetypes}" th:value ="${archetype.englishName}" th:text="|${archetype.name} ${archetype.book.source}|"
+					<option th:each="archetype : *{archetypes}" th:value ="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
 					th:selected="${archetype.englishName eq selectedArchetype}"
 					th:class="|${archetype.book.type.name().toLowerCase()}_source|"
 					th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"></option>
