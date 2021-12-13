@@ -25,7 +25,7 @@ public class RobotsController {
 		} 
 	}
 
-	@GetMapping("/manifest.webmanifest")
+	@GetMapping("/manifest.json")
 	public void manifest(HttpServletResponse response) {
 		InputStream resourceAsStream = null;
 		try {
