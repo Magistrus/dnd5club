@@ -95,6 +95,24 @@ $(document).ready(function() {
 	} else if (path.startsWith('/tools/trader') || path.startsWith('/tools/encounters') || path.startsWith('/rules') || path.startsWith('/tools/treasury') || path.startsWith('/tools/tavern') || path.startsWith('/tools/wildmagic') || path.startsWith('/tools/madness') || path.startsWith('/books')){
 		$('#instruments_item_menu').addClass('active');
 	} 
+
+
+	const spoilers = document.querySelectorAll('.header')
+	for (let spoiler of spoilers) {
+	  let div = spoiler.nextElementSibling
+	  let divClass = div.classList
+  
+	  divClass.add('hide')
+  
+	  spoiler.addEventListener('click', function () {
+		if (divClass.contains("hide")){
+		   divClass.remove('hide')
+		} else {
+		  divClass.add('hide')
+		}
+	  })
+	}
+
 });
 $("#btn_full_screen, #btn_exet_full_screen").click(function () {
 	$("#body").toggleClass("full_screen_right_block");
@@ -122,3 +140,18 @@ $('#setting_source').change(function() {
 $('li').click(function () {
 	localStorage.setItem('selected_item_menu', this.id);
 });
+
+
+// function toggle_spoiler(id)
+// {
+// 	var spoilerContent = id.nextElementSibling;
+// 	if(spoilerContent.className == "spoiler-content-hidden")
+// {
+// 	spoilerContent.className = "spoiler-content";
+// }
+// else
+// {
+// 	spoilerContent.className = "spoiler-content-hidden";    
+// }
+// return;
+// }
