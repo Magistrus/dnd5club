@@ -17,7 +17,7 @@
 						<th th:each="featurelevelDefinition : ${selectedArchetype.featureLevelDefenitions}" align="center" rowspan="2" th:text="${featurelevelDefinition.name}" style="width: 5%">Умения архетипа</th>
 						<th th:unless="${heroClass.levelDefenitions.empty and selectedArchetype.levelDefenitions.empty}" align="center" colspan="9">Ячейки заклинаний на уровень заклинаний</th>
 					</tr>
-					<th:block th:unless="${heroClass.spellcasterType.name() eq 'NONE'}">
+					<th:block th:unless="${heroClass.spellcasterType.name() eq 'NONE' or heroClass.spellcasterType.name() eq 'PARTLY'}">
 						<tr align="center">
 							<th class="mini_lvl">1</th>
 							<th class="mini_lvl">2</th>
@@ -64,7 +64,7 @@
 							/> <th:block th:if="${byLevel gt 0}" th:text="${byLevel}" /> <th:block th:if="${byLevel eq 0}" th:text="'—'" /> <th:block th:if="${featureLevel.sufix ne null and byLevel gt 0}"
 								th:text="${featureLevel.sufix}"
 							/></td>
-						<th:block th:unless="*{spellcasterType.name() eq 'NONE'}">
+						<th:block th:unless="*{spellcasterType.name() eq 'NONE' or spellcasterType.name() eq 'PARTLY'}">
 							<td th:text="${heroClass.levelDefenitions[level - 1].slot1 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot1}" /></td>
 							<td th:text="${heroClass.levelDefenitions[level - 1].slot2 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot2}" />
 							<td th:text="${heroClass.levelDefenitions[level - 1].slot3 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot3}" />
