@@ -2000,7 +2000,8 @@ body.compact_menu #right_block.weapons {
   color:var(--text-color);
   z-index: 10;
   width: 100%; 
-  background-color: var(--bg-main);
+  background-color: var(--bg-secondary);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.103);
 }
 
 .search_panes .dtsp-panesContainer {
@@ -2117,7 +2118,6 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 
 .filter_container {
-  height: 500px;
   width: 100%;
 }
 
@@ -2126,20 +2126,24 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   display: block;
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
-  margin-bottom: 16px;
+  margin-top: 16px;
 }
 
 .filter_container .filter_block .header {
   width: 100%;
   height: 39px;
-  border-bottom:1px solid var(--border);
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.filter_container .filter_block .header:hover {
+  background-color: var(--hover);
 }
 
 .filter_container .filter_block .header h5 {
   margin: 0;
-  width: calc(100% - 112px);
+  width: calc(100% - 72px);
   padding: 0 16px;
 }
 
@@ -2162,6 +2166,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 .filter_container .filter_block .filter_crumbs_box {
   display: flex;
   flex-wrap: wrap;
+  padding: 0 8px 8px 8px;
 }
 
 .filter_container .filter_block .filter_crumbs_box label {
@@ -2188,6 +2193,10 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
        column-gap: 7px;  
 }
 
+.filter_container .filter_block .filter_crumbs_box label span:hover {
+  background-color: var(--primary-hover);
+}
+
 .filter_container .filter_block .filter_crumbs_box label input {
   pointer-events: none;
   display: none;
@@ -2195,6 +2204,11 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 .filter_container .filter_block .filter_crumbs_box label input:checked + span {
   background-color: var(--primary-active);
+  color: var(--text-btn-color);
+}
+
+.filter_container .filter_block .filter_crumbs_box label input:checked + span:hover {
+  background-color: var(--primary-hover);
   color: var(--text-btn-color);
 }
 
