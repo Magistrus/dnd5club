@@ -2,12 +2,13 @@ package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.item.WeaponDto;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.items.Weapon;
+import club.dnd5.portal.model.items.WeaponProperty;
+import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 
 @RestController
@@ -33,24 +37,27 @@ public class WeaponRestController {
 	@GetMapping("/data/weapons")
 	public DataTablesOutput<WeaponDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
-		input.parseSearchPanesFromQueryParams(queryParameters, Arrays.asList("damageType", "properties"));
 		Specification<Weapon> specification = null;
-		List<DamageType> filterDamageTypes = input.getSearchPanes().getOrDefault("damageType", Collections.emptySet())
-				.stream().map(DamageType::valueOf).collect(Collectors.toList());
+		List<DamageType> filterDamageTypes = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty())
+				.map(DamageType::valueOf)
+				.collect(Collectors.toList());
 		if (!filterDamageTypes.isEmpty()) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> root.get("damageType").in(filterDamageTypes));
 		}
-		input.getSearchPanes().clear();
-		DataTablesOutput<WeaponDto> output = repo.findAll(input, specification, specification, WeaponDto::new);
-		Map<String, List<Item>> options = output.getSearchPanes() == null ? new HashMap<>()
-				: output.getSearchPanes().getOptions();
-		options.put("damageType", DamageType.getWeaponDamage().stream()
-				.map(t -> new Item(t.getCyrilicName(), t.name(), 0, 0)).collect(Collectors.toList()));
-		if (output.getSearchPanes() != null) {
-			output.getSearchPanes().setOptions(options);
+		List<Integer> filterPropertyIds = Arrays.stream(input.getColumns().get(4).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty())
+				.map(Integer::valueOf)
+				.collect(Collectors.toList());
+		if (!filterPropertyIds.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<WeaponProperty, Weapon> join = root.join("properties", JoinType.LEFT);
+				query.distinct(true);
+				return cb.and(join.get("id").in(filterPropertyIds));
+			});
 		}
-		return output;
+		return  repo.findAll(input, specification, specification, WeaponDto::new);
 	}
 
 	@PostMapping("/weapons")
