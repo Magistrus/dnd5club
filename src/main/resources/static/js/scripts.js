@@ -99,7 +99,7 @@ $(document).ready(function() {
 	for (let spoiler of spoilers) {
 	  let div = spoiler.nextElementSibling
 	  let divClass = div.classList
-  	  divClass.add('hide')
+  	//   divClass.add('hide')
   	  spoiler.addEventListener('click', function () {
 		if (divClass.contains("hide")){
 		   divClass.remove('hide')
