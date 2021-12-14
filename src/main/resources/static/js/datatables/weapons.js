@@ -195,10 +195,22 @@ $('.damge_type_checkbox').on('change', function(e){
 		return this.value;
 	}).get().join('|');
     $('#weapons').DataTable().column(3).search(damageTypes, true, false, false).draw();
+    setFiltered();
 });
 $('.property_checkbox').on('change', function(e){
-	var damageTypes = $('input:checkbox[name="property"]:checked').map(function() {
+	var properties = $('input:checkbox[name="property"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
-    $('#weapons').DataTable().column(4).search(damageTypes, true, false, false).draw();
+    $('#weapons').DataTable().column(4).search(properties, true, false, false).draw();
+    setFiltered();
 });
+function setFiltered(){
+	let boxes = $('input:checkbox:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length < 6){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
