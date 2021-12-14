@@ -54,7 +54,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0,  2, 3 ],
+				"targets": [ 0, 2, 3 ],
 				"visible": false
 			},
 		],
@@ -90,8 +90,8 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
+		    //table.searchPanes.container().prependTo($('#searchPanes'));
+		    //table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 		    $('#weapons tbody tr:eq(0)').click();
@@ -174,8 +174,7 @@ $(document).ready(function() {
 		table.tables().search($(this).val()).draw();
 	});
 	$('#btn_filters').on('click', function() {
-		var table = $('#weapons').DataTable();
-		table.searchPanes.container().toggle();
+		$('#searchPanes').toggleClass('hide_block');
 	})
 });
 $('#text_clear').on('click', function () {
@@ -187,3 +186,9 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+$('.damge_type_checkbox').on('change', function(e){
+	var damageTypes = $('input:checkbox[name="damageType"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#weapons').DataTable().column(3).search(damageTypes, true, false, false).draw();
+  });

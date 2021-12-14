@@ -2,7 +2,6 @@ package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +34,10 @@ public class WeaponRestController {
 			@RequestParam Map<String, String> queryParameters) {
 		input.parseSearchPanesFromQueryParams(queryParameters, Arrays.asList("damageType", "properties"));
 		Specification<Weapon> specification = null;
-		List<DamageType> filterDamageTypes = input.getSearchPanes().getOrDefault("damageType", Collections.emptySet())
-				.stream().map(DamageType::valueOf).collect(Collectors.toList());
+		List<DamageType> filterDamageTypes = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty())
+				.map(DamageType::valueOf)
+				.collect(Collectors.toList());
 		if (!filterDamageTypes.isEmpty()) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> root.get("damageType").in(filterDamageTypes));

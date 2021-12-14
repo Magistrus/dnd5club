@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 
 
@@ -17,12 +18,14 @@ public class WeaponController {
 	private WeaponDatatableRepository repository;
 
 	@GetMapping("/weapons")
-	public String getWeapons() {
+	public String getWeapons(Model model) {
+		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		return "weapons";
 	}
 	
 	@GetMapping("/weapons/{name}")
 	public String getWeapon(Model model, @PathVariable String name) {
+		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("selectedWeapon", "name");
 		return "weapons";
 	}
