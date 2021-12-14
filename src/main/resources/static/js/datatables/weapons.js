@@ -47,6 +47,10 @@ $(document).ready(function() {
 			searchable: false
 		},
 		{
+			data : 'properties',
+			searchable: false
+		},
+		{
 			data : 'cost',
 			searchable: false,
 			width : "1%",
@@ -54,7 +58,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0, 2, 3 ],
+				"targets": [ 0, 2, 3, 4 ],
 				"visible": false
 			},
 		],
@@ -191,4 +195,10 @@ $('.damge_type_checkbox').on('change', function(e){
 		return this.value;
 	}).get().join('|');
     $('#weapons').DataTable().column(3).search(damageTypes, true, false, false).draw();
-  });
+});
+$('.property_checkbox').on('change', function(e){
+	var damageTypes = $('input:checkbox[name="property"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#weapons').DataTable().column(4).search(damageTypes, true, false, false).draw();
+});

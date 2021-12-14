@@ -10,22 +10,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
+import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
 
 
 @Controller
 public class WeaponController {
 	@Autowired
 	private WeaponDatatableRepository repository;
+	
+	@Autowired
+	private WeaponPropertyDatatableRepository propertyRepository;
 
 	@GetMapping("/weapons")
 	public String getWeapons(Model model) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
+		model.addAttribute("properties", propertyRepository.findAll());
 		return "weapons";
 	}
 	
 	@GetMapping("/weapons/{name}")
 	public String getWeapon(Model model, @PathVariable String name) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
+		model.addAttribute("properties", propertyRepository.findAll());
 		model.addAttribute("selectedWeapon", "name");
 		return "weapons";
 	}
