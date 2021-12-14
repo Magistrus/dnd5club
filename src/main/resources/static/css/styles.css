@@ -8,6 +8,7 @@ body {
   font-size: 13px;
   height: 100vh;
   outline: none;
+  color: var(--text-color);
 }
 
 .overflow-hidden {
@@ -67,25 +68,43 @@ hr {
   width: 24px;
   height: 24px;
   position: relative;
+  background-color: inherit;
 }
 
+.icon_menu.active:before,
+.icon_action.active:before,
 .icon_menu.active:after,
 .icon_action.active:after {
   content: "";
   position: absolute;
   display: block;
-  top: 13px;
+  border-radius: 50%;
+}
+
+.icon_menu.active:after,
+.icon_action.active:after {
+  top: 15px;
   right: 2px;
   width: 6px;
   height: 6px;
-  border-radius: 50%;
   background-color: var(--primary);
-  border: 2px solid var(--bg-secondary);
 }
 
-.icon_menu.active:after{
+.icon_menu.active:after {
   right: 8px;
-  border: 2px solid var(--bg-main);
+}
+
+.icon_menu.active:before,
+.icon_action.active:before {
+  top: 13px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  background-color: inherit;
+}
+
+.icon_menu.active:before {
+  right: 6px;
 }
 
 .icon_menu svg path,
@@ -235,7 +254,7 @@ label.check_block span {
 }
 .tpd-skin-dnd5 .tpd-background {
   border-width: 1px;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border) !important;
 }
 /* line below the title */
 .tpd-skin-dnd5 .tpd-title-wrapper {
@@ -917,9 +936,16 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .header_block .btn_filters:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
 }
 
+#left_block .header_block .btn_filters:hover path {
+  stroke: var(--text-btn-color);
+}
+
+#left_block .header_block .btn_filters:hover .icon_action:after {
+  background-color: var(--text-btn-color);
+}
 
 #left_block.full_width_left_block {
   margin-right: calc(0vw + 0px) !important;
@@ -991,6 +1017,10 @@ body.compact_menu #right_block {
   border-top: 2px solid var(--bg-transparent);
 }
 
+#right_block .header_block .header_sub_menu button:hover {
+  background-color: var(--bg-sub-menu);
+}
+
 #right_block .header_block .header_sub_menu button.active {
   background: var(--bg-img-row-active);
   border-top: 2px solid var(--primary-hover);
@@ -1056,7 +1086,13 @@ body.compact_menu #right_block {
 #right_block .header_block .btn_exet_full_screen:hover,
 #right_block .header_block .btn_full_screen:hover,
 #right_block .header_block .btn_close:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
+}
+
+#right_block .header_block .btn_exet_full_screen:hover .icon_action path,
+#right_block .header_block .btn_full_screen:hover .icon_action path,
+#right_block .header_block .btn_close:hover .icon_action path {
+  stroke: var(--text-btn-color);
 }
 
 #right_block .header_block .btn_exet_full_screen {
@@ -2220,6 +2256,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 /******** Инструменты / tools ********/
 #left_block .tools_settings {
   padding: 24px 24px 12px 24px;
+  border-bottom: 1px solid var(--border);
 }
 
 #left_block.wildmagic .container_left {
