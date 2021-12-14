@@ -2,7 +2,6 @@ package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.data.jpa.datatables.mapping.SearchPanes.Item;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,10 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.item.WeaponDto;
 import club.dnd5.portal.model.DamageType;
-import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.items.WeaponProperty;
-import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 
 @RestController
