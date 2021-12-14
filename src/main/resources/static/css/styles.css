@@ -1934,6 +1934,7 @@ body.compact_menu #right_block.weapons {
     flex-direction: column;
   }
 
+  #right_block.items .info_wrapper li.avatar,
   #right_block.bestiary .info_wrapper li.avatar {
     width: 180px;
     height: 180px;
@@ -1966,6 +1967,7 @@ body.compact_menu #right_block.weapons {
 }
 
 @media (max-width: 600px) {
+  #right_block.items .info_wrapper li.avatar,
   #right_block.bestiary .info_wrapper li.avatar {
     width: calc(100% - 2px);
     position: relative;
@@ -2239,7 +2241,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 .tools_block_result {
   border-bottom: 1px solid var(--border);
-  padding: 12px 0 0 0;
+  padding: 12px 24px 0 24px;
 }
 
 #left_block.trader .table_list {
