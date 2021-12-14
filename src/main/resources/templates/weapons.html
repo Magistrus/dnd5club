@@ -75,7 +75,7 @@
 							</button> -->
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="property : ${properties}"> <input class="property_checkbox" type="checkbox" th:name = "property" th:value="${property.id}"> <span th:text="${property.name}"></span>
+							<label th:each="property : ${properties}" th:classappend="${property.book.type.name() ne 'OFFICAL' ? 'custom_source hide_block':''}"> <input class="property_checkbox" type="checkbox" th:name = "property" th:value="${property.id}"> <span th:text="${property.name}"></span>
 							</label>
 						</div>
 					</div>
@@ -154,5 +154,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/weapons.js?v=3}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/weapons.js?v=3.1}" layout:fragment="js-script"></script>
 </html>
