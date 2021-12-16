@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.bestiary.CreatureDto;
+import club.dnd5.portal.model.CreatureSize;
+import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
+import club.dnd5.portal.repository.datatable.TagBestiaryDatatableRepository;
 
 @Controller
 public class BestiaryController {
 	@Autowired
 	private BestiaryDatatableRepository repository;
+	
+	@Autowired
+	private TagBestiaryDatatableRepository tagRepo;
 	
 	@GetMapping("/bestiary")
 	public String getCreatures() {
@@ -24,13 +30,19 @@ public class BestiaryController {
 	@GetMapping("/bestiary/{name}")
 	public String getCreature(Model model, @PathVariable String name) {
 		model.addAttribute("selectedCreature", new CreatureDto(repository.findByEnglishName(name.replace("_", " "))));
+		model.addAttribute("types", CreatureType.getFilterTypes());
+		model.addAttribute("sizes", CreatureSize.getFilterSizes());
+		model.addAttribute("tags", tagRepo.findAll());
 		return "bestiary";
 	}
 	
 	@GetMapping("/bestiary/fragment/{id}")
 	public String getCreatureFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("types", CreatureType.getFilterTypes());
+		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		model.addAttribute("firstElement", new FirstElement());
+		model.addAttribute("tags", tagRepo.findAll());
 		return "fragments/creature :: view";
 	}
 	
