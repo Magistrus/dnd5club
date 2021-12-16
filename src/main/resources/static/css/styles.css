@@ -1329,6 +1329,12 @@ body.compact_menu #right_block {
   background-color: var(--hover);
 }
 
+@media (max-width: 1000px) {
+  #right_block .info_wrapper .content_block {
+    height: calc(100vh - 145px);
+  }
+}
+
 
 /******** Список из таблицы********/
 .table_list {
@@ -1497,6 +1503,7 @@ body.compact_menu #right_block {
     display: none;
   }
 }
+
 @media (max-width: 1400px) {
   .table_list tr td .secondary_name.s2 {
     display: none;
@@ -1559,17 +1566,28 @@ body.compact_menu #right_block {
   display: flex;
   flex-wrap: wrap;
   width: var(--width-right-block);
+  overflow-x: hidden;
+}
+
+body.full_screen_right_block .screens .card_block {
+  width: auto;
 }
 
 .screens .card_block .block {
+  --width-card-block:calc(33% - 47px);
   display: flex;
-  flex: 1 1 calc(33% - 47px);
-  min-width: calc(33% - 47px);
+  flex: 1 1 var(--width-card-block);
+  min-width: var(--width-card-block);
   border-right:1px solid var(--border);
   border-bottom:1px solid var(--border);
   padding: 24px 24px;
   cursor: pointer;
   align-items: center;
+}
+
+body.full_screen_right_block .screens .card_block .block {
+  flex: 1 1 calc(20% - 49px);
+  min-width: calc(20% - 49px);
 }
 
 .screens .card_block .block .icon {
@@ -1603,17 +1621,15 @@ body.compact_menu #right_block {
   background: var(--hover);
 }
 
-@media (max-width: 1500px) {
-  .screens .card_block .block {
-    flex: 1 1 calc(33% - 47px);
-    max-width: calc(33% - 47px);
-  }
-}
-
 @media (max-width: 1200px) {
   .screens .card_block .block {
     flex: 1 1 calc(50% - 49px);
     max-width: calc(50% - 49px);
+  }
+
+  body.full_screen_right_block .screens .card_block .block {
+    flex: 1 1 calc(33% - 47px);
+    min-width: calc(33% - 47px);
   }
 }
 
@@ -2036,8 +2052,7 @@ body.compact_menu #right_block.weapons {
   color:var(--text-color);
   z-index: 10;
   width: 100%; 
-  background-color: var(--bg-secondary);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.103);
+  /* height: calc(100vh - 119px); */
 }
 
 .search_panes .dtsp-panesContainer {
@@ -2155,6 +2170,9 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 .filter_container {
   width: 100%;
+  height: auto;
+  background-color: var(--bg-secondary);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
 }
 
 .filter_container .filter_block {
@@ -2163,6 +2181,10 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
   margin-top: 16px;
+}
+
+.filter_container .filter_block:first-child {
+  margin-top: 0px;
 }
 
 .filter_container .filter_block .header {
@@ -2181,6 +2203,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   margin: 0;
   width: calc(100% - 72px);
   padding: 0 16px;
+  color: var(--text-color-title);
 }
 
 .filter_container .filter_block .header button {
@@ -2250,6 +2273,12 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 .filter_container .filter_block .filter_crumbs_box.hide {
   display: none;
+}
+
+@media (max-width: 1000px) {
+  .search_panes {
+    /* height: calc(100vh - 190px); */
+  }
 }
 
 
