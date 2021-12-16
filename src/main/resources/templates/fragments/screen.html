@@ -14,7 +14,7 @@
 					</div>
 				</a>
 				<div th:id="${scr.englishName.replace(' ', '_')}" class="dnd5-popup-block mfp-hide" data-simplebar>
-					<h4 th:text="${scr.name}"></h4>
+					<div class="header"><h4 th:text="${scr.name}"></h4></div>
 					<th:block th:utext="${scr.description}"></th:block>
 				</div>
 			</th:block>
