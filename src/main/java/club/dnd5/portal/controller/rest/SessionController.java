@@ -24,13 +24,13 @@ public class SessionController {
 	public ResponseEntity<String> setTheme(String theme)
 	{
 		session.setAttribute("theme", theme);
-		return ResponseEntity.ok(theme);
+		return ResponseEntity.ok().build();
 	}
 	
 	@PostMapping("/session/menu")
 	public ResponseEntity<String> setMenuState(String state)
 	{
 		session.setAttribute("compact_menu", state);
-		return ResponseEntity.ok(state);
+		return ResponseEntity.ok().build();
 	}
 }
