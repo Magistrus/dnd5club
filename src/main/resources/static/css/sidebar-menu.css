@@ -97,9 +97,6 @@
   padding: 0px;
   margin: 24px 0 0 0;
   overflow: auto;
-  display: flex;
-  flex-direction: column;
-  scrollbar-width: none;
 }
 
 .compact_menu .navbar .nav_links {
@@ -339,7 +336,6 @@
 
 
 @media (max-width: 1000px) {
-  /************ МЕНЮ ************/
   .navbar {
     --height-navbar:73px;
     top: auto;
@@ -355,7 +351,7 @@
   }
 
   .navbar.open {
-    height: inherit;
+    height: calc(100vh - 0px);
   }
 
   .navbar nav {
@@ -364,19 +360,16 @@
 
   .navbar.open nav {
     --height-menu:80vh;
-    display: block;
-    height: var(--height-menu);
+    display: flex;
+    height: calc(100vh - 73px);
+    overflow: auto;
   }
 
-  .navbar.open nav:after {
-    --height-menu-after:calc(100vh - var(--height-menu));
-    content: "";
-    display: block;
+  .navbar nav {
     position: absolute;
-    width: 100%;
-    height: var(--height-menu-after);
-    background: var(--bg-main);
-    top: calc(0px - var(--height-menu-after));
+    left: 0;
+    right: 0;
+    background: var(--bg-main) !important;
   }
 
   .navbar .nav_head {
@@ -410,23 +403,16 @@
     height: 24px;
   }
 
-  .navbar nav {
-    /* display: none; */
-    position: absolute;
-    bottom: 72px;
-    left: 0;
-    right: 0;
-    background: var(--bg-main) !important;
-  }
-
   .navbar .nav_links {
+    width: 100%;
+    height: auto;
     justify-content: space-around;
-    margin: 0px 0px 0px 0px;
+    margin: auto 0px 0px 0px;
   }
 
-  .navbar .nav_links li {
+  /* .navbar .nav_links li {
     margin-bottom: 0px;
-  }
+  } */
 
   .navbar .nav_links li:last-child {
     margin-top: 0px;
