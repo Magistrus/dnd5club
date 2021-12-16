@@ -100,11 +100,14 @@ $(document).ready(function() {
 	  let div = spoiler.nextElementSibling
 	  let divClass = div.classList
   	//   divClass.add('hide')
-  	  spoiler.addEventListener('click', function () {
-		if (divClass.contains("hide")){
+  	  spoiler.addEventListener('click', function (event) {
+		if (divClass.contains("hide") ){
 		   divClass.remove('hide')
 		} else {
-		  divClass.add('hide')
+			var targetElement = event.target || event.srcElement;
+			if (targetElement.tagName !== 'svg'){
+				divClass.add('hide')
+			}
 		}
 	  })
 	}
