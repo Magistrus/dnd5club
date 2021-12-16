@@ -2,6 +2,8 @@ package club.dnd5.portal.dto.bestiary;
 
 import java.util.stream.Collectors;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.HabitatType;
 import lombok.Getter;
@@ -19,6 +21,7 @@ public class CreatureDto {
 	private String AC;
 	private String type;
 	private String size;
+	private String tag;
 	private String alignment;
 	private int exp;
 	private String cr;
@@ -33,7 +36,7 @@ public class CreatureDto {
 		name = creature.getName();
 		altName = creature.getAltName();
 		englishName = creature.getEnglishName();
-		size = creature.getSize().getSizeName(creature.getType());
+		size = creature.getSize().getSizeName(creature.getType()) + " (" + StringUtils.capitalize(creature.getSize().name().toLowerCase()) + " - " + creature.getSize().getCell() + ")";
 		type = creature.getType().getCyrilicName();
 		alignment = creature.getAligment();
 		habitates = creature.getHabitates().stream().map(HabitatType::getName).collect(Collectors.joining(", "));

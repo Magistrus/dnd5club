@@ -94,8 +94,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    //table.searchPanes.container().prependTo($('#searchPanes'));
-		    //table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 		    $('#weapons tbody tr:eq(0)').click();

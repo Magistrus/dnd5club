@@ -1,17 +1,20 @@
 package club.dnd5.portal.model;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import lombok.Getter;
 
 @Getter
 public enum CreatureSize {
-	TINY("Крошечный (Tiny - 1/4 клетки)","Крошечная (Tiny - 1/4 клетки)", "Крошечное (Tiny - 1/4 клетки)"), // 0
-	SMALL("Маленький (Small - 1/2 клетки)", "Маленькая (Small - 1/2 клетки)", "Маленькое (Small - 1/2 клетки)"), // 1
-	MEDIUM("Средний (Medium - 1 клетка)", "Средняя (Medium - 1 клетка)", "Среднее (Medium - 1 клетка)"), // 2
-	LARGE("Большой (Large - 2х2 клетки)", "Большая (Large - 2х2 клетки)", "Большое (Large - 2х2 клетки)"), // 3
-	HUGE("Огромный (Huge - 3х3 клетки)", "Огромная (Huge - 3х3 клетки)", "Огромное (Huge - 3х3 клетки)"), // 4
-	GARGANTUAN("Громадный (Gargantuan - 4х4 клетки или больше)", "Громадная (Gargantuan)- 4х4 клетки или больше", "Громадное (Gargantuan) - 4х4 клетки или больше"),
+	TINY("Крошечный","Крошечная", "Крошечное"), // 0
+	SMALL("Маленький", "Маленькая", "Маленькое"), // 1
+	MEDIUM("Средний", "Средняя", "Среднее"), // 2
+	LARGE("Большой", "Большая", "Большое"), // 3
+	HUGE("Огромный", "Огромная", "Огромное"), // 4
+	GARGANTUAN("Громадный", "Громадная", "Громадное"),
 	SMALL_MEDIUM("Средний или Маленький");
-
+	
 	private String [] names;
 	CreatureSize(String... names){
 		this.names = names;
@@ -26,6 +29,9 @@ public enum CreatureSize {
 			}
 		}
 		return null;
+	}
+	public static Set<CreatureSize> getFilterSizes(){
+		return EnumSet.of(TINY, SMALL, MEDIUM, LARGE, HUGE, GARGANTUAN);
 	}
 
 	public String getSizeName(CreatureType type) {
@@ -48,5 +54,17 @@ public enum CreatureSize {
 
 	public String getCyrilicName() {
 		return names[0];
+	}
+	
+	public String getCell() {
+		switch (this) {
+		case TINY: return "1/4 клетки";
+		case SMALL: return "1/2 клетки";
+		case MEDIUM: return "1 клетка";
+		case LARGE: return "2x2 клетки";
+		case HUGE: return "3x3 клетки";
+		case GARGANTUAN: return "4х4 клетки или больше";
+		default: return "-";
+		}
 	}
 }

@@ -11,18 +11,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-				orderable: false
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : 'exp',
@@ -55,10 +43,14 @@ $(document).ready(function() {
 			data : 'size',
 			searchable: false
 		},
+		{
+			data : 'tag',
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [0, 2 ,3, 4 ],
+				"targets": [0, 2 ,3, 4, 5],
 				"visible": false
 			},
 			{
@@ -82,16 +74,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 		    loadingRecords: "Загрузка...",
-	        searchPanes: {
-	            title: {
-	                 _: 'Выбрано фильтров - %d',
-	                 0: 'Фильтры не выбраны',
-	                 1: 'Один фильтр выбран'
-	            },
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -103,8 +85,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedCreature === null){
@@ -148,8 +128,7 @@ $(document).ready(function() {
 		rowSelectIndex = 0;
 	});
 	$('#btn_filters').on('click', function() {
-		var table = $('#creatures').DataTable();
-		table.searchPanes.container().toggle();
+		$('#searchPanes').toggleClass('hide_block');
 	})
 });
 $('#text_clear').on('click', function () {
@@ -165,7 +144,7 @@ function selectCreature(data){
 	$('#statblock').addClass('active');
 	$('#description').removeClass('active');
 	$('#creature_name').html(data.name);
-	$('#cr').html(data.cr + ' (' + data.exp+' опыта)');
+	$('#cr').text(data.cr + ' (' + data.exp+' опыта)');
 	switch(data.cr){
 	case '1/8': data.cr = 1/8; break;
 	case '1/4': data.cr = 1/4; break;
@@ -208,8 +187,90 @@ $('#description').on('click', function() {
 	let table = $('#creatures').DataTable();
 	selectDescription(table.row({selected: true}).data().id);
 });
-function httpGetImage(theUrl)
-{
+$('.cr_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="cr"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#creatures').DataTable().column(3).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#cr_clear_btn').removeClass('hide_block');
+	} else {
+		$('#cr_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#cr_clear_btn').on('click', function() {
+	$('#cr_clear_btn').addClass('hide_block');
+	$('.cr_checkbox').prop('checked', false);
+	$('#creatures').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+})
+$('.type_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="type"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#creatures').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#type_clear_btn').removeClass('hide_block');
+	} else {
+		$('#type_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#type_clear_btn').on('click', function() {
+	$('#type_clear_btn').addClass('hide_block');
+	$('.type_checkbox').prop('checked', false);
+	$('#creatures').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+})
+$('.size_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="size"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#creatures').DataTable().column(5).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#size_clear_btn').removeClass('hide_block');
+	} else {
+		$('#size_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#size_clear_btn').on('click', function() {
+	$('#size_clear_btn').addClass('hide_block');
+	$('.size_checkbox').prop('checked', false);
+	$('#creatures').DataTable().column(5).search("", true, false, false).draw();
+	setFiltered();
+})
+$('.tag_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="tag"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#creatures').DataTable().column(6).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#tag_clear_btn').removeClass('hide_block');
+	} else {
+		$('#tag_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#tag_clear_btn').on('click', function() {
+	$('#tag_clear_btn').addClass('hide_block');
+	$('.tag_checkbox').prop('checked', false);
+	$('#creatures').DataTable().column(6).search("", true, false, false).draw();
+	setFiltered();
+})
+function setFiltered(){
+	let boxes = $('input:checkbox:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
+function httpGetImage(theUrl){
 	fetch(theUrl).then(function(response) {
 	    return response.text().then(function(text) {
 			document.getElementById('creatute_img').src = text;
