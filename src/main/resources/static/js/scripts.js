@@ -111,6 +111,18 @@ $(document).ready(function() {
 		}
 	  })
 	}
+
+	function getScrollParent(node) {
+		if (node == null) {
+		  return null;
+		}
+	  
+		if (node.scrollHeight > node.clientHeight) {
+		  return node;
+		} else {
+		  return getScrollParent(node.parentNode);
+		}
+	}
 });
 $("#btn_full_screen, #btn_exet_full_screen").click(function () {
 	$("#body").toggleClass("full_screen_right_block");
