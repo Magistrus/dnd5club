@@ -1143,7 +1143,6 @@ body.compact_menu #right_block {
   flex: 1 0 calc(100% - 291px);
   height: calc(100vh - 72px);
   border-left: 1px solid var(--border);
-  overscroll-behavior: contain;
 }
 
 #right_block.sub_menu_block .info_wrapper .content_block {
