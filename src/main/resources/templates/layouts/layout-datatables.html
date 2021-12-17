@@ -14,9 +14,7 @@
 	<body id="body">
 		<div th:replace="fragments/menu :: menu"></div>
 		<div id="container" class="container">
-			<div class="row">
-				<div layout:fragment="content"></div>
-			</div>
+			<div layout:fragment="content"></div>
 		</div>
 	</body>
 	<th:block th:replace="layouts/layout :: mainJS"/>

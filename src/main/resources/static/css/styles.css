@@ -24,8 +24,6 @@ body {
   position: relative;
   margin-right: auto;
   margin-left: 270px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .compact_menu .container {
@@ -36,11 +34,6 @@ hr {
   height: 1px;
   border: none;
   background: var(--border);
-}
-
-.row {
-  margin-left: -24px;
-  margin-right: -24px;
 }
 
 .mt-0 {
@@ -524,7 +517,7 @@ input::selection {
 }
 
 .full_screen_right_block .block_information #left_block {
-  margin-right: 0px !important;
+  width: calc(100vw - 72px) !important;
 }
 
 .full_screen_right_block .block_information #left_block .container_left {
@@ -874,15 +867,16 @@ input::selection {
   overflow-x: hidden;
   margin-right: 0px;
   margin-left: 0px;
-  position: relative;
+  position: fixed;
+  width: calc(100vw - 72px);
 }
 
 .block_information #left_block {
-  margin-right: calc(54vw + 0px);
+  width: calc(41vw - 199px);
 }
 
 body.compact_menu .block_information #left_block {
-  margin-right: calc(59vw + 0px);
+  width: calc(41vw - 72px);
 }
 
 #left_block .filters + .search_panes + .container_left {
@@ -1673,11 +1667,11 @@ body.full_screen_right_block .screens .card_block .block {
 
 @media (min-width: 1000px) {
   #left_block.spells  {
-    margin-right: calc(42vw + 0px);
+    width: calc(58vw - 270px);
   }
 
   body.compact_menu #left_block.spells {
-    margin-right: calc(48vw + 0px);
+    width: calc(52vw - 72px);
   }
 }
 
@@ -1909,11 +1903,11 @@ body.compact_menu #right_block.spells {
 
 @media (min-width: 1000px) {
   #left_block.weapons  {
-    margin-right: calc(42vw + 0px);
+    width: calc(58vw - 270px);
   }
 
   body.compact_menu #left_block.weapons {
-    margin-right: calc(48vw + 0px);
+    width: calc(52vw - 72px);
   }
 }
 
