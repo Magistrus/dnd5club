@@ -1,6 +1,12 @@
 html {
   box-sizing: border-box;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+@media (max-width: 1000px) {
+  html {
+    overflow-y: scroll;
+  }
 }
 
 body {
@@ -660,6 +666,7 @@ input::selection {
     min-width: calc(33% - 40px);
   }
 }
+
 @media (max-width: 1000px) {
   .main_page_wrapper .news_block {
     display: none;
