@@ -23,7 +23,10 @@ public class BestiaryController {
 	private TagBestiaryDatatableRepository tagRepo;
 	
 	@GetMapping("/bestiary")
-	public String getCreatures() {
+	public String getCreatures(Model model) {
+		model.addAttribute("types", CreatureType.getFilterTypes());
+		model.addAttribute("sizes", CreatureSize.getFilterSizes());
+		model.addAttribute("tags", tagRepo.findAll());
 		return "bestiary";
 	}
 	
@@ -38,11 +41,8 @@ public class BestiaryController {
 	
 	@GetMapping("/bestiary/fragment/{id}")
 	public String getCreatureFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
-		model.addAttribute("types", CreatureType.getFilterTypes());
-		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		model.addAttribute("firstElement", new FirstElement());
-		model.addAttribute("tags", tagRepo.findAll());
 		return "fragments/creature :: view";
 	}
 	
