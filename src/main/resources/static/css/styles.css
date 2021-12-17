@@ -1,12 +1,5 @@
 html {
-  overflow-y: hidden;
   box-sizing: border-box;
-}
-
-@media (max-width: 1000px) {
-  html {
-    overflow-y: scroll;
-  }
 }
 
 body {
@@ -33,12 +26,10 @@ body {
   margin-left: 270px;
   padding-left: 24px;
   padding-right: 24px;
-  /* transition: margin-left 0.3s; */
 }
 
 .compact_menu .container {
-  margin-left: 73px;
-  /* transition: margin-left 0.3s; */
+  margin-left: 72px;
 }
 
 hr {
@@ -681,7 +672,7 @@ input::selection {
   }
 
   .main_page_wrapper .left_block .left_cont {
-    height: calc(100vh - 73px);
+    height: calc(100vh - 72px);
   }
 
   .main_page_wrapper .left_block .card_row .card {
@@ -816,7 +807,7 @@ input::selection {
 .header_block {
   display: flex;
   align-items: left;
-  flex-direction: row;
+  flex-direction: column;
   height: 72px;
   position: sticky;
   background-color: var(--bg-main);
@@ -827,7 +818,7 @@ input::selection {
 }
 
 .header_block .filter_block {
-  height: 45px;
+  height: 44px;
   width: auto;
   position: absolute;
   left: 0px;
@@ -860,9 +851,13 @@ input::selection {
 }
 
 @media (max-width: 1000px) {
+  .header_block {
+    border-right: none;
+  }
+
   .header_block h3 {
     font-size: 22px;
-    line-height: 22px;
+    line-height: 71px;
     display: flex;
     align-items: center;
     min-height: calc(100% - 46px);
@@ -876,7 +871,6 @@ input::selection {
 }
 
 #left_block {
-  /* transition: margin-right 0.3s; */
   overflow-x: hidden;
   margin-right: 0px;
   margin-left: 0px;
@@ -884,7 +878,6 @@ input::selection {
 }
 
 .block_information #left_block {
-  /* transition: margin-right 0.3s; */
   margin-right: calc(54vw + 0px);
 }
 
@@ -893,11 +886,11 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .filters + .search_panes + .container_left {
-  height: calc(100vh - 119px);
+  height: calc(100vh - 117px);
 }
 
 #left_block .container_left {
-  height: calc(100vh - 73px);
+  height: calc(100vh - 72px);
 }
 
 #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -907,7 +900,6 @@ body.compact_menu .block_information #left_block {
 #left_block .header_block .btn_search_icon {
   height: 45px;
   width: 45px;
-  left: -1px;
   bottom: 0;
   position: absolute;
   display: flex;
@@ -920,7 +912,7 @@ body.compact_menu .block_information #left_block {
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width: calc(100% - 102px);
+  width: calc(100% - 99px);
   padding-left: 52px;
   position: absolute;
   right: 0px;
@@ -944,8 +936,8 @@ body.compact_menu .block_information #left_block {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   top: 1px;
-  width: 46px;
-  height: 44px;
+  width: 44px;
+  height: 43px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -1139,11 +1131,11 @@ body.compact_menu #right_block {
 }
 
 #right_block .info_wrapper {
-  height: calc(100vh - 73px);
+  height: calc(100vh - 72px);
 }
 
 #right_block.sub_menu_block .info_wrapper {
-  height: calc(100vh - 119px);
+  height: calc(100vh - 117px);
 }
 
 #right_block .info_wrapper,
@@ -1154,12 +1146,12 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper .content_block {
   flex: 1 0 calc(100% - 291px);
-  height: calc(100vh - 73px);
+  height: calc(100vh - 72px);
   border-left: 1px solid var(--border);
 }
 
 #right_block.sub_menu_block .info_wrapper .content_block {
-  height: calc(100vh - 119px);
+  height: calc(100vh - 117px);
 }
 
 #right_block .info_wrapper .content_block #content_block {
@@ -1255,11 +1247,11 @@ body.compact_menu #right_block {
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list {
-  height: calc(100vh - 119px);
+  height: calc(100vh - 117px);
 }
 
 #right_block .info_wrapper .sub_menu_list.sub_spells_inf {
-  height: calc(100vh - 73px);
+  height: calc(100vh - 72px);
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list ul {
@@ -2074,7 +2066,7 @@ body.compact_menu #right_block.weapons {
   color:var(--text-color);
   z-index: 10;
   width: 100%; 
-  /* height: calc(100vh - 119px); */
+  /* height: calc(100vh - 117px); */
 }
 
 .search_panes .dtsp-panesContainer {
