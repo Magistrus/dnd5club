@@ -43,6 +43,7 @@ $('.card').on('click', 	function() {
 	}
 });
 function setActiveScreen(element, englishName) {
+	element.scrollIntoView({block: "center", behavior: "smooth"});
 	var screenName = element.querySelector("#screen_id").textContent;
 	$('#screen_name').text(screenName);
 	document.title = screenName;
