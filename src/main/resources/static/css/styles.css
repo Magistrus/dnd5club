@@ -686,7 +686,6 @@ input::selection {
 .card_wrapper {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
   margin: 0 -8px;
 }
 
@@ -957,8 +956,11 @@ body.compact_menu .block_information #left_block {
 }
 
 @media (max-width: 1000px) {
+  #left_block {
+    width: calc(100vw - 0px);
+  }
+  
   .block_information #left_block {
-    /* transition: margin-right 0.3s; */
     margin-right: calc(0vw + 0px);
   }
 }
@@ -970,7 +972,6 @@ body.compact_menu .block_information #left_block {
   width: var(--width-right-block);
   top: 0;
   right: calc(-59vw - 1px);
-  /* transition: width 0.3s; */
   position: fixed;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
