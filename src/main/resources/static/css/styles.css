@@ -401,12 +401,15 @@ input::selection {
 
 .dnd5-popup-block .header {
   margin-top: -12px;
-  height: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .dnd5-popup-block .header h4 {
   margin: 0;
-  line-height: 44px;
+  line-height: 22px;
 }
 
 @media (max-width: 1200px) {
@@ -829,7 +832,7 @@ input::selection {
   line-height: 71px;
   position: relative;
   padding-left: 24px;
-  font-size: 28px;
+  font-size: 26px;
   border-bottom: 1px solid var(--border);
 
   border-image-source: var(--border-bottom);
@@ -846,6 +849,9 @@ input::selection {
 @media (max-width: 1000px) {
   .header_block h3 {
     font-size: 22px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -1586,6 +1592,7 @@ body.full_screen_right_block .screens .card_block {
   padding: 24px 24px;
   cursor: pointer;
   align-items: center;
+  text-decoration: none;
 }
 
 body.full_screen_right_block .screens .card_block .block {
