@@ -7,7 +7,6 @@
   width: 270px;
   border-right: 1px solid var(--border);
   z-index: 100;
-  /* transition: width 0.3s; */
 
   border-image-source: var(--border-img);
   border-image-slice: 1 1 1 fill;
@@ -19,7 +18,6 @@
 .compact_menu .navbar {
   width: 72px;
   background-color: inherit;
-  /* transition: width 0.3s; */
 }
 
 .navbar nav {
@@ -365,17 +363,17 @@
 
 @media (max-width: 1000px) {
   .navbar {
-    --height-navbar:73px;
+    /* --height-navbar:73px; */
     top: auto;
     left: 0;
     right: 0;
     bottom: 0;
-    height: fit-content;
-    min-height: var(--height-navbar);
+    height: 73px;
+    /* min-height: var(--height-navbar); */
     width: 100%;
     border-right:none;
     z-index: 102;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .navbar.open {
@@ -451,6 +449,7 @@
   /************ ТЕЛО СТРАНИЦЫ ************/
   .container {
     margin-left: 0px;
+    margin-bottom: 73px;
   }
 
   #right_block {
