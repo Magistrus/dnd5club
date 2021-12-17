@@ -451,6 +451,8 @@
   /************ ТЕЛО СТРАНИЦЫ ************/
   .container {
     margin-left: 0px;
+    /* margin-bottom: 73px; */
+    height: calc(100vh - 73px);
   }
 
   #right_block {
