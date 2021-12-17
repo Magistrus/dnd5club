@@ -805,7 +805,7 @@ input::selection {
 .header_block {
   display: flex;
   align-items: left;
-  flex-direction: column;
+  flex-direction: row;
   height: 72px;
   position: sticky;
   background-color: var(--bg-main);
@@ -827,6 +827,7 @@ input::selection {
 
 #left_block .header_block.filters {
   height: 117px;
+  flex-direction: column;
 }
 
 .header_block h3 {
