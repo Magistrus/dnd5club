@@ -10,7 +10,7 @@
 					<div class="icon" th:utext="${scr.icon}"></div>
 					<div class="description">
 						<h5 th:text="${scr.name}"></h5>
-						<p>PHB / Moving</p>
+						<p><span class="tip" th:text="${scr.book.source}" th:title="${scr.book.name}"></span> / <span th:text="${scr.englishName}"></span></p>
 					</div>
 				</a>
 				<div th:id="${scr.englishName.replace(' ', '_')}" class="dnd5-popup-block mfp-hide" data-simplebar>

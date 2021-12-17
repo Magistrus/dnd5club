@@ -30,6 +30,7 @@ public class Screen {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private String category;
 	
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "parent_id")
