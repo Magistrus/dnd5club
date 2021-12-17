@@ -1,4 +1,8 @@
-/******** Основной стиль ********/
+html {
+  overflow: hidden;
+  width: 100%;
+}
+
 body {
   display: flex;
   margin: 0;
@@ -9,6 +13,11 @@ body {
   height: 100vh;
   outline: none;
   color: var(--text-color);
+
+  width: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .overflow-hidden {
@@ -26,7 +35,7 @@ body {
 }
 
 .compact_menu .container {
-  margin-left: 72px;
+  margin-left: 73px;
   /* transition: margin-left 0.3s; */
 }
 
@@ -852,6 +861,7 @@ input::selection {
     line-height: 22px;
     display: flex;
     align-items: center;
+    min-height: calc(100% - 46px);
   }
 }
 
@@ -863,7 +873,7 @@ input::selection {
 
 #left_block {
   /* transition: margin-right 0.3s; */
-  --width-left-block: calc (100vw - var(--width-right-block));
+  --width-left-block: calc(100vw - var(--width-right-block));
   width: var(--width-left-block);
   overflow-x: hidden;
   margin-right: 0px;
