@@ -1,8 +1,3 @@
-html {
-  overflow: hidden;
-  width: 100%;
-}
-
 body {
   display: flex;
   margin: 0;
@@ -13,11 +8,7 @@ body {
   height: 100vh;
   outline: none;
   color: var(--text-color);
-
-  width: 100%;
-  position: fixed;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
 
 .overflow-hidden {
