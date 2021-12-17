@@ -1,3 +1,14 @@
+html {
+  overflow-y: hidden;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+  html {
+    overflow-y: scroll;
+  }
+}
+
 body {
   display: flex;
   margin: 0;
