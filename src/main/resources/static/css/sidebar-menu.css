@@ -97,6 +97,8 @@
   padding: 0px;
   margin: 24px 0 0 0;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .compact_menu .navbar .nav_links {
@@ -408,12 +410,9 @@
     height: auto;
     justify-content: space-around;
     margin: auto 0px 0px 0px;
+    padding-top: 32px;
   }
-
-  /* .navbar .nav_links li {
-    margin-bottom: 0px;
-  } */
-
+  
   .navbar .nav_links li:last-child {
     margin-top: 0px;
   }
