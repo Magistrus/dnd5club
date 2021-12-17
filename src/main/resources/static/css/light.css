@@ -1,8 +1,8 @@
 :root {
   --bg-transparent: #ffffff00;
-  --bg-main: #ffffff;
-  --bg-secondary: #FBFBFB;
-  --bg-sub-menu: #F2F2F2;
+  --bg-main: #FBFBFB;
+  --bg-secondary: #f1f1f1;
+  --bg-sub-menu: #e5e5e5;
   --bg-dice: #d2d1f9;
   --bg-homebrew: #b1d9bd;
   --bg-blockquote: #21dbca;
@@ -14,14 +14,14 @@
   --text-s-color:#922610;
   --text-a-color:#7c6615;
   --text-btn-color: #f8f8f8;
-  --link-color:#4D4DAA;
-  --link-color-hover:#4b4b66;
+  --link-color:#6464dd;
+  --link-color-hover:#4242ad;
   --hover: rgba(00, 00, 00, 0.05);
   --border: #E5E5E5;
   --border-table: #E5E5E5;
-  --primary: #4D4DAA;
-  --primary-hover: #44439E;
-  --primary-active: #3D3992;
+  --primary: #4E6CC2;
+  --primary-hover: #7f97da;
+  --primary-active: #415896;
 }
 
 /********* IMG BG *********/
