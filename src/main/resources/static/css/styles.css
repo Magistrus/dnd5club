@@ -1136,9 +1136,6 @@ body.compact_menu #right_block {
 #right_block .info_wrapper .content_block {
   flex: 1 0 calc(100% - 291px);
   height: calc(100vh - 73px);
-}
-
-#right_block .info_wrapper #sub_menu + .content_block {
   border-left: 1px solid var(--border);
 }
 
@@ -1304,11 +1301,15 @@ body.compact_menu #right_block {
   border-radius: 8px;
   opacity: 0;
   transition: all 0.3s;
-  padding: 0;
+  padding: 4px;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li .btn_close:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
+}
+
+#right_block .info_wrapper .sub_menu_list.selector_list li .btn_close:hover path {
+  stroke: var(--text-btn-color);
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu {
@@ -1332,6 +1333,7 @@ body.compact_menu #right_block {
 @media (max-width: 1000px) {
   #right_block .info_wrapper .content_block {
     height: calc(100vh - 145px);
+    border-left: 0;
   }
 }
 
@@ -2254,6 +2256,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 .filter_container .filter_block .filter_crumbs_box label span:hover {
   background-color: var(--primary-hover);
+  color: var(--text-btn-color);
 }
 
 .filter_container .filter_block .filter_crumbs_box label input {

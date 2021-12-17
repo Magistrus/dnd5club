@@ -40,6 +40,17 @@
   border-image-outset: 0;
 }
 
+.navbar .nav_head .logo:after {
+  content: 'β';
+  display: block;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  color: var(--primary);
+  font-size: 17px;
+  font-weight: 600;
+}
+
 .navbar .nav_head .logo {
   height: 72px;
   width: 72px;
@@ -47,6 +58,7 @@
   background-image: var(--icon-logo-menu);
   background-repeat: no-repeat;
   background-position: center;
+  position: relative;
 }
 
 .navbar .nav_head .user_account,
@@ -185,6 +197,11 @@
   border-radius: 8px;
 }
 
+.navbar .nav_links .sub_menu li label,
+.navbar .nav_links .sub_menu li a {
+  border-radius: 0px;
+}
+
 .compact_menu .navbar .nav_links li a .link_name {
   opacity: 0;
   pointer-events: none;
@@ -203,6 +220,11 @@
   margin-left: 0px;
   margin-right: 0px;
   border-radius: 0px;
+}
+
+
+.navbar .nav_links li .sub_menu li:hover a {
+  background-color: var(--hover);
 }
 
 .navbar .nav_links li.showMenu .sub_menu {
@@ -259,6 +281,10 @@
 }
 
 .navbar .nav_links li.active .sub_menu {
+  background: var(--primary-hover);
+}
+
+.navbar .nav_links li.active .sub_menu li {
   background: var(--primary-hover);
 }
 
@@ -412,7 +438,7 @@
     margin: auto 0px 0px 0px;
     padding-top: 32px;
   }
-  
+
   .navbar .nav_links li:last-child {
     margin-top: 0px;
   }
