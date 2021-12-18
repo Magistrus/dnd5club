@@ -152,7 +152,7 @@ function selectCreature(data){
 	}
 	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
 	document.getElementById('size').innerHTML = data.size;
-	httpGetImage('/image/CREATURE/'+data.id);
+	getImage(data.id);
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 	document.getElementById('source').innerHTML = source;
@@ -270,14 +270,31 @@ function setFiltered(){
 		$('#icon_filter').addClass('active');
 	}
 }
-function httpGetImage(theUrl){
-	fetch(theUrl).then(function(response) {
-	    return response.text().then(function(text) {
-			document.getElementById('creatute_img').src = text;
-			$('#creatute_href').attr('href', text);
-	    });
-	});
+function getImage(id){
+	$.ajax({
+        type: 'GET',
+        url: '/images/CREATURE/' + id,
+        data: 'id=testdata',
+        dataType: 'json',
+        cache: false,
+        success: function(result) {
+        	$('.image-container').empty();
+        	result.forEach((element, index) => {
+        		let alement;
+        		if (index==0){
+        			aelement = '<a href="'+element+'"><img src="'+ element+'"/></a>';
+        		} else {
+        			aelement = '<a href="'+element+'"></a>';
+        		}
+        		$('.image-container').append(aelement);
+        	});
+        },
+    });
 }
-$('.test-popup-link').magnificPopup({
-  type: 'image'
+$('.image-container').magnificPopup({
+  delegate: 'a',
+  type: 'image',
+  gallery:{
+	    enabled:true
+  }
 });
