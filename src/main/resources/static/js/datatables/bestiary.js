@@ -270,14 +270,6 @@ function setFiltered(){
 		$('#icon_filter').addClass('active');
 	}
 }
-function httpGetImage(theUrl){
-	fetch(theUrl).then(function(response) {
-	    return response.text().then(function(text) {
-			document.getElementById('creatute_img').src = text;
-			$('#creatute_href').attr('href', text);
-	    });
-	});
-}
 function getImage(id){
 	$.ajax({
         type: 'GET',
@@ -287,7 +279,6 @@ function getImage(id){
         cache: false,
         success: function(result) {
         	$('.image-container').empty();
-        	
         	result.forEach((element, index) => {
         		let alement;
         		if (index==0){
