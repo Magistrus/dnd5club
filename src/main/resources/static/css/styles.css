@@ -513,24 +513,6 @@ input::selection {
   position: relative;
 }
 
-/******** Правый блок во весь экран / Full screen ********/
-.full_screen_right_block .block_information #right_block {
-  width: calc(100vw - 270px);
-}
-
-.full_screen_right_block.compact_menu .block_information #right_block {
-  width: calc(100vw - 72px);
-}
-
-.full_screen_right_block .block_information #left_block {
-  width: calc(100vw - 72px) !important;
-}
-
-.full_screen_right_block .block_information #left_block .container_left {
-  overflow: hidden !important;
-}
-
-
 /******** Главная ********/
 .main_page_wrapper h3 {
   display: flex;
@@ -886,6 +868,14 @@ body .block_information #left_block {
 
 body.compact_menu .block_information #left_block {
   width: calc(41vw - 72px);
+}
+
+#left_block  .filters+.search_panes+.container_left {
+  height: calc(100vh - 117px);
+}
+
+#left_block .container_left {
+  height: calc(100vh - 72px);
 }
 
 #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -1338,6 +1328,24 @@ body.compact_menu #right_block {
     height: calc(100vh - 145px);
     border-left: 0;
   }
+}
+
+
+/******** Правый блок во весь экран / Full screen ********/
+.full_screen_right_block .block_information #right_block {
+  width: calc(100vw - 270px);
+}
+
+.full_screen_right_block.compact_menu .block_information #right_block {
+  width: calc(100vw - 72px);
+}
+
+.full_screen_right_block .block_information #left_block {
+  width: calc(100vw - 72px) !important;
+}
+
+.full_screen_right_block .block_information #left_block .container_left {
+  overflow: hidden !important;
 }
 
 
