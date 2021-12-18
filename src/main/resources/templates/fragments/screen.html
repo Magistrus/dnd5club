@@ -13,9 +13,11 @@
 						<p><span class="tip" th:text="${scr.book.source}" th:title="${scr.book.name}"></span> / <span th:text="${scr.englishName}"></span></p>
 					</div>
 				</a>
-				<div th:id="${scr.englishName.replace(' ', '_')}" class="dnd5-popup-block mfp-hide" data-simplebar>
+				<div th:id="${scr.englishName.replace(' ', '_')}" class="dnd5-popup-block mfp-hide">
 					<div class="header"><h4 th:text="${scr.name}"></h4></div>
-					<th:block th:utext="${scr.description}"></th:block>
+					<div class="wrapper" data-simplebar>
+						<th:block th:utext="${scr.description}"></th:block>
+					</div>
 				</div>
 			</th:block>
 		</div>
