@@ -828,11 +828,15 @@ input::selection {
 }
 
 .header_block h3 {
+  width: 100%;
   line-height: 71px;
   position: relative;
   padding-left: 24px;
   font-size: 26px;
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   border-image-source: var(--border-bottom);
   border-image-slice: 1 1 1 fill;
@@ -852,10 +856,6 @@ input::selection {
 
   .header_block h3 {
     font-size: 22px;
-    line-height: 71px;
-    display: flex;
-    align-items: center;
-    min-height: calc(100% - 46px);
   }
 }
 
@@ -1004,11 +1004,6 @@ body.compact_menu #right_block {
   position: relative;
   display: flex;
   border-bottom: 1px solid var(--border);
-}
-
-#right_block .header_block h3 {
-  position: relative;
-  width: 100%;
 }
 
 #right_block .header_block .header_sub_menu button {
