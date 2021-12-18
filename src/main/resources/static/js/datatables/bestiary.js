@@ -282,7 +282,7 @@ function getImage(id){
         	result.forEach((element, index) => {
         		let alement;
         		if (index==0){
-        			aelement = '<a href="'+element+'"><img src="'+ element+'"/></a>';
+        			aelement = '<a id="creatute_img" href="'+element+'"><img src="'+ element+'"/></a>';
         		} else {
         			aelement = '<a href="'+element+'"></a>';
         		}
