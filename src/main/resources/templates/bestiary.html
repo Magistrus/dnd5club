@@ -189,7 +189,7 @@
 			<div id="info_wrapper" class="info_wrapper" data-simplebar>
 				<div id="sub_menu" class="sub_menu_list">
 					<ul>
-						<li class="avatar"><img id="creatute_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></li>
+						<li class="avatar"><a id="creatute_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}"><img id="creatute_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></a></li>
 						<li>
 							<h5>Уровень опасности:</h5> <span id="cr" style="text-transform: capitalize;">-</span>
 						</li>
@@ -214,5 +214,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/bestiary.js?v=1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/bestiary.js?v=2}" layout:fragment="js-script"></script>
 </html>

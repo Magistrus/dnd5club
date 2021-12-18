@@ -129,7 +129,7 @@ $(document).ready(function() {
 	});
 	$('#btn_filters').on('click', function() {
 		$('#searchPanes').toggleClass('hide_block');
-	})
+	});
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
@@ -274,6 +274,10 @@ function httpGetImage(theUrl){
 	fetch(theUrl).then(function(response) {
 	    return response.text().then(function(text) {
 			document.getElementById('creatute_img').src = text;
+			$('#creatute_href').attr('href', text);
 	    });
 	});
 }
+$('.test-popup-link').magnificPopup({
+  type: 'image'
+});
