@@ -408,6 +408,10 @@ input::selection {
   margin-bottom: 16px;
 }
 
+.dnd5-popup-block .wrapper {
+  max-height: 65vh;
+}
+
 .dnd5-popup-block .header h4 {
   margin: 0;
   line-height: 22px;
