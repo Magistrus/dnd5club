@@ -30,6 +30,7 @@ body {
 
 .container>div {
   height: 100%;
+  overflow-y: hidden;
 }
 
 .compact_menu .container {
@@ -60,6 +61,14 @@ hr {
 
 .hide_block {
   display: none !important;
+}
+
+.simplebar-wrapper {
+  height: 100%;
+}
+
+.simplebar-content {
+  height: calc(100% - 0px);
 }
 
 .icon_action {
@@ -523,11 +532,12 @@ input::selection {
 }
 
 .main_page_wrapper .left_block {
-  flex:1 1 auto;
+  height: 100%;
 }
 
 .main_page_wrapper .left_block .left_cont {
-  height: 100vh;
+  /* height: 100vh; */
+  height: 100%;
 }
 
 .main_page_wrapper .left_block .left_cont .search_row {
@@ -658,7 +668,7 @@ input::selection {
   }
 
   .main_page_wrapper .left_block .left_cont {
-    height: calc(100vh - 72px);
+    /* height: calc(100vh - 72px); */
   }
 
   .main_page_wrapper .left_block .card_row .card {
