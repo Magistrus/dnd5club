@@ -30,6 +30,7 @@ body {
 
 .container>div {
   height: 100%;
+  overflow-y: hidden;
 }
 
 .compact_menu .container {
@@ -60,6 +61,14 @@ hr {
 
 .hide_block {
   display: none !important;
+}
+
+.simplebar-wrapper {
+  height: 100%;
+}
+
+.simplebar-content {
+  height: calc(100% - 0px);
 }
 
 .icon_action {
@@ -523,11 +532,12 @@ input::selection {
 }
 
 .main_page_wrapper .left_block {
-  flex:1 1 auto;
+  height: 100%;
 }
 
 .main_page_wrapper .left_block .left_cont {
-  height: 100vh;
+  /* height: 100vh; */
+  height: 100%;
 }
 
 .main_page_wrapper .left_block .left_cont .search_row {
@@ -658,7 +668,7 @@ input::selection {
   }
 
   .main_page_wrapper .left_block .left_cont {
-    height: calc(100vh - 72px);
+    /* height: calc(100vh - 72px); */
   }
 
   .main_page_wrapper .left_block .card_row .card {
@@ -853,13 +863,15 @@ input::selection {
 
 #left_block {
   overflow-x: hidden;
+  overflow-y: hidden;
   margin-right: 0px;
   margin-left: 0px;
   position: fixed;
+  height: 100%;
 }
 
-body #left_block {
-  width: calc(100vw - 270px);
+#left_block {
+  /* width: calc(100vw - 270px); */
 }
 
 body.compact_menu #left_block {
@@ -875,11 +887,20 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block  .filters+.search_panes+.container_left {
-  height: calc(100vh - 117px);
+  /* height: calc(100vh - 117px); */
+
+  top: 117px;
 }
 
 #left_block .container_left {
-  height: calc(100vh - 72px);
+  /* height: calc(100vh - 72px); */
+  
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  top: 72px;
+  height: auto;
 }
 
 #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -952,8 +973,9 @@ body.compact_menu .block_information #left_block {
 }
 
 @media (max-width: 1000px) {
+  body .block_information #left_block.spells,
   body #left_block {
-    width: calc(100vw - 0px);
+    width: calc(100vw - 0px) !important;
   }
 }
 
@@ -1675,14 +1697,12 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-@media (min-width: 1000px) {
-  #left_block.spells  {
-    width: calc(58vw - 270px);
-  }
+body .block_information #left_block.spells  {
+  width: calc(58vw - 270px);
+}
 
-  body.compact_menu #left_block.spells {
-    width: calc(52vw - 72px);
-  }
+body.compact_menu #left_block.spells {
+  width: calc(52vw - 72px);
 }
 
 #right_block.spells {
@@ -1924,14 +1944,12 @@ body.compact_menu #right_block.spells {
 
 }
 
-@media (min-width: 1000px) {
-  #left_block.weapons  {
-    width: calc(58vw - 270px);
-  }
+body .block_information #left_block.weapons  {
+  width: calc(58vw - 270px);
+}
 
-  body.compact_menu #left_block.weapons {
-    width: calc(52vw - 72px);
-  }
+body.compact_menu #left_block.weapons {
+  width: calc(52vw - 72px);
 }
 
 #right_block.weapons {
@@ -2322,6 +2340,10 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 #left_block .tools_settings {
   padding: 24px 24px 12px 24px;
   border-bottom: 1px solid var(--border);
+}
+
+body #left_block.wildmagic {
+  width: 100vw !important;
 }
 
 #left_block.wildmagic .container_left {
