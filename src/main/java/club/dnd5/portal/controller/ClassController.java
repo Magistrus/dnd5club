@@ -48,7 +48,8 @@ public class ClassController {
 	
 	@GetMapping("/classes/{name}")
 	public String getClass(Model model, @PathVariable String name) {
-		model.addAttribute("classes", classRepository.findAll());
+		model.addAttribute("classes", classRepository.findAllBySidekick(false));
+		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("selectedClass", name);
 		return "classes";
 	}
