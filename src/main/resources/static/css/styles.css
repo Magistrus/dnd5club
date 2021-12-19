@@ -19,10 +19,11 @@ body {
 @media (max-width: 1000px) {
   html {
     overflow-y: scroll;
+    height: calc(100vh - 73px);
   }
 
   body {
-    height: calc(100% - 73px);
+    /* height: calc(100% - 73px); */
   }
 }
 
