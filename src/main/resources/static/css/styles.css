@@ -16,6 +16,12 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 1000px) {
+  body {
+    height: calc(100vh - 73px);
+  }
+}
+
 .overflow-hidden {
   overflow: hidden !important;
 }
