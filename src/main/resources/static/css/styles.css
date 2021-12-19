@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  height: 100%;
 }
 
 body {
@@ -10,7 +11,7 @@ body {
   font-family: 'Open Sans';
   background-color: var(--bg-main);
   font-size: 13px;
-  height: 100vh;
+  height: 100%;
   outline: none;
   color: var(--text-color);
   overflow: hidden;
@@ -18,12 +19,12 @@ body {
 
 @media (max-width: 1000px) {
   html {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     height: calc(100vh - 73px);
   }
 
   body {
-    /* height: calc(100% - 73px); */
+    height: 100%;
   }
 }
 
