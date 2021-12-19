@@ -10,6 +10,7 @@ body {
   font-family: 'Open Sans';
   background-color: var(--bg-main);
   font-size: 13px;
+  height: 100vh;
   outline: none;
   color: var(--text-color);
   overflow: hidden;
