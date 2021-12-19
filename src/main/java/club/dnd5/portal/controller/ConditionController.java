@@ -24,7 +24,9 @@ public class ConditionController {
 
 	@GetMapping("/conditions/{name}")
 	public String getCondition(Model model, @PathVariable String name) {
-		model.addAttribute("conditions", conditionRepository.findAll());
+		model.addAttribute("conditions", conditionRepository.findAllByType(Type.CONDITION));
+		model.addAttribute("disease", conditionRepository.findAllByType(Type.DISEASE));
+		model.addAttribute("other", conditionRepository.findAllByType(Type.OTHER));
 		model.addAttribute("selectedCondition", name);
 		return "conditions";
 	}
