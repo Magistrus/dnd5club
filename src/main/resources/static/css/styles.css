@@ -952,8 +952,9 @@ body.compact_menu .block_information #left_block {
 }
 
 @media (max-width: 1000px) {
+  body .block_information #left_block.spells,
   body #left_block {
-    width: calc(100vw - 0px);
+    width: calc(100vw - 0px) !important;
   }
 }
 
