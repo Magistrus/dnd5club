@@ -243,7 +243,7 @@ label.check_block span {
 
 .check-wrapper {
   margin-top: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .check-wrapper label.check_block {
@@ -536,7 +536,6 @@ input::selection {
 }
 
 .main_page_wrapper .left_block .left_cont {
-  /* height: 100vh; */
   height: 100%;
 }
 
@@ -866,12 +865,8 @@ input::selection {
   overflow-y: hidden;
   margin-right: 0px;
   margin-left: 0px;
-  position: fixed;
+  position: relative;
   height: 100%;
-}
-
-#left_block {
-  /* width: calc(100vw - 270px); */
 }
 
 body.compact_menu #left_block {
@@ -886,21 +881,14 @@ body.compact_menu .block_information #left_block {
   width: calc(41vw - 72px);
 }
 
-#left_block  .filters+.search_panes+.container_left {
-  /* height: calc(100vh - 117px); */
-
-  top: 117px;
+#left_block .container_left {
+  overflow-y: auto;
+  position: relative;
+  height: calc(100% - 72px);
 }
 
-#left_block .container_left {
-  /* height: calc(100vh - 72px); */
-  
-  overflow-y: auto;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  top: 72px;
-  height: auto;
+#left_block .filters+.search_panes+.container_left {
+  height: calc(100% - 117px);
 }
 
 #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -968,10 +956,6 @@ body.compact_menu .block_information #left_block {
   background-color: var(--text-btn-color);
 }
 
-#left_block.full_width_left_block {
-  margin-right: calc(0vw + 0px) !important;
-}
-
 @media (max-width: 1000px) {
   body .block_information #left_block.spells,
   body #left_block {
@@ -986,7 +970,7 @@ body.compact_menu .block_information #left_block {
   width: var(--width-right-block);
   top: 0;
   right: calc(-59vw - 1px);
-  position: fixed;
+  position: absolute;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   
@@ -1007,7 +991,7 @@ body.compact_menu #right_block {
 
 .block_information #right_block {
   right: 0px;
-  /* transition: right 0.6s; */
+  left: auto;
 }
 
 #right_block.sub_menu_block .header_block {
@@ -1359,21 +1343,13 @@ body.compact_menu #right_block {
 
 /******** Правый блок во весь экран / Full screen ********/
 .full_screen_right_block .block_information #right_block {
-  width: calc(100vw - 270px);
-}
-
-.full_screen_right_block.compact_menu .block_information #right_block {
-  width: calc(100vw - 72px);
-}
-
-.full_screen_right_block .block_information #left_block {
-  width: calc(100vw - 72px) !important;
+  right: 0px;
+  width: 100%;
 }
 
 .full_screen_right_block .block_information #left_block .container_left {
   overflow: hidden !important;
 }
-
 
 /******** Список из таблицы********/
 .table_list {
@@ -2105,7 +2081,6 @@ body.compact_menu #right_block.weapons {
   color:var(--text-color);
   z-index: 10;
   width: 100%; 
-  /* height: calc(100vh - 117px); */
 }
 
 .search_panes .dtsp-panesContainer {
@@ -2340,30 +2315,42 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 #left_block .tools_settings {
   padding: 24px 24px 12px 24px;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
-body #left_block.wildmagic {
-  width: 100vw !important;
+body.compact_menu #left_block.tools_block {
+  width: calc(100vw - 72px) !important;
+}
+
+body #left_block.tools_block {
+  width: calc(100vw - 271px) !important;
+}
+
+@media (max-width: 1000px) {
+  body.compact_menu #left_block.tools_block,
+  body #left_block.tools_block {
+    width: calc(100vw - 0px) !important;
+  }
 }
 
 #left_block.wildmagic .container_left {
-  height: calc(100vh - 195px);
+  height: calc(100% - 195px);
 }
 
 #left_block.encounters .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100% - 249px);
 }
 
 #left_block.madness .container_left {
-  height: calc(100vh - 328px);
+  height: calc(100% - 249px);
 }
 
 #left_block.trader .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100% - 249px);
 }
 
 #left_block.treasury .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100% - 249px);
 }
 
 #left_block.treasury h4.header_separator {
@@ -2396,49 +2383,31 @@ body #left_block.wildmagic {
   display: table-cell;
 }
 
-@media (max-width: 1000px) {
-  #left_block.wildmagic .container_left {
-    height: calc(100vh - 263px);
-  }
-  
-  #left_block.trader .container_left {
-    height: calc(100vh - 321px);
-  }
-
-  #left_block.encounters .container_left {
-    height: calc(100vh - 321px);
-  }
-  
-  #left_block.treasury .container_left {
-    height: calc(100vh - 321px);
-  }  
-}
-
 @media (max-width: 500px) {
   #left_block.trader .container_left {
-    height: calc(100vh - 406px);
+    height: calc(100% - 341px);
   }
 
   #left_block.wildmagic .container_left {
-    height: calc(100vh - 268px);
+    height: calc(100% - 197px);
   }
 
   #left_block.madness .container_left {
-    height: calc(100vh - 357px);
+    height: calc(100% - 278px);
   }
 
   #left_block.encounters .container_left {
-    height: calc(100vh - 404px);
+    height: calc(100% - 254px);
   }
 }
 
 @media (max-width: 360px) {
   #left_block.wildmagic .container_left {
-    height: calc(100vh - 289px);
+    height: calc(100% - 219px);
   }
 
   #left_block.encounters .container_left {
-    height: calc(100vh - 451px);
+    height: calc(100% - 389px);
   }
 }
 
@@ -2814,16 +2783,8 @@ button {
 
 
 @media (max-width: 1000px) {
-  #left_block .container_left {
-    height: calc(100vh - 145px);
-  }
-
   #right_block .info_wrapper {
     height: calc(100vh - 145px);
-  }
-
-  #left_block .filters + .search_panes + .container_left {
-    height: calc(100vh - 190px);
   }
 
   #right_block.sub_menu_block .info_wrapper .content_block {
