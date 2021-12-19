@@ -1675,14 +1675,12 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-@media (min-width: 1000px) {
-  #left_block.spells  {
-    width: calc(58vw - 270px);
-  }
+body .block_information #left_block.spells  {
+  width: calc(58vw - 270px);
+}
 
-  body.compact_menu #left_block.spells {
-    width: calc(52vw - 72px);
-  }
+body.compact_menu #left_block.spells {
+  width: calc(52vw - 72px);
 }
 
 #right_block.spells {
@@ -1924,14 +1922,12 @@ body.compact_menu #right_block.spells {
 
 }
 
-@media (min-width: 1000px) {
-  #left_block.weapons  {
-    width: calc(58vw - 270px);
-  }
+body .block_information #left_block.weapons  {
+  width: calc(58vw - 270px);
+}
 
-  body.compact_menu #left_block.weapons {
-    width: calc(52vw - 72px);
-  }
+body.compact_menu #left_block.weapons {
+  width: calc(52vw - 72px);
 }
 
 #right_block.weapons {
