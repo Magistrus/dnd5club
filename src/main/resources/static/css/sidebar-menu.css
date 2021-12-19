@@ -363,17 +363,15 @@
 
 @media (max-width: 1000px) {
   .navbar {
-    /* --height-navbar:73px; */
     top: auto;
     left: 0;
     right: 0;
     bottom: 0;
     height: 73px;
-    /* min-height: var(--height-navbar); */
     width: 100%;
     border-right:none;
+    background-color: var(--bg-main);
     z-index: 102;
-    /* overflow: hidden; */
   }
 
   .navbar.open {
@@ -455,7 +453,7 @@
   #right_block {
     width: calc(100vw - 0px);
     right: calc(-100vw - 0px);
-    position: fixed;
+    position: absolute;
     border: none;
     z-index: 101;
   }
