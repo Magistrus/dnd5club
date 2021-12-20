@@ -1172,7 +1172,10 @@ body.compact_menu #right_block {
 #right_block .info_wrapper .content_block {
   flex: 1 0 calc(100% - 291px);
   height: 100%;
-  /* border-left: 1px solid var(--border); */
+}
+
+#right_block .info_wrapper #sub_menu+.content_block {
+  border-left: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .content_block #content_block {
