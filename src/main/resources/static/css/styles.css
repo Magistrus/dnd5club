@@ -890,7 +890,7 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .container_left {
-  overflow-y: auto;
+  /* overflow-y: auto; */
   position: relative;
   height: calc(100% - 72px);
 }
@@ -1001,6 +1001,7 @@ body.compact_menu #right_block {
 .block_information #right_block {
   right: 0px;
   left: auto;
+  display: block;
 }
 
 #right_block.sub_menu_block .header_block {
