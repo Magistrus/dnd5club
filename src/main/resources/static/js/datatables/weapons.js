@@ -11,17 +11,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : "type",
@@ -76,11 +65,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 			loadingRecords: "Загрузка...",
-	        searchPanes: {
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 		    $('#weapons tbody tr:eq(0)').click();
@@ -108,7 +92,6 @@ $(document).ready(function() {
 			}
 		},
 	});
-
 	$('#weapons tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -193,17 +176,39 @@ $('.damge_type_checkbox').on('change', function(e){
 		return this.value;
 	}).get().join('|');
     $('#weapons').DataTable().column(3).search(damageTypes, true, false, false).draw();
+	if(damageTypes) {
+		$('#damage_clear_btn').removeClass('hide_block');
+	} else {
+		$('#damage_clear_btn').addClass('hide_block');
+	}
     setFiltered();
+});
+$('#damage_clear_btn').on('click', function() {
+	$('#damage_clear_btn').addClass('hide_block');
+	$('.damge_type_checkbox').prop('checked', false);
+	$('#weapons').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
 });
 $('.property_checkbox').on('change', function(e){
 	var properties = $('input:checkbox[name="property"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
     $('#weapons').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#property_clear_btn').removeClass('hide_block');
+	} else {
+		$('#property_clear_btn').addClass('hide_block');
+	}
     setFiltered();
 });
+$('#property_clear_btn').on('click', function() {
+	$('#property_clear_btn').addClass('hide_block');
+	$('.property_checkbox').prop('checked', false);
+	$('#weapons').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
 function setFiltered(){
-	let boxes = $('input:checkbox:checked').map(function() {
+	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
 	}).get().join('|');
 	if(boxes.length === 0){
