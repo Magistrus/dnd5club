@@ -260,7 +260,7 @@ $('#tag_clear_btn').on('click', function() {
 	setFiltered();
 })
 function setFiltered(){
-	let boxes = $('input:checkbox:checked').map(function() {
+	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
 	}).get().join('|');
 	if(boxes.length === 0){
