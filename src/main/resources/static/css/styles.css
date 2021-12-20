@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-  overflow-y: auto;
+  height: 100vh;
 }
 
 body {
@@ -10,7 +10,7 @@ body {
   font-family: 'Open Sans';
   background-color: var(--bg-main);
   font-size: 13px;
-  height: 100vh;
+  height: 100%;
   outline: none;
   color: var(--text-color);
   overflow: hidden;
@@ -243,7 +243,7 @@ label.check_block span {
 
 .check-wrapper {
   margin-top: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .check-wrapper label.check_block {
@@ -536,7 +536,6 @@ input::selection {
 }
 
 .main_page_wrapper .left_block .left_cont {
-  /* height: 100vh; */
   height: 100%;
 }
 
@@ -866,12 +865,8 @@ input::selection {
   overflow-y: hidden;
   margin-right: 0px;
   margin-left: 0px;
-  position: fixed;
+  position: relative;
   height: 100%;
-}
-
-#left_block {
-  /* width: calc(100vw - 270px); */
 }
 
 body.compact_menu #left_block {
@@ -886,21 +881,14 @@ body.compact_menu .block_information #left_block {
   width: calc(41vw - 72px);
 }
 
-#left_block  .filters+.search_panes+.container_left {
-  /* height: calc(100vh - 117px); */
-
-  top: 117px;
+#left_block .container_left {
+  overflow-y: auto;
+  position: relative;
+  height: calc(100% - 72px);
 }
 
-#left_block .container_left {
-  /* height: calc(100vh - 72px); */
-  
-  overflow-y: auto;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  top: 72px;
-  height: auto;
+#left_block .filters+.search_panes+.container_left {
+  height: calc(100% - 117px);
 }
 
 #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -968,10 +956,6 @@ body.compact_menu .block_information #left_block {
   background-color: var(--text-btn-color);
 }
 
-#left_block.full_width_left_block {
-  margin-right: calc(0vw + 0px) !important;
-}
-
 @media (max-width: 1000px) {
   body .block_information #left_block.spells,
   body #left_block {
@@ -985,8 +969,9 @@ body.compact_menu .block_information #left_block {
   --width-right-block:calc(54vw - 0px);
   width: var(--width-right-block);
   top: 0;
+  height: 100%;
   right: calc(-59vw - 1px);
-  position: fixed;
+  position: absolute;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   
@@ -1007,7 +992,7 @@ body.compact_menu #right_block {
 
 .block_information #right_block {
   right: 0px;
-  /* transition: right 0.6s; */
+  left: auto;
 }
 
 #right_block.sub_menu_block .header_block {
@@ -1139,11 +1124,11 @@ body.compact_menu #right_block {
 }
 
 #right_block .info_wrapper {
-  height: calc(100vh - 72px);
+  height: calc(100% - 72px);
 }
 
 #right_block.sub_menu_block .info_wrapper {
-  height: calc(100vh - 117px);
+  height: calc(100% - 118px);
 }
 
 #right_block .info_wrapper,
@@ -1154,25 +1139,17 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper .content_block {
   flex: 1 0 calc(100% - 291px);
-  height: calc(100vh - 72px);
+  height: 100%;
   border-left: 1px solid var(--border);
-}
-
-#right_block.sub_menu_block .info_wrapper .content_block {
-  height: calc(100vh - 117px);
 }
 
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
-  position: relative;
+  position: absolute;
 }
 
 #right_block .info_wrapper.spells .content_block #content_block {
   padding: 0px;
-  width: 100%;
-}
-
-#right_block.races .info_wrapper .content_block #content_block {
   width: 100%;
 }
 
@@ -1351,7 +1328,6 @@ body.compact_menu #right_block {
 
 @media (max-width: 1000px) {
   #right_block .info_wrapper .content_block {
-    height: calc(100vh - 145px);
     border-left: 0;
   }
 }
@@ -1359,21 +1335,13 @@ body.compact_menu #right_block {
 
 /******** Правый блок во весь экран / Full screen ********/
 .full_screen_right_block .block_information #right_block {
-  width: calc(100vw - 270px);
-}
-
-.full_screen_right_block.compact_menu .block_information #right_block {
-  width: calc(100vw - 72px);
-}
-
-.full_screen_right_block .block_information #left_block {
-  width: calc(100vw - 72px) !important;
+  right: 0px;
+  width: 100%;
 }
 
 .full_screen_right_block .block_information #left_block .container_left {
   overflow: hidden !important;
 }
-
 
 /******** Список из таблицы********/
 .table_list {
@@ -1869,10 +1837,6 @@ body.compact_menu #right_block.spells {
 
 }
 
-#right_block.races .info_wrapper .simplebar-content {
-  display: flex;
-}
-
 #right_block.races .info_wrapper .sub_menu_list li.avatar {
   padding: 0 !important;
   border-left: none !important;
@@ -2061,12 +2025,6 @@ body.compact_menu #right_block.weapons {
   }
 }
 
-@media (max-width: 1000px) {
-  #right_block.bestiary .info_wrapper {
-    height: calc(100vh - 192px);
-  }
-}
-
 @media (max-width: 600px) {
   #right_block.items .info_wrapper li.avatar,
   #right_block.bestiary .info_wrapper li.avatar {
@@ -2105,7 +2063,6 @@ body.compact_menu #right_block.weapons {
   color:var(--text-color);
   z-index: 10;
   width: 100%; 
-  /* height: calc(100vh - 117px); */
 }
 
 .search_panes .dtsp-panesContainer {
@@ -2340,30 +2297,42 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 #left_block .tools_settings {
   padding: 24px 24px 12px 24px;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
-body #left_block.wildmagic {
-  width: 100vw !important;
+body.compact_menu #left_block.tools_block {
+  width: calc(100vw - 72px) !important;
+}
+
+body #left_block.tools_block {
+  width: calc(100vw - 271px) !important;
+}
+
+@media (max-width: 1000px) {
+  body.compact_menu #left_block.tools_block,
+  body #left_block.tools_block {
+    width: calc(100vw - 0px) !important;
+  }
 }
 
 #left_block.wildmagic .container_left {
-  height: calc(100vh - 195px);
+  height: calc(100% - 195px);
 }
 
 #left_block.encounters .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100% - 249px);
 }
 
 #left_block.madness .container_left {
-  height: calc(100vh - 328px);
+  height: calc(100% - 249px);
 }
 
 #left_block.trader .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100% - 249px);
 }
 
 #left_block.treasury .container_left {
-  height: calc(100vh - 248px);
+  height: calc(100% - 249px);
 }
 
 #left_block.treasury h4.header_separator {
@@ -2396,49 +2365,31 @@ body #left_block.wildmagic {
   display: table-cell;
 }
 
-@media (max-width: 1000px) {
-  #left_block.wildmagic .container_left {
-    height: calc(100vh - 263px);
-  }
-  
-  #left_block.trader .container_left {
-    height: calc(100vh - 321px);
-  }
-
-  #left_block.encounters .container_left {
-    height: calc(100vh - 321px);
-  }
-  
-  #left_block.treasury .container_left {
-    height: calc(100vh - 321px);
-  }  
-}
-
 @media (max-width: 500px) {
   #left_block.trader .container_left {
-    height: calc(100vh - 406px);
+    height: calc(100% - 341px);
   }
 
   #left_block.wildmagic .container_left {
-    height: calc(100vh - 268px);
+    height: calc(100% - 197px);
   }
 
   #left_block.madness .container_left {
-    height: calc(100vh - 357px);
+    height: calc(100% - 278px);
   }
 
   #left_block.encounters .container_left {
-    height: calc(100vh - 404px);
+    height: calc(100% - 254px);
   }
 }
 
 @media (max-width: 360px) {
   #left_block.wildmagic .container_left {
-    height: calc(100vh - 289px);
+    height: calc(100% - 219px);
   }
 
   #left_block.encounters .container_left {
-    height: calc(100vh - 451px);
+    height: calc(100% - 389px);
   }
 }
 
@@ -2723,10 +2674,18 @@ button {
   #right_block .info_wrapper .content_block #content_block {
     width: auto;
     padding: 16px;
+    position: relative;
   }
 
   #right_block .info_wrapper .simplebar-content {
-    flex-direction: column;
+    display: block;
+  }
+
+  #right_block .info_wrapper .content_block {
+    flex: none;
+    height: auto;
+    border-left: none;
+    width: 100%;
   }
 
   #body.full_screen_right_block #right_block .info_wrapper .simplebar-content {
@@ -2737,7 +2696,7 @@ button {
     width: auto;
     min-width: auto;
     max-width: 100%;
-    flex:1 1 auto;
+    flex:none;
   }
 
   #body.full_screen_right_block #right_block .info_wrapper .sub_menu_list {
@@ -2814,30 +2773,8 @@ button {
 
 
 @media (max-width: 1000px) {
-  #left_block .container_left {
-    height: calc(100vh - 145px);
-  }
-
-  #right_block .info_wrapper {
-    height: calc(100vh - 145px);
-  }
-
-  #left_block .filters + .search_panes + .container_left {
-    height: calc(100vh - 190px);
-  }
-
-  #right_block.sub_menu_block .info_wrapper .content_block {
-    height: calc(100vh - 192px);
-  }
-
   #right_block .header_block .btn_full_screen{
     display: none;
-  }
-
-
-  /******** Информация о заклинание / spells ********/
-  #right_block.spells .info_wrapper {
-    height: calc(100vh - 145px);
   }
 
 
