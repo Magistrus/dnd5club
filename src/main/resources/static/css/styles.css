@@ -1,6 +1,29 @@
 html {
   box-sizing: border-box;
-  height: 100vh;
+  height: 100vh !important;
+}
+
+.rm-capture-active {
+    pointer-events: none;
+}
+
+.rm-mark {
+  background-color: var(--primary-active) !important;
+  color: var(--text-btn-color) !important;
+}
+
+.rm-capture-active .navbar:after,
+.rm-capture-active #container:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--hover);
 }
 
 body {
@@ -9,11 +32,17 @@ body {
   padding: 0;
   font-family: 'Open Sans';
   background-color: var(--bg-main);
-  font-size: 13px;
-  height: 100%;
+  font-size: 14px;
+  height: calc(100% - 0px);
   outline: none;
   color: var(--text-color);
   overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  body {
+    height: calc(100% - 73px);
+  }  
 }
 
 .overflow-hidden {
@@ -26,6 +55,12 @@ body {
   margin-right: auto;
   margin-left: 270px;
   height: 100%;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    margin-left: 0px;
+  }
 }
 
 .container>div {
@@ -126,7 +161,7 @@ hr {
   line-height: 22px;
 }
 
-.check {
+.check[type="checkbox"] {
   --size: 10px;
   --width: 10px;
   display: inline-grid;
@@ -137,7 +172,7 @@ hr {
   float: left;
 }
 
-.check::before {
+.check[type="checkbox"]::before {
   content: "";
   grid-area: 1 / -1;
   width: calc(var(--width) + 6px);
@@ -150,7 +185,7 @@ hr {
   border: 1px solid #000;
 }
 
-.check::after {
+.check[type="checkbox"]::after {
   content: "";
   grid-area: 1 / -1;
   width: calc(var(--size) + 0px);
@@ -164,15 +199,15 @@ hr {
   background: #fff;
 }
 
-.check:checked::after {
+.check[type="checkbox"]:checked::after {
   border: 1px solid var(--primary);
 }
 
-.check:checked::after {
+.check[type="checkbox"]:checked::after {
   background-color: var(--primary);
 }
 
-.toggle {
+.toggle[type="checkbox"] {
   --size: 16px;
   --width: calc(12.8px * 2);
   display: inline-grid;
@@ -183,7 +218,7 @@ hr {
   float: left;
 }
 
-.toggle::before {
+.toggle[type="checkbox"]::before {
   content: "";
   grid-area: 1 / -1;
   width: var(--width);
@@ -194,11 +229,11 @@ hr {
 }
 
 .check:hover::before,
-.toggle:hover::before {
+.toggle[type="checkbox"]:hover::before {
   box-shadow: 0 0 0 2px #aef;
 }
 
-.toggle::after {
+.toggle[type="checkbox"]::after {
   content: "";
   grid-area: 1 / -1;
   width: calc(var(--size) * 0.8);
@@ -210,22 +245,22 @@ hr {
   background: #fff;
 }
 
-.toggle:checked::before {
+.toggle[type="checkbox"]:checked::before {
   background-color: var(--primary);
 }
 
-.toggle:checked::after {
+.toggle[type="checkbox"]:checked::after {
    transform: translateX(calc(var(--width) - var(--size) * 0.8 - 10%));
 }
 
 .check:disabled,
-.toggle:disabled {
+.toggle[type="checkbox"]:disabled {
   pointer-events: none;
   filter: grayscale(1);
 }
 
 .check:disabled::before,
-.toggle:disabled::before {
+.toggle[type="checkbox"]:disabled::before {
    background: #2be;
 }
 
@@ -666,10 +701,6 @@ input::selection {
     display: none;
   }
 
-  .main_page_wrapper .left_block .left_cont {
-    /* height: calc(100vh - 72px); */
-  }
-
   .main_page_wrapper .left_block .card_row .card {
     flex: 1 1 calc(25% - 40px);
     min-width: calc(25% - 40px);
@@ -882,7 +913,7 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .container_left {
-  overflow-y: auto;
+  /* overflow-y: auto; */
   position: relative;
   height: calc(100% - 72px);
 }
@@ -993,6 +1024,7 @@ body.compact_menu #right_block {
 .block_information #right_block {
   right: 0px;
   left: auto;
+  display: block;
 }
 
 #right_block.sub_menu_block .header_block {
@@ -1199,36 +1231,18 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper .sub_menu_list li h5 {
   margin: 0 0 0px 0;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   color: var(--text-b-color);
 }
 
 #right_block .info_wrapper .sub_menu_list li span {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   font-weight: 400;
   margin: 0 0 8px 0;
   color: var(--text-color);
-}
-
-#right_block .info_wrapper .sub_menu_list li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block .info_wrapper .sub_menu_list li .icon {
-  display: block;
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: var(--hover);
-  border-radius: 8px;
-  margin-right: 8px;
-  cursor: pointer;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list {
@@ -1337,6 +1351,7 @@ body.compact_menu #right_block {
 .full_screen_right_block .block_information #right_block {
   right: 0px;
   width: 100%;
+  z-index: 11;
 }
 
 .full_screen_right_block .block_information #left_block .container_left {
@@ -1666,39 +1681,59 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 body .block_information #left_block.spells  {
-  width: calc(58vw - 270px);
+  width: calc(44vw - 270px);
 }
 
 body.compact_menu #left_block.spells {
-  width: calc(52vw - 72px);
+  width: calc(40vw - 72px);
 }
 
 #right_block.spells {
-  --width-right-block:calc(42vw - 0px);
+  --width-right-block:calc(56vw - 0px);
 }
 
 body.compact_menu #right_block.spells {
-  --width-right-block:calc(48vw - 0px);
+  --width-right-block:calc(60vw - 0px);
 }
 
+#right_block.spells .content_block #content_block {
+  position: relative;
+}
 
-#right_block.spells .info_wrapper .simplebar-content {
+#right_block.spells .info_wrapper .spells_level {
+  margin-top: -6px;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+#right_block.spells .info_wrapper .spell_stat_block {
   display: flex;
+  flex-wrap: wrap;
+  background: var(--bg-sub-menu);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-bottom: 16px;
+  border-top: 1px solid var(--border);
 }
 
-#right_block.spells .info_wrapper .sub_menu_list ul {
-  text-decoration: none;
-  list-style: none;
-  padding: 0;
+#right_block.spells .info_wrapper .spell_stat_block .block {
+  flex: 1 0 calc(33% - 33px);
+  min-width: calc(33% - 33px);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 16px;
+}
+
+#right_block.spells .info_wrapper .spell_stat_block .block.one_row {
+  flex: 1 0 calc(100% - 33px);
+  min-width: calc(100% - 33px);
+}
+
+#right_block.spells .info_wrapper .spell_stat_block .block p {
   margin: 0;
 }
 
-#right_block.spells .info_wrapper .sub_menu_list li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block.spells .info_wrapper .sub_menu_list li .icon {
+#right_block.spells .info_wrapper .spell_stat_block .icon {
   display: block;
   width: 24px;
   height: 24px;
@@ -1711,9 +1746,21 @@ body.compact_menu #right_block.spells {
   cursor: pointer;
 }
 
-@media (max-height: 800px) {
-  #right_block.spells .info_wrapper .sub_menu_list li {
-    padding: 8px 16px 8px 16px;
+@media (max-width: 1000px) {
+  #right_block.spells .info_wrapper .spells_level {
+    margin-top: -2px;
+  }
+
+  #right_block.spells .info_wrapper .spell_stat_block {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  #right_block.spells .info_wrapper .spell_stat_block .block {
+    flex: 1 0 calc(50% - 33px);
+    min-width: calc(50% - 33px);
   }
 }
 
@@ -2062,7 +2109,8 @@ body.compact_menu #right_block.weapons {
   position: absolute;
   color:var(--text-color);
   z-index: 10;
-  width: 100%; 
+  width: 100%;
+  max-height: calc(100% - 117px); 
 }
 
 .search_panes .dtsp-panesContainer {
@@ -2286,12 +2334,6 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   display: none;
 }
 
-@media (max-width: 1000px) {
-  .search_panes {
-    /* height: calc(100vh - 190px); */
-  }
-}
-
 
 /******** Инструменты / tools ********/
 #left_block .tools_settings {
@@ -2403,7 +2445,7 @@ button {
   border: 0;
   background: none;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-family: 'Open Sans';
 }
 
@@ -2430,11 +2472,12 @@ button {
   color: #fff;
   border-radius: 30px;
   display: block;
-  max-width: 108px;
+  max-width: 110px;
   background-image: url(/resources/assets/become-patron-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
+  text-decoration: none;
 }
 
 .become-patron-button:hover {

@@ -109,6 +109,7 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
+  scrollbar-width: none;
 }
 
 .compact_menu .navbar .nav_links {
@@ -445,17 +446,13 @@
 
 
   /************ ТЕЛО СТРАНИЦЫ ************/
-  .container {
-    margin-left: 0px;
-    height: calc(100vh - 73px);
-  }
-
   #right_block {
     width: calc(100vw - 0px);
     right: calc(-100vw - 0px);
     position: absolute;
     border: none;
     z-index: 101;
+    display: none;
   }
 
   .navbar nav {
