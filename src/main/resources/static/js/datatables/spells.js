@@ -30,8 +30,7 @@ $(document).ready(function() {
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.school + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip" title="Длительность заклинания">' + row.duration + '</span></div>';
-					result+='<div class="secondary_name s3"><span class="tip" title="Время накладывания заклинания">' + row.timeCast + '</span></div></div></div>';
+					result+='<div class="secondary_name s2"><span class="tip" title="Длительность заклинания">' + row.duration + '</span></div></div></div>';
 					return result;
 				}
 				return data;
