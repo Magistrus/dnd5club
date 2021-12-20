@@ -5,10 +5,40 @@
 </head>
 <body>
 	<th:block th:object="${spell}" th:fragment="view">
+		<p class="spells_level" th:utext="*{level}">
+		</p>
+		<div class="spell_stat_block">
+			<div class="block">
+				<p>Время накладывания:</p>
+				<span th:utext="*{timeCast}">Время накладывания</span>
+			</div>
+			<div class="block">
+				<p>Дистанция:</p>
+				<span th:utext="*{distance}">Дистанция</span>
+			</div>
+			<div class="block">
+				<p>Длительность:</p>
+				<span th:utext="*{duration}">Длительность</span>
+			</div>
+			<div class="block one_row">
+				<p>Компоненты:</p>
+				<span th:utext="*{components}">Компоненты</span>
+			</div>
+		</div>
 		<th:block th:utext="*{description}"></th:block>
 		<p th:if="${spell.upperLevel}">
 			<strong>На более высоких уровнях: </strong> <span th:utext="*{upperLevel}"></span>
 		</p>
+		<div class="spell_stat_block">
+			<div class="block">
+				<p>Классы:</p>
+				<div id="class_icons" class="classes_icon" th:utext="*{level}"></div>
+			</div>
+			<div class="block">
+				<p>Источник:</p>
+				<span id="source_spell" th:utext="*{level}">Источник</span>
+			</div>
+		</div>
 	</th:block>
 </body>
 </html>

@@ -1245,24 +1245,6 @@ body.compact_menu #right_block {
   color: var(--text-color);
 }
 
-#right_block .info_wrapper .sub_menu_list li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block .info_wrapper .sub_menu_list li .icon {
-  display: block;
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: var(--hover);
-  border-radius: 8px;
-  margin-right: 8px;
-  cursor: pointer;
-}
-
 #right_block .info_wrapper .sub_menu_list.selector_list {
   height: calc(100vh - 117px);
 }
@@ -1699,39 +1681,59 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 body .block_information #left_block.spells  {
-  width: calc(58vw - 270px);
+  width: calc(44vw - 270px);
 }
 
 body.compact_menu #left_block.spells {
-  width: calc(52vw - 72px);
+  width: calc(40vw - 72px);
 }
 
 #right_block.spells {
-  --width-right-block:calc(42vw - 0px);
+  --width-right-block:calc(56vw - 0px);
 }
 
 body.compact_menu #right_block.spells {
-  --width-right-block:calc(48vw - 0px);
+  --width-right-block:calc(60vw - 0px);
 }
 
+#right_block.spells .content_block #content_block {
+  position: relative;
+}
 
-#right_block.spells .info_wrapper .simplebar-content {
+#right_block.spells .info_wrapper .spells_level {
+  margin-top: -6px;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+#right_block.spells .info_wrapper .spell_stat_block {
   display: flex;
+  flex-wrap: wrap;
+  background: var(--bg-sub-menu);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-bottom: 16px;
+  border-top: 1px solid var(--border);
 }
 
-#right_block.spells .info_wrapper .sub_menu_list ul {
-  text-decoration: none;
-  list-style: none;
-  padding: 0;
+#right_block.spells .info_wrapper .spell_stat_block .block {
+  flex: 1 0 calc(33% - 33px);
+  min-width: calc(33% - 33px);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 16px;
+}
+
+#right_block.spells .info_wrapper .spell_stat_block .block.one_row {
+  flex: 1 0 calc(100% - 33px);
+  min-width: calc(100% - 33px);
+}
+
+#right_block.spells .info_wrapper .spell_stat_block .block p {
   margin: 0;
 }
 
-#right_block.spells .info_wrapper .sub_menu_list li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block.spells .info_wrapper .sub_menu_list li .icon {
+#right_block.spells .info_wrapper .spell_stat_block .icon {
   display: block;
   width: 24px;
   height: 24px;
@@ -1744,9 +1746,21 @@ body.compact_menu #right_block.spells {
   cursor: pointer;
 }
 
-@media (max-height: 800px) {
-  #right_block.spells .info_wrapper .sub_menu_list li {
-    padding: 8px 16px 8px 16px;
+@media (max-width: 1000px) {
+  #right_block.spells .info_wrapper .spells_level {
+    margin-top: -2px;
+  }
+
+  #right_block.spells .info_wrapper .spell_stat_block {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  #right_block.spells .info_wrapper .spell_stat_block .block {
+    flex: 1 0 calc(50% - 33px);
+    min-width: calc(50% - 33px);
   }
 }
 
@@ -2458,11 +2472,12 @@ button {
   color: #fff;
   border-radius: 30px;
   display: block;
-  max-width: 108px;
+  max-width: 110px;
   background-image: url(/resources/assets/become-patron-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
+  text-decoration: none;
 }
 
 .become-patron-button:hover {

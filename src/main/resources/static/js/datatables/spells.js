@@ -39,8 +39,7 @@ $(document).ready(function() {
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.school + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip" title="Длительность заклинания">' + row.duration + '</span></div>';
-                    result+='<div class="secondary_name s3"><span class="tip" title="Время накладывания заклинания">' + row.timeCast + '</span></div></div></div>';
+					result+='<div class="secondary_name s2"><span class="tip" title="Длительность заклинания">' + row.duration + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -158,27 +157,7 @@ $(document).ready(function() {
 });
 function selectSpell(data){
 	$('#row_name').html(data.name);
-	$('#level').html((data.level ===  0 ? 'Заговор, ' : data.level +' уровень, ') + data.school + (data.ritual ? ' (ритуал)' : ''));
-	$('#timecast').html(data.timeCast);
-	$('#distance').html(data.distance);
-	$('#components').html(data.components);
-	$('#duration').html(data.duration);
-	
-	var source = (data.homebrew ? '<span class="tip homebrew_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	$('#source_spell').html(source);
 
-	const classIconsElement = document.getElementById('class_icons');
-	while (classIconsElement.firstChild) {
-		classIconsElement.removeChild(classIconsElement.firstChild);
-	}
-	data.classes.forEach(element => {
-		var a = document.createElement("a");
-		a.href = '/classes/' + element.englishName; 
-		a.title = element.name;
-		a.classList.add('tip', 'icon', 'icon_' + element.englishName.toLowerCase());
-		classIconsElement.appendChild(a);
-	});
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 	const url = '/spells/fragment/' + data.id;
