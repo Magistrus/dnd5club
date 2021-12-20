@@ -10,10 +10,16 @@ body {
   font-family: 'Open Sans';
   background-color: var(--bg-main);
   font-size: 13px;
-  height: 100%;
+  height: calc(100% - 0px);
   outline: none;
   color: var(--text-color);
   overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  body {
+    height: calc(100% - 73px);
+  }  
 }
 
 .overflow-hidden {
@@ -26,6 +32,12 @@ body {
   margin-right: auto;
   margin-left: 270px;
   height: 100%;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    margin-left: 0px;
+  }
 }
 
 .container>div {
@@ -664,10 +676,6 @@ input::selection {
 @media (max-width: 1000px) {
   .main_page_wrapper .news_block {
     display: none;
-  }
-
-  .main_page_wrapper .left_block .left_cont {
-    /* height: calc(100vh - 72px); */
   }
 
   .main_page_wrapper .left_block .card_row .card {
@@ -2062,7 +2070,8 @@ body.compact_menu #right_block.weapons {
   position: absolute;
   color:var(--text-color);
   z-index: 10;
-  width: 100%; 
+  width: 100%;
+  max-height: calc(100% - 117px); 
 }
 
 .search_panes .dtsp-panesContainer {
@@ -2284,12 +2293,6 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
 
 .filter_container .filter_block .filter_crumbs_box.hide {
   display: none;
-}
-
-@media (max-width: 1000px) {
-  .search_panes {
-    /* height: calc(100vh - 190px); */
-  }
 }
 
 
