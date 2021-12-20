@@ -451,6 +451,7 @@
     position: absolute;
     border: none;
     z-index: 101;
+    display: none;
   }
 
   .navbar nav {
