@@ -46,7 +46,7 @@
 											</svg>
 								</i>
 							</button>
-							<button id="cr_clear_btn" class="hide_block">
+							<button id="damage_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
@@ -54,7 +54,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="damageType : ${damageTypes}"> <input class="damge_type_checkbox" type="checkbox" th:name = "damageType" th:value="${damageType}"> <span th:text="${damageType.cyrilicName}"></span>
+							<label th:each="damageType : ${damageTypes}"> <input class="damge_type_checkbox filter" type="checkbox" th:name = "damageType" th:value="${damageType}"> <span th:text="${damageType.cyrilicName}"></span>
 							</label>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 											</svg>
 								</i>
 							</button>
-							<button id="cr_clear_btn" class="hide_block">
+							<button id="property_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
@@ -75,7 +75,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="property : ${properties}" th:classappend="${property.book.type.name() ne 'OFFICAL' ? 'custom_source hide_block':''}"> <input class="property_checkbox" type="checkbox" th:name = "property" th:value="${property.id}"> <span th:text="${property.name}"></span>
+							<label th:each="property : ${properties}" th:classappend="${property.book.type.name() ne 'OFFICAL' ? 'custom_source hide_block':''}"> <input class="property_checkbox filter" type="checkbox" th:name = "property" th:value="${property.id}"> <span th:text="${property.name}"></span>
 							</label>
 						</div>
 					</div>
@@ -154,5 +154,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/weapons.js?v=3.1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/weapons.js?v=3.2}" layout:fragment="js-script"></script>
 </html>
