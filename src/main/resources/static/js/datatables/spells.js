@@ -13,23 +13,14 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : 'level',
+			searchable: false,
 		},
 		{
 			data : 'school',
+			searchable: false,
 		},
 		{
 			data : "name",
@@ -40,7 +31,7 @@ $(document).ready(function() {
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.school + '</div>';
 					result+='<div class="secondary_name s2"><span class="tip" title="Длительность заклинания">' + row.duration + '</span></div>';
-                    result+='<div class="secondary_name s3"><span class="tip" title="Время накладывания заклинания">' + row.timeCast + '</span></div></div></div>';
+					result+='<div class="secondary_name s3"><span class="tip" title="Время накладывания заклинания">' + row.timeCast + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -65,10 +56,14 @@ $(document).ready(function() {
 			data : "concentration",
 			searchable: false
 		},
+		{
+			data : 'timeCast',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0,1,3,4,5,6,7 ],
+				"targets": [ 0,1,3,4,5,6,7,8 ],
 				"visible": false
 			},
 		],
@@ -82,16 +77,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 		    loadingRecords: "Загрузка...",
-	        searchPanes: {
-	            title: {
-	                 _: 'Выбрано фильтров - %d',
-	                 0: 'Фильтры не выбраны',
-	                 1: 'Один фильтр выбран'
-	            },
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -103,8 +88,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		createdRow: function (row, data, dataIndex) {
 			if(data.homebrew){
@@ -199,10 +182,6 @@ $('#search').bind('keydown blur change', function(e) {
 		table.tables().search($('#search').val()).draw();
     }, delay );
 });
-$('#btn_filters').on('click', function() {
-	var table = $('#spells').DataTable();
-	table.searchPanes.container().toggle();
-});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	const table = $('#spells').DataTable();
@@ -214,3 +193,88 @@ $('#btn_close').on('click', function() {
 	localStorage.removeItem('selected_spell');
 	history.pushState('data to be passed', 'Заклинания', '/spells/');
 });
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
+});
+$('.level_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="level"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(0).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#level_clear_btn').removeClass('hide_block');
+	} else {
+		$('#level_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#level_clear_btn').on('click', function() {
+	$('#level_clear_btn').addClass('hide_block');
+	$('.level_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(0).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.class_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="class"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#class_clear_btn').removeClass('hide_block');
+	} else {
+		$('#class_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#class_clear_btn').on('click', function() {
+	$('#class_clear_btn').addClass('hide_block');
+	$('.class_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.school_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="school"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(1).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#school_clear_btn').removeClass('hide_block');
+	} else {
+		$('#school_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#school_clear_btn').on('click', function() {
+	$('#school_clear_btn').addClass('hide_block');
+	$('.school_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(1).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.timecast_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="timecast"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(8).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#timecast_clear_btn').removeClass('hide_block');
+	} else {
+		$('#timecast_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#timecast_clear_btn').on('click', function() {
+	$('#timecast_clear_btn').addClass('hide_block');
+	$('.timecast_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(8).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
