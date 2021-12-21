@@ -1172,7 +1172,16 @@ body.compact_menu #right_block {
 #right_block .info_wrapper .content_block {
   flex: 1 0 calc(100% - 291px);
   height: 100%;
+}
+
+#right_block .info_wrapper #sub_menu+.content_block {
   border-left: 1px solid var(--border);
+}
+
+@media (max-width: 1200px) {
+  #right_block .info_wrapper #sub_menu+.content_block {
+    border-left: none;
+  }
 }
 
 #right_block .info_wrapper .content_block #content_block {
@@ -1243,24 +1252,6 @@ body.compact_menu #right_block {
   font-weight: 400;
   margin: 0 0 8px 0;
   color: var(--text-color);
-}
-
-#right_block .info_wrapper .sub_menu_list li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block .info_wrapper .sub_menu_list li .icon {
-  display: block;
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: var(--hover);
-  border-radius: 8px;
-  margin-right: 8px;
-  cursor: pointer;
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list {
@@ -1698,40 +1689,84 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-body .block_information #left_block.spells  {
-  width: calc(58vw - 270px);
+/* body .block_information #left_block.spells  {
+  width: calc(44vw - 270px);
 }
 
 body.compact_menu #left_block.spells {
-  width: calc(52vw - 72px);
+  width: calc(40vw - 72px);
 }
 
 #right_block.spells {
-  --width-right-block:calc(42vw - 0px);
+  --width-right-block:calc(56vw - 0px);
 }
 
 body.compact_menu #right_block.spells {
-  --width-right-block:calc(48vw - 0px);
+  --width-right-block:calc(60vw - 0px);
+} */
+
+#right_block.spells .content_block #content_block {
+  position: relative;
 }
 
+.spell_wrapper .row_spell  {
+  display: flex;
+  margin-top: -6px;
+  margin-bottom: 16px;
+}
 
-#right_block.spells .info_wrapper .simplebar-content {
+.spell_wrapper .row_spell .spells_level {
+  font-style: italic;
+  margin-right: auto;
+}
+
+.spell_wrapper .spell_stat_block {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--bg-sub-menu);
+  margin-bottom: 16px;
+  border-top: 1px solid var(--border);
+}
+
+#right_block.spells .spell_wrapper .spell_stat_block {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.spell_wrapper .spell_stat_block .block {
+  flex: 1 0 calc(33% - 49px);
+  min-width: calc(33% - 49px);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+}
+
+.spell_wrapper .spell_stat_block .block.duration {
+  border-right: none;
+}
+
+.spell_wrapper .spell_stat_block .block.one_row {
+  flex: 1 0 calc(100% - 48px);
+  min-width: calc(100% - 48px);
+  border-right: none;
+}
+
+.spell_wrapper .spell_stat_block .block p {
+  margin: 0;
+  color: var(--text-color-title);
+  font-weight: 500;
+}
+
+.spell_wrapper .spell_stat_block_bottom p {
+  margin: 0 0 6px 0;
+  color: var(--text-color-title);
+}
+
+.spell_wrapper .spell_stat_block_bottom .classes_icon {
   display: flex;
 }
 
-#right_block.spells .info_wrapper .sub_menu_list ul {
-  text-decoration: none;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#right_block.spells .info_wrapper .sub_menu_list li .classes_icon {
-  display:flex;
-  flex-direction: row;
-}
-
-#right_block.spells .info_wrapper .sub_menu_list li .icon {
+.spell_wrapper .spell_stat_block_bottom .icon {
   display: block;
   width: 24px;
   height: 24px;
@@ -1744,9 +1779,28 @@ body.compact_menu #right_block.spells {
   cursor: pointer;
 }
 
-@media (max-height: 800px) {
-  #right_block.spells .info_wrapper .sub_menu_list li {
-    padding: 8px 16px 8px 16px;
+@media (max-width: 1200px) {
+  #right_block.spells .spell_wrapper .spell_stat_block {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .spell_wrapper .row_spell  {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .spell_wrapper .spells_level {
+    margin-top: -2px;
+  }
+
+  .spell_wrapper .spell_stat_block .block.distance {
+    border-right: none;
+  }
+
+  .spell_wrapper .row_spell  {
+    margin-bottom: 8px;
   }
 }
 
@@ -2458,11 +2512,12 @@ button {
   color: #fff;
   border-radius: 30px;
   display: block;
-  max-width: 108px;
+  max-width: 110px;
   background-image: url(/resources/assets/become-patron-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
+  text-decoration: none;
 }
 
 .become-patron-button:hover {

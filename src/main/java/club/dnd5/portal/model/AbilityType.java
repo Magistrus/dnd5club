@@ -1,5 +1,8 @@
 package club.dnd5.portal.model;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import org.thymeleaf.util.StringUtils;
 
 import lombok.AllArgsConstructor;
@@ -62,5 +65,8 @@ public enum AbilityType {
 
 	public static byte getModifier(byte ability) {
 		return (byte) ((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2);
+	}
+	public static Set<AbilityType> getBaseAbility(){
+		return EnumSet.of(STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA);
 	}
 }

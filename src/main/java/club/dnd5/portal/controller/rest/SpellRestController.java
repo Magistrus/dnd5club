@@ -2,11 +2,8 @@ package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -16,7 +13,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.data.jpa.datatables.mapping.SearchPanes.Item;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,77 +31,80 @@ public class SpellRestController {
 	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
 			{ "4", "Жрец" }, { "5", "Колдун" }, { "6", "Паладин" }, { "7", "Следопыт" }, { "8", "Чародей" },
 			{ "14", "Изобретатель" } };
-	
+
 	@Autowired
 	private SpellDatatableRepository repo;
 
 	@GetMapping("/data/spells")
 	public DataTablesOutput<SpellDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
-		input.parseSearchPanesFromQueryParams(queryParameters,
-				Arrays.asList("level", "school", "classes", "timeCast", "damageType", "concentration", "ritual"));
-		List<MagicSchool> filterSchool = input.getSearchPanes().getOrDefault("school", Collections.emptySet()).stream()
-				.map(MagicSchool::valueOf).collect(Collectors.toList());
 		Specification<Spell> specification = null;
+		List<Integer> levels = Arrays.stream(input.getColumns().get(0).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
+		if (!levels.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> root.get("level").in(levels));
+		}
+		List<MagicSchool> filterSchool = Arrays.stream(input.getColumns().get(1).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(MagicSchool::valueOf).collect(Collectors.toList());
 		if (!filterSchool.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("school").in(filterSchool));
 		}
-		List<Integer> filterClasses = input.getSearchPanes().getOrDefault("classes", Collections.emptySet()).stream()
-				.map(Integer::valueOf).collect(Collectors.toList());
+		List<Integer> filterClasses = Arrays.stream(input.getColumns().get(4).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
 		String classId = queryParameters.get("classId");
 		if (classId != null) {
 			filterClasses.add(Integer.valueOf(classId));
 		}
 		if (!filterClasses.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> {
-				Join<HeroClass, Spell> hero = root.join("heroClass", JoinType.LEFT);
+				Join<HeroClass, Spell> join = root.join("heroClass", JoinType.LEFT);
 				query.distinct(true);
-				return cb.and(hero.get("id").in(filterClasses));
+				return cb.and(join.get("id").in(filterClasses));
 			});
 		}
-
-		List<DamageType> filterDamageTypes = input.getSearchPanes().getOrDefault("damageType", Collections.emptySet())
-				.stream().map(DamageType::valueOf).collect(Collectors.toList());
+		/*
+		 * List<TimeCast> timeCasts =
+		 * Arrays.stream(input.getColumns().get(4).getSearch().getValue().split("\\|"))
+		 * .filter(s -> !s.isEmpty()).map(t -> new
+		 * TimeCast(t.split(" ")[0])).collect(Collectors.toList()); if
+		 * (!timeCasts.isEmpty()) { specification = addSpecification(specification,
+		 * (root, query, cb) -> { Join<HeroClass, Spell> join = root.join("times",
+		 * JoinType.LEFT); query.distinct(true); return
+		 * cb.and(join.get("id").in(timeCasts)); }); }
+		 */
+		List<DamageType> filterDamageTypes = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(DamageType::valueOf).collect(Collectors.toList());
 		if (!filterDamageTypes.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> {
-				Join<DamageType, Spell> damageType = root.join("damageType", JoinType.LEFT);
+				Join<DamageType, Spell> join = root.join("damageType", JoinType.LEFT);
 				query.distinct(true);
-				return damageType.in(filterDamageTypes);
+				return join.in(filterDamageTypes);
 			});
 		}
-		Set<String> concentrations = input.getSearchPanes().getOrDefault("concentration", Collections.emptySet());
-		if (concentrations.contains("true")) {
+		List<Integer> components = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
+		if(!components.isEmpty()) {
+			
+		}
+		if (input.getColumns().get(6).getSearch().getValue().contains("да")) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> cb.equal(root.get("concentration"), true));
 		}
-		if (concentrations.contains("false")) {
+		if (input.getColumns().get(6).getSearch().getValue().contains("нет")) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> cb.equal(root.get("concentration"), false));
 		}
-		Set<String> rituals = input.getSearchPanes().getOrDefault("ritual", Collections.emptySet());
-		if (rituals.contains("true") || rituals.contains("false")) {
-			specification = addSpecification(specification, (root, query, cb) -> cb.equal(root.get("ritual"), rituals.contains("true")));
+		if (input.getColumns().size() > 7) {
+			if (input.getColumns().get(7).getSearch().getValue().contains("да")) {
+				specification = addSpecification(specification,
+						(root, query, cb) -> cb.equal(root.get("ritual"), true));
+			}
+			if (input.getColumns().get(7).getSearch().getValue().contains("нет")) {
+				specification = addSpecification(specification,
+						(root, query, cb) -> cb.equal(root.get("ritual"), false));
+			}
 		}
-		input.getSearchPanes().remove("school");
-		input.getSearchPanes().remove("classes");
-		input.getSearchPanes().remove("timeCast");
-		input.getSearchPanes().remove("damageType");
-		input.getSearchPanes().remove("concentration");
-		input.getSearchPanes().remove("ritual");
-		DataTablesOutput<SpellDto> output = repo.findAll(input, specification, specification, SpellDto::new);
-		Map<String, List<Item>> options = output.getSearchPanes() == null ? new HashMap<>() : output.getSearchPanes().getOptions();
-		options.put("school", Arrays.stream(MagicSchool.values()).map(t -> new Item(t.getName(), t.name(), 0, 0))
-				.collect(Collectors.toList()));
-		options.put("classes",
-				Arrays.stream(classesMap).map(t -> new Item(t[1], t[0], 0, 0)).collect(Collectors.toList()));
-		options.put("damageType", DamageType.getSpellDamage().stream()
-				.map(t -> new Item(t.getCyrilicName(), t.name(), 0, 0)).collect(Collectors.toList()));
-		options.put("ritual", Arrays.asList(new Item("Да", "true", 0,0), new Item("Нет", "false", 0,0)));
-		options.put("concentration", Arrays.asList(new Item("Есть", "true", 0,0), new Item("Нет", "false", 0,0)));
-		if (output.getSearchPanes() != null) {
-			output.getSearchPanes().setOptions(options);
-		}
-		return output;
+		return repo.findAll(input, specification, specification, SpellDto::new);
 	}
 
 	@GetMapping("/spells/id")

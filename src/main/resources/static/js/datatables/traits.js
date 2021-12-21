@@ -12,17 +12,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		order : [[0, 'asc']],
 		columns : [
 		{
@@ -80,11 +69,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 			loadingRecords: "Загрузка...",
-	        searchPanes: {
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 500;
@@ -96,8 +80,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedTrait === null){
@@ -142,14 +124,10 @@ $(document).ready(function() {
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#traits').DataTable();
-		table.searchPanes.container().toggle();
-	})
 });
 function selectTrait(data){
-	document.getElementById('trait_name').innerHTML = data.name;
-	document.getElementById('requirement').innerHTML = data.requirement;
+	$('#trait_name').text(data.name);
+	$('#requirement').text(data.requirement);
 	var source = '<span class="tip" title="'+data.book+'">' + data.bookshort + '</span>';
 	document.getElementById('source').innerHTML = source;
 	document.title = data.name;
@@ -166,3 +144,70 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
+});
+$('.ability_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="ability"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#traits').DataTable().column(2).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#ability_clear_btn').removeClass('hide_block');
+	} else {
+		$('#ability_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#ability_clear_btn').on('click', function() {
+	$('#skill_clear_btn').addClass('hide_block');
+	$('.skill_checkbox').prop('checked', false);
+	$('#traits').DataTable().column(2).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.skill_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="skill"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#traits').DataTable().column(3).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#skill_clear_btn').removeClass('hide_block');
+	} else {
+		$('#skill_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#skill_clear_btn').on('click', function() {
+	$('#skill_clear_btn').addClass('hide_block');
+	$('.skill_checkbox').prop('checked', false);
+	$('#traits').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.prerequisite_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="prerequisite"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#traits').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#prerequisite_clear_btn').removeClass('hide_block');
+	} else {
+		$('#prerequisite_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#prerequisite_clear_btn').on('click', function() {
+	$('#prerequisite_clear_btn').addClass('hide_block');
+	$('.prerequisite_checkbox').prop('checked', false);
+	$('#traits').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
