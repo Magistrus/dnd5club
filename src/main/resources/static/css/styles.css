@@ -1683,7 +1683,7 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-body .block_information #left_block.spells  {
+/* body .block_information #left_block.spells  {
   width: calc(44vw - 270px);
 }
 
@@ -1697,7 +1697,7 @@ body.compact_menu #left_block.spells {
 
 body.compact_menu #right_block.spells {
   --width-right-block:calc(60vw - 0px);
-}
+} */
 
 #right_block.spells .content_block #content_block {
   position: relative;
