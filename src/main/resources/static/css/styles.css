@@ -1054,9 +1054,13 @@ body.compact_menu #right_block {
 }
 
 #right_block .header_block .header_sub_menu button.active {
-  background: var(--bg-img-row-active);
-  border-top: 2px solid var(--primary-hover);
-  color:var(--text-color-active);
+  background: var(--primary-active);
+  /* border-top: 2px solid var(--primary-hover); */
+  color: var(--text-btn-color);
+}
+
+#right_block .header_block .header_sub_menu button.active path {
+  stroke: var(--text-btn-color);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
@@ -1392,10 +1396,6 @@ body.compact_menu #right_block {
 .table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
-
-  background-image: var(--bg-img-row-active);
-  background-position: top left;
-  background-repeat: repeat;
 }
 
 .table_list tr td {
@@ -1409,6 +1409,17 @@ body.compact_menu #right_block {
   padding: 8px 10px;
 }
 
+.table_list tr.selected td {
+  background: var(--primary-active);
+}
+
+.table_list tr.selected td .info_block,
+.table_list tr.selected td .row_name,
+.table_list tr.selected td .secondary_name,
+.table_list tr.selected td span {
+  color: var(--text-btn-color) !important;
+}
+
 .table_list tr td:first-child {
   border-left:3px solid var(--bg-main);
 }
@@ -1418,7 +1429,7 @@ body.compact_menu #right_block {
 }
 
 .table_list tr.selected td:first-child {
-  border-left:3px solid var(--primary);
+  border-left:3px solid var(--primary-active);
 }
 
 .table_list tr td:nth-child(2) {
@@ -1488,6 +1499,7 @@ body.compact_menu #right_block {
   color: var(--text-g-color);
   text-transform: capitalize;
   margin-top: 4px;
+  font-size: 13px;
 }
 
 .table_list tr td .secondary_name.s2,
@@ -2316,7 +2328,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   transition: 0.4s;
   padding: 0 8px;
   margin: 4px 4px;
-  height: 22px;
+  min-height: 22px;
   color: var(--text-color);
   background-color: var(--bg-sub-menu);
   display: flex;
