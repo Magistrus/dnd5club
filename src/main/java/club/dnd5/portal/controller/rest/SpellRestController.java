@@ -81,10 +81,25 @@ public class SpellRestController {
 				return join.in(filterDamageTypes);
 			});
 		}
-		List<Integer> components = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
+		List<Integer> components = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
 		if(!components.isEmpty()) {
-			
+			if (components.contains(1)) {
+				specification = addSpecification(specification,
+						(root, query, cb) -> cb.equal(root.get("verbalComponent"), true));
+			}
+			if (components.contains(2)) {
+				specification = addSpecification(specification,
+						(root, query, cb) -> cb.equal(root.get("somaticComponent"), true));
+			}
+			if (components.contains(3)) {
+				specification = addSpecification(specification,
+						(root, query, cb) -> cb.equal(root.get("materialComponent"), true));
+			}
+			if (components.contains(4)) {
+				specification = addSpecification(specification,
+						(root, query, cb) -> cb.equal(root.get("consumable"), true));
+			}
 		}
 		if (input.getColumns().get(6).getSearch().getValue().contains("да")) {
 			specification = addSpecification(specification,
