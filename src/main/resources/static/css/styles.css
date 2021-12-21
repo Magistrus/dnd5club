@@ -1504,7 +1504,6 @@ body.compact_menu #right_block {
 
 .table_list tr .secondary_name {
   color: var(--text-g-color);
-  text-transform: capitalize;
   margin-top: 4px;
   font-size: 13px;
 }
