@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -82,7 +83,7 @@ public class SpellRestController {
 			});
 		}
 		if (input.getColumns().size() > 7) {
-			List<Integer> components = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+			List<Integer> components = Arrays.stream(input.getColumns().get(9).getSearch().getValue().split("\\|"))
 					.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
 			if(!components.isEmpty()) {
 				if (components.contains(1)) {
@@ -102,21 +103,27 @@ public class SpellRestController {
 							(root, query, cb) -> cb.equal(root.get("consumable"), true));
 				}
 			}
+			Set<Integer> concentration = Arrays.stream(input.getColumns().get(8).getSearch().getValue().split("\\|"))
+					.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toSet());
+			if (components.isEmpty()) {
+				if (concentration.contains(1)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("concentration"), true));
+				}
+				if (concentration.contains(2)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("concentration"), false));
+				}
+			}
 		}
-		if (input.getColumns().get(6).getSearch().getValue().contains("да")) {
-			specification = addSpecification(specification,
-					(root, query, cb) -> cb.equal(root.get("concentration"), true));
-		}
-		if (input.getColumns().get(6).getSearch().getValue().contains("нет")) {
-			specification = addSpecification(specification,
-					(root, query, cb) -> cb.equal(root.get("concentration"), false));
-		}
-		if (input.getColumns().size() > 7) {
-			if (input.getColumns().get(7).getSearch().getValue().contains("да")) {
+		Set<Integer> rituals = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toSet());
+		if (!rituals.isEmpty()) {
+			if (rituals.contains(1)) {
 				specification = addSpecification(specification,
 						(root, query, cb) -> cb.equal(root.get("ritual"), true));
 			}
-			if (input.getColumns().get(7).getSearch().getValue().contains("нет")) {
+			if (rituals.contains(2)) {
 				specification = addSpecification(specification,
 						(root, query, cb) -> cb.equal(root.get("ritual"), false));
 			}

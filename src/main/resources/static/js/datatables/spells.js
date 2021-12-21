@@ -59,10 +59,14 @@ $(document).ready(function() {
 			data : 'timeCast',
 			searchable: false,
 		},
+		{
+			data : 'components',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0,1,3,4,5,6,7,8 ],
+				"targets": [ 0,1,3,4,5,6,7,8,9 ],
 				"visible": false
 			},
 		],
@@ -250,7 +254,7 @@ $('.component_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="component"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
-    $('#spells').DataTable().column(7).search(properties, true, false, false).draw();
+    $('#spells').DataTable().column(9).search(properties, true, false, false).draw();
 	if(properties) {
 		$('#component_clear_btn').removeClass('hide_block');
 	} else {
@@ -261,7 +265,43 @@ $('.component_checkbox').on('change', function(e){
 $('#component_clear_btn').on('click', function() {
 	$('#component_clear_btn').addClass('hide_block');
 	$('.component_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(9).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.ritual_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="ritual"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(7).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#ritual_clear_btn').removeClass('hide_block');
+	} else {
+		$('#ritual_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#ritual_clear_btn').on('click', function() {
+	$('#ritual_clear_btn').addClass('hide_block');
+	$('.ritual_checkbox').prop('checked', false);
 	$('#spells').DataTable().column(7).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.concentration_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="concentration"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(8).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#concentration_clear_btn').removeClass('hide_block');
+	} else {
+		$('#concentration_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#concentration_clear_btn').on('click', function() {
+	$('#concentration_clear_btn').addClass('hide_block');
+	$('.concentration_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(8).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
