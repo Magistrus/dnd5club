@@ -1055,8 +1055,11 @@ body.compact_menu #right_block {
 
 #right_block .header_block .header_sub_menu button.active {
   background: var(--primary-active);
-  /* border-top: 2px solid var(--primary-hover); */
   color: var(--text-btn-color);
+}
+
+#right_block .header_block .header_sub_menu button:hover.active {
+  background: var(--primary-hover);
 }
 
 #right_block .header_block .header_sub_menu button.active path {
@@ -1407,6 +1410,10 @@ body.compact_menu #right_block {
   min-height: 30px;
   align-items: center;
   padding: 8px 10px;
+}
+
+.table_list tr:hover.selected td {
+  background: var(--primary-hover);
 }
 
 .table_list tr.selected td {
