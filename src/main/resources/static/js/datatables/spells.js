@@ -30,7 +30,7 @@ $(document).ready(function() {
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.school + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip" title="Длительность заклинания">' + row.duration + '</span></div></div></div>';
+					result+='<div class="secondary_name s2"><span class="tip" title="Вербальный">' + row.verbal + '</span><span class="tip" title="Соматический">' + row.somatic + '</span><span class="tip" title="Материальный">' + row.material + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -97,7 +97,7 @@ $(document).ready(function() {
 			}
 		},
 		drawCallback: function ( settings ) {
-			if(localStorage.getItem('homebrew_source') == 'false'){
+			if(localStorage.getItem('homebrew_source') == 'false' && selectedSpell === null){
 				for(; rowSelectIndex < table.data().count(); rowSelectIndex++){
 					if(!table.rows(rowSelectIndex).data()[0].homebrew){
 						$('#spells tbody tr:eq('+rowSelectIndex+')').click();
@@ -244,6 +244,24 @@ $('#timecast_clear_btn').on('click', function() {
 	$('#timecast_clear_btn').addClass('hide_block');
 	$('.timecast_checkbox').prop('checked', false);
 	$('#spells').DataTable().column(8).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.component_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="component"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(7).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#component_clear_btn').removeClass('hide_block');
+	} else {
+		$('#component_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#component_clear_btn').on('click', function() {
+	$('#component_clear_btn').addClass('hide_block');
+	$('.component_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(7).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
