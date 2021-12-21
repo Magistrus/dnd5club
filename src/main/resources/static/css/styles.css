@@ -1774,13 +1774,15 @@ body.compact_menu #right_block.spells {
 }
 
 @media (max-width: 1000px) {
-  .spell_wrapper .spells_level {
-    margin-top: -2px;
-  }
-
   #right_block.spells .spell_wrapper .spell_stat_block {
     margin-left: -16px;
     margin-right: -16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .spell_wrapper .spells_level {
+    margin-top: -2px;
   }
 
   .spell_wrapper .spell_stat_block .block.distance {
