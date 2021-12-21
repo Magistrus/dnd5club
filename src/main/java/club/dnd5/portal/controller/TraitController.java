@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.trait.TraitDto;
+import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 
 @Controller
@@ -17,12 +19,18 @@ public class TraitController {
 	private TraitDatatableRepository repository;
 
 	@GetMapping("/traits")
-	public String getTraits() {
+	public String getTraits(Model model) {
+		model.addAttribute("abilities", AbilityType.getBaseAbility());
+		model.addAttribute("skills", SkillType.values());
+		model.addAttribute("prerequisites", repository.findAllPrerequisite());
 		return "traits";
 	}
 	
 	@GetMapping("/traits/{name}")
 	public String getTrait(Model model, @PathVariable String name) {
+		model.addAttribute("abilities", AbilityType.getBaseAbility());
+		model.addAttribute("skills", SkillType.values());
+		model.addAttribute("prerequisites", repository.findAllPrerequisite());
 		model.addAttribute("selectedTrait", new TraitDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "traits";
 	}

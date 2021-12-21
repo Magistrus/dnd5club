@@ -81,6 +81,11 @@ public class SpellRestController {
 				return join.in(filterDamageTypes);
 			});
 		}
+		List<Integer> components = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
+		if(!components.isEmpty()) {
+			
+		}
 		if (input.getColumns().get(6).getSearch().getValue().contains("да")) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> cb.equal(root.get("concentration"), true));

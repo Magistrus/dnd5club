@@ -98,7 +98,7 @@
 							</label>
 						</div>
 					</div>
-					<div class="filter_block">
+					<div class="filter_block hide_block">
 						<div class="header">
 							<h5>Время накладывания</h5>
 							<button>
@@ -124,7 +124,7 @@
 							 <label><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="8 HOUR"> <span>8 часов</span></label>
 						</div>
 					</div>
-					<div class="filter_block">
+					<div class="filter_block hide_block">
 						<div class="header">
 							<h5>Дистанция</h5>
 							<button>
@@ -167,7 +167,7 @@
 											</svg>
 								</i>
 							</button>
-							<button id="timecast_clear_btn" class="hide_block">
+							<button id="component_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
@@ -175,11 +175,10 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>вербальный</span></label> <label><input class="timecast_checkbox" type="checkbox"
-								name="timecast" value="0"
-							><span>соматический</span></label> <label><input class="timecast_checkbox" type="checkbox" name="timecast" value="2"><span>материальный</span></label> <label><input
-								class="timecast_checkbox" type="checkbox" name="timecast" value="2"
-							><span>расходуемый</span></label>
+							<label><input class="component_checkbox" type="checkbox" name="component" value="1"><span>вербальный</span></label>
+							<label><input class="component_checkbox" type="checkbox" name="component" value="2"><span>соматический</span></label>
+							<label><input class="component_checkbox" type="checkbox" name="component" value="3"><span>материальный</span></label>
+							<label><input class="component_checkbox" type="checkbox" name="component" value="4"><span>расходуемый</span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -229,9 +228,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>да</span></label> <label><input class="timecast_checkbox" type="checkbox" name="timecast"
-								value="0"
-							><span>нет</span></label>
+							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>да</span></label>
+							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="0"><span>нет</span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -251,9 +249,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>да</span></label> <label><input class="timecast_checkbox" type="checkbox" name="timecast"
-								value="0"
-							><span>нет</span></label>
+							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>да</span></label>
+							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="0"><span>нет</span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -335,5 +332,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/spells.js?v=3}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/spells.js?v=4}" layout:fragment="js-script"></script>
 </html>

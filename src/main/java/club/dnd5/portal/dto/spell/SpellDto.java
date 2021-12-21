@@ -21,6 +21,9 @@ public class SpellDto {
 	private boolean ritual;
 	private String school;
 	private String components;
+	private String verbal;
+	private String somatic;
+	private String material;
 	private String timeCast;
 	private String distance;
 	private String duration;
@@ -45,9 +48,9 @@ public class SpellDto {
 		distance = spell.getDistance();
 		duration = spell.getDuration();
 		concentration = spell.getConcentration();
-		components = spell.getVerbalComponent() ? "В" : "";
-		components += spell.getSomaticComponent() ? "C" : "";
-		components += spell.getMaterialComponent() ? "M" : "";
+		verbal = spell.getVerbalComponent() ? "В" : "";
+		somatic = spell.getSomaticComponent() ? "C" : "";
+		material = spell.getMaterialComponent() ? "M" : "";
 		consumable = spell.getConsumable();
 		englishName = spell.getEnglishName();
 		homebrew = spell.getBook().getType() == TypeBook.CUSTOM;
