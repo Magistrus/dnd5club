@@ -1786,9 +1786,11 @@ body.compact_menu #right_block.spells {
   .spell_wrapper .spell_stat_block .block.distance {
     border-right: none;
   }
-}
 
-@media (max-width: 1000px) {
+  .spell_wrapper .row_spell  {
+    margin-bottom: 8px;
+  }
+
   .spell_wrapper .spell_stat_block .block {
     flex: 1 0 calc(50% - 47px);
     min-width: calc(50% - 47px);
