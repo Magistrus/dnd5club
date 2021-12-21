@@ -63,16 +63,6 @@ public class SpellRestController {
 				return cb.and(join.get("id").in(filterClasses));
 			});
 		}
-		/*
-		 * List<TimeCast> timeCasts =
-		 * Arrays.stream(input.getColumns().get(4).getSearch().getValue().split("\\|"))
-		 * .filter(s -> !s.isEmpty()).map(t -> new
-		 * TimeCast(t.split(" ")[0])).collect(Collectors.toList()); if
-		 * (!timeCasts.isEmpty()) { specification = addSpecification(specification,
-		 * (root, query, cb) -> { Join<HeroClass, Spell> join = root.join("times",
-		 * JoinType.LEFT); query.distinct(true); return
-		 * cb.and(join.get("id").in(timeCasts)); }); }
-		 */
 		List<DamageType> filterDamageTypes = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty()).map(DamageType::valueOf).collect(Collectors.toList());
 		if (!filterDamageTypes.isEmpty()) {
@@ -115,17 +105,17 @@ public class SpellRestController {
 							(root, query, cb) -> cb.equal(root.get("concentration"), false));
 				}
 			}
-		}
-		Set<Integer> rituals = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
-				.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toSet());
-		if (!rituals.isEmpty()) {
-			if (rituals.contains(1)) {
-				specification = addSpecification(specification,
-						(root, query, cb) -> cb.equal(root.get("ritual"), true));
-			}
-			if (rituals.contains(2)) {
-				specification = addSpecification(specification,
-						(root, query, cb) -> cb.equal(root.get("ritual"), false));
+			Set<Integer> rituals = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+					.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toSet());
+			if (!rituals.isEmpty()) {
+				if (rituals.contains(1)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("ritual"), true));
+				}
+				if (rituals.contains(2)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("ritual"), false));
+				}
 			}
 		}
 		return repo.findAll(input, specification, specification, SpellDto::new);
