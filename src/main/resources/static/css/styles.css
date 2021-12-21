@@ -1178,6 +1178,12 @@ body.compact_menu #right_block {
   border-left: 1px solid var(--border);
 }
 
+@media (max-width: 1200px) {
+  #right_block .info_wrapper #sub_menu+.content_block {
+    border-left: none;
+  }
+}
+
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
   position: absolute;
@@ -1773,10 +1779,14 @@ body.compact_menu #right_block.spells {
   cursor: pointer;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   #right_block.spells .spell_wrapper .spell_stat_block {
     margin-left: -16px;
     margin-right: -16px;
+  }
+
+  .spell_wrapper .row_spell  {
+    margin-bottom: 8px;
   }
 }
 
@@ -1791,12 +1801,6 @@ body.compact_menu #right_block.spells {
 
   .spell_wrapper .row_spell  {
     margin-bottom: 8px;
-  }
-
-  .spell_wrapper .spell_stat_block .block {
-    flex: 1 0 calc(50% - 47px);
-    min-width: calc(50% - 47px);
-    padding: 10px 16px;
   }
 }
 
