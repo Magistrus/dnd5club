@@ -125,9 +125,14 @@ blockquote {
   border-image-slice: 200 90 190 fill;
   border-image-repeat: repeat repeat;
   border-image-width: auto;
-  border-image-outset: 20px 20px 20px 20px;
+  border-image-outset: 10px 10px 10px 10px;
   margin-bottom: 32px;
   margin-top: 32px;
+
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 20px;
+  margin-inline-end: 20px;
 }
 
 blockquote p {
