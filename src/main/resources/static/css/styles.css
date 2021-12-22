@@ -1,29 +1,14 @@
 html {
   box-sizing: border-box;
-  height: 100vh !important;
+  height: calc(100% - 0px);
+  overflow-y: auto;
 }
 
-.rm-capture-active {
-    pointer-events: none;
-}
-
-.rm-mark {
-  background-color: var(--primary-active) !important;
-  color: var(--text-btn-color) !important;
-}
-
-.rm-capture-active .navbar:after,
-.rm-capture-active #container:after {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: var(--hover);
+@media (max-width: 1000px) {
+  html {
+    height: calc(100% - 73px);
+    overflow-y: scroll;
+  }  
 }
 
 body {
@@ -37,12 +22,6 @@ body {
   outline: none;
   color: var(--text-color);
   overflow: hidden;
-}
-
-@media (max-width: 1000px) {
-  body {
-    height: calc(100% - 73px);
-  }  
 }
 
 .overflow-hidden {
@@ -2912,4 +2891,27 @@ button {
   #right_block.classes .content_block .classes_mobile_selector {
     width: calc(100vw - 0% - 10px);
   }
+}
+
+.rm-capture-active {
+  pointer-events: none;
+}
+
+.rm-mark {
+background-color: var(--primary-active) !important;
+color: var(--text-btn-color) !important;
+}
+
+.rm-capture-active .navbar:after,
+.rm-capture-active #container:after {
+content: '';
+display: block;
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+background-color: var(--hover);
 }
