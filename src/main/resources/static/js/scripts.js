@@ -47,8 +47,7 @@ $(document).ready(function() {
 	        type: 'get',
 	        success: function(data, textStatus, jqXHR) {
 	            return {
-	              title: ' <em>' + data.level + ' уровень</em> / ' + data.name,
-	              content: data.description
+	              content: jqXHR.responseText
 	        	};
 	        }
 	    },
