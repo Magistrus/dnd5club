@@ -121,6 +121,7 @@ public class Race implements Serializable {
 						: String.format("%s %+d", b.getAbility().getShortName(), b.getBonus()))
 				.collect(Collectors.joining(", "));
 	}
+
 	public String getFullSpeed() {
 		if (fly != null) {
 			return String.format("%d фт., летая %d", speed, fly);
