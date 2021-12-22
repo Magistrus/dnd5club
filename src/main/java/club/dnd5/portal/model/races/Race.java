@@ -30,6 +30,7 @@ import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.Language;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.races.RaceNickname.NicknameType;
+import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -92,6 +93,10 @@ public class Race implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "race_id")
 	private List<AbilityBonus> bonuses;
+
+	@OneToMany
+	@JoinColumn(name = "race_id")
+	private List<Spell> spells;
 	
 	@ManyToOne
 	@JoinColumn(name = "source")
