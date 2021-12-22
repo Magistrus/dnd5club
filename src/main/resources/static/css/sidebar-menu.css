@@ -386,8 +386,9 @@
   .navbar.open nav {
     --height-menu:80vh;
     display: flex;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 103px);
     overflow: auto;
+    margin-top: 30px;
   }
 
   .navbar nav {
