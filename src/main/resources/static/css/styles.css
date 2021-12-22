@@ -280,6 +280,11 @@ label.check_block span {
 
 
 /******** Тул типы / tool tip ********/
+.tpd-skin-dnd5 .tpd-content .spell_wrapper span,
+.tpd-skin-dnd5 .tpd-content .spell_wrapper p {
+  font-size: 13px !important;
+}
+
 .tpd-skin-dnd5 .tpd-content,
 .tpd-skin-dnd5 .tpd-title,
 .tpd-skin-dnd5 .tpd-close {
@@ -1746,6 +1751,14 @@ body.compact_menu #right_block.spells {
   padding: 10px 24px;
 }
 
+.tpd-skin-dnd5 .spell_stat_block .block {
+  padding: 4px 8px;
+}
+
+.tpd-skin-dnd5 .spell_stat_block .block p {
+  font-size: 13px;
+}
+
 .spell_wrapper .spell_stat_block .block.duration {
   border-right: none;
 }
@@ -1762,8 +1775,12 @@ body.compact_menu #right_block.spells {
   font-weight: 500;
 }
 
+.spell_wrapper .spell_stat_block_bottom {
+  margin: 0 0 12px 0;
+}
+
 .spell_wrapper .spell_stat_block_bottom p {
-  margin: 0 0 6px 0;
+  margin: 0 0 2px 0;
   color: var(--text-color-title);
 }
 
