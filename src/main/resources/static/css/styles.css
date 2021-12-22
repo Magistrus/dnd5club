@@ -459,6 +459,20 @@ input::selection {
   }
 }
 
+@media (max-width: 1000px) {
+  .dnd5-popup-block .mfp-close {
+    top: 6px;
+    right: 6px;
+  }
+  
+  .dnd5-popup-block {
+    width: 90%;
+    max-height: 90vh;
+    margin: 20px auto;
+    padding: 16px 16px 12px 16px;
+  }
+}
+
 /******** Форма входа / login_form ********/
 .login_form {
   max-width: 300px;
@@ -1784,8 +1798,25 @@ body.compact_menu #right_block.spells {
     border-right: none;
   }
 
+  .spell_wrapper .spell_stat_block .block.duration {
+    flex: 1 0 calc(100% - 49px);
+    min-width: calc(100% - 49px);
+  }
+
   .spell_wrapper .row_spell  {
     margin-bottom: 8px;
+  }
+
+  .spell_wrapper .spell_stat_block .block {
+    flex: 1 0 calc(50% - 49px);
+    min-width: calc(50% - 49px);
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 500px) {
+  .spell_wrapper .row_spell  {
+    flex-direction: column;
   }
 }
 
