@@ -1,5 +1,7 @@
 package club.dnd5.portal.controller;
 
+import java.security.InvalidParameterException;
+
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.spell.SpellDto;
+import club.dnd5.portal.dto.spell.SpellTipDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
@@ -41,6 +44,12 @@ public class SpellController {
 	
 	@GetMapping("/spells/fragment/{id}")
 	public String getSpellFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("spell", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		return "fragments/spell :: view";
+	}
+	
+	@GetMapping("/spells/id")
+	public String getSpell(Model model, Integer id) throws InvalidAttributesException {
 		model.addAttribute("spell", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		return "fragments/spell :: view";
 	}

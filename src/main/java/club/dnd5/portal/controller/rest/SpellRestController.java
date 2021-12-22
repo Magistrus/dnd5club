@@ -121,10 +121,7 @@ public class SpellRestController {
 		return repo.findAll(input, specification, specification, SpellDto::new);
 	}
 
-	@GetMapping("/spells/id")
-	public SpellTipDto getSpell(Integer id) {
-		return new SpellTipDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
-	}
+
 
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {
