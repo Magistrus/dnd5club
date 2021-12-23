@@ -3,6 +3,8 @@ package club.dnd5.portal.controller;
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class BestiaryController {
 	public String getCreatures(Model model) {
 		model.addAttribute("types", CreatureType.getFilterTypes());
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
-		model.addAttribute("tags", tagRepo.findAll());
+		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		return "bestiary";
 	}
 	
@@ -35,7 +37,7 @@ public class BestiaryController {
 		model.addAttribute("selectedCreature", new CreatureDto(repository.findByEnglishName(name.replace("_", " "))));
 		model.addAttribute("types", CreatureType.getFilterTypes());
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
-		model.addAttribute("tags", tagRepo.findAll());
+		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		return "bestiary";
 	}
 	
