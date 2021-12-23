@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
   height: calc(100% - 0px);
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 @media (max-width: 1000px) {
