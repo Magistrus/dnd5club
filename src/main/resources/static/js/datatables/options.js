@@ -12,17 +12,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : "name",
@@ -71,11 +60,6 @@ $(document).ready(function() {
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
 				loadingRecords: "Загрузка...",
-		        searchPanes: {
-	                collapseMessage: 'Свернуть все',
-	                showMessage: 'Развернуть все',
-	                clearMessage: 'Сбросить фильтры'
-		        }
 		},
 		ordering : true,
 		initComplete: function(settings, json) {
@@ -88,8 +72,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedOption === null){
@@ -141,17 +123,16 @@ $(document).ready(function() {
 		}
 		table.tables().search($(this).val()).draw();
 	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#options').DataTable();
-		table.searchPanes.container().toggle();
-	})
+});
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
 });
 function selectOption(data){
 	$('#option_name').text(data.name);
 	$('#requirement').text(data.prerequisite);
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
 	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
+	$('#source').html(source);
 
 	const classIconsElement = document.getElementById('class_icons');
 	while (classIconsElement.firstChild) {
@@ -181,3 +162,67 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+$('.category_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="category"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#options').DataTable().column(2).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#category_clear_btn').removeClass('hide_block');
+	} else {
+		$('#category_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#category_clear_btn').on('click', function() {
+	$('#category_clear_btn').addClass('hide_block');
+	$('.category_checkbox').prop('checked', false);
+	$('#options').DataTable().column(2).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.prerequsite_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="prerequsite"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#options').DataTable().column(3).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#prerequsite_clear_btn').removeClass('hide_block');
+	} else {
+		$('#prerequsite_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#prerequsite_clear_btn').on('click', function() {
+	$('#prerequsite_clear_btn').addClass('hide_block');
+	$('.prerequsite_checkbox').prop('checked', false);
+	$('#options').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.level_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="level"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#options').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#level_clear_btn').removeClass('hide_block');
+	} else {
+		$('#level_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#level_clear_btn').on('click', function() {
+	$('#level_clear_btn').addClass('hide_block');
+	$('.level_checkbox').prop('checked', false);
+	$('#options').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}

@@ -53,31 +53,33 @@ public class Option {
 	@AllArgsConstructor
 	@Getter
 	public enum OptionType {
-		ARCANE_SHOT("Магические выстрелы: Воин Мистический Лучник", "Fighter", "Arcane_Archer"),
-		MANEUVER("Маневры: Воин Мастер боевых искуств", "Fighter","Battle_Master"),
-		METAMAGIC("Метамагия: Чародей", "Sorcerer"),
-		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","Warlock"),
-		FIGHTING_STYLE("Боевые стили: Воин", "Fighter"),
-		ELEMENTAL_DISCIPLINE("Стихийные практики: Монах Пути четырех стихий", "Monk", "Four_Elements"),
-		ARTIFICER_INFUSION("Инфузии: Изобретатель","Artificer"),
-		RUNE("Руны: Рунический рыцарь", "Fighter", "Rune"),
-		BONE("Договор: Колдун", "Warlock"),
-		FIGHTING_STYLE_RANGER("Боевой стиль: Следопыт", "Ranger"), 
-		FIGHTING_STYLE_PALADIN("Боевой стиль: Паладин", "Paladin"),
-		FIGHTING_STYLE_BARD("Боевой стиль: Бард Колллегии Мечей", "Bard", "Swords"),
-		FIGHTING_STYLE_BLOODHANTER("Боевой стиль: Кровавый охотник", "Blood Hunter"),
-		BLOOD_CURSE("Проклятья крови: Кровавый охотник", "Blood Hunter"),
-		MUTAGEN("Мутаген: Кровавый охотник Ордена мутантов", "Blood Hunter"),
-		WILD_SHAPE("Форма Дикого Облика: Друид", "Druid"), 
-		PHILOSOPHICAL_SCHOOL("Философская школа: Волшебник Философ Академии","Wizard");
+		WILD_SHAPE("Формы Дикого Облика: Друид", "Druid", false), 
+		ARCANE_SHOT("Магические выстрелы: Воин Мистический Лучник", "Fighter", "Arcane_Archer", false),
+		METAMAGIC("Метамагия: Чародей", "Sorcerer", false),
+		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","Warlock", false),
+		BONE("Договоры: Колдун", "Warlock", false),
+		ELEMENTAL_DISCIPLINE("Стихийные практики: Монах Пути четырех стихий", "Monk", "Four_Elements", false),
+		ARTIFICER_INFUSION("Инфузии: Изобретатель","Artificer", false),
+		RUNE("Руны: Рунический рыцарь", "Fighter", "Rune", false),
+		MANEUVER("Маневры: Воин Мастер боевых искуств", "Fighter","Battle_Master", false),
+		FIGHTING_STYLE("Боевые стили: Воин", "Fighter", false),
+		FIGHTING_STYLE_RANGER("Боевые стили: Следопыт", "Ranger", false), 
+		FIGHTING_STYLE_PALADIN("Боевые стили: Паладин", "Paladin", false),
+		FIGHTING_STYLE_BARD("Боевые стили: Бард Колллегии Мечей", "Bard", "Swords", false),
+		FIGHTING_STYLE_BLOODHANTER("Боевые стили: Кровавый охотник", "Blood Hunter", true),
+		BLOOD_CURSE("Проклятья крови: Кровавый охотник", "Blood Hunter", true),
+		MUTAGEN("Мутагены: Кровавый охотник Ордена мутантов", "Blood Hunter", true),
+		PHILOSOPHICAL_SCHOOL("Философские школы: Волшебник Философ Академии","Wizard", true);
 		
 		private String name;
 		private String className;
 		private String arhetypeName;
+		private boolean homebrew;
 		
-		OptionType(String name, String className){
+		OptionType(String name, String className, boolean homebrew){
 			this.name = name;
 			this.className = className;
+			this.homebrew = homebrew;
 		}
 		
 		public static OptionType parse(String type) {
