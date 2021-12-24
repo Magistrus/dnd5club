@@ -12,17 +12,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : "name",
@@ -63,11 +52,6 @@ $(document).ready(function() {
 				infoEmpty : "Нет доступных записей",
 				infoFiltered : "из _MAX_",
 				loadingRecords: "Загрузка...",
-		        searchPanes: {
-	                collapseMessage: 'Свернуть все',
-	                showMessage: 'Развернуть все',
-	                clearMessage: 'Сбросить фильтры'
-		        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
@@ -132,20 +116,16 @@ $(document).ready(function() {
 		}
 		table.tables().search($(this).val()).draw();
 	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#backgrounds').DataTable();
-		table.searchPanes.container().toggle();
-	})
 });
 function selectBackground(data){
-	document.getElementById('background_name').innerHTML = data.name;
-	document.getElementById('traits').innerHTML = data.skills;
-	document.getElementById('traits_tools').innerHTML = data.toolSkills;
-	document.getElementById('languages').innerHTML = data.languages;
-	document.getElementById('equipments').innerHTML = data.equipments;
+	$('#background_name').text(data.name);
+	$('#traits').text(data.skills);
+	$('#traits_tools').html(data.toolSkills);
+	$('#languages').text(data.languages);
+	$('#equipments').html(data.equipments);
 	document.getElementById('start_money').innerHTML = data.startMoney + ' зм.';
 	var source = '<span class="tip" title="' + data.book + '">' + data.bookshort + '</span>';
-	document.getElementById('source').innerHTML = source;
+	$('#source').html(source);
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
 	var url = '/backgrounds/fragment/' + data.id;
@@ -160,3 +140,34 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
+});
+$('.skill_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="skill"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#backgrounds').DataTable().column(2).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#skill_clear_btn').removeClass('hide_block');
+	} else {
+		$('#skill_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#skill_clear_btn').on('click', function() {
+	$('#skill_clear_btn').addClass('hide_block');
+	$('.skill_checkbox').prop('checked', false);
+	$('#backgrounds').DataTable().column(2).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
