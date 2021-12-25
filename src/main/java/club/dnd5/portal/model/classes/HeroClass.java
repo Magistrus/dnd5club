@@ -105,7 +105,7 @@ public class HeroClass {
 	private List<SkillType> availableSkills;
 	
 	@Enumerated(EnumType.STRING)
-	private OptionType optionType;
+	private Option.OptionType optionType;
 	
 	@Enumerated(EnumType.STRING)
 	private Rest slotsReset;

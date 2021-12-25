@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.background.BackgroundDto;
+import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.background.Personalization;
 import club.dnd5.portal.model.background.PersonalizationType;
@@ -25,12 +26,14 @@ public class BackgroundController {
 	private BackgroundDatatableRepository repository;
 
 	@GetMapping("/backgrounds")
-	public String getBackgrounds() {
+	public String getBackgrounds(Model model) {
+		model.addAttribute("skills", SkillType.values());
 		return "backgrounds";
 	}
 	
 	@GetMapping("/backgrounds/{name}")
 	public String getBackGround(Model model, @PathVariable String name) {
+		model.addAttribute("skills", SkillType.values());
 		model.addAttribute("selectedBackground", new BackgroundDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "backgrounds";
 	}

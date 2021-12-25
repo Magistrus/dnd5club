@@ -13,10 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -86,7 +88,7 @@ public class Race implements Serializable {
 	@OneToMany(mappedBy = "race")
 	private List<RaceName> names;
 
-	@OneToMany(mappedBy = "race")
+	@OneToMany(mappedBy = "race", fetch = FetchType.LAZY)
 	private List<RaceNickname> nicknames;
 	private boolean view = true;
 	
@@ -94,8 +96,8 @@ public class Race implements Serializable {
 	@JoinColumn(name = "race_id")
 	private List<AbilityBonus> bonuses;
 
-	@OneToMany
-	@JoinColumn(name = "race_id")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "race_spells", joinColumns = @JoinColumn(name = "race_id"))
 	private List<Spell> spells;
 	
 	@ManyToOne

@@ -1,6 +1,5 @@
 package club.dnd5.portal.controller.rest;
 
-import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.spell.SpellDto;
-import club.dnd5.portal.dto.spell.SpellTipDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
@@ -29,10 +27,6 @@ import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController
 public class SpellRestController {
-	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
-			{ "4", "Жрец" }, { "5", "Колдун" }, { "6", "Паладин" }, { "7", "Следопыт" }, { "8", "Чародей" },
-			{ "14", "Изобретатель" } };
-
 	@Autowired
 	private SpellDatatableRepository repo;
 
