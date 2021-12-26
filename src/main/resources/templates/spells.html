@@ -32,8 +32,8 @@
 					</div>
 				</div>
 			</div>
-			<div id="searchPanes" class="search_panes hide_block">
-				<div class="filter_container" data-simplebar>
+			<div id="searchPanes" class="search_panes hide_block" data-simplebar>
+				<div class="filter_container">
 					<div class="filter_block">
 						<div class="header">
 							<h5>Уровень</h5>
@@ -179,6 +179,7 @@
 							<label><input class="component_checkbox" type="checkbox" name="component" value="2"><span>соматический</span></label>
 							<label><input class="component_checkbox" type="checkbox" name="component" value="3"><span>материальный</span></label>
 							<label><input class="component_checkbox" type="checkbox" name="component" value="4"><span>расходуемый</span></label>
+							<label><input class="component_checkbox" type="checkbox" name="component" value="5"><span>не расходуемый</span></label>
 						</div>
 					</div>
 					<div class="filter_block hide_block">
@@ -211,7 +212,7 @@
 							><span>7 дней</span></label> <label><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>особая</span></label>
 						</div>
 					</div>
-					<div class="filter_block hide_block">
+					<div class="filter_block">
 						<div class="header">
 							<h5>Ритуал</h5>
 							<button>
@@ -220,7 +221,7 @@
 											</svg>
 								</i>
 							</button>
-							<button id="timecast_clear_btn" class="hide_block">
+							<button id="ritual_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
@@ -228,11 +229,11 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>да</span></label>
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="0"><span>нет</span></label>
+							<label><input class="ritual_checkbox" type="checkbox" name="ritual" value="1"><span>да</span></label>
+							<label><input class="ritual_checkbox" type="checkbox" name="ritual" value="0"><span>нет</span></label>
 						</div>
 					</div>
-					<div class="filter_block hide_block">
+					<div class="filter_block">
 						<div class="header">
 							<h5>Концентрация</h5>
 							<button>
@@ -241,7 +242,7 @@
 											</svg>
 								</i>
 							</button>
-							<button id="timecast_clear_btn" class="hide_block">
+							<button id="concentration_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
@@ -249,8 +250,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="1"><span>да</span></label>
-							<label><input class="timecast_checkbox" type="checkbox" name="timecast" value="0"><span>нет</span></label>
+							<label><input class="concentration_checkbox" type="checkbox" name="concentration" value="1"><span>да</span></label>
+							<label><input class="concentration_checkbox" type="checkbox" name="concentration" value="2"><span>нет</span></label>
 						</div>
 					</div>
 					<div class="filter_block hide_block">
@@ -332,5 +333,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/spells.js?v=4}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/spells.js?v=6}" layout:fragment="js-script"></script>
 </html>

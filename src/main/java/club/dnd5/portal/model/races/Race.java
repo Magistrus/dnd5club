@@ -13,10 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,6 +32,7 @@ import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.Language;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.races.RaceNickname.NicknameType;
+import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -85,13 +88,17 @@ public class Race implements Serializable {
 	@OneToMany(mappedBy = "race")
 	private List<RaceName> names;
 
-	@OneToMany(mappedBy = "race")
+	@OneToMany(mappedBy = "race", fetch = FetchType.LAZY)
 	private List<RaceNickname> nicknames;
 	private boolean view = true;
 	
 	@OneToMany
 	@JoinColumn(name = "race_id")
 	private List<AbilityBonus> bonuses;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "race_spells", joinColumns = @JoinColumn(name = "race_id"))
+	private List<Spell> spells;
 	
 	@ManyToOne
 	@JoinColumn(name = "source")
@@ -116,6 +123,7 @@ public class Race implements Serializable {
 						: String.format("%s %+d", b.getAbility().getShortName(), b.getBonus()))
 				.collect(Collectors.joining(", "));
 	}
+
 	public String getFullSpeed() {
 		if (fly != null) {
 			return String.format("%d фт., летая %d", speed, fly);

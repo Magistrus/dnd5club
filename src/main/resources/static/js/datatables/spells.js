@@ -29,7 +29,7 @@ $(document).ready(function() {
 					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="content_description"><div class="secondary_name s1">' + row.school + '</div>';
+					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
 					result+='<div class="secondary_name s2"><span class="tip" title="Вербальный">' + row.verbal + '</span><span class="tip" title="Соматический">' + row.somatic + '</span><span class="tip" title="Материальный">' + row.material + '</span></div></div></div>';
 					return result;
 				}
@@ -59,10 +59,14 @@ $(document).ready(function() {
 			data : 'timeCast',
 			searchable: false,
 		},
+		{
+			data : 'components',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0,1,3,4,5,6,7,8 ],
+				"targets": [ 0,1,3,4,5,6,7,8,9 ],
 				"visible": false
 			},
 		],
@@ -250,7 +254,7 @@ $('.component_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="component"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
-    $('#spells').DataTable().column(7).search(properties, true, false, false).draw();
+    $('#spells').DataTable().column(9).search(properties, true, false, false).draw();
 	if(properties) {
 		$('#component_clear_btn').removeClass('hide_block');
 	} else {
@@ -261,7 +265,43 @@ $('.component_checkbox').on('change', function(e){
 $('#component_clear_btn').on('click', function() {
 	$('#component_clear_btn').addClass('hide_block');
 	$('.component_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(9).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.ritual_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="ritual"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(7).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#ritual_clear_btn').removeClass('hide_block');
+	} else {
+		$('#ritual_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#ritual_clear_btn').on('click', function() {
+	$('#ritual_clear_btn').addClass('hide_block');
+	$('.ritual_checkbox').prop('checked', false);
 	$('#spells').DataTable().column(7).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.concentration_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="concentration"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(8).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#concentration_clear_btn').removeClass('hide_block');
+	} else {
+		$('#concentration_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#concentration_clear_btn').on('click', function() {
+	$('#concentration_clear_btn').addClass('hide_block');
+	$('.concentration_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(8).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){

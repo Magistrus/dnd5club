@@ -1,9 +1,9 @@
 package club.dnd5.portal.controller.rest;
 
-import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.spell.SpellDto;
-import club.dnd5.portal.dto.spell.SpellTipDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
@@ -28,10 +27,6 @@ import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController
 public class SpellRestController {
-	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
-			{ "4", "Жрец" }, { "5", "Колдун" }, { "6", "Паладин" }, { "7", "Следопыт" }, { "8", "Чародей" },
-			{ "14", "Изобретатель" } };
-
 	@Autowired
 	private SpellDatatableRepository repo;
 
@@ -62,16 +57,6 @@ public class SpellRestController {
 				return cb.and(join.get("id").in(filterClasses));
 			});
 		}
-		/*
-		 * List<TimeCast> timeCasts =
-		 * Arrays.stream(input.getColumns().get(4).getSearch().getValue().split("\\|"))
-		 * .filter(s -> !s.isEmpty()).map(t -> new
-		 * TimeCast(t.split(" ")[0])).collect(Collectors.toList()); if
-		 * (!timeCasts.isEmpty()) { specification = addSpecification(specification,
-		 * (root, query, cb) -> { Join<HeroClass, Spell> join = root.join("times",
-		 * JoinType.LEFT); query.distinct(true); return
-		 * cb.and(join.get("id").in(timeCasts)); }); }
-		 */
 		List<DamageType> filterDamageTypes = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty()).map(DamageType::valueOf).collect(Collectors.toList());
 		if (!filterDamageTypes.isEmpty()) {
@@ -82,7 +67,7 @@ public class SpellRestController {
 			});
 		}
 		if (input.getColumns().size() > 7) {
-			List<Integer> components = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+			List<Integer> components = Arrays.stream(input.getColumns().get(9).getSearch().getValue().split("\\|"))
 					.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList());
 			if(!components.isEmpty()) {
 				if (components.contains(1)) {
@@ -102,32 +87,35 @@ public class SpellRestController {
 							(root, query, cb) -> cb.equal(root.get("consumable"), true));
 				}
 			}
-		}
-		if (input.getColumns().get(6).getSearch().getValue().contains("да")) {
-			specification = addSpecification(specification,
-					(root, query, cb) -> cb.equal(root.get("concentration"), true));
-		}
-		if (input.getColumns().get(6).getSearch().getValue().contains("нет")) {
-			specification = addSpecification(specification,
-					(root, query, cb) -> cb.equal(root.get("concentration"), false));
-		}
-		if (input.getColumns().size() > 7) {
-			if (input.getColumns().get(7).getSearch().getValue().contains("да")) {
-				specification = addSpecification(specification,
-						(root, query, cb) -> cb.equal(root.get("ritual"), true));
+			Set<Integer> concentration = Arrays.stream(input.getColumns().get(8).getSearch().getValue().split("\\|"))
+					.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toSet());
+			if (components.isEmpty()) {
+				if (concentration.contains(1)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("concentration"), true));
+				}
+				if (concentration.contains(2)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("concentration"), false));
+				}
 			}
-			if (input.getColumns().get(7).getSearch().getValue().contains("нет")) {
-				specification = addSpecification(specification,
-						(root, query, cb) -> cb.equal(root.get("ritual"), false));
+			Set<Integer> rituals = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+					.filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toSet());
+			if (!rituals.isEmpty()) {
+				if (rituals.contains(1)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("ritual"), true));
+				}
+				if (rituals.contains(2)) {
+					specification = addSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("ritual"), false));
+				}
 			}
 		}
 		return repo.findAll(input, specification, specification, SpellDto::new);
 	}
 
-	@GetMapping("/spells/id")
-	public SpellTipDto getSpell(Integer id) {
-		return new SpellTipDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
-	}
+
 
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {

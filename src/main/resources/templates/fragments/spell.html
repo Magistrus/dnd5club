@@ -6,7 +6,11 @@
 <body>
 	<th:block th:object="${spell}" th:fragment="view">
 		<div class="spell_wrapper">
-			<p class="row_spell"><span class="spells_level" th:utext="|*{level eq 0 ? 'Заговор': level + ' уровень'}, *{school.name}|"></span> <span>Источник:&nbsp;</span><span th:if="*{book.type.name() eq 'CUSTOM'}"><span class="tip homebrew_text tpd-delegation-uid-1" title="Не официальный источник">Homebrew</span> -&nbsp;</span><span class="tip" th:title="*{book.name}" th:utext="*{book.source}">Источник</span></p>
+			<p class="row_spell">
+				<span class="spells_level" th:utext="|*{level eq 0 ? 'Заговор': level + ' уровень'}, *{school.name} *{ritual ? '(ритуал)' : ''}|"></span> <span><span>Источник:&nbsp;</span><span
+					th:if="*{book.type.name() eq 'CUSTOM'}"
+				><span class="tip homebrew_text tpd-delegation-uid-1" title="Не официальный источник">Homebrew</span> -&nbsp;</span><span class="tip" th:title="*{book.name}" th:utext="*{book.source}">Источник</span></span>
+			</p>
 			<div class="spell_stat_block">
 				<div class="block">
 					<p>Время накладывания:</p>
@@ -22,19 +26,36 @@
 				</div>
 				<div class="block one_row">
 					<p>Компоненты:</p>
-					<span class ="tip_scroll" th:text="*{verbalComponent ? 'Вербальный':''}" title="<p>Большинство заклинаний требуют произношения таинственных слов. Сами по себе слова не являются источником силы заклинания; просто комбинация звуков с особой тональностью вызывает резонанс в прядях магии, приводя их в движение. Таким образом, персонаж с кляпом во рту или в области заклинания тишина, не может активировать заклинания с вербальным компонентом.</p>">Компоненты</span><span th:if="*{verbalComponent and (somaticComponent or materialComponent)}">, </span><span class ="tip_scroll" th:text="*{somaticComponent ? 'Соматический':''}" title="<p>Заклинание может требовать энергичной жестикуляции или замысловатой последовательности телодвижений. Если у заклинания есть соматический компонент, у заклинателя должна быть свободной хотя бы одна рука для исполнения этих жестов.</p>">Компоненты</span><span th:if="*{somaticComponent and materialComponent}">, </span>
-					<span class ="tip_scroll" th:text="*{materialComponent ? 'Материальный':''}" title="<p>У заклинателя должна быть одна свободная рука для доступа к материальным компонентам, но это может быть та же самая рука, что используется для выполнения соматического компонента. Персонаж может использовать мешочек с компонентами или заклинательную фокусировку вместо указанных компонентов. Однако, если для компонента указана цена, у персонажа для накладывания заклинания должен быть именно такой компонент.</p>">Компоненты</span>
-					<span th:if="*{additionalMaterialComponent}" th:utext=" |(*{additionalMaterialComponent})|"></span>
+					<span class="tip_scroll" th:text="*{verbalComponent ? 'Вербальный':''}"
+						title="<p>Большинство заклинаний требуют произношения таинственных слов. Сами по себе слова не являются источником силы заклинания; просто комбинация звуков с особой тональностью вызывает резонанс в прядях магии, приводя их в движение. Таким образом, персонаж с кляпом во рту или в области заклинания тишина, не может активировать заклинания с вербальным компонентом.</p>"
+					>Компоненты</span><span th:if="*{verbalComponent and (somaticComponent or materialComponent)}">, </span><span class="tip_scroll" th:text="*{somaticComponent ? 'Соматический':''}"
+						title="<p>Заклинание может требовать энергичной жестикуляции или замысловатой последовательности телодвижений. Если у заклинания есть соматический компонент, у заклинателя должна быть свободной хотя бы одна рука для исполнения этих жестов.</p>"
+					>Компоненты</span><span th:if="*{somaticComponent and materialComponent}">, </span> <span class="tip_scroll" th:text="*{materialComponent ? 'Материальный':''}"
+						title="<p>У заклинателя должна быть одна свободная рука для доступа к материальным компонентам, но это может быть та же самая рука, что используется для выполнения соматического компонента. Персонаж может использовать мешочек с компонентами или заклинательную фокусировку вместо указанных компонентов. Однако, если для компонента указана цена, у персонажа для накладывания заклинания должен быть именно такой компонент.</p>"
+					>Компоненты</span> <span th:if="*{additionalMaterialComponent}" th:utext=" |(*{additionalMaterialComponent})|"></span>
 				</div>
 			</div>
 			<th:block th:utext="*{description}"></th:block>
 			<p th:if="${spell.upperLevel}">
 				<strong>На более высоких уровнях: </strong> <span th:utext="*{upperLevel}"></span>
 			</p>
-			<div class="spell_stat_block_bottom">
+			<div th:unless="*{heroClass.empty}" class="spell_stat_block_bottom">
 				<p>Классы:</p>
 				<div class="classes_icon">
-					<a th:each="class : *{heroClass}" th:class="|tip icon icon_${class.englishName.toLowerCase().replace(' ', '_')}|" th:title ="${class.name}" th:href="|@{/classes/}${class.englishName.replace(' ', '_')}|"></a>
+					<a th:each="class : *{heroClass}" th:class="|tip icon icon_${class.englishName.toLowerCase().replace(' ', '_')}|" th:title="${class.name}"
+						th:href="|@{/classes/}${class.englishName.replace(' ', '_')}|"
+					></a>
+				</div>
+			</div>
+			<div th:unless="${archetypes.empty}" class="spell_stat_block_bottom">
+				<p>Подклассы:</p>
+				<div class="classes_icon">
+					<th:block th:each="archetype, iter : ${archetypes}">
+						<a class="tip" th:href="|@{/classes/}${archetype.heroClass.englishName.replace(' ', '_')}/${archetype.englishName.replace(' ', '_')}|" th:title="${archetype.heroClass.name}"
+							th:text="${archetype.capitalizeName}"
+						></a>
+						<span th:unless="${iter.last}">,&nbsp;</span>
+					</th:block>
 				</div>
 			</div>
 		</div>

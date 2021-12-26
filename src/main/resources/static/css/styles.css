@@ -1,29 +1,14 @@
 html {
   box-sizing: border-box;
-  height: 100vh !important;
+  height: calc(100% - 0px);
+  overflow-y: hidden;
 }
 
-.rm-capture-active {
-    pointer-events: none;
-}
-
-.rm-mark {
-  background-color: var(--primary-active) !important;
-  color: var(--text-btn-color) !important;
-}
-
-.rm-capture-active .navbar:after,
-.rm-capture-active #container:after {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: var(--hover);
+@media (max-width: 1000px) {
+  html {
+    height: calc(100% - 73px);
+    overflow-y: scroll;
+  }  
 }
 
 body {
@@ -37,12 +22,6 @@ body {
   outline: none;
   color: var(--text-color);
   overflow: hidden;
-}
-
-@media (max-width: 1000px) {
-  body {
-    height: calc(100% - 73px);
-  }  
 }
 
 .overflow-hidden {
@@ -84,14 +63,6 @@ hr {
 
 .mt--24 {
   margin-top: -24px;
-}
-
-.ml-auto {
-  margin-left: auto;
-}
-
-.w_100 {
-  width: 100%;
 }
 
 .hide_block {
@@ -288,6 +259,11 @@ label.check_block span {
 
 
 /******** Тул типы / tool tip ********/
+.tpd-skin-dnd5 .tpd-content .spell_wrapper span,
+.tpd-skin-dnd5 .tpd-content .spell_wrapper p {
+  font-size: 13px !important;
+}
+
 .tpd-skin-dnd5 .tpd-content,
 .tpd-skin-dnd5 .tpd-title,
 .tpd-skin-dnd5 .tpd-close {
@@ -464,6 +440,20 @@ input::selection {
 @media (max-width: 1200px) {
   .dnd5-popup-block {
     width: 80%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .dnd5-popup-block .mfp-close {
+    top: 6px;
+    right: 6px;
+  }
+  
+  .dnd5-popup-block {
+    width: 90%;
+    max-height: 90vh;
+    margin: 20px auto;
+    padding: 16px 16px 12px 16px;
   }
 }
 
@@ -1054,9 +1044,16 @@ body.compact_menu #right_block {
 }
 
 #right_block .header_block .header_sub_menu button.active {
-  background: var(--bg-img-row-active);
-  border-top: 2px solid var(--primary-hover);
-  color:var(--text-color-active);
+  background: var(--primary-active);
+  color: var(--text-btn-color);
+}
+
+#right_block .header_block .header_sub_menu button:hover.active {
+  background: var(--primary-hover);
+}
+
+#right_block .header_block .header_sub_menu button.active path {
+  stroke: var(--text-btn-color);
 }
 
 #right_block .header_block .header_sub_menu button .icon_action {
@@ -1174,11 +1171,13 @@ body.compact_menu #right_block {
   height: 100%;
 }
 
+#right_block .info_wrapper .sub_menu_list+.content_block,
 #right_block .info_wrapper #sub_menu+.content_block {
   border-left: 1px solid var(--border);
 }
 
 @media (max-width: 1200px) {
+  #right_block .info_wrapper .sub_menu_list+.content_block,
   #right_block .info_wrapper #sub_menu+.content_block {
     border-left: none;
   }
@@ -1239,7 +1238,7 @@ body.compact_menu #right_block {
 }
 
 #right_block .info_wrapper .sub_menu_list li h5 {
-  margin: 0 0 0px 0;
+  margin: 0;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -1250,7 +1249,7 @@ body.compact_menu #right_block {
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
-  margin: 0 0 8px 0;
+  margin: 0;
   color: var(--text-color);
 }
 
@@ -1301,6 +1300,10 @@ body.compact_menu #right_block {
   display: block;
 }
 
+#right_block .info_wrapper .sub_menu_list.selector_list li .sub_info span {
+  font-size: 13px;
+}
+
 #right_block .info_wrapper .sub_menu_list.selector_list li span {
   color: var(--text-g-color);
 }
@@ -1314,7 +1317,7 @@ body.compact_menu #right_block {
   width: 32px;
   height: 32px;
   position: absolute;
-  top: 20px;
+  top: 15px;
   right: 8px;
   cursor: pointer;
   border-radius: 8px;
@@ -1392,10 +1395,6 @@ body.compact_menu #right_block {
 .table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
-
-  background-image: var(--bg-img-row-active);
-  background-position: top left;
-  background-repeat: repeat;
 }
 
 .table_list tr td {
@@ -1409,6 +1408,21 @@ body.compact_menu #right_block {
   padding: 8px 10px;
 }
 
+.table_list tr:hover.selected td {
+  background: var(--primary-hover);
+}
+
+.table_list tr.selected td {
+  background: var(--primary-active);
+}
+
+.table_list tr.selected td .info_block,
+.table_list tr.selected td .row_name,
+.table_list tr.selected td .secondary_name,
+.table_list tr.selected td span {
+  color: var(--text-btn-color) !important;
+}
+
 .table_list tr td:first-child {
   border-left:3px solid var(--bg-main);
 }
@@ -1418,7 +1432,7 @@ body.compact_menu #right_block {
 }
 
 .table_list tr.selected td:first-child {
-  border-left:3px solid var(--primary);
+  border-left:3px solid var(--primary-active);
 }
 
 .table_list tr td:nth-child(2) {
@@ -1486,8 +1500,8 @@ body.compact_menu #right_block {
 
 .table_list tr .secondary_name {
   color: var(--text-g-color);
-  text-transform: capitalize;
   margin-top: 4px;
+  font-size: 13px;
 }
 
 .table_list tr td .secondary_name.s2,
@@ -1497,7 +1511,7 @@ body.compact_menu #right_block {
 }
 
 .table_list tr td .secondary_name.s1 {
-  flex: 1 1 20%;
+  flex: 1 1 50%;
 }
 
 .table_list tr td .secondary_name.s2 {
@@ -1505,8 +1519,10 @@ body.compact_menu #right_block {
   margin-left: auto;
 }
 
-.table_list tr td .secondary_name.s3 {
-  flex: 1 1 30%;
+.table_list tr td .secondary_name.s2 span {
+  color: var(--primary);
+  font-weight: 500;
+  margin: 0 2px;
 }
 
 .table_list tbody div.uncommon.info_block:after {
@@ -1529,23 +1545,6 @@ body.compact_menu #right_block {
   border-color: var(--artifact) !important;
 }
 
-@media (max-width: 1500px) {
-  .table_list tr td .secondary_name.s2 {
-    display: none;
-  }
-}
-
-@media (max-width: 1400px) {
-  .table_list tr td .secondary_name.s2 {
-    display: none;
-  }
-
-  .table_list tr td .secondary_name.s3 {
-    margin-left: auto;
-    --width-content-c3: auto;
-  }
-}
-
 @media (max-width: 600px) {
   .table_list tr td .row_name {
     display: flex;
@@ -1556,16 +1555,6 @@ body.compact_menu #right_block {
     margin-left: 0px;
   }
 }
-
-@media (max-width: 360px) {
-  .table_list tr td .secondary_name.s2,
-  .table_list tr td .secondary_name.s3 {
-    justify-content: flex-start;
-    margin-left: 0;
-    flex: 1 1 100%;
-  }
-}
-
 
 /******** Ширма / screens ********/
 .screens {
@@ -1741,6 +1730,14 @@ body.compact_menu #right_block.spells {
   padding: 10px 24px;
 }
 
+.tpd-skin-dnd5 .spell_stat_block .block {
+  padding: 4px 8px;
+}
+
+.tpd-skin-dnd5 .spell_stat_block .block p {
+  font-size: 13px;
+}
+
 .spell_wrapper .spell_stat_block .block.duration {
   border-right: none;
 }
@@ -1757,8 +1754,12 @@ body.compact_menu #right_block.spells {
   font-weight: 500;
 }
 
+.spell_wrapper .spell_stat_block_bottom {
+  margin: 0 0 12px 0;
+}
+
 .spell_wrapper .spell_stat_block_bottom p {
-  margin: 0 0 6px 0;
+  margin: 0 0 2px 0;
   color: var(--text-color-title);
 }
 
@@ -1799,8 +1800,25 @@ body.compact_menu #right_block.spells {
     border-right: none;
   }
 
+  .spell_wrapper .spell_stat_block .block.duration {
+    flex: 1 0 calc(100% - 49px);
+    min-width: calc(100% - 49px);
+  }
+
   .spell_wrapper .row_spell  {
     margin-bottom: 8px;
+  }
+
+  .spell_wrapper .spell_stat_block .block {
+    flex: 1 0 calc(50% - 49px);
+    min-width: calc(50% - 49px);
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 500px) {
+  .spell_wrapper .row_spell  {
+    flex-direction: column;
   }
 }
 
@@ -2341,7 +2359,7 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   transition: 0.4s;
   padding: 0 8px;
   margin: 4px 4px;
-  height: 22px;
+  min-height: 22px;
   color: var(--text-color);
   background-color: var(--bg-sub-menu);
   display: flex;
@@ -2873,4 +2891,41 @@ button {
   #right_block.classes .content_block .classes_mobile_selector {
     width: calc(100vw - 0% - 10px);
   }
+}
+
+.temporary_news {
+  margin: 16px 32px 0px 32px;
+  background-color: var(--bg-secondary);
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.temporary_news .head {
+  width: 100%;
+  margin-bottom: 16px;
+  color: var(--text-color-title);
+}
+
+.rm-capture-active .cont {
+  width: 100%;
+  margin: 0;
+}
+
+.rm-mark {
+  background-color: var(--primary-active) !important;
+  color: var(--text-btn-color) !important;
+}
+
+.rm-capture-active .navbar:after,
+.rm-capture-active #container:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--hover);
 }

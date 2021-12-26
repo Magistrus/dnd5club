@@ -24,7 +24,7 @@ import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.FeatureLevelDefinition;
 import club.dnd5.portal.model.classes.HeroClass;
-import club.dnd5.portal.model.classes.OptionType;
+import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.SpellLevelDefinition;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,7 +71,7 @@ public class Archetype {
 	private List<ArchetypeSpell> spells;
 
 	@Enumerated(EnumType.STRING)
-	private OptionType optionType;
+	private Option.OptionType optionType;
 
 	@ManyToOne
 	@JoinColumn(name = "source")
