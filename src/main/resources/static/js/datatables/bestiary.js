@@ -19,10 +19,10 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="info_block">' + row.cr + '</div>';
+					var result ='<a href="#" class="table_row"><div class="info_block">' + row.cr + '</div>';
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="secondary_name">' + row.type + '</div></div>';
+					result+='<div class="secondary_name">' + row.type + '</div></div></a>';
 					return result;
 				}
 				return data;
