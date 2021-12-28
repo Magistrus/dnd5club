@@ -3,24 +3,31 @@
 <head>
 </head>
 <body>
-	<th:block th:object="${screen}" th:fragment="view">
-		<div class="card_block">
-			<th:block th:each="scr : *{chields}">
-				<a th:href="|#${scr.englishName.replace(' ', '_')}|" class="open-popup-link block">
-					<div class="icon" th:utext="${scr.icon}"></div>
-					<div class="description">
-						<h5 th:text="${scr.name}"></h5>
-						<p><span class="tip" th:text="${scr.book.source}" th:title="${scr.book.name}"></span> / <span th:text="${scr.englishName}"></span></p>
+	<th:block th:fragment="view">
+		<th:block th:each="element : ${screens}">
+			<h4 th:unless="${element.key.empty}" th:text="${element.key}" align="center"></h4>
+			<div class="card_block">
+				<th:block th:each="scr : ${element.value}">
+					<a th:href="|#${scr.englishName.replace(' ', '_')}|" class="open-popup-link block">
+						<div class="icon" th:utext="${scr.icon}"></div>
+						<div class="description">
+							<h5 th:text="${scr.name}"></h5>
+							<p>
+								<span class="tip" th:text="${scr.book.source}" th:title="${scr.book.name}"></span> / <span th:text="${scr.englishName}"></span>
+							</p>
+						</div>
+					</a>
+					<div th:id="${scr.englishName.replace(' ', '_')}" class="dnd5-popup-block mfp-hide">
+						<div class="header">
+							<h4 th:text="${scr.name}"></h4>
+						</div>
+						<div class="wrapper" data-simplebar>
+							<th:block th:utext="${scr.description}"></th:block>
+						</div>
 					</div>
-				</a>
-				<div th:id="${scr.englishName.replace(' ', '_')}" class="dnd5-popup-block mfp-hide">
-					<div class="header"><h4 th:text="${scr.name}"></h4></div>
-					<div class="wrapper" data-simplebar>
-						<th:block th:utext="${scr.description}"></th:block>
-					</div>
-				</div>
-			</th:block>
-		</div>
+				</th:block>
+			</div>
+		</th:block>
 	</th:block>
 </body>
 </html>

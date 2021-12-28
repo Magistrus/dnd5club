@@ -101,6 +101,12 @@ $(document).ready(function() {
 			}
 		},
 		drawCallback: function ( settings ) {
+			if(rowSelectIndex === 0 && selectedSpell === null){
+				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
+					return;
+				}
+				$('#spells tbody tr:eq('+rowSelectIndex+')').click();
+			}
 			if(localStorage.getItem('homebrew_source') == 'false' && selectedSpell === null){
 				for(; rowSelectIndex < table.data().count(); rowSelectIndex++){
 					if(!table.rows(rowSelectIndex).data()[0].homebrew){
@@ -108,12 +114,6 @@ $(document).ready(function() {
 						break;
 					}
 				}
-			}
-			if(rowSelectIndex === 0 && selectedSpell === null){
-				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
-					return;
-				}
-				$('#spells tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedSpell) {
 				selectSpell(selectedSpell);
