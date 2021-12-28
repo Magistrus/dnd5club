@@ -1358,6 +1358,44 @@ body.compact_menu #right_block {
   }
 }
 
+#right_block .info_wrapper li.avatar {
+  width: 290px;
+  max-height: 400px;
+  overflow: hidden;
+  padding:0 !important;
+  border-image: none !important;
+  z-index: 1;
+  background: var(--bg-sub-menu);
+  position: relative;
+}
+
+#right_block .info_wrapper li.avatar:hover {
+  background: var(--bg-sub-menu) !important;
+  cursor: pointer;
+}
+
+#right_block .info_wrapper  li.avatar .image-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#right_block .info_wrapper  li.avatar a {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#right_block .info_wrapper  li.avatar img {
+  position: relative;
+  left: 50%;
+  top: 0%;
+  height: 100%;
+  width: 100%;
+  transform: translate(-50%,0%);
+  object-fit: cover;
+}
+
 
 /******** Правый блок во весь экран / Full screen ********/
 .full_screen_right_block .block_information #right_block {
@@ -1828,44 +1866,6 @@ body.compact_menu #right_block.spells {
 
 }
 
-#right_block .info_wrapper li.avatar {
-  width: 290px;
-  max-height: 400px;
-  overflow: hidden;
-  padding:0 !important;
-  border-image: none !important;
-  z-index: 1;
-  background: var(--bg-sub-menu);
-  position: relative;
-}
-
-#right_block .info_wrapper li.avatar:hover {
-  background: var(--bg-sub-menu) !important;
-  cursor: pointer;
-}
-
-#right_block .info_wrapper  li.avatar .image-container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-#right_block .info_wrapper  li.avatar a {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-#right_block .info_wrapper  li.avatar img {
-  position: relative;
-  left: 50%;
-  top: 0%;
-  height: 100%;
-  width: 100%;
-  transform: translate(-50%,0%);
-  object-fit: cover;
-}
-
 #right_block.classes .content_block h4.mt {
   margin-top: -24px !important;
 }
@@ -1873,10 +1873,11 @@ body.compact_menu #right_block.spells {
 #right_block.classes .content_block .classes_mobile_selector {
   margin-top: -16px;
   margin-left: -16px;
+  top: 134px;
   z-index: 2;
   position: fixed;
   display: none;
-  width: calc(100vw - 42% - 0px);
+  width: calc(100vw - 42% - -10px);
   height: 46px;
   overflow: hidden;
   border-right: 1px solid var(--border);
@@ -1924,6 +1925,10 @@ body.compact_menu #right_block.spells {
 
 #right_block.classes .content_block .classes_mobile_selector select::-ms-expand {
   display: none;
+}
+
+#right_block.classes p.class_stats {
+  margin-bottom: 6px;
 }
 
 
@@ -2889,7 +2894,7 @@ button {
   }
 
   #right_block.classes .content_block .classes_mobile_selector {
-    width: calc(100vw - 0% - 10px);
+    width: calc(100vw - 0% - 0px);
   }
 }
 

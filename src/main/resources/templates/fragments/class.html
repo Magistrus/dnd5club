@@ -5,59 +5,15 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<th:block th:fragment="classInfo(selectedArchetype)">
-			<div class="classes_mobile_selector">
-				<select id="mobile_selector">
-					<option th:text="|---*{archetypeName}---|"></option>
-					<option th:each="archetype : *{archetypes}" th:value ="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
-					th:selected="${archetype.englishName eq selectedArchetype}"
-					th:class="|${archetype.book.type.name().toLowerCase()}_source|"
-					th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"></option>
-				</select>
-			</div>
-			<h4 class="header_separator mt">Хиты</h4>
-			<p>
-				<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
-			</p>
-			<p>
-				<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор Телосложения
-			</p>
-			<p>
-				<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
-				первого
-			</p>
-			<h4 class="header_separator">Владение</h4>
-			<p>
-				<b>Доспехи:</b> <span th:text="*{armor}"></span>
-			</p>
-			<p>
-				<b>Оружие:</b> <span th:text="*{weapon}"></span>
-			</p>
-			<p>
-				<b>Инструменты:</b> <span th:text="*{tools}"></span>
-			</p>
-			<p>
-				<b>Спаcброски:</b> <span th:text="*{savingThrows}"></span>
-			</p>
-			<p>
-				<b>Навыки:</b> Выберите [[*{skillAvailableCount}]] навыка из следующих:
-				<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
-				<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
-			</p>
-			<h4 class="header_separator" th:if="*{equipment}">Снаряжение</h4>
-			<p th:if="*{equipment}">
-				Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
-			</p>
-		</th:block>
-		<div class="table-responsive" data-simplebar>
+		<div class="table-responsive class" data-simplebar>
 			<table class="dnd5_table">
 				<thead>
 					<tr align="center">
 						<th rowspan="2" style="width: 24px">Ур.</th>
 						<th rowspan="2" style="width: 24px">БМ</th>
-						<th rowspan="2">Умения</th>
+						<th rowspan="2" class="align_left">Умения</th>
 						<th th:each="featurelevelDefinition : *{featureLevelDefenitions}" align="center" rowspan="2" th:text="${featurelevelDefinition.name}" style="width: 5%">Умения</th>
-						<th th:unless="*{levelDefenitions.empty}" align="center" colspan="9">Ячейки заклинаний на уровень заклинаний</th>
+						<th th:unless="*{levelDefenitions.empty}" align="center" colspan="9" class="bb">Ячейки заклинаний на уровень заклинаний</th>
 					</tr>
 					<th:block th:unless="*{levelDefenitions.empty}">
 						<th:block th:unless="${heroClass.spellcasterType.name() eq 'NONE'}">
@@ -81,7 +37,7 @@
 					<tr th:each="level : ${#numbers.sequence(1, 20)}" align="center">
 						<td align="center" th:text="${level}" />
 						<td align="center" th:text="${'+' + levelDef[level]}" />
-						<td><th:block th:each="trait, iter : ${heroClass.getTraits(level)}">
+						<td class="align_left"><th:block th:each="trait, iter : ${heroClass.getTraits(level)}">
 								<a class="tip_scroll" th:unless=${trait.architype} th:href="${'#c' + trait.id}" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"
 									th:data-tipped-options="@{ajax: { url: '/classes/feature/{id}'}(id=${trait.id})}"
 								></a>
@@ -113,6 +69,50 @@
 				</tbody>
 			</table>
 		</div>
+		<th:block th:fragment="classInfo(selectedArchetype)">
+			<div class="classes_mobile_selector">
+				<select id="mobile_selector">
+					<option th:text="|---*{archetypeName}---|"></option>
+					<option th:each="archetype : *{archetypes}" th:value ="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
+					th:selected="${archetype.englishName eq selectedArchetype}"
+					th:class="|${archetype.book.type.name().toLowerCase()}_source|"
+					th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"></option>
+				</select>
+			</div>
+			<h4 class="header_separator">Хиты</h4>
+			<p class="class_stats">
+				<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
+			</p>
+			<p class="class_stats">
+				<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор Телосложения
+			</p>
+			<p class="class_stats">
+				<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
+				первого
+			</p>
+			<h4 class="header_separator">Владение</h4>
+			<p class="class_stats">
+				<b>Доспехи:</b> <span th:text="*{armor}"></span>
+			</p>
+			<p class="class_stats">
+				<b>Оружие:</b> <span th:text="*{weapon}"></span>
+			</p>
+			<p class="class_stats">
+				<b>Инструменты:</b> <span th:text="*{tools}"></span>
+			</p>
+			<p class="class_stats">
+				<b>Спаcброски:</b> <span th:text="*{savingThrows}"></span>
+			</p>
+			<p class="class_stats">
+				<b>Навыки:</b> Выберите [[*{skillAvailableCount}]] навыка из следующих:
+				<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
+				<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
+			</p>
+			<h4 class="header_separator" th:if="*{equipment}">Снаряжение</h4>
+			<p th:if="*{equipment}">
+				Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
+			</p>
+		</th:block>
 		<th:block th:each="feature : ${features}">
 			<h4 class="header_separator" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
 			<p class="caption_text" th:text="${feature.type}"></p>
