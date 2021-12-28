@@ -59,7 +59,7 @@ p {
 
 a {
   color: var(--link-color);
-  /* text-decoration: none; */
+  text-decoration: none;
   font-weight: 400;
 }
 
@@ -164,6 +164,10 @@ h4.separator_card {
   color:var(--text-a-color) !important;
 }
 
+.align_left {
+  text-align: left !important;
+}
+
 
 /********* Выделение кубов в тексте *********/
 span.dice_text {
@@ -193,7 +197,7 @@ table {
   color: var(--text-color);
   border-spacing: inherit;
   border-radius: 0px;
-  border: 2px solid var(--border-table);
+  border: 1px solid var(--border-table);
   width: 100% !important;
   overflow: scroll;
   margin-bottom: 16px;
@@ -206,10 +210,6 @@ table thead {
 
 table thead th {
   padding: 4px 4px;
-}
-
-table thead th.mini_lvl {
-  width: 12px;
 }
 
 table td {
@@ -226,6 +226,33 @@ table td:last-child {
 table.dnd5_table {
   height: 100%;
   margin-bottom: 0px;
+}
+
+.table-responsive.class {
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: -24px;
+}
+
+@media (max-width: 1200px) {
+  .table-responsive.class {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: 30px;
+  }
+}
+
+.class table.dnd5_table {
+  border: none;
+}
+
+.class table.dnd5_table td {
+  padding: 2px 4px;
+  height: auto;
+}
+
+.class table.dnd5_table th.bb {
+  border-bottom: 1px solid;
 }
 
 table tbody tr:hover {
