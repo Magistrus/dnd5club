@@ -2,7 +2,6 @@ package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,8 +37,8 @@ public class ItemMagicRestController {
 		if (!filterRarities.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("rarity").in(filterRarities));
 		}
-		List<MagicThingType> filterTypes = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
-				.filter(s -> !s.isEmpty()).map(MagicThingType::valueOf).collect(Collectors.toList());  
+		Set<MagicThingType> filterTypes = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).map(MagicThingType::valueOf).collect(Collectors.toSet());  
 		if (!filterTypes.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("type").in(filterTypes));
 		}
@@ -48,6 +47,12 @@ public class ItemMagicRestController {
 		} 
 		if (input.getColumns().get(4).getSearch().getValue().contains("0")) {
 			specification = addSpecification(specification, (root, query, cb) -> cb.and(cb.equal(root.get("customization"), 0)));
+		}
+		if (input.getColumns().get(5).getSearch().getValue().contains("1")) {
+			specification = addSpecification(specification, (root, query, cb) -> cb.and(cb.equal(root.get("consumed"), 1)));
+		} 
+		if (input.getColumns().get(5).getSearch().getValue().contains("0")) {
+			specification = addSpecification(specification, (root, query, cb) -> cb.and(cb.equal(root.get("consumed"), 0)));
 		}
 		return repo.findAll(input, specification, specification, ItemMagicDto::new);
 	}

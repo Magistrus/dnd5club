@@ -113,7 +113,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="consumable_checkbox filter" type="checkbox" name="customization" th:value="1"> <span>да</span></label> <label> <input
+							<label> <input class="consumable_checkbox filter" type="checkbox" name="consumable" th:value="1"> <span>да</span></label> <label> <input
 								class="consumable_checkbox filter" type="checkbox" name="consumable" th:value="0"
 							> <span>нет</span></label>
 						</div>
@@ -129,6 +129,7 @@
 							<th>Английское название</th>
 							<th>Категория</th>
 							<th>Настройка</th>
+							<th>Расходуемый</th>
 						</tr>
 					</thead>
 				</table>
@@ -193,5 +194,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/items_magic.js?v=1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/items_magic.js?v=2}" layout:fragment="js-script"></script>
 </html>

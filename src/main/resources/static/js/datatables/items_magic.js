@@ -15,6 +15,7 @@ $(document).ready(function() {
 		columns : [
 		{
 			data : 'rarity',
+			searchable: false,
 		},
 		{
 			data : "name",
@@ -40,6 +41,10 @@ $(document).ready(function() {
 			data : 'attunement',
 			searchable: false,
 		},
+		{
+			data : 'attunement',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
@@ -51,7 +56,7 @@ $(document).ready(function() {
 	            }
 			},
 			{
-				targets: [ 0, 2, 3, 4 ],
+				targets: [ 0, 2, 3, 4, 5 ],
 				visible: false
 			},
 		],
@@ -210,6 +215,24 @@ $('#customization_clear_btn').on('click', function() {
 	$('#customization_clear_btn').addClass('hide_block');
 	$('.customization_checkbox').prop('checked', false);
 	$('#items_magic').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.consumable_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="consumable"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#items_magic').DataTable().column(5).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#consumable_clear_btn').removeClass('hide_block');
+	} else {
+		$('#consumable_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#consumable_clear_btn').on('click', function() {
+	$('#consumable_clear_btn').addClass('hide_block');
+	$('.consumable_checkbox').prop('checked', false);
+	$('#items_magic').DataTable().column(5).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){

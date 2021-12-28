@@ -38,7 +38,7 @@ public class MagicItem {
 
 	@Enumerated(EnumType.ORDINAL)
 	private MagicThingType type;
-	
+
 	private Boolean customization;
 
 	@Column
