@@ -5,7 +5,7 @@ $(document).ready(function() {
 		ajax : '/data/bestiary',
 		dom: 't',
 		serverSide : true,
-		iDisplayLength : 25,
+		iDisplayLength : 50,
         scrollCollapse: true,
 		select: true,
 		select: {

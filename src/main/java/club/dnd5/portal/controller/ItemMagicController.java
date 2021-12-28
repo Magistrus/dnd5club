@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
+import club.dnd5.portal.model.items.MagicThingType;
+import club.dnd5.portal.model.items.Rarity;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 
 
@@ -18,12 +20,16 @@ public class ItemMagicController {
 	private MagicItemDatatableRepository repository;
 
 	@GetMapping("/items/magic")
-	public String getMagicItems() {
+	public String getMagicItems(Model model) {
+		model.addAttribute("rarities", Rarity.values());
+		model.addAttribute("types", MagicThingType.values());
 		return "items_magic";
 	}
 	
 	@GetMapping("/items/magic/{name}")
 	public String getMagicItem(Model model, @PathVariable String name) {
+		model.addAttribute("rarities", Rarity.values());
+		model.addAttribute("types", MagicThingType.values());
 		model.addAttribute("selectedItemMagic", new ItemMagicDto(repository.findByEnglishName(name.replace("_", " "))));
 		return "items_magic";
 	}
