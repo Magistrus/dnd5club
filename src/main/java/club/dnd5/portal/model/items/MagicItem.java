@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +50,8 @@ public class MagicItem {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	private boolean consumed;
-	
+	private Integer charge;
+
 	@Column
 	private Integer cost;
 	private Byte bonus;
@@ -66,7 +68,7 @@ public class MagicItem {
 	@JoinTable(name =  "artifactes_armors")
 	private List<Armor> armors;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "magic_thing_id")
 	private List<MagicThingTable> tables; 
 

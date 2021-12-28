@@ -12,18 +12,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-            layout: 'columns-4',
-			orderable: false
-        },
 		columns : [
 		{
 			data : 'rarity',
@@ -78,16 +66,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 			loadingRecords: "Загрузка...",
-	        searchPanes: {
-	            title: {
-	                 _: 'Выбрано фильтров - %d',
-	                 0: 'Фильтры не выбраны',
-	                 1: 'Один фильтр выбран'
-	            },
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -99,8 +77,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedItemMagic === null){
@@ -145,10 +121,6 @@ $(document).ready(function() {
 		}
 		table.tables().search($(this).val()).draw();
 	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#items_magic').DataTable();
-		table.searchPanes.container().toggle();
-	});
 });
 function selectMagicItem(data){
 	document.getElementById('item_name').innerHTML = data.name;
@@ -182,4 +154,71 @@ function httpGetImage(theUrl)
 			$('#item_magic_img').attr('src', text);
 	    });
 	});
+}
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
+});
+$('.rarity_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="rarity"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#items_magic').DataTable().column(0).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#rarity_clear_btn').removeClass('hide_block');
+	} else {
+		$('#rarity_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#rarity_clear_btn').on('click', function() {
+	$('#rarity_clear_btn').addClass('hide_block');
+	$('.rarity_checkbox').prop('checked', false);
+	$('#items_magic').DataTable().column(0).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.type_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="type"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#items_magic').DataTable().column(3).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#type_clear_btn').removeClass('hide_block');
+	} else {
+		$('#type_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#type_clear_btn').on('click', function() {
+	$('#type_clear_btn').addClass('hide_block');
+	$('.type_checkbox').prop('checked', false);
+	$('#items_magic').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.customization_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="customization"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#items_magic').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#customization_clear_btn').removeClass('hide_block');
+	} else {
+		$('#customization_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#customization_clear_btn').on('click', function() {
+	$('#customization_clear_btn').addClass('hide_block');
+	$('.customization_checkbox').prop('checked', false);
+	$('#items_magic').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
 }
