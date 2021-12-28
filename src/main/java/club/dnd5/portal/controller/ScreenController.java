@@ -1,5 +1,9 @@
 package club.dnd5.portal.controller;
 
+import java.util.LinkedHashMap;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +45,10 @@ public class ScreenController {
 	
 	@GetMapping("/screens/fragment/{name}")
 	public String getScreenFragmentById(Model model, @PathVariable String name) throws InvalidAttributesException {
-		model.addAttribute("screen", repository.findByEnglishName(name.replace("_", " ")).orElseThrow(InvalidAttributesException::new));
+		model.addAttribute("screens", repository.findByEnglishName(
+				name.replace("_", " ")).orElseThrow(InvalidAttributesException::new).getChields()
+				.stream()
+				.collect(Collectors.groupingBy(Screen::getCategory, LinkedHashMap::new, Collectors.toList())));
 		return "fragments/screen :: view";
 	}
 	
@@ -49,7 +56,7 @@ public class ScreenController {
 	public String getSubscreenList(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);
 		Screen screen = repository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("subscreens", screen.getChields());
+		model.addAttribute("subscreens", screen.getChields().stream().filter(s -> s.getCategory() != null).collect(Collectors.groupingBy(Screen::getCategory)));
 		return "fragments/subscreens_list :: sub_menu"; 
 	}
 	
