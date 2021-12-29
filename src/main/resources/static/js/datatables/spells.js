@@ -26,7 +26,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<a href="#" onclick="return false;" class="table_row"><div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
+					var result ='<a href="#" class="table_row"><div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
