@@ -17,6 +17,8 @@ public class ClassFetureDto {
 	private byte level;
 	private byte order;
 	private String type;
+	private String child;
+	private String optional;
 	private String prefix;
 	private String description;
 
@@ -62,6 +64,7 @@ public class ClassFetureDto {
 		else {
 			className += "а"; 
 		}
+		child = feature.getChild();
 		type+= " уровень, умение " + StringUtils.capitalizeWords(className.toLowerCase());
 		order = 2;
 	}
@@ -88,6 +91,7 @@ public class ClassFetureDto {
 			type += "-ый";
 			break;
 		}
+		child = feature.getChild();
 		prefix ="a";
 		type += " уровень, умение " + archetypeName;
 		order = 1;

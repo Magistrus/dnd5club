@@ -38,18 +38,16 @@
 						<td align="center" th:text="${level}" />
 						<td align="center" th:text="${'+' + levelDef[level]}" />
 						<td class="align_left"><th:block th:each="trait, iter : ${heroClass.getTraits(level)}">
-								<a class="tip_scroll" th:unless=${trait.architype} th:href="${'#c' + trait.id}" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"
+								<a class="tip_scroll" th:unless=${trait.architype} th:href="|#c${trait.child eq null ? trait.id : trait.child}|" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"
 									th:data-tipped-options="@{ajax: { url: '/classes/feature/{id}'}(id=${trait.id})}"
 								></a>
 								<a th:if=${trait.architype} th:href="${'#c' + trait.id}" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"></a>
 							</th:block></td>
 						<td th:each="featureLevel : *{featureLevelDefenitions}" th:with="byLevel = ${featureLevel.getByLevel(level)}"><th:block th:if="${featureLevel.prefix ne null and byLevel gt 0}"
 								th:text="${featureLevel.prefix}"
-							/>
-							<th:block th:if="${byLevel gt 0}" th:text="${byLevel}" />
-							<th:block th:if="${byLevel eq 0}" th:text="'—'" />
-							<th:block th:if="${byLevel eq -1}" th:text="'Неограниченно'" />
-							<th:block th:if="${featureLevel.sufix ne null and byLevel gt 0}" th:text="${featureLevel.sufix}" /></td>
+							/> <th:block th:if="${byLevel gt 0}" th:text="${byLevel}" /> <th:block th:if="${byLevel eq 0}" th:text="'—'" /> <th:block th:if="${byLevel eq -1}" th:text="'Неограниченно'" /> <th:block
+								th:if="${featureLevel.sufix ne null and byLevel gt 0}" th:text="${featureLevel.sufix}"
+							/></td>
 						<th:block th:unless="*{levelDefenitions.empty}">
 							<th:block th:unless="*{spellcasterType.name() eq 'NONE'}">
 								<td th:text="${heroClass.levelDefenitions[level - 1].slot1 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot1}" />
@@ -73,10 +71,10 @@
 			<div class="classes_mobile_selector">
 				<select id="mobile_selector">
 					<option th:text="|---*{archetypeName}---|"></option>
-					<option th:each="archetype : *{archetypes}" th:value ="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
-					th:selected="${archetype.englishName eq selectedArchetype}"
-					th:class="|${archetype.book.type.name().toLowerCase()}_source|"
-					th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"></option>
+					<option th:each="archetype : *{archetypes}" th:value="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
+						th:selected="${archetype.englishName eq selectedArchetype}" th:class="|${archetype.book.type.name().toLowerCase()}_source|"
+						th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+					></option>
 				</select>
 			</div>
 			<h4 class="header_separator">Хиты</h4>
@@ -114,13 +112,14 @@
 			</p>
 		</th:block>
 		<th:block th:each="feature : ${features}">
-			<h4 class="header_separator" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
-			<p class="caption_text" th:text="${feature.type}"></p>
-			<div th:utext="${feature.description}"></div>
+			<th:block th:if="${feature.child eq null}">
+				<h4 class="header_separator" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
+				<p class="caption_text" th:text="${feature.type}"></p>
+				<div th:utext="${feature.description}"></div>
+			</th:block>
 		</th:block>
-	</th:block>
-	<div th:object="${heroClass}" th:fragment="images">
-		<img style="width: 300px; height: auto;" th:each="image : ${images}" th:src="${image}">
-	</div>
+		<div th:object="${heroClass}" th:fragment="images">
+			<img style="width: 300px; height: auto;" th:each="image : ${images}" th:src="${image}">
+		</div>
 </body>
 </html>

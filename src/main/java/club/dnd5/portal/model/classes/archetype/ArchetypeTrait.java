@@ -26,6 +26,7 @@ public class ArchetypeTrait {
 	private byte level;
 	@Column(columnDefinition = "TEXT")
 	private String description;
+	private String child;
 	
 	@ManyToOne
 	private Archetype archetype;
