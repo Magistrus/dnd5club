@@ -53,7 +53,7 @@
 						<div class="filter_crumbs_box">
 							<label> <input class="level_checkbox filter" type="checkbox" name="level" value="0"><span>заговор</span></label>
 							<label th:each="level : ${#numbers.sequence(1, 9)}"> <input class="level_checkbox filter" type="checkbox" name="level" th:value="${level}"
-							> <span th:text="${level}"></span></label> </label>
+							> <span th:text="${level}"></span></label>
 						</div>
 					</div>
 					<div class="filter_block">

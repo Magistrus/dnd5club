@@ -12,17 +12,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : "name",
@@ -60,16 +49,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 			loadingRecords: "Загрузка...",
-	        searchPanes: {
-	            title: {
-	                 _: 'Выбрано фильтров - %d',
-	                 0: 'Фильтры не выбраны',
-	                 1: 'Один фильтр выбран'
-	            },
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
@@ -81,8 +60,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedTreasure === null){
@@ -126,17 +103,13 @@ $(document).ready(function() {
 		}
 		table.tables().search($(this).val()).draw();
 	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#treasures').DataTable();
-		table.searchPanes.container().toggle();
-	});
 });
 function selectItem(data){
-	document.getElementById('item_name').innerHTML = data.name;
-	document.getElementById('type').innerHTML = data.type;
-	document.getElementById('cost').innerHTML = data.cost;
+	$('#item_name').text(data.name);
+	$('#type').text(data.type);
+	$('#cost').text(data.cost + ' зм.');
 	var source = '<span class="tip" title="' +data.book+ '">' + data.bookshort + '</span>';
-	document.getElementById('source').innerHTML = source;
+	$('#source').html(source);
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/treasures/' + data.englishName.split(' ').join('_'));
 	var url = '/treasures/fragment/' + data.id;
@@ -151,3 +124,34 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
+});
+$('.category_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="category"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#treasures').DataTable().column(2).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#category_clear_btn').removeClass('hide_block');
+	} else {
+		$('#category_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#category_clear_btn').on('click', function() {
+	$('#category_clear_btn').addClass('hide_block');
+	$('.category_checkbox').prop('checked', false);
+	$('#treasures').DataTable().column(2).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
