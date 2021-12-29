@@ -26,4 +26,6 @@ public class HeroClassTrait {
 	private HeroClass heroClass;
 	
 	private boolean architype;
+	private String child;
+	private int optional;
 }
