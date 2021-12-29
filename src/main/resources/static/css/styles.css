@@ -321,6 +321,10 @@ input::selection {
   z-index: 10;
   cursor: pointer;
   position: absolute;
+  right: 0px;
+}
+
+.btn_filters + .btn_text_clear {
   right: 45px;
 }
 
@@ -830,22 +834,20 @@ input::selection {
 }
 
 .header_block .filter_block {
-  height: 44px;
+  height: 45px;
   width: auto;
   position: relative;
-  left: 0px;
-  right: 0px;
-  bottom: 0;
   border-bottom: 1px solid var(--border);
+  display: flex;
 }
 
 #left_block .header_block.filters {
-  height: 117px;
+  height: 119px;
 }
 
 .header_block h3 {
   width: 100%;
-  line-height: 71px;
+  line-height: 72px;
   position: relative;
   padding-left: 24px;
   font-size: 26px;
@@ -872,6 +874,10 @@ input::selection {
 
   .header_block h3 {
     font-size: 22px;
+  }
+
+  .header_block .filter_block {
+    border-right: 1px solid var(--border);
   }
 }
 
@@ -903,13 +909,12 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .container_left {
-  /* overflow-y: auto; */
   position: relative;
   height: calc(100% - 72px);
 }
 
 #left_block .filters+.search_panes+.container_left {
-  height: calc(100% - 117px);
+  height: calc(100% - 119px);
 }
 
 #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
@@ -927,16 +932,12 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .header_block .search_int {
-  height: 42px;
+  height: 43px;
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width: calc(100% - 99px);
+  width: calc(100% - 0px);
   padding-left: 52px;
-  position: absolute;
-  right: 0px;
-  left: -1px;
-  bottom: 0;
   background-color: var(--bg-secondary);
   color: var(--text-color);
   font-size: 15px;
@@ -954,9 +955,8 @@ body.compact_menu .block_information #left_block {
 #left_block .header_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  top: 1px;
-  width: 44px;
-  height: 43px;
+  min-width: 44px;
+  height: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -1216,6 +1216,7 @@ body.compact_menu #right_block {
   max-width: 290px;
   flex: 1 0 290px;
   background: var(--bg-sub-menu);
+  border-top: 1px solid var(--border);
   z-index: 2;
 }
 
@@ -2472,7 +2473,7 @@ body #left_block.tools_block {
   font-size: 15px;
   line-height: 42px;
   font-weight: 400;
-  margin-left: 58px;
+  /* margin-left: 58px; */
   vertical-align: middle;
   height: 42px;
   display: table-cell;
