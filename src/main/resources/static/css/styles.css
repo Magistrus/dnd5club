@@ -845,7 +845,7 @@ input::selection {
   height: 119px;
 }
 
-.header_block h3 {
+.header_block h1 {
   width: 100%;
   line-height: 72px;
   position: relative;
