@@ -100,6 +100,8 @@ public class Race implements Serializable {
 	@JoinTable(name = "race_spells", joinColumns = @JoinColumn(name = "race_id"))
 	private List<Spell> spells;
 	
+	private String icon;
+	
 	@ManyToOne
 	@JoinColumn(name = "source")
 	private Book book;

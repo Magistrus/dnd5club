@@ -17,12 +17,14 @@ public class RuleController {
 	private RuleDatatableRepository repository;
 
 	@GetMapping("/rules")
-	public String getRules() {
+	public String getRules(Model model) {
+		model.addAttribute("categories", repository.findAllCategories());
 		return "rules";
 	}
 	
 	@GetMapping("/rules/{name}")
 	public String getRule(Model model, @PathVariable String name) {
+		model.addAttribute("categories", repository.findAllCategories());
 		model.addAttribute("selectedRule", "name");
 		return "rules";
 	}
