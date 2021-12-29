@@ -1621,8 +1621,11 @@ body.compact_menu #right_block {
   display: none;
 }
 
-#right_block.screens .info_wrapper #content_block h4:first-child {
-  margin-top: -24px;
+#right_block.screens .info_wrapper #content_block h4 {
+  border-bottom: 1px solid var(--border);
+  margin: 0px;
+  padding: 8px 0px;
+  background: var(--hover);
 }
 
 #right_block.screens ul {
