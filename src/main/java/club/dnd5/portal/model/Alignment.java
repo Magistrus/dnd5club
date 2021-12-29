@@ -1,5 +1,8 @@
 package club.dnd5.portal.model;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import lombok.Getter;
 
 @Getter
@@ -30,6 +33,7 @@ public enum Alignment {
 	public String getCyrilicName() {
 		return names[0];
 	}
+
 	public static Alignment parse(String alignment) {
 		if (alignment.equals("нейтральный")) {
 			return NEUTRAL;
@@ -81,5 +85,9 @@ public enum Alignment {
 		default:
 			return names[0];
 		}
+	}
+	
+	public static Set<Alignment> getGods(){
+		return EnumSet.of(LAWFUL_GOOD, LAWFUL_NEUTRAL, LAWFUL_EVIL, TRUE_NEUTRAL, NEUTRAL_GOOD, NEUTRAL_EVIL, CHAOTIC_GOOD, CHAOTIC_NEUTRAL, CHAOTIC_EVIL, NEUTRAL);
 	}
 }

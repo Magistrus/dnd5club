@@ -128,11 +128,11 @@ $(document).ready(function() {
 	});
 });
 function selectMagicItem(data){
-	document.getElementById('item_name').innerHTML = data.name;
-	document.getElementById('type').innerHTML = data.type;
-	document.getElementById('rarity').innerHTML = data.rarity;
-	document.getElementById('attunement').innerHTML = data.attunement;
-	document.getElementById('cost').innerHTML = data.cost;
+	$('#item_name').text(data.name);
+	$('#type').text(data.type);
+	$('#rarity').text(data.rarity);
+	$('#attunement').text(data.attunement);
+	$('#cost').text(data.cost);
 	httpGetImage('/image/MAGIC_ITEM/'+data.id);
 	
 	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';

@@ -12,17 +12,6 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : "name",
@@ -56,10 +45,14 @@ $(document).ready(function() {
 			data : 'sex',
 			searchable: false,
 		},
+		{
+			data : 'pantheon',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 		{
-			"targets": [ 1, 2, 3, 4, 5 ],
+			"targets": [ 1, 2, 3, 4, 5, 6 ],
 			"visible": false
 		},
 		],
@@ -67,26 +60,16 @@ $(document).ready(function() {
 		{
 		}],
 		order : [[0, 'asc']],
-			language : {
-				processing : "Загрузка...",
-				searchPlaceholder: "Поиск ",
-				search : "_INPUT_",
-				lengthMenu : "Показывать _MENU_ записей на странице",
-				zeroRecords : "Ничего не найдено",
-				info : "Показано _TOTAL_",
-				infoEmpty : "Нет доступных записей",
-				infoFiltered : "из _MAX_",
-				loadingRecords: "Загрузка...",
-		        searchPanes: {
-		            title: {
-		                 _: 'Выбрано фильтров - %d',
-		                 0: 'Фильтры не выбраны',
-		                 1: 'Один фильтр выбран'
-		            },
-	                collapseMessage: 'Свернуть все',
-	                showMessage: 'Развернуть все',
-	                clearMessage: 'Сбросить фильтры'
-		        }
+		language : {
+			processing : "Загрузка...",
+			searchPlaceholder: "Поиск ",
+			search : "_INPUT_",
+			lengthMenu : "Показывать _MENU_ записей на странице",
+			zeroRecords : "Ничего не найдено",
+			info : "Показано _TOTAL_",
+			infoEmpty : "Нет доступных записей",
+			infoFiltered : "из _MAX_",
+			loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
@@ -98,12 +81,10 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedGod === null){
-				if (!$('#list_page_two_block').hasClass('block_information')){
+				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
 					return;
 				}
 				$('#items_magic tbody tr:eq('+rowSelectIndex+')').click();
@@ -139,10 +120,6 @@ $(document).ready(function() {
 		}
 		table.tables().search($(this).val()).draw();
 	});
-	$('#btn_filters').on('click', function() {
-		var table = $('#gods').DataTable();
-		table.searchPanes.container().toggle();
-	});
 });
 function selectGod(data){
 	$('#god_name').html(data.name);
@@ -152,13 +129,13 @@ function selectGod(data){
 	$('#symbol').html(data.symbol);
 	$('#domains').html(data.domains);
 	$('#pantheon').html(data.pantheon);
-
-	var source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
+	getImage(data.id);
+	let source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
 	source+= '<span id="tooltip-race-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 	document.getElementById('source').innerHTML = source;
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
-	var url = '/gods/fragment/' + data.id;
+	let url = '/gods/fragment/' + data.id;
 	$("#content_block").load(url);
 	selectedGod = null;
 }
@@ -171,3 +148,116 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 });
+$('#btn_filters').on('click', function() {
+	$('#searchPanes').toggleClass('hide_block');
+});
+$('.alignment_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="alignment"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#gods').DataTable().column(2).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#alignment_clear_btn').removeClass('hide_block');
+	} else {
+		$('#alignment_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#alignment_clear_btn').on('click', function() {
+	$('#alignment_clear_btn').addClass('hide_block');
+	$('.alignment_checkbox').prop('checked', false);
+	$('#gods').DataTable().column(2).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.domen_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="domen"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#gods').DataTable().column(3).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#domen_clear_btn').removeClass('hide_block');
+	} else {
+		$('#domen_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#domen_clear_btn').on('click', function() {
+	$('#domen_clear_btn').addClass('hide_block');
+	$('.domen_checkbox').prop('checked', false);
+	$('#gods').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.rank_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="rank"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#gods').DataTable().column(4).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#rank_clear_btn').removeClass('hide_block');
+	} else {
+		$('#rank_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#rank_clear_btn').on('click', function() {
+	$('#rank_clear_btn').addClass('hide_block');
+	$('.rank_checkbox').prop('checked', false);
+	$('#gods').DataTable().column(4).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.pantheon_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="pantheon"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#gods').DataTable().column(5).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#pantheon_clear_btn').removeClass('hide_block');
+	} else {
+		$('#pantheon_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#pantheon_clear_btn').on('click', function() {
+	$('#pantheon_clear_btn').addClass('hide_block');
+	$('.pantheon_checkbox').prop('checked', false);
+	$('#gods').DataTable().column(5).search("", true, false, false).draw();
+	setFiltered();
+});
+function getImage(id){
+	$.ajax({
+        type: 'GET',
+        url: '/images/GOD/' + id,
+        data: 'id=testdata',
+        dataType: 'json',
+        cache: false,
+        success: function(result) {
+        	$('.image-container').empty();
+        	result.forEach((element, index) => {
+        		let alement;
+        		if (index==0){
+        			aelement = '<a id="god_img" href="'+element+'"><img src="'+ element+'"/></a>';
+        		} else {
+        			aelement = '<a href="'+element+'"></a>';
+        		}
+        		$('.image-container').append(aelement);
+        	});
+        },
+    });
+}
+$('.image-container').magnificPopup({
+	delegate: 'a',
+	type: 'image',
+	gallery:{
+		enabled:true
+	}
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
