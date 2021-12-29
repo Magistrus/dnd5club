@@ -115,8 +115,6 @@ public class SpellRestController {
 		return repo.findAll(input, specification, specification, SpellDto::new);
 	}
 
-
-
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {
 			return Specification.where(addSpecification);
