@@ -50,7 +50,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [0, 2 ,3, 4, 5],
+				"targets": [0, 2 ,3, 4, 5, 6],
 				"visible": false
 			},
 			{
