@@ -10,7 +10,8 @@ $(document).ready(function() {
         scrollCollapse: true,
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{

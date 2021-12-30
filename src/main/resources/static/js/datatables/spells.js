@@ -11,7 +11,8 @@ $(document).ready(function() {
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{
