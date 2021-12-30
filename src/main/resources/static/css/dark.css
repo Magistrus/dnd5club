@@ -3,10 +3,11 @@
   --bg-main: #212529;
   --bg-secondary: #272B2F;
   --bg-sub-menu: #2C3034;
-  --bg-dice: #494777;
+  --bg-dice: #585595;
   --bg-homebrew: #23492e;
-  --bg-disadvantage: #494777;
-  --bg-saving_throw: #494777;
+  --bg-advantage: #026a02;
+  --bg-disadvantage: #774747;
+  --bg-saving_throw: #fe5e00;
   --bg-blockquote: #1e2226;
   --text-color:#cdcdcd;
   --text-color-active:#fff;

@@ -845,7 +845,7 @@ input::selection {
   height: 119px;
 }
 
-.header_block h3 {
+.header_block h1 {
   width: 100%;
   line-height: 72px;
   position: relative;
@@ -919,6 +919,7 @@ body.compact_menu .block_information #left_block {
 #left_block .container_left {
   position: relative;
   height: calc(100% - 72px);
+  overflow: visible;
 }
 
 #left_block .filters+.search_panes+.container_left {
@@ -1238,7 +1239,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper .sub_menu_list li {
   position: relative;
-  padding: 12px 16px 12px 16px;
+  padding: 10px 16px 10px 16px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -1326,7 +1327,7 @@ body.compact_menu #right_block {
   width: 32px;
   height: 32px;
   position: absolute;
-  top: 15px;
+  top: 14px;
   right: 8px;
   cursor: pointer;
   border-radius: 8px;
@@ -1621,8 +1622,11 @@ body.compact_menu #right_block {
   display: none;
 }
 
-#right_block.screens .info_wrapper #content_block h4:first-child {
-  margin-top: -24px;
+#right_block.screens .info_wrapper #content_block h4 {
+  border-bottom: 1px solid var(--border);
+  margin: 0px;
+  padding: 8px 0px;
+  background: var(--hover);
 }
 
 #right_block.screens ul {
