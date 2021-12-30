@@ -41,7 +41,7 @@ public class RobotsController {
 	}
 
 	@GetMapping("/sitemap.xml")
-	public void manifest(HttpServletResponse response) {
+	public void sitemap(HttpServletResponse response) {
 		InputStream resourceAsStream = null;
 		try {
 			ClassLoader classLoader = getClass().getClassLoader();
