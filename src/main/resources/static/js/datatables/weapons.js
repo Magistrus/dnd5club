@@ -9,7 +9,8 @@ $(document).ready(function() {
 		iDisplayLength : 40,
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{
