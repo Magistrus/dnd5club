@@ -12,11 +12,6 @@
 						<div class="infimation">
 							<h5 id="screen_id" class="header_name" th:text="${screen.name}">Screen  name</h5>
 							<p th:text="${screen.englishName}" class="en_title encaption_text">English screen name</p>
-							<p class="additionally uppercase_text">
-								<span class='tip' th:data-tipped-options="|inline: 'inline-tooltip-source-${screen.id}'|" th:text="${screen.book.source}"></span><span th:id="|inline-tooltip-source-${screen.id}|"
-									style='display: none' th:text="${screen.book.name}"
-								></span>
-							</p>
 						</div>
 						<div class="icon" th:classappend="|icon_${screen.englishName.toLowerCase().replace(' ', '_')}|"></div>
 					</div>
