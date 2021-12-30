@@ -919,6 +919,7 @@ body.compact_menu .block_information #left_block {
 #left_block .container_left {
   position: relative;
   height: calc(100% - 72px);
+  overflow: visible;
 }
 
 #left_block .filters+.search_panes+.container_left {
