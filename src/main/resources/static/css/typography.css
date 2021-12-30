@@ -170,28 +170,34 @@ h4.separator_card {
 
 
 /********* Выделение в тексте *********/
-span.dice_text {
+span.dice_text,
+span.homebrew_text,
+span.advantage,
+span.disadvantage,
+span.saving_throw {
   padding: 0px 3px;
   border-radius: 4px;
+  color: var(--text-btn-color);
+}
+
+span.dice_text {
   background-color: var(--bg-dice);
 }
 
 span.homebrew_text {
-  padding: 0px 3px;
-  border-radius: 4px;
   background-color: var(--bg-homebrew);
   text-transform: none;
 }
 
+span.advantage {
+  background-color: var(--bg-advantage);
+}
+
 span.disadvantage {
-  padding: 0px 3px;
-  border-radius: 4px;
   background-color: var(--bg-disadvantage);
 }
 
 span.saving_throw {
-  padding: 0px 3px;
-  border-radius: 4px;
   background-color: var(--bg-saving_throw);
 }
 
