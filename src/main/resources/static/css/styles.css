@@ -1239,7 +1239,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper .sub_menu_list li {
   position: relative;
-  padding: 12px 16px 12px 16px;
+  padding: 10px 16px 10px 16px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -1327,7 +1327,7 @@ body.compact_menu #right_block {
   width: 32px;
   height: 32px;
   position: absolute;
-  top: 15px;
+  top: 14px;
   right: 8px;
   cursor: pointer;
   border-radius: 8px;
