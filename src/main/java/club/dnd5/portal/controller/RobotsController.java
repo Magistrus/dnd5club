@@ -39,4 +39,19 @@ public class RobotsController {
 			
 		}
 	}
+
+	@GetMapping("/sitemap.xml")
+	public void manifest(HttpServletResponse response) {
+		InputStream resourceAsStream = null;
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			resourceAsStream = classLoader.getResourceAsStream("sitemap.xml");
+			response.addHeader("Content-disposition", "filename=sitemap.xml");
+			response.setContentType("text/plain");
+			IOUtils.copy(resourceAsStream, response.getOutputStream());
+			response.flushBuffer();
+		} catch (Exception e) {
+			
+		}
+	}
 }
