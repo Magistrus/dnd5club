@@ -134,7 +134,6 @@ function setActiveClass(element, englishName) {
 	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
-	$("#meta_title").attr("content", className);
 	$("#meta_url").attr("content", "https://dnd5.club/classes/" + englishName);
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
