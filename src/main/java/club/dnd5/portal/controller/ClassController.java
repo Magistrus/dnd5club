@@ -51,6 +51,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("selectedClass", name);
+		model.addAttribute("selectedTitle", name);
 		return "classes";
 	}
 	
@@ -59,6 +60,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAll());
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
+		model.addAttribute("selectedTitle", archetype);
 		return "classes";
 	}
 	
