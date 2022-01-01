@@ -6,7 +6,7 @@ $(document).ready(function() {
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-		iDisplayLength : 30,
+		iDisplayLength : 80,
         scrollCollapse: true,
 		select: true,
 		select: {
