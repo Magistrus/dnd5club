@@ -6,7 +6,7 @@ $(document).ready(function() {
 		serverSide : true,
         deferRender: true,
         scrollCollapse: true,
-		iDisplayLength : 50,
+		iDisplayLength : 80,
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {

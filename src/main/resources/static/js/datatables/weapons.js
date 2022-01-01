@@ -6,7 +6,7 @@ $(document).ready(function() {
 		dom: 't',
 		serverSide : true,
         deferRender: true,
-		iDisplayLength : 40,
+		iDisplayLength : 80,
 		select: true,
 		select: {
 			style: 'single',
