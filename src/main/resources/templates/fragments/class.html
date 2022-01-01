@@ -45,7 +45,7 @@
 							</th:block></td>
 						<td th:each="featureLevel : *{featureLevelDefenitions}" th:with="byLevel = ${featureLevel.getByLevel(level)}"><th:block th:if="${featureLevel.prefix ne null and byLevel gt 0}"
 								th:text="${featureLevel.prefix}"
-							/> <th:block th:if="${byLevel gt 0}" th:text="${byLevel}" /> <th:block th:if="${byLevel eq 0}" th:text="'—'" /> <th:block th:if="${byLevel eq -1}" th:text="'Неограниченно'" /> <th:block
+							/><th:block th:if="${byLevel gt 0}" th:text="${byLevel}" /><th:block th:if="${byLevel eq 0}" th:text="'—'" /><th:block th:if="${byLevel eq -1}" th:text="'Неограниченно'" /> <th:block
 								th:if="${featureLevel.sufix ne null and byLevel gt 0}" th:text="${featureLevel.sufix}"
 							/></td>
 						<th:block th:unless="*{levelDefenitions.empty}">
