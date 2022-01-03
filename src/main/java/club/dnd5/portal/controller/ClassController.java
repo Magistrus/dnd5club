@@ -50,8 +50,10 @@ public class ClassController {
 	public String getClass(Model model, @PathVariable String name) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
+		HeroClass heroClasss = classRepository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedClass", name);
-		model.addAttribute("selectedTitle", name);
+		model.addAttribute("metaTitle", heroClasss.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		return "classes";
 	}
 	
@@ -60,7 +62,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAll());
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
-		model.addAttribute("selectedTitle", archetype);
+		model.addAttribute("metaTitle", archetype);
 		return "classes";
 	}
 	

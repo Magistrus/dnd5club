@@ -3,6 +3,7 @@ package club.dnd5.portal.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,6 +39,9 @@ public class RaceController {
 	public String getRace(Model model, @PathVariable String name) {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
+		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
+		model.addAttribute("metaTitle", race.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
 		return "races";
 	}
 	
@@ -46,6 +50,9 @@ public class RaceController {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
+		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
+		model.addAttribute("metaTitle", race.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
 		return "races";
 	}
 	
