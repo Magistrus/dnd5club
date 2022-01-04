@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.RuleDto;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 
 
@@ -25,7 +26,7 @@ public class RuleController {
 	@GetMapping("/rules/{name}")
 	public String getRule(Model model, @PathVariable String name) {
 		model.addAttribute("categories", repository.findAllCategories());
-		model.addAttribute("selectedRule", "name");
+		model.addAttribute("selectedRule", new RuleDto(repository.findByEnglishName(name.replace('_', ' '))));
 		return "rules";
 	}
 	
