@@ -68,8 +68,6 @@ $(document).ready(function() {
 			loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
-		    $('#weapons tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -81,7 +79,10 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#weapons tbody tr:eq(0)').click();
+			if (!$('#list_page_two_block').hasClass('block_information') && selectedWeapon === null){
+				return;
+			}
+			$('#weapons tbody tr:eq('+rowSelectIndex+')').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
 		},
 		createdRow: function (row, data, dataIndex) {

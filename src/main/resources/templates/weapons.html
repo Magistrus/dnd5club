@@ -152,7 +152,10 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" th:inline="javascript">
+    		selectedWeapon = [[${selectedWeapon}]];
+		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/weapons.js?v=3.3}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/weapons.js?v=3.4}" layout:fragment="js-script"></script>
 </html>

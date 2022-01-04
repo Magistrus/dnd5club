@@ -10,4 +10,6 @@ import club.dnd5.portal.model.items.Weapon;
 @Repository
 public interface WeaponDatatableRepository extends DataTablesRepository<Weapon, Integer> {
 	List<Weapon> findAll();
+
+	Weapon findByEnglishName(String name);
 }
