@@ -23,9 +23,9 @@ $(document).ready(function() {
 					var result ='<div class="info_block">' + row.damage + '</div>';
 					result +='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="content_description"><div class="secondary_name">' + row.type + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip dice_text" title="Урон">' + row.damage + '</span> &nbsp; <span class="tip" title="Тип урона">' + row.damageType +'</span></div>';
-					result+='<div class="secondary_name s3"><span class="tip excretion" title="Цена">' + row.cost + '</span></div></div></div>';
+					result+='<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
+					result+='<div class="secondary_name s2 alg_left"><span class="tip dice_text" title="Урон">' + row.damage + '</span> &nbsp; <span class="tip" title="Тип урона">' + row.damageType +'</span></div>';
+					result+='<div class="secondary_name s3"><span class="tip excretion" title="Стоимость">' + row.cost + '</span></div></div></div>';
 					return result;
 				}
 				return data;
