@@ -4,21 +4,19 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<div id="scroll_load_simplebar" class="container_left table_list">
-			<table id="spells" class="table_list" th:fragment="spellTable">
-				<thead style="display: none">
-					<tr>
-						<th>Уровень</th>
-						<th>Школа</th>
-						<th>Название</th>
-						<th>EnglishName</th>
-						<th>Тип урона</th>
-						<th>Ритуал</th>
-						<th>Концентрация</th>
-					</tr>
-				</thead>
-			</table>
-		</div>
+		<table id="spells" class="table_list" th:fragment="spellTable">
+			<thead style="display: none">
+				<tr>
+					<th>Уровень</th>
+					<th>Школа</th>
+					<th>Название</th>
+					<th>EnglishName</th>
+					<th>Тип урона</th>
+					<th>Ритуал</th>
+					<th>Концентрация</th>
+				</tr>
+			</thead>
+		</table>
 		<script th:src="@{/resources/js/datatables/jquery.dataTables.min.js}"></script>
 		<script th:src="@{/resources/js/datatables/searchpanes/dataTables.searchPanes.min.js}"></script>
 		<script th:src="@{/webjars/datatables-select/1.3.3/js/dataTables.select.min.js}"></script>
