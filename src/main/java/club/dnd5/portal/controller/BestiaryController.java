@@ -49,8 +49,8 @@ public class BestiaryController {
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		model.addAttribute("metaTitle", creature.getName());
-		model.addAttribute("metaUrl", "http://dnd5.club/bestiary/" + name);
-		model.addAttribute("metaDescription", String.format("%s %s, ", beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment()));
+		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
+		model.addAttribute("metaDescription", String.format("%s %s, %s", beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
