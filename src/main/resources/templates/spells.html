@@ -254,7 +254,7 @@
 							<label><input class="concentration_checkbox" type="checkbox" name="concentration" value="2"><span>нет</span></label>
 						</div>
 					</div>
-					<div class="filter_block hide_block">
+					<div class="filter_block hide">
 						<div class="header">
 							<h5>Тип урона</h5>
 							<button>
@@ -271,7 +271,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label th:each="damage : ${damageTypes}"><input  class="damage_checkbox" type="checkbox" name="timecast" th:value="${damage}"><span th:text="${damage.cyrilicName}"></span></label>
+							<label th:each="damage : ${damageTypes}"><input  class="damage_checkbox" type="checkbox" name="damage" th:value="${damage}"><span th:text="${damage.cyrilicName}"></span></label>
 						</div>
 					</div>
 				</div>
@@ -333,5 +333,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/spells.js?v=11.1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/spells.js?v=11.2}" layout:fragment="js-script"></script>
 </html>
