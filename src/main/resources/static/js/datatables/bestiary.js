@@ -198,7 +198,7 @@ $('.cr_checkbox').on('change', function(e){
 	} else {
 		$('#cr_clear_btn').addClass('hide_block');
 	}
-    setFiltered();
+	setFiltered();
 });
 $('#cr_clear_btn').on('click', function() {
 	$('#cr_clear_btn').addClass('hide_block');
