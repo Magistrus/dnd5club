@@ -92,6 +92,18 @@ function loadClassSpells() {
 		$('#info_wrapper').addClass('spells');
 	});
 }
+function loadClassOptions() {
+	var selectedClass = $('.card.active')[0];
+	var englishName = selectedClass.id.replace(' ', '_');
+	var url = '/classes/options/' + englishName;
+	$('#content_block').load(url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').addClass('options');
+	});
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
 	$(".card").removeClass('active');
@@ -138,6 +150,9 @@ function setActiveClass(element, englishName) {
 	}
 	else {
 		$('#class_options').addClass('hide_block');
+		$('#class_options').removeClass('active');
+		$('#class_traits').addClass('active');
+		localStorage.setItem('class_info', 'traits');
 	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
@@ -162,6 +177,11 @@ function setActiveClass(element, englishName) {
 		$('#class_images').addClass('active');
 		loadImages();
 		break;
+	case 'options':
+		$('.btn_class').removeClass('active');
+		$('#class_options').addClass('active');
+		loadClassOptions();
+		break;
 	default:
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
@@ -179,6 +199,7 @@ function setActiveClass(element, englishName) {
 			$('#info_wrapper').removeClass('description');
 			$('#info_wrapper').removeClass('spells');
 			$('#info_wrapper').removeClass('images');
+			$('#info_wrapper').removeClass('options');
 			$('#info_wrapper').addClass('traits');
 		});
 	}
@@ -228,7 +249,7 @@ function setActiveArchetype(element, className, archetypeName) {
 	element.classList.add('active');
 	if (localStorage.getItem('class_info')==='description'){
 		loadDescription();
-	}else {
+	}else{
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
 		$("#content_block").load(url, function() {
 			$('#mobile_selector').change(function () {

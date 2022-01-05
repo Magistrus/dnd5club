@@ -107,7 +107,14 @@ public class ClassController {
 		model.addAttribute("heroClass", heroClass);
 		return "fragments/class_spell :: view";
 	}
-	
+
+	@GetMapping("/classes/options/{englishName}")
+	public String getClassOption(Model model, Device device, @PathVariable String englishName) {
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		model.addAttribute("heroClass", heroClass);
+		return "fragments/class_options :: view";
+	}
+
 	@GetMapping("/classes/{englishName}/architype/name")
 	@ResponseBody
 	public String getArchitypeName(@PathVariable String englishName) {
