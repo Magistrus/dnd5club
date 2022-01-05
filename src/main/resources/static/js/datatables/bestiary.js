@@ -161,7 +161,7 @@ function selectCreature(data){
 	history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 	var url = '/bestiary/fragment/' + data.id;
 	$("#meta_title").attr("content", data.name);
-	$("#meta_url").attr("content", "https://new.dnd5.club/bestiary/" + data.englishName.split(' ').join('_'));
+	$("#meta_url").attr("content", "https://dnd5.club/bestiary/" + data.englishName.split(' ').join('_'));
 	$("#meta_image").attr("content", document.getElementById('creatute_img').src);
 	$("#content_block").load(url, function() {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
@@ -198,7 +198,7 @@ $('.cr_checkbox').on('change', function(e){
 	} else {
 		$('#cr_clear_btn').addClass('hide_block');
 	}
-    setFiltered();
+	setFiltered();
 });
 $('#cr_clear_btn').on('click', function() {
 	$('#cr_clear_btn').addClass('hide_block');

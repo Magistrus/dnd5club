@@ -85,7 +85,7 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedGod === null){
-				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
+				if (!$('#list_page_two_block').hasClass('block_information') && selectedGod === null){
 					return;
 				}
 				$('#items_magic tbody tr:eq('+rowSelectIndex+')').click();
