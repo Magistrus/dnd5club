@@ -18,8 +18,11 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="row_name">' + row.name;
+					var result ='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
+					if (row.prerequisite !== 'Нет'){
+						result+='<div class="secondary_name s2">' + row.prerequisite + '</div></div>';
+					}
 					return result;
 				}
 				return data;

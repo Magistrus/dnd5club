@@ -150,6 +150,9 @@ function setActiveClass(element, englishName) {
 	}
 	else {
 		$('#class_options').addClass('hide_block');
+		$('#class_options').removeClass('active');
+		$('#class_traits').addClass('active');
+		localStorage.setItem('class_info', 'traits');
 	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
@@ -196,6 +199,7 @@ function setActiveClass(element, englishName) {
 			$('#info_wrapper').removeClass('description');
 			$('#info_wrapper').removeClass('spells');
 			$('#info_wrapper').removeClass('images');
+			$('#info_wrapper').removeClass('options');
 			$('#info_wrapper').addClass('traits');
 		});
 	}
