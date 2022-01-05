@@ -145,10 +145,6 @@
 				<span th:utext="${action.description}" />
 			</div>
 		</div>
-	</div>
-	<th:block th:object="${creature}" th:fragment="description">
-		<h4 class="header_separator" th:if="*{description}">Описание</h4>
-		<div th:if="*{description}" th:utext="*{description}"></div>
 		<th:block th:if="*{lair}">
 			<h4 class="header_separator">Логово</h4>
 			<div th:if="*{lair.description}" th:utext="*{lair.description}"></div>
@@ -161,6 +157,9 @@
 		<p>
 			<span th:each="habitat, iter : *{habitates}" th:text="${iter.last ? habitat.name : habitat.name + ', '}"></span>
 		</p>
+	</div>
+	<th:block th:object="${creature}" th:fragment="description">
+		<div th:if="*{description}" th:utext="*{description}"></div>
 		<div th:each="race : *{races}">
 			<h4 class="header_separator" th:text="${race.name}"></h4>
 			<div th:utext="${race.description}"></div>
