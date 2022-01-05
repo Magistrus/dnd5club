@@ -31,7 +31,7 @@ $(document).ready(function() {
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip" title="Вербальный">' + row.verbal + '</span><span class="tip" title="Соматический">' + row.somatic + '</span><span class="tip" title="Материальный">' + row.material + '</span></div></div></div>';
+					result+='<div class="secondary_name s2"><span class="tip excretion" title="Вербальный">' + row.verbal + '</span><span class="tip excretion" title="Соматический">' + row.somatic + '</span><span class="tip excretion" title="Материальный">' + row.material + '</span></div></div></div>';
 					return result;
 				}
 				return data;
