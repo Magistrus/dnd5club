@@ -305,6 +305,24 @@ $('#concentration_clear_btn').on('click', function() {
 	$('#spells').DataTable().column(8).search("", true, false, false).draw();
 	setFiltered();
 });
+$('.damage_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="damage"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(5).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#damage_clear_btn').removeClass('hide_block');
+	} else {
+		$('#damage_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#damage_clear_btn').on('click', function() {
+	$('#damage_clear_btn').addClass('hide_block');
+	$('.damage_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(5).search("", true, false, false).draw();
+	setFiltered();
+});
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
