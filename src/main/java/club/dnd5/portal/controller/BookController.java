@@ -17,7 +17,8 @@ public class BookController {
 	private BookDatatableRepository repository;
 
 	@GetMapping("/books")
-	public String getRules() {
+	public String getRules(Model model) {
+		model.addAttribute("metaTitle", "Источники");
 		return "books";
 	}
 	

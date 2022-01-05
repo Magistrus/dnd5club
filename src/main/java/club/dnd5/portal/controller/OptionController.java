@@ -24,6 +24,7 @@ public class OptionController {
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
+		model.addAttribute("metaTitle", "Опции классов");
 		return "options";
 	}
 	

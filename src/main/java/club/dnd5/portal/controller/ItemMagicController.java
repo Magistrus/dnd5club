@@ -23,6 +23,7 @@ public class ItemMagicController {
 	public String getMagicItems(Model model) {
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
+		model.addAttribute("metaTitle", "Магические предметы");
 		return "items_magic";
 	}
 	

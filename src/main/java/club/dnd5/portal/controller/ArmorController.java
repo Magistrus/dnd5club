@@ -18,7 +18,8 @@ public class ArmorController {
 	private ArmorDatatableRepository repository;
 
 	@GetMapping("/armors")
-	public String getArmors() {
+	public String getArmors(Model model) {
+		model.addAttribute("metaTitle", "Доспехи");
 		return "armors";
 	}
 	

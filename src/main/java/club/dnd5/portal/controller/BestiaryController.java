@@ -35,6 +35,7 @@ public class BestiaryController {
 		model.addAttribute("types", CreatureType.getFilterTypes());
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
+		model.addAttribute("metaTitle", "Бестиарий");
 		return "bestiary";
 	}
 	

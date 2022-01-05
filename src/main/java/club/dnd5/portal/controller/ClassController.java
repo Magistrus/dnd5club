@@ -43,6 +43,7 @@ public class ClassController {
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
+		model.addAttribute("metaTitle", "Классы");
 		return "classes";
 	}
 	

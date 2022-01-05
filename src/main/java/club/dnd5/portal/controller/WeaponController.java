@@ -26,6 +26,7 @@ public class WeaponController {
 	public String getWeapons(Model model) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
+		model.addAttribute("metaTitle", "Оружие");
 		return "weapons";
 	}
 	
