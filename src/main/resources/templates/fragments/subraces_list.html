@@ -3,7 +3,7 @@
 <body>
 	<div class="sidebar__inner" th:fragment="sub_menu">
 		<ul>
-			<li class="avatar"><img id="race_img" th:src="${images[0]}" alt="Title races"></li>
+			<li class="avatar"><div class="image-container"><a id ="race_image" th:each="image, iter : ${images}" th:href="${image}"><img th:if="${iter.first}" id="race_img" th:src="${image}"></a></div></li>
 			<li th:unless="${subraces.empty}" class="title_sub_menu">
 				<h5 id="title_sub_menu">Разновидности</h5>
 			</li>

@@ -28,6 +28,7 @@ public class BackgroundController {
 	@GetMapping("/backgrounds")
 	public String getBackgrounds(Model model) {
 		model.addAttribute("skills", SkillType.values());
+		model.addAttribute("metaTitle", "Предыстории");
 		return "backgrounds";
 	}
 	

@@ -30,6 +30,7 @@ public class SpellController {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
+		model.addAttribute("metaTitle", "Заклинания");
 		return "spells";
 	}
 	

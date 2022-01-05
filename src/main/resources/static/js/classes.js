@@ -46,6 +46,13 @@ $('#class_spells').on('click', function() {
 	localStorage.setItem('class_info', 'spells');
 	loadClassSpells();
 });
+$('#class_options').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+	localStorage.setItem('class_info', 'options');
+	loadClassOptions();
+});
 function loadDescription(){
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active');
@@ -127,7 +134,7 @@ function setActiveClass(element, englishName) {
 	}
 	if(element.classList.contains('option')){
 		$('#class_options').removeClass('hide_block');
-		$('#class_options').text(element.querySelector('#option_name').textContent);
+		$('#button_option_name').text(element.querySelector('#option_name').textContent);
 	}
 	else {
 		$('#class_options').addClass('hide_block');

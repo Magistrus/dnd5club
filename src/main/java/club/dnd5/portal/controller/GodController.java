@@ -29,6 +29,7 @@ public class GodController {
 		model.addAttribute("domains", Domain.values());
 		model.addAttribute("ranks", Rank.values());
 		model.addAttribute("pantheons", pantheonRepo.findAll());
+		model.addAttribute("metaTitle", "Боги");
 		return "gods";
 	}
 	

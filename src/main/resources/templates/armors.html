@@ -104,7 +104,10 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" th:inline="javascript">
+    		selectedArmor = [[${selectedArmor}]];
+		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/armors.js}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/armors.js?v=0.2}" layout:fragment="js-script"></script>
 </html>

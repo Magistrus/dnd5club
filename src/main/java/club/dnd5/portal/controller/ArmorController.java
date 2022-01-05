@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.item.ArmorDto;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 
 
@@ -17,13 +18,14 @@ public class ArmorController {
 	private ArmorDatatableRepository repository;
 
 	@GetMapping("/armors")
-	public String getArmors() {
+	public String getArmors(Model model) {
+		model.addAttribute("metaTitle", "Доспехи");
 		return "armors";
 	}
 	
 	@GetMapping("/armors/{name}")
 	public String getArmor(Model model, @PathVariable String name) {
-		model.addAttribute("selectedArmor", "name");
+		model.addAttribute("selectedArmor", new ArmorDto(repository.findByEnglishName(name.replace('_', ' '))));
 		return "armors";
 	}
 	
