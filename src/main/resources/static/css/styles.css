@@ -1572,17 +1572,22 @@ body.compact_menu #right_block {
   display: flex;
 }
 
+.table_list tr td .secondary_name.alg_left,
+.table_list tr td .secondary_name.alg_left {
+  justify-content: flex-start;
+}
+
 .table_list tr td .secondary_name.s1 {
   flex: 1 1 50%;
 }
 
 .table_list tr td .secondary_name.s2 {
-  flex: 1 1 25%;
+  flex: 1 1 30%;
   margin-left: auto;
 }
 
 .table_list tr td .secondary_name.s3 {
-  flex: 1 1 25%;
+  flex: 1 1 20%;
   margin-left: auto;
 }
 
