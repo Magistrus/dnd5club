@@ -92,6 +92,18 @@ function loadClassSpells() {
 		$('#info_wrapper').addClass('spells');
 	});
 }
+function loadClassOptions() {
+	var selectedClass = $('.card.active')[0];
+	var englishName = selectedClass.id.replace(' ', '_');
+	var url = '/classes/options/' + englishName;
+	$('#content_block').load(url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').addClass('options');
+	});
+}
 $('#btn_close').on('click', function() {
 	document.getElementById('container_card').classList.toggle('block_information');
 	$(".card").removeClass('active');
@@ -161,6 +173,11 @@ function setActiveClass(element, englishName) {
 		$('.btn_class').removeClass('active');
 		$('#class_images').addClass('active');
 		loadImages();
+		break;
+	case 'options':
+		$('.btn_class').removeClass('active');
+		$('#class_options').addClass('active');
+		loadClassOptions();
 		break;
 	default:
 		$('.btn_class').removeClass('active');
