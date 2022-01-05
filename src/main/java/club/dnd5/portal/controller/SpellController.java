@@ -43,7 +43,7 @@ public class SpellController {
 		model.addAttribute("selectedSpell", spell);
 		model.addAttribute("metaTitle", spell.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
-		model.addAttribute("metaDescription", String.format("%s %s", (spell.getLevel() == 0 ? "Заговор" : "Заклинание - " + spell.getLevel() + " уровень")));
+		model.addAttribute("metaDescription", String.format("%s", (spell.getLevel() == 0 ? "Заговор" : "Заклинание - " + spell.getLevel() + " уровень")));
 		return "spells";
 	}
 	
