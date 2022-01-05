@@ -21,8 +21,9 @@ $(document).ready(function() {
 					var result ='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					if (row.prerequisite !== 'Нет'){
-						result+='<div class="secondary_name s2">' + row.prerequisite + '</div></div>';
+						result+='<div class="secondary_name s2">' + row.prerequisite + '</div>';
 					}
+					result+='</div>';
 					return result;
 				}
 				return data;
