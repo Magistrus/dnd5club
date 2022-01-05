@@ -67,6 +67,7 @@ function loadDescription(){
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('spells');
 		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('description');
 	});
 }
@@ -78,6 +79,7 @@ function loadImages(){
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('images');
 	});
 }
@@ -89,6 +91,7 @@ function loadClassSpells() {
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('spells');
 	});
 }
@@ -101,6 +104,7 @@ function loadClassOptions() {
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('images');
 		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('options');
 	});
 }
