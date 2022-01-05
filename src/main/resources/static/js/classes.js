@@ -249,7 +249,7 @@ function setActiveArchetype(element, className, archetypeName) {
 	element.classList.add('active');
 	if (localStorage.getItem('class_info')==='description'){
 		loadDescription();
-	}else {
+	}else{
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
 		$("#content_block").load(url, function() {
 			$('#mobile_selector').change(function () {

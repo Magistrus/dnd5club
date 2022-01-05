@@ -77,26 +77,6 @@ $(document).ready(function() {
 		    	}
 		    });
 		},
-		drawCallback: function ( settings ) {
-			if(rowSelectIndex === 0 && selectedOption === null){
-				if (!$('#list_page_two_block').hasClass('block_information')){
-					return;
-				}
-				$('#options tbody tr:eq('+rowSelectIndex+')').click();
-			}
-			if (selectedOption) {
-				selectOption(selectedOption);
-				var rowIndexes = [];
-				table.rows( function ( idx, data, node ) {
-					if(data.id === selectedOption.id){
-						rowIndexes.push(idx);
-					}
-					return false;
-				});
-				rowSelectIndex = rowIndexes[0];
-			}
-			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
-		},
 		createdRow: function (row, data, dataIndex) {
 			if(data.homebrew){
 				$(row).addClass('custom_source');
