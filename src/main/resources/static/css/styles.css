@@ -831,8 +831,10 @@ input::selection {
 .card_wrapper .card .icon svg {
   width: 100%;
   height: 100%;
+}
+
+.card_wrapper .card .icon svg path {
   stroke: var(--primary);
-  stroke-width: 0 !important;
 }
 
 
