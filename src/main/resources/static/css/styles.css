@@ -881,6 +881,7 @@ input::selection {
 
 .header_block .header_row {
   display: flex;
+  align-items: center;
 }
 
 @media (max-width: 1000px) {
@@ -1136,6 +1137,29 @@ body.compact_menu #right_block {
   #right_block .header_block .header_sub_menu button .icon_action {
     margin-right: 8px;
   }
+}
+
+.btn_additional_features {
+  flex: 1 0 50px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.btn_additional_features.mr {
+  margin-right: 8px;
+}
+
+.btn_additional_features:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn_additional_features:hover svg path {
+  stroke: var(--text-btn-color);
 }
 
 #right_block .header_block .btn_exet_full_screen,
