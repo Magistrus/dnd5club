@@ -720,65 +720,74 @@ input::selection {
   background: var(--bg-secondary);
   border-radius: 16px;
   display: flex;
-  flex: 1 0 calc(25% - 58px);
-  max-width: calc(25% - 58px);
+  flex: 1 0 calc(20% - 50px);
+  max-width: calc(20% - 50px);
   margin-left: 8px;
   margin-right: 8px;
   margin-bottom: 16px;
   flex-direction: row;
-  padding: 16px 24px 16px 16px;
+  padding: 8px 16px 8px 16px;
   transition: background 0.3s ease;
   border:1px solid var(--bg-secondary);
+  align-items: center;
 }
 
 .block_information .card_wrapper .card {
-  flex: 1 0 calc(50% - 58px);
-  max-width: calc(50% - 58px);
+  flex: 1 0 calc(50% - 50px);
+  max-width: calc(50% - 50px);
 }
 
 @media (max-width: 1800px) {
   .compact_menu .block_information .card_wrapper .card {
-    flex: 1 0 calc(50% - 58px);
-    max-width: calc(50% - 58px);
+    flex: 1 0 calc(50% - 50px);
+    max-width: calc(50% - 50px);
   }
 
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(100% - 58px);
-    max-width: calc(100% - 58px);
+    flex: 1 0 calc(50% - 50px);
+    max-width: calc(50% - 50px);
   }
 }
 
 @media (max-width: 1500px) {
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(100% - 58px);
-    max-width: calc(100% - 58px);
+    flex: 1 0 calc(100% - 50px);
+    max-width: calc(100% - 50px);
   }
 }
 
 @media (max-width: 1250px) {
   .card_wrapper .card {
-    flex: 1 0 calc(33% - 58px);
-    max-width: calc(33% - 58px);
+    flex: 1 0 calc(33% - 50px);
+    max-width: calc(33% - 50px);
   }
 }
 
 @media (max-width: 1000px) {
   .card_wrapper .card {
-    flex: 1 0 calc(50% - 58px);
-    max-width: calc(50% - 58px);
+    flex: 1 0 calc(33% - 50px);
+    max-width: calc(33% - 50px);
   }
 
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(50% - 58px);
-    max-width: calc(50% - 58px);
+    flex: 1 0 calc(33% - 50px);
+    max-width: calc(33% - 50px);
   }
 }
 
 @media (max-width: 700px) {
   .card_wrapper .card,
   .block_information .card_wrapper .card {
-    flex: 1 0 calc(100% - 58px);
-    max-width: calc(100% - 58px);
+    flex: 1 0 calc(50% - 50px);
+    max-width: calc(50% - 50px);
+  }
+}
+
+@media (max-width: 500px) {
+  .card_wrapper .card,
+  .block_information .card_wrapper .card {
+    flex: 1 0 calc(100% - 50px);
+    max-width: calc(100% - 50px);
   }
 }
 
@@ -810,15 +819,20 @@ input::selection {
 .card_wrapper .card .infimation p.additionally {
   margin-top: auto;
   margin-bottom: 0px;
+  font-size: 13px;
+  color: var(--text-g-color);
 }
 
 .card_wrapper .card .icon {
-  display: block;
-  width: 83px;
-  height: 83px;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-width: 83px;
+  height: 60px;
+  min-width: 60px;
+}
+
+.card_wrapper .card .icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--primary);
+  stroke-width: 0 !important;
 }
 
 
@@ -2614,10 +2628,6 @@ button {
 
 
 /******** Иконки ********/
-.icon_all_classes {
-  background-image: var(--all-classes);
-}
-
 .icon_bard {
   background-image: var(--bard);
 }
@@ -2672,166 +2682,6 @@ button {
 
 .icon_blood_hunter {
   background-image: var(--blood_hunter);
-}
-
-.icon_bard_big {
-  background-image: var(--bard-big);
-}
-
-.icon_barbarian_big {
-  background-image: var(--barbarian-big);
-}
-
-.icon_fighter_big {
-  background-image: var(--fighter-big);
-}
-
-.icon_wizard_big {
-  background-image: var(--wizard-big);
-}
-
-.icon_druid_big {
-  background-image: var(--druid-big);
-}
-
-.icon_cleric_big {
-  background-image: var(--cleric-big);
-}
-
-.icon_artificer_big {
-  background-image: var(--artificer-big);
-}
-
-.icon_warlock_big {
-  background-image: var(--warlock-big);
-}
-
-.icon_monk_big {
-  background-image: var(--monk-big);
-}
-
-.icon_paladin_big {
-  background-image: var(--paladin-big);
-}
-
-.icon_rogue_big {
-  background-image: var(--rogue-big);
-}
-
-.icon_ranger_big {
-  background-image: var(--ranger-big);
-}
-
-.icon_sorcerer_big {
-  background-image: var(--sorcerer-big);
-}
-
-.icon_blood_hunter_big {
-  background-image: var(--blood_hunter-big);
-}
-
-.icon_elf_big {
-  background-image: var(--icon-elf-big);
-}
-
-.icon_half-elf_big {
-  background-image: var(--icon-half-elf-big);
-}
-
-.icon_orc_big {
-  background-image: var(--icon-orc-big);
-}
-
-.icon_half-orc_big {
-  background-image: var(--icon-half-orc-big);
-}
-
-.icon_dwarf_big {
-  background-image: var(--icon-dwarf-big);
-}
-
-.icon_dragonborn_big {
-  background-image: var(--icon-dragonborn-big);
-}
-
-.icon_gnome_big {
-  background-image: var(--icon-gnome-big);
-}
-
-.icon_goliath_big {
-  background-image: var(--icon-goliath-big);
-}
-
-.icon_halfling_big {
-  background-image: var(--icon-halfling-big);
-}
-
-.icon_human_big {
-  background-image: var(--icon-human-big);
-}
-
-.icon_kenku_big {
-  background-image: var(--icon-kenku-big);
-}
-
-.icon_kobold_big {
-  background-image: var(--icon-kobold-big);
-}
-
-.icon_tabaxi_big {
-  background-image: var(--icon-tabaxi-big);
-}
-
-.icon_tiefling_big {
-  background-image: var(--icon-tiefling-big);
-}
-
-.icon_aarakocra_big {
-  background-image: var(--icon-aarakocra-big);
-}
-
-.icon_aasimar_big {
-  background-image: var(--icon-aasimar-big);
-}
-
-.icon_vedalken_big {
-  background-image: var(--icon-vedalken-big);
-}
-
-.icon_goblin_big {
-  background-image: var(--icon-goblin-big);
-}
-
-.icon_changeling_big {
-  background-image: var(--icon-changeling-big);
-}
-
-.icon_leonin_big {
-  background-image: var(--icon-leonin-big);
-}
-
-.icon_loxodon_big {
-  background-image: var(--icon-loxodon-big);
-}
-
-.icon_gith_big {
-  background-image: var(--icon-gith-big);
-}
-
-.icon_verdan_big {
-  background-image: var(--icon-verdan-big);
-}
-
-.icon_bearfolk_big {
-  background-image: var(--icon-bearfolk-big);
-}
-
-.icon_simic_hybrid_big {
-  background-image: var(--icon-simic-hybrid-big);
-}
-
-.icon_bestiary_big {
-  background-image: var(--icon-bestiary-big);
 }
 
 .races .info_wrapper .content_block .sub_menu_list {

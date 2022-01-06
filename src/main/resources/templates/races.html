@@ -21,7 +21,7 @@
 								></span><span class="hide_block" th:text="${race.abilityBonuses}"></span>
 							</p>
 						</div>
-						<div class="icon" th:classappend="|icon_${race.englishName.toLowerCase().replace(' ', '_')}_big|"></div>
+						<i class="icon" th:utext="${race.icon}"></i>
 					</div>
 				</div>
 			</div>
