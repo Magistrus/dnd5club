@@ -21,7 +21,7 @@
 								></span><span th:text="| / к${class.diceHp}|"></span>
 							</p>
 						</div>
-						<div class="icon" th:classappend="|icon_${class.englishName.toLowerCase().replace(' ', '_')}_big|"></div>
+						<div class="icon" th:utext="${class.icon}"></div>
 						<span id="option_name" class="hide_block" th:if="${class.optionType}" th:text="${class.optionType.displayName}"></span>
 					</div>
 					<h4 class="separator_card tip" title="Напарники - это существа из бестиярия, которые могут расти по уровням. <br>Мастер может разрешить играть вам за напарника.">Напарники</h4>
