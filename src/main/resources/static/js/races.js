@@ -94,11 +94,23 @@ function setActiveRace(element, englishName) {
 	}
 	else {
 		var url = '/races/fragment/' + englishName;
-		$("#content_block").load(url);
+		$("#content_block").load(url, function() {
+			$('#mobile_selector').change(function () {
+				setActiveSubrace(element, englishName, $('#mobile_selector').val());
+			});
+		});
 	}
 	localStorage.setItem('selected_race', element.id)
 	var url = '/races/' + englishName + '/subraces/list';
 	$('.right_block_sub_menu').load(url, function() {
+		$('.image-container').magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			gallery:{
+				enabled:true
+			}
+		});
+		const simpleBar = new SimpleBar(document.getElementById('race_sub_menu_list'));
 		var elements = $('.close_archetypes');
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].addEventListener('click', function(event) {
@@ -143,7 +155,32 @@ function setActiveSubrace(element, raceName, archetypeName) {
 		loadDescription();
 	}else {
 		var url = '/races/' + raceName + '/subrace/' + archetypeName;
-		$("#content_block").load(url);
+		$("#content_block").load(url, function() {
+			$('#mobile_selector').change(function () {
+				setActiveSubrace(element, raceName, $('#mobile_selector').val());
+			});
+		});
 	}
 	history.pushState('data to be passed', raceName, '/races/' + raceName + '/' + archetypeName);
+}
+function getImage(id){
+	$.ajax({
+        type: 'GET',
+        url: '/images/RACE/' + id,
+        data: 'id=testdata',
+        dataType: 'json',
+        cache: false,
+        success: function(result) {
+        	$('.image-container').empty();
+        	result.forEach((element, index) => {
+        		let alement;
+        		if (index==0){
+        			aelement = '<a id="race_img" href="'+element+'"><img src="'+ element+'"/></a>';
+        		} else {
+        			aelement = '<a href="'+element+'"></a>';
+        		}
+        		$('.image-container').append(aelement);
+        	});
+        },
+    });
 }

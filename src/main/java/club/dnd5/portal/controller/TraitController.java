@@ -23,6 +23,7 @@ public class TraitController {
 		model.addAttribute("abilities", AbilityType.getBaseAbility());
 		model.addAttribute("skills", SkillType.values());
 		model.addAttribute("prerequisites", repository.findAllPrerequisite());
+		model.addAttribute("metaTitle", "Черты");
 		return "traits";
 	}
 	

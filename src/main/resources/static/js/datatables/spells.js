@@ -11,7 +11,8 @@ $(document).ready(function() {
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{
@@ -30,7 +31,7 @@ $(document).ready(function() {
 					result+='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip" title="Вербальный">' + row.verbal + '</span><span class="tip" title="Соматический">' + row.somatic + '</span><span class="tip" title="Материальный">' + row.material + '</span></div></div></div>';
+					result+='<div class="secondary_name s2"><span class="tip excretion" title="Вербальный">' + row.verbal + '</span><span class="tip excretion" title="Соматический">' + row.somatic + '</span><span class="tip excretion" title="Материальный">' + row.material + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -302,6 +303,24 @@ $('#concentration_clear_btn').on('click', function() {
 	$('#concentration_clear_btn').addClass('hide_block');
 	$('.concentration_checkbox').prop('checked', false);
 	$('#spells').DataTable().column(8).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.damage_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="damage"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(5).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#damage_clear_btn').removeClass('hide_block');
+	} else {
+		$('#damage_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#damage_clear_btn').on('click', function() {
+	$('#damage_clear_btn').addClass('hide_block');
+	$('.damage_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(5).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){

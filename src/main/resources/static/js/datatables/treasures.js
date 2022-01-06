@@ -10,7 +10,8 @@ $(document).ready(function() {
         scrollCollapse: true,
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{
@@ -20,7 +21,7 @@ $(document).ready(function() {
 					var result ='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
 					result+='<div class="content_description"><div class="secondary_name"><span class="tip" title="' + row.book + '">' + row.bookshort + '</span></div>';
-					result+='<div class="secondary_name s2"><span class="tip" title="Стоимость">' + row.cost + ' зм.</span></div></div></div>';
+					result+='<div class="secondary_name s2"><span class="tip excretion" title="Стоимость">' + row.cost + ' зм.</span></div></div></div>';
 					return result;
 				}
 				return data;

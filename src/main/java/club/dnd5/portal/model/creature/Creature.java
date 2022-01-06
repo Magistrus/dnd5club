@@ -278,6 +278,7 @@ public class Creature {
 
 	public String getAllSpeed() {
 		return String.format("%d фт.", speed) + (flySpeed == null ? "" : String.format(", летая %d фт.", flySpeed))
+				+ (hover != null && hover == 1 ? " (парит)" : "")
 				+ (swimmingSpped == null ? "" : String.format(", плавая %d фт.", swimmingSpped))
 				+ (diggingSpeed == null ? "" : String.format(", копая %d фт.", diggingSpeed))
 				+ (climbingSpeed == null ? "" : String.format(", лазая %d фт.", climbingSpeed));

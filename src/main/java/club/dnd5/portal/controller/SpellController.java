@@ -30,6 +30,7 @@ public class SpellController {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
+		model.addAttribute("metaTitle", "Заклинания");
 		return "spells";
 	}
 	
@@ -38,7 +39,11 @@ public class SpellController {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
-		model.addAttribute("selectedSpell", new SpellDto(repository.findByEnglishName(name.replace("_", " "))));
+		SpellDto spell = new SpellDto(repository.findByEnglishName(name.replace("_", " ")));
+		model.addAttribute("selectedSpell", spell);
+		model.addAttribute("metaTitle", spell.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
+		model.addAttribute("metaDescription", String.format("%s", (spell.getLevel() == 0 ? "Заговор" : "Заклинание - " + spell.getLevel() + " уровень")));
 		return "spells";
 	}
 	

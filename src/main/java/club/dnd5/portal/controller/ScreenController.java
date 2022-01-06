@@ -24,6 +24,7 @@ public class ScreenController {
 	@GetMapping("/screens")
 	public String getScreens(Model model) {
 		model.addAttribute("screens", repository.findAllByParentIsNull());
+		model.addAttribute("metaTitle", "Ширма");
 		return "screens";
 	}
 	

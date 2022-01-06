@@ -20,6 +20,7 @@ public class ItemController {
 	@GetMapping("/items")
 	public String getItems(Model model) {
 		model.addAttribute("categories", EquipmentType.values());
+		model.addAttribute("metaTitle", "Снаряжение");
 		return "items";
 	}
 	

@@ -4,26 +4,25 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<table id="spells" class="table_list" th:fragment="spellTable">
+		<table id="options" class="table_list" th:fragment="optionTable">
 			<thead style="display: none">
 				<tr>
-					<th>Уровень</th>
-					<th>Школа</th>
 					<th>Название</th>
-					<th>EnglishName</th>
-					<th>Тип урона</th>
-					<th>Ритуал</th>
-					<th>Концентрация</th>
+					<th>Название английское</th>
+					<th>Категория</th>
+					<th>Требование</th>
+					<th>Требование к уровню</th>
 				</tr>
 			</thead>
 		</table>
 		<script th:src="@{/resources/js/datatables/jquery.dataTables.min.js}"></script>
-		<script th:src="@{/resources/js/datatables/searchpanes/dataTables.searchPanes.min.js}"></script>
 		<script th:src="@{/webjars/datatables-select/1.3.3/js/dataTables.select.min.js}"></script>
 		<script th:src="@{/resources/js/datatables/pageLoader/dataTables.pageLoadMore.min.js}"></script>
 		<script th:src="@{/resources/js/datatables/jquery.spring-friendly.js}"></script>
-		<script>var classId = [[${heroClass.id}]]</script>
-		<script th:src="@{/resources/js/datatables/class_spells.js?v=2}" layout:fragment="js-script"></script>
+		<script>
+			var optionType = '[[${heroClass.optionType.name()}]]'
+		</script>
+		<script th:src="@{/resources/js/datatables/class_options.js?v=1.3}" layout:fragment="js-script"></script>
 	</th:block>
 </body>
 </html>

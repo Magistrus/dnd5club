@@ -56,7 +56,7 @@ public class Option {
 		WILD_SHAPE("Формы Дикого Облика: Друид", "Druid", false), 
 		ARCANE_SHOT("Магические выстрелы: Воин Мистический Лучник", "Fighter", "Arcane_Archer", false),
 		METAMAGIC("Метамагия: Чародей", "Sorcerer", false),
-		ELDRITCH_INVOCATION("Таинственные воззвания: Колдун","Warlock", false),
+		ELDRITCH_INVOCATION("Воззвания: Колдун","Warlock", false),
 		BONE("Договоры: Колдун", "Warlock", false),
 		ELEMENTAL_DISCIPLINE("Стихийные практики: Монах Пути четырех стихий", "Monk", "Four_Elements", false),
 		ARTIFICER_INFUSION("Инфузии: Изобретатель","Artificer", false),

@@ -10,7 +10,8 @@ $(document).ready(function() {
         scrollCollapse: true,
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{
@@ -56,8 +57,6 @@ $(document).ready(function() {
 	        }
 		},
 		initComplete: function(settings, json) {
-		    $('#rules tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -69,7 +68,10 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#rules tbody tr:eq(0)').click();
+			if (!$('#list_page_two_block').hasClass('block_information') && selectedRule === null){
+				return;
+			}
+			$('#rules tbody tr:eq('+rowSelectIndex+')').click()
 		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
@@ -82,8 +84,8 @@ $(document).ready(function() {
 		var table = $('#rules').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
-		document.getElementById('rule_name').innerHTML = data.name;
-		document.getElementById('type').innerHTML = data.type;
+		$('#rule_name').text(data.name);
+		$('#type').text(data.type);
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
 		document.getElementById('source').innerHTML = source;

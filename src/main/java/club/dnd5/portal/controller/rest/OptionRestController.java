@@ -36,11 +36,15 @@ public class OptionRestController {
 
 		List<OptionType> optionTypes = Arrays.stream(input.getColumns().get(2).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty()).map(OptionType::valueOf).collect(Collectors.toList()); 
+		String optionType = queryParameters.get("optionType");
+		if (optionType != null) {
+			optionTypes.add(OptionType.valueOf(optionType));
+		}
 		if (!optionTypes.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> {
-				Join<OptionType, Option> optionType = root.join("optionTypes", JoinType.LEFT);
+				Join<OptionType, Option> join = root.join("optionTypes", JoinType.LEFT);
 				query.distinct(true);
-				return optionType.in(optionTypes);
+				return join.in(optionTypes);
 			});
 		}
 		List<String> prerequisites  = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))

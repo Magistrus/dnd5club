@@ -7,4 +7,5 @@ import club.dnd5.portal.model.items.Armor;
 
 @Repository
 public interface ArmorDatatableRepository extends DataTablesRepository<Armor, Integer> {
+	Armor findByEnglishName(String name);
 }

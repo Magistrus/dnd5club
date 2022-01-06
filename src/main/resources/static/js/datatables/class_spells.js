@@ -10,19 +10,9 @@ $(document).ready(function() {
 		order : [[0, 'asc'], [2, 'asc']],
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : 'level',
@@ -75,16 +65,6 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 		    loadingRecords: "Загрузка...",
-	        searchPanes: {
-	            title: {
-	                 _: 'Выбрано фильтров - %d',
-	                 0: 'Фильтры не выбраны',
-	                 1: 'Один фильтр выбран'
-	            },
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('class_content_block').offsetHeight - 300;
@@ -96,8 +76,6 @@ $(document).ready(function() {
 	    	      scrollEventHeight +=750;
 	    		}
 	    	});
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		createdRow: function (row, data, dataIndex) {
 			if(data.homebrew){

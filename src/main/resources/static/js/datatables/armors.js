@@ -10,19 +10,9 @@ $(document).ready(function() {
         scrollCollapse: true,
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
-        searchPanes: {
-            initCollapsed: true,
-            viewCount: false,
-            dtOpts: {
-                select: {
-                    //style: 'multi'
-                },
-				searching: false,
-            },
-			orderable: false
-        },
 		columns : [
 		{
 			data : "type",
@@ -68,15 +58,8 @@ $(document).ready(function() {
 			infoEmpty : "Нет доступных записей",
 			infoFiltered : "из _MAX_",
 			loadingRecords: "Загрузка...",
-	        searchPanes: {
-                collapseMessage: 'Свернуть все',
-                showMessage: 'Развернуть все',
-                clearMessage: 'Сбросить фильтры'
-	        }
 		},
 		initComplete: function(settings, json) {
-		    $('#armors tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -86,11 +69,12 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
-		    $('#armors tbody tr:eq(0)').click();
+			if (!$('#list_page_two_block').hasClass('block_information') && selectedArmor === null){
+				return;
+			}
+			$('#armors tbody tr:eq('+rowSelectIndex+')').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
@@ -105,9 +89,9 @@ $(document).ready(function() {
 		if (data === undefined) {
 			return;
 		}
-		document.getElementById('armor_name').innerHTML = data.name;
-		document.getElementById('ac').innerHTML = data.acFull;
-		document.getElementById('type').innerHTML = data.type;
+		$('#armor_name').text(data.name);
+		$('#ac').text(data.acFull);
+		$('#type').text(data.type);
 		document.getElementById('cost').innerHTML = data.cost;
 		document.getElementById('weight').innerHTML = data.weight;
 		document.getElementById('requirements').innerHTML = data.requirements;

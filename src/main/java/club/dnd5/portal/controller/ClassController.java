@@ -43,6 +43,7 @@ public class ClassController {
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
+		model.addAttribute("metaTitle", "Классы");
 		return "classes";
 	}
 	
@@ -50,7 +51,10 @@ public class ClassController {
 	public String getClass(Model model, @PathVariable String name) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
+		HeroClass heroClasss = classRepository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedClass", name);
+		model.addAttribute("metaTitle", heroClasss.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		return "classes";
 	}
 	
@@ -59,6 +63,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAll());
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
+		model.addAttribute("metaTitle", archetype);
 		return "classes";
 	}
 	
@@ -102,7 +107,14 @@ public class ClassController {
 		model.addAttribute("heroClass", heroClass);
 		return "fragments/class_spell :: view";
 	}
-	
+
+	@GetMapping("/classes/options/{englishName}")
+	public String getClassOption(Model model, Device device, @PathVariable String englishName) {
+		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		model.addAttribute("heroClass", heroClass);
+		return "fragments/class_options :: view";
+	}
+
 	@GetMapping("/classes/{englishName}/architype/name")
 	@ResponseBody
 	public String getArchitypeName(@PathVariable String englishName) {

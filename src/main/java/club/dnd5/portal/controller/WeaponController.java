@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.item.WeaponDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
@@ -25,6 +26,7 @@ public class WeaponController {
 	public String getWeapons(Model model) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
+		model.addAttribute("metaTitle", "Оружие");
 		return "weapons";
 	}
 	
@@ -32,7 +34,7 @@ public class WeaponController {
 	public String getWeapon(Model model, @PathVariable String name) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
-		model.addAttribute("selectedWeapon", "name");
+		model.addAttribute("selectedWeapon", new WeaponDto(repository.findByEnglishName(name.replace('_', ' '))));
 		return "weapons";
 	}
 	

@@ -46,6 +46,13 @@ $('#class_spells').on('click', function() {
 	localStorage.setItem('class_info', 'spells');
 	loadClassSpells();
 });
+$('#class_options').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+	localStorage.setItem('class_info', 'options');
+	loadClassOptions();
+});
 function loadDescription(){
 	var selectedClass = $('.card.active')[0];
 	var selectedArchetype = $('li.sub_menu.active');
@@ -60,6 +67,7 @@ function loadDescription(){
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('spells');
 		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('description');
 	});
 }
@@ -71,6 +79,7 @@ function loadImages(){
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('images');
 	});
 }
@@ -82,7 +91,21 @@ function loadClassSpells() {
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('spells');
+	});
+}
+function loadClassOptions() {
+	var selectedClass = $('.card.active')[0];
+	var englishName = selectedClass.id.replace(' ', '_');
+	var url = '/classes/options/' + englishName;
+	$('#content_block').load(url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('options');
+		$('#info_wrapper').addClass('options');
 	});
 }
 $('#btn_close').on('click', function() {
@@ -125,8 +148,19 @@ function setActiveClass(element, englishName) {
 		$('#class_traits').addClass('active');
 		localStorage.setItem('class_info', 'traits');
 	}
+	if(element.classList.contains('option')){
+		$('#class_options').removeClass('hide_block');
+		$('#button_option_name').text(element.querySelector('#option_name').textContent);
+	}
+	else {
+		$('#class_options').addClass('hide_block');
+		$('#class_options').removeClass('active');
+		$('#class_traits').addClass('active');
+		localStorage.setItem('class_info', 'traits');
+	}
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
+	$("#meta_url").attr("content", "https://dnd5.club/classes/" + englishName);
 	document.title = className;
 	history.pushState('data to be passed', className, '/classes/' + englishName);
 	$(".card").removeClass('active');
@@ -147,6 +181,11 @@ function setActiveClass(element, englishName) {
 		$('#class_images').addClass('active');
 		loadImages();
 		break;
+	case 'options':
+		$('.btn_class').removeClass('active');
+		$('#class_options').addClass('active');
+		loadClassOptions();
+		break;
 	default:
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
@@ -164,6 +203,7 @@ function setActiveClass(element, englishName) {
 			$('#info_wrapper').removeClass('description');
 			$('#info_wrapper').removeClass('spells');
 			$('#info_wrapper').removeClass('images');
+			$('#info_wrapper').removeClass('options');
 			$('#info_wrapper').addClass('traits');
 		});
 	}
@@ -213,7 +253,7 @@ function setActiveArchetype(element, className, archetypeName) {
 	element.classList.add('active');
 	if (localStorage.getItem('class_info')==='description'){
 		loadDescription();
-	}else {
+	}else{
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
 		$("#content_block").load(url, function() {
 			$('#mobile_selector').change(function () {

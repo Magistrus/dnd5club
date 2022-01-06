@@ -9,7 +9,8 @@ $(document).ready(function() {
 		iDisplayLength : 80,
 		select: true,
 		select: {
-			style: 'single'
+			style: 'single',
+			toggleable: false
 		},
 		columns : [
 		{
@@ -22,7 +23,9 @@ $(document).ready(function() {
 					var result ='<div class="info_block">' + row.damage + '</div>';
 					result +='<div class="content"><div class="row_name">' + row.name;
 					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="secondary_name">' + row.type + '</div></div>';
+					result+='<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
+					result+='<div class="secondary_name s2 alg_left"><span class="tip dice_text" title="Урон">' + row.damage + '</span> &nbsp; <span class="tip" title="Тип урона">' + row.damageType +'</span></div>';
+					result+='<div class="secondary_name s3"><span class="tip excretion" title="Стоимость">' + row.cost + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -47,7 +50,7 @@ $(document).ready(function() {
 		],
 		columnDefs : [
 			{
-				"targets": [ 0, 2, 3, 4 ],
+				"targets": [ 0, 2, 3, 4, 5 ],
 				"visible": false
 			},
 		],
@@ -67,8 +70,6 @@ $(document).ready(function() {
 			loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
-		    $('#weapons tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -80,7 +81,10 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#weapons tbody tr:eq(0)').click();
+			if (!$('#list_page_two_block').hasClass('block_information') && selectedWeapon === null){
+				return;
+			}
+			$('#weapons tbody tr:eq('+rowSelectIndex+')').click();
 		    table.row(':eq(0)', { page: 'current' }).select();
 		},
 		createdRow: function (row, data, dataIndex) {

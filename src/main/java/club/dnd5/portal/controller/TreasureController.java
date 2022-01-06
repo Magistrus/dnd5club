@@ -20,6 +20,7 @@ public class TreasureController {
 	@GetMapping("/treasures")
 	public String getItems(Model model) {
 		model.addAttribute("categories", TreasureType.values());
+		model.addAttribute("metaTitle", "Драгоценности и безделушки");
 		return "treasures";
 	}
 	

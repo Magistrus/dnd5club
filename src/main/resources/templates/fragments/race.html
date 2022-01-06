@@ -5,8 +5,26 @@
 </head>
 <body>
 	<th:block th:object="${race}" th:fragment="view">
+		<div th:unless="*{subRaces.empty}" class="classes_mobile_selector">
+			<select id="mobile_selector">
+				<option>---подрасы----</option>
+				<option th:each="subrace : *{subRaces}" th:value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
+					th:selected="${subrace.englishName eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
+					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+				></option>
+			</select>
+		</div>
+		<div th:unless="*{parent eq null}" class="classes_mobile_selector">
+			<select id="mobile_selector">
+				<option>---подрасы----</option>
+				<option th:each="subrace : *{parent.subRaces}" th:value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
+					th:selected="${subrace.englishName.replace(' ', '_') eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
+					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+				></option>
+			</select>
+		</div>
 		<div class="scores">
-				<div class="score">
+			<div class="score">
 				<h4>
 					<strong class="tip" title="Тип существа">ТИП</strong>
 				</h4>
@@ -37,11 +55,11 @@
 				<p th:text="|${race.darkvision} фт.|"></p>
 			</div>
 		</div>
-		<th:block th:each ="feature : ${features}">
+		<th:block th:each="feature : ${features}">
 			<h4 class="header_separator" th:utext="${feature.name}"></h4>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
-				<th:block th:each ="feature : ${subFeatures}">
+		<th:block th:each="feature : ${subFeatures}">
 			<h4 class="header_separator archetype_feet" th:utext="${feature.name}"></h4>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
