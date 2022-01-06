@@ -37,7 +37,7 @@ public class OptionRestController {
 		List<OptionType> optionTypes = Arrays.stream(input.getColumns().get(2).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty()).map(OptionType::valueOf).collect(Collectors.toList()); 
 		String optionType = queryParameters.get("optionType");
-		if (optionTypes != null) {
+		if (optionType != null) {
 			optionTypes.add(OptionType.valueOf(optionType));
 		}
 		if (!optionTypes.isEmpty()) {
