@@ -2909,6 +2909,7 @@ button {
   
   .scores {
     justify-content: space-between;
+    margin-top: 48px;
   }
 
 
@@ -2959,6 +2960,7 @@ button {
     width: 100%;
   }
 
+  #right_block.races .content_block .classes_mobile_selector,
   #right_block.classes .content_block .classes_mobile_selector {
     width: calc(100vw - 0% - 0px);
   }
