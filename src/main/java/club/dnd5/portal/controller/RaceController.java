@@ -79,6 +79,7 @@ public class RaceController {
 				.filter(f -> f.isFeature())
 				.collect(Collectors.toList()));
 		model.addAttribute("race", subRace);
+		model.addAttribute("selectedSubrace", subRace.getEnglishName());
 		return "fragments/race :: view";
 	}
 	

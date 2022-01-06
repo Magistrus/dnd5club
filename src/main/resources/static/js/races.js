@@ -94,7 +94,11 @@ function setActiveRace(element, englishName) {
 	}
 	else {
 		var url = '/races/fragment/' + englishName;
-		$("#content_block").load(url);
+		$("#content_block").load(url, function() {
+			$('#mobile_selector').change(function () {
+				setActiveSubrace(element, englishName, $('#mobile_selector').val());
+			});
+		});
 	}
 	localStorage.setItem('selected_race', element.id)
 	var url = '/races/' + englishName + '/subraces/list';
@@ -151,7 +155,11 @@ function setActiveSubrace(element, raceName, archetypeName) {
 		loadDescription();
 	}else {
 		var url = '/races/' + raceName + '/subrace/' + archetypeName;
-		$("#content_block").load(url);
+		$("#content_block").load(url, function() {
+			$('#mobile_selector').change(function () {
+				setActiveSubrace(element, raceName, $('#mobile_selector').val());
+			});
+		});
 	}
 	history.pushState('data to be passed', raceName, '/races/' + raceName + '/' + archetypeName);
 }
