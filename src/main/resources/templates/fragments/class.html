@@ -9,8 +9,8 @@
 			<table class="dnd5_table">
 				<thead>
 					<tr align="center">
-						<th rowspan="2" style="width: 24px">Ур.</th>
-						<th rowspan="2" style="width: 24px">БМ</th>
+						<th rowspan="2" style="width: 24px"><span class="tip" title="Уровень в классе">Ур.</span></th>
+						<th rowspan="2" style="width: 24px"><span class="tip" title="Бонус мастерства">БМ</span></th>
 						<th rowspan="2" class="align_left">Умения</th>
 						<th th:each="featurelevelDefinition : *{featureLevelDefenitions}" align="center" rowspan="2" th:text="${featurelevelDefinition.name}" style="width: 5%">Умения</th>
 						<th th:unless="*{levelDefenitions.empty}" align="center" colspan="9" class="bb">Ячейки заклинаний на уровень заклинаний</th>
