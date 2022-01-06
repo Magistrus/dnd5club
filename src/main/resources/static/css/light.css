@@ -59,22 +59,6 @@
 
 /********* Icons Classes *********/
 :root {
-  --all-classes: url(/resources/assets/icon/light/classes/all_classes.svg);
-  --bard-big: url(/resources/assets/icon/light/classes/bard_big.svg);
-  --barbarian-big: url(/resources/assets/icon/light/classes/barbarian_big.svg);
-  --fighter-big: url(/resources/assets/icon/light/classes/fighter_big.svg);
-  --wizard-big: url(/resources/assets/icon/light/classes/wizard_big.svg);
-  --druid-big: url(/resources/assets/icon/light/classes/druid_big.svg);
-  --cleric-big: url(/resources/assets/icon/light/classes/cleric_big.svg);
-  --artificer-big: url(/resources/assets/icon/light/classes/artificer_big.svg);
-  --warlock-big: url(/resources/assets/icon/light/classes/warlock_big.svg);
-  --monk-big: url(/resources/assets/icon/light/classes/monk_big.svg);
-  --paladin-big: url(/resources/assets/icon/light/classes/paladin_big.svg);
-  --rogue-big: url(/resources/assets/icon/light/classes/rogue_big.svg);
-  --ranger-big: url(/resources/assets/icon/light/classes/ranger_big.svg);
-  --sorcerer-big: url(/resources/assets/icon/light/classes/sorcerer_big.svg);
-  --blood_hunter-big: url(/resources/assets/icon/light/classes/blood_hunter_big.svg);
-
   --bard: url(/resources/assets/icon/light/classes/bard.svg);
   --barbarian: url(/resources/assets/icon/light/classes/barbarian.svg);
   --fighter: url(/resources/assets/icon/light/classes/fighter.svg);
@@ -89,33 +73,4 @@
   --ranger: url(/resources/assets/icon/light/classes/ranger.svg);
   --sorcerer: url(/resources/assets/icon/light/classes/sorcerer.svg);
   --blood_hunter: url(/resources/assets/icon/light/classes/blood_hunter.svg);
-}
-
-/********* Race Classes *********/
-:root {
-  --icon-elf-big: url(/resources/assets/icon/light/race/elf_big.svg);
-  --icon-half-elf-big: url(/resources/assets/icon/light/race/half_elf_big.svg);
-  --icon-orc-big: url(/resources/assets/icon/light/race/orc_big.svg);
-  --icon-half-orc-big: url(/resources/assets/icon/light/race/half_orc_big.svg);
-  --icon-dwarf-big: url(/resources/assets/icon/light/race/dwarf_big.svg);
-  --icon-dragonborn-big: url(/resources/assets/icon/light/race/dragonborn_big.svg);
-  --icon-gnome-big: url(/resources/assets/icon/light/race/gnome_big.svg);
-  --icon-goliath-big: url(/resources/assets/icon/light/race/goliath_big.svg);
-  --icon-halfling-big: url(/resources/assets/icon/light/race/halfling_big.svg);
-  --icon-human-big: url(/resources/assets/icon/light/race/human_big.svg);
-  --icon-kenku-big: url(/resources/assets/icon/light/race/kenku_big.svg);
-  --icon-kobold-big: url(/resources/assets/icon/light/race/kobold_big.svg);
-  --icon-tabaxi-big: url(/resources/assets/icon/light/race/tabaxi_big.svg);
-  --icon-tiefling-big: url(/resources/assets/icon/light/race/tiefling_big.svg);
-  --icon-aarakocra-big: url(/resources/assets/icon/light/race/aarakocra_big.svg);
-  --icon-aasimar-big: url(/resources/assets/icon/light/race/aasimar_big.svg);
-  --icon-vedalken-big: url(/resources/assets/icon/light/race/vedalken_big.svg);
-  --icon-goblin-big: url(/resources/assets/icon/light/race/goblin_big.svg);
-  --icon-changeling-big: url(/resources/assets/icon/light/race/changeling_big.svg);
-  --icon-leonin-big: url(/resources/assets/icon/light/race/leonin_big.svg);
-  --icon-loxodon-big: url(/resources/assets/icon/light/race/loxodon_big.svg);
-  --icon-gith-big: url(/resources/assets/icon/light/race/gith_big.svg);
-  --icon-verdan-big: url(/resources/assets/icon/light/race/verdan_big.svg);
-  --icon-bearfolk-big: url(/resources/assets/icon/light/race/bearfolk_big.svg);
-  --icon-simic-hybrid-big: url(/resources/assets/icon/light/race/simic_hybrid_big.svg);
 }
