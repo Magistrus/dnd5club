@@ -1,5 +1,33 @@
-<div class="login_form" layout:fragment="content">
-	<div class="header">
-		<h4>Добавление монстра</h4>
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<body id="body">
+	<div layout:fragment="content">
+		<div id="left_block" class="add_beast">
+			<div class="header_block">
+				<h1>Добовлени / редактирование монстра</h3>
+			</div>
+			<div class="row_input">
+				<input type="text" placeholder="Название моснтра">
+				<input type="text" placeholder="Titile beast">
+			</div>
+			<div class="row_input">
+				<div class="select js-dropdown">
+					<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
+					<i class="icon_arrow">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</i>
+					<span class="placeholder js-dropdown__current">Выбор 1</span>
+					<ul data-simplebar>
+						<li data-dropdown-value="1">Выбор 1</li>
+						<li data-dropdown-value="1">1</li>
+						<li data-dropdown-value="2">2</li>
+						<li data-dropdown-value="3">3</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
+</body>
+</html>
