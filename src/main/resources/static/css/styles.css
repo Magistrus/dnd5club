@@ -332,55 +332,84 @@ input::selection {
   margin: 11px auto;
 }
 
-.select_box {
-  color: var(--text-color);
-  display: inline-flex;
-  flex-direction: column;
-  margin-bottom: 24px;
-  margin-right: 24px;
+.select {
   position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  color: var(--text-color);
+  vertical-align: middle;
+  text-align: left;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-touch-callout: none;
 }
 
-.select_box .select {
-  appearance: none;
-  outline: 0;
-  height: 36px;
-  background-color: var(--bg-main);
-  background-image: none;
-  padding: 0px 46px 0 12px;
-  color: var(--text-color);
-  border: 1px solid var(--border);
-  display: inline-block;
+.select .placeholder {
+  position: relative;
+  display: block;
+  background-color: #393d41;
+  z-index: 1;
+  padding: 1em;
+  border-radius: 2px;
   cursor: pointer;
 }
 
-.select_box .select[type = number] {
-  padding: 0px 12px 0 12px;
+.select .placeholder:hover {
+  background: #34383c;
 }
 
-.select_arrow:before {
-  content: '\25BC';
-  display: block;
+.select .placeholder:after {
   position: absolute;
-  top: 0px;
-  right: 1px;
-  padding: 10px 0 0 0;
-  background-color: var(--bg-secondary);
-  transition: .25s all ease;
-  pointer-events: none;
+  right: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "FontAwesome";
+  content: "";
+  z-index: 10;
+}
+
+.select.is-open .placeholder:after {
+  content: "";
+}
+
+.select.is-open ul {
+  display: block;
+}
+
+.select ul {
+  display: none;
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  background: var(--bg-sub-menu);
+  border-radius: 2px;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  margin: 0px 0 0 0;
+  padding: 0;
+  z-index: 100;
+  min-height: 40px;
+  height: auto;
+  max-height: 350px;
+}
+
+.select ul li {
+  display: block;
+  text-align: left;
+  padding: 8px 12px 8px 12px;
   color: var(--text-color);
-  width: 36px;
-  height: 26px;
-  text-align: center;
-  /* border-bottom: 1px solid var(--border); */
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.select_box.select_arrow:before {
-  top: 24px !important;
-}
-
-.select_box span + .select     {
-  margin-top: 8px;
+.select ul li:hover {
+  background: var(--hover);
+  color: var(--text-color);
 }
 
 
@@ -1978,7 +2007,7 @@ body.compact_menu #right_block.spells {
   display: none;
   width: calc(100vw - 42% - -10px);
   height: 46px;
-  overflow: hidden;
+  /* overflow: hidden; */
   border-right: 1px solid var(--border);
   border-top: 1px solid var(--border);
 }
@@ -2148,6 +2177,11 @@ body.compact_menu #right_block.weapons {
   display: flex;
 }
 
+.bestiary_h5 {
+  border-left: 3px solid var(--primary);
+  padding-left: 8px;
+  margin: 18px 0 6px 0;
+}
 
 #right_block.bestiary .scores {
   margin: 20px 0;

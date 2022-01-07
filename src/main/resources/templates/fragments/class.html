@@ -69,13 +69,16 @@
 		</div>
 		<th:block th:fragment="classInfo(selectedArchetype)">
 			<div class="classes_mobile_selector">
-				<select id="mobile_selector">
-					<option th:text="|---*{archetypeName}---|"></option>
-					<option th:each="archetype : *{archetypes}" th:value="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
+				<div class="select js-dropdown">
+					<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
+					<span class="placeholder js-dropdown__current" th:text="|---*{archetypeName}---|"></span>
+					<ul data-simplebar>
+						<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
 						th:selected="${archetype.englishName eq selectedArchetype}" th:class="|${archetype.book.type.name().toLowerCase()}_source|"
-						th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
-					></option>
-				</select>
+						th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}">
+						</li>
+					</ul>
+				</div>
 			</div>
 			<h4 class="header_separator">Хиты</h4>
 			<p class="class_stats">
