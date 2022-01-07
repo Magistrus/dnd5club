@@ -5,23 +5,30 @@
 </head>
 <body>
 	<th:block th:object="${race}" th:fragment="view">
-		<div th:unless="*{subRaces.empty}" class="classes_mobile_selector">
-			<select id="mobile_selector">
-				<option>---подрасы----</option>
-				<option th:each="subrace : *{subRaces}" th:value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
+		<div th:unless="*{subRaces.empty}" class="archetype_mobile_selector">
+			<div class="select js-dropdown">
+				<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
+				<span class="placeholder js-dropdown__current" >Выбрать подрасу</span>
+				<ul data-simplebar>
+					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
 					th:selected="${subrace.englishName eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
 					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
-				></option>
-			</select>
+					></li>
+				</ul>
+			</div>
 		</div>
-		<div th:unless="*{parent eq null}" class="classes_mobile_selector">
-			<select id="mobile_selector">
-				<option>---подрасы----</option>
-				<option th:each="subrace : *{parent.subRaces}" th:value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
-					th:selected="${subrace.englishName.replace(' ', '_') eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
+
+		<div th:unless="*{parent eq null}" class="archetype_mobile_selector">
+			<div class="select js-dropdown">
+				<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
+				<span class="placeholder js-dropdown__current" >Выбрать подрасу</span>
+				<ul data-simplebar>
+					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
+					th:selected="${subrace.englishName eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
 					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
-				></option>
-			</select>
+					></li>
+				</ul>
+			</div>
 		</div>
 		<div class="scores">
 			<div class="score">
