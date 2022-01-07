@@ -258,6 +258,10 @@ table.dnd5_table {
     margin-right: -16px;
     margin-top: 30px;
   }
+
+  .full_screen_right_block .table-responsive.class {
+    margin-top: -16px;
+  }
 }
 
 .class table.dnd5_table {
