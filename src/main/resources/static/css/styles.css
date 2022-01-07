@@ -345,13 +345,13 @@ input::selection {
       -ms-user-select: none;
           user-select: none;
   -webkit-touch-callout: none;
-  background-color: var(--bg-main);
+  background: var(--bg-main);
 }
 
 .select .placeholder {
   position: relative;
   display: block;
-  background-color: var(--bg-main);
+  background: var(--bg-main);
   z-index: 1;
   padding: 1em;
   border-radius: 2px;
@@ -362,18 +362,23 @@ input::selection {
   background: var(--hover);
 }
 
-.select .placeholder:after {
+.select .icon_arrow {
+  display: block;
+  width: 24px;
+  height: 24px;
   position: absolute;
-  right: 1em;
+  right: 16px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: "FontAwesome";
-  content: "";
-  z-index: 10;
+  margin-top: -12px;
+  z-index: 2;
 }
 
-.select.is-open .placeholder:after {
-  content: "";
+.select .icon_arrow svg path {
+  stroke: var(--primary);
+}
+
+.select.is-open .icon_arrow {
+  transform:rotateZ(180deg);
 }
 
 .select.is-open ul {
