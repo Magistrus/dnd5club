@@ -8,6 +8,11 @@
 		<div th:unless="*{subRaces.empty}" class="archetype_mobile_selector">
 			<div class="select js-dropdown">
 				<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
+				<i class="icon_arrow">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</i>
 				<span class="placeholder js-dropdown__current" >Выбрать подрасу</span>
 				<ul data-simplebar>
 					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
@@ -21,6 +26,11 @@
 		<div th:unless="*{parent eq null}" class="archetype_mobile_selector">
 			<div class="select js-dropdown">
 				<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
+				<i class="icon_arrow">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</i>
 				<span class="placeholder js-dropdown__current" >Выбрать подрасу</span>
 				<ul data-simplebar>
 					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
