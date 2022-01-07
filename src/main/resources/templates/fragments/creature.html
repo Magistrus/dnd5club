@@ -98,16 +98,19 @@
 				<strong>Языки</strong> <span th:each="language, iterStat : ${creature.languages}" th:text="${iterStat.last ? language.name : language.name + ', '}"></span>
 			</p>
 		</div>
-		<div th:each="feat : ${creature.feats}">
-			<h5>
-				<strong th:text="|${feat.name}.|"></strong>
-			</h5>
-			<div th:utext="${feat.description}"></div>
+		<div th:unless="${creature.feats.empty}">
+			<h4 class="header_separator">Способности</h4>
+			<div th:each="feat : ${creature.feats}">
+				<h5 class="bestiary_h5">
+					<strong th:text="|${feat.name}.|"></strong>
+				</h5>
+				<div th:utext="${feat.description}"></div>
+			</div>
 		</div>
 		<div th:unless="${creature.actions.empty}">
 			<h4 class="header_separator">Действия</h4>
 			<div th:each="action : ${creature.actions}">
-				<h5>
+				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
 				<span th:utext="${action.description}" />
@@ -116,7 +119,7 @@
 		<div th:unless="${creature.reactions.empty}">
 			<h4 class="header_separator">Реакции</h4>
 			<div th:each="action : ${creature.reactions}">
-				<h5>
+				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
 				<span th:utext="${action.description}" />
@@ -125,7 +128,7 @@
 		<div th:unless="${creature.bonusActions.empty}">
 			<h4 class="header_separator">Бонусные действия</h4>
 			<div th:each="action : ${creature.bonusActions}">
-				<h5>
+				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
 				<span th:utext="${action.description}" />
@@ -139,7 +142,7 @@
 				в конце хода другого существа. <span th:text="${creature.name}"></span> восстанавливает использованные легендарные действия в начале своего хода.
 			</p>
 			<div th:each="action : ${creature.legendaries}">
-				<h5>
+				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
 				<span th:utext="${action.description}" />
