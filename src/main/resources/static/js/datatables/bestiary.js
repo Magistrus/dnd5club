@@ -108,13 +108,25 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-
-	$('#creatures tbody').on('click', 'tr', function () {
+	$('#creatures tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var table = $('#creatures').DataTable();
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
+		}
+	});
+	$('#creatures tbody').on('click', 'tr', function (e) {
 		var tr = $(this).closest('tr');
 		var table = $('#creatures').DataTable();
 		var row = table.row( tr );
 		rowSelectIndex = row.index();
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
+		}
 		selectCreature(data);
 		selectedCreature = null;
 	});
@@ -180,13 +192,22 @@ $('#btn_close').on('click', function() {
 });
 $('#statblock').on('click', function() {
 	let table = $('#creatures').DataTable();
-	selectCreature(table.row({selected: true}).data());
+	if (selectedCreature===null){
+		selectCreature(table.row({selected: true}).data());	
+	}
+	else {
+		selectCreature(selectedCreature);
+	}
 });
 $('#description').on('click', function() {
 	$('#description').addClass('active');
 	$('#statblock').removeClass('active');
-	let table = $('#creatures').DataTable();
-	selectDescription(table.row({selected: true}).data().id);
+	if (selectedCreature===null){
+		let table = $('#creatures').DataTable();
+		selectDescription(table.row({selected: true}).data().id);
+	} else {
+		selectDescription(selectedCreature.id);
+	}
 });
 $('.cr_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="cr"]:checked').map(function() {
