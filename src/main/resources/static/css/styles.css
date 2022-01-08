@@ -2022,6 +2022,16 @@ body.compact_menu #right_block.spells {
   cursor: pointer;
 }
 
+.spell_wrapper .spell_stat_block_bottom .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.spell_wrapper .spell_stat_block_bottom .icon svg path {
+  stroke: var(--primary);
+  stroke-width:2.5px;
+}
+
 @media (max-width: 1200px) {
   #right_block.spells .spell_wrapper .spell_stat_block {
     margin-left: -16px;
