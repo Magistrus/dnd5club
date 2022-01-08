@@ -184,6 +184,7 @@ hr {
   display: inline-grid;
   align-items: center;
   width: var(--width);
+  max-width: var(--width);
   height: var(--size);
   cursor: pointer;
   float: left;
@@ -304,7 +305,6 @@ input {
   background: var(--hover);
   color: var(--text-color);
   font-size: 14px;
-  min-width: 100px;
 }
 
 input:hover {

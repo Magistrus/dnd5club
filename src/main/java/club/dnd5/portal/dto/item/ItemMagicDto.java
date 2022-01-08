@@ -88,38 +88,38 @@ public class ItemMagicDto {
 		switch (magicItem.getRarity()) {
 		case COMMON:
 			if (magicItem.isConsumed()) {
-				rangeCost = "от 10 до 35 зм.";
+				rangeCost = "от 25 до 50 зм.";
 			} else {
-				rangeCost = "от 20 до 70 зм.";
+				rangeCost = "от 50 до 100 зм.";
 			}
 			break;
 		case UNCOMMON:
 			if (magicItem.isConsumed()) {
-				rangeCost = "от 100 до 350 зм.";
+				rangeCost = "от 51 до 250 зм.";
 			} else {
-				rangeCost = "от 200 до 700 зм.";
+				rangeCost = "от 101 до 500 зм.";
 			}
 			break;
 		case RARE:
-			rangeCost = "от 2 000 до 20 000 зм";
+			rangeCost = "от 251 до 2 500 зм";
 			if (magicItem.isConsumed()) {
-				rangeCost = "от 1 000 до 10 000 зм";
+				rangeCost = "от 501 до 5 000 зм";
 			}
 			break;
 		case VERY_RARE:
-			rangeCost = "от 20 000 до 50 000 зм.";
+			rangeCost = "от 2 501 до 25 000 зм.";
 			if (magicItem.isConsumed()) {
-				rangeCost = "от 10 000 до 25 000 зм.";
+				rangeCost = "от 5 001 до 50 000 зм.";
 			}
 			break;
 		case LEGENDARY:
-			rangeCost = "от 50 000 до 300 000 зм.";
+			rangeCost = "от 25 001 до 125 000 зм.";
 			if (magicItem.isConsumed()) {
-				rangeCost = "от 25 000 до 150 000 зм.";
+				rangeCost = "от 50 001 до 250 000 зм.";
 			}
 			break;
 		case ARTIFACT:
-			rangeCost = "от 300 000 зм. до невозможно купить";
+			rangeCost = "от 250 001 зм. до невозможно купить";
 			break;
 		default:
 			rangeCost = Integer.toString(magicItem.getCost());
