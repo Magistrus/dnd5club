@@ -42,6 +42,7 @@ public class Screen {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	private String icon;
+	private int ordering;
 	
 	@ManyToOne
 	@JoinColumn(name = "source")
