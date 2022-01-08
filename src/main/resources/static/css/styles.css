@@ -1329,6 +1329,12 @@ body.compact_menu #right_block {
   stroke: var(--text-btn-color);
 }
 
+@media (max-width: 600px) {
+  .btn_additional_features {
+    display: none;
+  }
+}
+
 #right_block .header_block .btn_exet_full_screen,
 #right_block .header_block .btn_full_screen,
 #right_block .header_block .btn_close {
