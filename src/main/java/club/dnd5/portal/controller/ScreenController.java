@@ -23,7 +23,7 @@ public class ScreenController {
 
 	@GetMapping("/screens")
 	public String getScreens(Model model) {
-		model.addAttribute("screens", repository.findAllByParentIsNull());
+		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
 		model.addAttribute("metaTitle", "Ширма");
 		return "screens";
 	}
@@ -31,13 +31,13 @@ public class ScreenController {
 	@GetMapping("/screens/{name}")
 	public String getScreen(Model model, @PathVariable String name) {
 		model.addAttribute("selectedScreen", name);
-		model.addAttribute("screens", repository.findAllByParentIsNull());
+		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
 		return "screens";
 	}
 	
 	@GetMapping("/screens/{name}/{subscreen}")
 	public String getSubscreenList(Model model, @PathVariable String name, @PathVariable String subscreen) {
-		model.addAttribute("screens", repository.findAllByParentIsNull());
+		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
 		model.addAttribute("selectedScreen", name);
 		model.addAttribute("selectedSubscreen", subscreen);
 		return "screens";
