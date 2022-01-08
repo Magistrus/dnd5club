@@ -138,13 +138,9 @@ $('li').click(function () {
 	localStorage.setItem('selected_item_menu', this.id);
 });
 
-
 ;(function($, window, document, undefined) {
-  
 	'use strict';
-	
-	  var $html = $('html');
-	
+	var $html = $('html');
 	$html.on('click.ui.dropdown', '.js-dropdown', function(e) {
 	  e.preventDefault();
 	  $(this).toggleClass('is-open');
@@ -155,6 +151,7 @@ $('li').click(function () {
 	  var $item = $(this);
 	  var $dropdown = $item.parents('.js-dropdown');
 	  $dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
+	  $dropdown.find('.js-dropdown__input').change();
 	  $dropdown.find('.js-dropdown__current').text($item.text());
 	});
 	
@@ -164,5 +161,4 @@ $('li').click(function () {
 		$('.js-dropdown').removeClass('is-open');
 	  }
 	});
-	
   })(jQuery, window, document);

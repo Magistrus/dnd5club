@@ -51,9 +51,9 @@ public class ClassController {
 	public String getClass(Model model, @PathVariable String name) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
-		HeroClass heroClasss = classRepository.findByEnglishName(name.replace("_", " "));
+		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedClass", name);
-		model.addAttribute("metaTitle", heroClasss.getName());
+		model.addAttribute("metaTitle", heroClass.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		return "classes";
 	}
@@ -62,7 +62,6 @@ public class ClassController {
 	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype) {
 		model.addAttribute("classes", classRepository.findAll());
 		model.addAttribute("selectedClass", name);
-		model.addAttribute("selectedArchetype", archetype);
 		model.addAttribute("metaTitle", archetype);
 		return "classes";
 	}
@@ -91,6 +90,7 @@ public class ClassController {
 		model.addAttribute("heroClass", heroClass);
 		model.addAttribute("archetypeTraits", archetypeTraits);
 		model.addAttribute("order", "[[ 1, 'asc' ]]");
+		model.addAttribute("selectedArchetypeName", heroClass.getArchetypeName());
 		return "fragments/class :: view";
 	}
 	
@@ -168,6 +168,7 @@ public class ClassController {
 		model.addAttribute("features", features);
 		model.addAttribute("selectedArchetypeId", archetype.getId());
 		model.addAttribute("selectedArchetype", archetype);
+		model.addAttribute("selectedArchetypeName", archetype.getName());
 		model.addAttribute("archetypeSpells", archetype.getSpells().stream().filter(s-> s.getLevel() != 0).collect(Collectors.toList()));
 		return "fragments/archetype :: view";
 	}

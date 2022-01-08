@@ -62,6 +62,7 @@ public class RaceController {
 		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
 		model.addAttribute("race", race);
+		model.addAttribute("selectedRaceName", "--- Выбор подрасы ---");
 		return "fragments/race :: view";
 	}
 	
@@ -80,6 +81,7 @@ public class RaceController {
 				.collect(Collectors.toList()));
 		model.addAttribute("race", subRace);
 		model.addAttribute("selectedSubrace", subRace.getEnglishName());
+		model.addAttribute("selectedRaceName", subRace.getName());
 		return "fragments/race :: view";
 	}
 	

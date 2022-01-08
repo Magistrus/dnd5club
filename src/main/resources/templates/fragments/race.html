@@ -13,16 +13,15 @@
 						<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</i>
-				<span class="placeholder js-dropdown__current" >Выбрать подрасу</span>
+				<span class="placeholder js-dropdown__current" th:text="${selectedRaceName}">Выбрать подрасу</span>
 				<ul data-simplebar>
 					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
-					th:selected="${subrace.englishName eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
+					th:class="|${subrace.book.type.name().toLowerCase()}_source|"
 					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
 					></li>
 				</ul>
 			</div>
 		</div>
-
 		<div th:unless="*{parent eq null}" class="archetype_mobile_selector">
 			<div class="select js-dropdown">
 				<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
@@ -31,10 +30,10 @@
 						<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</i>
-				<span class="placeholder js-dropdown__current" >Выбрать подрасу</span>
+				<span class="placeholder js-dropdown__current" th:text="${selectedRaceName}">Выбрать подрасу</span>
 				<ul data-simplebar>
-					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
-					th:selected="${subrace.englishName eq selectedSubrace}" th:class="|${subrace.book.type.name().toLowerCase()}_source|"
+					<li th:each="subrace : *{parent.subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
+					th:class="|${subrace.book.type.name().toLowerCase()}_source|"
 					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
 					></li>
 				</ul>
