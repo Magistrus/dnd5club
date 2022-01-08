@@ -49,8 +49,7 @@
 			</div>
 			<div th:unless="${archetypes.empty}" class="spell_stat_block_bottom">
 				<p>Подклассы:</p>
-				<div class="classes_icon">
-					
+				<div>
 					<th:block th:each="archetype, iter : ${archetypes}">
 						<a class="tip" th:href="|@{/classes/}${archetype.heroClass.englishName.replace(' ', '_')}/${archetype.englishName.replace(' ', '_')}|" th:title="${archetype.heroClass.name}"
 							th:text="${archetype.capitalizeName}"
