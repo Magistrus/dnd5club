@@ -76,10 +76,10 @@
 							<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</i>
-					<span class="placeholder js-dropdown__current" th:text="|---*{archetypeName}---|"></span>
+					<span class="placeholder js-dropdown__current" th:text="${selectedArchetypeName}"></span>
 					<ul data-simplebar>
 						<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
-						th:selected="${archetype.englishName eq selectedArchetype}" th:class="|${archetype.book.type.name().toLowerCase()}_source|"
+						th:class="|${archetype.book.type.name().toLowerCase()}_source|"
 						th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}">
 						</li>
 					</ul>

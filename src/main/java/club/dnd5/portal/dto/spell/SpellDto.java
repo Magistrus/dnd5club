@@ -31,6 +31,7 @@ public class SpellDto {
 	private String book;
 	private String bookshort;
 	private boolean homebrew;
+	private boolean setting;
 	private String classes;
 	private String damageType;
 
@@ -54,6 +55,7 @@ public class SpellDto {
 		consumable = spell.getConsumable();
 		englishName = spell.getEnglishName();
 		homebrew = spell.getBook().getType() == TypeBook.CUSTOM;
+		setting = spell.getBook().getType() == TypeBook.SETTING;
 		bookshort = spell.getBook().getSource();
 	}
 }
