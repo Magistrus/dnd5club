@@ -108,8 +108,17 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-
-	$('#creatures tbody').on('click', 'tr', function () {
+	$('#creatures tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var table = $('#creatures').DataTable();
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
+		}
+	});
+	$('#creatures tbody').on('click', 'tr', function (e) {
 		var tr = $(this).closest('tr');
 		var table = $('#creatures').DataTable();
 		var row = table.row( tr );
