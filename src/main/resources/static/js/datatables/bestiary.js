@@ -180,13 +180,22 @@ $('#btn_close').on('click', function() {
 });
 $('#statblock').on('click', function() {
 	let table = $('#creatures').DataTable();
-	selectCreature(table.row({selected: true}).data());
+	if (selectedCreature===null){
+		selectCreature(table.row({selected: true}).data());	
+	}
+	else {
+		selectCreature(selectedCreature);
+	}
 });
 $('#description').on('click', function() {
 	$('#description').addClass('active');
 	$('#statblock').removeClass('active');
-	let table = $('#creatures').DataTable();
-	selectDescription(table.row({selected: true}).data().id);
+	if (selectedCreature===null){
+		let table = $('#creatures').DataTable();
+		selectDescription(table.row({selected: true}).data().id);
+	} else {
+		selectDescription(selectedCreature.id);
+	}
 });
 $('.cr_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="cr"]:checked').map(function() {
