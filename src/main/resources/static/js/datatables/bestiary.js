@@ -124,6 +124,9 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		rowSelectIndex = row.index();
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
+		}
 		selectCreature(data);
 		selectedCreature = null;
 	});

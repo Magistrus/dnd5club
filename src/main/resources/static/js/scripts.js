@@ -1,3 +1,4 @@
+cntrlIsPressed = false;
 sourceTypes = localStorage.getItem('first_visit');
 $(document).ready(function() {
 	function checkWidth() {
@@ -162,3 +163,10 @@ $('li').click(function () {
 	  }
 	});
   })(jQuery, window, document);
+$(document).keydown(function(event){
+	if(event.which=="17")
+		cntrlIsPressed = true;
+});
+$(document).keyup(function(){
+	cntrlIsPressed = false;
+});
