@@ -95,9 +95,9 @@ public class ItemMagicDto {
 			break;
 		case UNCOMMON:
 			if (magicItem.isConsumed()) {
-				rangeCost = "от 50 до 250 зм.";
+				rangeCost = "от 51 до 250 зм.";
 			} else {
-				rangeCost = "от 100 до 500 зм.";
+				rangeCost = "от 101 до 500 зм.";
 			}
 			break;
 		case RARE:
