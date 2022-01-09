@@ -29,18 +29,6 @@ h4 {
   font-family: 'Lora';
 }
 
-h4.dote:before {
-  content:'';
-  position: absolute;
-  left: -24px;
-  top: 5px;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-color: var(--primary-active);
-  border-radius: 4px;
-}
-
 h5 {
   font-size: 16px;
   font-weight: 400;
@@ -153,6 +141,20 @@ blockquote p:last-child {
   margin-left: -24px;
   margin-right: -24px;
   margin-top: 32px;
+}
+
+summary.h4 {
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--text-color);
+  position: relative;
+  font-family: 'Lora';
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+summary.h4:hover {
+  color: var(--text-color-title);
 }
 
 h4.separator_card {
