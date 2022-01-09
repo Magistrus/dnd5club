@@ -6,25 +6,240 @@
 			<div class="header_block">
 				<h1>Добовлени / редактирование монстра</h3>
 			</div>
-			<div class="row_input">
-				<input type="text" placeholder="Название моснтра">
-				<input type="text" placeholder="Titile beast">
-			</div>
-			<div class="row_input">
-				<div class="select js-dropdown">
-					<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
-					<i class="icon_arrow">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</i>
-					<span class="placeholder js-dropdown__current">Выбор 1</span>
-					<ul data-simplebar>
-						<li data-dropdown-value="1">Выбор 1</li>
-						<li data-dropdown-value="1">1</li>
-						<li data-dropdown-value="2">2</li>
-						<li data-dropdown-value="3">3</li>
-					</ul>
+			<div class="add_beast_container" data-simplebar>
+				<div class="wrapper">
+					<div class="row_input">
+						<input type="text" class="name" name="name" placeholder="Название моснтра">
+						<input type="text" class="name" name="title_name" placeholder="Titile beast">
+					</div>
+					<div class="row_input">
+						<div class="select js-dropdown">
+							<input type="hidden" name="size" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</i>
+							<span class="placeholder js-dropdown__current size">Размер</span>
+							<ul data-simplebar>
+								<li data-dropdown-value="1">1</li>
+								<li data-dropdown-value="2">2</li>
+								<li data-dropdown-value="3">3</li>
+							</ul>
+						</div>
+						<div class="select js-dropdown">
+							<input type="hidden" name="tipe" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</i>
+							<span class="placeholder js-dropdown__current tipe">Тип</span>
+							<ul data-simplebar>
+								<li data-dropdown-value="1">1</li>
+								<li data-dropdown-value="2">2</li>
+								<li data-dropdown-value="3">3</li>
+							</ul>
+						</div>
+						<div class="select js-dropdown">
+							<input type="hidden" name="alignment" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</i>
+							<span class="placeholder js-dropdown__current alignment">Мировоззрение</span>
+							<ul data-simplebar>
+								<li data-dropdown-value="1">1</li>
+								<li data-dropdown-value="2">2</li>
+								<li data-dropdown-value="3">3</li>
+							</ul>
+						</div>
+						<input type="text" name="ac" class="ac" placeholder="КД">
+						<input type="text" name="armor" class="armor" placeholder="Броня">
+						<input type="text" name="hp" class="hp" placeholder="Хиты">
+					</div>
+					<div class="unit">
+						<div class="block stats">
+							<h5>Статы</h5>
+							<div class="value">
+								<input type="text" name="strength" placeholder="СИЛ">
+								<input type="text" name="dexterity" placeholder="ЛОВ">
+								<input type="text" name="constitution" placeholder="ТЕЛ">
+								<input type="text" name="intelligence" placeholder="ИНТ">
+								<input type="text" name="wisdom" placeholder="МУД">
+								<input type="text" name="charisma" placeholder="ХАР">
+							</div>
+						</div>
+						<div class="block stats">
+							<h5>Спасброски</h5>
+							<div class="value">
+								<input type="text" name="saving_throws_strength" placeholder="СИЛ">
+								<input type="text" name="saving_throws_dexterity" placeholder="ЛОВ">
+								<input type="text" name="saving_throws_constitution" placeholder="ТЕЛ">
+								<input type="text" name="saving_throws_intelligence" placeholder="ИНТ">
+								<input type="text" name="saving_throws_wisdom" placeholder="МУД">
+								<input type="text" name="saving_throws_charisma" placeholder="ХАР">
+							</div>
+						</div>
+						<div class="block movements">
+							<h5>Передвежение</h5>
+							<div class="value">
+								<input type="text" name="walking" placeholder="Ходьба">
+								<input type="text" name="swimming" placeholder="Плавая">
+								<input type="text" name="flying" placeholder="Летая">
+								<input type="text" name="climbing" placeholder="Лазая">
+								<input type="text" name="digging" placeholder="Копая">
+							</div>
+						</div>
+					</div>
+					<div class="block damage">
+						<div class="value">
+							<div class="select js-dropdown">
+								<input type="hidden" name="resistance_damage" class="js-dropdown__input">
+								<i class="icon_arrow">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</i>
+								<span class="placeholder js-dropdown__current resistance_damage">Сопротивл. урону</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="1">1</li>
+									<li data-dropdown-value="2">2</li>
+									<li data-dropdown-value="3">3</li>
+								</ul>
+							</div>
+							<div class="select js-dropdown">
+								<input type="hidden" name="damage_immunity" class="js-dropdown__input">
+								<i class="icon_arrow">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</i>
+								<span class="placeholder js-dropdown__current damage_immunity">Иммун. к урону</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="1">1</li>
+									<li data-dropdown-value="2">2</li>
+									<li data-dropdown-value="3">3</li>
+								</ul>
+							</div>
+							<div class="select js-dropdown">
+								<input type="hidden" name="damage_vulnerability" class="js-dropdown__input">
+								<i class="icon_arrow">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</i>
+								<span class="placeholder js-dropdown__current damage_vulnerability">Уязвим. к урону</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="1">1</li>
+									<li data-dropdown-value="2">2</li>
+									<li data-dropdown-value="3">3</li>
+								</ul>
+							</div>
+							<div class="select js-dropdown">
+								<input type="hidden" name="condition_immunity" class="js-dropdown__input">
+								<i class="icon_arrow">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</i>
+								<span class="placeholder js-dropdown__current condition_immunity">Иммун. к состоянию</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="1">1</li>
+									<li data-dropdown-value="2">2</li>
+									<li data-dropdown-value="3">3</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row_input">
+						<div class="select js-dropdown">
+							<input type="hidden" name="languages" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</i>
+							<span class="placeholder js-dropdown__current languages">Языки</span>
+							<ul data-simplebar>
+								<li data-dropdown-value="1">1</li>
+								<li data-dropdown-value="2">2</li>
+								<li data-dropdown-value="3">3</li>
+							</ul>
+						</div>
+						<div class="select js-dropdown">
+							<input type="hidden" name="danger" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</i>
+							<span class="placeholder js-dropdown__current danger">Опасность</span>
+							<ul data-simplebar>
+								<li data-dropdown-value="1">1</li>
+								<li data-dropdown-value="2">2</li>
+								<li data-dropdown-value="3">3</li>
+							</ul>
+						</div>
+						<div class="select js-dropdown">
+							<input type="hidden" name="source" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</i>
+							<span class="placeholder js-dropdown__current source">Источник</span>
+							<ul data-simplebar>
+								<li data-dropdown-value="1">1</li>
+								<li data-dropdown-value="2">2</li>
+								<li data-dropdown-value="3">3</li>
+							</ul>
+						</div>
+						<input type="text" name="tags" class="tags" placeholder="Теги">
+					</div>
+					<div>
+						<details open>
+							<summary class="h4 header_separator">Способности</summary>
+							<p>-</p>
+						</details>
+					</div>
+					<div>
+						<h4 class="header_separator">Действия</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Бонусные действия</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Легендарные действия</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Убежище</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Действия убежища</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Эффекты убежища</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Реакции</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Варианты</h4>
+						<p>-</p>
+					</div>
+					<div>
+						<h4 class="header_separator">Описание</h4>
+						<p>-</p>
+					</div>
 				</div>
 			</div>
 		</div>
