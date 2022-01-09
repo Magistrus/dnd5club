@@ -253,7 +253,7 @@ function setActiveArchetype(element, className, archetypeName) {
 	element.classList.add('active');
 	if (localStorage.getItem('class_info')==='description'){
 		loadDescription();
-	}else{
+	}else if (localStorage.getItem('class_info')==='traits'){
 		var url = '/classes/' + className + '/architypes/' + archetypeName;
 		$("#content_block").load(url, function() {
 			$('#mobile_selector').change(function () {
@@ -262,6 +262,7 @@ function setActiveArchetype(element, className, archetypeName) {
 			$('#info_wrapper').removeClass('description');
 			$('#info_wrapper').removeClass('spells');
 			$('#info_wrapper').removeClass('images');
+			$('#info_wrapper').removeClass('options');
 			$('#info_wrapper').addClass('traits');
 		});
 	}
