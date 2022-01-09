@@ -128,7 +128,7 @@ $(document).ready(function() {
 			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
 		}
 		selectCreature(data);
-		selectedCreature = null;
+		selectedCreature = data;
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -313,6 +313,9 @@ function getImage(id){
         },
     });
 }
+$('#btn_export_fvtt').on('click', function() {
+	window.open('/creature/json/' + selectedCreature.id, '_self');
+});
 $('.image-container').magnificPopup({
   delegate: 'a',
   type: 'image',
