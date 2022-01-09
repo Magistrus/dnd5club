@@ -185,9 +185,11 @@ hr {
   align-items: center;
   width: var(--width);
   max-width: var(--width);
+  min-width: var(--width);
   height: var(--size);
   cursor: pointer;
   float: left;
+  margin: 3px;
 }
 
 .toggle[type="checkbox"]::before {
@@ -329,6 +331,10 @@ input::selection {
 label.select_box input,
 label.select_box .select {
   margin-bottom: 16px;
+}
+
+.select_box span {
+  margin-left: 4px;
 }
 
 .btn_text_clear {
@@ -506,6 +512,16 @@ label.select_box .select {
   flex-direction: column;
 }
 
+.add_beast_container details.block {
+  margin: 16px -4px 0px -4px;
+  background: var(--bg-secondary);
+  padding: 8px 8px;
+}
+
+.add_beast_container .block summary {
+  margin: 0px;
+}
+
 .add_beast_container .block .value {
   display: flex;
   flex-wrap: wrap;
@@ -525,14 +541,17 @@ label.select_box .select {
   width: 60px;
 }
 
-.add_beast_container .block.damage .value {
-
-}
-
 .add_beast_container .block.damage .value .select {
   flex: 1 1 calc(25% - 16px);
   min-width: 300px;
 }
+
+.add_beast_container .block.skills .value input {
+  width: 50px;
+  padding: 14px 0px;
+  text-align: center;
+}
+
 
 
 /******** Скролл ********/
