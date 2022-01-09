@@ -70,6 +70,8 @@ $(document).ready(function() {
 		$('#homebrew_source').prop('checked', true);
 		$('.custom_source').removeClass('hide_block');
 		$('#source_id').addClass('active');
+	} else {
+		localStorage.setItem('homebrew_source', 'false');
 	}
 	if(localStorage.getItem('setting_source') == 'true'){
 		$('#setting_source').prop('checked', true);
