@@ -18,8 +18,9 @@ public class FCreature {
 	private String type;
 	private String img;
 	private FCreatureData data;
-	public FToken token;
+	private FToken token;
 	private List<FItem> items = new ArrayList<>();
+	private List<FEffect> effects = new ArrayList<>();
 
 	public FCreature(Creature creature) {
 		name = creature.getName();
