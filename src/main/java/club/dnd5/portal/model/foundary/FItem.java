@@ -1,7 +1,9 @@
 package club.dnd5.portal.model.foundary;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import club.dnd5.portal.model.ArmorType;
@@ -28,8 +30,9 @@ public class FItem {
 	private String name;
 	private String type;
 	private FItemData data;
+	public List<FEffect> effects = new ArrayList<FEffect>();
 	private String img;
-
+	
 	public FItem(CreatureFeat feat) {
 		name = feat.getName();
 		type = "feat";

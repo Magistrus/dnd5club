@@ -1,8 +1,12 @@
 package club.dnd5.portal.model.foundary.token;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.foundary.FEffect;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +38,7 @@ public class FToken {
 	public FBar bar1;
 	public FBar bar2;
 	public FFlags flags;
+	public List<FEffect> effects= new ArrayList<FEffect>();
 	public boolean randomImg;
 	public String img;
 	public String actorId;
