@@ -153,7 +153,17 @@ summary.h4 {
   margin-bottom: 8px;
 }
 
-summary.h4:hover {
+summary.h5 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 0px 0 8px 0;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+summary.h4:hover,
+summary.h5:hover {
   color: var(--text-color-title);
 }
 

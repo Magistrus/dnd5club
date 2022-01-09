@@ -9,8 +9,8 @@
 			<div class="add_beast_container" data-simplebar>
 				<div class="wrapper">
 					<div class="row_input">
-						<input type="text" class="name" name="name" placeholder="Название моснтра">
-						<input type="text" class="name" name="title_name" placeholder="Titile beast">
+						<input type="text" class="name tip" name="name" placeholder="Название моснтра" title="Название моснтра">
+						<input type="text" class="name tip" name="title_name" placeholder="Titile beast" title="Titile beast">
 					</div>
 					<div class="row_input">
 						<div class="select js-dropdown">
@@ -55,44 +55,146 @@
 								<li data-dropdown-value="3">3</li>
 							</ul>
 						</div>
-						<input type="text" name="ac" class="ac" placeholder="КД">
-						<input type="text" name="armor" class="armor" placeholder="Броня">
-						<input type="text" name="hp" class="hp" placeholder="Хиты">
+						<input type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
+						<input type="text" name="armor" class="armor tip" placeholder="Броня" title="Броня">
+						<input type="text" name="hp" class="hp tip" placeholder="Хиты" title="Хиты">
 					</div>
 					<div class="unit">
 						<div class="block stats">
 							<h5>Статы</h5>
 							<div class="value">
-								<input type="text" name="strength" placeholder="СИЛ">
-								<input type="text" name="dexterity" placeholder="ЛОВ">
-								<input type="text" name="constitution" placeholder="ТЕЛ">
-								<input type="text" name="intelligence" placeholder="ИНТ">
-								<input type="text" name="wisdom" placeholder="МУД">
-								<input type="text" name="charisma" placeholder="ХАР">
+								<input type="text" class="tip" name="strength" placeholder="СИЛ" title="СИЛ">
+								<input type="text" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВ">
+								<input type="text" class="tip" name="constitution" placeholder="ТЕЛ" title="ТЕЛ">
+								<input type="text" class="tip" name="intelligence" placeholder="ИНТ" title="ИНТ">
+								<input type="text" class="tip" name="wisdom" placeholder="МУД" title="МУД">
+								<input type="text" class="tip" name="charisma" placeholder="ХАР" title="ХАР">
 							</div>
 						</div>
 						<div class="block stats">
 							<h5>Спасброски</h5>
 							<div class="value">
-								<input type="text" name="saving_throws_strength" placeholder="СИЛ">
-								<input type="text" name="saving_throws_dexterity" placeholder="ЛОВ">
-								<input type="text" name="saving_throws_constitution" placeholder="ТЕЛ">
-								<input type="text" name="saving_throws_intelligence" placeholder="ИНТ">
-								<input type="text" name="saving_throws_wisdom" placeholder="МУД">
-								<input type="text" name="saving_throws_charisma" placeholder="ХАР">
+								<input type="text" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛ">
+								<input type="text" class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВ">
+								<input type="text" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛ">
+								<input type="text" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТ">
+								<input type="text" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУД">
+								<input type="text" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАР">
 							</div>
 						</div>
 						<div class="block movements">
 							<h5>Передвежение</h5>
 							<div class="value">
-								<input type="text" name="walking" placeholder="Ходьба">
-								<input type="text" name="swimming" placeholder="Плавая">
-								<input type="text" name="flying" placeholder="Летая">
-								<input type="text" name="climbing" placeholder="Лазая">
-								<input type="text" name="digging" placeholder="Копая">
+								<input type="text" class="tip" name="walking" placeholder="Ходьба" title="Ходьба">
+								<input type="text" class="tip" name="swimming" placeholder="Плавая" title="Плавая">
+								<input type="text" class="tip" name="flying" placeholder="Летая" title="Летая">
+								<input type="text" class="tip" name="climbing" placeholder="Лазая" title="Лазая">
+								<input type="text" class="tip" name="digging" placeholder="Копая" title="Копая">
 							</div>
 						</div>
 					</div>
+					<details class="block skills">
+						<summary class="h5">Скилы</summary>
+						<div class="value">
+							<label class="select_box">
+								<span>Акробатика:</span>
+								<input type="text" name="acrobatics" class="select acrobatics" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Анализ:</span>
+								<input type="text" name="analysis" class="select analysis" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Атлетика:</span>
+								<input type="text" name="athletics" class="select athletics" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Восприятие:</span>
+								<input type="text" name="perception" class="select perception" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Выживание:</span>
+								<input type="text" name="survival" class="select survival" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Выступление:</span>
+								<input type="text" name="performance" class="select performance" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Запугивание:</span>
+								<input type="text" name="intimidat" class="select intimidat" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>История:</span>
+								<input type="text" name="history" class="select history" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Ловкость рук:</span>
+								<input type="text" name="sleight_of_hand" class="select sleight_of_hand" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Магия:</span>
+								<input type="text" name="magic" class="select magic" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Медицина:</span>
+								<input type="text" name="medicine" class="select medicine" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Обман:</span>
+								<input type="text" name="deception" class="select deception" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Природа:</span>
+								<input type="text" name="nature" class="select nature" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Проницательность:</span>
+								<input type="text" name="discernment" class="select discernment" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Религия:</span>
+								<input type="text" name="religion" class="select religion" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Скрытность:</span>
+								<input type="text" name="stealth" class="select stealth" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Убеждение:</span>
+								<input type="text" name="belief" class="select belief" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Уход за животными:</span>
+								<input type="text" name="animal_care" class="select animal_care" placeholder="0" />
+							</label>
+						</div>
+					</details>
+					<details class="block senses">
+						<summary class="h5">Чувства</summary>
+						<div class="value">
+							<label class="select_box">
+								<span>Истинное зрение:</span>
+								<input type="text" name="true_vision" class="select true_vision" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Слепое зрение:</span>
+								<input type="text" name="blind_sight" class="select blind_sight" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Тёмное зрение:</span>
+								<input type="text" name="dark_vision" class="select dark_vision" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Пассивное Восприятие:</span>
+								<input type="text" name="passive_perception" class="select passive_perception" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Чувство вибрации:</span>
+								<input type="text" name="sense_vibration" class="select sense_vibration" placeholder="0" />
+							</label>
+						</div>
+					</details>
 					<div class="block damage">
 						<div class="value">
 							<div class="select js-dropdown">
