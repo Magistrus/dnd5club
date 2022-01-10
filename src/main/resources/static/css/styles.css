@@ -2393,6 +2393,10 @@ body.compact_menu #right_block.weapons {
   margin-bottom: 8px;
 }
 
+.bestiary .beast_info p {
+  margin-bottom: 6px;
+}
+
 @media (max-width: 1500px) {
   #right_block.bestiary .scores>div {
     max-width: calc(33% - 8px);

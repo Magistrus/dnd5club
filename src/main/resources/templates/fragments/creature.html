@@ -5,19 +5,21 @@
 </head>
 <body>
 	<div th:object="${creature}" th:fragment="view">
-		<p>
-			<strong>Класс доспеха:</strong> <span th:text="${creature.AC}"></span>
-			<th:block th:if="${creature.bonusAC}" th:text="${creature.bonusAC}" />
-			<th:block th:unless="${creature.armorTypes.empty}"> (<span th:each="armorType, iterStat : ${creature.armorTypes}"
-					th:text="${iterStat.last ? armorType.cyrillicName: armorType.cyrillicName + ', '}"
-				></span>)</th:block>
-		</p>
-		<p>
-			<strong>Хиты:</strong> <span th:text="${creature.hp}"></span>
-		</p>
-		<p>
-			<strong>Скорость:</strong> <span th:utext="${creature.allSpeed}"></span><span th:if="${creature.speedText}" th:text="| ${creature.speedText}|"></span>
-		</p>
+		<div class="beast_info">
+			<p>
+				<strong>Класс доспеха:</strong> <span th:text="${creature.AC}"></span>
+				<th:block th:if="${creature.bonusAC}" th:text="${creature.bonusAC}" />
+				<th:block th:unless="${creature.armorTypes.empty}"> (<span th:each="armorType, iterStat : ${creature.armorTypes}"
+						th:text="${iterStat.last ? armorType.cyrillicName: armorType.cyrillicName + ', '}"
+					></span>)</th:block>
+			</p>
+			<p>
+				<strong>Хиты:</strong> <span th:text="${creature.hp}"></span>
+			</p>
+			<p>
+				<strong>Скорость:</strong> <span th:utext="${creature.allSpeed}"></span><span th:if="${creature.speedText}" th:text="| ${creature.speedText}|"></span>
+			</p>
+		</div>
 		<div class="scores">
 			<div class="scores-strength">
 				<h4>
@@ -56,44 +58,37 @@
 				<p th:text="${creature.charismaText()}"></p>
 			</div>
 		</div>
-		<div th:unless="${creature.savingThrows.empty}">
-			<p>
+		<div class="beast_info">
+			<p th:unless="${creature.savingThrows.empty}">
 				<strong>Спасброски</strong> <span th:each="st, iterStat : ${creature.savingThrows}" th:text="${iterStat.last ? st.text : st.text +', '}"></span>
 			</p>
-		</div>
-		<div th:unless="${creature.skills.empty}">
-			<p>
+
+			<p th:unless="${creature.skills.empty}">
 				<strong>Навыки:</strong> <span th:each="skill, iterStat : ${creature.skills}" th:text="${iterStat.last ? skill.cyrilicText : skill.cyrilicText +', '}"></span>
 			</p>
-		</div>
-		<div th:unless="${creature.vulnerabilityDamages.empty}">
-			<p>
+
+			<p th:unless="${creature.vulnerabilityDamages.empty}">
 				<strong>Уязвимость к урону</strong> <span th:each="vulnerability, iterStat : ${creature.vulnerabilityDamages}"
 					th:text="${iterStat.last ? vulnerability.cyrilicName : vulnerability.cyrilicName +', '}"
 				></span>
 			</p>
-		</div>
-		<div th:unless="${creature.resistanceDamages.empty}">
-			<p>
+
+			<p th:unless="${creature.resistanceDamages.empty}">
 				<strong>Сопротивление к урону</strong> <span th:each="resistance, iterStat : ${creature.resistanceDamages}" th:text="${iterStat.last ? resistance.cyrilicName : resistance.cyrilicName +', '}"></span>
 			</p>
-		</div>
-		<div th:unless="${creature.immunityDamages.empty}">
-			<p>
+
+			<p th:unless="${creature.immunityDamages.empty}">
 				<strong>Иммунитет к урону</strong> <span th:each="immunity, iterStat : ${creature.immunityDamages}" th:text="${iterStat.last ? immunity.cyrilicName : immunity.cyrilicName +', '}"></span>
 			</p>
-		</div>
-		<div th:unless="${creature.immunityStates.empty}">
-			<p>
+
+			<p th:unless="${creature.immunityStates.empty}">
 				<strong>Иммунитет к состояниям</strong> <span th:each="immunity, iterStat : ${creature.immunityStates}" th:text="${iterStat.last ? immunity.cyrilicName : immunity.cyrilicName +', '}"></span>
 			</p>
-		</div>
-		<div>
+
 			<p>
 				<strong>Чувства</strong> <span th:text="|${creature.sense}${creature.sense.empty ? '': ', '}пассивная Внимательность ${creature.passivePerception}|"></span>
 			</p>
-		</div>
-		<div>
+
 			<p>
 				<strong>Языки</strong> <span th:each="language, iterStat : ${creature.languages}" th:text="${iterStat.last ? language.name : language.name + ', '}"></span>
 			</p>
