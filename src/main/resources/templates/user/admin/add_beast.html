@@ -33,9 +33,7 @@
 							</i>
 							<span class="placeholder js-dropdown__current size">Размер</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li th:each ="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
 							</ul>
 						</div>
 						<div class="select js-dropdown">
@@ -47,9 +45,7 @@
 							</i>
 							<span class="placeholder js-dropdown__current tipe">Тип</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li th:each ="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
 							</ul>
 						</div>
 						<div class="select js-dropdown">
@@ -61,9 +57,7 @@
 							</i>
 							<span class="placeholder js-dropdown__current alignment">Мировоззрение</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li th:each ="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
 							</ul>
 						</div>
 						<input type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
@@ -76,9 +70,9 @@
 							</i>
 							<span class="placeholder js-dropdown__current armor">Броня</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li data-dropdown-value="1">природный доспех</li>
+								<li data-dropdown-value="1">латы</li>
+								<li data-dropdown-value="1">щит</li>
 							</ul>
 						</div>
 					</div>
@@ -251,9 +245,7 @@
 								</i>
 								<span class="placeholder js-dropdown__current resistance_damage">Сопротивл. урону</span>
 								<ul data-simplebar>
-									<li data-dropdown-value="1">1</li>
-									<li data-dropdown-value="2">2</li>
-									<li data-dropdown-value="3">3</li>
+									<li th:each ="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
 								</ul>
 							</div>
 							<div class="select js-dropdown">
@@ -265,9 +257,7 @@
 								</i>
 								<span class="placeholder js-dropdown__current damage_immunity">Иммун. к урону</span>
 								<ul data-simplebar>
-									<li data-dropdown-value="1">1</li>
-									<li data-dropdown-value="2">2</li>
-									<li data-dropdown-value="3">3</li>
+									<li th:each ="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
 								</ul>
 							</div>
 							<div class="select js-dropdown">
@@ -279,9 +269,7 @@
 								</i>
 								<span class="placeholder js-dropdown__current damage_vulnerability">Уязвим. к урону</span>
 								<ul data-simplebar>
-									<li data-dropdown-value="1">1</li>
-									<li data-dropdown-value="2">2</li>
-									<li data-dropdown-value="3">3</li>
+									<li th:each ="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
 								</ul>
 							</div>
 							<div class="select js-dropdown">
@@ -293,9 +281,7 @@
 								</i>
 								<span class="placeholder js-dropdown__current condition_immunity">Иммун. к состоянию</span>
 								<ul data-simplebar>
-									<li data-dropdown-value="1">1</li>
-									<li data-dropdown-value="2">2</li>
-									<li data-dropdown-value="3">3</li>
+									<li th:each ="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
 								</ul>
 							</div>
 						</div>
@@ -310,9 +296,10 @@
 							</i>
 							<span class="placeholder js-dropdown__current languages">Языки</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li data-dropdown-value="0">0</li>
+								<li data-dropdown-value="1/2">1/8</li>
+								<li data-dropdown-value="1/4">1/4</li>
+								<li data-dropdown-value="1/2">1/2</li>
 							</ul>
 						</div>
 						<div class="select js-dropdown">
