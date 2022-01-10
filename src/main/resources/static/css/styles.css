@@ -2266,6 +2266,18 @@ body.compact_menu #right_block.spells {
   margin-bottom: 6px;
 }
 
+.classes .class .dnd5_table tbody tr:nth-child(2n) {
+  background: var(--bg-table-row);
+}
+
+.classes .class .dnd5_table tbody tr:nth-child(2n):hover {
+  background: var(--hover);
+}
+
+.classes .class .dnd5_table tbody td {
+  border-bottom: 0;
+}
+
 
 /******** Состояния / conditions ********/
 .conditions {
