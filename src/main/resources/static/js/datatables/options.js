@@ -19,7 +19,7 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					result+='<span>[' + row.englishName + ']</span></div>';
 					return result;
 				}
 				return data;

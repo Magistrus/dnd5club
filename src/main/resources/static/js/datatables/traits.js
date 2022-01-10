@@ -20,7 +20,7 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					result+='<span>[' + row.englishName + ']</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.requirement + '</div></div></div>';
 					return result;
 				}

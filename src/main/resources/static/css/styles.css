@@ -1212,6 +1212,7 @@ body.compact_menu .block_information #left_block {
   color: var(--text-color);
   font-size: 15px;
   margin: 0;
+  height: 45px;
 }
 
 #left_block .header_block .search_block.filter_control .search_int {
