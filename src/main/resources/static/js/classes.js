@@ -5,6 +5,7 @@ $(document).ready(function() {
 	}
 	if (selectedArchetype){
 		localStorage.setItem('selected_archetype', selectedArchetype);
+		localStorage.setItem('class_info', 'traits');
 	}
 	if (className){
 		var element = $('#'+className)[0];

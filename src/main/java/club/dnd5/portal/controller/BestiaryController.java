@@ -25,7 +25,6 @@ import club.dnd5.portal.repository.datatable.TagBestiaryDatatableRepository;
 public class BestiaryController {
 	@Autowired
 	private BestiaryDatatableRepository repository;
-	
 	@Autowired
 	private TagBestiaryDatatableRepository tagRepo;
 	@Autowired

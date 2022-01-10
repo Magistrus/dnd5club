@@ -65,7 +65,10 @@ public class TavernToolController {
 	private Set<String> generatedNames = new HashSet<>();
 
 	@GetMapping("/tools/tavern")
-	public String getForm() {
+	public String getForm(Model model) {
+		model.addAttribute("metaTitle", "Генератор таверны");
+		model.addAttribute("metaUrl", "https://dnd5.club/tools/tavern");
+		model.addAttribute("metaDescription", "Генерация таверны - название, атмосфера, список блюд и выпивки");
 		return "tools/tavern";
 	}
 

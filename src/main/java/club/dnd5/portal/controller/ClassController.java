@@ -44,6 +44,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы");
+		model.addAttribute("metaUrl", "https://dnd5.club/classes/");
 		return "classes";
 	}
 	
@@ -55,6 +56,7 @@ public class ClassController {
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("metaTitle", heroClass.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
+		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getName(), heroClass.getEnglishName()));
 		return "classes";
 	}
 	
@@ -62,7 +64,11 @@ public class ClassController {
 	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype) {
 		model.addAttribute("classes", classRepository.findAll());
 		model.addAttribute("selectedClass", name);
+		model.addAttribute("selectedArchetype", archetype);
 		model.addAttribute("metaTitle", archetype);
+		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
+		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
+		model.addAttribute("metaDescription", String.format(" - описание %s класса %s", heroClass.getArchetypeName(), heroClass.getName()));
 		return "classes";
 	}
 	

@@ -1,5 +1,7 @@
 package club.dnd5.portal.controller;
 
+import java.util.stream.Collectors;
+
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.classes.OptionDto;
 import club.dnd5.portal.model.classes.Option;
+import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 
 @Controller
@@ -24,7 +27,9 @@ public class OptionController {
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
-		model.addAttribute("metaTitle", "Опции классов");
+		model.addAttribute("metaTitle", "Особенности классов");
+		model.addAttribute("metaUrl", "https://dnd5.club/traits/");
+		model.addAttribute("metaDescription", "Список особенности классов и подкласов");
 		return "options";
 	}
 	
@@ -33,7 +38,14 @@ public class OptionController {
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
-		model.addAttribute("selectedOption", new OptionDto(repository.findByEnglishName(name.replace("_", " "))));
+		Option option = repository.findByEnglishName(name.replace("_", " "));
+		model.addAttribute("selectedOption", new OptionDto(option));
+		model.addAttribute("metaTitle", option.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/traits/" + name);
+		model.addAttribute("metaDescription", 
+				String.format("Описание особенности %s - %s",
+						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 
+						option.getName()));
 		return "options";
 	}
 	

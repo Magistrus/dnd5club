@@ -23,6 +23,9 @@ public class RandomEncounterController {
 	
 	@GetMapping("/tools/encounters")
 	public String getView(Model model) {
+		model.addAttribute("metaTitle", "Случайные столкновения");
+		model.addAttribute("metaUrl", "https://dnd5.club/tools/encounters");
+		model.addAttribute("metaDescription", "Генерация случайных столкновений");
 		model.addAttribute("types", HabitatType.types());
 		return "tools/random_encounters";
 	}

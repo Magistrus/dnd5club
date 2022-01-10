@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
+import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.items.MagicThingType;
 import club.dnd5.portal.model.items.Rarity;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
@@ -24,6 +25,8 @@ public class ItemMagicController {
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
 		model.addAttribute("metaTitle", "Магические предметы");
+		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
+		model.addAttribute("metaDescription", "Магические предметы и артефакты по D&D 5 редакции");
 		return "items_magic";
 	}
 	
@@ -31,7 +34,11 @@ public class ItemMagicController {
 	public String getMagicItem(Model model, @PathVariable String name) {
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
-		model.addAttribute("selectedItemMagic", new ItemMagicDto(repository.findByEnglishName(name.replace("_", " "))));
+		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
+		model.addAttribute("selectedItemMagic", new ItemMagicDto(item));
+		model.addAttribute("metaTitle", item.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/items/magic" + name);
+		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
 		return "items_magic";
 	}
 	
