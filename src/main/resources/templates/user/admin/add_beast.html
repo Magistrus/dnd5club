@@ -24,9 +24,7 @@
 							</i>
 							<span class="placeholder js-dropdown__current size">Размер</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li th:each ="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
 							</ul>
 						</div>
 						<div class="select js-dropdown">
@@ -38,9 +36,7 @@
 							</i>
 							<span class="placeholder js-dropdown__current tipe">Тип</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li th:each ="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
 							</ul>
 						</div>
 						<div class="select js-dropdown">
@@ -52,9 +48,7 @@
 							</i>
 							<span class="placeholder js-dropdown__current alignment">Мировоззрение</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li th:each ="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
 							</ul>
 						</div>
 						<input type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
@@ -67,9 +61,9 @@
 							</i>
 							<span class="placeholder js-dropdown__current armor">Броня</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
+								<li data-dropdown-value="1">природный доспех</li>
+								<li data-dropdown-value="1">латы</li>
+								<li data-dropdown-value="1">щит</li>
 							</ul>
 						</div>
 					</div>
