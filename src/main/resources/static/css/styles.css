@@ -1096,7 +1096,6 @@ label.select_box .select {
   position: relative;
   padding-left: 24px;
   font-size: 26px;
-  border-bottom: 1px solid var(--border);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1105,6 +1104,7 @@ label.select_box .select {
 .header_block .header_row {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--border);
 }
 
 @media (max-width: 1000px) {
@@ -1203,6 +1203,7 @@ body.compact_menu .block_information #left_block {
   background-color: var(--bg-secondary);
   color: var(--text-color);
   font-size: 15px;
+  margin: 0;
 }
 
 #left_block .header_block .search_block.filter_control .search_int {
@@ -1291,7 +1292,7 @@ body.compact_menu #right_block {
 }
 
 #right_block.sub_menu_block .header_block .header_sub_menu {
-  height: 46px;
+  height: 45px;
   width: auto;
   position: relative;
   display: flex;
@@ -1438,7 +1439,6 @@ body.compact_menu #right_block {
 #right_block .header_block .btn_close {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
   min-width: 72px;
   flex: 1 0 72px;
   height: 71px;
@@ -2373,7 +2373,7 @@ body.compact_menu #right_block.weapons {
 .bestiary_h5 {
   border-left: 3px solid var(--primary);
   padding-left: 8px;
-  margin: 18px 0 6px 0;
+  margin: 18px 0 2px 0;
 }
 
 #right_block.bestiary .scores {
