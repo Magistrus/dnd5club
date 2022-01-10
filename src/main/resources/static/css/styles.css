@@ -247,7 +247,7 @@ label.check_block {
 }
 
 label.check_block span {
-  margin-left: 8px;
+  margin-left: 4px;
 }
 
 .check-wrapper {
@@ -334,8 +334,8 @@ input::selection {
   background: var(--border);
 }
 
-label.select_box input,
-label.select_box .select {
+label.select_box {
+  margin-right: 8px;
   margin-bottom: 16px;
 }
 
@@ -363,7 +363,6 @@ label.select_box .select {
 
 .select {
   position: relative;
-  height: 34px;
   display: block;
   color: var(--text-color);
   vertical-align: middle;
@@ -373,7 +372,6 @@ label.select_box .select {
       -ms-user-select: none;
           user-select: none;
   -webkit-touch-callout: none;
-  min-width: 100px;
 }
 
 .select .placeholder {
@@ -384,9 +382,12 @@ label.select_box .select {
   z-index: 1;
   padding: 0px 12px;
   cursor: pointer;
-  padding-right: 48px;
+  padding-right: 40px;
   height: 36px;
   line-height: 36px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .archetype_mobile_selector .select .placeholder {
@@ -408,7 +409,7 @@ label.select_box .select {
   width: 24px;
   height: 24px;
   position: absolute;
-  right: 16px;
+  right: 8px;
   top: 50%;
   margin-top: -11px;
   z-index: 2;
@@ -482,12 +483,13 @@ label.select_box .select {
 }
 
 .row_input input.name {
-  flex: 1 1 calc(50% - 34px);
-  max-width: calc(50% - 34px);
+  flex: 1 1 calc(40% - 34px);
+  max-width: calc(40% - 34px);
 }
 
 .add_beast_container .copy_best {
-  width: 100%;
+  flex: 1 1 calc(20% - 34px);
+  max-width: calc(20% - 34px);
 }
 
 .add_beast_container .ac {
@@ -541,13 +543,15 @@ label.select_box .select {
   align-items: center;
 }
 
-.add_beast_container .block .value label.check_block {
+.add_beast_container .block h5 label.check_block {
+  margin-top: 4px;
   margin-bottom: 0;
-  margin-right: 8px;
+  margin-left: 8px;
 }
 
 .add_beast_container .block h5 {
   margin: 0 4px;
+  display: flex;
 }
 
 .add_beast_container .block.stats input {
@@ -565,12 +569,12 @@ label.select_box .select {
   min-width: 300px;
 }
 
+.add_beast_container .block.senses .value input,
 .add_beast_container .block.skills .value input {
-  width: 50px;
-  padding: 0px;
+  width: 56px;
   text-align: center;
+  padding: 0px 4px;
 }
-
 
 
 /******** Скролл ********/
