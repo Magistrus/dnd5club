@@ -20,7 +20,7 @@ $(document).ready(function() {
 				if (type === 'display') {
 					var result ='<div class="info_block">' + row.aligmentShort + '</div>';
 					result+='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					result+='<span>[' + row.englishName + ']</span></div>';
 					result+='<div class="secondary_name">' + row.commitment + '</div></div>';
 					return result;
 				}

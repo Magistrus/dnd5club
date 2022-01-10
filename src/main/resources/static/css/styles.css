@@ -303,16 +303,22 @@ input {
   border-radius: 0px;
   border:1px solid var(--border);
   outline:none;
-  padding: 14px 12px;
+  padding: 0px 12px;
   background: var(--hover);
   color: var(--text-color);
   font-size: 14px;
   min-width: 49px;
 }
 
+input[type="radio"] {
+  min-width: 13px;
+  height: 13px;
+}
+
 .select,
 input {
   margin: 4px;
+  height: 34px;
 }
 
 input:hover {
@@ -375,9 +381,11 @@ label.select_box .select {
   background: var(--hover);
   border:1px solid var(--border);
   z-index: 1;
-  padding: 1em;
+  padding: 0px 12px;
   cursor: pointer;
   padding-right: 48px;
+  height: 34px;
+  line-height: 34px;
 }
 
 .archetype_mobile_selector .select .placeholder {
@@ -401,7 +409,7 @@ label.select_box .select {
   position: absolute;
   right: 16px;
   top: 50%;
-  margin-top: -12px;
+  margin-top: -11px;
   z-index: 2;
 }
 
@@ -427,7 +435,7 @@ label.select_box .select {
   top: 100%;
   left: 0;
   list-style: none;
-  margin: 0px 0 0 0;
+  margin: 2px 0 0 0;
   padding: 0;
   z-index: 100;
   min-height: 40px;
@@ -480,7 +488,7 @@ label.select_box .select {
 .add_beast_container .ac {
   width: 49px;
   text-align: center;
-  padding: 14px 0px;
+  padding: 0px;
 }
 
 .add_beast_container .armor {
@@ -525,6 +533,12 @@ label.select_box .select {
 .add_beast_container .block .value {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.add_beast_container .block .value label.check_block {
+  margin-bottom: 0;
+  margin-right: 8px;
 }
 
 .add_beast_container .block h5 {
@@ -534,7 +548,7 @@ label.select_box .select {
 .add_beast_container .block.stats input {
   width: 49px;
   text-align: center;
-  padding: 14px 0px;
+  padding: 0px;
 }
 
 .add_beast_container .block.movements input {
@@ -548,7 +562,7 @@ label.select_box .select {
 
 .add_beast_container .block.skills .value input {
   width: 50px;
-  padding: 14px 0px;
+  padding: 0px;
   text-align: center;
 }
 
@@ -1204,6 +1218,7 @@ body.compact_menu .block_information #left_block {
   color: var(--text-color);
   font-size: 15px;
   margin: 0;
+  height: 45px;
 }
 
 #left_block .header_block .search_block.filter_control .search_int {
@@ -2257,6 +2272,18 @@ body.compact_menu #right_block.spells {
   margin-bottom: 6px;
 }
 
+.classes .class .dnd5_table tbody tr:nth-child(2n) {
+  background: var(--bg-table-row);
+}
+
+.classes .class .dnd5_table tbody tr:nth-child(2n):hover {
+  background: var(--hover);
+}
+
+.classes .class .dnd5_table tbody td {
+  border-bottom: 0;
+}
+
 
 /******** Состояния / conditions ********/
 .conditions {
@@ -2391,6 +2418,10 @@ body.compact_menu #right_block.weapons {
   border-radius: 4px;
   margin-right: 8px;
   margin-bottom: 8px;
+}
+
+.bestiary .beast_info p {
+  margin-bottom: 6px;
 }
 
 @media (max-width: 1500px) {
