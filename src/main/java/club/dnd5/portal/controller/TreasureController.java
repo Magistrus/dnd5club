@@ -21,6 +21,8 @@ public class TreasureController {
 	public String getItems(Model model) {
 		model.addAttribute("categories", TreasureType.values());
 		model.addAttribute("metaTitle", "Драгоценности и безделушки");
+		model.addAttribute("metaUrl", "https://dnd5.club/treasures");
+		model.addAttribute("metaDescription", "Драгоценности и безделушки");
 		return "treasures";
 	}
 	

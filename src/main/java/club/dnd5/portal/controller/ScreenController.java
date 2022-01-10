@@ -24,7 +24,9 @@ public class ScreenController {
 	@GetMapping("/screens")
 	public String getScreens(Model model) {
 		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
-		model.addAttribute("metaTitle", "Ширма");
+		model.addAttribute("metaTitle", "Ширма Мастера");
+		model.addAttribute("metaUrl", "https://dnd5.club/treasures");
+		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона");
 		return "screens";
 	}
 	
@@ -32,6 +34,9 @@ public class ScreenController {
 	public String getScreen(Model model, @PathVariable String name) {
 		model.addAttribute("selectedScreen", name);
 		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
+		model.addAttribute("metaTitle", "Ширма Мастера");
+		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
+		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона");
 		return "screens";
 	}
 	

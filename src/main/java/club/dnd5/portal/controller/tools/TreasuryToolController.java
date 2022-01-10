@@ -38,7 +38,10 @@ public class TreasuryToolController {
 	private TreasureDatatableRepository treasureRepo;
 	
 	@GetMapping("/tools/treasury")
-	public String getTreasuryTool() {
+	public String getTreasuryTool(Model model) {
+		model.addAttribute("metaTitle", "Генератор сокровищницы");
+		model.addAttribute("metaUrl", "https://dnd5.club/tools/treasury");
+		model.addAttribute("metaDescription", "Генерация содержимого сокровищницы");
 		return "tools/treasury";
 	}
 	@GetMapping("/tools/treasury/random")

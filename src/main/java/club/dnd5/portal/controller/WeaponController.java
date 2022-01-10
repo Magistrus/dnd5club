@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.item.WeaponDto;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
 
@@ -27,6 +28,8 @@ public class WeaponController {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
 		model.addAttribute("metaTitle", "Оружие");
+		model.addAttribute("metaUrl", "https://dnd5.club/weapons/");
+		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
 		return "weapons";
 	}
 	
@@ -34,7 +37,11 @@ public class WeaponController {
 	public String getWeapon(Model model, @PathVariable String name) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
-		model.addAttribute("selectedWeapon", new WeaponDto(repository.findByEnglishName(name.replace('_', ' '))));
+		Weapon weapon = repository.findByEnglishName(name.replace('_', ' '));
+		model.addAttribute("selectedWeapon", new WeaponDto(weapon));
+		model.addAttribute("metaTitle", weapon.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/weapons/" + name);
+		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
 		return "weapons";
 	}
 	

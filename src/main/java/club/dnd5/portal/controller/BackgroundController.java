@@ -28,14 +28,20 @@ public class BackgroundController {
 	@GetMapping("/backgrounds")
 	public String getBackgrounds(Model model) {
 		model.addAttribute("skills", SkillType.values());
-		model.addAttribute("metaTitle", "Предыстории");
+		model.addAttribute("metaTitle", "Предыстории персонажей по D&D 5 редакции");
+		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds/");
+		model.addAttribute("metaDescription", "Предыстории персонажей по D&D 5 редакции");
 		return "backgrounds";
 	}
 	
 	@GetMapping("/backgrounds/{name}")
 	public String getBackGround(Model model, @PathVariable String name) {
 		model.addAttribute("skills", SkillType.values());
-		model.addAttribute("selectedBackground", new BackgroundDto(repository.findByEnglishName(name.replace("_", " "))));
+		Background background = repository.findByEnglishName(name.replace("_", " "));
+		model.addAttribute("selectedBackground", new BackgroundDto(background));
+		model.addAttribute("metaTitle", background.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds/" + name);
+		model.addAttribute("metaDescription", String.format("%s (%s) - предыстория персонажа по D&D 5 редакции", background.getName(), background.getEnglishName()));
 		return "backgrounds";
 	}
 	
