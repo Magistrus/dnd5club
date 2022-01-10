@@ -233,7 +233,7 @@
 					</details>
 					<div class="block damage">
 						<div class="value">
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Сопротивл. урону">
 								<input type="hidden" name="resistance_damage" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -245,7 +245,7 @@
 									<li th:each ="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Иммун. к урону">
 								<input type="hidden" name="damage_immunity" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -257,7 +257,7 @@
 									<li th:each ="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Уязвим. к урону">
 								<input type="hidden" name="damage_vulnerability" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -269,7 +269,7 @@
 									<li th:each ="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Иммун. к состоянию">
 								<input type="hidden" name="condition_immunity" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -284,7 +284,7 @@
 						</div>
 					</div>
 					<div class="row_input">
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Языки">
 							<input type="hidden" name="languages" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -299,7 +299,7 @@
 								<li data-dropdown-value="1/2">1/2</li>
 							</ul>
 						</div>
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Опасность">
 							<input type="hidden" name="danger" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -313,7 +313,7 @@
 								<li data-dropdown-value="3">3</li>
 							</ul>
 						</div>
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Источник">
 							<input type="hidden" name="source" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -327,7 +327,7 @@
 								<li data-dropdown-value="3">3</li>
 							</ul>
 						</div>
-						<input type="text" name="tags" class="tags" placeholder="Теги">
+						<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги">
 					</div>
 					<div>
 						<details open>
