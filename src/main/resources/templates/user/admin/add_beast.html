@@ -18,13 +18,11 @@
 				<div class="wrapper">
 					<div class="row_input">
 						<input type="text" class="copy_best tip" name="copy_best" placeholder="Выбрать монстра для копирования" title="Выбрать монстра для копирования">
-					</div>
-					<div class="row_input">
-						<input type="text" class="name tip" name="name" placeholder="Название моснтра" title="Название моснтра">
+						<input type="text" class="name tip" name="best_name" placeholder="Название моснтра" title="Название моснтра">
 						<input type="text" class="name tip" name="title_name" placeholder="Titile beast" title="Titile beast">
 					</div>
 					<div class="row_input">
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Размер">
 							<input type="hidden" name="size" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +34,7 @@
 								<li th:each ="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
 							</ul>
 						</div>
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Тип">
 							<input type="hidden" name="tipe" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +46,7 @@
 								<li th:each ="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
 							</ul>
 						</div>
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Мировоззрение">
 							<input type="hidden" name="alignment" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +59,7 @@
 							</ul>
 						</div>
 						<input type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Броня">
 							<input type="hidden" name="armor" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +86,7 @@
 											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
 									</i>
-									<span class="placeholder js-dropdown__current dice_hp">Значение куба</span>
+									<span class="placeholder js-dropdown__current dice_hp">d4</span>
 									<ul data-simplebar>
 										<li data-dropdown-value="1">1</li>
 										<li data-dropdown-value="2">2</li>
@@ -121,12 +119,11 @@
 							</div>
 						</div>
 						<div class="block movements">
-							<h5>Передвежение</h5>
+							<h5>Передвежение <label for="additional" class="check_block"><input id="additional" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label></h5>
 							<div class="value">
 								<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба">
 								<input type="number" value="" class="tip" name="swimming" placeholder="Плавая" title="Плавая">
 								<input type="number" value="" class="tip" name="flying" placeholder="Летая" title="Летая">
-								<label for="additional" class="check_block"><input id="additional" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
 								<input type="number" value="" class="tip" name="climbing" placeholder="Лазая" title="Лазая">
 								<input type="number" value="" class="tip" name="digging" placeholder="Копая" title="Копая">
 							</div>
@@ -137,75 +134,75 @@
 						<div class="value">
 							<label class="select_box">
 								<span>Акробатика:</span>
-								<input type="text" name="acrobatics" class="select acrobatics" placeholder="0" />
+								<input type="number" value="" name="acrobatics" class="select acrobatics" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Анализ:</span>
-								<input type="text" name="analysis" class="select analysis" placeholder="0" />
+								<input type="number" value="" name="analysis" class="select analysis" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Атлетика:</span>
-								<input type="text" name="athletics" class="select athletics" placeholder="0" />
+								<input type="number" value="" name="athletics" class="select athletics" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Восприятие:</span>
-								<input type="text" name="perception" class="select perception" placeholder="0" />
+								<input type="number" value="" name="perception" class="select perception" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Выживание:</span>
-								<input type="text" name="survival" class="select survival" placeholder="0" />
+								<input type="number" value="" name="survival" class="select survival" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Выступление:</span>
-								<input type="text" name="performance" class="select performance" placeholder="0" />
+								<input type="number" value="" name="performance" class="select performance" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Запугивание:</span>
-								<input type="text" name="intimidat" class="select intimidat" placeholder="0" />
+								<input type="number" value="" name="intimidat" class="select intimidat" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>История:</span>
-								<input type="text" name="history" class="select history" placeholder="0" />
+								<input type="number" value="" name="history" class="select history" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Ловкость рук:</span>
-								<input type="text" name="sleight_of_hand" class="select sleight_of_hand" placeholder="0" />
+								<input type="number" value="" name="sleight_of_hand" class="select sleight_of_hand" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Магия:</span>
-								<input type="text" name="magic" class="select magic" placeholder="0" />
+								<input type="number" value="" name="magic" class="select magic" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Медицина:</span>
-								<input type="text" name="medicine" class="select medicine" placeholder="0" />
+								<input type="number" value="" name="medicine" class="select medicine" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Обман:</span>
-								<input type="text" name="deception" class="select deception" placeholder="0" />
+								<input type="number" value="" name="deception" class="select deception" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Природа:</span>
-								<input type="text" name="nature" class="select nature" placeholder="0" />
+								<input type="number" value="" name="nature" class="select nature" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Проницательность:</span>
-								<input type="text" name="discernment" class="select discernment" placeholder="0" />
+								<input type="number" value="" name="discernment" class="select discernment" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Религия:</span>
-								<input type="text" name="religion" class="select religion" placeholder="0" />
+								<input type="number" value="" name="religion" class="select religion" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Скрытность:</span>
-								<input type="text" name="stealth" class="select stealth" placeholder="0" />
+								<input type="number" value="" name="stealth" class="select stealth" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Убеждение:</span>
-								<input type="text" name="belief" class="select belief" placeholder="0" />
+								<input type="number" value="" name="belief" class="select belief" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Уход за животными:</span>
-								<input type="text" name="animal_care" class="select animal_care" placeholder="0" />
+								<input type="number" value="" name="animal_care" class="select animal_care" placeholder="0" />
 							</label>
 						</div>
 					</details>
@@ -214,29 +211,29 @@
 						<div class="value">
 							<label class="select_box">
 								<span>Истинное зрение:</span>
-								<input type="text" name="true_vision" class="select true_vision" placeholder="0" />
+								<input type="number" name="true_vision" class="select true_vision" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Слепое зрение:</span>
-								<input type="text" name="blind_sight" class="select blind_sight" placeholder="0" />
+								<input type="number" name="blind_sight" class="select blind_sight" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Тёмное зрение:</span>
-								<input type="text" name="dark_vision" class="select dark_vision" placeholder="0" />
+								<input type="number" name="dark_vision" class="select dark_vision" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Пассивное Восприятие:</span>
-								<input type="text" name="passive_perception" class="select passive_perception" placeholder="0" />
+								<input type="number" name="passive_perception" class="select passive_perception" placeholder="0" />
 							</label>
 							<label class="select_box">
 								<span>Чувство вибрации:</span>
-								<input type="text" name="sense_vibration" class="select sense_vibration" placeholder="0" />
+								<input type="number" name="sense_vibration" class="select sense_vibration" placeholder="0" />
 							</label>
 						</div>
 					</details>
 					<div class="block damage">
 						<div class="value">
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Сопротивл. урону">
 								<input type="hidden" name="resistance_damage" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -248,7 +245,7 @@
 									<li th:each ="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Иммун. к урону">
 								<input type="hidden" name="damage_immunity" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,7 +257,7 @@
 									<li th:each ="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Уязвим. к урону">
 								<input type="hidden" name="damage_vulnerability" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -272,7 +269,7 @@
 									<li th:each ="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown">
+							<div class="select js-dropdown tip" title="Иммун. к состоянию">
 								<input type="hidden" name="condition_immunity" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -287,7 +284,7 @@
 						</div>
 					</div>
 					<div class="row_input">
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Языки">
 							<input type="hidden" name="languages" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -302,7 +299,7 @@
 								<li data-dropdown-value="1/2">1/2</li>
 							</ul>
 						</div>
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Опасность">
 							<input type="hidden" name="danger" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -316,7 +313,7 @@
 								<li data-dropdown-value="3">3</li>
 							</ul>
 						</div>
-						<div class="select js-dropdown">
+						<div class="select js-dropdown tip" title="Источник">
 							<input type="hidden" name="source" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -330,7 +327,7 @@
 								<li data-dropdown-value="3">3</li>
 							</ul>
 						</div>
-						<input type="text" name="tags" class="tags" placeholder="Теги">
+						<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги">
 					</div>
 					<div>
 						<details open>
