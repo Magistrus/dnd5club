@@ -1100,12 +1100,6 @@ label.select_box .select {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  border-image-source: var(--border-bottom);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 .header_block .header_row {
@@ -1276,12 +1270,6 @@ body.compact_menu .block_information #left_block {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   overflow: hidden;
-  
-  border-image-source: var(--border-img);
-  border-image-slice: 1 1 1 fill;
-  border-image-repeat: repeat repeat;    
-  border-image-width: auto;
-  border-image-outset: 0;
 }
 
 body.compact_menu #right_block {
