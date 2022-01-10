@@ -533,6 +533,12 @@ label.select_box .select {
 .add_beast_container .block .value {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.add_beast_container .block .value label.check_block {
+  margin-bottom: 0;
+  margin-right: 8px;
 }
 
 .add_beast_container .block h5 {

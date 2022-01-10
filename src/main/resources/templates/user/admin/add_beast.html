@@ -4,7 +4,9 @@
 	<div layout:fragment="content">
 		<div id="left_block" class="add_beast">
 			<div class="header_block">
-				<h1>Добовлени / редактирование монстра</h3>
+				<div class="header_row">
+					<h1>Добовлени / редактирование монстра</h1>
+				</div>
 			</div>
 			<div class="add_beast_container" data-simplebar>
 				<div class="wrapper">
@@ -57,9 +59,16 @@
 						</div>
 						<input type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
 						<input type="text" name="armor" class="armor tip" placeholder="Броня" title="Броня">
-						<input type="text" name="hp" class="hp tip" placeholder="Хиты" title="Хиты">
 					</div>
 					<div class="unit">
+						<div class="block stats">
+							<h5>Хиты</h5>
+							<div class="value">
+								<input type="text" class="tip" name="sum_dice" placeholder="0" title="Количество кубов">
+								<input type="text" class="tip" name="dice_hp" placeholder="d4" title="Значение куба">
+								<input type="text" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp">
+							</div>
+						</div>
 						<div class="block stats">
 							<h5>Статы</h5>
 							<div class="value">
@@ -88,6 +97,7 @@
 								<input type="text" class="tip" name="walking" placeholder="Ходьба" title="Ходьба">
 								<input type="text" class="tip" name="swimming" placeholder="Плавая" title="Плавая">
 								<input type="text" class="tip" name="flying" placeholder="Летая" title="Летая">
+								<label for="additional" class="check_block"><input id="additional" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
 								<input type="text" class="tip" name="climbing" placeholder="Лазая" title="Лазая">
 								<input type="text" class="tip" name="digging" placeholder="Копая" title="Копая">
 							</div>
