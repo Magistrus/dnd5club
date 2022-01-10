@@ -308,6 +308,7 @@ input {
   color: var(--text-color);
   font-size: 14px;
   min-width: 49px;
+  height: 36px;
 }
 
 input[type="radio"] {
@@ -318,7 +319,6 @@ input[type="radio"] {
 .select,
 input {
   margin: 4px;
-  height: 34px;
 }
 
 input:hover {
@@ -363,6 +363,7 @@ label.select_box .select {
 
 .select {
   position: relative;
+  height: 34px;
   display: block;
   color: var(--text-color);
   vertical-align: middle;
@@ -384,8 +385,8 @@ label.select_box .select {
   padding: 0px 12px;
   cursor: pointer;
   padding-right: 48px;
-  height: 34px;
-  line-height: 34px;
+  height: 36px;
+  line-height: 36px;
 }
 
 .archetype_mobile_selector .select .placeholder {
@@ -485,6 +486,10 @@ label.select_box .select {
   max-width: calc(50% - 34px);
 }
 
+.add_beast_container .copy_best {
+  width: 100%;
+}
+
 .add_beast_container .ac {
   width: 49px;
   text-align: center;
@@ -546,13 +551,13 @@ label.select_box .select {
 }
 
 .add_beast_container .block.stats input {
-  width: 49px;
+  width: 56px;
   text-align: center;
-  padding: 0px;
+  padding: 0px 4px;
 }
 
 .add_beast_container .block.movements input {
-  width: 60px;
+  width: 66px;
 }
 
 .add_beast_container .block.damage .value .select {
@@ -2866,6 +2871,10 @@ button {
   vertical-align: middle;
   user-select: none;
   margin-bottom: 8px;
+  height: auto;
+  flex: 1 0 auto;
+  margin-right: 8px;
+  color: var(--text-btn-color);
 }
 
 .btn_primary {

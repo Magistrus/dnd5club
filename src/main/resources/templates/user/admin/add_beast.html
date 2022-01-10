@@ -6,10 +6,19 @@
 			<div class="header_block">
 				<div class="header_row">
 					<h1>Добовлени / редактирование монстра</h1>
+					<button class="btn btn_additional_features tip" title="Сохранить">
+						Сохранить
+					</button>
+					<button class="btn btn_additional_features tip" title="Отмена">
+						Отмена
+					</button>
 				</div>
 			</div>
 			<div class="add_beast_container" data-simplebar>
 				<div class="wrapper">
+					<div class="row_input">
+						<input type="text" class="copy_best tip" name="copy_best" placeholder="Выбрать монстра для копирования" title="Выбрать монстра для копирования">
+					</div>
 					<div class="row_input">
 						<input type="text" class="name tip" name="name" placeholder="Название моснтра" title="Название моснтра">
 						<input type="text" class="name tip" name="title_name" placeholder="Titile beast" title="Titile beast">
@@ -77,42 +86,55 @@
 						<div class="block stats">
 							<h5>Хиты</h5>
 							<div class="value">
-								<input type="text" class="tip" name="sum_dice" placeholder="0" title="Количество кубов">
-								<input type="text" class="tip" name="dice_hp" placeholder="d4" title="Значение куба">
-								<input type="text" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp">
+								<input type="number" value="" min="0" class="tip" name="sum_dice" placeholder="0" title="Количество кубов">
+								<div class="select js-dropdown tip" title="Значение куба">
+									<input type="hidden" name="dice_hp" class="js-dropdown__input">
+									<i class="icon_arrow">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</i>
+									<span class="placeholder js-dropdown__current dice_hp">Значение куба</span>
+									<ul data-simplebar>
+										<li data-dropdown-value="1">1</li>
+										<li data-dropdown-value="2">2</li>
+										<li data-dropdown-value="3">3</li>
+									</ul>
+								</div>
+								<input type="number" value="" min="0" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp">
 							</div>
 						</div>
 						<div class="block stats">
 							<h5>Статы</h5>
 							<div class="value">
-								<input type="text" class="tip" name="strength" placeholder="СИЛ" title="СИЛ">
-								<input type="text" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВ">
-								<input type="text" class="tip" name="constitution" placeholder="ТЕЛ" title="ТЕЛ">
-								<input type="text" class="tip" name="intelligence" placeholder="ИНТ" title="ИНТ">
-								<input type="text" class="tip" name="wisdom" placeholder="МУД" title="МУД">
-								<input type="text" class="tip" name="charisma" placeholder="ХАР" title="ХАР">
+								<input type="number" min="3" max="30" value="" class="tip" name="strength" placeholder="СИЛ" title="СИЛ">
+								<input type="number" min="3" max="30" value="" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВ">
+								<input type="number" min="3" max="30" value="" class="tip" name="constitution" placeholder="ТЕЛ" title="ТЕЛ">
+								<input type="number" min="3" max="30" value="" class="tip" name="intelligence" placeholder="ИНТ" title="ИНТ">
+								<input type="number" min="3" max="30" value="" class="tip" name="wisdom" placeholder="МУД" title="МУД">
+								<input type="number" min="3" max="30" value="" class="tip" name="charisma" placeholder="ХАР" title="ХАР">
 							</div>
 						</div>
 						<div class="block stats">
 							<h5>Спасброски</h5>
 							<div class="value">
-								<input type="text" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛ">
-								<input type="text" class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВ">
-								<input type="text" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛ">
-								<input type="text" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТ">
-								<input type="text" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУД">
-								<input type="text" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАР">
+								<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛ">
+								<input type="number" value="" class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВ">
+								<input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛ">
+								<input type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТ">
+								<input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУД">
+								<input type="number" value="" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАР">
 							</div>
 						</div>
 						<div class="block movements">
 							<h5>Передвежение</h5>
 							<div class="value">
-								<input type="text" class="tip" name="walking" placeholder="Ходьба" title="Ходьба">
-								<input type="text" class="tip" name="swimming" placeholder="Плавая" title="Плавая">
-								<input type="text" class="tip" name="flying" placeholder="Летая" title="Летая">
+								<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба">
+								<input type="number" value="" class="tip" name="swimming" placeholder="Плавая" title="Плавая">
+								<input type="number" value="" class="tip" name="flying" placeholder="Летая" title="Летая">
 								<label for="additional" class="check_block"><input id="additional" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
-								<input type="text" class="tip" name="climbing" placeholder="Лазая" title="Лазая">
-								<input type="text" class="tip" name="digging" placeholder="Копая" title="Копая">
+								<input type="number" value="" class="tip" name="climbing" placeholder="Лазая" title="Лазая">
+								<input type="number" value="" class="tip" name="digging" placeholder="Копая" title="Копая">
 							</div>
 						</div>
 					</div>
