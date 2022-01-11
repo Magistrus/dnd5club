@@ -509,6 +509,10 @@ label.select_box {
   width: 60px;
 }
 
+.add_beast_container .stats .hp_formula {
+  margin-left: 8px;
+}
+
 .add_beast_container .tags {
   width: 100%;
   min-width: 100px;
