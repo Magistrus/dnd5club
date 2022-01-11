@@ -1,9 +1,9 @@
 $('#beast_size').change(function () {
 	switch($('#beast_size').val()){
 	case 'TINY':
-		break;
 		$('#hp_dice_text').text('к4');
 		$('#hp_dice').val('d4');
+		break;
 	case 'SMALL':
 		$('#hp_dice_text').text('к6');
 		$('#hp_dice').val('d4');
@@ -35,9 +35,49 @@ $('#hp_dice_count').change(function () {
 	$('#hp_bonus').val(hp_bonus);
 });
 $('#ability_dex').change(function () {
-	let ac = 10 + getBonus($('#ability_dex').val());
-	$('#ac').val(ac);
+	if($('#armor').val() == ''){
+		let ac = 10 + getBonus($('#ability_dex').val());
+		$('#ac').val(ac);
+	} else {
+		changeAC();
+	}
 });
+$('#armor').change(function () {
+	changeAC();
+});
+function changeAC(){
+	switch($('#armor').val()){
+	case 'LEATHER':
+		$('#ac').val(11 + getBonus($('#ability_dex').val()));
+		break;
+	case 'RIVETED_LEATHER':
+		$('#ac').val(12 + getBonus($('#ability_dex').val()));
+		break;
+	case 'HIDE':
+		$('#ac').val(12 + Math.max(getBonus($('#ability_dex').val())), 2);
+		break;
+	case 'CHAINMAIL':
+		$('#ac').val(13 + Math.max(getBonus($('#ability_dex').val())), 2);
+		break;
+	case 'SCALED':
+	case 'BREASTPLATE':
+	case 'CUIRASS':
+		$('#ac').val(14 + Math.max(getBonus($('#ability_dex').val())), 2);
+		break;
+	case 'RING_MAIL':
+		$('#ac').val(14);
+		break;
+	case 'HALF_PLATE':
+		$('#ac').val(15);
+		break;
+	case 'CHAIN_MAIL':
+		$('#ac').val(16);
+		break;
+	case 'PLATE':
+		$('#ac').val(18);
+		break;
+	}
+}
 function getBonus(value) {
 	if (value == 1)
 		return -5;

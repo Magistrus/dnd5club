@@ -1,5 +1,8 @@
 package club.dnd5.portal.model;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,4 +31,8 @@ public enum ArmorType {
 	SHIELD("доспех (щит)"); //9
 
 	private String cyrillicName;
+
+	public static Set<ArmorType> getCreatures() {
+		return EnumSet.of(LEATHER, RIVETED_LEATHER, HIDE, CHAINMAIL, SCALED, CUIRASS, BREASTPLATE, HALF_PLATE, RING_MAIL, CHAIN_MAIL, PLATE_HALF, PLATE);
+	}
 }

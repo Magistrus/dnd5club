@@ -24,7 +24,7 @@ public class ModeratorController {
 		model.addAttribute("vulnerabilities", DamageType.getVulnerability());
 		model.addAttribute("conditionImmunity", Condition.values());
 		model.addAttribute("hitDices", Dice.getCreatures());
-		model.addAttribute("armorTypes", ArmorType.values());
+		model.addAttribute("armorTypes", ArmorType.getCreatures());
 		return "user/admin/add_beast";
 	}
 }
