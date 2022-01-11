@@ -68,11 +68,11 @@
 							</i>
 							<span class="placeholder js-dropdown__current armor">Броня</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="bonus">Текстовое описание</li>
+								<li data-dropdown-value="TEXT">Текстовое описание</li>
 								<li th:each ="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
 							</ul>
 						</div>
-						<input type="text" name="ac_bonus" class="ac tip hide_block" placeholder="бонус к КД" title="бонус к КД">
+						<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к КД" title="бонус к КД">
 					</div>
 					<div class="unit">
 						<div class="block stats">
@@ -86,7 +86,7 @@
 											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
 									</i>
-									<span id = "hp_dice_text" class="placeholder js-dropdown__current dice_hp">d4</span>
+									<span id = "hp_dice_text" class="placeholder js-dropdown__current dice_hp">к4</span>
 									<ul data-simplebar>
 										<li th:each ="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
 									</ul>
@@ -231,7 +231,7 @@
 					</details>
 					<div class="block damage">
 						<div class="value">
-							<div class="select js-dropdown tip" title="Сопротивл. урону">
+							<div class="select js-dropdown tip multiselect" title="Сопротивл. урону">
 								<input type="hidden" name="resistance_damage" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -243,7 +243,7 @@
 									<li th:each ="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown tip" title="Иммун. к урону">
+							<div class="select js-dropdown tip multiselect" title="Иммун. к урону">
 								<input type="hidden" name="damage_immunity" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -255,7 +255,7 @@
 									<li th:each ="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown tip" title="Уязвим. к урону">
+							<div class="select js-dropdown tip multiselect" title="Уязвим. к урону">
 								<input type="hidden" name="damage_vulnerability" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -267,7 +267,7 @@
 									<li th:each ="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
 								</ul>
 							</div>
-							<div class="select js-dropdown tip" title="Иммун. к состоянию">
+							<div class="select js-dropdown tip multiselect" title="Иммун. к состоянию">
 								<input type="hidden" name="condition_immunity" class="js-dropdown__input">
 								<i class="icon_arrow">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

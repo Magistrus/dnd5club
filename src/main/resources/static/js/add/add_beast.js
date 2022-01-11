@@ -77,6 +77,11 @@ function changeAC(){
 		$('#ac').val(18);
 		break;
 	}
+	if ($('#armor').val() == 'TEXT'){
+		$('#ac_text').removeClass('hide_block');
+	} else {
+		$('#ac_text').addClass('hide_block');
+	}
 }
 function getBonus(value) {
 	if (value == 1)
