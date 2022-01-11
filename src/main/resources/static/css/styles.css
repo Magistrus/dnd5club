@@ -246,8 +246,12 @@ label.check_block {
   margin-bottom: 8px;
 }
 
-label.check_block span {
+label.check_block .toggle+span {
   margin-left: 4px;
+}
+
+label.check_block .check+span {
+  margin-left: 8px;
 }
 
 .check-wrapper {
@@ -307,7 +311,6 @@ input {
   background: var(--hover);
   color: var(--text-color);
   font-size: 14px;
-  min-width: 49px;
   height: 36px;
 }
 
@@ -656,71 +659,47 @@ label.select_box {
 
 /******** Форма входа / login_form ********/
 .login_form {
-  max-width: 300px;
-  background: var(--bg-main);
-  text-align: left;
-  margin: 40px auto;
-  position: relative;
-  color: var(--text-color);
-}
-
-.login_form #login-form input.form-control {
-  height: 30px;
-  background: var(--hover);
-  width: calc(100% - 26px);
-  padding: 6px 12px;
-  color:var(--text-color);
+  width: 300px;
+  padding: 0;
 }
 
 .login_form .header {
-  border-bottom: 1px solid var(--border);
-  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 12px 24px;
 }
 
-.login_form .header h4 {
+.login_form #login-form input.form-control {
+  width: calc(100% - 26px);
+  padding: 6px 12px;
   margin: 0;
-  padding: 8px 12px;
-}
-
-.login_form .mfp-close i {
-  background-repeat: no-repeat;
-  background-position: center;
-  display: block;
-  width: 44px;
-  height: 44px;
-}
-
-.login_form .mfp-close {
-  border-left:1px solid var(--border);
-  background-repeat: no-repeat;
-  background-position: center;
-  display: block;
-  width: 44px;
-  height: 44px;
 }
 
 .login_form .remember_row {
   padding: 12px 12px 4px 12px;
 }
 
+.registration_form .bottom,
 .login_form .bottom {
   border-top: 1px solid var(--border);
   display: flex;
 }
 
-.login_form .bottom input.button {
+.registration_form .bottom button,
+.login_form .bottom button {
   height: 44px;
-  background: var(--bg-main);
+  background: var(--primary);
   padding: 12px 12px;
   border:none;
-  border-right: 1px solid var(--border);
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--text-btn-color);
   margin-right: auto;
+  margin-bottom: 0;
 }
 
-.login_form .bottom input.button:hover {
-  background: var(--hover);
+.registration_form .bottom button:hover,
+.login_form .bottom button:hover {
+  background: var(--primary-hover);
 }
 
 .login_form .bottom a {
@@ -746,6 +725,24 @@ label.select_box {
   top: 50%;
   left: 50%;
   position: relative;
+}
+
+.registration_form {
+  width: 400px;
+  padding: 0;
+}
+
+.registration_form .header {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 12px 24px;
+}
+
+
+.registration_form input.form-control {
+  width: calc(100% - 26px);
+  padding: 6px 12px;
+  margin: 0;
 }
 
 /******** Главная ********/

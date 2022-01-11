@@ -4,24 +4,29 @@
 	<div id="container" class="container">
 		<div class="row">
 			<div layout:fragment="content">
-				<form id = "registration_form" autocomplete="off" th:action="@{/registration}" th:object="${user}" method="post" class="m-t mfp-hide" role="form" data-toggle="validator">
-					<div class="mb-3">
+				<form id = "registration_form" autocomplete="off" th:action="@{/registration}" th:object="${user}" method="post" class="registration_form dnd5-popup-block mfp-hide" role="form" data-toggle="validator">
+					<div class="header">
+						<h4>Регистрация</h4>
+					</div>
+					<div>
 						<input th:field="*{name}" type="text" class="form-control" placeholder="Имя пользователя" aria-label="Имя пользователя" aria-describedby="basic-addon1" />
 						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Неверное имя</div>
 					</div>
-					<div class="mb-3">
+					<div>
 						<input th:field="*{email}" type="text" class="form-control" placeholder="Электронный адрес" aria-label="Электронный адрес" aria-describedby="basic-addon1" />
 						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Неверный электронный адрес</div>
 					</div>
-					<div class="mb-3">
+					<div>
 						<input th:field="*{password}" type="password" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="basic-addon2" />
 						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Неверный размер</div>
 					</div>
-					<div class="mb-3">
+					<div>
 						<input th:field="*{passwordConfirm}" type="password" class="form-control" placeholder="Повторите пароль" aria-label="Повторите пароль" aria-describedby="basic-addon1" />
 						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Неверный размер</div>
 					</div>
-					<button type="submit" class="btn">Регистрация</button>
+					<div class="bottom">
+						<button type="submit" class="btn">Регистрация</button>
+					</div>
 				</form>
 			</div>
 		</div>
