@@ -85,7 +85,7 @@ function changeHpFormula(){
 		formula+= ($('#hp_bonus').val()>0 ? ' + ' : ' - ') + Math.abs($('#hp_bonus').val());
 		average+=parseInt($('#hp_bonus').val(), 10);
 	}
-	$('#hp_formula').html(Math.max(Math.ceil(average), 1) + ' (' + formula + ')');
+	$('#hp_formula').html(Math.max(Math.floor(average), 1) + ' (' + formula + ')');
 }
 function changeAC(){
 	switch($('#armor').val()){
