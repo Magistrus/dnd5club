@@ -1,5 +1,8 @@
 package club.dnd5.portal.model;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -40,5 +43,9 @@ public enum Dice {
 
 	public String getName() {
 		return "к" + maxValue;
+	}
+
+	public static Set<Dice> getCreatures() {
+		return EnumSet.of(d4, d6, d8, d10, d12, d20);
 	}
 }

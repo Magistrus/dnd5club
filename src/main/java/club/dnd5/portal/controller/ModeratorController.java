@@ -8,19 +8,21 @@ import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.creature.Condition;
 
 @Controller
 public class ModeratorController {
 	@GetMapping ("/profile/beast")
 	public String getProfileForm(Model model) {
-		model.addAttribute("sizes", CreatureSize.values());
+		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("types", CreatureType.values());
 		model.addAttribute("aligments", Alignment.values());
 		model.addAttribute("resistancs", DamageType.getResistance());
-		model.addAttribute("resistancs", DamageType.getImmunity());
+		model.addAttribute("immunities", DamageType.getImmunity());
 		model.addAttribute("vulnerabilities", DamageType.getVulnerability());
 		model.addAttribute("conditionImmunity", Condition.values());
+		model.addAttribute("hitDices", Dice.getCreatures());
 		return "user/admin/add_beast";
 	}
 }
