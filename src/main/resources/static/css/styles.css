@@ -77,6 +77,11 @@ hr {
   height: calc(100% - 0px);
 }
 
+.disable {
+  opacity: 0.6 !important;
+  cursor: no-drop !important;
+}
+
 .icon_action {
   background-position: center;
   background-repeat: no-repeat;
@@ -646,6 +651,28 @@ label.select_box {
 .add_beast_container .opportunities {
   display: flex;
   margin: 16px 0 0 0;
+}
+
+.add_beast_container .opportunities .icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.add_beast_container .opportunities .icon:hover {
+  background: var(--primary-hover);
+  border: 1px solid var(--primary-hover);
+}
+
+.add_beast_container .opportunities .icon:hover path {
+  stroke: var(--text-btn-color);
 }
 
 .add_beast_container .opportunities div.control {
