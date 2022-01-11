@@ -4,7 +4,7 @@
 	<div id="container" class="container">
 		<div class="row">
 			<div layout:fragment="content">
-				<form autocomplete="off" action="#" th:action="@{/registration}" th:object="${user}" method="post" class="m-t" role="form" data-toggle="validator">
+				<form id = "registration_form" autocomplete="off" th:action="@{/registration}" th:object="${user}" method="post" class="m-t mfp-hide" role="form" data-toggle="validator">
 					<div class="mb-3">
 						<input th:field="*{name}" type="text" class="form-control" placeholder="Имя пользователя" aria-label="Имя пользователя" aria-describedby="basic-addon1" />
 						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Неверное имя</div>
@@ -27,4 +27,5 @@
 		</div>
 	</div>
 </body>
+<script th:src="@{/resources/js/registration.js?v=1.0}" layout:fragment="js-script"></script>
 </html>
