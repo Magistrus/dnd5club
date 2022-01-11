@@ -146,21 +146,28 @@ $('li').click(function () {
 	var $html = $('html');
 	$html.on('click.ui.dropdown', '.js-dropdown', function(e) {
 		e.preventDefault();
-		$(this).toggleClass('is-open');
+		if($(this).hasClass('multiselect')){
+			$(this).addClass('is-open');
+		} else {
+			$(this).toggleClass('is-open');	
+		}
 	});
 	$html.on('click.ui.dropdown', '.js-dropdown [data-dropdown-value]', function(e) {
 		e.preventDefault();
 		var $item = $(this);
 		var $dropdown = $item.parents('.js-dropdown');
-		
 		if($dropdown.hasClass('multiselect')){
 			let $span = $dropdown.find('.js-dropdown__current');
-			if($span.text().includes($item.text())){
-				$span.text().replace(' ' + $item.text(), '');
-			} else {
-				$span.text($span.text() + ' ' + $item.text());
+			if(!$span.text().includes($item.text())){
+				let $input = $dropdown.find('.js-dropdown__input');
+				if($input.val() == ''){
+					$span.html('<span class="selected_item">' + $item.text() + '</span>');
+					$input.val($item.data('dropdown-value'));
+				} else {
+					$span.html($span.text() + '<span class="selected_item">' + $item.text() + '</span>');
+					$input.val($input.val() + '|' + $item.data('dropdown-value'));
+				}
 			}
-			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
 		} else {
 			$dropdown.find('.js-dropdown__current').text($item.text());
 			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
