@@ -169,8 +169,11 @@ $('li').click(function () {
 				}
 			} else {
 				$span.html($span.html().replace('<span class="selected_item">' + $item.text() + '</span>', ''));
-				$input.val().replace('|' + $item.data('dropdown-value'), '');
+				$input.val($input.val().replace('|' + $item.data('dropdown-value'), ''));
 				$input.val($input.val().replace($item.data('dropdown-value'), ''));
+				if($input.val().trim() == ''){
+					$span.text($span.attr('title'));
+				}
 			}
 			$item.toggleClass('selected');
 		} else {

@@ -5,7 +5,7 @@
 		<div id="left_block" class="add_beast">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>Добовление / редактирование монстра</h1>
+					<h1>Добавление / редактирование монстра</h1>
 					<button class="btn btn_additional_features tip" title="Сохранить">
 						Сохранить
 					</button>
@@ -238,7 +238,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</i>
-								<span class="placeholder js-dropdown__current resistance_damage">Сопротивл. урону</span>
+								<span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону">Сопротивл. урону</span>
 								<ul data-simplebar>
 									<li th:each ="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
 								</ul>
@@ -250,7 +250,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</i>
-								<span class="placeholder js-dropdown__current damage_immunity">Иммун. к урону</span>
+								<span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону">Иммун. к урону</span>
 								<ul data-simplebar>
 									<li th:each ="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
 								</ul>
@@ -262,7 +262,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</i>
-								<span class="placeholder js-dropdown__current damage_vulnerability">Уязвим. к урону</span>
+								<span class="placeholder js-dropdown__current damage_vulnerability" title="Иммун. к урону">Уязвим. к урону</span>
 								<ul data-simplebar>
 									<li th:each ="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
 								</ul>
@@ -274,7 +274,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</i>
-								<span class="placeholder js-dropdown__current condition_immunity">Иммун. к состоянию</span>
+								<span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию">Иммун. к состоянию</span>
 								<ul data-simplebar>
 									<li th:each ="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
 								</ul>
