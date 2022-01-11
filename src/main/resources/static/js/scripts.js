@@ -164,7 +164,7 @@ $('li').click(function () {
 					$span.html('<span class="selected_item">' + $item.text() + '</span>');
 					$input.val($item.data('dropdown-value'));
 				} else {
-					$span.html($span.text() + '<span class="selected_item">' + $item.text() + '</span>');
+					$span.html($span.html() + '<span class="selected_item">' + $item.text() + '</span>');
 					$input.val($input.val() + '|' + $item.data('dropdown-value'));
 				}
 			}
