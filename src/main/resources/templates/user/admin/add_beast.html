@@ -76,26 +76,7 @@
 					</div>
 					<div class="unit">
 						<div class="block stats">
-							<h5>Хиты <span id="hp_formula" class="hp_formula"></span></h5>
-							<div class="value">
-								<input id = "hp_dice_count" type="number" value="" min="0" class="tip" name="sum_dice" placeholder="0" title="Количество кубов">
-								<div class="select js-dropdown tip" title="Значение куба">
-									<input id = "hp_dice" type="hidden" name="dice_hp" class="js-dropdown__input">
-									<i class="icon_arrow">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</i>
-									<span id = "hp_dice_text" class="placeholder js-dropdown__current dice_hp">к4</span>
-									<ul data-simplebar>
-										<li th:each ="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
-									</ul>
-								</div>
-								<input id = "hp_bonus" type="number" value="" min="0" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp">
-							</div>
-						</div>
-						<div class="block stats">
-							<h5>Статы</h5>
+							<h5>Характеристики</h5>
 							<div class="value">
 								<input type="number" min="1" max="30" value="" class="tip" name="strength" placeholder="СИЛ" title="СИЛ">
 								<input id="ability_dex" type="number" min="1" max="30" value="" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВ">
@@ -114,6 +95,25 @@
 								<input type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТ">
 								<input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУД">
 								<input type="number" value="" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАР">
+							</div>
+						</div>
+						<div class="block stats">
+							<h5>Хиты <span id="hp_formula" class="hp_formula"></span></h5>
+							<div class="value">
+								<input id = "hp_dice_count" type="number" value="" min="0" class="tip" name="sum_dice" placeholder="0" title="Количество кубов">
+								<div class="select js-dropdown tip" title="Значение куба">
+									<input id = "hp_dice" type="hidden" name="dice_hp" class="js-dropdown__input">
+									<i class="icon_arrow">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</i>
+									<span id = "hp_dice_text" class="placeholder js-dropdown__current dice_hp">к4</span>
+									<ul data-simplebar>
+										<li th:each ="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
+									</ul>
+								</div>
+								<input id = "hp_bonus" type="number" value="" min="0" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp">
 							</div>
 						</div>
 						<div class="block movements">

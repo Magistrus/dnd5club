@@ -370,6 +370,8 @@ label.select_box {
   color: var(--text-color);
   vertical-align: middle;
   text-align: left;
+  background: var(--hover);
+  border:1px solid var(--border);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -377,15 +379,39 @@ label.select_box {
   -webkit-touch-callout: none;
 }
 
+.select:hover {
+  background: var(--hover);
+  border:1px solid var(--primary-hover);
+  color: var(--text-color-active);
+}
+
+.archetype_mobile_selector .select {
+  border: none;
+  margin: 0;
+  background: var(--bg-secondary);
+}
+
+.archetype_mobile_selector .select .placeholder {
+  height: 46px;
+  line-height: 46px;
+}
+
+.archetype_mobile_selector .select .icon_arrow {
+  height: 46px;
+  width: 46px;
+}
+
+.archetype_mobile_selector .select:hover {
+  border: none;
+}
+
 .select .placeholder {
   position: relative;
   display: block;
-  background: var(--hover);
-  border:1px solid var(--border);
   z-index: 1;
   padding: 0px 12px;
   cursor: pointer;
-  padding-right: 40px;
+  margin-right: 40px;
   height: 36px;
   line-height: 36px;
   white-space: nowrap;
@@ -393,29 +419,43 @@ label.select_box {
   text-overflow: ellipsis;
 }
 
-.archetype_mobile_selector .select .placeholder {
-  border: none;
+.select.multiselect .placeholder {
+  white-space: normal;
+  overflow-x: clip;
+  text-overflow: clip;
+  display: flex;
+  align-items: center;
 }
 
-.archetype_mobile_selector .select .placeholder:hover {
-  border: none;
+.select .selected_item {
+  padding: 0px 3px;
+  background: var(--primary-active);
+  margin-right: 4px;
+  border-radius: 4px;
+  height: 19px;
+  line-height: 19px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  min-width: 50px;
 }
 
-.select .placeholder:hover {
-  background: var(--hover);
-  border:1px solid var(--primary-hover);
-  color: var(--text-color-active);
+.select .selected_item:hover {
+  background: var(--primary-hover);
 }
 
 .select .icon_arrow {
-  display: block;
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   position: absolute;
-  right: 8px;
-  top: 50%;
-  margin-top: -11px;
+  right: 0px;
+  top: 0px;
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .select .icon_arrow svg path {
@@ -460,6 +500,14 @@ label.select_box {
 .select ul li:hover {
   background: var(--hover);
   color: var(--text-color);
+}
+
+.select ul li.selected {
+  background: var(--primary-active);
+}
+
+.select ul li.selected:hover {
+  background: var(--primary-hover);
 }
 
 .row_input {
