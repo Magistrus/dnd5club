@@ -220,12 +220,12 @@
 								<input type="number" name="dark_vision" class="select dark_vision" placeholder="0" />
 							</label>
 							<label class="select_box">
-								<span>Пассивное Восприятие:</span>
-								<input type="number" name="passive_perception" class="select passive_perception" placeholder="0" />
-							</label>
-							<label class="select_box">
 								<span>Чувство вибрации:</span>
 								<input type="number" name="sense_vibration" class="select sense_vibration" placeholder="0" />
+							</label>
+							<label class="select_box">
+								<span>Пассивное Восприятие:</span>
+								<input type="number" name="passive_perception" class="select passive_perception" placeholder="0" />
 							</label>
 						</div>
 					</details>
@@ -282,14 +282,14 @@
 						</div>
 					</div>
 					<div class="row_input">
-						<div class="select js-dropdown tip" title="Языки">
+						<div class="select js-dropdown tip multiselect" title="Языки">
 							<input type="hidden" name="languages" class="js-dropdown__input">
 							<i class="icon_arrow">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>
 							</i>
-							<span class="placeholder js-dropdown__current languages">Языки</span>
+							<span class="placeholder js-dropdown__current languages" title="Языки">Языки</span>
 							<ul data-simplebar>
 								<li data-dropdown-value="1">Общий</li>
 								<li data-dropdown-value="2">Эльфийский</li>
@@ -376,5 +376,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/add/add_beast.js?v=1.5}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/add/add_beast.js?v=1.6}" layout:fragment="js-script"></script>
 </html>
