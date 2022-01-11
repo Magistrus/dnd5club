@@ -663,6 +663,13 @@ label.select_box {
   padding: 0;
 }
 
+.form-text.text-danger,
+.alert.alert-danger {
+  padding: 8px;
+  background: red;
+  color: var(--text-btn-color);
+}
+
 .login_form .header {
   margin-top: 0;
   margin-bottom: 0;
