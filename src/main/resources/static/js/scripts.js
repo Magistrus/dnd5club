@@ -158,8 +158,8 @@ $('li').click(function () {
 		var $dropdown = $item.parents('.js-dropdown');
 		if($dropdown.hasClass('multiselect')){
 			let $span = $dropdown.find('.js-dropdown__current');
+			let $input = $dropdown.find('.js-dropdown__input');
 			if(!$span.text().includes($item.text())){
-				let $input = $dropdown.find('.js-dropdown__input');
 				if($input.val() == ''){
 					$span.html('<span class="selected_item">' + $item.text() + '</span>');
 					$input.val($item.data('dropdown-value'));
@@ -167,7 +167,12 @@ $('li').click(function () {
 					$span.html($span.html() + '<span class="selected_item">' + $item.text() + '</span>');
 					$input.val($input.val() + '|' + $item.data('dropdown-value'));
 				}
+			} else {
+				$span.html($span.html().replace('<span class="selected_item">' + $item.text() + '</span>', ''));
+				$input.val().replace('|' + $item.data('dropdown-value'), '');
+				$input.val($input.val().replace($item.data('dropdown-value'), ''));
 			}
+			$item.toggleClass('selected');
 		} else {
 			$dropdown.find('.js-dropdown__current').text($item.text());
 			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
