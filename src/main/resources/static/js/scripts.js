@@ -145,26 +145,35 @@ $('li').click(function () {
 	'use strict';
 	var $html = $('html');
 	$html.on('click.ui.dropdown', '.js-dropdown', function(e) {
-	  e.preventDefault();
-	  $(this).toggleClass('is-open');
+		e.preventDefault();
+		$(this).toggleClass('is-open');
 	});
-	
 	$html.on('click.ui.dropdown', '.js-dropdown [data-dropdown-value]', function(e) {
-	  e.preventDefault();
-	  var $item = $(this);
-	  var $dropdown = $item.parents('.js-dropdown');
-	  $dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
-	  $dropdown.find('.js-dropdown__input').change();
-	  $dropdown.find('.js-dropdown__current').text($item.text());
+		e.preventDefault();
+		var $item = $(this);
+		var $dropdown = $item.parents('.js-dropdown');
+		
+		if($dropdown.hasClass('multiselect')){
+			let $span = $dropdown.find('.js-dropdown__current');
+			if($span.text().includes($item.text())){
+				$span.text().replace(' ' + $item.text(), '');
+			} else {
+				$span.text($span.text() + ' ' + $item.text());
+			}
+			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
+		} else {
+			$dropdown.find('.js-dropdown__current').text($item.text());
+			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
+		}
+		$dropdown.find('.js-dropdown__input').change();
 	});
-	
 	$html.on('click.ui.dropdown', function(e) {
-	  var $target = $(e.target);
-	  if (!$target.parents().hasClass('js-dropdown')) {
-		$('.js-dropdown').removeClass('is-open');
-	  }
+		var $target = $(e.target);
+		if (!$target.parents().hasClass('js-dropdown')) {
+			$('.js-dropdown').removeClass('is-open');
+		}
 	});
-  })(jQuery, window, document);
+})(jQuery, window, document);
 $(document).keydown(function(event){
 	if(event.which=="17")
 		cntrlIsPressed = true;
