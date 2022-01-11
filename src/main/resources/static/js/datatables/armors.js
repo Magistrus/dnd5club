@@ -78,6 +78,15 @@ $(document).ready(function() {
 		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
+	$('#armors tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/armors/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#armors tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -89,13 +98,16 @@ $(document).ready(function() {
 		if (data === undefined) {
 			return;
 		}
+		if (cntrlIsPressed){
+			window.open('/armors/' + data.englishName.split(' ').join('_'));
+		}
 		$('#armor_name').text(data.name);
 		$('#ac').text(data.acFull);
 		$('#type').text(data.type);
-		document.getElementById('cost').innerHTML = data.cost;
-		document.getElementById('weight').innerHTML = data.weight;
-		document.getElementById('requirements').innerHTML = data.requirements;
-		document.getElementById('stealth').innerHTML = data.stealth;
+		$('#cost').text(data.cost);
+		$('#weight').text(data.weight);
+		$('#requirements').text(data.requirements);
+		#('#stealth').text(data.stealth);
 		
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';

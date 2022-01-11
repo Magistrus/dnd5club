@@ -83,6 +83,15 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
+	$('#items tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/items/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#items tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -91,9 +100,12 @@ $(document).ready(function() {
 		var table = $('#items').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/items/' + data.englishName.split(' ').join('_'));
+		}
 		rowSelectIndex = row.index();
 		selectItem(data);
-		selectedItem = null;
+		selectedItem = data;
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){

@@ -103,17 +103,29 @@ $(document).ready(function() {
 			}
 		},
 	});
+	$('#options tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/options/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#options tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}
 		var tr = $(this).closest('tr');
 		var table = $('#options').DataTable();
-		var row = table.row( tr );
+		var row = table.row(tr);
 		rowSelectIndex = row.index();
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/options/' + data.englishName.split(' ').join('_'));
+		}
 		selectOption(data);
-		selectedOption = null;
+		selectedOption = data;
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
