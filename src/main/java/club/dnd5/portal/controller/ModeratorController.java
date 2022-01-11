@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import club.dnd5.portal.model.Alignment;
+import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
@@ -23,6 +24,7 @@ public class ModeratorController {
 		model.addAttribute("vulnerabilities", DamageType.getVulnerability());
 		model.addAttribute("conditionImmunity", Condition.values());
 		model.addAttribute("hitDices", Dice.getCreatures());
+		model.addAttribute("armorTypes", ArmorType.values());
 		return "user/admin/add_beast";
 	}
 }

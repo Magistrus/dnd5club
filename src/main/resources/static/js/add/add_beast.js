@@ -27,12 +27,16 @@ $('#beast_size').change(function () {
 	}
 });
 $('#ability_con').change(function () {
-	hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
+	let hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
 	$('#hp_bonus').val(hp_bonus);
 });
 $('#hp_dice_count').change(function () {
-	hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
+	let hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
 	$('#hp_bonus').val(hp_bonus);
+});
+$('#ability_dex').change(function () {
+	let ac = 10 + getBonus($('#ability_dex').val());
+	$('#ac').val(ac);
 });
 function getBonus(value) {
 	if (value == 1)

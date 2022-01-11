@@ -5,7 +5,7 @@
 		<div id="left_block" class="add_beast">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>Добовлени / редактирование монстра</h1>
+					<h1>Добовление / редактирование монстра</h1>
 					<button class="btn btn_additional_features tip" title="Сохранить">
 						Сохранить
 					</button>
@@ -58,7 +58,7 @@
 								<li th:each ="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
 							</ul>
 						</div>
-						<input type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
+						<input id="ac" type="text" name="ac" class="ac tip" placeholder="КД" title="КД">
 						<div class="select js-dropdown tip" title="Броня">
 							<input type="hidden" name="armor" class="js-dropdown__input">
 							<i class="icon_arrow">
@@ -68,11 +68,11 @@
 							</i>
 							<span class="placeholder js-dropdown__current armor">Броня</span>
 							<ul data-simplebar>
-								<li data-dropdown-value="1">природный доспех</li>
-								<li data-dropdown-value="1">латы</li>
-								<li data-dropdown-value="1">щит</li>
+								<li data-dropdown-value="bonus">Текстовое описание</li>
+								<li th:each ="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
 							</ul>
 						</div>
+						<input type="text" name="ac_bonus" class="ac tip hide_block" placeholder="бонус к КД" title="бонус к КД">
 					</div>
 					<div class="unit">
 						<div class="block stats">
@@ -98,7 +98,7 @@
 							<h5>Статы</h5>
 							<div class="value">
 								<input type="number" min="1" max="30" value="" class="tip" name="strength" placeholder="СИЛ" title="СИЛ">
-								<input type="number" min="1" max="30" value="" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВ">
+								<input id="ability_dex" type="number" min="1" max="30" value="" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВ">
 								<input id="ability_con" type="number" min="1" max="30" value="" class="tip" name="constitution" placeholder="ТЕЛ" title="ТЕЛ">
 								<input type="number" min="1" max="30" value="" class="tip" name="intelligence" placeholder="ИНТ" title="ИНТ">
 								<input type="number" min="1" max="30" value="" class="tip" name="wisdom" placeholder="МУД" title="МУД">
@@ -376,5 +376,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/add/add_beast.js?v=1.3}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/add/add_beast.js?v=1.4}" layout:fragment="js-script"></script>
 </html>
