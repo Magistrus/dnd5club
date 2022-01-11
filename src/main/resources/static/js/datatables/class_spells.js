@@ -97,13 +97,13 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		$.get('/spells/fragment/' + row.data().id)
 		  .done(function( spellData ) {
-				$.magnificPopup.open({
-					  items: {
-					      src: '<div class="dnd5-popup-block"><div class="header"><h4>' + row.data().name +'</h4></div><div class="wrapper" data-simplebar><p>' + spellData + '</p></div></div>',
-					      type: 'inline'
-					  },
-				});
-		  });
+			$.magnificPopup.open({
+				  items: {
+				      src: '<div class="dnd5-popup-block"><div class="header"><h4>' + row.data().name +'</h4></div><div class="wrapper" data-simplebar><p>' + spellData + '</p></div></div>',
+				      type: 'inline'
+				  },
+			});
+		});
 	});
 });
 function selectSpell(data){
