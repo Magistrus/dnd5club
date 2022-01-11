@@ -438,7 +438,7 @@ label.select_box {
   overflow-x: hidden;
   text-overflow: ellipsis;
   max-width: 150px;
-  min-width: 50px;
+  min-width: 20px;
 }
 
 .select .selected_item:hover {
