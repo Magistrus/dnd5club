@@ -29,10 +29,18 @@ $('#beast_size').change(function () {
 $('#ability_con').change(function () {
 	let hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
 	$('#hp_bonus').val(hp_bonus);
+	changeHpFormula();
 });
 $('#hp_dice_count').change(function () {
 	let hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
 	$('#hp_bonus').val(hp_bonus);
+	changeHpFormula();
+});
+$('#hp_dice').change(function () {
+	changeHpFormula();
+});
+$('#hp_bonus').change(function () {
+	changeHpFormula();
 });
 $('#ability_dex').change(function () {
 	if($('#armor').val() == ''){
@@ -45,6 +53,40 @@ $('#ability_dex').change(function () {
 $('#armor').change(function () {
 	changeAC();
 });
+function changeHpFormula(){
+	let average = 1;
+	let formula = '<span class="dice_text">';
+	if($('#hp_dice_count').val() !=0){
+		formula+= $('#hp_dice_count').val();
+		average = parseInt($('#hp_dice_count').val(), 10);
+	}
+	formula+= $('#hp_dice_text').text()+'</span>';
+	switch($('#hp_dice_text').text()){
+		case 'к4':
+			average*=2.5;
+			break;
+		case 'к6':
+			average*=3.5;
+			break;
+		case 'к8':
+			average*=4.5;
+			break;
+		case 'к10':
+			average*=5.5;
+			break;
+		case 'к12':
+			average*=6.5;
+			break;
+		case 'к20':
+			average*=10.5;
+		break;
+	}
+	if ($('#hp_bonus').val() != 0){
+		formula+= ($('#hp_bonus').val()>0 ? ' + ' : ' - ') + Math.abs($('#hp_bonus').val());
+		average+=parseInt($('#hp_bonus').val(), 10);
+	}
+	$('#hp_formula').html(Math.max(Math.floor(average), 1) + ' (' + formula + ')');
+}
 function changeAC(){
 	switch($('#armor').val()){
 	case 'LEATHER':
