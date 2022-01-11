@@ -64,4 +64,9 @@ public class UserController {
 		}
 		return "user/login";
 	}
+	
+	@GetMapping("/loginform")
+	public String getLoginForm(Model model, String error, String logout) {
+		return "user/login :: form";
+	}
 }
