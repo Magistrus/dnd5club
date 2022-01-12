@@ -48,10 +48,14 @@ $(document).ready(function() {
 			data : 'tag',
 			searchable: false
 		},
+		{
+			data : 'habitates',
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [0, 2 ,3, 4, 5, 6],
+				"targets": [0, 2 ,3, 4, 5, 6, 7],
 				"visible": false
 			},
 			{
@@ -279,6 +283,24 @@ $('#tag_clear_btn').on('click', function() {
 	$('#tag_clear_btn').addClass('hide_block');
 	$('.tag_checkbox').prop('checked', false);
 	$('#creatures').DataTable().column(6).search("", true, false, false).draw();
+	setFiltered();
+})
+$('.habitate_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="habitate"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#creatures').DataTable().column(7).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#habitate_clear_btn').removeClass('hide_block');
+	} else {
+		$('#habitate_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#habitate_clear_btn').on('click', function() {
+	$(this).addClass('hide_block');
+	$('.habitate_checkbox').prop('checked', false);
+	$('#creatures').DataTable().column(7).search("", true, false, false).draw();
 	setFiltered();
 })
 function setFiltered(){

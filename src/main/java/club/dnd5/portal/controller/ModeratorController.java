@@ -11,6 +11,7 @@ import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.creature.Condition;
+import club.dnd5.portal.model.creature.HabitatType;
 
 @Controller
 public class ModeratorController {
@@ -25,6 +26,7 @@ public class ModeratorController {
 		model.addAttribute("conditionImmunity", Condition.values());
 		model.addAttribute("hitDices", Dice.getCreatures());
 		model.addAttribute("armorTypes", ArmorType.getCreatures());
+		model.addAttribute("habitates", HabitatType.values());
 		return "user/admin/add_beast";
 	}
 
