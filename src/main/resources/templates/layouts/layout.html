@@ -40,7 +40,7 @@
 		<!-- Favicon-->
 		<link rel="icon" type="image/x-icon" th:href="@{/resources/assets/favicon.ico?v=2}" />
 		<!-- Core theme CSS -->
-		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'light': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
+		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
 		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v18.6}" />
 		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=82.3}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
@@ -78,7 +78,7 @@
 	<script th:src="@{/resources/js/simplebar.min.js}"></script>
 	<script th:src="@{/resources/js/scripts.js?v=8.5}"></script>
 	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
-	<script th:src="@{/resources/js/scheme.js}"></script>
+	<script th:src="@{/resources/js/scheme.js?v=0.1}"></script>
 	<script th:src="@{/resources/js/tipped.min.js}"></script>
 	</th:block>
 	<script layout:fragment="js-script"></script>
