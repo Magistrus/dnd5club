@@ -11,6 +11,19 @@ html {
   }  
 }
 
+#body:before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: url(/resources/assets/style/dark/test.png) no-repeat;
+  background-size: contain;
+  width: 700px;
+  height: 700px;
+  opacity: 0.3;
+}
+
 body {
   display: flex;
   margin: 0;
