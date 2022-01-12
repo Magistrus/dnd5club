@@ -28,6 +28,12 @@ $(document).ready(function() {
 					result+='<div class="content"><h3 class="row_name"><span>' + row.name;
 					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					result+='<div class="secondary_name">' + row.school + '</div></div>';
+					if (row.concentration) {
+						result+='<span class="tip concentration" title="Концентрация">К</span>';
+					}
+					if (row.ritual) {
+						result+='<span class="tip ritual" title="Ритуал">Р</span>';
+					}
 					return result;
 				}
 				return data;
