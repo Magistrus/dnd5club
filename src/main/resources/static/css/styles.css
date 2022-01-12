@@ -1440,6 +1440,7 @@ body.compact_menu #right_block {
   position: relative;
   display: flex;
   border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
 }
 
 #right_block .header_block .header_sub_menu button {

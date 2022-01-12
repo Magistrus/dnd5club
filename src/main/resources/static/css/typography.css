@@ -221,7 +221,7 @@ table {
   color: var(--text-color);
   border-spacing: inherit;
   border-radius: 0px;
-  border: 1px solid var(--border-table);
+  border: 1px solid var(--border);
   width: 100% !important;
   overflow: scroll;
   margin-bottom: 16px;
@@ -237,14 +237,14 @@ table thead th {
 }
 
 table td {
-  border-right: 1px solid var(--border-table);
-  border-bottom: 1px solid var(--border-table);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   height: 30px;
   padding: 4px 4px;
 }
 
 table td:last-child {
-  border-right: 0px solid var(--border-table);
+  border-right: 0px solid var(--border);
 }
 
 table.dnd5_table {
