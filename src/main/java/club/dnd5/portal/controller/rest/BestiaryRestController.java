@@ -27,6 +27,7 @@ import club.dnd5.portal.dto.bestiary.CreatureDto;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.foundary.FCreature;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
@@ -68,6 +69,17 @@ public class BestiaryRestController {
 				Join<Object, Object> join = root.join("races", JoinType.INNER);
 				query.distinct(true);
 				return cb.and(join.get("id").in(tagIds));
+			});
+		}
+		List<HabitatType> habitateTypes = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty())
+				.map(HabitatType::valueOf)
+				.collect(Collectors.toList());
+		if (!habitateTypes.isEmpty()) {
+			specification = addSpecification(specification,  (root, query, cb) -> {
+				Join<Object, Object> join = root.join("habitates", JoinType.INNER);
+				query.distinct(true);
+				return join.in(habitateTypes);
 			});
 		}
 		return repo.findAll(input, null, specification, creature -> new CreatureDto(creature));
