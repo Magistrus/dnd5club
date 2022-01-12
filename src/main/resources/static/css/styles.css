@@ -1939,6 +1939,7 @@ body.compact_menu #right_block {
 .table_list tr.selected td .info_block,
 .table_list tr.selected td .row_name,
 .table_list tr.selected td .secondary_name,
+.table_list tr.selected td .secondary_name p,
 .table_list tr.selected td span {
   color: var(--text-btn-color) !important;
 }
