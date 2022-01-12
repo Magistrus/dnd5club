@@ -1939,6 +1939,7 @@ body.compact_menu #right_block {
 .table_list tr.selected td .info_block,
 .table_list tr.selected td .row_name,
 .table_list tr.selected td .secondary_name,
+.table_list tr.selected td .secondary_name p,
 .table_list tr.selected td span {
   color: var(--text-btn-color) !important;
 }
@@ -2011,17 +2012,42 @@ body.compact_menu #right_block {
 
 .table_list tr td .row_name {
   font-size: 15px;
+  margin: 0;
+  margin-right: 6px;
+  font-weight: 500;
+  line-height:normal;
+}
+
+.table_list tr .row_name span:first-child {
+  color: var(--text-color);
 }
 
 .table_list tr .row_name span {
   color: var(--text-g-color);
-  margin-left: 8px;
+  margin-right: 6px;
+}
+
+.table_list tr span.ritual,
+.table_list tr span.concentration {
+  padding: 0 3px;
+  border-radius: 4px;
+  background-color: var(--primary);
+  color: var(--text-btn-color);
+  margin-right: 4px;
+  float: left;
 }
 
 .table_list tr .secondary_name {
   color: var(--text-g-color);
   margin-top: 4px;
   font-size: 13px;
+}
+
+.table_list tr .secondary_name p {
+  color: var(--text-g-color);
+  margin: 0;
+  font-size: 13px;
+  line-height: normal;
 }
 
 .table_list tr td .secondary_name.s2,
@@ -3030,62 +3056,6 @@ button {
 
 
 /******** Иконки ********/
-.icon_bard {
-  background-image: var(--bard);
-}
-
-.icon_barbarian {
-  background-image: var(--barbarian);
-}
-
-.icon_fighter {
-  background-image: var(--fighter);
-}
-
-.icon_wizard {
-  background-image: var(--wizard);
-}
-
-.icon_druid {
-  background-image: var(--druid);
-}
-
-.icon_cleric {
-  background-image: var(--cleric);
-}
-
-.icon_artificer {
-  background-image: var(--artificer);
-}
-
-.icon_warlock {
-  background-image: var(--warlock);
-}
-
-.icon_monk {
-  background-image: var(--monk);
-}
-
-.icon_paladin {
-  background-image: var(--paladin);
-}
-
-.icon_rogue {
-  background-image: var(--rogue);
-}
-
-.icon_ranger {
-  background-image: var(--ranger);
-}
-
-.icon_sorcerer {
-  background-image: var(--sorcerer);
-}
-
-.icon_blood_hunter {
-  background-image: var(--blood_hunter);
-}
-
 .races .info_wrapper .content_block .sub_menu_list {
   display: none;
   height: auto !important;

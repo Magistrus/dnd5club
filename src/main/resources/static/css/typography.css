@@ -108,12 +108,6 @@ blockquote {
   background-color: var(--bg-blockquote);
   border:1px solid var(--border);
   border-radius: 16px;
-  
-  border-image-source: var(--border-blockquote);
-  border-image-slice: 200 90 190 fill;
-  border-image-repeat: repeat repeat;
-  border-image-width: auto;
-  border-image-outset: 10px 10px 10px 10px;
   margin-bottom: 32px;
   margin-top: 32px;
 
