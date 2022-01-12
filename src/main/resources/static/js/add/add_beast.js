@@ -54,6 +54,18 @@ $('#ability_dex').change(function () {
 $('#armor').change(function () {
 	changeAC();
 });
+$('details').delegate('.add_trait', 'click', function() {
+	var $item = $(this);
+	addTrait($(this));
+});
+function addTrait($item){
+	$parent = $item.parents('.opportunities');
+	newdiv = document.createElement( "div" ),
+	$(newdiv).addClass('opportunities');
+	$(newdiv).load('/profile/beast/trait', function() {
+		$parent.after(newdiv);
+	});
+}
 function changeHpFormula(){
 	let average = 1;
 	let formula = '<span class="dice_text">';
