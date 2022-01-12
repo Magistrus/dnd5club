@@ -47,4 +47,9 @@ public class ModeratorController {
 	public String getBonusActionForm(Model model) {
 		return "user/admin/feature :: bonus";
 	}
+	
+	@GetMapping ("/profile/beast/legendary")
+	public String getLegendaryActionForm(Model model) {
+		return "user/admin/feature :: legendary";
+	}
 }

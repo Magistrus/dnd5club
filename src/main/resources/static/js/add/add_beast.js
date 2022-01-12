@@ -56,13 +56,29 @@ $('#armor').change(function () {
 });
 $('details').delegate('.add_trait', 'click', function() {
 	var $item = $(this);
-	addTrait($(this));
+	addTrait($(this), 'trait');
 });
-function addTrait($item){
+$('details').delegate('.add_action', 'click', function() {
+	var $item = $(this);
+	addTrait($(this), 'action');
+});
+$('details').delegate('.add_bonus', 'click', function() {
+	var $item = $(this);
+	addTrait($(this), 'bonus');
+});
+$('details').delegate('.add_reaction', 'click', function() {
+	var $item = $(this);
+	addTrait($(this), 'reaction');
+});
+$('details').delegate('.add_legendary', 'click', function() {
+	var $item = $(this);
+	addTrait($(this), 'legendary');
+});
+function addTrait($item, name){
 	$parent = $item.parents('.opportunities');
 	newdiv = document.createElement( "div" ),
 	$(newdiv).addClass('opportunities');
-	$(newdiv).load('/profile/beast/trait', function() {
+	$(newdiv).load('/profile/beast/' + name, function() {
 		$parent.after(newdiv);
 	});
 }
