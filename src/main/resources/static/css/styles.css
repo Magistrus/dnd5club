@@ -2018,6 +2018,10 @@ body.compact_menu #right_block {
   line-height:normal;
 }
 
+.table_list tr .row_name span:first-child {
+  color: var(--text-color);
+}
+
 .table_list tr .row_name span {
   color: var(--text-g-color);
   margin-right: 6px;
