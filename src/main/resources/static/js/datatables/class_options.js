@@ -18,8 +18,8 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>[' + row.englishName + ']</span></div>';
+					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					if (row.prerequisite !== 'Нет'){
 						result+='<div class="secondary_name">' + row.prerequisite + '</div>';
 					}

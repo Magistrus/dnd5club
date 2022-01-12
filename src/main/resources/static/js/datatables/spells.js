@@ -28,16 +28,17 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
-					result+='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>[' + row.englishName + ']</span></div>';
-					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
-					result+='<div class="secondary_name s2">';
+					result+='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
+					result+='<div class="content_description"><div class="secondary_name s1">';
 					if (row.concentration) {
 						result+='<span class="tip concentration" title="Концентрация">К</span>';
 					}
 					if (row.ritual) {
 						result+='<span class="tip ritual" title="Ритуал">Р</span>';
-					}
+					}	
+					result+='<p class="capitalize_text">' + row.school + '</p></div>';
+					result+='<div class="secondary_name s2">';
 					if (row.verbal) {
 						result+='<span class="tip excretion" title="Вербальный">' + row.verbal + '</span>';
 					}

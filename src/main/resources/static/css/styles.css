@@ -2011,17 +2011,38 @@ body.compact_menu #right_block {
 
 .table_list tr td .row_name {
   font-size: 15px;
+  margin: 0;
+  margin-right: 6px;
+  font-weight: 500;
+  line-height:normal;
 }
 
 .table_list tr .row_name span {
   color: var(--text-g-color);
-  margin-left: 8px;
+  margin-right: 6px;
+}
+
+.table_list tr span.ritual,
+.table_list tr span.concentration {
+  padding: 0 3px;
+  border-radius: 4px;
+  background-color: var(--primary);
+  color: var(--text-btn-color);
+  margin-right: 4px;
+  float: left;
 }
 
 .table_list tr .secondary_name {
   color: var(--text-g-color);
   margin-top: 4px;
   font-size: 13px;
+}
+
+.table_list tr .secondary_name p {
+  color: var(--text-g-color);
+  margin: 0;
+  font-size: 13px;
+  line-height: normal;
 }
 
 .table_list tr td .secondary_name.s2,

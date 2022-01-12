@@ -18,9 +18,9 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="content"><div class="row_name">' + row.name;
-					result+='<div class="content_description"><div class="secondary_name"><span class="tip" title="' + row.book + '">' + row.bookshort + '</span></div>';
-					result+='<div class="secondary_name s2"><span class="tip excretion" title="Стоимость">' + row.cost + ' зм.</span></div></div></div>';
+					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><div class="content_description"><div class="secondary_name"><span class="tip" title="' + row.book + '">' + row.bookshort + '</span></div>';
+					result+='<div class="secondary_name s2"><span class="tip excretion" title="Стоимость">' + row.cost + ' зм.</span></div></div></h3>';
 					return result;
 				}
 				return data;
