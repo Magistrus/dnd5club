@@ -1707,7 +1707,6 @@ body.compact_menu #right_block {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-bottom: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list li {
