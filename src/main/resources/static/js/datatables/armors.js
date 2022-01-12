@@ -107,7 +107,7 @@ $(document).ready(function() {
 		$('#cost').text(data.cost);
 		$('#weight').text(data.weight);
 		$('#requirements').text(data.requirements);
-		#('#stealth').text(data.stealth);
+		$('#stealth').text(data.stealth);
 		
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
 		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';

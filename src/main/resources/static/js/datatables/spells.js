@@ -32,6 +32,12 @@ $(document).ready(function() {
 					result+='<span>[' + row.englishName + ']</span></div>';
 					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
 					result+='<div class="secondary_name s2">';
+					if (row.concentration) {
+						result+='<span class="tip concentration" title="Концентрация">К</span>';
+					}
+					if (row.ritual) {
+						result+='<span class="tip ritual" title="Ритуал">Р</span>';
+					}
 					if (row.verbal) {
 						result+='<span class="tip excretion" title="Вербальный">' + row.verbal + '</span>';
 					}
