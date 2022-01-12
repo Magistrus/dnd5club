@@ -25,6 +25,7 @@ $('#beast_size').change(function () {
 		$('#hp_dice').val('d20');
 		break;
 	}
+	changeHpFormula();
 });
 $('#ability_con').change(function () {
 	let hp_bonus = getBonus($('#ability_con').val()) * $('#hp_dice_count').val();
