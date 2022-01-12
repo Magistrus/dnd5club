@@ -17,7 +17,7 @@ public class SessionController {
 	public String getTheme()
 	{
 		Object themeName = session.getAttribute("theme");
-		return themeName == null ? "light" : themeName.toString();
+		return themeName == null ? "dark" : themeName.toString();
 	}
 	
 	@PostMapping("/session/theme")
