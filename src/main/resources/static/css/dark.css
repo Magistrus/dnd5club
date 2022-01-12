@@ -41,33 +41,12 @@
 
 /********* IMG BG *********/
 :root {
-  --border-blockquote:url(/resources/assets/style/dark/border_blockquote.png);
   --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
   --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
-  --bg-img-row-active:url(/resources/assets/style/dark/bg_row_active.png);
   --bg-img-header-separator:url(/resources/assets/style/dark/header_separator.png);
 }
 
 /********* Logo *********/
 :root {
   --icon-logo-menu: url(/resources/assets/icon/dark/logo.svg);
-}
-
-
-/********* Icons Classes *********/
-:root {
-  --bard: url(/resources/assets/icon/dark/classes/bard.svg);
-  --barbarian: url(/resources/assets/icon/dark/classes/barbarian.svg);
-  --fighter: url(/resources/assets/icon/dark/classes/fighter.svg);
-  --wizard: url(/resources/assets/icon/dark/classes/wizard.svg);
-  --druid: url(/resources/assets/icon/dark/classes/druid.svg);
-  --cleric: url(/resources/assets/icon/dark/classes/cleric.svg);
-  --artificer: url(/resources/assets/icon/dark/classes/artificer.svg);
-  --warlock: url(/resources/assets/icon/dark/classes/warlock.svg);
-  --monk: url(/resources/assets/icon/dark/classes/monk.svg);
-  --paladin: url(/resources/assets/icon/dark/classes/paladin.svg);
-  --rogue: url(/resources/assets/icon/dark/classes/rogue.svg);
-  --ranger: url(/resources/assets/icon/dark/classes/ranger.svg);
-  --sorcerer: url(/resources/assets/icon/dark/classes/sorcerer.svg);
-  --blood_hunter: url(/resources/assets/icon/dark/classes/blood_hunter.svg);
 }
