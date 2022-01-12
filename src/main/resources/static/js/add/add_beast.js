@@ -58,22 +58,40 @@ $('details').delegate('.add_trait', 'click', function() {
 	var $item = $(this);
 	addTrait($(this), 'trait');
 });
+$('details').delegate('.remove_trait', 'click', function() {
+	removeTrait($(this));
+});
 $('details').delegate('.add_action', 'click', function() {
 	var $item = $(this);
 	addTrait($(this), 'action');
+});
+$('details').delegate('.remove_action', 'click', function() {
+	removeTrait($(this));
 });
 $('details').delegate('.add_bonus', 'click', function() {
 	var $item = $(this);
 	addTrait($(this), 'bonus');
 });
+$('details').delegate('.remove_bonus', 'click', function() {
+	removeTrait($(this));
+});
 $('details').delegate('.add_reaction', 'click', function() {
 	var $item = $(this);
 	addTrait($(this), 'reaction');
+});
+$('details').delegate('.remove_reaction', 'click', function() {
+	removeTrait($(this));
 });
 $('details').delegate('.add_legendary', 'click', function() {
 	var $item = $(this);
 	addTrait($(this), 'legendary');
 });
+$('details').delegate('.remove_legendary', 'click', function() {
+	removeTrait($(this));
+});
+function removeTrait($item){
+	$item.parents('.opportunities').remove();
+}
 function addTrait($item, name){
 	$parent = $item.parents('.opportunities');
 	newdiv = document.createElement( "div" ),
