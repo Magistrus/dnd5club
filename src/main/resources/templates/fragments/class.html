@@ -70,61 +70,65 @@
 		<th:block th:fragment="classInfo(selectedArchetype)">
 			<div class="archetype_mobile_selector">
 				<div class="select js-dropdown">
-					<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input">
-					<i class="icon_arrow">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
-					</i>
-					<span class="placeholder js-dropdown__current" th:text="${selectedArchetypeName}"></span>
+					</i> <span class="placeholder js-dropdown__current" th:text="${selectedArchetypeName}"></span>
 					<ul data-simplebar>
 						<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|"
-						th:class="|${archetype.book.type.name().toLowerCase()}_source|"
-						th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}">
-						</li>
+							th:class="|${archetype.book.type.name().toLowerCase()}_source|" th:classappend="${archetype.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
+						></li>
 					</ul>
 				</div>
 			</div>
-			<h4 class="header_separator">Хиты</h4>
-			<p class="class_stats">
-				<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
-			</p>
-			<p class="class_stats">
-				<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор Телосложения
-			</p>
-			<p class="class_stats">
-				<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
-				первого
-			</p>
-			<h4 class="header_separator">Владение</h4>
-			<p class="class_stats">
-				<b>Доспехи:</b> <span th:text="*{armor}"></span>
-			</p>
-			<p class="class_stats">
-				<b>Оружие:</b> <span th:text="*{weapon}"></span>
-			</p>
-			<p class="class_stats">
-				<b>Инструменты:</b> <span th:text="*{tools}"></span>
-			</p>
-			<p class="class_stats">
-				<b>Спаcброски:</b> <span th:text="*{savingThrows}"></span>
-			</p>
-			<p class="class_stats">
-				<b>Навыки:</b> Выберите [[*{skillAvailableCount}]] навыка из следующих:
-				<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
-				<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
-			</p>
-			<h4 class="header_separator" th:if="*{equipment}">Снаряжение</h4>
-			<p th:if="*{equipment}">
-				Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
-			</p>
+			<details open>
+				<summary class="h4 header_separator open">Хиты</summary>
+				<p class="class_stats">
+					<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
+				</p>
+				<p class="class_stats">
+					<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор Телосложения
+				</p>
+				<p class="class_stats">
+					<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
+					первого
+				</p>
+			</details>
+			<details open>
+				<summary class="h4 header_separator">Владение</summary>
+				<p class="class_stats">
+					<b>Доспехи:</b> <span th:text="*{armor}"></span>
+				</p>
+				<p class="class_stats">
+					<b>Оружие:</b> <span th:text="*{weapon}"></span>
+				</p>
+				<p class="class_stats">
+					<b>Инструменты:</b> <span th:text="*{tools}"></span>
+				</p>
+				<p class="class_stats">
+					<b>Спаcброски:</b> <span th:text="*{savingThrows}"></span>
+				</p>
+				<p class="class_stats">
+					<b>Навыки:</b> Выберите [[*{skillAvailableCount}]] навыка из следующих:
+					<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
+					<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
+				</p>
+			</details>
+			<details open>
+				<summary class="h4 header_separator" th:if="*{equipment}">Снаряжение</summary>
+				<p th:if="*{equipment}">
+					Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
+				</p>
+			</details>
 		</th:block>
 		<th:block th:each="feature : ${features}">
-			<th:block th:if="${feature.child eq null}">
-				<h4 class="header_separator" th:text="${feature.name}" th:id="${'c'+feature.id}"></h4>
+			<details th:if="${feature.child eq null}" open>
+				<summary class="h4 header_separator" th:text="${feature.name}" th:id="${'c'+feature.id}"></summary>
 				<p class="caption_text" th:text="${feature.type}"></p>
 				<div th:utext="${feature.description}"></div>
-			</th:block>
+			</details>
 		</th:block>
 		<div th:object="${heroClass}" th:fragment="images">
 			<img style="width: 300px; height: auto;" th:each="image : ${images}" th:src="${image}">
