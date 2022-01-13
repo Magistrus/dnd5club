@@ -128,7 +128,6 @@ $(document).ready(function() {
 				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
 					return;
 				}
-				$('#spells tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if(localStorage.getItem('homebrew_source') == 'false' && selectedSpell === null){
 				for(; rowSelectIndex < table.data().count(); rowSelectIndex++){
@@ -149,6 +148,7 @@ $(document).ready(function() {
 				});
 				rowSelectIndex = rowIndexes[0];
 			}
+			$('#spells tbody tr:eq('+rowSelectIndex+')').click();
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
