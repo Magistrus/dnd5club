@@ -16,9 +16,15 @@
 						</div>
 						<div class="icon icon_source"></div>
 					</div>
+					<a sec:authorize="hasRole('ADMIN')" href="/admin/users" class="card">
+						<div class="infimation">
+							<h5 id="charachter_id" class="header_name">Список пользователей</h5>
+						</div>
+						<div class="icon icon_source"></div>
+					</a>
 					<a href="/profile/beast" class="card">
 						<div class="infimation">
-							<h5 id="charachter_id" class="header_name">Add beast</h5>
+							<h5 id="charachter_id" class="header_name">Добавить монстра</h5>
 						</div>
 						<div class="icon icon_source"></div>
 					</a>

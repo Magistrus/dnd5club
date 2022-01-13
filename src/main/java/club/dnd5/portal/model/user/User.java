@@ -1,6 +1,6 @@
 package club.dnd5.portal.model.user;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -32,7 +33,7 @@ public class User {
 	private String name;
 	private String password;
 	private String email;
-	private Date createDate = new Date();
+	private LocalDateTime createDate;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -42,6 +43,6 @@ public class User {
 		this.name = userForm.getName();
 		this.password = userForm.getPassword();
 		this.email = userForm.getEmail();
-		this.createDate = new Date();
+		this.createDate = LocalDateTime.now();
 	}
 }
