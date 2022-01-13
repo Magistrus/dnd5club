@@ -122,7 +122,8 @@ $('#homebrew_source').change(function() {
 	$('.custom_source').toggleClass('hide_block');
 	$('#source_id').addClass('active');
 	if ($('#homebrew_source').is(':checked')) {
-		$('#source_id').addClass('active');	
+		$('#source_id').addClass('active');
+		SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
 	} else if (!$('#setting_source').is(':checked')){
 		$('#source_id').removeClass('active');
 	}
@@ -132,7 +133,8 @@ $('#setting_source').change(function() {
 	$('.setting_source').toggleClass('hide_block');
 	$('.module_source').toggleClass('hide_block');
 	if ($('#setting_source').is(':checked')) {
-		$('#source_id').addClass('active');	
+		$('#source_id').addClass('active');
+		SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
 	} else if (!$('#homebrew_source').is(':checked')){
 		$('#source_id').removeClass('active');
 	}
