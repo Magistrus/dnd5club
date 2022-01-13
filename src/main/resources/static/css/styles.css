@@ -2058,20 +2058,19 @@ body.compact_menu #right_block {
 
 .table_list tr .secondary_name p {
   color: var(--text-g-color);
-  margin: 0;
+  margin: 0;  
   font-size: 13px;
   line-height: normal;
 }
 
 .table_list tr td .secondary_name.s2,
 .table_list tr td .secondary_name.s3 {
-  justify-content: flex-end;
-  display: flex;
+  text-align: right;
 }
 
 .table_list tr td .secondary_name.alg_left,
 .table_list tr td .secondary_name.alg_left {
-  justify-content: flex-start;
+  text-align: left;
 }
 
 .table_list tr td .secondary_name.s1 {
@@ -2105,7 +2104,7 @@ body.compact_menu #right_block {
 
   .table_list tr td .secondary_name.s2,
   .table_list tr td .secondary_name.s3 {
-    justify-content: flex-start;
+    text-align: left;
   }
 }
 
@@ -2133,17 +2132,6 @@ body.compact_menu #right_block {
 
 .table_list tbody div.artifact.info_block:after {
   border-color: var(--artifact) !important;
-}
-
-@media (max-width: 600px) {
-  .table_list tr td .row_name {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .table_list tr .row_name span {
-    margin-left: 0px;
-  }
 }
 
 /******** Ширма / screens ********/
