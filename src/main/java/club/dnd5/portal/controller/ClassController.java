@@ -54,21 +54,23 @@ public class ClassController {
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedClass", name);
-		model.addAttribute("metaTitle", heroClass.getName());
+		model.addAttribute("metaTitle", heroClass.getCapitalazeName());
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
-		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getName(), heroClass.getEnglishName()));
+		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		return "classes";
 	}
 	
 	@GetMapping("/classes/{name}/{archetype}")
 	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype) {
+		String englishName = name.replace("_", " ");
 		model.addAttribute("classes", classRepository.findAll());
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
-		model.addAttribute("metaTitle", archetype);
+		HeroClass heroClass = classRepository.findByEnglishName(englishName);
+		String archetypeName = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetype)).findFirst().get().getCapitalizeName();
+		model.addAttribute("metaTitle", String.format("%s %s класс %s", heroClass.getArchetypeName(), archetypeName, heroClass.getCapitalazeName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
-		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
-		model.addAttribute("metaDescription", String.format(" - описание %s класса %s", heroClass.getArchetypeName(), heroClass.getName()));
+		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", archetypeName, heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
 		return "classes";
 	}
 	
