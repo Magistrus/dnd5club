@@ -24,6 +24,12 @@ html {
   opacity: 0.3;
 }
 
+@media (max-width: 600px) {
+  #body:before {
+    display: none !important;
+  }
+}
+
 body {
   display: flex;
   margin: 0;
