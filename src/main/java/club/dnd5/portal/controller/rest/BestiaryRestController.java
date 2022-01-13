@@ -9,13 +9,16 @@ import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +27,8 @@ import club.dnd5.portal.dto.bestiary.CreatureDto;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.creature.HabitatType;
+import club.dnd5.portal.model.foundary.FCreature;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController
@@ -66,12 +71,32 @@ public class BestiaryRestController {
 				return cb.and(join.get("id").in(tagIds));
 			});
 		}
+		List<HabitatType> habitateTypes = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty())
+				.map(HabitatType::valueOf)
+				.collect(Collectors.toList());
+		if (!habitateTypes.isEmpty()) {
+			specification = addSpecification(specification,  (root, query, cb) -> {
+				Join<Object, Object> join = root.join("habitates", JoinType.INNER);
+				query.distinct(true);
+				return join.in(habitateTypes);
+			});
+		}
 		return repo.findAll(input, null, specification, creature -> new CreatureDto(creature));
 	}
 
 	@PostMapping("/bestiary")
 	public CreatureDto getSpell(Integer id) {
 		return new CreatureDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
+	}
+
+	@GetMapping("/creature/json/{id}")
+	public ResponseEntity<FCreature> getCreature(HttpServletResponse response, @PathVariable Integer id){
+		Creature creature = repo.findById(id).get();
+		response.setContentType("application/json");
+		String file = String.format("attachment; filename=\"%s.json\"", creature.getEnglishName());
+		response.setHeader("Content-Disposition", file); 
+		return ResponseEntity.ok(new FCreature(creature));
 	}
 
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {

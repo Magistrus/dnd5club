@@ -21,8 +21,8 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="info_block">' + row.damage + '</div>';
-					result +='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					result +='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
 					result+='<div class="secondary_name s2 alg_left"><span class="tip dice_text" title="Урон">' + row.damage + '</span> &nbsp; <span class="tip" title="Тип урона">' + row.damageType +'</span></div>';
 					result+='<div class="secondary_name s3"><span class="tip excretion" title="Стоимость">' + row.cost + '</span></div></div></div>';
@@ -96,6 +96,15 @@ $(document).ready(function() {
 			}
 		},
 	});
+	$('#weapons tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/weapons/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#weapons tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -106,6 +115,9 @@ $(document).ready(function() {
 		var data = row.data();
 		if (data === undefined) {
 			return;
+		}
+		if (cntrlIsPressed){
+			window.open('/weapons/' + data.englishName.split(' ').join('_'));
 		}
 		$('#weapon_name').html(data.name);
 		$('#type').html(data.type);

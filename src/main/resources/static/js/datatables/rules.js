@@ -18,8 +18,8 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					var result ='<h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					return result;
 				}
 				return data;
@@ -75,15 +75,26 @@ $(document).ready(function() {
 		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
-
+	$('#rules tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/rules/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#rules tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}
 		var tr = $(this).closest('tr');
 		var table = $('#rules').DataTable();
-		var row = table.row( tr );
+		var row = table.row(tr);
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/rules/' + data.englishName.split(' ').join('_'));
+		}
 		$('#rule_name').text(data.name);
 		$('#type').text(data.type);
 		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';

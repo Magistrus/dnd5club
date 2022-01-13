@@ -4,7 +4,9 @@
 	<div id="list_page_two_block" class="no_close_left_block block_information table_list_block" layout:fragment="content">
 		<div id="left_block" class="trader">
 			<div class="header_block">
-				<h1>Торговец</h3>
+				<div class="header_row">
+					<h1>Торговец</h1>
+				</div>
 			</div>
 			<div class="tools_settings">
 				<label class="select_box select_arrow">
@@ -15,10 +17,10 @@
 						<option value="3">Много</option>
 					</select>
 				</label>
-					<label class="select_box">
-						<span>Результат проверки Харизмы (Убеждение):</span>
-						<input id="result" type="number" min="1" value="1" name="result" class="form-control select" placeholder="Харизма (Убеждение)" />
-					</label>
+				<label class="select_box">
+					<span>Результат проверки Харизмы (Убеждение):</span>
+					<input id="result" type="number" min="1" value="1" name="result" class="form-control select" placeholder="Харизма (Убеждение)" />
+				</label>
 				<div class="btn-wrapper">
 					<button id="generate" class="btn btn_primary">Найти торговца</button>
 				</div>
@@ -31,7 +33,7 @@
 		<div id="right_block" class="trader">
 			<div class="header_block">
 				<div class="header_row">
-					<h1 id="background_name">В продаже</h3>
+					<h1 id="background_name">В продаже</h1>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

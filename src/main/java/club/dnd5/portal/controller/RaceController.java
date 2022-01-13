@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -27,11 +28,15 @@ public class RaceController {
 	private RaceRepository raceRepository;
 	@Autowired
 	private ImageRepository imageRepository;
+	@Autowired
+	private ImageRepository imageRepo;
 	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("metaTitle", "Расы");
+		model.addAttribute("metaUrl", "https://dnd5.club/races/");
+		model.addAttribute("metaDescription", "Расы персонажей");
 		return "races";
 	}
 	
@@ -42,6 +47,11 @@ public class RaceController {
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("metaTitle", race.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
+		model.addAttribute("metaDescription", String.format("Раса персонажа %s", race.getName()));
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "races";
 	}
 	
@@ -50,9 +60,10 @@ public class RaceController {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
-		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
+		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("metaTitle", race.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
+		model.addAttribute("metaDescription", String.format("Разновидность расы персонажа %s", race.getName()));
 		return "races";
 	}
 	
@@ -62,6 +73,7 @@ public class RaceController {
 		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
 		model.addAttribute("race", race);
+		model.addAttribute("selectedRaceName", "--- Выбор подрасы ---");
 		return "fragments/race :: view";
 	}
 	
@@ -80,6 +92,7 @@ public class RaceController {
 				.collect(Collectors.toList()));
 		model.addAttribute("race", subRace);
 		model.addAttribute("selectedSubrace", subRace.getEnglishName());
+		model.addAttribute("selectedRaceName", subRace.getName());
 		return "fragments/race :: view";
 	}
 	

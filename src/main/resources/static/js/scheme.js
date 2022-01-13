@@ -1,12 +1,12 @@
 $(document).ready(function() {
 	var theme = localStorage.getItem('theme');
 	var element = document.getElementById('theme_css');
-	if (theme === 'light' || theme === null){
-		setThemeLight(element);
-	}
-	else if (theme === 'dark')
-	{
+	if (theme === 'dark' || theme === null){
 		setThemeDark(element);
+	}
+	else if (theme === 'light')
+	{
+		setThemeLight(element);
 	}
 });
 function switchTheme() {

@@ -19,8 +19,8 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.requirement + '</div></div></div>';
 					return result;
 				}
@@ -112,6 +112,15 @@ $(document).ready(function() {
 			}
 		},
 	});
+	$('#traits tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/traits/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#traits tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -120,8 +129,12 @@ $(document).ready(function() {
 		var table = $('#traits').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/backgrounds/' + data.englishName.split(' ').join('_'));
+		}
 		rowSelectIndex = row.index();
 		selectTrait(data);
+		selectedTrait = data;
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();

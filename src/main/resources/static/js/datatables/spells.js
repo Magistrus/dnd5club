@@ -28,10 +28,27 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
-					result+='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="content_description"><div class="secondary_name s1 capitalize_text">' + row.school + '</div>';
-					result+='<div class="secondary_name s2"><span class="tip excretion" title="Вербальный">' + row.verbal + '</span><span class="tip excretion" title="Соматический">' + row.somatic + '</span><span class="tip excretion" title="Материальный">' + row.material + '</span></div></div></div>';
+					result+='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
+					result+='<div class="content_description"><div class="secondary_name s1">';
+					if (row.concentration) {
+						result+='<span class="tip concentration" title="Концентрация">К</span>';
+					}
+					if (row.ritual) {
+						result+='<span class="tip ritual" title="Ритуал">Р</span>';
+					}	
+					result+='<p class="capitalize_text">' + row.school + '</p></div>';
+					result+='<div class="secondary_name s2">';
+					if (row.verbal) {
+						result+='<span class="tip excretion" title="Вербальный">' + row.verbal + '</span>';
+					}
+					if (row.somatic) {
+						result+='<span class="tip excretion" title="Соматический">' + row.somatic + '</span>';
+					}
+					if (row.material) {
+						result+='<span class="tip excretion" title="Материальный">' + row.material + '</span>';
+					}
+					result+='</div></div></div>';
 					return result;
 				}
 				return data;
@@ -99,6 +116,11 @@ $(document).ready(function() {
 				if(localStorage.getItem('homebrew_source') != 'true'){
 					$(row).addClass('hide_block');
 				}
+			} else if (data.setting){
+				$(row).addClass('setting_source');
+				if(localStorage.getItem('setting_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
 			}
 		},
 		drawCallback: function ( settings ) {
@@ -130,7 +152,15 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-
+	$('#spells tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/spells/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#spells tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -138,9 +168,13 @@ $(document).ready(function() {
 		var tr = $(this).closest('tr');
 		var table = $('#spells').DataTable();
 		var row = table.row( tr );
+		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/spells/' + data.englishName.split(' ').join('_'));
+		}
 		rowSelectIndex = row.index();
-		selectSpell(row.data());
-		selectedSpell = null;
+		selectSpell(data);
+		selectedSpell = data;
 	});
 });
 function selectSpell(data){

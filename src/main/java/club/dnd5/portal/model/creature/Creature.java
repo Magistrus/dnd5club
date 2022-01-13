@@ -265,7 +265,11 @@ public class Creature {
 			sense.add(blind);
 		}
 		if (darkvision != null) {
-			sense.add(String.format("тёмное зрение %d фт.", darkvision));
+			String darkvis = String.format("тёмное зрение %d фт.", darkvision);
+			if (blindsightRadius != null) {
+				darkvis += " (слеп за пределами этого радиуса)";
+			}
+			sense.add(darkvis);
 		}
 		if (trysight != null) {
 			sense.add(String.format("истинное зрение %d фт.", trysight));

@@ -4,8 +4,10 @@
 	<div id="list_page_two_block" class="table_list_block block_information" layout:fragment="content">
 		<div id="left_block" class="spells">
 			<div class="header_block filters">
-				<h1>Заклинания</h3>
-				<div class="filter_block">
+				<div class="header_row">
+					<h1>Заклинания</h1>
+				</div>
+				<div class="search_block filter_control">
 					<input type="text" id="search" class="search_int" placeholder="Поиск" autocomplete="off">
 					<div class="btn_search_icon" title="Поиск">
 						<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -297,7 +299,7 @@
 		<div id="right_block" class="spells">
 			<div class="header_block">
 				<div class="header_row">
-					<h1 id="row_name">Название заклинания</h3>
+					<h1 id="row_name">Название заклинания</h1>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M3 14H6C7.10457 14 8 14.8954 8 16L8 19M8 5V8C8 9.10457 7.10457 10 6 10H3M21 10H18C16.8954 10 16 9.10457 16 8V5M16 19V16C16 14.8954 16.8954 14 18 14L21 14" stroke="#7B61FF"
@@ -333,5 +335,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/spells.js?v=11.3}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/spells.js?v=11.9}" layout:fragment="js-script"></script>
 </html>

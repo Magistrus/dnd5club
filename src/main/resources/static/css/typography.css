@@ -29,18 +29,6 @@ h4 {
   font-family: 'Lora';
 }
 
-h4.dote:before {
-  content:'';
-  position: absolute;
-  left: -24px;
-  top: 5px;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-color: var(--primary-active);
-  border-radius: 4px;
-}
-
 h5 {
   font-size: 16px;
   font-weight: 400;
@@ -120,12 +108,6 @@ blockquote {
   background-color: var(--bg-blockquote);
   border:1px solid var(--border);
   border-radius: 16px;
-  
-  border-image-source: var(--border-blockquote);
-  border-image-slice: 200 90 190 fill;
-  border-image-repeat: repeat repeat;
-  border-image-width: auto;
-  border-image-outset: 10px 10px 10px 10px;
   margin-bottom: 32px;
   margin-top: 32px;
 
@@ -153,6 +135,30 @@ blockquote p:last-child {
   margin-left: -24px;
   margin-right: -24px;
   margin-top: 32px;
+}
+
+summary.h4 {
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--text-color);
+  position: relative;
+  font-family: 'Lora';
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+summary.h5 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 0px 0 8px 0;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+summary.h4:hover,
+summary.h5:hover {
+  color: var(--text-color-title);
 }
 
 h4.separator_card {
@@ -215,7 +221,7 @@ table {
   color: var(--text-color);
   border-spacing: inherit;
   border-radius: 0px;
-  border: 1px solid var(--border-table);
+  border: 1px solid var(--border);
   width: 100% !important;
   overflow: scroll;
   margin-bottom: 16px;
@@ -231,14 +237,14 @@ table thead th {
 }
 
 table td {
-  border-right: 1px solid var(--border-table);
-  border-bottom: 1px solid var(--border-table);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   height: 30px;
   padding: 4px 4px;
 }
 
 table td:last-child {
-  border-right: 0px solid var(--border-table);
+  border-right: 0px solid var(--border);
 }
 
 table.dnd5_table {
@@ -258,6 +264,10 @@ table.dnd5_table {
     margin-right: -16px;
     margin-top: 30px;
   }
+
+  .full_screen_right_block .table-responsive.class {
+    margin-top: -16px;
+  }
 }
 
 .class table.dnd5_table {
@@ -265,7 +275,7 @@ table.dnd5_table {
 }
 
 .class table.dnd5_table td {
-  padding: 2px 4px;
+  padding: 4px 4px;
   height: auto;
 }
 

@@ -25,9 +25,16 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="tip info_block" title="'+(row.level ===  0 ? 'Заговор' : row.level + ' уровень заклинания') +'">' + (row.level ===  0 ? '◐' : row.level) + '</div>';
-					result+='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
-					result+='<div class="secondary_name">' + row.school + '</div></div>';
+					result+='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
+					result+='<div class="secondary_name">';
+					if (row.concentration) {
+						result+='<span class="tip concentration" title="Концентрация">К</span>';
+					}
+					if (row.ritual) {
+						result+='<span class="tip ritual" title="Ритуал">Р</span>';
+					}
+					result+='<p class="capitalize_text">' + row.school + '</p></div></div>';
 					return result;
 				}
 				return data;
@@ -83,6 +90,11 @@ $(document).ready(function() {
 				if(localStorage.getItem('homebrew_source') != 'true'){
 					$(row).addClass('hide_block');
 				}
+			} else if (data.setting){
+				$(row).addClass('setting_source');
+				if(localStorage.getItem('setting_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
 			}
 		},
 	});
@@ -92,13 +104,13 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		$.get('/spells/fragment/' + row.data().id)
 		  .done(function( spellData ) {
-				$.magnificPopup.open({
-					  items: {
-					      src: '<div class="dnd5-popup-block"><div class="header"><h4>' + row.data().name +'</h4></div><div class="wrapper" data-simplebar><p>' + spellData + '</p></div></div>',
-					      type: 'inline'
-					  },
-				});
-		  });
+			$.magnificPopup.open({
+				  items: {
+				      src: '<div class="dnd5-popup-block"><div class="header"><h4>' + row.data().name +'</h4></div><div class="wrapper" data-simplebar><p>' + spellData + '</p></div></div>',
+				      type: 'inline'
+				  },
+			});
+		});
 	});
 });
 function selectSpell(data){

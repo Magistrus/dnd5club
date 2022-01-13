@@ -34,7 +34,10 @@ public class TraderToolController {
 	private ItemMagicTableRepository mtRepo;
 
 	@GetMapping("/tools/trader")
-	public String getTreasuryTool() {
+	public String getTreasuryTool(Model model) {
+		model.addAttribute("metaTitle", "Генератор лавки торговца");
+		model.addAttribute("metaUrl", "https://dnd5.club/tools/trader");
+		model.addAttribute("metaDescription", "Генерация содержимого лавки торговца");
 		return "tools/traders";
 	}
 

@@ -23,8 +23,8 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="tip info_block ' + row.rarityEnglish +'" title="'+row.rarity+'">' + row.shortRarity + '</div>';
-					result+='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					result+='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					result+='<div class="secondary_name">' + row.type + '</div></div>';
 					return result;
 				}
@@ -105,7 +105,15 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-
+	$('#items_magic tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/items/magic/' + data.englishName.split(' ').join('_'));
+		}
+	});
 	$('#items_magic tbody').on('click', 'tr', function () {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
@@ -114,9 +122,12 @@ $(document).ready(function() {
 		var table = $('#items_magic').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/items/magic/' + data.englishName.split(' ').join('_'));
+		}
 		rowSelectIndex = row.index();
 		selectMagicItem(data);
-		selectedMagicItem = null;
+		selectedMagicItem = data;
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){

@@ -4,10 +4,12 @@
 	<div id="list_page_two_block" class="no_close_left_block block_information" layout:fragment="content">
 		<div id="left_block" class="tools_block wildmagic">
 			<div class="header_block">
-				<h1>Генератор имен</h3>
+				<div class="header_row">
+					<h1>Генератор имен</h1>
+				</div>
 			</div>
 			<div class="tools_settings">
-				<div class="classes_mobile_selector">
+				<div class="archetype_mobile_selector">
 					<select id="mobile_selector">
 						<option value="-1">---Случайная раса---</option>
 						<option th:value="${raceId}" th:text="${race.name}" th:each="race : ${raceNames}"></option>

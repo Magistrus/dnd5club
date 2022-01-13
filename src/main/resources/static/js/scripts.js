@@ -1,3 +1,4 @@
+cntrlIsPressed = false;
 sourceTypes = localStorage.getItem('first_visit');
 $(document).ready(function() {
 	function checkWidth() {
@@ -69,6 +70,8 @@ $(document).ready(function() {
 		$('#homebrew_source').prop('checked', true);
 		$('.custom_source').removeClass('hide_block');
 		$('#source_id').addClass('active');
+	} else {
+		localStorage.setItem('homebrew_source', 'false');
 	}
 	if(localStorage.getItem('setting_source') == 'true'){
 		$('#setting_source').prop('checked', true);
@@ -119,7 +122,8 @@ $('#homebrew_source').change(function() {
 	$('.custom_source').toggleClass('hide_block');
 	$('#source_id').addClass('active');
 	if ($('#homebrew_source').is(':checked')) {
-		$('#source_id').addClass('active');	
+		$('#source_id').addClass('active');
+		SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
 	} else if (!$('#setting_source').is(':checked')){
 		$('#source_id').removeClass('active');
 	}
@@ -129,11 +133,68 @@ $('#setting_source').change(function() {
 	$('.setting_source').toggleClass('hide_block');
 	$('.module_source').toggleClass('hide_block');
 	if ($('#setting_source').is(':checked')) {
-		$('#source_id').addClass('active');	
+		$('#source_id').addClass('active');
+		SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
 	} else if (!$('#homebrew_source').is(':checked')){
 		$('#source_id').removeClass('active');
 	}
 });
 $('li').click(function () {
 	localStorage.setItem('selected_item_menu', this.id);
+});
+
+;(function($, window, document, undefined) {
+	'use strict';
+	var $html = $('html');
+	$html.on('click.ui.dropdown', '.js-dropdown', function(e) {
+		e.preventDefault();
+		if($(this).hasClass('multiselect')){
+			$(this).addClass('is-open');
+		} else {
+			$(this).toggleClass('is-open');	
+		}
+	});
+	$html.on('click.ui.dropdown', '.js-dropdown [data-dropdown-value]', function(e) {
+		e.preventDefault();
+		var $item = $(this);
+		var $dropdown = $item.parents('.js-dropdown');
+		if($dropdown.hasClass('multiselect')){
+			let $span = $dropdown.find('.js-dropdown__current');
+			let $input = $dropdown.find('.js-dropdown__input');
+			if(!$span.text().includes($item.text())){
+				if($input.val() == ''){
+					$span.html('<span class="selected_item">' + $item.text() + '</span>');
+					$input.val($item.data('dropdown-value'));
+				} else {
+					$span.html($span.html() + '<span class="selected_item">' + $item.text() + '</span>');
+					$input.val($input.val() + '|' + $item.data('dropdown-value'));
+				}
+			} else {
+				$span.html($span.html().replace('<span class="selected_item">' + $item.text() + '</span>', ''));
+				$input.val($input.val().replace('|' + $item.data('dropdown-value'), ''));
+				$input.val($input.val().replace($item.data('dropdown-value'), ''));
+				if($input.val().trim() == ''){
+					$span.text($span.attr('title'));
+				}
+			}
+			$item.toggleClass('selected');
+		} else {
+			$dropdown.find('.js-dropdown__current').text($item.text());
+			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
+		}
+		$dropdown.find('.js-dropdown__input').change();
+	});
+	$html.on('click.ui.dropdown', function(e) {
+		var $target = $(e.target);
+		if (!$target.parents().hasClass('js-dropdown')) {
+			$('.js-dropdown').removeClass('is-open');
+		}
+	});
+})(jQuery, window, document);
+$(document).keydown(function(event){
+	if(event.which=="17")
+		cntrlIsPressed = true;
+});
+$(document).keyup(function(){
+	cntrlIsPressed = false;
 });

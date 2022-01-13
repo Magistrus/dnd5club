@@ -31,6 +31,8 @@ public class SpellController {
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		model.addAttribute("metaTitle", "Заклинания");
+		model.addAttribute("metaUrl", "https://dnd5.club/spells/");
+		model.addAttribute("metaDescription", "Заклинания по D&D 5 редакции");
 		return "spells";
 	}
 	
@@ -43,7 +45,7 @@ public class SpellController {
 		model.addAttribute("selectedSpell", spell);
 		model.addAttribute("metaTitle", spell.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
-		model.addAttribute("metaDescription", String.format("%s", (spell.getLevel() == 0 ? "Заговор" : "Заклинание - " + spell.getLevel() + " уровень")));
+		model.addAttribute("metaDescription", String.format("%s %s", (spell.getLevel() == 0 ? "Заговор" : "Заклинание - " + spell.getLevel() + " уровень"), spell.getName()));
 		return "spells";
 	}
 	

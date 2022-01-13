@@ -16,6 +16,7 @@ import club.dnd5.portal.dto.bestiary.CreatureDto;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
@@ -25,7 +26,6 @@ import club.dnd5.portal.repository.datatable.TagBestiaryDatatableRepository;
 public class BestiaryController {
 	@Autowired
 	private BestiaryDatatableRepository repository;
-	
 	@Autowired
 	private TagBestiaryDatatableRepository tagRepo;
 	@Autowired
@@ -36,7 +36,10 @@ public class BestiaryController {
 		model.addAttribute("types", CreatureType.getFilterTypes());
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
+		model.addAttribute("habitates", HabitatType.values());
 		model.addAttribute("metaTitle", "Бестиарий");
+		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/");
+		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
 		return "bestiary";
 	}
 	
@@ -48,6 +51,7 @@ public class BestiaryController {
 		model.addAttribute("types", CreatureType.getFilterTypes());
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
+		model.addAttribute("habitates", HabitatType.values());
 		model.addAttribute("metaTitle", creature.getName());
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
 		model.addAttribute("metaDescription", String.format("%s %s, %s", beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment()));

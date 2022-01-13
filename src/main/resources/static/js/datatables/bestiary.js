@@ -21,8 +21,8 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="info_block">' + row.cr + '</div>';
-					result+='<div class="content"><div class="row_name">' + row.name;
-					result+='<span>' + row.englishName + '</span></div>';
+					result+='<div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					result+='<div class="secondary_name">' + row.type + '</div></div>';
 					return result;
 				}
@@ -48,10 +48,14 @@ $(document).ready(function() {
 			data : 'tag',
 			searchable: false
 		},
+		{
+			data : 'habitates',
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [0, 2 ,3, 4, 5, 6],
+				"targets": [0, 2 ,3, 4, 5, 6, 7],
 				"visible": false
 			},
 			{
@@ -108,15 +112,27 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-
-	$('#creatures tbody').on('click', 'tr', function () {
+	$('#creatures tbody').on('mousedown', 'tr', function (e) {
+		if (e.which == 2) {
+			var tr = $(this).closest('tr');
+			var table = $('#creatures').DataTable();
+			var row = table.row( tr );
+			rowSelectIndex = row.index();
+			var data = row.data();
+			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
+		}
+	});
+	$('#creatures tbody').on('click', 'tr', function (e) {
 		var tr = $(this).closest('tr');
 		var table = $('#creatures').DataTable();
 		var row = table.row( tr );
 		rowSelectIndex = row.index();
 		var data = row.data();
+		if (cntrlIsPressed){
+			window.open('/bestiary/' + data.englishName.split(' ').join('_'));
+		}
 		selectCreature(data);
-		selectedCreature = null;
+		selectedCreature = data;
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -180,13 +196,22 @@ $('#btn_close').on('click', function() {
 });
 $('#statblock').on('click', function() {
 	let table = $('#creatures').DataTable();
-	selectCreature(table.row({selected: true}).data());
+	if (selectedCreature===null){
+		selectCreature(table.row({selected: true}).data());	
+	}
+	else {
+		selectCreature(selectedCreature);
+	}
 });
 $('#description').on('click', function() {
 	$('#description').addClass('active');
 	$('#statblock').removeClass('active');
-	let table = $('#creatures').DataTable();
-	selectDescription(table.row({selected: true}).data().id);
+	if (selectedCreature===null){
+		let table = $('#creatures').DataTable();
+		selectDescription(table.row({selected: true}).data().id);
+	} else {
+		selectDescription(selectedCreature.id);
+	}
 });
 $('.cr_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="cr"]:checked').map(function() {
@@ -260,6 +285,24 @@ $('#tag_clear_btn').on('click', function() {
 	$('#creatures').DataTable().column(6).search("", true, false, false).draw();
 	setFiltered();
 })
+$('.habitate_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="habitate"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#creatures').DataTable().column(7).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#habitate_clear_btn').removeClass('hide_block');
+	} else {
+		$('#habitate_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#habitate_clear_btn').on('click', function() {
+	$(this).addClass('hide_block');
+	$('.habitate_checkbox').prop('checked', false);
+	$('#creatures').DataTable().column(7).search("", true, false, false).draw();
+	setFiltered();
+})
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
@@ -292,6 +335,9 @@ function getImage(id){
         },
     });
 }
+$('#btn_export_fvtt').on('click', function() {
+	window.open('/creature/json/' + selectedCreature.id, '_self');
+});
 $('.image-container').magnificPopup({
   delegate: 'a',
   type: 'image',

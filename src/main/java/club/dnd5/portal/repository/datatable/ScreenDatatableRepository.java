@@ -11,6 +11,6 @@ import club.dnd5.portal.model.screen.Screen;
 
 @Repository
 public interface ScreenDatatableRepository extends DataTablesRepository<Screen, Integer> {
-	Collection<Screen> findAllByParentIsNull();
+	Collection<Screen> findAllByParentIsNullOrderByOrdering();
 	Optional<Screen> findByEnglishName(@Param("englishName") String englishName);
 }
