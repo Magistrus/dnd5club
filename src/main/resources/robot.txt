@@ -1,7 +1,6 @@
 User-agent: *
-Allow: /
+Disallow: /
 
-Disallow: /profile.html
 Sitemap: https://dnd5.club/sitemap.xml
 
 Host: dnd5.club
