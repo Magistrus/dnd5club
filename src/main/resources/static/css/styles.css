@@ -55,9 +55,9 @@ body {
   height: 100%;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .container {
-    margin-left: 0px;
+    margin-left: 0px !important;
   }
 }
 
@@ -1229,6 +1229,20 @@ label.select_box {
 
 
 /******** Общее по блокам ********/
+:root {
+  --left-block-width-standart: 37vw;
+  --left-block-width-open-menu: 44vw;
+  --right-block-width-standart:63vw;
+  --right-block-width-open-menu:56vw;
+}
+
+@media (max-width: 1366px) {
+  :root {
+    --left-block-width-open-menu: 50vw;
+    --right-block-width-open-menu:50vw;
+  }
+}
+
 .header_block {
   height: 72px;
   position: relative;
@@ -1317,11 +1331,11 @@ body.compact_menu #left_block {
 }
 
 body .block_information #left_block {
-  width: calc(46vw - 270px);
+  width: calc(var(--left-block-width-open-menu) - 270px);
 }
 
 body.compact_menu .block_information #left_block {
-  width: calc(41vw - 72px);
+  width: calc(var(--left-block-width-standart) - 72px);
 }
 
 #left_block .container_left {
@@ -1424,19 +1438,20 @@ body.compact_menu .block_information #left_block {
 }
 
 #right_block {
-  --width-right-block:calc(54vw - 0px);
+  --width-right-block:calc(var(--right-block-width-open-menu) - 0px);
   width: var(--width-right-block);
   top: 0;
   height: 100%;
-  right: calc(-59vw - 1px);
+  right: 0px;
   position: absolute;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   overflow: hidden;
+  display: none;
 }
 
 body.compact_menu #right_block {
-  --width-right-block:calc(59vw - 0px);
+  --width-right-block:calc(var(--right-block-width-standart) - 0px);
 }
 
 #right_block .header_block {
@@ -1444,8 +1459,6 @@ body.compact_menu #right_block {
 }
 
 .block_information #right_block {
-  right: 0px;
-  left: auto;
   display: block;
 }
 
