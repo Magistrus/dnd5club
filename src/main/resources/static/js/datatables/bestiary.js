@@ -338,6 +338,9 @@ function getImage(id){
 $('#btn_export_fvtt').on('click', function() {
 	window.open('/creature/json/' + selectedCreature.id, '_self');
 });
+$('#edit_beast').on('click', function() {
+	window.open('/admin/bestiary/' + selectedCreature.id, '_self');
+});
 $('.image-container').magnificPopup({
   delegate: 'a',
   type: 'image',

@@ -168,7 +168,7 @@
 			<div class="header_block">
 				<div class="header_row">
 					<h1 id="creature_name">Название существа</h1>
-					<div sec:authorize="isAuthenticated()" id="edit_beast" class="btn_additional_features tip" title="Редактировать">
+					<div sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" id="edit_beast" class="btn_additional_features tip" title="Редактировать">
 						Р
 					</div>
 					<a href="javascript:window.print()" id="btn_print" class="btn_additional_features tip" title="Печать">

@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.CreatureSize;
@@ -29,6 +30,7 @@ import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.Language;
+import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.Book;
 import lombok.Getter;
 import lombok.Setter;
@@ -309,5 +311,17 @@ public class Creature {
 
 	public List<Action> getLegendaries(){
 		return actions.stream().filter(a -> a.getActionType() == ActionType.LEGENDARY).collect(Collectors.toList());
+	}
+	
+	public Byte getSavingThrow(AbilityType abilityType) {
+		return savingThrows.stream().filter(st-> st.getAbility() == abilityType).map(SavingThrow::getBonus).findFirst().orElse(null);
+	}
+	
+	public Byte getSkillBonus(SkillType skillType) {
+		return skills.stream().filter(st-> st.getType() == skillType).map(Skill::getBonus).findFirst().orElse(null);
+	}
+
+	public int getBonusHpAbs() {
+		return bonusHP == null ? 0 : Math.abs(bonusHP);
 	}
 }

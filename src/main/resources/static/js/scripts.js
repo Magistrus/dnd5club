@@ -181,6 +181,8 @@ $('li').click(function () {
 		} else {
 			$dropdown.find('.js-dropdown__current').text($item.text());
 			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
+			$dropdown.find('li').removeClass('selected');
+			$item.addClass('selected');
 		}
 		$dropdown.find('.js-dropdown__input').change();
 	});
