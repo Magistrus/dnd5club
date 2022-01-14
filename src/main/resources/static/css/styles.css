@@ -1790,12 +1790,12 @@ body.compact_menu #right_block {
   content: '';
   display: block;
   width: 20px;
-  height: 20px;
+  height: 48px;
   background: var(--primary);
   position: absolute;
   top: 12px;
   left: -10px;
-  border-radius: 50%;
+  border-radius: 8px;
   z-index: 1;
 }
 
@@ -1847,11 +1847,6 @@ body.compact_menu #right_block {
 
 .structure-list #sub_menu ul li.sub_menu.active::after {
   background: var(--primary);
-}
-
-.structure-list #sub_menu ul li:nth-child(2):before {
-  height: 40px !important;
-  top: -22px !important;
 }
 
 .structure-list #sub_menu ul li.sub_menu::before {
