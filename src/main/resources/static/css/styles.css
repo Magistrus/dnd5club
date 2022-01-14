@@ -1251,6 +1251,7 @@ label.select_box {
   background-position:top left;
   background-repeat:no-repeat;
   border-right: 1px solid var(--border);
+  z-index: 3;
 }
 
 .header_block .search_block {
@@ -1765,6 +1766,138 @@ body.compact_menu #right_block {
   font-weight: 400;
   margin: 0;
   color: var(--text-color);
+}
+
+.structure-list {
+  background: none !important;
+  border-top: none !important;
+}
+
+.structure-list + .content_block {
+  border-left: none !important;
+}
+
+.structure-list #sub_menu ul li.title_sub_menu {
+  border-bottom: none !important;
+  padding: 12px 16px 12px 16px;
+}
+
+.structure-list #sub_menu ul li.title_sub_menu label {
+  margin: 8px 0 0 -2px;
+}
+
+.structure-list #sub_menu ul li.title_sub_menu::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  position: absolute;
+  top: 12px;
+  left: -10px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.structure-list #sub_menu ul li.title_sub_menu::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: var(--bg-secondary);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
+
+.structure-list #sub_menu ul li.sub_menu {
+  border-bottom: none !important;
+  padding: 8px 16px 8px 16px;
+  cursor: pointer;
+}
+
+.structure-list #sub_menu ul li.sub_menu:hover span {
+  color: var(--text-btn-color);
+}
+
+.structure-list #sub_menu ul li.sub_menu.active span {
+  color: var(--text-color-title);
+  font-weight: 600;
+}
+
+.structure-list #sub_menu ul li.sub_menu.active .sub_info span {
+  color: var(--text-color-title);
+}
+
+.structure-list #sub_menu ul li.sub_menu::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 1px;
+  background: var(--border);
+  position: absolute;
+  top: 17px;
+  left: 0px;
+}
+
+.structure-list #sub_menu ul li.sub_menu:hover:after {
+  background: var(--primary-hover);
+}
+
+.structure-list #sub_menu ul li.sub_menu.active::after {
+  background: var(--primary);
+}
+
+.structure-list #sub_menu ul li:nth-child(2):before {
+  height: 40px !important;
+  top: -22px !important;
+}
+
+.structure-list #sub_menu ul li.sub_menu::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 2000px;
+  background: var(--bg-secondary);
+  position: absolute;
+  top: -1982px;
+  left: 0px;
+}
+
+.structure-list #sub_menu ul li.sub_menu.active::before {
+  background: var(--primary);
+  z-index: 1;
+}
+
+.structure-list #sub_menu ul li.sub_menu .sub_info span {
+  font-size: 13px;
+  color: var(--text-g-color);
+}
+
+.structure-list #sub_menu ul li.sub_menu .btn_close {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--hover);
+}
+
+.structure-list #sub_menu ul li.sub_menu.active .btn_close {
+  display: flex;
+}
+
+.structure-list #sub_menu ul li.sub_menu.active .btn_close:hover {
+  background: var(--primary-hover);
+}
+
+.structure-list #sub_menu ul li.sub_menu.active .btn_close:hover svg path{
+  stroke: var(--text-btn-color);
 }
 
 #right_block .info_wrapper .sub_menu_list.selector_list {
