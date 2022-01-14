@@ -258,33 +258,23 @@
 					</div>
 					<details open>
 						<summary class="h4 header_separator">Способности</summary>
-						<div class="opportunities">
-							<div th:replace="user/admin/feature :: trait"></div>
-						</div>
+						<div th:replace="user/admin/feature :: traits(feats=*{feats})"></div>
 					</details>
 					<details>
 						<summary class="h4 header_separator">Действия</summary>
-						<div class="opportunities">
-							<div th:replace="user/admin/feature :: action"></div>
-						</div>
+						<div th:replace="user/admin/feature :: action(actions=*{actions})"></div>
 					</details>
 					<details>
 						<summary class="h4 header_separator">Бонусные действия</summary>
-						<div class="opportunities">
-							<div th:replace="user/admin/feature :: bonus"></div>
-						</div>
+						<div th:replace="user/admin/feature :: bonus(bonuses=*{bonusActions})"></div>
 					</details>
 					<details>
 						<summary class="h4 header_separator">Реакции</summary>
-						<div class="opportunities">
-							<div th:replace="user/admin/feature :: reaction"></div>
-						</div>
+						<div th:replace="user/admin/feature :: reaction(reactions=*{reactions})"></div>
 					</details>
 					<details>
 						<summary class="h4 header_separator">Легендарные действия</summary>
-						<div class="opportunities">
-							<div th:replace="user/admin/feature :: legendary"></div>
-						</div>
+						<div th:replace="user/admin/feature :: legendary(legendaries=*{legendaries})"></div>
 					</details>
 					<details>
 						<summary class="h4 header_separator">Логово (Убежище)</summary>
@@ -340,7 +330,7 @@
 						<summary class="h4 header_separator">Описание</summary>
 						<div class="opportunities">
 							<div class="content">
-								<textarea name="description" rows="4" placeholder="Описание"></textarea>
+								<textarea name="description" rows="4" placeholder="Описание" th:text="*{description}"></textarea>
 							</div>
 						</div>
 					</details>
