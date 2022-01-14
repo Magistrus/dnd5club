@@ -1849,11 +1849,6 @@ body.compact_menu #right_block {
   background: var(--primary);
 }
 
-.structure-list #sub_menu ul li:nth-child(2):before {
-  height: 40px !important;
-  top: -22px !important;
-}
-
 .structure-list #sub_menu ul li.sub_menu::before {
   content: '';
   display: block;
