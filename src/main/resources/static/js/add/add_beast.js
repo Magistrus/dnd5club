@@ -45,7 +45,8 @@ $('#hp_bonus').change(function () {
 });
 $('#ability_dex').change(function () {
 	if($('#armor').val() == ''){
-		let ac = 10 + getBonus($('#ability_dex').val());
+		let shield_bonus =$('#shield').is(':checked') ? 2 : 0;
+		let ac = shield_bonus + 10 + getBonus($('#ability_dex').val());
 		$('#ac').val(ac);
 	} else {
 		changeAC();
@@ -53,6 +54,9 @@ $('#ability_dex').change(function () {
 });
 $('#armor').change(function () {
 	changeAC();
+});
+$('#shield').on('click', function () {
+	changeAC()
 });
 $('details').delegate('.add_trait', 'click', function() {
 	var $item = $(this);
@@ -135,36 +139,40 @@ function changeHpFormula(){
 	$('#hp_formula').html(Math.max(Math.floor(average), 1) + ' (' + formula + ')');
 }
 function changeAC(){
+	let shield_bonus =$('#shield').is(':checked') ? 2 : 0;
 	switch($('#armor').val()){
 	case 'LEATHER':
-		$('#ac').val(11 + getBonus($('#ability_dex').val()));
+		$('#ac').val(11+shield_bonus + getBonus($('#ability_dex').val()));
 		break;
 	case 'RIVETED_LEATHER':
-		$('#ac').val(12 + getBonus($('#ability_dex').val()));
+		$('#ac').val(12+shield_bonus + getBonus($('#ability_dex').val()));
 		break;
 	case 'HIDE':
-		$('#ac').val(12 + Math.max(getBonus($('#ability_dex').val())), 2);
+		$('#ac').val(12+shield_bonus + Math.max(getBonus($('#ability_dex').val())), 2);
 		break;
 	case 'CHAINMAIL':
-		$('#ac').val(13 + Math.max(getBonus($('#ability_dex').val())), 2);
+		$('#ac').val(13+shield_bonus + Math.max(getBonus($('#ability_dex').val())), 2);
 		break;
 	case 'SCALED':
 	case 'BREASTPLATE':
 	case 'CUIRASS':
-		$('#ac').val(14 + Math.max(getBonus($('#ability_dex').val())), 2);
+		$('#ac').val(14+shield_bonus+ Math.max(getBonus($('#ability_dex').val())), 2);
 		break;
 	case 'RING_MAIL':
-		$('#ac').val(14);
+		$('#ac').val(14+shield_bonus);
 		break;
 	case 'HALF_PLATE':
-		$('#ac').val(15);
+		$('#ac').val(15+shield_bonus);
 		break;
 	case 'CHAIN_MAIL':
-		$('#ac').val(16);
+		$('#ac').val(16+shield_bonus);
 		break;
 	case 'PLATE':
-		$('#ac').val(18);
+		$('#ac').val(18+shield_bonus);
 		break;
+	default:
+		//$('#ac').val(shield_bonus + Number($('#ac').val()));
+	break;
 	}
 	if ($('#armor').val() == 'TEXT'){
 		$('#ac_text').removeClass('hide_block');
