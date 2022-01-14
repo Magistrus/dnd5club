@@ -1790,12 +1790,12 @@ body.compact_menu #right_block {
   content: '';
   display: block;
   width: 20px;
-  height: 20px;
+  height: 48px;
   background: var(--primary);
   position: absolute;
   top: 12px;
   left: -10px;
-  border-radius: 50%;
+  border-radius: 8px;
   z-index: 1;
 }
 
