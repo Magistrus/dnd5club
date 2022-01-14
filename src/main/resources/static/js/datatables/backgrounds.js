@@ -93,6 +93,11 @@ $(document).ready(function() {
 				if(localStorage.getItem('homebrew_source') != 'true'){
 					$(row).addClass('hide_block');
 				}
+			}else if (data.setting){
+				$(row).addClass('setting_source');
+				if(localStorage.getItem('setting_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
 			}
 		},
 	});
