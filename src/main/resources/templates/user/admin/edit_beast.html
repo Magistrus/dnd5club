@@ -1,343 +1,366 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
-	<div layout:fragment="content" th:object="${beast}">
+	<div layout:fragment="content">
 		<div id="left_block" class="add_beast">
 			<div class="header_block">
 				<div class="header_row">
 					<h1>Редактирование монстра</h1>
-					<button class="btn btn_additional_features tip" title="Сохранить">Сохранить</button>
+					<button class="btn btn_additional_features tip" type="button" title="Предпросмотр">Предпросмотр</button>
+					<button class="btn btn_additional_features tip" type="submit" title="Сохранить" form="beast_edit">Сохранить</button>
 					<button class="btn btn_additional_features tip" title="Отмена">Отмена</button>
 				</div>
 			</div>
 			<div class="add_beast_container" data-simplebar>
-				<div class="wrapper">
-					<div class="row_input">
-						<input type="text" class="name tip" name="name" placeholder="Название" title="Название" th:value="*{name}">
-						<input type="text" class="name tip" name="englishName" placeholder="Английское название" title="Английское название" th:value="*{englishName}">
-					</div>
-					<div class="row_input">
-						<div class="select js-dropdown tip" title="Размер">
-							<input id="beast_size" type="hidden" name="size" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
+				<form id="beast_edit" th:action="@{|/admin/bestiary/*{id}|}" method="post" th:object="${beast}">
+					<div class="wrapper">
+						<div class="row_input">
+							<input type="text" class="name tip" placeholder="Название" title="Название" th:field="*{name}"><input type="text" class="name tip" name="alt_name"
+								placeholder="Альернативные название" title="Альернативные название" th:field="*{altName}"
+							> <input type="text" class="name tip" placeholder="Английское название" title="Английское название" th:field="*{englishName}">
+						</div>
+						<div class="row_input">
+							<div class="select js-dropdown tip" title="Размер">
+								<input id="beast_size" type="hidden" name="size" class="js-dropdown__input" th:field="*{size}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
-							</i> <span class="placeholder js-dropdown__current size" th:text="*{size.cyrilicName}">Размер</span>
-							<ul data-simplebar>
-								<li th:each="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
-							</ul>
-						</div>
-						<div class="select js-dropdown tip" title="Тип">
-							<input type="hidden" name="tipe" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i> <span class="placeholder js-dropdown__current tipe" th:text="*{type.cyrilicName}">Тип</span>
-							<ul data-simplebar>
-								<li th:each="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
-							</ul>
-						</div>
-						<div class="select js-dropdown tip" title="Мировоззрение">
-							<input type="hidden" name="alignment" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i> <span class="placeholder js-dropdown__current alignment" th:text="*{alignment.cyrilicName}">Мировоззрение</span>
-							<ul data-simplebar>
-								<li th:each="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
-							</ul>
-						</div>
-						<input id="ac" type="text" name="ac" class="ac tip" placeholder="КД" title="Класс Доспеха" th:value="*{AC}">
-						<div class="select js-dropdown tip" title="Броня">
-							<input id="armor" type="hidden" name="armor" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i> <span class="placeholder js-dropdown__current armor">Броня</span>
-							<ul data-simplebar>
-								<li data-dropdown-value="TEXT">Текстовое описание</li>
-								<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
-							</ul>
-						</div>
-						<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к КД" title="бонус к КД">
-						<input id="shield" class="toggle" type="checkbox" name="shield"><span>Щит</span></label>
-					</div>
-					<div class="unit">
-						<div class="block stats">
-							<h5>Характеристики</h5>
-							<div class="value">
-								<input type="number" min="1" max="30" th:value="*{strength}" class="tip" name="strength" placeholder="СИЛ" title="СИЛА">
-								<input id="ability_dex" type="number" min="1" max="30" th:value="*{dexterity}" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ">
-								<input id="ability_con" type="number" min="1" max="30" th:value="*{constitution}" class="tip" name="constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ">
-								<input id="ability_int" type="number" min="1" max="30" th:value="*{intellect}" class="tip" name="intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ">
-								<input id="ability_wiz" type="number" min="1" max="30" th:value="*{wizdom}" class="tip" name="wisdom" placeholder="МУД" title="МУДРОСТЬ">
-								<input id="ability_cha" type="number" min="1" max="30" th:value="*{charisma}" class="tip" name="charisma" placeholder="ХАР" title="ХАРИЗМА"
-								>
+								</i> <span class="placeholder js-dropdown__current size" th:text="*{size.cyrilicName}">Размер</span>
+								<ul data-simplebar>
+									<li th:each="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
+								</ul>
 							</div>
-						</div>
-						<div class="block stats">
-							<h5>Спасброски</h5>
-							<div class="value">
-								<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛА" th:value="*{getSavingThrow('STRENGTH')}">
-								<input type="number" value="" class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ" th:value="*{getSavingThrow('DEXTERITY')}">
-								<input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ" th:value="*{getSavingThrow('CONSTITUTION')}">
-								<input type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ" th:value="*{getSavingThrow('INTELLIGENCE')}">
-								<input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУДРОСТЬ" th:value="*{getSavingThrow('WISDOM')}">
-								<input type="number" value="" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАРИЗМА" th:value="*{getSavingThrow('CHARISMA')}">
+							<div class="select js-dropdown tip" title="Тип">
+								<input type="hidden" name="type_beast" class="js-dropdown__input" th:field="*{type}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								</i> <span class="placeholder js-dropdown__current tipe" th:text="*{type.cyrilicName}">Тип</span>
+								<ul data-simplebar>
+									<li th:each="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
+								</ul>
 							</div>
+							<div class="select js-dropdown tip" title="Мировоззрение">
+								<input type="hidden" name="alignment" class="js-dropdown__input" th:field="*{alignment}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								</i> <span class="placeholder js-dropdown__current alignment" th:text="*{alignment.cyrilicName}">Мировоззрение</span>
+								<ul data-simplebar>
+									<li th:each="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
+								</ul>
+							</div>
+							<input id="ac" type="text" name="ac" class="ac tip" placeholder="КД" title="Класс Доспеха" th:field="*{AC}">
+							<div class="select js-dropdown tip" title="Броня">
+								<input id="armor" type="hidden" name="armor" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								</i> <span class="placeholder js-dropdown__current armor">Броня</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="TEXT">Текстовое описание</li>
+									<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
+								</ul>
+							</div>
+							<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к КД" title="бонус к КД"> <input id="shield" class="toggle" type="checkbox" name="shield"><span>Щит</span></label>
 						</div>
-						<div class="block stats">
-							<h5>Хиты <span th:if="*{diceHp}" id="hp_formula" class="hp_formula">[[*{averageHp}]] (<span class="dice_text" th:text="|*{countDiceHp}*{diceHp.name}|"></span><span th:if="*{bonusHP}" th:text="|*{bonusHP > 0 ? '+' : '-'}*{bonusHpAbs}|"></span>)</span> <label for="hp_field" class="check_block">
-							<input id="hp_field" class="toggle" type="checkbox" name="toggle"><span>HP поле</span></label>
-							</h5>
-							<div class="value">
-								<input id="hp_dice_count" type="number" value="" min="0" class="tip" name="sum_dice" placeholder="0" title="Количество кубов" th:value="*{countDiceHp}">
-								<div class="select js-dropdown tip" title="Значение куба">
-									<input id="hp_dice" type="hidden" name="dice_hp" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
+						<div class="unit">
+							<div class="block stats">
+								<h5>Характеристики</h5>
+								<div class="value">
+									<input type="number" min="1" max="30" th:field="*{strength}" class="tip" name="strength" placeholder="СИЛ" title="СИЛА"> <input id="ability_dex" type="number" min="1" max="30"
+										th:field="*{dexterity}" class="tip" name="dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ"
+									> <input id="ability_con" type="number" min="1" max="30" th:field="*{constitution}" class="tip" name="constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ"> <input id="ability_int"
+										type="number" min="1" max="30" th:field="*{intellect}" class="tip" name="intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ"
+									> <input id="ability_wiz" type="number" min="1" max="30" th:field="*{wizdom}" class="tip" name="wisdom" placeholder="МУД" title="МУДРОСТЬ"> <input id="ability_cha" type="number"
+										min="1" max="30" th:field="*{charisma}" class="tip" name="charisma" placeholder="ХАР" title="ХАРИЗМА"
+									>
+								</div>
+							</div>
+							<div class="block stats">
+								<h5>Спасброски</h5>
+								<div class="value">
+									<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛА" th:value="*{getSavingThrow('STRENGTH')}"> <input type="number" value=""
+										class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ" th:value="*{getSavingThrow('DEXTERITY')}"
+									> <input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ" th:value="*{getSavingThrow('CONSTITUTION')}"> <input
+										type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ" th:value="*{getSavingThrow('INTELLIGENCE')}"
+									> <input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУДРОСТЬ" th:value="*{getSavingThrow('WISDOM')}"> <input type="number" value=""
+										class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАРИЗМА" th:value="*{getSavingThrow('CHARISMA')}"
+									>
+								</div>
+							</div>
+							<div class="block stats">
+								<h5>
+									Хиты <span th:if="*{diceHp}" id="hp_formula" class="hp_formula">[[*{averageHp}]] (<span class="dice_text" th:text="|*{countDiceHp}*{diceHp.name}|"></span><span th:if="*{bonusHP}"
+										th:text="|*{bonusHP > 0 ? '+' : '-'}*{bonusHpAbs}|"
+									></span>)
+									</span> <label for="hp_field" class="check_block"> <input id="hp_field" class="toggle" type="checkbox" name="toggle"><span>HP поле</span></label>
+								</h5>
+								<div class="value">
+									<input id="hp_dice_count" type="number" value="" min="0" class="tip" name="sum_dice" placeholder="0" title="Количество кубов" th:field="*{countDiceHp}">
+									<div class="select js-dropdown tip" title="Значение куба">
+										<input id="hp_dice" type="hidden" name="dice_hp" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
 											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 										</svg>
-									</i> <span id="hp_dice_text" class="placeholder js-dropdown__current dice_hp" th:text="*{diceHp.name}">к4</span>
-									<ul data-simplebar>
-										<li th:each="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
-									</ul>
+										</i> <span id="hp_dice_text" class="placeholder js-dropdown__current dice_hp" th:text="*{diceHp.name}">к4</span>
+										<ul data-simplebar>
+											<li th:each="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
+										</ul>
+									</div>
+									<input id="hp_bonus" type="number" value="" min="0" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp" th:field="*{bonusHP}">
 								</div>
-								<input id="hp_bonus" type="number" value="" min="0" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp" th:value="*{bonusHP}">
+							</div>
+							<div class="block movements">
+								<h5>
+									Передвижение <label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
+								</h5>
+								<div class="value">
+									<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба" th:field="*{speed}"> <input type="number" value="" class="tip" name="swimming"
+										placeholder="Плавая" title="Плавая" th:field="*{swimmingSpped}"
+									> <input type="number" value="" class="tip" name="flying" placeholder="Летая" title="Летая" th:field="*{flySpeed}"> <input type="number" value="" class="tip" name="climbing"
+										placeholder="Лазая" title="Лазая" th:field="*{climbingSpeed}"
+									> <input type="number" value="" class="tip" name="digging" placeholder="Копая" title="Копая" th:field="*{diggingSpeed}">
+								</div>
 							</div>
 						</div>
-						<div class="block movements">
+						<details class="block skills">
+							<summary class="h5">Скилы</summary>
+							<div class="value">
+								<label class="select_box"> <span>Акробатика:</span> <input type="number" value="" name="acrobatics" class="select acrobatics" placeholder="0" th:value="*{getSkillBonus('ACROBATICS')}" />
+								</label> <label class="select_box"> <span>Анализ:</span> <input type="number" value="" name="analysis" class="select analysis" placeholder="0" th:value="*{getSkillBonus('INVESTIGATION')}" />
+								</label> <label class="select_box"> <span>Атлетика:</span> <input type="number" value="" name="athletics" class="select athletics" placeholder="0" th:value="*{getSkillBonus('ATHLETICS')}" />
+								</label> <label class="select_box"> <span>Внимательность:</span> <input type="number" value="" name="perception" class="select perception" placeholder="0"
+									th:value="*{getSkillBonus('PERCEPTION')}"
+								/>
+								</label> <label class="select_box"> <span>Выживание:</span> <input type="number" value="" name="survival" class="select survival" placeholder="0" th:value="*{getSkillBonus('SURVIVAL')}" />
+								</label> <label class="select_box"> <span>Выступление:</span> <input type="number" value="" name="performance" class="select performance" placeholder="0"
+									th:value="*{getSkillBonus('PERFORMANCE')}"
+								/>
+								</label> <label class="select_box"> <span>Запугивание:</span> <input type="number" value="" name="intimidat" class="select intimidat" placeholder="0"
+									th:value="*{getSkillBonus('INTIMIDATION')}"
+								/>
+								</label> <label class="select_box"> <span>История:</span> <input type="number" value="" name="history" class="select history" placeholder="0" th:value="*{getSkillBonus('HISTORY')}" />
+								</label> <label class="select_box"> <span>Ловкость рук:</span> <input type="number" value="" name="sleight_of_hand" class="select sleight_of_hand" placeholder="0"
+									th:value="*{getSkillBonus('SLEIGHT_OF_HAND')}"
+								/>
+								</label> <label class="select_box"> <span>Магия:</span> <input type="number" value="" name="magic" class="select magic" placeholder="0" th:value="*{getSkillBonus('ARCANA')}" />
+								</label> <label class="select_box"> <span>Медицина:</span> <input type="number" value="" name="medicine" class="select medicine" placeholder="0" th:value="*{getSkillBonus('MEDICINE')}" />
+								</label> <label class="select_box"> <span>Обман:</span> <input type="number" value="" name="deception" class="select deception" placeholder="0" th:value="*{getSkillBonus('DECEPTION')}" />
+								</label> <label class="select_box"> <span>Природа:</span> <input type="number" value="" name="nature" class="select nature" placeholder="0" th:value="*{getSkillBonus('NATURE')}" />
+								</label> <label class="select_box"> <span>Проницательность:</span> <input type="number" value="" name="discernment" class="select discernment" placeholder="0"
+									th:value="*{getSkillBonus('INSIGHT')}"
+								/>
+								</label> <label class="select_box"> <span>Религия:</span> <input type="number" value="" name="religion" class="select religion" placeholder="0" th:value="*{getSkillBonus('RELIGION')}" />
+								</label> <label class="select_box"> <span>Скрытность:</span> <input type="number" value="" name="stealth" class="select stealth" placeholder="0" th:value="*{getSkillBonus('STEALTH')}" />
+								</label> <label class="select_box"> <span>Убеждение:</span> <input type="number" value="" name="belief" class="select belief" placeholder="0" th:value="*{getSkillBonus('PERSUASION')}" />
+								</label> <label class="select_box"> <span>Уход за животными:</span> <input type="number" value="" name="animal_care" class="select animal_care" placeholder="0"
+									th:value="*{getSkillBonus('ANIMAL_HANDLING')}"
+								/>
+								</label>
+							</div>
+						</details>
+						<details class="block senses">
+							<summary class="h5">Чувства</summary>
 							<h5>
-								Передвижение <label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
+								Ограничение зрения<label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Слепо за пределами радиуса</span></label>
 							</h5>
 							<div class="value">
-								<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба" th:value="*{speed}">
-								<input type="number" value="" class="tip" name="swimming" placeholder="Плавая" title="Плавая" th:value="*{swimmingSpped}">
-								<input type="number" value="" class="tip" name="flying" placeholder="Летая" title="Летая" th:value="*{flySpeed}">
-								<input type="number" value="" class="tip" name="climbing" placeholder="Лазая" title="Лазая" th:value="*{climbingSpeed}">
-								<input type="number" value="" class="tip" name="digging" placeholder="Копая" title="Копая" th:value="*{diggingSpeed}">
+								<label class="select_box"> <span>Истинное зрение:</span> <input type="number" name="true_vision" class="select true_vision" placeholder="0" th:field="*{trysight}" />
+								</label> <label class="select_box"> <span>Слепое зрение:</span> <input type="number" name="blind_sight" class="select blind_sight" placeholder="0" th:field="*{blindsight}" />
+								</label> <label class="select_box"> <span>Тёмное зрение:</span> <input type="number" name="dark_vision" class="select dark_vision" placeholder="0" th:field="*{darkvision}" />
+								</label> <label class="select_box"> <span>Чувство вибрации:</span> <input type="number" name="sense_vibration" class="select sense_vibration" placeholder="0" th:field="*{vibration}" />
+								</label> <label class="select_box"> <span>Пассивное Восприятие:</span> <input type="number" name="passive_perception" class="select passive_perception" placeholder="0"
+									th:field="*{passivePerception}"
+								/>
+								</label>
 							</div>
-						</div>
-					</div>
-					<details class="block skills">
-						<summary class="h5">Скилы</summary>
-						<div class="value">
-							<label class="select_box"> <span>Акробатика:</span> <input type="number" value="" name="acrobatics" class="select acrobatics" placeholder="0" th:value="*{getSkillBonus('ACROBATICS')}"/>
-							</label> <label class="select_box"> <span>Анализ:</span> <input type="number" value="" name="analysis" class="select analysis" placeholder="0" th:value="*{getSkillBonus('INVESTIGATION')}"/>
-							</label> <label class="select_box"> <span>Атлетика:</span> <input type="number" value="" name="athletics" class="select athletics" placeholder="0" th:value="*{getSkillBonus('ATHLETICS')}"/>
-							</label> <label class="select_box"> <span>Внимательность:</span> <input type="number" value="" name="perception" class="select perception" placeholder="0" th:value="*{getSkillBonus('PERCEPTION')}"/>
-							</label> <label class="select_box"> <span>Выживание:</span> <input type="number" value="" name="survival" class="select survival" placeholder="0" th:value="*{getSkillBonus('SURVIVAL')}"/>
-							</label> <label class="select_box"> <span>Выступление:</span> <input type="number" value="" name="performance" class="select performance" placeholder="0" th:value="*{getSkillBonus('PERFORMANCE')}"/>
-							</label> <label class="select_box"> <span>Запугивание:</span> <input type="number" value="" name="intimidat" class="select intimidat" placeholder="0" th:value="*{getSkillBonus('INTIMIDATION')}"/>
-							</label> <label class="select_box"> <span>История:</span> <input type="number" value="" name="history" class="select history" placeholder="0" th:value="*{getSkillBonus('HISTORY')}"/>
-							</label> <label class="select_box"> <span>Ловкость рук:</span> <input type="number" value="" name="sleight_of_hand" class="select sleight_of_hand" placeholder="0" th:value="*{getSkillBonus('SLEIGHT_OF_HAND')}"/>
-							</label> <label class="select_box"> <span>Магия:</span> <input type="number" value="" name="magic" class="select magic" placeholder="0" th:value="*{getSkillBonus('ARCANA')}"/>
-							</label> <label class="select_box"> <span>Медицина:</span> <input type="number" value="" name="medicine" class="select medicine" placeholder="0" th:value="*{getSkillBonus('MEDICINE')}"/>
-							</label> <label class="select_box"> <span>Обман:</span> <input type="number" value="" name="deception" class="select deception" placeholder="0" th:value="*{getSkillBonus('DECEPTION')}"/>
-							</label> <label class="select_box"> <span>Природа:</span> <input type="number" value="" name="nature" class="select nature" placeholder="0" th:value="*{getSkillBonus('NATURE')}"/>
-							</label> <label class="select_box"> <span>Проницательность:</span> <input type="number" value="" name="discernment" class="select discernment" placeholder="0" th:value="*{getSkillBonus('INSIGHT')}"/>
-							</label> <label class="select_box"> <span>Религия:</span> <input type="number" value="" name="religion" class="select religion" placeholder="0" th:value="*{getSkillBonus('RELIGION')}"/>
-							</label> <label class="select_box"> <span>Скрытность:</span> <input type="number" value="" name="stealth" class="select stealth" placeholder="0" th:value="*{getSkillBonus('STEALTH')}"/>
-							</label> <label class="select_box"> <span>Убеждение:</span> <input type="number" value="" name="belief" class="select belief" placeholder="0" th:value="*{getSkillBonus('PERSUASION')}"/>
-							</label> <label class="select_box"> <span>Уход за животными:</span> <input type="number" value="" name="animal_care" class="select animal_care" placeholder="0" th:value="*{getSkillBonus('ANIMAL_HANDLING')}"/>
-							</label>
-						</div>
-					</details>
-					<details class="block senses">
-						<summary class="h5">Чувства</summary>
-						<h5>
-							Ограничение зрения<label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Слепо за пределами радиуса</span></label>
-						</h5>
-						<div class="value">
-							<label class="select_box"> <span>Истинное зрение:</span> <input type="number" name="true_vision" class="select true_vision" placeholder="0" th:value="*{trysight}"/>
-							</label> <label class="select_box"> <span>Слепое зрение:</span> <input type="number" name="blind_sight" class="select blind_sight" placeholder="0" th:value="*{blindsight}"/>
-							</label> <label class="select_box"> <span>Тёмное зрение:</span> <input type="number" name="dark_vision" class="select dark_vision" placeholder="0" th:value="*{darkvision}"/>
-							</label> <label class="select_box"> <span>Чувство вибрации:</span> <input type="number" name="sense_vibration" class="select sense_vibration" placeholder="0" th:value="*{vibration}"/>
-							</label> <label class="select_box"> <span>Пассивное Восприятие:</span> <input type="number" name="passive_perception" class="select passive_perception" placeholder="0" th:value="*{passivePerception}"/>
-							</label>
-						</div>
-					</details>
-					<div class="block damage">
-						<div class="value">
-							<div class="select js-dropdown tip multiselect" title="Сопротивл. урону">
-								<input type="hidden" name="resistance_damage" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
+						</details>
+						<div class="block damage">
+							<div class="value">
+								<div class="select js-dropdown tip multiselect" title="Сопротивл. урону">
+									<input type="hidden" name="resistance_damage" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-								</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону">Сопротивл. урону</span>
-								<ul data-simplebar>
-									<li th:each="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
-								</ul>
-							</div>
-							<div class="select js-dropdown tip multiselect" title="Иммун. к урону">
-								<input type="hidden" name="damage_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
+									</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону">Сопротивл. урону</span>
+									<ul data-simplebar>
+										<li th:each="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
+									</ul>
+								</div>
+								<div class="select js-dropdown tip multiselect" title="Иммун. к урону">
+									<input type="hidden" name="damage_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-								</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону">Иммун. к урону</span>
-								<ul data-simplebar>
-									<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
-								</ul>
-							</div>
-							<div class="select js-dropdown tip multiselect" title="Уязвим. к урону">
-								<input type="hidden" name="damage_vulnerability" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
+									</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону">Иммун. к урону</span>
+									<ul data-simplebar>
+										<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
+									</ul>
+								</div>
+								<div class="select js-dropdown tip multiselect" title="Уязвим. к урону">
+									<input type="hidden" name="damage_vulnerability" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-								</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Иммун. к урону">Уязвим. к урону</span>
-								<ul data-simplebar>
-									<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
-								</ul>
-							</div>
-							<div class="select js-dropdown tip multiselect" title="Иммун. к состоянию">
-								<input type="hidden" name="condition_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
+									</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Иммун. к урону">Уязвим. к урону</span>
+									<ul data-simplebar>
+										<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
+									</ul>
+								</div>
+								<div class="select js-dropdown tip multiselect" title="Иммун. к состоянию">
+									<input type="hidden" name="condition_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-								</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию">Иммун. к состоянию</span>
+									</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию">Иммун. к состоянию</span>
+									<ul data-simplebar>
+										<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="row_input">
+							<div class="select js-dropdown tip multiselect" title="Языки">
+								<input type="hidden" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								</i> <span class="placeholder js-dropdown__current languages" title="Языки">Языки</span>
 								<ul data-simplebar>
-									<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
+									<li data-dropdown-value="1">Общий</li>
+									<li data-dropdown-value="2">Эльфийский</li>
+									<li data-dropdown-value="3">Дварфийский</li>
 								</ul>
 							</div>
-						</div>
-					</div>
-					<div class="row_input">
-						<div class="select js-dropdown tip multiselect" title="Языки">
-							<input type="hidden" name="languages" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
+							<div class="select js-dropdown tip" title="Опасность">
+								<input type="hidden" name="danger" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
-							</i> <span class="placeholder js-dropdown__current languages" title="Языки">Языки</span>
-							<ul data-simplebar>
-								<li data-dropdown-value="1">Общий</li>
-								<li data-dropdown-value="2">Эльфийский</li>
-								<li data-dropdown-value="3">Дварфийский</li>
-							</ul>
-						</div>
-						<div class="select js-dropdown tip" title="Опасность">
-							<input type="hidden" name="danger" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i> <span class="placeholder js-dropdown__current danger" th:text="*{challengeRating}">Опасность</span>
-							<ul data-simplebar>
-								<li data-dropdown-value="0">0</li>
-								<li data-dropdown-value="1/2">1/8</li>
-								<li data-dropdown-value="1/4">1/4</li>
-								<li data-dropdown-value="1/2">1/2</li>
-								<li th:each="cr : ${#numbers.sequence(1, 30)}" data-dropdown-value="${cr}" th:text="${cr}"></li>
-							</ul>
-						</div>
-						<div class="select js-dropdown tip multiselect" title="Места обитания">
-							<input type="hidden" name="source" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i> <span class="placeholder js-dropdown__current source" title="Места обитания">Места обитания</span>
-							<ul data-simplebar>
-								<li th:each="habitate : ${habitates}" th:data-dropdown-value="${habitate}" th:text="${habitate.name}"></li>
-							</ul>
-						</div>
-						<div class="select js-dropdown tip" title="Источник">
-							<input type="hidden" name="source" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i> <span class="placeholder js-dropdown__current source" th:text="*{book.source}">Источник</span>
-							<ul data-simplebar>
-								<li data-dropdown-value="1">1</li>
-								<li data-dropdown-value="2">2</li>
-								<li data-dropdown-value="3">3</li>
-							</ul>
-						</div>
-						<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги">
-					</div>
-					<details open>
-						<summary class="h4 header_separator">Способности</summary>
-						<div th:replace="user/admin/feature :: traits(feats=*{feats})"></div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Действия</summary>
-						<div th:replace="user/admin/feature :: actions(actions=*{actions})"></div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Бонусные действия</summary>
-						<div th:replace="user/admin/feature :: bonus(bonuses=*{bonusActions})"></div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Реакции</summary>
-						<div th:replace="user/admin/feature :: reaction(reactions=*{reactions})"></div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Легендарные действия</summary>
-						<div th:replace="user/admin/feature :: legendary(legendaries=*{legendaries})"></div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Логово (Убежище)</summary>
-						<div class="opportunities">
-							<div class="content">
-								<textarea th:if="*{lair}" name="lair_description" rows="4" placeholder="Описание" th:text="*{lair.description}"></textarea>
-								<textarea th:unless="*{lair}" name="lair_description" rows="4" placeholder="Описание"></textarea>
+								</i> <span class="placeholder js-dropdown__current danger" th:text="*{challengeRating}">Опасность</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="0">0</li>
+									<li data-dropdown-value="1/2">1/8</li>
+									<li data-dropdown-value="1/4">1/4</li>
+									<li data-dropdown-value="1/2">1/2</li>
+									<li th:each="cr : ${#numbers.sequence(1, 30)}" data-dropdown-value="${cr}" th:text="${cr}"></li>
+								</ul>
 							</div>
-						</div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Действия логова (убежища)</summary>
-						<div class="opportunities">
-							<div class="content">
-								<textarea th:if="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"  th:text="*{lair.action}"></textarea>
-								<textarea th:unless="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"></textarea>
+							<div class="select js-dropdown tip multiselect" title="Места обитания">
+								<input type="hidden" name="source" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								</i> <span class="placeholder js-dropdown__current source" title="Места обитания">Места обитания</span>
+								<ul data-simplebar>
+									<li th:each="habitate : ${habitates}" th:data-dropdown-value="${habitate}" th:text="${habitate.name}"></li>
+								</ul>
 							</div>
-						</div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Эффекты логова (убежища)</summary>
-						<div class="opportunities">
-							<div class="content">
-								<textarea th:if="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание" th:text="*{lair.effect}"></textarea>
-								<textarea th:unless="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
+							<div class="select js-dropdown tip" title="Источник">
+								<input type="hidden" name="source" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								</i> <span class="placeholder js-dropdown__current source" th:text="*{book.source}">Источник</span>
+								<ul data-simplebar>
+									<li data-dropdown-value="1">1</li>
+									<li data-dropdown-value="2">2</li>
+									<li data-dropdown-value="3">3</li>
+								</ul>
 							</div>
+							<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги">
 						</div>
-					</details>
-					<details>
-						<summary class="h4 header_separator">Варианты</summary>
-						<div class="opportunities">
-							<div class="control">
-								<div class="icon tip" title="Добавить">
-									<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<details th:attr="open=*{feats.empty ? null: 'true'}">
+							<summary class="h4 header_separator">Способности</summary>
+							<div th:replace="user/admin/feature :: traits(beast=${beast})"></div>
+						</details>
+						<details th:attr="open=*{actions.empty ? null: 'true'}">
+							<summary class="h4 header_separator">Действия</summary>
+							<div th:replace="user/admin/feature :: actions(beast=${beast})"></div>
+						</details>
+						<details th:attr="open=*{bonusActions.empty ? null: 'true'}">
+							<summary class="h4 header_separator">Бонусные действия</summary>
+							<div th:replace="user/admin/feature :: bonuses(bonuses=*{bonusActions})"></div>
+						</details>
+						<details th:attr="open=*{reactions.empty ? null: 'true'}">
+							<summary class="h4 header_separator">Реакции</summary>
+							<div th:replace="user/admin/feature :: reactions(reactions=*{reactions})"></div>
+						</details>
+						<details th:attr="open=*{legendaries.empty ? null: 'true'}">
+							<summary class="h4 header_separator">Легендарные действия</summary>
+							<div th:replace="user/admin/feature :: legendaries(legendaries=*{legendaries})"></div>
+						</details>
+						<details>
+							<summary class="h4 header_separator">Логово (Убежище)</summary>
+							<div class="opportunities">
+								<div class="content">
+									<textarea th:if="*{lair}" name="lair_description" rows="4" placeholder="Описание" th:text="*{lair.description}"></textarea>
+									<textarea th:unless="*{lair}" name="lair_description" rows="4" placeholder="Описание"></textarea>
+								</div>
+							</div>
+						</details>
+						<details>
+							<summary class="h4 header_separator">Действия логова (убежища)</summary>
+							<div class="opportunities">
+								<div class="content">
+									<textarea th:if="*{lair}" name="lair_action_description" rows="4" placeholder="Описание" th:text="*{lair.action}"></textarea>
+									<textarea th:unless="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"></textarea>
+								</div>
+							</div>
+						</details>
+						<details>
+							<summary class="h4 header_separator">Эффекты логова (убежища)</summary>
+							<div class="opportunities">
+								<div class="content">
+									<textarea th:if="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание" th:text="*{lair.effect}"></textarea>
+									<textarea th:unless="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
+								</div>
+							</div>
+						</details>
+						<details>
+							<summary class="h4 header_separator">Варианты</summary>
+							<div class="opportunities">
+								<div class="control">
+									<div class="icon tip" title="Добавить">
+										<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round" />
 											</svg>
-									</i>
-								</div>
-								<div class="icon tip disable" title="Удалить">
-									<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										</i>
+									</div>
+									<div class="icon tip disable" title="Удалить">
+										<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path
-												d="M7 6H10M17 6L14 6M10 6L11.1056 5.44721C11.6686 5.16569 12.3314 5.16569 12.8944 5.44721L14 6M10 6L14 6M16.7857 9.17889L15.2986 17.3578C15.1257 18.3088 14.2974 19 13.3308 19H10.6692C9.70258 19 8.87432 18.3087 8.70141 17.3578L7.21434 9.17889C7.10274 8.56505 7.57527 8 8.19917 8C11.0107 8 12.9893 8 15.8008 8C16.4247 8 16.8973 8.56505 16.7857 9.17889Z"
-												stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"
-											/>
+													d="M7 6H10M17 6L14 6M10 6L11.1056 5.44721C11.6686 5.16569 12.3314 5.16569 12.8944 5.44721L14 6M10 6L14 6M16.7857 9.17889L15.2986 17.3578C15.1257 18.3088 14.2974 19 13.3308 19H10.6692C9.70258 19 8.87432 18.3087 8.70141 17.3578L7.21434 9.17889C7.10274 8.56505 7.57527 8 8.19917 8C11.0107 8 12.9893 8 15.8008 8C16.4247 8 16.8973 8.56505 16.7857 9.17889Z"
+													stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"
+												/>
 											</svg>
-									</i>
+										</i>
+									</div>
+								</div>
+								<div class="content">
+									<input type="text" name="opportunity_name_1" placeholder="Название варианта">
+									<textarea name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
 								</div>
 							</div>
-							<div class="content">
-								<input type="text" name="opportunity_name_1" placeholder="Название варианта">
-								<textarea name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
+						</details>
+						<details open>
+							<summary class="h4 header_separator">Описание</summary>
+							<div class="opportunities">
+								<div class="content">
+									<textarea name="description" rows="4" placeholder="Описание" th:text="*{description}"></textarea>
+								</div>
 							</div>
-						</div>
-					</details>
-					<details open>
-						<summary class="h4 header_separator">Описание</summary>
-						<div class="opportunities">
-							<div class="content">
-								<textarea name="description" rows="4" placeholder="Описание" th:text="*{description}"></textarea>
-							</div>
-						</div>
-					</details>
-				</div>
+						</details>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

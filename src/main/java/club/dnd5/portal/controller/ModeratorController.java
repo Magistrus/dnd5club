@@ -1,12 +1,17 @@
 package club.dnd5.portal.controller;
 
-import java.util.Optional;
+import java.util.Map;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.ArmorType;
@@ -14,8 +19,11 @@ import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
+import club.dnd5.portal.model.creature.Action;
+import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Condition;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.creature.CreatureFeat;
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
@@ -80,5 +88,13 @@ public class ModeratorController {
 		Creature besat = repo.findById(id).get();
 		model.addAttribute("beast", besat);
 		return "user/admin/edit_beast";
+	}
+	
+	@Transactional
+	@PostMapping("/admin/bestiary/{id}")
+	public String updateBeast(Model model, @PathVariable Integer id, Creature beast, @RequestParam Map<String, String> params) {
+		//repo.save(beast);
+		model.addAttribute("selectedCreature", beast);
+		return "redirect:/bestiary/" + beast.getEnglishName().replace(' ', ' ');
 	}
 }

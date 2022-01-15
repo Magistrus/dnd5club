@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.ws.soap.Addressing;
 
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.Alignment;
@@ -40,6 +41,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+
 @Entity
 @Table(name = "creatures")
 public class Creature {
@@ -156,7 +158,7 @@ public class Creature {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<CreatureFeat> feats;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Action> actions;
 	
 	@OneToMany(fetch = FetchType.LAZY)
@@ -190,6 +192,13 @@ public class Creature {
 	private Short page;
 	
 	private String img;
+	
+	public void addFeat(CreatureFeat feat) {
+		feats.add(feat);
+	}
+	public void add(Action action) {
+		actions.add(action);
+	}
 
 	public String getSizeName() {
 		return size.getSizeName(type);
@@ -298,7 +307,7 @@ public class Creature {
 	}
 
 	public List<Action> getActions(){
-		return actions.stream().filter(a -> a.getActionType() == ActionType.ACTION).collect(Collectors.toList());
+ 		return actions==null ? null : actions.stream().filter(a -> a.getActionType() == ActionType.ACTION).collect(Collectors.toList());
 	}
 	
 	public List<Action> getReactions(){
