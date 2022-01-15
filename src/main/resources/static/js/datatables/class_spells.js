@@ -16,6 +16,7 @@ $(document).ready(function() {
 		columns : [
 		{
 			data : 'level',
+			searchable: false
 		},
 		{
 			data : 'school',
