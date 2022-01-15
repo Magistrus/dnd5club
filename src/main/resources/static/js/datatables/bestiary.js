@@ -52,10 +52,13 @@ $(document).ready(function() {
 			data : 'habitates',
 			searchable: false
 		},
+		{
+			data : 'altName',
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [0, 2 ,3, 4, 5, 6, 7],
+				"targets": [0, 2 ,3, 4, 5, 6, 7, 8],
 				"visible": false
 			},
 			{
