@@ -1702,9 +1702,99 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block .info_wrapper.options .search_block,
+#right_block .info_wrapper.spells .search_block {
+  height: 45px;
+  width: calc(100% - 1px);
+  right: 0;
+  max-width: calc(var(--width-right-block) - 291px);
+  display: flex;
+  position: fixed;
+  background-color: var(--bg-secondary);
+  top: 119px;
+  z-index: 2;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+@media (max-width: 1200px) {
+  #right_block .info_wrapper.options .search_block,
+  #right_block .info_wrapper.spells .search_block {
+    max-width: inherit;
+  }
+}
+
+#right_block .info_wrapper.options .search_block .search_int,
+#right_block .info_wrapper.spells .search_block .search_int {
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  width: calc(100% - 93px);
+  padding-left: 52px;
+  padding-right: 40px;
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+  font-size: 15px;
+  margin: 0;
+  height: 45px;
+}
+
+#right_block .info_wrapper.options .search_block .btn_search_icon,
+#right_block .info_wrapper.spells .search_block .btn_search_icon {
+  height: 45px;
+  width: 45px;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#right_block .info_wrapper.options .search_block .btn_filters,
+#right_block .info_wrapper.spells .search_block .btn_filters {
+  background-color: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  min-width: 44px;
+  height: 45px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+#right_block .info_wrapper.options .search_panes,
+#right_block .info_wrapper.spells .search_panes {
+  position: fixed;
+  right: 0;
+  max-width: calc(var(--width-right-block) - 292px);
+  border-right: 1px solid var(--border);
+  z-index: 1;
+}
+
+#right_block .info_wrapper.options .search_panes .filter_container,
+#right_block .info_wrapper.spells .search_panes .filter_container {
+  margin-bottom: 46px;
+}
+
+@media (max-width: 1200px) {
+  #right_block .info_wrapper.options .search_panes,
+  #right_block .info_wrapper.spells .search_panes {
+    max-width: inherit;
+    height: calc(100% - 236px);
+  }
+  
+  #right_block .info_wrapper.options .search_panes .filter_container,
+  #right_block .info_wrapper.spells .search_panes .filter_container {
+    padding-bottom: 0px;
+  }
+}
+
+
 #right_block .info_wrapper.options .content_block #content_block,
 #right_block .info_wrapper.spells .content_block #content_block {
-  padding: 0px;
+  padding: 45px 0 0 0;
   width: 100%;
 }
 
@@ -1771,10 +1861,6 @@ body.compact_menu #right_block {
 .structure-list {
   background: none !important;
   border-top: none !important;
-}
-
-.structure-list + .content_block {
-  /* border-left: none !important; */
 }
 
 .structure-list #sub_menu ul li.title_sub_menu {
@@ -1994,7 +2080,7 @@ body.compact_menu #right_block {
   background-color: var(--hover);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   #right_block .info_wrapper .content_block {
     border-left: 0;
   }
@@ -2699,6 +2785,10 @@ body.compact_menu #right_block.weapons {
   display: flex;
 }
 
+#right_block.bestiary .info_wrapper #content_block {
+  width: calc(100% - 339px);
+}
+
 .bestiary_h5 {
   border-left: 3px solid var(--primary);
   padding-left: 8px;
@@ -2825,119 +2915,6 @@ body.compact_menu #right_block.weapons {
   width: 100%;
   max-height: calc(100% - 117px); 
 }
-
-.search_panes .dtsp-panesContainer {
-  box-shadow: 0px 10px 21px #00000036;
-  background: var(--bg-main);
-  padding: 0px 24px 24px 24px;
-  margin-top: 0px;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow {
-  width: auto;
-  height: 36px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  margin-left: -24px;
-  margin-right: -24px;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow .dtsp-title {
-  display: none;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow button {
-  color: var(--text-btn-color);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  background: var(--primary);
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow button:disabled {
-  color:var(--text-color);
-  opacity: 0.6;
-  background: var(--bg-main);
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow button:disabled:hover {
-  color:var(--text-color);
-  opacity: 0.6;
-  background: var(--bg-main);
-  cursor: not-allowed !important;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow button:hover {
-  color: var(--text-btn-color);
-  background: var(--primary-hover);
-}
-
-.search_panes .dtsp-panesContainer .dtsp-titleRow .dtsp-clearAll {
-  margin-right: auto;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane {
-  flex: 1 1 calc(50% - 8px);
-  min-width: calc(50% - 8px);
-  margin: 16px 4px 0px 4px !important;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dataTables_wrapper {
-  border-radius: 0px;
-  border:1px solid var(--border);
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dataTables_wrapper:hover {
-  border-radius: 0px;
-  border:1px solid var(--border);
-}
-
-.search_panes table {
-  border-radius: 0px;
-  border:none;
-  background: var(--bg-main);
-}
-
-.search_panes .dataTable tbody tr {
-  background: var(--bg-main) !important;
-}
-
-.search_panes .dataTable tbody tr.selected {
-  background: var(--primary-active) !important;
-}
-
-.search_panes .dataTable tbody tr:hover {
-  background: var(--hover) !important;
-}
-
-div.dtsp-panesContainer div.dtsp-searchPanes {
-  margin-left: -4px;
-  margin-right: -4px;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow {
-  border-radius: 0px;
-  border:1px solid var(--border);
-  flex-direction: row !important;
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow:hover {
-  background: var(--hover);
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow .dtsp-subRow2 .dtsp-buttonGroup button {
-  color: var(--primary);
-}
-
-.search_panes .dtsp-panesContainer .dtsp-searchPanes .dtsp-searchPane .dtsp-topRow .dtsp-subRow2 .dtsp-buttonGroup button:disabled {
-  color: var(--text-color);
-  opacity: 0.6;
-}
-
-div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
-  height: auto !important;
-  max-height: 200px;
-}
-
 
 .filter_container {
   width: 100%;
