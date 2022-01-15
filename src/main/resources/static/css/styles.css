@@ -360,12 +360,16 @@ input {
   margin: 4px;
 }
 
+textarea:hover,
 input:hover {
-  border:1px solid var(--primary-hover);
+  background-color: var(--bg-inpur-hover) !important;
+  border:1px solid var(--primary);
 }
 
+textarea:focus,
 input:focus {
-  border:1px solid var(--primary-active);
+  background-color: var(--bg-inpur-focus) !important;
+  border:1px solid var(--primary);
   outline: none;
 }
 
@@ -1707,7 +1711,7 @@ body.compact_menu #right_block {
   height: 45px;
   width: calc(100% - 1px);
   right: 0;
-  max-width: calc(var(--width-right-block) - 291px);
+  max-width: calc(var(--width-right-block) - 292px);
   display: flex;
   position: fixed;
   background-color: var(--bg-secondary);
@@ -1715,6 +1719,7 @@ body.compact_menu #right_block {
   z-index: 2;
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
+  border-left: 1px solid var(--border);
 }
 
 @media (max-width: 1200px) {
@@ -1726,9 +1731,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper.options .search_block .search_int,
 #right_block .info_wrapper.spells .search_block .search_int {
-  border-top: none;
-  border-bottom: none;
-  border-right: none;
+  border: none;
   width: calc(100% - 93px);
   padding-left: 52px;
   padding-right: 40px;
