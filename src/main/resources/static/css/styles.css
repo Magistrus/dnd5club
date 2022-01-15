@@ -1774,7 +1774,7 @@ body.compact_menu #right_block {
 }
 
 .structure-list + .content_block {
-  border-left: none !important;
+  /* border-left: none !important; */
 }
 
 .structure-list #sub_menu ul li.title_sub_menu {
@@ -1818,16 +1818,16 @@ body.compact_menu #right_block {
 }
 
 .structure-list #sub_menu ul li.sub_menu:hover span {
-  color: var(--text-btn-color);
+  color: var(--text-color-active);
 }
 
 .structure-list #sub_menu ul li.sub_menu.active span {
-  color: var(--text-color-title);
+  color: var(--text-color-active);
   font-weight: 600;
 }
 
 .structure-list #sub_menu ul li.sub_menu.active .sub_info span {
-  color: var(--text-color-title);
+  color: var(--text-color-active);
 }
 
 .structure-list #sub_menu ul li.sub_menu::after {
