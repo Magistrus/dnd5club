@@ -5,7 +5,7 @@
 		<div id="left_block" class="add_beast">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>Добавление монстра</h1>
+					<h1>Редактирование монстра</h1>
 					<button class="btn btn_additional_features tip" title="Сохранить">Сохранить</button>
 					<button class="btn btn_additional_features tip" title="Отмена">Отмена</button>
 				</div>
@@ -262,7 +262,7 @@
 					</details>
 					<details>
 						<summary class="h4 header_separator">Действия</summary>
-						<div th:replace="user/admin/feature :: action(actions=*{actions})"></div>
+						<div th:replace="user/admin/feature :: actions(actions=*{actions})"></div>
 					</details>
 					<details>
 						<summary class="h4 header_separator">Бонусные действия</summary>
@@ -280,7 +280,8 @@
 						<summary class="h4 header_separator">Логово (Убежище)</summary>
 						<div class="opportunities">
 							<div class="content">
-								<textarea name="lair_description" rows="4" placeholder="Описание"></textarea>
+								<textarea th:if="*{lair}" name="lair_description" rows="4" placeholder="Описание" th:text="*{lair.description}"></textarea>
+								<textarea th:unless="*{lair}" name="lair_description" rows="4" placeholder="Описание"></textarea>
 							</div>
 						</div>
 					</details>
@@ -288,7 +289,8 @@
 						<summary class="h4 header_separator">Действия логова (убежища)</summary>
 						<div class="opportunities">
 							<div class="content">
-								<textarea name="lair_action_description" rows="4" placeholder="Описание"></textarea>
+								<textarea th:if="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"  th:text="*{lair.action}"></textarea>
+								<textarea th:unless="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"></textarea>
 							</div>
 						</div>
 					</details>
@@ -296,7 +298,8 @@
 						<summary class="h4 header_separator">Эффекты логова (убежища)</summary>
 						<div class="opportunities">
 							<div class="content">
-								<textarea name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
+								<textarea th:if="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание" th:text="*{lair.effect}"></textarea>
+								<textarea th:unless="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
 							</div>
 						</div>
 					</details>
