@@ -72,11 +72,11 @@
 			</div>
 		</div>
 		<th:block th:each="feature : ${features}">
-			<h4 class="header_separator" th:utext="${feature.name}"></h4>
+			<h4 class="header_separator"><span th:utext="${feature.name}"></span></h4>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
 		<th:block th:each="feature : ${subFeatures}">
-			<h4 class="header_separator archetype_feet" th:utext="${feature.name}"></h4>
+			<h4 class="header_separator archetype_feet"><span th:utext="${feature.name}"></span></h4>
 			<div th:utext="${feature.description}"></div>
 		</th:block>
 	</th:block>

@@ -94,7 +94,7 @@
 			</p>
 		</div>
 		<div th:unless="${creature.feats.empty}">
-			<h4 class="header_separator">Способности</h4>
+			<h4 class="header_separator"><span>Способности</span></h4>
 			<div th:each="feat : ${creature.feats}">
 				<h5 class="bestiary_h5">
 					<strong th:text="|${feat.name}.|"></strong>
@@ -103,7 +103,7 @@
 			</div>
 		</div>
 		<div th:unless="${creature.actions.empty}">
-			<h4 class="header_separator">Действия</h4>
+			<h4 class="header_separator"><span>Действия</span></h4>
 			<div th:each="action : ${creature.actions}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
@@ -112,7 +112,7 @@
 			</div>
 		</div>
 		<div th:unless="${creature.reactions.empty}">
-			<h4 class="header_separator">Реакции</h4>
+			<h4 class="header_separator"><span>Реакции</span></h4>
 			<div th:each="action : ${creature.reactions}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
@@ -121,7 +121,7 @@
 			</div>
 		</div>
 		<div th:unless="${creature.bonusActions.empty}">
-			<h4 class="header_separator">Бонусные действия</h4>
+			<h4 class="header_separator"><span>Бонусные действия</span></h4>
 			<div th:each="action : ${creature.bonusActions}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
@@ -130,7 +130,7 @@
 			</div>
 		</div>
 		<div th:unless="${creature.legendaries.empty}">
-			<h4 class="header_separator">Легендарные Действия</h4>
+			<h4 class="header_separator"><span>Легендарные Действия</span></h4>
 			<div th:unless="${creature.legendary eq null}" th:utext="${creature.legendary}"></div>
 			<p th:if="${creature.legendary eq null}">
 				<span th:text="${creature.name}"></span> может совершить 3 легендарных действия, выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное действие, и только
@@ -144,14 +144,14 @@
 			</div>
 		</div>
 		<th:block th:if="*{lair}">
-			<h4 class="header_separator">Логово</h4>
+			<h4 class="header_separator"><span>Логово</span></h4>
 			<div th:if="*{lair.description}" th:utext="*{lair.description}"></div>
 			<h4 th:if="*{lair.action}">Действия логова:</h4>
 			<div th:if="*{lair.action}" th:utext="*{lair.action}"></div>
 			<h4 th:if="*{lair.effect}">Региональные эффекты:</h4>
 			<div th:if="*{lair.effect}" th:utext="*{lair.effect}"></div>
 		</th:block>
-		<h4 class="header_separator" th:unless="*{habitates.empty}">Места обитания:</h4>
+		<h4 class="header_separator" th:unless="*{habitates.empty}"><span>Места обитания:</span></h4>
 		<p>
 			<span th:each="habitat, iter : *{habitates}" th:text="${iter.last ? habitat.name : habitat.name + ', '}"></span>
 		</p>
@@ -159,7 +159,7 @@
 	<th:block th:object="${creature}" th:fragment="description">
 		<div th:if="*{description}" th:utext="*{description}"></div>
 		<div th:each="race : *{races}">
-			<h4 class="header_separator" th:text="${race.name}"></h4>
+			<h4 class="header_separator"><span th:text="${race.name}"></span></h4>
 			<div th:utext="${race.description}"></div>
 		</div>
 	</th:block>
