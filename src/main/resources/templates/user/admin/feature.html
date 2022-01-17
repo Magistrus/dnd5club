@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
-	<th:block th:fragment="traits(beast)" th:object="${beast}">
+	<th:block th:fragment="traits" th:object="${beastForm}">
 		<div class="opportunities" th:each="feat, featStat : *{feats}">
 			<th:block th:fragment="trait">
 				<div class="control">
@@ -30,7 +30,7 @@
 			</th:block>
 		</div>
 	</th:block>
-	<th:block th:fragment="actions(beast)" th:object="${beast}">
+	<th:block th:fragment="actions" th:object="${beastForm}">
 		<div class="opportunities" th:each="action, actionStat : *{actions}">
 			<th:block th:fragment="action">
 				<div class="control">
@@ -61,8 +61,8 @@
 			</th:block>
 		</div>
 	</th:block>
-	<th:block th:fragment="bonuses">
-		<div class="opportunities" th:each="bonus : ${bonuses}">
+	<th:block th:fragment="bonuses" th:object="${beastForm}">
+		<div class="opportunities" th:each="bonus : *{bonuses}">
 			<th:block th:fragment="bonus">
 				<div class="control">
 					<div class="icon tip add_bonus" title="Добавить">
@@ -90,8 +90,8 @@
 			</th:block>
 		</div>
 	</th:block>
-	<th:block th:fragment="reactions">
-		<div class="opportunities" th:each="reaction : ${reactions}">
+	<th:block th:fragment="reactions" th:object="${beastForm}">
+		<div class="opportunities" th:each="reaction : *{reactions}">
 			<th:block th:fragment="reaction">
 				<div class="control">
 					<div class="icon tip add_reaction" title="Добавить">
@@ -119,8 +119,8 @@
 			</th:block>
 		</div>
 	</th:block>
-	<th:block th:fragment="legendaries">
-		<div class="opportunities" th:each="legendary : ${legendaries}">
+	<th:block th:fragment="legendaries" th:object="${beastForm}">
+		<div class="opportunities" th:each="legendary : *{legendaries}">
 			<th:block th:fragment="legendary">
 				<div class="control">
 					<div class="icon tip add_legendary" title="Добавить">

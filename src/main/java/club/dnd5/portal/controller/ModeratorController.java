@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import club.dnd5.portal.dto.bestiary.BeastForm;
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.CreatureSize;
@@ -84,17 +85,17 @@ public class ModeratorController {
 		model.addAttribute("hitDices", Dice.getCreatures());
 		model.addAttribute("armorTypes", ArmorType.getCreatures());
 		model.addAttribute("habitates", HabitatType.values());
-		
-		Creature besat = repo.findById(id).get();
-		model.addAttribute("beast", besat);
+	
+		Creature beast = repo.findById(id).get();
+		model.addAttribute("beastForm", new BeastForm(beast)); 
 		return "user/admin/edit_beast";
 	}
 	
 	@Transactional
 	@PostMapping("/admin/bestiary/{id}")
-	public String updateBeast(Model model, @PathVariable Integer id, Creature beast, @RequestParam Map<String, String> params) {
+	public String updateBeast(Model model, @PathVariable Integer id, BeastForm beastForm, @RequestParam Map<String, String> params) {
 		//repo.save(beast);
-		model.addAttribute("selectedCreature", beast);
-		return "redirect:/bestiary/" + beast.getEnglishName().replace(' ', ' ');
+		//model.addAttribute("selectedCreature", beast);
+		return "redirect:/bestiary/" + beastForm.getEnglishName().replace(' ', ' ');
 	}
 }
