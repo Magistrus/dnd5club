@@ -90,7 +90,7 @@
 			</p>
 
 			<p>
-				<strong>Языки</strong> <span th:each="language, iterStat : ${creature.languages}" th:text="${iterStat.last ? language.name : language.name + ', '}"></span>
+				<strong>Языки</strong> <span th:if="${creature.languages.empty}"> — </span><span th:each="language, iterStat : ${creature.languages}" th:text="${iterStat.last ? language.name : language.name + ', '}"></span>
 			</p>
 		</div>
 		<div th:unless="${creature.feats.empty}">
