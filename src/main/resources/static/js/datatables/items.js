@@ -83,7 +83,7 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-	$('#items tbody').on('mousedown', 'tr', function (e) {
+	$('#items tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
 			var tr = $(this).closest('tr');
 			var row = table.row( tr );
