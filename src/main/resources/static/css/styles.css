@@ -2719,17 +2719,6 @@ body.compact_menu #right_block.weapons {
   background: var(--text-color-title);
 }
 
-/* .bestiary_h5 strong:after {
-  content: '';
-  display: block;
-  position: absolute;
-  right: -10px;
-  top: 10px;
-  width: 6px;
-  height: 1px;
-  background: var(--text-color);
-} */
-
 #right_block.bestiary .scores {
   margin: 20px 0;
   display: flex;
