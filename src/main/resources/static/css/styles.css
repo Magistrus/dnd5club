@@ -558,6 +558,9 @@ label.select_box {
 
 
 /******** Добавление существа add beast ********/
+.add_beast_container details[open] summary.h4 span {
+  background: var(--bg-main);
+}
 .add_beast_container {
   overflow-x: hidden;
   height: calc(100% - 73px);
@@ -2105,18 +2108,6 @@ body.compact_menu #right_block {
   color: var(--text-btn-color) !important;
 }
 
-.table_list tr td:first-child {
-  border-left:3px solid var(--bg-main);
-}
-
-.table_list tr:hover td:first-child {
-  border-left:3px solid var(--hover);
-}
-
-.table_list tr.selected td:first-child {
-  border-left:3px solid var(--primary-active);
-}
-
 .table_list tr td:nth-child(2) {
   text-align: right;
   padding-right: 16px;
@@ -2567,6 +2558,17 @@ body.compact_menu #right_block.spells {
 
 }
 
+
+#right_block.classes .info_wrapper .content_block #content_block {
+  width: calc(100% - 48px);
+}
+
+@media (max-width: 1200px) {
+  #right_block.classes .info_wrapper .content_block #content_block {
+    width: calc(100% - 32px);
+  }
+}
+
 #right_block.classes .content_block h4.mt {
   margin-top: -24px !important;
 }
@@ -2664,10 +2666,6 @@ body.compact_menu #right_block.spells {
 
 }
 
-#right_block.backgrounds .content_block h4:nth-child(1) {
-  margin-top: -24px !important;
-}
-
 
 /******** Оружие / Weapons ********/
 .weapons {
@@ -2707,7 +2705,7 @@ body.compact_menu #right_block.weapons {
 .bestiary_h5 {
   border-left: 3px solid var(--primary);
   padding-left: 8px;
-  margin: 18px 0 2px 0;
+  margin-left: -8px;
 }
 
 #right_block.bestiary .scores {
