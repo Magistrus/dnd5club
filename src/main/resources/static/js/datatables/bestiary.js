@@ -115,7 +115,7 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-	$('#creatures tbody').on('mousedown', 'tr', function (e) {
+	$('#creatures tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
 			var tr = $(this).closest('tr');
 			var table = $('#creatures').DataTable();

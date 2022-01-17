@@ -1735,7 +1735,7 @@ body.compact_menu #right_block {
   width: calc(100% - 93px);
   padding-left: 52px;
   padding-right: 40px;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-sub-menu);
   color: var(--text-color);
   font-size: 15px;
   margin: 0;
@@ -1767,6 +1767,11 @@ body.compact_menu #right_block {
   cursor: pointer;
 }
 
+#right_block .info_wrapper.options .search_block .btn_filters:hover,
+#right_block .info_wrapper.spells .search_block .btn_filters:hover {
+  background-color: var(--primary-hover);
+}
+
 #right_block .info_wrapper.options .search_panes,
 #right_block .info_wrapper.spells .search_panes {
   position: fixed;
@@ -1779,6 +1784,7 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_panes .filter_container,
 #right_block .info_wrapper.spells .search_panes .filter_container {
   margin-bottom: 46px;
+  background-color: var(--bg-secondary);
 }
 
 @media (max-width: 1200px) {
@@ -1866,33 +1872,39 @@ body.compact_menu #right_block {
   border-top: none !important;
 }
 
-.structure-list #sub_menu ul li.title_sub_menu {
+.structure-list div ul li.title_sub_menu {
   border-bottom: none !important;
   padding: 12px 16px 12px 16px;
 }
 
-.structure-list #sub_menu ul li.title_sub_menu label {
+.structure-list.archetype_options div ul li.title_sub_menu label {
   margin: 8px 0 0 -2px;
 }
 
-.structure-list #sub_menu ul li.title_sub_menu::after {
+.structure-list div ul li.title_sub_menu::after {
   content: '';
   display: block;
   width: 20px;
-  height: 48px;
+  height: 20px;
   background: var(--primary);
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: -10px;
-  border-radius: 8px;
+  border-radius: 14px;
   z-index: 1;
 }
 
-.structure-list #sub_menu ul li.title_sub_menu::before {
+.structure-list.archetype_options div ul li.title_sub_menu::after {
+  height: 48px;
+  top: 12px;
+  border-radius: 8px;
+}
+
+.structure-list div ul li.title_sub_menu::before {
   content: '';
   display: block;
   width: 1px;
-  height: 12px;
+  height: 10px;
   background: var(--bg-secondary);
   position: absolute;
   top: 0px;
@@ -1900,26 +1912,30 @@ body.compact_menu #right_block {
   z-index: 2;
 }
 
-.structure-list #sub_menu ul li.sub_menu {
+.structure-list.archetype_options div ul li.title_sub_menu::before {
+  height: 12px;
+}
+
+.structure-list div ul li.sub_menu {
   border-bottom: none !important;
   padding: 8px 16px 8px 16px;
   cursor: pointer;
 }
 
-.structure-list #sub_menu ul li.sub_menu:hover span {
+.structure-list div ul li.sub_menu:hover span {
   color: var(--text-color-active);
 }
 
-.structure-list #sub_menu ul li.sub_menu.active span {
+.structure-list div ul li.sub_menu.active span {
   color: var(--text-color-active);
   font-weight: 600;
 }
 
-.structure-list #sub_menu ul li.sub_menu.active .sub_info span {
+.structure-list div ul li.sub_menu.active .sub_info span {
   color: var(--text-color-active);
 }
 
-.structure-list #sub_menu ul li.sub_menu::after {
+.structure-list div ul li.sub_menu::after {
   content: '';
   display: block;
   width: 10px;
@@ -1930,15 +1946,15 @@ body.compact_menu #right_block {
   left: 0px;
 }
 
-.structure-list #sub_menu ul li.sub_menu:hover:after {
+.structure-list div ul li.sub_menu:hover:after {
   background: var(--primary-hover);
 }
 
-.structure-list #sub_menu ul li.sub_menu.active::after {
+.structure-list div ul li.sub_menu.active::after {
   background: var(--primary);
 }
 
-.structure-list #sub_menu ul li.sub_menu::before {
+.structure-list div ul li.sub_menu::before {
   content: '';
   display: block;
   width: 1px;
@@ -1949,17 +1965,17 @@ body.compact_menu #right_block {
   left: 0px;
 }
 
-.structure-list #sub_menu ul li.sub_menu.active::before {
+.structure-list div ul li.sub_menu.active::before {
   background: var(--primary);
   z-index: 1;
 }
 
-.structure-list #sub_menu ul li.sub_menu .sub_info span {
-  font-size: 13px;
-  color: var(--text-g-color);
+.structure-list div ul li.sub_menu .sub_info span {
+  font-size: 13px !important;
+  color: var(--text-g-color) !important;
 }
 
-.structure-list #sub_menu ul li.sub_menu .btn_close {
+.structure-list div ul li.sub_menu .btn_close {
   position: absolute;
   right: 16px;
   top: 10px;
@@ -1972,15 +1988,15 @@ body.compact_menu #right_block {
   background: var(--hover);
 }
 
-.structure-list #sub_menu ul li.sub_menu.active .btn_close {
+.structure-list div ul li.sub_menu.active .btn_close {
   display: flex;
 }
 
-.structure-list #sub_menu ul li.sub_menu.active .btn_close:hover {
+.structure-list div ul li.sub_menu.active .btn_close:hover {
   background: var(--primary-hover);
 }
 
-.structure-list #sub_menu ul li.sub_menu.active .btn_close:hover svg path{
+.structure-list div ul li.sub_menu.active .btn_close:hover svg path{
   stroke: var(--text-btn-color);
 }
 
@@ -2095,7 +2111,7 @@ body.compact_menu #right_block {
   overflow: hidden;
   padding:0 !important;
   border-image: none !important;
-  z-index: 1;
+  z-index: 2;
   background: var(--bg-sub-menu);
   position: relative;
 }
