@@ -2001,111 +2001,6 @@ body.compact_menu #right_block {
   stroke: var(--text-btn-color);
 }
 
-#right_block .info_wrapper .sub_menu_list.selector_list {
-  height: calc(100vh - 117px);
-}
-
-#right_block .info_wrapper .sub_menu_list.sub_spells_inf {
-  height: calc(100vh - 72px);
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list ul {
-  text-decoration: none;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li {
-  border-left: 3px solid transparent;
-  cursor: pointer;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li:hover {
-  background-color: var(--hover);
-  border-left: 3px solid transparent;
-  transition: background-color 0.3s;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li.active {
-  border-left: 3px solid var(--primary);
-  background-color: var(--hover);
-  transition: background-color 0.3s;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li.active span.name {
-  color:var(--text-color-active);
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li span.name {
-  color: var(--text-color);
-  text-decoration: none;
-  width: 100%;
-  display: block;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li .sub_info {
-  display: block;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li .sub_info span {
-  font-size: 13px;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li span {
-  color: var(--text-g-color);
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li.active .btn_close {
-  opacity: 1;
-  transition: all 0.3s;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li .btn_close {
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: 14px;
-  right: 8px;
-  cursor: pointer;
-  border-radius: 8px;
-  opacity: 0;
-  transition: all 0.3s;
-  padding: 4px;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li .btn_close:hover {
-  background-color: var(--primary-hover);
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li .btn_close:hover path {
-  stroke: var(--text-btn-color);
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu {
-  cursor: auto;
-  border-bottom: none;
-  background-color: var(--hover);
-  border-left: 3px solid transparent;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu h5{
-  margin: 0;
-  font-size: 22px;
-  font-weight: 300;
-  text-transform: none;
-}
-
-#right_block .info_wrapper .sub_menu_list.selector_list li.title_sub_menu:hover {
-  background-color: var(--hover);
-}
-
-@media (max-width: 1200px) {
-  #right_block .info_wrapper .content_block {
-    border-left: 0;
-  }
-}
-
 #right_block .info_wrapper li.avatar {
   width: 290px;
   max-height: 400px;
@@ -3212,6 +3107,7 @@ button {
     width: auto;
     padding: 16px;
     position: relative;
+    overflow-x: hidden;
   }
 
   #right_block .info_wrapper .simplebar-content {
@@ -3272,14 +3168,6 @@ button {
     margin-top: 48px;
   }
 
-
-  /******** Информация о заклинание / spells ********/
-  #right_block.spells .info_wrapper .simplebar-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-
   /******** Расы / races ********/
   .races .content_block .scores .score {
     min-width: calc(50% - 32px);
@@ -3321,98 +3209,6 @@ button {
   }
 }
 
-@media print {
-  .tpd-tooltip,
-  #right_block .btn_close,
-  #right_block .btn_exet_full_screen,
-  #right_block .btn_additional_features,
-  #right_block .header_sub_menu,
-  .navbar,
-  #right_block #beast_avatar,
-  #left_block {
-    display: none !important;
-  }
-
-  #right_block {
-    display: block;
-    width: 100vw !important;
-    overflow-y: visible !important;
-    position: relative;
-    height: auto !important;
-  }
-
-  #right_block .header_block {
-    height: 60px !important;
-  }
-
-  #right_block .header_block h1 {
-    font-weight: 500;
-    line-height: 60px;
-  }
-  
-  html {
-    overflow-y: visible !important;
-  }
-
-  body{
-    height: 100% !important;
-  }
-
-  body,
-  .container,
-  .container>div,
-  .simplebar-wrapper,
-  #right_block.sub_menu_block .info_wrapper {
-    overflow-y: visible !important;
-  }
-
-  
-  .container,
-  .container>div,
-  .simplebar-wrapper,
-  #right_block.sub_menu_block .info_wrapper {
-    height: auto !important;
-    display: block !important;
-  }
-
-  #right_block h1,
-  #right_block h2,
-  #right_block h3,
-  #right_block h4,
-  #right_block h5,
-  #right_block strong,
-  #right_block span,
-  #right_block p {
-    color: var(--text-print-color) !important;
-  }
-
-  #right_block p {
-    margin: 0 0 6px 0;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li {
-    display: flex !important;
-    border-bottom:none !important;
-    padding: 4px 16px 4px 16px;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li h5 {
-    margin-right: 8px;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li h5,
-  #right_block .info_wrapper .sub_menu_list li span {
-    line-height: 18px;
-  }
-
-  #right_block.bestiary .scores {
-    margin: 8px 0;
-  }
-
-  h4.header_separator {
-    margin-top: 16px;
-  }
-}
 
 .temporary_news {
   margin: 16px 32px 0px 32px;
