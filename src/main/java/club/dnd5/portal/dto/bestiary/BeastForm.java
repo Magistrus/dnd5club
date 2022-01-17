@@ -6,7 +6,10 @@ import static club.dnd5.portal.model.AbilityType.INTELLIGENCE;
 import static club.dnd5.portal.model.AbilityType.STRENGTH;
 import static club.dnd5.portal.model.AbilityType.WISDOM;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -17,11 +20,13 @@ import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.creature.Action;
 import club.dnd5.portal.model.creature.ActionType;
+import club.dnd5.portal.model.creature.Condition;
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.CreatureFeat;
 import club.dnd5.portal.model.creature.Lair;
@@ -97,6 +102,15 @@ public class BeastForm {
 	
 	private String raceName;
 	
+	private Set<DamageType> resists;
+	private String resistText;
+	private Set<DamageType> imuns;
+	private String imunText;
+	private Set<DamageType> vurs;
+	private String vurnText;
+	private LinkedHashSet<Condition> imunConditions;
+	private String imunCondText;
+	
 	private Integer darkvision;
 	private Integer trysight;
 	private Integer vibration;
@@ -123,6 +137,7 @@ public class BeastForm {
 		name = creature.getName();
 		altName = creature.getAltName();
 		englishName = creature.getEnglishName();
+		raceName = creature.getRaceName();
 		
 		size = creature.getSize();
 		type = creature.getType();
@@ -184,7 +199,11 @@ public class BeastForm {
 		vibration = creature.getVibration();
 		blindsight = creature.getBlindsight();
 		blindsightRadius = creature.getBlindsightRadius();
-
+		
+		resists = new LinkedHashSet<>(creature.getResistanceDamages());
+		imuns = new LinkedHashSet<>(creature.getImmunityDamages());
+		vurs = new LinkedHashSet<>(creature.getVulnerabilityDamages());
+		imunConditions = new LinkedHashSet<>(creature.getImmunityStates());
 		passivePerception = creature.getPassivePerception();
 
 		challengeRating = creature.getChallengeRating();
@@ -200,7 +219,23 @@ public class BeastForm {
 		lair = creature.getLair();
 		book = creature.getBook();
 	}
-
+	public Creature build() {
+		Creature creature = new Creature();
+		creature.setId(id);
+		creature.setName(name);
+		creature.setAltName(altName);
+		creature.setRaceName(raceName);
+		
+		creature.setAC(AC);
+		creature.setBonusAC(bonusAC);
+		
+		creature.setDarkvision(darkvision);
+		creature.setTrysight(trysight);
+		creature.setVibration(vibration);
+		creature.setBlindsight(blindsight);
+		
+		return creature;
+	}
 	public void addFea(CreatureFeat creatureFeat) {
 		feats.add(creatureFeat);
 	}
@@ -220,4 +255,16 @@ public class BeastForm {
 	public int getBonusHpAbs() {
 		return Math.abs(bonusHP);
 	}
-}
+	public String getResistText() {
+		return resists.stream().map(DamageType::name).collect(Collectors.joining("|"));
+	}
+	public String getImunText() {
+		return imuns.stream().map(DamageType::name).collect(Collectors.joining("|"));
+	}
+	public String getVurnText() {
+		return vurs.stream().map(DamageType::name).collect(Collectors.joining("|"));
+	}
+	public String getImunCondText() {
+		return imunConditions.stream().map(Condition::name).collect(Collectors.joining("|"));
+	}
+}	

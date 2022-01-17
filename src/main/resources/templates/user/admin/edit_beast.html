@@ -55,12 +55,13 @@
 							</div>
 							<input id="ac" type="text" name="ac" class="ac tip" placeholder="КД" title="Класс Доспеха" th:field="*{AC}">
 							<div class="select js-dropdown tip" title="Броня">
-								<input id="armor" type="hidden" name="armor" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								<input id="armor" type="hidden" name="armor" class="js-dropdown__input" th:field="*{armorType}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg"
 									>
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
-								</i> <span class="placeholder js-dropdown__current armor">Броня</span>
+								</i> <span class="placeholder js-dropdown__current armor" th:if="*{armorType}" th:text="*{armorType.cyrillicName}">Броня</span>
+								<span class="placeholder js-dropdown__current armor" th:unless="*{armorType}">Броня</span>
 								<ul data-simplebar>
 									<li data-dropdown-value="TEXT">Текстовое описание</li>
 									<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
@@ -171,47 +172,47 @@
 						<div class="block damage">
 							<div class="value">
 								<div class="select js-dropdown tip multiselect" title="Сопротивл. урону">
-									<input type="hidden" name="resistance_damage" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									<input type="hidden" name="resistance_damage" class="js-dropdown__input" th:field="*{resistText}" th:value="*{resistText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону">Сопротивл. урону</span>
+									</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону"><span class = "selected_item" th:each=" resist : *{resists}" th:text="${resist.cyrilicName}"/><span th:if="*{resists.empty}">Сопротивл. урону</span></span>
 									<ul data-simplebar>
-										<li th:each="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
+										<li th:each="resist : ${resistancs}" th:data-dropdown-value="${resist}" th:text="${resist.cyrilicName}" th:classappend="${beastForm.resists.contains(resist) ? 'selected':''}"></li>
 									</ul>
 								</div>
 								<div class="select js-dropdown tip multiselect" title="Иммун. к урону">
-									<input type="hidden" name="damage_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									<input type="hidden" name="damage_immunity" class="js-dropdown__input" th:field="*{imunText}" th:value="*{imunText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону">Иммун. к урону</span>
+									</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону"><span class = "selected_item" th:each="imun : *{imuns}" th:text="${imun.cyrilicName}"/><span th:if="*{imuns.empty}">Иммун. к урону</span></span>
 									<ul data-simplebar>
-										<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
+										<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}" th:classappend="${beastForm.imuns.contains(immunity) ? 'selected':''}"></li>
 									</ul>
 								</div>
-								<div class="select js-dropdown tip multiselect" title="Уязвим. к урону">
-									<input type="hidden" name="damage_vulnerability" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								<div class="select js-dropdown tip multiselect" title="Уязвимость к урону">
+									<input type="hidden" name="damage_vulnerability" class="js-dropdown__input" th:field="*{vurnText}" th:value="*{vurnText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Иммун. к урону">Уязвим. к урону</span>
+									</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Уязвимость к урону"><span class = "selected_item" th:each="vur : *{vurs}" th:text="${vur.cyrilicName}"/><span th:if="*{vurs.empty}">Уязвимость к урону</span></span>
 									<ul data-simplebar>
-										<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
+										<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}" th:classappend="${beastForm.vurs.contains(vulnerability) ? 'selected':''}"></li>
 									</ul>
 								</div>
 								<div class="select js-dropdown tip multiselect" title="Иммун. к состоянию">
-									<input type="hidden" name="condition_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									<input type="hidden" name="condition_immunity" class="js-dropdown__input" th:field="*{imunCondText}" th:value="*{imunCondText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию">Иммун. к состоянию</span>
+									</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию"><span class = "selected_item" th:each="imunCondition : *{imunConditions}" th:text="${imunCondition.cyrilicName}"/><span th:if="*{imunConditions.empty}">Иммун. к состоянию</span></span>
 									<ul data-simplebar>
-										<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
+										<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}" th:classappend="${beastForm.imunConditions.contains(ci) ? 'selected':''}"></li>
 									</ul>
 								</div>
 							</div>
