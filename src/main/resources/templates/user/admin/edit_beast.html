@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="add_beast_container" data-simplebar>
-				<form id="beast_edit" th:action="@{|/admin/bestiary/*{id}|}" method="post" th:object="${beast}">
+				<form id="beast_edit" th:action="@{|/admin/bestiary/*{id}|}" method="post" th:object="${beastForm}">
 					<div class="wrapper">
 						<div class="row_input">
 							<input type="text" class="name tip" placeholder="Название" title="Название" th:field="*{name}"><input type="text" class="name tip" name="alt_name"
@@ -55,18 +55,19 @@
 							</div>
 							<input id="ac" type="text" name="ac" class="ac tip" placeholder="КД" title="Класс Доспеха" th:field="*{AC}">
 							<div class="select js-dropdown tip" title="Броня">
-								<input id="armor" type="hidden" name="armor" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								<input id="armor" type="hidden" name="armor" class="js-dropdown__input" th:field="*{armorType}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg"
 									>
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
-								</i> <span class="placeholder js-dropdown__current armor">Броня</span>
+								</i> <span class="placeholder js-dropdown__current armor" th:if="*{armorType}" th:text="*{armorType.cyrillicName}">Броня</span>
+								<span class="placeholder js-dropdown__current armor" th:unless="*{armorType}">Броня</span>
 								<ul data-simplebar>
 									<li data-dropdown-value="TEXT">Текстовое описание</li>
 									<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
 								</ul>
 							</div>
-							<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к КД" title="бонус к КД"> <input id="shield" class="toggle" type="checkbox" name="shield"><span>Щит</span></label>
+							<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к Классу Доспеха" title="бонус к КД" th:field="*{bonusAC}"> <input id="shield" class="toggle" type="checkbox" name="shield" th:checked="*{shield}" th:field="*{shield}"><span>Щит</span></label>
 						</div>
 						<div class="unit">
 							<div class="block stats">
@@ -84,13 +85,12 @@
 							<div class="block stats">
 								<h5>Спасброски</h5>
 								<div class="value">
-									<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛА" th:value="*{getSavingThrow('STRENGTH')}"> <input type="number" value=""
-										class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ" th:value="*{getSavingThrow('DEXTERITY')}"
-									> <input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ" th:value="*{getSavingThrow('CONSTITUTION')}"> <input
-										type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ" th:value="*{getSavingThrow('INTELLIGENCE')}"
-									> <input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУДРОСТЬ" th:value="*{getSavingThrow('WISDOM')}"> <input type="number" value=""
-										class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАРИЗМА" th:value="*{getSavingThrow('CHARISMA')}"
-									>
+									<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛА" th:field="*{saveStrength}">
+									<input type="number" value="" class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ" th:value="*{saveDexterity}">
+									<input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ" th:value="*{saveConstitution}">
+									<input type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ" th:value="*{saveIntellect}">
+									<input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУДРОСТЬ" th:value="*{saveWizdom}">
+									<input type="number" value="" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАРИЗМА" th:value="*{saveCharisma}">
 								</div>
 							</div>
 							<div class="block stats">
@@ -113,7 +113,7 @@
 											<li th:each="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
 										</ul>
 									</div>
-									<input id="hp_bonus" type="number" value="" min="0" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp" th:field="*{bonusHP}">
+									<input id="hp_bonus" type="number" value="" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp" th:field="*{bonusHP}">
 								</div>
 							</div>
 							<div class="block movements">
@@ -121,52 +121,41 @@
 									Передвижение <label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
 								</h5>
 								<div class="value">
-									<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба" th:field="*{speed}"> <input type="number" value="" class="tip" name="swimming"
-										placeholder="Плавая" title="Плавая" th:field="*{swimmingSpped}"
-									> <input type="number" value="" class="tip" name="flying" placeholder="Летая" title="Летая" th:field="*{flySpeed}"> <input type="number" value="" class="tip" name="climbing"
-										placeholder="Лазая" title="Лазая" th:field="*{climbingSpeed}"
-									> <input type="number" value="" class="tip" name="digging" placeholder="Копая" title="Копая" th:field="*{diggingSpeed}">
+									<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба" th:field="*{speed}">
+									<input type="number" value="" class="tip" name="swimming" placeholder="Плавая" title="Плавая" th:field="*{swimmingSpped}">
+									<input type="number" value="" class="tip" name="flying" placeholder="Летая" title="Летая" th:field="*{flySpeed}">
+									<input type="number" value="" class="tip" name="climbing" placeholder="Лазая" title="Лазая" th:field="*{climbingSpeed}">
+									 <input type="number" value="" class="tip" name="digging" placeholder="Копая" title="Копая" th:field="*{diggingSpeed}">
 								</div>
 							</div>
 						</div>
 						<details class="block skills">
-							<summary class="h5">Скилы</span></summary>
+							<summary class="h5">Скилы</summary>
 							<div class="value">
-								<label class="select_box"> <span>Акробатика:</span> <input type="number" value="" name="acrobatics" class="select acrobatics" placeholder="0" th:value="*{getSkillBonus('ACROBATICS')}" />
-								</label> <label class="select_box"> <span>Анализ:</span> <input type="number" value="" name="analysis" class="select analysis" placeholder="0" th:value="*{getSkillBonus('INVESTIGATION')}" />
-								</label> <label class="select_box"> <span>Атлетика:</span> <input type="number" value="" name="athletics" class="select athletics" placeholder="0" th:value="*{getSkillBonus('ATHLETICS')}" />
-								</label> <label class="select_box"> <span>Внимательность:</span> <input type="number" value="" name="perception" class="select perception" placeholder="0"
-									th:value="*{getSkillBonus('PERCEPTION')}"
-								/>
-								</label> <label class="select_box"> <span>Выживание:</span> <input type="number" value="" name="survival" class="select survival" placeholder="0" th:value="*{getSkillBonus('SURVIVAL')}" />
-								</label> <label class="select_box"> <span>Выступление:</span> <input type="number" value="" name="performance" class="select performance" placeholder="0"
-									th:value="*{getSkillBonus('PERFORMANCE')}"
-								/>
-								</label> <label class="select_box"> <span>Запугивание:</span> <input type="number" value="" name="intimidat" class="select intimidat" placeholder="0"
-									th:value="*{getSkillBonus('INTIMIDATION')}"
-								/>
-								</label> <label class="select_box"> <span>История:</span> <input type="number" value="" name="history" class="select history" placeholder="0" th:value="*{getSkillBonus('HISTORY')}" />
-								</label> <label class="select_box"> <span>Ловкость рук:</span> <input type="number" value="" name="sleight_of_hand" class="select sleight_of_hand" placeholder="0"
-									th:value="*{getSkillBonus('SLEIGHT_OF_HAND')}"
-								/>
-								</label> <label class="select_box"> <span>Магия:</span> <input type="number" value="" name="magic" class="select magic" placeholder="0" th:value="*{getSkillBonus('ARCANA')}" />
-								</label> <label class="select_box"> <span>Медицина:</span> <input type="number" value="" name="medicine" class="select medicine" placeholder="0" th:value="*{getSkillBonus('MEDICINE')}" />
-								</label> <label class="select_box"> <span>Обман:</span> <input type="number" value="" name="deception" class="select deception" placeholder="0" th:value="*{getSkillBonus('DECEPTION')}" />
-								</label> <label class="select_box"> <span>Природа:</span> <input type="number" value="" name="nature" class="select nature" placeholder="0" th:value="*{getSkillBonus('NATURE')}" />
-								</label> <label class="select_box"> <span>Проницательность:</span> <input type="number" value="" name="discernment" class="select discernment" placeholder="0"
-									th:value="*{getSkillBonus('INSIGHT')}"
-								/>
-								</label> <label class="select_box"> <span>Религия:</span> <input type="number" value="" name="religion" class="select religion" placeholder="0" th:value="*{getSkillBonus('RELIGION')}" />
-								</label> <label class="select_box"> <span>Скрытность:</span> <input type="number" value="" name="stealth" class="select stealth" placeholder="0" th:value="*{getSkillBonus('STEALTH')}" />
-								</label> <label class="select_box"> <span>Убеждение:</span> <input type="number" value="" name="belief" class="select belief" placeholder="0" th:value="*{getSkillBonus('PERSUASION')}" />
-								</label> <label class="select_box"> <span>Уход за животными:</span> <input type="number" value="" name="animal_care" class="select animal_care" placeholder="0"
-									th:value="*{getSkillBonus('ANIMAL_HANDLING')}"
+								<label class="select_box"> <span>Акробатика:</span> <input type="number" value="" class="select acrobatics" placeholder="0" th:field="*{athletics}" />
+								</label> <label class="select_box"> <span>Анализ:</span> <input type="number" value="" class="select analysis" placeholder="0" th:field="*{investigation}" />
+								</label> <label class="select_box"> <span>Атлетика:</span> <input type="number" value="" class="select athletics" placeholder="0" th:field="*{athletics}" />
+								</label> <label class="select_box"> <span>Внимательность:</span> <input type="number" value="" class="select perception" placeholder="0" th:field="*{perception}"/>
+								</label> <label class="select_box"> <span>Выживание:</span> <input type="number" value="" class="select survival" placeholder="0" th:field="*{survival}" />
+								</label> <label class="select_box"> <span>Выступление:</span> <input type="number" value="" class="select performance" placeholder="0" th:field="*{performance}"/>
+								</label> <label class="select_box"> <span>Запугивание:</span> <input type="number" value="" class="select intimidat" placeholder="0" th:field="*{intimidation}"/>
+								</label> <label class="select_box"> <span>История:</span> <input type="number" value="" class="select history" placeholder="0" th:field="*{history}" />
+								</label> <label class="select_box"> <span>Ловкость рук:</span> <input type="number" value="" class="select sleight_of_hand" placeholder="0" th:field="*{sleightOfHand}"/>
+								</label> <label class="select_box"> <span>Магия:</span> <input type="number" value="" class="select magic" placeholder="0" th:field="*{arcana}" />
+								</label> <label class="select_box"> <span>Медицина:</span> <input type="number" value="" class="select medicine" placeholder="0" th:field="*{medicine}" />
+								</label> <label class="select_box"> <span>Обман:</span> <input type="number" value="" class="select deception" placeholder="0" th:field="*{deception}" />
+								</label> <label class="select_box"> <span>Природа:</span> <input type="number" value="" class="select nature" placeholder="0" th:field="*{nature}" />
+								</label> <label class="select_box"> <span>Проницательность:</span> <input type="number" value="" class="select discernment" placeholder="0"	th:field="*{insight}"/>
+								</label> <label class="select_box"> <span>Религия:</span> <input type="number" value="" name="religion" class="select religion" placeholder="0" th:field="*{religion}" />
+								</label> <label class="select_box"> <span>Скрытность:</span> <input type="number" value="" name="stealth" class="select stealth" placeholder="0" th:field="*{stealth}" />
+								</label> <label class="select_box"> <span>Убеждение:</span> <input type="number" value="" name="belief" class="select belief" placeholder="0" th:field="*{persuasion}" />
+								</label> <label class="select_box"> <span>Уход за животными:</span> <input type="number" value="" name="animal_care" class="select animal_care" placeholder="0" th:field="*{animalHandling}"
 								/>
 								</label>
 							</div>
 						</details>
 						<details class="block senses">
-							<summary class="h5">Чувства</span></summary>
+							<summary class="h5">Чувства</summary>
 							<h5>
 								Ограничение зрения<label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Слепо за пределами радиуса</span></label>
 							</h5>
@@ -175,8 +164,7 @@
 								</label> <label class="select_box"> <span>Слепое зрение:</span> <input type="number" name="blind_sight" class="select blind_sight" placeholder="0" th:field="*{blindsight}" />
 								</label> <label class="select_box"> <span>Тёмное зрение:</span> <input type="number" name="dark_vision" class="select dark_vision" placeholder="0" th:field="*{darkvision}" />
 								</label> <label class="select_box"> <span>Чувство вибрации:</span> <input type="number" name="sense_vibration" class="select sense_vibration" placeholder="0" th:field="*{vibration}" />
-								</label> <label class="select_box"> <span>Пассивное Восприятие:</span> <input type="number" name="passive_perception" class="select passive_perception" placeholder="0"
-									th:field="*{passivePerception}"
+								</label> <label class="select_box"> <span>Пассивное Восприятие:</span> <input type="number" name="passive_perception" class="select passive_perception" placeholder="0" th:field="*{passivePerception}"
 								/>
 								</label>
 							</div>
@@ -184,47 +172,47 @@
 						<div class="block damage">
 							<div class="value">
 								<div class="select js-dropdown tip multiselect" title="Сопротивл. урону">
-									<input type="hidden" name="resistance_damage" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									<input type="hidden" name="resistance_damage" class="js-dropdown__input" th:field="*{resistText}" th:value="*{resistText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону">Сопротивл. урону</span>
+									</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону"><span class = "selected_item" th:each=" resist : *{resists}" th:text="${resist.cyrilicName}"/><span th:if="*{resists.empty}">Сопротивл. урону</span></span>
 									<ul data-simplebar>
-										<li th:each="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
+										<li th:each="resist : ${resistancs}" th:data-dropdown-value="${resist}" th:text="${resist.cyrilicName}" th:classappend="${beastForm.resists.contains(resist) ? 'selected':''}"></li>
 									</ul>
 								</div>
 								<div class="select js-dropdown tip multiselect" title="Иммун. к урону">
-									<input type="hidden" name="damage_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									<input type="hidden" name="damage_immunity" class="js-dropdown__input" th:field="*{imunText}" th:value="*{imunText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону">Иммун. к урону</span>
+									</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону"><span class = "selected_item" th:each="imun : *{imuns}" th:text="${imun.cyrilicName}"/><span th:if="*{imuns.empty}">Иммун. к урону</span></span>
 									<ul data-simplebar>
-										<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
+										<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}" th:classappend="${beastForm.imuns.contains(immunity) ? 'selected':''}"></li>
 									</ul>
 								</div>
-								<div class="select js-dropdown tip multiselect" title="Уязвим. к урону">
-									<input type="hidden" name="damage_vulnerability" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								<div class="select js-dropdown tip multiselect" title="Уязвимость к урону">
+									<input type="hidden" name="damage_vulnerability" class="js-dropdown__input" th:field="*{vurnText}" th:value="*{vurnText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Иммун. к урону">Уязвим. к урону</span>
+									</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Уязвимость к урону"><span class = "selected_item" th:each="vur : *{vurs}" th:text="${vur.cyrilicName}"/><span th:if="*{vurs.empty}">Уязвимость к урону</span></span>
 									<ul data-simplebar>
-										<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
+										<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}" th:classappend="${beastForm.vurs.contains(vulnerability) ? 'selected':''}"></li>
 									</ul>
 								</div>
 								<div class="select js-dropdown tip multiselect" title="Иммун. к состоянию">
-									<input type="hidden" name="condition_immunity" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									<input type="hidden" name="condition_immunity" class="js-dropdown__input" th:field="*{imunCondText}" th:value="*{imunCondText}"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 											xmlns="http://www.w3.org/2000/svg"
 										>
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
-									</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию">Иммун. к состоянию</span>
+									</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию"><span class = "selected_item" th:each="imunCondition : *{imunConditions}" th:text="${imunCondition.cyrilicName}"/><span th:if="*{imunConditions.empty}">Иммун. к состоянию</span></span>
 									<ul data-simplebar>
-										<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
+										<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}" th:classappend="${beastForm.imunConditions.contains(ci) ? 'selected':''}"></li>
 									</ul>
 								</div>
 							</div>
@@ -276,27 +264,27 @@
 									<li data-dropdown-value="3">3</li>
 								</ul>
 							</div>
-							<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги">
+							<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги" th:field="*{raceName}">
 						</div>
 						<details th:attr="open=*{feats.empty ? null: 'true'}">
 							<summary class="h4 header_separator"><span>Способности</span></summary>
-							<div th:replace="user/admin/feature :: traits(beast=${beast})"></div>
+							<div th:replace="user/admin/feature :: traits"></div>
 						</details>
 						<details th:attr="open=*{actions.empty ? null: 'true'}">
 							<summary class="h4 header_separator"><span>Действия</span></summary>
-							<div th:replace="user/admin/feature :: actions(beast=${beast})"></div>
+							<div th:replace="user/admin/feature :: actions"></div>
 						</details>
-						<details th:attr="open=*{bonusActions.empty ? null: 'true'}">
-							<summary class="h4 header_separator"><span>Бонусные действия</span></summary>
-							<div th:replace="user/admin/feature :: bonuses(bonuses=*{bonusActions})"></div>
+						<details th:attr="open=*{bonuses.empty ? null: 'true'}">
+							<summary class="h4 header_separator">Бонусные действия</summary>
+							<div th:replace="user/admin/feature :: bonuses"></div>
 						</details>
 						<details th:attr="open=*{reactions.empty ? null: 'true'}">
 							<summary class="h4 header_separator"><span>Реакции</span></summary>
-							<div th:replace="user/admin/feature :: reactions(reactions=*{reactions})"></div>
+							<div th:replace="user/admin/feature :: reactions"></div>
 						</details>
 						<details th:attr="open=*{legendaries.empty ? null: 'true'}">
 							<summary class="h4 header_separator"><span>Легендарные действия</span></summary>
-							<div th:replace="user/admin/feature :: legendaries(legendaries=*{legendaries})"></div>
+							<div th:replace="user/admin/feature :: legendaries"></div>
 						</details>
 						<details>
 							<summary class="h4 header_separator"><span>Логово (Убежище)</span></summary>
@@ -355,7 +343,7 @@
 							<summary class="h4 header_separator"><span>Описание</span></summary>
 							<div class="opportunities">
 								<div class="content">
-									<textarea name="description" rows="4" placeholder="Описание" th:text="*{description}"></textarea>
+									<textarea name="description" rows="4" placeholder="Описание" th:field="*{description}"></textarea>
 								</div>
 							</div>
 						</details>

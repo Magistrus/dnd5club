@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.ws.soap.Addressing;
 
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.Alignment;
@@ -83,7 +82,7 @@ public class Creature {
 	private Short bonusHP;
 
 	private String suffixHP;
-	
+
 	private byte speed = 30;
 	@Column(nullable = true)
 	private Short flySpeed;
@@ -196,7 +195,7 @@ public class Creature {
 	public void addFeat(CreatureFeat feat) {
 		feats.add(feat);
 	}
-	public void add(Action action) {
+	public void addAction(Action action) {
 		actions.add(action);
 	}
 
@@ -305,9 +304,13 @@ public class Creature {
 				+ (diggingSpeed == null ? "" : String.format(", burrow %d ft.", diggingSpeed))
 				+ (climbingSpeed == null ? "" : String.format(", climb %d ft.", climbingSpeed));
 	}
-
+	
+	public List<Action> getActions(ActionType type){
+		return actions.stream().filter(a -> a.getActionType() == type).collect(Collectors.toList());
+	}
+	
 	public List<Action> getActions(){
- 		return actions==null ? null : actions.stream().filter(a -> a.getActionType() == ActionType.ACTION).collect(Collectors.toList());
+ 		return actions;
 	}
 	
 	public List<Action> getReactions(){

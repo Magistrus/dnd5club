@@ -102,18 +102,18 @@
 				<div th:utext="${feat.description}"></div>
 			</div>
 		</div>
-		<div th:unless="${creature.actions.empty}">
+		<div th:unless="${creature.getActions('ACTION').empty}">
 			<h4 class="header_separator"><span>Действия</span></h4>
-			<div th:each="action : ${creature.actions}">
+			<div th:each="action : ${creature.getActions('ACTION')}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
 				<span th:utext="${action.description}" />
 			</div>
 		</div>
-		<div th:unless="${creature.reactions.empty}">
+		<div th:unless="${creature.getActions('REACTION').empty}">
 			<h4 class="header_separator"><span>Реакции</span></h4>
-			<div th:each="action : ${creature.reactions}">
+			<div th:each="action : ${creature.getActions('REACTION')}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
@@ -122,7 +122,7 @@
 		</div>
 		<div th:unless="${creature.bonusActions.empty}">
 			<h4 class="header_separator"><span>Бонусные действия</span></h4>
-			<div th:each="action : ${creature.bonusActions}">
+			<div th:each="action : ${creature.getActions('BONUS')}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
@@ -130,13 +130,13 @@
 			</div>
 		</div>
 		<div th:unless="${creature.legendaries.empty}">
-			<h4 class="header_separator"><span>Легендарные Действия</span></h4>
+			<h4 class="header_separator">Легендарные Действия</h4>
 			<div th:unless="${creature.legendary eq null}" th:utext="${creature.legendary}"></div>
 			<p th:if="${creature.legendary eq null}">
 				<span th:text="${creature.name}"></span> может совершить 3 легендарных действия, выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное действие, и только
 				в конце хода другого существа. <span th:text="${creature.name}"></span> восстанавливает использованные легендарные действия в начале своего хода.
 			</p>
-			<div th:each="action : ${creature.legendaries}">
+			<div th:each="action : ${creature.getActions('LEGENDARY')}">
 				<h5 class="bestiary_h5">
 					<strong th:text="${action.name}"></strong>.
 				</h5>
