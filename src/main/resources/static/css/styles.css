@@ -1875,6 +1875,7 @@ body.compact_menu #right_block {
 .structure-list div ul li.title_sub_menu {
   border-bottom: none !important;
   padding: 12px 16px 12px 16px;
+  background: var(--bg-sub-menu);
 }
 
 .structure-list.archetype_options div ul li.title_sub_menu label {
@@ -1905,7 +1906,7 @@ body.compact_menu #right_block {
   display: block;
   width: 1px;
   height: 10px;
-  background: var(--bg-secondary);
+  background: var(--bg-sub-menu);
   position: absolute;
   top: 0px;
   left: 0px;
