@@ -1922,21 +1922,21 @@ body.compact_menu #right_block {
 
 .structure-list div ul li.sub_menu {
   border-bottom: none !important;
-  padding: 8px 16px 8px 16px;
+  padding: 8px 16px 8px 16px !important;
   cursor: pointer;
 }
 
 .structure-list div ul li.sub_menu:hover span {
-  color: var(--text-color-active);
+  color: var(--text-color-active) !important;
 }
 
 .structure-list div ul li.sub_menu.active span {
-  color: var(--text-color-active);
-  font-weight: 600;
+  color: var(--text-color-active) !important;
+  font-weight: 600 !important;
 }
 
 .structure-list div ul li.sub_menu.active .sub_info span {
-  color: var(--text-color-active);
+  color: var(--text-color-active) !important;
 }
 
 .structure-list div ul li.sub_menu::after {
