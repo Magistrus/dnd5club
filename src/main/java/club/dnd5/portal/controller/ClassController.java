@@ -63,7 +63,8 @@ public class ClassController {
 	@GetMapping("/classes/{name}/{archetype}")
 	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype) {
 		String englishName = name.replace("_", " ");
-		model.addAttribute("classes", classRepository.findAll());
+		model.addAttribute("classes", classRepository.findAllBySidekick(false));
+		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
