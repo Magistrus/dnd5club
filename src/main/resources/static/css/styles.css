@@ -2703,13 +2703,16 @@ body.compact_menu #right_block.weapons {
   width: calc(100% - 339px);
 }
 
-.bestiary_h5 strong {
+.bestiary_h5 h5 {
   float: left;
   margin-right: 4px;
   position: relative;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--text-color-title);
 }
 
-.bestiary_h5 strong:before {
+.bestiary_h5 h5:before {
   content: '';
   display: block;
   position: absolute;
