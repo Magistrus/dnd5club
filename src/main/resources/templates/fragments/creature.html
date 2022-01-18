@@ -97,7 +97,7 @@
 			<h4 class="header_separator"><span>Способности</span></h4>
 			<div th:each="feat : ${creature.feats}">
 				<span class="bestiary_h5">
-					<strong th:text="|${feat.name} -|"></strong>
+					<h5 th:text="|${feat.name}.|"></h5>
 					<th:block th:utext="${feat.description}" />
 				</span>
 			</div>
@@ -106,7 +106,7 @@
 			<h4 class="header_separator"><span>Действия</span></h4>
 			<div th:each="action : ${creature.getActions('ACTION')}">
 				<span class="bestiary_h5">
-					<strong th:text="|${action.name} -|"></strong>
+					<h5 th:text="|${action.name}.|"></h5>
 					<th:block th:utext="${action.description}" />
 				</span>
 			</div>
@@ -115,7 +115,7 @@
 			<h4 class="header_separator"><span>Реакции</span></h4>
 			<div th:each="action : ${creature.getActions('REACTION')}">
 				<span class="bestiary_h5">
-					<strong th:text="|${action.name} -|"></strong>
+					<h5 th:text="|${action.name}.|"></h5>
 					<th:block th:utext="${action.description}" />
 				</span>
 			</div>
@@ -124,7 +124,7 @@
 			<h4 class="header_separator"><span>Бонусные действия</span></h4>
 			<div th:each="action : ${creature.getActions('BONUS')}">
 				<span class="bestiary_h5">
-					<strong th:text="|${action.name} -|"></strong>
+					<h5 th:text="|${action.name}.|"></h5>
 					<th:block th:utext="${action.description}" />
 				</span>
 			</div>
@@ -138,7 +138,7 @@
 			</p>
 			<div th:each="action : ${creature.getActions('LEGENDARY')}">
 				<span class="bestiary_h5">
-					<strong th:text="|${action.name} -|"></strong>
+					<h5 th:text="|${action.name}.|"></h5>
 					<th:block th:utext="${action.description}" />
 				</span>
 			</div>
