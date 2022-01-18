@@ -11,6 +11,19 @@ html {
   }  
 }
 
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans';
+  background-color: var(--bg-main);
+  font-size: 14px;
+  height: calc(100% - 0px);
+  outline: none;
+  color: var(--text-color);
+  overflow: hidden;
+}
+
 #body:before {
   content: '';
   display: block;
@@ -28,19 +41,6 @@ html {
   #body:before {
     display: none !important;
   }
-}
-
-body {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans';
-  background-color: var(--bg-main);
-  font-size: 14px;
-  height: calc(100% - 0px);
-  outline: none;
-  color: var(--text-color);
-  overflow: hidden;
 }
 
 .overflow-hidden {
@@ -68,6 +68,11 @@ body {
 
 .compact_menu .container {
   margin-left: 72px;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--text-btn-color);
 }
 
 hr {
@@ -371,10 +376,6 @@ input:focus {
   background-color: var(--bg-inpur-focus) !important;
   border:1px solid var(--primary);
   outline: none;
-}
-
-input::selection {
-  background: var(--border);
 }
 
 label.select_box {
