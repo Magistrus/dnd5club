@@ -146,7 +146,7 @@ public class BeastForm {
 		AC = creature.getAC();
 		bonusAC = creature.getBonusAC();
 		armorType = creature.getArmorTypes().isEmpty() ? null : creature.getArmorTypes().get(0);
-		
+		shield = creature.getArmorTypes().contains(ArmorType.SHIELD);
 		averageHp = creature.getAverageHp();
 		countDiceHp = creature.getCountDiceHp();
 		diceHp = creature.getDiceHp();
@@ -178,21 +178,21 @@ public class BeastForm {
 		athletics = creature.getSkillBonus(SkillType.ATHLETICS);
 		acrobatics = creature.getSkillBonus(SkillType.ACROBATICS);
 		sleightOfHand = creature.getSkillBonus(SkillType.SLEIGHT_OF_HAND);
-		stealth = creature.getSkillBonus(SkillType.ATHLETICS);
-		arcana = creature.getSkillBonus(SkillType.ATHLETICS);
-		history = creature.getSkillBonus(SkillType.ATHLETICS);
-		investigation = creature.getSkillBonus(SkillType.ATHLETICS); 
-		nature = creature.getSkillBonus(SkillType.ATHLETICS);
-		religion = creature.getSkillBonus(SkillType.ATHLETICS); 
-		animalHandling = creature.getSkillBonus(SkillType.ATHLETICS);
-		insight = creature.getSkillBonus(SkillType.ATHLETICS);
-		medicine = creature.getSkillBonus(SkillType.ATHLETICS);
-		perception = creature.getSkillBonus(SkillType.ATHLETICS);
-		survival = creature.getSkillBonus(SkillType.ATHLETICS);
-		deception = creature.getSkillBonus(SkillType.ATHLETICS);
-		intimidation = creature.getSkillBonus(SkillType.ATHLETICS);
-		performance = creature.getSkillBonus(SkillType.ATHLETICS);
-		persuasion = creature.getSkillBonus(SkillType.ATHLETICS);
+		stealth = creature.getSkillBonus(SkillType.STEALTH);
+		arcana = creature.getSkillBonus(SkillType.ARCANA);
+		history = creature.getSkillBonus(SkillType.HISTORY);
+		investigation = creature.getSkillBonus(SkillType.INVESTIGATION); 
+		nature = creature.getSkillBonus(SkillType.NATURE);
+		religion = creature.getSkillBonus(SkillType.RELIGION); 
+		animalHandling = creature.getSkillBonus(SkillType.ANIMAL_HANDLING);
+		insight = creature.getSkillBonus(SkillType.INSIGHT);
+		medicine = creature.getSkillBonus(SkillType.MEDICINE);
+		perception = creature.getSkillBonus(SkillType.PERCEPTION);
+		survival = creature.getSkillBonus(SkillType.SURVIVAL);
+		deception = creature.getSkillBonus(SkillType.DECEPTION);
+		intimidation = creature.getSkillBonus(SkillType.INTIMIDATION);
+		performance = creature.getSkillBonus(SkillType.PERFORMANCE);
+		persuasion = creature.getSkillBonus(SkillType.PERSUASION);
 		
 		darkvision = creature.getDarkvision();
 		trysight = creature.getTrysight();

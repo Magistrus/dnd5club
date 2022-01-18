@@ -28,7 +28,7 @@
 								</svg>
 								</i> <span class="placeholder js-dropdown__current size" th:text="*{size.cyrilicName}">Размер</span>
 								<ul data-simplebar>
-									<li th:each="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
+									<li th:each="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}" th:classappend="${beastForm.size eq size ? 'selected' : ''}"></li>
 								</ul>
 							</div>
 							<div class="select js-dropdown tip" title="Тип">
@@ -39,7 +39,7 @@
 								</svg>
 								</i> <span class="placeholder js-dropdown__current tipe" th:text="*{type.cyrilicName}">Тип</span>
 								<ul data-simplebar>
-									<li th:each="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
+									<li th:each="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}" th:classappend="${beastForm.type eq type ? 'selected' : ''}"></li>
 								</ul>
 							</div>
 							<div class="select js-dropdown tip" title="Мировоззрение">
@@ -50,7 +50,7 @@
 								</svg>
 								</i> <span class="placeholder js-dropdown__current alignment" th:text="*{alignment.cyrilicName}">Мировоззрение</span>
 								<ul data-simplebar>
-									<li th:each="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
+									<li th:each="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}" th:classappend="${beastForm.alignment eq aligment ? 'selected' : ''}"></li>
 								</ul>
 							</div>
 							<input id="ac" type="text" name="ac" class="ac tip" placeholder="КД" title="Класс Доспеха" th:field="*{AC}">
@@ -64,7 +64,7 @@
 								<span class="placeholder js-dropdown__current armor" th:unless="*{armorType}">Броня</span>
 								<ul data-simplebar>
 									<li data-dropdown-value="TEXT">Текстовое описание</li>
-									<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
+									<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}" th:classappend="${beastForm.armorType eq armor ? 'selected' : ''}"></li>
 								</ul>
 							</div>
 							<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к Классу Доспеха" title="бонус к КД" th:field="*{bonusAC}"> <input id="shield" class="toggle" type="checkbox" name="shield" th:checked="*{shield}" th:field="*{shield}"><span>Щит</span></label>
@@ -100,7 +100,7 @@
 									></span>)
 									</span> <label for="hp_field" class="check_block"> <input id="hp_field" class="toggle" type="checkbox" name="toggle"><span>HP поле</span></label>
 								</h5>
-								<div class="value">
+								<div th:if="*{diceHp}" class="value">
 									<input id="hp_dice_count" type="number" value="" min="0" class="tip" name="sum_dice" placeholder="0" title="Количество кубов" th:field="*{countDiceHp}">
 									<div class="select js-dropdown tip" title="Значение куба">
 										<input id="hp_dice" type="hidden" name="dice_hp" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -113,7 +113,11 @@
 											<li th:each="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
 										</ul>
 									</div>
-									<input id="hp_bonus" type="number" value="" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp" th:field="*{bonusHP}">
+									<input th:if="*{bonusHP}" id="hp_bonus" type="number" value="" class="tip" name="plus_hp" placeholder="+0" title="Дополнительное hp" th:field="*{bonusHP}">
+								</div>
+								<div th:unless="*{diceHp}" class="value">
+									<input type="number" value="" min="0" class="tip" placeholder="0" title="Количество хитов" th:field="*{averageHp}">
+									<input th:if="*{suffixHP}" type="text" value="" class="tip" name="plus_hp" placeholder="+0" title="Хиты текстом" th:field="*{suffixHP}">
 								</div>
 							</div>
 							<div class="block movements">
