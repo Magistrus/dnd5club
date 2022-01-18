@@ -23,6 +23,7 @@ import club.dnd5.portal.model.classes.HeroClassTrait;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.classes.archetype.ArchetypeTrait;
 import club.dnd5.portal.model.image.ImageType;
+import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ArchetypeTraitRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
@@ -114,6 +115,7 @@ public class ClassController {
 	public String getClassSpells(Model model, Device device, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("heroClass", heroClass);
+		model.addAttribute("schools", MagicSchool.values());
 		return "fragments/class_spell :: view";
 	}
 
