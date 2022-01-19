@@ -30,7 +30,7 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  background: url(/resources/assets/style/dark/test.png) no-repeat;
+  background: var(--bg-img-main) no-repeat;
   background-size: contain;
   width: 700px;
   height: 700px;
@@ -1884,8 +1884,13 @@ body.compact_menu #right_block {
   background: var(--bg-sub-menu);
 }
 
+.structure-list div ul li.title_sub_menu label {
+  display: none;
+}
+
 .structure-list.archetype_options div ul li.title_sub_menu label {
   margin: 8px 0 0 -2px;
+  display: block;
 }
 
 .structure-list div ul li.title_sub_menu::after {

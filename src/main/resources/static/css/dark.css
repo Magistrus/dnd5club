@@ -31,6 +31,10 @@
 }
 
 /********* IMG BG *********/
+:root {
+  --bg-img-main: url(/resources/assets/style/dark/test.png);
+}
+
 :root{
   --common:#fff;
   --uncommon:#8aff91;
