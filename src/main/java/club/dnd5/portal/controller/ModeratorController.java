@@ -94,7 +94,7 @@ public class ModeratorController {
 	@Transactional
 	@PostMapping("/admin/bestiary/{id}")
 	public String updateBeast(Model model, @PathVariable Integer id, BeastForm beastForm, @RequestParam Map<String, String> params) {
-		//repo.save(beast);
+		repo.save(beastForm.build());
 		//model.addAttribute("selectedCreature", beast);
 		return "redirect:/bestiary/" + beastForm.getEnglishName().replace(' ', ' ');
 	}
