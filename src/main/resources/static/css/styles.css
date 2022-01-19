@@ -1205,6 +1205,8 @@ label.select_box {
 
 .card_wrapper .card .infimation .header_name {
   margin: 0;
+  font-size: 16px;
+  line-height: 28px;
 }
 
 .card_wrapper .card .infimation {
