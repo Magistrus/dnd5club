@@ -117,6 +117,7 @@ $(document).ready(function() {
 	});
 	$('#creatures tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
+			e.preventScrolling();
 			var tr = $(this).closest('tr');
 			var table = $('#creatures').DataTable();
 			var row = table.row( tr );

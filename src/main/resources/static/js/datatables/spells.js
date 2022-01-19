@@ -154,16 +154,11 @@ $(document).ready(function() {
 	});
 	$('#spells tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
-			e.preventDefault();
-			e.which = 1;
-			e.ctrlKey = true;
-			$(this).trigger(e)
 			var tr = $(this).closest('tr');
 			var row = table.row( tr );
 			rowSelectIndex = row.index();
 			var data = row.data();
-			window.open('/spells/' + data.englishName.split(' ').join('_')).blur();
-			window.focus();
+			window.open('/spells/' + data.englishName.split(' ').join('_'));
 		}
 	});
 	$('#spells tbody').on('click', 'tr', function () {
