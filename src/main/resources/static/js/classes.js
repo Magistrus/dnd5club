@@ -226,8 +226,8 @@ function setActiveClass(element, englishName) {
 			});
 			$('#only_archetypes').click(function () {
 				if($('#only_archetypes').is(':checked')) {
-					$('.tip_scroll').parent().parent().addClass('hide_block');
-					$('.tip_scroll').addClass('hide_block');
+					$('.tip_scroll').not('a').parent().parent().addClass('hide_block');
+					$('.tip_scroll').not('a').addClass('hide_block');
 					$('.archetype_feet').parent().parent().removeClass('hide_block');
 					$('.archetype_feet').removeClass('hide_block');
 					for (let elem of $('.tip_scroll')) {
