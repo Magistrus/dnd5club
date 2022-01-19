@@ -2,6 +2,10 @@ User-agent: *
 Allow: /
 
 Disallow: /profile.html
-Sitemap: https://dnd5.club/sitemap.xml
+Disallow: /hero
+Disallow: /calc
+Disallow: /stock
+Disallow: /creatures
 
+Sitemap: https://dnd5.club/sitemap.xml
 Host: dnd5.club
