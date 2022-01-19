@@ -8,7 +8,7 @@
   --bg-advantage: #026a02;
   --bg-disadvantage: #d96666;
   --bg-saving_throw: #fe5e00;
-  --bg-blockquote: #21dbca;
+  --bg-blockquote: #ddc684;
   --bg-inpur-hover: rgba(3, 3, 3, 0.15);
   --bg-inpur-focus: #bebebe;
   --text-color:#404040;
@@ -31,6 +31,10 @@
 }
 
 /********* IMG BG *********/
+:root {
+  --bg-img-main: url(/resources/assets/style/light/test.png);
+}
+
 :root{
   --common:#fff;
   --uncommon:#6fd575;

@@ -108,7 +108,6 @@ blockquote {
   font-family: 'Neucha', cursive;
   padding: 16px 16px 16px 16px;
   background-color: var(--bg-blockquote);
-  border:1px solid var(--border);
   border-radius: 16px;
   margin-bottom: 32px;
   margin-top: 32px;
