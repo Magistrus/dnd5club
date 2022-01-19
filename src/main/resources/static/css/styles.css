@@ -1929,8 +1929,9 @@ body.compact_menu #right_block {
   cursor: pointer;
 }
 
-.structure-list div ul li.sub_menu:hover span {
-  color: var(--text-color-active) !important;
+.structure-list div ul li.sub_menu:hover span.name {
+  color: var(--text-color-title) !important;
+  font-weight: 500 !important;
 }
 
 .structure-list div ul li.sub_menu.active span {
