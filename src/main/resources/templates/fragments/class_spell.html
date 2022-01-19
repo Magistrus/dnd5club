@@ -49,9 +49,30 @@
 						</button>
 					</div>
 					<div class="filter_crumbs_box">
-						<label> <input class="level_checkbox filter" type="checkbox" name="level" value="0"><span>заговор</span></label>
-						<label th:each="level : ${#numbers.sequence(1, 9)}"> <input class="level_checkbox filter" type="checkbox" name="level" th:value="${level}"
+						<label> <input class="level_checkbox filter" type="checkbox" name="level" value="0"><span>заговор</span></label> <label th:each="level : ${#numbers.sequence(1, 9)}"> <input
+							class="level_checkbox filter" type="checkbox" name="level" th:value="${level}"
 						> <span th:text="${level}"></span></label>
+					</div>
+				</div>
+				<div class="filter_block">
+					<div class="header">
+						<h5>Школа</h5>
+						<button>
+							<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+							</i>
+						</button>
+						<button id="school_clear_btn" class="hide_block">
+							<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+							</i>
+						</button>
+					</div>
+					<div class="filter_crumbs_box">
+						<label th:each="school : ${schools}"> <input class="school_checkbox filter" type="checkbox" name="school" th:value="${school}"> <span th:text="${school.name}"></span>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -75,7 +96,7 @@
 		<script th:src="@{/resources/js/datatables/pageLoader/dataTables.pageLoadMore.min.js}"></script>
 		<script th:src="@{/resources/js/datatables/jquery.spring-friendly.js}"></script>
 		<script>var classId = [[${heroClass.id}]]</script>
-		<script th:src="@{/resources/js/datatables/class_spells.js?v=2.5}" layout:fragment="js-script"></script>
+		<script th:src="@{/resources/js/datatables/class_spells.js?v=2.6}" layout:fragment="js-script"></script>
 	</th:block>
 </body>
 </html>

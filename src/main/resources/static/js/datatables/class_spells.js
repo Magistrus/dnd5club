@@ -20,6 +20,7 @@ $(document).ready(function() {
 		},
 		{
 			data : 'school',
+			searchable: false
 		},
 		{
 			data : "name",
@@ -158,6 +159,24 @@ $('#level_clear_btn').on('click', function() {
 	$('#level_clear_btn').addClass('hide_block');
 	$('.level_checkbox').prop('checked', false);
 	$('#spells').DataTable().column(0).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.school_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="school"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(1).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#school_clear_btn').removeClass('hide_block');
+	} else {
+		$('#school_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#school_clear_btn').on('click', function() {
+	$('#school_clear_btn').addClass('hide_block');
+	$('.school_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(1).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
