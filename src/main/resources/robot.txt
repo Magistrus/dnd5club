@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Disallow: /profile.html
+Disallow: /profile
 Disallow: /hero
 Disallow: /calc
 Disallow: /stock
