@@ -229,6 +229,13 @@ public class BeastForm {
 		creature.setAC(AC);
 		creature.setBonusAC(bonusAC);
 		
+		creature.setStrength(strength);
+		creature.setDexterity(dexterity);
+		creature.setConstitution(constitution);
+		creature.setIntellect(intellect);
+		creature.setWizdom(wizdom);
+		creature.setCharisma(charisma);
+		
 		creature.setDarkvision(darkvision);
 		creature.setTrysight(trysight);
 		creature.setVibration(vibration);
