@@ -250,6 +250,7 @@ span.saving_throw {
 
 span.dice_text {
   background-color: var(--bg-dice);
+  color: var(--text-btn-color) !important;
 }
 
 span.homebrew_text {
