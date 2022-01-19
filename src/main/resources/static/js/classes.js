@@ -224,6 +224,30 @@ function setActiveClass(element, englishName) {
 					localStorage.setItem('selected_class', selecedClassName.id) 
 				}
 			});
+			$('#only_archetypes').click(function () {
+				if($('#only_archetypes').is(':checked')) {
+					$('.tip_scroll').parent().parent().addClass('hide_block');
+					$('.tip_scroll').addClass('hide_block');
+					$('.archetype_feet').parent().parent().removeClass('hide_block');
+					$('.archetype_feet').removeClass('hide_block');
+					for (let elem of $('.tip_scroll')) {
+						let id_name = elem.attributes['href'].value.slice(1)
+						if ($('#' + id_name).hasClass('archetype_feet')) {
+							continue
+						} else {
+							$('#' + id_name).parent().css('display', 'none');
+						}
+					};
+					$('.archetype_feet').css('display', 'inline-block');
+				} else {
+					$('.tip_scroll').parent().parent().removeClass('hide_block');
+					$('.tip_scroll').removeClass('hide_block');
+					for (let elem of $('.tip_scroll')) {
+						let id_name = elem.attributes['href'].value.slice(1)
+						$('#' + id_name).parent().css('display', 'block');
+					}
+				}
+			})
 		}
 		var elements = $('li.sub_menu');
 		for (var i = 0; i < elements.length; i++) {
@@ -233,7 +257,15 @@ function setActiveClass(element, englishName) {
 				if (checkLi === 'SPAN' || checkLi === 'LI' || checkLi === 'DIV'){
 					setActiveArchetype(this, selecedClassName.id, this.id);
 					localStorage.setItem('selected_archetype',  this.id);
-				} 
+				}
+				$('.sub_menu').on('click', function () {
+					if ($('#only_archetypes').is(':checked')) {
+						$('.tip_scroll').addClass('hide_block');
+						$('.archetype_feet').removeClass('hide_block');
+					} else {
+						$('.tip_scroll').removeClass('hide_block');
+					}
+				})
 			});
 		}
 		var archetepyName = localStorage.getItem('selected_archetype');
