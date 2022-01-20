@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 		<meta name="author" content="Peterko - https://www.behance.net/peterko, Magistrus" />
 
-		<meta name="robots" content="noindex, nofollow">
+		<meta name="robots" content="noindex, nofollow" />
 		
 		<title th:text="${metaTitle eq null ? 'DnD5 Club Oнлайн-справочник' : metaTitle}">DnD5 Club Oнлайн-справочник</title>
 		<meta name="description" th:content="${metaDescription eq null ? 'DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.' : metaDescription}"/>
@@ -43,8 +43,8 @@
 		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon.svg}" />
 		<!-- Core theme CSS -->
 		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
-		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v20.0}" />
-		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=84.2}" />
+		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v20.1}" />
+		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=84.3}" />
 		<link rel="stylesheet" th:href="@{/resources/css/print.css?v=1.0}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
@@ -99,18 +99,6 @@
 	<script layout:fragment="js-script"></script>
 
 	<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/86582536" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
-
-	<script>
-		var __rm__config = {
-		projectId: '-Ms6CvRDwD8pqBnxRD_F',
-		locale: 'ru',
-		contextWidget: 1,
-		embedBtn: 0,
-		floatingBtn: 0,		
-		
-		};
-	</script>
-	<script src="https://widget.revisionme.com/app.js" defer id="rm_app_script"></script>
 
 	<script>
 		$("#table_row").click();
