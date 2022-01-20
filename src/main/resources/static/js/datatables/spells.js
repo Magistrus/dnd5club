@@ -196,6 +196,8 @@ $('#search').bind('keydown blur change', function(e) {
 			$('#text_clear').hide();
 		}
 		const table = $('#spells').DataTable();
+		selectedSpell = null;
+		rowSelectIndex = 0;
 		table.tables().search($('#search').val()).draw();
     }, delay );
 });
