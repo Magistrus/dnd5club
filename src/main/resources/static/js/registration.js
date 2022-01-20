@@ -4,5 +4,7 @@ $(document).ready(function() {
 		      src: '#registration_form',
 		      type: 'inline'
 		  },
+		  modal: true,
+		  showCloseBtn: true,
 	});
 });
