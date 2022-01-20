@@ -5,7 +5,7 @@ $(document).ready(function() {
 		let windowWidth = $('body').innerWidth(),
 		elem = $("#body"); 
 		var check = localStorage.getItem('compact_menu') 
-		if(check === 'true' && windowWidth > 1000)
+		if(check === 'true' && windowWidth > 1200)
 		{
 			elem.addClass('compact_menu');
 			$('#list_page_two_block').addClass('block_information');
@@ -17,7 +17,7 @@ $(document).ready(function() {
 		else {
 			elem.removeClass('compact_menu');
 		}
-		if(windowWidth < 1000){
+		if(windowWidth < 1200){
 			elem.removeClass('compact_menu');
 			$('#body').removeClass('full_screen_right_block');
 			$('#list_page_two_block').removeClass('block_information');
@@ -181,6 +181,8 @@ $('li').click(function () {
 		} else {
 			$dropdown.find('.js-dropdown__current').text($item.text());
 			$dropdown.find('.js-dropdown__input').val($item.data('dropdown-value'));
+			$dropdown.find('li').removeClass('selected');
+			$item.addClass('selected');
 		}
 		$dropdown.find('.js-dropdown__input').change();
 	});

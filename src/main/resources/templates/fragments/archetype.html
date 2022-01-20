@@ -88,8 +88,8 @@
 		</div>
 		<div th:replace="fragments/class :: classInfo(${selectedArchetype.englishName})"></div>
 		<th:block th:each="feature : ${features}">
-			<th:block th:if="${feature.child eq null}">
-				<h4 class="header_separator" th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}" th:text="${feature.name}" th:id="|${feature.prefix}${feature.id}|"></h4>
+			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}">
+				<summary class="h4 header_separator" th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}" th:id="|${feature.prefix}${feature.id}|"><span th:text="${feature.name}"></span></summary>
 				<div class="caption_text" th:text="${feature.type}"></div>
 				<p th:utext="${feature.description}" />
 				<div th:if="${feature.prefix eq 'ad'}" align="center">
@@ -117,7 +117,7 @@
 						</tbody>
 					</table>
 				</div>
-			</th:block>
+			</details>
 		</th:block>
 	</th:block>
 </body>

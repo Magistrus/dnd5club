@@ -63,6 +63,7 @@
 							</ul>
 						</div>
 						<input id="ac_text" type="text" name="ac_bonus" class="name tip hide_block" placeholder="бонус к КД" title="бонус к КД">
+						<input id="shield" class="toggle" type="checkbox" name="shield"><span>Щит</span></label>
 					</div>
 					<div class="unit">
 						<div class="block stats">
@@ -80,12 +81,12 @@
 						<div class="block stats">
 							<h5>Спасброски</h5>
 							<div class="value">
-								<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛА"> <input type="number" value="" class="tip" name="saving_throws_dexterity"
-									placeholder="ЛОВ" title="ЛОВКОСТЬ"
-								> <input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ"> <input type="number" value="" class="tip"
-									name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ"
-								> <input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУДРОСТЬ"> <input type="number" value="" class="tip" name="saving_throws_charisma"
-									placeholder="ХАР" title="ХАРИЗМА"
+								<input type="number" value="" class="tip" name="saving_throws_strength" placeholder="СИЛ" title="СИЛА">
+								<input type="number" value="" class="tip" name="saving_throws_dexterity" placeholder="ЛОВ" title="ЛОВКОСТЬ">
+								<input type="number" value="" class="tip" name="saving_throws_constitution" placeholder="ТЕЛ" title="ТЕЛОСЛОЖЕНИЕ">
+								<input type="number" value="" class="tip" name="saving_throws_intelligence" placeholder="ИНТ" title="ИНТЕЛЛЕКТ">
+								 <input type="number" value="" class="tip" name="saving_throws_wisdom" placeholder="МУД" title="МУДРОСТЬ">
+								 <input type="number" value="" class="tip" name="saving_throws_charisma" placeholder="ХАР" title="ХАРИЗМА"
 								>
 							</div>
 						</div>
@@ -110,7 +111,7 @@
 						</div>
 						<div class="block movements">
 							<h5>
-								Передвежение <label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
+								Передвижение <label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Парить</span></label>
 							</h5>
 							<div class="value">
 								<input type="number" value="" class="tip" name="walking" placeholder="Ходьба" title="Ходьба"> <input type="number" value="" class="tip" name="swimming" placeholder="Плавая"
@@ -146,7 +147,7 @@
 						</div>
 					</details>
 					<details class="block senses">
-						<summary class="h5">Чувства</summary>
+						<summary class="h5"><span>Чувства</span></summary>
 						<h5>
 							Ограничение зрения<label for="hovering" class="check_block"><input id="hovering" class="toggle" type="checkbox" name="toggle"><span>Слепо за пределами радиуса</span></label>
 						</h5>
@@ -257,37 +258,37 @@
 						<input type="text" name="tags" class="tags tip" placeholder="Теги" title="Теги">
 					</div>
 					<details open>
-						<summary class="h4 header_separator">Способности</summary>
+						<summary class="h4 header_separator"><span>Способности</span></summary>
 						<div class="opportunities">
 							<div th:replace="user/admin/feature :: trait"></div>
 						</div>
 					</details>
-					<details>
-						<summary class="h4 header_separator">Действия</summary>
+					<details open>
+						<summary class="h4 header_separator"><span>Действия</span></summary>
 						<div class="opportunities">
 							<div th:replace="user/admin/feature :: action"></div>
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Бонусные действия</summary>
+						<summary class="h4 header_separator"><span>Бонусные действия</span></summary>
 						<div class="opportunities">
 							<div th:replace="user/admin/feature :: bonus"></div>
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Реакции</summary>
+						<summary class="h4 header_separator"><span>Реакции</span></summary>
 						<div class="opportunities">
 							<div th:replace="user/admin/feature :: reaction"></div>
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Легендарные действия</summary>
+						<summary class="h4 header_separator"><span>Легендарные действия</span></summary>
 						<div class="opportunities">
 							<div th:replace="user/admin/feature :: legendary"></div>
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Логово (Убежище)</summary>
+						<summary class="h4 header_separator"><span>Логово (Убежище)</span></summary>
 						<div class="opportunities">
 							<div class="content">
 								<textarea name="lair_description" rows="4" placeholder="Описание"></textarea>
@@ -295,7 +296,7 @@
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Действия логова (убежища)</summary>
+						<summary class="h4 header_separator"><span>Действия логова (убежища)</span></summary>
 						<div class="opportunities">
 							<div class="content">
 								<textarea name="lair_action_description" rows="4" placeholder="Описание"></textarea>
@@ -303,7 +304,7 @@
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Эффекты логова (убежища)</summary>
+						<summary class="h4 header_separator"><span>Эффекты логова (убежища)</span></summary>
 						<div class="opportunities">
 							<div class="content">
 								<textarea name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
@@ -311,7 +312,7 @@
 						</div>
 					</details>
 					<details>
-						<summary class="h4 header_separator">Варианты</summary>
+						<summary class="h4 header_separator"><span>Варианты</span></summary>
 						<div class="opportunities">
 							<div class="control">
 								<div class="icon tip" title="Добавить">
@@ -337,7 +338,7 @@
 						</div>
 					</details>
 					<details open>
-						<summary class="h4 header_separator">Описание</summary>
+						<summary class="h4 header_separator"><span>Описание</span></summary>
 						<div class="opportunities">
 							<div class="content">
 								<textarea name="description" rows="4" placeholder="Описание"></textarea>

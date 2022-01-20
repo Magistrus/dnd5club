@@ -4,11 +4,11 @@
 </head>
 <body>
 	<th:block th:object="${background}" th:fragment="view">
-		<h4 class="header_separator mt-0">Описание</h4>
+		<h4 class="header_separator mt-0"><span>Описание</span></h4>
 		<span th:utext="*{description}"></span>
-		<h4 class="header_separator" th:text="*{skillName}"></h4>
+		<h4 class="header_separator"><span th:text="*{skillName}"></span></h4>
 		<div th:utext="*{skillDescription}"></div>
-		<h4 th:unless="${tables.empty}" class="header_separator">Персонализация</h4>
+		<h4 th:unless="${tables.empty}" class="header_separator"><span>Персонализация</span></h4>
 		<div th:if="*{personalization}" th:utext="*{personalization}"></div>
 		<table th:unless="${tables.empty}" class="table">
 			<th:block th:each="type : ${tables}">

@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.CreatureSize;
@@ -29,6 +30,7 @@ import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.Language;
+import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.Book;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +40,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+
 @Entity
 @Table(name = "creatures")
 public class Creature {
@@ -79,7 +82,7 @@ public class Creature {
 	private Short bonusHP;
 
 	private String suffixHP;
-	
+
 	private byte speed = 30;
 	@Column(nullable = true)
 	private Short flySpeed;
@@ -154,7 +157,7 @@ public class Creature {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<CreatureFeat> feats;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Action> actions;
 	
 	@OneToMany(fetch = FetchType.LAZY)
@@ -188,6 +191,13 @@ public class Creature {
 	private Short page;
 	
 	private String img;
+	
+	public void addFeat(CreatureFeat feat) {
+		feats.add(feat);
+	}
+	public void addAction(Action action) {
+		actions.add(action);
+	}
 
 	public String getSizeName() {
 		return size.getSizeName(type);
@@ -294,9 +304,13 @@ public class Creature {
 				+ (diggingSpeed == null ? "" : String.format(", burrow %d ft.", diggingSpeed))
 				+ (climbingSpeed == null ? "" : String.format(", climb %d ft.", climbingSpeed));
 	}
-
+	
+	public List<Action> getActions(ActionType type){
+		return actions.stream().filter(a -> a.getActionType() == type).collect(Collectors.toList());
+	}
+	
 	public List<Action> getActions(){
-		return actions.stream().filter(a -> a.getActionType() == ActionType.ACTION).collect(Collectors.toList());
+ 		return actions;
 	}
 	
 	public List<Action> getReactions(){
@@ -309,5 +323,17 @@ public class Creature {
 
 	public List<Action> getLegendaries(){
 		return actions.stream().filter(a -> a.getActionType() == ActionType.LEGENDARY).collect(Collectors.toList());
+	}
+	
+	public Byte getSavingThrow(AbilityType abilityType) {
+		return savingThrows.stream().filter(st-> st.getAbility() == abilityType).map(SavingThrow::getBonus).findFirst().orElse(null);
+	}
+	
+	public Byte getSkillBonus(SkillType skillType) {
+		return skills.stream().filter(st-> st.getType() == skillType).map(Skill::getBonus).findFirst().orElse(null);
+	}
+
+	public int getBonusHpAbs() {
+		return bonusHP == null ? 0 : Math.abs(bonusHP);
 	}
 }

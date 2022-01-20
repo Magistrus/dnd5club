@@ -93,10 +93,15 @@ $(document).ready(function() {
 				if(localStorage.getItem('homebrew_source') != 'true'){
 					$(row).addClass('hide_block');
 				}
+			}else if (data.setting){
+				$(row).addClass('setting_source');
+				if(localStorage.getItem('setting_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
 			}
 		},
 	});
-	$('#backgrounds tbody').on('mousedown', 'tr', function (e) {
+	$('#backgrounds tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
 			var tr = $(this).closest('tr');
 			var row = table.row( tr );

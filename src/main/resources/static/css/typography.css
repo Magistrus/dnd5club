@@ -23,25 +23,27 @@ h3 {
 h4 {
   font-size: 24px;
   font-weight: 300;
-  margin: 8px 0 8px 0;
-  color: var(--text-color);
+  margin: 24px 0 8px 0;
+  color: var(--text-color-title);
   position: relative;
   font-family: 'Lora';
 }
 
 h5 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 28px;
-  margin: 0px 0 8px 0;
+  line-height: 18px;
+  margin: 0px 0 0px 0;
   color: var(--text-color);
+  position: relative;
+
 }
 
 p {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   color: var(--text-color);
 }
 
@@ -106,7 +108,6 @@ blockquote {
   font-family: 'Neucha', cursive;
   padding: 16px 16px 16px 16px;
   background-color: var(--bg-blockquote);
-  border:1px solid var(--border);
   border-radius: 16px;
   margin-bottom: 32px;
   margin-top: 32px;
@@ -125,32 +126,93 @@ blockquote p:last-child {
   margin-bottom: 0px;
 }
 
-.header_separator {
-  border-bottom: 1px solid var(--primary-hover);
-  background-image: var(--bg-img-header-separator);
-  background-position: 0px -19px;
-  background-repeat: no-repeat;
-  line-height: 50px;
-  padding-left: 24px;
-  margin-left: -24px;
-  margin-right: -24px;
-  margin-top: 32px;
+.header_separator span {
+  background: var(--bg-secondary);
+  padding-right:8px;
 }
 
-summary.h4 {
+.header_separator:before {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  display: block;
+  position: absolute;
+  top: 16px;
+  z-index: -1;
+}
+
+details + details summary.h4 {
+  margin-top: 8px !important;
+}
+
+details[open] + details summary.h4 {
+  margin-top: 24px !important;
+}
+
+details summary.h4 {
+  padding: 4px 8px;
   font-size: 24px;
   font-weight: 300;
-  color: var(--text-color);
+  margin: 24px -8px 8px -8px;
+  color: var(--text-color-title);
   position: relative;
   font-family: 'Lora';
   cursor: pointer;
-  margin-bottom: 8px;
+  background: var(--bg-sub-menu);
+  border-radius: 8px;
+}
+
+details[open] summary.h4 {
+  padding: 4px 0px;
+  margin: 24px 0px 4px 0px;
+  background: none;
+}
+
+details summary.h4 span {
+  background: var(--bg-sub-menu);
+}
+
+details[open] summary.h4 span {
+  background: var(--bg-secondary);
+}
+
+summary::marker {
+  content: '';
+}
+
+summary.header_separator:before {
+  width: calc(100% - 24px);
+  opacity: 0;
+  top: 20px;
+}
+
+details[open] summary.header_separator:before {
+  opacity: 1;
+}
+
+summary::after {
+  content: '◀';
+  display: block;
+  top: 8px;
+  right: 8px;
+  position: absolute;
+  width: 16px;
+  height: 24px;
+  transform: rotate(-90deg);
+  font-size: 18px;
+}
+
+details[open] summary::after {
+  transform: rotate(90deg);
+  top: 6px;
+  right: 0 !important;
 }
 
 summary.h5 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 18px;
   margin: 0px 0 8px 0;
   color: var(--text-color);
   cursor: pointer;
@@ -158,7 +220,7 @@ summary.h5 {
 
 summary.h4:hover,
 summary.h5:hover {
-  color: var(--text-color-title);
+  color: var(--text-color);
 }
 
 h4.separator_card {
@@ -188,6 +250,7 @@ span.saving_throw {
 
 span.dice_text {
   background-color: var(--bg-dice);
+  color: var(--text-btn-color) !important;
 }
 
 span.homebrew_text {

@@ -5,6 +5,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 		<meta name="author" content="Peterko - https://www.behance.net/peterko, Magistrus" />
+
+		
 		
 		<title th:text="${metaTitle eq null ? 'DnD5 Club Oнлайн-справочник' : metaTitle}">DnD5 Club Oнлайн-справочник</title>
 		<meta name="description" th:content="${metaDescription eq null ? 'DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.' : metaDescription}"/>
@@ -38,15 +40,16 @@
 		<!-- Modal -->
 		<link rel="stylesheet" th:href="@{/resources/css/magnific-popup.css}" />
 		<!-- Favicon-->
-		<link rel="icon" type="image/x-icon" th:href="@{/resources/assets/favicon.ico?v=2}" />
+		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon.svg}" />
 		<!-- Core theme CSS -->
 		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
-		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v18.6}" />
-		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=82.6}" />
+		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v20.1}" />
+		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=84.3}" />
+		<link rel="stylesheet" th:href="@{/resources/css/print.css?v=1.0}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
 		<!-- Menu -->
-		<link rel="stylesheet" th:href="@{/resources/css/sidebar-menu.css?v=22.1}" />
+		<link rel="stylesheet" th:href="@{/resources/css/sidebar-menu.css?v=22.2}" />
 		<!-- Google Font -->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -55,6 +58,14 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 		<script th:src="@{/resources/js/jquery.magnific-popup.min.js}"></script>
+
+		<!-- Google Tag Manager -->
+		<script	script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-W3ZFWDQ');</script>
+		<!-- End Google Tag Manager -->
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-WXD97L1HCX"></script>
@@ -69,6 +80,10 @@
 		</th:block>
 	</head>
 	<body id="body">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3ZFWDQ"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
 		<div th:replace="fragments/menu :: menu"></div>
 		<div id="container" class="container">
 			<div layout:fragment="content"></div>
@@ -76,7 +91,7 @@
 	</body>
 	<th:block th:fragment="mainJS">
 	<script th:src="@{/resources/js/simplebar.min.js}"></script>
-	<script th:src="@{/resources/js/scripts.js?v=8.6}"></script>
+	<script th:src="@{/resources/js/scripts.js?v=8.7}"></script>
 	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
 	<script th:src="@{/resources/js/scheme.js?v=0.1}"></script>
 	<script th:src="@{/resources/js/tipped.min.js}"></script>
@@ -85,7 +100,7 @@
 
 	<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/86582536" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 
-	<script>
+	<!-- <script>
 		var __rm__config = {
 		projectId: '-Ms6CvRDwD8pqBnxRD_F',
 		locale: 'ru',
@@ -95,7 +110,7 @@
 		
 		};
 	</script>
-	<script src="https://widget.revisionme.com/app.js" defer id="rm_app_script"></script>
+	<script src="https://widget.revisionme.com/app.js" defer id="rm_app_script"></script> -->
 
 	<script>
 		$("#table_row").click();

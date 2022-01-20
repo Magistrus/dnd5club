@@ -224,6 +224,9 @@ function setActiveClass(element, englishName) {
 					localStorage.setItem('selected_class', selecedClassName.id) 
 				}
 			});
+			$('#only_archetypes').click(function () {
+				showOnlyArchetype();
+			})
 		}
 		var elements = $('li.sub_menu');
 		for (var i = 0; i < elements.length; i++) {
@@ -233,7 +236,15 @@ function setActiveClass(element, englishName) {
 				if (checkLi === 'SPAN' || checkLi === 'LI' || checkLi === 'DIV'){
 					setActiveArchetype(this, selecedClassName.id, this.id);
 					localStorage.setItem('selected_archetype',  this.id);
-				} 
+				}
+				$('.sub_menu').on('click', function () {
+					if ($('#only_archetypes').is(':checked')) {
+						$('.tip_scroll').addClass('hide_block');
+						$('.archetype_feet').removeClass('hide_block');
+					} else {
+						$('.tip_scroll').removeClass('hide_block');
+					}
+				})
 			});
 		}
 		var archetepyName = localStorage.getItem('selected_archetype');
@@ -248,6 +259,13 @@ function setActiveClass(element, englishName) {
 			$('.setting_source').removeClass('hide_block');
 		}
 	});
+}
+function showOnlyArchetype(){
+	if($('#only_archetypes').is(':checked')) {
+		$('details').not('.archetype_feet').addClass('hide_block');
+	} else {
+		$('details').removeClass('hide_block');
+	}
 }
 function setActiveArchetype(element, className, archetypeName) {
 	$('li.sub_menu').removeClass('active');
@@ -265,6 +283,7 @@ function setActiveArchetype(element, className, archetypeName) {
 			$('#info_wrapper').removeClass('images');
 			$('#info_wrapper').removeClass('options');
 			$('#info_wrapper').addClass('traits');
+			showOnlyArchetype();
 		});
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);

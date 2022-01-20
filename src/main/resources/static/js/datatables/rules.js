@@ -68,14 +68,27 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-			if (!$('#list_page_two_block').hasClass('block_information') && selectedRule === null){
-				return;
+			if(rowSelectIndex === 0 && selectedRule === null){
+				if (!$('#list_page_two_block').hasClass('block_information') && selectedRule === null){
+					return;
+				}
+				$('#rules tbody tr:eq('+rowSelectIndex+')').click()
 			}
-			$('#rules tbody tr:eq('+rowSelectIndex+')').click()
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if (selectedRule) {
+				selectRule(selectedRule);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedRule.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-	$('#rules tbody').on('mousedown', 'tr', function (e) {
+	$('#rules tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
 			var tr = $(this).closest('tr');
 			var row = table.row( tr );
@@ -91,19 +104,12 @@ $(document).ready(function() {
 		var tr = $(this).closest('tr');
 		var table = $('#rules').DataTable();
 		var row = table.row(tr);
+		rowSelectIndex = row.index();
 		var data = row.data();
 		if (cntrlIsPressed){
 			window.open('/rules/' + data.englishName.split(' ').join('_'));
 		}
-		$('#rule_name').text(data.name);
-		$('#type').text(data.type);
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/rules/' + data.englishName.split(' ').join('_'));
-		var url = '/rules/fragment/' + data.id;
-		$("#content_block").load(url);
+		selectRule(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -115,6 +121,17 @@ $(document).ready(function() {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectRule(data){
+	$('#rule_name').text(data.name);
+	$('#type').text(data.type);
+	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
+	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
+	document.getElementById('source').innerHTML = source;
+	document.title = data.name;
+	history.pushState('data to be passed', '', '/rules/' + data.englishName.split(' ').join('_'));
+	var url = '/rules/fragment/' + data.id;
+	$("#content_block").load(url);
+}
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	const table = $('#rules').DataTable();

@@ -9,6 +9,8 @@
   --bg-disadvantage: #774747;
   --bg-saving_throw: #fe5e00;
   --bg-blockquote: #1e2226;
+  --bg-inpur-hover: rgba(255, 255, 255, 0.1);
+  --bg-inpur-focus: #3a3e42;
   --text-color:#cdcdcd;
   --text-color-active:#fff;
   --text-color-title:#fff;
@@ -29,6 +31,10 @@
 }
 
 /********* IMG BG *********/
+:root {
+  --bg-img-main: url(/resources/assets/style/dark/test.png);
+}
+
 :root{
   --common:#fff;
   --uncommon:#8aff91;
@@ -42,7 +48,6 @@
 :root {
   --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
   --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
-  --bg-img-header-separator:url(/resources/assets/style/dark/header_separator.png);
 }
 
 /********* Logo *********/

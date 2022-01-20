@@ -5,7 +5,7 @@
 		<div id="left_block" class="full_screen_left_block">
 			<div class="header_block filters">
 				<div class="header_row">
-					<h1>Драгоценности</h1>
+					<h1>Пользователи</h1>
 				</div>
 				<div class="search_block filter_control">
 					<input type="text" id="search" class="search_int" placeholder="Поиск" autocomplete="off">
@@ -38,14 +38,14 @@
 				<div class="filter_container">
 					<div class="filter_block">
 						<div class="header">
-							<h5>Категория</h5>
+							<h5>Роли</h5>
 							<button>
 								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
 								</i>
 							</button>
-							<button id="category_clear_btn" class="hide_block">
+							<button id="role_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
@@ -53,28 +53,24 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="category : ${categories}"> <input class="category_checkbox filter" type="checkbox" name="category" th:value="${category}"> <span th:text="${category.name}"></span>
+							<label th:each="role : ${roles}"> <input class="role_checkbox filter" type="checkbox" name="role" th:value="${role}"> <span th:text="${role.name}"></span>
 							</label>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="scroll_load_simplebar" class="container_left table_list">
-				<table id="treasures" class="table_list" th:fragment="table">
+				<table id="users" class="table_list" th:fragment="table">
 					<thead style="display: none">
 						<tr>
-							<th>Название</th>
-							<th>English name</th>
-							<th>Категория</th>
+							<th>Тип</th>
+							<th>email</th>
 						</tr>
 					</thead>
 				</table>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript">
-    		var selectedTreasure = [[${selectedTreasure}]];
-		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/treasures.js?v=2.6}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/admin/users.js?v=0.2}" layout:fragment="js-script"></script>
 </html>

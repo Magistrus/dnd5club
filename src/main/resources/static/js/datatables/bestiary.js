@@ -52,10 +52,13 @@ $(document).ready(function() {
 			data : 'habitates',
 			searchable: false
 		},
+		{
+			data : 'altName',
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [0, 2 ,3, 4, 5, 6, 7],
+				"targets": [0, 2 ,3, 4, 5, 6, 7, 8],
 				"visible": false
 			},
 			{
@@ -112,8 +115,9 @@ $(document).ready(function() {
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
-	$('#creatures tbody').on('mousedown', 'tr', function (e) {
+	$('#creatures tbody').on('mouseup', 'tr', function (e) {
 		if (e.which == 2) {
+			e.preventScrolling();
 			var tr = $(this).closest('tr');
 			var table = $('#creatures').DataTable();
 			var row = table.row( tr );
@@ -337,6 +341,9 @@ function getImage(id){
 }
 $('#btn_export_fvtt').on('click', function() {
 	window.open('/creature/json/' + selectedCreature.id, '_self');
+});
+$('#edit_beast').on('click', function() {
+	window.open('/admin/bestiary/' + selectedCreature.id, '_self');
 });
 $('.image-container').magnificPopup({
   delegate: 'a',

@@ -348,7 +348,7 @@
 
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .navbar {
     top: auto;
     left: 0;
@@ -435,7 +435,6 @@
   /************ ТЕЛО СТРАНИЦЫ ************/
   #right_block {
     width: calc(100vw - 0px);
-    right: calc(-100vw - 0px);
     position: absolute;
     border: none;
     z-index: 101;

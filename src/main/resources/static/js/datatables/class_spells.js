@@ -16,9 +16,11 @@ $(document).ready(function() {
 		columns : [
 		{
 			data : 'level',
+			searchable: false
 		},
 		{
 			data : 'school',
+			searchable: false
 		},
 		{
 			data : "name",
@@ -133,8 +135,7 @@ $('#search').bind('keydown blur change', function(e) {
     }, delay );
 });
 $('#btn_filters').on('click', function() {
-	var table = $('#spells').DataTable();
-	table.searchPanes.container().toggle();
+	$('#searchPanes').toggleClass('hide_block');
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
@@ -142,8 +143,49 @@ $('#text_clear').on('click', function () {
 	table.tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
-$('#btn_close').on('click', function() {
-	document.getElementById('list_page_two_block').classList.remove('block_information');
-	localStorage.removeItem('selected_spell');
-	history.pushState('data to be passed', 'Заклинания', '/spells/');
+$('.level_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="level"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(0).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#level_clear_btn').removeClass('hide_block');
+	} else {
+		$('#level_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
 });
+$('#level_clear_btn').on('click', function() {
+	$('#level_clear_btn').addClass('hide_block');
+	$('.level_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(0).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.school_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="school"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(1).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#school_clear_btn').removeClass('hide_block');
+	} else {
+		$('#school_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#school_clear_btn').on('click', function() {
+	$('#school_clear_btn').addClass('hide_block');
+	$('.school_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(1).search("", true, false, false).draw();
+	setFiltered();
+});
+function setFiltered(){
+	let boxes = $('input:checkbox:checked.filter').map(function() {
+		return this.value;
+	}).get().join('|');
+	if(boxes.length === 0){
+		$('#icon_filter').removeClass('active');
+	} else {
+		$('#icon_filter').addClass('active');
+	}
+}
