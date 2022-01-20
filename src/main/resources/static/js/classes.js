@@ -225,28 +225,7 @@ function setActiveClass(element, englishName) {
 				}
 			});
 			$('#only_archetypes').click(function () {
-				if($('#only_archetypes').is(':checked')) {
-					$('.tip_scroll').not('a').parent().parent().addClass('hide_block');
-					$('.tip_scroll').not('a').addClass('hide_block');
-					$('.archetype_feet').parent().parent().removeClass('hide_block');
-					$('.archetype_feet').removeClass('hide_block');
-					for (let elem of $('.tip_scroll')) {
-						let id_name = elem.attributes['href'].value.slice(1)
-						if ($('#' + id_name).hasClass('archetype_feet')) {
-							continue
-						} else {
-							$('#' + id_name).parent().css('display', 'none');
-						}
-					};
-					$('.archetype_feet').css('display', 'inline-block');
-				} else {
-					$('.tip_scroll').parent().parent().removeClass('hide_block');
-					$('.tip_scroll').removeClass('hide_block');
-					for (let elem of $('.tip_scroll')) {
-						let id_name = elem.attributes['href'].value.slice(1)
-						$('#' + id_name).parent().css('display', 'block');
-					}
-				}
+				showOnlyArchetype();
 			})
 		}
 		var elements = $('li.sub_menu');
@@ -281,6 +260,13 @@ function setActiveClass(element, englishName) {
 		}
 	});
 }
+function showOnlyArchetype(){
+	if($('#only_archetypes').is(':checked')) {
+		$('details').not('.archetype_feet').addClass('hide_block');
+	} else {
+		$('details').removeClass('hide_block');
+	}
+}
 function setActiveArchetype(element, className, archetypeName) {
 	$('li.sub_menu').removeClass('active');
 	element.classList.add('active');
@@ -297,6 +283,7 @@ function setActiveArchetype(element, className, archetypeName) {
 			$('#info_wrapper').removeClass('images');
 			$('#info_wrapper').removeClass('options');
 			$('#info_wrapper').addClass('traits');
+			showOnlyArchetype();
 		});
 	}
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
