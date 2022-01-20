@@ -157,6 +157,10 @@ hr {
   stroke: var(--primary);
 }
 
+#icon_dark_mod.icon_menu svg path {
+  fill: var(--primary);
+}
+
 .checkbox {
   line-height: 22px;
 }

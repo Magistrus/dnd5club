@@ -206,7 +206,7 @@ summary::after {
 details[open] summary::after {
   transform: rotate(90deg);
   top: 6px;
-  right: 0;
+  right: 0 !important;
 }
 
 summary.h5 {
