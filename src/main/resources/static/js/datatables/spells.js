@@ -137,6 +137,11 @@ $(document).ready(function() {
 					}
 				}
 			}
+			if (table.data().count() ==1){
+				$('#spells tbody tr:eq(0)').click();
+				table.row(':eq(0)', { page: 'current' }).select();
+				return;
+			}
 			if (selectedSpell) {
 				selectSpell(selectedSpell);
 				let rowIndexes = [];
