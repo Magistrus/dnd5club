@@ -174,24 +174,9 @@ function selectCreature(data){
 	$('#statblock').addClass('active');
 	$('#description').removeClass('active');
 	$('#creature_name').html(data.name);
-	$('#cr').text(data.cr + ' (' + data.exp+' опыта)');
-	switch(data.cr){
-	case '1/8': data.cr = 1/8; break;
-	case '1/4': data.cr = 1/4; break;
-	case '1/2': data.cr = 1/2; break;
-	}
-	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
-	document.getElementById('size').innerHTML = data.size;
-	getImage(data.id);
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 	var url = '/bestiary/fragment/' + data.id;
-	$("#meta_title").attr("content", data.name);
-	$("#meta_url").attr("content", "https://dnd5.club/bestiary/" + data.englishName.split(' ').join('_'));
-	$("#meta_image").attr("content", document.getElementById('creatute_img').src);
 	$("#content_block").load(url, function() {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
