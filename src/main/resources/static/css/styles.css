@@ -1289,6 +1289,19 @@ label.select_box {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--text-color-title);
+}
+
+.header_block h1 a {
+  font-size: 26px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  line-height: 72px;
+  position: relative;
+  color: var(--text-color-title);
+  font-weight: 300;
 }
 
 .header_block .header_row {
@@ -1660,6 +1673,24 @@ body.compact_menu #right_block {
   }
 }
 
+.header_block .title_icon {
+  height: 30px;
+  width: 30px;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.header_block .title_icon:hover {
+  background: var(--primary-hover);
+}
+
+.header_block .title_icon:hover svg path {
+  stroke: var(--text-btn-color);
+}
+
 .btn_additional_features {
   flex: 1 0 50px;
   height: 50px;
@@ -1778,6 +1809,10 @@ body.compact_menu #right_block {
 #right_block .info_wrapper .content_block #content_block {
   padding: 24px;
   position: absolute;
+}
+
+#right_block.bestiary .info_wrapper .content_block #content_block {
+  position: relative !important;
 }
 
 #right_block .info_wrapper.options .search_block,
