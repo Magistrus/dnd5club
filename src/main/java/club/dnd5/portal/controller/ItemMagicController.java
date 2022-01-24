@@ -36,7 +36,7 @@ public class ItemMagicController {
 		model.addAttribute("types", MagicThingType.values());
 		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedItemMagic", new ItemMagicDto(item));
-		model.addAttribute("metaTitle", item.getName() + " Магические предметы D&D 5e");
+		model.addAttribute("metaTitle", item.getName() + " | Магические предметы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
 		return "items_magic";
