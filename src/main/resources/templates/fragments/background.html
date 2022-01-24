@@ -4,7 +4,17 @@
 </head>
 <body>
 	<th:block th:object="${background}" th:fragment="view">
-		<h4 class="header_separator mt-0"><span>Описание</span></h4>
+		<p class="row_info bg_grey">
+			<span class="left_info">Англ название</span>
+			<span class="tip" th:text="|Источник: *{book.source}|" th:title="*{book.name}">Источник</span>
+		</p>
+
+		<p><b>Владение навыками:</b> <span id="traits">-</span></p>
+		<p><b>Владение инструментами:</b> <span id="traits_tools">-</span></p>
+		<p><b>Языки:</b> <span id="languages">-</span></p>
+		<p><b>Снаряжение:</b> <span id="equipments">-</span></p>
+		<p><b>Начальный капитал:</b> <span id="start_money">-</span></p>
+		<h4 class="header_separator"><span>Описание</span></h4>
 		<span th:utext="*{description}"></span>
 		<h4 class="header_separator"><span th:text="*{skillName}"></span></h4>
 		<div th:utext="*{skillDescription}"></div>
