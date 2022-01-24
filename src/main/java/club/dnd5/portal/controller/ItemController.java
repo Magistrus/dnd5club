@@ -21,7 +21,7 @@ public class ItemController {
 	@GetMapping("/items")
 	public String getItems(Model model) {
 		model.addAttribute("categories", EquipmentType.values());
-		model.addAttribute("metaTitle", "Снаряжение");
+		model.addAttribute("metaTitle", "Снаряжение [Items] D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/");
 		model.addAttribute("metaDescription", "Снаряжение и инструменты по D&D 5 редакции");
 		return "items";
@@ -32,7 +32,7 @@ public class ItemController {
 		model.addAttribute("categories", EquipmentType.values());
 		Equipment item = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedItem", new ItemDto(item));
-		model.addAttribute("metaTitle", item.getName());
+		model.addAttribute("metaTitle", item.getName() + " D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) снаряжение по D&D 5 редакции", item.getName(), item.getEnglishName()));
 		return "items";

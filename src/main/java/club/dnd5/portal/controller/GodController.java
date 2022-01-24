@@ -30,8 +30,8 @@ public class GodController {
 		model.addAttribute("domains", Domain.values());
 		model.addAttribute("ranks", Rank.values());
 		model.addAttribute("pantheons", pantheonRepo.findAll());
-		model.addAttribute("metaTitle", "Боги");
-		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
+		model.addAttribute("metaTitle", "Боги [Gods] D&D 5e");
+		model.addAttribute("metaUrl", "https://dnd5.club/gods/");
 		model.addAttribute("metaDescription", "Боги, полубоги и философии D&D 5 редакции");
 		return "gods";
 	}
@@ -44,8 +44,8 @@ public class GodController {
 		model.addAttribute("pantheons", pantheonRepo.findAll());
 		God god = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedGod", new GodDto(god));
-		model.addAttribute("metaTitle", god.getName());
-		model.addAttribute("metaUrl", "https://dnd5.club/items/magic" + name);
+		model.addAttribute("metaTitle", god.getName() + " D&D 5e");
+		model.addAttribute("metaUrl", "https://dnd5.club/gods/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s", god.getName(), god.getEnglishName(), god.getAligment().getCyrilicName(), god.getSex().getCyrilicName(), god.getCommitment()));
 		return "gods";
 	}

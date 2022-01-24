@@ -44,7 +44,7 @@ public class ClassController {
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
-		model.addAttribute("metaTitle", "Классы");
+		model.addAttribute("metaTitle", "Классы [Classes] D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/");
 		return "classes";
 	}
@@ -55,7 +55,7 @@ public class ClassController {
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedClass", name);
-		model.addAttribute("metaTitle", heroClass.getCapitalazeName());
+		model.addAttribute("metaTitle", heroClass.getCapitalazeName() + " D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		return "classes";
