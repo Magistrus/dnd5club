@@ -1488,6 +1488,17 @@ body.compact_menu .block_information #left_block {
   position: relative;
   height: 100%;
   width: 100%;
+  display: grid;
+}
+
+#right_block .image-container a img {
+  position: relative;
+  left: 50%;
+  top: 0%;
+  height: 100%;
+  width: 100%;
+  transform: translate(-50%,0%);
+  object-fit: cover;
 }
 
 body.compact_menu #right_block {
@@ -1581,21 +1592,47 @@ body.compact_menu #right_block {
   }
 }
 
-#right_block .block_info_avatar {
-  display: flex;
+#right_block .avatar {
+  position: relative;
+  width: 270px;
+  background: var(--bg-secondary);
+  float: right;
+  padding: 0 0 32px 32px;
 }
 
-#right_block .block_info_avatar .info {
-  flex: 1 1 auto;
+@media (max-width: 800px) {
+  #right_block .avatar {
+    width: 200px;
+  }
 }
 
-#right_block .block_info_avatar .avatar {
-  flex: 1 1 260px;
-  min-width: 260px;
-  max-width: 260px;
-  border: 1px solid;
+@media (max-width: 500px) {
+  #right_block .avatar {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 360px) {
+  #right_block .avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+#right_block .avatar .image-container {
+  background: var(--bg-sub-menu);
+  box-shadow: 0px 6px 21px #00000036;
   overflow: hidden;
-  max-height: 400px;
+  border-radius: 16px;
+  height: auto;
+}
+
+@media (max-width: 500px) {
+  #right_block .avatar .image-container {
+    border-radius: 50%;
+    height: 100%;
+  }
 }
 
 .archetype_mobile_selector {
@@ -1914,19 +1951,6 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.spells .content_block #content_block {
   padding: 45px 0 0 0;
   width: 100%;
-}
-
-#right_block .info_wrapper .content_block #content_block:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 290px;
-  height: 100%;
-  background-color: var(--bg-sub-menu);
-  left: -291px;
-  top: 0;
-  z-index: -1;
-  border-right: 1px solid var(--border);
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -2831,6 +2855,13 @@ body.compact_menu #right_block.weapons {
   #right_block.bestiary .scores>div {
     max-width: calc(16% - 8px);
     flex: 1 0 calc(16% - 8px);
+  }
+}
+
+@media (max-width: 800px) {
+  #right_block.bestiary .scores>div {
+    max-width: calc(33% - 8px);
+    flex: 1 0 calc(33% - 8px);
   }
 }
 
