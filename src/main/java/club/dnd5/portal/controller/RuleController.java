@@ -20,7 +20,7 @@ public class RuleController {
 	@GetMapping("/rules")
 	public String getRules(Model model) {
 		model.addAttribute("categories", repository.findAllCategories());
-		model.addAttribute("metaTitle", "Правила и термины");
+		model.addAttribute("metaTitle", "Правила и термины [Rules] D&D 5e");
 		return "rules";
 	}
 	

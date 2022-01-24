@@ -20,7 +20,7 @@ public class ArmorController {
 
 	@GetMapping("/armors")
 	public String getArmors(Model model) {
-		model.addAttribute("metaTitle", "Доспехи");
+		model.addAttribute("metaTitle", "Доспехи [Armors] D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/armors/");
 		model.addAttribute("metaDescription", "Доспехи по D&D 5 редакции");
 		return "armors";

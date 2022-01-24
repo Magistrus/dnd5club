@@ -24,8 +24,8 @@ public class ItemMagicController {
 	public String getMagicItems(Model model) {
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
-		model.addAttribute("metaTitle", "Магические предметы");
-		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
+		model.addAttribute("metaTitle", "Магические предметы [Magic items] D&D 5e");
+		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/");
 		model.addAttribute("metaDescription", "Магические предметы и артефакты по D&D 5 редакции");
 		return "items_magic";
 	}
@@ -36,7 +36,7 @@ public class ItemMagicController {
 		model.addAttribute("types", MagicThingType.values());
 		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedItemMagic", new ItemMagicDto(item));
-		model.addAttribute("metaTitle", item.getName());
+		model.addAttribute("metaTitle", item.getName() + " D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
 		return "items_magic";

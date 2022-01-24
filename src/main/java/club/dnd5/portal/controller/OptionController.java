@@ -27,9 +27,9 @@ public class OptionController {
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
-		model.addAttribute("metaTitle", "Особенности классов");
-		model.addAttribute("metaUrl", "https://dnd5.club/traits/");
-		model.addAttribute("metaDescription", "Список особенности классов и подкласов");
+		model.addAttribute("metaTitle", "Особенности классов [Options] D&D 5e");
+		model.addAttribute("metaUrl", "https://dnd5.club/options/");
+		model.addAttribute("metaDescription", "Список особенности классов и подкласов по D&D 5 редакции");
 		return "options";
 	}
 	
@@ -40,8 +40,8 @@ public class OptionController {
 		model.addAttribute("levels", prerequsitlevels);
 		Option option = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedOption", new OptionDto(option));
-		model.addAttribute("metaTitle", option.getName());
-		model.addAttribute("metaUrl", "https://dnd5.club/traits/" + name);
+		model.addAttribute("metaTitle", option.getName() + " D&D 5e");
+		model.addAttribute("metaUrl", "https://dnd5.club/options/" + name);
 		model.addAttribute("metaDescription", 
 				String.format("Описание особенности %s - %s",
 						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 

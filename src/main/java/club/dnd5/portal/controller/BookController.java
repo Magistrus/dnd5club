@@ -18,7 +18,7 @@ public class BookController {
 
 	@GetMapping("/books")
 	public String getRules(Model model) {
-		model.addAttribute("metaTitle", "Источники");
+		model.addAttribute("metaTitle", "Источники [Books] D&D 5e");
 		return "books";
 	}
 	
