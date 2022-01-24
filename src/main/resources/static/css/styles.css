@@ -1934,7 +1934,6 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_panes .filter_container,
 #right_block .info_wrapper.spells .search_panes .filter_container {
   margin-bottom: 46px;
-  background-color: var(--bg-secondary);
 }
 
 @media (max-width: 1200px) {
@@ -2956,10 +2955,17 @@ body.compact_menu #right_block.weapons {
 }
 
 .filter_container {
-  width: 100%;
+  width: auto;
   height: auto;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-sub-menu);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
+  padding: 16px;
+}
+
+.filter_container .filter_block_toggle {
+  padding: 8px 8px 0px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
 .filter_container .filter_block {
@@ -2968,6 +2974,8 @@ body.compact_menu #right_block.weapons {
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
   margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
 .filter_container .filter_block:first-child {
@@ -3032,9 +3040,10 @@ body.compact_menu #right_block.weapons {
   margin: 4px 4px;
   min-height: 22px;
   color: var(--text-color);
-  background-color: var(--bg-sub-menu);
+  background-color: var(--hover);
   display: flex;
   align-items: center;
+  line-height: 22px;
   -moz-column-gap: 7px;
        column-gap: 7px;  
 }
