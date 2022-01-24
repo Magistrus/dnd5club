@@ -5,7 +5,7 @@
 <body>
 	<th:block th:object="${god}" th:fragment="view">
 		<p class="row_info bg_grey">
-			<span class="left_info">Англ название</span>
+			<span class="left_info" th:text="*{englishName}">Англ название</span>
 			<span class="tip" th:text="|Источник: *{book.source}|" th:title="*{book.name}">Источник</span>
 		</p>
 
@@ -18,12 +18,12 @@
 			</div>
 		</div> -->
 
-		<p><b>Мировоззрение:</b> <span id="alignment">-</span></p>
-		<p><b>Ранг:</b> <span id="rank">-</span></p>
-		<p><b>Титулы:</b> <span id="title">-</span></p>
-		<p><b>Символ:</b> <span id="symbol">-</span></p>
-		<p><b>Домены:</b> <span id="domains">-</span></p>
-		<p><b>Пантеон:</b> <span id="pantheon">-</span></p>
+		<p><b>Мировоззрение:</b> <span th:text="*{aligment.cyrilicName}">-</span></p>
+		<p><b>Ранг:</b> <span th:text="*{prefixName}">-</span></p>
+		<p th:if="*{nicknames}"><b>Титулы:</b> <span th:text="*{nicknames}">-</span></p>
+		<p><b>Символ:</b> <span th:text="*{symbol}">-</span></p>
+		<p th:unless="*{domains.empty}"><b>Домены:</b> <span th:each="domain, iterStat : *{domains}" th:text="${iterStat.last ? domain.cyrilicName : domain.cyrilicName + ', '}">-</span></p>
+		<p><b>Пантеон:</b> <span th:text="*{pantheon.name}">-</span></p>
 		<th:block th:utext="*{description}">			
 		</th:block>
 	</th:block>
