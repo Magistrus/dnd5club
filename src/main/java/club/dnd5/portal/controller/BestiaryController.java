@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.naming.directory.InvalidAttributesException;
 
@@ -64,8 +65,11 @@ public class BestiaryController {
 	
 	@GetMapping("/bestiary/fragment/{id}")
 	public String getCreatureFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
-		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		Creature creature = repository.findById(id).orElseThrow(InvalidAttributesException::new);
+		model.addAttribute("creature", creature);
 		model.addAttribute("firstElement", new FirstElement());
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
+		model.addAttribute("images", images);
 		return "fragments/creature :: view";
 	}
 	

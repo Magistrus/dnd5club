@@ -181,6 +181,13 @@ function selectCreature(data){
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}
+		$('.image-container').magnificPopup({
+			  delegate: 'a',
+			  type: 'image',
+			  gallery:{
+				    enabled:true
+			  }
+		});
 	});
 }
 function selectDescription(id){
@@ -317,37 +324,9 @@ function setFiltered(){
 		$('#icon_filter').addClass('active');
 	}
 }
-function getImage(id){
-	$.ajax({
-        type: 'GET',
-        url: '/images/CREATURE/' + id,
-        data: 'id=testdata',
-        dataType: 'json',
-        cache: false,
-        success: function(result) {
-        	$('.image-container').empty();
-        	result.forEach((element, index) => {
-        		let alement;
-        		if (index==0){
-        			aelement = '<a id="creatute_img" href="'+element+'"><img src="'+ element+'"/></a>';
-        		} else {
-        			aelement = '<a href="'+element+'"></a>';
-        		}
-        		$('.image-container').append(aelement);
-        	});
-        },
-    });
-}
 $('#btn_export_fvtt').on('click', function() {
 	window.open('/creature/json/' + selectedCreature.id, '_self');
 });
 $('#edit_beast').on('click', function() {
 	window.open('/admin/bestiary/' + selectedCreature.id, '_self');
-});
-$('.image-container').magnificPopup({
-  delegate: 'a',
-  type: 'image',
-  gallery:{
-	    enabled:true
-  }
 });
