@@ -200,3 +200,14 @@ $(document).keydown(function(event){
 $(document).keyup(function(){
 	cntrlIsPressed = false;
 });
+
+// Копирование ссылки в буфер
+function copyToClipboard(text) {
+	var inputc = document.body.appendChild(document.createElement("input"));
+	inputc.value = window.location.href;
+	inputc.focus();
+	inputc.select();
+	document.execCommand('copy');
+	inputc.parentNode.removeChild(inputc);
+	// alert("URL Copied.");
+}
