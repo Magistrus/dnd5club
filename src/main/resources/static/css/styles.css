@@ -1595,6 +1595,7 @@ body.compact_menu #right_block {
 #right_block .avatar {
   position: relative;
   width: 270px;
+  min-height: 100px;
   background: var(--bg-secondary);
   float: right;
   padding: 0 0 32px 32px;
