@@ -70,7 +70,7 @@ public class ClassController {
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
 		String archetypeName = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' '))).findFirst().get().getCapitalizeName();
-		model.addAttribute("metaTitle", String.format("%s %s класс %s", heroClass.getArchetypeName(), archetypeName, heroClass.getCapitalazeName()));
+		model.addAttribute("metaTitle", String.format("%s %s класс %s", heroClass.getArchetypeName(), archetypeName, heroClass.getCapitalazeName()) + " D&D 5e");
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
 		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", archetypeName, heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
 		return "classes";
