@@ -1848,6 +1848,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.backgrounds .info_wrapper .content_block #content_block,
 #right_block.options .info_wrapper .content_block #content_block,
 #right_block.traits .info_wrapper .content_block #content_block,
 #right_block.bestiary .info_wrapper .content_block #content_block {
