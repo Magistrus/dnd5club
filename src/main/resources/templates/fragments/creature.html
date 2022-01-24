@@ -6,7 +6,7 @@
 <body>
 	<div th:object="${creature}" th:fragment="view">
 		<p class="row_info bg_grey">
-			<span class="left_info" th:text="|*{sizeName} *{type.cyrilicName}, *{aligment} / *{size} *{size.cell}|">Чудовище, хаотично-злое / Огромное (Huge - 3x3 клетки)</span>
+			<span class="left_info" th:text="|*{sizeName} *{type.cyrilicName}, *{aligment} / *{size.name().toLowerCase()} *{size.cell}|">Чудовище, хаотично-злое / Огромное (Huge - 3x3 клетки)</span>
 			<span class="tip" th:text="|Источник: *{book.source}|" th:title="*{book.name}">Источник</span>
 		</p>
 		<div class="block_info_avatar">
@@ -98,7 +98,8 @@
 			</div>
 			<div id="beast_avatar" class="avatar">
 				<div class="image-container">
-					<a id="creatute_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}"><img id="creatute_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></a>
+					<a th:if="${images.empty}" id="creatute_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}"><img id="creatute_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></a>
+					<a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}"><img th:if="${iterStat.first}" th:src="${image}"/></a>
 				</div>
 			</div>
 		</div>
