@@ -159,6 +159,7 @@ $(document).ready(function() {
 	$('#btn_filters').on('click', function() {
 		$('#searchPanes').toggleClass('hide_block');
 	});
+	$('#npc').prop('checked', localStorage.getItem('npc') == 'true'? true:false);
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
