@@ -43,9 +43,9 @@ public class SpellController {
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		SpellDto spell = new SpellDto(repository.findByEnglishName(name.replace("_", " ")));
 		model.addAttribute("selectedSpell", spell);
-		model.addAttribute("metaTitle", spell.getName());
+		model.addAttribute("metaTitle", String.format("%s [%s]", spell.getName(), spell.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
-		model.addAttribute("metaDescription", String.format("%s %s", (spell.getLevel() == 0 ? "Заговор" : "Заклинание - " + spell.getLevel() + " уровень"), spell.getName()));
+		model.addAttribute("metaDescription", String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool()));
 		return "spells";
 	}
 	
