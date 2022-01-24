@@ -55,8 +55,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="cr_type_checkbox" type="checkbox filter" name="cr" value="0"> <span>0</span></label> <label>
-							 <input class="damge_type_checkbox" name="cr" type="checkbox" value="1/8"> <span>1/8</span>
+							<label> <input class="cr_checkbox filter" type="checkbox filter" name="cr" value="0"> <span>0</span></label>
+							<label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/8"> <span>1/8</span>
 							</label> <label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/4"> <span>1/4</span>
 							</label> <label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/2"> <span>1/2</span>
 							</label> <label th:each="cr : ${#numbers.sequence(1, 30)}"> <input class="cr_checkbox filter" type="checkbox" name="cr" th:value="${cr}"> <span th:text="${cr}"></span>
