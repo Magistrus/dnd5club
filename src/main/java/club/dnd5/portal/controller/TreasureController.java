@@ -20,7 +20,7 @@ public class TreasureController {
 	@GetMapping("/treasures")
 	public String getItems(Model model) {
 		model.addAttribute("categories", TreasureType.values());
-		model.addAttribute("metaTitle", "Драгоценности и безделушки [Treasures] D&D 5e");
+		model.addAttribute("metaTitle", "Драгоценности и безделушки (Treasures) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/treasures/");
 		model.addAttribute("metaDescription", "Драгоценности и безделушки по D&D 5 редакции");
 		return "treasures";

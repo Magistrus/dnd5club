@@ -34,7 +34,7 @@ public class RaceController {
 	@GetMapping("/races")
 	public String getRaces(Model model) {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("metaTitle", "Расы [Races] D&D 5e");
+		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/");
 		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
 		return "races";
@@ -45,7 +45,7 @@ public class RaceController {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("metaTitle", race.getName() + " D&D 5e");
+		model.addAttribute("metaTitle", race.getName() + " Расы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
 		model.addAttribute("metaDescription", String.format("Раса персонажа %s", race.getName()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.getId());
