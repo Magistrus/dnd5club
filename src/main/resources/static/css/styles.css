@@ -1289,6 +1289,19 @@ label.select_box {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--text-color-title);
+}
+
+.header_block h1 a {
+  font-size: 26px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  line-height: 72px;
+  position: relative;
+  color: var(--text-color-title);
+  font-weight: 300;
 }
 
 .header_block .header_row {
