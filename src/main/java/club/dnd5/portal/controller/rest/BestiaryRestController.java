@@ -39,7 +39,7 @@ public class BestiaryRestController {
 	@GetMapping("/data/bestiary")
 	public DataTablesOutput<CreatureDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
-		Specification<Creature> specification = null;
+		Specification<Creature> specification = "true".equals(queryParameters.get("npc"))  ? null : (root, query, cb) -> cb.notEqual(root.get("raceId"), 102);
 		Set<String> filterCr = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty())
 				.collect(Collectors.toSet());

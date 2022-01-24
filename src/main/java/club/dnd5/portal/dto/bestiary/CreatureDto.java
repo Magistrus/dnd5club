@@ -28,6 +28,7 @@ public class CreatureDto {
 	private String habitates;
 	private String book;
 	private String bookshort;
+	private String npc;
 
 	public CreatureDto(Creature creature) {
 		id = creature.getId();
