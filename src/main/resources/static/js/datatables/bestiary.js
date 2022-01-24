@@ -1,8 +1,16 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
 	var rowSelectIndex = 0;
+	var npc; 
 	var table = $('#creatures').DataTable({
-		ajax : '/data/bestiary',
+		ajax : {
+			url: '/data/bestiary',
+			data: function ( d ) {
+				let npcValue = localStorage.getItem('npc')
+				npc = npcValue == null ? 'false': npcValue; 
+				d.npc = npc;
+			}
+		},
 		dom: 't',
 		serverSide : true,
 		iDisplayLength : 80,
@@ -151,6 +159,7 @@ $(document).ready(function() {
 	$('#btn_filters').on('click', function() {
 		$('#searchPanes').toggleClass('hide_block');
 	});
+	$('#npc').prop('checked', localStorage.getItem('npc') == 'true'? true:false);
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
@@ -300,6 +309,11 @@ $('.habitate_checkbox').on('change', function(e){
 		$('#habitate_clear_btn').addClass('hide_block');
 	}
     setFiltered();
+});
+$('#npc').on('change', function(e){
+	npc = $('#npc').is(':checked')
+	localStorage.setItem('npc', npc);
+    $('#creatures').DataTable().ajax.reload();
 });
 $('#habitate_clear_btn').on('click', function() {
 	$(this).addClass('hide_block');

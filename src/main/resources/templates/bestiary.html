@@ -55,13 +55,16 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="cr_type_checkbox" type="checkbox filter" value="0"> <span>0</span></label> <label> <input class="damge_type_checkbox" type="checkbox" value="1/8"> <span>1/8</span>
+							<label> <input class="cr_type_checkbox" type="checkbox filter" name="cr" value="0"> <span>0</span></label> <label>
+							 <input class="damge_type_checkbox" name="cr" type="checkbox" value="1/8"> <span>1/8</span>
 							</label> <label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/4"> <span>1/4</span>
 							</label> <label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/2"> <span>1/2</span>
 							</label> <label th:each="cr : ${#numbers.sequence(1, 30)}"> <input class="cr_checkbox filter" type="checkbox" name="cr" th:value="${cr}"> <span th:text="${cr}"></span>
 							</label>
 						</div>
+						
 					</div>
+					<label for="npc" class="check_block"><input id="npc" class="toggle" type="checkbox" name="only_archetypes"><span>Ключевые НИП</span></label>
 					<div class="filter_block">
 						<div class="header">
 							<h5>Тип</h5>
@@ -159,6 +162,7 @@
 							<th>Тип</th>
 							<th>Размер</th>
 							<th>Тэг</th>
+							<th>Места обитания</th>
 						</tr>
 					</thead>
 				</table>
@@ -258,5 +262,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/bestiary.js?v=10.1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/bestiary.js?v=10.2}" layout:fragment="js-script"></script>
 </html>
