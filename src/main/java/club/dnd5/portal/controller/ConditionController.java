@@ -19,7 +19,7 @@ public class ConditionController {
 		model.addAttribute("conditions", conditionRepository.findAllByType(Type.CONDITION));
 		model.addAttribute("disease", conditionRepository.findAllByType(Type.DISEASE));
 		model.addAttribute("other", conditionRepository.findAllByType(Type.OTHER));
-		model.addAttribute("metaTitle", "Состояния и болезни [Conditions] D&D 5e");
+		model.addAttribute("metaTitle", "Состояния и болезни (Conditions) D&D 5e");
 		return "conditions";
 	}
 

@@ -38,7 +38,7 @@ public class BestiaryController {
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		model.addAttribute("habitates", HabitatType.values());
-		model.addAttribute("metaTitle", "Бестиарий [Monster Manual] D&D 5e");
+		model.addAttribute("metaTitle", "Бестиарий (Monster Manual) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/");
 		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
 		return "bestiary";
@@ -53,7 +53,7 @@ public class BestiaryController {
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		model.addAttribute("habitates", HabitatType.values());
-		model.addAttribute("metaTitle", String.format("%s [%s]", creature.getName(), creature.getEnglishName()) + " D&D 5e");
+		model.addAttribute("metaTitle", String.format("%s [%s]", creature.getName(), creature.getEnglishName()) + " Бестиарий D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
 		model.addAttribute("metaDescription", String.format("%s [%s] - %s %s, %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());

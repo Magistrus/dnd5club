@@ -27,7 +27,7 @@ public class WeaponController {
 	public String getWeapons(Model model) {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
-		model.addAttribute("metaTitle", "Оружие [Weapons] D&D 5e");
+		model.addAttribute("metaTitle", "Оружие (Weapons) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/weapons/");
 		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
 		return "weapons";
@@ -39,7 +39,7 @@ public class WeaponController {
 		model.addAttribute("properties", propertyRepository.findAll());
 		Weapon weapon = repository.findByEnglishName(name.replace('_', ' '));
 		model.addAttribute("selectedWeapon", new WeaponDto(weapon));
-		model.addAttribute("metaTitle", weapon.getName() + " D&D 5e");
+		model.addAttribute("metaTitle", weapon.getName() + " Оружие D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/weapons/" + name);
 		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
 		return "weapons";
