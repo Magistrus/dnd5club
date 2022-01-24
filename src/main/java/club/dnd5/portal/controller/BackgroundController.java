@@ -39,7 +39,7 @@ public class BackgroundController {
 		model.addAttribute("skills", SkillType.values());
 		Background background = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedBackground", new BackgroundDto(background));
-		model.addAttribute("metaTitle", background.getName() + " Предыстории персонажей D&D 5e");
+		model.addAttribute("metaTitle", background.getName() + " | Предыстории персонажей D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - предыстория персонажа по D&D 5 редакции", background.getName(), background.getEnglishName()));
 		return "backgrounds";

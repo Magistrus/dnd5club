@@ -32,7 +32,7 @@ public class ItemController {
 		model.addAttribute("categories", EquipmentType.values());
 		Equipment item = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedItem", new ItemDto(item));
-		model.addAttribute("metaTitle", item.getName() + " Снаряжение D&D 5e");
+		model.addAttribute("metaTitle", item.getName() + " | Снаряжение D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) снаряжение по D&D 5 редакции", item.getName(), item.getEnglishName()));
 		return "items";

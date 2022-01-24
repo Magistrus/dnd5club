@@ -44,7 +44,7 @@ public class GodController {
 		model.addAttribute("pantheons", pantheonRepo.findAll());
 		God god = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedGod", new GodDto(god));
-		model.addAttribute("metaTitle", god.getName() + " Боги D&D 5e");
+		model.addAttribute("metaTitle", god.getName() + " | Боги D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/gods/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s", god.getName(), god.getEnglishName(), god.getAligment().getCyrilicName(), god.getSex().getCyrilicName(), god.getCommitment()));
 		return "gods";
