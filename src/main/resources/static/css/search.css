@@ -1,0 +1,22 @@
+.gsc-input-box,
+.gsc-control-cse {
+  background: none !important;
+  border: none !important;
+}
+
+.gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link b,
+.gs-imageResult a.gs-title:link,
+.gs-imageResult a.gs-title:link b { 
+  color: var(--primary) !important;
+}
+
+.gs-promotion .gs-visibleUrl,
+.gs-webResult .gs-visibleUrl {
+  color: var(--text-a-color) !important;
+}
+
+.gs-webResult:not(.gs-no-results-result):not(.gs-error-result) .gs-snippet,
+.gs-fileFormatType {
+  color: var(--text-color) !important;
+}
