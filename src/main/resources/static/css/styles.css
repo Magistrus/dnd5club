@@ -1849,6 +1849,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.armors .info_wrapper .content_block #content_block,
 #right_block.weapons .info_wrapper .content_block #content_block,
 #right_block.items .info_wrapper .content_block #content_block,
 #right_block.gods .info_wrapper .content_block #content_block,
@@ -2377,7 +2378,7 @@ body.compact_menu #right_block {
 }
 
 .table_list tr .row_name span:first-child {
-  color: var(--text-color);
+  color: var(--text-color-title);
 }
 
 .table_list tr .row_name span {
@@ -2432,24 +2433,21 @@ body.compact_menu #right_block {
   margin-left: auto;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 1500px) {
   .table_list tr td .secondary_name.s1 {
     flex: 1 1 100%;
   }
-  
-  .table_list tr td .secondary_name.s2 {
-    flex: 1 1 100%;
-    margin-left: auto;
-  }
-  
-  .table_list tr td .secondary_name.s3 {
-    flex: 1 1 100%;
-    margin-left: auto;
-  }
+}
 
-  .table_list tr td .secondary_name.s2,
+@media (max-width: 500px) {
+  .table_list tr td .secondary_name.s2 {
+    flex: 1 1 70%;
+    margin-left: auto;
+  }
+  
   .table_list tr td .secondary_name.s3 {
-    text-align: left;
+    flex: 1 1 30%;
+    margin-left: auto;
   }
 }
 
@@ -2786,18 +2784,22 @@ body.compact_menu #right_block.spells {
 
 }
 
+body .block_information #left_block.armors,
 body .block_information #left_block.weapons  {
   width: calc(58vw - 270px);
 }
 
+body.compact_menu #left_block.armors,
 body.compact_menu #left_block.weapons {
   width: calc(52vw - 72px);
 }
 
+#right_block.armors,
 #right_block.weapons {
   --width-right-block:calc(42vw - 0px);
 }
 
+body.compact_menu #right_block.armors,
 body.compact_menu #right_block.weapons {
   --width-right-block:calc(48vw - 0px);
 }

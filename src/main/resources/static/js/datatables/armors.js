@@ -21,10 +21,11 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="info_block">' + row.ac + '</div>';
-					result +='<div class="content"><h3 class="row_name"><span>' + row.name;
+					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
 					result+='</span><span>[' + row.englishName + ']</span></h3>';
-					result+='<div class="secondary_name">' + row.type + '</div></div>';
+					result+='<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
+					result+='<div class="secondary_name s2 alg_left"><span class="tip" title="Класс Доспеха (AC)">' + row.acFull + '</span></div>';
+					result+='<div class="secondary_name s3"><span class="tip excretion" title="Стоимость">' + row.cost + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -101,17 +102,7 @@ $(document).ready(function() {
 		if (cntrlIsPressed){
 			window.open('/armors/' + data.englishName.split(' ').join('_'));
 		}
-		$('#armor_name').text(data.name);
-		$('#ac').text(data.acFull);
-		$('#type').text(data.type);
-		$('#cost').text(data.cost);
-		$('#weight').text(data.weight);
-		$('#requirements').text(data.requirements);
-		$('#stealth').text(data.stealth);
 		
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
 		var url = '/armors/fragment/' + data.id;
