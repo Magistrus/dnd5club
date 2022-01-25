@@ -145,7 +145,15 @@ function selectMagicItem(data){
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
 	var url = '/items/magic/fragment/' + data.id;
-	$("#content_block").load(url);
+	$("#content_block").load(url, function() {
+		$('.image-container').magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			gallery:{
+				enabled:true
+			}
+		});
+	});
 }
 $('#text_clear').on('click', function () {
 	$('#search').val('');
