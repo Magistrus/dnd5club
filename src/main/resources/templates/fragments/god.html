@@ -8,16 +8,14 @@
 			<span class="left_info" th:text="*{englishName}">Англ название</span>
 			<span class="tip" th:text="|Источник: *{book.source}|" th:title="*{book.name}">Источник</span>
 		</p>
-
-		<!-- <div class="avatar">
+		<div class="avatar">
 			<div class="image-container">
 				<a th:if="${images.empty}" id="god_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}">
 					<img id="god_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title god"></a>
 				<a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}">
 					<img th:if="${iterStat.first}" th:src="${image}"/></a>
 			</div>
-		</div> -->
-
+		</div>
 		<p><b>Мировоззрение:</b> <span th:text="*{aligment.cyrilicName}">-</span></p>
 		<p><b>Ранг:</b> <span th:text="*{prefixName}">-</span></p>
 		<p th:if="*{nicknames}"><b>Титулы:</b> <span th:text="*{nicknames}">-</span></p>

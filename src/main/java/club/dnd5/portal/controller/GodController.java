@@ -1,5 +1,7 @@
 package club.dnd5.portal.controller;
 
+import java.util.Collection;
+
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.god.Domain;
 import club.dnd5.portal.model.god.God;
 import club.dnd5.portal.model.god.Rank;
+import club.dnd5.portal.model.image.ImageType;
+import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 import club.dnd5.portal.repository.datatable.PantheonGodRepository;
 
@@ -20,9 +24,10 @@ import club.dnd5.portal.repository.datatable.PantheonGodRepository;
 public class GodController {
 	@Autowired
 	private GodDatatableRepository repository;
-
 	@Autowired
 	private PantheonGodRepository pantheonRepo;
+	@Autowired
+	private ImageRepository imageRepo;
 
 	@GetMapping("/gods")
 	public String getGods(Model model) {
@@ -52,7 +57,10 @@ public class GodController {
 	
 	@GetMapping("/gods/fragment/{id}")
 	public String getGodFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
-		model.addAttribute("god", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		God god = repository.findById(id).orElseThrow(InvalidAttributesException::new);
+		model.addAttribute("god", god);
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.GOD, god.getId());
+		model.addAttribute("images", images);
 		return "fragments/god :: view";
 	}
 }
