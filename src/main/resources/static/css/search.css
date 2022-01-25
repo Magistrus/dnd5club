@@ -1,5 +1,21 @@
+.main_page_wrapper .search_row_g {
+  height: 71px;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  position: relative;
+}
+
 .gsc-input-box,
 .gsc-control-cse {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  height: 100%;
+}
+
+.gsc-webResult.gsc-result,
+.gsc-results .gsc-imageResult {
   background: none !important;
   border: none !important;
 }
@@ -19,4 +35,56 @@
 .gs-webResult:not(.gs-no-results-result):not(.gs-error-result) .gs-snippet,
 .gs-fileFormatType {
   color: var(--text-color) !important;
+}
+
+table.gsc-search-box td {
+  background-color: var(--bg-secondary);
+  border: 0 !important;
+  height: 71px;
+  padding: 0px;
+}
+
+.gsib_a {
+  padding: 0px !important;
+}
+
+.gsib_a input {
+  height: 100% !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.gsc-input-box table {
+  border: 0 !important;
+  margin: 0 !important;
+}
+
+.table.gsc-search-box {
+  margin: 0 !important;
+}
+
+.gsc-input-box table tr td {
+  border: 0 !important;
+  padding-left: 48px !important;
+}
+
+form.gsc-search-box {
+  margin: 0 !important;
+}
+
+.gsc-input {
+  font-size: 20px !important;
+}
+
+table.gsc-search-box {
+  margin: 0 !important;
+  border: 0 !important;
+}
+
+.gsc-search-button-v2 {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  position: absolute !important;
+  left: 8px;
+  top: 16px;
 }
