@@ -11,7 +11,7 @@
 				<span th:unless="*{weapons.empty}">(<span  th:each="weapon, iterStat : *{weapons}" th:text="${iterStat.last ? weapon.name.toLowerCase() : weapon.name.toLowerCase() + ', '}"></span>)</span>
 				<span th:unless="*{armors.empty}">(<span th:each="armor, iterStat : *{armors}" th:text="${iterStat.last ? armor.name.toLowerCase() : armor.name.toLowerCase() + ', '}"></span>)</span>
 			</span>
-			<span class="tip" th:text="|Источник: *{book.source}|" th:title="*{book.name}">Источник</span>
+			<span>Источник: <span class="homebrew_text" th:if="*{book.type.name() eq 'CUSTOM'}">Homebrew</span> <span class="tip" th:text="*{book.source}" th:title="*{book.name}">Источник</span></span>
 		</p>
 		<div class="avatar">
 			<div class="image-container">
