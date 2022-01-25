@@ -61,7 +61,7 @@ public class RaceController {
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("metaTitle", race.getName()) + " | Расы D&D 5e";
+		model.addAttribute("metaTitle", String.format("%s | Расы D&D 5e", race.getName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
 		model.addAttribute("metaDescription", String.format("Разновидность расы персонажа %s", race.getName()));
 		return "races";

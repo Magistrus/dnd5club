@@ -8,12 +8,11 @@
 			<span class="left_info">Англ название</span>
 			<span class="tip" th:text="|Источник: *{book.source}|" th:title="*{book.name}">Источник</span>
 		</p>
-
-		<p><b>Владение навыками:</b> <span id="traits">-</span></p>
-		<p><b>Владение инструментами:</b> <span id="traits_tools">-</span></p>
-		<p><b>Языки:</b> <span id="languages">-</span></p>
-		<p><b>Снаряжение:</b> <span id="equipments">-</span></p>
-		<p><b>Начальный капитал:</b> <span id="start_money">-</span></p>
+		<p><b>Владение навыками:</b> <span th:each="skill, iterStat : *{skills}" th:text="${iterStat.last? skill.cyrilicName: skill.cyrilicName + ', '}">-</span></p>
+		<p th:if="*{toolOwnership}"><b>Владение инструментами:</b> <span th:text="*{toolOwnership}">-</span></p>
+		<p th:if="*{language}"><b>Языки:</b> <span th:text="*{language}">-</span></p>
+		<p th:if="*{equipmentsText}"><b>Снаряжение:</b> <span th:utext="*{equipmentsText}">-</span></p>
+		<p><b>Начальный капитал:</b> <span th:text="|*{startMoney} зм.|">-</span></p>
 		<h4 class="header_separator"><span>Описание</span></h4>
 		<span th:utext="*{description}"></span>
 		<h4 class="header_separator"><span th:text="*{skillName}"></span></h4>
