@@ -142,25 +142,7 @@ $('#btn_filters').on('click', function() {
 });
 function selectOption(data){
 	$('#option_name').text(data.name);
-	$('#requirement').text(data.prerequisite);
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	$('#source').html(source);
 
-	const classIconsElement = document.getElementById('class_icons');
-	while (classIconsElement.firstChild) {
-		classIconsElement.removeChild(classIconsElement.firstChild);
-	}
-	data.optionTypes.forEach(element => {
-		var a = document.createElement("a");
-		a.href = '/classes/' + element.className; 
-		if (element.archetypeName){
-			a.href += '/' + element.archetypeName; 
-		}
-		a.title = element.name;
-		a.classList.add('tip', 'icon', 'icon_' + element.className.toLowerCase().replace(' ', '_'));
-		classIconsElement.appendChild(a);
-	});
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));
 	var url = '/options/fragment/' + data.id;

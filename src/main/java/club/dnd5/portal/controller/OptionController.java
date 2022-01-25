@@ -58,8 +58,8 @@ public class OptionController {
 		model.addAttribute("levels", prerequsitlevels);
 		Option option = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedOption", new OptionDto(option));
-		model.addAttribute("metaTitle", String.format("%s [%s]", option.getName(), option.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/traits/" + name);
+		model.addAttribute("metaTitle", String.format("%s [%s]", option.getName(), option.getEnglishName()) + " | Особенности классов D&D 5e");
+		model.addAttribute("metaUrl", "https://dnd5.club/options/" + name);
 		model.addAttribute("metaDescription", 
 				String.format("Описание особенности %s - %s",
 						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 
