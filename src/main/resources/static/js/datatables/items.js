@@ -119,12 +119,7 @@ $(document).ready(function() {
 });
 function selectItem(data){
 	document.getElementById('item_name').innerHTML = data.name;
-	document.getElementById('type').innerHTML = data.type;
-	document.getElementById('cost').innerHTML = data.cost;
-	document.getElementById('weight').innerHTML = data.weight;
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
+
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
 	var url = '/items/fragment/' + data.id;
