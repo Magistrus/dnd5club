@@ -11,19 +11,19 @@
 		<div class="grid_stat_block">
 			<div class="block">
 				<p>Стоимость:</p>
-				<span>Стоимость</span>
+				<span th:text="|*{cost} *{currency.name}|">Стоимость</span>
 			</div>
 			<div class="block">
 				<p>Урон:</p>
-				<span>Урон</span>
+				<span class="dice_text" th:text="|*{numberDice}*{damageDice.name}|"></span> <span th:text="*{damageType.cyrilicName}"></span>
 			</div>
 			<div class="block">
 				<p>Вес (в фунтах):</p>
-				<span>Вес (в фунтах)</span>
+				<span th:text="*{weight}">Вес (в фунтах)</span>
 			</div>
 			<div class="block">
 				<p>Свойства:</p>
-				<span>Свойства</span>
+				<span th:each="property, iterStat : *{properties}"><a class="tip_scroll" th:title="${property.description}" href="#" th:text="${iterStat.last ? property.name : property.name + ', '}"></a></span>
 			</div>
 		</div>
 
