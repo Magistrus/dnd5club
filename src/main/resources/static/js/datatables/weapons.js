@@ -44,12 +44,15 @@ $(document).ready(function() {
 		{
 			data : 'cost',
 			searchable: false,
-			width : "1%",
+		},
+		{
+			data : 'damage',
+			searchable: false,
 		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0, 2, 3, 4, 5 ],
+				"targets": [ 0, 2, 3, 4, 5, 6 ],
 				"visible": false
 			},
 		],
@@ -177,10 +180,28 @@ $('.property_checkbox').on('change', function(e){
 	}
     setFiltered();
 });
+$('#damage_dice_clear_btn').on('click', function() {
+	$('#damage_dice_clear_btn').addClass('hide_block');
+	$('.property_checkbox').prop('checked', false);
+	$('#weapons').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.damage_dice_checkbox').on('change', function(e){
+	var properties = $('input:checkbox[name="damage_dice"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#weapons').DataTable().column(6).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#damage_dice_clear_btn').removeClass('hide_block');
+	} else {
+		$('#damage_dice_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
 $('#property_clear_btn').on('click', function() {
 	$('#property_clear_btn').addClass('hide_block');
 	$('.property_checkbox').prop('checked', false);
-	$('#weapons').DataTable().column(4).search("", true, false, false).draw();
+	$('#weapons').DataTable().column(6).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
