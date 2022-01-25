@@ -50,6 +50,15 @@ a.gs-title b,
   color: var(--text-color-title) !important;
 }
 
+a.gs-title:hover,
+a.gs-title:hover b,
+.gs-webResult.gs-result a.gs-title:link:hover,
+.gs-webResult.gs-result a.gs-title:link:hover b,
+.gs-imageResult a.gs-title:link:hover,
+.gs-imageResult a.gs-title:link:hover b { 
+  color: var(--link-color) !important;
+}
+
 .gs-promotion .gs-visibleUrl,
 .gs-webResult .gs-visibleUrl {
   color: var(--link-color) !important;
@@ -139,4 +148,16 @@ table.gsc-search-box {
 
 .gcsc-more-maybe-branding-root {
   display: none !important;
+}
+
+.gs-spelling {
+  color: var(--text-color) !important;
+}
+
+.gs-spelling a b {
+  color: var(--link-color) !important;
+}
+
+.gs-spelling a:hover b {
+  color: var(--link-color-hover) !important;
 }
