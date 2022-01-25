@@ -11,7 +11,7 @@
 					th:if="*{book.type.name() eq 'CUSTOM'}"
 				><span class="tip homebrew_text tpd-delegation-uid-1" title="Не официальный источник">Homebrew</span> -&nbsp;</span><span class="tip" th:title="*{book.name}" th:utext="*{book.source}">Источник</span></span>
 			</p>
-			<div class="spell_stat_block">
+			<div class="grid_stat_block">
 				<div class="block">
 					<p>Время накладывания:</p>
 					<span th:each="timecast : *{times}" th:utext="${timecast.name}">Время накладывания</span>

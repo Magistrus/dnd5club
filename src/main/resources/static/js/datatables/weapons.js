@@ -120,46 +120,7 @@ $(document).ready(function() {
 			window.open('/weapons/' + data.englishName.split(' ').join('_'));
 		}
 		$('#weapon_name').html(data.name);
-		$('#type').html(data.type);
-		$('#damage').html('<span class="dice_text">' + data.damage + '</span>' + ' ' + data.damageType);
-		$('#cost').html(data.cost);
-		$('#weight').html(data.weight);
-		var propertyElement = document.getElementById('properties');
-		while (propertyElement.firstChild) {
-			propertyElement.removeChild(propertyElement.firstChild);
-		}
-		for (var i = 0; i < data.properties.length; i++) {
-			var element = data.properties[i];
-			var a = document.createElement("a");
-			a.href = '#' + element.englishName; 
-			a.innerHTML = element.name;
-			a.title = element.description;
-			a.classList.add('tip_scroll');
-			propertyElement.appendChild(a);
-			switch(element.name){
-			case 'Универсальное':
-				a.innerHTML += ' ';
-				var span = document.createElement("span");
-				span.innerHTML= data.versatile;
-				span.classList.add('dice_text');
-				propertyElement.appendChild(span);
-				break;
-			case 'Метательное':
-			case 'Боеприпас':
-				var span = document.createElement("span");
-				span.innerHTML= data.distance;
-				propertyElement.appendChild(span);
-				break;
-			}
-			if (i < data.properties.length-1){
-				var span = document.createElement("span");
-				span.innerHTML += ', ';
-				propertyElement.appendChild(span);
-			}
-		}
-		var source = (data.homebrew ? '<span class="tip homebrew_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		$('#source').html(source);
+
 		document.title = data.name;
 		history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
 		var url = '/weapons/fragment/' + data.id;
