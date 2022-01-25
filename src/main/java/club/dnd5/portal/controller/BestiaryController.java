@@ -1,7 +1,6 @@
 package club.dnd5.portal.controller;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import javax.naming.directory.InvalidAttributesException;
 

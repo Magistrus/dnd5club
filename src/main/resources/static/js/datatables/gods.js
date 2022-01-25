@@ -140,7 +140,15 @@ function selectGod(data){
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
 	let url = '/gods/fragment/' + data.id;
-	$("#content_block").load(url);
+	$("#content_block").load(url, function() {
+		$('.image-container').magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			gallery:{
+				enabled:true
+			}
+		});
+	});
 	selectedGod = null;
 }
 $('#text_clear').on('click', function () {
@@ -248,13 +256,6 @@ function getImage(id){
         },
     });
 }
-$('.image-container').magnificPopup({
-	delegate: 'a',
-	type: 'image',
-	gallery:{
-		enabled:true
-	}
-});
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
