@@ -1849,6 +1849,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.weapons .info_wrapper .content_block #content_block,
 #right_block.items .info_wrapper .content_block #content_block,
 #right_block.gods .info_wrapper .content_block #content_block,
 #right_block.ruls .info_wrapper .content_block #content_block,
@@ -1957,6 +1958,75 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.spells .content_block #content_block {
   padding: 45px 0 0 0;
   width: 100%;
+}
+
+.grid_stat_block {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--bg-sub-menu);
+  margin-bottom: 16px;
+  border-top: 1px solid var(--border);
+}
+
+#right_block .grid_stat_block {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.grid_stat_block .block {
+  flex: 1 0 calc(33% - 49px);
+  min-width: calc(33% - 49px);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+}
+
+.tpd-skin-dnd5 .grid_stat_block .block {
+  padding: 4px 8px;
+}
+
+.tpd-skin-dnd5 .grid_stat_block .block p {
+  font-size: 13px;
+}
+
+.grid_stat_block .block.duration {
+  border-right: none;
+}
+
+.grid_stat_block .block.one_row {
+  flex: 1 0 calc(100% - 48px);
+  min-width: calc(100% - 48px);
+  border-right: none;
+}
+
+.grid_stat_block .block p {
+  margin: 0;
+  color: var(--text-color-title);
+  font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+  #right_block .grid_stat_block {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .grid_stat_block .block.distance {
+    border-right: none;
+  }
+
+  .grid_stat_block .block.duration {
+    flex: 1 0 calc(100% - 49px);
+    min-width: calc(100% - 49px);
+  }
+
+  .grid_stat_block .block {
+    flex: 1 0 calc(50% - 49px);
+    min-width: calc(50% - 49px);
+    padding: 10px 16px;
+  }
 }
 
 #right_block .info_wrapper .sub_menu_list #sub_menu {
@@ -2554,61 +2624,16 @@ body.compact_menu #right_block.spells {
   position: relative;
 }
 
-.spell_wrapper .spell_stat_block {
-  display: flex;
-  flex-wrap: wrap;
-  background: var(--bg-sub-menu);
-  margin-bottom: 16px;
-  border-top: 1px solid var(--border);
-}
-
-#right_block.spells .spell_wrapper .spell_stat_block {
-  margin-left: -24px;
-  margin-right: -24px;
-}
-
-.spell_wrapper .spell_stat_block .block {
-  flex: 1 0 calc(33% - 49px);
-  min-width: calc(33% - 49px);
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 24px;
-}
-
-.tpd-skin-dnd5 .spell_stat_block .block {
-  padding: 4px 8px;
-}
-
-.tpd-skin-dnd5 .spell_stat_block .block p {
-  font-size: 13px;
-}
-
-.spell_wrapper .spell_stat_block .block.duration {
-  border-right: none;
-}
-
-.spell_wrapper .spell_stat_block .block.one_row {
-  flex: 1 0 calc(100% - 48px);
-  min-width: calc(100% - 48px);
-  border-right: none;
-}
-
-.spell_wrapper .spell_stat_block .block p {
-  margin: 0;
-  color: var(--text-color-title);
-  font-weight: 500;
-}
-
-.spell_wrapper .spell_stat_block_bottom {
+.spell_stat_block_bottom {
   margin: 0 0 12px 0;
 }
 
-.spell_wrapper .spell_stat_block_bottom p {
+.spell_stat_block_bottom p {
   margin: 0 0 2px 0;
   color: var(--text-color-title);
 }
 
-.spell_wrapper .spell_stat_block_bottom .classes_icon {
+.spell_stat_block_bottom .classes_icon {
   display: flex;
 }
 
@@ -2635,31 +2660,9 @@ body.compact_menu #right_block.spells {
   stroke-width:2.5px;
 }
 
-@media (max-width: 1200px) {
-  #right_block.spells .spell_wrapper .spell_stat_block {
-    margin-left: -16px;
-    margin-right: -16px;
-  }
-}
-
 @media (max-width: 1000px) {
   .spell_wrapper .spells_level {
     margin-top: -2px;
-  }
-
-  .spell_wrapper .spell_stat_block .block.distance {
-    border-right: none;
-  }
-
-  .spell_wrapper .spell_stat_block .block.duration {
-    flex: 1 0 calc(100% - 49px);
-    min-width: calc(100% - 49px);
-  }
-
-  .spell_wrapper .spell_stat_block .block {
-    flex: 1 0 calc(50% - 49px);
-    min-width: calc(50% - 49px);
-    padding: 10px 16px;
   }
 }
 
