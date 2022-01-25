@@ -1,5 +1,7 @@
 package club.dnd5.portal.controller;
 
+import java.util.Collection;
+
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
+import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.items.MagicThingType;
 import club.dnd5.portal.model.items.Rarity;
+import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 
 
@@ -19,6 +23,8 @@ import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 public class ItemMagicController {
 	@Autowired
 	private MagicItemDatatableRepository repository;
+	@Autowired
+	private ImageRepository imageRepo;
 
 	@GetMapping("/items/magic")
 	public String getMagicItems(Model model) {
@@ -44,7 +50,10 @@ public class ItemMagicController {
 	
 	@GetMapping("/items/magic/fragment/{id}")
 	public String getMagicItemFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
-		model.addAttribute("item", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		MagicItem item = repository.findById(id).orElseThrow(InvalidAttributesException::new);
+		model.addAttribute("item", item);
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
+		model.addAttribute("images", images);
 		return "fragments/item_magic :: view";
 	}
 }
