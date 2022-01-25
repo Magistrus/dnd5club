@@ -141,15 +141,7 @@ $(document).ready(function() {
 });
 function selectMagicItem(data){
 	$('#item_name').text(data.name);
-	$('#type').text(data.type);
-	$('#rarity').text(data.rarity);
-	$('#attunement').text(data.attunement);
-	$('#cost').text(data.cost);
-	httpGetImage('/image/MAGIC_ITEM/'+data.id);
 	
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
 	document.title = data.name;
 	history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
 	var url = '/items/magic/fragment/' + data.id;
