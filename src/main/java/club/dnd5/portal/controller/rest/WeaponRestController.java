@@ -2,8 +2,10 @@ package club.dnd5.portal.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.item.WeaponDto;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.items.WeaponProperty;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
@@ -52,6 +55,26 @@ public class WeaponRestController {
 				query.distinct(true);
 				return cb.and(join.get("id").in(filterPropertyIds));
 			});
+		}
+		Set<Integer> damages = new HashSet<>(2);
+		List<Dice> filterDamageDices = Arrays.stream(input.getColumns().get(6).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty())
+				.map(d -> {
+					if(d.startsWith("2")) {
+						damages.add(2);
+						return d.replace("2", "");
+					} 
+					return d;
+				})
+				.map(Dice::valueOf)
+				.collect(Collectors.toList());
+		if (!filterDamageDices.isEmpty()) {
+			specification = addSpecification(specification,
+					(root, query, cb) -> root.get("damageDice").in(filterDamageDices));
+		}
+		if (damages.contains(2)) {
+			specification = addSpecification(specification,
+					(root, query, cb) -> root.get("numberDice").in(2));
 		}
 		return  repo.findAll(input, specification, specification, WeaponDto::new);
 	}

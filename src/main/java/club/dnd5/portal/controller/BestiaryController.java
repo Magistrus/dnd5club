@@ -54,7 +54,7 @@ public class BestiaryController {
 		model.addAttribute("habitates", HabitatType.values());
 		model.addAttribute("metaTitle", String.format("%s [%s]", creature.getName(), creature.getEnglishName()) + " | Бестиарий D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
-		model.addAttribute("metaDescription", String.format("%s [%s] - %s %s, %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment()));
+		model.addAttribute("metaDescription", String.format("%s [%s] - %s %s, %s с уровнем опасности %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment(), beast.getChallengeRating()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());

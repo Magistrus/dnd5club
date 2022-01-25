@@ -81,6 +81,32 @@
 							</label>
 						</div>
 					</div>
+					<div class="filter_block">
+						<div class="header">
+							<h5>По урону</h5>
+							<button>
+								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+								</i>
+							</button>
+							<button id="damage_dice_clear_btn" class="hide_block">
+								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+								</i>
+							</button>
+						</div>
+						<div class="filter_crumbs_box">
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="d4"> <span>к4</span></label>
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="2d4"> <span>2к4</span></label>
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="d6"> <span>к6</span></label>
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="2d6"> <span>2к6</span></label>
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="d8"> <span>к8</span></label>
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="d10"> <span>к10</span></label>
+							<label><input class="damage_dice_checkbox filter" type="checkbox" name = "damage_dice" value="d12"> <span>к12</span></label>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div id="scroll_load_simplebar" class="container_left table_list">
@@ -146,5 +172,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/weapons.js?v=4.2}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/weapons.js?v=4.3}" layout:fragment="js-script"></script>
 </html>

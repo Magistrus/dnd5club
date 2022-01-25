@@ -21,9 +21,13 @@
 				<p>Вес (в фунтах):</p>
 				<span th:text="*{weight}">Вес (в фунтах)</span>
 			</div>
-			<div class="block">
+			<div th:unless="*{properties.empty}" class="block">
 				<p>Свойства:</p>
-				<span th:each="property, iterStat : *{properties}"><a class="tip_scroll" th:title="${property.description}" href="#" th:text="${iterStat.last ? property.name : property.name + ', '}"></a></span>
+				<span th:each="property, iterStat : *{properties}">
+					<a class="tip_scroll" th:title="${property.description}" href="#" th:text="${iterStat.last ? property.name : property.name + ', '}"></a>
+					<span class="tip" title="При атаке двумя рукми" th:if="${property.name eq 'Универсальное'}" th:text="|(*{numberDice}*{twoHandDamageDice.name})|"></span>
+					<span th:if="${property.name eq 'Боеприпас' or property.name eq 'Метательное'}" th:text="|(дис. *{minDistance}/*{maxDistance})|"></span>
+				</span>
 			</div>
 		</div>
 
