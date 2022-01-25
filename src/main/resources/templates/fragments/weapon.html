@@ -21,7 +21,7 @@
 				<p>Вес (в фунтах):</p>
 				<span th:text="*{weight}">Вес (в фунтах)</span>
 			</div>
-			<div class="block">
+			<div th:unless="*{properties.empty}" class="block">
 				<p>Свойства:</p>
 				<span th:each="property, iterStat : *{properties}">
 					<a class="tip_scroll" th:title="${property.description}" href="#" th:text="${iterStat.last ? property.name : property.name + ', '}"></a>
