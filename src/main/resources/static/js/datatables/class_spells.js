@@ -57,10 +57,26 @@ $(document).ready(function() {
 			data : "concentration",
 			searchable: false
 		},
+		{
+			data : "charLevel",
+			searchable: false
+		},
+		{
+			data : "charLevel",
+			searchable: false
+		},
+		{
+			data : "charLevel",
+			searchable: false
+		},
+		{
+			data : "charLevel",
+			searchable: false
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0,1,3,4,5,6 ],
+				"targets": [ 0,1,3,4,5,6,7,8,9,10 ],
 				"visible": false
 			},
 		],
@@ -177,6 +193,24 @@ $('#school_clear_btn').on('click', function() {
 	$('#school_clear_btn').addClass('hide_block');
 	$('.school_checkbox').prop('checked', false);
 	$('#spells').DataTable().column(1).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.char_level_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="char_level"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#spells').DataTable().column(10).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#char_level_clear_btn').removeClass('hide_block');
+	} else {
+		$('#char_level_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
+$('#char_level_clear_btn').on('click', function() {
+	$('#char_level_clear_btn').addClass('hide_block');
+	$('.char_level_checkbox').prop('checked', false);
+	$('#spells').DataTable().column(10).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
