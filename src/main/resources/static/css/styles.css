@@ -2635,7 +2635,7 @@ body.compact_menu #right_block.spells {
   display: flex;
 }
 
-.spell_wrapper .spell_stat_block_bottom .icon {
+.spell_stat_block_bottom .icon {
   display: block;
   width: 24px;
   height: 24px;
@@ -2648,12 +2648,12 @@ body.compact_menu #right_block.spells {
   cursor: pointer;
 }
 
-.spell_wrapper .spell_stat_block_bottom .icon svg {
+.spell_stat_block_bottom .icon svg {
   width: 24px;
   height: 24px;
 }
 
-.spell_wrapper .spell_stat_block_bottom .icon svg path {
+.spell_stat_block_bottom .icon svg path {
   stroke: var(--primary);
   stroke-width:2.5px;
 }
