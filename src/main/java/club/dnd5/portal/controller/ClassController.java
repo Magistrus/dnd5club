@@ -28,9 +28,12 @@ import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ArchetypeTraitRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.HeroClassTraitRepository;
+import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 
 @Controller
 public class ClassController {
+	private static final String[] prerequsitlevels = { "Нет", " 5", " 6", " 7", " 9", "11", "12", "15", "17", "18" };
+
 	@Autowired
 	private ClassRepository classRepository;
 	@Autowired
@@ -39,7 +42,9 @@ public class ClassController {
 	private ArchetypeTraitRepository archetypeTraitRepository;
 	@Autowired
 	private ImageRepository imageRepository;
-
+	@Autowired
+	private OptionDatatableRepository optionRepository;
+	
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
@@ -123,6 +128,8 @@ public class ClassController {
 	public String getClassOption(Model model, Device device, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("heroClass", heroClass);
+		model.addAttribute("requirements", optionRepository.finAlldPrerequisite());
+		model.addAttribute("levels", prerequsitlevels);
 		return "fragments/class_options :: view";
 	}
 
