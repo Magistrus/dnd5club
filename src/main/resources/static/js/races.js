@@ -77,7 +77,7 @@ function setActiveRace(element, englishName) {
 	element.scrollIntoView({block: "center", behavior: "smooth"});
 	var raceName = element.querySelector("#race_id").textContent;
 	$('#race_name').text(raceName);
-	document.title = raceName;
+	document.title = raceName + ' (' +englishName+ ')' + ' | Расы D&D 5e';
 	history.pushState('data to be passed', raceName, '/races/' + englishName);
 	switch (localStorage.getItem('race_info')) {
 	case 'description':

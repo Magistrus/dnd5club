@@ -162,7 +162,7 @@ function setActiveClass(element, englishName) {
 	var className = element.querySelector("#classes_id").textContent;
 	$('#class_name').text(className);
 	$("#meta_url").attr("content", "https://dnd5.club/classes/" + englishName);
-	document.title = className;
+	document.title = className + ' (' +englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', className, '/classes/' + englishName);
 	$(".card").removeClass('active');
 	element.classList.toggle('active');

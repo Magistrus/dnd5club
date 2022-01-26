@@ -46,7 +46,7 @@ function setActiveScreen(element, englishName) {
 	element.scrollIntoView({block: "center", behavior: "smooth"});
 	var screenName = element.querySelector("#screen_id").textContent;
 	$('#screen_name').text(screenName);
-	document.title = screenName;
+	document.title = screenName + ' (' +englishName+ ')' + ' | Ширма D&D 5e';
 	history.pushState('data to be passed', screenName, '/screens/' + englishName);
 	$(".card").removeClass('active');
 	element.classList.toggle('active');
