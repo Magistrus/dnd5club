@@ -86,8 +86,19 @@ $(document).ready(function() {
 			if (!$('#list_page_two_block').hasClass('block_information') && selectedWeapon === null){
 				return;
 			}
+			if (selectedWeapon) {
+				selectWeapon(selectedWeapon);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedWeapon.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			$('#weapons tbody tr:eq('+rowSelectIndex+')').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 		},
 		createdRow: function (row, data, dataIndex) {
 			if(data.homebrew){
@@ -121,12 +132,7 @@ $(document).ready(function() {
 		if (cntrlIsPressed){
 			window.open('/weapons/' + data.englishName.split(' ').join('_'));
 		}
-		$('#weapon_name').html(data.name);
-
-		document.title = data.name + ' (' +data.englishName+ ')' + ' | Оружие D&D 5e';
-		history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
-		var url = '/weapons/fragment/' + data.id;
-		$("#content_block").load(url);
+		selectWeapon(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -141,6 +147,14 @@ $(document).ready(function() {
 		$('#searchPanes').toggleClass('hide_block');
 	})
 });
+function selectWeapon(data){
+	$('#weapon_name').html(data.name);
+
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Оружие D&D 5e';
+	history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
+	var url = '/weapons/fragment/' + data.id;
+	$("#content_block").load(url);
+}
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	const table = $('#weapons').DataTable();

@@ -75,8 +75,19 @@ $(document).ready(function() {
 			if (!$('#list_page_two_block').hasClass('block_information') && selectedArmor === null){
 				return;
 			}
+			if (selectedArmor) {
+				selectArmor(selectedArmor);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedArmor.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			$('#armors tbody tr:eq('+rowSelectIndex+')').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 	$('#armors tbody').on('mouseup', 'tr', function (e) {
@@ -102,11 +113,7 @@ $(document).ready(function() {
 		if (cntrlIsPressed){
 			window.open('/armors/' + data.englishName.split(' ').join('_'));
 		}
-		
-		document.title = data.name + ' (' +data.englishName+ ')' + ' | Броня D&D 5e';
-		history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
-		var url = '/armors/fragment/' + data.id;
-		$("#content_block").load(url);
+		selectArmor(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -118,6 +125,13 @@ $(document).ready(function() {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectArmor(data){
+	$('#armor_name').text(data.name);
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Броня D&D 5e';
+	history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
+	var url = '/armors/fragment/' + data.id;
+	$("#content_block").load(url);
+}
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	var table = $('#armors').DataTable();
