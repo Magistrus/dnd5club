@@ -12,7 +12,7 @@
 		<div class="grid_stat_block">
 			<div class="block">
 				<p>Класс Доспеха (AC):</p>
-				<span th:text="*{AC}">Класс Доспеха (AC)</span>
+				<span th:text="|*{AC} *{type.name() eq 'LIGHT' ? '+ модификатор Лов' : (type.name() eq 'MEDIUM' ? '+ модификатор Лов (макс. 2)' : '')}|">Класс Доспеха (AC)</span>
 			</div>
 			<div class="block">
 				<p>Стоимость:</p>
