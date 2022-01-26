@@ -1850,6 +1850,16 @@ body.compact_menu #right_block {
   border-left: 1px solid var(--border);
 }
 
+.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.options .search_block,
+.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.spells .search_block {
+  max-width: calc(var(--width-right-block) - 364px);
+}
+
+.full_screen_right_block .block_information #right_block .info_wrapper.options .search_block,
+.full_screen_right_block .block_information #right_block .info_wrapper.spells .search_block {
+  max-width: calc(var(--width-right-block) - 562px);
+}
+
 @media (max-width: 1200px) {
   #right_block .info_wrapper.options .search_block,
   #right_block .info_wrapper.spells .search_block {
@@ -1909,9 +1919,20 @@ body.compact_menu #right_block {
   z-index: 1;
 }
 
+.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.options .search_panes,
+.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.spells .search_panes {
+  max-width: calc(var(--width-right-block) - 364px);
+}
+
+.full_screen_right_block .block_information #right_block .info_wrapper.options .search_panes,
+.full_screen_right_block .block_information #right_block .info_wrapper.spells .search_panes {
+  max-width: calc(var(--width-right-block) - 562px);
+}
+
 #right_block .info_wrapper.options .search_panes .filter_container,
 #right_block .info_wrapper.spells .search_panes .filter_container {
   margin-bottom: 46px;
+  width: 100% !important;
 }
 
 @media (max-width: 1200px) {
@@ -2225,6 +2246,7 @@ body.compact_menu #right_block {
 
 /******** Правый блок во весь экран / Full screen ********/
 .full_screen_right_block .block_information #right_block {
+  --width-right-block:100%;
   right: 0px;
   width: 100%;
   z-index: 11;
