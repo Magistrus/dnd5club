@@ -1832,6 +1832,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.trader .info_wrapper .content_block #content_block,
 #right_block.books .info_wrapper .content_block #content_block,
 #right_block.armors .info_wrapper .content_block #content_block,
 #right_block.weapons .info_wrapper .content_block #content_block,
