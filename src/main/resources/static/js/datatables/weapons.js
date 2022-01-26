@@ -123,7 +123,7 @@ $(document).ready(function() {
 		}
 		$('#weapon_name').html(data.name);
 
-		document.title = data.name;
+		document.title = data.name + ' (' +data.englishName+ ')' + ' | Оружие D&D 5e';
 		history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
 		var url = '/weapons/fragment/' + data.id;
 		$("#content_block").load(url);

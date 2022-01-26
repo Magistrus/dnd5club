@@ -2409,9 +2409,14 @@ body.compact_menu #right_block {
   text-align: right;
 }
 
-.table_list tr td .secondary_name.alg_left,
 .table_list tr td .secondary_name.alg_left {
   text-align: left;
+}
+
+@media (max-width: 1200px) {
+  .table_list tr td .secondary_name.l_alg_left {
+    text-align: left;
+  }
 }
 
 .table_list tr td .secondary_name.s1 {
@@ -2428,7 +2433,7 @@ body.compact_menu #right_block {
   margin-left: auto;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1200px) {
   .table_list tr td .secondary_name.s1 {
     flex: 1 1 100%;
   }

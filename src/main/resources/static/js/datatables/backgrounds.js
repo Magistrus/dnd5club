@@ -137,7 +137,7 @@ $(document).ready(function() {
 });
 function selectBackground(data){
 	$('#background_name').text(data.name);
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Предыстории D&D 5e';
 	history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
 	var url = '/backgrounds/fragment/' + data.id;
 	$("#content_block").load(url);
