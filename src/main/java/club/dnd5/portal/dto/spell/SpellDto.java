@@ -34,6 +34,7 @@ public class SpellDto {
 	private boolean setting;
 	private String classes;
 	private String damageType;
+	private String charLevel;
 
 	private Boolean consumable = false;
 	
