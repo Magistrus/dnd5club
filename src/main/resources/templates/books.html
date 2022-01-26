@@ -45,7 +45,7 @@
 				</table>
 			</div>
 		</div>
-		<div id="right_block">
+		<div id="right_block" class="books">
 			<div class="header_block">
 				<div class="header_row">
 					<h1 id="book_name">Название источника</h1>
@@ -73,16 +73,6 @@
 				</div>
 			</div>
 			<div id="info_wrapper" class="info_wrapper" data-simplebar>
-				<div id="sub_menu" class="sub_menu_list">
-					<ul>
-						<li>
-							<h5>Категория:</h5> <span id="type">-</span>
-						</li>
-						<li>
-							<h5>Аббревиатура:</h5> <span id="source">-</span>
-						</li>
-					</ul>
-				</div>
 				<div class="content_block">
 					<div id="content_block"></div>
 				</div>
@@ -90,5 +80,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/books.js?v=1.6}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/books.js?v=1.7}" layout:fragment="js-script"></script>
 </html>

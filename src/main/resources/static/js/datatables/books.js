@@ -85,9 +85,7 @@ $(document).ready(function() {
 			return;
 		}
 		$('#book_name').html(data.name);
-		document.getElementById('type').innerHTML = data.type;
-		var source = '<span>' + data.id + '</span>';
-		document.getElementById('source').innerHTML = source;
+
 		document.title = data.name + ' (' +data.englishName+ ')' + ' | Киниги D&D 5e';
 		history.pushState('data to be passed', '', '/books/' + data.englishName.split(' ').join('_'));
 		var url = '/books/fragment/' + data.id;
