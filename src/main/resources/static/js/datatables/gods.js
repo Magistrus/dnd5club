@@ -137,7 +137,7 @@ $(document).ready(function() {
 });
 function selectGod(data){
 	$('#god_name').html(data.name);
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Боги D&D 5e';
 	history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
 	let url = '/gods/fragment/' + data.id;
 	$("#content_block").load(url, function() {
