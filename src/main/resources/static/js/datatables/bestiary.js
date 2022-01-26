@@ -174,7 +174,7 @@ function selectCreature(data){
 	$('#statblock').addClass('active');
 	$('#description').removeClass('active');
 	$('#creature_name').html(data.name);
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Бестиарий D&D 5e';
 	history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 	var url = '/bestiary/fragment/' + data.id;
 	$("#content_block").load(url, function() {
