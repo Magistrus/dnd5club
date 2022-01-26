@@ -120,7 +120,7 @@ $(document).ready(function() {
 function selectItem(data){
 	document.getElementById('item_name').innerHTML = data.name;
 
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Снаряжение D&D 5e';
 	history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
 	var url = '/items/fragment/' + data.id;
 	$("#content_block").load(url);	

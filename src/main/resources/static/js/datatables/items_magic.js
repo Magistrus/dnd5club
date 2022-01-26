@@ -142,7 +142,7 @@ $(document).ready(function() {
 function selectMagicItem(data){
 	$('#item_name').text(data.name);
 	
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Магические предметы D&D 5e';
 	history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
 	var url = '/items/magic/fragment/' + data.id;
 	$("#content_block").load(url, function() {

@@ -38,7 +38,7 @@ $(document).ready(function() {
 						result+='<span class="tip ritual" title="Ритуал">Р</span>';
 					}	
 					result+='<p class="capitalize_text">' + row.school + '</p></div>';
-					result+='<div class="secondary_name s2">';
+					result+='<div class="secondary_name s2 l_alg_left">';
 					if (row.verbal) {
 						result+='<span class="tip excretion" title="Вербальный">' + row.verbal + '</span>';
 					}
@@ -184,7 +184,7 @@ $(document).ready(function() {
 });
 function selectSpell(data){
 	$('#row_name').html(data.name);
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Заклинания D&D 5e';
 	history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
 	const url = '/spells/fragment/' + data.id;
 	$("#content_block").load(url);

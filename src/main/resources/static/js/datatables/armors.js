@@ -103,7 +103,7 @@ $(document).ready(function() {
 			window.open('/armors/' + data.englishName.split(' ').join('_'));
 		}
 		
-		document.title = data.name;
+		document.title = data.name + ' (' +data.englishName+ ')' + ' | Броня D&D 5e';
 		history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
 		var url = '/armors/fragment/' + data.id;
 		$("#content_block").load(url);
