@@ -1822,6 +1822,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.books .info_wrapper .content_block #content_block,
 #right_block.armors .info_wrapper .content_block #content_block,
 #right_block.weapons .info_wrapper .content_block #content_block,
 #right_block.items .info_wrapper .content_block #content_block,
@@ -2522,6 +2523,7 @@ body.full_screen_right_block .screens .card_block {
   display: flex;
   flex: 1 1 var(--width-card-block);
   min-width: var(--width-card-block);
+  max-width: var(--width-card-block);
   border-right:1px solid var(--border);
   border-bottom:1px solid var(--border);
   padding: 24px 24px;
