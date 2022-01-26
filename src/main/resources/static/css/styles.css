@@ -771,7 +771,7 @@ label.select_box {
   min-height: 44px;
   display: flex;
   align-items: center;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 .dnd5-popup-block .wrapper {
@@ -1538,12 +1538,22 @@ body.compact_menu #right_block {
   padding: 18px 24px 12px 24px;
 }
 
+.dnd5-popup-block .row_info {
+  display: flex;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 8px 16px 8px 16px;
+}
+
+.dnd5-popup-block .row_info.bg_grey,
 #right_block .row_info.bg_grey {
   background: var(--bg-sub-menu);
   border-bottom: 1px solid var(--border);
   margin-bottom: 16px;
 }
 
+.dnd5-popup-block .row_info .left_info,
 #right_block .row_info .left_info {
   font-style: italic;
   margin-right: auto;
