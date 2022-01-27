@@ -123,11 +123,7 @@ $(document).ready(function() {
 });
 function selectRule(data){
 	$('#rule_name').text(data.name);
-	$('#type').text(data.type);
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Правила и термины D&D 5e';
 	history.pushState('data to be passed', '', '/rules/' + data.englishName.split(' ').join('_'));
 	var url = '/rules/fragment/' + data.id;
 	$("#content_block").load(url);

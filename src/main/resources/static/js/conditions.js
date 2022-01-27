@@ -34,7 +34,7 @@ function setActiveCondition(element, englishName){
 	var conditionName = element.querySelector("#condition_id").textContent;
 	$('#condition_name').text(conditionName);
 	history.pushState('data to be passed', conditionName, '/conditions/' + englishName);
-	document.title = conditionName;
+	document.title = conditionName + ' (' +englishName+ ')' + ' | Состояния и болезни D&D 5e';
 	localStorage.setItem('selected_condition', englishName);
 	$(".card").removeClass('active');
 	element.classList.toggle('active');

@@ -43,9 +43,10 @@
 		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon.svg}" />
 		<!-- Core theme CSS -->
 		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
-		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v20.1}" />
-		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=84.3}" />
-		<link rel="stylesheet" th:href="@{/resources/css/print.css?v=1.0}" />
+		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v20.3}" />
+		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=86.0}" />
+		<link rel="stylesheet" th:href="@{/resources/css/print.css?v=1.2}" />
+		<link rel="stylesheet" th:href="@{/resources/css/search.css?v=1.5}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
 		<!-- Menu -->
@@ -67,6 +68,10 @@
 		})(window,document,'script','dataLayer','GTM-W3ZFWDQ');</script>
 		<!-- End Google Tag Manager -->
 
+		<!-- Google Search -->
+		<script async src="https://cse.google.com/cse.js?cx=5459ff1051ffdf020"></script>
+		<!-- End Google Search -->
+		
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-WXD97L1HCX"></script>
 		<script>
@@ -91,7 +96,7 @@
 	</body>
 	<th:block th:fragment="mainJS">
 	<script th:src="@{/resources/js/simplebar.min.js}"></script>
-	<script th:src="@{/resources/js/scripts.js?v=8.7}"></script>
+	<script th:src="@{/resources/js/scripts.js?v=8.9}"></script>
 	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
 	<script th:src="@{/resources/js/scheme.js?v=0.1}"></script>
 	<script th:src="@{/resources/js/tipped.min.js}"></script>

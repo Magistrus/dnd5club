@@ -28,9 +28,12 @@ import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ArchetypeTraitRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.HeroClassTraitRepository;
+import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 
 @Controller
 public class ClassController {
+	private static final String[] prerequsitlevels = { "Нет", " 5", " 6", " 7", " 9", "11", "12", "15", "17", "18" };
+
 	@Autowired
 	private ClassRepository classRepository;
 	@Autowired
@@ -39,12 +42,14 @@ public class ClassController {
 	private ArchetypeTraitRepository archetypeTraitRepository;
 	@Autowired
 	private ImageRepository imageRepository;
-
+	@Autowired
+	private OptionDatatableRepository optionRepository;
+	
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
-		model.addAttribute("metaTitle", "Классы");
+		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/");
 		return "classes";
 	}
@@ -55,7 +60,7 @@ public class ClassController {
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedClass", name);
-		model.addAttribute("metaTitle", heroClass.getCapitalazeName());
+		model.addAttribute("metaTitle", heroClass.getCapitalazeName() + " | Классы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		return "classes";
@@ -70,7 +75,7 @@ public class ClassController {
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
 		String archetypeName = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' '))).findFirst().get().getCapitalizeName();
-		model.addAttribute("metaTitle", String.format("%s %s класс %s", heroClass.getArchetypeName(), archetypeName, heroClass.getCapitalazeName()));
+		model.addAttribute("metaTitle", String.format("%s - %s",  archetypeName, heroClass.getCapitalazeName()) + " | Классы D&D 5e");
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
 		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", archetypeName, heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
 		return "classes";
@@ -123,6 +128,8 @@ public class ClassController {
 	public String getClassOption(Model model, Device device, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("heroClass", heroClass);
+		model.addAttribute("requirements", optionRepository.finAlldPrerequisite());
+		model.addAttribute("levels", prerequsitlevels);
 		return "fragments/class_options :: view";
 	}
 

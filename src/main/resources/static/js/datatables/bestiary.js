@@ -1,8 +1,16 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
 	var rowSelectIndex = 0;
+	var npc; 
 	var table = $('#creatures').DataTable({
-		ajax : '/data/bestiary',
+		ajax : {
+			url: '/data/bestiary',
+			data: function ( d ) {
+				let npcValue = localStorage.getItem('npc')
+				npc = npcValue == null ? 'false': npcValue; 
+				d.npc = npc;
+			}
+		},
 		dom: 't',
 		serverSide : true,
 		iDisplayLength : 80,
@@ -151,6 +159,7 @@ $(document).ready(function() {
 	$('#btn_filters').on('click', function() {
 		$('#searchPanes').toggleClass('hide_block');
 	});
+	$('#npc').prop('checked', localStorage.getItem('npc') == 'true'? true:false);
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
@@ -165,28 +174,20 @@ function selectCreature(data){
 	$('#statblock').addClass('active');
 	$('#description').removeClass('active');
 	$('#creature_name').html(data.name);
-	$('#cr').text(data.cr + ' (' + data.exp+' опыта)');
-	switch(data.cr){
-	case '1/8': data.cr = 1/8; break;
-	case '1/4': data.cr = 1/4; break;
-	case '1/2': data.cr = 1/2; break;
-	}
-	document.getElementById('type').innerHTML = data.type +', '+data.alignment;
-	document.getElementById('size').innerHTML = data.size;
-	getImage(data.id);
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Бестиарий D&D 5e';
 	history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
 	var url = '/bestiary/fragment/' + data.id;
-	$("#meta_title").attr("content", data.name);
-	$("#meta_url").attr("content", "https://dnd5.club/bestiary/" + data.englishName.split(' ').join('_'));
-	$("#meta_image").attr("content", document.getElementById('creatute_img').src);
 	$("#content_block").load(url, function() {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}
+		$('.image-container').magnificPopup({
+			  delegate: 'a',
+			  type: 'image',
+			  gallery:{
+				    enabled:true
+			  }
+		});
 	});
 }
 function selectDescription(id){
@@ -301,6 +302,11 @@ $('.habitate_checkbox').on('change', function(e){
 	}
     setFiltered();
 });
+$('#npc').on('change', function(e){
+	npc = $('#npc').is(':checked')
+	localStorage.setItem('npc', npc);
+    $('#creatures').DataTable().ajax.reload();
+});
 $('#habitate_clear_btn').on('click', function() {
 	$(this).addClass('hide_block');
 	$('.habitate_checkbox').prop('checked', false);
@@ -318,37 +324,9 @@ function setFiltered(){
 		$('#icon_filter').addClass('active');
 	}
 }
-function getImage(id){
-	$.ajax({
-        type: 'GET',
-        url: '/images/CREATURE/' + id,
-        data: 'id=testdata',
-        dataType: 'json',
-        cache: false,
-        success: function(result) {
-        	$('.image-container').empty();
-        	result.forEach((element, index) => {
-        		let alement;
-        		if (index==0){
-        			aelement = '<a id="creatute_img" href="'+element+'"><img src="'+ element+'"/></a>';
-        		} else {
-        			aelement = '<a href="'+element+'"></a>';
-        		}
-        		$('.image-container').append(aelement);
-        	});
-        },
-    });
-}
 $('#btn_export_fvtt').on('click', function() {
 	window.open('/creature/json/' + selectedCreature.id, '_self');
 });
 $('#edit_beast').on('click', function() {
 	window.open('/admin/bestiary/' + selectedCreature.id, '_self');
-});
-$('.image-container').magnificPopup({
-  delegate: 'a',
-  type: 'image',
-  gallery:{
-	    enabled:true
-  }
 });

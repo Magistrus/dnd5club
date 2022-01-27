@@ -141,19 +141,19 @@ $(document).ready(function() {
 });
 function selectMagicItem(data){
 	$('#item_name').text(data.name);
-	$('#type').text(data.type);
-	$('#rarity').text(data.rarity);
-	$('#attunement').text(data.attunement);
-	$('#cost').text(data.cost);
-	httpGetImage('/image/MAGIC_ITEM/'+data.id);
 	
-	var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+'\'">' + data.bookshort + '</span>';
-	source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Магические предметы D&D 5e';
 	history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
 	var url = '/items/magic/fragment/' + data.id;
-	$("#content_block").load(url);
+	$("#content_block").load(url, function() {
+		$('.image-container').magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			gallery:{
+				enabled:true
+			}
+		});
+	});
 }
 $('#text_clear').on('click', function () {
 	$('#search').val('');

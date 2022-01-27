@@ -142,10 +142,7 @@ $(document).ready(function() {
 });
 function selectTrait(data){
 	$('#trait_name').text(data.name);
-	$('#requirement').text(data.requirement);
-	var source = '<span class="tip" title="'+data.book+'">' + data.bookshort + '</span>';
-	document.getElementById('source').innerHTML = source;
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Черты D&D 5e';
 	history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
 	var url = '/traits/fragment/' + data.id;
 	$("#content_block").load(url);

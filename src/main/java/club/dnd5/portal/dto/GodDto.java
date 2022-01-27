@@ -39,7 +39,7 @@ public class GodDto {
 		symbol = god.getSymbol();
 		domains = god.getDomains().stream().map(Domain::getCyrilicName).collect(Collectors.joining(", "));
 		pantheon = god.getPantheon().getName();
-		rank = god.getRank().getName(god.getSex());
+		rank = god.getRank();
 		if (god.getBook()!=null) {
 			book = god.getBook().getName();
 			bookshort = god.getBook().getSource();

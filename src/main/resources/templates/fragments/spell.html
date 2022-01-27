@@ -6,12 +6,11 @@
 <body>
 	<th:block th:object="${spell}" th:fragment="view">
 		<div class="spell_wrapper">
-			<p class="row_spell">
-				<span class="spells_level" th:utext="|*{level eq 0 ? 'Заговор': level + ' уровень'}, *{school.name} *{ritual ? '(ритуал)' : ''}|"></span> <span><span>Источник:&nbsp;</span><span
-					th:if="*{book.type.name() eq 'CUSTOM'}"
-				><span class="tip homebrew_text tpd-delegation-uid-1" title="Не официальный источник">Homebrew</span> -&nbsp;</span><span class="tip" th:title="*{book.name}" th:utext="*{book.source}">Источник</span></span>
+			<p class="row_info">
+				<span class="left_info" th:utext="|*{level eq 0 ? 'Заговор': level + ' уровень'}, *{school.name} *{ritual ? '(ритуал)' : ''}|"></span>
+				<span>Источник: <span class="homebrew_text" th:if="*{book.type.name() eq 'CUSTOM'}">Homebrew</span> <span class="tip" th:text="*{book.source}" th:title="*{book.name}">Источник</span></span>
 			</p>
-			<div class="spell_stat_block">
+			<div class="grid_stat_block">
 				<div class="block">
 					<p>Время накладывания:</p>
 					<span th:each="timecast : *{times}" th:utext="${timecast.name}">Время накладывания</span>

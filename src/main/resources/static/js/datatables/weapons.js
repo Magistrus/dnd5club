@@ -20,8 +20,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="info_block">' + row.damage + '</div>';
-					result +='<div class="content"><h3 class="row_name"><span>' + row.name;
+					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
 					result+='</span><span>[' + row.englishName + ']</span></h3>';
 					result+='<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
 					result+='<div class="secondary_name s2 alg_left"><span class="tip dice_text" title="Урон">' + row.damage + '</span> &nbsp; <span class="tip" title="Тип урона">' + row.damageType +'</span></div>';
@@ -45,12 +44,15 @@ $(document).ready(function() {
 		{
 			data : 'cost',
 			searchable: false,
-			width : "1%",
+		},
+		{
+			data : 'damage',
+			searchable: false,
 		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 0, 2, 3, 4, 5 ],
+				"targets": [ 0, 2, 3, 4, 5, 6 ],
 				"visible": false
 			},
 		],
@@ -84,8 +86,19 @@ $(document).ready(function() {
 			if (!$('#list_page_two_block').hasClass('block_information') && selectedWeapon === null){
 				return;
 			}
+			if (selectedWeapon) {
+				selectWeapon(selectedWeapon);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedWeapon.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			$('#weapons tbody tr:eq('+rowSelectIndex+')').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 		},
 		createdRow: function (row, data, dataIndex) {
 			if(data.homebrew){
@@ -119,51 +132,7 @@ $(document).ready(function() {
 		if (cntrlIsPressed){
 			window.open('/weapons/' + data.englishName.split(' ').join('_'));
 		}
-		$('#weapon_name').html(data.name);
-		$('#type').html(data.type);
-		$('#damage').html('<span class="dice_text">' + data.damage + '</span>' + ' ' + data.damageType);
-		$('#cost').html(data.cost);
-		$('#weight').html(data.weight);
-		var propertyElement = document.getElementById('properties');
-		while (propertyElement.firstChild) {
-			propertyElement.removeChild(propertyElement.firstChild);
-		}
-		for (var i = 0; i < data.properties.length; i++) {
-			var element = data.properties[i];
-			var a = document.createElement("a");
-			a.href = '#' + element.englishName; 
-			a.innerHTML = element.name;
-			a.title = element.description;
-			a.classList.add('tip_scroll');
-			propertyElement.appendChild(a);
-			switch(element.name){
-			case 'Универсальное':
-				a.innerHTML += ' ';
-				var span = document.createElement("span");
-				span.innerHTML= data.versatile;
-				span.classList.add('dice_text');
-				propertyElement.appendChild(span);
-				break;
-			case 'Метательное':
-			case 'Боеприпас':
-				var span = document.createElement("span");
-				span.innerHTML= data.distance;
-				propertyElement.appendChild(span);
-				break;
-			}
-			if (i < data.properties.length-1){
-				var span = document.createElement("span");
-				span.innerHTML += ', ';
-				propertyElement.appendChild(span);
-			}
-		}
-		var source = (data.homebrew ? '<span class="tip homebrew_text" title="Homebrew - не является официальным.">Homebrew</span> - ' : '') + '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		$('#source').html(source);
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
-		var url = '/weapons/fragment/' + data.id;
-		$("#content_block").load(url);
+		selectWeapon(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -178,6 +147,14 @@ $(document).ready(function() {
 		$('#searchPanes').toggleClass('hide_block');
 	})
 });
+function selectWeapon(data){
+	$('#weapon_name').html(data.name);
+
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Оружие D&D 5e';
+	history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));
+	var url = '/weapons/fragment/' + data.id;
+	$("#content_block").load(url);
+}
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	const table = $('#weapons').DataTable();
@@ -217,10 +194,28 @@ $('.property_checkbox').on('change', function(e){
 	}
     setFiltered();
 });
+$('#damage_dice_clear_btn').on('click', function() {
+	$('#damage_dice_clear_btn').addClass('hide_block');
+	$('.property_checkbox').prop('checked', false);
+	$('#weapons').DataTable().column(3).search("", true, false, false).draw();
+	setFiltered();
+});
+$('.damage_dice_checkbox').on('change', function(e){
+	var properties = $('input:checkbox[name="damage_dice"]:checked').map(function() {
+		return this.value;
+	}).get().join('|');
+    $('#weapons').DataTable().column(6).search(properties, true, false, false).draw();
+	if(properties) {
+		$('#damage_dice_clear_btn').removeClass('hide_block');
+	} else {
+		$('#damage_dice_clear_btn').addClass('hide_block');
+	}
+    setFiltered();
+});
 $('#property_clear_btn').on('click', function() {
 	$('#property_clear_btn').addClass('hide_block');
 	$('.property_checkbox').prop('checked', false);
-	$('#weapons').DataTable().column(4).search("", true, false, false).draw();
+	$('#weapons').DataTable().column(6).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){

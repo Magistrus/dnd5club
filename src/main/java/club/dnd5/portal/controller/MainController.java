@@ -9,4 +9,9 @@ public class MainController {
 	public String getHome() {
 		return "index";
 	}
+	
+	@GetMapping("/search")
+	public String getSearch() {
+		return "search";
+	}
 }

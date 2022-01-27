@@ -50,4 +50,24 @@ public class Equipment {
 	@JoinColumn(name = "source")
 	private Book book;
 	private Short page;
+	
+	public String getTextCost() {
+		if (getCost() == null) {
+			return "&mdash;";
+		}
+		else
+		{
+			
+			switch (getCurrency()) {
+			case SM:
+				return String.valueOf(getCost() / 10f) + " " + getCurrency().getName();
+			case GM:
+				return String.valueOf(getCost() / 100f) + " " + getCurrency().getName();
+			case PM:
+				return String.valueOf(getCost() / 1000f) + " " + getCurrency().getName();
+			default:
+				return getCost() + " " + getCurrency().getName();
+			}
+		}
+	}
 }

@@ -74,4 +74,8 @@ public class God {
 	public String getDescription() {
 		return HtmlConverter.toHtml(description);
 	}
+	
+	public String getRank() {
+		return rank.getName(sex);
+	}
 }

@@ -21,10 +21,11 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="info_block">' + row.ac + '</div>';
-					result +='<div class="content"><h3 class="row_name"><span>' + row.name;
+					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
 					result+='</span><span>[' + row.englishName + ']</span></h3>';
-					result+='<div class="secondary_name">' + row.type + '</div></div>';
+					result+='<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
+					result+='<div class="secondary_name s2 alg_left"><span class="tip" title="Класс Доспеха (AC)">' + row.acFull + '</span></div>';
+					result+='<div class="secondary_name s3"><span class="tip excretion" title="Стоимость">' + row.cost + '</span></div></div></div>';
 					return result;
 				}
 				return data;
@@ -74,8 +75,19 @@ $(document).ready(function() {
 			if (!$('#list_page_two_block').hasClass('block_information') && selectedArmor === null){
 				return;
 			}
+			if (selectedArmor) {
+				selectArmor(selectedArmor);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedArmor.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			$('#armors tbody tr:eq('+rowSelectIndex+')').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 		}
 	});
 	$('#armors tbody').on('mouseup', 'tr', function (e) {
@@ -101,21 +113,7 @@ $(document).ready(function() {
 		if (cntrlIsPressed){
 			window.open('/armors/' + data.englishName.split(' ').join('_'));
 		}
-		$('#armor_name').text(data.name);
-		$('#ac').text(data.acFull);
-		$('#type').text(data.type);
-		$('#cost').text(data.cost);
-		$('#weight').text(data.weight);
-		$('#requirements').text(data.requirements);
-		$('#stealth').text(data.stealth);
-		
-		var source = '<span class="tip" data-tipped-options="inline: \'inline-tooltip-source-' +data.id+ '\'">' + data.bookshort + '</span>';
-		source+= '<span id="inline-tooltip-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-		document.getElementById('source').innerHTML = source;
-		document.title = data.name;
-		history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
-		var url = '/armors/fragment/' + data.id;
-		$("#content_block").load(url);
+		selectArmor(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		if($(this).val()){
@@ -127,6 +125,13 @@ $(document).ready(function() {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectArmor(data){
+	$('#armor_name').text(data.name);
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Броня D&D 5e';
+	history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
+	var url = '/armors/fragment/' + data.id;
+	$("#content_block").load(url);
+}
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	var table = $('#armors').DataTable();

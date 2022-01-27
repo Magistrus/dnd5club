@@ -34,9 +34,9 @@ public class RaceController {
 	@GetMapping("/races")
 	public String getRaces(Model model) {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("metaTitle", "Расы");
+		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/");
-		model.addAttribute("metaDescription", "Расы персонажей");
+		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
 		return "races";
 	}
 	
@@ -45,7 +45,7 @@ public class RaceController {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("metaTitle", race.getName());
+		model.addAttribute("metaTitle", race.getName() + " | Расы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
 		model.addAttribute("metaDescription", String.format("Раса персонажа %s", race.getName()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.getId());
@@ -61,7 +61,7 @@ public class RaceController {
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("metaTitle", race.getName());
+		model.addAttribute("metaTitle", String.format("%s | Расы D&D 5e", race.getName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
 		model.addAttribute("metaDescription", String.format("Разновидность расы персонажа %s", race.getName()));
 		return "races";

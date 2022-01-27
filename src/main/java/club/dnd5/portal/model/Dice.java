@@ -48,4 +48,23 @@ public enum Dice {
 	public static Set<Dice> getCreatures() {
 		return EnumSet.of(d4, d6, d8, d10, d12, d20);
 	}
+	public static Dice parse(String dice) {
+		switch(dice) {
+		case "k4":
+			return d4;
+		case "k6":
+			return d6;
+		case "k8":
+			return d8;
+		case "k10":
+			return d10;
+		case "k12":
+			return d12;
+		case "k20":
+			return d20;
+		case "k100":
+			return d100;
+	}
+	return null;
+	}
 }

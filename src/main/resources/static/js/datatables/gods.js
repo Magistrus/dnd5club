@@ -137,20 +137,18 @@ $(document).ready(function() {
 });
 function selectGod(data){
 	$('#god_name').html(data.name);
-	$('#alignment').html(data.alignment);
-	$('#rank').html(data.rank);
-	$('#title').html(data.nicknames);
-	$('#symbol').html(data.symbol);
-	$('#domains').html(data.domains);
-	$('#pantheon').html(data.pantheon);
-	getImage(data.id);
-	let source = '<span class="tip" data-tipped-gods="inline: \'tooltip-race-source-' + data.id +'\'">' + data.bookshort + '</span>';
-	source+= '<span id="tooltip-race-source-'+ data.id + '" style="display: none">' + data.book + '</span>';
-	document.getElementById('source').innerHTML = source;
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Боги D&D 5e';
 	history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
 	let url = '/gods/fragment/' + data.id;
-	$("#content_block").load(url);
+	$("#content_block").load(url, function() {
+		$('.image-container').magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			gallery:{
+				enabled:true
+			}
+		});
+	});
 	selectedGod = null;
 }
 $('#text_clear').on('click', function () {
@@ -258,13 +256,6 @@ function getImage(id){
         },
     });
 }
-$('.image-container').magnificPopup({
-	delegate: 'a',
-	type: 'image',
-	gallery:{
-		enabled:true
-	}
-});
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;

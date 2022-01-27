@@ -137,14 +137,7 @@ $(document).ready(function() {
 });
 function selectBackground(data){
 	$('#background_name').text(data.name);
-	$('#traits').text(data.skills);
-	$('#traits_tools').html(data.toolSkills);
-	$('#languages').text(data.languages);
-	$('#equipments').html(data.equipments);
-	document.getElementById('start_money').innerHTML = data.startMoney + ' зм.';
-	var source = '<span class="tip" title="' + data.book + '">' + data.bookshort + '</span>';
-	$('#source').html(source);
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Предыстории D&D 5e';
 	history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
 	var url = '/backgrounds/fragment/' + data.id;
 	$("#content_block").load(url);

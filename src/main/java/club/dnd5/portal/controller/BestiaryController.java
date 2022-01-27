@@ -37,7 +37,7 @@ public class BestiaryController {
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		model.addAttribute("habitates", HabitatType.values());
-		model.addAttribute("metaTitle", "Бестиарий");
+		model.addAttribute("metaTitle", "Бестиарий (Monster Manual) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/");
 		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
 		return "bestiary";
@@ -52,9 +52,9 @@ public class BestiaryController {
 		model.addAttribute("sizes", CreatureSize.getFilterSizes());
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		model.addAttribute("habitates", HabitatType.values());
-		model.addAttribute("metaTitle", creature.getName());
+		model.addAttribute("metaTitle", String.format("%s (%s)", creature.getName(), creature.getEnglishName()) + " | Бестиарий D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
-		model.addAttribute("metaDescription", String.format("%s %s, %s", beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment()));
+		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s с уровнем опасности %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment(), beast.getChallengeRating()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
@@ -64,8 +64,11 @@ public class BestiaryController {
 	
 	@GetMapping("/bestiary/fragment/{id}")
 	public String getCreatureFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
-		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		Creature creature = repository.findById(id).orElseThrow(InvalidAttributesException::new);
+		model.addAttribute("creature", creature);
 		model.addAttribute("firstElement", new FirstElement());
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
+		model.addAttribute("images", images);
 		return "fragments/creature :: view";
 	}
 	

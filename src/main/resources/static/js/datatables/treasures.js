@@ -112,7 +112,7 @@ function selectItem(data){
 	$('#cost').text(data.cost + ' зм.');
 	var source = '<span class="tip" title="' +data.book+ '">' + data.bookshort + '</span>';
 	$('#source').html(source);
-	document.title = data.name;
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Драгоценности D&D 5e';
 	history.pushState('data to be passed', '', '/treasures/' + data.englishName.split(' ').join('_'));
 	var url = '/treasures/fragment/' + data.id;
 	$("#content_block").load(url);	

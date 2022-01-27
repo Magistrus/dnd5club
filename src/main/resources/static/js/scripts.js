@@ -142,7 +142,6 @@ $('#setting_source').change(function() {
 $('li').click(function () {
 	localStorage.setItem('selected_item_menu', this.id);
 });
-
 ;(function($, window, document, undefined) {
 	'use strict';
 	var $html = $('html');
@@ -200,3 +199,26 @@ $(document).keydown(function(event){
 $(document).keyup(function(){
 	cntrlIsPressed = false;
 });
+
+// Копирование ссылки в буфер
+function copyToClipboard(text) {
+	var inputc = document.body.appendChild(document.createElement("input"));
+	inputc.value = window.location.href;
+	inputc.focus();
+	inputc.select();
+	document.execCommand('copy');
+	inputc.parentNode.removeChild(inputc);
+	// alert("URL Copied.");
+}
+(function() {
+    var cx = '';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx='+ cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+})();
+window.onload = function(){
+document.getElementById('gsc-i-id1').placeholder = 'Поиск по классам, расам, монстрам и остальным мирам!';
+};

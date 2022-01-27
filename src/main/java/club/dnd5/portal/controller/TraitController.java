@@ -24,9 +24,9 @@ public class TraitController {
 		model.addAttribute("abilities", AbilityType.getBaseAbility());
 		model.addAttribute("skills", SkillType.values());
 		model.addAttribute("prerequisites", repository.findAllPrerequisite());
-		model.addAttribute("metaTitle", "Черты");
+		model.addAttribute("metaTitle", "Черты (Traits) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/traits/");
-		model.addAttribute("metaDescription", "Списко черт персонажей");
+		model.addAttribute("metaDescription", "Списко черт персонажей по D&D 5 редакции");
 		return "traits";
 	}
 	
@@ -37,7 +37,7 @@ public class TraitController {
 		model.addAttribute("prerequisites", repository.findAllPrerequisite());
 		Trait trait = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("selectedTrait", new TraitDto(trait));
-		model.addAttribute("metaTitle", trait.getName());
+		model.addAttribute("metaTitle", String.format("%s (%s)", trait.getName(), trait.getEnglishName()) + " | Черты D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/traits/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - черта персонажа по D&D 5-редакции", trait.getName(), trait.getEnglishName()));
 		return "traits";
