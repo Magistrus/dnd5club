@@ -162,3 +162,8 @@ table.gsc-search-box {
 .gs-spelling a:hover b {
   color: var(--link-color-hover) !important;
 }
+
+input#gsc-i-id1::placeholder {
+  font-size: 20px !important;
+  color: var(--text-color) !important;
+}
