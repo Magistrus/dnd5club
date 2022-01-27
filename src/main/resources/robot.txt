@@ -6,6 +6,7 @@ Disallow: /hero
 Disallow: /calc
 Disallow: /stock
 Disallow: /creatures
+Disallow: /search
 
 Sitemap: https://dnd5.club/sitemap.xml
 Host: dnd5.club
