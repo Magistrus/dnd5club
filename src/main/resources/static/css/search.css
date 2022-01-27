@@ -64,6 +64,7 @@ a.gs-title:hover b,
   color: var(--link-color) !important;
 }
 
+.gs-promotion .gs-snippet,
 .gs-webResult:not(.gs-no-results-result):not(.gs-error-result) .gs-snippet,
 .gs-fileFormatType {
   color: var(--text-color) !important;
