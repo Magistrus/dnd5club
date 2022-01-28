@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -82,9 +83,11 @@ public class ClassController {
 		Archetype selectedArchetype = heroClass.getArchetypes().stream()
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
 				.findFirst().get();
-		model.addAttribute("metaTitle", String.format("%s - %s | Классы | Подклассы D&D 5e",  selectedArchetype.getName(), heroClass.getCapitalazeName()));
+		model.addAttribute("metaTitle", String.format("%s - %s | Классы | Подклассы D&D 5e",  
+				StringUtils.capitalize(selectedArchetype.getName()), heroClass.getCapitalazeName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
-		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
+		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", 
+				selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, selectedArchetype.getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
