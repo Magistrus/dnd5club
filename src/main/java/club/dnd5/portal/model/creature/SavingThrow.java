@@ -10,12 +10,14 @@ import javax.persistence.Table;
 
 import club.dnd5.portal.model.AbilityType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
 
 @Entity
 @Table(name = "bonus_saving_throws")
+@NoArgsConstructor
 public class SavingThrow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,12 @@ public class SavingThrow {
 	@Enumerated(EnumType.ORDINAL)
 	private AbilityType ability;
 	private byte bonus;
- 
+
+	public SavingThrow(AbilityType ability, byte bonus){
+		this.ability = ability;
+		this.bonus = bonus;
+	}
+
 	public String getText() {
 		return String.format("%s %+d ", ability.getShortName(), bonus);
 	}

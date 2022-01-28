@@ -93,6 +93,6 @@ public class ModeratorController {
 		//repo.save(beastForm.build());
 		beastForm.build();
 		//model.addAttribute("selectedCreature", beast);
-		return "redirect:/bestiary/" + beastForm.getEnglishName().replace(' ', ' ');
+		return "redirect:/bestiary/" + beastForm.getEnglishName().replace(' ', '_');
 	}
 }

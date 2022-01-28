@@ -79,10 +79,16 @@ public class ClassController {
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
-		String archetypeName = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' '))).findFirst().get().getCapitalizeName();
-		model.addAttribute("metaTitle", String.format("%s - %s",  archetypeName, heroClass.getCapitalazeName()) + " | Классы D&D 5e");
+		Archetype selectedArchetype = heroClass.getArchetypes().stream()
+				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
+				.findFirst().get();
+		model.addAttribute("metaTitle", String.format("%s - %s | Классы D&D 5e",  selectedArchetype.getName(), heroClass.getCapitalazeName()) + " | Классы D&D 5e");
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
-		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", archetypeName, heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
+		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, selectedArchetype.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "classes";
 	}
 	
