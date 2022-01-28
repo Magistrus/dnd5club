@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +19,8 @@ import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
-import club.dnd5.portal.model.creature.Action;
-import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Condition;
 import club.dnd5.portal.model.creature.Creature;
-import club.dnd5.portal.model.creature.CreatureFeat;
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
@@ -94,7 +90,8 @@ public class ModeratorController {
 	@Transactional
 	@PostMapping("/admin/bestiary/{id}")
 	public String updateBeast(Model model, @PathVariable Integer id, BeastForm beastForm, @RequestParam Map<String, String> params) {
-		repo.save(beastForm.build());
+		//repo.save(beastForm.build());
+		beastForm.build();
 		//model.addAttribute("selectedCreature", beast);
 		return "redirect:/bestiary/" + beastForm.getEnglishName().replace(' ', ' ');
 	}

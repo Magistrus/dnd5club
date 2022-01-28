@@ -6,6 +6,7 @@ import static club.dnd5.portal.model.AbilityType.INTELLIGENCE;
 import static club.dnd5.portal.model.AbilityType.STRENGTH;
 import static club.dnd5.portal.model.AbilityType.WISDOM;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -219,6 +220,7 @@ public class BeastForm {
 		lair = creature.getLair();
 		book = creature.getBook();
 	}
+
 	public Creature build() {
 		Creature creature = new Creature();
 		creature.setId(id);
@@ -240,6 +242,31 @@ public class BeastForm {
 		creature.setTrysight(trysight);
 		creature.setVibration(vibration);
 		creature.setBlindsight(blindsight);
+
+		List<Action> storeActions = new ArrayList<Action>();
+		if (actions != null) {
+			storeActions.addAll(actions);	
+		}
+		if (reactions != null) {
+			storeActions.addAll(reactions);	
+		}
+		if (bonuses != null) {
+			storeActions.addAll(bonuses);	
+		}
+		if (legendaries != null) {
+			storeActions.addAll(legendaries);
+		}
+		creature.setActions(storeActions);
+		creature.setFeats(feats);
+		List<ArmorType> armors = new ArrayList<>(2);
+		if (armorType != null) {
+			armors.add(armorType);
+		}
+		if (shield) {
+			armors.add(ArmorType.SHIELD);
+		}
+		creature.setArmorTypes(armors);
+		creature.setChallengeRating(challengeRating);
 		
 		return creature;
 	}

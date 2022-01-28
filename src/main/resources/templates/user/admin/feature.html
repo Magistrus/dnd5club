@@ -62,7 +62,7 @@
 		</div>
 	</th:block>
 	<th:block th:fragment="bonuses" th:object="${beastForm}">
-		<div class="opportunities" th:each="bonus : *{bonuses}">
+		<div class="opportunities" th:each="bonus, bonusStat : *{bonuses}">
 			<th:block th:fragment="bonus">
 				<div class="control">
 					<div class="icon tip add_bonus" title="Добавить">
@@ -82,8 +82,10 @@
 					</div>
 				</div>
 				<div class="content">
-					<input th:if="${bonus}" type="text" name="bonus_name" placeholder="Название бонусного действия" th:value="${bonus.name}">
-					<textarea th:if="${bonus}" name="bonus_description" rows="4" placeholder="Описание" th:text="${bonus.description}"></textarea>
+					<input hidden th:if="${bonus}" th:field="*{bonuses[__${bonusStat.index}__].id}"/>
+					<input hidden th:if="${bonus}" th:field="*{bonuses[__${bonusStat.index}__].actionType}"/>
+					<input th:if="${bonus}" type="text" name="bonus_name" placeholder="Название бонусного действия" th:field="*{bonuses[__${bonusStat.index}__].name}">
+					<textarea th:if="${bonus}" name="bonus_description" rows="4" placeholder="Описание" th:field="*{bonuses[__${bonusStat.index}__].description}"></textarea>
 					<input th:unless="${bonus}" type="text" name="bonus_name" placeholder="Название бонусного действия">
 					<textarea th:unless="${bonus}" name="bonus_description" rows="4" placeholder="Описание"></textarea>
 				</div>
@@ -91,7 +93,7 @@
 		</div>
 	</th:block>
 	<th:block th:fragment="reactions" th:object="${beastForm}">
-		<div class="opportunities" th:each="reaction : *{reactions}">
+		<div class="opportunities" th:each="reaction, reactionStat : *{reactions}">
 			<th:block th:fragment="reaction">
 				<div class="control">
 					<div class="icon tip add_reaction" title="Добавить">
@@ -111,8 +113,10 @@
 					</div>
 				</div>
 				<div class="content">
-					<input th:if="${reaction}" type="text" name="opportunity_name_1" placeholder="Название реакции" th:value="${reaction.name}">
-					<textarea th:if="${reaction}" name="opportunity_description_1" rows="4" placeholder="Описание" th:text="${reaction.description}"></textarea>
+					<input hidden th:if="${reaction}" th:field="*{reactions[__${reactionStat.index}__].id}"/>
+					<input hidden th:if="${reaction}" th:field="*{reactions[__${reactionStat.index}__].actionType}"/>
+					<input th:if="${reaction}" type="text" name="opportunity_name_1" placeholder="Название реакции" th:field="*{reactions[__${reactionStat.index}__].name}">
+					<textarea th:if="${reaction}" name="opportunity_description_1" rows="4" placeholder="Описание" th:field="*{reactions[__${reactionStat.index}__].description}"></textarea>
 					<input th:unless="${reaction}" type="text" name="opportunity_name_1" placeholder="Название реакции">
 					<textarea th:unless="${reaction}" name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
 				</div>
@@ -120,7 +124,7 @@
 		</div>
 	</th:block>
 	<th:block th:fragment="legendaries" th:object="${beastForm}">
-		<div class="opportunities" th:each="legendary : *{legendaries}">
+		<div class="opportunities" th:each="legendary, legendaryStat : *{legendaries}">
 			<th:block th:fragment="legendary">
 				<div class="control">
 					<div class="icon tip add_legendary" title="Добавить">
@@ -140,8 +144,10 @@
 					</div>
 				</div>
 				<div class="content">
-					<input th:if="${legendary}" type="text" name="legendary_name" placeholder="Название легендарного действия" th:value="${legendary.name}">
-					<textarea th:if="${legendary}" name="legendary_description" rows="4" placeholder="Описание" th:text="${legendary.description}"></textarea>
+					<input hidden th:if="${legendary}" th:field="*{legendaries[__${legendaryStat.index}__].id}"/>
+					<input hidden th:if="${legendary}" th:field="*{legendaries[__${legendaryStat.index}__].actionType}"/>
+					<input th:if="${legendary}" type="text" name="legendary_name" placeholder="Название легендарного действия" th:field="*{legendaries[__${legendaryStat.index}__].name}">
+					<textarea th:if="${legendary}" name="legendary_description" rows="4" placeholder="Описание" th:field="*{legendaries[__${legendaryStat.index}__].description}"></textarea>
 					<input th:unless="${legendary}" type="text" name="legendary_name" placeholder="Название легендарного действия">
 					<textarea th:unless="${legendary}" name="legendary_description" rows="4" placeholder="Описание"></textarea>
 				</div>

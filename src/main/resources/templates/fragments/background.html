@@ -8,8 +8,8 @@
 			<span class="left_info" th:text="*{englishName}">Англ название</span>
 			<span>Источник: <span class="homebrew_text" th:if="*{book.type.name() eq 'CUSTOM'}">Homebrew</span> <span class="tip" th:text="*{book.source}" th:title="*{book.name}">Источник</span></span>
 		</p>
-		<p><b>Владение навыками:</b> <span th:each="skill, iterStat : *{skills}" th:text="${iterStat.last? skill.cyrilicName: skill.cyrilicName + ', '}">-</span></p>
-		<p th:if="*{toolOwnership}"><b>Владение инструментами:</b> <span th:text="*{toolOwnership}">-</span></p>
+		<p><b>Владение навыками:</b> <span th:each="skill, iterStat : *{skills}" th:utext="${iterStat.last? skill.cyrilicName: skill.cyrilicName + ', '}">-</span></p>
+		<p th:if="*{toolOwnership}"><b>Владение инструментами:</b> <span th:utext="*{toolOwnership}">-</span></p>
 		<p th:if="*{language}"><b>Языки:</b> <span th:text="*{language}">-</span></p>
 		<p th:if="*{equipmentsText}"><b>Снаряжение:</b> <span th:utext="*{equipmentsText}">-</span></p>
 		<p><b>Начальный капитал:</b> <span th:text="|*{startMoney} зм.|">-</span></p>
