@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -63,6 +64,10 @@ public class ClassController {
 		model.addAttribute("metaTitle", heroClass.getCapitalazeName() + " | Классы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "classes";
 	}
 	
