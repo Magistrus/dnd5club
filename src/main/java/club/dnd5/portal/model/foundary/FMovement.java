@@ -1,10 +1,14 @@
 package club.dnd5.portal.model.foundary;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import club.dnd5.portal.model.creature.Creature;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonInclude(Include.NON_NULL)
 @Getter
 @Setter
 public class FMovement {
