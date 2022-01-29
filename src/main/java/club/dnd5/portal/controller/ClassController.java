@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -63,6 +65,10 @@ public class ClassController {
 		model.addAttribute("metaTitle", heroClass.getCapitalazeName() + " | Классы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "classes";
 	}
 	
@@ -74,10 +80,18 @@ public class ClassController {
 		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
-		String archetypeName = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' '))).findFirst().get().getCapitalizeName();
-		model.addAttribute("metaTitle", String.format("%s - %s",  archetypeName, heroClass.getCapitalazeName()) + " | Классы D&D 5e");
+		Archetype selectedArchetype = heroClass.getArchetypes().stream()
+				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
+				.findFirst().get();
+		model.addAttribute("metaTitle", String.format("%s - %s | Классы | Подклассы D&D 5e",  
+				StringUtils.capitalize(selectedArchetype.getName()), heroClass.getCapitalazeName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
-		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", archetypeName, heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
+		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", 
+				selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, selectedArchetype.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "classes";
 	}
 	
