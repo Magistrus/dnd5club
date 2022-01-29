@@ -12,13 +12,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FMovement {
-	private short burrow;
-	private short climb;
-	private short fly;
-	private short swim;
-	private short walk = 0;
+	private Short burrow;
+	private Short climb;
+	private Short fly;
+	private Short swim;
+	private Byte walk = 0;
 	private String units = "ft";
-	private boolean hover;
+	private Boolean hover;
 
 	public FMovement(Creature creature) {
 		walk = creature.getSpeed();
