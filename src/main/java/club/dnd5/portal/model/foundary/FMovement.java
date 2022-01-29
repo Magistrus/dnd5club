@@ -27,7 +27,7 @@ public class FMovement {
 			climb = creature.getClimbingSpeed();
 		}
 		if (creature.getFlySpeed() != null) {
-			if (creature.getHover() == 1) {
+			if (creature.getHover()!= null && creature.getHover() == 1) {
 				fflay = new FFly(creature.getFlySpeed());
 			} else {
 				fly = creature.getFlySpeed();
