@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class ApiConroller {
 	@Autowired
 	private BestiaryDatatableRepository repo;
 	
+	@CrossOrigin
 	@GetMapping("/beastiary")
 	public List<FCreature> getCreatures(){
 		return ((Collection<Creature>) repo.findAll()).stream().map(FCreature::new).collect(Collectors.toList());
