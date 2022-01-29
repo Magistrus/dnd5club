@@ -16,7 +16,7 @@ public class FMovement {
 	private short climb;
 	private short fly;
 	private short swim;
-	private short walk;
+	private short walk = 0;
 	private String units = "ft";
 	private boolean hover;
 
