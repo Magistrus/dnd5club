@@ -15,18 +15,23 @@ public class FMovement {
 	private Short burrow;
 	private Short climb;
 	private Short fly;
+	private FFly fflay;
 	private Short swim;
 	private Byte walk = 0;
 	//private String units = "ft";
-	private Boolean hover;
-
+	private Boolean canHover;
+	
 	public FMovement(Creature creature) {
 		walk = creature.getSpeed();
 		if (creature.getClimbingSpeed() != null) {
 			climb = creature.getClimbingSpeed();
 		}
 		if (creature.getFlySpeed() != null) {
-			fly = creature.getFlySpeed();
+			if (creature.getHover() == 1) {
+				fflay = new FFly(creature.getFlySpeed());
+			} else {
+				fly = creature.getFlySpeed();
+			}
 		}
 		if (creature.getSwimmingSpped() != null) {
 			swim = creature.getSwimmingSpped();
@@ -34,6 +39,6 @@ public class FMovement {
 		if (creature.getDiggingSpeed() != null) {
 			burrow = creature.getDiggingSpeed();
 		}
-		hover = creature.getHover() != null && creature.getHover() == 1; 
+		canHover = creature.getHover() != null && creature.getHover() == 1; 
 	}
 }
