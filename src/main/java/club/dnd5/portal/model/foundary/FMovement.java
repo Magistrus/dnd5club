@@ -3,6 +3,7 @@ package club.dnd5.portal.model.foundary;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import club.dnd5.portal.model.creature.Creature;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class FMovement {
 	private Short burrow;
 	private Short climb;
 	private Short fly;
+	 @JsonProperty("fly")
 	private FFly fflay;
 	private Short swim;
 	private Byte walk = 0;
