@@ -17,7 +17,7 @@ public class FMovement {
 	private Short fly;
 	private Short swim;
 	private Byte walk = 0;
-	private String units = "ft";
+	//private String units = "ft";
 	private Boolean hover;
 
 	public FMovement(Creature creature) {
