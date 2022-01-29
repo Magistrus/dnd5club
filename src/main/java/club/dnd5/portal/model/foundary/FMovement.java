@@ -15,9 +15,8 @@ import lombok.Setter;
 public class FMovement {
 	private Short burrow;
 	private Short climb;
-	private Short fly;
-	 @JsonProperty("fly")
-	private FFly fflay;
+
+	private Object fly;
 	private Short swim;
 	private Byte walk = 0;
 	//private String units = "ft";
@@ -30,7 +29,7 @@ public class FMovement {
 		}
 		if (creature.getFlySpeed() != null) {
 			if (creature.getHover()!= null && creature.getHover() == 1) {
-				fflay = new FFly(creature.getFlySpeed());
+				fly = new FFly(creature.getFlySpeed());
 			} else {
 				fly = creature.getFlySpeed();
 			}
@@ -43,4 +42,5 @@ public class FMovement {
 		}
 		canHover = creature.getHover() != null && creature.getHover() == 1; 
 	}
+	
 }
