@@ -17,7 +17,7 @@ public class FAttributes {
 	private FAC ac;
 	private FHP hp;
 	private FInit init;
-	private FMovement movement;
+	private FMovement speed;
 	public FSenses senses;
 	public String spellcasting = "";
 	private byte prof;
@@ -32,7 +32,7 @@ public class FAttributes {
 		}
 		hp = new FHP(creature);
 		init = new FInit();
-		movement = new FMovement(creature);
+		speed = new FMovement(creature);
 		senses = new FSenses(creature);
 		if (!creature.getSpellcasters().isEmpty()) {
 			for (Spellcater spellcaster : creature.getSpellcasters()) {
