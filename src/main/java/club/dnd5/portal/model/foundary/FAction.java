@@ -14,7 +14,7 @@ public class FAction {
     public String name;
     public List<Object> entries;
     public FAction(Action action) {
-    	name = action.getName();
+    	name = action.getName().replace("(перезарядка 6)", "{@recharge 6}").replace("(перезарядка 5-6)", "{@recharge 5}").replace("(перезарядка 4–6)", "{@recharge 4}");;
     	entries = Arrays.stream(action.getDescription().replace("<p>", "").split("</p>")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
     }
 }

@@ -55,13 +55,13 @@ public class FBeast {
 	public FvSave save;
 	public List<String> senses;
 	public FLegendaryGroup legendaryGroup;
-	public List<String> traitTags;
-	public List<String> senseTags;
-	public List<String> actionTags;
+	public List<String> traitTags = new ArrayList<>();
+	public List<String> senseTags = new ArrayList<>();
+	public List<String> actionTags = new ArrayList<>();
 	public List<String> conditionInflict;
 	public List<String> conditionInflictLegendary;
 	public List<Object> immune;
-	public boolean basicRules;
+	public boolean basicRules = true;
 	public List<FSpellcasting> spellcasting;
 	public List<String> spellcastingTags;
 	public List<String> group;
@@ -122,6 +122,7 @@ public class FBeast {
 			alignment.add("N");
 			break;
 		default:
+			alignment.add("U");
 			break;
 		}
 		ac.add(creature.getAC());
