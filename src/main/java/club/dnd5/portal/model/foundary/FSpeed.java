@@ -3,7 +3,6 @@ package club.dnd5.portal.model.foundary;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import club.dnd5.portal.model.creature.Creature;
 import lombok.Getter;
@@ -12,17 +11,16 @@ import lombok.Setter;
 @JsonInclude(Include.NON_NULL)
 @Getter
 @Setter
-public class FMovement {
+public class FSpeed {
+	private Byte walk = 0;
+	private Object fly;
 	private Short burrow;
 	private Short climb;
-
-	private Object fly;
 	private Short swim;
-	private Byte walk = 0;
 	//private String units = "ft";
 	private Boolean canHover;
 	
-	public FMovement(Creature creature) {
+	public FSpeed(Creature creature) {
 		walk = creature.getSpeed();
 		if (creature.getClimbingSpeed() != null) {
 			climb = creature.getClimbingSpeed();
@@ -42,5 +40,4 @@ public class FMovement {
 		}
 		canHover = creature.getHover() != null && creature.getHover() == 1; 
 	}
-	
 }

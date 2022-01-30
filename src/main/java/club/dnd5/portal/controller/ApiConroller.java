@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.foundary.FBeast;
 import club.dnd5.portal.model.foundary.FBeastiary;
-import club.dnd5.portal.model.foundary.FCreature;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController
@@ -24,7 +24,7 @@ public class ApiConroller {
 	@CrossOrigin
 	@GetMapping("/beastiary")
 	public FBeastiary getCreatures(){
-		List<FCreature> list = ((Collection<Creature>) repo.findAll()).stream().map(FCreature::new).collect(Collectors.toList());
+		List<FBeast> list = ((Collection<Creature>) repo.findAll()).stream().map(FBeast::new).collect(Collectors.toList());
 		return new FBeastiary(list);
 	}
 }

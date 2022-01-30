@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class FBeastiary {
-	List<FCreature> monster;
-	public FBeastiary(List<FCreature> creatures) {
+	List<FBeast> monster;
+	public FBeastiary(List<FBeast> creatures) {
 		monster = creatures;
 	}
 }
