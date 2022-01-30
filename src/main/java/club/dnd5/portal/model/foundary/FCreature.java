@@ -32,12 +32,6 @@ public class FCreature {
 		creature.getActions().stream()
 			.map(FItem::new)
 			.forEach(i -> items.add(i));
-		creature.getReactions().stream()
-			.map(FItem::new)
-			.forEach(i -> items.add(i));
-		creature.getLegendaries().stream()
-			.map(FItem::new)
-			.forEach(i -> items.add(i));
 		creature.getFeats().stream()
 			.map(FItem::new)
 			.forEach(i -> items.add(i));

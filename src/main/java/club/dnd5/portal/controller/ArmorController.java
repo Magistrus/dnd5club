@@ -31,7 +31,7 @@ public class ArmorController {
 		Armor armor = repository.findByEnglishName(name.replace('_', ' '));
 		model.addAttribute("selectedArmor", new ArmorDto(armor));
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getName());
+		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getEnglishName().replace(" ", "_"));
 		model.addAttribute("metaDescription", String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
 		return "armors";
 	}
