@@ -2,6 +2,8 @@ package club.dnd5.portal.model.fvtt.plutonium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -63,7 +65,7 @@ public class FBeast {
 	public List<String> environment;
 	public FSoundClip soundClip;
 	public List<String> languageTags = new ArrayList<>();
-	public List<String> damageTags = new ArrayList<>();
+	public Set<String> damageTags = new TreeSet<>();
 	public List<String> miscTags = new ArrayList<>();
 	public boolean hasToken = true;
 	public boolean hasFluff = true;
@@ -222,6 +224,29 @@ public class FBeast {
 					.map(Condition::name)
 					.map(String::toLowerCase)
 					.collect(Collectors.toList());
+		}
+		for (Action action : creature.getActions()) {
+			if (action.getDescription().toLowerCase().contains("дробящий урон")) {
+				damageTags.add("B");
+			}
+			if (action.getDescription().toLowerCase().contains("колющий урон")) {
+				damageTags.add("P");
+			}
+			if (action.getDescription().toLowerCase().contains("рубящий урон")) {
+				damageTags.add("S");
+			} 
+			if (action.getDescription().toLowerCase().contains("урон огнём")) {
+				damageTags.add("F");
+			}
+			if (action.getDescription().toLowerCase().contains("урон излучением")) {
+				damageTags.add("R");
+			}
+			if (action.getDescription().toLowerCase().contains("урон некротической энергией")) {
+				damageTags.add("N");
+			}
+		}
+		if (damageTags.isEmpty()) {
+			damageTags = null;
 		}
 	}
 }
