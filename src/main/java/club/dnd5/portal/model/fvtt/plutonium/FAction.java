@@ -49,6 +49,15 @@ public class FAction {
     		int attack = Integer.valueOf(matcher.group());
     		entries.add(String.format("{@atk rs} {@hit %d} ", attack)); 
     	}
-    	entries.addAll(Arrays.stream(action.getDescription().replace("<p>", "").split("</p>")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
+    	Matcher matcher = Pattern.compile("<span class=\"dice_text\">\\d{0,}+к\\d+</span>\\s{0,}\\+{0,}-{0,}\\s{0,}\\d{0,}").matcher(action.getDescription());
+    	String description = action.getDescription();
+    	while (matcher.find()) {
+    		String group = matcher.group();	
+    		System.out.println(group);
+    		String formula = group.replace('к', 'd').replace("<span class=\"dice_text\">", "{@damage ").replace("</span>", "") + "}";
+    		description = description.replace(group, formula);
+    	}
+    	
+    	entries.addAll(Arrays.stream(description.replace("<p>", "").split("</p>")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
     }
 }
