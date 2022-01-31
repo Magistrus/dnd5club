@@ -1,4 +1,4 @@
-package club.dnd5.portal.model.foundary;
+package club.dnd5.portal.model.fvtt.plutonium;
 
 import java.util.Arrays;
 import java.util.List;

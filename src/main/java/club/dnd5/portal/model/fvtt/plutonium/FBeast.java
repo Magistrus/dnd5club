@@ -1,20 +1,34 @@
-package club.dnd5.portal.model.foundary;
+package club.dnd5.portal.model.fvtt.plutonium;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.creature.Action;
 import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.HabitatType;
+import club.dnd5.portal.model.foundary.FAltArt;
+import club.dnd5.portal.model.foundary.FLegendary;
+import club.dnd5.portal.model.foundary.FLegendaryGroup;
+import club.dnd5.portal.model.foundary.FReaction;
+import club.dnd5.portal.model.foundary.FSoundClip;
+import club.dnd5.portal.model.foundary.FSpeed;
+import club.dnd5.portal.model.foundary.FSpellcasting;
+import club.dnd5.portal.model.foundary.FVariant;
+import club.dnd5.portal.model.foundary.FVersion;
+import club.dnd5.portal.model.foundary.FvSave;
+import club.dnd5.portal.model.foundary.FvSkill;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@JsonInclude(Include.NON_NULL)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -42,6 +56,7 @@ public class FBeast {
 	public String cr;
 	public List<FTrait> trait;
 	public List<FAction> action;
+	public List<FAction> reaction;
 	public List<FLegendary> legendary;
 	public List<String> environment;
 	public FSoundClip soundClip;
@@ -50,7 +65,7 @@ public class FBeast {
 	public List<String> miscTags = new ArrayList<>();
 	public boolean hasToken = true;
 	public boolean hasFluff = true;
-	public boolean hasFluffImages= true;
+	public boolean hasFluffImages = true;
 	public boolean srd;
 	public FvSave save;
 	public List<String> senses;
@@ -69,11 +84,12 @@ public class FBeast {
 	public String dragonCastingColor;
 	public List<Object> resist;
 	public List<String> conditionImmune;
+	public List<String> vulnerable;
 	public List<String> conditionInflictSpell;
 	public List<FVersion> _versions;
-	public List<String> vulnerable;
+
 	public List<FAltArt> altArt;
-	public List<FReaction> reaction;
+
 	public boolean familiar;
 
 	public FBeast(Creature creature) {
@@ -121,6 +137,9 @@ public class FBeast {
 		case TRUE_NEUTRAL:
 			alignment.add("N");
 			break;
+		case ALL:
+			alignment.add("A");
+			break;
 		default:
 			alignment.add("U");
 			break;
@@ -134,28 +153,49 @@ public class FBeast {
 		myint = creature.getIntellect();
 		wis = creature.getWizdom();
 		cha = creature.getCharisma();
-		skill = new FvSkill(creature);
+		if (!creature.getSkills().isEmpty()) {
+			skill = new FvSkill(creature);
+		}
 		passive = creature.getPassivePerception();
 		languages = new ArrayList<>(1);
 		cr = creature.getChallengeRating();
-		trait = creature.getFeats().stream().map(FTrait::new).collect(Collectors.toList());
+		if (!creature.getFeats().isEmpty()) {
+			trait = creature.getFeats().stream().map(FTrait::new).collect(Collectors.toList());
+		}
 		save = new FvSave(creature);
 		action = creature.getActions(ActionType.ACTION).stream().map(FAction::new).collect(Collectors.toList());
-		legendary = creature.getActions(ActionType.LEGENDARY).stream().map(FLegendary::new).collect(Collectors.toList());
-		environment = creature.getHabitates().stream().map(HabitatType::name).map(String::toLowerCase).collect(Collectors.toList());
+		List<Action> lActions = creature.getActions(ActionType.LEGENDARY);
+		if (!lActions.isEmpty()) {
+			legendary = creature.getActions(ActionType.LEGENDARY).stream().map(FLegendary::new)
+					.collect(Collectors.toList());
+		}
+		List<Action> rActions = creature.getActions(ActionType.REACTION);
+		if (!rActions.isEmpty()) {
+			reaction = creature.getActions(ActionType.LEGENDARY).stream().map(FAction::new)
+					.collect(Collectors.toList());
+		}
+		
+		if (!creature.getHabitates().isEmpty()) {
+			environment = creature.getHabitates().stream().map(HabitatType::name).map(String::toLowerCase)
+					.collect(Collectors.toList());
+		}
 		soundClip = new FSoundClip();
 		senses = new ArrayList<String>(4);
-		if (creature.getDarkvision()!= null) {
+		if (creature.getDarkvision() != null) {
 			senses.add(String.format("darkvision %d ft.", creature.getDarkvision()));
 		}
-		if (creature.getBlindsight()!= null) {
+		if (creature.getBlindsight() != null) {
 			senses.add(String.format("blindsight %d ft.", creature.getBlindsight()));
 		}
-		if (creature.getTrysight()!= null) {
+		if (creature.getTrysight() != null) {
 			senses.add(String.format("truesight %d ft.", creature.getTrysight()));
 		}
-		if (creature.getVibration()!= null) {
+		if (creature.getVibration() != null) {
 			senses.add(String.format("tremorsense %d ft.", creature.getVibration()));
-		}		
+		}
+		resist = creature.getResistanceDamages().stream().map(DamageType::name).map(String::toLowerCase)
+				.collect(Collectors.toList());
+		immune = creature.getImmunityDamages().stream().map(DamageType::name).map(String::toLowerCase)
+				.collect(Collectors.toList());
 	}
 }
