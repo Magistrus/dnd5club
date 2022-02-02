@@ -15,7 +15,7 @@
 			</div>
 			<div class="block">
 				<p>Урон:</p>
-				<span class="dice_text" th:text="|*{numberDice}*{damageDice.name}|"></span> <span th:text="*{damageType.cyrilicName}"></span>
+				<span th:if="*{damageDice}" class="dice_text" th:text="|*{numberDice}*{damageDice.name}|"><span th:unless="*{damageDice}" class="dice_text">1</span> <span th:text="*{damageType.cyrilicName}"></span>
 			</div>
 			<div class="block">
 				<p>Вес (в фунтах):</p>

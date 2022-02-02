@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.model.creature.Creature;
-import club.dnd5.portal.model.foundary.FBeast;
 import club.dnd5.portal.model.foundary.FBeastiary;
+import club.dnd5.portal.model.fvtt.plutonium.FBeast;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController

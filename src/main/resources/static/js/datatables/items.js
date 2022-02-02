@@ -62,6 +62,19 @@ $(document).ready(function() {
 		    	}
 		    });
 		},
+		createdRow: function (row, data, dataIndex) {
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			} else if (data.setting){
+				$(row).addClass('setting_source');
+				if(localStorage.getItem('setting_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			}
+		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedItem === null){
 				if (!$('#list_page_two_block').hasClass('block_information')){

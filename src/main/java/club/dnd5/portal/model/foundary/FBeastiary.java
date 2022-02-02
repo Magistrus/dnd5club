@@ -2,6 +2,7 @@ package club.dnd5.portal.model.foundary;
 
 import java.util.List;
 
+import club.dnd5.portal.model.fvtt.plutonium.FBeast;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
