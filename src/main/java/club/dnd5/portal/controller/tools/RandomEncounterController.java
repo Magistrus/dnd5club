@@ -40,6 +40,9 @@ public class RandomEncounterController {
 	@GetMapping("/tools/encounters/random")
 	@ResponseBody
 	public String getRandomEncounter(Integer level, String type) {
+		if (level == null) {
+			level = 1 + rnd.nextInt(4);
+		}
 		HabitatType habitatType;
 		if ("RANDOM".equals(type)) {
 			habitatType = new ArrayList<>(HabitatType.types()).get(rnd.nextInt(HabitatType.types().size()));
@@ -49,6 +52,6 @@ public class RandomEncounterController {
 		}
 		int index = 1 + rnd.nextInt(100);
 		RandomEncounter encounter = repo.findOne(index, level, habitatType);
-		return "Окружающая среда: <strong>" +  habitatType.getName() + "</strong><br>" + encounter.getDescription();
+		return String.format("Окружающая среда: <strong>%s</strong><br>%s", habitatType.getName(), encounter.getDescription());
 	}
 }

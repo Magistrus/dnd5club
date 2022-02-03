@@ -244,9 +244,16 @@ public class FBeast {
 			if (action.getDescription().toLowerCase().contains("урон некротической энергией")) {
 				damageTags.add("N");
 			}
+			if (action.getDescription().toLowerCase().contains("урон силовым полем")) {
+				damageTags.add("F");
+			}
+			if (action.getDescription().toLowerCase().contains("урон ядом")) {
+				damageTags.add("I");
+			}
 		}
 		if (damageTags.isEmpty()) {
 			damageTags = null;
 		}
+		
 	}
 }
