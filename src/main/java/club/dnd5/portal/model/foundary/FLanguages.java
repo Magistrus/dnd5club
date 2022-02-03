@@ -24,7 +24,13 @@ public class FLanguages {
 	private Set<String> value = new HashSet<>();
 	private String custom = "";
 	public FLanguages(List<Language> languages) {
+		if (languages == null) {
+			return;
+		}
 		for (Language language : languages) {
+			if (language == null || language.getName()==null) {
+				continue;
+			}
 			switch (language.getName()) {
 			case "язык Ааракокр":
 				value.add("aarakocra");
@@ -44,7 +50,6 @@ public class FLanguages {
 			case "язык Гитов":
 				value.add("gith");
 				break;
-				
 			case "Глубинная Речь":
 			case "Речь Глубин":
 				value.add("deep");

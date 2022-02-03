@@ -1,11 +1,15 @@
 package club.dnd5.portal.model.foundary.spell;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.Spellcater;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@JsonInclude(Include.NON_NULL)
 @Getter
 @Setter
 @NoArgsConstructor

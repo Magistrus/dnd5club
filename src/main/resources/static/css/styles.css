@@ -557,7 +557,7 @@ label.select_box {
 
 .row_input {
   display: flex;
-  margin: 0px -8px;
+  margin: 0px -4px;
   flex-wrap: wrap;
 }
 
@@ -1832,6 +1832,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.treasury .info_wrapper .content_block #content_block,
 #right_block.trader .info_wrapper .content_block #content_block,
 #right_block.books .info_wrapper .content_block #content_block,
 #right_block.armors .info_wrapper .content_block #content_block,
@@ -3137,9 +3138,12 @@ body #left_block.tools_block {
 }
 
 #left_block.treasury h4.header_separator {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 0px;
+  margin-left: 24px;
+  margin-right: 24px;
+} 
+
+#left_block.treasury h4.header_separator span {
+  background: var(--bg-main);
 } 
 
 #left_block.encounters .content_block #content_block {

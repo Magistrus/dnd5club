@@ -9,13 +9,25 @@
 				</div>
 			</div>
 			<div class="tools_settings">
-				<label class="select_box select_arrow"> <span>Показатель опасности монстра:</span> <select id="cr" name="cr" class="select">
-						<option value="1">0-4</option>
-						<option value="2">5-10</option>
-						<option value="3">11-15</option>
-						<option value="4">17+</option>
-				</select>
-				</label>
+				<h5>Показатель опасности монстра:</h5>
+				<div class="row_input">
+					<div class="select js-dropdown">
+						<input id="cr" type="hidden" name="cr" class="js-dropdown__input">
+							<i class="icon_arrow">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"	xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+							</i>
+						<span class="placeholder js-dropdown__current size">Опасность</span>
+						<ul data-simplebar>
+							<li th:data-dropdown-value="1">0-4</li>
+							<li th:data-dropdown-value="2">5-10</li>
+							<li th:data-dropdown-value="3">11-15</li>
+							<li th:data-dropdown-value="4">17+</li>
+						</ul>
+					</div>
+				</div>
+				<br />
 				<div class="btn-wrapper">
 					<button id="generate" class="btn btn_primary">Создать сокровищницу</button>
 				</div>

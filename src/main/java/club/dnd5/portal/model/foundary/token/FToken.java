@@ -77,6 +77,10 @@ public class FToken {
 			width = 4;
 			height = 4;
 			break;
+		default:
+			width = 1;
+			height = 1;
+			break;
 		}
 		img = StringUtils.capitalizeWords(String.format("https://5e.tools/img/%s/%s.png",
 				creature.getBook().getSource(), creature.getEnglishName()));

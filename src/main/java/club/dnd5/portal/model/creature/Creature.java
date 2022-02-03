@@ -206,7 +206,11 @@ public class Creature {
 	public String getAligment() {
 		return alignment.getName(type);
 	}
-
+	
+	public Alignment getAligmentRaw(){
+		return alignment;
+	}
+	
 	public String strengthText() {
 		return getFormatAbility(strength);
 	}

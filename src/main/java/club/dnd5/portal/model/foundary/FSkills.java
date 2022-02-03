@@ -31,7 +31,8 @@ public class FSkills {
 	private FSkill sur;
 
 	public FSkills(List<Skill> skills) {
-		Map<SkillType, Byte> skillMap = skills.stream()
+		Map<SkillType, Byte> skillMap = skills.parallelStream()
+				.filter(s -> s.getType() != null)
 				.collect(Collectors.toMap(Skill::getType, skill -> skill.getBonus()));
 		acr = new FSkill();
 		if (skillMap.containsKey(SkillType.ACROBATICS)) {
