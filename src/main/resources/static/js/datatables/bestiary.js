@@ -165,6 +165,7 @@ $(document).ready(function() {
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	let table = $('#creatures').DataTable();
+	selectedCreature = null;
 	table.tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
