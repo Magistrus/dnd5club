@@ -25,7 +25,7 @@ public class TraitController {
 		model.addAttribute("skills", SkillType.values());
 		model.addAttribute("prerequisites", repository.findAllPrerequisite());
 		model.addAttribute("metaTitle", "Черты (Traits) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/traits/");
+		model.addAttribute("metaUrl", "https://dnd5.club/traits");
 		model.addAttribute("metaDescription", "Списко черт персонажей по D&D 5 редакции");
 		return "traits";
 	}

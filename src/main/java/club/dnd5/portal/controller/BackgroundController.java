@@ -29,7 +29,7 @@ public class BackgroundController {
 	public String getBackgrounds(Model model) {
 		model.addAttribute("skills", SkillType.values());
 		model.addAttribute("metaTitle", "Предыстории персонажей (Backgrounds) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds/");
+		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds");
 		model.addAttribute("metaDescription", "Предыстории персонажей по D&D 5 редакции");
 		return "backgrounds";
 	}

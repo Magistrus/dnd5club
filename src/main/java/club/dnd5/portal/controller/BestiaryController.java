@@ -38,7 +38,7 @@ public class BestiaryController {
 		model.addAttribute("tags", tagRepo.findAll(Sort.by(Direction.ASC, "name")));
 		model.addAttribute("habitates", HabitatType.values());
 		model.addAttribute("metaTitle", "Бестиарий (Monster Manual) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/");
+		model.addAttribute("metaUrl", "https://dnd5.club/bestiary");
 		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
 		return "bestiary";
 	}
