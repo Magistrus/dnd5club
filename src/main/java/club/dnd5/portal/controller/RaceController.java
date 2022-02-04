@@ -35,7 +35,7 @@ public class RaceController {
 	public String getRaces(Model model) {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/races/");
+		model.addAttribute("metaUrl", "https://dnd5.club/races");
 		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
 		return "races";
 	}

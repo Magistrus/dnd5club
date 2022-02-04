@@ -46,7 +46,7 @@ public class OptionController {
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
 		model.addAttribute("metaTitle", "Особенности классов (Options) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/options/");
+		model.addAttribute("metaUrl", "https://dnd5.club/options");
 		model.addAttribute("metaDescription", "Список особенности классов и подкласов по D&D 5 редакции");
 		return "options";
 	}

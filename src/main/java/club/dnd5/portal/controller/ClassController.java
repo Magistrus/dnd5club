@@ -52,7 +52,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/classes/");
+		model.addAttribute("metaUrl", "https://dnd5.club/classes");
 		return "classes";
 	}
 	
