@@ -45,7 +45,9 @@ public enum EquipmentType {
 	MOUNT("Ездовое животное"),
 	VEHICLE_WATER("Транспорт (водный)"),
 	VEHICLE_LAND("Транспорт (наземный)"),
-	VEHICLE_AIR("Транспорт (воздушный)");
+	VEHICLE_AIR("Транспорт (воздушный)"),
+	SIEGE_EQUIPMENT("Осадное снаряжение"),
+	;
 	
 	private String cyrilicName;
 
