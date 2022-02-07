@@ -123,6 +123,34 @@ public class ClassController {
 		return "fragments/class :: view";
 	}
 	
+	@GetMapping("/classes/fragment_id/{id}")
+	public String getFragmentClassesById(Model model, Device device, @PathVariable Integer id) {
+		model.addAttribute("device", device);
+		HeroClass heroClass = classRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+		List<ClassFetureDto> features = new ArrayList<>();
+		heroClass.getTraits().stream()
+			.filter(f -> !f.isArchitype())
+			.map(f -> new ClassFetureDto(f, heroClass.getName()))
+			.forEach(f -> features.add(f));
+		Map<Integer, Set<ClassFetureDto>> archetypeTraits = heroClass.getArchetypes()
+				.stream().flatMap(a -> a.getFeats().stream())
+				.collect(
+						Collectors.groupingBy(
+								f -> f.getArchetype().getId(),
+								Collectors.mapping(f -> new ClassFetureDto(
+										f, f.getArchetype().getGenitiveName()), 
+										Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ClassFetureDto::getLevel).thenComparing(ClassFetureDto::getName))))
+								)
+				);
+		Collections.sort(features, Comparator.comparing(ClassFetureDto::getLevel));
+		model.addAttribute("features", features);
+		model.addAttribute("heroClass", heroClass);
+		model.addAttribute("archetypeTraits", archetypeTraits);
+		model.addAttribute("order", "[[ 1, 'asc' ]]");
+		model.addAttribute("selectedArchetypeName", heroClass.getArchetypeName());
+		return "fragments/class :: view";
+	}
+	
 	@GetMapping("/classes/images/{englishName}")
 	public String getClassImages(Model model, Device device, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
