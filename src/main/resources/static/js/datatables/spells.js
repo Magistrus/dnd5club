@@ -124,7 +124,7 @@ $(document).ready(function() {
 			}
 		},
 		drawCallback: function ( settings ) {
-			if(rowSelectIndex === 0 && selectedSpell === null){
+			if(selectedSpell === null){
 				if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null){
 					return;
 				}
@@ -215,6 +215,7 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_spell');
+	selectedSpell = null;
 	history.pushState('data to be passed', 'Заклинания', '/spells/');
 });
 $('#btn_filters').on('click', function() {
