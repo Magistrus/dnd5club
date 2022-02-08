@@ -24,12 +24,17 @@ import lombok.Setter;
 public class Skill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Enumerated(EnumType.ORDINAL)
 	private SkillType type;
 	
 	private byte bonus;
+
+	public Skill(SkillType type, byte bonus) {
+		this.type = type;
+		this.bonus = bonus;
+	}
 
 	public String getText() {
 		return type != null ? String.format("%s %+d", StringUtils.capitalize(type.name().toLowerCase().replace('_', ' ')), bonus) : "";

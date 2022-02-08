@@ -212,13 +212,17 @@ function copyToClipboard(text) {
 }
 (function() {
     var cx = '';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = 'https://cse.google.com/cse.js?cx='+ cx;
+    var $gcse = $('#script');
+    $gcse.type = 'text/javascript';
+    $gcse.async = true;
+    $gcse.src = 'https://cse.google.com/cse.js?cx='+ cx;
     var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
+    if (s.parentNode === Node.ELEMENT_NODE){
+    	s.parentNode.insertBefore($gcse, s);
+    }
 })();
 window.onload = function(){
-document.getElementById('gsc-i-id1').placeholder = 'Поиск по классам, расам, монстрам и остальным мирам!';
+	if($('#gsc-i-id1')){
+		$('#gsc-i-id1').attr("placeholder", "Поиск по классам, расам, монстрам и остальным мирам!");
+	}
 };

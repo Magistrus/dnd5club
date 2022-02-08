@@ -47,7 +47,7 @@ public class RaceController {
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("metaTitle", race.getName() + " | Расы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
-		model.addAttribute("metaDescription", String.format("Раса персонажа %s", race.getName()));
+		model.addAttribute("metaDescription", String.format("%s - раса персонажа", race.getCapitalazeName()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
@@ -61,9 +61,13 @@ public class RaceController {
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("metaTitle", String.format("%s | Расы D&D 5e", race.getName()));
+		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.getCapitalazeName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
-		model.addAttribute("metaDescription", String.format("Разновидность расы персонажа %s", race.getName()));
+		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа ", race.getName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "races";
 	}
 	

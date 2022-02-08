@@ -17,6 +17,8 @@ public class CreatureFeat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	//private String englishName;
+	
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	private String img;

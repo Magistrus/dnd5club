@@ -46,6 +46,9 @@ public class TreasuryToolController {
 	}
 	@GetMapping("/tools/treasury/random")
 	public String getTreasures(Model model, Integer cr) {
+		if (cr == null) {
+			cr = 1 + rnd.nextInt(4);
+		}
 		int coper = 0;
 		int silver = 0;
 		int gold = 0;

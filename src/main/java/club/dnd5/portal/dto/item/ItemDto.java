@@ -2,6 +2,7 @@ package club.dnd5.portal.dto.item;
 
 import java.util.stream.Collectors;
 
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.Equipment;
 import club.dnd5.portal.model.items.EquipmentType;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class ItemDto {
 	private String cost;
 	private String weight;
 	private String type;
+	private boolean homebrew;
 	private String book;
 	private String bookshort;
 	
@@ -47,6 +49,7 @@ public class ItemDto {
 		}
 		weight = (equipment.getWeight() == null ? "&mdash;": String.valueOf(equipment.getWeight()));
 		type = equipment.getTypes().stream().map(EquipmentType::getCyrilicName).collect(Collectors.joining(", "));
+		homebrew = equipment.getBook().getType() == TypeBook.CUSTOM;
 		book = equipment.getBook().getName();
 		bookshort = equipment.getBook().getSource(); 
 	}

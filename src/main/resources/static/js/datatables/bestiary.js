@@ -104,10 +104,9 @@ $(document).ready(function() {
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedCreature === null){
-				if (!$('#list_page_two_block').hasClass('block_information')){
+				if (!$('#list_page_two_block').hasClass('block_information') && selectedCreature === null){
 					return;
 				}
-				$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
 			}
 			if (selectedCreature){
 				selectCreature(selectedCreature);
@@ -120,6 +119,7 @@ $(document).ready(function() {
 				});
 				rowSelectIndex = rowIndexes[0];
 			}
+			$('#creatures tbody tr:eq('+rowSelectIndex+')').click();
 			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
@@ -153,6 +153,7 @@ $(document).ready(function() {
 		else {
 			$('#text_clear').hide();
 		}
+		selectedCreature = null;
 		table.tables().search($(this).val()).draw();
 		rowSelectIndex = 0;
 	});
@@ -164,6 +165,7 @@ $(document).ready(function() {
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	let table = $('#creatures').DataTable();
+	selectedCreature = null;
 	table.tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
