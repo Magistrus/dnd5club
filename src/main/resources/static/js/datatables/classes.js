@@ -23,7 +23,7 @@ $(document).ready(function() {
 					result+='</span> <span>[' + row.englishName + ']</span></h3>';
 					result+='<ul>';
 					row.archetypes.forEach(function(item, i, arr) {
-						result+= '<li>' + item + '</li>';
+						result+= '<li>' + item.name + '</li>';
 					});
 					result+='</ul>';
 					return result;
