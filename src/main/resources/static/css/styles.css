@@ -1434,6 +1434,7 @@ body.compact_menu .block_information #left_block {
 
 #left_block .table_card {
   display: flex;
+  overflow: hidden;
 }
 
 #left_block .table_card tbody {
@@ -2377,7 +2378,7 @@ body.compact_menu #right_block {
   position:relative;
 }
 
-.table_list tr .info_block:after {
+.table_list tr .info_block::after {
   content: '';
   position: absolute;
   border: 1px solid var(--border);
@@ -2389,7 +2390,22 @@ body.compact_menu #right_block {
   left: 0px;
 }
 
-.table_list tr.selected .info_block:after {
+.items .table_list tr .info_block::before {
+  content: '';
+  position: absolute;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  display: block;
+  top: 14px;
+  right: -5px;
+  z-index: 1;
+}
+
+.table_list tr.selected .info_block::after,
+.items .table_list tr.selected .info_block::before {
   border:1px solid var(--primary);
 }
 
@@ -2499,24 +2515,24 @@ body.compact_menu #right_block {
   margin: 0 2px;
 }
 
-.table_list tbody div.uncommon.info_block:after {
-  border-color: var(--uncommon) !important;
+.table_list tbody div.uncommon.info_block::before {
+  background: var(--uncommon) !important;
 }
 
-.table_list tbody div.rare.info_block:after {
-  border-color: var(--rare) !important;
+.table_list tbody div.rare.info_block::before {
+  background: var(--rare) !important;
 }
 
-.table_list tbody div.very_rare.info_block:after {
-  border-color: var(--very_rare) !important;
+.table_list tbody div.very_rare.info_block::before {
+  background: var(--very_rare) !important;
 }
 
-.table_list tbody div.legendary.info_block:after {
-  border-color: var(--legendary) !important;
+.table_list tbody div.legendary.info_block::before {
+  background: var(--legendary) !important;
 }
 
-.table_list tbody div.artifact.info_block:after {
-  border-color: var(--artifact) !important;
+.table_list tbody div.artifact.info_block::before {
+  background: var(--artifact) !important;
 }
 
 /******** Ширма / screens ********/
