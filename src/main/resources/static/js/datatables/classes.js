@@ -19,7 +19,7 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="info_block">'+row.icon+'</div>';
+					var result ='<i class="info_block">'+row.icon+'</i>';
 					result+='<div class="content"><h3 class="row_name"><span class="name">' + row.name;
 					result+='</span><span>[' + row.englishName + ']</span>';
 					result+='<span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
