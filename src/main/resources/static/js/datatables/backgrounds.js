@@ -64,8 +64,6 @@ $(document).ready(function() {
 		    	      scrollEventHeight +=750;
 		    	}
 		    });
-		    table.searchPanes.container().prependTo($('#searchPanes'));
-		    table.searchPanes.container().hide();
 		},
 		drawCallback: function ( settings ) {
 			if(rowSelectIndex === 0 && selectedBackground === null){
