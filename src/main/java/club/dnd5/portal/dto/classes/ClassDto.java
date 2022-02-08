@@ -17,6 +17,7 @@ public class ClassDto {
 	private String name;
 	private String englishName;
 	private String type;
+	private String icon;
 	private String book;
 	private String bookshort;
 	private List<ArchetypeDto> archetypes;
@@ -26,6 +27,7 @@ public class ClassDto {
 		name = hero.getCapitalazeName();
 		englishName = hero.getEnglishName();
 		type = hero.isSidekick() ? "Напарник" : "Класс";
+		icon = hero.getIcon();
 		archetypes = hero.getArchetypes().stream().map(ArchetypeDto::new).collect(Collectors.toList());
 		book = hero.getBook().getName();
 		bookshort = hero.getBook().getSource();
