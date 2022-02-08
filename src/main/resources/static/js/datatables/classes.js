@@ -19,11 +19,15 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="content"><h3 class="row_name"><span>' + row.name;
-					result+='</span> <span>[' + row.englishName + ']</span></h3>';
-					result+='<ul>';
+					var result ='<div class="info_block"></div>';
+					result+='<div class="content"><h3 class="row_name"><span class="name">' + row.name;
+					result+='</span><span>[' + row.englishName + ']</span>';
+					result+='<span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
+					result+='<div class="two_row"><span>hit</span>';
+					result+='<button class="open">Архитипы <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>';
+					result+='<ul class="hide_block">';
 					row.archetypes.forEach(function(item, i, arr) {
-						result+= '<li>' + item.name + '</li>';
+						result+= '<li>' + item + '</li>';
 					});
 					result+='</ul>';
 					return result;
