@@ -5,6 +5,7 @@
   --bg-sub-menu: #2C3034;
   --bg-dice: #585595;
   --bg-homebrew: #23492e;
+  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-transparent), var(--bg-homebrew)310%);
   --bg-advantage: #026a02;
   --bg-disadvantage: #774747;
   --bg-saving_throw: #fe5e00;
