@@ -1472,13 +1472,14 @@ body.compact_menu .block_information #left_block {
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
+  padding: 0 16px;
 }
 
 .table_card tr td .info_block {
   width: 50px;
   min-width: 50px;
   height: 50px;
-  margin-right: 8px;
+  margin-right: 0px;
 }
 
 .table_card tr td .info_block svg {
@@ -1505,10 +1506,10 @@ body.compact_menu .block_information #left_block {
 
 .table_card tr .row_name span.name {
   color: var(--text-g-color);
-  margin-right: 6px;
+  /* margin-right: 6px; */
 }
 
-.table_card tr .row_name .books {
+.table_card tr .books {
   margin-left: auto;
   font-size: 13px;
 }
@@ -1517,17 +1518,30 @@ body.compact_menu .block_information #left_block {
   display: flex;
 }
 
-.table_card tr td .content .two_row button {
-  margin-left: auto;
+.table_card tr td button.open {
   color: var(--link-color);
   padding: 0;
-  height: 20px;
+  width: 32px;
+  min-width: 32px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  background: var(--bg-sub-menu);
+  margin: -16px -16px -16px 0px;
+  position: relative;
 }
 
-.table_card tr td .content .two_row button svg {
-  margin-left: 4px;
+.table_card tr td button.open:hover {
+  background: var(--hover);
+}
+
+.table_card tr td button.open svg {
+  width: 24px;
+  height: 24px;
+}
+
+.table_card tr td button.open path {
+  stroke: var(--primary);
 }
 
 
