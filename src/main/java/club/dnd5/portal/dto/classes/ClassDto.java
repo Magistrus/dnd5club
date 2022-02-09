@@ -3,6 +3,8 @@ package club.dnd5.portal.dto.classes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import club.dnd5.portal.model.SpellcasterType;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import lombok.Getter;
@@ -16,21 +18,27 @@ public class ClassDto {
 	private Integer id;
 	private String name;
 	private String englishName;
-	private String type;
+	private String sidekick;
 	private String hitDice;
+	private boolean spellcaster;
 	private String icon;
 	private String book;
 	private String bookshort;
 	private List<ArchetypeDto> archetypes;
+	private List<ArchetypeDto> settingArchetypes;
+	private List<ArchetypeDto> homebrewArchetypes;
 
 	public ClassDto(HeroClass hero) {
 		id = hero.getId();
 		name = hero.getCapitalazeName();
 		englishName = hero.getEnglishName();
-		type = hero.isSidekick() ? "Напарник" : "Класс";
-		hitDice = "1к" + hero.getDiceHp(); 
+		sidekick = hero.isSidekick() ? "Напарники" : "Классы";
+		hitDice = "1к" + hero.getDiceHp();
+		spellcaster = hero.getSpellcasterType() != SpellcasterType.NONE;
 		icon = hero.getIcon() == null ? "" : hero.getIcon();
-		archetypes = hero.getArchetypes().stream().map(ArchetypeDto::new).collect(Collectors.toList());
+		archetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.OFFICAL).map(ArchetypeDto::new).collect(Collectors.toList());
+		settingArchetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.SETTING).map(ArchetypeDto::new).collect(Collectors.toList());
+		homebrewArchetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.CUSTOM).map(ArchetypeDto::new).collect(Collectors.toList());
 		book = hero.getBook().getName();
 		bookshort = hero.getBook().getSource();
 	}
