@@ -126,7 +126,7 @@ blockquote p:last-child {
   margin-bottom: 0px;
 }
 
-.header_separator span {
+.header_separator > span {
   background: var(--bg-secondary);
   padding-right:8px;
 }
@@ -142,15 +142,15 @@ blockquote p:last-child {
   z-index: -1;
 }
 
-details + details summary.h4 {
+details + details > summary.h4 {
   margin-top: 8px !important;
 }
 
-details[open] + details summary.h4 {
+details[open] + details > summary.h4 {
   margin-top: 24px !important;
 }
 
-details summary.h4 {
+details > summary.h4 {
   padding: 4px 8px;
   font-size: 24px;
   font-weight: 300;
@@ -163,17 +163,17 @@ details summary.h4 {
   border-radius: 8px;
 }
 
-details[open] summary.h4 {
+details[open] > summary.h4 {
   padding: 4px 0px;
   margin: 24px 0px 4px 0px;
   background: none;
 }
 
-details summary.h4 span {
+details > summary.h4 span {
   background: var(--bg-sub-menu);
 }
 
-details[open] summary.h4 span {
+details[open] > summary.h4 span {
   background: var(--bg-secondary);
 }
 
@@ -203,7 +203,7 @@ summary::after {
   font-size: 18px;
 }
 
-details[open] summary::after {
+details[open] > summary::after {
   transform: rotate(90deg);
   top: 6px;
   right: 0 !important;

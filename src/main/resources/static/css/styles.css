@@ -1452,6 +1452,12 @@ body.compact_menu .block_information #left_block {
   background-color: var(--bg-secondary) !important;
   border-radius: 16px;
   cursor: pointer;
+  border: 1px solid var(--bg-transparent);
+}
+
+.table_card tr.selected {
+  border: 1px solid var(--primary);
+  background-color: var(--bg-sub-menu) !important;
 }
 
 .table_card tr td {
@@ -1459,12 +1465,22 @@ body.compact_menu .block_information #left_block {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  padding: 16px 16px !important;
+  flex-direction: column;
+  padding: 0px !important;
 }
 
 .table_card tr td:hover {
   background: var(--hover);
+}
+
+.table_card tr.selected td:hover {
+  background-color: var(--bg-sub-menu) !important;
+}
+
+.table_card tr td .wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 16px 16px !important;
 }
 
 .table_card tr td .content {
@@ -1479,7 +1495,6 @@ body.compact_menu .block_information #left_block {
   width: 50px;
   min-width: 50px;
   height: 50px;
-  margin-right: 0px;
 }
 
 .table_card tr td .info_block svg {
@@ -1500,13 +1515,12 @@ body.compact_menu .block_information #left_block {
   margin-bottom: 8px;
 }
 
-.table_card tr .row_name span:first-child {
+.table_card tr .row_name span.name {
   color: var(--text-color-title);
 }
 
-.table_card tr .row_name span.name {
+.table_card tr .row_name span {
   color: var(--text-g-color);
-  /* margin-right: 6px; */
 }
 
 .table_card tr .books {
@@ -1542,6 +1556,36 @@ body.compact_menu .block_information #left_block {
 
 .table_card tr td button.open path {
   stroke: var(--primary);
+}
+
+.table_card tr td .archetypes {
+  margin-left:76px;
+  padding: 0 16px 16px 0;
+}
+
+.table_card tr td .archetype_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.table_card tr td .archetype_list li {
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.table_card tr td .archetype_list li:hover {
+  background: var(--hover);
+}
+
+.table_card tr td .archetype_list li .add_favorites {
+  background: red;
+  width: 16px;
+  height: 16px;
+  display: none;
+  margin-right: 4px;
 }
 
 
