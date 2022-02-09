@@ -1561,9 +1561,36 @@ body.compact_menu .block_information #left_block {
 .table_card tr td .archetypes {
   margin-left:76px;
   padding: 0 16px 16px 0;
+  display: flex;
+}
+
+.table_card tr td .archetypes .main,
+.table_card tr td .archetypes .homebrew_list {
+  flex: 1 1 50%;
+  min-width: 50%;
+}
+
+@media (max-width: 1500px) {
+  .table_card tr td .archetypes {
+    margin-left:76px;
+    padding: 0 16px 16px 0;
+    display: block;
+  }
+  
 }
 
 .table_card tr td .archetype_list {
+  margin-bottom: 16px;
+}
+
+.table_card tr td .archetype_list > h4 {
+  padding: 0 8px;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.table_card tr td .archetype_list > ul {
   list-style: none;
   padding: 0;
   margin: 0;
