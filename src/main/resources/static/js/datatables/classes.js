@@ -24,19 +24,19 @@ $(document).ready(function() {
 					result+='</span> <span>[' + row.englishName + ']</span></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
 					result+='<div class="two_row"><span>'+ row.hitDice+'</span></div></div>';
 					result+='<button class="open tip" title="Архетипы"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
-					result+='<div class="archetypes"><ul class="archetype_list">';
+					result+='<div class="archetypes"><div class="main"><div class="archetype_list"><h4>Основное:</h4><ul>';
 					row.archetypes.forEach(function(item, i, arr) {
 						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
 					});
-					result+='</ul><ul class="archetype_list">';
+					result+='</ul></div><div class="archetype_list"><h4>Сеттинги:</h4><ul>';
 					row.settingArchetypes.forEach(function(item, i, arr) {
 						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
 					});
-					result+='</ul><ul class="archetype_list">';
+					result+='</ul></div></div><div class="homebrew_list archetype_list"><h4>Homebrew:</h4><ul>';
 					row.homebrewArchetypes.forEach(function(item, i, arr) {
 						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
 					});
-					result+='</ul></div>';
+					result+='</ul></div></div>';
 					return result;
 				}
 				return data;
