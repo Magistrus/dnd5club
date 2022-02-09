@@ -22,14 +22,14 @@ public class ClassDto {
 	private String book;
 	private String bookshort;
 	private List<ArchetypeDto> archetypes;
-	
+
 	public ClassDto(HeroClass hero) {
 		id = hero.getId();
 		name = hero.getCapitalazeName();
 		englishName = hero.getEnglishName();
 		type = hero.isSidekick() ? "Напарник" : "Класс";
 		hitDice = "1к" + hero.getDiceHp(); 
-		icon = hero.getIcon();
+		icon = hero.getIcon() == null ? "" : hero.getIcon();
 		archetypes = hero.getArchetypes().stream().map(ArchetypeDto::new).collect(Collectors.toList());
 		book = hero.getBook().getName();
 		bookshort = hero.getBook().getSource();
