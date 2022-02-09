@@ -92,8 +92,8 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
-			scrollEventHeight = document.getElementById('class_content_block').offsetHeight - 300;
-			var simpleBar = SimpleBar.instances.get(document.getElementById('class_content_block'));
+			scrollEventHeight = document.getElementById('content_block').offsetHeight - 300;
+			var simpleBar = SimpleBar.instances.get(document.getElementById('content_block'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
 	    		  table.page.loadMore();

@@ -13,7 +13,7 @@ $(document).ready(function() {
 			style: 'single',
 			toggleable: false
 		},
-		order : [[0, 'asc']],
+		order : [[1, 'asc'], [0, 'asc']],
 		columns : [
 		{
 			data : "name",
@@ -33,7 +33,20 @@ $(document).ready(function() {
 				}
 				return data;
 			}
-		}, 
+		},
+		{
+			data : "sidekick",
+			searchable: false
+		},
+		],
+        rowGroup: {
+            dataSrc: 'sidekick',
+        },
+		columnDefs : [
+			{
+				"targets": [1],
+				"visible": false
+			},
 		],
 		language : {
 			processing : "Загрузка...",
@@ -110,15 +123,38 @@ $(document).ready(function() {
 	});
 });
 function selectClass(data){
-	$('#trait_name').text(data.name);
+	$('#class_name').text(data.name);
+	if(data.spellcaster){
+		$('#class_spells').removeClass('hide_block');
+	} else {
+		$('#class_spells').addClass('hide_block');
+	}
 	document.title = data.name + ' (' +data.englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
 	var url = '/classes/fragment_id/' + data.id;
 	$("#content_block").load(url);
 }
+$('#class_traits').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	var table = $('#classes').DataTable();
+	var data = table.rows({selected:  true}).data();
+	selectClass(data[0]);
+});
+$('#class_description').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	loadDescription();
+	localStorage.setItem('class_info', 'description');
+});
+$('#class_spells').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	loadClassSpells();
+});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
-	const table = $('#treasures').DataTable();
+	const table = $('#classes').DataTable();
 	table.tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
@@ -191,4 +227,28 @@ function setFiltered(){
 	} else {
 		$('#icon_filter').addClass('active');
 	}
+}
+function loadDescription(){
+	var table = $('#classes').DataTable();
+	var data = table.rows({selected:  true}).data()[0];
+	var url = '/classes/' + data.englishName + '/description';
+	$('#content_block').load(url, url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
+		$('#info_wrapper').addClass('description');
+	});
+}
+function loadClassSpells() {
+	var table = $('#classes').DataTable();
+	var data = table.rows({selected:  true}).data()[0];
+	var url = '/classes/spells/' + data.englishName;
+	$('#content_block').load(url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
+		$('#info_wrapper').addClass('spells');
+	});
 }
