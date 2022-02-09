@@ -28,6 +28,14 @@ $(document).ready(function() {
 					row.archetypes.forEach(function(item, i, arr) {
 						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
 					});
+					result+='</ul><ul class="archetype_list">';
+					row.settingArchetypes.forEach(function(item, i, arr) {
+						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
+					});
+					result+='</ul><ul class="archetype_list">';
+					row.homebrewArchetypes.forEach(function(item, i, arr) {
+						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
+					});
 					result+='</ul></div>';
 					return result;
 				}
