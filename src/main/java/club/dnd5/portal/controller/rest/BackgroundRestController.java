@@ -40,6 +40,7 @@ public class BackgroundRestController {
 		if (!filterSkills.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> {
 				Join<AbilityType, Background> abilityType = root.join("skills", JoinType.LEFT);
+				query.distinct(true);
 				return cb.and(abilityType.in(filterSkills));
 			});
 		}
