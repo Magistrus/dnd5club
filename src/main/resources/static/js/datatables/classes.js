@@ -193,58 +193,22 @@ $('#btn_close').on('click', function() {
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
 });
-$('.ability_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="ability"]:checked').map(function() {
+$('.dice_hp_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="dice_hp"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
     $('#classes').DataTable().column(2).search(properties, true, false, false).draw();
 	if(properties) {
-		$('#ability_clear_btn').removeClass('hide_block');
+		$('#dice_hp_clear_btn').removeClass('hide_block');
 	} else {
-		$('#ability_clear_btn').addClass('hide_block');
+		$('#dice_hp_clear_btn').addClass('hide_block');
 	}
     setFiltered();
 });
-$('#ability_clear_btn').on('click', function() {
-	$('#skill_clear_btn').addClass('hide_block');
-	$('.skill_checkbox').prop('checked', false);
+$('#dice_hp_clear_btn').on('click', function() {
+	$('#dice_hp_clear_btn').addClass('hide_block');
+	$('.dice_hp_checkbox').prop('checked', false);
 	$('#classes').DataTable().column(2).search("", true, false, false).draw();
-	setFiltered();
-});
-$('.skill_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="skill"]:checked').map(function() {
-		return this.value;
-	}).get().join('|');
-    $('#classes').DataTable().column(3).search(properties, true, false, false).draw();
-	if(properties) {
-		$('#skill_clear_btn').removeClass('hide_block');
-	} else {
-		$('#skill_clear_btn').addClass('hide_block');
-	}
-    setFiltered();
-});
-$('#skill_clear_btn').on('click', function() {
-	$('#skill_clear_btn').addClass('hide_block');
-	$('.skill_checkbox').prop('checked', false);
-	$('#classes').DataTable().column(3).search("", true, false, false).draw();
-	setFiltered();
-});
-$('.prerequisite_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="prerequisite"]:checked').map(function() {
-		return this.value;
-	}).get().join('|');
-    $('#classes').DataTable().column(4).search(properties, true, false, false).draw();
-	if(properties) {
-		$('#prerequisite_clear_btn').removeClass('hide_block');
-	} else {
-		$('#prerequisite_clear_btn').addClass('hide_block');
-	}
-    setFiltered();
-});
-$('#prerequisite_clear_btn').on('click', function() {
-	$('#prerequisite_clear_btn').addClass('hide_block');
-	$('.prerequisite_checkbox').prop('checked', false);
-	$('#classes').DataTable().column(4).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
