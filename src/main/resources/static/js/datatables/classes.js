@@ -26,15 +26,15 @@ $(document).ready(function() {
 					result+='<button class="open tip" title="Архетипы"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
 					result+='<div class="archetypes"><div class="main"><div class="archetype_list"><h4>Основное:</h4><ul>';
 					row.archetypes.forEach(function(item, i, arr) {
-						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
+						result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
 					});
 					result+='</ul></div><div class="archetype_list"><h4>Сеттинги:</h4><ul>';
 					row.settingArchetypes.forEach(function(item, i, arr) {
-						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
+						result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
 					});
 					result+='</ul></div></div><div class="homebrew_list archetype_list"><h4>Homebrew:</h4><ul>';
 					row.homebrewArchetypes.forEach(function(item, i, arr) {
-						result+= '<li><i class="add_favorites"></i>' + item.name + '</li>';
+						result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
 					});
 					result+='</ul></div></div>';
 					return result;
@@ -111,7 +111,7 @@ $(document).ready(function() {
 			window.open('/classes/' + data.englishName.split(' ').join('_'));
 		}
 	});
-	$('#classes tbody').on('click', 'tr', function () {
+	$('#classes tbody').on('click', 'tr', function (event) {
 		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 			document.getElementById('list_page_two_block').classList.add('block_information');
 		}
@@ -120,10 +120,17 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		if (cntrlIsPressed){
-			window.open('/backgrounds/' + data.englishName.split(' ').join('_'));
+			window.open('/classes/' + data.englishName.split(' ').join('_'));
 		}
 		rowSelectIndex = row.index();
-		selectClass(data);
+		if (event.target.tagName == 'LI'){
+			$('li').removeClass('select');
+			event.target.classList.add('select');
+			setActiveArchetype(data.englishName.replace(' ', '_'), event.target.id)
+		}
+		else {
+			selectClass(data);	
+		}
 		selectedClass = data;
 	});
 	$('#search').on( 'keyup click', function () {
@@ -141,6 +148,20 @@ function selectClass(data){
 	history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
 	var url = '/classes/fragment_id/' + data.id;
 	$("#content_block").load(url);
+}
+function setActiveArchetype(className, archetypeName) {
+	var url = '/classes/' + className + '/architypes/' + archetypeName;
+	$("#content_block").load(url, function() {
+		$('#mobile_selector').change(function () {
+			setActiveArchetype(element, className, $('#mobile_selector').val());
+		});
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('options');
+		$('#info_wrapper').addClass('traits');
+	});
+	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
 }
 $('#class_traits').on('click', function() {
 	$('.btn_class').removeClass('active');
@@ -172,58 +193,22 @@ $('#btn_close').on('click', function() {
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
 });
-$('.ability_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="ability"]:checked').map(function() {
+$('.dice_hp_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="dice_hp"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
     $('#classes').DataTable().column(2).search(properties, true, false, false).draw();
 	if(properties) {
-		$('#ability_clear_btn').removeClass('hide_block');
+		$('#dice_hp_clear_btn').removeClass('hide_block');
 	} else {
-		$('#ability_clear_btn').addClass('hide_block');
+		$('#dice_hp_clear_btn').addClass('hide_block');
 	}
     setFiltered();
 });
-$('#ability_clear_btn').on('click', function() {
-	$('#skill_clear_btn').addClass('hide_block');
-	$('.skill_checkbox').prop('checked', false);
+$('#dice_hp_clear_btn').on('click', function() {
+	$('#dice_hp_clear_btn').addClass('hide_block');
+	$('.dice_hp_checkbox').prop('checked', false);
 	$('#classes').DataTable().column(2).search("", true, false, false).draw();
-	setFiltered();
-});
-$('.skill_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="skill"]:checked').map(function() {
-		return this.value;
-	}).get().join('|');
-    $('#classes').DataTable().column(3).search(properties, true, false, false).draw();
-	if(properties) {
-		$('#skill_clear_btn').removeClass('hide_block');
-	} else {
-		$('#skill_clear_btn').addClass('hide_block');
-	}
-    setFiltered();
-});
-$('#skill_clear_btn').on('click', function() {
-	$('#skill_clear_btn').addClass('hide_block');
-	$('.skill_checkbox').prop('checked', false);
-	$('#classes').DataTable().column(3).search("", true, false, false).draw();
-	setFiltered();
-});
-$('.prerequisite_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="prerequisite"]:checked').map(function() {
-		return this.value;
-	}).get().join('|');
-    $('#classes').DataTable().column(4).search(properties, true, false, false).draw();
-	if(properties) {
-		$('#prerequisite_clear_btn').removeClass('hide_block');
-	} else {
-		$('#prerequisite_clear_btn').addClass('hide_block');
-	}
-    setFiltered();
-});
-$('#prerequisite_clear_btn').on('click', function() {
-	$('#prerequisite_clear_btn').addClass('hide_block');
-	$('.prerequisite_checkbox').prop('checked', false);
-	$('#classes').DataTable().column(4).search("", true, false, false).draw();
 	setFiltered();
 });
 function setFiltered(){
