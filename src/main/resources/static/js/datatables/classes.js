@@ -124,8 +124,8 @@ $(document).ready(function() {
 		}
 		rowSelectIndex = row.index();
 		if (event.target.tagName == 'LI'){
-			$('li').removeClass('select');
-			event.target.classList.add('select');
+			$('li').removeClass('select_point');
+			event.target.classList.add('select_point');
 			setActiveArchetype(data.englishName.replace(' ', '_'), event.target.id)
 		}
 		else {

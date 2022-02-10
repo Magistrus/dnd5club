@@ -1438,6 +1438,20 @@ body.compact_menu .block_information #left_block {
   border: 0;
 }
 
+table.table_card tr.dtrg-group {
+  background-color: transparent !important;
+}
+
+table.table_card tr.dtrg-group td {
+  background-color: transparent !important;
+  font-size: 24px;
+  font-weight: 300;
+  margin: 24px 0 8px 0;
+  color: var(--text-color-title);
+  position: relative;
+  font-family: 'Lora';
+}
+
 .table_card tbody {
   flex-direction: column;
   align-items: center;
@@ -1576,11 +1590,19 @@ body.compact_menu .block_information #left_block {
     padding: 0 16px 16px 0;
     display: block;
   }
-  
 }
 
 .table_card tr td .archetype_list {
   margin-bottom: 16px;
+}
+
+.table_card tr td .archetype_list .select_point {
+  background: var(--primary-active);
+  color: var(--text-color-title);
+}
+
+.table_card tr td .archetype_list .select_point:hover {
+  background: var(--primary-hover);
 }
 
 .table_card tr td .archetype_list > h4 {
@@ -1966,6 +1988,10 @@ body.compact_menu #right_block {
 .no_close_left_block.block_information #right_block .header_block .btn_close,
 .table_list_block.block_information #right_block .header_block .btn_close {
   display: none;
+}
+
+.table_list_block.block_information #right_block.classes .header_block .btn_close {
+  display: flex;
 }
 
 @media (max-width: 1000px) {
