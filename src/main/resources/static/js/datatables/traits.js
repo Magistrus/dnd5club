@@ -130,7 +130,7 @@ $(document).ready(function() {
 		var row = table.row( tr );
 		var data = row.data();
 		if (cntrlIsPressed){
-			window.open('/backgrounds/' + data.englishName.split(' ').join('_'));
+			window.open('/traits/' + data.englishName.split(' ').join('_'));
 		}
 		rowSelectIndex = row.index();
 		selectTrait(data);

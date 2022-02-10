@@ -32,7 +32,7 @@ public class ClassDto {
 		id = hero.getId();
 		name = hero.getCapitalazeName();
 		englishName = hero.getEnglishName();
-		sidekick = hero.isSidekick() ? "Напарники" : "Классы";
+		sidekick = hero.isSidekick() ? "Напарники" : "";
 		hitDice = "1к" + hero.getDiceHp();
 		spellcaster = hero.getSpellcasterType() != SpellcasterType.NONE;
 		icon = hero.getIcon() == null ? "" : hero.getIcon();

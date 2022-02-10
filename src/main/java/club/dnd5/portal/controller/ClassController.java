@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.dto.classes.ClassDto;
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.HeroClassTrait;
@@ -61,7 +62,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
-		model.addAttribute("selectedClass", name);
+		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		model.addAttribute("metaTitle", heroClass.getCapitalazeName() + " | Классы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
