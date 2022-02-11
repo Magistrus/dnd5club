@@ -24,6 +24,7 @@ public class ClassDto {
 	private String icon;
 	private String book;
 	private String bookshort;
+	private String archetypeName;
 	private List<ArchetypeDto> archetypes;
 	private List<ArchetypeDto> settingArchetypes;
 	private List<ArchetypeDto> homebrewArchetypes;
@@ -32,6 +33,7 @@ public class ClassDto {
 		id = hero.getId();
 		name = hero.getCapitalazeName();
 		englishName = hero.getEnglishName();
+		archetypeName = hero.getArchetypeName();
 		sidekick = hero.isSidekick() ? "Напарники" : "";
 		hitDice = "1к" + hero.getDiceHp();
 		spellcaster = hero.getSpellcasterType() != SpellcasterType.NONE;
