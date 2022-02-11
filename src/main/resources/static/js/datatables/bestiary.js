@@ -200,6 +200,8 @@ $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	localStorage.removeItem('selected_creature');
 	history.pushState('data to be passed', 'Бестиарий', '/bestiary/');
+	const table = $('#creatures').DataTable();
+	table.rows().deselect();
 });
 $('#statblock').on('click', function() {
 	let table = $('#creatures').DataTable();

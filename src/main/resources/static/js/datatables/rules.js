@@ -136,6 +136,8 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
+	const table = $('#rules').DataTable();
+	table.rows().deselect();
 });
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');

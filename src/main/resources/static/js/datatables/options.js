@@ -156,6 +156,8 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
+	const table = $('#options').DataTable();
+	table.rows().deselect();
 });
 $('.category_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="category"]:checked').map(function() {
