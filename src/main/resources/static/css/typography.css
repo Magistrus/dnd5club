@@ -272,6 +272,10 @@ span.saving_throw {
 
 
 /********* Таблицы *********/
+table.dataTable.no-footer {
+  border: none !important;
+}
+
 .table-responsive {
   overflow-x: auto;
 }
