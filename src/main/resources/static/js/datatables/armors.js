@@ -140,4 +140,6 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
+	const table = $('#armors_wrapper').DataTable();
+	table.rows().deselect();
 });

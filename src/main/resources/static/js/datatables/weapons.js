@@ -163,6 +163,8 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
+	const table = $('#weapons').DataTable();
+	table.rows().deselect();
 });
 $('.damge_type_checkbox').on('change', function(e){
 	var damageTypes = $('input:checkbox[name="damageType"]:checked').map(function() {

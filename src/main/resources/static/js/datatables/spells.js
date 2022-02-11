@@ -217,6 +217,8 @@ $('#btn_close').on('click', function() {
 	localStorage.removeItem('selected_spell');
 	selectedSpell = null;
 	history.pushState('data to be passed', 'Заклинания', '/spells/');
+	const table = $('#spells').DataTable();
+	table.rows().deselect();
 });
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
