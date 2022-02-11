@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	document.getElementById('list_page_two_block').classList.remove('block_information');
 	var scrollEventHeight = 0;
 	var rowSelectIndex = 0;
 	var table = $('#classes').DataTable({
@@ -24,7 +25,7 @@ $(document).ready(function() {
 					result+='</span> <span>[' + row.englishName + ']</span></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
 					result+='<div class="two_row"><span>'+ row.hitDice+'</span></div></div>';
 					if (row.archetypeName !== null){
-						result+='<button class="open tip" title="'+row.archetypeName+'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
+						result+='<button class="open tip" title="'+row.archetypeName+'" data-tipped-options="position: \'left\'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
 						result+='<div class="archetypes"><div class="main">';
 						if (row.archetypes.length > 0) {
 							result+='<div class="archetype_list"><h4>Основное:</h4><ul>';
@@ -79,23 +80,9 @@ $(document).ready(function() {
 			loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
-			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 500;
-		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
-		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
-		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
-		    	      table.page.loadMore();
-		    	      simpleBar.recalculate();
-		    	      scrollEventHeight +=750;
-		    	}
-		    });
+
 		},
 		drawCallback: function ( settings ) {
-			if(rowSelectIndex === 0 && selectedClass === null){
-				if (!$('#list_page_two_block').hasClass('block_information')){
-					return;
-				}
-				$('#classes tbody tr:eq('+rowSelectIndex+')').click();
-			}
 			if (selectedClass) {
 				selectClass(selectedClass);
 				var rowIndexes = [];
@@ -106,8 +93,8 @@ $(document).ready(function() {
 					return false;
 				});
 				rowSelectIndex = rowIndexes[0];
+				table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			}
-			table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		},
 		createdRow: function (row, data, dataIndex) {
 			
@@ -123,9 +110,6 @@ $(document).ready(function() {
 		}
 	});
 	$('#classes tbody').on('click', 'tr', function (event) {
-		if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
-			document.getElementById('list_page_two_block').classList.add('block_information');
-		}
 		var tr = $(this).closest('tr');
 		var table = $('#classes').DataTable();
 		var row = table.row( tr );
@@ -143,19 +127,26 @@ $(document).ready(function() {
 				event.target.classList.add('select_point');
 				setActiveArchetype(data.englishName.replace(' ', '_'), event.target.id)
 			}
+			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+				document.getElementById('list_page_two_block').classList.add('block_information');
+			}
 		}
-		else if (event.target.tagName == 'BUTTON'){
+		else if (event.target.tagName == 'BUTTON' || event.target.parentNode.tagName == 'BUTTON'){
 			tr[0].classList.toggle('open');
 		}
 		else {
 			$('li').removeClass('select_point');
-			selectClass(data);	
+			selectClass(data);
+			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
+				document.getElementById('list_page_two_block').classList.add('block_information');
+			}
 		}
 		selectedClass = data;
 	});
-	$('#search').on( 'keyup click', function () {
-		table.tables().search($(this).val()).draw();
-	});
+});
+$('#search').on( 'keyup click', function () {
+	var table = $('#classes').DataTable();
+	table.tables().search($(this).val()).draw();
 });
 function selectClass(data){
 	$('#class_name').text(data.name);
@@ -209,6 +200,9 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
+	const table = $('#classes').DataTable();
+	table.rows().deselect();
+	$('li').removeClass('select_point');
 });
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
