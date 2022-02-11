@@ -19,24 +19,35 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<div class="wrapper"><i class="info_block">'+row.icon+'</i>';
+					let result ='<div class="wrapper"><i class="info_block">'+row.icon+'</i>';
 					result+='<div class="content"><h3 class="row_name"><span><span class="name">' + row.name;
 					result+='</span> <span>[' + row.englishName + ']</span></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
 					result+='<div class="two_row"><span>'+ row.hitDice+'</span></div></div>';
-					result+='<button class="open tip" title="Архетипы"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
-					result+='<div class="archetypes"><div class="main"><div class="archetype_list"><h4>Основное:</h4><ul>';
-					row.archetypes.forEach(function(item, i, arr) {
-						result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
-					});
-					result+='</ul></div><div class="archetype_list"><h4>Сеттинги:</h4><ul>';
-					row.settingArchetypes.forEach(function(item, i, arr) {
-						result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
-					});
-					result+='</ul></div></div><div class="homebrew_list archetype_list"><h4>Homebrew:</h4><ul>';
-					row.homebrewArchetypes.forEach(function(item, i, arr) {
-						result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
-					});
-					result+='</ul></div></div>';
+					if (row.archetypeName !== null){
+						result+='<button class="open tip" title="'+row.archetypeName+'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
+						result+='<div class="archetypes"><div class="main">';
+						if (row.archetypes.length > 0) {
+							result+='<div class="archetype_list"><h4>Основное:</h4><ul>';
+							row.archetypes.forEach(function(item, i, arr) {
+								result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
+							});
+							result+='</ul></div>';
+						}
+						if (row.settingArchetypes.length > 0) {
+							result+='<div class="archetype_list"><h4>Сеттинги:</h4><ul>';
+							row.settingArchetypes.forEach(function(item, i, arr) {
+								result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
+							});
+							result+='</ul></div></div>';
+						}
+						if (row.homebrewArchetypes.length > 0) {
+							result+='<div class="homebrew_list archetype_list"><h4>Homebrew:</h4><ul>';
+							row.homebrewArchetypes.forEach(function(item, i, arr) {
+								result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name + '</li>';
+							});
+							result+='</ul></div>';
+						}
+					}
 					return result;
 				}
 				return data;
@@ -124,11 +135,20 @@ $(document).ready(function() {
 		}
 		rowSelectIndex = row.index();
 		if (event.target.tagName == 'LI'){
-			$('li').removeClass('select_point');
-			event.target.classList.add('select_point');
-			setActiveArchetype(data.englishName.replace(' ', '_'), event.target.id)
+			if (event.target.classList.contains('select_point')){
+				event.target.classList.remove('select_point');
+				selectClass(data);
+			} else {
+				$('li').removeClass('select_point');
+				event.target.classList.add('select_point');
+				setActiveArchetype(data.englishName.replace(' ', '_'), event.target.id)
+			}
+		}
+		else if (event.target.tagName == 'BUTTON'){
+			tr[0].classList.toggle('open');
 		}
 		else {
+			$('li').removeClass('select_point');
 			selectClass(data);	
 		}
 		selectedClass = data;
