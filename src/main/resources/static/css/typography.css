@@ -142,12 +142,8 @@ blockquote p:last-child {
   z-index: -1;
 }
 
-details + details > summary.h4 {
-  margin-top: 8px !important;
-}
-
-details[open] + details > summary.h4 {
-  margin-top: 24px !important;
+details {
+  margin-bottom: 24px;
 }
 
 details > summary.h4 {
@@ -165,7 +161,7 @@ details > summary.h4 {
 
 details[open] > summary.h4 {
   padding: 4px 0px;
-  margin: 24px 0px 4px 0px;
+  margin: 0px 0px 4px 0px;
   background: none;
 }
 
@@ -320,9 +316,8 @@ table.dnd5_table {
 }
 
 .table-responsive.class {
-  margin-left: -24px;
-  margin-right: -24px;
-  margin-top: -24px;
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
 }
 
 @media (max-width: 1200px) {

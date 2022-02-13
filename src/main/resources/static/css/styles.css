@@ -1470,6 +1470,10 @@ table.table_card tr.dtrg-group td {
   align-items: start;
 }
 
+.block_information .table_card tbody {
+  display: block;
+}
+
 @media (max-width: 1600px) {
   .table_card tbody {
     grid-template-columns: repeat(2, 1fr);
@@ -1500,10 +1504,6 @@ table.table_card tr.dtrg-group td {
   border: 1px solid var(--bg-transparent);
 }
 
-.block_information .table_card tbody {
-  column-count: 1;
-}
-
 .table_card tr.selected {
   border: 1px solid var(--primary);
   background-color: var(--bg-sub-menu) !important;
@@ -1516,6 +1516,10 @@ table.table_card tr.dtrg-group td {
   display: flex;
   flex-direction: column;
   padding: 0px !important;
+}
+
+.block_information .table_card tr {
+  margin-bottom: 16px;
 }
 
 .table_card tr td:hover {
@@ -1625,6 +1629,12 @@ table.table_card tr.dtrg-group td {
 .table_card tr td .archetypes .homebrew_list {
   flex: 1 1 50%;
   min-width: 50%;
+}
+
+@media (max-width: 1700px) {
+  .block_information .table_card tr td .archetypes {
+    display: block;
+  }
 }
 
 @media (max-width: 1000px) {
