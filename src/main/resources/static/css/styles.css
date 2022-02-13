@@ -1632,7 +1632,7 @@ table.table_card tr.dtrg-group td {
 }
 
 @media (max-width: 1700px) {
-  .block_information .table_card tr td .archetypes {
+  .block_information .table_card tr.open td .archetypes {
     display: block;
   }
 }
@@ -1667,7 +1667,7 @@ table.table_card tr.dtrg-group td {
 
 .table_card tr td .archetype_list .select_point {
   background: var(--primary-active);
-  color: var(--text-color-title);
+  color: var(--text-btn-color);
 }
 
 .table_card tr td .archetype_list .select_point:hover {
