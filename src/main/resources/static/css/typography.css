@@ -150,12 +150,12 @@ details > summary.h4 {
   padding: 4px 8px;
   font-size: 24px;
   font-weight: 300;
-  margin: 24px -8px 8px -8px;
+  margin: 0px -8px 4px -8px;
   color: var(--text-color-title);
   position: relative;
   font-family: 'Lora';
   cursor: pointer;
-  background: var(--bg-sub-menu);
+  background: var(--bg-details-title);
   border-radius: 8px;
 }
 
@@ -166,7 +166,7 @@ details[open] > summary.h4 {
 }
 
 details > summary.h4 span {
-  background: var(--bg-sub-menu);
+  background: var(--bg-details-title);
 }
 
 details[open] > summary.h4 span {
