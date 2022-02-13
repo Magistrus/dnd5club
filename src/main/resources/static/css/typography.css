@@ -368,7 +368,8 @@ table.dataTable tr.dtrg-group td {
     margin-right: -16px;
   }
 }
-@media (max-width: 1000px) {
+
+@media (max-width: 1200px) {
   h1 {
     font-size: 60px;
     font-weight: 300;

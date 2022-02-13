@@ -4,7 +4,7 @@ html {
   overflow-y: hidden;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   html {
     height: calc(100% - 73px);
     overflow-y: scroll;
@@ -789,7 +789,7 @@ label.select_box {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .dnd5-popup-block .mfp-close {
     top: 6px;
     right: 6px;
@@ -1065,7 +1065,7 @@ label.select_box {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .main_page_wrapper .news_block {
     display: none;
   }
@@ -1283,7 +1283,7 @@ label.select_box {
   border-bottom: 1px solid var(--border);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .header_block {
     border-right: none;
   }
@@ -1425,7 +1425,7 @@ body.compact_menu .block_information #left_block {
   background-color: var(--text-btn-color);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   body .block_information #left_block.spells,
   body #left_block {
     width: calc(100vw - 0px) !important;
@@ -1445,6 +1445,8 @@ table.table_card tr.dtrg-group:first-child {
 table.table_card tr.dtrg-group {
   background-color: transparent !important;
   min-width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 
 table.table_card tr.dtrg-group td {
@@ -1461,25 +1463,36 @@ table.table_card tr.dtrg-group td {
   align-items: center;
   width: 100%;
   padding: 24px 24px;
-  column-count: 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  align-items: start;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1600px) {
   .table_card tbody {
-    column-count: 2;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  table.table_card tr.dtrg-group {
+    grid-column-end: 3;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
   .table_card tbody {
-    column-count: 1;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  table.table_card tr.dtrg-group {
+    grid-column-end: 2;
   }
 }
 
 .table_card tr {
   display: inline-block;
   width: 100%;
-  margin: 0px 0px 16px 0;
   overflow: hidden;
   background-color: var(--bg-secondary) !important;
   border-radius: 16px;
@@ -1614,13 +1627,25 @@ table.table_card tr.dtrg-group td {
   min-width: 50%;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1000px) {
   .table_card tr td .archetypes {
     margin-left:76px;
     padding: 0 16px 16px 0;
     display: none;
   }
 
+  .table_card tr.open td .archetypes {
+    display: block;
+  }
+}
+
+@media (max-width: 700px) {
+  .table_card tr.open td .archetypes {
+    display: flex;
+  }
+}
+
+@media (max-width: 500px) {
   .table_card tr.open td .archetypes {
     display: block;
   }
@@ -1881,7 +1906,7 @@ body.compact_menu #right_block {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .archetype_mobile_selector {
     width: calc(100vw - 0% - 0px);
   }
@@ -2028,10 +2053,14 @@ body.compact_menu #right_block {
   display: flex;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .no_close_left_block.block_information #right_block .header_block .btn_close,
   .table_list_block.block_information #right_block .header_block .btn_close {
     display: flex;
+  }
+
+  #right_block .header_block .btn_full_screen{
+    display: none;
   }
 }
 
@@ -2263,7 +2292,7 @@ body.compact_menu #right_block {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .grid_stat_block .block.distance {
     border-right: none;
   }
@@ -2934,7 +2963,7 @@ body.compact_menu #right_block.spells {
   stroke-width:2.5px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .spell_wrapper .spells_level {
     margin-top: -2px;
   }
@@ -3608,23 +3637,6 @@ button {
 
   #right_block.races .info_wrapper .content_block #content_block {
     width: auto;
-  }
-}
-
-
-@media (max-width: 1000px) {
-  #right_block .header_block .btn_full_screen{
-    display: none;
-  }
-
-
-  /******** Расы / races ********/
-  #right_block.races .info_wrapper .content_block .sub_menu_list li.avatar img {
-    max-width:100%;
-  }
-
-  #right_block.races .info_wrapper .content_block li.avatar {
-    width: 100%;
   }
 }
 
