@@ -18,6 +18,7 @@ h3 {
   line-height: 32px;
   margin: 0;
   color: var(--text-color);
+  font-family: 'Lora';
 }
 
 h4 {
@@ -36,7 +37,6 @@ h5 {
   margin: 0px 0 0px 0;
   color: var(--text-color);
   position: relative;
-
 }
 
 p {
