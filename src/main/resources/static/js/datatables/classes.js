@@ -136,7 +136,7 @@ $(document).ready(function() {
 				document.getElementById('list_page_two_block').classList.add('block_information');
 			}
 		}
-		else if (event.target.tagName == 'BUTTON' || event.target.parentNode.tagName == 'BUTTON'){
+		else if (event.target.tagName == 'BUTTON' || event.target.parentNode.tagName == 'BUTTON' || event.target.parentNode.parentNode.tagName == 'BUTTON'){
 			tr[0].classList.toggle('open');
 		}
 		else {
