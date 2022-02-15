@@ -5,7 +5,7 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<th:block th:fragment="classInfo(selectedArchetype)">
+		<th:block th:fragment="classInfo1(selectedArchetype)">
 			<details open>
 				<summary class="h4 header_separator"><span>Хиты</span></summary>
 				<p class="class_stats">
@@ -20,7 +20,7 @@
 				</p>
 			</details>
 		</th:block>
-
+		
 		<div class="table-responsive class" data-simplebar>
 			<table class="dnd5_table">
 				<thead>
@@ -84,7 +84,7 @@
 			</table>
 		</div>
 
-		<th:block th:fragment="classInfo(selectedArchetype)">
+		<th:block th:fragment="classInfo2(selectedArchetype)">
 			<details open>
 				<summary class="h4 header_separator"><span>Владение</span></summary>
 				<p class="class_stats">
