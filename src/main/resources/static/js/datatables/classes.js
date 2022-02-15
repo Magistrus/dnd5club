@@ -35,14 +35,14 @@ $(document).ready(function() {
 							result+='</ul></div>';
 						}
 						if (row.settingArchetypes.length > 0) {
-							result+='<div class="archetype_list setting_source hide_block"><h4>Сеттинги:</h4><ul>';
+							result+='<div class="archetype_list setting_source '+(localStorage.getItem('setting_source') != 'true' ? 'hide_block' : '') +'"><h4>Сеттинги:</h4><ul>';
 							row.settingArchetypes.forEach(function(item, i, arr) {
 								result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name+' ('+item.bookshort+' / ' +item.englishName  + ')</li>';
 							});
 							result+='</ul></div></div>';
 						}
 						if (row.homebrewArchetypes.length > 0) {
-							result+='<div class="homebrew_list archetype_list custom_source hide_block"><h4>Homebrew:</h4><ul>';
+							result+='<div class="homebrew_list archetype_list custom_source '+(localStorage.getItem('homebrew_source') != 'true' ? 'hide_block' : '') +'"><h4>Homebrew:</h4><ul>';
 							row.homebrewArchetypes.forEach(function(item, i, arr) {
 								result+= '<li id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i>' + item.name+' ('+item.bookshort+' / ' +item.englishName  + ')</li>';
 							});
