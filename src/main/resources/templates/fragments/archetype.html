@@ -5,6 +5,7 @@
 </head>
 <body>
 	<th:block th:fragment="view" th:object="${heroClass}">
+		<div th:replace="fragments/class :: classInfo1(${selectedArchetype.englishName})"></div>
 		<div class="table-responsive class" data-simplebar>
 			<table class="dnd5_table">
 				<thead>
@@ -86,7 +87,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div th:replace="fragments/class :: classInfo(${selectedArchetype.englishName})"></div>
+		<div th:replace="fragments/class :: classInfo2(${selectedArchetype.englishName})"></div>
 		<th:block th:each="feature : ${features}">
 			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}">
 				<summary class="h4 header_separator" th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}" th:id="|${feature.prefix}${feature.id}|"><span th:text="${feature.name}"></span></summary>

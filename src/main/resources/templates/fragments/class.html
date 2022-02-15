@@ -5,7 +5,7 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<th:block th:fragment="classInfo(selectedArchetype)">
+		<th:block th:fragment="classInfo1(selectedArchetype)">
 			<div class="archetype_mobile_selector">
 				<div class="select js-dropdown">
 					<input type="hidden" name="archetype" id="mobile_selector" class="js-dropdown__input"> <i class="icon_arrow"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -99,7 +99,7 @@
 			</table>
 		</div>
 
-		<th:block th:fragment="classInfo(selectedArchetype)">
+		<th:block th:fragment="classInfo2(selectedArchetype)">
 			<details open>
 				<summary class="h4 header_separator"><span>Владение</span></summary>
 				<p class="class_stats">
