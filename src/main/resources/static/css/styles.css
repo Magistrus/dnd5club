@@ -881,12 +881,12 @@ label.select_box {
 
 /******** Главная ********/
 
-.cont:before {
+body:before {
   content: '';
   display: block;
   position: absolute;
   bottom: 0;
-  right: -1px;
+  right: 0px;
   background: var(--bg-img-main) no-repeat;
   background-size: contain;
   width: 700px;
@@ -895,7 +895,7 @@ label.select_box {
 }
 
 @media (max-width: 600px) {
-  .cont:before {
+  body:before {
     display: none !important;
   }
 }
