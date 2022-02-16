@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var scrollEventHeight = 0;
-	var table = $('#spells').DataTable({
+	let spellTable = $('#spells').DataTable({
 		ajax : '/data/spells?classId=' + classId,
 		dom: 't',
 		serverSide : true,
@@ -96,7 +96,7 @@ $(document).ready(function() {
 			var simpleBar = SimpleBar.instances.get(document.getElementById('info_wrapper'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
-	    		  table.page.loadMore();
+		    	  spellTable.page.loadMore();
 	    	      simpleBar.recalculate();
 	    	      scrollEventHeight +=750;
 	    		}
@@ -117,9 +117,8 @@ $(document).ready(function() {
 		},
 	});
 	$('#spells tbody').on('click', 'tr', function () {
-		var tr = $(this).closest('tr');
-		var table = $('#spells').DataTable();
-		var row = table.row( tr );
+		let tr = $(this).closest('tr');
+		var row = $('#spells').DataTable().row( tr );
 		$.get('/spells/fragment/' + row.data().id)
 		  .done(function( spellData ) {
 			$.magnificPopup.open({
@@ -136,7 +135,7 @@ function selectSpell(data){
 	$("#content_block").load(url);
 }
 var timer, delay = 300;
-$('#search').bind('keydown blur change', function(e) {
+$('#search_spell').bind('keydown blur change', function(e) {
     var _this = $(this);
     clearTimeout(timer);
     timer = setTimeout(function() {
@@ -146,17 +145,15 @@ $('#search').bind('keydown blur change', function(e) {
 		else {
 			$('#text_clear').hide();
 		}
-		const table = $('#spells').DataTable();
-		table.tables().search($('#search').val()).draw();
+		$('#spells').DataTable().tables().search($('#search').val()).draw();
     }, delay );
 });
-$('#btn_filters').on('click', function() {
-	$('#searchPanes').toggleClass('hide_block');
+$('#btn_spell_filters').on('click', function() {
+	$('#searchPanesSpell').toggleClass('hide_block');
 });
-$('#text_clear').on('click', function () {
-	$('#search').val('');
-	const table = $('#spells').DataTable();
-	table.tables().search($(this).val()).draw();
+$('#spell_text_clear').on('click', function () {
+	$('#search_spell').val('');
+	$('#spells').DataTable().tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
 $('.level_checkbox').on('change', function(e){

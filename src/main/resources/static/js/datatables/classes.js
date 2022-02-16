@@ -116,7 +116,6 @@ $(document).ready(function() {
 	});
 	$('#classes tbody').on('click', 'tr', function (event) {
 		var tr = $(this).closest('tr');
-		var table = $('#classes').DataTable();
 		var row = table.row( tr );
 		var data = row.data();
 		if (cntrlIsPressed){
@@ -126,6 +125,12 @@ $(document).ready(function() {
 			$('#class_spells').removeClass('hide_block');
 		} else {
 			$('#class_spells').addClass('hide_block');
+		}
+		if(data.option !== null){
+			$('#button_option_name').text(data.option);
+			$('#class_options').removeClass('hide_block');
+		} else{
+			$('#class_options').addClass('hide_block');
 		}
 		rowSelectIndex = row.index();
 		if ($(event.target).closest('li').length != 0){
@@ -193,8 +198,7 @@ function setActiveArchetype(className, archetypeName) {
 $('#class_traits').on('click', function() {
 	$('.btn_class').removeClass('active');
 	this.classList.add('active');
-	var table = $('#classes').DataTable();
-	var data = table.rows({selected:  true}).data();
+	let data = $('#classes').DataTable().rows({selected:  true}).data();
 	if ($('li').hasClass('select_point')){
 		setActiveArchetype(data[0].englishName.replace(' ', '_'), $('li.select_point').attr('id'));
 	}
@@ -205,8 +209,7 @@ $('#class_traits').on('click', function() {
 $('#class_description').on('click', function() {
 	$('.btn_class').removeClass('active');
 	this.classList.add('active');
-	var table = $('#classes').DataTable();
-	var data = table.rows({selected:  true}).data()[0];
+	var data = $('#classes').DataTable().rows({selected:  true}).data()[0];
 	if ($('li').hasClass('select_point')){
 		url = '/classes/'+data.englishName+ '/archetype/' + $('li.select_point').attr('id') + '/description';
 		loadDescription(url);
@@ -222,16 +225,21 @@ $('#class_spells').on('click', function() {
 	this.classList.add('active');
 	loadClassSpells();
 });
+$('#class_options').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	var selectedClass = $('.card.active')[0];
+	localStorage.setItem('class_info', 'options');
+	loadClassOptions();
+});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
-	const table = $('#classes').DataTable();
-	table.tables().search($(this).val()).draw();
+	$('#classes').DataTable().tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
-	const table = $('#classes').DataTable();
-	table.rows().deselect();
+	$('#classes').DataTable().rows().deselect();
 	$('li').removeClass('select_point');
 	history.pushState('data to be passed', '', '/classes/');
 });
@@ -276,8 +284,7 @@ function loadDescription(url){
 	});
 }
 function loadClassSpells() {
-	let table = $('#classes').DataTable();
-	let data = table.rows({selected:  true}).data()[0];
+	let data = $('#classes').DataTable().rows({selected:  true}).data()[0];
 	let url = '/classes/spells/' + data.englishName;
 	$('#content_block').load(url, function() {
 		$('#info_wrapper').removeClass('traits');
@@ -285,5 +292,17 @@ function loadClassSpells() {
 		$('#info_wrapper').removeClass('images');
 		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('spells');
+	});
+}
+function loadClassOptions() {
+	let data = $('#classes').DataTable().rows({selected:  true}).data()[0];
+	var url = '/classes/options/' + data.englishName;
+	$('#content_block').load(url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('images');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('options');
+		$('#info_wrapper').addClass('options');
 	});
 }
