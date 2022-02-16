@@ -217,6 +217,17 @@ details[open] > summary::before {
   top: 10px;
 }
 
+@media (max-width: 800px) {
+  summary::before {
+    top: 10px;
+    right: 8px;
+  }
+  
+  details[open] > summary::before {
+    top: 8px;
+  }
+}
+
 summary.h5 {
   font-size: 14px;
   font-weight: 400;
