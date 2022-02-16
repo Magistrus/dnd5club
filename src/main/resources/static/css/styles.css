@@ -939,8 +939,8 @@ body:before {
 }
 
 .compact_menu .main_page_wrapper .main_block .card_row .card {
-  flex: 1 1 calc(20% - 40px);
-  min-width: calc(20% - 40px);
+  flex: 1 1 calc(15% - 40px);
+  min-width: calc(15% - 40px);
   text-decoration: none;
 }
 
@@ -950,10 +950,9 @@ body:before {
   margin: 16px 8px 0px 8px;
   background-color: var(--bg-secondary);
   border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px 12px 16px 12px;
+  display: grid;
+  justify-content: center;
+  padding: 16px 12px 16px 12px;
   text-decoration: none;
 }
 
@@ -980,7 +979,7 @@ body:before {
 .main_page_wrapper .main_block .card_row a.card h4 {
   color:var(--text-color);
   transition: color 0.6s;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -1004,17 +1003,26 @@ body:before {
 }
 
 .main_page_wrapper .main_block .card_row .card .icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 83px;
-  height: 83px;
+  width: 100%;
   background-repeat: no-repeat;
   background-position: center;
+  display: grid;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.main_page_wrapper .main_block .card_row .card .icon svg {
+  width: 50px;
+  height: 50px;
 }
 
 .main_page_wrapper .main_block .card_row .card .icon svg path {
   stroke:var(--primary);
+}
+
+.main_page_wrapper .main_block .card_row .card .title {
+  display: grid;
+  align-items: center;
 }
 
 @media (max-width: 500px) {
@@ -3474,15 +3482,15 @@ body #left_block.tools_block {
 }
 
 #left_block.encounters .container_left {
-  height: calc(100% - 249px);
+  height: calc(100% - 336px);
 }
 
 #left_block.madness .container_left {
-  height: calc(100% - 249px);
+  height: calc(100% - 336px);
 }
 
 #left_block.trader .container_left {
-  height: calc(100% - 249px);
+  height: calc(100% - 336px);
 }
 
 #left_block.treasury .container_left {
