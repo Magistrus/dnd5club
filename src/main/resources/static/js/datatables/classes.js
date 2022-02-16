@@ -159,6 +159,7 @@ $(document).ready(function() {
 			}
 		}
 		selectedClass = data;
+		event.target.scrollIntoView({block: "center", behavior: "smooth"});
 	});
 });
 $('#search').on( 'keyup click', function () {
