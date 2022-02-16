@@ -120,7 +120,7 @@
 			</details>
 		</th:block>
 		<th:block th:each="archetype : *{archetypes}">
-			<details class="spoiler" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source':''}" th:classappend="${archetype.book.type.name() eq 'SETTING' ? 'setting_source':''}">
+			<details class="spoiler" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source': archetype.book.type.name() eq 'SETTING' ? 'setting_source':''}">
 				<summary class="h4 header_separator archetype_feet">
 					<span th:text="${archetype.name}"></span><span class ="tip" th:text="${archetype.book.source}" th:title="${archetype.book.name}"></span>
 				</summary>
