@@ -1110,9 +1110,14 @@ body:before {
 
 .friends_list .friend_block {
   padding: 8px 8px;
-  background-color: var(--bg-sub-menu);
+  background-color: var(--primary-hover);
   color: var(--text-color);
   border-radius: 8px;
+}
+
+.friends_list .friend_block:hover {
+  background-color: var(--primary-active);
+  color: var(--text-btn-color);
 }
 
 
