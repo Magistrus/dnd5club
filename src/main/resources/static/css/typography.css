@@ -275,6 +275,15 @@ details[open].spoiler h4.header_separator > span {
   font-size:20px
 }
 
+details[open].spoiler table {
+  background-color: var(--bg-sub-menu);
+  border-radius: 8px;
+}
+
+details[open].spoiler div > details {
+  margin-bottom: 0;
+}
+
 
 /********* Выделение в тексте *********/
 span.dice_text,
