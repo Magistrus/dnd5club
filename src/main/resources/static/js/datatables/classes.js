@@ -276,9 +276,9 @@ function loadDescription(url){
 	});
 }
 function loadClassSpells() {
-	var table = $('#classes').DataTable();
-	var data = table.rows({selected:  true}).data()[0];
-	var url = '/classes/spells/' + data.englishName;
+	let table = $('#classes').DataTable();
+	let data = table.rows({selected:  true}).data()[0];
+	let url = '/classes/spells/' + data.englishName;
 	$('#content_block').load(url, function() {
 		$('#info_wrapper').removeClass('traits');
 		$('#info_wrapper').removeClass('description');
