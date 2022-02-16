@@ -30,6 +30,12 @@ h4 {
   font-family: 'Lora';
 }
 
+@media (max-width: 800px) {
+  h4 {
+    font-size: 20px;
+  }
+}
+
 h5 {
   font-size: 14px;
   font-weight: 400;
@@ -129,7 +135,6 @@ blockquote p:last-child {
 .header_separator {
   display: flex;
   align-items: center;
-  text-align: center;
 }
 
 .header_separator:not(:empty)::after {
@@ -169,6 +174,12 @@ details > summary.h4 {
   cursor: pointer;
   background: var(--bg-details-title);
   border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+  details > summary.h4 {
+    font-size: 20px;
+  }
 }
 
 details[open] > summary.h4 {

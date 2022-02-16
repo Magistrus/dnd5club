@@ -315,6 +315,12 @@ label.check_block .check+span {
   color: var(--link-color-hover);
 }
 
+@media (max-width: 800px) {
+  .tpd-skin-dnd5 {
+    display: none !important;
+  }
+}
+
 
 /******** Поля ввода / input ********/
 input {
