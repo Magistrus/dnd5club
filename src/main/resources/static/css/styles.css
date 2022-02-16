@@ -2278,7 +2278,7 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.spells .search_panes {
   position: fixed;
   right: 0;
-  max-width: calc(var(--width-right-block) - 292px);
+  max-width: calc(var(--width-right-block) - 1px);
   border-right: 1px solid var(--border);
   z-index: 1;
 }
@@ -2316,7 +2316,7 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .content_block #content_block,
 #right_block .info_wrapper.spells .content_block #content_block {
   padding: 45px 0 0 0;
-  width: 100%;
+  width: 100% !important;
 }
 
 .grid_stat_block {
