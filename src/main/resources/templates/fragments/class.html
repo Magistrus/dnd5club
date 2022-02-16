@@ -129,7 +129,7 @@
 					<h4 class="header_separator" th:id="${'c'+feature.id}">
 						<span th:text="${feature.capitalizeName}"></span>
 					</h4>
-					<p class="caption_text"></p>
+					<p class="caption_text" th:text="${feature.displayLevel}"></p>
 					<div th:utext="${feature.description}"></div>
 				</div>
 			</details>
