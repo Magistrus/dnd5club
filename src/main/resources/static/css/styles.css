@@ -1945,6 +1945,7 @@ body.compact_menu #right_block {
   height: 46px;
   border-right: 1px solid var(--border);
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 @media (max-width: 1200px) {
@@ -3024,6 +3025,16 @@ body.compact_menu #right_block.spells {
 /******** Классы / classes ********/
 .classes {
 
+}
+
+#right_block.classes details.mt-46{
+  margin-top: 0px;
+}
+
+@media (max-width: 1200px) {
+  #right_block.classes details.mt-46{
+    margin-top: 46px;
+  }
 }
 
 #right_block.classes .info_wrapper .content_block #content_block {
