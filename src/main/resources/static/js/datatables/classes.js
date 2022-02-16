@@ -2,7 +2,7 @@ $(document).ready(function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	var scrollEventHeight = 0;
 	var rowSelectIndex = 0;
-	var table = $('#classes').DataTable({
+	let table = $('#classes').DataTable({
 		ajax : '/data/classes',
 		dom: 'tS',
 		serverSide : true,
@@ -157,8 +157,7 @@ $(document).ready(function() {
 	});
 });
 $('#search').on( 'keyup click', function () {
-	var table = $('#classes').DataTable();
-	table.tables().search($(this).val()).draw();
+	$('#classes').DataTable().tables().search($(this).val()).draw();
 });
 function selectClass(data){
 	$('#class_name').text(data.name);

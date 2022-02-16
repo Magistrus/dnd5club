@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 
@@ -33,4 +35,8 @@ public class ArchetypeTrait {
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Spell> spells;
+	
+	public String getCapitalizeName() {
+		return StringUtils.capitalizeWords(name.toLowerCase());
+	}
 }

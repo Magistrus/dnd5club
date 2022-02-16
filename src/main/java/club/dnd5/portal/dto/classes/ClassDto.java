@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import club.dnd5.portal.model.SpellcasterType;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class ClassDto {
 	private String sidekick;
 	private String hitDice;
 	private boolean spellcaster;
+	private OptionType option;
 	private String icon;
 	private boolean homebrew;
 	private String book;
@@ -38,6 +40,7 @@ public class ClassDto {
 		sidekick = hero.isSidekick() ? "Напарники" : "";
 		hitDice = "1к" + hero.getDiceHp();
 		spellcaster = hero.getSpellcasterType() != SpellcasterType.NONE;
+		option = hero.getOptionType();
 		icon = hero.getIcon() == null ? "" : hero.getIcon();
 		archetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.OFFICAL).map(ArchetypeDto::new).collect(Collectors.toList());
 		settingArchetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.SETTING).map(ArchetypeDto::new).collect(Collectors.toList());
