@@ -93,6 +93,7 @@ $(document).ready(function() {
 					return false;
 				});
 				rowSelectIndex = rowIndexes[0];
+				$('#classes tbody tr:eq('+rowSelectIndex+')').click();
 				table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			}
 		},
@@ -153,6 +154,8 @@ $(document).ready(function() {
 		}
 		else {
 			$('li').removeClass('select_point');
+			$('tr').removeClass('open');
+			tr[0].classList.add('open');
 			selectClass(data);
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
