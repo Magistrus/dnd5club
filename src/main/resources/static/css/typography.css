@@ -135,6 +135,7 @@ blockquote p:last-child {
 .header_separator {
   display: flex;
   align-items: center;
+  margin-top: 24px;
 }
 
 .header_separator:not(:empty)::after {
@@ -404,27 +405,17 @@ table.dataTable tr.dtrg-group td {
 
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
-@media (max-width: 1200px) {
-  .header_separator {
-    padding-left: 16px;
-    margin-left: -16px;
-    margin-right: -16px;
-  }
-}
-
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   h1 {
     font-size: 60px;
     font-weight: 300;
     margin: 0;
-    color: var(--text-color);
   }
   
   h2 {
     font-size: 48px;
     font-weight: 400;
     margin: 0;
-    color: var(--text-color);
   }
   
   h3 {
@@ -432,15 +423,10 @@ table.dataTable tr.dtrg-group td {
     font-weight: 300;
     line-height: 26px;
     margin: 0;
-    color: var(--text-color);
   }
   
   h4 {
-    font-size: 22px;
-    font-weight: 300;
-    margin: 8px 0 8px 0;
-    color: var(--text-color);
-    position: relative;
+    font-size: 20px;
   }
 
   blockquote {
