@@ -2,7 +2,7 @@ $(document).ready(function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	var scrollEventHeight = 0;
 	var rowSelectIndex = 0;
-	var table = $('#classes').DataTable({
+	let table = $('#classes').DataTable({
 		ajax : '/data/classes',
 		dom: 'tS',
 		serverSide : true,
@@ -97,7 +97,12 @@ $(document).ready(function() {
 			}
 		},
 		createdRow: function (row, data, dataIndex) {
-			
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			} 
 		},
 	});
 	$('#classes tbody').on('mouseup', 'tr', function (e) {
@@ -139,6 +144,7 @@ $(document).ready(function() {
 		}
 		else if (event.target.tagName == 'BUTTON' || event.target.parentNode.tagName == 'BUTTON' || event.target.parentNode.parentNode.tagName == 'BUTTON'){
 			tr[0].classList.toggle('open');
+			SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
 		}
 		else {
 			$('li').removeClass('select_point');
@@ -151,8 +157,7 @@ $(document).ready(function() {
 	});
 });
 $('#search').on( 'keyup click', function () {
-	var table = $('#classes').DataTable();
-	table.tables().search($(this).val()).draw();
+	$('#classes').DataTable().tables().search($(this).val()).draw();
 });
 function selectClass(data){
 	$('#class_name').text(data.name);

@@ -119,6 +119,21 @@
 				<div th:utext="${feature.description}"></div>
 			</details>
 		</th:block>
+		<th:block th:each="archetype : *{archetypes}">
+			<details>
+				<summary class="h4 header_separator">
+					<span th:text="${archetype.name}"></span>
+				</summary>
+				<div th:utext="${archetype.description}"></div>
+				<details th:each="feature : ${archetype.feats}" open>
+					<summary class="h4 header_separator" th:id="${'c'+feature.id}">
+						<span th:text="${feature.capitalizeName}"></span>
+					</summary>
+					<p class="caption_text"></p>
+					<div th:utext="${feature.description}"></div>
+				</details>
+			</details>
+		</th:block>
 		<div th:object="${heroClass}" th:fragment="images">
 			<img style="width: 300px; height: auto;" th:each="image : ${images}" th:src="${image}">
 		</div>
