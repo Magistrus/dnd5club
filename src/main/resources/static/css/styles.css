@@ -1111,13 +1111,12 @@ body:before {
 .friends_list .friend_block {
   padding: 8px 8px;
   background-color: var(--primary-hover);
-  color: var(--text-color);
+  color: var(--text-btn-color);
   border-radius: 8px;
 }
 
 .friends_list .friend_block:hover {
   background-color: var(--primary-active);
-  color: var(--text-btn-color);
 }
 
 
@@ -2188,7 +2187,7 @@ body.compact_menu #right_block {
   height: 45px;
   width: calc(100% - 1px);
   right: 0;
-  max-width: calc(var(--width-right-block) - 292px);
+  max-width: calc(var(--width-right-block) - 1px);
   display: flex;
   position: fixed;
   background-color: var(--bg-secondary);
