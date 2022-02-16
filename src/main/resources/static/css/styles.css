@@ -1920,7 +1920,6 @@ body.compact_menu #right_block {
   position: relative;
   width: 270px;
   min-height: 100px;
-  background: var(--bg-secondary);
   float: right;
   padding: 0 0 32px 32px;
 }
@@ -2144,6 +2143,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper {
   height: calc(100% - 72px);
+  z-index: 1;
 }
 
 #right_block.sub_menu_block .info_wrapper {
@@ -3182,6 +3182,21 @@ body.compact_menu #right_block.weapons {
 /******** Бестиарий / bestiary ********/
 .bestiary {
 
+}
+
+#right_block.bestiary::after {
+  content: '';
+  background-image: var(--bg-img-bestiary-forest);
+  background-repeat: no-repeat;
+  display: block;
+  width: 1000px;
+  height: 1000px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  opacity: 0.10;
 }
 
 #right_block.bestiary .info_wrapper .simplebar-content {
