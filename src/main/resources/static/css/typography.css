@@ -153,7 +153,7 @@ details[open] {
 }
 
 details > summary.h4 {
-  padding: 4px 8px;
+  padding: 8px 8px;
   font-size: 24px;
   font-weight: 300;
   margin: 0px -8px 4px -8px;
@@ -166,7 +166,7 @@ details > summary.h4 {
 }
 
 details[open] > summary.h4 {
-  padding: 4px 0px;
+  padding: 8px 0px;
   margin: 0px 0px 4px 0px;
   background: none;
 }
@@ -186,7 +186,7 @@ summary::marker {
 summary.header_separator:before {
   width: calc(100% - 24px);
   opacity: 0;
-  top: 20px;
+  top: 24px;
 }
 
 details[open] summary.header_separator:before {
@@ -196,7 +196,7 @@ details[open] summary.header_separator:before {
 summary::after {
   content: '◀';
   display: block;
-  top: 8px;
+  top: 12px;
   right: 8px;
   position: absolute;
   width: 16px;
@@ -207,7 +207,7 @@ summary::after {
 
 details[open] > summary::after {
   transform: rotate(90deg);
-  top: 6px;
+  top: 10px;
   right: 0 !important;
 }
 
