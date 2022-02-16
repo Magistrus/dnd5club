@@ -3336,6 +3336,7 @@ body.compact_menu #right_block.weapons {
   z-index: 10;
   width: 100%;
   max-height: calc(100% - 117px); 
+  box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
 }
 
 .filter_container {
