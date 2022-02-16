@@ -181,6 +181,19 @@ function selectClass(data){
 		$('#info_wrapper').addClass('traits');
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
+		if(localStorage.getItem('homebrew_source') == 'true'){
+			$('#homebrew_source').prop('checked', true);
+			$('.custom_source').removeClass('hide_block');
+			$('#source_id').addClass('active');
+		} else {
+			localStorage.setItem('homebrew_source', 'false');
+		}
+		if(localStorage.getItem('setting_source') == 'true'){
+			$('#setting_source').prop('checked', true);
+			$('.setting_source').removeClass('hide_block');
+			$('.module_source').removeClass('hide_block');
+			$('#source_id').addClass('active');
+		}
 	});
 }
 function setActiveArchetype(className, archetypeName) {
