@@ -249,6 +249,12 @@ $('#class_options').on('click', function() {
 	localStorage.setItem('class_info', 'options');
 	loadClassOptions();
 });
+$('#class_images').on('click', function() {
+	$('.btn_class').removeClass('active');
+	this.classList.add('active');
+	loadImages();
+	localStorage.setItem('class_info', 'images');
+})
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	$('#classes').DataTable().tables().search($(this).val()).draw();
@@ -321,5 +327,17 @@ function loadClassOptions() {
 		$('#info_wrapper').removeClass('spells');
 		$('#info_wrapper').removeClass('options');
 		$('#info_wrapper').addClass('options');
+	});
+}
+function loadImages(){
+	let data = $('#classes').DataTable().rows({selected:  true}).data()[0];
+	var englishName =data.englishName.replace(' ', '_');
+	var url = '/classes/images/' + englishName;
+	$('#content_block').load(url, function() {
+		$('#info_wrapper').removeClass('traits');
+		$('#info_wrapper').removeClass('description');
+		$('#info_wrapper').removeClass('spells');
+		$('#info_wrapper').removeClass('options');
+		$('#info_wrapper').addClass('images');
 	});
 }
