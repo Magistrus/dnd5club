@@ -135,7 +135,7 @@ blockquote p:last-child {
 .header_separator {
   display: flex;
   align-items: center;
-  margin-top: 24px;
+  margin-top: 32px;
 }
 
 .header_separator:not(:empty)::after {
