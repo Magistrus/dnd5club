@@ -126,20 +126,22 @@ blockquote p:last-child {
   margin-bottom: 0px;
 }
 
-.header_separator > span {
-  background: var(--bg-secondary);
-  padding-right:8px;
+.header_separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
-.header_separator:before {
+.header_separator:not(:empty)::after {
+  margin-left: 16px;
+}
+
+.header_separator::after {
   content: '';
   width: 100%;
   height: 1px;
-  background: var(--border);
-  display: block;
-  position: absolute;
-  top: 16px;
-  z-index: -1;
+  background: var(--text-color-title);
+  flex: 1;
 }
 
 
@@ -166,34 +168,23 @@ details > summary.h4 {
 }
 
 details[open] > summary.h4 {
-  padding: 8px 0px;
-  margin: 0px 0px 4px 0px;
   background: none;
-}
-
-details > summary.h4 span {
-  background: var(--bg-details-title);
-}
-
-details[open] > summary.h4 span {
-  background: var(--bg-secondary);
 }
 
 summary::marker {
   content: '';
 }
 
-summary.header_separator:before {
-  width: calc(100% - 24px);
+summary.header_separator:after {
   opacity: 0;
-  top: 24px;
+  margin-right: 24px;
 }
 
-details[open] summary.header_separator:before {
+details[open] summary.header_separator:after {
   opacity: 1;
 }
 
-summary::after {
+summary::before {
   content: '◀';
   display: block;
   top: 12px;
@@ -205,10 +196,9 @@ summary::after {
   font-size: 18px;
 }
 
-details[open] > summary::after {
+details[open] > summary::before {
   transform: rotate(90deg);
   top: 10px;
-  right: 0 !important;
 }
 
 summary.h5 {
@@ -257,17 +247,8 @@ details[open].spoiler > summary.h4 {
   border-bottom-left-radius: 0px;
 }
 
-details[open].spoiler > summary.h4 span{
-  padding: 0px 8px 0px 8px;
-  background: none;
-}
-
 details[open].spoiler > summary::after {
   right: 8px !important;
-}
-
-details[open].spoiler summary.header_separator:before {
-  opacity: 0;
 }
 
 details[open].spoiler h4.header_separator > span {
