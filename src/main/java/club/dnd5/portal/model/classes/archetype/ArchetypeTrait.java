@@ -39,4 +39,22 @@ public class ArchetypeTrait {
 	public String getCapitalizeName() {
 		return StringUtils.capitalizeWords(name.toLowerCase());
 	}
+	public String getDisplayLevel() {
+		String suffix = "ый";
+		switch (level) {
+		case 2:
+		case 6:
+		case 7:
+		case 8:
+			suffix = "ой";
+			break;
+		case 3:
+			suffix = "ий";
+			break;
+		default:
+			suffix = "ый";
+			break;
+		}
+		return String.format("%d-%s уровень", level, suffix);
+	}
 }
