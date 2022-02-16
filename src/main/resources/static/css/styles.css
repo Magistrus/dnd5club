@@ -1606,12 +1606,13 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr td .content .row_name {
-  font-size: 15px;
+  font-size: 16px;
   margin: 0;
   font-weight: 500;
   line-height: normal;
   display: flex;
   margin-bottom: 8px;
+  font-family: 'Open Sans';
 }
 
 .table_card tr .row_name span.name {
@@ -1639,13 +1640,14 @@ table.table_card tr.dtrg-group td {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-sub-menu);
+  background-color: var(--bg-sub-menu);
   margin: -16px -16px -16px 0px;
   position: relative;
+  overflow: hidden;
 }
 
 .table_card tr td button.open:hover {
-  background: var(--hover);
+  background-color: var(--hover);
 }
 
 .table_card tr td button.open svg {
