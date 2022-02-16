@@ -2201,9 +2201,8 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_block,
 #right_block .info_wrapper.spells .search_block {
   height: 45px;
-  width: calc(100% - 1px);
+  width: calc(var(--width-right-block) - 1px);
   right: 0;
-  max-width: calc(var(--width-right-block) - 1px);
   display: flex;
   position: fixed;
   background-color: var(--bg-secondary);
@@ -2214,21 +2213,21 @@ body.compact_menu #right_block {
   border-left: 1px solid var(--border);
 }
 
+@media (max-width: 1200px) {
+  #right_block .info_wrapper.options .search_block,
+  #right_block .info_wrapper.spells .search_block {
+    width: 100% !important;
+  }
+}
+
 .full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.options .search_block,
 .full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.spells .search_block {
-  max-width: calc(var(--width-right-block) - 364px);
+  width: calc(var(--width-right-block) - 74px);
 }
 
 .full_screen_right_block .block_information #right_block .info_wrapper.options .search_block,
 .full_screen_right_block .block_information #right_block .info_wrapper.spells .search_block {
-  max-width: calc(var(--width-right-block) - 562px);
-}
-
-@media (max-width: 1200px) {
-  #right_block .info_wrapper.options .search_block,
-  #right_block .info_wrapper.spells .search_block {
-    max-width: inherit;
-  }
+  width: calc(var(--width-right-block) - 272px);
 }
 
 #right_block .info_wrapper.options .search_block .search_int,
@@ -2277,38 +2276,20 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_panes,
 #right_block .info_wrapper.spells .search_panes {
   position: fixed;
-  right: 0;
-  max-width: calc(var(--width-right-block) - 1px);
-  border-right: 1px solid var(--border);
-  z-index: 1;
-}
-
-.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.options .search_panes,
-.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.spells .search_panes {
-  max-width: calc(var(--width-right-block) - 364px);
-}
-
-.full_screen_right_block .block_information #right_block .info_wrapper.options .search_panes,
-.full_screen_right_block .block_information #right_block .info_wrapper.spells .search_panes {
-  max-width: calc(var(--width-right-block) - 562px);
+  width: calc(var(--width-right-block) - 1px);
+  box-shadow: none;
 }
 
 #right_block .info_wrapper.options .search_panes .filter_container,
 #right_block .info_wrapper.spells .search_panes .filter_container {
   margin-bottom: 46px;
-  width: 100% !important;
 }
 
 @media (max-width: 1200px) {
   #right_block .info_wrapper.options .search_panes,
   #right_block .info_wrapper.spells .search_panes {
-    max-width: inherit;
+    width: 100%;
     height: calc(100% - 236px);
-  }
-  
-  #right_block .info_wrapper.options .search_panes .filter_container,
-  #right_block .info_wrapper.spells .search_panes .filter_container {
-    padding-bottom: 0px;
   }
 }
 
@@ -3357,7 +3338,7 @@ body.compact_menu #right_block.weapons {
 }
 
 .filter_container {
-  width: auto;
+  width: calc(100% - 32px);
   height: auto;
   background-color: var(--bg-sub-menu);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
