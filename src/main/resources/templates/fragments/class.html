@@ -120,18 +120,18 @@
 			</details>
 		</th:block>
 		<th:block th:each="archetype : *{archetypes}">
-			<details>
-				<summary class="h4 header_separator">
+			<details class="spoiler">
+				<summary class="h4 header_separator archetype_feet">
 					<span th:text="${archetype.name}"></span>
 				</summary>
 				<div th:utext="${archetype.description}"></div>
-				<details th:each="feature : ${archetype.feats}" open>
-					<summary class="h4 header_separator archetype_feet" th:id="${'c'+feature.id}">
+				<div th:each="feature : ${archetype.feats}" >
+					<h4 class="header_separator" th:id="${'c'+feature.id}">
 						<span th:text="${feature.capitalizeName}"></span>
-					</summary>
+					</h4>
 					<p class="caption_text"></p>
 					<div th:utext="${feature.description}"></div>
-				</details>
+				</div>
 			</details>
 		</th:block>
 		<div th:object="${heroClass}" th:fragment="images">

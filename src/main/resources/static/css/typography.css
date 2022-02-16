@@ -142,7 +142,13 @@ blockquote p:last-child {
   z-index: -1;
 }
 
+
+/********* Сворачивание текста / details  *********/
 details {
+  margin-bottom: 16px;
+}
+
+details[open] {
   margin-bottom: 24px;
 }
 
@@ -230,6 +236,43 @@ h4.separator_card {
 
 .align_left {
   text-align: left !important;
+}
+
+details.spoiler {
+  padding: 0 8px 4px 8px;
+  margin: 0 -8px 16px -8px;
+  border-radius: 8px;
+}
+
+details[open].spoiler {
+  background-color: var(--bg-details-title);
+}
+
+details[open].spoiler > summary.h4 {
+  margin: 0px -8px 4px -8px;
+  background: var(--hover);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+details[open].spoiler > summary.h4 span{
+  padding: 0px 8px 0px 8px;
+  background: none;
+}
+
+details[open].spoiler > summary::after {
+  right: 8px !important;
+}
+
+details[open].spoiler summary.header_separator:before {
+  opacity: 0;
+}
+
+details[open].spoiler h4.header_separator > span {
+  background: var(--bg-details-title);
+  font-size:20px
 }
 
 
