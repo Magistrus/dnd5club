@@ -139,13 +139,13 @@ $('#search_spell').bind('keydown blur change', function(e) {
     var _this = $(this);
     clearTimeout(timer);
     timer = setTimeout(function() {
-		if($('#search').val()){
+		if($('#search_spell').val()){
 			$('#text_clear').show();
 		}
 		else {
 			$('#text_clear').hide();
 		}
-		$('#spells').DataTable().tables().search($('#search').val()).draw();
+		$('#spells').DataTable().tables().search($('#search_spell').val()).draw();
     }, delay );
 });
 $('#btn_spell_filters').on('click', function() {
