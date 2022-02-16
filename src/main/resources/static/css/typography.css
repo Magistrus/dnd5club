@@ -133,7 +133,7 @@ blockquote p:last-child {
 }
 
 .header_separator:not(:empty)::after {
-  margin-left: 16px;
+  margin-left: 8px;
 }
 
 .header_separator::after {
@@ -142,6 +142,10 @@ blockquote p:last-child {
   height: 1px;
   background: var(--text-color-title);
   flex: 1;
+}
+
+.header_separator > span {
+  margin-right: 8px;
 }
 
 
