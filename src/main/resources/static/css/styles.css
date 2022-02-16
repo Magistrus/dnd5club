@@ -1114,7 +1114,7 @@ body:before {
 .friends_list .friend_block {
   padding: 8px 8px;
   background-color: var(--bg-secondary);
-  color: var(--text-btn-color);
+  color: var(--text-color);
   border-radius: 8px;
   display: inline-flex;
   margin: 4px 4px;
@@ -1122,6 +1122,7 @@ body:before {
 
 .friends_list .friend_block:hover {
   background-color: var(--primary-active);
+  color: var(--text-btn-color);
 }
 
 .friends_list .friend_block img {
