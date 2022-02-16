@@ -35,6 +35,7 @@
 /********* IMG BG *********/
 :root {
   --bg-img-main: url(/resources/assets/style/dark/test.webp);
+  --bg-img-bestiary-forest: url(/resources/assets/style/dark/forest.webp);
 }
 
 :root{
