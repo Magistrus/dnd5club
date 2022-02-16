@@ -123,14 +123,15 @@ $(document).ready(function() {
 			$('#class_spells').addClass('hide_block');
 		}
 		rowSelectIndex = row.index();
-		if (event.target.tagName == 'LI'){
-			if (event.target.classList.contains('select_point')){
-				event.target.classList.remove('select_point');
+		if ($(event.target).closest('li').length != 0){
+			let liTareget = $(event.target).closest('li')[0]; 
+			if (liTareget.classList.contains('select_point')){
+				liTareget.classList.remove('select_point');
 				selectClass(data);
 			} else {
 				$('li').removeClass('select_point');
-				event.target.classList.add('select_point');
-				setActiveArchetype(data.englishName.replace(' ', '_'), event.target.id);
+				liTareget.classList.add('select_point');
+				setActiveArchetype(data.englishName.replace(' ', '_'), liTareget.id);
 			}
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
