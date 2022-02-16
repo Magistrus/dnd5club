@@ -93,7 +93,7 @@ $(document).ready(function() {
 		},
 		initComplete: function(settings, json) {
 			scrollEventHeight = document.getElementById('content_block').offsetHeight - 300;
-			var simpleBar = SimpleBar.instances.get(document.getElementById('content_block'));
+			var simpleBar = SimpleBar.instances.get(document.getElementById('info_wrapper'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
 	    		  table.page.loadMore();

@@ -22,6 +22,7 @@ public class ClassDto {
 	private String hitDice;
 	private boolean spellcaster;
 	private String icon;
+	private boolean homebrew;
 	private String book;
 	private String bookshort;
 	private String archetypeName;
@@ -41,6 +42,7 @@ public class ClassDto {
 		archetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.OFFICAL).map(ArchetypeDto::new).collect(Collectors.toList());
 		settingArchetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.SETTING).map(ArchetypeDto::new).collect(Collectors.toList());
 		homebrewArchetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.CUSTOM).map(ArchetypeDto::new).collect(Collectors.toList());
+		homebrew = hero.getBook().getType() == TypeBook.CUSTOM;
 		book = hero.getBook().getName();
 		bookshort = hero.getBook().getSource();
 	}

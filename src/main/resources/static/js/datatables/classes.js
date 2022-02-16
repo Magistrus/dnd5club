@@ -97,7 +97,12 @@ $(document).ready(function() {
 			}
 		},
 		createdRow: function (row, data, dataIndex) {
-			
+			if(data.homebrew){
+				$(row).addClass('custom_source');
+				if(localStorage.getItem('homebrew_source') != 'true'){
+					$(row).addClass('hide_block');
+				}
+			} 
 		},
 	});
 	$('#classes tbody').on('mouseup', 'tr', function (e) {
@@ -139,6 +144,7 @@ $(document).ready(function() {
 		}
 		else if (event.target.tagName == 'BUTTON' || event.target.parentNode.tagName == 'BUTTON' || event.target.parentNode.parentNode.tagName == 'BUTTON'){
 			tr[0].classList.toggle('open');
+			SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
 		}
 		else {
 			$('li').removeClass('select_point');
