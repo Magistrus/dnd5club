@@ -1106,17 +1106,31 @@ body:before {
 
 .friends_list {
   margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -4px -4px;
 }
 
 .friends_list .friend_block {
   padding: 8px 8px;
-  background-color: var(--primary-hover);
+  background-color: var(--bg-secondary);
   color: var(--text-btn-color);
   border-radius: 8px;
+  display: inline-flex;
+  margin: 4px 4px;
 }
 
 .friends_list .friend_block:hover {
   background-color: var(--primary-active);
+}
+
+.friends_list .friend_block img {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 4px;
 }
 
 
@@ -2167,6 +2181,7 @@ body.compact_menu #right_block {
   position: absolute;
 }
 
+#right_block.classes .info_wrapper .content_block #content_block,
 #right_block.treasury .info_wrapper .content_block #content_block,
 #right_block.trader .info_wrapper .content_block #content_block,
 #right_block.books .info_wrapper .content_block #content_block,
