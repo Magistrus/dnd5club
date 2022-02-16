@@ -22,7 +22,7 @@ public class ClassDto {
 	private String sidekick;
 	private String hitDice;
 	private boolean spellcaster;
-	private OptionType option;
+	private String option;
 	private String icon;
 	private boolean homebrew;
 	private String book;
@@ -40,7 +40,7 @@ public class ClassDto {
 		sidekick = hero.isSidekick() ? "Напарники" : "";
 		hitDice = "1к" + hero.getDiceHp();
 		spellcaster = hero.getSpellcasterType() != SpellcasterType.NONE;
-		option = hero.getOptionType();
+		option = hero.getOptionType() == null ? null : hero.getOptionType().getDisplayName();
 		icon = hero.getIcon() == null ? "" : hero.getIcon();
 		archetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.OFFICAL).map(ArchetypeDto::new).collect(Collectors.toList());
 		settingArchetypes = hero.getArchetypes().stream().filter(a->a.getBook().getType() == TypeBook.SETTING).map(ArchetypeDto::new).collect(Collectors.toList());
