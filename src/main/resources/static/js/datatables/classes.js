@@ -30,21 +30,21 @@ $(document).ready(function() {
 						if (row.archetypes.length > 0) {
 							result+='<div class="archetype_list"><h4>Основное:</h4><ul>';
 							row.archetypes.forEach(function(item, i, arr) {
-								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+'<span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
+								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
 							});
 							result+='</ul></div>';
 						}
 						if (row.settingArchetypes.length > 0) {
 							result+='<div class="archetype_list setting_source '+(localStorage.getItem('setting_source') != 'true' ? 'hide_block' : '') +'"><h4>Сеттинги:</h4><ul>';
 							row.settingArchetypes.forEach(function(item, i, arr) {
-								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+'<span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
+								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
 							});
 							result+='</ul></div></div>';
 						}
 						if (row.homebrewArchetypes.length > 0) {
 							result+='<div class="homebrew_list archetype_list custom_source '+(localStorage.getItem('homebrew_source') != 'true' ? 'hide_block' : '') +'"><h4>Homebrew:</h4><ul>';
 							row.homebrewArchetypes.forEach(function(item, i, arr) {
-								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+'<span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
+								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
 							});
 							result+='</ul></div>';
 						}
@@ -144,7 +144,7 @@ $(document).ready(function() {
 				$('li').removeClass('select_point');
 				liTareget.classList.add('select_point');
 				selectedArchetype = null;
-				setActiveArchetype(data.englishName.replace(' ', '_'), liTareget.id);
+				setActiveArchetype(data, data.englishName.replace(' ', '_'), liTareget.id);
 			}
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
@@ -175,7 +175,7 @@ function selectClass(data){
 	document.title = data.name + ' (' +data.englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
 	if (selectedArchetype){
-		setActiveArchetype(selectedClass.englishName.replace(' ', '_'), selectedArchetype);
+		setActiveArchetype(data, selectedClass.englishName.replace(' ', '_'), selectedArchetype);
 		$('#' + selectedArchetype).addClass('select_point');
 		return;
 	}
@@ -203,11 +203,12 @@ function selectClass(data){
 		}
 	});
 }
-function setActiveArchetype(className, archetypeName) {
+function setActiveArchetype(data, className, archetypeName) {
+	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text();
 	var url = '/classes/' + className + '/architypes/' + archetypeName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
-			setActiveArchetype(element, className, $('#mobile_selector').val());
+			setActiveArchetype(data, element, className, $('#mobile_selector').val());
 		});
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('spells');
@@ -224,7 +225,7 @@ $('#class_traits').on('click', function() {
 	this.classList.add('active');
 	let data = $('#classes').DataTable().rows({selected:  true}).data();
 	if ($('li').hasClass('select_point')){
-		setActiveArchetype(data[0].englishName.replace(' ', '_'), $('li.select_point').attr('id'));
+		setActiveArchetype(data[0], data[0].englishName.replace(' ', '_'), $('li.select_point').attr('id'));
 	}
 	else {
 		selectClass(data[0]);
