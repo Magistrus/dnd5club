@@ -164,7 +164,9 @@ $(document).ready(function() {
 			}
 		}
 		selectedClass = data;
-		event.target.scrollIntoView({block: "center", behavior: "smooth"});
+		if ($(event.target).closest('li').length == 0){
+			event.target.scrollIntoView({block: "center", behavior: "smooth"});	
+		}
 	});
 });
 $('#search').on( 'keyup click', function () {
@@ -221,6 +223,7 @@ function setActiveArchetype(data, className, archetypeName) {
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
 		showOnlyArchetype();
+		selectedArchetype = null;
 	});
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
 }
