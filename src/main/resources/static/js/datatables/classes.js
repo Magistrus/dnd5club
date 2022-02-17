@@ -175,6 +175,7 @@ function selectClass(data){
 	if (selectedArchetype){
 		setActiveArchetype(selectedClass.englishName.replace(' ', '_'), selectedArchetype);
 		$('#' + selectedArchetype).addClass('select_point');
+		selectedArchetype = null;
 		return;
 	}
 	var url = '/classes/fragment_id/' + data.id;
