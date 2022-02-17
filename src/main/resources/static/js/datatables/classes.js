@@ -201,6 +201,9 @@ function selectClass(data){
 			$('.module_source').removeClass('hide_block');
 			$('#source_id').addClass('active');
 		}
+		$('#mobile_selector').change(function() {
+			setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
+		});
 	});
 }
 function setActiveArchetype(data, className, archetypeName) {
@@ -208,7 +211,7 @@ function setActiveArchetype(data, className, archetypeName) {
 	var url = '/classes/' + className + '/architypes/' + archetypeName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
-			setActiveArchetype(data, element, className, $('#mobile_selector').val());
+			setActiveArchetype(data, className, $('#mobile_selector').val());
 		});
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('spells');
@@ -281,13 +284,13 @@ $('.dice_hp_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="dice_hp"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
-    $('#classes').DataTable().column(2).search(properties, true, false, false).draw();
+	$('#classes').DataTable().column(2).search(properties, true, false, false).draw();
 	if(properties) {
 		$('#dice_hp_clear_btn').removeClass('hide_block');
 	} else {
 		$('#dice_hp_clear_btn').addClass('hide_block');
 	}
-    setFiltered();
+	setFiltered();
 });
 $('#dice_hp_clear_btn').on('click', function() {
 	$('#dice_hp_clear_btn').addClass('hide_block');
