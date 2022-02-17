@@ -172,6 +172,11 @@ function selectClass(data){
 	$('#class_name').text(data.name);
 	document.title = data.name + ' (' +data.englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
+	if (selectedArchetype){
+		setActiveArchetype(selectedClass.englishName.replace(' ', '_'), selectedArchetype);
+		$('#' + selectedArchetype).addClass('select_point');
+		return;
+	}
 	var url = '/classes/fragment_id/' + data.id;
 	$("#content_block").load(url, function() {
 		$('#info_wrapper').removeClass('description');
