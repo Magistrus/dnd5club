@@ -3035,7 +3035,7 @@ body.compact_menu #right_block.spells {
 
 }
 
-#right_block.classes:before {
+/* #right_block.classes:before {
   content: '';
   background-image: var(--bg-img-bard);
   background-repeat: no-repeat;
@@ -3048,7 +3048,7 @@ body.compact_menu #right_block.spells {
   bottom: 0;
   z-index: 0;
   opacity: 0.03;
-}
+} */
 
 #right_block.classes .info_wrapper .content_block #content_block {
   width: calc(100% - 48px);
