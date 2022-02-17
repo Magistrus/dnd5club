@@ -15,7 +15,7 @@
 				</i>
 				<span class="placeholder js-dropdown__current" th:text="|${selectedArchetype.name} ${selectedArchetype.book.source}|"></span>
 				<ul data-simplebar>
-					<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:classappend="${archetype.id eq selectedArchetype.id ? 'selected' : ''}" th:text="|${archetype.name} ${archetype.book.source}|"></li>
+					<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:class="${archetype.id eq selectedArchetype.id ? 'selected' : ''}" th:text="|${archetype.name} ${archetype.book.source}|" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}"></li>
 				</ul>
 			</div>
 		</div>
