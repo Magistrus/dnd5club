@@ -138,10 +138,12 @@ $(document).ready(function() {
 			let liTareget = $(event.target).closest('li')[0]; 
 			if (liTareget.classList.contains('select_point')){
 				liTareget.classList.remove('select_point');
+				selectedArchetype = null;
 				selectClass(data);
 			} else {
 				$('li').removeClass('select_point');
 				liTareget.classList.add('select_point');
+				selectedArchetype = null;
 				setActiveArchetype(data.englishName.replace(' ', '_'), liTareget.id);
 			}
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
@@ -175,7 +177,6 @@ function selectClass(data){
 	if (selectedArchetype){
 		setActiveArchetype(selectedClass.englishName.replace(' ', '_'), selectedArchetype);
 		$('#' + selectedArchetype).addClass('select_point');
-		selectedArchetype = null;
 		return;
 	}
 	var url = '/classes/fragment_id/' + data.id;
