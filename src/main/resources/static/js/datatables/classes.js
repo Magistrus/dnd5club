@@ -304,7 +304,7 @@ $('#only_archetypes').click(function () {
 })
 function showOnlyArchetype(){
 	if($('#only_archetypes').is(':checked')) {
-		$('details').not('.archetype_feet').addClass('hide_block');
+		$('details').not('.feet_show').addClass('hide_block');
 	} else {
 		$('details').removeClass('hide_block');
 	}
