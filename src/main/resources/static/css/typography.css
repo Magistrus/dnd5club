@@ -196,7 +196,7 @@ summary.header_separator:after {
   margin-right: 24px;
 }
 
-details[open] summary.header_separator:after {
+details[open] > summary.header_separator:after {
   opacity: 1;
 }
 
