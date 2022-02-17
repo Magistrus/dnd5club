@@ -140,10 +140,10 @@ $('#search_spell').bind('keydown blur change', function(e) {
     clearTimeout(timer);
     timer = setTimeout(function() {
 		if($('#search_spell').val()){
-			$('#text_clear').show();
+			$('#spell_text_clear').show();
 		}
 		else {
-			$('#text_clear').hide();
+			$('#spell_text_clear').hide();
 		}
 		$('#spells').DataTable().tables().search($('#search_spell').val()).draw();
     }, delay );
@@ -154,7 +154,7 @@ $('#btn_spell_filters').on('click', function() {
 $('#spell_text_clear').on('click', function () {
 	$('#search_spell').val('');
 	$('#spells').DataTable().tables().search($(this).val()).draw();
-	$('#text_clear').hide();
+	$('#spell_text_clear').hide();
 });
 $('.level_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="level"]:checked').map(function() {
