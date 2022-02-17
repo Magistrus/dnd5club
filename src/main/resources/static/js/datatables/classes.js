@@ -207,7 +207,7 @@ function selectClass(data){
 	});
 }
 function setActiveArchetype(data, className, archetypeName) {
-	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text();
+	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text() +  ' | Подклассы D&D 5e';
 	var url = '/classes/' + className + '/architypes/' + archetypeName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
