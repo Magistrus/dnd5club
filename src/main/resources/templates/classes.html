@@ -40,6 +40,9 @@
 			</div>
 			<div id="searchPanes" class="search_panes hide_block" data-simplebar>
 				<div class="filter_container">
+					<div class="filter_block_toggle">
+						<label for="only_archetypes" class="check_block"><input id="only_archetypes" class="toggle" type="checkbox" name="only_archetypes"><span>Только навыки архетипов</span></label>
+					</div>
 					<div class="filter_block">
 						<div class="header">
 							<h5>Кость Хитов</h5>
@@ -174,5 +177,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/classes.js?v=5.0}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/classes.js?v=5.1}" layout:fragment="js-script"></script>
 </html>
