@@ -85,7 +85,7 @@ public class ClassController {
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
 				.findFirst().get();
 		model.addAttribute("metaTitle", String.format("%s - %s | Классы | Подклассы D&D 5e",  
-				StringUtils.capitalize(selectedArchetype.getName()), heroClass.getCapitalazeName()));
+				StringUtils.capitalize(selectedArchetype.getName().toLowerCase()), heroClass.getCapitalazeName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
 		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", 
 				selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
