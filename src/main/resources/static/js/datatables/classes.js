@@ -221,6 +221,7 @@ function setActiveArchetype(data, className, archetypeName) {
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
 		showOnlyArchetype();
+		selectedArchetype = null;
 	});
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
 }
