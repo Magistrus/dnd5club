@@ -103,7 +103,7 @@
 		</div>
 		<div th:replace="fragments/class :: classInfo2(${selectedArchetype.englishName})"></div>
 		<th:block th:each="feature : ${features}">
-			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}">
+			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'feet_show' : ''}">
 				<summary class="h4 header_separator" th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}" th:id="|${feature.prefix}${feature.id}|"><span th:text="${feature.name}"></span></summary>
 				<div class="caption_text" th:text="${feature.type}"></div>
 				<p th:utext="${feature.description}" />

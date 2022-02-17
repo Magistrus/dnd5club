@@ -20,8 +20,8 @@
 			</div>
 		</div>
 		<th:block th:fragment="classInfo1(selectedArchetype)">
-			<details open>
-				<summary class="h4 header_separator"><span>Хиты</span></summary>
+			<details open class="feet_show">
+				<summary class="h4 header_separator feet_show"><span>Хиты</span></summary>
 				<p class="class_stats">
 					<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
 				</p>
@@ -134,7 +134,7 @@
 			</details>
 		</th:block>
 		<th:block th:each="archetype : *{archetypes}">
-			<details class="spoiler" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}">
+			<details class="spoiler feet_show" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}">
 				<summary class="h4 header_separator">
 					<span th:text="${archetype.name}"></span><span class ="tip" th:text="${archetype.book.source}" th:title="${archetype.book.name}"></span>
 				</summary>
