@@ -1790,6 +1790,7 @@ table.table_card tr.dtrg-group td {
   border-left: 1px solid var(--border);
   overflow: hidden;
   display: none;
+  box-shadow: 0px 0px 23px 7px #0000001f;
 }
 
 #right_block .image-container {
