@@ -68,7 +68,7 @@ $(document).ready(function() {
 		},
 		ordering : true,
 		initComplete: function(settings, json) {
-			scrollEventHeight = $('#scroll_load_simplebar')[0].offsetHeight - 400;
+			scrollEventHeight = $('#scroll_load_simplebar')[0].offsetHeight - 800;
 			var simpleBar = SimpleBar.instances.get(document.getElementById('info_wrapper'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var scrollEventHeight = 0;
+	var spellScrollEventHeight = 0;
 	let spellTable = $('#spells').DataTable({
 		ajax : '/data/spells?classId=' + classId,
 		dom: 't',
@@ -92,13 +92,14 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
-			scrollEventHeight = document.getElementById('content_block').offsetHeight - 300;
+			spellScrollEventHeight = document.getElementById('content_block').offsetHeight - 1500;
 			var simpleBar = SimpleBar.instances.get(document.getElementById('info_wrapper'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
-		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
+		    	//alert(spellScrollEventHeight);
+		    	if (simpleBar.getScrollElement().scrollTop > spellScrollEventHeight){
 		    	  spellTable.page.loadMore();
 	    	      simpleBar.recalculate();
-	    	      scrollEventHeight +=750;
+	    	      spellScrollEventHeight +=750;
 	    		}
 	    	});
 		},
