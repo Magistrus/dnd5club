@@ -207,7 +207,7 @@ function selectClass(data){
 	});
 }
 function setActiveArchetype(data, className, archetypeName) {
-	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text();
+	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text() +  ' | Подклассы D&D 5e';
 	var url = '/classes/' + className + '/architypes/' + archetypeName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
@@ -220,6 +220,7 @@ function setActiveArchetype(data, className, archetypeName) {
 		$('#info_wrapper').addClass('traits');
 		$('.btn_class').removeClass('active');
 		$('#class_traits').addClass('active');
+		showOnlyArchetype();
 	});
 	history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
 }
@@ -298,6 +299,16 @@ $('#dice_hp_clear_btn').on('click', function() {
 	$('#classes').DataTable().column(2).search("", true, false, false).draw();
 	setFiltered();
 });
+$('#only_archetypes').click(function () {
+	showOnlyArchetype();
+})
+function showOnlyArchetype(){
+	if($('#only_archetypes').is(':checked')) {
+		$('details').not('.archetype_feet').addClass('hide_block');
+	} else {
+		$('details').removeClass('hide_block');
+	}
+}
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
