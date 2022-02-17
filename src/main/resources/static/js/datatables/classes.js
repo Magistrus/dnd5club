@@ -164,7 +164,9 @@ $(document).ready(function() {
 			}
 		}
 		selectedClass = data;
-		event.target.scrollIntoView({block: "center", behavior: "smooth"});
+		if ($(event.target).closest('li').length == 0){
+			event.target.scrollIntoView({block: "center", behavior: "smooth"});	
+		}
 	});
 });
 $('#search').on( 'keyup click', function () {
