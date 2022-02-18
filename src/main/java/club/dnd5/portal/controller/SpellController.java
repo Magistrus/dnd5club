@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.splells.MagicSchool;
+import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
@@ -41,11 +42,14 @@ public class SpellController {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
-		SpellDto spell = new SpellDto(repository.findByEnglishName(name.replace("_", " ")));
-		model.addAttribute("selectedSpell", spell);
-		model.addAttribute("metaTitle", String.format("%s (%s)", spell.getName(), spell.getEnglishName()) + " | Заклинания D&D 5e");
+		Spell spell = repository.findByEnglishName(name.replace("_", " "));
+		SpellDto spellDto = new SpellDto(spell);
+		model.addAttribute("selectedSpell", spellDto);
+		model.addAttribute("metaTitle", String.format("%s (%s)", spellDto.getName(), spellDto.getEnglishName()) + " | Заклинания D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells" + name);
-		model.addAttribute("metaDescription", String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool()));
+		model.addAttribute("metaDescription", String.format("%s %s, %s", (spellDto.getLevel() == 0 ? "Заговор" : spellDto.getLevel() + " уровень"), spellDto.getName(), spellDto.getSchool()));
+		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.webp", spell.getSchool().name()));
+
 		return "spells";
 	}
 	
