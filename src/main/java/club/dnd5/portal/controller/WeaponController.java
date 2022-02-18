@@ -35,9 +35,14 @@ public class WeaponController {
 	
 	@GetMapping("/weapons/{name}")
 	public String getWeapon(Model model, @PathVariable String name) {
+		Weapon weapon = repository.findByEnglishName(name.replace('_', ' '));
+		if (weapon == null) {
+			return "redirect: /error/404";
+		}
+		
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
-		Weapon weapon = repository.findByEnglishName(name.replace('_', ' '));
+
 		model.addAttribute("selectedWeapon", new WeaponDto(weapon));
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", weapon.getName(), weapon.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/weapons/" + name);

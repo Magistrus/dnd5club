@@ -42,9 +42,13 @@ public class RaceController {
 	
 	@GetMapping("/races/{name}")
 	public String getRace(Model model, @PathVariable String name) {
+		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).get();
+		if (race == null) {
+			return "redirect: /error/404";
+		}
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
-		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
+
 		model.addAttribute("metaTitle", race.getName() + " | Расы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
 		model.addAttribute("metaDescription", String.format("%s - раса персонажа", race.getCapitalazeName()));
@@ -57,10 +61,14 @@ public class RaceController {
 	
 	@GetMapping("/races/{name}/{subrace}")
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
+		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
+		if (race == null) {
+			return "redirect: /error/404";
+		}
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);
-		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).orElseThrow(IllegalArgumentException::new);
+
 		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.getCapitalazeName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
 		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа ", race.getName()));
