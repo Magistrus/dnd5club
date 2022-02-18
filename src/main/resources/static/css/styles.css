@@ -2735,6 +2735,7 @@ body.compact_menu #right_block {
   margin-right: 6px;
   font-weight: 500;
   line-height:normal;
+  font-family: 'Open Sans';
 }
 
 .table_list tr .row_name span:first-child {
