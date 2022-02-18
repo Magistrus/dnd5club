@@ -68,8 +68,8 @@ $(document).ready(function() {
 		},
 		ordering : true,
 		initComplete: function(settings, json) {
-			scrollEventHeight = $('#scroll_load_simplebar')[0].offsetHeight - 400;
-		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
+			scrollEventHeight = $('#scroll_load_simplebar')[0].offsetHeight - 800;
+			var simpleBar = SimpleBar.instances.get(document.getElementById('info_wrapper'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
 		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
 		    	      table.page.loadMore();
@@ -101,24 +101,24 @@ $(document).ready(function() {
 				});
 		  });
 	});
-	$('#search').on( 'keyup click', function () {
+	$('#option_search').on( 'keyup click', function () {
 		if($(this).val()){
-			$('#text_clear').show();
+			$('#option_text_clear').show();
 		}
 		else {
-			$('#text_clear').hide();
+			$('#option_text_clear').hide();
 		}
 		table.tables().search($(this).val()).draw();
 	});
 });
-$('#btn_filters').on('click', function() {
-	$('#searchPanes').toggleClass('hide_block');
+$('#option_btn_filters').on('click', function() {
+	$('#option_search_panes').toggleClass('hide_block');
 });
-$('#text_clear').on('click', function () {
-	$('#search').val('');
+$('#option_text_clear').on('click', function () {
+	$('#option_search').val('');
 	const table = $('#options').DataTable();
 	table.tables().search($(this).val()).draw();
-	$('#text_clear').hide();
+	$('#option_text_clear').hide();
 });
 $('.prerequsite_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="prerequsite"]:checked').map(function() {

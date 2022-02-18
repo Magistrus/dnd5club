@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.dto.classes.ClassDto;
 import club.dnd5.portal.dto.classes.ClassFetureDto;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.HeroClassTrait;
@@ -52,7 +53,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/classes/");
+		model.addAttribute("metaUrl", "https://dnd5.club/classes");
 		return "classes";
 	}
 	
@@ -61,8 +62,8 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
-		model.addAttribute("selectedClass", name);
-		model.addAttribute("metaTitle", heroClass.getCapitalazeName() + " | Классы D&D 5e");
+		model.addAttribute("selectedClass", new ClassDto(heroClass));
+		model.addAttribute("metaTitle", String.format("%s (%s) | Классы D&D 5e", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
@@ -77,14 +78,14 @@ public class ClassController {
 		String englishName = name.replace("_", " ");
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
-		model.addAttribute("selectedClass", name);
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
+		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		Archetype selectedArchetype = heroClass.getArchetypes().stream()
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
 				.findFirst().get();
-		model.addAttribute("metaTitle", String.format("%s - %s | Классы | Подклассы D&D 5e",  
-				StringUtils.capitalize(selectedArchetype.getName()), heroClass.getCapitalazeName()));
+		model.addAttribute("metaTitle", String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
+				StringUtils.capitalize(selectedArchetype.getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
 		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", 
 				selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
@@ -99,6 +100,34 @@ public class ClassController {
 	public String getFragmentClasses(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
+		List<ClassFetureDto> features = new ArrayList<>();
+		heroClass.getTraits().stream()
+			.filter(f -> !f.isArchitype())
+			.map(f -> new ClassFetureDto(f, heroClass.getName()))
+			.forEach(f -> features.add(f));
+		Map<Integer, Set<ClassFetureDto>> archetypeTraits = heroClass.getArchetypes()
+				.stream().flatMap(a -> a.getFeats().stream())
+				.collect(
+						Collectors.groupingBy(
+								f -> f.getArchetype().getId(),
+								Collectors.mapping(f -> new ClassFetureDto(
+										f, f.getArchetype().getGenitiveName()), 
+										Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ClassFetureDto::getLevel).thenComparing(ClassFetureDto::getName))))
+								)
+				);
+		Collections.sort(features, Comparator.comparing(ClassFetureDto::getLevel));
+		model.addAttribute("features", features);
+		model.addAttribute("heroClass", heroClass);
+		model.addAttribute("archetypeTraits", archetypeTraits);
+		model.addAttribute("order", "[[ 1, 'asc' ]]");
+		model.addAttribute("selectedArchetypeName", heroClass.getArchetypeName());
+		return "fragments/class :: view";
+	}
+	
+	@GetMapping("/classes/fragment_id/{id}")
+	public String getFragmentClassesById(Model model, Device device, @PathVariable Integer id) {
+		model.addAttribute("device", device);
+		HeroClass heroClass = classRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 		List<ClassFetureDto> features = new ArrayList<>();
 		heroClass.getTraits().stream()
 			.filter(f -> !f.isArchitype())

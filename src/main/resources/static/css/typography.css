@@ -18,6 +18,7 @@ h3 {
   line-height: 32px;
   margin: 0;
   color: var(--text-color);
+  font-family: 'Lora';
 }
 
 h4 {
@@ -29,6 +30,12 @@ h4 {
   font-family: 'Lora';
 }
 
+@media (max-width: 800px) {
+  h4 {
+    font-size: 20px;
+  }
+}
+
 h5 {
   font-size: 14px;
   font-weight: 400;
@@ -36,7 +43,6 @@ h5 {
   margin: 0px 0 0px 0;
   color: var(--text-color);
   position: relative;
-
 }
 
 p {
@@ -96,6 +102,10 @@ h4 + .caption_text {
   margin-top: -6px;
 }
 
+summary.header_separator + .caption_text {
+  margin-top: -10px;
+}
+
 .uppercase_text {
   text-transform: uppercase;
 }
@@ -126,75 +136,78 @@ blockquote p:last-child {
   margin-bottom: 0px;
 }
 
-.header_separator span {
-  background: var(--bg-secondary);
-  padding-right:8px;
+.header_separator {
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
 }
 
-.header_separator:before {
+.header_separator:not(:empty)::after {
+  margin-left: 8px;
+}
+
+.header_separator::after {
   content: '';
   width: 100%;
   height: 1px;
-  background: var(--border);
-  display: block;
-  position: absolute;
-  top: 16px;
-  z-index: -1;
+  background: var(--text-color-title);
+  flex: 1;
 }
 
-details + details summary.h4 {
-  margin-top: 8px !important;
+.header_separator > span {
+  margin-right: 8px;
 }
 
-details[open] + details summary.h4 {
-  margin-top: 24px !important;
+
+/********* Сворачивание текста / details  *********/
+details {
+  margin-bottom: 16px;
 }
 
-details summary.h4 {
-  padding: 4px 8px;
+details[open] {
+  margin-bottom: 24px;
+}
+
+details > summary.h4 {
+  padding: 8px 8px;
   font-size: 24px;
   font-weight: 300;
-  margin: 24px -8px 8px -8px;
+  margin: 0px -8px 4px -8px;
   color: var(--text-color-title);
   position: relative;
   font-family: 'Lora';
   cursor: pointer;
-  background: var(--bg-sub-menu);
+  background: var(--bg-details-title);
   border-radius: 8px;
 }
 
-details[open] summary.h4 {
-  padding: 4px 0px;
-  margin: 24px 0px 4px 0px;
+@media (max-width: 800px) {
+  details > summary.h4 {
+    font-size: 20px;
+  }
+}
+
+details[open] > summary.h4 {
   background: none;
-}
-
-details summary.h4 span {
-  background: var(--bg-sub-menu);
-}
-
-details[open] summary.h4 span {
-  background: var(--bg-secondary);
 }
 
 summary::marker {
   content: '';
 }
 
-summary.header_separator:before {
-  width: calc(100% - 24px);
+summary.header_separator:after {
   opacity: 0;
-  top: 20px;
+  margin-right: 24px;
 }
 
-details[open] summary.header_separator:before {
+details[open] > summary.header_separator:after {
   opacity: 1;
 }
 
-summary::after {
+summary::before {
   content: '◀';
   display: block;
-  top: 8px;
+  top: 12px;
   right: 8px;
   position: absolute;
   width: 16px;
@@ -203,10 +216,20 @@ summary::after {
   font-size: 18px;
 }
 
-details[open] summary::after {
+details[open] > summary::before {
   transform: rotate(90deg);
-  top: 6px;
-  right: 0 !important;
+  top: 10px;
+}
+
+@media (max-width: 800px) {
+  summary::before {
+    top: 10px;
+    right: 8px;
+  }
+  
+  details[open] > summary::before {
+    top: 8px;
+  }
 }
 
 summary.h5 {
@@ -234,6 +257,43 @@ h4.separator_card {
 
 .align_left {
   text-align: left !important;
+}
+
+details.spoiler {
+  padding: 0 8px 4px 8px;
+  margin: 0 -8px 16px -8px;
+  border-radius: 8px;
+}
+
+details[open].spoiler {
+  background-color: var(--bg-details-title);
+}
+
+details[open].spoiler > summary.h4 {
+  margin: 0px -8px 4px -8px;
+  background: var(--hover);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+details[open].spoiler > summary::after {
+  right: 8px !important;
+}
+
+details[open].spoiler h4.header_separator > span {
+  background: var(--bg-details-title);
+  font-size:20px
+}
+
+details[open].spoiler table {
+  background-color: var(--bg-sub-menu);
+  border-radius: 8px;
+}
+
+details[open].spoiler div > details {
+  margin-bottom: 0;
 }
 
 
@@ -272,6 +332,10 @@ span.saving_throw {
 
 
 /********* Таблицы *********/
+table.dataTable.no-footer {
+  border: none !important;
+}
+
 .table-responsive {
   overflow-x: auto;
 }
@@ -316,9 +380,8 @@ table.dnd5_table {
 }
 
 .table-responsive.class {
-  margin-left: -24px;
-  margin-right: -24px;
-  margin-top: -24px;
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
 }
 
 @media (max-width: 1200px) {
@@ -357,26 +420,17 @@ table.dataTable tr.dtrg-group td {
 
 
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
-@media (max-width: 1200px) {
-  .header_separator {
-    padding-left: 16px;
-    margin-left: -16px;
-    margin-right: -16px;
-  }
-}
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   h1 {
     font-size: 60px;
     font-weight: 300;
     margin: 0;
-    color: var(--text-color);
   }
   
   h2 {
     font-size: 48px;
     font-weight: 400;
     margin: 0;
-    color: var(--text-color);
   }
   
   h3 {
@@ -384,15 +438,10 @@ table.dataTable tr.dtrg-group td {
     font-weight: 300;
     line-height: 26px;
     margin: 0;
-    color: var(--text-color);
   }
   
   h4 {
-    font-size: 22px;
-    font-weight: 300;
-    margin: 8px 0 8px 0;
-    color: var(--text-color);
-    position: relative;
+    font-size: 20px;
   }
 
   blockquote {

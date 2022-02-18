@@ -31,7 +31,7 @@ public class ItemMagicController {
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
 		model.addAttribute("metaTitle", "Магические предметы (Magic items) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/");
+		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
 		model.addAttribute("metaDescription", "Магические предметы и артефакты по D&D 5 редакции");
 		return "items_magic";
 	}
@@ -45,6 +45,10 @@ public class ItemMagicController {
 		model.addAttribute("metaTitle", item.getName() + " | Магические предметы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "items_magic";
 	}
 	

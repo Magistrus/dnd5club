@@ -5,6 +5,21 @@
 </head>
 <body>
 	<th:block th:fragment="view" th:object="${heroClass}">
+		<div class="archetype_mobile_selector">
+			<div class="select js-dropdown">
+				<input id="mobile_selector" type="hidden" name="archetype" class="js-dropdown__input" th:value="${selectedArchetype.englishName.replace(' ', '_')}">
+				<i class="icon_arrow">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</i>
+				<span class="placeholder js-dropdown__current" th:text="|${selectedArchetype.name} ${selectedArchetype.book.source}|"></span>
+				<ul data-simplebar>
+					<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:class="${archetype.id eq selectedArchetype.id ? 'selected' : ''}" th:text="|${archetype.name} ${archetype.book.source}|" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}"></li>
+				</ul>
+			</div>
+		</div>
+		<div th:replace="fragments/class :: classInfo1(${selectedArchetype.englishName})"></div>
 		<div class="table-responsive class" data-simplebar>
 			<table class="dnd5_table">
 				<thead>
@@ -86,9 +101,9 @@
 				</tbody>
 			</table>
 		</div>
-		<div th:replace="fragments/class :: classInfo(${selectedArchetype.englishName})"></div>
+		<div th:replace="fragments/class :: classInfo2(${selectedArchetype.englishName})"></div>
 		<th:block th:each="feature : ${features}">
-			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}">
+			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'feet_show' : ''}">
 				<summary class="h4 header_separator" th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}" th:id="|${feature.prefix}${feature.id}|"><span th:text="${feature.name}"></span></summary>
 				<div class="caption_text" th:text="${feature.type}"></div>
 				<p th:utext="${feature.description}" />

@@ -36,7 +36,7 @@ public class GodController {
 		model.addAttribute("ranks", Rank.values());
 		model.addAttribute("pantheons", pantheonRepo.findAll());
 		model.addAttribute("metaTitle", "Боги (Gods) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/gods/");
+		model.addAttribute("metaUrl", "https://dnd5.club/gods");
 		model.addAttribute("metaDescription", "Боги, полубоги и философии D&D 5 редакции");
 		return "gods";
 	}

@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	var scrollEventHeight = 0;
-	var table = $('#spells').DataTable({
+	var spellScrollEventHeight = 0;
+	let spellTable = $('#spells').DataTable({
 		ajax : '/data/spells?classId=' + classId,
 		dom: 't',
 		serverSide : true,
@@ -92,13 +92,14 @@ $(document).ready(function() {
 		    loadingRecords: "Загрузка...",
 		},
 		initComplete: function(settings, json) {
-			scrollEventHeight = document.getElementById('class_content_block').offsetHeight - 300;
-			var simpleBar = SimpleBar.instances.get(document.getElementById('class_content_block'));
+			spellScrollEventHeight = document.getElementById('content_block').offsetHeight - 1500;
+			var simpleBar = SimpleBar.instances.get(document.getElementById('info_wrapper'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
-		    	if (simpleBar.getScrollElement().scrollTop > scrollEventHeight){
-	    		  table.page.loadMore();
+		    	//alert(spellScrollEventHeight);
+		    	if (simpleBar.getScrollElement().scrollTop > spellScrollEventHeight){
+		    	  spellTable.page.loadMore();
 	    	      simpleBar.recalculate();
-	    	      scrollEventHeight +=750;
+	    	      spellScrollEventHeight +=750;
 	    		}
 	    	});
 		},
@@ -117,9 +118,8 @@ $(document).ready(function() {
 		},
 	});
 	$('#spells tbody').on('click', 'tr', function () {
-		var tr = $(this).closest('tr');
-		var table = $('#spells').DataTable();
-		var row = table.row( tr );
+		let tr = $(this).closest('tr');
+		var row = $('#spells').DataTable().row( tr );
 		$.get('/spells/fragment/' + row.data().id)
 		  .done(function( spellData ) {
 			$.magnificPopup.open({
@@ -136,28 +136,26 @@ function selectSpell(data){
 	$("#content_block").load(url);
 }
 var timer, delay = 300;
-$('#search').bind('keydown blur change', function(e) {
+$('#search_spell').bind('keydown blur change', function(e) {
     var _this = $(this);
     clearTimeout(timer);
     timer = setTimeout(function() {
-		if($('#search').val()){
-			$('#text_clear').show();
+		if($('#search_spell').val()){
+			$('#spell_text_clear').show();
 		}
 		else {
-			$('#text_clear').hide();
+			$('#spell_text_clear').hide();
 		}
-		const table = $('#spells').DataTable();
-		table.tables().search($('#search').val()).draw();
+		$('#spells').DataTable().tables().search($('#search_spell').val()).draw();
     }, delay );
 });
-$('#btn_filters').on('click', function() {
-	$('#searchPanes').toggleClass('hide_block');
+$('#btn_spell_filters').on('click', function() {
+	$('#searchPanesSpell').toggleClass('hide_block');
 });
-$('#text_clear').on('click', function () {
-	$('#search').val('');
-	const table = $('#spells').DataTable();
-	table.tables().search($(this).val()).draw();
-	$('#text_clear').hide();
+$('#spell_text_clear').on('click', function () {
+	$('#search_spell').val('');
+	$('#spells').DataTable().tables().search($(this).val()).draw();
+	$('#spell_text_clear').hide();
 });
 $('.level_checkbox').on('change', function(e){
 	let properties = $('input:checkbox[name="level"]:checked').map(function() {

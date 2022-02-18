@@ -88,7 +88,7 @@
 		</table>
 		<th:block th:unless="${things.empty}">
 			<h4 class="header_separator"><span>Предметов найдено</span></h4>
-			<table class="table_list  dataTable">
+			<table class="table_list dataTable">
 				<tbody>
 					<tr th:id = "${thing.id}" th:each="thing : ${things}" th:class="|${thing.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
 						<td>

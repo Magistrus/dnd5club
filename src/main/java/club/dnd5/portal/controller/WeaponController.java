@@ -28,7 +28,7 @@ public class WeaponController {
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
 		model.addAttribute("metaTitle", "Оружие (Weapons) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/weapons/");
+		model.addAttribute("metaUrl", "https://dnd5.club/weapons");
 		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
 		return "weapons";
 	}

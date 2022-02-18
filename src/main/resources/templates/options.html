@@ -34,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="searchPanes" class="search_panes hide_block">
+			<div id="searchPanes" class="search_panes hide_block" data-simplebar>
 				<div class="filter_container">
 					<div class="filter_block">
 						<div class="header">
@@ -104,7 +104,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="scroll_load_simplebar" class="container_left table_list">
+			<div id="scroll_load_simplebar" class="container_left">
 				<table id="options" class="table_list" th:fragment="optionTable">
 					<thead style="display: none">
 						<tr>
@@ -166,5 +166,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/options.js?v=1.6}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/options.js?v=1.7}" layout:fragment="js-script"></script>
 </html>

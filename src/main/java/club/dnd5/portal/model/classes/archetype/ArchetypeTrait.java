@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 
@@ -33,4 +35,26 @@ public class ArchetypeTrait {
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Spell> spells;
+	
+	public String getCapitalizeName() {
+		return StringUtils.capitalizeWords(name.toLowerCase());
+	}
+	public String getDisplayLevel() {
+		String suffix = "ый";
+		switch (level) {
+		case 2:
+		case 6:
+		case 7:
+		case 8:
+			suffix = "ой";
+			break;
+		case 3:
+			suffix = "ий";
+			break;
+		default:
+			suffix = "ый";
+			break;
+		}
+		return String.format("%d-%s уровень", level, suffix);
+	}
 }

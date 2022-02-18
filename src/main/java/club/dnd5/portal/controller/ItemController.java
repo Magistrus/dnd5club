@@ -22,7 +22,7 @@ public class ItemController {
 	public String getItems(Model model) {
 		model.addAttribute("categories", EquipmentType.values());
 		model.addAttribute("metaTitle", "Снаряжение (Items) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/items/");
+		model.addAttribute("metaUrl", "https://dnd5.club/items");
 		model.addAttribute("metaDescription", "Снаряжение и инструменты по D&D 5 редакции");
 		return "items";
 	}
