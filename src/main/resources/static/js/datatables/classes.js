@@ -144,7 +144,7 @@ $(document).ready(function() {
 				$('li').removeClass('select_point');
 				liTareget.classList.add('select_point');
 				selectedArchetype = null;
-				setActiveArchetype(data, data.englishName.replace(' ', '_'), liTareget.id);
+				setActiveArchetype(data, data.englishName.split(' ').join('_'), liTareget.id);
 			}
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
