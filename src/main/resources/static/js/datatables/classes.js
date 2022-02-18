@@ -30,21 +30,21 @@ $(document).ready(function() {
 						if (row.archetypes.length > 0) {
 							result+='<div class="archetype_list"><h4>Основное:</h4><ul>';
 							row.archetypes.forEach(function(item, i, arr) {
-								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
+								result+= '<li class="archetype_item" id="'+item.englishName.split(' ').join('_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
 							});
 							result+='</ul></div>';
 						}
 						if (row.settingArchetypes.length > 0) {
 							result+='<div class="archetype_list setting_source '+(localStorage.getItem('setting_source') != 'true' ? 'hide_block' : '') +'"><h4>Сеттинги:</h4><ul>';
 							row.settingArchetypes.forEach(function(item, i, arr) {
-								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
+								result+= '<li class="archetype_item" id="'+item.englishName.split(' ').join('_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
 							});
 							result+='</ul></div></div>';
 						}
 						if (row.homebrewArchetypes.length > 0) {
 							result+='<div class="homebrew_list archetype_list custom_source '+(localStorage.getItem('homebrew_source') != 'true' ? 'hide_block' : '') +'"><h4>Homebrew:</h4><ul>';
 							row.homebrewArchetypes.forEach(function(item, i, arr) {
-								result+= '<li class="archetype_item" id="'+item.englishName.replace(' ', '_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
+								result+= '<li class="archetype_item" id="'+item.englishName.split(' ').join('_')+'"><i class="add_favorites"></i><p>' + item.name+' <span>'+item.bookshort+' / ' +item.englishName  + '</span></p></li>';
 							});
 							result+='</ul></div>';
 						}
