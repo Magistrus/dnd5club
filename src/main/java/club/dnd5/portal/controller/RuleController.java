@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.RuleDto;
+import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 
 
@@ -26,8 +27,12 @@ public class RuleController {
 	
 	@GetMapping("/rules/{name}")
 	public String getRule(Model model, @PathVariable String name) {
+		Rule rule = repository.findByEnglishName(name.replace('_', ' '));
+		if (rule == null) {
+			return "redirect: /error/404";
+		}
 		model.addAttribute("categories", repository.findAllCategories());
-		model.addAttribute("selectedRule", new RuleDto(repository.findByEnglishName(name.replace('_', ' '))));
+		model.addAttribute("selectedRule", new RuleDto(rule));
 		return "rules";
 	}
 	

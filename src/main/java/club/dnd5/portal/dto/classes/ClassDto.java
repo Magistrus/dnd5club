@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import club.dnd5.portal.model.SpellcasterType;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
-import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
