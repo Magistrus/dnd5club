@@ -43,11 +43,15 @@ public class GodController {
 	
 	@GetMapping("/gods/{name}")
 	public String getGod(Model model, @PathVariable String name) {
+		God god = repository.findByEnglishName(name.replace("_", " "));
+		if (god == null) {
+			return "redirect: /error/404";
+		}
 		model.addAttribute("alignments", Alignment.getGods());
 		model.addAttribute("domains", Domain.values());
 		model.addAttribute("ranks", Rank.values());
 		model.addAttribute("pantheons", pantheonRepo.findAll());
-		God god = repository.findByEnglishName(name.replace("_", " "));
+
 		model.addAttribute("selectedGod", new GodDto(god));
 		model.addAttribute("metaTitle", god.getName() + " | Боги D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/gods/" + name);

@@ -38,9 +38,14 @@ public class ItemMagicController {
 	
 	@GetMapping("/items/magic/{name}")
 	public String getMagicItem(Model model, @PathVariable String name) {
+		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
+		if (item == null) {
+			return "redirect: /error/404";
+		}
+		
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
-		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
+
 		model.addAttribute("selectedItemMagic", new ItemMagicDto(item));
 		model.addAttribute("metaTitle", item.getName() + " | Магические предметы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/" + name);

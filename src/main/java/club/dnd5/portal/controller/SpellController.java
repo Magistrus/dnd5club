@@ -43,13 +43,15 @@ public class SpellController {
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		Spell spell = repository.findByEnglishName(name.replace("_", " "));
+		if (spell == null) {
+			return "redirect: /error/404";
+		}
 		SpellDto spellDto = new SpellDto(spell);
 		model.addAttribute("selectedSpell", spellDto);
 		model.addAttribute("metaTitle", String.format("%s (%s)", spellDto.getName(), spellDto.getEnglishName()) + " | Заклинания D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells" + name);
 		model.addAttribute("metaDescription", String.format("%s %s, %s", (spellDto.getLevel() == 0 ? "Заговор" : spellDto.getLevel() + " уровень"), spellDto.getName(), spellDto.getSchool()));
 		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.webp", spell.getSchool().name()));
-
 		return "spells";
 	}
 	

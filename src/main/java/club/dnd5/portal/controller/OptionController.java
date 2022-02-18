@@ -1,7 +1,6 @@
 package club.dnd5.portal.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -53,10 +52,14 @@ public class OptionController {
 	
 	@GetMapping("/options/{name}")
 	public String getOption(Model model, @PathVariable String name) {
+		Option option = repository.findByEnglishName(name.replace("_", " "));
+		if (option == null) {
+			return "redirect: /error/404";
+		}
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
-		Option option = repository.findByEnglishName(name.replace("_", " "));
+
 		model.addAttribute("selectedOption", new OptionDto(option));
 		model.addAttribute("metaTitle", String.format("%s (%s)", option.getName(), option.getEnglishName()) + " | Особенности классов D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/options/" + name);

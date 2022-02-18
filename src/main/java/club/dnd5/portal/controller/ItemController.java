@@ -29,8 +29,12 @@ public class ItemController {
 	
 	@GetMapping("/items/{name}")
 	public String getItem(Model model, @PathVariable String name) {
-		model.addAttribute("categories", EquipmentType.values());
 		Equipment item = repository.findByEnglishName(name.replace("_", " "));
+		if (item == null) {
+			return "redirect: /error/404";
+		}
+		model.addAttribute("categories", EquipmentType.values());
+		
 		model.addAttribute("selectedItem", new ItemDto(item));
 		model.addAttribute("metaTitle", item.getName() + " | Снаряжение D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/" + name);
