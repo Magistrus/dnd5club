@@ -39,9 +39,9 @@ public class ItemMagicController {
 	@GetMapping("/items/magic/{name}")
 	public String getMagicItem(Model model, @PathVariable String name) {
 		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
-		if (item == null) {
-			return "redirect: /error/404";
-		}
+		// if (item == null) {
+		// 	return "redirect: /error/404";
+		// }
 		
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
