@@ -32,7 +32,7 @@ public class SpellController {
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/spells/");
+		model.addAttribute("metaUrl", "https://dnd5.club/spells");
 		model.addAttribute("metaDescription", "Заклинания по D&D 5 редакции");
 		return "spells";
 	}
