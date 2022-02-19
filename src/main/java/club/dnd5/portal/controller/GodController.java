@@ -44,9 +44,9 @@ public class GodController {
 	@GetMapping("/gods/{name}")
 	public String getGod(Model model, @PathVariable String name) {
 		God god = repository.findByEnglishName(name.replace("_", " "));
-		if (god == null) {
-			return "redirect: /error/404";
-		}
+		// if (god == null) {
+		// 	return "redirect: /error/404";
+		// }
 		model.addAttribute("alignments", Alignment.getGods());
 		model.addAttribute("domains", Domain.values());
 		model.addAttribute("ranks", Rank.values());

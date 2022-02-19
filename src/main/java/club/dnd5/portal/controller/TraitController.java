@@ -33,9 +33,9 @@ public class TraitController {
 	@GetMapping("/traits/{name}")
 	public String getTrait(Model model, @PathVariable String name) {
 		Trait trait = repository.findByEnglishName(name.replace("_", " "));
-		if (trait == null) {
-			return "redirect: /error/404";
-		}
+		// if (trait == null) {
+		// 	return "redirect: /error/404";
+		// }
 		
 		model.addAttribute("abilities", AbilityType.getBaseAbility());
 		model.addAttribute("skills", SkillType.values());
