@@ -17,7 +17,7 @@ body {
   padding: 0;
   font-family: 'Open Sans';
   background-color: var(--bg-main);
-  font-size: 14px;
+  font-size: var(--main-font-size);
   height: calc(100% - 0px);
   outline: none;
   color: var(--text-color);
@@ -278,7 +278,7 @@ label.check_block .check+span {
 /******** Тул типы / tool tip ********/
 .tpd-skin-dnd5 .tpd-content .spell_wrapper span,
 .tpd-skin-dnd5 .tpd-content .spell_wrapper p {
-  font-size: 13px !important;
+  font-size: var(--main-font-size) !important;
 }
 
 .tpd-skin-dnd5 .tpd-content,
@@ -326,7 +326,7 @@ input {
   padding: 0px 12px;
   background: var(--hover);
   color: var(--text-color);
-  font-size: 14px;
+  font-size: var(--main-font-size);
   height: 36px;
   font-family: 'Open Sans';
 }
@@ -338,7 +338,7 @@ input[type="radio"] {
 
 textarea {
   border-radius: 0px;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   outline:none;
   border:1px solid var(--border);
   background: var(--hover);
@@ -522,7 +522,7 @@ label.select_box {
   padding: 8px 12px 8px 12px;
   color: var(--text-color);
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--main-font-size);
 }
 
 .select ul li:hover {
@@ -988,16 +988,9 @@ body:before {
 .main_page_wrapper .main_block .card_row a.card h4 {
   color:var(--text-color);
   transition: color 0.6s;
-  font-size: 18px;
+  font-size: calc(var(--h4-font-size) - 4px);
   text-align: center;
   line-height: 16px;
-}
-
-@media (max-width: 500px) {
-  .main_page_wrapper .main_block .card_row a.card h4 {
-    font-size: 16px;
-    line-height: 16px;
-  }
 }
 
 .main_page_wrapper .main_block .card_row a.card:hover h4 {
@@ -1113,8 +1106,8 @@ body:before {
   background-color: var(--bg-secondary);
 }
 
-.main_page_wrapper .news_block .header h2 {
-  font-size: 26px;
+.main_page_wrapper .news_block .header h3 {
+  font-size: var(--h3-font-size);
 }
 
 .main_page_wrapper .news_block .news_list .news {
@@ -1255,7 +1248,7 @@ body:before {
 
 .card_wrapper .card .infimation .header_name {
   margin: 0;
-  font-size: 16px;
+  font-size: calc(var(--h5-font-size) + 2px);
   line-height: 28px;
 }
 
@@ -1269,7 +1262,7 @@ body:before {
 .card_wrapper .card .infimation p.additionally {
   margin-top: auto;
   margin-bottom: 0px;
-  font-size: 13px;
+  font-size: var(--main-font-size);
   color: var(--text-g-color);
 }
 
@@ -1331,7 +1324,7 @@ body:before {
   line-height: 72px;
   position: relative;
   padding-left: 24px;
-  font-size: 26px;
+  font-size:calc(var(--h1-font-size) - 6px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1339,7 +1332,7 @@ body:before {
 }
 
 .header_block h1 a {
-  font-size: 26px;
+  font-size: calc(var(--h1-font-size) - 6px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1359,10 +1352,6 @@ body:before {
 @media (max-width: 1200px) {
   .header_block {
     border-right: none;
-  }
-
-  .header_block h3 {
-    font-size: 22px;
   }
 
   .header_block .search_block {
@@ -1451,7 +1440,7 @@ body.compact_menu .block_information #left_block {
   padding-right: 40px;
   background-color: var(--bg-secondary);
   color: var(--text-color);
-  font-size: 15px;
+  font-size: var(--main-font-size);
   margin: 0;
   height: 45px;
 }
@@ -1524,9 +1513,9 @@ table.table_card tr.dtrg-group {
 
 table.table_card tr.dtrg-group td {
   background-color: transparent !important;
-  font-size: 24px;
+  font-size: var(--h3-font-size);
   font-weight: 300;
-  margin: 24px 0 8px 0;
+  margin: 24px 0 0px 0;
   color: var(--text-color-title);
   position: relative;
   font-family: 'Lora';
@@ -1633,7 +1622,7 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr td .content .row_name {
-  font-size: 16px;
+  font-size: calc(var(--h5-font-size) + 2px);
   margin: 0;
   font-weight: 500;
   line-height: normal;
@@ -1652,7 +1641,7 @@ table.table_card tr.dtrg-group td {
 
 .table_card tr .books {
   margin-left: auto;
-  font-size: 13px;
+  font-size: var(--main-font-size);
 }
 
 .table_card tr td .content .two_row {
@@ -1754,7 +1743,7 @@ table.table_card tr.dtrg-group td {
 
 .table_card tr td .archetype_list > h4 {
   padding: 0 8px;
-  font-size: 16px;
+  font-size: calc(var(--h5-font-size) + 2px);
   margin-top: 0;
   margin-bottom: 4px;
 }
@@ -1781,8 +1770,7 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr td .archetype_list li p span {
-  font-size: 12px;
-  /* display: block; */
+  font-size: calc(var(--main-font-size) - 2px);
   margin-left: 4px;
   color: var(--text-g-color);
 }
@@ -1899,7 +1887,8 @@ body.compact_menu #right_block {
   margin-top: -24px;
   margin-left: -24px;
   margin-right: -24px;
-  padding: 18px 24px 12px 24px;
+  margin-bottom: 0;
+  padding: 14px 24px 14px 24px;
 }
 
 .dnd5-popup-block .row_info {
@@ -2261,7 +2250,7 @@ body.compact_menu #right_block {
   padding-right: 40px;
   background-color: var(--bg-sub-menu);
   color: var(--text-color);
-  font-size: 15px;
+  font-size: var(--main-font-size);
   margin: 0;
   height: 45px;
 }
@@ -2349,7 +2338,7 @@ body.compact_menu #right_block {
 }
 
 .tpd-skin-dnd5 .grid_stat_block .block p {
-  font-size: 13px;
+  font-size: var(--main-font-size);
 }
 
 .grid_stat_block .block.duration {
@@ -2425,14 +2414,14 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper .sub_menu_list li h5 {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   font-weight: 500;
   line-height: 20px;
   color: var(--text-b-color);
 }
 
 #right_block .info_wrapper .sub_menu_list li span {
-  font-size: 14px;
+  font-size: var(--main-font-size);
   line-height: 18px;
   font-weight: 400;
   margin: 0;
@@ -2550,7 +2539,7 @@ body.compact_menu #right_block {
 }
 
 .structure-list div ul li.sub_menu .sub_info span {
-  font-size: 13px !important;
+  font-size: var(--main-font-size) !important;
   color: var(--text-g-color) !important;
 }
 
@@ -2682,14 +2671,6 @@ body.compact_menu #right_block {
   color: var(--text-btn-color) !important;
 }
 
-.table_list tr td:nth-child(2) {
-  text-align: right;
-  padding-right: 16px;
-  max-width: 60px;
-  justify-content: flex-end;
-  font-size: 15px;
-}
-
 .table_list tr:hover.selected {
   background: var(--border);
 
@@ -2752,7 +2733,7 @@ body.compact_menu #right_block {
 }
 
 .table_list tr td .row_name {
-  font-size: 15px;
+  font-size: var(--main-font-size);
   margin: 0;
   margin-right: 6px;
   font-weight: 500;
@@ -2782,13 +2763,13 @@ body.compact_menu #right_block {
 .table_list tr .secondary_name {
   color: var(--text-g-color);
   margin-top: 4px;
-  font-size: 13px;
+  font-size: calc(var(--main-font-size) - 1px);
 }
 
 .table_list tr .secondary_name p {
   color: var(--text-g-color);
   margin: 0;  
-  font-size: 13px;
+  font-size: var(--main-font-size);
   line-height: normal;
 }
 
@@ -3152,7 +3133,7 @@ body.compact_menu #right_block.spells {
 
 .races .content_block .scores .score h4 {
   margin: 10px 0 0 2px !important;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   line-height: 1.2em;
   text-transform: uppercase;
   color: var(--text-s-color);
@@ -3310,7 +3291,7 @@ body.compact_menu #right_block.weapons {
 
 #right_block.bestiary .scores h4 {
   margin: 10px 0 2px;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   line-height: 1.2em;
   text-transform: uppercase;
   color: var(--text-s-color);
@@ -3566,10 +3547,9 @@ body #left_block.tools_block {
 }
 
 #left_block.trader .table_list .row_name {
-  font-size: 15px;
+  font-size: var(--main-font-size);
   line-height: 42px;
   font-weight: 400;
-  /* margin-left: 58px; */
   vertical-align: middle;
   height: 42px;
   display: table-cell;
@@ -3613,7 +3593,7 @@ button {
   border: 0;
   background: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   font-family: 'Open Sans';
 }
 
