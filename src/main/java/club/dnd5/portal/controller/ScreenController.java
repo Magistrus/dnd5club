@@ -25,7 +25,7 @@ public class ScreenController {
 	public String getScreens(Model model) {
 		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
 		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/treasures");
+		model.addAttribute("metaUrl", "https://dnd5.club/screens");
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона по D&D 5 редакции");
 		return "screens";
 	}
