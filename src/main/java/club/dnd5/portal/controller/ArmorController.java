@@ -21,7 +21,7 @@ public class ArmorController {
 	@GetMapping("/armors")
 	public String getArmors(Model model) {
 		model.addAttribute("metaTitle", "Доспехи (Armors) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/armors/");
+		model.addAttribute("metaUrl", "https://dnd5.club/armors");
 		model.addAttribute("metaDescription", "Доспехи по D&D 5 редакции");
 		return "armors";
 	}
@@ -29,6 +29,9 @@ public class ArmorController {
 	@GetMapping("/armors/{name}")
 	public String getArmor(Model model, @PathVariable String name) {
 		Armor armor = repository.findByEnglishName(name.replace('_', ' '));
+		if (armor == null) {
+			return "redirect: /error/404";
+		}
 		model.addAttribute("selectedArmor", new ArmorDto(armor));
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getEnglishName().replace(" ", "_"));
