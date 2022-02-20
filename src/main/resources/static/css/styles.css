@@ -1767,6 +1767,7 @@ table.table_card tr.dtrg-group td {
 
 .table_card tr td .archetype_list li p {
   margin: 0;
+  line-height: normal;
 }
 
 .table_card tr td .archetype_list li p span {
@@ -2769,7 +2770,7 @@ body.compact_menu #right_block {
 .table_list tr .secondary_name p {
   color: var(--text-g-color);
   margin: 0;  
-  font-size: var(--main-font-size);
+  font-size: calc(var(--main-font-size) - 1px);
   line-height: normal;
 }
 
@@ -3618,22 +3619,33 @@ button {
   background-color: var(--primary-hover);
 }
 
+.become-discord-button,
 .become-patron-button {
   background-color: #FC3D51;
   padding: 10px 16px 10px 46px;
   color: #fff;
   border-radius: 30px;
-  display: block;
-  max-width: 110px;
+  display: inline-block;
   background-image: url(/resources/assets/become-patron-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
   text-decoration: none;
+  transition: all 0.5s;
 }
 
 .become-patron-button:hover {
   background-color: #c52a3a;
+  color: var(--text-btn-color);
+}
+
+.become-discord-button {
+  background-color: #5865F2;
+  background-image: url(/resources/assets/discord.svg);
+}
+
+.become-discord-button:hover {
+  background-color: #3c48cc;
   color: var(--text-btn-color);
 }
 
