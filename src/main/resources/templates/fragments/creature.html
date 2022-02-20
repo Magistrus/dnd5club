@@ -74,7 +74,7 @@
 				<strong>Спасброски</strong> <span th:each="st, iterStat : ${creature.savingThrows}" th:text="${iterStat.last ? st.text : st.text +', '}"></span>
 			</p>
 			<p th:unless="${creature.skills.empty}">
-				<strong>Навыки:</strong> <span th:each="skill, iterStat : ${creature.skills}" th:text="${iterStat.last ? skill.cyrilicText : skill.cyrilicText +', '}"></span>
+				<strong>Навыки</strong> <span th:each="skill, iterStat : ${creature.skills}" th:text="${iterStat.last ? skill.cyrilicText : skill.cyrilicText +', '}"></span>
 			</p>
 			<p th:unless="${creature.vulnerabilityDamages.empty}">
 				<strong>Уязвимость к урону</strong> <span th:each="vulnerability, iterStat : ${creature.vulnerabilityDamages}"

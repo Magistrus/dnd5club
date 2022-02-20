@@ -27,6 +27,9 @@ public enum AbilityType {
 	private String cyrilicName;
 
 	public String getShortName() {
+		if (this == WISDOM) {
+			return "Мдр";
+		}
 		return cyrilicName.substring(0,3);
 	}
 
