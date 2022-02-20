@@ -62,9 +62,9 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
-		if (heroClass == null) {
-			return "redirect: /error/404";
-		}
+		// if (heroClass == null) {
+		// 	return "redirect: /error/404";
+		// }
 		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		model.addAttribute("metaTitle", String.format("%s (%s) | Классы D&D 5e", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
@@ -83,16 +83,16 @@ public class ClassController {
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
-		if (heroClass == null) {
-			return "redirect: /error/404";
-		}
+		// if (heroClass == null) {
+		// 	return "redirect: /error/404";
+		// }
 		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		Archetype selectedArchetype = heroClass.getArchetypes().stream()
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
 				.findFirst().get();
-		if (selectedArchetype == null) {
-			return "redirect: /error/404";
-		}
+		// if (selectedArchetype == null) {
+		// 	return "redirect: /error/404";
+		// }
 		model.addAttribute("metaTitle", String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
 				StringUtils.capitalize(selectedArchetype.getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));

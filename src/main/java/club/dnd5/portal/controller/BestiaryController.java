@@ -46,9 +46,9 @@ public class BestiaryController {
 	@GetMapping("/bestiary/{name}")
 	public String getCreature(Model model, @PathVariable String name) {
 		Creature beast = repository.findByEnglishName(name.replace("_", " "));
-		if (beast == null) {
-			return "redirect: /error/404";
-		}
+		// if (beast == null) {
+		// 	return "redirect: /error/404";
+		// }
 		CreatureDto creature = new CreatureDto(beast);
 		model.addAttribute("selectedCreature", creature);
 		model.addAttribute("types", CreatureType.getFilterTypes());

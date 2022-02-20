@@ -18,17 +18,17 @@
 		</div>
 		<div class="beast_info">
 			<p>
-				<strong>Класс доспеха:</strong> <span th:text="*{AC}"></span>
+				<strong>Класс доспеха</strong> <span th:text="*{AC}"></span>
 				<th:block th:if="${creature.bonusAC}" th:text="${creature.bonusAC}" />
 				<th:block th:unless="${creature.armorTypes.empty}"> (<span th:each="armorType, iterStat : ${creature.armorTypes}"
 						th:text="${iterStat.last ? armorType.cyrillicName: armorType.cyrillicName + ', '}"
 					></span>)</th:block>
 			</p>
 			<p>
-				<strong>Хиты:</strong> <span th:text="${creature.hp}"></span>
+				<strong>Хиты</strong> <span th:text="${creature.hp}"></span>
 			</p>
 			<p>
-				<strong>Скорость:</strong> <span th:utext="${creature.allSpeed}"></span><span th:if="${creature.speedText}" th:text="| ${creature.speedText}|"></span>
+				<strong>Скорость</strong> <span th:utext="${creature.allSpeed}"></span><span th:if="${creature.speedText}" th:text="| ${creature.speedText}|"></span>
 			</p>
 		</div>
 		<div class="scores">

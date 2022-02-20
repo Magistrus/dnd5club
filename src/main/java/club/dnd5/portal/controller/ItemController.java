@@ -30,9 +30,9 @@ public class ItemController {
 	@GetMapping("/items/{name}")
 	public String getItem(Model model, @PathVariable String name) {
 		Equipment item = repository.findByEnglishName(name.replace("_", " "));
-		if (item == null) {
-			return "redirect: /error/404";
-		}
+		// if (item == null) {
+		// 	return "redirect: /error/404";
+		// }
 		model.addAttribute("categories", EquipmentType.values());
 		
 		model.addAttribute("selectedItem", new ItemDto(item));
