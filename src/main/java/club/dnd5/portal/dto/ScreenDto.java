@@ -11,10 +11,12 @@ public class ScreenDto {
 	private String name;
 	private String englishName;
 	private boolean parent;
+	private int ordering;
 	public ScreenDto(Screen screen) {
 		id = screen.getId();
 		name = screen.getName();
 		englishName = screen.getEnglishName();
-		parent = screen.getChields().isEmpty();	
+		parent = screen.getChields().isEmpty();
+		ordering = screen.getOrdering();
 	}
 }

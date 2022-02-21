@@ -28,14 +28,18 @@ $(document).ready(function() {
 		{
 			data : 'englishName',
 		},
+		{
+			data : 'ordering',
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
-				"targets": [ 1 ],
+				"targets": [ 1, 2 ],
 				"visible": false
 			},
 		],
-		order : [[0, 'asc']],
+		order : [[2, 'asc']],
 		language : {
 			processing : "Загрузка...",
 			searchPlaceholder: "Поиск ",
