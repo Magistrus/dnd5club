@@ -12,9 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.ScreenDto;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
-
 
 @Controller
 public class ScreenController {
@@ -23,7 +23,6 @@ public class ScreenController {
 
 	@GetMapping("/screens")
 	public String getScreens(Model model) {
-		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
 		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/screens");
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона по D&D 5 редакции");
@@ -32,9 +31,12 @@ public class ScreenController {
 	
 	@GetMapping("/screens/{name}")
 	public String getScreen(Model model, @PathVariable String name) {
-		model.addAttribute("selectedScreen", name);
-		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
-		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
+		Screen screen = repository.findByEnglishName(name.replace('_', ' ')).get();
+		if (screen == null) {
+			
+		}
+		model.addAttribute("selectedScreen", new ScreenDto(screen));
+		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона по D&D 5 редакции");
 		return "screens";
@@ -48,13 +50,18 @@ public class ScreenController {
 		return "screens";
 	}
 	
-	@GetMapping("/screens/fragment/{name}")
-	public String getScreenFragmentById(Model model, @PathVariable String name) throws InvalidAttributesException {
-		model.addAttribute("screens", repository.findByEnglishName(
-				name.replace("_", " ")).orElseThrow(InvalidAttributesException::new).getChields()
+	@GetMapping("/screens/fragment/{id}")
+	public String getScreenFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("screens", repository.findById(id).get().getChields()
 				.stream()
 				.collect(Collectors.groupingBy(Screen::getCategory, LinkedHashMap::new, Collectors.toList())));
 		return "fragments/screen :: view";
+	}
+	
+	@GetMapping("/screens/fragmentone/{id}")
+	public String getScreenOneFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("screen", repository.findById(id).get());
+		return "fragments/screen :: viewOne";
 	}
 	
 	@GetMapping("/screens/{englishName}/subscreens/list")

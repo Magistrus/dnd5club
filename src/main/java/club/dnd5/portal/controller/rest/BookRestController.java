@@ -28,7 +28,7 @@ public class BookRestController {
 	}
 	
 	@PostMapping("/books")
-	public BookDto getSpell(String id) {
+	public BookDto getBook(String id) {
 		return new BookDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
 	}
 }
