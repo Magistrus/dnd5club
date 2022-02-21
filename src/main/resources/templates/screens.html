@@ -48,7 +48,7 @@
 			<div class="header_block">
 				<div class="header_row">
 					<h1>
-						<a href="#" id="screen_name">Название источника</a>
+						<a href="#" id="screen_name">Название</a>
 						<button class="title_icon tip" title="Скопировать ссылку" onclick="copyToClipboard()">
 							<i class="icon_action">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +86,10 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" th:inline="javascript">
+			selectedScreen = [[${selectedScreen}]];
+		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/screens.js?v=0.1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/screens.js?v=0.2}" layout:fragment="js-script"></script>
 </html>

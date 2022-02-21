@@ -39,9 +39,4 @@ public class ScreenRestController {
 		}
 		return specification.and(addSpecification);
 	}
-
-	@PostMapping("/data/screens")
-	public ScreenDto getSpell(Integer id) {
-		return new ScreenDto(repo.findById(id).orElseThrow(InvalidParameterException::new));
-	}
 }

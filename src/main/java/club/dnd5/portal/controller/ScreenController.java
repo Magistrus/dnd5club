@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.util.LinkedHashMap;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.naming.directory.InvalidAttributesException;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.ScreenDto;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
 
@@ -32,8 +34,11 @@ public class ScreenController {
 	
 	@GetMapping("/screens/{name}")
 	public String getScreen(Model model, @PathVariable String name) {
-		model.addAttribute("selectedScreen", name);
-		model.addAttribute("screens", repository.findAllByParentIsNullOrderByOrdering());
+		Screen screen = repository.findByEnglishName(name.replace('_', ' ')).get();
+		if (screen == null) {
+			
+		}
+		model.addAttribute("selectedScreen", new ScreenDto(screen));
 		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона по D&D 5 редакции");

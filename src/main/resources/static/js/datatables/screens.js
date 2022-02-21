@@ -52,8 +52,6 @@ $(document).ready(function() {
 			loadingRecords: "Загрузка..."
 		},
 		initComplete: function(settings, json) {
-		    $('#screens tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
 			scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
 		    const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
 		    simpleBar.getScrollElement().addEventListener('scroll', function(event){
@@ -65,8 +63,19 @@ $(document).ready(function() {
 		    });
 		},
 		drawCallback: function ( settings ) {
-		    $('#screens tbody tr:eq(0)').click();
-		    table.row(':eq(0)', { page: 'current' }).select();
+			if (selectedScreen) {
+				selectScreen(selectedScreen);
+				var rowIndexes = [];
+				table.rows( function ( idx, data, node ) {
+					if(data.id === selectedScreen.id){
+						rowIndexes.push(idx);
+					}
+					return false;
+				});
+				rowSelectIndex = rowIndexes[0];
+			}
+		    $('#screens tbody tr:eq('+rowSelectIndex+')').click();
+		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
@@ -81,25 +90,28 @@ $(document).ready(function() {
 		if (data === undefined) {
 			return;
 		}
-		$('#screen_name').html(data.name);
-		document.title = data.name + ' (' +data.englishName+ ')' + ' | Киниги D&D 5e';
-		history.pushState('data to be passed', '', '/screens/' + data.englishName.split(' ').join('_'));
-		if (!data.parent) {
-			var url = '/screens/fragment/' + data.id;
-			$("#content_block").load(url, function() {
-				$('.open-popup-link').magnificPopup({
-					  type:'inline',
-					  midClick: true
-				});
-			});
-		} else {
-			$("#content_block").load('/screens/fragmentone/' + data.id);
-		}
+		selectScreen(data);
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();
 	});
 });
+function selectScreen(data) {
+	$('#screen_name').html(data.name);
+	document.title = data.name + ' (' +data.englishName+ ')' + ' | Киниги D&D 5e';
+	history.pushState('data to be passed', '', '/screens/' + data.englishName.split(' ').join('_'));
+	if (!data.parent) {
+		var url = '/screens/fragment/' + data.id;
+		$("#content_block").load(url, function() {
+			$('.open-popup-link').magnificPopup({
+				  type:'inline',
+				  midClick: true
+			});
+		});
+	} else {
+		$("#content_block").load('/screens/fragmentone/' + data.id);
+	}
+}
 $('#search').on( 'keyup click', function () {
 	if($(this).val()){
 		$('#text_clear').show();
