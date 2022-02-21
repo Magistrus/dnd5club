@@ -29,5 +29,8 @@
 			</div>
 		</th:block>
 	</th:block>
+	<th:block th:fragment="viewOne" th:object="${screen}">
+		<div th:utext="*{description}"></div>
+	</th:block>
 </body>
 </html>

@@ -56,6 +56,12 @@ public class ScreenController {
 		return "fragments/screen :: view";
 	}
 	
+	@GetMapping("/screens/fragmentone/{id}")
+	public String getScreenOneFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("screen", repository.findById(id).get());
+		return "fragments/screen :: viewOne";
+	}
+	
 	@GetMapping("/screens/{englishName}/subscreens/list")
 	public String getSubscreenList(Model model, Device device, @PathVariable String englishName) {
 		model.addAttribute("device", device);

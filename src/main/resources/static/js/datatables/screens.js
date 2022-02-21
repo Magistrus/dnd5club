@@ -80,13 +80,17 @@ $(document).ready(function() {
 		$('#screen_name').html(data.name);
 		document.title = data.name + ' (' +data.englishName+ ')' + ' | Киниги D&D 5e';
 		history.pushState('data to be passed', '', '/screens/' + data.englishName.split(' ').join('_'));
-		var url = '/screens/fragment/' + data.id;
-		$("#content_block").load(url, function() {
-			$('.open-popup-link').magnificPopup({
-				  type:'inline',
-				  midClick: true
+		if (!data.parent) {
+			var url = '/screens/fragment/' + data.id;
+			$("#content_block").load(url, function() {
+				$('.open-popup-link').magnificPopup({
+					  type:'inline',
+					  midClick: true
+				});
 			});
-		});
+		} else {
+			$("#content_block").load('/screens/fragmentone/' + data.id);
+		}
 	});
 	$('#search').on( 'keyup click', function () {
 		table.tables().search($(this).val()).draw();

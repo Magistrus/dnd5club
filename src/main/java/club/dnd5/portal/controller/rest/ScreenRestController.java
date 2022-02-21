@@ -27,7 +27,9 @@ public class ScreenRestController {
 	public DataTablesOutput<ScreenDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters) {
 		Specification<Screen> specification = null;
-		specification = addSpecification(specification, (root, query, cb) -> cb.isNull(root.get("parent")));
+		if (input.getSearch().getValue().isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> cb.isNull(root.get("parent")));
+		}
 		return repo.findAll(input, specification, specification, ScreenDto::new);
 	}
 
