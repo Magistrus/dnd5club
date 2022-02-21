@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.dto.ScreenDto;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
+import groovyjarjarantlr4.v4.codegen.model.SrcOp;
 
 
 @Controller
@@ -39,7 +40,7 @@ public class ScreenController {
 			
 		}
 		model.addAttribute("selectedScreen", new ScreenDto(screen));
-		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
+		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона по D&D 5 редакции");
 		return "screens";
