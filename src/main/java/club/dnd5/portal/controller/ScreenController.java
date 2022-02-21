@@ -48,10 +48,9 @@ public class ScreenController {
 		return "screens";
 	}
 	
-	@GetMapping("/screens/fragment/{name}")
-	public String getScreenFragmentById(Model model, @PathVariable String name) throws InvalidAttributesException {
-		model.addAttribute("screens", repository.findByEnglishName(
-				name.replace("_", " ")).orElseThrow(InvalidAttributesException::new).getChields()
+	@GetMapping("/screens/fragment/{id}")
+	public String getScreenFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+		model.addAttribute("screens", repository.findById(id).get().getChields()
 				.stream()
 				.collect(Collectors.groupingBy(Screen::getCategory, LinkedHashMap::new, Collectors.toList())));
 		return "fragments/screen :: view";
