@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.model.items.MagicItem;
@@ -29,6 +30,10 @@ public class ItemMagicDto {
 	private String attunement;
 
 	private String cost;
+	
+	private boolean homebrew;
+	private boolean setting;
+	
 	private String book;
 	private String bookshort;
 	private String rarityEnglish;
@@ -126,6 +131,8 @@ public class ItemMagicDto {
 			break;
 		}
 		cost = rangeCost;
+		homebrew = magicItem.getBook().getType() == TypeBook.CUSTOM;
+		setting = magicItem.getBook().getType() == TypeBook.SETTING;
 		book = magicItem.getBook().getName();
 		bookshort = magicItem.getBook().getSource();
 	}
