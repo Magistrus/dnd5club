@@ -2850,6 +2850,14 @@ body.compact_menu #right_block {
 
 }
 
+.card_separator_screen {
+  border-bottom: 1px solid var(--border);
+  background: var(--hover);
+  margin: 24px -24px 24px -24px;
+  text-align: center;
+  line-height: 50px;
+}
+
 #left_block.screens .table_card tbody {
   grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
 }
@@ -2879,15 +2887,12 @@ body.compact_menu #right_block {
   padding: 0;
 }
 
-#right_block.screens .info_wrapper .content_block #content_block {
-  padding: 0;
-}
-
 .screens .card_block {
   display: flex;
   flex-wrap: wrap;
   width: var(--width-right-block);
   overflow-x: hidden;
+  margin: -24px;
 }
 
 body.full_screen_right_block .screens .card_block {
