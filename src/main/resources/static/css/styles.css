@@ -1527,7 +1527,7 @@ table.table_card tr.dtrg-group td {
   width: 100%;
   padding: 24px 24px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
   grid-column-gap: 16px;
   grid-row-gap: 16px;
   align-items: start;
@@ -1539,7 +1539,7 @@ table.table_card tr.dtrg-group td {
 
 @media (max-width: 1600px) {
   .table_card tbody {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
   }
 
   table.table_card tr.dtrg-group {
@@ -1547,9 +1547,9 @@ table.table_card tr.dtrg-group td {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
   .table_card tbody {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   }
 
   table.table_card tr.dtrg-group {
@@ -1707,10 +1707,6 @@ table.table_card tr.dtrg-group td {
     margin-left:76px;
     padding: 0 16px 16px 0;
     display: none;
-  }
-
-  .table_card tr.open td .archetypes {
-    display: block;
   }
 }
 
@@ -2140,6 +2136,7 @@ body.compact_menu #right_block {
   display: none;
 }
 
+.table_list_block.block_information #right_block.screens .header_block .btn_close,
 .table_list_block.block_information #right_block.classes .header_block .btn_close {
   display: flex;
 }
@@ -2853,28 +2850,37 @@ body.compact_menu #right_block {
 
 }
 
-#right_block.screens .info_wrapper .content_block {
-  border-left: none;
-  flex: 1 0 calc(100% - 0px);
+#left_block.screens .table_card tbody {
+  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+}
+
+.block_information #left_block.screens .table_card tbody {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+}
+
+.block_information #left_block.screens .table_card tr {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1600px) {
+  .block_information #left_block.screens .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  #left_block.screens .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  }
+}
+
+#left_block.screens .table_card .wrapper .content {
+  padding: 0;
 }
 
 #right_block.screens .info_wrapper .content_block #content_block {
   padding: 0;
-}
-
-.screens .card_wrapper .icon {
-  display: none;
-}
-
-#right_block.screens .info_wrapper #content_block h4 {
-  border-bottom: 1px solid var(--border);
-  margin: 0px;
-  padding: 8px 0px;
-  background: var(--hover);
-}
-
-#right_block.screens ul {
-  list-style: disc;
 }
 
 .screens .card_block {
