@@ -5,7 +5,7 @@
 <body>
 	<th:block th:fragment="view">
 		<th:block th:each="element : ${screens}">
-			<h4 th:unless="${element.key.empty}" th:text="${element.key}" align="center"></h4>
+			<h4 th:unless="${element.key.empty}" th:text="${element.key}" class="card_separator_screen"></h4>
 			<div class="card_block">
 				<th:block th:each="scr : ${element.value}">
 					<a th:href="|#${scr.englishName.replace(' ', '_')}|" class="open-popup-link block">
