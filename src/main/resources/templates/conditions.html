@@ -5,7 +5,7 @@
 </head>
 <body id="body">
 	<div id="list_page_two_block" class="table_list_block block_information" layout:fragment="content">
-		<div id="left_block">
+		<div id="left_block" class="conditions">
 			<div class="header_block filters">
 				<div class="header_row">
 					<h1>Состояния и болезни</h1>
@@ -30,7 +30,7 @@
 			</div>
 			<div id="searchPanes" class="search_panes"></div>
 			<div id="scroll_load_simplebar" class="container_left">
-				<table id="conditions" class="table_list" th:fragment="table">
+				<table id="conditions" class="table_list- table_card" th:fragment="table">
 					<thead style="display: none">
 						<tr>
 							<th>Название</th>
@@ -92,5 +92,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/conditions.js?v=1.8}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/conditions.js?v=1.9}" layout:fragment="js-script"></script>
 </html>
