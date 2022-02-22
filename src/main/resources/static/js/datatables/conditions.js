@@ -19,7 +19,8 @@ $(document).ready(function() {
 			render : function(data, type, row) {
 				if (type === 'display') {
 					var result ='<div class="wrapper"><div class="content"><h3 class="row_name"><span>' + row.name;
-					result+='</span></h3><div class="two_row"><span>' + row.englishName + '</span></dv></dv></dv>';
+					result+='</span><span class="books tip" title="' + row.book + '">' + row.book + '</span></h3>';
+					result+='<div class="two_row"><span>' + row.englishName + '</span></dv></dv></dv>';
 					return result;
 				}
 				return data;
