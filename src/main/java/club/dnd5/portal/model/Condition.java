@@ -46,9 +46,9 @@ public class Condition {
 	@AllArgsConstructor
 	@Getter
 	public enum Type {
-		CONDITION("Состояние"),
-		DISEASE("Болезнь"),
-		OTHER("Прочие");
+		CONDITION("Состояния"),
+		DISEASE("Болезни"),
+		OTHER("Прочие состояния");
 		private String name;
 		
 		public static Type parse(String type) {
