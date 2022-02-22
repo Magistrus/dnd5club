@@ -3,10 +3,19 @@
 }
 
 .search_row_g {
-  height: 71px;
-  width: 100%;
-  border-bottom: 1px solid var(--border);
+  height: 46px;
+  width: 40%;
+  border: 1px solid var(--border);
   position: relative;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .search_row_g {
+    width: 100%;
+    margin-right: 16px;
+  }
 }
 
 .search .search_row_g {
@@ -72,7 +81,7 @@ a.gs-title:hover b,
 table.gsc-search-box td {
   background-color: var(--bg-secondary);
   border: 0 !important;
-  height: 71px;
+  height: 46px;
   padding: 0px;
 }
 
@@ -95,9 +104,13 @@ table.gsc-search-box td {
   margin: 0 !important;
 }
 
-.gsc-input-box table tr td {
+.gsc-input-box table tr td:first-child {
   border: 0 !important;
   padding-left: 56px !important;
+}
+
+.gsc-input-box table tr td:last-child > div {
+  width:30px;
 }
 
 form.gsc-search-box {
@@ -105,7 +118,7 @@ form.gsc-search-box {
 }
 
 .gsc-input {
-  font-size: 20px !important;
+  font-size: 16px !important;
 }
 
 table.gsc-search-box {
@@ -119,7 +132,7 @@ table.gsc-search-box {
   border-radius: 0 !important;
   position: absolute !important;
   left: 16px;
-  top: 18px;
+  top: 10px;
   padding: 6px 6px !important;
 }
 
@@ -163,6 +176,6 @@ table.gsc-search-box {
 }
 
 input#gsc-i-id1::placeholder {
-  font-size: 20px !important;
+  font-size: 16px !important;
   color: var(--text-color) !important;
 }
