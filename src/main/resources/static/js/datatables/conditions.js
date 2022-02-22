@@ -18,8 +18,8 @@ $(document).ready(function() {
 			data : "name",
 			render : function(data, type, row) {
 				if (type === 'display') {
-					var result ='<h3 class="row_name"><span>' + row.name;
-					result+='</span><span>[' + row.englishName + ']</span></h3>';
+					var result ='<div class="wrapper"><div class="content"><h3 class="row_name"><span>' + row.name;
+					result+='</span></h3><div class="two_row"><span>' + row.englishName + '</span></dv></dv></dv>';
 					return result;
 				}
 				return data;

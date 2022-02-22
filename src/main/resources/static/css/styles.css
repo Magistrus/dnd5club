@@ -1534,7 +1534,11 @@ table.table_card tr.dtrg-group td {
 }
 
 .block_information .table_card tbody {
-  display: block;
+  grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+}
+
+.block_information table.table_card tr.dtrg-group {
+  grid-column-end:2;
 }
 
 @media (max-width: 1600px) {
@@ -1581,9 +1585,9 @@ table.table_card tr.dtrg-group td {
   padding: 0px !important;
 }
 
-.block_information .table_card tr {
+/* .block_information .table_card tr {
   margin-bottom: 16px;
-}
+} */
 
 .table_card tr td:hover {
   background: var(--hover);
@@ -2136,6 +2140,7 @@ body.compact_menu #right_block {
   display: none;
 }
 
+.table_list_block.block_information #right_block.conditions .header_block .btn_close,
 .table_list_block.block_information #right_block.screens .header_block .btn_close,
 .table_list_block.block_information #right_block.classes .header_block .btn_close {
   display: flex;
@@ -2845,6 +2850,75 @@ body.compact_menu #right_block {
   background: var(--artifact) !important;
 }
 
+
+/******** Состояния / conditions ********/
+.conditions {
+
+}
+
+.conditions .content_block ul {
+  list-style: disc;
+}
+
+#left_block.conditions .table_card .wrapper .content {
+  padding: 0;
+}
+
+#left_block.conditions table.table_card tr.dtrg-group:first-child {
+  display: block;
+}
+
+#left_block.conditions table.table_card tr.dtrg-group:first-child td {
+  margin: 0px 0 0px 0;
+}
+
+#left_block.conditions table.table_card tr.dtrg-group {
+  grid-column-end: 5;
+}
+
+.block_information #left_block.conditions table.table_card tr.dtrg-group {
+  grid-column-end: 3;
+}
+
+#left_block.conditions .table_card tbody {
+  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+}
+
+.block_information #left_block.conditions .table_card tbody {
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+}
+
+@media (max-width: 1600px) {
+  .block_information #left_block.conditions .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+  }
+
+  .block_information #left_block.conditions table.table_card tr.dtrg-group {
+    grid-column-end: 1;
+  }
+}
+
+@media (max-width: 800px) {
+  #left_block.conditions .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  }
+
+  #left_block.conditions table.table_card tr.dtrg-group {
+    grid-column-end: 3;
+  }
+}
+
+@media (max-width: 600px) {
+  #left_block.conditions .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+  }
+
+  #left_block.conditions table.table_card tr.dtrg-group {
+    grid-column-end: 2;
+  }
+}
+
+
 /******** Ширма / screens ********/
 .screens {
 
@@ -2863,12 +2937,7 @@ body.compact_menu #right_block {
 }
 
 .block_information #left_block.screens .table_card tbody {
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
-}
-
-.block_information #left_block.screens .table_card tr {
-  margin-bottom: 0;
 }
 
 @media (max-width: 1600px) {
@@ -3096,16 +3165,6 @@ body.compact_menu #right_block.spells {
 
 .classes .class .dnd5_table tbody td {
   border-bottom: 0;
-}
-
-
-/******** Состояния / conditions ********/
-.conditions {
-
-}
-
-.conditions .content_block ul {
-  list-style: disc;
 }
 
 
