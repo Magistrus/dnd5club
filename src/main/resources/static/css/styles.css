@@ -2853,7 +2853,7 @@ body.compact_menu #right_block {
 .card_separator_screen {
   border-bottom: 1px solid var(--border);
   background: var(--hover);
-  margin: 24px -24px 24px -24px;
+  margin: -24px -24px 24px -24px;
   text-align: center;
   line-height: 50px;
 }
@@ -2892,7 +2892,7 @@ body.compact_menu #right_block {
   flex-wrap: wrap;
   width: var(--width-right-block);
   overflow-x: hidden;
-  margin: -24px;
+  margin: -24px -24px 24px -24px;
 }
 
 body.full_screen_right_block .screens .card_block {
