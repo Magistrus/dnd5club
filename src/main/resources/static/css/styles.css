@@ -906,7 +906,7 @@ body:before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 16px 32px 16px 32px;
+  margin: 32px 32px 16px 32px;
 }
 
 .main_page_wrapper .header .proner_block {
