@@ -30,6 +30,10 @@
 		</th:block>
 	</th:block>
 	<th:block th:fragment="viewOne" th:object="${screen}">
+		<p class="row_info bg_grey">
+			<span class="left_info" th:text="*{englishName}">Англ название</span>
+			<span>Источник: <span class="homebrew_text" th:if="*{book.type.name() eq 'CUSTOM'}">Homebrew</span> <span class="tip" th:text="*{book.source}" th:title="*{book.name}">Источник</span></span>
+		</p>
 		<div th:utext="*{description}"></div>
 	</th:block>
 </body>
