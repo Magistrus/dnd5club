@@ -113,6 +113,7 @@ function selectScreen(data) {
 	}
 }
 $('#search').on( 'keyup click', function () {
+	selectedScreen = null;
 	if($(this).val()){
 		$('#text_clear').show();
 	}

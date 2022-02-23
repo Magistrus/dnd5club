@@ -29,8 +29,8 @@ public class ItemMagicDto {
 	
 	private String attunement;
 
-	private String cost;
-	
+	private String costDMG;
+
 	private boolean homebrew;
 	private boolean setting;
 	
@@ -128,7 +128,8 @@ public class ItemMagicDto {
 			rangeCost = Integer.toString(magicItem.getCost());
 			break;
 		}
-		cost = rangeCost;
+		costDMG = rangeCost;
+		
 		homebrew = magicItem.getBook().getType() == TypeBook.CUSTOM;
 		setting = magicItem.getBook().getType() == TypeBook.SETTING;
 		book = magicItem.getBook().getName();
@@ -154,6 +155,6 @@ public class ItemMagicDto {
 	}
 
 	public void setCost(int cost) {
-		this.cost = String.valueOf(cost); 
+		this.costDMG = String.valueOf(cost); 
 	}
 }

@@ -26,7 +26,8 @@
 			<span th:if="*{custSpecial}">(<span th:text="*{custSpecial}"></span>)</span>
 		</p>
 		<p>
-			<b>Стоимость:</b> <span th:text="*{rangeCost}">-</span>
+			<b>Стоимость по <span class="tip" title="Руководство Мастера">DMG</span>:</b> <span th:text="*{rangeCostDMG}">-</span><br>
+			<b>Стоимость по <span class="tip" title="Руководство Зантара обо всем">XGE</span>:</b> <span th:text="*{rangeCostXGE}">-</span>
 		</p>
 		<th:block th:utext="*{description}"></th:block>
 	</th:block>
