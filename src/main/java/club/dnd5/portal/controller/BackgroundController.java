@@ -38,9 +38,6 @@ public class BackgroundController {
 	public String getBackGround(Model model, @PathVariable String name) {
 		model.addAttribute("skills", SkillType.values());
 		Background background = repository.findByEnglishName(name.replace("_", " "));
-		// if (background == null) {
-		// 	return "redirect: /error/404";
-		// }
 		model.addAttribute("selectedBackground", new BackgroundDto(background));
 		model.addAttribute("metaTitle", background.getName() + " | Предыстории персонажей D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds/" + name);
