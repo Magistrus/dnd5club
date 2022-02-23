@@ -106,7 +106,7 @@ table.gsc-search-box td {
 
 .gsc-input-box table tr td:first-child {
   border: 0 !important;
-  padding-left: 56px !important;
+  padding-left: 48px !important;
 }
 
 .gsc-input-box table tr td:last-child > div {
@@ -131,7 +131,7 @@ table.gsc-search-box {
   border: 0 !important;
   border-radius: 0 !important;
   position: absolute !important;
-  left: 16px;
+  left: 8px;
   top: 8px;
   padding: 6px 6px !important;
 }
