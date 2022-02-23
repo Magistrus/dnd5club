@@ -92,17 +92,15 @@ public class ItemMagicDto {
 		String rangeCost;
 		switch (magicItem.getRarity()) {
 		case COMMON:
+			rangeCost = "от 50 до 100 зм.";
 			if (magicItem.isConsumed()) {
 				rangeCost = "от 25 до 50 зм.";
-			} else {
-				rangeCost = "от 50 до 100 зм.";
 			}
 			break;
 		case UNCOMMON:
+			rangeCost = "от 101 до 500 зм.";
 			if (magicItem.isConsumed()) {
 				rangeCost = "от 51 до 250 зм.";
-			} else {
-				rangeCost = "от 101 до 500 зм.";
 			}
 			break;
 		case RARE:
