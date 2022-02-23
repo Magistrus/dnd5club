@@ -93,7 +93,7 @@ public class MagicItem {
 		return name.toLowerCase();
 	}
 
-	public String getRangeCost() {
+	public String getRangeCostDMG() {
 		switch (rarity) {
 		case COMMON:
 			if (isConsumed()) {
@@ -109,24 +109,43 @@ public class MagicItem {
 			}
 		case RARE:
 			if (isConsumed()) {
-				return "от 501 до 5 000 зм";
-			} else {
 				return "от 251 до 2 500 зм";
+			} else {
+				return "от 501 до 5 000 зм";
 			}
 		case VERY_RARE:
 			if (isConsumed()) {
-				return "от 5 001 до 50 000 зм.";
-			} else {
 				return "от 2 501 до 25 000 зм.";
+			} else {
+				return "от 5 001 до 50 000 зм.";
 			}
 		case LEGENDARY:
 			if (isConsumed()) {
-				return "от 50 001 до 250 000 зм.";
-			} else {
 				return "от 25 001 до 125 000 зм.";
+			} else {
+				return "от 50 001 до 250 000 зм.";
 			}
 		case ARTIFACT:
 			return "от 250 001 зм. до невозможно купить";
+		default:
+			return Integer.toString(getCost());
+		}
+	}
+
+	public String getRangeCostXGE() {
+		switch (rarity) {
+		case COMMON:
+			return "(1к6 + 1) * 10 зм.";
+		case UNCOMMON:
+			return "(1к6 + 1) * 100 зм.";
+		case RARE:
+			return "2к10 * 1000 зм.";
+		case VERY_RARE:
+			return "(1к4 + 1) * 10000 зм.";
+		case LEGENDARY:
+			return "2к6 * 25000 зм.";
+		case ARTIFACT:
+			return "невозможно купить";
 		default:
 			return Integer.toString(getCost());
 		}

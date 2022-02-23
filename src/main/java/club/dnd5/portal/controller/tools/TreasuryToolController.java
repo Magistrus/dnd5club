@@ -174,7 +174,7 @@ public class TreasuryToolController {
 				things.addAll(getMagicThings(ri, 1, 1000, "З", 4));
 			}
 		}
-		Collections.sort(things, Comparator.comparing(ItemMagicDto::getCost));
+		Collections.sort(things, Comparator.comparing(ItemMagicDto::getCostDMG));
 		model.addAttribute("things", things);
 
 		List<Treasure> treasures = new ArrayList<>();
@@ -461,15 +461,15 @@ public class TreasuryToolController {
 						switch (ri) {
 						case 66:
 							dto.setName("Адамантиновый Доспех (кольчуга)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 75);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 75);
 							break;
 						case 67:
 							dto.setName("Адамантиновый Доспех (кольчужная рубаха)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 50);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 50);
 							break;
 						case 68:
 							dto.setName("Адамантиновый Доспех (чещуйчатый доспех)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 50);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 50);
 							break;
 						}
 					}
@@ -477,11 +477,11 @@ public class TreasuryToolController {
 						switch (ri) {
 						case 15:
 							dto.setName("Адамантиновый Доспех (кираса)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 400);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 400);
 							break;
 						case 16:
 							dto.setName("Адамантиновый Доспех (наборной доспех)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 200);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 200);
 							break;
 						case 35:
 							dto.setName("Доспех +1 (кожаный)");
@@ -512,11 +512,11 @@ public class TreasuryToolController {
 						switch (ri) {
 						case 55:
 							dto.setName("Адамантиновый Доспех (латы)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 1500);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 1500);
 							break;
 						case 56:
 							dto.setName("Адамантиновый Доспех (полулаты)");
-							dto.setCost(Integer.valueOf(dto.getCost()) + 750);
+							dto.setCost(Integer.valueOf(dto.getCostDMG()) + 750);
 							break;
 						case 65:
 							dto.setName("Доспех +1 (кираса)");
