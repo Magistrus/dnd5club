@@ -43,9 +43,6 @@ public class RaceController {
 	@GetMapping("/races/{name}")
 	public String getRace(Model model, @PathVariable String name) {
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).get();
-		// if (race == null) {
-		// 	return "redirect: /error/404";
-		// }
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 
@@ -62,9 +59,6 @@ public class RaceController {
 	@GetMapping("/races/{name}/{subrace}")
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
-		// if (race == null) {
-		// 	return "redirect: /error/404";
-		// }
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 		model.addAttribute("selectedSubrace", subrace);

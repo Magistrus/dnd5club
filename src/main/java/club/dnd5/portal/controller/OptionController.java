@@ -53,9 +53,6 @@ public class OptionController {
 	@GetMapping("/options/{name}")
 	public String getOption(Model model, @PathVariable String name) {
 		Option option = repository.findByEnglishName(name.replace("_", " "));
-		// if (option == null) {
-		// 	return "redirect: /error/404";
-		// }
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);

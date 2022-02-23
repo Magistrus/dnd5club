@@ -19,7 +19,7 @@
 }
 
 .search .search_row_g {
-  position: fixed;
+  margin-top: -16px;
 }
 
 .searchresults {
@@ -132,7 +132,7 @@ table.gsc-search-box {
   border-radius: 0 !important;
   position: absolute !important;
   left: 16px;
-  top: 10px;
+  top: 8px;
   padding: 6px 6px !important;
 }
 

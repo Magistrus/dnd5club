@@ -28,9 +28,6 @@ public class RuleController {
 	@GetMapping("/rules/{name}")
 	public String getRule(Model model, @PathVariable String name) {
 		Rule rule = repository.findByEnglishName(name.replace('_', ' '));
-		// if (rule == null) {
-		// 	return "redirect: /error/404";
-		// }
 		model.addAttribute("categories", repository.findAllCategories());
 		model.addAttribute("selectedRule", new RuleDto(rule));
 		return "rules";
