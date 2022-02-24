@@ -2807,13 +2807,24 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-#right_block.races .info_wrapper .sub_menu_list li.avatar {
-  padding: 0 !important;
-  border-left: none !important;
+#left_block.races .table_card tbody {
+  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
 }
 
-#right_block.races .info_wrapper .sub_menu_list li.avatar img {
-  max-width: 290px;
+.block_information #left_block.races .table_card tbody {
+  grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+}
+
+@media (max-width: 1600px) {
+  .block_information #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  }
 }
 
 #right_block.races h4.header_separator.mt {

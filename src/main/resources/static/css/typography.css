@@ -173,7 +173,7 @@ blockquote p:last-child {
   content: '';
   width: 100%;
   height: 1px;
-  background: var(--text-color-title);
+  background: var(--bg-inpur-focus);
   flex: 1;
 }
 
