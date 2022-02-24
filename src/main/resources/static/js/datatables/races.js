@@ -174,7 +174,7 @@ function selectClass(data){
 		$('#' + selectedArchetype).addClass('select_point');
 		return;
 	}
-	var url = '/races/fragment_id/' + data.id;
+	var url = '/races/fragment/' + data.id;
 	$("#content_block").load(url, function() {
 		$('#info_wrapper').removeClass('description');
 		$('#info_wrapper').removeClass('spells');

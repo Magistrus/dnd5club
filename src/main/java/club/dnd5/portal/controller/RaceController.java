@@ -73,9 +73,9 @@ public class RaceController {
 		return "races";
 	}
 	
-	@GetMapping("/races/fragment/{englishName}")
-	public String getFragmentRace(Model model, @PathVariable String englishName) {
-		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+	@GetMapping("/races/fragment/{id}")
+	public String getFragmentRace(Model model, @PathVariable Integer id) {
+		Race race = raceRepository.findById(id).get();
 		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
 		model.addAttribute("race", race);
