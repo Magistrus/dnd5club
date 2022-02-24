@@ -1499,7 +1499,7 @@ table.table_card tr.dtrg-group td {
 
 #left_block.races .table_card tr.custom_source,
 #left_block.classes .table_card tr.custom_source {
-  background: linear-gradient(to left, var(--bg-secondary) 60%, var(--bg-homebrew)) !important;
+  background: linear-gradient(to left, var(--bg-secondary) 60%, var(--bg-homebrew) 140%) !important;
 }
 
 .table_card tr.selected {
