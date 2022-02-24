@@ -46,6 +46,11 @@ public class RaceController {
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", name);
 
+		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
+		model.addAttribute("features", features);
+		List<Feature> notFeatures =  race.getFeatures().stream().filter(Feature::isNotFeature).collect(Collectors.toList());
+		model.addAttribute("notFeatures", notFeatures);
+		
 		model.addAttribute("metaTitle", race.getName() + " | Расы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
 		model.addAttribute("metaDescription", String.format("%s - раса персонажа", race.getCapitalazeName()));
@@ -79,6 +84,8 @@ public class RaceController {
 		Race race = raceRepository.findById(id).get();
 		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
+		List<Feature> notFeatures =  race.getFeatures().stream().filter(Feature::isNotFeature).collect(Collectors.toList());
+		model.addAttribute("notFeatures", notFeatures);
 		model.addAttribute("race", race);
 		model.addAttribute("selectedRaceName", "--- Выбор подрасы ---");
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.getId());
