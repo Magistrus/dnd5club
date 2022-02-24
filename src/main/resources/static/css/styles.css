@@ -2062,6 +2062,7 @@ body.compact_menu #right_block {
   display: none;
 }
 
+.table_list_block.block_information #right_block.races .header_block .btn_close,
 .table_list_block.block_information #right_block.conditions .header_block .btn_close,
 .table_list_block.block_information #right_block.screens .header_block .btn_close,
 .table_list_block.block_information #right_block.classes .header_block .btn_close {
