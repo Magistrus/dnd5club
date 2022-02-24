@@ -25,6 +25,14 @@ public class RaceRestController {
 	public DataTablesOutput<RaceDto> getData(@Valid DataTablesInput input,
 			@RequestParam Map<String, String> queryParameters){
 		Specification<Race> specification = null;
+		specification = addSpecification(specification, (root, query, cb) -> cb.isNull(root.get("parent")));
 		return repo.findAll(input, specification, specification, i -> new RaceDto(i));
+	}
+
+	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
+		if (specification == null) {
+			return Specification.where(addSpecification);
+		}
+		return specification.and(addSpecification);
 	}
 }
