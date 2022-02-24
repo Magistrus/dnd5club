@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.ConditionDto;
-import club.dnd5.portal.model.Condition;
-import club.dnd5.portal.repository.datatable.ConditionDatatableRepository;
+import club.dnd5.portal.dto.RaceDto;
+import club.dnd5.portal.model.races.Race;
+import club.dnd5.portal.repository.datatable.RaceDataRepository;
 
 @RestController
-public class ConditionRestController {
+public class RaceRestController {
 	@Autowired
-	private ConditionDatatableRepository repo;
-
-	@GetMapping("/data/conditions")
-	public DataTablesOutput<ConditionDto> getData(@Valid DataTablesInput input,
-			@RequestParam Map<String, String> queryParameters) {
-		Specification<Condition> specification = null;
-
-		return repo.findAll(input, specification, specification, ConditionDto::new);
+	private RaceDataRepository repo;
+	 
+	@GetMapping("/data/races")
+	public DataTablesOutput<RaceDto> getData(@Valid DataTablesInput input,
+			@RequestParam Map<String, String> queryParameters){
+		Specification<Race> specification = null;
+		return repo.findAll(input, specification, specification, i -> new RaceDto(i));
 	}
 }
