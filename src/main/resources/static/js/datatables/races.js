@@ -158,7 +158,7 @@ $(document).ready(function() {
 		}
 		selectedRace = data;
 		if ($(event.target).closest('li').length == 0){
-			event.target.scrollIntoView({block: "start", behavior: "smooth"});
+			event.target.scrollIntoView({block: "center", behavior: "smooth"});
 		}
 	});
 });
