@@ -16,7 +16,9 @@ public class RaceDto {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private String ability;
 	private String icon;
+
 	private boolean homebrew;
 	private boolean setting;
 	private String book;
@@ -30,7 +32,9 @@ public class RaceDto {
 		id = race.getId();
 		name = race.getCapitalazeName();
 		englishName = race.getEnglishName();
+		ability = race.getAbilityBonuses();
 		icon = race.getIcon() == null ? "" : race.getIcon();
+		
 		hasSubraces = !race.getSubRaces().isEmpty();
 		subraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.OFFICAL).map(RaceDto::new).collect(Collectors.toList());
 		settingSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.SETTING).map(RaceDto::new).collect(Collectors.toList());
