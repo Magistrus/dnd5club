@@ -2827,8 +2827,16 @@ body.full_screen_right_block .screens .card_block .block {
   }
 }
 
-#right_block.races h4.header_separator.mt {
-  margin-top: -24px !important;
+#right_block.races .archetype_mobile_selector {
+  top: 88px;
+}
+
+#right_block.races .archetype_mobile_selector + .avatar {
+  margin-top: 56px;
+}
+
+#right_block.races .archetype_mobile_selector + .avatar + .scores {
+  margin-top: 56px;
 }
 
 .races .content_block .scores {
