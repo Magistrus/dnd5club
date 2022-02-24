@@ -44,4 +44,8 @@ public class Feature {
 	private List<SkillType> skills;
 
 	private Integer replaceFeatureId;
+	
+	public boolean isNotFeature() {
+		return !feature;
+	}
 }
