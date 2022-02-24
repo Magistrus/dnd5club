@@ -67,19 +67,25 @@ public class RaceController {
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
 		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа ", race.getName()));
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.getId());
+		model.addAttribute("images", images);
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
 		return "races";
 	}
 	
-	@GetMapping("/races/fragment/{englishName}")
-	public String getFragmentRace(Model model, @PathVariable String englishName) {
-		Race race = raceRepository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
+	@GetMapping("/races/fragment/{id}")
+	public String getFragmentRace(Model model, @PathVariable Integer id) {
+		Race race = raceRepository.findById(id).get();
 		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
 		model.addAttribute("race", race);
 		model.addAttribute("selectedRaceName", "--- Выбор подрасы ---");
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.getId());
+		model.addAttribute("images", images);
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "fragments/race :: view";
 	}
 	

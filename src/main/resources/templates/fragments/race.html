@@ -39,6 +39,12 @@
 				</ul>
 			</div>
 		</div>
+		<div class="avatar">
+			<div class="image-container">
+				<a th:if="${images.empty}" id="race_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}"><img id="race_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></a>
+				<a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}"><img th:if="${iterStat.first}" th:src="${image}"/></a>
+			</div>
+		</div>
 		<div class="scores">
 			<div class="score">
 				<h4>
