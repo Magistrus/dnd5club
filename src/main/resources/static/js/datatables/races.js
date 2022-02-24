@@ -76,11 +76,11 @@ $(document).ready(function() {
 
 		},
 		drawCallback: function ( settings ) {
-			if (selectedClass) {
-				selectClass(selectedClass);
+			if (selectedRace) {
+				selectRace(selectedRace);
 				var rowIndexes = [];
 				table.rows( function ( idx, data, node ) {
-					if(data.id === selectedClass.id){
+					if(data.id === selectedRace.id){
 						rowIndexes.push(idx);
 					}
 					return false;
@@ -151,12 +151,12 @@ $(document).ready(function() {
 			$('li').removeClass('select_point');
 			$('tr').removeClass('open');
 			tr[0].classList.add('open');
-			selectClass(data);
+			selectRace(data);
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
 			}
 		}
-		selectedClass = data;
+		selectedRace = data;
 		if ($(event.target).closest('li').length == 0){
 			event.target.scrollIntoView({block: "start", behavior: "smooth"});
 		}
@@ -165,13 +165,13 @@ $(document).ready(function() {
 $('#search').on( 'keyup click', function () {
 	$('#races').DataTable().tables().search($(this).val()).draw();
 });
-function selectClass(data){
+function selectRace(data){
 	$('#class_name').text(data.name);
 	document.title = data.name + ' (' +data.englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', '', '/races/' + data.englishName.split(' ').join('_'));
-	if (selectedArchetype){
-		setActiveArchetype(data, selectedClass.englishName.replace(' ', '_'), selectedArchetype);
-		$('#' + selectedArchetype).addClass('select_point');
+	if (selectedSubrace){
+		setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace);
+		$('#' + selectedSubrace).addClass('select_point');
 		return;
 	}
 	var url = '/races/fragment/' + data.id;
@@ -199,9 +199,16 @@ function selectClass(data){
 		$('#mobile_selector').change(function() {
 			setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
 		});
+		$('.image-container').magnificPopup({
+			  delegate: 'a',
+			  type: 'image',
+			  gallery:{
+				    enabled:true
+			  }
+		})
 	});
 }
-function setActiveArchetype(data, className, archetypeName) {
+function setActiveSubrace(data, className, archetypeName) {
 	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text() +  ' | Подклассы D&D 5e';
 	var url = '/races/' + className + '/architypes/' + archetypeName;
 	$("#content_block").load(url, function() {
@@ -231,38 +238,6 @@ $('#class_traits').on('click', function() {
 		selectClass(data[0]);
 	}
 });
-$('#class_description').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	var data = $('#races').DataTable().rows({selected:  true}).data()[0];
-	if ($('li').hasClass('select_point')){
-		url = '/races/'+data.englishName+ '/archetype/' + $('li.select_point').attr('id') + '/description';
-		loadDescription(url);
-	}
-	else {
-		var url = '/races/' + data.englishName + '/description';
-		loadDescription(url);
-	}
-	localStorage.setItem('class_info', 'description');
-});
-$('#class_spells').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	loadClassSpells();
-});
-$('#class_options').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	var selectedClass = $('.card.active')[0];
-	localStorage.setItem('class_info', 'options');
-	loadClassOptions();
-});
-$('#class_images').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	loadImages();
-	localStorage.setItem('class_info', 'images');
-})
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	$('#races').DataTable().tables().search($(this).val()).draw();
