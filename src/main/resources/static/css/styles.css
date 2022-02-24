@@ -1494,7 +1494,11 @@ table.table_card tr.dtrg-group td {
   background-color: var(--bg-secondary) !important;
   border-radius: 16px;
   cursor: pointer;
-  border: 1px solid var(--bg-transparent);
+  border: 1px solid var(--bg-secondary);
+}
+
+#left_block.classes .table_card tr.custom_source {
+  background: linear-gradient(to left, var(--bg-secondary) 60%, var(--bg-homebrew)) !important;
 }
 
 .table_card tr.selected {
