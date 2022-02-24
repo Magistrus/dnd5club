@@ -1497,6 +1497,7 @@ table.table_card tr.dtrg-group td {
   border: 1px solid var(--bg-secondary);
 }
 
+#left_block.races .table_card tr.custom_source,
 #left_block.classes .table_card tr.custom_source {
   background: linear-gradient(to left, var(--bg-secondary) 60%, var(--bg-homebrew)) !important;
 }
