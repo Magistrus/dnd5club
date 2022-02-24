@@ -32,9 +32,9 @@ public class RaceDto {
 		englishName = race.getEnglishName();
 		icon = race.getIcon() == null ? "" : race.getIcon();
 		hasSubraces = !race.getSubRaces().isEmpty();
-		subraces = race.getSubRaces().stream().filter(a->a.getBook().getType() == TypeBook.OFFICAL).map(RaceDto::new).collect(Collectors.toList());
-		settingSubraces = race.getSubRaces().stream().filter(a->a.getBook().getType() == TypeBook.SETTING).map(RaceDto::new).collect(Collectors.toList());
-		homebrewSubraces = race.getSubRaces().stream().filter(a->a.getBook().getType() == TypeBook.CUSTOM).map(RaceDto::new).collect(Collectors.toList());
+		subraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.OFFICAL).map(RaceDto::new).collect(Collectors.toList());
+		settingSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.SETTING).map(RaceDto::new).collect(Collectors.toList());
+		homebrewSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.CUSTOM).map(RaceDto::new).collect(Collectors.toList());
 		homebrew = race.getBook().getType() == TypeBook.CUSTOM;
 		book = race.getBook().getName();
 		bookshort = race.getBook().getSource();
