@@ -109,9 +109,17 @@ public class RaceController {
 		model.addAttribute("subFeatures", subRace.getFeatures().stream()
 				.filter(f -> f.isFeature())
 				.collect(Collectors.toList()));
+		List<Feature> notFeatures =  subRace.getParent().getFeatures().stream().filter(Feature::isNotFeature).collect(Collectors.toList());
+		model.addAttribute("notFeatures", notFeatures);
 		model.addAttribute("race", subRace);
 		model.addAttribute("selectedSubrace", subRace.getEnglishName());
 		model.addAttribute("selectedRaceName", subRace.getName());
+
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, subRace.getId());
+		model.addAttribute("images", images);
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "fragments/race :: view";
 	}
 	

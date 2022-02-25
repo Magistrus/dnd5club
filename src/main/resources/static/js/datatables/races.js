@@ -131,13 +131,13 @@ $(document).ready(function() {
 			let liTareget = $(event.target).closest('li')[0]; 
 			if (liTareget.classList.contains('select_point')){
 				liTareget.classList.remove('select_point');
-				selectedArchetype = null;
+				selectedSubrace = null;
 				selectClass(data);
 			} else {
 				$('li').removeClass('select_point');
 				liTareget.classList.add('select_point');
-				selectedArchetype = null;
-				setActiveArchetype(data, data.englishName.split(' ').join('_'), liTareget.id);
+				selectedSubrace = null;
+				setActiveSubrace(data, data.englishName.split(' ').join('_'), liTareget.id);
 			}
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
@@ -176,13 +176,6 @@ function selectRace(data){
 	}
 	var url = '/races/fragment/' + data.id;
 	$("#content_block").load(url, function() {
-		$('#info_wrapper').removeClass('description');
-		$('#info_wrapper').removeClass('spells');
-		$('#info_wrapper').removeClass('images');
-		$('#info_wrapper').removeClass('options');
-		$('#info_wrapper').addClass('traits');
-		$('.btn_class').removeClass('active');
-		$('#class_traits').addClass('active');
 		if(localStorage.getItem('homebrew_source') == 'true'){
 			$('#homebrew_source').prop('checked', true);
 			$('.custom_source').removeClass('hide_block');
@@ -197,7 +190,7 @@ function selectRace(data){
 			$('#source_id').addClass('active');
 		}
 		$('#mobile_selector').change(function() {
-			setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
+			setActiveSubrace(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
 		});
 		$('.image-container').magnificPopup({
 			  delegate: 'a',
@@ -208,24 +201,17 @@ function selectRace(data){
 		})
 	});
 }
-function setActiveSubrace(data, className, archetypeName) {
-	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text() +  ' | Подклассы D&D 5e';
-	var url = '/races/' + className + '/architypes/' + archetypeName;
+function setActiveSubrace(data, className, subraceName) {
+	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + subraceName).text() +  ' | Подклассы D&D 5e';
+	var url = '/races/' + className + '/subrace/' + subraceName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
 			setActiveArchetype(data, className, $('#mobile_selector').val());
 		});
-		$('#info_wrapper').removeClass('description');
-		$('#info_wrapper').removeClass('spells');
-		$('#info_wrapper').removeClass('images');
-		$('#info_wrapper').removeClass('options');
-		$('#info_wrapper').addClass('traits');
-		$('.btn_class').removeClass('active');
-		$('#class_traits').addClass('active');
 		showOnlyArchetype();
-		selectedArchetype = null;
+		selectedSubrace = null;
 	});
-	history.pushState('data to be passed', className, '/races/' + className + '/' + archetypeName);
+	history.pushState('data to be passed', className, '/races/' + className + '/' + subraceName);
 }
 $('#class_traits').on('click', function() {
 	$('.btn_class').removeClass('active');
