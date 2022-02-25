@@ -166,7 +166,7 @@ $('#search').on( 'keyup click', function () {
 	$('#races').DataTable().tables().search($(this).val()).draw();
 });
 function selectRace(data){
-	$('#class_name').text(data.name);
+	$('#race_name').text(data.name);
 	document.title = data.name + ' (' +data.englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', '', '/races/' + data.englishName.split(' ').join('_'));
 	if (selectedSubrace){
