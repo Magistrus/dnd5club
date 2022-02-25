@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.RaceDto;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Feature;
 import club.dnd5.portal.model.races.Race;
@@ -44,7 +45,7 @@ public class RaceController {
 	public String getRace(Model model, @PathVariable String name) {
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).get();
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("selectedRace", name);
+		model.addAttribute("selectedRace", new RaceDto(race));
 
 		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
@@ -65,7 +66,7 @@ public class RaceController {
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("selectedRace", name);
+		model.addAttribute("selectedRace", new RaceDto(race));
 		model.addAttribute("selectedSubrace", subrace);
 
 		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.getCapitalazeName()));
