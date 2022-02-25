@@ -77,20 +77,22 @@
 				<p th:text="|${race.darkvision} фт.|"></p>
 			</div>
 		</div>
-		<th:block th:each="feature : ${features}">
-			<h4 class="header_separator"><span th:utext="${feature.name}"></span></h4>
+		<details th:each="feature : ${features}" open>
+			<summary class="h4 header_separator"><span th:utext="${feature.name}"></span></summary>
 			<div th:utext="${feature.description}"></div>
-		</th:block>
-		<th:block th:each="feature : ${subFeatures}">
-			<h4 class="header_separator archetype_feet"><span th:utext="${feature.name}"></span></h4>
+		</details>
+		<details th:each="feature : ${subFeatures}" open>
+			<summary class="h4 header_separator archetype_feet"><span th:utext="${feature.name}"></span></summary>
 			<div th:utext="${feature.description}"></div>
-		</th:block>
-		<th:block th:each="feature : ${notFeatures}">
-			<h4 class="header_separator"><span th:utext="${feature.name}"></span></h4>
+		</details>
+		<details th:each="feature : ${notFeatures}">
+			<summary class="h4 header_separator"><span th:utext="${feature.name}"></span></summary>
 			<div th:utext="${feature.description}"></div>
-		</th:block>
-		<h4 class="header_separator"><span>Описание</span></h4>
-		<th:block th:utext="*{description}"></th:block>
+		</details>
+		<details>
+			<summary class="h4 header_separator"><span>Описание</span></summary>
+			<th:block th:utext="*{description}"></th:block>
+		</details>
 	</th:block>
 </body>
 </html>
