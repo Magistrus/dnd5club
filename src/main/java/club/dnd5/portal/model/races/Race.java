@@ -115,7 +115,9 @@ public class Race implements Serializable {
 		}
 		return name;
 	}
-
+	public String getCapitalizeName() {
+		return StringUtils.capitalize(name);
+	}
 	public String getAbilityBonuses() {
 		if (bonuses.size() == 6) {
 			return "+1 к каждой характеристике";
