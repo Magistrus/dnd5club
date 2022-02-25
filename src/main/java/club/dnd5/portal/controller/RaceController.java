@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.RaceDto;
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Feature;
 import club.dnd5.portal.model.races.Race;
@@ -34,7 +35,7 @@ public class RaceController {
 	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
-		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
+		model.addAttribute("abilities", AbilityType.values());
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races");
 		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
@@ -43,6 +44,7 @@ public class RaceController {
 	
 	@GetMapping("/races/{name}")
 	public String getRace(Model model, @PathVariable String name) {
+		model.addAttribute("abilities", AbilityType.values());
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).get();
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", new RaceDto(race));
@@ -99,6 +101,7 @@ public class RaceController {
 	
 	@GetMapping("/races/{raceName}/subrace/{subraceName}")
 	public String getFragmentSubraces(Model model, @PathVariable String raceName, @PathVariable String subraceName) {
+		model.addAttribute("abilities", AbilityType.values());
 		Race subRace = raceRepository.findBySubrace(raceName.replace("_", " "), subraceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		final Set<Integer> replaceFeatureIds = subRace.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
 		model.addAttribute("features", 

@@ -54,11 +54,22 @@ $(document).ready(function() {
 				return data;
 			}
 		},
+		{
+			data : "englishName",
+		},
+		{
+			data : "ability",
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
 				"targets": [0],
 				"visible": true
+			},
+			{
+				"targets": [1,2],
+				"visible": false
 			},
 		],
 		language : {
@@ -163,6 +174,12 @@ $(document).ready(function() {
 	});
 });
 $('#search').on( 'keyup click', function () {
+	if($('#search').val()){
+		$('#text_clear').show();
+	}
+	else {
+		$('#text_clear').hide();
+	}
 	$('#races').DataTable().tables().search($(this).val()).draw();
 });
 function selectRace(data){
@@ -213,17 +230,6 @@ function setActiveSubrace(data, className, subraceName) {
 	});
 	history.pushState('data to be passed', className, '/races/' + className + '/' + subraceName);
 }
-$('#class_traits').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	let data = $('#races').DataTable().rows({selected:  true}).data();
-	if ($('li').hasClass('select_point')){
-		setActiveArchetype(data[0], data[0].englishName.replace(' ', '_'), $('li.select_point').attr('id'));
-	}
-	else {
-		selectClass(data[0]);
-	}
-});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	$('#races').DataTable().tables().search($(this).val()).draw();
@@ -238,34 +244,24 @@ $('#btn_close').on('click', function() {
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
 });
-$('.dice_hp_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="dice_hp"]:checked').map(function() {
+$('.ability_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="ability"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
 	$('#races').DataTable().column(2).search(properties, true, false, false).draw();
 	if(properties) {
-		$('#dice_hp_clear_btn').removeClass('hide_block');
+		$('#ability_clear_btn').removeClass('hide_block');
 	} else {
-		$('#dice_hp_clear_btn').addClass('hide_block');
+		$('#ability_clear_btn').addClass('hide_block');
 	}
 	setFiltered();
 });
-$('#dice_hp_clear_btn').on('click', function() {
-	$('#dice_hp_clear_btn').addClass('hide_block');
-	$('.dice_hp_checkbox').prop('checked', false);
+$('#ability_clear_btn').on('click', function() {
+	$('#ability_clear_btn').addClass('hide_block');
+	$('.ability_checkbox').prop('checked', false);
 	$('#races').DataTable().column(2).search("", true, false, false).draw();
 	setFiltered();
 });
-$('#only_archetypes').click(function () {
-	showOnlyArchetype();
-})
-function showOnlyArchetype(){
-	if($('#only_archetypes').is(':checked')) {
-		$('details').not('.feet_show').addClass('hide_block');
-	} else {
-		$('details').removeClass('hide_block');
-	}
-}
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;
