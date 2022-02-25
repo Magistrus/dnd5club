@@ -1535,7 +1535,7 @@ table.table_card tr.dtrg-group td {
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  padding: 0 16px;
+  padding: 0 0 0 16px;
 }
 
 .table_card tr td .info_block {
@@ -1592,6 +1592,7 @@ table.table_card tr.dtrg-group td {
   margin: -16px -16px -16px 0px;
   position: relative;
   overflow: hidden;
+  margin-left: 16px;
 }
 
 .table_card tr td button.open:hover {
