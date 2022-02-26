@@ -226,6 +226,13 @@ function setActiveSubrace(data, raceName, subraceName) {
 			setActiveArchetype(data, raceName, $('#mobile_selector').val());
 		});
 		selectedSubrace = null;
+		$('.image-container').magnificPopup({
+			  delegate: 'a',
+			  type: 'image',
+			  gallery:{
+				    enabled:true
+			  }
+		});
 	});
 	history.pushState('data to be passed', data.englishName, '/races/' + data.englishName + '/' + subraceName);
 }

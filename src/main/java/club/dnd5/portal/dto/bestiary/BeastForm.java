@@ -354,7 +354,7 @@ public class BeastForm {
 		List<Condition> immunityStates = Arrays.stream(imunCondText.split("\\|"))
 				.map(Condition::valueOf)
 				.collect(Collectors.toList());
-		creature.setVulnerabilityDamages(vurnDamages);
+		creature.setImmunityStates(immunityStates);
 		
 		creature.setChallengeRating(challengeRating);
 		
