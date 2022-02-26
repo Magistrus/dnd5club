@@ -223,6 +223,6 @@ function copyToClipboard(text) {
 })();
 window.onload = function(){
 	if($('#gsc-i-id1')){
-		$('#gsc-i-id1').attr("placeholder", "Поиск по классам, расам, монстрам и остальным мирам!");
+		$('#gsc-i-id1').attr("placeholder", "Поиск по сайту");
 	}
 };

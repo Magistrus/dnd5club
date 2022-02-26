@@ -36,10 +36,6 @@ public class WeaponController {
 	@GetMapping("/weapons/{name}")
 	public String getWeapon(Model model, @PathVariable String name) {
 		Weapon weapon = repository.findByEnglishName(name.replace('_', ' '));
-		if (weapon == null) {
-			return "redirect: /error/404";
-		}
-		
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
 

@@ -39,6 +39,12 @@
 				</ul>
 			</div>
 		</div>
+		<div class="avatar">
+			<div class="image-container">
+				<a th:if="${images.empty}" id="race_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}"><img id="race_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></a>
+				<a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}"><img th:if="${iterStat.first}" th:src="${image}"/></a>
+			</div>
+		</div>
 		<div class="scores">
 			<div class="score">
 				<h4>
@@ -71,13 +77,36 @@
 				<p th:text="|${race.darkvision} фт.|"></p>
 			</div>
 		</div>
-		<th:block th:each="feature : ${features}">
-			<h4 class="header_separator"><span th:utext="${feature.name}"></span></h4>
+		<details th:each="feature : ${features}" open>
+			<summary class="h4 header_separator"><span th:utext="${feature.name}"></span></summary>
 			<div th:utext="${feature.description}"></div>
-		</th:block>
-		<th:block th:each="feature : ${subFeatures}">
-			<h4 class="header_separator archetype_feet"><span th:utext="${feature.name}"></span></h4>
+		</details>
+		<details th:each="feature : ${subFeatures}" open>
+			<summary class="h4 header_separator archetype_feet"><span th:utext="${feature.name}"></span></summary>
 			<div th:utext="${feature.description}"></div>
+		</details>
+		<details th:each="feature : ${notFeatures}">
+			<summary class="h4 header_separator"><span th:utext="${feature.name}"></span></summary>
+			<div th:utext="${feature.description}"></div>
+		</details>
+		<details>
+			<summary class="h4 header_separator"><span>Описание</span></summary>
+			<th:block th:utext="*{description}"></th:block>
+		</details>
+		<h4 th:unless="*{subRaces.empty}">Разновидности</h4>
+		<th:block th:unless="*{subRaces.empty}" th:each="subRace : *{subRaces}">
+			<details class="spoiler feet_show" th:classappend="${subRace.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': subRace.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}">
+				<summary class="h4 header_separator">
+					<span th:text="${subRace.name}"></span><span class ="tip" th:text="${subRace.book.source}" th:title="${subRace.book.name}"></span>
+				</summary>
+				<div th:utext="${subRace.description}"></div>
+				<div th:each="feature : ${subRace.features}" >
+					<h4 class="header_separator" th:id="${'c'+feature.id}">
+						<span th:text="${feature.name}"></span>
+					</h4>
+					<div th:utext="${feature.description}"></div>
+				</div>
+			</details>
 		</th:block>
 	</th:block>
 </body>

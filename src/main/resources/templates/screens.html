@@ -1,29 +1,62 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-<body id="body" class="d-flex overflow-hidden">
-	<div id="container_card" layout:fragment="content">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<head>
+<script th:src="@{/resources/js/datatables/rowGroup/dataTables.rowGroup.js}"></script>
+</head>
+<body id="body">
+	<div id="list_page_two_block" class="table_list_block" layout:fragment="content">
 		<div id="left_block" class="screens">
-			<div class="header_block">
+			<div class="header_block filters">
 				<div class="header_row">
 					<h1>Ширма Мастера</h1>
 				</div>
-			</div>
-			<div class="container_left" data-simplebar>
-				<div id="card_wrapper" class="card_wrapper">
-					<div th:id="${screen.englishName.replace(' ', '_')}" class="card" th:each="screen : ${screens}">
-						<div class="infimation">
-							<h5 id="screen_id" class="header_name" th:text="${screen.name}">Screen  name</h5>
-							<p th:text="${screen.englishName}" class="en_title encaption_text">English screen name</p>
-						</div>
-						<div class="icon" th:classappend="|icon_${screen.englishName.toLowerCase().replace(' ', '_')}|"></div>
+				<div class="search_block">
+					<input type="text" id="search" class="search_int" placeholder="Поиск" autocomplete="off">
+					<div class="btn_search_icon" title="Поиск">
+						<i class="icon_action">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</i>
+					</div>
+					<div id="text_clear" class="btn_text_clear tip" title="Очистить">
+						<i class="icon_action">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>	
+						</i>
 					</div>
 				</div>
+			</div>
+			<div id="scroll_load_simplebar" class="container_left">
+				<table id="screens" class="table_card" th:fragment="table">
+					<thead style="display: none">
+						<tr>
+							<th>Название</th>
+						</tr>
+						<tr>
+							<th>Английское Название</th>
+						</tr>
+						<tr>
+							<th>Категория</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 		</div>
 		<div id="right_block" class="screens">
 			<div class="header_block">
 				<div class="header_row">
-					<h1 id="screen_name">Разделы</h1>
+					<h1>
+						<a href="#" id="screen_name">Название</a>
+						<button class="title_icon tip" title="Скопировать ссылку" onclick="copyToClipboard()">
+							<i class="icon_action">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M11.8056 14.8611L8.74755 17.9191C7.9665 18.7002 6.70017 18.7002 5.91912 17.9191L4.91421 16.9142C4.13317 16.1332 4.13317 14.8668 4.91421 14.0858L8.47468 10.5253C9.25572 9.74428 10.5221 9.74428 11.3031 10.5253L11.8056 11.0278M10.5278 8.47222L13.5858 5.41421C14.3668 4.63317 15.6332 4.63316 16.4142 5.41421L17.4191 6.41912C18.2002 7.20017 18.2002 8.4665 17.4191 9.24755L13.8587 12.808C13.0776 13.5891 11.8113 13.5891 11.0302 12.808L10.5278 12.3056" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>									
+							</i>
+						</button>						
+					</h1>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,18 +80,16 @@
 					</div>
 				</div>
 			</div>
-			<div id="info_wrapper" class="info_wrapper">
-				<div class="content_block" data-simplebar>
-					<div id="content_block">
-					</div>
+			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+				<div class="content_block">
+					<div id="content_block"></div>
 				</div>
-			</div> 
-			<script type="text/javascript" th:inline="javascript">
-    		var selectedScreen = [[${selectedScreen}]];
-    		var selectedSubscreen = [[${selectedSubscreen}]];
-		</script>
+			</div>
 		</div>
+		<script type="text/javascript" th:inline="javascript">
+			selectedScreen = [[${selectedScreen}]];
+		</script>
 	</div>
 </body>
-<script th:inline="javascript" th:src="@{/resources/js/screens.js?v=1.1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/screens.js?v=0.3}" layout:fragment="js-script"></script>
 </html>

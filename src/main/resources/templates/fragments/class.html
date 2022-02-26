@@ -136,10 +136,33 @@
 		<th:block th:each="archetype : *{archetypes}">
 			<details class="spoiler feet_show" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}">
 				<summary class="h4 header_separator">
-					<span th:text="${archetype.name}"></span><span class ="tip" th:text="${archetype.book.source}" th:title="${archetype.book.name}"></span>
+					<span th:text="${archetype.name}"></span><span class="tip" th:text="${archetype.book.source}" th:title="${archetype.book.name}"></span>
 				</summary>
 				<div th:utext="${archetype.description}"></div>
-				<div th:each="feature : ${archetype.feats}" >
+				<table th:unless=${archetype.spells.empty}>
+					<thead>
+						<tr>
+							<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
+							</th>
+							<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
+							</th>
+							<th align="left">Заклинания</th>
+						</tr>
+					</thead>
+					<tr th:each="element : ${archetype.levelSpells}">
+						<td align="center" th:text="${element.key}"></td>
+						<td><th:block th:each="spell, iterStat : ${element.value}">
+								<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
+									th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
+								></a>
+								<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
+								<span th:if="${not iterStat.last}">, </span>
+							</th:block></td>
+					</tr>
+					<tbody>
+					</tbody>
+				</table>
+				<div th:each="feature : ${archetype.feats}">
 					<h4 class="header_separator" th:id="${'c'+feature.id}">
 						<span th:text="${feature.capitalizeName}"></span>
 					</h4>

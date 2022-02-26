@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.thymeleaf.util.StringUtils;
 
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.model.items.MagicItem;
@@ -28,7 +29,11 @@ public class ItemMagicDto {
 	
 	private String attunement;
 
-	private String cost;
+	private String costDMG;
+
+	private boolean homebrew;
+	private boolean setting;
+	
 	private String book;
 	private String bookshort;
 	private String rarityEnglish;
@@ -87,17 +92,15 @@ public class ItemMagicDto {
 		String rangeCost;
 		switch (magicItem.getRarity()) {
 		case COMMON:
+			rangeCost = "от 50 до 100 зм.";
 			if (magicItem.isConsumed()) {
 				rangeCost = "от 25 до 50 зм.";
-			} else {
-				rangeCost = "от 50 до 100 зм.";
 			}
 			break;
 		case UNCOMMON:
+			rangeCost = "от 101 до 500 зм.";
 			if (magicItem.isConsumed()) {
 				rangeCost = "от 51 до 250 зм.";
-			} else {
-				rangeCost = "от 101 до 500 зм.";
 			}
 			break;
 		case RARE:
@@ -125,7 +128,10 @@ public class ItemMagicDto {
 			rangeCost = Integer.toString(magicItem.getCost());
 			break;
 		}
-		cost = rangeCost;
+		costDMG = rangeCost;
+		
+		homebrew = magicItem.getBook().getType() == TypeBook.CUSTOM;
+		setting = magicItem.getBook().getType() == TypeBook.SETTING;
 		book = magicItem.getBook().getName();
 		bookshort = magicItem.getBook().getSource();
 	}
@@ -149,6 +155,6 @@ public class ItemMagicDto {
 	}
 
 	public void setCost(int cost) {
-		this.cost = String.valueOf(cost); 
+		this.costDMG = String.valueOf(cost); 
 	}
 }
