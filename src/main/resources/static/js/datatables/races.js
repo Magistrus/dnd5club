@@ -54,11 +54,22 @@ $(document).ready(function() {
 				return data;
 			}
 		},
+		{
+			data : "englishName",
+		},
+		{
+			data : "ability",
+			searchable: false,
+		},
 		],
 		columnDefs : [
 			{
 				"targets": [0],
 				"visible": true
+			},
+			{
+				"targets": [1,2],
+				"visible": false
 			},
 		],
 		language : {
@@ -131,13 +142,13 @@ $(document).ready(function() {
 			let liTareget = $(event.target).closest('li')[0]; 
 			if (liTareget.classList.contains('select_point')){
 				liTareget.classList.remove('select_point');
-				selectedArchetype = null;
+				selectedSubrace = null;
 				selectClass(data);
 			} else {
 				$('li').removeClass('select_point');
 				liTareget.classList.add('select_point');
-				selectedArchetype = null;
-				setActiveArchetype(data, data.englishName.split(' ').join('_'), liTareget.id);
+				selectedSubrace = null;
+				setActiveSubrace(data, data.englishName.split(' ').join('_'), liTareget.id);
 			}
 			if(!document.getElementById('list_page_two_block').classList.contains('block_information')){
 				document.getElementById('list_page_two_block').classList.add('block_information');
@@ -163,6 +174,12 @@ $(document).ready(function() {
 	});
 });
 $('#search').on( 'keyup click', function () {
+	if($('#search').val()){
+		$('#text_clear').show();
+	}
+	else {
+		$('#text_clear').hide();
+	}
 	$('#races').DataTable().tables().search($(this).val()).draw();
 });
 function selectRace(data){
@@ -176,13 +193,6 @@ function selectRace(data){
 	}
 	var url = '/races/fragment/' + data.id;
 	$("#content_block").load(url, function() {
-		$('#info_wrapper').removeClass('description');
-		$('#info_wrapper').removeClass('spells');
-		$('#info_wrapper').removeClass('images');
-		$('#info_wrapper').removeClass('options');
-		$('#info_wrapper').addClass('traits');
-		$('.btn_class').removeClass('active');
-		$('#class_traits').addClass('active');
 		if(localStorage.getItem('homebrew_source') == 'true'){
 			$('#homebrew_source').prop('checked', true);
 			$('.custom_source').removeClass('hide_block');
@@ -197,7 +207,7 @@ function selectRace(data){
 			$('#source_id').addClass('active');
 		}
 		$('#mobile_selector').change(function() {
-			setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
+			setActiveSubrace(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
 		});
 		$('.image-container').magnificPopup({
 			  delegate: 'a',
@@ -208,36 +218,18 @@ function selectRace(data){
 		})
 	});
 }
-function setActiveSubrace(data, className, archetypeName) {
-	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + archetypeName).text() +  ' | Подклассы D&D 5e';
-	var url = '/races/' + className + '/architypes/' + archetypeName;
+function setActiveSubrace(data, className, subraceName) {
+	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + subraceName).text() +  ' | Подклассы D&D 5e';
+	var url = '/races/' + className + '/subrace/' + subraceName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
 			setActiveArchetype(data, className, $('#mobile_selector').val());
 		});
-		$('#info_wrapper').removeClass('description');
-		$('#info_wrapper').removeClass('spells');
-		$('#info_wrapper').removeClass('images');
-		$('#info_wrapper').removeClass('options');
-		$('#info_wrapper').addClass('traits');
-		$('.btn_class').removeClass('active');
-		$('#class_traits').addClass('active');
 		showOnlyArchetype();
-		selectedArchetype = null;
+		selectedSubrace = null;
 	});
-	history.pushState('data to be passed', className, '/races/' + className + '/' + archetypeName);
+	history.pushState('data to be passed', className, '/races/' + className + '/' + subraceName);
 }
-$('#class_traits').on('click', function() {
-	$('.btn_class').removeClass('active');
-	this.classList.add('active');
-	let data = $('#races').DataTable().rows({selected:  true}).data();
-	if ($('li').hasClass('select_point')){
-		setActiveArchetype(data[0], data[0].englishName.replace(' ', '_'), $('li.select_point').attr('id'));
-	}
-	else {
-		selectClass(data[0]);
-	}
-});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
 	$('#races').DataTable().tables().search($(this).val()).draw();
@@ -252,34 +244,24 @@ $('#btn_close').on('click', function() {
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
 });
-$('.dice_hp_checkbox').on('change', function(e){
-	let properties = $('input:checkbox[name="dice_hp"]:checked').map(function() {
+$('.ability_checkbox').on('change', function(e){
+	let properties = $('input:checkbox[name="ability"]:checked').map(function() {
 		return this.value;
 	}).get().join('|');
 	$('#races').DataTable().column(2).search(properties, true, false, false).draw();
 	if(properties) {
-		$('#dice_hp_clear_btn').removeClass('hide_block');
+		$('#ability_clear_btn').removeClass('hide_block');
 	} else {
-		$('#dice_hp_clear_btn').addClass('hide_block');
+		$('#ability_clear_btn').addClass('hide_block');
 	}
 	setFiltered();
 });
-$('#dice_hp_clear_btn').on('click', function() {
-	$('#dice_hp_clear_btn').addClass('hide_block');
-	$('.dice_hp_checkbox').prop('checked', false);
+$('#ability_clear_btn').on('click', function() {
+	$('#ability_clear_btn').addClass('hide_block');
+	$('.ability_checkbox').prop('checked', false);
 	$('#races').DataTable().column(2).search("", true, false, false).draw();
 	setFiltered();
 });
-$('#only_archetypes').click(function () {
-	showOnlyArchetype();
-})
-function showOnlyArchetype(){
-	if($('#only_archetypes').is(':checked')) {
-		$('details').not('.feet_show').addClass('hide_block');
-	} else {
-		$('details').removeClass('hide_block');
-	}
-}
 function setFiltered(){
 	let boxes = $('input:checkbox:checked.filter').map(function() {
 		return this.value;

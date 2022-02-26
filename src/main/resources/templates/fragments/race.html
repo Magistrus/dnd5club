@@ -93,6 +93,21 @@
 			<summary class="h4 header_separator"><span>Описание</span></summary>
 			<th:block th:utext="*{description}"></th:block>
 		</details>
+		<h4 th:unless="*{subRaces.empty}">Разновидности</h4>
+		<th:block th:unless="*{subRaces.empty}" th:each="subRace : *{subRaces}">
+			<details class="spoiler feet_show" th:classappend="${subRace.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': subRace.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}">
+				<summary class="h4 header_separator">
+					<span th:text="${subRace.name}"></span><span class ="tip" th:text="${subRace.book.source}" th:title="${subRace.book.name}"></span>
+				</summary>
+				<div th:utext="${subRace.description}"></div>
+				<div th:each="feature : ${subRace.features}" >
+					<h4 class="header_separator" th:id="${'c'+feature.id}">
+						<span th:text="${feature.name}"></span>
+					</h4>
+					<div th:utext="${feature.description}"></div>
+				</div>
+			</details>
+		</th:block>
 	</th:block>
 </body>
 </html>

@@ -40,19 +40,16 @@
 			</div>
 			<div id="searchPanes" class="search_panes hide_block" data-simplebar>
 				<div class="filter_container">
-					<div class="filter_block_toggle">
-						<label for="only_archetypes" class="check_block"><input id="only_archetypes" class="toggle" type="checkbox" name="only_archetypes"><span>Только навыки архетипов</span></label>
-					</div>
-					<div class="filter_block hide_block">
+					<div class="filter_block">
 						<div class="header">
-							<h5>Кость Хитов</h5>
+							<h5>Увеличение характеристик</h5>
 							<button>
 								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
 											</svg>
 								</i>
 							</button>
-							<button id="dice_hp_clear_btn" class="hide_block">
+							<button id="ability_clear_btn" class="hide_block">
 								<i class="icon_action reset_filter">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -61,10 +58,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label><input class="dice_hp_checkbox filter" type="checkbox" name="dice_hp" value="d6"><span>к6</span></label>
-							<label><input class="dice_hp_checkbox filter" type="checkbox" name="dice_hp" value="d8"><span>к8</span></label>
-							<label><input class="dice_hp_checkbox filter" type="checkbox" name="dice_hp" value="d10"><span>к10</span></label>
-							<label><input class="dice_hp_checkbox filter" type="checkbox" name="dice_hp" value="d12"><span>к12</span></label>
+							<label th:each="ability: ${abilities}"><input class="ability_checkbox filter" type="checkbox" name="ability" th:value="${ability}"><span th:text="${ability.cyrilicName}"></span></label>
 						</div>
 					</div>
 				</div>
@@ -133,5 +127,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/races.js?v=0.5}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/races.js?v=0.7}" layout:fragment="js-script"></script>
 </html>
