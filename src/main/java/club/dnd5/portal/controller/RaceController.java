@@ -67,6 +67,8 @@ public class RaceController {
 	@GetMapping("/races/{name}/{subrace}")
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
+		model.addAttribute("abilities", AbilityType.values());
+
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
 		model.addAttribute("selectedRace", new RaceDto(race.getParent()));
 		model.addAttribute("selectedSubrace", new RaceDto(race));
