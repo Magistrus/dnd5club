@@ -123,9 +123,16 @@ public class Race implements Serializable {
 			return "+1 к каждой характеристике";
 		}
 		return bonuses.stream()
-				.map(b -> b.getAbility() == AbilityType.CHOICE_UNIQUE || b.getAbility() == AbilityType.CHOICE
-						? String.format("%s %+d", b.getAbility().getCyrilicName(), b.getBonus())
-						: String.format("%s %+d", b.getAbility().getShortName(), b.getBonus()))
+				.map(b -> {
+					if (b.getAbility() == AbilityType.CHOICE_UNIQUE || b.getAbility() == AbilityType.CHOICE) {
+						return String.format("%s %+d", b.getAbility().getCyrilicName(), b.getBonus()); 
+					}
+					else if (b.getAbility() == AbilityType.CHOICE_DOUBLE) {
+						return String.format("%s", b.getAbility().getCyrilicName());
+					} else {
+						return String.format("%s %+d", b.getAbility().getShortName(), b.getBonus());
+					}
+				})
 				.collect(Collectors.joining(", "));
 	}
 
