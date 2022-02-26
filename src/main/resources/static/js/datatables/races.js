@@ -228,7 +228,7 @@ function setActiveSubrace(data, raceName, subraceName) {
 	var url = '/races/' + data.englishName + '/subrace/' + subraceName.split(' ').join('_');
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
-			setActiveArchetype(data, raceName, $('#mobile_selector').val());
+			setActiveSubrace(data, raceName, $('#mobile_selector').val());
 		});
 		selectedSubrace = null;
 		$('.image-container').magnificPopup({
