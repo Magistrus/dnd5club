@@ -16,6 +16,7 @@ public class RaceDto {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private String parentEnglishName;
 	private String ability;
 	private String icon;
 
@@ -32,6 +33,9 @@ public class RaceDto {
 		id = race.getId();
 		name = race.getCapitalazeName();
 		englishName = race.getEnglishName();
+		if (race.getParent()!=null) {
+			parentEnglishName = race.getParent().getEnglishName().replace(" ", "_");
+		}
 		ability = race.getAbilityBonuses();
 		icon = race.getIcon() == null ? "" : race.getIcon();
 		

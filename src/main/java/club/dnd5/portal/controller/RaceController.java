@@ -68,8 +68,8 @@ public class RaceController {
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("selectedRace", new RaceDto(race));
-		model.addAttribute("selectedSubrace", subrace);
+		model.addAttribute("selectedRace", new RaceDto(race.getParent()));
+		model.addAttribute("selectedSubrace", new RaceDto(race));
 
 		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.getCapitalazeName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
@@ -134,30 +134,6 @@ public class RaceController {
 		model.addAttribute("race", race);
 		model.addAttribute("subraces", race.getSubRaces());
 		return "fragments/subraces_list :: sub_menu"; 
-	}
-	
-	@GetMapping("/races/{name}/description")
-	public String getRaceDescription(Model model, @PathVariable String name) {
-		Race race = raceRepository.findByEnglishName(name.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("race", race);
-		List<Feature> features =  race.getFeatures().stream().filter(f -> !f.isFeature()).collect(Collectors.toList());
-		model.addAttribute("features", features);
-		return "fragments/race_description :: view";
-	}
-	
-	@GetMapping("/races/{raceName}/subrace/{subraceName}/description")
-	public String getSubraceDescription(Model model, @PathVariable String raceName, @PathVariable String subraceName) {
-		Race race = raceRepository.findBySubrace(raceName.replace("_", " "), subraceName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
-		model.addAttribute("race", race);
-		Set<Integer> replace = race.getParent().getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
-		List<Feature> features =   Stream.concat(
-						race.getParent().getFeatures().stream()
-							.filter(f -> !replace.contains(f.getId())).filter(f -> !f.isFeature()),
-						race.getFeatures().stream().filter(f -> !f.isFeature())
-					)
-				.collect(Collectors.toList());
-		model.addAttribute("features", features);
-		return "fragments/race_description :: view";
 	}
 	
 	private Sort getRaceSort() {

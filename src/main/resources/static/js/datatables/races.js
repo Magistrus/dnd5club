@@ -143,7 +143,7 @@ $(document).ready(function() {
 			if (liTareget.classList.contains('select_point')){
 				liTareget.classList.remove('select_point');
 				selectedSubrace = null;
-				selectClass(data);
+				selectRace(selectedRace);
 			} else {
 				$('li').removeClass('select_point');
 				liTareget.classList.add('select_point');
@@ -183,14 +183,14 @@ $('#search').on( 'keyup click', function () {
 	$('#races').DataTable().tables().search($(this).val()).draw();
 });
 function selectRace(data){
+	if (selectedSubrace){
+		setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace.englishName);
+		$('#' + selectedSubrace.englishName.split(' ').join('_')).addClass('select_point');
+		return;
+	}
 	$('#race_name').text(data.name);
 	document.title = data.name + ' (' +data.englishName+ ')' + ' | Классы D&D 5e';
 	history.pushState('data to be passed', '', '/races/' + data.englishName.split(' ').join('_'));
-	if (selectedSubrace){
-		setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace);
-		$('#' + selectedSubrace).addClass('select_point');
-		return;
-	}
 	var url = '/races/fragment/' + data.id;
 	$("#content_block").load(url, function() {
 		if(localStorage.getItem('homebrew_source') == 'true'){
@@ -218,17 +218,16 @@ function selectRace(data){
 		})
 	});
 }
-function setActiveSubrace(data, className, subraceName) {
-	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + subraceName).text() +  ' | Подклассы D&D 5e';
-	var url = '/races/' + className + '/subrace/' + subraceName;
+function setActiveSubrace(data, raceName, subraceName) {
+	document.title = data.name + ' ('+subraceName+') - '+ $('#' + subraceName).text() +  ' | Подклассы D&D 5e';
+	var url = '/races/' + data.englishName + '/subrace/' + subraceName.split(' ').join('_');
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
-			setActiveArchetype(data, className, $('#mobile_selector').val());
+			setActiveArchetype(data, raceName, $('#mobile_selector').val());
 		});
-		showOnlyArchetype();
 		selectedSubrace = null;
 	});
-	history.pushState('data to be passed', className, '/races/' + className + '/' + subraceName);
+	history.pushState('data to be passed', data.englishName, '/races/' + data.englishName + '/' + subraceName);
 }
 $('#text_clear').on('click', function () {
 	$('#search').val('');
