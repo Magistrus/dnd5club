@@ -219,7 +219,7 @@ function selectRace(data){
 	});
 }
 function setActiveSubrace(data, className, subraceName) {
-	document.title = data.name + ' ('+data.englishName+') - '+ $('#' + subraceName).text() +  ' | Подклассы D&D 5e';
+	document.title = data.name + ' ('+data.englishName+') - ' +  ' | Подклассы D&D 5e';
 	var url = '/races/' + className + '/subrace/' + subraceName;
 	$("#content_block").load(url, function() {
 		$('#mobile_selector').change(function () {
