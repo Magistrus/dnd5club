@@ -10,6 +10,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
@@ -58,7 +61,7 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classes/{name}")
-	public String getClass(Model model, @PathVariable String name) {
+	public String getClass(Model model, @PathVariable String name, HttpServletRequest request) {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
@@ -77,16 +80,23 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classes/{name}/{archetype}")
-	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype) {
+	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype, HttpServletRequest request) {
 		String englishName = name.replace("_", " ");
-		model.addAttribute("classes", classRepository.findAllBySidekick(false));
-		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
-		model.addAttribute("selectedClass", new ClassDto(heroClass));
+		if (heroClass == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+
 		Archetype selectedArchetype = heroClass.getArchetypes().stream()
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
 				.findFirst().get();
+		if (selectedArchetype == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		model.addAttribute("metaTitle", String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
 				StringUtils.capitalize(selectedArchetype.getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));

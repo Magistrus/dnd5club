@@ -1,6 +1,8 @@
 package club.dnd5.portal.controller;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,12 @@ public class RuleController {
 	}
 	
 	@GetMapping("/rules/{name}")
-	public String getRule(Model model, @PathVariable String name) {
+	public String getRule(Model model, @PathVariable String name, HttpServletRequest request) {
 		Rule rule = repository.findByEnglishName(name.replace('_', ' '));
+		if (rule == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("categories", repository.findAllCategories());
 		model.addAttribute("selectedRule", new RuleDto(rule));
 		return "rules";
