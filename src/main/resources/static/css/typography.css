@@ -185,17 +185,23 @@ blockquote p:last-child {
 /********* Сворачивание текста / details  *********/
 details {
   margin-bottom: 16px;
+  margin-left: -8px;
+  margin-right: -8px;
 }
 
 details[open] {
   margin-bottom: 24px;
 }
 
+details .content {
+  padding: 0 8px;
+}
+
 details > summary.h4 {
   padding: 8px 8px;
   font-size: var(--h4-font-size);
   font-weight: 300;
-  margin: 0px -8px 4px -8px;
+  margin: 0px 0px 4px 0px;
   color: var(--text-color-title);
   position: relative;
   font-family: 'Lora';
@@ -277,7 +283,7 @@ h4.separator_card {
 }
 
 details.spoiler {
-  padding: 0 8px 4px 8px;
+  padding: 0 0px 4px 0px;
   margin: 0 -8px 16px -8px;
   border-radius: 8px;
 }
@@ -287,7 +293,7 @@ details[open].spoiler {
 }
 
 details[open].spoiler > summary.h4 {
-  margin: 0px -8px 4px -8px;
+  margin: 0px 0px 4px 0px;
   background: var(--hover);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;

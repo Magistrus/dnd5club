@@ -22,16 +22,18 @@
 		<th:block th:fragment="classInfo1(selectedArchetype)">
 			<details open class="feet_show">
 				<summary class="h4 header_separator feet_show"><span>Хиты</span></summary>
-				<p class="class_stats">
-					<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
-				</p>
-				<p class="class_stats">
-					<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор Телосложения
-				</p>
-				<p class="class_stats">
-					<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
-					первого
-				</p>
+				<div class="content">
+					<p class="class_stats">
+						<b>Кость Хитов:</b> <span class="dice_text">1к[[*{diceHp}]]</span> за каждый уровень
+					</p>
+					<p class="class_stats">
+						<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор Телосложения
+					</p>
+					<p class="class_stats">
+						<b>Хиты на следующих уровнях:</b> <span class="dice_text" th:text="|1к*{diceHp}|"></span> (или [[*{diceHp/2 + 1}]]) + модификатор <em>Телосложения</em> за каждый уровень этого класса, после
+						первого
+					</p>
+				</div>
 			</details>
 		</th:block>
 		
@@ -101,36 +103,42 @@
 		<th:block th:fragment="classInfo2(selectedArchetype)">
 			<details open>
 				<summary class="h4 header_separator"><span>Владение</span></summary>
-				<p class="class_stats">
-					<b>Доспехи:</b> <span th:text="*{armor}"></span>
-				</p>
-				<p class="class_stats">
-					<b>Оружие:</b> <span th:text="*{weapon}"></span>
-				</p>
-				<p class="class_stats">
-					<b>Инструменты:</b> <span th:text="*{tools}"></span>
-				</p>
-				<p class="class_stats">
-					<b>Спаcброски:</b> <span th:text="*{savingThrows}"></span>
-				</p>
-				<p class="class_stats">
-					<b>Навыки:</b> Выберите [[*{skillAvailableCount}]] навыка из следующих:
-					<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
-					<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
-				</p>
+				<div class="content">
+					<p class="class_stats">
+						<b>Доспехи:</b> <span th:text="*{armor}"></span>
+					</p>
+					<p class="class_stats">
+						<b>Оружие:</b> <span th:text="*{weapon}"></span>
+					</p>
+					<p class="class_stats">
+						<b>Инструменты:</b> <span th:text="*{tools}"></span>
+					</p>
+					<p class="class_stats">
+						<b>Спаcброски:</b> <span th:text="*{savingThrows}"></span>
+					</p>
+					<p class="class_stats">
+						<b>Навыки:</b> Выберите [[*{skillAvailableCount}]] навыка из следующих:
+						<th:block th:if="*{skillAvailableCount == 18}">Выберите [[*{skillAvailableCount}]] любых навыка.</th:block>
+						<th:block th:each="skill, iterStat : *{availableSkills}" th:text="${iterStat.last} ? ${skill.cyrilicName} : ${skill.cyrilicName} + ', '" />
+					</p>
+				</div>
 			</details>
 			<details open>
 				<summary class="h4 header_separator" th:if="*{equipment}"><span>Снаряжение</span></summary>
-				<p th:if="*{equipment}">
-					Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
-				</p>
+				<div class="content">
+					<p th:if="*{equipment}">
+						Вы начинаете со следующим снаряжением в дополнение к снаряжению, полученному за вашу предысторию: <span th:utext="*{equipment}"></span>
+					</p>
+				</div>
 			</details>
 		</th:block>
 		<th:block th:each="feature : ${features}">
 			<details th:if="${feature.child eq null}" open>
 				<summary class="h4 header_separator" th:id="${'c'+feature.id}"><span th:text="${feature.name}"></span></summary>
-				<p class="caption_text" th:text="${feature.type}"></p>
-				<div th:utext="${feature.description}"></div>
+				<div class="content">
+					<p class="caption_text" th:text="${feature.type}"></p>
+					<div th:utext="${feature.description}"></div>
+				</div>
 			</details>
 		</th:block>
 		<th:block th:each="archetype : *{archetypes}">
@@ -138,36 +146,38 @@
 				<summary class="h4 header_separator">
 					<span th:text="${archetype.name}"></span><span class="tip" th:text="${archetype.book.source}" th:title="${archetype.book.name}"></span>
 				</summary>
-				<div th:utext="${archetype.description}"></div>
-				<table th:unless=${archetype.spells.empty}>
-					<thead>
-						<tr>
-							<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
-							</th>
-							<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
-							</th>
-							<th align="left">Заклинания</th>
+				<div class="content">
+					<div th:utext="${archetype.description}"></div>
+					<table th:unless=${archetype.spells.empty}>
+						<thead>
+							<tr>
+								<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
+								</th>
+								<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
+								</th>
+								<th align="left">Заклинания</th>
+							</tr>
+						</thead>
+						<tr th:each="element : ${archetype.levelSpells}">
+							<td align="center" th:text="${element.key}"></td>
+							<td><th:block th:each="spell, iterStat : ${element.value}">
+									<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
+										th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
+									></a>
+									<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
+									<span th:if="${not iterStat.last}">, </span>
+								</th:block></td>
 						</tr>
-					</thead>
-					<tr th:each="element : ${archetype.levelSpells}">
-						<td align="center" th:text="${element.key}"></td>
-						<td><th:block th:each="spell, iterStat : ${element.value}">
-								<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
-									th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
-								></a>
-								<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
-								<span th:if="${not iterStat.last}">, </span>
-							</th:block></td>
-					</tr>
-					<tbody>
-					</tbody>
-				</table>
-				<div th:each="feature : ${archetype.feats}">
-					<h4 class="header_separator" th:id="${'c'+feature.id}">
-						<span th:text="${feature.capitalizeName}"></span>
-					</h4>
-					<p class="caption_text" th:text="${feature.displayLevel}"></p>
-					<div th:utext="${feature.description}"></div>
+						<tbody>
+						</tbody>
+					</table>
+					<div th:each="feature : ${archetype.feats}">
+						<h4 class="header_separator" th:id="${'c'+feature.id}">
+							<span th:text="${feature.capitalizeName}"></span>
+						</h4>
+						<p class="caption_text" th:text="${feature.displayLevel}"></p>
+						<div th:utext="${feature.description}"></div>
+					</div>
 				</div>
 			</details>
 		</th:block>
