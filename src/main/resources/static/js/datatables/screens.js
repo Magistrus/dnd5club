@@ -73,9 +73,9 @@ $(document).ready(function() {
 					return false;
 				});
 				rowSelectIndex = rowIndexes[0];
+			    $('#screens tbody tr:eq('+rowSelectIndex+')').click();
+			    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 			}
-		    $('#screens tbody tr:eq('+rowSelectIndex+')').click();
-		    table.row(':eq('+rowSelectIndex+')', { page: 'current' }).select();
 		}
 	});
 
