@@ -170,6 +170,7 @@ $(document).ready(function() {
 	});
 });
 $('#search').on( 'keyup click', function () {
+	selectedClass = null;
 	$('#classes').DataTable().tables().search($(this).val()).draw();
 });
 function selectClass(data){
@@ -272,10 +273,12 @@ $('#class_images').on('click', function() {
 })
 $('#text_clear').on('click', function () {
 	$('#search').val('');
+	selectedClass = null;
 	$('#classes').DataTable().tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
 $('#btn_close').on('click', function() {
+	selectedClass = null;
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	$('#classes').DataTable().rows().deselect();
 	$('li').removeClass('select_point');

@@ -178,15 +178,6 @@ $(document).ready(function() {
 		}
 	});
 });
-$('#search').on( 'keyup click', function () {
-	if($('#search').val()){
-		$('#text_clear').show();
-	}
-	else {
-		$('#text_clear').hide();
-	}
-	$('#races').DataTable().tables().search($(this).val()).draw();
-});
 function selectRace(data){
 	if (selectedSubrace){
 		setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace.englishName);
@@ -241,13 +232,25 @@ function setActiveSubrace(data, raceName, subraceName) {
 	});
 	history.pushState('data to be passed', data.englishName, '/races/' + data.englishName + '/' + subraceName);
 }
+$('#search').on( 'keyup click', function () {
+	if($('#search').val()){
+		$('#text_clear').show();
+	}
+	else {
+		$('#text_clear').hide();
+	}
+	selectedRace = null;
+	$('#races').DataTable().tables().search($(this).val()).draw();
+});
 $('#text_clear').on('click', function () {
 	$('#search').val('');
-	$('#races').DataTable().tables().search($(this).val()).draw();
+	selectedRace = null;
 	$('#text_clear').hide();
+	$('#races').DataTable().tables().search($(this).val()).draw();
 });
 $('#btn_close').on('click', function() {
 	document.getElementById('list_page_two_block').classList.remove('block_information');
+	selectedRace = null;
 	$('#races').DataTable().rows().deselect();
 	$('li').removeClass('select_point');
 	history.pushState('data to be passed', '', '/races/');

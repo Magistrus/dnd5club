@@ -92,9 +92,6 @@ $(document).ready(function() {
 		}
 		selectScreen(data);
 	});
-	$('#search').on( 'keyup click', function () {
-		table.tables().search($(this).val()).draw();
-	});
 });
 function selectScreen(data) {
 	$('#screen_name').html(data.name);
@@ -125,11 +122,13 @@ $('#search').on( 'keyup click', function () {
 });
 $('#text_clear').on('click', function () {
 	$('#search').val('');
+	selectedScreen = null;
 	const table = $('#screens').DataTable();
 	table.tables().search($(this).val()).draw();
 	$('#text_clear').hide();
 });
 $('#btn_close').on('click', function() {
+	selectedScreen = null;
 	document.getElementById('list_page_two_block').classList.remove('block_information');
 	const table = $('#screens').DataTable();
 	table.rows().deselect();
