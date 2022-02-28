@@ -3,6 +3,8 @@ package club.dnd5.portal.controller;
 import java.util.Collection;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +39,12 @@ public class ItemMagicController {
 	}
 	
 	@GetMapping("/items/magic/{name}")
-	public String getMagicItem(Model model, @PathVariable String name) {
+	public String getMagicItem(Model model, @PathVariable String name, HttpServletRequest request) {
 		MagicItem item = repository.findByEnglishName(name.replace("_", " "));
+		if (item == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("rarities", Rarity.values());
 		model.addAttribute("types", MagicThingType.values());
 

@@ -7,6 +7,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -42,7 +45,7 @@ public class RaceController {
 	}
 	
 	@GetMapping("/races/{name}")
-	public String getRace(Model model, @PathVariable String name) {
+	public String getRace(Model model, @PathVariable String name, HttpServletRequest request) {
 		model.addAttribute("abilities", AbilityType.values());
 		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).get();
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
@@ -64,8 +67,12 @@ public class RaceController {
 	}
 	
 	@GetMapping("/races/{name}/{subrace}")
-	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace) {
+	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace, HttpServletRequest request) {
 		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
+		if (race == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("abilities", AbilityType.values());
 
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));

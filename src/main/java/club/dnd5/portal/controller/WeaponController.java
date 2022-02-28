@@ -1,6 +1,8 @@
 package club.dnd5.portal.controller;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,8 +36,12 @@ public class WeaponController {
 	}
 	
 	@GetMapping("/weapons/{name}")
-	public String getWeapon(Model model, @PathVariable String name) {
+	public String getWeapon(Model model, @PathVariable String name, HttpServletRequest request) {
 		Weapon weapon = repository.findByEnglishName(name.replace('_', ' '));
+		if (weapon == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("damageTypes", DamageType.getWeaponDamage());
 		model.addAttribute("properties", propertyRepository.findAll());
 

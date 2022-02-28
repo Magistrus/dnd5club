@@ -3,6 +3,8 @@ package club.dnd5.portal.controller;
 import java.util.Collection;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -44,8 +46,12 @@ public class BestiaryController {
 	}
 	
 	@GetMapping("/bestiary/{name}")
-	public String getCreature(Model model, @PathVariable String name) {
+	public String getCreature(Model model, @PathVariable String name, HttpServletRequest request) {
 		Creature beast = repository.findByEnglishName(name.replace("_", " "));
+		if (beast == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		CreatureDto creature = new CreatureDto(beast);
 		model.addAttribute("selectedCreature", creature);
 		model.addAttribute("types", CreatureType.getFilterTypes());

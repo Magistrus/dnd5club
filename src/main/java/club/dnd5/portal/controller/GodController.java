@@ -3,6 +3,8 @@ package club.dnd5.portal.controller;
 import java.util.Collection;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,8 +44,12 @@ public class GodController {
 	}
 	
 	@GetMapping("/gods/{name}")
-	public String getGod(Model model, @PathVariable String name) {
+	public String getGod(Model model, @PathVariable String name, HttpServletRequest request) {
 		God god = repository.findByEnglishName(name.replace("_", " "));
+		if (god == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("alignments", Alignment.getGods());
 		model.addAttribute("domains", Domain.values());
 		model.addAttribute("ranks", Rank.values());
