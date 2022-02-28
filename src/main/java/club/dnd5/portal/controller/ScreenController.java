@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
@@ -30,10 +32,11 @@ public class ScreenController {
 	}
 	
 	@GetMapping("/screens/{name}")
-	public String getScreen(Model model, @PathVariable String name) {
+	public String getScreen(Model model, @PathVariable String name, HttpServletRequest request) {
 		Screen screen = repository.findByEnglishName(name.replace('_', ' ')).get();
 		if (screen == null) {
-			
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
 		}
 		model.addAttribute("selectedScreen", new ScreenDto(screen));
 		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));

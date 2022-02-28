@@ -1,6 +1,8 @@
 package club.dnd5.portal.controller;
 
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,11 +40,15 @@ public class SpellController {
 	}
 	
 	@GetMapping("/spells/{name}")
-	public String getSpell(Model model, @PathVariable String name) {
+	public String getSpell(Model model, @PathVariable String name, HttpServletRequest request) {
+		Spell spell = repository.findByEnglishName(name.replace("_", " "));
+		if (spell == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
-		Spell spell = repository.findByEnglishName(name.replace("_", " "));
 		SpellDto spellDto = new SpellDto(spell);
 		model.addAttribute("selectedSpell", spellDto);
 		model.addAttribute("metaTitle", String.format("%s (%s)", spellDto.getName(), spellDto.getEnglishName()) + " | Заклинания D&D 5e");

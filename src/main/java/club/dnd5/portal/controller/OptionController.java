@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.naming.directory.InvalidAttributesException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,8 +53,12 @@ public class OptionController {
 	}
 	
 	@GetMapping("/options/{name}")
-	public String getOption(Model model, @PathVariable String name) {
+	public String getOption(Model model, @PathVariable String name, HttpServletRequest request) {
 		Option option = repository.findByEnglishName(name.replace("_", " "));
+		if (option == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
