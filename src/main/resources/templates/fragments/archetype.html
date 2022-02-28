@@ -105,32 +105,34 @@
 		<th:block th:each="feature : ${features}">
 			<details th:if="${feature.child eq null}" open th:classappend="${feature.prefix eq 'a' ? 'feet_show' : ''}">
 				<summary class="h4 header_separator" th:classappend="${feature.prefix eq 'a' ? 'archetype_feet' : ''}" th:id="|${feature.prefix}${feature.id}|"><span th:text="${feature.name}"></span></summary>
-				<div class="caption_text" th:text="${feature.type}"></div>
-				<p th:utext="${feature.description}" />
-				<div th:if="${feature.prefix eq 'ad'}" align="center">
-					<table th:unless=${archetypeSpells.empty}>
-						<thead>
-							<tr>
-								<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
-								</th>
-								<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
-								</th>
-								<th align="left">Заклинания</th>
+				<div class="content">
+					<div class="caption_text" th:text="${feature.type}"></div>
+					<p th:utext="${feature.description}" />
+					<div th:if="${feature.prefix eq 'ad'}" align="center">
+						<table th:unless=${archetypeSpells.empty}>
+							<thead>
+								<tr>
+									<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
+									</th>
+									<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
+									</th>
+									<th align="left">Заклинания</th>
+								</tr>
+							</thead>
+							<tr th:each="element : ${selectedArchetype.levelSpells}">
+								<td align="center" th:text="${element.key}"></td>
+								<td><th:block th:each="spell, iterStat : ${element.value}">
+										<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
+											th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
+										></a>
+										<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
+										<span th:if="${not iterStat.last}">, </span>
+									</th:block></td>
 							</tr>
-						</thead>
-						<tr th:each="element : ${selectedArchetype.levelSpells}">
-							<td align="center" th:text="${element.key}"></td>
-							<td><th:block th:each="spell, iterStat : ${element.value}">
-									<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
-										th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
-									></a>
-									<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
-									<span th:if="${not iterStat.last}">, </span>
-								</th:block></td>
-						</tr>
-						<tbody>
-						</tbody>
-					</table>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</details>
 		</th:block>
