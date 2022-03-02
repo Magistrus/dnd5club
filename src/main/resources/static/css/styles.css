@@ -3215,19 +3215,6 @@ body #left_block.tools_block {
   padding: 12px 24px 0 24px;
 }
 
-#left_block.trader .table_list {
-  text-align: left;
-}
-
-#left_block.trader .table_list .row_name {
-  font-size: var(--main-font-size);
-  line-height: 42px;
-  font-weight: 400;
-  vertical-align: middle;
-  height: 42px;
-  display: table-cell;
-}
-
 @media (max-width: 500px) {
   #left_block.trader .container_left {
     height: calc(100% - 341px);
