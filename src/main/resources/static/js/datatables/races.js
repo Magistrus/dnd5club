@@ -244,6 +244,7 @@ function selectRace(data) {
 }
 
 function setActiveSubrace(data, raceName, subraceName) {
+    $('#race_name').text($('#' + subraceName).text());
     document.title = data.name + ' (' + subraceName + ') - ' + $('#' + subraceName).text() + ' | Подклассы D&D 5e';
     var url = '/races/' + data.englishName + '/subrace/' + subraceName.split(' ').join('_');
     $("#content_block").load(url, function () {
