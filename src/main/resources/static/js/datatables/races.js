@@ -136,17 +136,6 @@ $(document).ready(function () {
         if (cntrlIsPressed) {
             window.open('/races/' + data.englishName.split(' ').join('_'));
         }
-        if (data.spellcaster) {
-            $('#class_spells').removeClass('hide_block');
-        } else {
-            $('#class_spells').addClass('hide_block');
-        }
-        if (data.option !== null) {
-            $('#button_option_name').text(data.option);
-            $('#class_options').removeClass('hide_block');
-        } else {
-            $('#class_options').addClass('hide_block');
-        }
         rowSelectIndex = row.index();
         if ($(event.target).closest('li').length != 0) {
             let liTareget = $(event.target).closest('li')[0];
@@ -211,7 +200,6 @@ function selectRace(data) {
         $('#' + selectedSubrace.englishName.split(' ').join('_')).addClass('select_point');
         return;
     }
-
     $('#race_name').text(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
     history.pushState('data to be passed', '', '/races/' + data.englishName.split(' ').join('_'));
@@ -221,9 +209,7 @@ function selectRace(data) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
-        } else {
-            localStorage.setItem('homebrew_source', 'false');
-        }
+        } 
         if (localStorage.getItem('setting_source') == 'true') {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
@@ -251,6 +237,17 @@ function setActiveSubrace(data, raceName, subraceName) {
         $('#mobile_selector').change(function () {
             setActiveSubrace(data, raceName, $('#mobile_selector').val());
         });
+        if (localStorage.getItem('homebrew_source') == 'true') {
+            $('#homebrew_source').prop('checked', true);
+            $('.custom_source').removeClass('hide_block');
+            $('#source_id').addClass('active');
+        } 
+        if (localStorage.getItem('setting_source') == 'true') {
+            $('#setting_source').prop('checked', true);
+            $('.setting_source').removeClass('hide_block');
+            $('.module_source').removeClass('hide_block');
+            $('#source_id').addClass('active');
+        }
         selectedSubrace = null;
         $('.image-container').magnificPopup({
             delegate: 'a',
