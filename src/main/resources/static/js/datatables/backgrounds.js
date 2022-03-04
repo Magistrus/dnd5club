@@ -61,6 +61,8 @@ $(document).ready(function () {
                     table.page.loadMore();
                     simpleBar.recalculate();
                     scrollEventHeight += 750;
+
+                    addEventListeners(true);
                 }
             });
         },
@@ -134,7 +136,7 @@ $(document).ready(function () {
     });
 });
 
-function addEventListeners() {
+function addEventListeners(force = false) {
     $(document).ready(function () {
         onDeselectListener();
     });
@@ -142,6 +144,10 @@ function addEventListeners() {
     $(window).resize(function () {
         onDeselectListener();
     });
+
+    if (force) {
+        onDeselectListener();
+    }
 }
 
 function onDeselectListener() {
@@ -151,7 +157,11 @@ function onDeselectListener() {
     if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
         table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
-    } else {
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
         table.off('deselect.dt', closeHandler);
         element.removeClass('has-deselect-handler');
     }

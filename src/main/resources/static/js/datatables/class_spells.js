@@ -100,6 +100,8 @@ $(document).ready(function () {
                     spellTable.page.loadMore();
                     simpleBar.recalculate();
                     spellScrollEventHeight += 750;
+
+                    addEventListeners(true);
                 }
             });
         },
