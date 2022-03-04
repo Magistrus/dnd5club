@@ -1288,6 +1288,24 @@ body:before {
 
 
 /******** Левый блок ********/
+.news_wrapper {
+
+}
+
+.news_page {
+  flex: 1 0 860px;
+  max-width: 860px;
+  background-color: var(--bg-secondary);
+  padding: 0px 24px 0px 24px;
+}
+
+.left,
+.right {
+  flex: 1 0 auto;
+}
+
+
+/******** Левый блок ********/
 #left_block {
 
 }
@@ -3080,6 +3098,7 @@ body.compact_menu #right_block.weapons {
   width: calc(100% - 72px);
   padding: 0 16px;
   color: var(--text-color-title);
+  font-weight: 500;
 }
 
 .filter_container .filter_block .header button {
