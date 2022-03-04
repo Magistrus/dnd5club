@@ -165,8 +165,14 @@ $(document).ready(function () {
             }
         }
         selectedRace = data;
-        if ($(event.target).closest('li').length == 0) {
-            event.target.scrollIntoView({ block: "center", behavior: "smooth" });
+        if (!$(event.target).closest('li').length) {
+            setTimeout(function () {
+                event.target.closest('.simplebar-content-wrapper')
+                     .scrollTo({
+                         top: event.target.closest('tr').offsetTop - 16,
+                         behavior: "smooth"
+                     });
+            }, 300)
         }
     });
 });
@@ -217,7 +223,7 @@ function selectRace(data) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
-        } 
+        }
         if (localStorage.getItem('setting_source') == 'true') {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
@@ -249,7 +255,7 @@ function setActiveSubrace(data, raceName, subraceName) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
-        } 
+        }
         if (localStorage.getItem('setting_source') == 'true') {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');

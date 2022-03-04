@@ -92,7 +92,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#conditions tbody').on('click', 'tr', function () {
+    $('#conditions tbody').on('click', 'tr', function (event) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -104,6 +104,16 @@ $(document).ready(function () {
             return;
         }
         selectCondition(data);
+
+        if (!$(event.target).closest('li').length) {
+            setTimeout(function () {
+                event.target.closest('.simplebar-content-wrapper')
+                     .scrollTo({
+                         top: event.target.closest('tr').offsetTop - 16,
+                         behavior: "smooth"
+                     });
+            }, 300)
+        }
     });
     $('#search').on('keyup click', function () {
         table.tables().search($(this).val()).draw();

@@ -167,8 +167,15 @@ $(document).ready(function () {
             }
         }
         selectedClass = data;
-        if ($(event.target).closest('li').length == 0) {
-            event.target.scrollIntoView({ block: "start", behavior: "smooth" });
+
+        if (!$(event.target).closest('li').length) {
+            setTimeout(function () {
+                event.target.closest('.simplebar-content-wrapper')
+                     .scrollTo({
+                         top: event.target.closest('tr').offsetTop - 16,
+                         behavior: "smooth"
+                     });
+            }, 300)
         }
     });
 });
