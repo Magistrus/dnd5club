@@ -198,10 +198,10 @@ function selectCreature(data) {
     if (!data) {
         return;
     }
-
     $('#statblock').addClass('active');
     $('#description').removeClass('active');
     $('#creature_name').html(data.name);
+    $('#right_block').attr('data-creature-type', data.englishType);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Бестиарий D&D 5e';
     history.pushState('data to be passed', '', '/bestiary/' + data.englishName.split(' ').join('_'));
     var url = '/bestiary/fragment/' + data.id;
