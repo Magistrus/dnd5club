@@ -74,6 +74,8 @@ $(document).ready(function () {
                     table.page.loadMore();
                     simpleBar.recalculate();
                     scrollEventHeight += 750;
+
+                    addEventListeners(true);
                 }
             });
         },

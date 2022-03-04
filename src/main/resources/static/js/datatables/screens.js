@@ -59,6 +59,8 @@ $(document).ready(function () {
                     table.page.loadMore();
                     simpleBar.recalculate();
                     scrollEventHeight += 750;
+
+                    addEventListeners(true);
                 }
             });
         },
@@ -81,7 +83,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#screens tbody').on('click', 'tr', function () {
+    $('#screens tbody').on('click', 'tr', function (event) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -93,10 +95,20 @@ $(document).ready(function () {
             return;
         }
         selectScreen(data);
+
+        if (!$(event.target).closest('li').length) {
+            setTimeout(function () {
+                event.target.closest('.simplebar-content-wrapper')
+                     .scrollTo({
+                         top: event.target.closest('tr').offsetTop - 16,
+                         behavior: "smooth"
+                     });
+            }, 300)
+        }
     });
 });
 
-function addEventListeners() {
+function addEventListeners(force = false) {
     $(document).ready(function () {
         onDeselectListener();
     });
@@ -104,6 +116,10 @@ function addEventListeners() {
     $(window).resize(function () {
         onDeselectListener();
     });
+
+    if (force) {
+        onDeselectListener();
+    }
 }
 
 function onDeselectListener() {
@@ -113,7 +129,11 @@ function onDeselectListener() {
     if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
         table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
-    } else {
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
         table.off('deselect.dt', closeHandler);
         element.removeClass('has-deselect-handler');
     }
