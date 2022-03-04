@@ -20,6 +20,7 @@ public class CreatureDto {
 	private String altName;
 	private String AC;
 	private String type;
+	private String englishType;
 	private String size;
 	private String tag;
 	private String alignment;
@@ -39,6 +40,7 @@ public class CreatureDto {
 		englishName = creature.getEnglishName();
 		size = creature.getSize().getSizeName(creature.getType()) + " (" + StringUtils.capitalize(creature.getSize().name().toLowerCase()) + " - " + creature.getSize().getCell() + ")";
 		type = creature.getType().getCyrilicName();
+		englishType = creature.getType().name().toLowerCase();
 		alignment = creature.getAligment();
 		habitates = creature.getHabitates().stream().map(HabitatType::getName).collect(Collectors.joining(", "));
 		book = creature.getBook().getName() + (creature.getPage() != null ? ", стр. " + creature.getPage() : "");
