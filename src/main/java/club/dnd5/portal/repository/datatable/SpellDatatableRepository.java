@@ -18,7 +18,8 @@ public interface SpellDatatableRepository extends DataTablesRepository<Spell, In
 
 	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type != 'CUSTOM' ORDER BY (CASE WHEN s.book.type = 'OFFICAL' THEN 0 else 1 END)")
 	List<Book> findBook();
-	
 	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'CUSTOM'")
 	List<Book> findHomebrewBook();
+	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'SETTING'")
+	List<Book> findSettingBook();
 }
