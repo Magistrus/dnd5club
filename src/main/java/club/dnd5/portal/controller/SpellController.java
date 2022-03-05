@@ -27,11 +27,13 @@ public class SpellController {
 	private SpellDatatableRepository repository;
 	@Autowired
 	private ArchetypeSpellRepository archetypeSpellRepository;
-
+	
 	@GetMapping("/spells")
 	public String getSpells(Model model) {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
+		model.addAttribute("books", repository.findBook());
+		model.addAttribute("hombrewBooks", repository.findHomebrewBook());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells");
@@ -49,6 +51,8 @@ public class SpellController {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
+		model.addAttribute("books", repository.findBook());
+		model.addAttribute("hombrewBooks", repository.findHomebrewBook());
 		SpellDto spellDto = new SpellDto(spell);
 		model.addAttribute("selectedSpell", spellDto);
 		model.addAttribute("metaTitle", String.format("%s (%s)", spellDto.getName(), spellDto.getEnglishName()) + " | Заклинания D&D 5e");

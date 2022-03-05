@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
@@ -110,6 +112,14 @@ public class SpellRestController {
 					specification = addSpecification(specification,
 							(root, query, cb) -> cb.equal(root.get("ritual"), false));
 				}
+			}
+			Set<String> bookSources = Arrays.stream(input.getColumns().get(10).getSearch().getValue().split("\\|"))
+					.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+			if (!bookSources.isEmpty()) {
+				specification = addSpecification(specification, (root, query, cb) -> {
+					Join<Book, Spell> join = root.join("book", JoinType.INNER);
+					return join.get("source").in(bookSources);
+				});
 			}
 		}
 		return repo.findAll(input, specification, specification, SpellDto::new);
