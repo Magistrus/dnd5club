@@ -53,9 +53,9 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label class="tip" th:each="book : ${books}"> <input class="book_checkbox filter tip" th:title="${book.englishName}" checked="true" type="checkbox" name="book" th:value="${book}"
+							<label class="tip" th:each="book : ${books}"> <input class="book_checkbox filter tip" th:title="${book.englishName}" type="checkbox" name="book" th:value="${book}"
 							> <span th:text="${book.name}"></span></label>
-							<hr/><label th:each="book : ${hombrewBooks}"> <input class="book_checkbox filter tip" th:title="${book.englishName}" checked="true" type="checkbox" name="book" th:value="${book}"
+							<hr/><label th:each="book : ${hombrewBooks}"> <input class="book_checkbox filter tip" th:title="${book.englishName}" type="checkbox" name="book" th:value="${book}"
 							> <span th:text="${book.name}"></span></label>
 						</div>
 					</div>
@@ -369,5 +369,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/spells.js?v=13.1}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/spells.js?v=13.2}" layout:fragment="js-script"></script>
 </html>
