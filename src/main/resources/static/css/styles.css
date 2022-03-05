@@ -1306,8 +1306,13 @@ body:before {
 }
 
 .news_wrapper .news_page .header {
-  padding: 24px 0;
+  padding: 24px 0 16px 0;
   border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.news_wrapper .news_page .header h1 {
+  margin-bottom: 16px;
 }
 
 .news_wrapper .left,
@@ -1322,12 +1327,40 @@ body:before {
 
 .news_wrapper .left .contents {
   position: sticky;
-  top: 20px;
+  top: 16px;
 }
 
 .news_wrapper .right .info {
   position: sticky;
-  top: 20px;
+  top: 16px;
+  list-style-type: none;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0;
+  margin-block-start:0;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 16px;
+}
+
+.news_wrapper .right .info li {
+  background-color: var(--bg-sub-menu);
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.news_wrapper .right .info li:hover {
+  background-color: var(--primary-hover);
+}
+
+.news_wrapper .right .info li:hover i svg path {
+  stroke: var(--text-btn-color);
 }
 
 
@@ -1719,6 +1752,7 @@ table.table_card tr.dtrg-group td {
   font-size: calc(var(--h5-font-size) + 2px);
   margin-top: 0;
   margin-bottom: 4px;
+  line-height: normal;
 }
 
 .table_card tr td .archetype_list > ul {
