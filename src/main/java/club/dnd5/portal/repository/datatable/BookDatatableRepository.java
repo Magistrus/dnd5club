@@ -7,4 +7,5 @@ import club.dnd5.portal.model.book.Book;
 
 @Repository
 public interface BookDatatableRepository extends DataTablesRepository<Book, String> {
+	Book findByEnglishName(String name);
 }
