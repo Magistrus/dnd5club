@@ -489,7 +489,7 @@ public class TraderToolController {
 							dto.setId(426);
 							break;
 						case "(яду)":
-							//dto.setId(426);
+							dto.setId(896);
 							break;
 						}
 						dto.setName("Зелье Сопротивления" + " " + resistType);
