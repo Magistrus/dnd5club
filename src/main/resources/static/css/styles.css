@@ -60,6 +60,7 @@ hr {
   height: 1px;
   border: none;
   background: var(--border);
+  width: 100%;
 }
 
 .mt-0 {
