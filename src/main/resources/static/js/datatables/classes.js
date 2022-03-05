@@ -321,7 +321,9 @@ $('#text_clear').on('click', function () {
     $('#classes').DataTable().tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
-$('#btn_close').on('click', closeHandler);
+$('#btn_close').on('click', function () {
+    $('#classes').dataTable().api().rows().deselect();
+});
 
 function closeHandler() {
     selectedClass = null;
