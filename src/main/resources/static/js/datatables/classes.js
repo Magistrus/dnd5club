@@ -167,8 +167,15 @@ $(document).ready(function () {
             }
         }
         selectedClass = data;
-        if ($(event.target).closest('li').length == 0) {
-            event.target.scrollIntoView({ block: "center", behavior: "smooth" });
+
+        if (!$(event.target).closest('li').length) {
+            setTimeout(function () {
+                event.target.closest('.simplebar-content-wrapper')
+                     .scrollTo({
+                         top: event.target.closest('tr').offsetTop - 16,
+                         behavior: "smooth"
+                     });
+            }, 300)
         }
     });
 });
@@ -177,7 +184,7 @@ $('#search').on('keyup click', function () {
     $('#classes').DataTable().tables().search($(this).val()).draw();
 });
 
-function addEventListeners() {
+function addEventListeners(force = false) {
     $(document).ready(function () {
         onDeselectListener();
     });
@@ -185,6 +192,10 @@ function addEventListeners() {
     $(window).resize(function () {
         onDeselectListener();
     });
+
+    if (force) {
+        onDeselectListener();
+    }
 }
 
 function onDeselectListener() {
@@ -194,7 +205,11 @@ function onDeselectListener() {
     if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
         table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
-    } else {
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
         table.off('deselect.dt', closeHandler);
         element.removeClass('has-deselect-handler');
     }

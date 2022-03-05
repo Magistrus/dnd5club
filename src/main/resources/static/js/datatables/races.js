@@ -165,13 +165,19 @@ $(document).ready(function () {
             }
         }
         selectedRace = data;
-        if ($(event.target).closest('li').length == 0) {
-            event.target.scrollIntoView({ block: "center", behavior: "smooth" });
+        if (!$(event.target).closest('li').length) {
+            setTimeout(function () {
+                event.target.closest('.simplebar-content-wrapper')
+                     .scrollTo({
+                         top: event.target.closest('tr').offsetTop - 16,
+                         behavior: "smooth"
+                     });
+            }, 300)
         }
     });
 });
 
-function addEventListeners() {
+function addEventListeners(force = false) {
     $(document).ready(function () {
         onDeselectListener();
     });
@@ -179,6 +185,10 @@ function addEventListeners() {
     $(window).resize(function () {
         onDeselectListener();
     });
+
+    if (force) {
+        onDeselectListener();
+    }
 }
 
 function onDeselectListener() {
@@ -188,7 +198,11 @@ function onDeselectListener() {
     if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
         table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
-    } else {
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
         table.off('deselect.dt', closeHandler);
         element.removeClass('has-deselect-handler');
     }
@@ -209,7 +223,7 @@ function selectRace(data) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
-        } 
+        }
         if (localStorage.getItem('setting_source') == 'true') {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
@@ -241,7 +255,7 @@ function setActiveSubrace(data, raceName, subraceName) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
-        } 
+        }
         if (localStorage.getItem('setting_source') == 'true') {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
