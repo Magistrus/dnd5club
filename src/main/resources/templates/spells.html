@@ -53,10 +53,11 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label class="tip" th:each="book : ${books}"> <input class="book_checkbox filter tip" th:title="${book.englishName}" type="checkbox" name="book" th:value="${book}"
+							<label class="tip" th:each="book : ${books}" th:title="|${book.englishName} / ${book.source}|" data-tipped-options="position: 'right'"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
 							> <span th:text="${book.name}"></span></label>
-							<hr/><label th:each="book : ${hombrewBooks}"> <input class="book_checkbox filter tip" th:title="${book.englishName}" type="checkbox" name="book" th:value="${book}"
-							> <span th:text="${book.name}"></span></label>
+							<hr/>
+							<label class="tip" th:each="book : ${hombrewBooks}" th:title="|${book.englishName} / ${book.source}|" data-tipped-options="position: 'right'"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
+							> <span class="tip" th:text="${book.name}"></span></label>
 						</div>
 					</div>
 					<div class="filter_block">
