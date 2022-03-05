@@ -53,15 +53,13 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label class="tip" th:each="book : ${books}" th:title="|${book.name}|" data-tipped-options="position: 'topleft'"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
+							<label class="tip" th:each="book : ${books}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
 							> <span th:text="${book.source}"></span></label>
-							<h5>Сеттинги</h5>
-							<hr/>
-							<label class="tip" th:each="book : ${settingBooks}" th:title="|${book.name}|" data-tipped-options="position: 'topleft'"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
+							<h5 class="header_separator">Сеттинги</h5>
+							<label class="tip" th:each="book : ${settingBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
 							> <span class="tip" th:text="${book.source}"></span></label>
-							<h5>Homebrew</h5>
-							<hr/>
-							<label class="tip" th:each="book : ${hombrewBooks}" th:title="|${book.name}|" data-tipped-options="position: 'topleft'"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
+							<h5 class="header_separator">Homebrew</h5>
+							<label class="tip" th:each="book : ${hombrewBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}"
 							> <span class="tip" th:text="${book.source}"></span></label>
 						</div>
 					</div>
