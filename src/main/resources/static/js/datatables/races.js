@@ -289,7 +289,9 @@ $('#text_clear').on('click', function () {
     $('#text_clear').hide();
     $('#races').DataTable().tables().search($(this).val()).draw();
 });
-$('#btn_close').on('click', closeHandler);
+$('#btn_close').on('click', function () {
+    $('#races').dataTable().api().rows().deselect();
+});
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
