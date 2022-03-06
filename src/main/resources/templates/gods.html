@@ -53,7 +53,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="alignment : ${alignments}"> <input class="alignment_checkbox filter" type="checkbox" name="alignment" th:value="${alignment}"> <span
+							<label class="crumbs" th:each="alignment : ${alignments}"> <input class="alignment_checkbox filter" type="checkbox" name="alignment" th:value="${alignment}"> <span
 								th:text="${alignment.cyrilicName}"></span></label>
 						</div>
 					</div>
@@ -74,7 +74,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="domen : ${domains}"> <input class="domen_checkbox filter" type="checkbox" name="domen" th:value="${domen}"> <span
+							<label class="crumbs" th:each="domen : ${domains}"> <input class="domen_checkbox filter" type="checkbox" name="domen" th:value="${domen}"> <span
 								th:text="${domen.cyrilicName}"></span></label>
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="rank : ${ranks}"> <input class="rank_checkbox filter" type="checkbox" name="rank" th:value="${rank}"> <span
+							<label class="crumbs" th:each="rank : ${ranks}"> <input class="rank_checkbox filter" type="checkbox" name="rank" th:value="${rank}"> <span
 								th:text="${rank.name}"></span></label>
 						</div>
 					</div>
@@ -116,7 +116,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="pantheon : ${pantheons}"> <input class="pantheon_checkbox filter" type="checkbox" name="pantheon" th:value="${pantheon.id}"> <span
+							<label class="crumbs" th:each="pantheon : ${pantheons}"> <input class="pantheon_checkbox filter" type="checkbox" name="pantheon" th:value="${pantheon.id}"> <span
 								th:text="${pantheon.name}"></span></label>
 						</div>
 					</div>

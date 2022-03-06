@@ -36,7 +36,7 @@
 			</div>
 			<div id="searchPanes" class="search_panes hide_block" data-simplebar>
 				<div class="filter_container">
-					<div class="filter_block">
+					<div class="filter_block sources">
 						<div class="header">
 							<h5>Источники</h5>
 							<button>
@@ -53,13 +53,19 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label class="tip" th:each="book : ${books}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="bookshort" th:value="${book}" checked
+							<label class="crumbs tip" th:each="book : ${books}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="bookshort" th:value="${book}" checked
 							> <span th:text="${book.source}"></span></label>
-							<h5 class="header_separator">Сеттинги</h5>
-							<label class="tip" th:each="book : ${settingBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="bookshort" th:value="${book}" checked
+							<div class="separator_row" style="width: 100%;">
+								<h5 class="header_separator">Сеттинги</h5>
+								<label for="settings" class="check_block"><input id="settings" class="toggle" type="checkbox" name="settings_off"></label>
+							</div>
+							<label class="crumbs tip" th:each="book : ${settingBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="bookshort" th:value="${book}" checked
 							> <span class="tip" th:text="${book.source}"></span></label>
-							<h5 class="header_separator">Homebrew</h5>
-							<label class="tip" th:each="book : ${hombrewBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="bookshort" th:value="${book}" checked
+							<div class="separator_row" style="width: 100%;">
+								<h5 class="header_separator">Homebrew</h5>
+								<label for="homebrew" class="check_block"><input id="homebrew" class="toggle" type="checkbox" name="homebrew_off"></label>
+							</div>
+							<label class="crumbs tip" th:each="book : ${hombrewBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="bookshort" th:value="${book}" checked
 							> <span class="tip" th:text="${book.source}"></span></label>
 						</div>
 					</div>
@@ -80,8 +86,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="level_checkbox filter" type="checkbox" name="level" value="0"><span>заговор</span></label>
-							<label th:each="level : ${#numbers.sequence(1, 9)}"> <input class="level_checkbox filter" type="checkbox" name="level" th:value="${level}"
+							<label class="crumbs"> <input class="level_checkbox filter" type="checkbox" name="level" value="0"><span>заговор</span></label>
+							<label class="crumbs" th:each="level : ${#numbers.sequence(1, 9)}"> <input class="level_checkbox filter" type="checkbox" name="level" th:value="${level}"
 							> <span th:text="${level}"></span></label>
 						</div>
 					</div>
@@ -102,7 +108,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="class : ${classes}"> <input class="class_checkbox filter" type="checkbox" name="class" th:value="${class[0]}"> <span th:text="${class[1]}"></span>
+							<label class="crumbs" th:each="class : ${classes}"> <input class="class_checkbox filter" type="checkbox" name="class" th:value="${class[0]}"> <span th:text="${class[1]}"></span>
 							</label>
 						</div>
 					</div>
@@ -123,7 +129,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="school : ${schools}"> <input class="school_checkbox filter" type="checkbox" name="school" th:value="${school}"> <span th:text="${school.name}"></span>
+							<label class="crumbs" th:each="school : ${schools}"> <input class="school_checkbox filter" type="checkbox" name="school" th:value="${school}"> <span th:text="${school.name}"></span>
 							</label>
 						</div>
 					</div>
@@ -144,13 +150,13 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="1 BONUS"> <span>бонусное действие</span></label>
-							<label><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="1 REACTION"> <span>реакция</span></label>
-							<label><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="1 ACTION"> <span>действие</span></label>
-							<label><input class="timecast_checkbox filter"	type="checkbox" name="timecast" value="1 MINUTE"> <span>1 минута</span></label>
-							 <label><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="4 MINUTE"> <span>10 минут</span></label>
-							 <label><input class="timecast_checkbox filter" type="checkbox" name="tag" value="1 HOUR"> <span>1 час</span></label>
-							 <label><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="8 HOUR"> <span>8 часов</span></label>
+							<label class="crumbs"><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="1 BONUS"> <span>бонусное действие</span></label>
+							<label class="crumbs"><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="1 REACTION"> <span>реакция</span></label>
+							<label class="crumbs"><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="1 ACTION"> <span>действие</span></label>
+							<label class="crumbs"><input class="timecast_checkbox filter"	type="checkbox" name="timecast" value="1 MINUTE"> <span>1 минута</span></label>
+							 <label class="crumbs"><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="4 MINUTE"> <span>10 минут</span></label>
+							 <label class="crumbs"><input class="timecast_checkbox filter" type="checkbox" name="tag" value="1 HOUR"> <span>1 час</span></label>
+							 <label class="crumbs"><input class="timecast_checkbox filter" type="checkbox" name="timecast" value="8 HOUR"> <span>8 часов</span></label>
 						</div>
 					</div>
 					<div class="filter_block hide_block">
@@ -170,21 +176,21 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="distance_checkbox" type="distance" name="distance" value="на себя"> <span>на себя</span></label> <label><input class="distance_checkbox" type="distance"
+							<label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="на себя"> <span>на себя</span></label> <label><input class="distance_checkbox" type="distance"
 								name="distance" value="касание"
-							> <span>касание</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="5 футов"> <span>5 футов</span></label> <label><input
+							> <span>касание</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="5 футов"> <span>5 футов</span></label> <label><input
 								class="distance_checkbox" type="distance" name="distance" value="10 футов"
-							> <span>10 футов</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="20 футов"> <span>20 футов</span></label> <label><input
+							> <span>10 футов</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="20 футов"> <span>20 футов</span></label> <label><input
 								class="distance_checkbox" type="distance" name="distance" value="0"
-							> <span>25 футов</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>30 футов</span></label> <label><input
+							> <span>25 футов</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>30 футов</span></label> <label><input
 								class="distance_checkbox" type="distance" name="distance" value="0"
-							> <span>60 футов</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>90 футов</span></label> <label><input
+							> <span>60 футов</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>90 футов</span></label> <label><input
 								class="distance_checkbox" type="distance" name="distance" value="0"
-							> <span>100 футов</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>120 футов</span></label> <label><input
+							> <span>100 футов</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>120 футов</span></label> <label><input
 								class="distance_checkbox" type="distance" name="distance" value="0"
-							> <span>150 футов</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>300 футов</span></label> <label><input
+							> <span>150 футов</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>300 футов</span></label> <label><input
 								class="distance_checkbox" type="distance" name="distance" value="0"
-							> <span>1000 футов</span></label> <label><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>1 миля</span></label>
+							> <span>1000 футов</span></label> <label class="crumbs"><input class="distance_checkbox" type="distance" name="distance" value="0"> <span>1 миля</span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -204,11 +210,11 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="component_checkbox" type="checkbox" name="component" value="1"><span>вербальный</span></label>
-							<label><input class="component_checkbox" type="checkbox" name="component" value="2"><span>соматический</span></label>
-							<label><input class="component_checkbox" type="checkbox" name="component" value="3"><span>материальный</span></label>
-							<label><input class="component_checkbox" type="checkbox" name="component" value="4"><span>расходуемый</span></label>
-							<label><input class="component_checkbox" type="checkbox" name="component" value="5"><span>не расходуемый</span></label>
+							<label class="crumbs"><input class="component_checkbox" type="checkbox" name="component" value="1"><span>вербальный</span></label>
+							<label class="crumbs"><input class="component_checkbox" type="checkbox" name="component" value="2"><span>соматический</span></label>
+							<label class="crumbs"><input class="component_checkbox" type="checkbox" name="component" value="3"><span>материальный</span></label>
+							<label class="crumbs"><input class="component_checkbox" type="checkbox" name="component" value="4"><span>расходуемый</span></label>
+							<label class="crumbs"><input class="component_checkbox" type="checkbox" name="component" value="5"><span>не расходуемый</span></label>
 						</div>
 					</div>
 					<div class="filter_block hide_block">
@@ -228,17 +234,17 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="duration_checkbox" type="checkbox" name="duration" value="1"><span>мгновенная</span></label> <label><input class="duration_checkbox" type="checkbox"
+							<label class="crumbs"><input class="duration_checkbox" type="checkbox" name="duration" value="1"><span>мгновенная</span></label> <label><input class="duration_checkbox" type="checkbox"
 								name="duration" value="0"
-							><span>раунд</span></label> <label><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>1 минута</span></label> <label><input class="duration_checkbox"
+							><span>раунд</span></label> <label class="crumbs"><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>1 минута</span></label> <label><input class="duration_checkbox"
 								type="checkbox" name="duration" value="2"
-							><span>10 минут</span></label> <label><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>1 час</span></label> <label><input class="duration_checkbox"
+							><span>10 минут</span></label> <label class="crumbs"><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>1 час</span></label> <label><input class="duration_checkbox"
 								type="checkbox" name="duration" value="2"
-							><span>2 часа</span></label> <label><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>8 часов</span></label> <label><input class="duration_checkbox"
+							><span>2 часа</span></label> <label class="crumbs"><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>8 часов</span></label> <label><input class="duration_checkbox"
 								type="checkbox" name="duration" value="2"
-							><span>12 часов</span></label> <label><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>24 часа</span></label> <label><input class="duration_checkbox"
+							><span>12 часов</span></label> <label class="crumbs"><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>24 часа</span></label> <label><input class="duration_checkbox"
 								type="checkbox" name="duration" value="2"
-							><span>7 дней</span></label> <label><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>особая</span></label>
+							><span>7 дней</span></label> <label class="crumbs"><input class="duration_checkbox" type="checkbox" name="duration" value="2"><span>особая</span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -258,8 +264,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="ritual_checkbox" type="checkbox" name="ritual" value="1"><span>да</span></label>
-							<label><input class="ritual_checkbox" type="checkbox" name="ritual" value="0"><span>нет</span></label>
+							<label class="crumbs"><input class="ritual_checkbox" type="checkbox" name="ritual" value="1"><span>да</span></label>
+							<label class="crumbs"><input class="ritual_checkbox" type="checkbox" name="ritual" value="0"><span>нет</span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -279,8 +285,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label><input class="concentration_checkbox" type="checkbox" name="concentration" value="1"><span>да</span></label>
-							<label><input class="concentration_checkbox" type="checkbox" name="concentration" value="2"><span>нет</span></label>
+							<label class="crumbs"><input class="concentration_checkbox" type="checkbox" name="concentration" value="1"><span>да</span></label>
+							<label class="crumbs"><input class="concentration_checkbox" type="checkbox" name="concentration" value="2"><span>нет</span></label>
 						</div>
 					</div>
 					<div class="filter_block hide">
@@ -300,7 +306,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label th:each="damage : ${damageTypes}"><input  class="damage_checkbox" type="checkbox" name="damage" th:value="${damage}"><span th:text="${damage.cyrilicName}"></span></label>
+							<label class="crumbs" th:each="damage : ${damageTypes}"><input  class="damage_checkbox" type="checkbox" name="damage" th:value="${damage}"><span th:text="${damage.cyrilicName}"></span></label>
 						</div>
 					</div>
 				</div>

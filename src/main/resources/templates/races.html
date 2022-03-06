@@ -58,7 +58,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="ability: ${abilities}"><input class="ability_checkbox filter" type="checkbox" name="ability" th:value="${ability}"><span th:text="${ability.cyrilicName}"></span></label>
+							<label class="crumbs" th:each="ability: ${abilities}"><input class="ability_checkbox filter" type="checkbox" name="ability" th:value="${ability}"><span th:text="${ability.cyrilicName}"></span></label>
 						</div>
 					</div>
 				</div>
