@@ -116,7 +116,9 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
-$('#btn_close').on('click', closeHandler);
+$('#btn_close').on('click', function () {
+    $('#books').dataTable().api().rows().deselect();
+});
 
 function addEventListeners(force = false) {
     $(document).ready(function () {

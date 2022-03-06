@@ -234,7 +234,9 @@ function selectDescription(id) {
     $("#content_block").load(url);
 }
 
-$('#btn_close').on('click', closeHandler);
+$('#btn_close').on('click', function () {
+    $('#creatures').dataTable().api().rows().deselect();
+});
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
