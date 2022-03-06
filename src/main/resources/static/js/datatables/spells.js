@@ -415,7 +415,7 @@ $('#damage_clear_btn').on('click', function () {
     setFiltered();
 });
 $('.book_checkbox').on('change', function (e) {
-    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+    let properties = $('input:checkbox[name="bookshort"]:checked').map(function () {
         return this.value;
     }).get().join('|');
     $('#spells').DataTable().column(10).search(properties, true, false, false).draw();

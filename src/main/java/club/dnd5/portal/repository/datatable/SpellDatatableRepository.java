@@ -16,7 +16,7 @@ public interface SpellDatatableRepository extends DataTablesRepository<Spell, In
 
 	List<Spell> findByLevelAndBook_type(byte level, TypeBook type);
 
-	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type != 'CUSTOM' ORDER BY (CASE WHEN s.book.type = 'OFFICAL' THEN 0 else 1 END)")
+	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'OFFICAL' ORDER BY (CASE WHEN s.book.type = 'OFFICAL' THEN 0 else 1 END)")
 	List<Book> findBook();
 	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'CUSTOM'")
 	List<Book> findHomebrewBook();
