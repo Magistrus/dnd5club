@@ -1449,10 +1449,6 @@ body.compact_menu .block_information #left_block {
   height: 45px;
 }
 
-#left_block .header_block .search_block.filter_control .search_int {
-  width: calc(100% - 138px);
-}
-
 #left_block .header_block .search_int:hover  {
   background-color: var(--hover);
 }
@@ -1467,16 +1463,11 @@ body.compact_menu .block_information #left_block {
   border-left: 1px solid var(--border);
   min-width: 44px;
   height: 45px;
-  display: none;
+  display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
   right: 0;
   cursor: pointer;
-}
-
-#left_block .header_block .search_block.filter_control .btn_filters {
-  display: flex;
 }
 
 #left_block .header_block .btn_filters:hover {
