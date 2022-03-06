@@ -58,11 +58,11 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="cr_checkbox filter" type="checkbox filter" name="cr" value="0"> <span>0</span></label>
-							<label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/8"> <span>1/8</span>
-							</label> <label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/4"> <span>1/4</span>
-							</label> <label> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/2"> <span>1/2</span>
-							</label> <label th:each="cr : ${#numbers.sequence(1, 30)}"> <input class="cr_checkbox filter" type="checkbox" name="cr" th:value="${cr}"> <span th:text="${cr}"></span>
+							<label class="crumbs"> <input class="cr_checkbox filter" type="checkbox filter" name="cr" value="0"> <span>0</span></label>
+							<label class="crumbs"> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/8"> <span>1/8</span>
+							</label> <label class="crumbs"> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/4"> <span>1/4</span>
+							</label> <label class="crumbs"> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/2"> <span>1/2</span>
+							</label> <label class="crumbs" th:each="cr : ${#numbers.sequence(1, 30)}"> <input class="cr_checkbox filter" type="checkbox" name="cr" th:value="${cr}"> <span th:text="${cr}"></span>
 							</label>
 						</div>
 
@@ -84,7 +84,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="type : ${types}"> <input class="type_checkbox filter" type="checkbox" name="type" th:value="${type}"> <span th:text="${type.cyrilicName}"></span>
+							<label class="crumbs" th:each="type : ${types}"> <input class="type_checkbox filter" type="checkbox" name="type" th:value="${type}"> <span th:text="${type.cyrilicName}"></span>
 							</label>
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="size : ${sizes}"> <input class="size_checkbox filter" type="checkbox" name="size" th:value="${size}"> <span th:text="${size.cyrilicName}"></span>
+							<label class="crumbs" th:each="size : ${sizes}"> <input class="size_checkbox filter" type="checkbox" name="size" th:value="${size}"> <span th:text="${size.cyrilicName}"></span>
 							</label>
 						</div>
 					</div>
@@ -126,7 +126,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label th:each="tag : ${tags}"> <input class="tag_checkbox filter" type="checkbox" name="tag" th:value="${tag.id}"> <span th:text="${tag.name}"></span>
+							<label class="crumbs" th:each="tag : ${tags}"> <input class="tag_checkbox filter" type="checkbox" name="tag" th:value="${tag.id}"> <span th:text="${tag.name}"></span>
 							</label>
 						</div>
 					</div>
@@ -147,7 +147,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label th:each="habitate : ${habitates}"> <input class="habitate_checkbox filter" type="checkbox" name="habitate" th:value="${habitate}"> <span th:text="${habitate.name}"></span>
+							<label class="crumbs" th:each="habitate : ${habitates}"> <input class="habitate_checkbox filter" type="checkbox" name="habitate" th:value="${habitate}"> <span th:text="${habitate.name}"></span>
 							</label>
 						</div>
 					</div>

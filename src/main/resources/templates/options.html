@@ -53,7 +53,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="category : ${categories}" th:classappend="${category.homebrew ? 'custom_source hide_block':''}"> <input class="category_checkbox filter" type="checkbox" name="category"
+							<label class="crumbs" th:each="category : ${categories}" th:classappend="${category.homebrew ? 'custom_source hide_block':''}"> <input class="category_checkbox filter" type="checkbox" name="category"
 								th:value="${category}"
 							> <span th:text="${category.name}"></span></label> </label>
 						</div>
@@ -75,7 +75,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box hide">
-							<label th:each="prerequsite : ${prerequsites}"> <input class="prerequsite_checkbox filter" type="checkbox" name="prerequsite"
+							<label class="crumbs" th:each="prerequsite : ${prerequsites}"> <input class="prerequsite_checkbox filter" type="checkbox" name="prerequsite"
 								th:value="${prerequsite}"
 							><span th:text="${prerequsite}"></span></label></label>
 						</div>
@@ -97,7 +97,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="level : ${levels}"> <input class="level_checkbox filter" type="checkbox" name="level"
+							<label class="crumbs" th:each="level : ${levels}"> <input class="level_checkbox filter" type="checkbox" name="level"
 								th:value="${level}"
 							> <span th:text="${level}"></span></label></label>
 						</div>

@@ -53,7 +53,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="rarity : ${rarities}"> <input class="rarity_checkbox filter" type="checkbox" name="rarity" th:value="${rarity}"> <span th:text="${rarity.cyrilicName}"></span></label>
+							<label class="crumbs" th:each="rarity : ${rarities}"> <input class="rarity_checkbox filter" type="checkbox" name="rarity" th:value="${rarity}"> <span th:text="${rarity.cyrilicName}"></span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -73,7 +73,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="type : ${types}"> <input class="type_checkbox filter" type="checkbox" name="type" th:value="${type}"> <span th:text="${type.cyrilicName}"></span></label>
+							<label class="crumbs" th:each="type : ${types}"> <input class="type_checkbox filter" type="checkbox" name="type" th:value="${type}"> <span th:text="${type.cyrilicName}"></span></label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -93,8 +93,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="customization_checkbox filter" type="checkbox" name="customization" th:value="1"> <span>требуется</span></label> <label> <input
-								class="customization_checkbox filter" type="checkbox" name="customization" th:value="0"
+							<label class="crumbs"> <input class="customization_checkbox filter" type="checkbox" name="customization" th:value="1"> <span>требуется</span></label>
+							<label class="crumbs"> <input class="customization_checkbox filter" type="checkbox" name="customization" th:value="0"
 							> <span>не требуется</span></label>
 						</div>
 					</div>
@@ -115,8 +115,8 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label> <input class="consumable_checkbox filter" type="checkbox" name="consumable" th:value="1"> <span>да</span></label> <label> <input
-								class="consumable_checkbox filter" type="checkbox" name="consumable" th:value="0"
+							<label class="crumbs"> <input class="consumable_checkbox filter" type="checkbox" name="consumable" th:value="1"> <span>да</span></label>
+							<label class="crumbs"> <input class="consumable_checkbox filter" type="checkbox" name="consumable" th:value="0"
 							> <span>нет</span></label>
 						</div>
 					</div>
