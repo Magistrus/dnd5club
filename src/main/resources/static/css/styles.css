@@ -1348,7 +1348,7 @@ body:before {
 }
 
 .news_wrapper .left {
-  flex: 1 0 calc(20% - 72px);
+  flex: 1 0 calc(5% - 72px);
 }
 
 @media (max-width: 1200px) {
