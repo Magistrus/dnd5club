@@ -79,7 +79,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#books tbody').on('click', 'tr', function () {
+    $('#books tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }

@@ -19,6 +19,10 @@ function saveFilter(storageKey) {
     }
 
     for (let filter of filters) {
+        if (filter.name === 'settings_off' || filter.name === 'homebrew_off') {
+            continue;
+        }
+
         if (!Object.keys(data).includes(filter.name)) {
             data[filter.name] = [];
         }
@@ -87,7 +91,22 @@ function restoreFilter(storageKey) {
         }
     }
 
+    restoreSources();
     setFiltered();
+}
+
+function restoreSources() {
+    const storageSettings = localStorage.getItem('setting_source');
+    const storageHomebrew = localStorage.getItem('homebrew_source');
+    const settingsToggle = document.getElementById('filter_settings');
+    const homebrewToggle = document.getElementById('filter_homebrew');
+
+    settingsToggle.checked = !storageSettings || storageSettings === 'true';
+    homebrewToggle.checked = !storageHomebrew || storageHomebrew === 'true';
+
+    switchToggle(settingsToggle, false);
+    switchToggle(homebrewToggle, false);
+    disableClassMainToggles();
 }
 
 function getSearchString(name, storageKey) {
@@ -122,3 +141,66 @@ function getSearchColumn(name, storageKey) {
         smart: false
     }
 }
+
+function toggleSources(toggle, mainToggle) {
+    mainToggle.checked = toggle.checked;
+
+    localStorage.setItem(mainToggle.getAttribute('id'), mainToggle.checked);
+
+    disableClassMainToggles();
+    switchToggle(toggle);
+}
+
+function switchToggle(el, dispatch = true) {
+    const hasNextFilter = function (el) {
+        return el && el.nextElementSibling && el.nextElementSibling.tagName === 'LABEL';
+    }
+
+    for (let element = el.closest('.separator_row'); hasNextFilter(element);) {
+        element = element.nextElementSibling;
+
+        const input = element.querySelector('input');
+
+        if (dispatch) {
+            input.checked = el.checked;
+            input.dispatchEvent(new Event('change'));
+        }
+
+        if (el.checked) {
+            input.removeAttribute('disabled');
+        } else {
+            input.setAttribute('disabled', 'disabled');
+        }
+    }
+}
+
+function disableClassMainToggles() {
+    const settingsToggle = document.getElementById('setting_source');
+    const homebrewToggle = document.getElementById('homebrew_source');
+    const icon = document.getElementById('source_id');
+
+    if (settingsToggle.checked || homebrewToggle.checked) {
+        icon.classList.add('active')
+
+        return;
+    }
+
+    icon.classList.remove('active');
+}
+
+function addToggleListeners() {
+    const mainSettings = document.getElementById('setting_source');
+    const mainHomebrew = document.getElementById('homebrew_source');
+    const homebrewToggle = document.getElementById('filter_homebrew');
+    const settingsToggle = document.getElementById('filter_settings');
+
+    settingsToggle.addEventListener('change', function () {
+        toggleSources(settingsToggle, mainSettings)
+    });
+
+    homebrewToggle.addEventListener('change', function () {
+        toggleSources(homebrewToggle, mainHomebrew)
+    });
+}
+
+document.addEventListener('DOMContentLoaded', addToggleListeners);

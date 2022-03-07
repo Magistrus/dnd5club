@@ -88,7 +88,7 @@ $(document).ready(function () {
             }
         },
     });
-    $('#options tbody').on('click', 'tr', function () {
+    $('#options tbody').on('click', 'tr', function (e) {
         var tr = $(this).closest('tr');
         var table = $('#options').DataTable();
         var row = table.row(tr);

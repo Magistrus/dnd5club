@@ -119,7 +119,7 @@ $(document).ready(function () {
             }
         },
     });
-    $('#spells tbody').on('click', 'tr', function () {
+    $('#spells tbody').on('click', 'tr', function (e) {
         let tr = $(this).closest('tr');
         var row = $('#spells').DataTable().row(tr);
         $.get('/spells/fragment/' + row.data().id)

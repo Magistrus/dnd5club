@@ -101,7 +101,7 @@ $(document).ready(function () {
             window.open('/rules/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#rules tbody').on('click', 'tr', function () {
+    $('#rules tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -110,7 +110,7 @@ $(document).ready(function () {
         var row = table.row(tr);
         rowSelectIndex = row.index();
         var data = row.data();
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/rules/' + data.englishName.split(' ').join('_'));
         }
         selectRule(data);
