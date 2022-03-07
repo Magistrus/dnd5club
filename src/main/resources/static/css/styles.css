@@ -375,10 +375,7 @@ label.select_box {
   cursor: pointer;
   position: absolute;
   right: 0px;
-}
-
-.btn_filters + .btn_text_clear {
-  right: 45px;
+  top: 0px;
 }
 
 .btn_text_clear .icon_action {
@@ -1243,6 +1240,11 @@ body:before {
   display: flex;
 }
 
+.header_block .search_block .input_block{
+  width: 100%;
+  position: relative;
+}
+
 #left_block .header_block.filters {
   height: 119px;
 }
@@ -1305,6 +1307,20 @@ body:before {
   padding: 0px 24px 0px 24px;
 }
 
+@media (max-width: 1400px) {
+  .news_wrapper .news_page {
+    flex: 1 1 660px;
+    max-width: 660px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .news_wrapper .news_page {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
 .news_wrapper .news_page .header {
   padding: 24px 0 16px 0;
   border-bottom: 1px solid var(--border);
@@ -1315,19 +1331,43 @@ body:before {
   margin-bottom: 16px;
 }
 
-.news_wrapper .left,
-.news_wrapper .right {
+.compact_menu .news_wrapper .right {
   flex: 1 0 10%;
 }
 
+.news_wrapper .right {
+  flex: 1 0 60px;
+}
+
+@media (max-width: 1200px) {
+  .news_wrapper .right {
+    display: none;
+  }
+}
+
+.compact_menu .news_wrapper .left {
+  flex: 1 0 calc(10% - 72px);
+}
+
 .news_wrapper .left {
-  /* display: flex;
-  justify-content: flex-end; */
+  flex: 1 0 calc(5% - 72px);
+}
+
+@media (max-width: 1200px) {
+  .news_wrapper .left {
+    display: none;
+  }
 }
 
 .news_wrapper .left .contents {
   position: sticky;
   top: 16px;
+}
+
+.news_wrapper .left .contents > ul {
+  list-style-type: none;
+  position: absolute;
+  right: 24px;
 }
 
 .news_wrapper .right .info {
@@ -1449,10 +1489,6 @@ body.compact_menu .block_information #left_block {
   height: 45px;
 }
 
-#left_block .header_block .search_block.filter_control .search_int {
-  width: calc(100% - 138px);
-}
-
 #left_block .header_block .search_int:hover  {
   background-color: var(--hover);
 }
@@ -1467,16 +1503,11 @@ body.compact_menu .block_information #left_block {
   border-left: 1px solid var(--border);
   min-width: 44px;
   height: 45px;
-  display: none;
+  display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
   right: 0;
   cursor: pointer;
-}
-
-#left_block .header_block .search_block.filter_control .btn_filters {
-  display: flex;
 }
 
 #left_block .header_block .btn_filters:hover {
@@ -3137,6 +3168,10 @@ body.compact_menu #right_block.weapons {
   border-radius: 8px;
 }
 
+.filter_container .filter_block.sources {
+  border: 1px solid var(--primary);
+}
+
 .filter_container .filter_block:first-child {
   margin-top: 0px;
 }
@@ -3183,7 +3218,20 @@ body.compact_menu #right_block.weapons {
   padding: 0 8px 8px 8px;
 }
 
-.filter_container .filter_block .filter_crumbs_box label {
+.filter_container .filter_block .filter_crumbs_box .separator_row {
+  margin-top: 16px;
+  display: flex;
+}
+
+.filter_container .filter_block .filter_crumbs_box .separator_row .header_separator {
+  margin-top: 2px;
+}
+
+.filter_container .filter_block .filter_crumbs_box .separator_row label {
+  margin-bottom: 0px;
+}
+
+.filter_container .filter_block .filter_crumbs_box label.crumbs {
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -3192,7 +3240,7 @@ body.compact_menu #right_block.weapons {
   display: block;
 }
 
-.filter_container .filter_block .filter_crumbs_box label span {
+.filter_container .filter_block .filter_crumbs_box label.crumbs span {
   position: relative;
   border-radius: 4px;
   transition: 0.4s;
@@ -3208,22 +3256,22 @@ body.compact_menu #right_block.weapons {
        column-gap: 7px;  
 }
 
-.filter_container .filter_block .filter_crumbs_box label span:hover {
+.filter_container .filter_block .filter_crumbs_box label.crumbs span:hover {
   background-color: var(--primary-hover);
   color: var(--text-btn-color);
 }
 
-.filter_container .filter_block .filter_crumbs_box label input {
+.filter_container .filter_block .filter_crumbs_box label.crumbs input {
   pointer-events: none;
   display: none;
 }
 
-.filter_container .filter_block .filter_crumbs_box label input:checked + span {
+.filter_container .filter_block .filter_crumbs_box label.crumbs input:checked + span {
   background-color: var(--primary-active);
   color: var(--text-btn-color);
 }
 
-.filter_container .filter_block .filter_crumbs_box label input:checked + span:hover {
+.filter_container .filter_block .filter_crumbs_box label.crumbs input:checked + span:hover {
   background-color: var(--primary-hover);
   color: var(--text-btn-color);
 }
