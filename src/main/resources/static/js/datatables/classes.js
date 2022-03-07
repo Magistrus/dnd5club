@@ -181,6 +181,11 @@ $(document).ready(function () {
 });
 $('#search').on('keyup click', function () {
     selectedClass = null;
+    if ($('#search').val()) {
+        $('#text_clear').show();
+    } else {
+        $('#text_clear').hide();
+    }
     $('#classes').DataTable().tables().search($(this).val()).draw();
 });
 
@@ -318,8 +323,8 @@ $('#class_images').on('click', function () {
 $('#text_clear').on('click', function () {
     $('#search').val('');
     selectedClass = null;
-    $('#classes').DataTable().tables().search($(this).val()).draw();
     $('#text_clear').hide();
+    $('#classes').DataTable().tables().search($(this).val()).draw();
 });
 $('#btn_close').on('click', function () {
     $('#classes').dataTable().api().rows().deselect();
