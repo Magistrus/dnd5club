@@ -87,6 +87,19 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            getSearchColumn('level', 'spells'),
+            getSearchColumn('school', 'spells'),
+            null,
+            null,
+            getSearchColumn('class', 'spells'),
+            getSearchColumn('damage', 'spells'),
+            getSearchColumn('ritual', 'spells'),
+            getSearchColumn('concentration', 'spells'),
+            getSearchColumn('timecast', 'spells'),
+            getSearchColumn('component', 'spells'),
+            getSearchColumn('book', 'spells'),
+        ],
         columnDefs: [
             {
                 "targets": [ 0, 1, 3, 4, 5, 6, 7, 8, 9, 10 ],
@@ -105,6 +118,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('spells');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -280,13 +295,13 @@ $('.level_checkbox').on('change', function (e) {
     } else {
         $('#level_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#level_clear_btn').on('click', function () {
     $('#level_clear_btn').addClass('hide_block');
     $('.level_checkbox').prop('checked', false);
     $('#spells').DataTable().column(0).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.class_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="class"]:checked').map(function () {
@@ -298,13 +313,13 @@ $('.class_checkbox').on('change', function (e) {
     } else {
         $('#class_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#class_clear_btn').on('click', function () {
     $('#class_clear_btn').addClass('hide_block');
     $('.class_checkbox').prop('checked', false);
     $('#spells').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.school_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="school"]:checked').map(function () {
@@ -316,13 +331,13 @@ $('.school_checkbox').on('change', function (e) {
     } else {
         $('#school_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#school_clear_btn').on('click', function () {
     $('#school_clear_btn').addClass('hide_block');
     $('.school_checkbox').prop('checked', false);
     $('#spells').DataTable().column(1).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.timecast_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="timecast"]:checked').map(function () {
@@ -334,13 +349,13 @@ $('.timecast_checkbox').on('change', function (e) {
     } else {
         $('#timecast_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#timecast_clear_btn').on('click', function () {
     $('#timecast_clear_btn').addClass('hide_block');
     $('.timecast_checkbox').prop('checked', false);
     $('#spells').DataTable().column(8).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.component_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="component"]:checked').map(function () {
@@ -352,13 +367,13 @@ $('.component_checkbox').on('change', function (e) {
     } else {
         $('#component_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#component_clear_btn').on('click', function () {
     $('#component_clear_btn').addClass('hide_block');
     $('.component_checkbox').prop('checked', false);
     $('#spells').DataTable().column(9).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.ritual_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="ritual"]:checked').map(function () {
@@ -370,13 +385,13 @@ $('.ritual_checkbox').on('change', function (e) {
     } else {
         $('#ritual_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#ritual_clear_btn').on('click', function () {
     $('#ritual_clear_btn').addClass('hide_block');
     $('.ritual_checkbox').prop('checked', false);
     $('#spells').DataTable().column(7).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.concentration_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="concentration"]:checked').map(function () {
@@ -388,13 +403,13 @@ $('.concentration_checkbox').on('change', function (e) {
     } else {
         $('#concentration_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#concentration_clear_btn').on('click', function () {
     $('#concentration_clear_btn').addClass('hide_block');
     $('.concentration_checkbox').prop('checked', false);
     $('#spells').DataTable().column(8).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.damage_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="damage"]:checked').map(function () {
@@ -406,16 +421,16 @@ $('.damage_checkbox').on('change', function (e) {
     } else {
         $('#damage_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#damage_clear_btn').on('click', function () {
     $('#damage_clear_btn').addClass('hide_block');
     $('.damage_checkbox').prop('checked', false);
     $('#spells').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
 $('.book_checkbox').on('change', function (e) {
-    let properties = $('input:checkbox[name="bookshort"]:checked').map(function () {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
     $('#spells').DataTable().column(10).search(properties, true, false, false).draw();
@@ -424,21 +439,11 @@ $('.book_checkbox').on('change', function (e) {
     } else {
         $('#book_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('spells');
 });
 $('#book_clear_btn').on('click', function () {
     $('#book_clear_btn').addClass('hide_block');
     $('.book_checkbox').prop('checked', false);
     $('#spells').DataTable().column(10).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('spells');
 });
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
