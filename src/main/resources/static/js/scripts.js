@@ -105,20 +105,23 @@ $(document).ready(function () {
     } else if (path.startsWith('/tools/trader') || path.startsWith('/tools/encounters') || path.startsWith('/rules') || path.startsWith('/tools/treasury') || path.startsWith('/tools/tavern') || path.startsWith('/tools/wildmagic') || path.startsWith('/tools/madness') || path.startsWith('/books')) {
         $('#instruments_item_menu').addClass('active');
     }
+
     const spoilers = document.querySelectorAll('.header')
+
     for (let spoiler of spoilers) {
-        let div = spoiler.nextElementSibling
-        let divClass = div.classList
-        //   divClass.add('hide')
         spoiler.addEventListener('click', function (event) {
-            if (divClass.contains("hide")) {
-                divClass.remove('hide')
-            } else {
-                var targetElement = event.target || event.srcElement;
-                if (targetElement.tagName !== 'svg') {
-                    divClass.add('hide')
-                }
+            const div = spoiler.nextElementSibling;
+            const classList = div.classList;
+
+            const targetID = event.target.closest('button')
+                ? event.target.closest('button').getAttribute('id')
+                : event.target.getAttribute('id');
+
+            if (!!targetID && targetID.match(/_clear_btn/gi)) {
+                return;
             }
+
+            classList.toggle('hide');
         })
     }
 });

@@ -8,7 +8,7 @@ html {
   html {
     height: calc(100% - 73px);
     overflow-y: scroll;
-  }  
+  }
 }
 
 body {
@@ -766,7 +766,7 @@ label.select_box {
     top: 6px;
     right: 6px;
   }
-  
+
   .dnd5-popup-block {
     width: 90%;
     max-height: 90vh;
@@ -2572,7 +2572,7 @@ body.compact_menu #right_block {
 
 .table_list tr .secondary_name p {
   color: var(--text-g-color);
-  margin: 0;  
+  margin: 0;
   font-size: calc(var(--main-font-size) - 1px);
   line-height: normal;
 }
@@ -2617,7 +2617,7 @@ body.compact_menu #right_block {
     flex: 1 1 70%;
     margin-left: auto;
   }
-  
+
   .table_list tr td .secondary_name.s3 {
     flex: 1 1 30%;
     margin-left: auto;
@@ -2835,7 +2835,7 @@ body.full_screen_right_block .screens .card_block .block {
     flex: 1 1 calc(33% - 46px);
     max-width: calc(33% - 46px);
   }
-  
+
   .screens .card_block {
     width: auto;
   }
@@ -3159,7 +3159,7 @@ body.compact_menu #right_block.weapons {
   color:var(--text-color);
   z-index: 10;
   width: 100%;
-  max-height: calc(100% - 117px); 
+  max-height: calc(100% - 117px);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
 }
 
@@ -3185,6 +3185,7 @@ body.compact_menu #right_block.weapons {
   margin-top: 16px;
   border: 1px solid var(--border);
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .filter_container .filter_block.sources {
@@ -3201,6 +3202,7 @@ body.compact_menu #right_block.weapons {
   display: flex;
   align-items: center;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .filter_container .filter_block .header:hover {
@@ -3272,7 +3274,7 @@ body.compact_menu #right_block.weapons {
   align-items: center;
   line-height: 22px;
   -moz-column-gap: 7px;
-       column-gap: 7px;  
+       column-gap: 7px;
 }
 
 .filter_container .filter_block .filter_crumbs_box label.crumbs span:hover {
@@ -3345,11 +3347,11 @@ body #left_block.tools_block {
 #left_block.treasury h4.header_separator {
   margin-left: 24px;
   margin-right: 24px;
-} 
+}
 
 #left_block.treasury h4.header_separator span {
   background: var(--bg-main);
-} 
+}
 
 #left_block.encounters .content_block #content_block {
   padding: 24px;
@@ -3485,7 +3487,7 @@ button {
   #body.full_screen_right_block #right_block .info_wrapper .simplebar-content {
     flex-direction: row;
   }
-  
+
   #right_block .info_wrapper .sub_menu_list {
     width: auto;
     min-width: auto;
@@ -3520,7 +3522,7 @@ button {
     justify-content: center;
     padding: 0px;
   }
-  
+
   .scores {
     justify-content: space-between;
   }
@@ -3528,7 +3530,7 @@ button {
   .archetype_mobile_selector + .scores {
     margin-top: 48px;
   }
-  
+
 
   /******** Расы / races ********/
   .races .content_block .scores .score {
