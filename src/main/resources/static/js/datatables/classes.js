@@ -259,6 +259,7 @@ function selectClass(data) {
 }
 
 function setActiveArchetype(data, className, archetypeName) {
+    $('#class_name').text(data.name + ' ' +$('#' + archetypeName).text());
     document.title = data.name + ' (' + data.englishName + ') - ' + $('#' + archetypeName)
         .text() + ' | Подклассы D&D 5e';
     var url = '/classes/' + className + '/architypes/' + archetypeName;
