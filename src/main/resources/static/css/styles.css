@@ -375,10 +375,7 @@ label.select_box {
   cursor: pointer;
   position: absolute;
   right: 0px;
-}
-
-.btn_filters + .btn_text_clear {
-  right: 45px;
+  top: 0px;
 }
 
 .btn_text_clear .icon_action {
@@ -1241,6 +1238,11 @@ body:before {
   position: relative;
   border-bottom: 1px solid var(--border);
   display: flex;
+}
+
+.header_block .search_block .input_block{
+  width: 100%;
+  position: relative;
 }
 
 #left_block .header_block.filters {
