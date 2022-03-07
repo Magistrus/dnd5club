@@ -70,6 +70,18 @@ function restoreFilter(storageKey) {
             continue;
         }
 
+        const resetBtn = filterContainer.querySelector(`#${filter.name}_clear_btn`);
+
+        if (resetBtn.classList.contains('hide_block')) {
+            resetBtn.classList.remove('hide_block');
+        }
+
+        const parentWrapper = filter.closest('.filter_crumbs_box');
+
+        if (parentWrapper.classList.contains('hide')) {
+            parentWrapper.classList.remove('hide');
+        }
+
         if (!filter.checked) {
             filter.checked = true;
         }
