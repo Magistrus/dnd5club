@@ -135,12 +135,16 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+
+                if (!isHomebrewShowed('spells')) {
                     $(row).addClass('hide_block');
                 }
-            } else if (data.setting) {
+            }
+
+            if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+
+                if (!isSettingsShowed('spells')) {
                     $(row).addClass('hide_block');
                 }
             }
