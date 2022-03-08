@@ -73,18 +73,20 @@ $(document).ready(function () {
         type: 'ajax',
         closeOnBgClick: true,
     });
-    if (localStorage.getItem('homebrew_source') == 'true') {
+    if (!localStorage.getItem('homebrew_source') || localStorage.getItem('homebrew_source') === 'true') {
         $('#homebrew_source').prop('checked', true);
         $('.custom_source').removeClass('hide_block');
         $('#source_id').addClass('active');
-    } else {
-        localStorage.setItem('homebrew_source', 'false');
+
+        localStorage.setItem('homebrew_source', 'true');
     }
-    if (localStorage.getItem('setting_source') == 'true') {
+    if (!localStorage.getItem('setting_source') || localStorage.getItem('setting_source') === 'true') {
         $('#setting_source').prop('checked', true);
         $('.setting_source').removeClass('hide_block');
         $('.module_source').removeClass('hide_block');
         $('#source_id').addClass('active');
+
+        localStorage.setItem('setting_source', 'true');
     }
     let path = $(location).attr('pathname');
     if (path.startsWith('/classes') || path.startsWith('/races') || path.startsWith('/traits') || path.startsWith('/options') || path.startsWith('/backgrounds')) {
