@@ -109,7 +109,7 @@ $(document).ready(function () {
             window.open('/items/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#items tbody').on('click', 'tr', function () {
+    $('#items tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -117,7 +117,7 @@ $(document).ready(function () {
         var table = $('#items').DataTable();
         var row = table.row(tr);
         var data = row.data();
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/items/' + data.englishName.split(' ').join('_'));
         }
         rowSelectIndex = row.index();

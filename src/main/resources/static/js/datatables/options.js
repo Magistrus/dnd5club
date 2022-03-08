@@ -115,7 +115,7 @@ $(document).ready(function () {
             window.open('/options/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#options tbody').on('click', 'tr', function () {
+    $('#options tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -124,7 +124,7 @@ $(document).ready(function () {
         var row = table.row(tr);
         rowSelectIndex = row.index();
         var data = row.data();
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/options/' + data.englishName.split(' ').join('_'));
         }
         selectOption(data);

@@ -120,11 +120,11 @@ $(document).ready(function () {
             window.open('/classes/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#classes tbody').on('click', 'tr', function (event) {
+    $('#classes tbody').on('click', 'tr', function (e) {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         var data = row.data();
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/classes/' + data.englishName.split(' ').join('_'));
         }
         if (data.spellcaster) {
@@ -139,8 +139,8 @@ $(document).ready(function () {
             $('#class_options').addClass('hide_block');
         }
         rowSelectIndex = row.index();
-        if ($(event.target).closest('li').length != 0) {
-            let liTareget = $(event.target).closest('li')[0];
+        if ($(e.target).closest('li').length != 0) {
+            let liTareget = $(e.target).closest('li')[0];
             if (liTareget.classList.contains('select_point')) {
                 liTareget.classList.remove('select_point');
                 selectedArchetype = null;
@@ -154,7 +154,7 @@ $(document).ready(function () {
             if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
                 document.getElementById('list_page_two_block').classList.add('block_information');
             }
-        } else if (event.target.tagName == 'BUTTON' || event.target.parentNode.tagName == 'BUTTON' || event.target.parentNode.parentNode.tagName == 'BUTTON') {
+        } else if (e.target.tagName == 'BUTTON' || e.target.parentNode.tagName == 'BUTTON' || e.target.parentNode.parentNode.tagName == 'BUTTON') {
             tr[0].classList.toggle('open');
             SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
         } else {
@@ -168,11 +168,11 @@ $(document).ready(function () {
         }
         selectedClass = data;
 
-        if (!$(event.target).closest('li').length) {
+        if (!$(e.target).closest('li').length) {
             setTimeout(function () {
-                event.target.closest('.simplebar-content-wrapper')
+                e.target.closest('.simplebar-content-wrapper')
                      .scrollTo({
-                         top: event.target.closest('tr').offsetTop - 16,
+                         top: e.target.closest('tr').offsetTop - 16,
                          behavior: "smooth"
                      });
             }, 300)
