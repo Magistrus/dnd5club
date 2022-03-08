@@ -14,10 +14,6 @@ function saveFilter(storageKey) {
     const filters = filterContainer.querySelectorAll('input:checked');
     const data = {};
 
-    if (!filters.length) {
-        return;
-    }
-
     for (let filter of filters) {
         if (filter.name === 'settings_off' || filter.name === 'homebrew_off') {
             continue;
@@ -103,6 +99,9 @@ function restoreSources() {
 
     settingsToggle.checked = !storageSettings || storageSettings === 'true';
     homebrewToggle.checked = !storageHomebrew || storageHomebrew === 'true';
+
+    console.log(!storageSettings || storageSettings === 'true', storageSettings, settingsToggle);
+    console.log(!storageHomebrew || storageHomebrew === 'true', storageHomebrew, homebrewToggle);
 
     switchToggle(settingsToggle, false);
     switchToggle(homebrewToggle, false);
