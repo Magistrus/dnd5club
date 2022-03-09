@@ -1339,8 +1339,17 @@ body:before {
 
 .news_wrapper .news_page .header h1 {
   margin-bottom: 16px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: 'Lora';
+}
+
+.news_wrapper .news_page .header .subtitle {
+  margin-bottom: 16px;
+  font-weight: 300;
+  width: 100%;
+  display: inline-block;
+  font-family: 'Open Sans';
+  margin-top: 0px;
 }
 
 .news_wrapper .left,
