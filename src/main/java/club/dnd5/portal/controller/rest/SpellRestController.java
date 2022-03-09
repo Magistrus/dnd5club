@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
