@@ -9,4 +9,9 @@ public class ArticleController {
 	public String getArticles() {
 		return "articles";
 	}
+
+	@GetMapping("/articles/form")
+	public String getFormArticle() {
+		return "form_article";
+	}
 }

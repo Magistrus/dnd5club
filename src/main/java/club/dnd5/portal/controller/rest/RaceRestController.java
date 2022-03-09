@@ -3,6 +3,7 @@ package club.dnd5.portal.controller.rest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.RaceDto;
 import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.races.Race;
+import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.RaceDataRepository;
 
 @RestController
@@ -44,6 +47,14 @@ public class RaceRestController {
 		}
 		if (input.getSearch().getValue().isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> cb.isNull(root.get("parent")));
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Race> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
+			});
 		}
 		return repo.findAll(input, specification, specification, i -> new RaceDto(i));
 	}

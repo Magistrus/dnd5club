@@ -38,6 +38,10 @@ public class RaceController {
 	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
+		model.addAttribute("books", raceRepository.findBook());
+		model.addAttribute("settingBooks", raceRepository.findSettingBook());
+		model.addAttribute("moduleBooks", raceRepository.findModuleBook());
+		model.addAttribute("hombrewBooks", raceRepository.findHomebrewBook());
 		model.addAttribute("abilities", AbilityType.values());
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races");
@@ -52,6 +56,10 @@ public class RaceController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
+		model.addAttribute("books", raceRepository.findBook());
+		model.addAttribute("settingBooks", raceRepository.findSettingBook());
+		model.addAttribute("moduleBooks", raceRepository.findModuleBook());
+		model.addAttribute("hombrewBooks", raceRepository.findHomebrewBook());
 		model.addAttribute("abilities", AbilityType.values());
 
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
