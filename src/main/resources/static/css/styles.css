@@ -1605,7 +1605,7 @@ body.compact_menu .block_information #left_block {
   border: 0;
 }
 
-table.table_card tr.dtrg-group:first-child {
+table.table_card tr.dtrg-group {
   display: none;
 }
 
