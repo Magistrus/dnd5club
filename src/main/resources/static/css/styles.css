@@ -320,8 +320,12 @@ input {
   background: var(--hover);
   color: var(--text-color);
   font-size: var(--main-font-size);
-  height: 36px;
+  height: 38px;
   font-family: 'Open Sans';
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }
 
 input[type="radio"] {
@@ -338,10 +342,16 @@ textarea {
   color: var(--text-color);
   padding: 12px 12px;
   font-family: 'Open Sans';
+  resize: vertical;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }
 
-.select,
-input {
+.row_input textarea,
+.row_input .select,
+.row_input input {
   margin: 4px;
 }
 
@@ -1373,29 +1383,30 @@ body:before {
   padding: 0px 0;
   border-radius: 8px;
   overflow: hidden;
+  max-height: 500px;
 }
 
-.news_wrapper .right .contents > ul {
+.news_wrapper .right .contents ul.list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.news_wrapper .right .contents > ul li {
+.news_wrapper .right .contents ul.list li {
   cursor: pointer;
   padding: 8px 16px;
 }
 
-.news_wrapper .right .contents > ul li:hover {
+.news_wrapper .right .contents ul.list li:hover {
   background-color: var(--hover);
 }
 
-.news_wrapper .right .contents > ul li ul {
+.news_wrapper .right .contents ul.list li ul {
   list-style-type: none;
   padding-inline-start: 0px;
 }
 
-.news_wrapper .right .contents > ul li ul > li {
+.news_wrapper .right .contents ul.list li ul > li {
   border-radius: 8px;
 }
 
@@ -1420,14 +1431,43 @@ body:before {
   object-fit: cover;
 }
 
-.news_wrapper  .bottom {
+.news_wrapper .bottom {
   border-top: 1px solid var(--border);
   margin-top: 32px;
+  margin-bottom: 24px;
+  padding-top: 16px;
 }
 
-.news_wrapper  .bottom ul {
+.news_wrapper .bottom ul.meta {
   list-style-type: none;
   padding-left: 0;
+  margin-bottom: 32px;
+}
+
+.news_wrapper  .similar_articles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+}
+
+.news_wrapper  .similar_articles a {
+  background-color: var(--bg-main);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.news_wrapper  .similar_articles a:hover {
+  background-color: var(--hover);
+}
+
+.news_wrapper  .similar_articles a h4{
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.news_wrapper  .similar_articles a p{
+  margin-bottom: 0;
 }
 
 
