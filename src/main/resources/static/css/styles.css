@@ -1551,7 +1551,6 @@ body.compact_menu .block_information #left_block {
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width: calc(100% - 93px);
   padding-left: 52px;
   padding-right: 40px;
   background-color: var(--bg-secondary);
