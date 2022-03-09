@@ -138,8 +138,17 @@ function onDeselectListener() {
     const element = $('#conditions');
     const table = element.dataTable().api();
 
-    table.on('deselect.dt', closeHandler);
+    if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
+        table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
+        table.off('deselect.dt', closeHandler);
+        element.removeClass('has-deselect-handler');
+    }
 }
 
 function selectCondition(data) {
@@ -166,7 +175,13 @@ $('#text_clear').on('click', function () {
     $('#text_clear').hide();
 });
 $('#btn_close').on('click', function () {
-    $('#conditions').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#conditions').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {
