@@ -805,7 +805,6 @@ label.select_box {
 }
 
 .login_form #login-form input.form-control {
-  width: calc(100% - 26px);
   padding: 6px 12px;
   margin: 0;
 }
