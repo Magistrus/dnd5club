@@ -1,4 +1,3 @@
-cntrlIsPressed = false;
 sourceTypes = localStorage.getItem('first_visit');
 $(document).ready(function () {
     function checkWidth() {
@@ -74,18 +73,20 @@ $(document).ready(function () {
         type: 'ajax',
         closeOnBgClick: true,
     });
-    if (localStorage.getItem('homebrew_source') == 'true') {
+    if (!localStorage.getItem('homebrew_source') || localStorage.getItem('homebrew_source') === 'true') {
         $('#homebrew_source').prop('checked', true);
         $('.custom_source').removeClass('hide_block');
         $('#source_id').addClass('active');
-    } else {
-        localStorage.setItem('homebrew_source', 'false');
+
+        localStorage.setItem('homebrew_source', 'true');
     }
-    if (localStorage.getItem('setting_source') == 'true') {
+    if (!localStorage.getItem('setting_source') || localStorage.getItem('setting_source') === 'true') {
         $('#setting_source').prop('checked', true);
         $('.setting_source').removeClass('hide_block');
         $('.module_source').removeClass('hide_block');
         $('#source_id').addClass('active');
+
+        localStorage.setItem('setting_source', 'true');
     }
     let path = $(location).attr('pathname');
     if (path.startsWith('/classes') || path.startsWith('/races') || path.startsWith('/traits') || path.startsWith('/options') || path.startsWith('/backgrounds')) {
@@ -182,10 +183,21 @@ $("#btn_full_screen, #btn_exet_full_screen").click(function () {
     $("#body").toggleClass("full_screen_right_block");
 });
 $('#homebrew_source').change(function () {
-    localStorage.setItem('homebrew_source', $('#homebrew_source').is(':checked'));
+    const mainToggle = $('#homebrew_source');
+
+    localStorage.setItem('homebrew_source', mainToggle.is(':checked'));
     $('.custom_source').toggleClass('hide_block');
     $('#source_id').addClass('active');
-    if ($('#homebrew_source').is(':checked')) {
+
+    const homebrewToggle = document.getElementById('filter_homebrew');
+
+    if (!!homebrewToggle) {
+        homebrewToggle.checked = mainToggle.is(':checked');
+
+        homebrewToggle.dispatchEvent(new Event('change'))
+    }
+
+    if (mainToggle.is(':checked')) {
         $('#source_id').addClass('active');
         SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
     } else if (!$('#setting_source').is(':checked')) {
@@ -193,10 +205,21 @@ $('#homebrew_source').change(function () {
     }
 });
 $('#setting_source').change(function () {
-    localStorage.setItem('setting_source', $('#setting_source').is(':checked'));
+    const mainToggle = $('#setting_source');
+
+    localStorage.setItem('setting_source', mainToggle.is(':checked'));
     $('.setting_source').toggleClass('hide_block');
     $('.module_source').toggleClass('hide_block');
-    if ($('#setting_source').is(':checked')) {
+
+    const settingsToggle = document.getElementById('filter_settings');
+
+    if (!!settingsToggle) {
+        settingsToggle.checked = mainToggle.is(':checked');
+
+        settingsToggle.dispatchEvent(new Event('change'))
+    }
+
+    if (mainToggle.is(':checked')) {
         $('#source_id').addClass('active');
         SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
     } else if (!$('#homebrew_source').is(':checked')) {
@@ -256,13 +279,6 @@ $('li').click(function () {
         }
     });
 })(jQuery, window, document);
-$(document).keydown(function (event) {
-    if (event.which == "17")
-        cntrlIsPressed = true;
-});
-$(document).keyup(function () {
-    cntrlIsPressed = false;
-});
 
 // Копирование ссылки в буфер
 function copyToClipboard(text) {

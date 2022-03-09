@@ -122,7 +122,7 @@ $(document).ready(function () {
             window.open('/weapons/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#weapons tbody').on('click', 'tr', function () {
+    $('#weapons tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -133,7 +133,7 @@ $(document).ready(function () {
         if (data === undefined) {
             return;
         }
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/weapons/' + data.englishName.split(' ').join('_'));
         }
         selectWeapon(data);

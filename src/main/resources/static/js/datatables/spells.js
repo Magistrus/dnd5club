@@ -135,12 +135,16 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+
+                if (!isHomebrewShowed('spells')) {
                     $(row).addClass('hide_block');
                 }
-            } else if (data.setting) {
+            }
+
+            if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+
+                if (!isSettingsShowed('spells')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -190,7 +194,7 @@ $(document).ready(function () {
             window.open('/spells/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#spells tbody').on('click', 'tr', function () {
+    $('#spells tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
@@ -198,7 +202,7 @@ $(document).ready(function () {
         var table = $('#spells').DataTable();
         var row = table.row(tr);
         var data = row.data();
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/spells/' + data.englishName.split(' ').join('_'));
         }
         rowSelectIndex = row.index();

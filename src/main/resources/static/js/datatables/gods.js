@@ -116,13 +116,13 @@ $(document).ready(function () {
             window.open('/gods/' + data.englishName.split(' ').join('_'));
         }
     });
-    $('#gods tbody').on('click', 'tr', function () {
+    $('#gods tbody').on('click', 'tr', function (e) {
         if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
             document.getElementById('list_page_two_block').classList.add('block_information');
         }
         let row = $('#gods').DataTable().row($(this).closest('tr'));
         let data = row.data()
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/gods/' + data.englishName.split(' ').join('_'));
         }
         rowSelectIndex = row.index();

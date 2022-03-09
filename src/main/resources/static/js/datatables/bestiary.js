@@ -144,7 +144,7 @@ $(document).ready(function () {
         var row = table.row(tr);
         rowSelectIndex = row.index();
         var data = row.data();
-        if (cntrlIsPressed) {
+        if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/bestiary/' + data.englishName.split(' ').join('_'));
         }
         selectCreature(data);
