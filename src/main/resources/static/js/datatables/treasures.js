@@ -61,45 +61,45 @@ $(document).ready(function () {
                     simpleBar.recalculate();
                     scrollEventHeight += 750;
 
-                    addEventListeners(true);
+                    // addEventListeners(true);
                 }
             });
         },
-        drawCallback: function (settings) {
-            addEventListeners();
-
-            if (rowSelectIndex === 0 && selectedTreasure === null) {
-                if (!$('#list_page_two_block').hasClass('block_information')) {
-                    return;
-                }
-                $('#treasures tbody tr:eq(' + rowSelectIndex + ')').click();
-            }
-            if (selectedTreasure) {
-                selectItem(selectedTreasure);
-                var rowIndexes = [];
-                table.rows(function (idx, data, node) {
-                    if (data.id === selectedTreasure.id) {
-                        rowIndexes.push(idx);
-                    }
-                    return false;
-                });
-                rowSelectIndex = rowIndexes[0];
-            }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-        }
+        // drawCallback: function (settings) {
+        //     addEventListeners();
+        //
+        //     if (rowSelectIndex === 0 && selectedTreasure === null) {
+        //         if (!$('#list_page_two_block').hasClass('block_information')) {
+        //             return;
+        //         }
+        //         $('#treasures tbody tr:eq(' + rowSelectIndex + ')').click();
+        //     }
+        //     if (selectedTreasure) {
+        //         selectItem(selectedTreasure);
+        //         var rowIndexes = [];
+        //         table.rows(function (idx, data, node) {
+        //             if (data.id === selectedTreasure.id) {
+        //                 rowIndexes.push(idx);
+        //             }
+        //             return false;
+        //         });
+        //         rowSelectIndex = rowIndexes[0];
+        //     }
+        //     table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+        // }
     });
-    $('#treasures tbody').on('click', 'tr', function (e) {
-        if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
-            document.getElementById('list_page_two_block').classList.add('block_information');
-        }
-        var tr = $(this).closest('tr');
-        var table = $('#treasures').DataTable();
-        var row = table.row(tr);
-        var data = row.data();
-        rowSelectIndex = row.index();
-        selectItem(data);
-        selectedItem = null;
-    });
+    // $('#treasures tbody').on('click', 'tr', function (e) {
+    //     if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
+    //         document.getElementById('list_page_two_block').classList.add('block_information');
+    //     }
+    //     var tr = $(this).closest('tr');
+    //     var table = $('#treasures').DataTable();
+    //     var row = table.row(tr);
+    //     var data = row.data();
+    //     rowSelectIndex = row.index();
+    //     selectItem(data);
+    //     selectedItem = null;
+    // });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
             $('#text_clear').show();
@@ -110,48 +110,48 @@ $(document).ready(function () {
     });
 });
 
-function addEventListeners(force = false) {
-    $(document).ready(function () {
-        onDeselectListener();
-    });
+// function addEventListeners(force = false) {
+//     $(document).ready(function () {
+//         onDeselectListener();
+//     });
+//
+//     $(window).resize(function () {
+//         onDeselectListener();
+//     });
+//
+//     if (force) {
+//         onDeselectListener();
+//     }
+// }
+//
+// function onDeselectListener() {
+//     const element = $('#treasures');
+//     const table = element.dataTable().api();
+//
+//     if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
+//         table.on('deselect.dt', closeHandler);
+//         element.addClass('has-deselect-handler');
+//
+//         return
+//     }
+//
+//     if (window.innerWidth >= 1200) {
+//         table.off('deselect.dt', closeHandler);
+//         element.removeClass('has-deselect-handler');
+//     }
+// }
 
-    $(window).resize(function () {
-        onDeselectListener();
-    });
-
-    if (force) {
-        onDeselectListener();
-    }
-}
-
-function onDeselectListener() {
-    const element = $('#treasures');
-    const table = element.dataTable().api();
-
-    if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
-        table.on('deselect.dt', closeHandler);
-        element.addClass('has-deselect-handler');
-
-        return
-    }
-
-    if (window.innerWidth >= 1200) {
-        table.off('deselect.dt', closeHandler);
-        element.removeClass('has-deselect-handler');
-    }
-}
-
-function selectItem(data) {
-    $('#item_name').text(data.name);
-    $('#type').text(data.type);
-    $('#cost').text(data.cost + ' зм.');
-    var source = '<span class="tip" title="' + data.book + '">' + data.bookshort + '</span>';
-    $('#source').html(source);
-    document.title = data.name + ' (' + data.englishName + ')' + ' | Драгоценности D&D 5e';
-    history.pushState('data to be passed', '', '/treasures/' + data.englishName.split(' ').join('_'));
-    var url = '/treasures/fragment/' + data.id;
-    $("#content_block").load(url);
-}
+// function selectItem(data) {
+//     $('#item_name').text(data.name);
+//     $('#type').text(data.type);
+//     $('#cost').text(data.cost + ' зм.');
+//     var source = '<span class="tip" title="' + data.book + '">' + data.bookshort + '</span>';
+//     $('#source').html(source);
+//     document.title = data.name + ' (' + data.englishName + ')' + ' | Драгоценности D&D 5e';
+//     history.pushState('data to be passed', '', '/treasures/' + data.englishName.split(' ').join('_'));
+//     var url = '/treasures/fragment/' + data.id;
+//     $("#content_block").load(url);
+// }
 
 $('#text_clear').on('click', function () {
     $('#search').val('');
@@ -159,17 +159,18 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
-$('#btn_close').on('click', function () {
-    $('#treasures').dataTable().api().rows().deselect();
-});
 
-function closeHandler() {
-    document.getElementById('list_page_two_block').classList.remove('block_information');
+// $('#btn_close').on('click', function () {
+//     $('#treasures').dataTable().api().rows().deselect();
+// });
 
-    $.magnificPopup.close();
-
-    history.pushState('data to be passed', '', '/treasures/');
-}
+// function closeHandler() {
+//     document.getElementById('list_page_two_block').classList.remove('block_information');
+//
+//     $.magnificPopup.close();
+//
+//     history.pushState('data to be passed', '', '/treasures/');
+// }
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');

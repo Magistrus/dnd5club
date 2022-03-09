@@ -199,17 +199,8 @@ function onDeselectListener() {
     const element = $('#races');
     const table = element.dataTable().api();
 
-    if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
-        table.on('deselect.dt', closeHandler);
+    table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
-
-        return
-    }
-
-    if (window.innerWidth >= 1200) {
-        table.off('deselect.dt', closeHandler);
-        element.removeClass('has-deselect-handler');
-    }
 }
 
 function selectRace(data) {
