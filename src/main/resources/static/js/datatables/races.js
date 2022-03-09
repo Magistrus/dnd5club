@@ -69,6 +69,12 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('ability', 'races'),
+            getSearchColumn('book', 'races'),
+        ],
         columnDefs: [
             {
                 "targets": [ 0 ],
@@ -91,7 +97,7 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
-
+            restoreFilter('races');
         },
         drawCallback: function (settings) {
             addEventListeners();
@@ -113,12 +119,12 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('races')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('races')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -199,8 +205,17 @@ function onDeselectListener() {
     const element = $('#races');
     const table = element.dataTable().api();
 
-    table.on('deselect.dt', closeHandler);
+    if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
+        table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
+        table.off('deselect.dt', closeHandler);
+        element.removeClass('has-deselect-handler');
+    }
 }
 
 function selectRace(data) {
@@ -214,12 +229,12 @@ function selectRace(data) {
     history.pushState('data to be passed', '', '/races/' + data.englishName.split(' ').join('_'));
     var url = '/races/fragment/' + data.id;
     $("#content_block").load(url, function () {
-        if (localStorage.getItem('homebrew_source') == 'true') {
+        if (isHomebrewShowed('races')) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
         }
-        if (localStorage.getItem('setting_source') == 'true') {
+        if (isSettingsShowed('races')) {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
@@ -246,12 +261,12 @@ function setActiveSubrace(data, raceName, subraceName) {
         $('#mobile_selector').change(function () {
             setActiveSubrace(data, raceName, $('#mobile_selector').val());
         });
-        if (localStorage.getItem('homebrew_source') == 'true') {
+        if (isHomebrewShowed('races')) {
             $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
         }
-        if (localStorage.getItem('setting_source') == 'true') {
+        if (isSettingsShowed('races')) {
             $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
@@ -285,7 +300,13 @@ $('#text_clear').on('click', function () {
     $('#races').DataTable().tables().search($(this).val()).draw();
 });
 $('#btn_close').on('click', function () {
-    $('#races').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#races').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {
@@ -311,13 +332,13 @@ $('.ability_checkbox').on('change', function (e) {
     } else {
         $('#ability_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('races');
 });
 $('#ability_clear_btn').on('click', function () {
     $('#ability_clear_btn').addClass('hide_block');
     $('.ability_checkbox').prop('checked', false);
     $('#races').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('races');
 });
 $('.book_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="book"]:checked').map(function () {
@@ -337,13 +358,3 @@ $('#book_clear_btn').on('click', function () {
     $('#races').DataTable().column(3).search("", true, false, false).draw();
     saveFilter('races');
 });
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
