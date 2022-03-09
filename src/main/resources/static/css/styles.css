@@ -1373,7 +1373,6 @@ body:before {
 }
 
 .news_wrapper .right .contents > ul li {
-  margin: 8px 0;
   cursor: pointer;
   padding: 8px 16px;
 }
@@ -1435,6 +1434,12 @@ body:before {
   margin-left: 0px;
   position: relative;
   height: 100%;
+}
+
+@media (max-width: 1200px) {
+  body #left_block {
+    width: calc(100vw - 0px) !important;
+  }
 }
 
 #left_block.full_screen_left_block {
@@ -1520,7 +1525,8 @@ body.compact_menu .block_information #left_block {
 #left_block .header_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  min-width: 44px;
+  /* min-width: 44px; */
+  padding: 0 10px;
   height: 45px;
   display: flex;
   justify-content: space-around;
@@ -1541,11 +1547,8 @@ body.compact_menu .block_information #left_block {
   background-color: var(--text-btn-color);
 }
 
-@media (max-width: 1200px) {
-  body .block_information #left_block.spells,
-  body #left_block {
-    width: calc(100vw - 0px) !important;
-  }
+#left_block .header_block .btn_filters span {
+  margin-left: 8px;
 }
 
 .table_card {
@@ -2664,6 +2667,10 @@ body.compact_menu #right_block {
   padding: 0;
 }
 
+#left_block.conditions table.table_card tr.dtrg-group {
+  border: none;
+}
+
 #left_block.conditions table.table_card tr.dtrg-group:first-child {
   display: block;
 }
@@ -3164,7 +3171,7 @@ body.compact_menu #right_block.weapons {
 }
 
 .filter_container {
-  width: calc(100% - 33px);
+  width: calc(100% - 32px);
   height: auto;
   background-color: var(--bg-sub-menu);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
