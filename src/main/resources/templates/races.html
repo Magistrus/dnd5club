@@ -70,7 +70,7 @@
 							> <span class="tip" th:text="${book.source}"></span></label>
 							<div class="separator_row" style="width: 100%;">
 								<h5 class="header_separator">Приключения</h5>
-								<label for="filter_settings" class="check_block"><input id="filter_settings" class="toggle" type="checkbox" name="settings_off"></label>
+								<label for="filter_adventure" class="check_block"><input id="filter_adventure" class="toggle" type="checkbox" name="adventure_off"></label>
 							</div>
 							<label class="crumbs tip" th:each="book : ${moduleBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked
 							> <span class="tip" th:text="${book.source}"></span></label>
@@ -169,5 +169,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/races.js?v=1.4.8}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/races.js?v=1.4.9}" layout:fragment="js-script"></script>
 </html>

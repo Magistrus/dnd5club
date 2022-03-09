@@ -6,7 +6,8 @@ const TOGGLE_ID = {
     },
     filter: {
         settings: 'filter_settings',
-        homebrew: 'filter_homebrew'
+        homebrew: 'filter_homebrew',
+        adventure: 'filter_adventure'
     }
 }
 
@@ -108,7 +109,11 @@ function saveFilter(storageKey) {
     const data = {};
 
     for (let filter of filters) {
-        if (filter.name === 'settings_off' || filter.name === 'homebrew_off') {
+        if (
+            filter.name === 'settings_off'
+            || filter.name === 'homebrew_off'
+            || filter.name === 'adventure_off'
+        ) {
             continue;
         }
 
@@ -121,6 +126,7 @@ function saveFilter(storageKey) {
 
     const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
     const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
+    const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
 
     if (homebrewToggle) {
         const checked = checkFilters(homebrewToggle);
@@ -134,6 +140,13 @@ function saveFilter(storageKey) {
 
         settingsToggle.checked = checked;
         data[TOGGLE_ID.filter.settings] = checked;
+    }
+
+    if (adventuresToggle) {
+        const checked = checkFilters(adventuresToggle);
+
+        adventuresToggle.checked = checked;
+        data[TOGGLE_ID.filter.adventure] = checked;
     }
 
     const storageData = localStorage.getItem(STORAGE_KEY);
@@ -154,6 +167,7 @@ function restoreFilter(storageKey) {
     const restoreToggles = function (storage = {}) {
         const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
         const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
+        const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
         const mainHomebrew = document.getElementById(TOGGLE_ID.main.homebrew);
         const mainSettings = document.getElementById(TOGGLE_ID.main.settings);
 
@@ -178,6 +192,18 @@ function restoreFilter(storageKey) {
 
             if (!settingsToggle.checked) {
                 switchFilters(settingsToggle);
+            }
+        }
+
+        if (adventuresToggle) {
+            const saved = TOGGLE_ID.filter.adventure in storage;
+
+            adventuresToggle.checked = saved
+                ? storage[TOGGLE_ID.filter.adventure]
+                : true;
+
+            if (!adventuresToggle.checked) {
+                switchFilters(adventuresToggle);
             }
         }
     }
@@ -205,7 +231,11 @@ function restoreFilter(storageKey) {
     const filters = filterContainer.querySelectorAll('input');
 
     for (let filter of filters) {
-        if (filter.name === 'settings_off' || filter.name === 'homebrew_off') {
+        if (
+            filter.name === 'settings_off'
+            || filter.name === 'homebrew_off'
+            || filter.name === 'adventure_off'
+        ) {
             continue;
         }
 
@@ -279,6 +309,7 @@ function getSearchColumn(name, storageKey) {
 function addToggleListeners() {
     const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
     const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
+    const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
 
     if (settingsToggle) {
         settingsToggle.addEventListener('change', function () {
@@ -289,6 +320,12 @@ function addToggleListeners() {
     if (homebrewToggle) {
         homebrewToggle.addEventListener('change', function () {
             switchFilters(homebrewToggle, true)
+        });
+    }
+
+    if (adventuresToggle) {
+        adventuresToggle.addEventListener('change', function () {
+            switchFilters(adventuresToggle, true)
         });
     }
 }

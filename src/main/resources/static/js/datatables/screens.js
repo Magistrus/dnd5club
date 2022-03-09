@@ -126,8 +126,17 @@ function onDeselectListener() {
     const element = $('#screens');
     const table = element.dataTable().api();
 
-    table.on('deselect.dt', closeHandler);
+    if (window.innerWidth < 1200 && !element.hasClass('has-deselect-handler')) {
+        table.on('deselect.dt', closeHandler);
         element.addClass('has-deselect-handler');
+
+        return
+    }
+
+    if (window.innerWidth >= 1200) {
+        table.off('deselect.dt', closeHandler);
+        element.removeClass('has-deselect-handler');
+    }
 }
 
 function selectScreen(data) {
@@ -165,7 +174,13 @@ $('#text_clear').on('click', function () {
     $('#text_clear').hide();
 });
 $('#btn_close').on('click', function () {
-    $('#screens').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#screens').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {
