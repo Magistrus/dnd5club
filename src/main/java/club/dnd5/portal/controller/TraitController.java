@@ -42,7 +42,6 @@ public class TraitController {
 	public String getTraits(Model model) {
 		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
 		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("abilities", AbilityType.getBaseAbility());
 		model.addAttribute("skills", SkillType.values());
