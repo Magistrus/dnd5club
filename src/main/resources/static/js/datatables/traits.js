@@ -42,20 +42,15 @@ $(document).ready(function () {
                 data: 'requirement',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 4 ],
+                "targets": [ 1, 2, 3, 4, 5 ],
                 "visible": false
-            },
-            {
-                "targets": [ 2, 3 ],
-                "visible": false,
-                searchPanes: {
-                    dtOpts: {
-                        order: []
-                    }
-                }
             },
         ],
         buttons: [
@@ -86,7 +81,6 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
-
             if (rowSelectIndex === 0 && selectedTrait === null) {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
@@ -255,10 +249,27 @@ $('.prerequisite_checkbox').on('change', function (e) {
 $('#prerequisite_clear_btn').on('click', function () {
     $('#prerequisite_clear_btn').addClass('hide_block');
     $('.prerequisite_checkbox').prop('checked', false);
-    $('#traits').DataTable().column(4).search("", true, false, false).draw();
+    $('#traits').DataTable().column(5).search("", true, false, false).draw();
     setFiltered();
 });
-
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#traits').DataTable().column(5).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('traits');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#traits').DataTable().column(5).search("", true, false, false).draw();
+    saveFilter('traits');
+});
 function setFiltered() {
     let boxes = $('input:checkbox:checked.filter').map(function () {
         return this.value;

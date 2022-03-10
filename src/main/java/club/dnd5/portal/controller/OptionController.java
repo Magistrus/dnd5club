@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.classes.OptionDto;
+import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
@@ -34,8 +37,13 @@ public class OptionController {
 	
 	private Map<String, String> classIcons = new HashMap<>();
 	
+	private Map<TypeBook, List<Book>> sources;
+
 	@PostConstruct
 	public void init() {
+		sources = new HashMap<>();
+		sources.put(TypeBook.OFFICAL, repository.findBook(TypeBook.OFFICAL));
+		sources.put(TypeBook.CUSTOM, repository.findBook(TypeBook.CUSTOM));
 		for(HeroClass heroClass : classRepository.findAll()) {
 			classIcons.put(heroClass.getEnglishName(), heroClass.getIcon());
 		}
@@ -43,6 +51,9 @@ public class OptionController {
 	
 	@GetMapping("/options")
 	public String getOptions(Model model) {
+		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
+		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
+
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
@@ -59,6 +70,10 @@ public class OptionController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
+		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
+		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
+
 		model.addAttribute("categories", Option.OptionType.values());
 		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);

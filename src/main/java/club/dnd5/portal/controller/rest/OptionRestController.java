@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.classes.OptionDto;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
@@ -60,6 +62,14 @@ public class OptionRestController {
 				.map(String::trim).filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(Collectors.toList()); 
 		if (!levels.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("level").in(levels));
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
+			});
 		}
 		return repo.findAll(input, specification, specification, OptionDto::new);
 	}

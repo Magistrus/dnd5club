@@ -63,10 +63,14 @@ $(document).ready(function () {
             {
                 data: 'altName',
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 0, 2, 3, 4, 5, 6, 7, 8 ],
+                "targets": [ 0, 2, 3, 4, 5, 6, 7, 8, 9 ],
                 "visible": false
             },
             {
@@ -171,6 +175,25 @@ $('#text_clear').on('click', function () {
     selectedCreature = null;
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
+});
+
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#creatures').DataTable().column(9).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('creatures');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#creatures').DataTable().column(9).search("", true, false, false).draw();
+    saveFilter('creatures');
 });
 
 function addEventListeners(force = false) {

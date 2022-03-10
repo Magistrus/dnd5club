@@ -13,6 +13,7 @@ $(document).ready(function () {
             style: 'single',
             toggleable: false
         },
+        ordering: true,
         columns: [
             {
                 data: "name",
@@ -40,15 +41,17 @@ $(document).ready(function () {
                 data: 'level',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2, 3, 4 ],
+                "targets": [ 1, 2, 3, 4, 5 ],
                 "visible": false
             },
         ],
-        buttons: [
-            {} ],
         order: [ [ 0, 'asc' ] ],
         language: {
             processing: "Загрузка...",
@@ -61,7 +64,6 @@ $(document).ready(function () {
             infoFiltered: "из _MAX_",
             loadingRecords: "Загрузка...",
         },
-        ordering: true,
         initComplete: function (settings, json) {
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
@@ -255,7 +257,24 @@ $('#level_clear_btn').on('click', function () {
     $('#options').DataTable().column(4).search("", true, false, false).draw();
     setFiltered();
 });
-
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#options').DataTable().column(5).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('options');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#options').DataTable().column(5).search("", true, false, false).draw();
+    saveFilter('options');
+});
 function setFiltered() {
     let boxes = $('input:checkbox:checked.filter').map(function () {
         return this.value;
