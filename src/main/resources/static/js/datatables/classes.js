@@ -328,7 +328,13 @@ $('#text_clear').on('click', function () {
     $('#classes').DataTable().tables().search($(this).val()).draw();
 });
 $('#btn_close').on('click', function () {
-    $('#classes').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#classes').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {

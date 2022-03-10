@@ -320,8 +320,12 @@ input {
   background: var(--hover);
   color: var(--text-color);
   font-size: var(--main-font-size);
-  height: 36px;
+  height: 38px;
   font-family: 'Open Sans';
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }
 
 input[type="radio"] {
@@ -338,10 +342,16 @@ textarea {
   color: var(--text-color);
   padding: 12px 12px;
   font-family: 'Open Sans';
+  resize: vertical;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }
 
-.select,
-input {
+.row_input textarea,
+.row_input .select,
+.row_input input {
   margin: 4px;
 }
 
@@ -795,7 +805,6 @@ label.select_box {
 }
 
 .login_form #login-form input.form-control {
-  width: calc(100% - 26px);
   padding: 6px 12px;
   margin: 0;
 }
@@ -1339,8 +1348,17 @@ body:before {
 
 .news_wrapper .news_page .header h1 {
   margin-bottom: 16px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: 'Lora';
+}
+
+.news_wrapper .news_page .header .subtitle {
+  margin-bottom: 16px;
+  font-weight: 300;
+  width: 100%;
+  display: inline-block;
+  font-family: 'Open Sans';
+  margin-top: 0px;
 }
 
 .news_wrapper .left,
@@ -1364,30 +1382,30 @@ body:before {
   padding: 0px 0;
   border-radius: 8px;
   overflow: hidden;
+  max-height: 500px;
 }
 
-.news_wrapper .right .contents > ul {
+.news_wrapper .right .contents ul.list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.news_wrapper .right .contents > ul li {
-  margin: 8px 0;
+.news_wrapper .right .contents ul.list li {
   cursor: pointer;
   padding: 8px 16px;
 }
 
-.news_wrapper .right .contents > ul li:hover {
+.news_wrapper .right .contents ul.list li:hover {
   background-color: var(--hover);
 }
 
-.news_wrapper .right .contents > ul li ul {
+.news_wrapper .right .contents ul.list li ul {
   list-style-type: none;
   padding-inline-start: 0px;
 }
 
-.news_wrapper .right .contents > ul li ul > li {
+.news_wrapper .right .contents ul.list li ul > li {
   border-radius: 8px;
 }
 
@@ -1412,14 +1430,43 @@ body:before {
   object-fit: cover;
 }
 
-.news_wrapper  .bottom {
+.news_wrapper .bottom {
   border-top: 1px solid var(--border);
   margin-top: 32px;
+  margin-bottom: 24px;
+  padding-top: 16px;
 }
 
-.news_wrapper  .bottom ul {
+.news_wrapper .bottom ul.meta {
   list-style-type: none;
   padding-left: 0;
+  margin-bottom: 32px;
+}
+
+.news_wrapper  .similar_articles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+}
+
+.news_wrapper  .similar_articles a {
+  background-color: var(--bg-main);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.news_wrapper  .similar_articles a:hover {
+  background-color: var(--hover);
+}
+
+.news_wrapper  .similar_articles a h4{
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.news_wrapper  .similar_articles a p{
+  margin-bottom: 0;
 }
 
 
@@ -1435,6 +1482,12 @@ body:before {
   margin-left: 0px;
   position: relative;
   height: 100%;
+}
+
+@media (max-width: 1200px) {
+  body #left_block {
+    width: calc(100vw - 0px) !important;
+  }
 }
 
 #left_block.full_screen_left_block {
@@ -1498,7 +1551,6 @@ body.compact_menu .block_information #left_block {
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width: calc(100% - 93px);
   padding-left: 52px;
   padding-right: 40px;
   background-color: var(--bg-secondary);
@@ -1520,7 +1572,8 @@ body.compact_menu .block_information #left_block {
 #left_block .header_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  min-width: 44px;
+  /* min-width: 44px; */
+  padding: 0 10px;
   height: 45px;
   display: flex;
   justify-content: space-around;
@@ -1541,11 +1594,8 @@ body.compact_menu .block_information #left_block {
   background-color: var(--text-btn-color);
 }
 
-@media (max-width: 1200px) {
-  body .block_information #left_block.spells,
-  body #left_block {
-    width: calc(100vw - 0px) !important;
-  }
+#left_block .header_block .btn_filters span {
+  margin-left: 8px;
 }
 
 .table_card {
@@ -1554,7 +1604,7 @@ body.compact_menu .block_information #left_block {
   border: 0;
 }
 
-table.table_card tr.dtrg-group:first-child {
+table.table_card tr.dtrg-group {
   display: none;
 }
 
@@ -2664,6 +2714,10 @@ body.compact_menu #right_block {
   padding: 0;
 }
 
+#left_block.conditions table.table_card tr.dtrg-group {
+  border: none;
+}
+
 #left_block.conditions table.table_card tr.dtrg-group:first-child {
   display: block;
 }
@@ -3164,7 +3218,7 @@ body.compact_menu #right_block.weapons {
 }
 
 .filter_container {
-  width: calc(100% - 33px);
+  width: calc(100% - 32px);
   height: auto;
   background-color: var(--bg-sub-menu);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);

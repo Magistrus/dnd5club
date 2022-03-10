@@ -6,7 +6,8 @@ const TOGGLE_ID = {
     },
     filter: {
         settings: 'filter_settings',
-        homebrew: 'filter_homebrew'
+        homebrew: 'filter_homebrew',
+        adventure: 'filter_adventure'
     }
 }
 
@@ -21,13 +22,98 @@ function setFiltered() {
     }
 }
 
+function switchFilters(el, dispatch = false) {
+    const hasNextFilter = function (el) {
+        return el && el.nextElementSibling && el.nextElementSibling.tagName === 'LABEL';
+    }
+
+    for (let element = el.closest('.separator_row'); hasNextFilter(element);) {
+        element = element.nextElementSibling;
+
+        const input = element.querySelector('input');
+
+        input.checked = el.checked;
+    }
+
+
+    if (!dispatch) {
+        return;
+    }
+
+
+    for (let element = el.closest('.separator_row'); hasNextFilter(element);) {
+        element = element.nextElementSibling;
+
+        const input = element.querySelector('input');
+
+        input.dispatchEvent(new Event('change'));
+    }
+}
+
+function getFilters(el) {
+    const hasNextFilter = function (el) {
+        return el && el.nextElementSibling && el.nextElementSibling.tagName === 'LABEL';
+    }
+    const filters = [];
+
+    for (let element = el.closest('.separator_row'); hasNextFilter(element);) {
+        element = element.nextElementSibling;
+
+        const input = element.querySelector('input');
+
+        if (input) {
+            filters.push(input);
+        }
+    }
+
+    return filters;
+}
+
+function checkFilters(el) {
+    const filters = getFilters(el);
+
+    let status = false;
+
+    for (let index = 0; index < filters.length && !status; index++) {
+        status = filters[index].checked;
+    }
+
+    return status;
+}
+
+function restoreSourceContainer() {
+    const filterContainer = document.querySelector('.filter_container');
+    const sources = filterContainer.querySelector('.sources');
+    const filters = sources.querySelectorAll('input');
+
+    let status = true;
+
+    for (let index = 0; index < filters.length && status; index++) {
+        status = filters[index].checked;
+    }
+
+    const resetBtn = sources.querySelector(`#${filters[0].name}_clear_btn`);
+
+    if (!status) {
+        resetBtn.classList.remove('hide_block');
+
+        return;
+    }
+
+    resetBtn.classList.add('hide_block');
+}
+
 function saveFilter(storageKey) {
     const filterContainer = document.querySelector('.filter_container');
     const filters = filterContainer.querySelectorAll('input:checked');
     const data = {};
 
     for (let filter of filters) {
-        if (filter.name === 'settings_off' || filter.name === 'homebrew_off') {
+        if (
+            filter.name === 'settings_off'
+            || filter.name === 'homebrew_off'
+            || filter.name === 'adventure_off'
+        ) {
             continue;
         }
 
@@ -40,13 +126,27 @@ function saveFilter(storageKey) {
 
     const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
     const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
+    const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
 
     if (homebrewToggle) {
-        data[TOGGLE_ID.filter.homebrew] = homebrewToggle.checked;
+        const checked = checkFilters(homebrewToggle);
+
+        homebrewToggle.checked = checked;
+        data[TOGGLE_ID.filter.homebrew] = checked;
     }
 
     if (settingsToggle) {
-        data[TOGGLE_ID.filter.settings] = settingsToggle.checked;
+        const checked = checkFilters(settingsToggle);
+
+        settingsToggle.checked = checked;
+        data[TOGGLE_ID.filter.settings] = checked;
+    }
+
+    if (adventuresToggle) {
+        const checked = checkFilters(adventuresToggle);
+
+        adventuresToggle.checked = checked;
+        data[TOGGLE_ID.filter.adventure] = checked;
     }
 
     const storageData = localStorage.getItem(STORAGE_KEY);
@@ -58,6 +158,7 @@ function saveFilter(storageKey) {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
+    restoreSourceContainer();
     setFiltered();
 }
 
@@ -66,6 +167,7 @@ function restoreFilter(storageKey) {
     const restoreToggles = function (storage = {}) {
         const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
         const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
+        const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
         const mainHomebrew = document.getElementById(TOGGLE_ID.main.homebrew);
         const mainSettings = document.getElementById(TOGGLE_ID.main.settings);
 
@@ -92,10 +194,23 @@ function restoreFilter(storageKey) {
                 switchFilters(settingsToggle);
             }
         }
+
+        if (adventuresToggle) {
+            const saved = TOGGLE_ID.filter.adventure in storage;
+
+            adventuresToggle.checked = saved
+                ? storage[TOGGLE_ID.filter.adventure]
+                : true;
+
+            if (!adventuresToggle.checked) {
+                switchFilters(adventuresToggle);
+            }
+        }
     }
 
     if (!storageData) {
         restoreToggles();
+        restoreSourceContainer();
 
         return;
     }
@@ -106,6 +221,7 @@ function restoreFilter(storageKey) {
 
     if (!parsed[storageKey] || !Object.keys(parsed[storageKey]).length) {
         restoreToggles();
+        restoreSourceContainer();
 
         return;
     }
@@ -115,7 +231,11 @@ function restoreFilter(storageKey) {
     const filters = filterContainer.querySelectorAll('input');
 
     for (let filter of filters) {
-        if (filter.name === 'settings_off' || filter.name === 'homebrew_off') {
+        if (
+            filter.name === 'settings_off'
+            || filter.name === 'homebrew_off'
+            || filter.name === 'adventure_off'
+        ) {
             continue;
         }
 
@@ -149,6 +269,7 @@ function restoreFilter(storageKey) {
     }
 
     restoreToggles(savedFilter);
+    restoreSourceContainer();
     setFiltered();
 }
 
@@ -185,41 +306,28 @@ function getSearchColumn(name, storageKey) {
     }
 }
 
-function switchFilters(el, dispatch = false) {
-    const hasNextFilter = function (el) {
-        return el && el.nextElementSibling && el.nextElementSibling.tagName === 'LABEL';
-    }
-
-    for (let element = el.closest('.separator_row'); hasNextFilter(element);) {
-        element = element.nextElementSibling;
-
-        const input = element.querySelector('input');
-
-        input.checked = el.checked;
-
-        if (dispatch) {
-            input.dispatchEvent(new Event('change'));
-        }
-
-        if (el.checked) {
-            input.removeAttribute('disabled');
-        } else {
-            input.setAttribute('disabled', 'disabled');
-        }
-    }
-}
-
 function addToggleListeners() {
     const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
     const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
+    const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
 
-    settingsToggle.addEventListener('change', function () {
-        switchFilters(settingsToggle, true)
-    });
+    if (settingsToggle) {
+        settingsToggle.addEventListener('change', function () {
+            switchFilters(settingsToggle, true)
+        });
+    }
 
-    homebrewToggle.addEventListener('change', function () {
-        switchFilters(homebrewToggle, true)
-    });
+    if (homebrewToggle) {
+        homebrewToggle.addEventListener('change', function () {
+            switchFilters(homebrewToggle, true)
+        });
+    }
+
+    if (adventuresToggle) {
+        adventuresToggle.addEventListener('change', function () {
+            switchFilters(adventuresToggle, true)
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', addToggleListeners);

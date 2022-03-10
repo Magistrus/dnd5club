@@ -447,7 +447,7 @@ $('.book_checkbox').on('change', function (e) {
 });
 $('#book_clear_btn').on('click', function () {
     $('#book_clear_btn').addClass('hide_block');
-    $('.book_checkbox').prop('checked', false);
+    $('.book_checkbox').prop('checked', true);
     $('#spells').DataTable().column(10).search("", true, false, false).draw();
     saveFilter('spells');
 });

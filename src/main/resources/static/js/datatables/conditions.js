@@ -175,7 +175,13 @@ $('#text_clear').on('click', function () {
     $('#text_clear').hide();
 });
 $('#btn_close').on('click', function () {
-    $('#conditions').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#conditions').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {
