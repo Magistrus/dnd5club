@@ -48,7 +48,7 @@ public class RaceController {
 		sources = new HashMap<>();
 		sources.put(TypeBook.OFFICAL, raceRepository.findBook());
 		sources.put(TypeBook.SETTING, raceRepository.findSettingBook());
-		sources.put(TypeBook.SETTING, raceRepository.findModuleBook());
+		sources.put(TypeBook.MODULE, raceRepository.findModuleBook());
 		sources.put(TypeBook.CUSTOM, raceRepository.findHomebrewBook());
 	}
 	
