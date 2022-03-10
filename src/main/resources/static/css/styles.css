@@ -1263,7 +1263,7 @@ body:before {
   line-height: 72px;
   position: relative;
   padding-left: 24px;
-  font-size:calc(var(--h1-font-size) - 6px);
+  font-size:calc(var(--h1-font-size) - 12px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1271,7 +1271,7 @@ body:before {
 }
 
 .header_block h1 a {
-  font-size: calc(var(--h1-font-size) - 6px);
+  font-size: calc(var(--h1-font-size) - 12px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
