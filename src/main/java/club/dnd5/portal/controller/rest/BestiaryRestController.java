@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.bestiary.CreatureDto;
 import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.foundary.FCreature;
+import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController
@@ -80,6 +82,14 @@ public class BestiaryRestController {
 				Join<Object, Object> join = root.join("habitates", JoinType.INNER);
 				query.distinct(true);
 				return join.in(habitateTypes);
+			});
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(9).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
 			});
 		}
 		return repo.findAll(input, null, specification, creature -> new CreatureDto(creature));

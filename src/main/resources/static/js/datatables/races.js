@@ -302,10 +302,8 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#races').dataTable().api().rows().deselect();
-
         return;
     }
-
     closeHandler();
 });
 
