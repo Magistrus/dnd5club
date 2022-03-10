@@ -2,12 +2,15 @@ package club.dnd5.portal.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.RaceDto;
 import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Feature;
 import club.dnd5.portal.model.races.Race;
@@ -36,12 +41,23 @@ public class RaceController {
 	@Autowired
 	private ImageRepository imageRepo;
 	
+	private Map<TypeBook, List<Book>> sources;
+	
+	@PostConstruct
+	public void init() {
+		sources = new HashMap<>();
+		sources.put(TypeBook.OFFICAL, raceRepository.findBook());
+		sources.put(TypeBook.SETTING, raceRepository.findSettingBook());
+		sources.put(TypeBook.SETTING, raceRepository.findModuleBook());
+		sources.put(TypeBook.CUSTOM, raceRepository.findHomebrewBook());
+	}
+	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
-		model.addAttribute("books", raceRepository.findBook());
-		model.addAttribute("settingBooks", raceRepository.findSettingBook());
-		model.addAttribute("moduleBooks", raceRepository.findModuleBook());
-		model.addAttribute("hombrewBooks", raceRepository.findHomebrewBook());
+		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
+		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("moduleBooks", sources.get(TypeBook.MODULE));
+		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("abilities", AbilityType.values());
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races");
@@ -56,10 +72,10 @@ public class RaceController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("books", raceRepository.findBook());
-		model.addAttribute("settingBooks", raceRepository.findSettingBook());
-		model.addAttribute("moduleBooks", raceRepository.findModuleBook());
-		model.addAttribute("hombrewBooks", raceRepository.findHomebrewBook());
+		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
+		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("moduleBooks", sources.get(TypeBook.MODULE));
+		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("abilities", AbilityType.values());
 
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));

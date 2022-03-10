@@ -22,7 +22,6 @@ import club.dnd5.portal.dto.RaceDto;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.races.Race;
-import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.RaceDataRepository;
 
 @RestController
