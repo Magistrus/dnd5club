@@ -1,5 +1,10 @@
 package club.dnd5.portal.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 import javax.naming.directory.InvalidAttributesException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.dto.spell.SpellDto;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
@@ -22,19 +29,29 @@ public class SpellController {
 	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
 			{ "4", "Жрец" }, { "5", "Колдун" }, { "6", "Паладин" }, { "7", "Следопыт" }, { "8", "Чародей" },
 			{ "14", "Изобретатель" } };
+
+	private Map<TypeBook, List<Book>> sources;
 	
 	@Autowired
 	private SpellDatatableRepository repository;
 	@Autowired
 	private ArchetypeSpellRepository archetypeSpellRepository;
 	
+	@PostConstruct
+	public void init() {
+		sources = new HashMap<>();
+		sources.put(TypeBook.OFFICAL, repository.findBook());
+		sources.put(TypeBook.SETTING, repository.findSettingBook());
+		sources.put(TypeBook.CUSTOM, repository.findHomebrewBook());
+	}
+	
 	@GetMapping("/spells")
 	public String getSpells(Model model) {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
-		model.addAttribute("books", repository.findBook());
-		model.addAttribute("settingBooks", repository.findSettingBook());
-		model.addAttribute("hombrewBooks", repository.findHomebrewBook());
+		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
+		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells");
@@ -52,9 +69,9 @@ public class SpellController {
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
-		model.addAttribute("books", repository.findBook());
-		model.addAttribute("settingBooks", repository.findSettingBook());
-		model.addAttribute("hombrewBooks", repository.findHomebrewBook());
+		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
+		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		SpellDto spellDto = new SpellDto(spell);
 		model.addAttribute("selectedSpell", spellDto);
 		model.addAttribute("metaTitle", String.format("%s (%s)", spellDto.getName(), spellDto.getEnglishName()) + " | Заклинания D&D 5e");
