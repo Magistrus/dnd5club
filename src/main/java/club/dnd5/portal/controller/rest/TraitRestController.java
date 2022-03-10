@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.trait.TraitDto;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 
@@ -58,6 +59,14 @@ public class TraitRestController {
 		if (!requirements.isEmpty()) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> root.get("requirement").in(requirements));
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(5).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
+			});
 		}
 		return repo.findAll(input, specification, specification, TraitDto::new);
 	}
