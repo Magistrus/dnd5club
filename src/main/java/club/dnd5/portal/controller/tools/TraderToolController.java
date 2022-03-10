@@ -459,7 +459,40 @@ public class TraderToolController {
 							break;
 						}
 					} else if (dto.getName().contains("Зелье Сопротивления")) {
-						dto.setName("Зелье Сопротивления" + " " + getResistenceType());
+						String resistType = getResistenceType();
+						switch (resistType) {
+						case "(звуку)":
+							dto.setId(86);
+							break;
+						case "(излучению)":
+							dto.setId(87);
+							break;
+						case "(кислоте)":
+							dto.setId(421);
+							break;
+						case "(огню)":
+							dto.setId(420);
+							break;
+						case "(некротической энергии)":
+							dto.setId(422);
+							break;
+						case "(психической энергии)":
+							dto.setId(423);
+							break;
+						case "(силовому полю)":
+							dto.setId(424);
+							break;
+						case "(холоду)":
+							dto.setId(425);
+							break;
+						case "(электричеству)":
+							dto.setId(426);
+							break;
+						case "(яду)":
+							dto.setId(896);
+							break;
+						}
+						dto.setName("Зелье Сопротивления" + " " + resistType);
 					} else if (dto.getName().contains("Доспех Сопротивления")) {
 						dto.setName(dto.getName() + " " + getResistenceType());
 					}

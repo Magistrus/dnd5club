@@ -1,4 +1,4 @@
-package club.dnd5.portal.controller;
+package club.dnd5.portal.controller.api;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,12 +17,12 @@ import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController
 @RequestMapping("/api")
-public class ApiConroller {
+public class BestiaryApiConroller {
 	@Autowired
 	private BestiaryDatatableRepository repo;
 	
 	@CrossOrigin
-	@GetMapping("/beastiary")
+	@GetMapping("/bestiary")
 	public FBeastiary getCreatures(){
 		List<FBeast> list = ((Collection<Creature>) repo.findAll()).stream().map(FBeast::new).collect(Collectors.toList());
 		return new FBeastiary(list);

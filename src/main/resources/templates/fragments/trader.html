@@ -13,7 +13,7 @@
 			<tr th:each="item : ${items}" th:id = "${item.id}" th:class="|${item.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
 				<td>
 					<div th:class="|tip info_block ${item.rarityEnglish}|" th:title="${item.rarity}" th:text="${item.shortRarity}"></div>
-					<div class="row_name" th:text="${item.name}"></div>
+					<h3 class="row_name"><span th:text="${item.name}"></span></h3>
 				</td>
 			</tr>
 		</tbody>

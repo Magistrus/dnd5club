@@ -1,6 +1,6 @@
 :root {
   --main-font-size:14px;
-  --h1-font-size:32px;
+  --h1-font-size:42px;
   --h2-font-size:28px;
   --h3-font-size:26px;
   --h4-font-size:22px;
@@ -31,22 +31,22 @@ h1 {
   font-size: var(--h1-font-size);
   font-weight: 300;
   margin: 0;
-  color: var(--text-color);
+  color: var(--text-color-title);
 }
 
 h2 {
   font-size: var(--h2-font-size);
   font-weight: 400;
   margin: 0;
-  color: var(--text-color);
+  color: var(--text-color-title);
 }
 
 h3 {
   font-size: var(--h3-font-size);
   font-weight: 300;
   line-height: var(--h3-line-height);
-  margin: 0;
-  color: var(--text-color);
+  margin: 24px 0 8px 0;
+  color: var(--text-color-title);
   font-family: 'Lora';
 }
 
@@ -61,10 +61,10 @@ h4 {
 
 h5 {
   font-size: var(--h5-font-size);
-  font-weight: 400;
+  font-weight: 600;
   line-height: var(--h5-line-height);
   margin: 0px 0 0px 0;
-  color: var(--text-color);
+  color: var(--text-color-title);
   position: relative;
 }
 
@@ -118,7 +118,7 @@ b {
   color: var(--text-g-color);
   line-height: 12px;
   font-weight: 300;
-  margin: 0 0 12px 0;
+  margin: -8px 0 12px 0;
 }
 
 h4 + .caption_text {
@@ -162,7 +162,16 @@ blockquote p:last-child {
 .header_separator {
   display: flex;
   align-items: center;
-  margin-top: 32px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.filter_crumbs_box .header_separator {
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  margin-top: 16px;
+  font-weight: 400;
 }
 
 .header_separator:not(:empty)::after {
@@ -208,6 +217,7 @@ details > summary.h4 {
   cursor: pointer;
   background: var(--bg-details-title);
   border-radius: 8px;
+  width: auto;
 }
 
 details[open] > summary.h4 {
@@ -306,7 +316,6 @@ details[open].spoiler > summary::after {
 }
 
 details[open].spoiler h4.header_separator > span {
-  background: var(--bg-details-title);
   font-size:calc(var(--h4-font-size) - 2px);
 }
 
@@ -388,9 +397,13 @@ table thead th {
 
 table td {
   border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border); */
   height: 30px;
   padding: 4px 4px;
+}
+
+table tbody tr:nth-child(2n) {
+  background: var(--bg-table-row);
 }
 
 table td:last-child {

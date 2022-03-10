@@ -4,7 +4,7 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<div class="search_block filter_control">
+		<div class="search_block">
 			<input type="text" id="search_spell" class="search_int" placeholder="Поиск" autocomplete="off">
 			<div class="btn_search_icon" title="Поиск">
 				<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +114,7 @@
 			</thead>
 		</table>
 		<script>var classId = [[${heroClass.id}]]</script>
-		<script th:src="@{/resources/js/datatables/class_spells.js?v=2.7}" layout:fragment="js-script"></script>
+		<script th:src="@{/resources/js/datatables/class_spells.js?v=2.7.6}" layout:fragment="js-script"></script>
 	</th:block>
 </body>
 </html>

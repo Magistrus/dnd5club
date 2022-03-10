@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -65,9 +66,10 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
-		// if (heroClass == null) {
-		// 	return "redirect: /error/404";
-		// }
+		if (heroClass == null) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
 		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		model.addAttribute("metaTitle", String.format("%s (%s) | Классы D&D 5e", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
@@ -82,27 +84,26 @@ public class ClassController {
 	@GetMapping("/classes/{name}/{archetype}")
 	public String getArchetype(Model model, @PathVariable String name, @PathVariable String archetype, HttpServletRequest request) {
 		String englishName = name.replace("_", " ");
-		model.addAttribute("selectedArchetype", archetype);
 		HeroClass heroClass = classRepository.findByEnglishName(englishName);
 		if (heroClass == null) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-
-		Archetype selectedArchetype = heroClass.getArchetypes().stream()
+		Optional<Archetype> selectedArchetype = heroClass.getArchetypes().stream()
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetype.replace('_', ' ')))
-				.findFirst().get();
-		if (selectedArchetype == null) {
+				.findFirst();
+		if (!selectedArchetype.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
 		model.addAttribute("selectedClass", new ClassDto(heroClass));
+		model.addAttribute("selectedArchetype", archetype);
 		model.addAttribute("metaTitle", String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
-				StringUtils.capitalize(selectedArchetype.getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
+				StringUtils.capitalize(selectedArchetype.get().getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
 		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", 
-				selectedArchetype.getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
-		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, selectedArchetype.getId());
+				selectedArchetype.get().getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, selectedArchetype.get().getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}

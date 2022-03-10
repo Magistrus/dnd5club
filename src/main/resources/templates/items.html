@@ -7,30 +7,33 @@
 				<div class="header_row">
 					<h1>Снаряжение</h1>
 				</div>
-				<div class="search_block filter_control">
-					<input type="text" id="search" class="search_int" placeholder="Поиск" autocomplete="off">
-					<div class="btn_search_icon" title="Поиск">
-						<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#7B61FF" stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-						</i>
+				<div class="search_block">
+					<div class="input_block">
+						<input type="text" id="search" class="search_int" placeholder="Поиск" autocomplete="off">
+						<div class="btn_search_icon" title="Поиск">
+							<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#7B61FF" stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</i>
+						</div>
+						<div id="text_clear" class="btn_text_clear tip" title="Очистить">
+							<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+							</i>
+						</div>
 					</div>
-					<div id="btn_filters" class="btn_filters tip" title="Фильтры">
-						<i id = "icon_filter" class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path
-									d="M20.6083 4.64573C21.1579 3.99575 20.6959 3 19.8447 3H4.1553C3.30408 3 2.84207 3.99575 3.39173 4.64573L9.76357 12.1804C9.91623 12.3609 10 12.5897 10 12.8261V19.382C10 19.7607 10.214 20.107 10.5528 20.2764L12.5528 21.2764C13.2177 21.6088 14 21.1253 14 20.382V12.8261C14 12.5897 14.0838 12.3609 14.2364 12.1804L20.6083 4.64573Z"
-									stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"
-								/>
+					<div id="btn_filters" class="btn_filters">
+						<i id="icon_filter" class="icon_action">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M20.6083 4.64573C21.1579 3.99575 20.6959 3 19.8447 3H4.1553C3.30408 3 2.84207 3.99575 3.39173 4.64573L9.76357 12.1804C9.91623 12.3609 10 12.5897 10 12.8261V19.382C10 19.7607 10.214 20.107 10.5528 20.2764L12.5528 21.2764C13.2177 21.6088 14 21.1253 14 20.382V12.8261C14 12.5897 14.0838 12.3609 14.2364 12.1804L20.6083 4.64573Z" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
 						</i>
-					</div>
-					<div id="text_clear" class="btn_text_clear tip" title="Очистить">
-						<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round" />
-							</svg>
-						</i>
+						<span>
+							Фильтры
+						</span>
 					</div>
 				</div>
 			</div>
@@ -53,7 +56,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label th:each="category : ${categories}"> <input class="category_checkbox filter" type="checkbox" name="category" th:value="${category}"> <span th:text="${category.cyrilicName}"></span>
+							<label class="crumbs" th:each="category : ${categories}"> <input class="category_checkbox filter" type="checkbox" name="category" th:value="${category}"> <span th:text="${category.cyrilicName}"></span>
 							</label>
 						</div>
 					</div>
@@ -80,7 +83,7 @@
 							<i class="icon_action">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M11.8056 14.8611L8.74755 17.9191C7.9665 18.7002 6.70017 18.7002 5.91912 17.9191L4.91421 16.9142C4.13317 16.1332 4.13317 14.8668 4.91421 14.0858L8.47468 10.5253C9.25572 9.74428 10.5221 9.74428 11.3031 10.5253L11.8056 11.0278M10.5278 8.47222L13.5858 5.41421C14.3668 4.63317 15.6332 4.63316 16.4142 5.41421L17.4191 6.41912C18.2002 7.20017 18.2002 8.4665 17.4191 9.24755L13.8587 12.808C13.0776 13.5891 11.8113 13.5891 11.0302 12.808L10.5278 12.3056" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/>
-								</svg>									
+								</svg>
 							</i>
 						</button>
 					</h1>
@@ -119,5 +122,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/items.js?v=1.9}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/datatables/items.js?v=1.9.6}" layout:fragment="js-script"></script>
 </html>

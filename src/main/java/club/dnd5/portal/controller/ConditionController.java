@@ -20,7 +20,7 @@ public class ConditionController {
 	@GetMapping("/conditions")
 	public String getConditions(Model model) {
 		model.addAttribute("metaTitle", "Состояния и болезни (Conditions) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/screens/");
+		model.addAttribute("metaUrl", "https://dnd5.club/conditions");
 		model.addAttribute("metaDescription", "Состояния и болезни по D&D 5 редакции");
 		return "conditions";
 	}
@@ -34,7 +34,7 @@ public class ConditionController {
 		}
 		model.addAttribute("selectedCondition", condition);
 		model.addAttribute("metaTitle", String.format("%s (%s) - Состояния и болезни (Conditions) D&D 5e", condition.getName(), condition.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
+		model.addAttribute("metaUrl", "https://dnd5.club/conditions/" + name);
 		model.addAttribute("metaDescription", "Состояния и болезни по D&D 5 редакции");
 		return "conditions";
 	}

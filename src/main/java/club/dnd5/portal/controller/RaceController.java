@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,10 @@ public class RaceController {
 	
 	@GetMapping("/races")
 	public String getRaces(Model model) {
+		model.addAttribute("books", raceRepository.findBook());
+		model.addAttribute("settingBooks", raceRepository.findSettingBook());
+		model.addAttribute("moduleBooks", raceRepository.findModuleBook());
+		model.addAttribute("hombrewBooks", raceRepository.findHomebrewBook());
 		model.addAttribute("abilities", AbilityType.values());
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races");
@@ -46,20 +51,29 @@ public class RaceController {
 	
 	@GetMapping("/races/{name}")
 	public String getRace(Model model, @PathVariable String name, HttpServletRequest request) {
+		Optional<Race> race = raceRepository.findByEnglishName(name.replace('_', ' '));
+		if (!race.isPresent()) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("books", raceRepository.findBook());
+		model.addAttribute("settingBooks", raceRepository.findSettingBook());
+		model.addAttribute("moduleBooks", raceRepository.findModuleBook());
+		model.addAttribute("hombrewBooks", raceRepository.findHomebrewBook());
 		model.addAttribute("abilities", AbilityType.values());
-		Race race = raceRepository.findByEnglishName(name.replace('_', ' ')).get();
-		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("selectedRace", new RaceDto(race));
 
-		List<Feature> features =  race.getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
+		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
+		model.addAttribute("selectedRace", new RaceDto(race.get()));
+
+		List<Feature> features =  race.get().getFeatures().stream().filter(Feature::isFeature).collect(Collectors.toList());
 		model.addAttribute("features", features);
-		List<Feature> notFeatures =  race.getFeatures().stream().filter(Feature::isNotFeature).collect(Collectors.toList());
+		List<Feature> notFeatures =  race.get().getFeatures().stream().filter(Feature::isNotFeature).collect(Collectors.toList());
 		model.addAttribute("notFeatures", notFeatures);
 		
-		model.addAttribute("metaTitle", race.getName() + " | Расы D&D 5e");
+		model.addAttribute("metaTitle", race.get().getName() + " | Расы D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
-		model.addAttribute("metaDescription", String.format("%s - раса персонажа по D&D 5 редакции", race.getCapitalazeName()));
-		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.getId());
+		model.addAttribute("metaDescription", String.format("%s - раса персонажа по D&D 5 редакции", race.get().getCapitalazeName()));
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
@@ -68,21 +82,21 @@ public class RaceController {
 	
 	@GetMapping("/races/{name}/{subrace}")
 	public String getSubraceList(Model model, @PathVariable String name, @PathVariable String subrace, HttpServletRequest request) {
-		Race race = raceRepository.findByEnglishName(subrace.replace('_', ' ')).get();
-		if (race == null) {
+		Optional<Race> race = raceRepository.findByEnglishName(subrace.replace('_', ' '));
+		if (!race.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
 		model.addAttribute("abilities", AbilityType.values());
 
 		model.addAttribute("races", raceRepository.findAllByParent(null, getRaceSort()));
-		model.addAttribute("selectedRace", new RaceDto(race.getParent()));
-		model.addAttribute("selectedSubrace", new RaceDto(race));
+		model.addAttribute("selectedRace", new RaceDto(race.get().getParent()));
+		model.addAttribute("selectedSubrace", new RaceDto(race.get()));
 
-		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.getCapitalazeName()));
+		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.get().getCapitalazeName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
-		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа по D&D 5 редакции", race.getName()));
-		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.getId());
+		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа по D&D 5 редакции", race.get().getName()));
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
 		model.addAttribute("images", images);
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());

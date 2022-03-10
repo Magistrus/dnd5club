@@ -93,7 +93,7 @@
 					<tr th:id = "${thing.id}" th:each="thing : ${things}" th:class="|${thing.englishSpellName eq null ? 'item_selected' : 'spell_selected'} |">
 						<td>
 							<div th:class="|tip info_block ${thing.rarityEnglish}|" th:title="${thing.rarity}" th:text="${thing.shortRarity}"></div>
-							<div class="row_name" th:text="${thing.name}"></div>
+							<h3 class="row_name"><span th:text="${thing.name}"></span></h3>
 						</td>
 					</tr>
 				</tbody>
@@ -108,7 +108,7 @@
 							<tr th:each="treasure : ${treasures}">
 								<td>
 									<div class="content">
-										<div class="row_name" th:text="${treasure.name}"></div>
+										<h3 class="row_name"><span th:text="${treasure.name}"></span></h3>
 										<div class="secondary_name tip" th:text="${treasure.type.name}" title="Тип"></div>
 									</div>
 								</td>

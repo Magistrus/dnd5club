@@ -21,7 +21,8 @@ public enum AbilityType {
 	WISDOM("Мудрость"),           // 4
 	CHARISMA("Харизма"),          // 5
 
-	CHOICE("к другой"),
+	CHOICE("к одной другой"),
+	ONE("к одной"),
 	CHOICE_UNIQUE("к двум другим"),
 	CHOICE_DOUBLE("Одну +2 и +1 или Три +1");
 
@@ -35,7 +36,6 @@ public enum AbilityType {
 	}
 
 	public static AbilityType parseShortName(String shortName) {
-
 		switch (shortName) {
 			case "Сил":
 				return AbilityType.STRENGTH;
@@ -70,6 +70,7 @@ public enum AbilityType {
 	public static byte getModifier(byte ability) {
 		return (byte) ((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2);
 	}
+
 	public static Set<AbilityType> getBaseAbility(){
 		return EnumSet.of(STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA);
 	}
