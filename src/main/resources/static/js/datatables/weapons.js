@@ -49,10 +49,14 @@ $(document).ready(function () {
                 data: 'damage',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 0, 2, 3, 4, 5, 6 ],
+                "targets": [ 0, 2, 3, 4, 5, 6, 7 ],
                 "visible": false
             },
         ],
@@ -263,7 +267,24 @@ $('#property_clear_btn').on('click', function () {
     $('#weapons').DataTable().column(6).search("", true, false, false).draw();
     setFiltered();
 });
-
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#weapons').DataTable().column(7).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('weapons');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#weapons').DataTable().column(7).search("", true, false, false).draw();
+    saveFilter('weapons');
+});
 function setFiltered() {
     let boxes = $('input:checkbox:checked.filter').map(function () {
         return this.value;
