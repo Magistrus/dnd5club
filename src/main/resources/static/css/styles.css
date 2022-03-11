@@ -2482,11 +2482,12 @@ body.compact_menu #right_block {
   background-color: transparent !important;
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid var(--border);
 }
 
-.table_list tr:nth-child(2n) {
-  background: var(--bg-table-row) !important;
-}
+/* .table_list tr:nth-child(2n) {
+  background: var(--bg-table-row) ;
+} */
 
 .table_list tr.custom_source {
   background: var(--bg-homebrew-gradient) !important;
