@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import club.dnd5.portal.dto.ConditionDto;
 import club.dnd5.portal.model.Condition;
 import club.dnd5.portal.repository.ConditionRepository;
 
@@ -32,7 +33,7 @@ public class ConditionController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("selectedCondition", condition);
+		model.addAttribute("selectedCondition", new ConditionDto(condition));
 		model.addAttribute("metaTitle", String.format("%s (%s) - Состояния и болезни (Conditions) D&D 5e", condition.getName(), condition.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/conditions/" + name);
 		model.addAttribute("metaDescription", "Состояния и болезни по D&D 5 редакции");
