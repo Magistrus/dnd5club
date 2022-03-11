@@ -2482,6 +2482,7 @@ body.compact_menu #right_block {
   background-color: transparent !important;
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid var(--border);
 }
 
 .table_list tr.custom_source {
