@@ -32,10 +32,14 @@ $(document).ready(function () {
                 data: 'type',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2 ],
+                "targets": [ 1, 2, 3 ],
                 "visible": false
             },
         ],
@@ -213,7 +217,24 @@ $('#category_clear_btn').on('click', function () {
     $('#items').DataTable().column(2).search("", true, false, false).draw();
     setFiltered();
 });
-
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#items').DataTable().column(3).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('items');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#items').DataTable().column(3).search("", true, false, false).draw();
+    saveFilter('items');
+});
 function setFiltered() {
     let boxes = $('input:checkbox:checked.filter').map(function () {
         return this.value;
