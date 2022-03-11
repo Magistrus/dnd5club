@@ -24,13 +24,13 @@ import club.dnd5.portal.model.background.Personalization;
 import club.dnd5.portal.model.background.PersonalizationType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
-import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 
 @Controller
 public class BackgroundController {
 	@Autowired
 	private BackgroundDatatableRepository repository;
+	
 	private Map<TypeBook, List<Book>> sources;
 
 	@PostConstruct
@@ -42,6 +42,7 @@ public class BackgroundController {
 		sources.put(TypeBook.CUSTOM, repository.findBook(TypeBook.CUSTOM));
 
 	}
+	
 	@GetMapping("/backgrounds")
 	public String getBackgrounds(Model model) {
 		model.addAttribute("books", sources.get(TypeBook.OFFICAL));

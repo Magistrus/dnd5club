@@ -46,6 +46,10 @@ $(document).ready(function () {
                 data: 'attunement',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
@@ -57,7 +61,7 @@ $(document).ready(function () {
                 }
             },
             {
-                targets: [ 0, 2, 3, 4, 5 ],
+                targets: [ 0, 2, 3, 4, 5, 6 ],
                 visible: false
             },
         ],
@@ -305,7 +309,24 @@ $('#consumable_clear_btn').on('click', function () {
     $('#items_magic').DataTable().column(5).search("", true, false, false).draw();
     setFiltered();
 });
-
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#items_magic').DataTable().column(6).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('items_magic');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#items_magic').DataTable().column(6).search("", true, false, false).draw();
+    saveFilter('items_magic');
+});
 function setFiltered() {
     let boxes = $('input:checkbox:checked.filter').map(function () {
         return this.value;

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.items.MagicThingType;
 import club.dnd5.portal.model.items.Rarity;
@@ -53,6 +56,14 @@ public class ItemMagicRestController {
 		} 
 		if (input.getColumns().get(5).getSearch().getValue().contains("0")) {
 			specification = addSpecification(specification, (root, query, cb) -> cb.and(cb.equal(root.get("consumed"), 0)));
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(6).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
+			});
 		}
 		return repo.findAll(input, specification, specification, ItemMagicDto::new);
 	}
