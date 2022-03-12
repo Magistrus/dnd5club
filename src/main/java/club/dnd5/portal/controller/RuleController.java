@@ -38,7 +38,7 @@ public class RuleController {
 		}
 		model.addAttribute("categories", repository.findAllCategories());
 		model.addAttribute("metaTitle", String.format("%s | %s | Правила и термины [Rules] D&D 5e", rule.getName(), rule.getType()));
-		model.addAttribute("metaDescription", String.format("%s (%s) Правила и термины [Rules] D&D 5e", rule.getName(), rule.getEnglishName()));
+		model.addAttribute("metaDescription", String.format("%s (%s) Правила и термины по D&D 5 редакции", rule.getName(), rule.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/rules/" + name);
 		model.addAttribute("selectedRule", new RuleDto(rule));
 		return "rules";
