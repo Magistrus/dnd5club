@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.GodDto;
 import club.dnd5.portal.model.Alignment;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.god.Domain;
 import club.dnd5.portal.model.god.God;
 import club.dnd5.portal.model.god.Pantheon;
@@ -72,6 +73,14 @@ public class GodRestController {
 				.filter(s -> !s.isEmpty()).map(Rank::valueOf).collect(Collectors.toList());
 		if (!filterRanks.isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> root.get("rank").in(filterRanks));
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
+			});
 		}
 		return repo.findAll(input, specification, specification, i -> new GodDto(i));
 	}
