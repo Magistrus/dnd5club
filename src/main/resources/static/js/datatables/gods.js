@@ -18,10 +18,10 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        var result = '<div class="info_block">' + row.aligmentShort + '</div>';
+                        var result = '<div class="info_block tip" title="'+row.alignment+'">' + row.aligmentShort + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
                         result += '</span><span>[' + row.englishName + ']</span></h3>';
-                        result += '<div class="secondary_name">' + row.commitment + '</div></div>';
+                        result += '<div class="secondary_name>' + row.commitment + '</div></div>';
                         return result;
                     }
                     return data;
@@ -50,10 +50,14 @@ $(document).ready(function () {
                 data: 'pantheon',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2, 3, 4, 5, 6 ],
+                "targets": [ 1, 2, 3, 4, 5, 6, 7 ],
                 "visible": false
             },
         ],
@@ -279,7 +283,24 @@ $('#pantheon_clear_btn').on('click', function () {
     $('#gods').DataTable().column(5).search("", true, false, false).draw();
     setFiltered();
 });
-
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#gods').DataTable().column(7).search(properties, true, false, false).draw();
+    if (!properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('gods');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#gods').DataTable().column(7).search("", true, false, false).draw();
+    saveFilter('gods');
+});
 function getImage(id) {
     $.ajax({
         type: 'GET',
@@ -301,7 +322,6 @@ function getImage(id) {
         },
     });
 }
-
 function setFiltered() {
     let boxes = $('input:checkbox:checked.filter').map(function () {
         return this.value;
