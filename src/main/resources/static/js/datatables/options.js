@@ -285,13 +285,4 @@ $('#book_clear_btn').on('click', function () {
     $('#options').DataTable().column(5).search("", true, false, false).draw();
     saveFilter('options');
 });
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
+

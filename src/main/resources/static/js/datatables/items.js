@@ -71,12 +71,12 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('items')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('items')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -209,13 +209,15 @@ $('.category_checkbox').on('change', function (e) {
     } else {
         $('#category_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('items');
 });
 $('#category_clear_btn').on('click', function () {
     $('#category_clear_btn').addClass('hide_block');
     $('.category_checkbox').prop('checked', false);
     $('#items').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('items');
 });
 $('.book_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="book"]:checked').map(function () {
@@ -235,14 +237,3 @@ $('#book_clear_btn').on('click', function () {
     $('#items').DataTable().column(3).search("", true, false, false).draw();
     saveFilter('items');
 });
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}

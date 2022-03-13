@@ -36,7 +36,7 @@ $(document).ready(function () {
                                 result += '</ul></div>';
                             }
                             if (row.settingArchetypes.length > 0) {
-                                result += '<div class="archetype_list setting_source ' + (localStorage.getItem('setting_source') != 'true' ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
+                                result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('classes') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingArchetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                                                                       .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
@@ -44,7 +44,7 @@ $(document).ready(function () {
                                 result += '</ul></div></div>';
                             }
                             if (row.homebrewArchetypes.length > 0) {
-                                result += '<div class="homebrew_list archetype_list custom_source ' + (localStorage.getItem('homebrew_source') != 'true' ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
+                                result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('classes') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewArchetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                                                                       .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
@@ -105,7 +105,7 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('classes')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -239,18 +239,12 @@ function selectClass(data) {
         $('#info_wrapper').addClass('traits');
         $('.btn_class').removeClass('active');
         $('#class_traits').addClass('active');
-        if (localStorage.getItem('homebrew_source') == 'true') {
-            $('#homebrew_source').prop('checked', true);
+        if (isHomebrewShowed('classes')) {
             $('.custom_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
-        } else {
-            localStorage.setItem('homebrew_source', 'false');
         }
-        if (localStorage.getItem('setting_source') == 'true') {
-            $('#setting_source').prop('checked', true);
+        if (isSettingsShowed('classes')) {
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         $('#mobile_selector').change(function () {
             setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
@@ -360,13 +354,14 @@ $('.dice_hp_checkbox').on('change', function (e) {
     } else {
         $('#dice_hp_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('classes');
 });
 $('#dice_hp_clear_btn').on('click', function () {
     $('#dice_hp_clear_btn').addClass('hide_block');
     $('.dice_hp_checkbox').prop('checked', false);
     $('#classes').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('classes');
 });
 $('#only_archetypes').click(function () {
     showOnlyArchetype();
@@ -380,16 +375,7 @@ function showOnlyArchetype() {
     }
 }
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
+
 
 function loadDescription(url) {
     $('#content_block').load(url, function () {
