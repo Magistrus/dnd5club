@@ -1259,7 +1259,8 @@ body:before {
   display: flex;
 }
 
-.header_block .search_block .input_block{
+.search_block .input_block,
+.header_block .search_block .input_block {
   width: 100%;
   position: relative;
 }
@@ -2327,12 +2328,9 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_block .search_int,
 #right_block .info_wrapper.spells .search_block .search_int {
   border: none;
-  width: calc(100% - 93px);
   padding-left: 52px;
   padding-right: 40px;
   background-color: var(--bg-sub-menu);
-  color: var(--text-color);
-  font-size: var(--main-font-size);
   margin: 0;
   height: 45px;
 }
@@ -2352,12 +2350,12 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.spells .search_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  min-width: 44px;
+  /* min-width: 44px; */
+  padding: 0 10px;
   height: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
   right: 0;
   cursor: pointer;
 }
