@@ -38,10 +38,13 @@ public class ScreenController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
+		
+		model.addAttribute("metaImage", screen.getIcon());
+
 		model.addAttribute("selectedScreen", new ScreenDto(screen));
 		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
-		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Дракона по D&D 5 редакции");
+		model.addAttribute("metaDescription", String.format("%s (%s) Ширма Мастера Подземелий и Дракона по D&D 5 редакции", screen.getName(), screen.getEnglishName()));
 		return "screens";
 	}
 	

@@ -134,6 +134,11 @@ $(document).ready(function () {
         selectedTrait = data;
     });
     $('#search').on('keyup click', function () {
+        if ($('#search').val()) {
+            $('#text_clear').show();
+        } else {
+            $('#text_clear').hide();
+        }
         table.tables().search($(this).val()).draw();
     });
 });
