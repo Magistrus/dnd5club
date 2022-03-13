@@ -1921,6 +1921,7 @@ table.table_card tr.dtrg-group td {
   overflow: hidden;
   display: none;
   box-shadow: 0px 0px 23px 7px #0000001f;
+  z-index: 10;
 }
 
 #right_block .image-container {
@@ -2008,7 +2009,7 @@ body.compact_menu #right_block {
   margin-left: -24px;
   margin-right: -24px;
   margin-bottom: 0;
-  padding: 14px 24px 14px 24px;
+  padding: 12px 24px 12px 24px;
 }
 
 .dnd5-popup-block .row_info {
@@ -3240,7 +3241,7 @@ body.compact_menu #right_block.weapons {
 }
 
 .filter_container .filter_block_toggle {
-  padding: 8px 8px 0px 8px;
+  padding: 16px 8px 0px 8px;
   border: 1px solid var(--border);
   border-radius: 8px;
   margin-top: 16px;
