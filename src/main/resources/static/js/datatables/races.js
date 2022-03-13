@@ -36,7 +36,7 @@ $(document).ready(function () {
                                 result += '</ul></div>';
                             }
                             if (row.settingSubraces.length > 0) {
-                                result += '<div class="archetype_list setting_source ' + (localStorage.getItem('setting_source') != 'true' ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
+                                result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingSubraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                                                                       .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
@@ -44,7 +44,7 @@ $(document).ready(function () {
                                 result += '</ul></div></div>';
                             }
                             if (row.homebrewSubraces.length > 0) {
-                                result += '<div class="homebrew_list archetype_list custom_source ' + (localStorage.getItem('homebrew_source') != 'true' ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
+                                result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('races') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewSubraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                                                                       .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
@@ -230,15 +230,12 @@ function selectRace(data) {
     var url = '/races/fragment/' + data.id;
     $("#content_block").load(url, function () {
         if (isHomebrewShowed('races')) {
-            $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
         }
         if (isSettingsShowed('races')) {
-            $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         $('#mobile_selector').change(function () {
             setActiveSubrace(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
@@ -262,15 +259,11 @@ function setActiveSubrace(data, raceName, subraceName) {
             setActiveSubrace(data, raceName, $('#mobile_selector').val());
         });
         if (isHomebrewShowed('races')) {
-            $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         if (isSettingsShowed('races')) {
-            $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         selectedSubrace = null;
         $('.image-container').magnificPopup({
