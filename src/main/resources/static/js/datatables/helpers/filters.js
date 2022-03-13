@@ -12,13 +12,29 @@ const TOGGLE_ID = {
 }
 
 function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
+    const filterIcon = document.getElementById('icon_filter');
+    const isCustom = () => {
+        const container = document.querySelector('.filter_container');
+        const blocks = container.querySelectorAll('.filter_block');
+
+        let result = false;
+
+        for (let i = 0; i < blocks.length && !result; i++) {
+            const inputList = blocks[i].querySelectorAll('input');
+
+            for (let index = 0; index < inputList.length && !result; index++) {
+                result = (!blocks[i].classList.contains('sources') && inputList[index].checked)
+                    || (blocks[i].classList.contains('sources') && !inputList[index].checked)
+            }
+        }
+
+        return result;
+    }
+
+    if (isCustom()) {
+        filterIcon.classList.add('active');
     } else {
-        $('#icon_filter').addClass('active');
+        filterIcon.classList.remove('active');
     }
 }
 
@@ -92,7 +108,7 @@ function restoreSourceContainer() {
         status = filters[index].checked;
     }
 
-    const resetBtn = sources.querySelector(`#${filters[0].name}_clear_btn`);
+    const resetBtn = sources.querySelector(`#${ filters[0].name }_clear_btn`);
 
     if (!status) {
         resetBtn.classList.remove('hide_block');
@@ -101,6 +117,35 @@ function restoreSourceContainer() {
     }
 
     resetBtn.classList.add('hide_block');
+}
+
+function resetAllFilters() {
+    const filterContainer = document.querySelector('.filter_container');
+    const resetControls = filterContainer.querySelectorAll('button[id$=_clear_btn]');
+    const resetFilters = (list) => {
+        for (let i = 0; i < list.length; i++) {
+            list[i].checked = !!list[i].closest('.filter_block').classList.contains('sources');
+        }
+
+        list[0].dispatchEvent(new Event('change'))
+    }
+
+    if (!resetControls.length) {
+        return;
+    }
+
+    for (let index = 0; index < resetControls.length; index++) {
+        const block = resetControls[index].closest('.filter_block');
+        const inputList = block.querySelectorAll('input');
+
+        if (!inputList.length) {
+            continue;
+        }
+
+        resetFilters(inputList);
+
+        resetControls[index].classList.add('hide_block');
+    }
 }
 
 function saveFilter(storageKey) {
@@ -163,20 +208,24 @@ function saveFilter(storageKey) {
 }
 
 function restoreFilter(storageKey) {
+    for (let i = 0; i < Object.values(TOGGLE_ID.main).length; i++) {
+        if (localStorage.getItem(Object.values(TOGGLE_ID.main)[i])) {
+            localStorage.removeItem(Object.values(TOGGLE_ID.main)[i]);
+        }
+    }
+
     const storageData = localStorage.getItem(STORAGE_KEY);
     const restoreToggles = function (storage = {}) {
         const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
         const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
         const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
-        const mainHomebrew = document.getElementById(TOGGLE_ID.main.homebrew);
-        const mainSettings = document.getElementById(TOGGLE_ID.main.settings);
 
         if (homebrewToggle) {
             const saved = TOGGLE_ID.filter.homebrew in storage;
 
             homebrewToggle.checked = saved
                 ? storage[TOGGLE_ID.filter.homebrew]
-                : mainHomebrew.checked;
+                : true;
 
             if (!homebrewToggle.checked) {
                 switchFilters(homebrewToggle);
@@ -188,7 +237,7 @@ function restoreFilter(storageKey) {
 
             settingsToggle.checked = saved
                 ? storage[TOGGLE_ID.filter.settings]
-                : mainSettings.checked;
+                : true;
 
             if (!settingsToggle.checked) {
                 switchFilters(settingsToggle);
@@ -306,7 +355,7 @@ function getSearchColumn(name, storageKey) {
     }
 }
 
-function addToggleListeners() {
+function setupToggleListeners() {
     const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
     const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
     const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
@@ -330,11 +379,20 @@ function addToggleListeners() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', addToggleListeners);
+function setupResetListener() {
+    const resetBtn = document.getElementById('btn_filters_all_clear');
+
+    if (!resetBtn) {
+        return;
+    }
+
+    resetBtn.addEventListener('click', function () {
+        resetAllFilters();
+    });
+}
 
 function isHomebrewShowed(storageKey) {
     const storage = localStorage.getItem(STORAGE_KEY);
-    const homebrewToggle = document.getElementById(TOGGLE_ID.main.homebrew);
     const parsed = !!storage && JSON.parse(storage)
         ? JSON.parse(storage)
         : undefined;
@@ -344,12 +402,11 @@ function isHomebrewShowed(storageKey) {
 
     return !!sectionStorage && TOGGLE_ID.filter.homebrew in sectionStorage
         ? sectionStorage[TOGGLE_ID.filter.homebrew]
-        : homebrewToggle.checked;
+        : true;
 }
 
 function isSettingsShowed(storageKey) {
     const storage = localStorage.getItem(STORAGE_KEY);
-    const settingsToggle = document.getElementById(TOGGLE_ID.main.settings);
     const parsed = !!storage && JSON.parse(storage)
         ? JSON.parse(storage)
         : undefined;
@@ -359,6 +416,13 @@ function isSettingsShowed(storageKey) {
 
     return !!sectionStorage && TOGGLE_ID.filter.settings in sectionStorage
         ? sectionStorage[TOGGLE_ID.filter.settings]
-        : settingsToggle.checked;
+        : true;
+}
+
+document.addEventListener('DOMContentLoaded', setupListeners);
+
+function setupListeners() {
+    setupToggleListeners();
+    setupResetListener();
 }
 

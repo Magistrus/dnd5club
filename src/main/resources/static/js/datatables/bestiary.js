@@ -408,18 +408,6 @@ $('#habitate_clear_btn').on('click', function () {
     saveFilter('creatures');
 })
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
-
 $('#btn_export_fvtt').on('click', function () {
     window.open('/creature/json/' + selectedCreature.id, '_self');
 });
