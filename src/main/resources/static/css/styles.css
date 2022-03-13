@@ -3486,13 +3486,13 @@ button {
 }
 
 .become-discord-button,
-.become-patron-button {
-  background-color: #FC3D51;
+.become-donations-button {
+  background-color: #EF5C34;
   padding: 10px 16px 10px 46px;
   color: #fff;
   border-radius: 30px;
   display: inline-block;
-  background-image: url(/resources/assets/become-patron-button.svg);
+  background-image: url(/resources/assets/become-boosty-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
@@ -3500,8 +3500,8 @@ button {
   transition: all 0.5s;
 }
 
-.become-patron-button:hover {
-  background-color: #c52a3a;
+.become-donations-button:hover {
+  background-color: #d45124;
   color: var(--text-btn-color);
 }
 
