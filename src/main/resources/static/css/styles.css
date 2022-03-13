@@ -1605,6 +1605,7 @@ body.compact_menu .block_information #left_block {
   background-color: var(--text-btn-color);
 }
 
+#right_block .btn_filters span,
 #left_block .header_block .btn_filters span {
   margin-left: 8px;
 }
