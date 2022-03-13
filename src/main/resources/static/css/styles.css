@@ -243,10 +243,14 @@ hr {
 
 label.check_block {
   box-sizing: inherit;
-  line-height: 22px;
+  line-height: 15px;
   color: var(--text-color);
-  display: block;
-  margin-bottom: 8px;
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+label.check_block .toggle[type="checkbox"] {
+  margin:0;
 }
 
 label.check_block .toggle+span {
@@ -254,17 +258,17 @@ label.check_block .toggle+span {
 }
 
 label.check_block .check+span {
-  margin-left: 8px;
+  margin-left: 4px;
 }
 
 .check-wrapper {
   margin-top: 8px;
-  margin-bottom: 16px;
 }
 
 .check-wrapper label.check_block {
-  display: inline-block;
+  display: inline-flex;
   margin-right: 16px;
+  align-items: center;
 }
 
 
@@ -331,6 +335,10 @@ input {
 input[type="radio"] {
   min-width: 13px;
   height: 13px;
+}
+
+input[type="radio"].check {
+  width: auto;
 }
 
 textarea {
@@ -3236,6 +3244,7 @@ body.compact_menu #right_block.weapons {
   padding: 8px 8px 0px 8px;
   border: 1px solid var(--border);
   border-radius: 8px;
+  margin-top: 16px;
 }
 
 .filter_container .filter_block {
@@ -3303,10 +3312,11 @@ body.compact_menu #right_block.weapons {
 .filter_container .filter_block .filter_crumbs_box .separator_row {
   margin-top: 16px;
   display: flex;
+  align-items: center;
 }
 
 .filter_container .filter_block .filter_crumbs_box .separator_row .header_separator {
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .filter_container .filter_block .filter_crumbs_box .separator_row label {
@@ -3378,7 +3388,7 @@ body #left_block.tools_block {
   width: calc(100vw - 271px) !important;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   body.compact_menu #left_block.tools_block,
   body #left_block.tools_block {
     width: calc(100vw - 0px) !important;
