@@ -33,6 +33,11 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('category', 'rules'),
+        ],
         columnDefs: [
             {
                 "targets": [ 1, 2 ],
@@ -57,6 +62,8 @@ $(document).ready(function () {
             }
         },
         initComplete: function (settings, json) {
+            restoreFilter('rules');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -195,13 +202,15 @@ $('.category_checkbox').on('change', function (e) {
     } else {
         $('#category_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('rules');
 });
 $('#category_clear_btn').on('click', function () {
     $('#category_clear_btn').addClass('hide_block');
     $('.category_checkbox').prop('checked', false);
     $('#rules').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('rules');
 });
 
 function setFiltered() {
