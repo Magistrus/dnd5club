@@ -100,51 +100,47 @@
 							</label>
 						</div>
 					</div>
-				</div>
-				<div class="filter_container custom_source hide_block">
-					<div class="filter_block">
-						<div class="header">
-							<h5>Навыки</h5>
-							<button>
-								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-								</i>
-							</button>
-							<button id="skill_clear_btn" class="hide_block">
-								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-								</i>
-							</button>
-						</div>
-						<div class="filter_crumbs_box">
-							<label class="crumbs" th:each="skill : ${skills}"> <input class="skill_checkbox filter" type="checkbox" name="skill" th:value="${skill}"> <span th:text="${skill.cyrilicName}"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="filter_container">
-					<div class="filter_block">
-						<div class="header">
-							<h5>Требования</h5>
-							<button>
-								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-								</i>
-							</button>
-							<button id="prerequisite_clear_btn" class="hide_block">
-								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-								</i>
-							</button>
-						</div>
-						<div class="filter_crumbs_box hide">
-							<label class="crumbs" th:each="prerequisite : ${prerequisites}" ><input class="prerequisite_checkbox filter" type="checkbox" name="prerequisite" th:value="${prerequisite}"> <span th:text="${prerequisite}"></span></label>
-						</div>
-					</div>
+                    <div class="filter_block hide_block">
+                        <div class="header">
+                            <h5>Навыки</h5>
+                            <button>
+                                <i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                </i>
+                            </button>
+                            <button id="skill_clear_btn" class="hide_block">
+                                <i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                </i>
+                            </button>
+                        </div>
+                        <div class="filter_crumbs_box">
+                            <label class="crumbs" th:each="skill : ${skills}"> <input class="skill_checkbox filter" type="checkbox" name="skill" th:value="${skill}"> <span th:text="${skill.cyrilicName}"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="filter_block">
+                        <div class="header">
+                            <h5>Требования</h5>
+                            <button>
+                                <i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                </i>
+                            </button>
+                            <button id="prerequisite_clear_btn" class="hide_block">
+                                <i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                </i>
+                            </button>
+                        </div>
+                        <div class="filter_crumbs_box hide">
+                            <label class="crumbs" th:each="prerequisite : ${prerequisites}" ><input class="prerequisite_checkbox filter" type="checkbox" name="prerequisite" th:value="${prerequisite}"> <span th:text="${prerequisite}"></span></label>
+                        </div>
+                    </div>
 				</div>
 			</div>
 			<div id="scroll_load_simplebar" class="container_left">

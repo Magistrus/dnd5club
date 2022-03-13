@@ -37,6 +37,12 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('skill', 'backgrounds'),
+            getSearchColumn('book', 'backgrounds'),
+        ],
         columnDefs: [
             {
                 "targets": [ 1, 2, 3 ],
@@ -58,6 +64,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('backgrounds');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -95,12 +103,12 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('backgrounds')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('backgrounds')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -210,13 +218,15 @@ $('.skill_checkbox').on('change', function (e) {
     } else {
         $('#skill_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('backgrounds');
 });
 $('#skill_clear_btn').on('click', function () {
     $('#skill_clear_btn').addClass('hide_block');
     $('.skill_checkbox').prop('checked', false);
     $('#backgrounds').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('backgrounds');
 });
 $('.book_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="book"]:checked').map(function () {

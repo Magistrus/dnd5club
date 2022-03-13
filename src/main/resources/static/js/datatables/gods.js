@@ -55,6 +55,16 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('alignment', 'gods'),
+            getSearchColumn('domen', 'gods'),
+            getSearchColumn('rank', 'gods'),
+            null,
+            getSearchColumn('pantheon', 'gods'),
+            getSearchColumn('book', 'gods'),
+        ],
         columnDefs: [
             {
                 "targets": [ 1, 2, 3, 4, 5, 6, 7 ],
@@ -76,6 +86,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('gods');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -221,13 +233,15 @@ $('.alignment_checkbox').on('change', function (e) {
     } else {
         $('#alignment_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#alignment_clear_btn').on('click', function () {
     $('#alignment_clear_btn').addClass('hide_block');
     $('.alignment_checkbox').prop('checked', false);
     $('#gods').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.domen_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="domen"]:checked').map(function () {
@@ -239,13 +253,15 @@ $('.domen_checkbox').on('change', function (e) {
     } else {
         $('#domen_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#domen_clear_btn').on('click', function () {
     $('#domen_clear_btn').addClass('hide_block');
     $('.domen_checkbox').prop('checked', false);
     $('#gods').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.rank_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="rank"]:checked').map(function () {
@@ -257,13 +273,15 @@ $('.rank_checkbox').on('change', function (e) {
     } else {
         $('#rank_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#rank_clear_btn').on('click', function () {
     $('#rank_clear_btn').addClass('hide_block');
     $('.rank_checkbox').prop('checked', false);
     $('#gods').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.pantheon_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="pantheon"]:checked').map(function () {
@@ -275,13 +293,15 @@ $('.pantheon_checkbox').on('change', function (e) {
     } else {
         $('#pantheon_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#pantheon_clear_btn').on('click', function () {
     $('#pantheon_clear_btn').addClass('hide_block');
     $('.pantheon_checkbox').prop('checked', false);
     $('#gods').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.book_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="book"]:checked').map(function () {
