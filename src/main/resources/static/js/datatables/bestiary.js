@@ -68,6 +68,18 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            null,
+            getSearchColumn('cr', 'creatures'),
+            getSearchColumn('type', 'creatures'),
+            getSearchColumn('size', 'creatures'),
+            getSearchColumn('tag', 'creatures'),
+            getSearchColumn('habitate', 'creatures'),
+            null,
+            getSearchColumn('book', 'creatures'),
+        ],
         columnDefs: [
             {
                 "targets": [ 0, 2, 3, 4, 5, 6, 7, 8, 9 ],
@@ -96,6 +108,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('creatures')
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -298,13 +312,15 @@ $('.cr_checkbox').on('change', function (e) {
     } else {
         $('#cr_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#cr_clear_btn').on('click', function () {
     $('#cr_clear_btn').addClass('hide_block');
     $('.cr_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.type_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="type"]:checked').map(function () {
@@ -316,13 +332,15 @@ $('.type_checkbox').on('change', function (e) {
     } else {
         $('#type_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#type_clear_btn').on('click', function () {
     $('#type_clear_btn').addClass('hide_block');
     $('.type_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.size_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="size"]:checked').map(function () {
@@ -334,13 +352,15 @@ $('.size_checkbox').on('change', function (e) {
     } else {
         $('#size_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#size_clear_btn').on('click', function () {
     $('#size_clear_btn').addClass('hide_block');
     $('.size_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.tag_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="tag"]:checked').map(function () {
@@ -352,13 +372,15 @@ $('.tag_checkbox').on('change', function (e) {
     } else {
         $('#tag_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#tag_clear_btn').on('click', function () {
     $('#tag_clear_btn').addClass('hide_block');
     $('.tag_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(6).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.habitate_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="habitate"]:checked').map(function () {
@@ -370,7 +392,8 @@ $('.habitate_checkbox').on('change', function (e) {
     } else {
         $('#habitate_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#npc').on('change', function (e) {
     npc = $('#npc').is(':checked')
@@ -381,7 +404,8 @@ $('#habitate_clear_btn').on('click', function () {
     $(this).addClass('hide_block');
     $('.habitate_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(7).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 
 function setFiltered() {

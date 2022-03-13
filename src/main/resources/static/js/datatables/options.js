@@ -46,6 +46,14 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('category', 'options'),
+            getSearchColumn('prerequsite', 'options'),
+            getSearchColumn('level', 'options'),
+            getSearchColumn('book', 'options'),
+        ],
         columnDefs: [
             {
                 "targets": [ 1, 2, 3, 4, 5 ],
@@ -65,6 +73,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('options');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -102,7 +112,7 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('options')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -213,13 +223,13 @@ $('.category_checkbox').on('change', function (e) {
     } else {
         $('#category_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('options');
 });
 $('#category_clear_btn').on('click', function () {
     $('#category_clear_btn').addClass('hide_block');
     $('.category_checkbox').prop('checked', false);
     $('#options').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('options');
 });
 $('.prerequsite_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="prerequsite"]:checked').map(function () {
@@ -231,13 +241,13 @@ $('.prerequsite_checkbox').on('change', function (e) {
     } else {
         $('#prerequsite_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('options');
 });
 $('#prerequsite_clear_btn').on('click', function () {
     $('#prerequsite_clear_btn').addClass('hide_block');
     $('.prerequsite_checkbox').prop('checked', false);
     $('#options').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('options');
 });
 $('.level_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="level"]:checked').map(function () {
@@ -249,13 +259,13 @@ $('.level_checkbox').on('change', function (e) {
     } else {
         $('#level_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('options');
 });
 $('#level_clear_btn').on('click', function () {
     $('#level_clear_btn').addClass('hide_block');
     $('.level_checkbox').prop('checked', false);
     $('#options').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('options');
 });
 $('.book_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="book"]:checked').map(function () {

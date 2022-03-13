@@ -51,6 +51,15 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            getSearchColumn('rarity', 'items_magic'),
+            null,
+            null,
+            getSearchColumn('type', 'items_magic'),
+            getSearchColumn('customization', 'items_magic'),
+            getSearchColumn('consumable', 'items_magic'),
+            getSearchColumn('book', 'items_magic'),
+        ],
         columnDefs: [
             {
                 targets: [ 0 ],
@@ -78,6 +87,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('items_magic');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -93,12 +104,12 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('items_magic')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('items_magic')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -247,13 +258,16 @@ $('.rarity_checkbox').on('change', function (e) {
     } else {
         $('#rarity_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('items_magic');
 });
 $('#rarity_clear_btn').on('click', function () {
     $('#rarity_clear_btn').addClass('hide_block');
     $('.rarity_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(0).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.type_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="type"]:checked').map(function () {
@@ -265,13 +279,17 @@ $('.type_checkbox').on('change', function (e) {
     } else {
         $('#type_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('#type_clear_btn').on('click', function () {
     $('#type_clear_btn').addClass('hide_block');
     $('.type_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.customization_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="customization"]:checked').map(function () {
@@ -283,13 +301,17 @@ $('.customization_checkbox').on('change', function (e) {
     } else {
         $('#customization_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('#customization_clear_btn').on('click', function () {
     $('#customization_clear_btn').addClass('hide_block');
     $('.customization_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.consumable_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="consumable"]:checked').map(function () {
@@ -301,13 +323,17 @@ $('.consumable_checkbox').on('change', function (e) {
     } else {
         $('#consumable_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('#consumable_clear_btn').on('click', function () {
     $('#consumable_clear_btn').addClass('hide_block');
     $('.consumable_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.book_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="book"]:checked').map(function () {
