@@ -1052,9 +1052,11 @@ body:before {
 .main_page_wrapper .main_block .card_row a.card h4 {
   color:var(--text-color);
   transition: color 0.6s;
-  font-size: calc(var(--h4-font-size) - 4px);
+  font-size: calc(var(--h4-font-size) - 6px);
   text-align: center;
   line-height: 16px;
+  font-family: "Open Sans";
+  font-weight: 300;
 }
 
 .main_page_wrapper .main_block .card_row a.card:hover h4 {
