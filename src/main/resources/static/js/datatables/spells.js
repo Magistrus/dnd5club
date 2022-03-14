@@ -157,7 +157,7 @@ $(document).ready(function () {
                     return;
                 }
             }
-            if (localStorage.getItem('homebrew_source') == 'false' && selectedSpell === null) {
+            if (!isHomebrewShowed('classes') && selectedSpell === null) {
                 for (; rowSelectIndex < table.data().count(); rowSelectIndex++) {
                     if (!table.rows(rowSelectIndex).data()[0].homebrew) {
                         $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
@@ -205,9 +205,12 @@ $(document).ready(function () {
         if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/spells/' + data.englishName.split(' ').join('_'));
         }
-        rowSelectIndex = row.index();
-        selectSpell(data);
-        selectedSpell = data;
+
+        if (!!data) {
+            rowSelectIndex = row.index();
+            selectSpell(data);
+            selectedSpell = data;
+        }
     });
 });
 
