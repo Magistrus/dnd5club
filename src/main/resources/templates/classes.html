@@ -50,6 +50,39 @@
 			</div>
 			<div id="searchPanes" class="search_panes hide_block" data-simplebar>
 				<div class="filter_container">
+					<div class="filter_block sources">
+						<div class="header">
+							<h5>Источники</h5>
+							<button>
+								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+								</i>
+							</button>
+							<button id="book_clear_btn" class="hide_block">
+								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+								</i>
+							</button>
+						</div>
+						<div class="filter_crumbs_box">
+							<label class="crumbs tip" th:each="book : ${books}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked
+							> <span th:text="${book.source}"></span></label>
+							<div class="separator_row" style="width: 100%;">
+								<h5 class="header_separator">Сеттинги</h5>
+								<label for="filter_settings" class="check_block"><input id="filter_settings" class="toggle" type="checkbox" name="settings_off"></label>
+							</div>
+							<label class="crumbs tip" th:each="book : ${settingBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked
+							> <span class="tip" th:text="${book.source}"></span></label>
+							<div class="separator_row" style="width: 100%;">
+								<h5 class="header_separator">Homebrew</h5>
+								<label for="filter_homebrew" class="check_block"><input id="filter_homebrew" class="toggle" type="checkbox" name="homebrew_off"></label>
+							</div>
+							<label class="crumbs tip" th:each="book : ${hombrewBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked
+							> <span class="tip" th:text="${book.source}"></span></label>
+						</div>
+					</div>
 					<div class="filter_block_toggle">
 						<label for="only_archetypes" class="check_block"><input id="only_archetypes" class="toggle" type="checkbox" name="only_archetypes"><span>Только навыки архетипов</span></label>
 					</div>

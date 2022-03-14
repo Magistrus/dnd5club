@@ -1,5 +1,6 @@
 package club.dnd5.portal.model.classes.archetype;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -94,5 +95,9 @@ public class Archetype {
 
 	public String getCapitalizeName() {
 		return StringUtils.capitalizeWords(name.toLowerCase());
+	}
+	
+	public List<ArchetypeTrait> getFeats(){
+		return feats.stream().sorted(Comparator.comparing(ArchetypeTrait::getLevel)).collect(Collectors.toList());
 	}
 }
