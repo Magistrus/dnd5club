@@ -79,6 +79,8 @@ public class ClassController {
 		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
 		model.addAttribute("moduleBooks", sources.get(TypeBook.MODULE));
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
+		model.addAttribute("selectedClass", null);
+
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
