@@ -44,10 +44,14 @@ $(document).ready(function () {
                 data: 'level',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2, 3, 4 ],
+                "targets": [ 1, 2, 3, 4, 5 ],
                 "visible": false
             },
         ],
