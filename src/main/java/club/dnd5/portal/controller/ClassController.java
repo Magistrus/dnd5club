@@ -66,12 +66,10 @@ public class ClassController {
 		sources = new HashMap<>();
 		sources.put(TypeBook.OFFICAL, classRepository.findBook(TypeBook.OFFICAL));
 		sources.put(TypeBook.SETTING, classRepository.findBook(TypeBook.SETTING));
-		sources.put(TypeBook.MODULE, classRepository.findBook(TypeBook.MODULE));
 		sources.put(TypeBook.CUSTOM, classRepository.findBook(TypeBook.CUSTOM));
 		
 		sources.computeIfAbsent(TypeBook.OFFICAL, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.OFFICAL));
 		sources.computeIfAbsent(TypeBook.SETTING, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.SETTING));
-		sources.computeIfAbsent(TypeBook.MODULE, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.MODULE));
 		sources.computeIfAbsent(TypeBook.CUSTOM, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.CUSTOM));
 	}
 	
@@ -92,7 +90,6 @@ public class ClassController {
 	public String getClass(Model model, @PathVariable String name, HttpServletRequest request) {
 		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
 		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-		model.addAttribute("moduleBooks", sources.get(TypeBook.MODULE));
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
@@ -129,7 +126,6 @@ public class ClassController {
 		}
 		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
 		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-		model.addAttribute("moduleBooks", sources.get(TypeBook.MODULE));
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		model.addAttribute("selectedArchetype", archetype);
