@@ -83,7 +83,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
-
+            restoreFilter('classes');
+            toggleSourcesItems();
         },
         drawCallback: function (settings) {
             addEventListeners();
@@ -171,10 +172,10 @@ $(document).ready(function () {
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
                 e.target.closest('.simplebar-content-wrapper')
-                     .scrollTo({
-                         top: e.target.closest('tr').offsetTop - 16,
-                         behavior: "smooth"
-                     });
+                 .scrollTo({
+                     top: e.target.closest('tr').offsetTop - 16,
+                     behavior: "smooth"
+                 });
             }, 300)
         }
     });
@@ -253,7 +254,7 @@ function selectClass(data) {
 }
 
 function setActiveArchetype(data, className, archetypeName) {
-    $('#class_name').text(data.name + ' ' +$('#' + archetypeName).text());
+    $('#class_name').text(data.name + ' ' + $('#' + archetypeName).text());
     document.title = data.name + ' (' + data.englishName + ') - ' + $('#' + archetypeName)
         .text() + ' | Подклассы D&D 5e';
     var url = '/classes/' + className + '/architypes/' + archetypeName;
@@ -365,7 +366,28 @@ $('#dice_hp_clear_btn').on('click', function () {
 });
 $('#only_archetypes').click(function () {
     showOnlyArchetype();
-})
+});
+
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+
+    saveFilter('classes');
+    toggleSourcesItems();
+});
+
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+
+    saveFilter('classes');
+});
 
 function showOnlyArchetype() {
     if ($('#only_archetypes').is(':checked')) {
@@ -375,7 +397,89 @@ function showOnlyArchetype() {
     }
 }
 
+function toggleSourcesItems() {
+    const table = document.getElementById('classes');
+    const classes = table.querySelectorAll('tr.odd, tr.even');
+    const leftBlock = document.getElementById('left_block');
+    const sourceFilterBlock = leftBlock.querySelector('.filter_block.sources');
+    const sourceFilters = sourceFilterBlock.querySelectorAll('input[name="book"]');
+    const sources = {};
 
+    for (let index = 0; index < sourceFilters.length; index++) {
+        sources[sourceFilters[index].value] = sourceFilters[index].checked;
+    }
+
+    const isVisible = (book) => {
+        return sources[book]
+    }
+
+    const toggleFunc = (classItem) => {
+        const archetypes = classItem.querySelectorAll('.archetype_item');
+
+        if (!archetypes.length) {
+            const classBook = classItem
+                .querySelector('.books')
+                .innerText
+                .trim();
+
+            if (isVisible(classBook)) {
+                classItem.classList.remove('hide_block');
+            } else {
+                classItem.classList.add('hide_block');
+            }
+        }
+
+        for (let i = 0; i < archetypes.length; i++) {
+            const archetype = archetypes[i];
+            const book = archetype
+                .querySelector('span')
+                .innerText
+                .trim()
+                .split(' / ')[0]
+                .trim();
+
+            if (!isVisible(book)) {
+                archetype.classList.add('hide_block');
+            } else {
+                archetype.classList.remove('hide_block')
+            }
+
+            const parentList = archetype.closest('.archetype_list');
+            const archList = parentList.querySelectorAll('.archetype_item');
+            const archListHidden = parentList.querySelectorAll('.archetype_item.hide_block');
+
+            if (archListHidden.length === archList.length) {
+                parentList.classList.add('hide_block');
+            } else {
+                parentList.classList.remove('hide_block');
+            }
+
+            const archListsContainer = archetype.closest('.archetypes');
+            const archLists = archListsContainer.querySelectorAll('.archetype_list');
+            const archListsHidden = archListsContainer.querySelectorAll('.archetype_list.hide_block');
+
+            if (archLists.length === archListsHidden.length) {
+                const classBook = archListsContainer
+                    .closest('tr.even, tr.odd')
+                    .querySelector('.books')
+                    .innerText
+                    .trim();
+
+                if (isVisible(classBook)) {
+                    archListsContainer.closest('tr.even, tr.odd').classList.remove('hide_block');
+                } else {
+                    archListsContainer.closest('tr.even, tr.odd').classList.add('hide_block');
+                }
+            } else {
+                archListsContainer.closest('tr.even, tr.odd').classList.remove('hide_block');
+            }
+        }
+    }
+
+    for (let key = 0; key < classes.length; key++) {
+        toggleFunc(classes[key]);
+    }
+}
 
 function loadDescription(url) {
     $('#content_block').load(url, function () {

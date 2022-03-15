@@ -13,6 +13,7 @@ const TOGGLE_ID = {
 
 function setFiltered() {
     const filterIcon = document.getElementById('icon_filter');
+    const resetAllBtn = document.getElementById('btn_filters_all_clear');
     const isCustom = () => {
         const container = document.querySelector('.filter_container');
         const blocks = container.querySelectorAll('.filter_block');
@@ -33,8 +34,10 @@ function setFiltered() {
 
     if (isCustom()) {
         filterIcon.classList.add('active');
+        resetAllBtn.style.display = '';
     } else {
         filterIcon.classList.remove('active');
+        resetAllBtn.style.display = 'none';
     }
 }
 
@@ -110,6 +113,10 @@ function restoreSourceContainer() {
 
     const resetBtn = sources.querySelector(`#${ filters[0].name }_clear_btn`);
 
+    if (!resetBtn) {
+        return;
+    }
+
     if (!status) {
         resetBtn.classList.remove('hide_block');
 
@@ -158,6 +165,7 @@ function saveFilter(storageKey) {
             filter.name === 'settings_off'
             || filter.name === 'homebrew_off'
             || filter.name === 'adventure_off'
+            || filter.name === 'only_archetypes'
         ) {
             continue;
         }
