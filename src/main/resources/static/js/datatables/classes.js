@@ -110,7 +110,7 @@ $(document).ready(function () {
                     $(row).addClass('hide_block');
                 }
             }
-            $(row).attr('data-arch-source', data.bookshort);
+            $(row).attr('data-class-source', data.bookshort);
         },
     });
     $('#classes tbody').on('mouseup', 'tr', function (e) {
@@ -388,6 +388,7 @@ $('#book_clear_btn').on('click', function () {
     $('.book_checkbox').prop('checked', true);
 
     saveFilter('classes');
+    toggleSourcesItems();
 });
 
 function showOnlyArchetype() {
@@ -406,6 +407,8 @@ function toggleSourcesItems() {
     const sourceFilters = sourceFilterBlock.querySelectorAll('input[name="book"]');
     const sources = {};
 
+    closeHandler();
+
     for (let index = 0; index < sourceFilters.length; index++) {
         sources[sourceFilters[index].value] = sourceFilters[index].checked;
     }
@@ -415,13 +418,10 @@ function toggleSourcesItems() {
     }
 
     const toggleFunc = (classItem) => {
-        const archetypes = classItem.querySelectorAll('.archetype_item');
+        const archetypes = classItem.querySelectorAll('.archetype_item[data-arch-source]');
 
         if (!archetypes.length) {
-            const classBook = classItem
-                .querySelector('.books')
-                .innerText
-                .trim();
+            const classBook = classItem.getAttribute('data-class-source');
 
             if (isVisible(classBook)) {
                 classItem.classList.remove('hide_block');
@@ -432,12 +432,7 @@ function toggleSourcesItems() {
 
         for (let i = 0; i < archetypes.length; i++) {
             const archetype = archetypes[i];
-            const book = archetype
-                .querySelector('span')
-                .innerText
-                .trim()
-                .split(' / ')[0]
-                .trim();
+            const book = archetype.getAttribute('data-arch-source');
 
             if (!isVisible(book)) {
                 archetype.classList.add('hide_block');
@@ -446,8 +441,8 @@ function toggleSourcesItems() {
             }
 
             const parentList = archetype.closest('.archetype_list');
-            const archList = parentList.querySelectorAll('.archetype_item');
-            const archListHidden = parentList.querySelectorAll('.archetype_item.hide_block');
+            const archList = parentList.querySelectorAll('.archetype_item[data-arch-source]');
+            const archListHidden = parentList.querySelectorAll('.archetype_item[data-arch-source].hide_block');
 
             if (archListHidden.length === archList.length) {
                 parentList.classList.add('hide_block');
@@ -461,18 +456,16 @@ function toggleSourcesItems() {
 
             if (archLists.length === archListsHidden.length) {
                 const classBook = archListsContainer
-                    .closest('tr.even, tr.odd')
-                    .querySelector('.books')
-                    .innerText
-                    .trim();
+                    .closest('tr.even[data-class-source], tr.odd[data-class-source]')
+                    .getAttribute('data-class-source');
 
                 if (isVisible(classBook)) {
-                    archListsContainer.closest('tr.even, tr.odd').classList.remove('hide_block');
+                    archListsContainer.closest('tr.even[data-class-source], tr.odd[data-class-source]').classList.remove('hide_block');
                 } else {
-                    archListsContainer.closest('tr.even, tr.odd').classList.add('hide_block');
+                    archListsContainer.closest('tr.even[data-class-source], tr.odd[data-class-source]').classList.add('hide_block');
                 }
             } else {
-                archListsContainer.closest('tr.even, tr.odd').classList.remove('hide_block');
+                archListsContainer.closest('tr.even[data-class-source], tr.odd[data-class-source]').classList.remove('hide_block');
             }
         }
     }

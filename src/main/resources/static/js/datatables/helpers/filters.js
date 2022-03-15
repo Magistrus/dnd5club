@@ -13,7 +13,6 @@ const TOGGLE_ID = {
 
 function setFiltered() {
     const filterIcon = document.getElementById('icon_filter');
-    const resetAllBtn = document.getElementById('btn_filters_all_clear');
     const isCustom = () => {
         const container = document.querySelector('.filter_container');
         const blocks = container.querySelectorAll('.filter_block');
@@ -34,10 +33,8 @@ function setFiltered() {
 
     if (isCustom()) {
         filterIcon.classList.add('active');
-        resetAllBtn.style.display = '';
     } else {
         filterIcon.classList.remove('active');
-        resetAllBtn.style.display = 'none';
     }
 }
 
