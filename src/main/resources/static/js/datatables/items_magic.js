@@ -124,7 +124,9 @@ $(document).ready(function () {
                 $('#items_magic tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedItemMagic) {
-                selectMagicItem(selectedItemMagic);
+                if (window.innerWidth >= 1200) {
+                    selectMagicItem(selectedItemMagic);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedItemMagic.id) {
@@ -134,7 +136,10 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#items_magic tbody').on('mouseup', 'tr', function (e) {

@@ -86,7 +86,9 @@ $(document).ready(function () {
                 $('#rules tbody tr:eq(' + rowSelectIndex + ')').click()
             }
             if (selectedRule) {
-                selectRule(selectedRule);
+                if (window.innerWidth >= 1200) {
+                    selectRule(selectedRule);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedRule.id) {
@@ -96,7 +98,10 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#rules tbody').on('mouseup', 'tr', function (e) {

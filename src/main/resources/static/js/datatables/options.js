@@ -97,7 +97,9 @@ $(document).ready(function () {
                 $('#options tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedOption) {
-                selectOption(selectedOption);
+                if (window.innerWidth >= 1200) {
+                    selectOption(selectedOption);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedOption.id) {
@@ -107,7 +109,10 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {

@@ -97,7 +97,10 @@ $(document).ready(function () {
                 $('#traits tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedTrait) {
-                selectTrait(selectedTrait);
+                if (window.innerWidth >= 1200) {
+                    selectTrait(selectedTrait);
+                }
+
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedTrait.id) {
@@ -107,7 +110,10 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
