@@ -1700,7 +1700,7 @@ table.table_card tr.dtrg-group td {
 .table_card tbody {
   align-items: center;
   width: 100%;
-  padding: 24px 24px;
+  padding: 16px 24px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
   grid-column-gap: 16px;
