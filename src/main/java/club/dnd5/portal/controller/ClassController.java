@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -59,18 +60,18 @@ public class ClassController {
 	@Autowired
 	private OptionDatatableRepository optionRepository;
 	
-	private Map<TypeBook, List<Book>> sources;
+	private Map<TypeBook, Set<Book>> sources;
 	
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
-		sources.put(TypeBook.OFFICAL, classRepository.findBook(TypeBook.OFFICAL));
-		sources.put(TypeBook.SETTING, classRepository.findBook(TypeBook.SETTING));
-		sources.put(TypeBook.CUSTOM, classRepository.findBook(TypeBook.CUSTOM));
+		sources.put(TypeBook.OFFICAL, new LinkedHashSet<>(classRepository.findBook(TypeBook.OFFICAL)));
+		sources.put(TypeBook.SETTING, new LinkedHashSet<>(classRepository.findBook(TypeBook.SETTING)));
+		sources.put(TypeBook.CUSTOM, new LinkedHashSet<>(classRepository.findBook(TypeBook.CUSTOM)));
 		
-		sources.computeIfAbsent(TypeBook.OFFICAL, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.OFFICAL));
-		sources.computeIfAbsent(TypeBook.SETTING, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.SETTING));
-		sources.computeIfAbsent(TypeBook.CUSTOM, k -> new ArrayList<>()).addAll(archetypeRepository.findBook(TypeBook.CUSTOM));
+		sources.computeIfAbsent(TypeBook.OFFICAL, k -> new LinkedHashSet<>()).addAll(archetypeRepository.findBook(TypeBook.OFFICAL));
+		sources.computeIfAbsent(TypeBook.SETTING, k -> new LinkedHashSet<>()).addAll(archetypeRepository.findBook(TypeBook.SETTING));
+		sources.computeIfAbsent(TypeBook.CUSTOM, k -> new LinkedHashSet<>()).addAll(archetypeRepository.findBook(TypeBook.CUSTOM));
 	}
 	
 	@GetMapping("/classes")
