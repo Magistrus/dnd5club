@@ -1271,10 +1271,11 @@ body:before {
 
 .header_block h1 {
   width: 100%;
-  line-height: 72px;
+  /* line-height: 72px; */
   position: relative;
   padding-left: 24px;
-  font-size:calc(var(--h1-font-size) - 12px);
+  padding-right: 24px;
+  font-size:calc(var(--h1-font-size) - 16px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1282,21 +1283,50 @@ body:before {
 }
 
 .header_block h1 a {
-  font-size: calc(var(--h1-font-size) - 12px);
+  font-size: calc(var(--h1-font-size) - 16px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  line-height: 72px;
+  /* line-height: 72px; */
   position: relative;
   color: var(--text-color-title);
   font-weight: 300;
+}
+
+@media (max-width: 800px) {
+  .header_block h1 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .header_block h1,
+  .header_block h1 a {
+    font-size: calc(var(--h1-font-size) - 8px);
+    white-space:normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    line-clamp: 2;
+    box-orient: vertical;
+  }  
+}
+
+
+@media (max-width: 600px) {
+  .header_block h1,
+  .header_block h1 a {
+    font-size: calc(var(--h1-font-size) - 12px);
+  }
 }
 
 .header_block .header_row {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--border);
+  height: 72px;
 }
 
 @media (max-width: 1200px) {
@@ -2206,6 +2236,12 @@ body.compact_menu #right_block {
   justify-content: center;
   align-items: center;
   padding: 0;
+}
+
+@media (max-width: 800px) {
+  .header_block .title_icon {
+    display: none;
+  }
 }
 
 .header_block .title_icon:hover {
