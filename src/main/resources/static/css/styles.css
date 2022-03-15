@@ -151,8 +151,8 @@ hr {
   grid-area: 1 / -1;
   width: calc(var(--width) + 6px);
   height: calc(var(--size) + 6px);
-  margin-left: -1px;
-  margin-top: -1px;
+  margin-left: -4px;
+  margin-top: -4px;
   transition: all 250ms ease;
   border-radius: 4px;
   background-color: #fff;
@@ -164,8 +164,8 @@ hr {
   grid-area: 1 / -1;
   width: calc(var(--size) + 0px);
   height: calc(var(--size) + 0px);
-  margin-left: 1px;
-  margin-top: -1px;
+  margin-left: -2px;
+  margin-top: -5px;
   transform: translateX(10%);
   transform-origin: center center;
   transition: all 250ms ease;
@@ -818,7 +818,7 @@ label.select_box {
 }
 
 .login_form .remember_row {
-  padding: 12px 12px 4px 12px;
+  padding: 16px 12px 0px 12px;
 }
 
 .registration_form .bottom,
