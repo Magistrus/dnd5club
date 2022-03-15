@@ -80,7 +80,9 @@ $(document).ready(function () {
                 return;
             }
             if (selectedArmor) {
-                selectArmor(selectedArmor);
+                if (window.innerWidth >= 1200) {
+                    selectArmor(selectedArmor);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedArmor.id) {

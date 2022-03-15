@@ -91,7 +91,9 @@ $(document).ready(function () {
                 $('#items tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedItem) {
-                selectItem(selectedItem);
+                if (window.innerWidth >= 1200) {
+                    selectItem(selectedItem);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedItem.id) {

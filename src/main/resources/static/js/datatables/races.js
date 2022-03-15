@@ -103,7 +103,9 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedRace) {
-                selectRace(selectedRace);
+                if (window.innerWidth >= 1200) {
+                    selectRace(selectedRace);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedRace.id) {

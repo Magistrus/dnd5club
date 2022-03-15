@@ -131,7 +131,9 @@ $(document).ready(function () {
                 }
             }
             if (selectedCreature) {
-                selectCreature(selectedCreature);
+                if (window.innerWidth >= 1200) {
+                    selectCreature(selectedCreature);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedCreature.id) {

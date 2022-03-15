@@ -74,7 +74,9 @@ $(document).ready(function () {
                 return;
             }
             if (selectedCondition) {
-                selectCondition(selectedCondition);
+                if (window.innerWidth >= 1200) {
+                    selectCondition(selectedCondition);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedCondition.id) {

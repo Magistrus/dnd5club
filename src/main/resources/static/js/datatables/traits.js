@@ -97,7 +97,10 @@ $(document).ready(function () {
                 $('#traits tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedTrait) {
-                selectTrait(selectedTrait);
+                if (window.innerWidth >= 1200) {
+                    selectTrait(selectedTrait);
+                }
+
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedTrait.id) {

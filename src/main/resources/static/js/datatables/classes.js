@@ -90,7 +90,9 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedClass) {
-                selectClass(selectedClass);
+                if (window.innerWidth >= 1200) {
+                    selectClass(selectedClass);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedClass.id) {

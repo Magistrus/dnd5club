@@ -97,7 +97,9 @@ $(document).ready(function () {
                 $('#options tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedOption) {
-                selectOption(selectedOption);
+                if (window.innerWidth >= 1200) {
+                    selectOption(selectedOption);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedOption.id) {

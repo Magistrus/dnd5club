@@ -88,7 +88,9 @@ $(document).ready(function () {
                 $('#backgrounds tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedBackground) {
-                selectBackground(selectedBackground);
+                if (window.innerWidth >= 1200) {
+                    selectBackground(selectedBackground);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedBackground.id) {

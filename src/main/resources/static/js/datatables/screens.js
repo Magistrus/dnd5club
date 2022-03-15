@@ -68,7 +68,9 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedScreen) {
-                selectScreen(selectedScreen);
+                if (window.innerWidth >= 1200) {
+                    selectScreen(selectedScreen);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedScreen.id) {

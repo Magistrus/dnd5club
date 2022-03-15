@@ -171,7 +171,9 @@ $(document).ready(function () {
                 return;
             }
             if (selectedSpell) {
-                selectSpell(selectedSpell);
+                if (window.innerWidth >= 1200) {
+                    selectSpell(selectedSpell);
+                }
                 let rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedSpell.id) {
