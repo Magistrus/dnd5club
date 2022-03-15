@@ -181,6 +181,8 @@ $('#text_clear').on('click', function () {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.category_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="category"]:checked').map(function () {

@@ -117,6 +117,8 @@ $(document).ready(function () {
 });
 $('#option_btn_filters').on('click', function () {
     $('#option_search_panes').toggleClass('hide_block');
+
+    $('#option_btn_filters').toggleClass('open');
 });
 $('#option_text_clear').on('click', function () {
     $('#option_search').val('');

@@ -164,6 +164,8 @@ $(document).ready(function () {
     });
     $('#btn_filters').on('click', function () {
         $('#searchPanes').toggleClass('hide_block');
+
+        $('#btn_filters').toggleClass('open');
     })
 });
 
