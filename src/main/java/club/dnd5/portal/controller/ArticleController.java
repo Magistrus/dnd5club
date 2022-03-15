@@ -3,11 +3,10 @@ package club.dnd5.portal.controller;
 import java.security.Principal;
 import java.util.Optional;
 
-import javax.net.ssl.SSLEngineResult.Status;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,15 +31,19 @@ public class ArticleController {
 		return "articles";
 	}
 
-	@GetMapping("/profile/articles")
-	public String getProfileArticles(Model model, Principal principal) {
-		Optional<User> user = usersRepository.findByName(principal.getName());
-		model.addAttribute("articles", service.findAllByUser(user.get()));
-		return "profile/articles";
-	}
-
 	@GetMapping("/articles/{id}")
 	public String getArticle(@PathVariable Integer id) {
 		return "article";
+	}
+	
+	@GetMapping("/profile/articles")
+	public String getProfileArticles(Model model, Principal principal, HttpServletRequest request) {
+		Optional<User> user = usersRepository.findByName(principal.getName());
+		if (!user.isPresent()) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("articles", service.findAllByUser(user.get()));
+		return "profile/articles";
 	}
 }
