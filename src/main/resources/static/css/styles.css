@@ -1274,6 +1274,7 @@ body:before {
   /* line-height: 72px; */
   position: relative;
   padding-left: 24px;
+  padding-right: 24px;
   font-size:calc(var(--h1-font-size) - 16px);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1294,6 +1295,11 @@ body:before {
 }
 
 @media (max-width: 800px) {
+  .header_block h1 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
   .header_block h1,
   .header_block h1 a {
     font-size: calc(var(--h1-font-size) - 12px);
