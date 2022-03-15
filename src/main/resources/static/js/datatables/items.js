@@ -103,7 +103,10 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#items tbody').on('mouseup', 'tr', function (e) {

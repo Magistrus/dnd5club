@@ -143,8 +143,11 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#creatures tbody').on('mouseup', 'tr', function (e) {

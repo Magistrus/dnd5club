@@ -85,8 +85,11 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-                $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+                if (window.innerWidth >= 1200) {
+                    $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
+                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+                }
             }
         }
     });
@@ -104,11 +107,11 @@ $(document).ready(function () {
         }
         selectCondition(data);
         setTimeout(function () {
-             e.target.closest('.simplebar-content-wrapper')
-                    .scrollTo({
-                         top: e.target.closest('tr').offsetTop - 16,
-                         behavior: "smooth"
-                  });
+            e.target.closest('.simplebar-content-wrapper')
+             .scrollTo({
+                 top: e.target.closest('tr').offsetTop - 16,
+                 behavior: "smooth"
+             });
         }, 300)
     });
     $('#search').on('keyup click', function () {

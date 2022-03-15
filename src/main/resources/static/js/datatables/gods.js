@@ -18,7 +18,7 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        var result = '<div class="info_block tip" title="'+row.alignment+'">' + row.aligmentShort + '</div>';
+                        var result = '<div class="info_block tip" title="' + row.alignment + '">' + row.aligmentShort + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
                         result += '</span><span>[' + row.englishName + ']</span></h3>';
                         result += '<div class="secondary_name>' + row.commitment + '</div></div>';
@@ -120,7 +120,10 @@ $(document).ready(function () {
                 rowSelectIndex = rowIndexes[0];
                 selectGod(selectedGod);
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#gods tbody').on('mouseup', 'tr', function (e) {
@@ -323,6 +326,7 @@ $('#book_clear_btn').on('click', function () {
     $('#gods').DataTable().column(7).search("", true, false, false).draw();
     saveFilter('gods');
 });
+
 function getImage(id) {
     $.ajax({
         type: 'GET',

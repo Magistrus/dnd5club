@@ -183,8 +183,11 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#spells tbody').on('mouseup', 'tr', function (e) {

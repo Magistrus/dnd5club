@@ -92,8 +92,11 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            $('#armors tbody tr:eq(' + rowSelectIndex + ')').click();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+                $('#armors tbody tr:eq(' + rowSelectIndex + ')').click();
+            }
         }
     });
     $('#armors tbody').on('mouseup', 'tr', function (e) {
