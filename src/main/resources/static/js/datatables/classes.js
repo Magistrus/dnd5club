@@ -471,10 +471,29 @@ function toggleSourcesItems() {
             }
         }
     }
+    const toggleDetailFunc = () => {
+        const wrapper = document.querySelector('#right_block #info_wrapper');
+
+        if (!wrapper) {
+            return;
+        }
+
+        const details = wrapper.querySelectorAll('[data-arch-source]');
+
+        for (let detail of details) {
+            if (sources[detail.getAttribute('data-arch-source')]) {
+                detail.classList.remove('hide_block');
+            } else {
+                detail.classList.add('hide_block');
+            }
+        }
+    }
 
     for (let key = 0; key < classes.length; key++) {
         toggleFunc(classes[key]);
     }
+
+    toggleDetailFunc();
 }
 
 function loadDescription(url) {

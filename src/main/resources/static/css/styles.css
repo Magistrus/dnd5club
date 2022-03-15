@@ -1655,13 +1655,31 @@ body.compact_menu .block_information #left_block {
 
 #left_block .header_block .btn_filters:hover {
   background-color: var(--primary-hover);
+  color: var(--text-btn-color);
 }
 
 #left_block .header_block .btn_filters:hover path {
   stroke: var(--text-btn-color);
 }
 
+#left_block .header_block .btn_filters.open {
+  background-color: var(--primary-active);
+  color: var(--text-btn-color);
+}
+
+#left_block .header_block .btn_filters.open:hover {
+  background-color: var(--primary-hover);
+}
+
+#left_block .header_block .btn_filters.open path {
+  stroke: var(--text-btn-color);
+}
+
 #left_block .header_block .btn_filters:hover .icon_action:after {
+  background-color: var(--text-btn-color);
+}
+
+#left_block .header_block .btn_filters.open .icon_action:after {
   background-color: var(--text-btn-color);
 }
 
