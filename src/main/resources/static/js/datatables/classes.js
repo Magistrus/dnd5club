@@ -251,6 +251,8 @@ function selectClass(data) {
         $('#mobile_selector').change(function () {
             setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
         });
+
+        toggleSourcesItems();
     });
 }
 
@@ -406,8 +408,6 @@ function toggleSourcesItems() {
     const sourceFilterBlock = leftBlock.querySelector('.filter_block.sources');
     const sourceFilters = sourceFilterBlock.querySelectorAll('input[name="book"]');
     const sources = {};
-
-    closeHandler();
 
     for (let index = 0; index < sourceFilters.length; index++) {
         sources[sourceFilters[index].value] = sourceFilters[index].checked;
