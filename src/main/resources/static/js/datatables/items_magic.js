@@ -247,6 +247,8 @@ function httpGetImage(theUrl) {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.rarity_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="rarity"]:checked').map(function () {

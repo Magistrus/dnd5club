@@ -291,6 +291,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.level_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="level"]:checked').map(function () {

@@ -347,6 +347,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.dice_hp_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="dice_hp"]:checked').map(function () {

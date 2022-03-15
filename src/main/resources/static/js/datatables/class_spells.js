@@ -154,6 +154,8 @@ $('#search_spell').bind('keydown blur change', function (e) {
 });
 $('#btn_spell_filters').on('click', function () {
     $('#searchPanesSpell').toggleClass('hide_block');
+
+    $('#btn_spell_filters').toggleClass('open');
 });
 $('#spell_text_clear').on('click', function () {
     $('#search_spell').val('');
