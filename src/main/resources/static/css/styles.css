@@ -1302,7 +1302,7 @@ body:before {
   
   .header_block h1,
   .header_block h1 a {
-    font-size: calc(var(--h1-font-size) - 12px);
+    font-size: calc(var(--h1-font-size) - 8px);
     white-space:normal;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -1312,6 +1312,14 @@ body:before {
     line-clamp: 2;
     box-orient: vertical;
   }  
+}
+
+
+@media (max-width: 600px) {
+  .header_block h1,
+  .header_block h1 a {
+    font-size: calc(var(--h1-font-size) - 12px);
+  }
 }
 
 .header_block .header_row {
