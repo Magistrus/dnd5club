@@ -9,6 +9,7 @@ public enum AtricleStatus {
 	CREATED("Создана"),
 	MODERATION("На модерации"),
 	PUBLISHED("Опубликована"),
-	REMOVED("УДалена");
+	CANCELED("Отклонена"),
+	REMOVED("Удалена");
 	private String name;
 }

@@ -37,6 +37,9 @@ public class Article {
 	private String originalAuthor;
 	private String originalUrl;
 	private String originalName;
+	
+	private String cause_canceled;
+	
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private User creator;
@@ -45,6 +48,7 @@ public class Article {
 	private User moderator;
 	
 	private LocalDateTime created;
+	private LocalDateTime changed;
 	private LocalDateTime moderated;
 	private LocalDateTime published;
 	private LocalDateTime deleted;

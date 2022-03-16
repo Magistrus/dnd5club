@@ -32,7 +32,12 @@ public class ArticleServiceImpl implements ArticleService {
 	@Transactional
 	@Override
 	public Article save(Article article, User creator) {
-		article.setCreated(LocalDateTime.now());
+		if (creator.getCreateDate() == null) {
+			article.setCreated(LocalDateTime.now());
+		}
+		else {
+			article.setChanged(LocalDateTime.now());
+		}
 		article.setCreator(creator);
 		article.setStatus(AtricleStatus.CREATED);
 		return repo.save(article);
