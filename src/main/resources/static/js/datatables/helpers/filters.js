@@ -312,7 +312,7 @@ function restoreFilter(storageKey) {
 
         const resetBtn = filterContainer.querySelector(`#${ filter.name }_clear_btn`);
 
-        if (resetBtn.classList.contains('hide_block')) {
+        if (!!resetBtn && resetBtn.classList.contains('hide_block')) {
             resetBtn.classList.remove('hide_block');
         }
 
