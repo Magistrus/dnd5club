@@ -81,7 +81,7 @@ $(document).ready(function () {
                 "visible": true
             },
             {
-                "targets": [ 1,2,3 ],
+                "targets": [ 1, 2, 3 ],
                 "visible": false
             },
         ],
@@ -103,7 +103,9 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedRace) {
-                selectRace(selectedRace);
+                if (window.innerWidth >= 1200) {
+                    selectRace(selectedRace);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedRace.id) {
@@ -112,8 +114,11 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-                $('#races tbody tr:eq(' + rowSelectIndex + ')').click();
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+                if (window.innerWidth >= 1200) {
+                    $('#races tbody tr:eq(' + rowSelectIndex + ')').click();
+                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+                }
             }
         },
         createdRow: function (row, data, dataIndex) {
@@ -177,10 +182,10 @@ $(document).ready(function () {
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
                 e.target.closest('.simplebar-content-wrapper')
-                     .scrollTo({
-                         top: e.target.closest('tr').offsetTop - 16,
-                         behavior: "smooth"
-                     });
+                 .scrollTo({
+                     top: e.target.closest('tr').offsetTop - 16,
+                     behavior: "smooth"
+                 });
             }, 300)
         }
     });

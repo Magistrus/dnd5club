@@ -107,7 +107,9 @@ $(document).ready(function () {
                 return;
             }
             if (selectedWeapon) {
-                selectWeapon(selectedWeapon);
+                if (window.innerWidth >= 1200) {
+                    selectWeapon(selectedWeapon);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedWeapon.id) {
@@ -117,8 +119,11 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            $('#weapons tbody tr:eq(' + rowSelectIndex + ')').click();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+                $('#weapons tbody tr:eq(' + rowSelectIndex + ')').click();
+            }
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {

@@ -18,7 +18,7 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        var result = '<div class="info_block tip" title="'+row.alignment+'">' + row.aligmentShort + '</div>';
+                        var result = '<div class="info_block tip" title="' + row.alignment + '">' + row.aligmentShort + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
                         result += '</span><span>[' + row.englishName + ']</span></h3>';
                         result += '<div class="secondary_name>' + row.commitment + '</div></div>';
@@ -324,6 +324,7 @@ $('#book_clear_btn').on('click', function () {
     $('#gods').DataTable().column(7).search("", true, false, false).draw();
     saveFilter('gods');
 });
+
 function getImage(id) {
     $.ajax({
         type: 'GET',
