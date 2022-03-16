@@ -74,9 +74,7 @@ $(document).ready(function () {
                 return;
             }
             if (selectedCondition) {
-                if (window.innerWidth >= 1200) {
-                    selectCondition(selectedCondition);
-                }
+                selectCondition(selectedCondition);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedCondition.id) {
@@ -85,11 +83,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         }
     });

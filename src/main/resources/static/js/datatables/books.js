@@ -74,10 +74,8 @@ $(document).ready(function () {
                 return;
             }
 
-            if (window.innerWidth >= 1200) {
-                $('#books tbody tr:eq(0)').click();
-                table.row(':eq(0)', { page: 'current' }).select();
-            }
+            $('#books tbody tr:eq(0)').click();
+            table.row(':eq(0)', { page: 'current' }).select();
         }
     });
 
