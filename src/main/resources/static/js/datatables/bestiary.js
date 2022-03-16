@@ -131,9 +131,7 @@ $(document).ready(function () {
                 }
             }
             if (selectedCreature) {
-                if (window.innerWidth >= 1200) {
-                    selectCreature(selectedCreature);
-                }
+                selectCreature(selectedCreature);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedCreature.id) {
@@ -143,11 +141,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            }
+            $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
     $('#creatures tbody').on('mouseup', 'tr', function (e) {

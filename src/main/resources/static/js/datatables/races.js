@@ -103,9 +103,7 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedRace) {
-                if (window.innerWidth >= 1200) {
-                    selectRace(selectedRace);
-                }
+                selectRace(selectedRace);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedRace.id) {
@@ -114,11 +112,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#races tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#races tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         },
         createdRow: function (row, data, dataIndex) {

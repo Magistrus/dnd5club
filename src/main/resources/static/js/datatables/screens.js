@@ -68,9 +68,7 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedScreen) {
-                if (window.innerWidth >= 1200) {
-                    selectScreen(selectedScreen);
-                }
+                selectScreen(selectedScreen);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedScreen.id) {
@@ -79,11 +77,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#screens tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#screens tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         }
     });

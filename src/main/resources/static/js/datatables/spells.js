@@ -171,9 +171,7 @@ $(document).ready(function () {
                 return;
             }
             if (selectedSpell) {
-                if (window.innerWidth >= 1200) {
-                    selectSpell(selectedSpell);
-                }
+                selectSpell(selectedSpell);
                 let rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedSpell.id) {
@@ -183,11 +181,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            }
+            $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
     $('#spells tbody').on('mouseup', 'tr', function (e) {
