@@ -88,7 +88,9 @@ $(document).ready(function () {
                 $('#backgrounds tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedBackground) {
-                selectBackground(selectedBackground);
+                if (window.innerWidth >= 1200) {
+                    selectBackground(selectedBackground);
+                }
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedBackground.id) {
@@ -98,7 +100,10 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            if (window.innerWidth >= 1200) {
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
