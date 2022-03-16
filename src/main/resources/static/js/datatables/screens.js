@@ -140,6 +140,7 @@ function onDeselectListener() {
 }
 
 function selectScreen(data) {
+    selectedScreen = data;
     $('#screen_name').html(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
     history.pushState('data to be passed', '', '/screens/' + data.englishName.split(' ').join('_'));
@@ -184,8 +185,8 @@ $('#btn_close').on('click', function () {
 });
 
 function closeHandler() {
-    selectedScreen = null;
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedScreen = null;
 
     $.magnificPopup.close();
 

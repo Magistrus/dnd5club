@@ -168,7 +168,6 @@ $(document).ready(function () {
                 document.getElementById('list_page_two_block').classList.add('block_information');
             }
         }
-        selectedClass = data;
 
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
@@ -226,6 +225,7 @@ function selectClass(data) {
     $('#class_name').text(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
     history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
+    selectedClass = data;
 
     if (selectedArchetype) {
         setActiveArchetype(data, selectedClass.englishName.replace(' ', '_'), selectedArchetype);
@@ -336,9 +336,9 @@ $('#btn_close').on('click', function () {
 });
 
 function closeHandler() {
-    selectedClass = null;
     document.getElementById('list_page_two_block').classList.remove('block_information');
     $('li').removeClass('select_point');
+    selectedClass = null;
 
     $.magnificPopup.close();
 

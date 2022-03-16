@@ -174,7 +174,6 @@ $(document).ready(function () {
                 document.getElementById('list_page_two_block').classList.add('block_information');
             }
         }
-        selectedRace = data;
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
                 e.target.closest('.simplebar-content-wrapper')
@@ -219,6 +218,7 @@ function onDeselectListener() {
 }
 
 function selectRace(data) {
+    selectedRace = data;
     if (selectedSubrace) {
         setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace.englishName);
         $('#' + selectedSubrace.englishName.split(' ').join('_')).addClass('select_point');
@@ -302,8 +302,8 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
-    selectedRace = null;
     $('li').removeClass('select_point');
+    selectedRace = null;
 
     $.magnificPopup.close();
 

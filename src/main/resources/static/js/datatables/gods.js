@@ -107,7 +107,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedGod === null) {
                     return;
                 }
-                $('#gods tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedGod) {
                 var rowIndexes = [];
@@ -120,6 +119,7 @@ $(document).ready(function () {
                 rowSelectIndex = rowIndexes[0];
                 selectGod(selectedGod);
             }
+            $('#gods tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
@@ -199,7 +199,7 @@ function selectGod(data) {
             }
         });
     });
-    selectedGod = null;
+    selectedGod = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -214,6 +214,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedGod = null;
 
     $.magnificPopup.close();
 

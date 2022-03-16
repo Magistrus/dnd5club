@@ -94,7 +94,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#traits tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedTrait) {
                 selectTrait(selectedTrait);
@@ -107,6 +106,7 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#traits tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         },
         createdRow: function (row, data, dataIndex) {
@@ -140,7 +140,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectTrait(data);
-        selectedTrait = data;
     });
     $('#search').on('keyup click', function () {
         if ($('#search').val()) {
@@ -189,6 +188,7 @@ function selectTrait(data) {
     history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
     var url = '/traits/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedTrait = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -203,6 +203,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedTrait = null;
 
     $.magnificPopup.close();
 

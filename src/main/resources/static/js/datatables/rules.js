@@ -83,7 +83,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedRule === null) {
                     return;
                 }
-                $('#rules tbody tr:eq(' + rowSelectIndex + ')').click()
             }
             if (selectedRule) {
                 selectRule(selectedRule);
@@ -96,6 +95,7 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#rules tbody tr:eq(' + rowSelectIndex + ')').click()
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
@@ -169,6 +169,7 @@ function selectRule(data) {
     history.pushState('data to be passed', '', '/rules/' + data.englishName.split(' ').join('_'));
     var url = '/rules/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedRule = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -183,6 +184,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedRule = null;
 
     $.magnificPopup.close();
 

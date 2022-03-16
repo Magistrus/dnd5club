@@ -88,7 +88,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#items tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedItem) {
                 selectItem(selectedItem);
@@ -101,6 +100,7 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#items tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
@@ -126,7 +126,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectItem(data);
-        selectedItem = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -176,6 +175,7 @@ function selectItem(data) {
     history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
     var url = '/items/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedItem = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -190,6 +190,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedItem = null;
 
     $.magnificPopup.close();
 
