@@ -1,5 +1,7 @@
 package club.dnd5.portal.controller;
 
+import java.util.Optional;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,9 +42,20 @@ public class ConditionController {
 		return "conditions";
 	}
 
-	@GetMapping("/conditions/fragment/{id}")
-	public String getFragmentCondition(Model model, @PathVariable int id) {
+	@GetMapping("/conditions/fragment/{id:\\d+}")
+	public String getFragmentConditionById(Model model, @PathVariable int id) {
 		model.addAttribute("condition", repo.findById(id).get());
+		return "fragments/condition :: view";
+	}
+	
+	@GetMapping("/conditions/fragment/{name:[A-Za-z_]+}")
+	public String getFragmentConditionByName(Model model, @PathVariable String name, HttpServletRequest request) {
+		Optional<Condition> condition = repo.findByEnglishName(name.replace('_', ' '));
+		if (!condition.isPresent()) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("condition", condition.get());
 		return "fragments/condition :: view";
 	}
 }
