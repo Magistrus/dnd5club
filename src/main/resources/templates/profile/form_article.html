@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<body id="body" class="overflow-hidden">
+	<div id="container" class="container">
+		<div class="row">
+			<div layout:fragment="content" class="article" data-simplebar>
+				<form id="article_edit" th:action="@{|/profile/articles/|}" th:object="${article}" method="post">
+					<div class="news_wrapper">
+						<div class="left"></div>
+						<div class="news_page">
+							<div class="header">
+								<input type="text" placeholder="Название" hidden="true" th:field="*{id}">
+								<div class="row_input">
+									<input type="text" placeholder="Название" th:field="*{title}">
+								</div>
+								<div class="row_input">
+									<input type="text" placeholder="Описание" th:field="*{description}">
+								</div>
+							</div>
+							<div class="row_input">
+								<textarea id="text" name="text" rows="20" placeholder="Содержание" th:field="*{text}"></textarea>
+							</div>
+							<div class="bottom">
+								<div class="row_input">
+									<input type="text" placeholder="Автор">
+									<input type="text" placeholder="Перевод" th:field="*{translation}">
+									<input type="text" placeholder="Автор оригинала" th:field="*{originalAuthor}">
+									<input type="text" name="article_link_original" placeholder="Ссылка на оригинал" th:field="*{originalUrl}">
+									<input type="text" name="article_source_name" placeholder="Название оригинального источника" th:field="*{originalName}">
+								</div>
+							</div>
+						</div>
+						<div class="right">
+							<div class="btn_block">
+								<button class="btn">Опубликовать</button>
+								<button class="btn">На проверку</button>
+								<button type="submit" class="btn secondary">Сохранить в черовики</button>
+								<button class="btn secondary">Предпросмотр</button>
+								<button class="btn secondary">Удалить</button>
+								<button class="btn secondary">Отмена</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

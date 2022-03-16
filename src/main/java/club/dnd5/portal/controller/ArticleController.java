@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import club.dnd5.portal.model.articles.Article;
 import club.dnd5.portal.model.articles.AtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
@@ -45,5 +47,19 @@ public class ArticleController {
 		}
 		model.addAttribute("articles", service.findAllByCreator(user.get()));
 		return "profile/articles";
+	}
+	
+	@GetMapping("/profile/articles/form")
+	public String getProfileArticleForm(Model model, Principal principal, HttpServletRequest request) {
+		model.addAttribute("article", new Article());
+		return "profile/form_article";
+	}
+	
+	@PostMapping("/profile/articles")
+	public String saveArticle(Model model, Principal principal, Article article) {
+		Optional<User> creator = usersRepository.findByName(principal.getName());
+		article = service.save(article, creator.get());
+		model.addAttribute("article", article);
+		return "profile/form_article";
 	}
 }
