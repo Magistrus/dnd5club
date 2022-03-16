@@ -100,6 +100,11 @@ function checkFilters(el) {
 function restoreSourceContainer() {
     const filterContainer = document.querySelector('.filter_container');
     const sources = filterContainer.querySelector('.sources');
+
+    if (!sources) {
+        return;
+    }
+
     const filters = sources.querySelectorAll('input');
 
     let status = true;

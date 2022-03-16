@@ -171,7 +171,6 @@ $(document).ready(function () {
             window.open('/bestiary/' + data.englishName.split(' ').join('_'));
         }
         selectCreature(data);
-        selectedCreature = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -252,6 +251,7 @@ function selectCreature(data) {
     if (!data) {
         return;
     }
+    selectedCreature = data;
     $('#statblock').addClass('active');
     $('#description').removeClass('active');
     $('#creature_name').html(data.name);
@@ -285,6 +285,7 @@ $('#btn_close').on('click', function () {
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
     localStorage.removeItem('selected_creature');
+    selectedCreature = null;
 
     $.magnificPopup.close();
 

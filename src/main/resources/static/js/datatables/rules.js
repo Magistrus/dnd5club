@@ -83,12 +83,9 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedRule === null) {
                     return;
                 }
-                $('#rules tbody tr:eq(' + rowSelectIndex + ')').click()
             }
             if (selectedRule) {
-                if (window.innerWidth >= 1200) {
-                    selectRule(selectedRule);
-                }
+                selectRule(selectedRule);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedRule.id) {
@@ -98,10 +95,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            }
+            $('#rules tbody tr:eq(' + rowSelectIndex + ')').click()
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
     $('#rules tbody').on('mouseup', 'tr', function (e) {
@@ -174,6 +169,7 @@ function selectRule(data) {
     history.pushState('data to be passed', '', '/rules/' + data.englishName.split(' ').join('_'));
     var url = '/rules/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedRule = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -188,6 +184,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedRule = null;
 
     $.magnificPopup.close();
 
