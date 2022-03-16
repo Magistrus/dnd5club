@@ -1,6 +1,6 @@
 const STORAGE_KEY = 'dnd5club_saved_filter';
 const TOGGLE_ID = {
-    main: { 
+    main: {
         settings: 'setting_source',
         homebrew: 'homebrew_source'
     },
