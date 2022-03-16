@@ -226,6 +226,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedWeapon = null;
 
     $.magnificPopup.close();
 

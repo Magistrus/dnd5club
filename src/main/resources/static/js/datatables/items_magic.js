@@ -121,12 +121,9 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#items_magic tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedItemMagic) {
-                if (window.innerWidth >= 1200) {
-                    selectMagicItem(selectedItemMagic);
-                }
+                selectMagicItem(selectedItemMagic);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedItemMagic.id) {
@@ -136,10 +133,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            }
+            $('#items_magic tbody tr:eq(' + rowSelectIndex + ')').click();
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
     $('#items_magic tbody').on('mouseup', 'tr', function (e) {
@@ -164,7 +159,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectMagicItem(data);
-        selectedMagicItem = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -210,6 +204,7 @@ function onDeselectListener() {
 function selectMagicItem(data) {
     $('#item_name').text(data.name);
 
+    selectedItemMagic = data;
     document.title = data.name + ' (' + data.englishName + ')' + ' | Магические предметы D&D 5e';
     history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
     var url = '/items/magic/fragment/' + data.id;
@@ -236,6 +231,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedItemMagic = null;
 
     $.magnificPopup.close();
 

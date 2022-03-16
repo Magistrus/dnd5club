@@ -85,12 +85,9 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#backgrounds tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedBackground) {
-                if (window.innerWidth >= 1200) {
-                    selectBackground(selectedBackground);
-                }
+                selectBackground(selectedBackground);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedBackground.id) {
@@ -100,10 +97,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            }
+            $('#backgrounds tbody tr:eq(' + rowSelectIndex + ')').click();
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
@@ -141,7 +136,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectBackground(data);
-        selectedBackground = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -190,6 +184,7 @@ function selectBackground(data) {
     history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
     var url = '/backgrounds/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedBackground = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -204,6 +199,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedBackground = null;
 
     $.magnificPopup.close();
 

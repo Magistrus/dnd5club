@@ -151,6 +151,7 @@ function onDeselectListener() {
 }
 
 function selectCondition(data) {
+    selectedCondition = data;
     $('#condition_name').html(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
     history.pushState('data to be passed', '', '/conditions/' + data.englishName.split(' ').join('_'));
@@ -185,6 +186,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedCondition = null;
 
     $.magnificPopup.close();
 
