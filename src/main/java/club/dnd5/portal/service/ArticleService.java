@@ -12,5 +12,6 @@ public interface ArticleService {
 	
 	Collection<Article> findAllByStatus(AtricleStatus status);
 	Collection<Article> findAllByCreator(User user);
-	void save(Article article);
+
+	Article save(Article article, User creator);
 }
