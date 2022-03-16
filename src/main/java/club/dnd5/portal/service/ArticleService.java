@@ -11,6 +11,7 @@ public interface ArticleService {
 	Optional<Article> findById(Integer id);
 	
 	Collection<Article> findAllByStatus(AtricleStatus status);
-	Collection<Article> findAllByUser(User user);
-	void save(Article article);
+	Collection<Article> findAllByCreator(User user);
+
+	Article save(Article article, User creator);
 }

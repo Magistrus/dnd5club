@@ -31,13 +31,20 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional
 	@Override
-	public void save(Article article) {
-		article.setCreated(LocalDateTime.now());
-		repo.save(article);
+	public Article save(Article article, User creator) {
+		if (creator.getCreateDate() == null) {
+			article.setCreated(LocalDateTime.now());
+		}
+		else {
+			article.setChanged(LocalDateTime.now());
+		}
+		article.setCreator(creator);
+		article.setStatus(AtricleStatus.CREATED);
+		return repo.save(article);
 	}
 
 	@Override
-	public Collection<Article> findAllByUser(User user) {
+	public Collection<Article> findAllByCreator(User user) {
 		return repo.findAllByCreator(user);
 	}
 }

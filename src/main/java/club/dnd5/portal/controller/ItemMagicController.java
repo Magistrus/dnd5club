@@ -84,12 +84,18 @@ public class ItemMagicController {
 		return "items_magic";
 	}
 	
-	@GetMapping("/items/magic/fragment/{id}")
+	@GetMapping("/items/magic/fragment/{id:\\d+}")
 	public String getMagicItemFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		MagicItem item = repository.findById(id).orElseThrow(InvalidAttributesException::new);
 		model.addAttribute("item", item);
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
 		model.addAttribute("images", images);
+		return "fragments/item_magic :: view";
+	}
+	
+	@GetMapping("/items/magic/fragment/{name:[A-Za-z_,']+}")
+	public String getMagicWeaponFragmentByName(Model model, @PathVariable String name) {
+		model.addAttribute("item", repository.findByEnglishName(name.replace('_', ' ')));
 		return "fragments/item_magic :: view";
 	}
 }

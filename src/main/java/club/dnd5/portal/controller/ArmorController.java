@@ -42,9 +42,15 @@ public class ArmorController {
 		return "armors";
 	}
 	
-	@GetMapping("/armors/fragment/{id}")
+	@GetMapping("/armors/fragment/{id:\\d+}")
 	public String getArmorFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		model.addAttribute("armor", repository.findById(id).orElseThrow(InvalidAttributesException::new));
+		return "fragments/armor :: view";
+	}
+	
+	@GetMapping("/armors/fragment/{name:[A-Za-z_]+}")
+	public String getMagicWeaponFragmentByName(Model model, @PathVariable String name) throws InvalidAttributesException {
+		model.addAttribute("armor", repository.findByEnglishName(name.replace('_', ' ')));
 		return "fragments/armor :: view";
 	}
 }
