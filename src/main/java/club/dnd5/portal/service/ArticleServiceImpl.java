@@ -37,7 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public Collection<Article> findAllByUser(User user) {
+	public Collection<Article> findAllByCreator(User user) {
 		return repo.findAllByCreator(user);
 	}
 }
