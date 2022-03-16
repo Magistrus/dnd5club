@@ -43,7 +43,7 @@ public class ArticleController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("articles", service.findAllByUser(user.get()));
+		model.addAttribute("articles", service.findAllByCreator(user.get()));
 		return "profile/articles";
 	}
 }
