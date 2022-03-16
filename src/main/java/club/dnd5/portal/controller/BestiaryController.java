@@ -93,7 +93,7 @@ public class BestiaryController {
 		return "bestiary";
 	}
 	
-	@GetMapping("/bestiary/fragment/{id}")
+	@GetMapping("/bestiary/fragment/{id:\\d+}")
 	public String getCreatureFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		Creature creature = repository.findById(id).orElseThrow(InvalidAttributesException::new);
 		model.addAttribute("creature", creature);
@@ -103,7 +103,7 @@ public class BestiaryController {
 		return "fragments/creature :: view";
 	}
 	
-	@GetMapping("/bestiary/description/{id}")
+	@GetMapping("/bestiary/description/{id:\\d+}")
 	public String getCreatureDescription(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		model.addAttribute("creature", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		model.addAttribute("firstElement", new FirstElement());
