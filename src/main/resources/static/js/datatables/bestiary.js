@@ -124,16 +124,8 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
-
-            if (rowSelectIndex === 0 && selectedCreature === null) {
-                if (!$('#list_page_two_block').hasClass('block_information') && selectedCreature === null) {
-                    return;
-                }
-            }
             if (selectedCreature) {
-                if (window.innerWidth >= 1200) {
-                    selectCreature(selectedCreature);
-                }
+                selectCreature(selectedCreature);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedCreature.id) {
@@ -142,6 +134,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
+                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
 
             if (window.innerWidth >= 1200) {
@@ -171,7 +165,6 @@ $(document).ready(function () {
             window.open('/bestiary/' + data.englishName.split(' ').join('_'));
         }
         selectCreature(data);
-        selectedCreature = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -279,6 +272,7 @@ function selectDescription(id) {
 }
 
 $('#btn_close').on('click', function () {
+    selectedCreature = null;
     $('#creatures').dataTable().api().rows().deselect();
 });
 
