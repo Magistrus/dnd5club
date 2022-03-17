@@ -41,6 +41,8 @@ public class Spell {
 	private Boolean ritual;
 	
 	private String name;
+	private String altName;
+	
 	@Column(unique = true)
 	private String englishName;
 	

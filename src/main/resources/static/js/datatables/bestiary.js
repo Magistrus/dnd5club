@@ -124,12 +124,6 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
-
-            if (rowSelectIndex === 0 && selectedCreature === null) {
-                if (!$('#list_page_two_block').hasClass('block_information') && selectedCreature === null) {
-                    return;
-                }
-            }
             if (selectedCreature) {
                 selectCreature(selectedCreature);
                 var rowIndexes = [];
@@ -140,9 +134,13 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
+                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
-            $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            if (window.innerWidth >= 1200) {
+                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#creatures tbody').on('mouseup', 'tr', function (e) {
@@ -274,6 +272,7 @@ function selectDescription(id) {
 }
 
 $('#btn_close').on('click', function () {
+    selectedCreature = null;
     $('#creatures').dataTable().api().rows().deselect();
 });
 
