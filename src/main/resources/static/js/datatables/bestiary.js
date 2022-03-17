@@ -137,7 +137,6 @@ $(document).ready(function () {
                 $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
                 table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
-
             if (window.innerWidth >= 1200) {
                 $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
                 table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
@@ -245,6 +244,7 @@ function selectCreature(data) {
     if (!data) {
         return;
     }
+    selectedCreature = data;
     $('#statblock').addClass('active');
     $('#description').removeClass('active');
     $('#creature_name').html(data.name);
@@ -279,6 +279,7 @@ $('#btn_close').on('click', function () {
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
     localStorage.removeItem('selected_creature');
+    selectedCreature = null;
 
     $.magnificPopup.close();
 

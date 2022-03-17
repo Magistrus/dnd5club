@@ -1514,30 +1514,88 @@ body:before {
   margin-bottom: 32px;
 }
 
-.news_wrapper  .similar_articles {
+.news_wrapper .similar_articles {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
   grid-column-gap: 16px;
   grid-row-gap: 16px;
 }
 
-.news_wrapper  .similar_articles a {
+.news_wrapper .similar_articles a {
   background-color: var(--bg-main);
   border-radius: 8px;
   padding: 16px;
 }
 
-.news_wrapper  .similar_articles a:hover {
+.news_wrapper .similar_articles a:hover {
   background-color: var(--hover);
 }
 
-.news_wrapper  .similar_articles a h4{
+.news_wrapper .similar_articles a h4{
   margin-top: 0;
   font-size: 20px;
 }
 
-.news_wrapper  .similar_articles a p{
+.news_wrapper .similar_articles a p{
   margin-bottom: 0;
+}
+
+.news_wrapper .news_page_list {
+  flex: 1 1 860px;
+  max-width: 860px;
+  padding: 16px 0 16px 0;
+}
+
+.news_wrapper .news_page_list .short_news {
+  background-color: var(--bg-secondary);
+  padding: 16px 24px 16px 24px;
+  margin-bottom: 16px;
+}
+
+.news_wrapper .news_page_list .short_news .header {
+  margin-top: 8px;
+}
+
+.news_wrapper .news_page_list .short_news .header .title {
+  margin-top: 0;
+}
+
+.news_wrapper .news_page_list .short_news .header h5 {
+  margin-bottom: 8px;
+}
+
+.news_wrapper .news_page_list .short_news .description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  line-clamp: 2;
+  box-orient: vertical;
+}
+
+.news_wrapper .news_page_list .short_news .bottom {
+  margin-top: 16px;
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.news_wrapper .news_page_list .short_news .bottom .btn {
+  margin: 0;
+  background-color: var(--primary);
+  padding: 8px 8px;
+  border-radius: 8px;
+  margin-left: auto;
+  max-width: 100px;
+}
+
+.news_wrapper .news_page_list .short_news .bottom .btn:hover {
+  color: var(--text-btn-color);
+  background-color: var(--primary-hover);
 }
 
 
@@ -2811,6 +2869,10 @@ body.compact_menu #right_block {
 
 #left_block.conditions .table_card .wrapper .content {
   padding: 0;
+}
+
+#left_block.conditions table.table_card tr.dtrg-group {
+  display: block;
 }
 
 #left_block.conditions table.table_card tr.dtrg-group {

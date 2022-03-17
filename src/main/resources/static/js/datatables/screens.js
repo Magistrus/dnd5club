@@ -68,9 +68,7 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedScreen) {
-                if (window.innerWidth >= 1200) {
-                    selectScreen(selectedScreen);
-                }
+                selectScreen(selectedScreen);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedScreen.id) {
@@ -79,11 +77,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#screens tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#screens tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         }
     });
@@ -145,6 +140,7 @@ function onDeselectListener() {
 }
 
 function selectScreen(data) {
+    selectedScreen = data;
     $('#screen_name').html(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
     history.pushState('data to be passed', '', '/screens/' + data.englishName.split(' ').join('_'));
@@ -189,8 +185,8 @@ $('#btn_close').on('click', function () {
 });
 
 function closeHandler() {
-    selectedScreen = null;
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedScreen = null;
 
     $.magnificPopup.close();
 

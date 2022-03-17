@@ -80,9 +80,7 @@ $(document).ready(function () {
                 return;
             }
             if (selectedArmor) {
-                if (window.innerWidth >= 1200) {
-                    selectArmor(selectedArmor);
-                }
+                selectArmor(selectedArmor);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedArmor.id) {
@@ -92,11 +90,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                $('#armors tbody tr:eq(' + rowSelectIndex + ')').click();
-            }
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            $('#armors tbody tr:eq(' + rowSelectIndex + ')').click();
         }
     });
     $('#armors tbody').on('mouseup', 'tr', function (e) {
@@ -185,6 +180,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedArmor = null;
 
     $.magnificPopup.close();
 

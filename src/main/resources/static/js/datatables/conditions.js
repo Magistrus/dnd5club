@@ -74,9 +74,7 @@ $(document).ready(function () {
                 return;
             }
             if (selectedCondition) {
-                if (window.innerWidth >= 1200) {
-                    selectCondition(selectedCondition);
-                }
+                selectCondition(selectedCondition);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedCondition.id) {
@@ -85,11 +83,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         }
     });
@@ -151,6 +146,7 @@ function onDeselectListener() {
 }
 
 function selectCondition(data) {
+    selectedCondition = data;
     $('#condition_name').html(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
     history.pushState('data to be passed', '', '/conditions/' + data.englishName.split(' ').join('_'));
@@ -185,6 +181,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedCondition = null;
 
     $.magnificPopup.close();
 

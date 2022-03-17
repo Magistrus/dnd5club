@@ -171,9 +171,7 @@ $(document).ready(function () {
                 return;
             }
             if (selectedSpell) {
-                if (window.innerWidth >= 1200) {
-                    selectSpell(selectedSpell);
-                }
+                selectSpell(selectedSpell);
                 let rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedSpell.id) {
@@ -183,11 +181,8 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
-
-            if (window.innerWidth >= 1200) {
-                $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
-                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-            }
+            $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
+            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
     $('#spells tbody').on('mouseup', 'tr', function (e) {
@@ -214,7 +209,6 @@ $(document).ready(function () {
         if (!!data) {
             rowSelectIndex = row.index();
             selectSpell(data);
-            selectedSpell = data;
         }
     });
 });
@@ -256,6 +250,7 @@ function selectSpell(data) {
     history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
     const url = '/spells/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedSpell = data;
 }
 
 var timer, delay = 300;

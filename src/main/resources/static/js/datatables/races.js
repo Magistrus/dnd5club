@@ -103,9 +103,7 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedRace) {
-                if (window.innerWidth >= 1200) {
-                    selectRace(selectedRace);
-                }
+                selectRace(selectedRace);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedRace.id) {
@@ -114,11 +112,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#races tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#races tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         },
         createdRow: function (row, data, dataIndex) {
@@ -179,7 +174,6 @@ $(document).ready(function () {
                 document.getElementById('list_page_two_block').classList.add('block_information');
             }
         }
-        selectedRace = data;
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
                 e.target.closest('.simplebar-content-wrapper')
@@ -224,6 +218,7 @@ function onDeselectListener() {
 }
 
 function selectRace(data) {
+    selectedRace = data;
     if (selectedSubrace) {
         setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace.englishName);
         $('#' + selectedSubrace.englishName.split(' ').join('_')).addClass('select_point');
@@ -307,8 +302,8 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
-    selectedRace = null;
     $('li').removeClass('select_point');
+    selectedRace = null;
 
     $.magnificPopup.close();
 

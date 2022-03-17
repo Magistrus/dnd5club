@@ -31,7 +31,7 @@ $(document).ready(function () {
                                 result += '<div class="archetype_list"><h4>Основное:</h4><ul>';
                                 row.archetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '" data-arch-source="' + item.bookshort + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                                                                      .join('_') + '" data-arch-source="'+item.bookshort+'"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
                             }
@@ -39,7 +39,7 @@ $(document).ready(function () {
                                 result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('classes') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingArchetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '" data-arch-source="' + item.bookshort + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                                                                      .join('_') + '" data-arch-source="'+item.bookshort+'"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div></div>';
                             }
@@ -47,7 +47,7 @@ $(document).ready(function () {
                                 result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('classes') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewArchetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '" data-arch-source="' + item.bookshort + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                                                                      .join('_') + '" data-arch-source="'+item.bookshort+'"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
                             }
@@ -90,9 +90,7 @@ $(document).ready(function () {
             addEventListeners();
 
             if (selectedClass) {
-                if (window.innerWidth >= 1200) {
-                    selectClass(selectedClass);
-                }
+                selectClass(selectedClass);
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedClass.id) {
@@ -101,11 +99,8 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
-
-                if (window.innerWidth >= 1200) {
-                    $('#classes tbody tr:eq(' + rowSelectIndex + ')').click();
-                    table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
-                }
+                $('#classes tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
         },
         createdRow: function (row, data, dataIndex) {
@@ -173,7 +168,6 @@ $(document).ready(function () {
                 document.getElementById('list_page_two_block').classList.add('block_information');
             }
         }
-        selectedClass = data;
 
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
@@ -231,6 +225,7 @@ function selectClass(data) {
     $('#class_name').text(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
     history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
+    selectedClass = data;
 
     if (selectedArchetype) {
         setActiveArchetype(data, selectedClass.englishName.replace(' ', '_'), selectedArchetype);
@@ -341,9 +336,9 @@ $('#btn_close').on('click', function () {
 });
 
 function closeHandler() {
-    selectedClass = null;
     document.getElementById('list_page_two_block').classList.remove('block_information');
     $('li').removeClass('select_point');
+    selectedClass = null;
 
     $.magnificPopup.close();
 
