@@ -36,7 +36,7 @@ $(document).ready(function () {
                                 result += '</ul></div>';
                             }
                             if (row.settingSubraces.length > 0) {
-                                result += '<div class="archetype_list setting_source ' + (localStorage.getItem('setting_source') != 'true' ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
+                                result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingSubraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                                                                       .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
@@ -44,7 +44,7 @@ $(document).ready(function () {
                                 result += '</ul></div></div>';
                             }
                             if (row.homebrewSubraces.length > 0) {
-                                result += '<div class="homebrew_list archetype_list custom_source ' + (localStorage.getItem('homebrew_source') != 'true' ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
+                                result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('races') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewSubraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                                                                       .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 "visible": true
             },
             {
-                "targets": [ 1,2,3 ],
+                "targets": [ 1, 2, 3 ],
                 "visible": false
             },
         ],
@@ -174,14 +174,13 @@ $(document).ready(function () {
                 document.getElementById('list_page_two_block').classList.add('block_information');
             }
         }
-        selectedRace = data;
         if (!$(e.target).closest('li').length) {
             setTimeout(function () {
                 e.target.closest('.simplebar-content-wrapper')
-                     .scrollTo({
-                         top: e.target.closest('tr').offsetTop - 16,
-                         behavior: "smooth"
-                     });
+                 .scrollTo({
+                     top: e.target.closest('tr').offsetTop - 16,
+                     behavior: "smooth"
+                 });
             }, 300)
         }
     });
@@ -219,6 +218,7 @@ function onDeselectListener() {
 }
 
 function selectRace(data) {
+    selectedRace = data;
     if (selectedSubrace) {
         setActiveSubrace(data, selectedRace.englishName.replace(' ', '_'), selectedSubrace.englishName);
         $('#' + selectedSubrace.englishName.split(' ').join('_')).addClass('select_point');
@@ -230,15 +230,12 @@ function selectRace(data) {
     var url = '/races/fragment/' + data.id;
     $("#content_block").load(url, function () {
         if (isHomebrewShowed('races')) {
-            $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
             $('#source_id').addClass('active');
         }
         if (isSettingsShowed('races')) {
-            $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         $('#mobile_selector').change(function () {
             setActiveSubrace(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
@@ -262,15 +259,11 @@ function setActiveSubrace(data, raceName, subraceName) {
             setActiveSubrace(data, raceName, $('#mobile_selector').val());
         });
         if (isHomebrewShowed('races')) {
-            $('#homebrew_source').prop('checked', true);
             $('.custom_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         if (isSettingsShowed('races')) {
-            $('#setting_source').prop('checked', true);
             $('.setting_source').removeClass('hide_block');
             $('.module_source').removeClass('hide_block');
-            $('#source_id').addClass('active');
         }
         selectedSubrace = null;
         $('.image-container').magnificPopup({
@@ -302,17 +295,15 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#races').dataTable().api().rows().deselect();
-
         return;
     }
-
     closeHandler();
 });
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
-    selectedRace = null;
     $('li').removeClass('select_point');
+    selectedRace = null;
 
     $.magnificPopup.close();
 
@@ -321,6 +312,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.ability_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="ability"]:checked').map(function () {

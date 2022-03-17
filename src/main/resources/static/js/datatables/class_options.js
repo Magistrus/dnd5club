@@ -44,10 +44,14 @@ $(document).ready(function () {
                 data: 'level',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2, 3, 4 ],
+                "targets": [ 1, 2, 3, 4, 5 ],
                 "visible": false
             },
         ],
@@ -82,7 +86,7 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('options')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -113,6 +117,8 @@ $(document).ready(function () {
 });
 $('#option_btn_filters').on('click', function () {
     $('#option_search_panes').toggleClass('hide_block');
+
+    $('#option_btn_filters').toggleClass('open');
 });
 $('#option_text_clear').on('click', function () {
     $('#option_search').val('');
@@ -157,13 +163,4 @@ $('#level_clear_btn').on('click', function () {
     setFiltered();
 });
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
+

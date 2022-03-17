@@ -46,6 +46,19 @@ $(document).ready(function () {
                 data: 'attunement',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            getSearchColumn('rarity', 'items_magic'),
+            null,
+            null,
+            getSearchColumn('type', 'items_magic'),
+            getSearchColumn('customization', 'items_magic'),
+            getSearchColumn('consumable', 'items_magic'),
+            getSearchColumn('book', 'items_magic'),
         ],
         columnDefs: [
             {
@@ -57,7 +70,7 @@ $(document).ready(function () {
                 }
             },
             {
-                targets: [ 0, 2, 3, 4, 5 ],
+                targets: [ 0, 2, 3, 4, 5, 6 ],
                 visible: false
             },
         ],
@@ -74,6 +87,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('items_magic');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -89,12 +104,12 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('items_magic')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('items_magic')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -106,7 +121,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#items_magic tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedItemMagic) {
                 selectMagicItem(selectedItemMagic);
@@ -119,6 +133,7 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#items_magic tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
@@ -144,7 +159,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectMagicItem(data);
-        selectedMagicItem = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -190,6 +204,7 @@ function onDeselectListener() {
 function selectMagicItem(data) {
     $('#item_name').text(data.name);
 
+    selectedItemMagic = data;
     document.title = data.name + ' (' + data.englishName + ')' + ' | Магические предметы D&D 5e';
     history.pushState('data to be passed', '', '/items/magic/' + data.englishName.split(' ').join('_'));
     var url = '/items/magic/fragment/' + data.id;
@@ -216,6 +231,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedItemMagic = null;
 
     $.magnificPopup.close();
 
@@ -232,6 +248,8 @@ function httpGetImage(theUrl) {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.rarity_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="rarity"]:checked').map(function () {
@@ -243,13 +261,16 @@ $('.rarity_checkbox').on('change', function (e) {
     } else {
         $('#rarity_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('items_magic');
 });
 $('#rarity_clear_btn').on('click', function () {
     $('#rarity_clear_btn').addClass('hide_block');
     $('.rarity_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(0).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.type_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="type"]:checked').map(function () {
@@ -261,13 +282,17 @@ $('.type_checkbox').on('change', function (e) {
     } else {
         $('#type_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('#type_clear_btn').on('click', function () {
     $('#type_clear_btn').addClass('hide_block');
     $('.type_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.customization_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="customization"]:checked').map(function () {
@@ -279,13 +304,17 @@ $('.customization_checkbox').on('change', function (e) {
     } else {
         $('#customization_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('#customization_clear_btn').on('click', function () {
     $('#customization_clear_btn').addClass('hide_block');
     $('.customization_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('.consumable_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="consumable"]:checked').map(function () {
@@ -297,22 +326,34 @@ $('.consumable_checkbox').on('change', function (e) {
     } else {
         $('#consumable_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+
+    saveFilter('items_magic');
 });
 $('#consumable_clear_btn').on('click', function () {
     $('#consumable_clear_btn').addClass('hide_block');
     $('.consumable_checkbox').prop('checked', false);
     $('#items_magic').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
-});
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
+
+    saveFilter('items_magic');
+});
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
+    $('#items_magic').DataTable().column(6).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
     } else {
-        $('#icon_filter').addClass('active');
+        $('#book_clear_btn').addClass('hide_block');
     }
-}
+    saveFilter('items_magic');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#items_magic').DataTable().column(6).search("", true, false, false).draw();
+    saveFilter('items_magic');
+});
+

@@ -34,7 +34,7 @@ $(document).ready(function() {
 		},
 		{
 			data : "email",
-		}, 
+		},
 		],
 		columnDefs : [
 			{
@@ -89,4 +89,6 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
+
+	$('#btn_filters').toggleClass('open');
 });

@@ -32,10 +32,20 @@ $(document).ready(function () {
                 data: 'skills',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('skill', 'backgrounds'),
+            getSearchColumn('book', 'backgrounds'),
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2 ],
+                "targets": [ 1, 2, 3 ],
                 "visible": false
             },
         ],
@@ -54,6 +64,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('backgrounds');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -73,7 +85,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#backgrounds tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedBackground) {
                 selectBackground(selectedBackground);
@@ -86,17 +97,18 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#backgrounds tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('backgrounds')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('backgrounds')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -124,7 +136,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectBackground(data);
-        selectedBackground = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -173,6 +184,7 @@ function selectBackground(data) {
     history.pushState('data to be passed', '', '/backgrounds/' + data.englishName.split(' ').join('_'));
     var url = '/backgrounds/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedBackground = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -187,6 +199,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedBackground = null;
 
     $.magnificPopup.close();
 
@@ -195,6 +208,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.skill_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="skill"]:checked').map(function () {
@@ -206,22 +221,32 @@ $('.skill_checkbox').on('change', function (e) {
     } else {
         $('#skill_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('backgrounds');
 });
 $('#skill_clear_btn').on('click', function () {
     $('#skill_clear_btn').addClass('hide_block');
     $('.skill_checkbox').prop('checked', false);
     $('#backgrounds').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
-});
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
+    saveFilter('backgrounds');
+});
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
+    $('#backgrounds').DataTable().column(3).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
     } else {
-        $('#icon_filter').addClass('active');
+        $('#book_clear_btn').addClass('hide_block');
     }
-}
+    saveFilter('backgrounds');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#backgrounds').DataTable().column(3).search("", true, false, false).draw();
+    saveFilter('backgrounds');
+});
+

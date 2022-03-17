@@ -34,6 +34,11 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('category', 'treasures'),
+        ],
         columnDefs: [
             {
                 "targets": [ 1, 2 ],
@@ -53,6 +58,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('treasures');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -174,6 +181,8 @@ $('#text_clear').on('click', function () {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.category_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="category"]:checked').map(function () {
@@ -185,22 +194,15 @@ $('.category_checkbox').on('change', function (e) {
     } else {
         $('#category_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('treasures');
 });
 $('#category_clear_btn').on('click', function () {
     $('#category_clear_btn').addClass('hide_block');
     $('.category_checkbox').prop('checked', false);
     $('#treasures').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('treasures');
 });
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
+

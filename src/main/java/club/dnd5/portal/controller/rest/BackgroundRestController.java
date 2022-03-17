@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -23,6 +24,7 @@ import club.dnd5.portal.dto.background.BackgroundDto;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.background.Background;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 
 @RestController
@@ -42,6 +44,14 @@ public class BackgroundRestController {
 				Join<AbilityType, Background> abilityType = root.join("skills", JoinType.LEFT);
 				query.distinct(true);
 				return cb.and(abilityType.in(filterSkills));
+			});
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(3).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
 			});
 		}
 		return  repo.findAll(input, specification, specification,  BackgroundDto::new);

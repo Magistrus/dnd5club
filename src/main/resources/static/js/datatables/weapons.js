@@ -49,10 +49,24 @@ $(document).ready(function () {
                 data: 'damage',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            null,
+            null,
+            null,
+            getSearchColumn('damageType', 'weapons'),
+            getSearchColumn('property', 'weapons'),
+            null,
+            getSearchColumn('damage_dice', 'weapons'),
+            getSearchColumn('book', 'weapons'),
         ],
         columnDefs: [
             {
-                "targets": [ 0, 2, 3, 4, 5, 6 ],
+                "targets": [ 0, 2, 3, 4, 5, 6, 7 ],
                 "visible": false
             },
         ],
@@ -72,6 +86,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('weapons')
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -107,7 +123,7 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('weapons')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -148,6 +164,8 @@ $(document).ready(function () {
     });
     $('#btn_filters').on('click', function () {
         $('#searchPanes').toggleClass('hide_block');
+
+        $('#btn_filters').toggleClass('open');
     })
 });
 
@@ -203,6 +221,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedWeapon = null;
 
     $.magnificPopup.close();
 
@@ -219,13 +238,15 @@ $('.damge_type_checkbox').on('change', function (e) {
     } else {
         $('#damage_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('weapons');
 });
 $('#damage_clear_btn').on('click', function () {
     $('#damage_clear_btn').addClass('hide_block');
     $('.damge_type_checkbox').prop('checked', false);
     $('#weapons').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('weapons');
 });
 $('.property_checkbox').on('change', function (e) {
     var properties = $('input:checkbox[name="property"]:checked').map(function () {
@@ -237,13 +258,15 @@ $('.property_checkbox').on('change', function (e) {
     } else {
         $('#property_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('weapons');
 });
 $('#damage_dice_clear_btn').on('click', function () {
     $('#damage_dice_clear_btn').addClass('hide_block');
     $('.property_checkbox').prop('checked', false);
     $('#weapons').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('weapons');
 });
 $('.damage_dice_checkbox').on('change', function (e) {
     var properties = $('input:checkbox[name="damage_dice"]:checked').map(function () {
@@ -255,22 +278,34 @@ $('.damage_dice_checkbox').on('change', function (e) {
     } else {
         $('#damage_dice_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('weapons');
 });
 $('#property_clear_btn').on('click', function () {
     $('#property_clear_btn').addClass('hide_block');
     $('.property_checkbox').prop('checked', false);
     $('#weapons').DataTable().column(6).search("", true, false, false).draw();
-    setFiltered();
-});
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
+    saveFilter('weapons');
+});
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
+    $('#weapons').DataTable().column(7).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
     } else {
-        $('#icon_filter').addClass('active');
+        $('#book_clear_btn').addClass('hide_block');
     }
-}
+
+    saveFilter('weapons');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#weapons').DataTable().column(7).search("", true, false, false).draw();
+
+    saveFilter('weapons');
+});
+

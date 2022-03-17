@@ -43,7 +43,7 @@ $(document).ready(function () {
         rowGroup: {
             dataSrc: 'type',
         },
-        order: [ [ 2, 'desc' ], [ 0, 'asc' ] ],
+        order: [ [ 2, 'asc' ], [ 0, 'asc' ] ],
         language: {
             processing: "Загрузка...",
             searchPlaceholder: "Поиск ",
@@ -70,11 +70,9 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
-
             if (!$('#list_page_two_block').hasClass('block_information') && !selectedCondition) {
                 return;
             }
-
             if (selectedCondition) {
                 selectCondition(selectedCondition);
                 var rowIndexes = [];
@@ -85,10 +83,9 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
+                $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
-
-            $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
 
@@ -104,16 +101,13 @@ $(document).ready(function () {
             return;
         }
         selectCondition(data);
-
-        if (!$(e.target).closest('li').length) {
-            setTimeout(function () {
-                e.target.closest('.simplebar-content-wrapper')
-                     .scrollTo({
-                         top: e.target.closest('tr').offsetTop - 16,
-                         behavior: "smooth"
-                     });
-            }, 300)
-        }
+        setTimeout(function () {
+            e.target.closest('.simplebar-content-wrapper')
+             .scrollTo({
+                 top: e.target.closest('tr').offsetTop - 16,
+                 behavior: "smooth"
+             });
+        }, 300)
     });
     $('#search').on('keyup click', function () {
         table.tables().search($(this).val()).draw();
@@ -152,6 +146,7 @@ function onDeselectListener() {
 }
 
 function selectCondition(data) {
+    selectedCondition = data;
     $('#condition_name').html(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
     history.pushState('data to be passed', '', '/conditions/' + data.englishName.split(' ').join('_'));
@@ -186,6 +181,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedCondition = null;
 
     $.magnificPopup.close();
 

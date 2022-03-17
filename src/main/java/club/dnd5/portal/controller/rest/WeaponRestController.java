@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.item.WeaponDto;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.items.WeaponProperty;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
@@ -75,6 +76,14 @@ public class WeaponRestController {
 		if (damages.contains(2)) {
 			specification = addSpecification(specification,
 					(root, query, cb) -> root.get("numberDice").in(2));
+		}
+		Set<String> bookSources = Arrays.stream(input.getColumns().get(7).getSearch().getValue().split("\\|"))
+				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+		if (!bookSources.isEmpty()) {
+			specification = addSpecification(specification, (root, query, cb) -> {
+				Join<Book, Object> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(bookSources);
+			});
 		}
 		return  repo.findAll(input, specification, specification, WeaponDto::new);
 	}

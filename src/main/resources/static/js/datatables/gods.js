@@ -18,10 +18,10 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        var result = '<div class="info_block">' + row.aligmentShort + '</div>';
+                        var result = '<div class="info_block tip" title="' + row.alignment + '">' + row.aligmentShort + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
                         result += '</span><span>[' + row.englishName + ']</span></h3>';
-                        result += '<div class="secondary_name">' + row.commitment + '</div></div>';
+                        result += '<div class="secondary_name>' + row.commitment + '</div></div>';
                         return result;
                     }
                     return data;
@@ -50,10 +50,24 @@ $(document).ready(function () {
                 data: 'pantheon',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('alignment', 'gods'),
+            getSearchColumn('domen', 'gods'),
+            getSearchColumn('rank', 'gods'),
+            null,
+            getSearchColumn('pantheon', 'gods'),
+            getSearchColumn('book', 'gods'),
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2, 3, 4, 5, 6 ],
+                "targets": [ 1, 2, 3, 4, 5, 6, 7 ],
                 "visible": false
             },
         ],
@@ -72,6 +86,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('gods');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -91,7 +107,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedGod === null) {
                     return;
                 }
-                $('#gods tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedGod) {
                 var rowIndexes = [];
@@ -104,6 +119,7 @@ $(document).ready(function () {
                 rowSelectIndex = rowIndexes[0];
                 selectGod(selectedGod);
             }
+            $('#gods tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
@@ -183,7 +199,7 @@ function selectGod(data) {
             }
         });
     });
-    selectedGod = null;
+    selectedGod = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -198,6 +214,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedGod = null;
 
     $.magnificPopup.close();
 
@@ -206,6 +223,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.alignment_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="alignment"]:checked').map(function () {
@@ -217,13 +236,15 @@ $('.alignment_checkbox').on('change', function (e) {
     } else {
         $('#alignment_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#alignment_clear_btn').on('click', function () {
     $('#alignment_clear_btn').addClass('hide_block');
     $('.alignment_checkbox').prop('checked', false);
     $('#gods').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.domen_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="domen"]:checked').map(function () {
@@ -235,13 +256,15 @@ $('.domen_checkbox').on('change', function (e) {
     } else {
         $('#domen_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#domen_clear_btn').on('click', function () {
     $('#domen_clear_btn').addClass('hide_block');
     $('.domen_checkbox').prop('checked', false);
     $('#gods').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.rank_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="rank"]:checked').map(function () {
@@ -253,13 +276,15 @@ $('.rank_checkbox').on('change', function (e) {
     } else {
         $('#rank_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#rank_clear_btn').on('click', function () {
     $('#rank_clear_btn').addClass('hide_block');
     $('.rank_checkbox').prop('checked', false);
     $('#gods').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('.pantheon_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="pantheon"]:checked').map(function () {
@@ -271,13 +296,33 @@ $('.pantheon_checkbox').on('change', function (e) {
     } else {
         $('#pantheon_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('gods');
 });
 $('#pantheon_clear_btn').on('click', function () {
     $('#pantheon_clear_btn').addClass('hide_block');
     $('.pantheon_checkbox').prop('checked', false);
     $('#gods').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('gods');
+});
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#gods').DataTable().column(7).search(properties, true, false, false).draw();
+    if (!properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('gods');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#gods').DataTable().column(7).search("", true, false, false).draw();
+    saveFilter('gods');
 });
 
 function getImage(id) {
@@ -302,13 +347,3 @@ function getImage(id) {
     });
 }
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}

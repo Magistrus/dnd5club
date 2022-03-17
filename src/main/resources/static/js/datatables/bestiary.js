@@ -63,10 +63,26 @@ $(document).ready(function () {
             {
                 data: 'altName',
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            null,
+            null,
+            null,
+            getSearchColumn('cr', 'creatures'),
+            getSearchColumn('type', 'creatures'),
+            getSearchColumn('size', 'creatures'),
+            getSearchColumn('tag', 'creatures'),
+            getSearchColumn('habitate', 'creatures'),
+            null,
+            getSearchColumn('book', 'creatures'),
         ],
         columnDefs: [
             {
-                "targets": [ 0, 2, 3, 4, 5, 6, 7, 8 ],
+                "targets": [ 0, 2, 3, 4, 5, 6, 7, 8, 9 ],
                 "visible": false
             },
             {
@@ -92,6 +108,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('creatures')
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 300;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -106,12 +124,6 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
-
-            if (rowSelectIndex === 0 && selectedCreature === null) {
-                if (!$('#list_page_two_block').hasClass('block_information') && selectedCreature === null) {
-                    return;
-                }
-            }
             if (selectedCreature) {
                 selectCreature(selectedCreature);
                 var rowIndexes = [];
@@ -122,9 +134,13 @@ $(document).ready(function () {
                     return false;
                 });
                 rowSelectIndex = rowIndexes[0];
+                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
-            $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
-            table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            if (window.innerWidth >= 1200) {
+                $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
+                table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+            }
         }
     });
     $('#creatures tbody').on('mouseup', 'tr', function (e) {
@@ -148,7 +164,6 @@ $(document).ready(function () {
             window.open('/bestiary/' + data.englishName.split(' ').join('_'));
         }
         selectCreature(data);
-        selectedCreature = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -162,6 +177,8 @@ $(document).ready(function () {
     });
     $('#btn_filters').on('click', function () {
         $('#searchPanes').toggleClass('hide_block');
+
+        $('#btn_filters').toggleClass('open');
     });
     $('#npc').prop('checked', localStorage.getItem('npc') == 'true' ? true : false);
 });
@@ -171,6 +188,25 @@ $('#text_clear').on('click', function () {
     selectedCreature = null;
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
+});
+
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#creatures').DataTable().column(9).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
+    } else {
+        $('#book_clear_btn').addClass('hide_block');
+    }
+    saveFilter('creatures');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#creatures').DataTable().column(9).search("", true, false, false).draw();
+    saveFilter('creatures');
 });
 
 function addEventListeners(force = false) {
@@ -208,6 +244,7 @@ function selectCreature(data) {
     if (!data) {
         return;
     }
+    selectedCreature = data;
     $('#statblock').addClass('active');
     $('#description').removeClass('active');
     $('#creature_name').html(data.name);
@@ -235,12 +272,14 @@ function selectDescription(id) {
 }
 
 $('#btn_close').on('click', function () {
+    selectedCreature = null;
     $('#creatures').dataTable().api().rows().deselect();
 });
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
     localStorage.removeItem('selected_creature');
+    selectedCreature = null;
 
     $.magnificPopup.close();
 
@@ -275,13 +314,15 @@ $('.cr_checkbox').on('change', function (e) {
     } else {
         $('#cr_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#cr_clear_btn').on('click', function () {
     $('#cr_clear_btn').addClass('hide_block');
     $('.cr_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.type_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="type"]:checked').map(function () {
@@ -293,13 +334,15 @@ $('.type_checkbox').on('change', function (e) {
     } else {
         $('#type_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#type_clear_btn').on('click', function () {
     $('#type_clear_btn').addClass('hide_block');
     $('.type_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.size_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="size"]:checked').map(function () {
@@ -311,13 +354,15 @@ $('.size_checkbox').on('change', function (e) {
     } else {
         $('#size_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#size_clear_btn').on('click', function () {
     $('#size_clear_btn').addClass('hide_block');
     $('.size_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(5).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.tag_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="tag"]:checked').map(function () {
@@ -329,13 +374,15 @@ $('.tag_checkbox').on('change', function (e) {
     } else {
         $('#tag_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#tag_clear_btn').on('click', function () {
     $('#tag_clear_btn').addClass('hide_block');
     $('.tag_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(6).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
 $('.habitate_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="habitate"]:checked').map(function () {
@@ -347,7 +394,8 @@ $('.habitate_checkbox').on('change', function (e) {
     } else {
         $('#habitate_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('creatures');
 });
 $('#npc').on('change', function (e) {
     npc = $('#npc').is(':checked')
@@ -358,20 +406,9 @@ $('#habitate_clear_btn').on('click', function () {
     $(this).addClass('hide_block');
     $('.habitate_checkbox').prop('checked', false);
     $('#creatures').DataTable().column(7).search("", true, false, false).draw();
-    setFiltered();
+
+    saveFilter('creatures');
 })
-
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
-        return this.value;
-    }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-
-    } else {
-        $('#icon_filter').addClass('active');
-    }
-}
 
 $('#btn_export_fvtt').on('click', function () {
     window.open('/creature/json/' + selectedCreature.id, '_self');

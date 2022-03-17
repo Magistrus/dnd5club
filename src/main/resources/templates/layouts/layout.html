@@ -17,7 +17,7 @@
 		<meta property="og:url" id="meta_url" th:content="${metaUrl eq null ? 'https://dnd5.club/' : metaUrl}">
 		<meta property="og:title" id= "meta_title" th:content="${metaTitle eq null ? 'DnD5.club Oнлайн-справочник' : metaTitle}">
 		<meta property="og:description" th:content="${metaDescription eq null ? 'DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.' : metaDescription}">
-		<meta property="og:image" id="meta_image" th:content="${metaImage eq null ? 'https://image.dnd5.club:8089/dnd-meta.webp' : metaImage}">
+		<meta property="og:image" id="meta_image" th:content="${metaImage eq null ? 'https://image.dnd5.club:8089/dnd-meta.jpg' : metaImage}">
 		<meta name="twitter:title" th:content="${metaTitle eq null ? 'DnD5.club Oнлайн-справочник' : metaTitle}">
 		<meta name="yandex-verification" content="fcb3cea757dfffdd" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,13 +40,13 @@
 		<!-- Modal -->
 		<link rel="stylesheet" th:href="@{/resources/css/magnific-popup.css}" />
 		<!-- Favicon-->
-		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon_new.svg}" />
+		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon_new.svg?v=7}" />
 		<!-- Core theme CSS -->
 		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
 		<link rel="stylesheet" th:href="@{/resources/css/typography.css?v=23.1.1}" />
-		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=93.7.1}" />
+		<link rel="stylesheet" th:href="@{/resources/css/styles.css?v=95.7.1}" />
 		<link rel="stylesheet" th:href="@{/resources/css/print.css?v=1.3.1}" />
-		<link rel="stylesheet" th:href="@{/resources/css/search.css?v=1.9.1}" />
+		<link rel="stylesheet" th:href="@{/resources/css/search.css?v=2.0.1}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
 		<!-- Menu -->
@@ -96,9 +96,9 @@
 	</body>
 	<th:block th:fragment="mainJS">
 	<script th:src="@{/resources/js/simplebar.min.js}"></script>
-	<script th:src="@{/resources/js/scripts.js?v=9.0.6}"></script>
+	<script th:src="@{/resources/js/scripts.js?v=9.0.20}"></script>
 	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
-	<script th:src="@{/resources/js/scheme.js?v=0.2.6}"></script>
+	<script th:src="@{/resources/js/scheme.js?v=0.2.20}"></script>
 	<script th:src="@{/resources/js/tipped.min.js}"></script>
 	</th:block>
 	<script layout:fragment="js-script"></script>

@@ -32,10 +32,14 @@ $(document).ready(function () {
                 data: 'type',
                 searchable: false,
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2 ],
+                "targets": [ 1, 2, 3 ],
                 "visible": false
             },
         ],
@@ -67,12 +71,12 @@ $(document).ready(function () {
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('items')) {
                     $(row).addClass('hide_block');
                 }
             } else if (data.setting) {
                 $(row).addClass('setting_source');
-                if (localStorage.getItem('setting_source') != 'true') {
+                if (!isSettingsShowed('items')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -84,7 +88,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#items tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedItem) {
                 selectItem(selectedItem);
@@ -97,6 +100,7 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#items tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         }
     });
@@ -122,7 +126,6 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectItem(data);
-        selectedItem = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -172,6 +175,7 @@ function selectItem(data) {
     history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));
     var url = '/items/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedItem = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -186,6 +190,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedItem = null;
 
     $.magnificPopup.close();
 
@@ -194,6 +199,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.category_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="category"]:checked').map(function () {
@@ -205,23 +212,31 @@ $('.category_checkbox').on('change', function (e) {
     } else {
         $('#category_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+
+    saveFilter('items');
 });
 $('#category_clear_btn').on('click', function () {
     $('#category_clear_btn').addClass('hide_block');
     $('.category_checkbox').prop('checked', false);
     $('#items').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
-});
 
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
+    saveFilter('items');
+});
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
-
+    $('#items').DataTable().column(3).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
     } else {
-        $('#icon_filter').addClass('active');
+        $('#book_clear_btn').addClass('hide_block');
     }
-}
+    saveFilter('items');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#items').DataTable().column(3).search("", true, false, false).draw();
+    saveFilter('items');
+});

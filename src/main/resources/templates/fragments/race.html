@@ -90,13 +90,34 @@
 			</div>
 		</details>
 		<details th:each="feature : ${notFeatures}">
-			<summary class="h4 header_separator"><span th:utext="${feature.name}"></span></summary>
+			<summary class="h4 header_separator">
+				<span th:utext="${feature.name}"></span>
+			</summary>
 			<div class="content">
 				<div th:utext="${feature.description}"></div>
 			</div>
 		</details>
+		<details th:unless="*{names.empty}">
+			<summary class="h4 header_separator">
+				<span>Имена</span>
+			</summary>
+			<p th:each="nameElement , iterStat: *{names}">
+				<th:block th:unless="${nameElement.value.empty}">
+					<strong th:text="|${nameElement.key.cyrilicName} имена:|"></strong>
+					<th:block th:each="name , iterStat: ${nameElement.value}" th:text="${iterStat.last} ? ${name} : ${name} + ', '"></th:block>
+				</th:block>
+			</p>
+			<p th:each="nameElement , iterStat: *{nicknamesGroup}">
+				<th:block th:unless="${nameElement.value.empty}">
+					<strong th:text="${nameElement.key.display}"></strong>
+					<th:block th:each="name , iterStat: ${nameElement.value}" th:text="${iterStat.last} ? ${name} : ${name} + ', '"></th:block>
+				</th:block>
+			</p>
+		</details>
 		<details>
-			<summary class="h4 header_separator"><span>Описание</span></summary>
+			<summary class="h4 header_separator">
+				<span>Описание</span>
+			</summary>
 			<div class="content">
 				<th:block th:utext="*{description}"></th:block>
 			</div>

@@ -42,24 +42,26 @@ $(document).ready(function () {
                 data: 'requirement',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('ability', 'traits'),
+            null,
+            getSearchColumn('prerequisite', 'traits'),
+            getSearchColumn('book', 'traits'),
         ],
         columnDefs: [
             {
-                "targets": [ 1, 4 ],
+                "targets": [ 1, 2, 3, 4, 5 ],
                 "visible": false
             },
-            {
-                "targets": [ 2, 3 ],
-                "visible": false,
-                searchPanes: {
-                    dtOpts: {
-                        order: []
-                    }
-                }
-            },
         ],
-        buttons: [
-            {} ],
+        buttons: [ {} ],
         language: {
             processing: "Загрузка...",
             searchPlaceholder: "Поиск ",
@@ -72,6 +74,8 @@ $(document).ready(function () {
             loadingRecords: "Загрузка...",
         },
         initComplete: function (settings, json) {
+            restoreFilter('traits');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 500;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -86,12 +90,10 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
-
             if (rowSelectIndex === 0 && selectedTrait === null) {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#traits tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedTrait) {
                 selectTrait(selectedTrait);
@@ -104,12 +106,13 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#traits tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('traits')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -137,9 +140,13 @@ $(document).ready(function () {
         }
         rowSelectIndex = row.index();
         selectTrait(data);
-        selectedTrait = data;
     });
     $('#search').on('keyup click', function () {
+        if ($('#search').val()) {
+            $('#text_clear').show();
+        } else {
+            $('#text_clear').hide();
+        }
         table.tables().search($(this).val()).draw();
     });
 });
@@ -181,6 +188,7 @@ function selectTrait(data) {
     history.pushState('data to be passed', '', '/traits/' + data.englishName.split(' ').join('_'));
     var url = '/traits/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedTrait = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -195,6 +203,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedTrait = null;
 
     $.magnificPopup.close();
 
@@ -203,6 +212,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.ability_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="ability"]:checked').map(function () {
@@ -214,13 +225,13 @@ $('.ability_checkbox').on('change', function (e) {
     } else {
         $('#ability_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('traits');
 });
 $('#ability_clear_btn').on('click', function () {
     $('#skill_clear_btn').addClass('hide_block');
     $('.skill_checkbox').prop('checked', false);
     $('#traits').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('traits');
 });
 $('.skill_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="skill"]:checked').map(function () {
@@ -232,13 +243,13 @@ $('.skill_checkbox').on('change', function (e) {
     } else {
         $('#skill_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('traits');
 });
 $('#skill_clear_btn').on('click', function () {
     $('#skill_clear_btn').addClass('hide_block');
     $('.skill_checkbox').prop('checked', false);
     $('#traits').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('traits');
 });
 $('.prerequisite_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="prerequisite"]:checked').map(function () {
@@ -250,22 +261,30 @@ $('.prerequisite_checkbox').on('change', function (e) {
     } else {
         $('#prerequisite_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('traits');
 });
 $('#prerequisite_clear_btn').on('click', function () {
     $('#prerequisite_clear_btn').addClass('hide_block');
     $('.prerequisite_checkbox').prop('checked', false);
-    $('#traits').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+    $('#traits').DataTable().column(5).search("", true, false, false).draw();
+    saveFilter('traits');
 });
-
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
+    $('#traits').DataTable().column(5).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
     } else {
-        $('#icon_filter').addClass('active');
+        $('#book_clear_btn').addClass('hide_block');
     }
-}
+    saveFilter('traits');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#traits').DataTable().column(5).search("", true, false, false).draw();
+    saveFilter('traits');
+});
+

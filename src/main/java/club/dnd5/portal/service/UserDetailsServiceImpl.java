@@ -19,7 +19,6 @@ import club.dnd5.portal.repository.user.UserRepository;
 @Service
 @Transactional(readOnly = true)
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
 	@Autowired
 	private UserRepository usersRepository;
 

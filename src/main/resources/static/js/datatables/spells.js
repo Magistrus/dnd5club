@@ -157,7 +157,7 @@ $(document).ready(function () {
                     return;
                 }
             }
-            if (localStorage.getItem('homebrew_source') == 'false' && selectedSpell === null) {
+            if (!isHomebrewShowed('classes') && selectedSpell === null) {
                 for (; rowSelectIndex < table.data().count(); rowSelectIndex++) {
                     if (!table.rows(rowSelectIndex).data()[0].homebrew) {
                         $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
@@ -205,9 +205,11 @@ $(document).ready(function () {
         if ((window.navigator.userAgent.indexOf("Mac") !== -1 && e.metaKey) || e.ctrlKey) {
             window.open('/spells/' + data.englishName.split(' ').join('_'));
         }
-        rowSelectIndex = row.index();
-        selectSpell(data);
-        selectedSpell = data;
+
+        if (!!data) {
+            rowSelectIndex = row.index();
+            selectSpell(data);
+        }
     });
 });
 
@@ -248,6 +250,7 @@ function selectSpell(data) {
     history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
     const url = '/spells/fragment/' + data.id;
     $("#content_block").load(url);
+    selectedSpell = data;
 }
 
 var timer, delay = 300;
@@ -288,6 +291,8 @@ function closeHandler() {
 
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 $('.level_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="level"]:checked').map(function () {

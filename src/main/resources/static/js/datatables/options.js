@@ -13,6 +13,7 @@ $(document).ready(function () {
             style: 'single',
             toggleable: false
         },
+        ordering: true,
         columns: [
             {
                 data: "name",
@@ -40,15 +41,25 @@ $(document).ready(function () {
                 data: 'level',
                 searchable: false
             },
+            {
+                data: 'bookshort',
+                searchable: false,
+            },
+        ],
+        searchCols: [
+            null,
+            null,
+            getSearchColumn('category', 'options'),
+            getSearchColumn('prerequsite', 'options'),
+            getSearchColumn('level', 'options'),
+            getSearchColumn('book', 'options'),
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2, 3, 4 ],
+                "targets": [ 1, 2, 3, 4, 5 ],
                 "visible": false
             },
         ],
-        buttons: [
-            {} ],
         order: [ [ 0, 'asc' ] ],
         language: {
             processing: "Загрузка...",
@@ -61,8 +72,9 @@ $(document).ready(function () {
             infoFiltered: "из _MAX_",
             loadingRecords: "Загрузка...",
         },
-        ordering: true,
         initComplete: function (settings, json) {
+            restoreFilter('options');
+
             scrollEventHeight = document.getElementById('scroll_load_simplebar').offsetHeight - 400;
             const simpleBar = new SimpleBar(document.getElementById('scroll_load_simplebar'));
             simpleBar.getScrollElement().addEventListener('scroll', function (event) {
@@ -82,7 +94,6 @@ $(document).ready(function () {
                 if (!$('#list_page_two_block').hasClass('block_information')) {
                     return;
                 }
-                $('#options tbody tr:eq(' + rowSelectIndex + ')').click();
             }
             if (selectedOption) {
                 selectOption(selectedOption);
@@ -95,12 +106,13 @@ $(document).ready(function () {
                 });
                 rowSelectIndex = rowIndexes[0];
             }
+            $('#options tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
                 $(row).addClass('custom_source');
-                if (localStorage.getItem('homebrew_source') != 'true') {
+                if (!isHomebrewShowed('options')) {
                     $(row).addClass('hide_block');
                 }
             }
@@ -128,7 +140,6 @@ $(document).ready(function () {
             window.open('/options/' + data.englishName.split(' ').join('_'));
         }
         selectOption(data);
-        selectedOption = data;
     });
     $('#search').on('keyup click', function () {
         if ($(this).val()) {
@@ -141,6 +152,8 @@ $(document).ready(function () {
 });
 $('#btn_filters').on('click', function () {
     $('#searchPanes').toggleClass('hide_block');
+
+    $('#btn_filters').toggleClass('open');
 });
 
 function addEventListeners(force = false) {
@@ -181,6 +194,8 @@ function selectOption(data) {
     history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));
     var url = '/options/fragment/' + data.id;
     $("#content_block").load(url);
+
+    selectedOption = data;
 }
 
 $('#text_clear').on('click', function () {
@@ -195,6 +210,7 @@ $('#btn_close').on('click', function () {
 
 function closeHandler() {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    selectedOption = null;
 
     $.magnificPopup.close();
 
@@ -211,13 +227,13 @@ $('.category_checkbox').on('change', function (e) {
     } else {
         $('#category_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('options');
 });
 $('#category_clear_btn').on('click', function () {
     $('#category_clear_btn').addClass('hide_block');
     $('.category_checkbox').prop('checked', false);
     $('#options').DataTable().column(2).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('options');
 });
 $('.prerequsite_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="prerequsite"]:checked').map(function () {
@@ -229,13 +245,13 @@ $('.prerequsite_checkbox').on('change', function (e) {
     } else {
         $('#prerequsite_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('options');
 });
 $('#prerequsite_clear_btn').on('click', function () {
     $('#prerequsite_clear_btn').addClass('hide_block');
     $('.prerequsite_checkbox').prop('checked', false);
     $('#options').DataTable().column(3).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('options');
 });
 $('.level_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="level"]:checked').map(function () {
@@ -247,22 +263,30 @@ $('.level_checkbox').on('change', function (e) {
     } else {
         $('#level_clear_btn').addClass('hide_block');
     }
-    setFiltered();
+    saveFilter('options');
 });
 $('#level_clear_btn').on('click', function () {
     $('#level_clear_btn').addClass('hide_block');
     $('.level_checkbox').prop('checked', false);
     $('#options').DataTable().column(4).search("", true, false, false).draw();
-    setFiltered();
+    saveFilter('options');
 });
-
-function setFiltered() {
-    let boxes = $('input:checkbox:checked.filter').map(function () {
+$('.book_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="book"]:checked').map(function () {
         return this.value;
     }).get().join('|');
-    if (boxes.length === 0) {
-        $('#icon_filter').removeClass('active');
+    $('#options').DataTable().column(5).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#book_clear_btn').removeClass('hide_block');
     } else {
-        $('#icon_filter').addClass('active');
+        $('#book_clear_btn').addClass('hide_block');
     }
-}
+    saveFilter('options');
+});
+$('#book_clear_btn').on('click', function () {
+    $('#book_clear_btn').addClass('hide_block');
+    $('.book_checkbox').prop('checked', true);
+    $('#options').DataTable().column(5).search("", true, false, false).draw();
+    saveFilter('options');
+});
+
