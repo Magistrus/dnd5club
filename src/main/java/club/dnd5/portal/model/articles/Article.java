@@ -1,6 +1,7 @@
 package club.dnd5.portal.model.articles;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "articles")
 public class Article {
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -52,4 +54,11 @@ public class Article {
 	private LocalDateTime moderated;
 	private LocalDateTime published;
 	private LocalDateTime deleted;
+	
+	public String getShortText() {
+		return text.substring(0, 255);
+	}
+	public String getPublishedDate() {
+		return published.format(formatter);
+	}
 }
