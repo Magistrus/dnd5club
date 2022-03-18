@@ -16,8 +16,8 @@
 							<div class="description" th:utext="${article.shortText}">
 							</div>
 							<div class="bottom">
-								<time datetime="2022-03-05" th:text="${article.publishedDate}">05 марта 2022</time>
-								<button class="btn">Подробнее</button>
+								<time th:datetime="${article.published}" th:text="${article.publishedDate}">05 марта 2022</time>
+								<a th:href="@{|/articles/${article.id}|}" class="btn">Подробнее</a>
 							</div>
 						</div>
 					</div>
