@@ -56,9 +56,10 @@ public class Article {
 	private LocalDateTime deleted;
 	
 	public String getShortText() {
-		return text.substring(0, 255);
+		return text.length() > 255 ? text.substring(0, 255) : text;
 	}
+
 	public String getPublishedDate() {
-		return published.format(formatter);
+		return published == null ? "" : published.format(formatter);
 	}
 }
