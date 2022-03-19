@@ -195,9 +195,6 @@ $(document).ready(function () {
         }
     });
     $('#spells tbody').on('click', 'tr', function (e) {
-        if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
-            document.getElementById('list_page_two_block').classList.add('block_information');
-        }
         var tr = $(this).closest('tr');
         var table = $('#spells').DataTable();
         var row = table.row(tr);
@@ -245,6 +242,9 @@ function onDeselectListener() {
 }
 
 function selectSpell(data) {
+    if (!document.getElementById('list_page_two_block').classList.contains('block_information')) {
+        document.getElementById('list_page_two_block').classList.add('block_information');
+    }
     $('#row_name').html(data.name);
     document.title = data.name + ' (' + data.englishName + ')' + ' | Заклинания D&D 5e';
     history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
