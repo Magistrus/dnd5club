@@ -33,8 +33,10 @@ public class ArticleController {
 		return "articles";
 	}
 
-	@GetMapping("/articles/{id}")
-	public String getArticle(@PathVariable Integer id) {
+	@GetMapping("/articles/{id:\\d+}")
+	public String getArticle(Model model, @PathVariable Integer id) {
+		Optional<Article> article = service.findById(id);
+		model.addAttribute("article", article.get());
 		return "article";
 	}
 	

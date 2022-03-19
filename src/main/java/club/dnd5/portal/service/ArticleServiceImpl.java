@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public Collection<Article> findAllByStatus(AtricleStatus status) {
-		return repo.findAllByStatus(status);
+		return repo.findAllByStatusOrderByPublishedDesc(status);
 	}
 
 	@Override
@@ -32,14 +34,17 @@ public class ArticleServiceImpl implements ArticleService {
 	@Transactional
 	@Override
 	public Article save(Article article, User creator) {
-		if (creator.getCreateDate() == null) {
+		if (article.getCreated() == null) {
 			article.setCreated(LocalDateTime.now());
 		}
 		else {
 			article.setChanged(LocalDateTime.now());
 		}
 		article.setCreator(creator);
-		article.setStatus(AtricleStatus.CREATED);
+		if (article.getId() == null) {
+			article.setStatus(AtricleStatus.CREATED);	
+		}
+		article.setText(Jsoup.clean(article.getText(), Safelist.basic()));
 		return repo.save(article);
 	}
 
