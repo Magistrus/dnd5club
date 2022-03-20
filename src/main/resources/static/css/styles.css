@@ -1306,7 +1306,6 @@ body:before {
 
 .header_block .header_row .title_row {
   display: flex;
-  align-items: center;
   width: 100%;
 }
 
@@ -1320,7 +1319,10 @@ body:before {
 
 .header_block .header_row .title h2 {
   font-size: calc( var(--h2-font-size) - 14px);
-  color:var(--text-g-color)
+  color:var(--text-g-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 1200px) {
