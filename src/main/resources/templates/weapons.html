@@ -8,7 +8,10 @@
 		<div id="left_block" class="weapons">
 			<div class="header_block filters">
 				<div class="header_row">
-					<h1>Оружие</h1>
+					<div class="title">
+						<h1>Оружие</h1>
+						<h2>Weapons</h2>
+					</div>
 				</div>
 				<div class="search_block">
 					<div class="input_block">
@@ -176,8 +179,11 @@
 		<div id="right_block" class="weapons">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>
-						<a href="#" id="weapon_name">Название снаряжения</a>
+					<div class="title_row">
+						<div class="title">
+							<h1><a href="#" id="weapon_name">Название снаряжения</a></h1>
+							<h2>...</h2>
+						</div>
 						<button class="title_icon link tip" title="Скопировать ссылку" onclick="copyToClipboard()">
 							<i class="icon_action">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +191,7 @@
 								</svg>
 							</i>
 						</button>
-					</h1>
+					</div>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M3 14H6C7.10457 14 8 14.8954 8 16L8 19M8 5V8C8 9.10457 7.10457 10 6 10H3M21 10H18C16.8954 10 16 9.10457 16 8V5M16 19V16C16 14.8954 16.8954 14 18 14L21 14" stroke="#7B61FF"
