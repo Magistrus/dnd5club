@@ -112,9 +112,9 @@ hr {
 .icon_menu.active:before,
 .icon_action.active:before {
   top: 13px;
-  right: 2px;
-  width: 10px;
-  height: 10px;
+  right: -1px;
+  width: 12px;
+  height: 12px;
   background-color: inherit;
 }
 
@@ -1271,15 +1271,13 @@ body:before {
 
 .header_block h1 {
   width: 100%;
-  /* line-height: 72px; */
   position: relative;
-  padding-left: 24px;
-  padding-right: 24px;
   font-size:calc(var(--h1-font-size) - 16px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--text-color-title);
+  line-height: 32px;
 }
 
 .header_block h1 a {
@@ -1287,35 +1285,12 @@ body:before {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 100%;
-  /* line-height: 72px; */
   position: relative;
   color: var(--text-color-title);
   font-weight: 300;
 }
 
 @media (max-width: 800px) {
-  .header_block h1 {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  
-  .header_block h1,
-  .header_block h1 a {
-    font-size: calc(var(--h1-font-size) - 8px);
-    white-space:normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    display: -moz-box;
-    -moz-box-orient: vertical;
-    line-clamp: 2;
-    box-orient: vertical;
-  }  
-}
-
-
-@media (max-width: 600px) {
   .header_block h1,
   .header_block h1 a {
     font-size: calc(var(--h1-font-size) - 12px);
@@ -1329,7 +1304,30 @@ body:before {
   height: 72px;
 }
 
+.header_block .header_row .title_row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header_block .header_row .title {
+  padding-left: 24px;
+  padding-right: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header_block .header_row .title h2 {
+  font-size: calc( var(--h2-font-size) - 14px);
+  color:var(--text-g-color)
+}
+
 @media (max-width: 1200px) {
+  .header_block .header_row .title {
+    padding-left: 16px;
+  }
+
   .header_block {
     border-right: none;
   }
@@ -1701,7 +1699,6 @@ body.compact_menu .block_information #left_block {
 #left_block .header_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  /* min-width: 44px; */
   padding: 0 10px;
   height: 45px;
   display: flex;
@@ -2314,7 +2311,7 @@ body.compact_menu #right_block {
   padding: 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   .header_block .title_icon {
     display: none;
   }
@@ -2363,6 +2360,7 @@ body.compact_menu #right_block {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   min-width: 72px;
+  max-width: 72px;
   flex: 1 0 72px;
   height: 71px;
   display: flex;
