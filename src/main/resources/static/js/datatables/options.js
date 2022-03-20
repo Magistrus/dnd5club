@@ -189,6 +189,7 @@ function onDeselectListener() {
 
 function selectOption(data) {
     $('#option_name').text(data.name);
+    $('#english_name').html(data.englishName);
 
     document.title = data.name + ' (' + data.englishName + ')' + ' | Особенности классов D&D 5e';
     history.pushState('data to be passed', '', '/options/' + data.englishName.split(' ').join('_'));

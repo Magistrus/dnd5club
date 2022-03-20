@@ -187,6 +187,8 @@ function onDeselectListener() {
 
 function selectGod(data) {
     $('#god_name').html(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Боги D&D 5e';
     history.pushState('data to be passed', '', '/gods/' + data.englishName.split(' ').join('_'));
     let url = '/gods/fragment/' + data.id;

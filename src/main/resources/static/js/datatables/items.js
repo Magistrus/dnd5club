@@ -170,6 +170,7 @@ function onDeselectListener() {
 
 function selectItem(data) {
     document.getElementById('item_name').innerHTML = data.name;
+    $('#english_name').html(data.englishName);
 
     document.title = data.name + ' (' + data.englishName + ')' + ' | Снаряжение D&D 5e';
     history.pushState('data to be passed', '', '/items/' + data.englishName.split(' ').join('_'));

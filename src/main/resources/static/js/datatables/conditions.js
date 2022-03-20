@@ -148,6 +148,8 @@ function onDeselectListener() {
 function selectCondition(data) {
     selectedCondition = data;
     $('#condition_name').html(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
     history.pushState('data to be passed', '', '/conditions/' + data.englishName.split(' ').join('_'));
     var url = '/conditions/fragment/' + data.id;

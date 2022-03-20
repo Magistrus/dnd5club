@@ -246,6 +246,8 @@ function selectSpell(data) {
         document.getElementById('list_page_two_block').classList.add('block_information');
     }
     $('#row_name').html(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Заклинания D&D 5e';
     history.pushState('data to be passed', '', '/spells/' + data.englishName.split(' ').join('_'));
     const url = '/spells/fragment/' + data.id;

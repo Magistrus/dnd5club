@@ -165,6 +165,8 @@ function onDeselectListener() {
 
 function selectRule(data) {
     $('#rule_name').text(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Правила и термины D&D 5e';
     history.pushState('data to be passed', '', '/rules/' + data.englishName.split(' ').join('_'));
     var url = '/rules/fragment/' + data.id;

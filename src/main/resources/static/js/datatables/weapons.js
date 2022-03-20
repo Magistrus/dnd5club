@@ -202,6 +202,7 @@ function onDeselectListener() {
 
 function selectWeapon(data) {
     $('#weapon_name').html(data.name);
+    $('#english_name').html(data.englishName);
 
     document.title = data.name + ' (' + data.englishName + ')' + ' | Оружие D&D 5e';
     history.pushState('data to be passed', '', '/weapons/' + data.englishName.split(' ').join('_'));

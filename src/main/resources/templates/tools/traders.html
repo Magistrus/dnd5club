@@ -5,7 +5,10 @@
 		<div id="left_block" class="trader">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>Торговец</h1>
+					<div class="title">
+						<h1>Торговец</h1>
+						<h2>Traders</h2>
+					</div>
 				</div>
 			</div>
 			<div class="tools_settings">
@@ -43,7 +46,12 @@
 		<div id="right_block" class="trader">
 			<div class="header_block">
 				<div class="header_row">
-					<h1 id="background_name">В продаже</h1>
+					<div class="title_row">
+						<div class="title">
+							<h1 id="background_name">В продаже</h1>
+							<h2>On sale</h2>
+						</div>
+					</div>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,5 +85,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/tools/traider.js}" layout:fragment="js-script"></script>
+<script th:src="@{/resources/js/tools/traider.js?v=0.1.0}" layout:fragment="js-script"></script>
 </html>

@@ -203,6 +203,7 @@ function onDeselectListener() {
 
 function selectMagicItem(data) {
     $('#item_name').text(data.name);
+    $('#english_name').html(data.englishName);
 
     selectedItemMagic = data;
     document.title = data.name + ' (' + data.englishName + ')' + ' | Магические предметы D&D 5e';
