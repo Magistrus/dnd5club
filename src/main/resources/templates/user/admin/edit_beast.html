@@ -391,5 +391,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/add/add_beast.js?v=1.9.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/add/add_beast.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>
