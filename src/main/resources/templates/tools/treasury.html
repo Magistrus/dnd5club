@@ -129,5 +129,5 @@
 		</th:block>
 	</div>
 </body>
-<script th:src="@{/resources/js/tools/treasury.js?v=0.1.0}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/tools/treasury.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>

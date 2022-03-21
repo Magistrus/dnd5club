@@ -97,5 +97,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/books.js?v=1.9.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/books.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>

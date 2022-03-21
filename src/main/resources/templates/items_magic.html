@@ -268,5 +268,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/items_magic.js?v=3.0.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/items_magic.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>
