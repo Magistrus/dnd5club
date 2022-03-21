@@ -15,6 +15,7 @@
 				<div class="cont">
 					<div class="row info_block">
 						<div class="avatar">
+							<img src="/resources/assets/icon/avatar.png" alt="Аватар">
 						</div>
 						<div class="name row column">
 							<h3>Name</h3>
@@ -29,8 +30,31 @@
 						<a sec:authorize="hasRole('ADMIN')" href="/profile/articles" class="card">Статьи</a>
 					</div>
 
+					<div class="block_card">
+						<div class="card">
+							<h5>Стать</h5>
+							<p>Всего статей: <span><a href="#">0</a></span></p>
+							<p>На проверки: <span><a href="#">0</a></span></p>
+							<p>Ожидают мадерации: <span><a href="#">0</a></span></p>
+							<div class="row">
+								<a sec:authorize="hasRole('ADMIN')" href="/profile/articles">Все статьи</a>
+								<a href="/profile/articles">Добавить</a>
+							</div>
+						</div>
+						<div class="card">
+							<h5>Новости</h5>
+							<p>Всего новостей: <span><a href="#">0</a></span></p>
+							<p>На проверки: <span><a href="#">0</a></span></p>
+							<p>Ожидают мадерации: <span><a href="#">0</a></span></p>
+							<div class="row">
+								<a sec:authorize="hasRole('ADMIN')" href="/profile/articles">Все новости</a>
+								<a href="/profile/articles">Добавить</a>
+							</div>
+						</div>
+					</div>
+
 					<div class="row column">
-						<h5 class="header_separator"><span>Изменить данные профиля</span></h5>
+						<h4 class="header_separator"><span>Изменить данные профиля</span></h4>
 						
 						<div class="row_input">
 							<input type="password" class="old_password" name="old_password" placeholder="Старый пароль">
@@ -39,6 +63,7 @@
 					</div>
 					<div class="bottom">
 						<button class="btn btn_primary">Сохарнить</button>
+						<button class="btn">Отмена</button>
 					</div>
 				</div>
 			</div>
