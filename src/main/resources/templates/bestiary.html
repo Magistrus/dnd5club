@@ -307,5 +307,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{|/resources/js/datatables/bestiary.js?v=${#calendars.format(#calendars.createNow(), 'yyyyMMdd')}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/bestiary.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>
