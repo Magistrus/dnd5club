@@ -2,14 +2,10 @@
   width: 660px;
 }
 
-.row {
-  display: flex;
-  margin-bottom: 24px;
-}
-
-.row.column {
-  display: flex;
-  flex-direction: column;
+@media (max-width: 800px) {
+  .profile .cont {
+    width: 100%;
+  }
 }
 
 .profile .info_block .avatar {

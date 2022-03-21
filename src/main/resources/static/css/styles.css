@@ -3612,6 +3612,16 @@ body #left_block.tools_block {
 
 
 /******** Кнопки ********/
+.row {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.row.column {
+  display: flex;
+  flex-direction: column;
+}
+
 .btn-wrapper {
   padding: 0px 0 8px 0;
 }
@@ -3676,13 +3686,6 @@ button {
 }
 
 
-/******** Иконки ********/
-.races .info_wrapper .content_block .sub_menu_list {
-  display: none;
-  height: auto !important;
-}
-
-
 /********************** МОБИЛЬНАЯ ВЕРСИЯ **********************/
 @media (max-width: 1200px) {
   #right_block .info_wrapper .content_block #content_block {
@@ -3705,27 +3708,6 @@ button {
 
   #body.full_screen_right_block #right_block .info_wrapper .simplebar-content {
     flex-direction: row;
-  }
-
-  #right_block .info_wrapper .sub_menu_list {
-    width: auto;
-    min-width: auto;
-    max-width: 100%;
-    flex:none;
-  }
-
-  #body.full_screen_right_block #right_block .info_wrapper .sub_menu_list {
-    width: 290px;
-    flex: 1 0 290px;
-  }
-
-  #right_block.classes .info_wrapper .sub_menu_list {
-    display: none;
-  }
-
-  #body.full_screen_right_block #right_block.classes .info_wrapper .sub_menu_list {
-    display: block;
-    min-width: 290px;
   }
 
   #right_block.classes .content_block h4.mt {
@@ -3760,14 +3742,6 @@ button {
   #body.full_screen_right_block .races .content_block .scores .score {
     min-width: calc(33% - 8px);
     flex: 1 1 calc(33% - 8px);
-  }
-
-  .races .info_wrapper > .sub_menu_list {
-    display: none;
-  }
-
-  .races .info_wrapper .content_block .sub_menu_list {
-    display: block;
   }
 
   #right_block.races .info_wrapper .content_block #content_block {
