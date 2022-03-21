@@ -1,0 +1,32 @@
+.profile .cont {
+  width: 600px;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.row.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile .info_block .avatar {
+  width: 80px;
+  height: 80px;
+  background-color: red;
+  margin-right: 16px;
+}
+
+.profile .name {
+  margin: 0;
+}
+
+.profile .name h3 {
+  margin: 0;
+}
+
+.profile .name p {
+  margin: 0;
+}
