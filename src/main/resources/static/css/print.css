@@ -75,22 +75,7 @@
   #right_block p {
     margin: 0 0 6px 0;
   }
-
-  #right_block .info_wrapper .sub_menu_list li {
-    display: flex !important;
-    border-bottom:none !important;
-    padding: 4px 16px 4px 16px;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li h5 {
-    margin-right: 8px;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li h5,
-  #right_block .info_wrapper .sub_menu_list li span {
-    line-height: 18px;
-  }
-
+  
   #right_block.bestiary .scores {
     margin: 8px 0;
   }
