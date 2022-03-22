@@ -8,6 +8,16 @@
   }
 }
 
+.profile .container_left {
+  padding: 24px;
+}
+
+@media (max-width: 1200px) {
+  .profile .container_left {
+    padding: 16px;
+  }
+}
+
 .profile .info_block .avatar {
   width: 80px;
   height: 80px;
