@@ -1658,7 +1658,7 @@ body.compact_menu .block_information #left_block {
   height: calc(100% - 119px);
 }
 
-#container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
+/* #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
   padding: 24px;
 }
 
@@ -1666,7 +1666,7 @@ body.compact_menu .block_information #left_block {
   #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
     padding: 16px;
   }
-}
+} */
 
 #left_block .header_block .btn_search_icon {
   height: 45px;
