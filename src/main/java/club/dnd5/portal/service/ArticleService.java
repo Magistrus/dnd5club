@@ -14,4 +14,5 @@ public interface ArticleService {
 	Collection<Article> findAllByCreator(User user);
 
 	Article save(Article article, User creator);
+	
 }
