@@ -40,9 +40,9 @@ public class BestiaryController {
 	@Autowired
 	private ImageRepository imageRepo;
 	
-    @Value("${git.commit.id}")
-    private String version;
-    
+	@Value("${git.commit.id}")
+	private String version;
+
 	private Map<TypeBook, List<Book>> sources;
 
 	@PostConstruct
@@ -95,6 +95,7 @@ public class BestiaryController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("version", version);
 		return "bestiary";
 	}
 	

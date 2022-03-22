@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,9 @@ public class WeaponController {
 	
 	private Map<TypeBook, List<Book>> sources;
 
+	@Value("${git.commit.id}")
+	private String version;
+
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -54,6 +58,7 @@ public class WeaponController {
 		model.addAttribute("metaTitle", "Оружие (Weapons) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/weapons");
 		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "weapons";
 	}
 	
@@ -75,6 +80,7 @@ public class WeaponController {
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", weapon.getName(), weapon.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/weapons/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s D&D 5 редакции", weapon.getName(), weapon.getEnglishName(), weapon.getType().getName()));
+		model.addAttribute("version", version);
 		return "weapons";
 	}
 	

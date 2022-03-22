@@ -55,5 +55,5 @@
         </script>
 	</div>
 </body>
-<script th:src="@{|/resources/js/articlesForm.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/articlesForm.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>
