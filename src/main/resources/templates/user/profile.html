@@ -32,12 +32,12 @@
 
 					<div class="block_card">
 						<div class="card">
-							<h5>Стать</h5>
-							<p>Всего: <span><a href="#">0</a></span></p>
+							<h5>Статьи</h5>
+							<p>Всего: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
 							<p>На проверки: <span><a href="#">0</a></span></p>
 							<p>Ожидают модерации: <span><a href="#">0</a></span></p>
 							<div class="row bottom">
-								<a sec:authorize="hasRole('ADMIN')" href="/profile/articles">Посмотреть все</a>
+								<a sec:authorize="hasRole('ADMIN')" href="/articles">Посмотреть все</a>
 								<a href="/profile/articles/form">Добавить</a>
 							</div>
 						</div>

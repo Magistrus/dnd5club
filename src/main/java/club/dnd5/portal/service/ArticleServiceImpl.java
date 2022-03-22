@@ -52,4 +52,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public Collection<Article> findAllByCreator(User user) {
 		return repo.findAllByCreator(user);
 	}
+
+	@Override
+	public long getCountArticlesByUser(User user) {
+		return repo.countByCreator(user);
+	}
 }

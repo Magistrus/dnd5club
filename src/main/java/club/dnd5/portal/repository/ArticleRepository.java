@@ -14,4 +14,5 @@ public interface ArticleRepository extends JpaRepository<Article, Integer>{
 	Collection<Article> findAllByStatusOrderByPublishedDesc(AtricleStatus status);
 
 	Collection<Article> findAllByCreator(User user);
+	long countByCreator(User user);
 }
