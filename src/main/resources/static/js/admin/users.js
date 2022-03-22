@@ -22,10 +22,10 @@ $(document).ready(function() {
 					result+='</span><span>' + row.email + '</span></h3>';
 					result+='<div class="secondary_name">' + row.createDate + '</div></div>';
 					result+='<div class="secondary_name s2">';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('ADMIN') ? ' checked' : '')+'><span>ADMIN</span></label>';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('MODERATOR') ? ' checked' : '')+'><span>MODERATOR</span></label>';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('SUPERUSER') ? ' checked' : '')+'><span>SUPERUSER</span></label>';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('USER') ? ' checked' : '')+'><span>USER</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('ADMIN') ? ' checked' : '')+'><span>ADMIN</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('MODERATOR') ? ' checked' : '')+'><span>MODERATOR</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('SUPERUSER') ? ' checked' : '')+'><span>SUPERUSER</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('USER') ? ' checked' : '')+'><span>USER</span></label>';
 					result+='</div>';
 					return result;
 				}
