@@ -64,4 +64,15 @@ public class ArticleController {
 		model.addAttribute("article", article);
 		return "profile/form_article";
 	}
+	
+	@GetMapping("/profile/articles/{id:\\d+}")
+	public String editArticle(Model model, @PathVariable Integer id, HttpServletRequest request) {
+		Optional<Article> article = service.findById(id);
+		if (!article.isPresent()) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("article", article.get());
+		return "profile/form_article";
+	}
 }

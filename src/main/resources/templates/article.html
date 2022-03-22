@@ -19,7 +19,7 @@
 								<li th:text="|Автор: *{author}|"></li>
 								<li th:text="|Перевод:  *{translation}|"></li>
 								<li th:text="|Автор оригинала: *{originalAuthor}|"></li>
-								<li th:utext="|Источник: *{originalUrl}|"></li>
+								<li>Источник : <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
 							</ul>
 							<div class="similar_articles">
 								<a href="#">

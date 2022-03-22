@@ -63,4 +63,20 @@ public class Article {
 	public String getPublishedDate() {
 		return published == null ? "" : published.format(formatter);
 	}
+	
+	public String getLastDate() {
+		if (published != null) {
+			return getPublishedDate();
+		}
+		if (changed != null) {
+			return changed == null ? "" : changed.format(formatter);
+		}
+		if (moderated != null) {
+			return moderated == null ? "" : moderated.format(formatter);
+		}
+		if (deleted != null) {
+			return deleted == null ? "" : deleted.format(formatter);
+		}
+		return created == null ? "" : created.format(formatter);
+	}
 }
