@@ -2358,9 +2358,9 @@ body.compact_menu #right_block {
   }
 }
 
-#right_block .header_block .btn_exet_full_screen,
-#right_block .header_block .btn_full_screen,
-#right_block .header_block .btn_close {
+.header_block .btn_exet_full_screen,
+.header_block .btn_full_screen,
+.header_block .btn_close {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
   min-width: 72px;
@@ -2374,15 +2374,15 @@ body.compact_menu #right_block {
   cursor: pointer;
 }
 
-#right_block .header_block .btn_exet_full_screen:hover,
-#right_block .header_block .btn_full_screen:hover,
-#right_block .header_block .btn_close:hover {
+.header_block .btn_exet_full_screen:hover,
+.header_block .btn_full_screen:hover,
+.header_block .btn_close:hover {
   background-color: var(--primary-hover);
 }
 
-#right_block .header_block .btn_exet_full_screen:hover .icon_action path,
-#right_block .header_block .btn_full_screen:hover .icon_action path,
-#right_block .header_block .btn_close:hover .icon_action path {
+.header_block .btn_exet_full_screen:hover .icon_action path,
+.header_block .btn_full_screen:hover .icon_action path,
+.header_block .btn_close:hover .icon_action path {
   stroke: var(--text-btn-color);
 }
 
