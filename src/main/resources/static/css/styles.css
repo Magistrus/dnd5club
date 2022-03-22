@@ -1658,16 +1658,6 @@ body.compact_menu .block_information #left_block {
   height: calc(100% - 119px);
 }
 
-#container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
-  padding: 24px;
-}
-
-@media (max-width: 1200px) {
-  #container_card #left_block > .container_left > .simplebar-wrapper > .simplebar-mask > .simplebar-offset > .simplebar-content-wrapper {
-    padding: 16px;
-  }
-}
-
 #left_block .header_block .btn_search_icon {
   height: 45px;
   width: 45px;
@@ -1783,6 +1773,12 @@ table.table_card tr.dtrg-group td {
   grid-column-gap: 16px;
   grid-row-gap: 16px;
   align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .table_card tbody {
+    padding: 16px 16px;
+  }
 }
 
 .block_information .table_card tbody {
