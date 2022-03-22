@@ -36,9 +36,9 @@
 
 .profile .block_card {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
-  grid-column-gap: 8px;
-  grid-row-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
 }
 
 .profile .block_card .card {
@@ -47,7 +47,7 @@
   background-color: var(--bg-secondary);
   padding: 16px;
   flex: 0 1 50%;
-  border-radius: 8px;
+  border-radius: 16px;
   margin-bottom: 16px;
 }
 
@@ -60,7 +60,9 @@
   margin: 0;
 }
 
-.profile .block_card .card .row {
-  margin: 0;
+.profile .block_card .card .bottom {
+  margin: 8px 0 0 0;
+  padding: 8px 0 0 0;
   justify-content: space-between;
+  border-top: 1px solid var(--border);
 }
