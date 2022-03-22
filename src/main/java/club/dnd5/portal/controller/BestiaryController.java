@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,9 @@ public class BestiaryController {
 	@Autowired
 	private ImageRepository imageRepo;
 	
+	@Value("${git.commit.id}")
+	private String version;
+
 	private Map<TypeBook, List<Book>> sources;
 
 	@PostConstruct
@@ -63,6 +67,7 @@ public class BestiaryController {
 		model.addAttribute("metaTitle", "Бестиарий (Monster Manual) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary");
 		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "bestiary";
 	}
 	
@@ -90,6 +95,7 @@ public class BestiaryController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("version", version);
 		return "bestiary";
 	}
 	

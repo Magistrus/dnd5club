@@ -18,6 +18,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +62,10 @@ public class ClassController {
 	private OptionDatatableRepository optionRepository;
 	
 	private Map<TypeBook, Set<Book>> sources;
-	
+
+	@Value("${git.commit.id}")
+	private String version;
+
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -86,6 +90,7 @@ public class ClassController {
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes");
+		model.addAttribute("version", version);
 		return "classes";
 	}
 	
@@ -109,6 +114,7 @@ public class ClassController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("version", version);
 		return "classes";
 	}
 	

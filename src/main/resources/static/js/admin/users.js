@@ -7,11 +7,7 @@ $(document).ready(function() {
         deferRender: true,
 		iDisplayLength : 100,
         scrollCollapse: true,
-		select: true,
-		select: {
-			style: 'none',
-			toggleable: false,
-		},
+		select: false,
 		columns : [
 		{
 			data : "name",

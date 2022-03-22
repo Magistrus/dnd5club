@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,9 @@ public class OptionController {
 	
 	private Map<TypeBook, List<Book>> sources;
 
+	@Value("${git.commit.id}")
+	private String version;
+
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -60,6 +64,7 @@ public class OptionController {
 		model.addAttribute("metaTitle", "Особенности классов (Options) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/options");
 		model.addAttribute("metaDescription", "Список особенности классов и подкласов по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "options";
 	}
 	
@@ -85,6 +90,7 @@ public class OptionController {
 				String.format("Описание особенности %s - %s",
 						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 
 						option.getName()));
+		model.addAttribute("version", version);
 		return "options";
 	}
 	

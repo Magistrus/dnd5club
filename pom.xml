@@ -144,7 +144,15 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
+					<includeOnlyProperties>    
+    					<includeOnlyProperty>git.commit.id</includeOnlyProperty>
+					</includeOnlyProperties>
 				</configuration>
+			</plugin>
+			<plugin>
+    			<groupId>pl.project13.maven</groupId>
+    			<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

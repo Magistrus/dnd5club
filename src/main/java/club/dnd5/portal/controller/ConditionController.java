@@ -6,6 +6,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,16 @@ import club.dnd5.portal.repository.ConditionRepository;
 public class ConditionController {
 	@Autowired
 	private ConditionRepository repo;
+
+	@Value("${git.commit.id}")
+	private String version;
 	
 	@GetMapping("/conditions")
 	public String getConditions(Model model) {
 		model.addAttribute("metaTitle", "Состояния и болезни (Conditions) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/conditions");
 		model.addAttribute("metaDescription", "Состояния и болезни по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "conditions";
 	}
 
@@ -39,6 +44,7 @@ public class ConditionController {
 		model.addAttribute("metaTitle", String.format("%s (%s) - Состояния и болезни (Conditions) D&D 5e", condition.getName(), condition.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/conditions/" + name);
 		model.addAttribute("metaDescription", "Состояния и болезни по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "conditions";
 	}
 
