@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,14 @@ public class ArticleController {
 	
 	@Autowired
 	private UserRepository usersRepository;
+	
+	@Value("${git.commit.id}")
+	private String version;
 
 	@GetMapping("/articles")
 	public String getArticles(Model model) {
 		model.addAttribute("articles", service.findAllByStatus(AtricleStatus.PUBLISHED));
+		model.addAttribute("version", version);
 		return "articles";
 	}
 
@@ -37,6 +42,7 @@ public class ArticleController {
 	public String getArticle(Model model, @PathVariable Integer id) {
 		Optional<Article> article = service.findById(id);
 		model.addAttribute("article", article.get());
+		model.addAttribute("version", version);
 		return "article";
 	}
 	
@@ -48,12 +54,14 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("articles", service.findAllByCreator(user.get()));
+		model.addAttribute("version", version);
 		return "profile/articles";
 	}
 	
 	@GetMapping("/profile/articles/form")
 	public String getProfileArticleForm(Model model, Principal principal, HttpServletRequest request) {
 		model.addAttribute("article", new Article());
+		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
 	
@@ -62,6 +70,7 @@ public class ArticleController {
 		Optional<User> creator = usersRepository.findByName(principal.getName());
 		article = service.save(article, creator.get());
 		model.addAttribute("article", article);
+		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
 	
