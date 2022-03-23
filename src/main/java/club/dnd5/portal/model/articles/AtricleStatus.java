@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AtricleStatus {
-	CREATED("Создана"),
+	CREATED("Черновик"),
 	MODERATION("На модерации"),
 	PUBLISHED("Опубликована"),
 	CANCELED("Отклонена"),
