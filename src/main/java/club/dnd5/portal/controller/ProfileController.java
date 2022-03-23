@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class ProfileController {
 	@Autowired
 	private ArticleService service;
 	
+	@Value("${git.commit.id}")
+	private String version;
+	
 	@GetMapping ("/profile")
 	public String getProfileForm(Model model, Principal principal, HttpServletRequest request) {
 		Optional<User> user = usersRepository.findByName(principal.getName());
@@ -31,7 +35,8 @@ public class ProfileController {
 			return "forward: /error";
 		}
 		model.addAttribute("all_article_count", service.getCountArticlesByUser(user.get()));
-		
+		model.addAttribute("email", user.get().getEmail());
+		model.addAttribute("version", version);
 		return "user/profile";
 	}
 }
