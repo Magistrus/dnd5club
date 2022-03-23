@@ -72,6 +72,7 @@ $(document).ready(function () {
     $('.ajax-popup-link').magnificPopup({
         type: 'ajax',
         closeOnBgClick: true,
+		modal: true,
     });
     let path = $(location).attr('pathname');
     if (path.startsWith('/classes') || path.startsWith('/races') || path.startsWith('/traits') || path.startsWith('/options') || path.startsWith('/backgrounds')) {

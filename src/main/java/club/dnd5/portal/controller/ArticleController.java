@@ -63,7 +63,10 @@ public class ArticleController {
 	
 	@GetMapping("/profile/articles/form")
 	public String getProfileArticleForm(Model model, Principal principal, HttpServletRequest request) {
-		model.addAttribute("article", new Article());
+		Article article = new Article();
+		Optional<User> user = usersRepository.findByName(principal.getName());
+		article.setAuthor(user.get().getName());
+		model.addAttribute("article", article);
 		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
@@ -130,6 +133,7 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("article", article.get());
+		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
 }
