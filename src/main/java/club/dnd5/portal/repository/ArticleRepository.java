@@ -16,4 +16,5 @@ public interface ArticleRepository extends JpaRepository<Article, Integer>{
 
 	long countByCreator(User user);
 	long countByStatus(ArtricleStatus status);
+	long countByCreatorAndStatus(User user, ArtricleStatus status);
 }

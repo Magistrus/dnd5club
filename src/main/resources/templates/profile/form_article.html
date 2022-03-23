@@ -16,6 +16,7 @@
 							<div class="header">
 								<input type="number" hidden="true" th:field="*{id}">
 								<input type="text" hidden="true" th:field="*{created}">
+								<input type="text" hidden="true" th:field="*{creator}">
 								<input type="text" hidden="true" th:field="*{status}">
 								<div class="row_input">
 									<input type="text" placeholder="Название" th:field="*{title}">
@@ -40,9 +41,10 @@
 						<div class="right">
 							<div class="btn_block">
 								<button id="publishe" name="publishe" sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn" value="publishe">Опубликовать</button>
+								<button th:if = "*{status eq 'MODERATION'}" id="reject" name="reject" sec:authorize="hasAnyRole('ADMIN','MODERATOR')" class="btn" value="reject">Отклонить</button>
 								<button id="moderate" name="moderate" class="btn" value="moderate">На проверку</button>
 								<button id="save" name="save" type="submit" class="btn secondary" value="save" >Сохранить в черовики</button>
-								<button class="btn secondary" value="preview">Предпросмотр</button>
+								<button id="preview" name="preview" class="btn secondary" value="preview">Предпросмотр</button>
 								<button id="delete" name="delete" th:unless="*{id eq null}" class="btn secondary" value="delete">Удалить</button>
 								<button id="cancel" name="cancel" class="btn secondary" value="cancel">Отмена</button>
 							</div>

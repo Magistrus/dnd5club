@@ -1,6 +1,7 @@
 package club.dnd5.portal.service;
 
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -21,4 +22,6 @@ public interface UserService {
 	Optional<User> findByEmail(String email);
 
 	DataTablesOutput<UserDto> findAll(@Valid DataTablesInput input);
+
+	DataTablesOutput<UserDto> findByRoles(@Valid DataTablesInput input, Set<String> roles);
 }

@@ -17,7 +17,8 @@
 							</div>
 							<div class="bottom">
 								<time th:datetime="${article.created}" th:text="${article.lastDate}">05 марта 2022</time>
-								<a th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a><span class="btn" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>
+								<span class="saving_throw" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>
+								<a th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a>
 							</div>
 						</div>
 					</div>

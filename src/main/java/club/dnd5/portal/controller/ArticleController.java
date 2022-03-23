@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +36,7 @@ public class ArticleController {
 
 	@GetMapping("/articles")
 	public String getArticles(Model model) {
-		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.PUBLISHED));
+		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.PUBLISHED, Sort.by(Direction.DESC, "published")));
 		model.addAttribute("version", version);
 		return "articles";
 	}
@@ -48,7 +50,7 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/profile/articles")
-	public String getProfileArticles(Model model, Principal principal, HttpServletRequest request) {
+	public String getProfileArticles(Model model, String status, Principal principal, HttpServletRequest request) {
 		Optional<User> user = usersRepository.findByName(principal.getName());
 		if (!user.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
@@ -75,15 +77,21 @@ public class ArticleController {
 		return "profile/form_article";
 	}
 	
+	@PostMapping(value = "/profile/articles", params = "preview")
+	public String previewArticle(Model model, Principal principal, Article article) {
+		model.addAttribute("article", article);
+		model.addAttribute("version", version);
+		return "article";
+	}
+	
 	@PostMapping(value = "/profile/articles", params = "delete")
 	public String deleteArticle(Model model, Principal principal, Article article) {
 		Optional<User> creator = usersRepository.findByName(principal.getName());
 		article.setStatus(ArtricleStatus.REMOVED);
 		article.setDeleted(LocalDateTime.now());
 		article = service.save(article, creator.get());
-		model.addAttribute("article", article);
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
 	}
 	
 	@PostMapping(value = "/profile/articles", params = "moderate")
@@ -93,9 +101,8 @@ public class ArticleController {
 		article.setModerated(LocalDateTime.now());
 		User currentUser = user.get();
 		article = service.save(article, currentUser);
-		model.addAttribute("article", article);
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
 	}
 	
 	@PostMapping(value = "/profile/articles", params = "publishe")
@@ -105,9 +112,14 @@ public class ArticleController {
 		article.setPublished(LocalDateTime.now());
 		User currentUser = user.get();
 		article = service.save(article, currentUser);
-		model.addAttribute("article", article);
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
+	}
+
+	@PostMapping(value = "/profile/articles", params = "cancel")
+	public String cancelArticle(Model model, Principal principal, Article article) {
+		model.addAttribute("version", version);
+		return "redirect:/profile/articles";
 	}
 	
 	@GetMapping("/profile/articles/{id:\\d+}")

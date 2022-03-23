@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import club.dnd5.portal.model.articles.Article;
@@ -22,7 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleRepository repo;
 
 	@Override
-	public Collection<Article> findAllByStatus(ArtricleStatus status) {
+	public Collection<Article> findAllByStatus(ArtricleStatus status, Sort sort) {
 		return repo.findAllByStatusOrderByPublishedDesc(status);
 	}
 
@@ -50,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
 		if (article.getId() == null) {
 			article.setStatus(ArtricleStatus.CREATED);	
 		}
-		article.setText(Jsoup.clean(article.getText(), Safelist.basic()));
+		article.setText(Jsoup.clean(article.getText(), Safelist.relaxed()));
 		return repo.save(article);
 	}
 
@@ -67,5 +68,10 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public long getCountByStatus(ArtricleStatus status) {
 		return repo.countByStatus(status);
+	}
+
+	@Override
+	public long getCountByUserAndStatus(User user, ArtricleStatus status) {
+		return repo.countByCreatorAndStatus(user, status);
 	}
 }

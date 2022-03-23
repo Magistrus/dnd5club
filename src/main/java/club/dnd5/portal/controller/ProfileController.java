@@ -37,7 +37,12 @@ public class ProfileController {
 		}
 		User currentUser = user.get();
 		model.addAttribute("all_article_count", service.getCountArticlesByUser(user.get()));
-		model.addAttribute("moderated_article_count", service.getCountByStatus(ArtricleStatus.MODERATION));
+		model.addAttribute("moderate_article_count", service.getCountByStatus(ArtricleStatus.MODERATION));
+		model.addAttribute("moderate_user_article_count", service.getCountByUserAndStatus(currentUser, ArtricleStatus.MODERATION));
+		model.addAttribute("user_count", usersRepository.count()); 
+		model.addAttribute("user_writer", usersRepository.countByRoles("WRITER"));
+		model.addAttribute("user_moderator", usersRepository.countByRoles("MODERATOR"));
+
 		model.addAttribute("name", currentUser.getName());
 		model.addAttribute("email", currentUser.getEmail());
 		model.addAttribute("roles", currentUser.getRoles());
