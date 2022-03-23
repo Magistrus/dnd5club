@@ -752,6 +752,25 @@ label.select_box {
   position: relative;
 }
 
+.popup-modal-dismiss {
+  right: 12px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.popup-modal-dismiss:hover .icon_action {
+  background-color:unset;
+}
+
+.popup-modal-dismiss:hover {
+  background-color: var(--hover);
+}
+
 .dnd5-popup-block .mfp-close {
   color: var(--primary);
   position: absolute;
