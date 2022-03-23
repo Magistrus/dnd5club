@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import club.dnd5.portal.model.articles.Article;
-import club.dnd5.portal.model.articles.AtricleStatus;
+import club.dnd5.portal.model.articles.ArtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.ArticleService;
@@ -33,7 +34,7 @@ public class ArticleController {
 
 	@GetMapping("/articles")
 	public String getArticles(Model model) {
-		model.addAttribute("articles", service.findAllByStatus(AtricleStatus.PUBLISHED));
+		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.PUBLISHED));
 		model.addAttribute("version", version);
 		return "articles";
 	}
@@ -65,13 +66,48 @@ public class ArticleController {
 		return "profile/form_article";
 	}
 	
-	@PostMapping("/profile/articles")
+	@PostMapping(value = "/profile/articles", params = "save")
 	public String saveArticle(Model model, Principal principal, Article article) {
 		Optional<User> creator = usersRepository.findByName(principal.getName());
 		article = service.save(article, creator.get());
 		model.addAttribute("article", article);
 		model.addAttribute("version", version);
 		return "profile/form_article";
+	}
+	
+	@PostMapping(value = "/profile/articles", params = "delete")
+	public String deleteArticle(Model model, Principal principal, Article article) {
+		Optional<User> creator = usersRepository.findByName(principal.getName());
+		article.setStatus(ArtricleStatus.REMOVED);
+		article.setDeleted(LocalDateTime.now());
+		article = service.save(article, creator.get());
+		model.addAttribute("article", article);
+		model.addAttribute("version", version);
+		return "redirect:/profile";
+	}
+	
+	@PostMapping(value = "/profile/articles", params = "moderate")
+	public String moderateArticle(Model model, Principal principal, Article article) {
+		Optional<User> user = usersRepository.findByName(principal.getName());
+		article.setStatus(ArtricleStatus.MODERATION);
+		article.setModerated(LocalDateTime.now());
+		User currentUser = user.get();
+		article = service.save(article, currentUser);
+		model.addAttribute("article", article);
+		model.addAttribute("version", version);
+		return "redirect:/profile";
+	}
+	
+	@PostMapping(value = "/profile/articles", params = "publishe")
+	public String publisheArticle(Model model, Principal principal, Article article) {
+		Optional<User> user = usersRepository.findByName(principal.getName());
+		article.setStatus(ArtricleStatus.PUBLISHED);
+		article.setPublished(LocalDateTime.now());
+		User currentUser = user.get();
+		article = service.save(article, currentUser);
+		model.addAttribute("article", article);
+		model.addAttribute("version", version);
+		return "redirect:/profile";
 	}
 	
 	@GetMapping("/profile/articles/{id:\\d+}")

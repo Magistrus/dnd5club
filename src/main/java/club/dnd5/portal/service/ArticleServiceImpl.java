@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import club.dnd5.portal.model.articles.Article;
-import club.dnd5.portal.model.articles.AtricleStatus;
+import club.dnd5.portal.model.articles.ArtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.ArticleRepository;
 
@@ -22,7 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleRepository repo;
 
 	@Override
-	public Collection<Article> findAllByStatus(AtricleStatus status) {
+	public Collection<Article> findAllByStatus(ArtricleStatus status) {
 		return repo.findAllByStatusOrderByPublishedDesc(status);
 	}
 
@@ -33,16 +33,22 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional
 	@Override
-	public Article save(Article article, User creator) {
+	public Article save(Article article, User user) {
 		if (article.getCreated() == null) {
 			article.setCreated(LocalDateTime.now());
 		}
 		else {
 			article.setChanged(LocalDateTime.now());
 		}
-		article.setCreator(creator);
+		if (article.getStatus() == ArtricleStatus.PUBLISHED) {
+			article.setModerated(LocalDateTime.now());
+			article.setModerator(user);
+		}
+		else {
+			article.setCreator(user);
+		}
 		if (article.getId() == null) {
-			article.setStatus(AtricleStatus.CREATED);	
+			article.setStatus(ArtricleStatus.CREATED);	
 		}
 		article.setText(Jsoup.clean(article.getText(), Safelist.basic()));
 		return repo.save(article);
@@ -59,7 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public long getCountByStatus(AtricleStatus status) {
+	public long getCountByStatus(ArtricleStatus status) {
 		return repo.countByStatus(status);
 	}
 }

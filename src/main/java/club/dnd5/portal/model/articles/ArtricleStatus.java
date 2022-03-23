@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum AtricleStatus {
+public enum ArtricleStatus {
 	CREATED("Черновик"),
 	MODERATION("На модерации"),
 	PUBLISHED("Опубликована"),

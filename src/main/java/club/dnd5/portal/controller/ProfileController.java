@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import club.dnd5.portal.model.articles.AtricleStatus;
+import club.dnd5.portal.model.articles.ArtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.ArticleService;
@@ -37,7 +37,7 @@ public class ProfileController {
 		}
 		User currentUser = user.get();
 		model.addAttribute("all_article_count", service.getCountArticlesByUser(user.get()));
-		model.addAttribute("moderated_article_count", service.getCountByStatus(AtricleStatus.MODERATION));
+		model.addAttribute("moderated_article_count", service.getCountByStatus(ArtricleStatus.MODERATION));
 		model.addAttribute("name", currentUser.getName());
 		model.addAttribute("email", currentUser.getEmail());
 		model.addAttribute("roles", currentUser.getRoles());
