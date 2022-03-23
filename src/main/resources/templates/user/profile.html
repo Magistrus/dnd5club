@@ -18,16 +18,15 @@
 							<img src="/resources/assets/icon/avatar.png" alt="Аватар">
 						</div>
 						<div class="name row column">
-							<h3>Name</h3>
-							<p>mail</p>
-							<p><span>Status 1,</span> <span>Status 2,</span> <span>Status 3</span></p>
+							<h3 th:text="${name}">Name</h3>
+							<p th:text="${email}">mail</p>
+							<p><span th:each="role, iter : ${roles}" th:text="${iter.last ? role.name : role.name + ', '}">роль</span></p>
 						</div>
 					</div>
 
 					<div class="row column">
 						<a sec:authorize="hasRole('ADMIN')" href="/admin/users" class="card">Список пользователей</a>
-						<a sec:authorize="hasRole('ADMIN')" href="/profile/beast" class="card">Добавить монстра</a>
-						<a sec:authorize="hasRole('ADMIN')" href="/profile/articles" class="card">Статьи</a>
+						<a sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" href="/profile/beast" class="card">Добавить монстра</a>
 					</div>
 
 					<div class="block_card">
@@ -45,14 +44,14 @@
 							<h5>Приключения</h5>
 							<p>Всего: <span><a href="#">0</a></span></p>
 							<p>На проверки: <span><a href="#">0</a></span></p>
-							<p>Ожидают модерации: <span><a href="#">0</a></span></p>
+							<p sec:authorize="hasRole('MODERATOR')">Ожидают модерации: <span><a href="#" th:text="${moderated_article_count}">0</a></span></p>
 							<div class="row bottom">
 								<a href="#">Посмотреть все</a>
 								<a href="#">Добавить</a>
 							</div>
 						</div>
 					</div>
-					<div class="block_card">
+					<div class="block_card" sec:authorize="hasRole('ADMIN')">
 						<div class="card">
 							<h5>Новости</h5>
 							<p>Всего: <span><a href="#">0</a></span></p>

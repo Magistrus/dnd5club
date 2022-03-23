@@ -39,11 +39,11 @@
 						</div>
 						<div class="right">
 							<div class="btn_block">
-								<button class="btn">Опубликовать</button>
+								<button sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn">Опубликовать</button>
 								<button class="btn">На проверку</button>
 								<button type="submit" class="btn secondary">Сохранить в черовики</button>
 								<button class="btn secondary">Предпросмотр</button>
-								<button class="btn secondary">Удалить</button>
+								<button th:unless="*{id eq null}" class="btn secondary">Удалить</button>
 								<button class="btn secondary">Отмена</button>
 							</div>
 						</div>

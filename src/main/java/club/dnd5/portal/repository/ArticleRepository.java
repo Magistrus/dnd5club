@@ -12,7 +12,8 @@ import club.dnd5.portal.model.user.User;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer>{
 	Collection<Article> findAllByStatusOrderByPublishedDesc(AtricleStatus status);
-
 	Collection<Article> findAllByCreatorOrderByCreatedDesc(User user);
+
 	long countByCreator(User user);
+	long countByStatus(AtricleStatus status);
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import club.dnd5.portal.model.articles.AtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.ArticleService;
@@ -34,8 +35,12 @@ public class ProfileController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
+		User currentUser = user.get();
 		model.addAttribute("all_article_count", service.getCountArticlesByUser(user.get()));
-		model.addAttribute("email", user.get().getEmail());
+		model.addAttribute("moderated_article_count", service.getCountByStatus(AtricleStatus.MODERATION));
+		model.addAttribute("name", currentUser.getName());
+		model.addAttribute("email", currentUser.getEmail());
+		model.addAttribute("roles", currentUser.getRoles());
 		model.addAttribute("version", version);
 		return "user/profile";
 	}
