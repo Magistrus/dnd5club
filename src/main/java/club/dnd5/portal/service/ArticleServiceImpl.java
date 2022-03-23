@@ -51,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
 		if (article.getId() == null) {
 			article.setStatus(ArtricleStatus.CREATED);	
 		}
-		article.setText(Jsoup.clean(article.getText(), Safelist.basic()));
+		article.setText(Jsoup.clean(article.getText(), Safelist.relaxed()));
 		return repo.save(article);
 	}
 

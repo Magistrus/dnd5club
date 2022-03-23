@@ -1,7 +1,6 @@
 package club.dnd5.portal.controller;
 
 import java.security.Principal;
-import java.util.Collections;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
