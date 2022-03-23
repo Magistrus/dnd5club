@@ -91,7 +91,7 @@ public class ArticleController {
 		article.setDeleted(LocalDateTime.now());
 		article = service.save(article, creator.get());
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
 	}
 	
 	@PostMapping(value = "/profile/articles", params = "moderate")
@@ -102,7 +102,7 @@ public class ArticleController {
 		User currentUser = user.get();
 		article = service.save(article, currentUser);
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
 	}
 	
 	@PostMapping(value = "/profile/articles", params = "publishe")
@@ -113,13 +113,13 @@ public class ArticleController {
 		User currentUser = user.get();
 		article = service.save(article, currentUser);
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
 	}
 
 	@PostMapping(value = "/profile/articles", params = "cancel")
 	public String cancelArticle(Model model, Principal principal, Article article) {
 		model.addAttribute("version", version);
-		return "redirect:/profile";
+		return "redirect:/profile/articles";
 	}
 	
 	@GetMapping("/profile/articles/{id:\\d+}")
