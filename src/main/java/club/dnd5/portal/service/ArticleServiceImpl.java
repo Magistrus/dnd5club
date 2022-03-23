@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import club.dnd5.portal.model.articles.Article;
@@ -22,7 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleRepository repo;
 
 	@Override
-	public Collection<Article> findAllByStatus(ArtricleStatus status) {
+	public Collection<Article> findAllByStatus(ArtricleStatus status, Sort sort) {
 		return repo.findAllByStatusOrderByPublishedDesc(status);
 	}
 

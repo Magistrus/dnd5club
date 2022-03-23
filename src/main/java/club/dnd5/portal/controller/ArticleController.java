@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +36,7 @@ public class ArticleController {
 
 	@GetMapping("/articles")
 	public String getArticles(Model model) {
-		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.PUBLISHED));
+		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.PUBLISHED, Sort.by(Direction.DESC, "published")));
 		model.addAttribute("version", version);
 		return "articles";
 	}
