@@ -39,12 +39,12 @@
 						</div>
 						<div class="right">
 							<div class="btn_block">
-								<button sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn">Опубликовать</button>
-								<button class="btn">На проверку</button>
-								<button type="submit" class="btn secondary">Сохранить в черовики</button>
-								<button class="btn secondary">Предпросмотр</button>
-								<button th:unless="*{id eq null}" class="btn secondary">Удалить</button>
-								<button class="btn secondary">Отмена</button>
+								<button id="publishe" name="publishe" sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn" value="publishe">Опубликовать</button>
+								<button id="moderate" name="moderate" class="btn" value="moderate">На проверку</button>
+								<button id="save" name="save" type="submit" class="btn secondary" value="save" >Сохранить в черовики</button>
+								<button class="btn secondary" value="preview">Предпросмотр</button>
+								<button id="delete" name="delete" th:unless="*{id eq null}" class="btn secondary" value="delete">Удалить</button>
+								<button id="cancel" name="cancel" class="btn secondary" value="cancel">Отмена</button>
 							</div>
 						</div>
 					</div>

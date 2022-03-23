@@ -34,16 +34,16 @@
 							<h5>Статьи</h5>
 							<p>Всего: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
 							<p>На проверки: <span><a href="#">0</a></span></p>
-							<p>Ожидают модерации: <span><a href="#">0</a></span></p>
+							<p sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Ожидают модерации: <span><a href="#">0</a></span></p>
 							<div class="row bottom">
-								<a sec:authorize="hasRole('ADMIN')" href="/articles">Посмотреть все</a>
+								<a href="/articles">Посмотреть все</a>
 								<a href="/profile/articles/form">Добавить</a>
 							</div>
 						</div>
-						<div class="card">
+						<div sec:authorize="hasAnyRole('ADMIN', 'WRITER')" class="card">
 							<h5>Приключения</h5>
 							<p>Всего: <span><a href="#">0</a></span></p>
-							<p>На проверки: <span><a href="#">0</a></span></p>
+							<p>На проверке: <span><a href="#">0</a></span></p>
 							<p sec:authorize="hasRole('MODERATOR')">Ожидают модерации: <span><a href="#" th:text="${moderated_article_count}">0</a></span></p>
 							<div class="row bottom">
 								<a href="#">Посмотреть все</a>

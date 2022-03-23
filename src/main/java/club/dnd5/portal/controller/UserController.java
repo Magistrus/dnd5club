@@ -51,7 +51,7 @@ public class UserController {
 		
 		userService.save(new User(userForm));
 		securityService.autologin(userForm.getName(), userForm.getPasswordConfirm());
-		return "redirect:/travel/tavern?sort=name,asc";
+		return "redirect:/profile";
 	}
 
 	@GetMapping("/login")

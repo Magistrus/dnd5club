@@ -33,7 +33,7 @@ public class Article {
 	@Column(columnDefinition = "TEXT")
 	private String text;
 	@Enumerated(EnumType.STRING)
-	private AtricleStatus status;
+	private ArtricleStatus status;
 	private String author;
 	private String translation;
 	private String originalAuthor;
