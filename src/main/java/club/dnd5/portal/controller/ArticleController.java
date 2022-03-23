@@ -50,7 +50,7 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/profile/articles")
-	public String getProfileArticles(Model model, Principal principal, HttpServletRequest request) {
+	public String getProfileArticles(Model model, String status, Principal principal, HttpServletRequest request) {
 		Optional<User> user = usersRepository.findByName(principal.getName());
 		if (!user.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<head>
+    <link th:href="@{/resources/css/trumbowyg.min.css}" rel="stylesheet">
+    <script th:src="@{/resources/js/trumbowyg/trumbowyg.min.js}"></script>
+    <script th:src="@{/resources/js/trumbowyg/langs/ru.min.js}"></script>
+</head>
 <body id="body">
 	<div layout:fragment="content">
 		<div id="left_block" class="add_beast">
