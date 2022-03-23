@@ -23,7 +23,7 @@
 				<div class="content">
 					<input hidden th:if="${feat}" th:field="*{feats[__${featStat.index}__].id}"/>
 					<input th:if="${feat}" type="text" name="trait_name" placeholder="Название способности" th:field="*{feats[__${featStat.index}__].name}">
-					<textarea th:if="${feat}" name="trait_description" rows="4" placeholder="Описание" th:field="*{feats[__${featStat.index}__].description}"></textarea>
+					<textarea class="html_text" th:if="${feat}" name="trait_description" rows="4" placeholder="Описание" th:field="*{feats[__${featStat.index}__].description}"></textarea>
 					<input th:unless="${feat}" type="text" name="trait_name" placeholder="Название способности">
 					<textarea class="html_text" th:unless="${feat}" name="trait_description" rows="4" placeholder="Описание"></textarea>
 				</div>

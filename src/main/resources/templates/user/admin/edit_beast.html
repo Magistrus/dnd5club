@@ -324,8 +324,8 @@
 							<div class="content">
 								<div class="opportunities">
 									<div class="content">
-										<textarea th:if="*{lair}" name="lair_description" rows="4" placeholder="Описание" th:text="*{lair.description}"></textarea>
-										<textarea th:unless="*{lair}" name="lair_description" rows="4" placeholder="Описание"></textarea>
+										<textarea class="html_text" th:if="*{lair}" name="lair_description" rows="4" placeholder="Описание" th:text="*{lair.description}"></textarea>
+										<textarea class="html_text" th:unless="*{lair}" name="lair_description" rows="4" placeholder="Описание"></textarea>
 									</div>
 								</div>
 							</div>
@@ -335,8 +335,8 @@
 							<div class="content">
 								<div class="opportunities">
 									<div class="content">
-										<textarea th:if="*{lair}" name="lair_action_description" rows="4" placeholder="Описание" th:text="*{lair.action}"></textarea>
-										<textarea th:unless="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"></textarea>
+										<textarea class="html_text" th:if="*{lair}" name="lair_action_description" rows="4" placeholder="Описание" th:text="*{lair.action}"></textarea>
+										<textarea class="html_text" th:unless="*{lair}" name="lair_action_description" rows="4" placeholder="Описание"></textarea>
 									</div>
 								</div>
 							</div>
@@ -346,8 +346,8 @@
 							<div class="content">
 								<div class="opportunities">
 									<div class="content">
-										<textarea th:if="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание" th:text="*{lair.effect}"></textarea>
-										<textarea th:unless="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
+										<textarea class="html_text" th:if="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание" th:text="*{lair.effect}"></textarea>
+										<textarea class="html_text" th:unless="*{lair}" name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
 									</div>
 								</div>
 							</div>
@@ -375,7 +375,7 @@
 									</div>
 									<div class="content">
 										<input type="text" name="opportunity_name_1" placeholder="Название варианта">
-										<textarea name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
+										<textarea class="html_text" name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
 									</div>
 								</div>
 							</div>
@@ -385,7 +385,7 @@
 							<div class="content">
 								<div class="opportunities">
 									<div class="content">
-										<textarea name="description" rows="4" placeholder="Описание" th:field="*{description}"></textarea>
+										<textarea class="html_text" name="description" rows="4" placeholder="Описание" th:field="*{description}"></textarea>
 									</div>
 								</div>
 							</div>
