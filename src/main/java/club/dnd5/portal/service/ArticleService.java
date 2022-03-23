@@ -19,4 +19,5 @@ public interface ArticleService {
 
 	long getCountArticlesByUser(User user);
 	long getCountByStatus(ArtricleStatus status);
+	long getCountByUserAndStatus(User user, ArtricleStatus status);
 }

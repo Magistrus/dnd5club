@@ -69,4 +69,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public long getCountByStatus(ArtricleStatus status) {
 		return repo.countByStatus(status);
 	}
+
+	@Override
+	public long getCountByUserAndStatus(User user, ArtricleStatus status) {
+		return repo.countByCreatorAndStatus(user, status);
+	}
 }
