@@ -74,7 +74,7 @@
 							</button>
 						</div>
 						<div class="filter_crumbs_box">
-							<label class="crumbs" th:each="role : ${roles}"> <input class="role_checkbox filter" type="checkbox" name="role" th:value="${role}"> <span th:text="${role.name}"></span>
+							<label class="crumbs" th:each="role : ${roles}"> <input class="role_checkbox filter" type="checkbox" name="role" th:value="${role.name}"> <span th:text="${role.name}"></span>
 							</label>
 						</div>
 					</div>
@@ -93,5 +93,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{|/resources/js/admin/users.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/admin/users.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>
