@@ -7,6 +7,13 @@
 				<form id = "registration_form" autocomplete="off" th:action="@{/registration}" th:object="${user}" method="post" class="registration_form dnd5-popup-block mfp-hide" role="form" data-toggle="validator">
 					<div class="header">
 						<h4>Регистрация</h4>
+						<a class="popup-modal-dismiss" href="#">
+							<i class="icon_action">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</i>
+						</a>
 					</div>
 					<div>
 						<input th:field="*{name}" type="text" class="form-control" placeholder="Имя пользователя" aria-label="Имя пользователя" aria-describedby="basic-addon1" />
