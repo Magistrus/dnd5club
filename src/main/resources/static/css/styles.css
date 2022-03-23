@@ -902,13 +902,6 @@ label.select_box {
 }
 
 
-.registration_form input.form-control {
-  width: calc(100% - 26px);
-  padding: 6px 12px;
-  margin: 0;
-}
-
-
 /******** Главная ********/
 body:before {
   content: '';
