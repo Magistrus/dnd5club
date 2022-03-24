@@ -86,9 +86,9 @@ a:hover {
   color: var(--link-color-hover);
 }
 
+ol,
 ul {
   color: var(--text-color);
-  line-height: 16px;
   padding-left: 24px;
 }
 

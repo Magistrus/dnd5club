@@ -1522,10 +1522,82 @@ body:before {
   padding-top: 16px;
 }
 
+.news_wrapper .bottom .info {
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  grid-column-gap: 16px;
+  grid-row-gap: 32px; */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.news_wrapper .bottom .info .block_1 {
+  margin-bottom: 32px;
+}
+
+.news_wrapper .bottom .info .block_2 {
+  background-color: var(--hover);
+  border-radius: 16px;
+  padding: 32px 32px 16px 32px;
+  text-align: center;
+  place-self: center;
+}
+
+.news_wrapper .bottom .info .block_2 h5 {
+  margin-bottom: 8px;
+}
+
+.news_wrapper .bottom .info .block_2 a {
+  margin: 0 8px 0 8px;
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+}
+
+.news_wrapper .bottom .info .block_2 i {
+  width: 48px;
+  height: 48px;
+  background-color: unset;
+}
+
+.news_wrapper .bottom .info .block_2 i path {
+  stroke: none;
+  fill: var(--primary);
+}
+
+.news_wrapper .bottom .info .block_2 a:hover i path {
+  fill: var(--primary-hover);
+}
+
+.news_wrapper .bottom .status {
+  padding: 0px 3px;
+  border-radius: 4px;
+}
+
+.news_wrapper .bottom .status[appendclass="MODERATION"] {
+  color: var(--text-btn-color);
+  background-color: var(--bg-homebrew);
+}
+
+.news_wrapper .bottom .status[appendclass="CREATED"] {
+  color: var(--text-btn-color);
+  background-color: var(--hover);
+}
+
+.news_wrapper .bottom .status[appendclass="PUBLISHED"] {
+  color: var(--text-btn-color);
+  background-color: var(--bg-advantage);
+}
+
+.news_wrapper .bottom time {
+  margin-right: 8px;
+}
+
 .news_wrapper .bottom ul.meta {
   list-style-type: none;
   padding-left: 0;
-  margin-bottom: 32px;
+  margin: 0;
 }
 
 .news_wrapper .similar_articles {
@@ -1558,6 +1630,20 @@ body:before {
   flex: 1 1 860px;
   max-width: 860px;
   padding: 16px 0 16px 0;
+}
+
+@media (max-width: 1500px) {
+  .news_wrapper .news_page_list {
+    flex: 1 1 620px;
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .news_wrapper .news_page_list {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 .news_wrapper .news_page_list .short_news {
@@ -1605,6 +1691,10 @@ body:before {
   border-radius: 8px;
   margin-left: auto;
   max-width: 100px;
+}
+
+.news_wrapper .news_page_list .short_news .bottom .btn_cont {
+  margin-left: auto;
 }
 
 .news_wrapper .news_page_list .short_news .bottom .btn:hover {
