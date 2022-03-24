@@ -752,6 +752,25 @@ label.select_box {
   position: relative;
 }
 
+.popup-modal-dismiss {
+  right: 12px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.popup-modal-dismiss:hover .icon_action {
+  background-color:unset;
+}
+
+.popup-modal-dismiss:hover {
+  background-color: var(--hover);
+}
+
 .dnd5-popup-block .mfp-close {
   color: var(--primary);
   position: absolute;
@@ -880,13 +899,6 @@ label.select_box {
   margin-top: 0;
   margin-bottom: 0;
   padding: 12px 24px;
-}
-
-
-.registration_form input.form-control {
-  width: calc(100% - 26px);
-  padding: 6px 12px;
-  margin: 0;
 }
 
 
