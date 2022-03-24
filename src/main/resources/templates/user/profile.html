@@ -31,21 +31,21 @@
 					<div class="block_card">
 						<div class="card">
 							<h5>Статьи</h5>
-							<p>Всего: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
+							<p>Чернавики: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
 							<p>На проверке: <span><a href="#" th:text="${moderate_user_article_count}">0</a></span></p>
 							<p sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Ожидают модерации: <span><a href="#" th:text="${moderate_article_count}">0</a></span></p>
 							<div class="row bottom">
-								<a href="/articles">Посмотреть все</a>
+								<a href="/profile/articles">Все мои статьи</a>
 								<a href="/profile/articles/form">Добавить</a>
 							</div>
 						</div>
 						<div sec:authorize="hasAnyRole('ADMIN', 'WRITER')" class="card">
 							<h5>Приключения</h5>
-							<p>Всего: <span><a href="#">0</a></span></p>
+							<p>Чернавики: <span><a href="#">0</a></span></p>
 							<p>На проверке: <span><a href="#">0</a></span></p>
 							<p sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Ожидают модерации: <span><a href="#">0</a></span></p>
 							<div class="row bottom">
-								<a href="#">Посмотреть все</a>
+								<a href="#">Все мои приключения</a>
 								<a href="#">Добавить</a>
 							</div>
 						</div>
@@ -53,11 +53,11 @@
 					<div class="block_card" sec:authorize="hasRole('ADMIN')">
 						<div class="card">
 							<h5>Новости</h5>
-							<p>Всего: <span><a href="#">0</a></span></p>
+							<p>Чернавики: <span><a href="#">0</a></span></p>
 							<p>На проверке: <span><a href="#">0</a></span></p>
 							<p>Ожидают модерации: <span><a href="#">0</a></span></p>
 							<div class="row bottom">
-								<a href="#">Посмотреть все</a>
+								<a href="#">Все мои новости</a>
 								<a href="#">Добавить</a>
 							</div>
 						</div>
@@ -67,7 +67,7 @@
 							<p>Писателей: <span><a href="#" th:text="${user_writer}">0</a></span></p>
 							<p>Модераторов: <span><a href="#" th:text="${user_moderator}">0</a></span></p>
 							<div class="row bottom">
-								<a href="/admin/users">Посмотреть все</a>
+								<a href="/admin/users">Посмотреть всех</a>
 							</div>
 						</div>
 					</div>
