@@ -33,7 +33,7 @@ public class SpellApiDto implements Serializable {
     public Range range;
     public Components components;
     public List<Duration> duration;
-    //public Classes classes;
+    public Classes classes;
     public String source;
     public List<String> entries;
     public Integer page;
@@ -65,5 +65,6 @@ public class SpellApiDto implements Serializable {
 		this.timecast = spell.getTimes().stream().map(Timecast::new).collect(Collectors.toList());
 		this.entries = new ArrayList<String>(2);
 		this.entries.addAll(Arrays.stream(spell.getDescription().replace("<p>", "").split("</p>")).map(t->t.replace("\\\"", "")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
+		this.classes = new Classes(spell.getHeroClass());
 	}
 }
