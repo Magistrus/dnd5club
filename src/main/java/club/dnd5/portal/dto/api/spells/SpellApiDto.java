@@ -29,7 +29,7 @@ public class SpellApiDto implements Serializable {
     public String school;
     //public List<Time> time;
     //public Range range;
-    //public Components components;
+    public Components components;
     //public List<Duration> duration;
     //public Classes classes;
     public String source;
@@ -47,6 +47,17 @@ public class SpellApiDto implements Serializable {
 		if (!spell.getDamageType().isEmpty()) {
 			this.damageInflict = spell.getDamageType().stream().map(DamageType::name).map(String::toLowerCase).collect(Collectors.toList());  
 		}
+		components = new Components();
+		if (spell.getVerbalComponent()) {
+			components.setV(true);
+		}
+		if (spell.getSomaticComponent()) {
+			components.setS(true);
+		}
+		if (spell.getAdditionalMaterialComponent()!=null) {
+			components.setM(spell.getAdditionalMaterialComponent());
+		}
+		
 		entries = new ArrayList<String>(2);
     	entries.addAll(Arrays.stream(spell.getDescription().replace("<p>", "").split("</p>")).map(t->t.replace("\\\"", "")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
 	}
