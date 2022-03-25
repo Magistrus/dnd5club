@@ -23,6 +23,6 @@ public class SpellRequestDto {
     public String search;
     public SpellFilter filter;
 
-    @JsonProperty("odrer")
+    @JsonProperty("order")
     public List<Order> orders;
 }
