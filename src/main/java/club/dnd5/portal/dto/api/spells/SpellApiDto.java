@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.DamageType;
@@ -27,7 +28,8 @@ public class SpellApiDto implements Serializable {
     public String altName;
     public byte level;
     public String school;
-    //public List<Time> time;
+    @JsonProperty("time")
+    public List<Timecast> timecast;
     //public Range range;
     public Components components;
     //public List<Duration> duration;
@@ -57,8 +59,8 @@ public class SpellApiDto implements Serializable {
 		if (spell.getAdditionalMaterialComponent()!=null) {
 			components.setM(spell.getAdditionalMaterialComponent());
 		}
-		
-		entries = new ArrayList<String>(2);
-    	entries.addAll(Arrays.stream(spell.getDescription().replace("<p>", "").split("</p>")).map(t->t.replace("\\\"", "")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
+		this.timecast = spell.getTimes().stream().map(Timecast::new).collect(Collectors.toList());
+		this.entries = new ArrayList<String>(2);
+		this.entries.addAll(Arrays.stream(spell.getDescription().replace("<p>", "").split("</p>")).map(t->t.replace("\\\"", "")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
 	}
 }
