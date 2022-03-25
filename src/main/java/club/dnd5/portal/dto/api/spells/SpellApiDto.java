@@ -32,7 +32,7 @@ public class SpellApiDto implements Serializable {
     public List<Timecast> timecast;
     public Range range;
     public Components components;
-    //public List<Duration> duration;
+    public List<Duration> duration;
     //public Classes classes;
     public String source;
     public List<String> entries;
@@ -60,6 +60,8 @@ public class SpellApiDto implements Serializable {
 			components.setM(spell.getAdditionalMaterialComponent());
 		}
 		this.range = new Range(spell);
+		String durationTetx = spell.getDuration();
+		duration = Arrays.stream(durationTetx.split(" или ")).map(Duration::new).collect(Collectors.toList());
 		this.timecast = spell.getTimes().stream().map(Timecast::new).collect(Collectors.toList());
 		this.entries = new ArrayList<String>(2);
 		this.entries.addAll(Arrays.stream(spell.getDescription().replace("<p>", "").split("</p>")).map(t->t.replace("\\\"", "")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
