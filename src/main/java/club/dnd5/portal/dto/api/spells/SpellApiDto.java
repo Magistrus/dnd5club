@@ -23,22 +23,23 @@ import lombok.Setter;
 @Setter
 public class SpellApiDto implements Serializable {
 	private static final long serialVersionUID = 6266015163866595679L;
-    public String name;
-    public String englishName;
-    public String altName;
-    public byte level;
-    public String school;
+	private String name;
+    private String englishName;
+    private String altName;
+    private byte level;
+    private String school;
     @JsonProperty("time")
-    public List<Timecast> timecast;
-    public Range range;
-    public Components components;
-    public List<Duration> duration;
-    public Classes classes;
-    public String source;
-    public List<String> entries;
-    public Integer page;
-    public List<String> damageInflict;
-    public List<String> savingThrow;
+    private List<Timecast> timecast;
+    private Range range;
+    private Components components;
+    private List<Duration> duration;
+    private Classes classes;
+    private String source;
+    private List<String> entries;
+    private Integer page;
+    private List<String> damageInflict;
+    private List<String> savingThrow;
+    private Meta meta;
     
 	public SpellApiDto(Spell spell) {
 		this.name = StringUtils.capitalize(spell.getName().toLowerCase());
@@ -66,5 +67,9 @@ public class SpellApiDto implements Serializable {
 		this.entries = new ArrayList<String>(2);
 		this.entries.addAll(Arrays.stream(spell.getDescription().replace("<p>", "").split("</p>")).map(t->t.replace("\\\"", "")).filter(t -> !t.isEmpty()).collect(Collectors.toList()));
 		this.classes = new Classes(spell.getHeroClass());
+		if (spell.getRitual()) {
+			meta = new Meta();
+			meta.setRitual(true);
+		}
 	}
 }
