@@ -19,8 +19,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SpellRequestDto {
     public Integer page;
-    public Integer limit = Integer.MAX_VALUE;
-    public String search;
+    public Integer limit = -1;
+    public String search ="";
     public SpellFilter filter;
 
     @JsonProperty("order")

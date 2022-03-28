@@ -1,12 +1,15 @@
 package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.Order;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.google.common.base.Optional;
 
 import club.dnd5.portal.dto.api.spells.SpellApiDto;
 import club.dnd5.portal.dto.api.spells.SpellRequestDto;
@@ -31,20 +32,30 @@ public class SpellApiConroller {
 	@PostMapping(value = "/v1/spells", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<SpellApiDto> getSpells(@RequestBody SpellRequestDto request){
 		DataTablesInput input = new DataTablesInput();
-		input.setDraw(2);
-		List<Column> columns = new ArrayList<Column>();
+		List<Column> columns = new ArrayList<Column>(3);
 		Column column = new Column();
 		column.setData("name");
-		column.setSearchable(true);
-		column.setOrderable(true);
+		column.setName("name");
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.TRUE);
+		column.setSearch(new Search("", Boolean.TRUE));
 		columns.add(column);
+		
 		column = new Column();
 		column.setData("englishName");
-		column.setSearchable(true);
+		column.setName("englishName");
+		column.setSearch(new Search("", Boolean.TRUE));
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.TRUE);
 		columns.add(column);
+		
 		column = new Column();
 		column.setData("level");
-		column.setSearchable(false);
+		column.setName("level");
+		column.setSearch(new Search("", Boolean.TRUE));
+		column.setSearchable(Boolean.FALSE);
+		column.setOrderable(Boolean.TRUE);
+		
 		if (request.getFilter() != null && request.getFilter().getLevels() != null) {
 			Search search = new Search();
 			search.setValue(String.join("|", request.getFilter().getLevels().stream().map(String::valueOf).collect(Collectors.toList())));
@@ -52,16 +63,17 @@ public class SpellApiConroller {
 		}
 		columns.add(column);
 		input.setColumns(columns);
-		if (request.getLimit() != Integer.MAX_VALUE) {
-			input.setLength(request.getLimit());
-		}
-		if (request.getPage()!= null) {
+		input.setLength(request.getLimit());
+		
+		if (request.getPage() != null) {
 			input.setStart(request.getPage());
 		}
-		if (request.getSearch() != null) {
-			input.getSearch().setValue(request.getSearch());
-			//input.getSearch().setRegex(true);
-		}
-		return repo.findAll(input, SpellApiDto::new).getData();
+		
+		//input.setOrder(Arrays.asList(new Order(0, "asc")));
+		
+		input.getSearch().setValue(request.getSearch().trim());
+		input.getSearch().setRegex(Boolean.FALSE);
+		List<SpellApiDto> spells = repo.findAll(input, SpellApiDto::new).getData();
+		return spells;
 	}
 }
