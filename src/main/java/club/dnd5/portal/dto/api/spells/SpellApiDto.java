@@ -39,8 +39,9 @@ public class SpellApiDto implements Serializable {
     private Integer page;
     private List<String> damageInflict;
     private List<String> savingThrow;
+    private EntriesHigherLevel entriesHigherLevel;
     private Meta meta;
-    
+
 	public SpellApiDto(Spell spell) {
 		this.name = StringUtils.capitalize(spell.getName().toLowerCase());
 		this.englishName = spell.getEnglishName();
@@ -70,6 +71,9 @@ public class SpellApiDto implements Serializable {
 		if (spell.getRitual()) {
 			meta = new Meta();
 			meta.setRitual(true);
+		}
+		if (spell.getUpperLevel() != null) {
+			this.entriesHigherLevel = new EntriesHigherLevel(spell.getUpperLevel());
 		}
 	}
 }
