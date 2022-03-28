@@ -2,16 +2,20 @@ package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.base.Optional;
 
 import club.dnd5.portal.dto.api.spells.SpellApiDto;
 import club.dnd5.portal.dto.api.spells.SpellRequestDto;
@@ -25,7 +29,7 @@ public class SpellApiConroller {
 	
 	@CrossOrigin
 	@PostMapping(value = "/v1/spells", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<SpellApiDto> getSpells(@RequestBody SpellRequestDto spellRequest){
+	public List<SpellApiDto> getSpells(@RequestBody SpellRequestDto request){
 		DataTablesInput input = new DataTablesInput();
 		input.setDraw(2);
 		List<Column> columns = new ArrayList<Column>();
@@ -41,16 +45,21 @@ public class SpellApiConroller {
 		column = new Column();
 		column.setData("level");
 		column.setSearchable(false);
+		if (request.getFilter() != null && request.getFilter().getLevels() != null) {
+			Search search = new Search();
+			search.setValue(String.join("|", request.getFilter().getLevels().stream().map(String::valueOf).collect(Collectors.toList())));
+			column.setSearch(search);
+		}
 		columns.add(column);
 		input.setColumns(columns);
-		if (spellRequest.getLimit() != Integer.MAX_VALUE) {
-			input.setLength(spellRequest.getLimit());
+		if (request.getLimit() != Integer.MAX_VALUE) {
+			input.setLength(request.getLimit());
 		}
-		if (spellRequest.getPage()!= null) {
-			input.setStart(spellRequest.getPage());
+		if (request.getPage()!= null) {
+			input.setStart(request.getPage());
 		}
-		if (spellRequest.getSearch() != null) {
-			input.getSearch().setValue(spellRequest.getSearch());
+		if (request.getSearch() != null) {
+			input.getSearch().setValue(request.getSearch());
 			//input.getSearch().setRegex(true);
 		}
 		return repo.findAll(input, SpellApiDto::new).getData();
