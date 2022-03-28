@@ -15,12 +15,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Range {
-	
 
+	private String raw;
 	private String type;
     private Distance distance;
     public Range(Spell spell) {
 		String distanceText = spell.getDistance();
+		this.raw = distanceText;
 		this.distance = new Distance();
 		if(distanceText.contains("Касание")) {
 			distance.setType("touch");
@@ -50,12 +51,12 @@ public class Range {
 		Matcher matcher = Pattern.compile("\\d+").matcher(distanceText);
 		if(matcher.find()) {
 			distance.setAmount(Integer.valueOf(matcher.group()));
-			if (distanceText.contains("футов")) {
+			if (distanceText.contains("фут") || distanceText.contains("фт")) {
 				distance.setType("feet");
-			} else if (distanceText.contains("миль") || distanceText.contains("мили")) {
+			} else if (distanceText.contains("миль") || distanceText.contains("мили") || distanceText.contains("миля")) {
 				distance.setType("miles");
-			} 
-		} else if(distanceText.equals("На себя")) {
+			}
+		} else if(distanceText.contains("На себя")) {
 			distance.setType("self");
 		} else if (distanceText.equals("Область видимости") || distanceText.equals("Видимость")) {
 			distance.setType("sight");
