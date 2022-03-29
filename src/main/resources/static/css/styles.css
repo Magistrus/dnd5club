@@ -1066,9 +1066,9 @@ body:before {
 }
 
 .main_page_wrapper .main_block .card_row a.card:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
   transition: background-color 0.6s;
-  color:var(--text-color-active);
+  color:var(--text-btn-color);
 }
 
 .main_page_wrapper .main_block .card_row a.card h4 {
@@ -1082,7 +1082,7 @@ body:before {
 }
 
 .main_page_wrapper .main_block .card_row a.card:hover h4 {
-  color:var(--text-color-active);
+  color:var(--text-btn-color);
   transition: color 0.6s;
 }
 
@@ -1109,6 +1109,13 @@ body:before {
 
 .main_page_wrapper .main_block .card_row .card .icon svg path {
   stroke:var(--primary);
+  transition: stroke 0.6s;
+}
+
+
+.main_page_wrapper .main_block .card_row .card:hover .icon svg path  {
+  stroke: var(--text-btn-color);
+  transition: stroke 0.6s;
 }
 
 .main_page_wrapper .main_block .card_row .card .title {
