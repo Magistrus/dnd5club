@@ -17,23 +17,25 @@ import lombok.Setter;
 @Setter
 public class Duration {
 	public String type;
+	private String raw;
 	private DurationUnit duration;
 	private Boolean concentration;
 	private List<String> ends;
-	
+
 	public Duration(String duration) {
+		this.raw = duration;
 	    if (duration.equals("Мгновенная")) {
 	    	type = "instant";
 	    } else if (duration.toLowerCase().equals("пока не рассеется") || duration.equals("До развеивания") || duration.equals("До рассеивания")) {
-	    	type = "permanent";	
+	    	type = "permanent";
 	    	ends = Arrays.asList("dispel");
 	    }
 	    if (duration.contains(" не сработает")) {
-	    	ends = Arrays.asList("trigger"); 
+	    	ends = Arrays.asList("trigger");
 	    }
 	    Matcher matcher = Pattern.compile("\\d+").matcher(duration);
 		if(matcher.find()) {
-	    	type = "timed";	
+	    	type = "timed";
 	    	this.duration = new DurationUnit();
 	    	this.duration.setAmount(Byte.valueOf(matcher.group()));
 	    	if (duration.contains("час")) {
@@ -42,7 +44,7 @@ public class Duration {
 	    		this.duration.setType("minutes");
 	    	} else if (duration.contains("раунд") || duration.contains("ход")){
 	    		this.duration.setType("rounds");
-	    	} else if (duration.contains("дня") || duration.contains("дней")){
+	    	} else if (duration.contains("дня") || duration.contains("дней") || duration.contains("день")){
 	    		this.duration.setType("days");
 	    	} else if (duration.contains("год")){
 	    		this.duration.setType("years");
