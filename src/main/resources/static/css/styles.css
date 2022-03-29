@@ -1185,6 +1185,56 @@ body:before {
   }
 }
 
+.main_page_wrapper .dnd5club_tel_bot {
+  display: flex;
+  flex-direction: row;
+  margin: 32px 32px -16px 32px;
+  padding: 16px 16px 0px 16px;
+  background-color: var(--primary-active);
+  border-radius: 16px;
+  width: 600px;
+}
+
+@media (max-width: 1200px) {
+  .main_page_wrapper .dnd5club_tel_bot {
+    margin: 32px 16px -16px 16px;
+  }
+}
+
+@media (max-width: 800px) {
+  .main_page_wrapper .dnd5club_tel_bot {
+    width: auto;
+  }
+}
+
+.main_page_wrapper .dnd5club_tel_bot h4,
+.main_page_wrapper .dnd5club_tel_bot a,
+.main_page_wrapper .dnd5club_tel_bot p {
+  color: var(--text-btn-color);
+}
+
+.main_page_wrapper .dnd5club_tel_bot i {
+  min-width: 48px;
+  height: 48px;
+  margin-right: 16px;
+}
+
+.main_page_wrapper .dnd5club_tel_bot i path {
+  stroke: var(--text-btn-color);
+}
+
+.main_page_wrapper .dnd5club_tel_bot .info h4 {
+  margin-top: 0;
+}
+
+.main_page_wrapper .dnd5club_tel_bot .info a {
+  margin-right: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
 .main_page_wrapper .news_block .header {
   padding: 0 16px;
   border-bottom: 1px solid var(--border);
