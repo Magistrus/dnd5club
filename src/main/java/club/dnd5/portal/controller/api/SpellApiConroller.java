@@ -38,13 +38,13 @@ public class SpellApiConroller {
 		column.setName("name");
 		column.setSearchable(Boolean.TRUE);
 		column.setOrderable(Boolean.TRUE);
-		column.setSearch(new Search("", Boolean.TRUE));
+		column.setSearch(new Search("", Boolean.FALSE));
 		columns.add(column);
 		
 		column = new Column();
 		column.setData("englishName");
 		column.setName("englishName");
-		column.setSearch(new Search("", Boolean.TRUE));
+		column.setSearch(new Search("", Boolean.FALSE));
 		column.setSearchable(Boolean.TRUE);
 		column.setOrderable(Boolean.TRUE);
 		columns.add(column);
@@ -52,7 +52,7 @@ public class SpellApiConroller {
 		column = new Column();
 		column.setData("level");
 		column.setName("level");
-		column.setSearch(new Search("", Boolean.TRUE));
+		column.setSearch(new Search("", Boolean.FALSE));
 		column.setSearchable(Boolean.FALSE);
 		column.setOrderable(Boolean.TRUE);
 		
@@ -70,10 +70,16 @@ public class SpellApiConroller {
 		}
 		
 		//input.setOrder(Arrays.asList(new Order(0, "asc")));
-		
-		input.getSearch().setValue(request.getSearch().trim());
-		input.getSearch().setRegex(Boolean.FALSE);
-		List<SpellApiDto> spells = repo.findAll(input, SpellApiDto::new).getData();
-		return spells;
+		if (request.getSearch() != null) {
+			if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
+				input.getColumns().get(0).getSearch().setRegex(Boolean.TRUE);
+				input.getColumns().get(0).getSearch()
+					.setValue(String.format("%s", request.getSearch().getValue().toUpperCase()));
+			} else {
+				input.getSearch().setValue(request.getSearch().getValue());
+				input.getSearch().setRegex(Boolean.FALSE);
+			}
+		}
+		return repo.findAll(input, SpellApiDto::new).getData();
 	}
 }
