@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
@@ -12,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
@@ -36,7 +39,7 @@ public class SpellApiDto implements Serializable {
     private Classes classes;
     private String source;
     private List<String> entries;
-    private Integer page;
+    private Short page;
     private List<String> damageInflict;
     private List<String> savingThrow;
     private EntriesHigherLevel entriesHigherLevel;
@@ -48,8 +51,15 @@ public class SpellApiDto implements Serializable {
 		this.level = spell.getLevel();
 		this.school = spell.getSchool().name().toLowerCase();
 		this.source = spell.getBook().getSource();
+		if (spell.getPage() != null) {
+			this.page = spell.getPage();
+		}
 		if (!spell.getDamageType().isEmpty()) {
-			this.damageInflict = spell.getDamageType().stream().map(DamageType::name).map(String::toLowerCase).collect(Collectors.toList());  
+			this.damageInflict = spell.getDamageType()
+					.stream()
+					.map(DamageType::name)
+					.map(String::toLowerCase)
+					.collect(Collectors.toList());
 		}
 		components = new Components();
 		if (spell.getVerbalComponent()) {
@@ -75,5 +85,13 @@ public class SpellApiDto implements Serializable {
 		if (spell.getUpperLevel() != null) {
 			this.entriesHigherLevel = new EntriesHigherLevel(spell.getUpperLevel());
 		}
+	    Matcher matcher = Pattern.compile("(<span class=\"saving_throw\">\\W+<\\/span>)+").matcher(spell.getDescription());
+	    if(matcher.matches()) {
+	    	this.savingThrow = new ArrayList<>(matcher.groupCount());
+	    	while (matcher.find()) {
+				String ability = AbilityType.parse(matcher.group()).getCapitalizeName().toLowerCase();
+				savingThrow.add(ability);
+			}
+	    }
 	}
 }
