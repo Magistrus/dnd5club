@@ -1,75 +1,88 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 <body id="body" class="d-flex overflow-hidden">
-	<div id="container_card" class="container_page" layout:fragment="content">
+	<div class="profile" layout:fragment="content">
 		<div id="left_block">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>Профиль</h1>
+					<div class="title">
+						<h1>Профиль</h1>
+						<h2>Profile</h2>
+					</div>
 				</div>
 			</div>
 			<div class="container_left" data-simplebar>
-				<div id="card_wrapper" class="card_wrapper">
-					<div class="card">
-						<div class="infimation">
-							<h5 id="change_profile_id" class="header_name">Изменить данные профиля</h5>
+				<div class="cont">
+					<div class="row info_block">
+						<div class="avatar">
+							<img src="/resources/assets/icon/avatar.png" alt="Аватар">
 						</div>
-						<div class="icon icon_source"></div>
-					</div>
-					<a sec:authorize="hasRole('ADMIN')" href="/admin/users" class="card">
-						<div class="infimation">
-							<h5 id="charachter_id" class="header_name">Список пользователей</h5>
+						<div class="name row column">
+							<h3 th:text="${name}">Name</h3>
+							<p th:text="${email}">mail</p>
+							<p><span th:each="role, iter : ${roles}" th:text="${iter.last ? role.name : role.name + ', '}">роль</span></p>
 						</div>
-						<div class="icon icon_source"></div>
-					</a>
-					<a href="/profile/beast" class="card">
-						<div class="infimation">
-							<h5 id="charachter_id" class="header_name">Добавить монстра</h5>
+					</div>
+
+					<div class="row column">
+						<a sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" href="/profile/beast" class="card">Добавить монстра</a>
+					</div>
+
+					<div class="block_card">
+						<div class="card">
+							<h5>Статьи</h5>
+							<p>Чернавики: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
+							<p>На проверке: <span><a href="#" th:text="${moderate_user_article_count}">0</a></span></p>
+							<p sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Ожидают модерации: <span><a href="#" th:text="${moderate_article_count}">0</a></span></p>
+							<div class="row bottom">
+								<a href="/profile/articles">Все мои статьи</a>
+								<a href="/profile/articles/form">Добавить</a>
+							</div>
 						</div>
-						<div class="icon icon_source"></div>
-					</a>
-					<a href="/profile/articles" class="card">
-						<div class="infimation">
-							<h5 id="charachter_id" class="header_name">Статьи</h5>
+						<div sec:authorize="hasAnyRole('ADMIN', 'WRITER')" class="card">
+							<h5>Приключения</h5>
+							<p>Чернавики: <span><a href="#">0</a></span></p>
+							<p>На проверке: <span><a href="#">0</a></span></p>
+							<p sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Ожидают модерации: <span><a href="#">0</a></span></p>
+							<div class="row bottom">
+								<a href="#">Все мои приключения</a>
+								<a href="#">Добавить</a>
+							</div>
 						</div>
-						<div class="icon icon_source"></div>
-					</a>
-				</div>
-			</div>
-		</div>
-		<div id="right_block" class="classes">
-			<div class="header_block sub_menu_block">
-				<div class="header_row">
-					<h1 id="profile_name">Название класса</h3>
-					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
-						<i class="icon_action">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M3 14H6C7.10457 14 8 14.8954 8 16L8 19M8 5V8C8 9.10457 7.10457 10 6 10H3M21 10H18C16.8954 10 16 9.10457 16 8V5M16 19V16C16 14.8954 16.8954 14 18 14L21 14" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>								
-						</i>
 					</div>
-					<div id="btn_full_screen" class="btn_full_screen tip" title="На всю страницу">
-						<i class="icon_action">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M16 7H17C18.1046 7 19 7.89543 19 9V10M19 14V15C19 16.1046 18.1046 17 17 17H16M8 17H7C5.89543 17 5 16.1046 5 15V14M5 10L5 9C5 7.89543 5.89543 7 7 7L8 7" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>							
-						</i>
+					<div class="block_card" sec:authorize="hasRole('ADMIN')">
+						<div class="card">
+							<h5>Новости</h5>
+							<p>Чернавики: <span><a href="#">0</a></span></p>
+							<p>На проверке: <span><a href="#">0</a></span></p>
+							<p>Ожидают модерации: <span><a href="#">0</a></span></p>
+							<div class="row bottom">
+								<a href="#">Все мои новости</a>
+								<a href="#">Добавить</a>
+							</div>
+						</div>
+						<div class="card">
+							<h5>Пользователи</h5>
+							<p>Всего: <span><a href="/admin/users" th:text="${user_count}">0</a></span></p>
+							<p>Писателей: <span><a href="#" th:text="${user_writer}">0</a></span></p>
+							<p>Модераторов: <span><a href="#" th:text="${user_moderator}">0</a></span></p>
+							<div class="row bottom">
+								<a href="/admin/users">Посмотреть всех</a>
+							</div>
+						</div>
 					</div>
-					<div id="btn_close" class="btn_close tip" title="Закрыть">
-						<i class="icon_action">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>								
-						</i>
+					<div class="row column">
+						<h4 class="header_separator"><span>Изменить данные профиля</span></h4>
+						
+						<div class="row_input">
+							<input type="password" class="old_password" name="old_password" placeholder="Старый пароль">
+							<input type="password" class="new_password" name="new_password" placeholder="Новый пароль">
+						</div>
 					</div>
-				</div>
-			</div>
-			<div id="info_wrapper" class="info_wrapper">
-				<div class="sub_menu_list archetype" data-simplebar>
-					<div id="sub_menu"></div>
-				</div>
-				<div class="content_block classes_cont" data-simplebar>
-					<div id="content_block"></div>
+					<div class="bottom">
+						<button class="btn btn_primary">Сохарнить</button>
+						<button class="btn">Отмена</button>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -5,7 +5,10 @@
 		<div id="left_block" class="items">
 			<div class="header_block filters">
 				<div class="header_row">
-					<h1>Магические предметы</h1>
+					<div class="title">
+						<h1>Магические предметы</h1>
+						<h2>Items magic</h2>
+					</div>
 				</div>
 				<div class="search_block">
 					<div class="input_block">
@@ -83,32 +86,6 @@
 							</div>
 							<label class="crumbs tip" th:each="book : ${hombrewBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked>
 								<span class="tip" th:text="${book.source}"></span></label>
-						</div>
-					</div>
-					<div class="filter_block">
-						<div class="header">
-							<h5>Уровень опасности</h5>
-							<button>
-								<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"></path>
-									</svg>
-								</i>
-							</button>
-							<button id="cr_clear_btn" class="hide_block">
-								<i class="icon_action reset_filter"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M7 7L12 12M12 12L17 7M12 12L7 17M12 12L17 17" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"></path>
-									</svg>
-								</i>
-							</button>
-						</div>
-						<div class="filter_crumbs_box">
-							<label class="crumbs"> <input class="cr_checkbox filter" type="checkbox filter" name="cr" value="0"> <span>0</span></label> <label class="crumbs"> <input
-								class="cr_checkbox filter" name="cr" type="checkbox" value="1/8"
-							> <span>1/8</span>
-							</label> <label class="crumbs"> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/4"> <span>1/4</span>
-							</label> <label class="crumbs"> <input class="cr_checkbox filter" name="cr" type="checkbox" value="1/2"> <span>1/2</span>
-							</label> <label class="crumbs" th:each="cr : ${#numbers.sequence(1, 30)}"> <input class="cr_checkbox filter" type="checkbox" name="cr" th:value="${cr}"> <span th:text="${cr}"></span>
-							</label>
 						</div>
 					</div>
 					<div class="filter_block">
@@ -217,8 +194,11 @@
 		<div id="right_block" class="items">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>
-						<a href="#" id="item_name">Название предмета</a>
+					<div class="title_row">
+						<div class="title">
+							<h1><a href="#" id="item_name">Название предмета</a></h1>
+							<h2 id="english_name">...</h2>
+						</div>
 						<button class="title_icon link tip" title="Скопировать ссылку" onclick="copyToClipboard()">
 							<i class="icon_action">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -226,7 +206,7 @@
 								</svg>
 							</i>
 						</button>
-					</h1>
+					</div>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M3 14H6C7.10457 14 8 14.8954 8 16L8 19M8 5V8C8 9.10457 7.10457 10 6 10H3M21 10H18C16.8954 10 16 9.10457 16 8V5M16 19V16C16 14.8954 16.8954 14 18 14L21 14" stroke="#7B61FF"
@@ -262,5 +242,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/items_magic.js?v=2.9.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/items_magic.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>

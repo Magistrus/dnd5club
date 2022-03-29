@@ -123,6 +123,10 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.14.3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -144,7 +148,15 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
+					<includeOnlyProperties>    
+    					<includeOnlyProperty>git.commit.id</includeOnlyProperty>
+					</includeOnlyProperties>
 				</configuration>
+			</plugin>
+			<plugin>
+    			<groupId>pl.project13.maven</groupId>
+    			<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

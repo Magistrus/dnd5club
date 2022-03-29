@@ -15,6 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,10 @@ public class RaceController {
 	private ImageRepository imageRepo;
 	
 	private Map<TypeBook, List<Book>> sources;
-	
+
+	@Value("${git.commit.id}")
+	private String version;
+
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -62,6 +66,7 @@ public class RaceController {
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/races");
 		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "races";
 	}
 	
@@ -93,6 +98,7 @@ public class RaceController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("version", version);
 		return "races";
 	}
 	

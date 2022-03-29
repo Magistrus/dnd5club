@@ -223,6 +223,8 @@ function onDeselectListener() {
 
 function selectClass(data) {
     $('#class_name').text(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
     history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
     selectedClass = data;

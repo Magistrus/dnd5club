@@ -150,6 +150,8 @@ $(document).ready(function () {
 
 // function selectItem(data) {
 //     $('#item_name').text(data.name);
+//     $('#english_name').html(data.englishName);
+
 //     $('#type').text(data.type);
 //     $('#cost').text(data.cost + ' зм.');
 //     var source = '<span class="tip" title="' + data.book + '">' + data.bookshort + '</span>';

@@ -32,14 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/webjars/**").permitAll();
 		
-		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error");
 		http.authorizeRequests().antMatchers("/robots.txt").permitAll();
 
 		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/profile", true).permitAll();
 		http.authorizeRequests().and().logout().logoutSuccessUrl("/").permitAll();
 
+		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error");
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-        http.cors().and().csrf().disable();
+		http.cors().and().csrf().disable();
 
 		http.httpBasic();
 	}

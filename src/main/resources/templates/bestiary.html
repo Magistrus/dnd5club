@@ -7,7 +7,10 @@
 		<div id="left_block">
 			<div class="header_block filters">
 				<div class="header_row">
-					<h1>Бестиарий</h1>
+					<div class="title">
+						<h1>Бестиарий</h1>
+						<h2>Bestiary</h2>
+					</div>
 				</div>
 				<div class="search_block">
 					<div class="input_block">
@@ -222,8 +225,11 @@
 		<div id="right_block" class="bestiary sub_menu_block">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>
-						<a href="#" id="creature_name">Название существа</a>
+					<div class="title_row">
+						<div class="title">
+							<h1><a href="#" id="creature_name">Название существа</a></h1>
+							<h2 id="english_name">...</h2>
+						</div>
 						<button class="title_icon link tip" title="Скопировать ссылку" onclick="copyToClipboard()">
 							<i class="icon_action">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -231,7 +237,7 @@
 								</svg>
 							</i>
 						</button>
-					</h1>
+					</div>
 					<div sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" id="edit_beast" class="btn_additional_features tip" title="Редактировать">
 						Р
 					</div>
@@ -301,5 +307,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/bestiary.js?v=10.9.1}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/bestiary.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>

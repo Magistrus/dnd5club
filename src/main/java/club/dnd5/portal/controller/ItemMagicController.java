@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,9 @@ public class ItemMagicController {
 
 	private Map<TypeBook, List<Book>> sources;
 
+	@Value("${git.commit.id}")
+	private String version;
+
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -56,6 +60,7 @@ public class ItemMagicController {
 		model.addAttribute("metaTitle", "Магические предметы (Magic items) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
 		model.addAttribute("metaDescription", "Магические предметы и артефакты по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "items_magic";
 	}
 	
@@ -81,6 +86,7 @@ public class ItemMagicController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("version", version);
 		return "items_magic";
 	}
 	

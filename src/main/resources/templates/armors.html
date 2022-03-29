@@ -8,7 +8,10 @@
 		<div id="left_block" class="armors">
 			<div class="header_block filters">
 				<div class="header_row">
-					<h1>Доспехи</h1>
+					<div class="title">
+						<h1>Доспехи</h1>
+						<h2>Armors</h2>
+					</div>
 				</div>
 				<div class="search_block">
 					<div class="input_block">
@@ -56,8 +59,11 @@
 		<div id="right_block" class="armors">
 			<div class="header_block">
 				<div class="header_row">
-					<h1>
-						<a href="#" id="armor_name">Название доспехов</a>
+					<div class="title_row">
+						<div class="title">
+							<h1><a href="#" id="armor_name">Название доспехов</a></h1>
+							<h2 id="english_name">...</h2>
+						</div>
 						<button class="title_icon link tip" title="Скопировать ссылку" onclick="copyToClipboard()">
 							<i class="icon_action">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +71,7 @@
 								</svg>
 							</i>
 						</button>
-					</h1>
+					</div>
 					<div id="btn_exet_full_screen" class="btn_exet_full_screen tip" title="Свернуть в окно">
 						<i class="icon_action">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,5 +106,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/armors.js?v=1.0.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/armors.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>

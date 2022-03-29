@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,9 @@ public class GodController {
 	
 	private Map<TypeBook, List<Book>> sources;
 
+	@Value("${git.commit.id}")
+	private String version;
+
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -59,6 +63,7 @@ public class GodController {
 		model.addAttribute("metaTitle", "Боги (Gods) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/gods");
 		model.addAttribute("metaDescription", "Боги, полубоги и философии D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "gods";
 	}
 	
@@ -82,6 +87,7 @@ public class GodController {
 		model.addAttribute("metaTitle", god.getName() + " | Боги D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/gods/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s", god.getName(), god.getEnglishName(), god.getAligment().getCyrilicName(), god.getSex().getCyrilicName(), god.getCommitment()));
+		model.addAttribute("version", version);
 		return "gods";
 	}
 	

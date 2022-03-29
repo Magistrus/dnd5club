@@ -225,6 +225,8 @@ function selectRace(data) {
         return;
     }
     $('#race_name').text(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
     history.pushState('data to be passed', '', '/races/' + data.englishName.split(' ').join('_'));
     var url = '/races/fragment/' + data.id;

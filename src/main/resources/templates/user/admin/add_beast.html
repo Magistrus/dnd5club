@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
+<head>
+    <link th:href="@{/resources/css/trumbowyg.min.css}" rel="stylesheet">
+    <script th:src="@{/resources/js/trumbowyg/trumbowyg.min.js}"></script>
+    <script th:src="@{/resources/js/trumbowyg/langs/ru.min.js}"></script>
+</head>
 <body id="body">
 	<div layout:fragment="content">
 		<div id="left_block" class="add_beast">
@@ -316,7 +321,7 @@
 						<div class="content">
 							<div class="opportunities">
 								<div class="content">
-									<textarea name="lair_description" rows="4" placeholder="Описание"></textarea>
+									<textarea class="html_text" name="lair_description" rows="4" placeholder="Описание"></textarea>
 								</div>
 							</div>
 						</div>
@@ -326,7 +331,7 @@
 						<div class="content">
 							<div class="opportunities">
 								<div class="content">
-									<textarea name="lair_action_description" rows="4" placeholder="Описание"></textarea>
+									<textarea class="html_text" name="lair_action_description" rows="4" placeholder="Описание"></textarea>
 								</div>
 							</div>
 						</div>
@@ -336,7 +341,7 @@
 						<div class="content">
 							<div class="opportunities">
 								<div class="content">
-									<textarea name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
+									<textarea class="html_text" name="lair_effect_description" rows="4" placeholder="Описание"></textarea>
 								</div>
 							</div>
 						</div>
@@ -364,7 +369,7 @@
 								</div>
 								<div class="content">
 									<input type="text" name="opportunity_name_1" placeholder="Название варианта">
-									<textarea name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
+									<textarea class="html_text" name="opportunity_description_1" rows="4" placeholder="Описание"></textarea>
 								</div>
 							</div>
 						</div>
@@ -374,7 +379,7 @@
 						<div class="content">
 							<div class="opportunities">
 								<div class="content">
-									<textarea name="description" rows="4" placeholder="Описание"></textarea>
+									<textarea class="html_text" name="description" rows="4" placeholder="Описание"></textarea>
 								</div>
 							</div>
 						</div>
@@ -384,5 +389,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{/resources/js/add/add_beast.js?v=1.9.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/add/add_beast.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>

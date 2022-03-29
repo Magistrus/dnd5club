@@ -346,6 +346,13 @@
   transform: translateY(-50%);
 }
 
+.navbar .nav_links li.profile_menu_button {
+  background-color: var(--bg-secondary);
+}
+
+.navbar .nav_links li.profile_menu_button:hover {
+  background: var(--bg-sub-menu);
+}
 
 
 @media (max-width: 1200px) {

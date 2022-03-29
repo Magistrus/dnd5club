@@ -3,6 +3,7 @@ package club.dnd5.portal.controller;
 import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,14 @@ public class BookController {
 	@Autowired
 	private BookDatatableRepository repository;
 
+	@Value("${git.commit.id}")
+	private String version;
+
 	@GetMapping("/books")
 	public String getRules(Model model) {
 		model.addAttribute("metaTitle", "Источники (Books) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/books");
+		model.addAttribute("version", version);
 		return "books";
 	}
 	
@@ -30,6 +35,7 @@ public class BookController {
 		model.addAttribute("metaTitle", String.format("%s - Источники (Books) D&D 5e", book.getName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/books/%s", name));
 		model.addAttribute("selectedBook", "name");
+		model.addAttribute("version", version);
 		return "books";
 	}
 	

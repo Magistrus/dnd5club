@@ -72,6 +72,11 @@ $(document).ready(function () {
     $('.ajax-popup-link').magnificPopup({
         type: 'ajax',
         closeOnBgClick: true,
+		modal: true,
+    });
+    $(document).on('click', '.popup-modal-dismiss', function (e) {
+        e.preventDefault();
+        $.magnificPopup.close();
     });
     let path = $(location).attr('pathname');
     if (path.startsWith('/classes') || path.startsWith('/races') || path.startsWith('/traits') || path.startsWith('/options') || path.startsWith('/backgrounds')) {

@@ -18,6 +18,7 @@
     overflow-y: visible !important;
     position: relative;
     height: auto !important;
+    box-shadow:none !important;
   }
 
   #right_block .header_block {
@@ -26,7 +27,6 @@
 
   #right_block .header_block h1 {
     font-weight: 500;
-    line-height: 60px;
   }
   
   html {
@@ -56,6 +56,12 @@
 
   #right_block h1 a,
   #right_block h1,
+  #right_block h2 {
+    margin: 0 !important;
+  }
+
+  #right_block h1 a,
+  #right_block h1,
   #right_block h2,
   #right_block h3,
   #right_block h4,
@@ -69,22 +75,7 @@
   #right_block p {
     margin: 0 0 6px 0;
   }
-
-  #right_block .info_wrapper .sub_menu_list li {
-    display: flex !important;
-    border-bottom:none !important;
-    padding: 4px 16px 4px 16px;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li h5 {
-    margin-right: 8px;
-  }
-
-  #right_block .info_wrapper .sub_menu_list li h5,
-  #right_block .info_wrapper .sub_menu_list li span {
-    line-height: 18px;
-  }
-
+  
   #right_block.bestiary .scores {
     margin: 8px 0;
   }

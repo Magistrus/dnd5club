@@ -86,9 +86,9 @@ a:hover {
   color: var(--link-color-hover);
 }
 
+ol,
 ul {
   color: var(--text-color);
-  line-height: 16px;
   padding-left: 24px;
 }
 
@@ -164,6 +164,11 @@ blockquote p:last-child {
   align-items: center;
   margin-top: 24px;
   width: 100%;
+}
+
+h5.header_separator {
+  margin-top: 0px;
+  margin-bottom: 8px;
 }
 
 .filter_crumbs_box .header_separator {

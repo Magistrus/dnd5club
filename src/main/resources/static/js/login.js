@@ -4,5 +4,6 @@ $(document).ready(function() {
 		      src: '#login_form',
 		      type: 'inline'
 		  },
+		  modal: true,
 	});
 });

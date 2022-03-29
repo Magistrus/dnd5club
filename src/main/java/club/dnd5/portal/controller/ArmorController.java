@@ -5,6 +5,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,15 @@ public class ArmorController {
 	@Autowired
 	private ArmorDatatableRepository repository;
 
+	@Value("${git.commit.id}")
+	private String version;
+
 	@GetMapping("/armors")
 	public String getArmors(Model model) {
 		model.addAttribute("metaTitle", "Доспехи (Armors) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/armors");
 		model.addAttribute("metaDescription", "Доспехи по D&D 5 редакции");
+		model.addAttribute("version", version);
 		return "armors";
 	}
 	
@@ -39,6 +44,7 @@ public class ArmorController {
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getEnglishName().replace(" ", "_"));
 		model.addAttribute("metaDescription", String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
+		model.addAttribute("version", version);
 		return "armors";
 	}
 	

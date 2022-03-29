@@ -162,6 +162,8 @@ function onDeselectListener() {
 
 function selectArmor(data) {
     $('#armor_name').text(data.name);
+    $('#english_name').html(data.englishName);
+
     document.title = data.name + ' (' + data.englishName + ')' + ' | Броня D&D 5e';
     history.pushState('data to be passed', '', '/armors/' + data.englishName.split(' ').join('_'));
     var url = '/armors/fragment/' + data.id;

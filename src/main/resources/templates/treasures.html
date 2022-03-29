@@ -5,7 +5,10 @@
 		<div id="left_block" class="full_screen_left_block">
 			<div class="header_block filters">
 				<div class="header_row">
-					<h1>Драгоценности</h1>
+					<div class="title">
+						<h1>Драгоценности</h1>
+						<h2>Treasures</h2>
+					</div>
 				</div>
 				<div class="search_block">
 					<div class="input_block">
@@ -86,5 +89,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{/resources/js/datatables/treasures.js?v=2.7.20}" layout:fragment="js-script"></script>
+<script th:src="@{|/resources/js/datatables/treasures.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>

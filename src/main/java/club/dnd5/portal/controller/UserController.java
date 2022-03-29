@@ -3,6 +3,7 @@ package club.dnd5.portal.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import club.dnd5.portal.dto.UserRegForm;
 import club.dnd5.portal.model.user.User;
+import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.service.SecurityService;
 import club.dnd5.portal.service.UserService;
 
@@ -21,13 +23,27 @@ import club.dnd5.portal.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
-
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
 	@Autowired
 	private SecurityService securityService;
-
+	
+	@Value("${git.commit.id}")
+	private String version;
+	
+	@GetMapping("/admin/users")
+	public String getUsers(Model model) {
+		model.addAttribute("roles", roleRepository.findAll());
+		model.addAttribute("version", version);
+		return "/user/admin/users";
+	}
+	
 	@GetMapping("/registration")
 	public String registration(Model model) {
 		model.addAttribute("user", new UserRegForm());
+		model.addAttribute("version", version);
 		return "user/registration";
 	}
 
@@ -51,7 +67,7 @@ public class UserController {
 		
 		userService.save(new User(userForm));
 		securityService.autologin(userForm.getName(), userForm.getPasswordConfirm());
-		return "redirect:/travel/tavern?sort=name,asc";
+		return "redirect:/profile";
 	}
 
 	@GetMapping("/login")
@@ -62,6 +78,7 @@ public class UserController {
 		if (logout != null) {
 			model.addAttribute("message", "Вы успешно вышли из системы.");
 		}
+		model.addAttribute("version", version);
 		return "user/login";
 	}
 	

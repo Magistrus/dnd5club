@@ -7,11 +7,7 @@ $(document).ready(function() {
         deferRender: true,
 		iDisplayLength : 100,
         scrollCollapse: true,
-		select: true,
-		select: {
-			style: 'none',
-			toggleable: false,
-		},
+		select: false,
 		columns : [
 		{
 			data : "name",
@@ -22,10 +18,11 @@ $(document).ready(function() {
 					result+='</span><span>' + row.email + '</span></h3>';
 					result+='<div class="secondary_name">' + row.createDate + '</div></div>';
 					result+='<div class="secondary_name s2">';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('ADMIN') ? ' checked' : '')+'><span>ADMIN</span></label>';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('MODERATOR') ? ' checked' : '')+'><span>MODERATOR</span></label>';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('SUPERUSER') ? ' checked' : '')+'><span>SUPERUSER</span></label>';
-					result+='<label><input class="role_button" type="checkbox" name="role"'+(row.roles.includes('USER') ? ' checked' : '')+'><span>USER</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('USER') ? ' checked' : '')+'><span>USER</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('SUPERUSER') ? ' checked' : '')+'><span>SUPERUSER</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('WRITER') ? ' checked' : '')+'><span>WRITER</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('MODERATOR') ? ' checked' : '')+'><span>MODERATOR</span></label>';
+					result+='<label class="check_block"><input class="role_button check" type="checkbox" name="role"'+(row.roles.includes('ADMIN') ? ' checked' : '')+'><span>ADMIN</span></label>';
 					result+='</div>';
 					return result;
 				}
@@ -35,6 +32,10 @@ $(document).ready(function() {
 		{
 			data : "email",
 		},
+		{
+			data : "roles",
+            searchable: false,
+		},
 		],
 		columnDefs : [
 			{
@@ -42,7 +43,7 @@ $(document).ready(function() {
 				"visible": true
 			},
 			{
-				"targets": [1],
+				"targets": [1, 2],
 				"visible": false
 			},
 		],
@@ -89,6 +90,23 @@ $('#text_clear').on('click', function () {
 });
 $('#btn_filters').on('click', function() {
 	$('#searchPanes').toggleClass('hide_block');
-
 	$('#btn_filters').toggleClass('open');
+});
+$('.role_checkbox').on('change', function (e) {
+    let properties = $('input:checkbox[name="role"]:checked').map(function () {
+        return this.value;
+    }).get().join('|');
+    $('#users').DataTable().column(2).search(properties, true, false, false).draw();
+    if (properties) {
+        $('#role_clear_btn').removeClass('hide_block');
+    } else {
+        $('#role_clear_btn').addClass('hide_block');
+    }
+    saveFilter('users');
+});
+$('#role_clear_btn').on('click', function () {
+    $('#role_clear_btn').addClass('hide_block');
+    $('.role_checkbox').prop('checked', false);
+    $('#users').DataTable().column(2).search("", true, false, false).draw();
+    saveFilter('users');
 });
