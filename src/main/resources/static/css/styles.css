@@ -1190,7 +1190,8 @@ body:before {
   flex-direction: row;
   margin: 32px 32px -16px 32px;
   padding: 16px 16px 0px 16px;
-  background-color: var(--primary-active);
+  background-color: var(--hover);
+  /* background-color: var(--primary-active); */
   border-radius: 16px;
   width: 600px;
 }
@@ -1210,7 +1211,7 @@ body:before {
 .main_page_wrapper .dnd5club_tel_bot h4,
 .main_page_wrapper .dnd5club_tel_bot a,
 .main_page_wrapper .dnd5club_tel_bot p {
-  color: var(--text-btn-color);
+  /* color: var(--text-btn-color); */
 }
 
 .main_page_wrapper .dnd5club_tel_bot i {
@@ -1220,7 +1221,8 @@ body:before {
 }
 
 .main_page_wrapper .dnd5club_tel_bot i path {
-  stroke: var(--text-btn-color);
+  /* stroke: var(--text-btn-color); */
+  stroke: var(--primary);
 }
 
 .main_page_wrapper .dnd5club_tel_bot .info h4 {
