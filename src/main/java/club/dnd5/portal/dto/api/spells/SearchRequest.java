@@ -1,9 +1,6 @@
 package club.dnd5.portal.dto.api.spells;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
@@ -17,12 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpellRequestDto {
-    public Integer page;
-    public Integer limit = -1;
-    public SearchRequest search;
-    public SpellFilter filter;
-
-    @JsonProperty("order")
-    public List<Order> orders;
+public class SearchRequest {
+	private String value;
+	private Boolean exact;
 }
