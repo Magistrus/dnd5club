@@ -51,7 +51,7 @@ public class ArticleController {
 	
 	@GetMapping("/profile/articles")
 	public String getProfileArticles(Model model, String status, Principal principal, HttpServletRequest request) {
-		Optional<User> user = usersRepository.findByName(principal.getName());
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		if (!user.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
@@ -64,7 +64,7 @@ public class ArticleController {
 	@GetMapping("/profile/articles/form")
 	public String getProfileArticleForm(Model model, Principal principal, HttpServletRequest request) {
 		Article article = new Article();
-		Optional<User> user = usersRepository.findByName(principal.getName());
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		article.setAuthor(user.get().getName());
 		model.addAttribute("article", article);
 		model.addAttribute("version", version);
@@ -73,7 +73,7 @@ public class ArticleController {
 	
 	@PostMapping(value = "/profile/articles", params = "save")
 	public String saveArticle(Model model, Principal principal, Article article) {
-		Optional<User> creator = usersRepository.findByName(principal.getName());
+		Optional<User> creator = usersRepository.findByEmail(principal.getName());
 		article = service.save(article, creator.get());
 		model.addAttribute("article", article);
 		model.addAttribute("version", version);
@@ -89,7 +89,7 @@ public class ArticleController {
 	
 	@PostMapping(value = "/profile/articles", params = "delete")
 	public String deleteArticle(Model model, Principal principal, Article article) {
-		Optional<User> creator = usersRepository.findByName(principal.getName());
+		Optional<User> creator = usersRepository.findByEmail(principal.getName());
 		article.setStatus(ArtricleStatus.REMOVED);
 		article.setDeleted(LocalDateTime.now());
 		article = service.save(article, creator.get());
@@ -99,7 +99,7 @@ public class ArticleController {
 	
 	@PostMapping(value = "/profile/articles", params = "moderate")
 	public String moderateArticle(Model model, Principal principal, Article article) {
-		Optional<User> user = usersRepository.findByName(principal.getName());
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		article.setStatus(ArtricleStatus.MODERATION);
 		article.setModerated(LocalDateTime.now());
 		User currentUser = user.get();
@@ -110,7 +110,7 @@ public class ArticleController {
 	
 	@PostMapping(value = "/profile/articles", params = "publishe")
 	public String publisheArticle(Model model, Principal principal, Article article) {
-		Optional<User> user = usersRepository.findByName(principal.getName());
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		article.setStatus(ArtricleStatus.PUBLISHED);
 		article.setPublished(LocalDateTime.now());
 		User currentUser = user.get();

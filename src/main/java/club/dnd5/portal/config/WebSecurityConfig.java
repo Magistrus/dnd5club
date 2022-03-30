@@ -34,10 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().antMatchers("/robots.txt").permitAll();
 
-		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/profile", true).permitAll();
+		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll();
 		http.authorizeRequests().and().logout().logoutSuccessUrl("/").permitAll();
 
-		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error");
+		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error.html");
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 		http.cors().and().csrf().disable();
 

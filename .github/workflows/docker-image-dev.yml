@@ -37,5 +37,5 @@ jobs:
         script: |
           docker stop devdnd5club && docker rm devdnd5club
           docker pull magistrus/dnd5club:latest
-          docker run --network dev-dnd5-mysql-new --name devdnd5club -p 9393:8080 -d -e spring.profiles.active=prod -e dbhost=mysql-dev -e dbport=3306  -e dbuser=${{ secrets.DB_USER  }} -e dbpassword=${{ secrets.DB_PASSWORD }} -e dbname=dnd5 magistrus/dnd5club 
+          docker run --network dev-dnd5-mysql-new --name devdnd5club -p 9393:8080 -d -e spring.profiles.active=prod -e dbhost=mysql-dev -e dbport=3306  -e dbuser=${{ secrets.DB_USER  }} -e dbpassword=${{ secrets.DB_PASSWORD }} -e dbname=dnd5 magistrus/dnd5club -e emailpassword=${{ secrets.EMAIL_PASSWORD }}
           docker rmi $(docker images --filter "dangling=true" -q --no-trunc) &
