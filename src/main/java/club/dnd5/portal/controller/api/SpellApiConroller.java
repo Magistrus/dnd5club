@@ -1,16 +1,14 @@
 package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
-import org.springframework.data.jpa.datatables.mapping.Order;
 import org.springframework.data.jpa.datatables.mapping.Search;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.spells.SpellApiDto;
 import club.dnd5.portal.dto.api.spells.SpellRequestDto;
+import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController
@@ -68,18 +67,16 @@ public class SpellApiConroller {
 		if (request.getPage() != null) {
 			input.setStart(request.getPage());
 		}
-		
+		Specification<Spell> specification = null;
 		//input.setOrder(Arrays.asList(new Order(0, "asc")));
 		if (request.getSearch() != null) {
 			if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
-				input.getColumns().get(0).getSearch().setRegex(Boolean.TRUE);
-				input.getColumns().get(0).getSearch()
-					.setValue(String.format("%s", request.getSearch().getValue().toUpperCase()));
+				specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());
 			} else {
 				input.getSearch().setValue(request.getSearch().getValue());
 				input.getSearch().setRegex(Boolean.FALSE);
 			}
 		}
-		return repo.findAll(input, SpellApiDto::new).getData();
+		return repo.findAll(input, specification, specification, SpellApiDto::new).getData();
 	}
 }
