@@ -29,6 +29,7 @@ public class Screen {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String altName;
 	private String englishName;
 	private String category;
 	

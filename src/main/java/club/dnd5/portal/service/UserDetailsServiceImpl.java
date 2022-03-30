@@ -1,6 +1,7 @@
 package club.dnd5.portal.service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +16,6 @@ import club.dnd5.portal.model.user.Role;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 
-
 @Service
 @Transactional(readOnly = true)
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -23,11 +23,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserRepository usersRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = usersRepository.findByName(userName)
-				.orElseThrow(() -> new UsernameNotFoundException("Email " + userName + " not found"));
-		return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
-				getAuthorities(user));
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	    boolean accountNonExpired = true;
+	    boolean credentialsNonExpired = true;
+	    boolean accountNonLocked = true;
+		Optional<User> user = usersRepository.findByEmail(email);
+		if (!user.isPresent()) {
+            throw new UsernameNotFoundException(
+              "Не найден пользователь с электронным адресом: " + email);
+        }
+		User foundUser = user.get();
+        return new org.springframework.security.core.userdetails.User(
+        		foundUser.getEmail(), 
+        		foundUser.getPassword(), 
+        		foundUser.isEnabled(), 
+                accountNonExpired, 
+                credentialsNonExpired, 
+                accountNonLocked, 
+                getAuthorities(foundUser));
 	}
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
@@ -35,7 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				.map(Role::getName)
 				.map(s -> "ROLE_" + s)
 				.toArray(String[]::new);
-		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
-		return authorities;
+		return AuthorityUtils.createAuthorityList(userRoles);
 	}
 }

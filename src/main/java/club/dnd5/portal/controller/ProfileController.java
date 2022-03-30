@@ -30,7 +30,7 @@ public class ProfileController {
 	
 	@GetMapping ("/profile")
 	public String getProfileForm(Model model, Principal principal, HttpServletRequest request) {
-		Optional<User> user = usersRepository.findByName(principal.getName());
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		if (!user.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
