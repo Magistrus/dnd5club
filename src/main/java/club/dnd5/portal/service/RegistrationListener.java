@@ -37,7 +37,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 		String recipientAddress = user.getEmail();
 		String subject = "Потверждение регистрации";
 		
-		String confirmationUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build() + "/confirm?token=" + token;
+		String confirmationUrl = "https://dev.dnd5.club/confirm?token=" + token;
 		String message = "Потвердите ваш email адресс перейдя по ссылке:";
 
 		SimpleMailMessage email = new SimpleMailMessage();
