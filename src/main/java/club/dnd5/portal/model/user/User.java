@@ -41,7 +41,7 @@ public class User {
 	private List<Role> roles;
 
     @Column(name = "enabled")
-    private boolean enabled = true;
+    private boolean enabled;
 
 	public User(UserRegForm userForm) {
 		this.name = userForm.getName();
