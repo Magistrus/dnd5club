@@ -1,7 +1,6 @@
 package club.dnd5.portal.controller;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,7 +23,6 @@ import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.VerificationToken;
 import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.service.OnRegistrationCompleteEvent;
-import club.dnd5.portal.service.SecurityService;
 import club.dnd5.portal.service.UserAlreadyExistException;
 import club.dnd5.portal.service.UserService;
 
@@ -36,9 +34,6 @@ public class UserController {
 	@Autowired
 	private RoleRepository roleRepository;
 
-	@Autowired
-	private SecurityService securityService;
-	
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
 	
@@ -60,7 +55,7 @@ public class UserController {
 	}
 
 	@PostMapping("/registration")
-	public String registration(@Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
+	public String registration(Model model, @Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
 			return "user/registration";
 		}
@@ -80,7 +75,8 @@ public class UserController {
 		try {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-			return "redirect:/confirm/bad";
+	        model.addAttribute("message", exception.getMessage());
+			return "user/confirm";
 		}
 		return "redirect:/confirm";
 	}
