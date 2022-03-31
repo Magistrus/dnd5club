@@ -60,7 +60,7 @@ public class UserController {
 	}
 
 	@PostMapping("/registration")
-	public String registration(@Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
+	public String registration(Model model, @Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
 			return "user/registration";
 		}
@@ -80,8 +80,9 @@ public class UserController {
         String appUrl = request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
           request.getLocale(), appUrl));
-		securityService.autologin(userForm.getName(), userForm.getPasswordConfirm());
-		return "redirect:/profile";
+        String message = "Регистрация пошла успешно. На ваш электронный адрес <strong>" + registered.getEmail() + "</strong> отправлено письмо с для потверждения решистрации.";
+        model.addAttribute("message", message);
+        return "forward:/confirm/bad";
 	}
 
 	@GetMapping("/regitrationConfirm")
@@ -101,7 +102,8 @@ public class UserController {
 	    } 
 	    user.setEnabled(true); 
 	    userService.saveUser(user);
-	    return "redirect:/login"; 
+		securityService.autologin(user.getName(), user.getPassword());
+	    return "redirect:/profile"; 
 	}
 	
 	@GetMapping("/confirm/bad")
