@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveRegisteredUser(User user) throws UserAlreadyExistException {
+	public User saveRegisteredUser(User user) throws UserAlreadyExistException {
 		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
 			throw new UserAlreadyExistException("Пользователь с таким электронным адресом уже зарегистрирован");
 		}
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 		}
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setRoles(roleRepository.findAllById(Collections.singleton(1L)));
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Override
@@ -88,5 +88,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void saveUser(User user) {
 		userRepository.save(user);
+	}
+
+	@Override
+	public void remove(User user) {
+		userRepository.delete(user);
 	}
 }

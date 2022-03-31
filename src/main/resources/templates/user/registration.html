@@ -16,12 +16,12 @@
 						</a>
 					</div>
 					<div>
-						<input th:field="*{name}" type="text" class="form-control" placeholder="Имя пользователя" aria-label="Имя пользователя" aria-describedby="basic-addon1" />
-						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Неверное имя</div>
-					</div>
-					<div>
 						<input th:field="*{email}" type="text" class="form-control" placeholder="Электронный адрес" aria-label="Электронный адрес" aria-describedby="basic-addon1" />
 						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Неверный электронный адрес</div>
+					</div>
+					<div>
+						<input th:field="*{name}" type="text" class="form-control" placeholder="Имя пользователя" aria-label="Имя пользователя" aria-describedby="basic-addon1" />
+						<div class="form-text text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Неверное имя</div>
 					</div>
 					<div>
 						<input th:field="*{password}" type="password" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="basic-addon2" />

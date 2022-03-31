@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,9 @@ public class UserController {
 	
 	@Value("${git.commit.id}")
 	private String version;
+	
+	@Autowired
+	private Environment env; 
 
 	@GetMapping("/admin/users")
 	public String getUsers(Model model) {
@@ -70,15 +74,18 @@ public class UserController {
 		} catch (UserAlreadyExistException uaeEx) {
 			ObjectError error = new ObjectError("userExist", uaeEx.getMessage());
 			bindingResult.addError(error);
-	        return "user/registration";
-	    } 
+			return "user/registration";
+		} 
 		try {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-	        model.addAttribute("message", exception.getMessage());
+			model.addAttribute("message", "Ошибка отправки уведомления о регистрации: " + exception.getMessage() + env.getProperty("spring.mail.username"));
+			userService.remove(registered);
 			return "user/confirm";
 		}
-		return "redirect:/confirm";
+        final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
+        model.addAttribute("message", message);
+		return "user/confirm";
 	}
 
 	@GetMapping("/registration/confirm")
