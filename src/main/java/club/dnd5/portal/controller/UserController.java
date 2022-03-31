@@ -74,12 +74,12 @@ public class UserController {
 		} catch (UserAlreadyExistException uaeEx) {
 			ObjectError error = new ObjectError("userExist", uaeEx.getMessage());
 			bindingResult.addError(error);
-	        return "user/registration";
-	    } 
+			return "user/registration";
+		} 
 		try {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-	        model.addAttribute("message", env.getProperty("spring.mail.password"));
+			model.addAttribute("message", env.getProperty("spring.mail.password"));
 			return "user/confirm";
 		}
 		return "redirect:/confirm";
