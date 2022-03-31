@@ -1,5 +1,7 @@
 package club.dnd5.portal.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,21 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
 	@Override
 	public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-		this.confirmRegistration(event);
+		try {
+			this.confirmRegistration(event);
+		} catch (UnknownHostException e) {
+		}
 	}
 
-	private void confirmRegistration(OnRegistrationCompleteEvent event) {
+	private void confirmRegistration(OnRegistrationCompleteEvent event) throws UnknownHostException {
 		User user = event.getUser();
 		String token = UUID.randomUUID().toString();
 		service.createVerificationToken(user, token);
 
 		String recipientAddress = user.getEmail();
 		String subject = "Потверждение регистрации";
-		String confirmationUrl = "https://" + event.getAppUrl() + "/registration/confirm?token=" + token;
+		
+		String confirmationUrl = "https://" + InetAddress.getLocalHost().getHostAddress() + "/registration/confirm?token=" + token;
 		String message = "Потвердите ваш email адресс перейдя по ссылке:";
 
 		SimpleMailMessage email = new SimpleMailMessage();
