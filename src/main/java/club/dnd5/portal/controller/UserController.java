@@ -77,15 +77,12 @@ public class UserController {
 			bindingResult.addError(error);
 	        return "user/registration";
 	    } 
-        String appUrl = request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
-          request.getLocale(), appUrl));
-        String message = "Регистрация пошла успешно. На ваш электронный адрес <strong>" + registered.getEmail() + "</strong> отправлено письмо с для потверждения решистрации.";
-        model.addAttribute("message", message);
-        return "forward:/confirm/bad";
+          request.getLocale(), request.getContextPath()));
+        return "redirect:/confirm";
 	}
 
-	@GetMapping("/regitrationConfirm")
+	@GetMapping("/registration/confirm")
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
 	    VerificationToken verificationToken = userService.getVerificationToken(token);
 	    if (verificationToken == null) {
@@ -96,18 +93,25 @@ public class UserController {
 	    User user = verificationToken.getUser();
 	    Calendar cal = Calendar.getInstance();
 	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-	        String messageValue = "Время потверждения истекло";
+	    	final String messageValue = "Время потверждения истекло";
 	        model.addAttribute("message", messageValue);
-	        return "forward:/confirm/bad";
+	        return "forward:/confirm/";
 	    } 
 	    user.setEnabled(true); 
 	    userService.saveUser(user);
 		securityService.autologin(user.getName(), user.getPassword());
-	    return "redirect:/profile"; 
+	    return "redirect:/"; 
+	}
+	
+	@GetMapping("/confirm")
+	public String getConfirm(Model model) {
+        final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
+        model.addAttribute("message", message);
+		return "user/confirm";
 	}
 	
 	@GetMapping("/confirm/bad")
-	public String getConfirm() {
+	public String getConfirmBad() {
 		return "user/confirm";
 	}
 	
