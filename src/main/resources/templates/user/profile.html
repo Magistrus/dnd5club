@@ -31,7 +31,7 @@
 					<div class="block_card">
 						<div class="card">
 							<h5>Статьи</h5>
-							<p>Чернавики: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
+							<p>Черновики: <span><a href="/profile/articles" th:text="${all_article_count}">0</a></span></p>
 							<p>На проверке: <span><a href="#" th:text="${moderate_user_article_count}">0</a></span></p>
 							<p sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Ожидают модерации: <span><a href="#" th:text="${moderate_article_count}">0</a></span></p>
 							<div class="row bottom">
