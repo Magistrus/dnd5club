@@ -1,7 +1,6 @@
 package club.dnd5.portal.controller;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,7 +23,6 @@ import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.VerificationToken;
 import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.service.OnRegistrationCompleteEvent;
-import club.dnd5.portal.service.SecurityService;
 import club.dnd5.portal.service.UserAlreadyExistException;
 import club.dnd5.portal.service.UserService;
 
@@ -36,9 +34,6 @@ public class UserController {
 	@Autowired
 	private RoleRepository roleRepository;
 
-	@Autowired
-	private SecurityService securityService;
-	
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
 	
@@ -60,7 +55,7 @@ public class UserController {
 	}
 
 	@PostMapping("/registration")
-	public String registration(@Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
+	public String registration(Model model, @Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
 			return "user/registration";
 		}
@@ -77,35 +72,51 @@ public class UserController {
 			bindingResult.addError(error);
 	        return "user/registration";
 	    } 
-        String appUrl = request.getContextPath();
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
-          request.getLocale(), appUrl));
-		securityService.autologin(userForm.getName(), userForm.getPasswordConfirm());
-		return "redirect:/profile";
+		try {
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
+		} catch (Exception exception) {
+	        model.addAttribute("message", exception.getMessage());
+			return "user/confirm";
+		}
+		return "redirect:/confirm";
 	}
 
-	@GetMapping("/regitrationConfirm")
+	@GetMapping("/registration/confirm")
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
 	    VerificationToken verificationToken = userService.getVerificationToken(token);
 	    if (verificationToken == null) {
-	        String message = "Неверный токен";
+	        String message = "Неверный токен!";
 	        model.addAttribute("message", message);
 	        return "forward:/confirm/bad";
 	    }
 	    User user = verificationToken.getUser();
 	    Calendar cal = Calendar.getInstance();
 	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-	        String messageValue = "Время потверждения истекло";
+	    	final String messageValue = "Время потверждения истекло!";
 	        model.addAttribute("message", messageValue);
 	        return "forward:/confirm/bad";
 	    } 
 	    user.setEnabled(true); 
 	    userService.saveUser(user);
-	    return "redirect:/login"; 
+	    return "redirect:/confirm/done"; 
+	}
+
+	@GetMapping("/confirm")
+	public String getConfirm(Model model) {
+        final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
+        model.addAttribute("message", message);
+		return "user/confirm";
+	}
+
+	@GetMapping("/confirm/done")
+	public String getConfirmDone(Model model) {
+        final String message = "Ваш электронный адрес потвержден. Вы можете перейти к авторизации.";
+        model.addAttribute("message", message);
+		return "user/confirm";
 	}
 	
 	@GetMapping("/confirm/bad")
-	public String getConfirm() {
+	public String getConfirmBad() {
 		return "user/confirm";
 	}
 	
