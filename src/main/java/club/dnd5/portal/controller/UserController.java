@@ -40,6 +40,9 @@ public class UserController {
 	@Value("${git.commit.id}")
 	private String version;
 
+	@Value("${spring.mail.password}")
+	private String password;
+	
 	@GetMapping("/admin/users")
 	public String getUsers(Model model) {
 		model.addAttribute("roles", roleRepository.findAll());
@@ -73,9 +76,9 @@ public class UserController {
 	        return "user/registration";
 	    } 
 		try {
-			//eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-	        model.addAttribute("message", exception.getMessage());
+	        model.addAttribute("message", password);
 			return "user/confirm";
 		}
 		return "redirect:/confirm";
