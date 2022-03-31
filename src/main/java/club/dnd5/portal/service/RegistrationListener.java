@@ -1,17 +1,12 @@
 package club.dnd5.portal.service;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import club.dnd5.portal.model.user.User;
 
