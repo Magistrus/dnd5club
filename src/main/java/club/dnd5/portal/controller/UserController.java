@@ -95,17 +95,23 @@ public class UserController {
 	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
 	    	final String messageValue = "Время потверждения истекло";
 	        model.addAttribute("message", messageValue);
-	        return "forward:/confirm/";
+	        return "forward:/confirm/bad";
 	    } 
 	    user.setEnabled(true); 
 	    userService.saveUser(user);
-		securityService.autologin(user.getName(), user.getPassword());
-	    return "redirect:/"; 
+	    return "forward:/confirm/done"; 
 	}
 	
 	@GetMapping("/confirm")
 	public String getConfirm(Model model) {
         final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
+        model.addAttribute("message", message);
+		return "user/confirm";
+	}
+	
+	@GetMapping("/confirm/done")
+	public String getConfirmDone(Model model) {
+        final String message = "Ваш электронный адрес потвержден. Вы можете перейти к авторизации.";
         model.addAttribute("message", message);
 		return "user/confirm";
 	}
