@@ -60,7 +60,7 @@ public class UserController {
 	}
 
 	@PostMapping("/registration")
-	public String registration(Model model, @Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
+	public String registration(@Valid @ModelAttribute("user") UserRegForm userForm, BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
 			return "user/registration";
 		}
@@ -77,8 +77,11 @@ public class UserController {
 			bindingResult.addError(error);
 	        return "user/registration";
 	    } 
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
-          request.getLocale(), request.getContextPath()));
+		try {
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
+		} catch (Exception exception) {
+			return "redirect:/confirm/bad";
+		}
         return "redirect:/confirm";
 	}
 
@@ -101,14 +104,14 @@ public class UserController {
 	    userService.saveUser(user);
 	    return "redirect:/confirm/done"; 
 	}
-	
+
 	@GetMapping("/confirm")
 	public String getConfirm(Model model) {
         final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
         model.addAttribute("message", message);
 		return "user/confirm";
 	}
-	
+
 	@GetMapping("/confirm/done")
 	public String getConfirmDone(Model model) {
         final String message = "Ваш электронный адрес потвержден. Вы можете перейти к авторизации.";
