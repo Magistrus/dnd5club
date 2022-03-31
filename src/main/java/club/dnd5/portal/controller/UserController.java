@@ -82,7 +82,9 @@ public class UserController {
 			model.addAttribute("message", env.getProperty("spring.mail.password"));
 			return "user/confirm";
 		}
-		return "redirect:/confirm";
+        final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
+        model.addAttribute("message", message);
+		return "user/confirm";
 	}
 
 	@GetMapping("/registration/confirm")
