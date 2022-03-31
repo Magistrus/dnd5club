@@ -79,7 +79,7 @@ public class UserController {
 		try {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-			model.addAttribute("message", "Ошибка отправки уведомления о регистрации: " + exception.getMessage() + env.getProperty("spring.mail.password"));
+			model.addAttribute("message", "Ошибка отправки уведомления о регистрации: " + exception.getMessage() + env.getProperty("spring.mail.username"));
 			userService.remove(registered);
 			return "user/confirm";
 		}
