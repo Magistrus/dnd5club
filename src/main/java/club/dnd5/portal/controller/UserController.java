@@ -75,7 +75,8 @@ public class UserController {
 		try {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-			model.addAttribute("message", "Ошибка отправки уведомления о регистрации");
+			model.addAttribute("message", "Ошибка отправки уведомления о регистрации: " + exception.getMessage());
+
 			return "user/confirm";
 		}
         final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
