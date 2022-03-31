@@ -82,7 +82,7 @@ public class UserController {
 		} catch (Exception exception) {
 			return "redirect:/confirm/bad";
 		}
-        return "redirect:/confirm";
+		return "redirect:/confirm";
 	}
 
 	@GetMapping("/registration/confirm")
