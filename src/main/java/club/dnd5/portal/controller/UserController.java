@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,9 +40,6 @@ public class UserController {
 	@Value("${git.commit.id}")
 	private String version;
 
-	@Autowired
-	private Environment env;
-	
 	@GetMapping("/admin/users")
 	public String getUsers(Model model) {
 		model.addAttribute("roles", roleRepository.findAll());
@@ -79,7 +75,7 @@ public class UserController {
 		try {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
-			model.addAttribute("message", env.getProperty("spring.mail.password"));
+			model.addAttribute("message", "Ошибка отправки уведомления о регистрации");
 			return "user/confirm";
 		}
         final String message = "Регистрация пошла успешно. На ваш электронный адрес отправлено письмо для потверждения регистрации.";
