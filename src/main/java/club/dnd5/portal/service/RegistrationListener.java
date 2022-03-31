@@ -4,11 +4,14 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import club.dnd5.portal.model.user.User;
 
@@ -23,13 +26,10 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
 	@Override
 	public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-		try {
-			this.confirmRegistration(event);
-		} catch (UnknownHostException e) {
-		}
+		this.confirmRegistration(event);
 	}
 
-	private void confirmRegistration(OnRegistrationCompleteEvent event) throws UnknownHostException {
+	private void confirmRegistration(OnRegistrationCompleteEvent event) {
 		User user = event.getUser();
 		String token = UUID.randomUUID().toString();
 		service.createVerificationToken(user, token);
@@ -37,7 +37,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 		String recipientAddress = user.getEmail();
 		String subject = "Потверждение регистрации";
 		
-		String confirmationUrl = "https://" + InetAddress.getLocalHost().getHostName() + "/registration/confirm?token=" + token;
+		String confirmationUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build() + "/confirm?token=" + token;
 		String message = "Потвердите ваш email адресс перейдя по ссылке:";
 
 		SimpleMailMessage email = new SimpleMailMessage();
