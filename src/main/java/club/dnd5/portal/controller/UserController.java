@@ -73,7 +73,7 @@ public class UserController {
 	        return "user/registration";
 	    } 
 		try {
-			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
+			//eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), request.getContextPath()));
 		} catch (Exception exception) {
 	        model.addAttribute("message", exception.getMessage());
 			return "user/confirm";
