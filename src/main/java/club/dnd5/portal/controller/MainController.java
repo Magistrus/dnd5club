@@ -20,4 +20,9 @@ public class MainController {
 	public String getSearch() {
 		return "search";
 	}
+	@GetMapping("/page")
+	public String getPageText() {
+		return "page";
+	}
+	
 }
