@@ -86,20 +86,20 @@ public class UserController {
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
 	    VerificationToken verificationToken = userService.getVerificationToken(token);
 	    if (verificationToken == null) {
-	        String message = "Неверный токен";
+	        String message = "Неверный токен!";
 	        model.addAttribute("message", message);
 	        return "forward:/confirm/bad";
 	    }
 	    User user = verificationToken.getUser();
 	    Calendar cal = Calendar.getInstance();
 	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-	    	final String messageValue = "Время потверждения истекло";
+	    	final String messageValue = "Время потверждения истекло!";
 	        model.addAttribute("message", messageValue);
 	        return "forward:/confirm/bad";
 	    } 
 	    user.setEnabled(true); 
 	    userService.saveUser(user);
-	    return "forward:/confirm/done"; 
+	    return "redirect:/confirm/done"; 
 	}
 	
 	@GetMapping("/confirm")
