@@ -163,7 +163,7 @@ blockquote p:last-child {
   display: flex;
   align-items: center;
   margin-top: 24px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 h5.header_separator {
