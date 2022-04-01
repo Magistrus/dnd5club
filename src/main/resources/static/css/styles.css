@@ -3891,6 +3891,7 @@ button {
   background-color: var(--primary-hover);
 }
 
+.become-vk-button,
 .become-discord-button,
 .become-donations-button {
   background-color: #EF5C34;
@@ -3908,6 +3909,16 @@ button {
 
 .become-donations-button:hover {
   background-color: #d45124;
+  color: var(--text-btn-color);
+}
+
+.become-vk-button {
+  background-color: #1179FC;
+  background-image: url(/resources/assets/become-vk-button.svg);
+}
+
+.become-vk-button:hover {
+  background-color: #0765d8;
   color: var(--text-btn-color);
 }
 
