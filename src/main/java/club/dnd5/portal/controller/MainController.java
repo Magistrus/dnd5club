@@ -17,16 +17,19 @@ public class MainController {
 	}
 	
 	@GetMapping("/search")
-	public String getSearch() {
+	public String getSearch(Model model) {
+		model.addAttribute("version", version);
 		return "search";
 	}
 	@GetMapping("/page")
-	public String getPageText() {
+	public String getPageText(Model model) {
+		model.addAttribute("version", version);
 		return "page";
 	}
 	
 	@GetMapping("/telegram_bot")
-	public String getPageTelegrammBot() {
+	public String getPageTelegrammBot(Model model) {
+		model.addAttribute("version", version);
 		return "telegram_bot";
 	}
 }
