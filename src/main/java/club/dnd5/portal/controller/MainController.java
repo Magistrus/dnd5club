@@ -25,4 +25,8 @@ public class MainController {
 		return "page";
 	}
 	
+	@GetMapping("/telegram_bot")
+	public String getPageTelegrammBot() {
+		return "telegram_bot";
+	}
 }
