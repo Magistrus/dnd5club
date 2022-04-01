@@ -3,7 +3,7 @@
 <body id="body" class="overflow-hidden">
 	<div id="container" class="container">
 		<div class="row">
-			<div layout:fragment="content" class="article" data-simplebar>
+			<div layout:fragment="content" class="page_main" data-simplebar>
 				<div class="news_wrapper" th:object="${article}">
 					<div class="left">
 					</div>
@@ -64,7 +64,15 @@
 						</div>
 					</div>
 					<div class="right">
-						<div class="contents" data-simplebar>
+						<div class="btn_block">
+							<button id="publishe" name="publishe" sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn" value="publishe">Опубликовать</button>
+							<button th:if = "*{status eq 'MODERATION'}" id="reject" name="reject" sec:authorize="hasAnyRole('ADMIN','MODERATOR')" class="btn" value="reject">Отклонить</button>
+							<button id="moderate" name="moderate" class="btn" value="moderate">На проверку</button>
+							<button id="edit" name="edit" class="btn secondary" value="edit">Редактировать</button>
+							<button id="cancel" name="cancel" class="btn secondary" value="cancel">Назад</button>
+							<button id="delete" name="delete" th:unless="*{id eq null}" class="btn secondary" value="delete">Удалить</button>
+						</div>
+						<!-- <div class="contents" data-simplebar>
 							<ul class="list">
 								<li>Игроки опасаются столкновений, рассчитанных на полную группу</li>
 								<li>Игроки держатся вместе из вежливости по отношению к мастеру</li>
@@ -85,7 +93,7 @@
 									</ul>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

@@ -19,8 +19,9 @@
 								<time th:datetime="${article.created}" th:text="${article.lastDate}">05 марта 2022</time>
 								<span class="status" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>
 								<div class="btn_cont">
-									<a href="№">Предпросмотр</a>
-									<a th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a>
+									<a th:href="@{|/articles/${article.id}|}">Предпросмотр</a>
+									<a th:if="${article.status.name() eq 'CREATED'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a>
+									<a sec:authorize="hasAnyRole('ADMIN','MODERATOR')" th:if="${article.status.name() eq 'MODERATION'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Опубликовать</a>
 								</div>
 							</div>
 						</div>

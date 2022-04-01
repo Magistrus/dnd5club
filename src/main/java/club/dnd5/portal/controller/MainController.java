@@ -20,4 +20,13 @@ public class MainController {
 	public String getSearch() {
 		return "search";
 	}
+	@GetMapping("/page")
+	public String getPageText() {
+		return "page";
+	}
+	
+	@GetMapping("/telegram_bot")
+	public String getPageTelegrammBot() {
+		return "telegram_bot";
+	}
 }

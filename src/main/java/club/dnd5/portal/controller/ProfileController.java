@@ -30,13 +30,13 @@ public class ProfileController {
 	
 	@GetMapping ("/profile")
 	public String getProfileForm(Model model, Principal principal, HttpServletRequest request) {
-		Optional<User> user = usersRepository.findByName(principal.getName());
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		if (!user.isPresent()) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
 		User currentUser = user.get();
-		model.addAttribute("all_article_count", service.getCountArticlesByUser(user.get()));
+		model.addAttribute("all_article_count", service.getCountByUserAndStatus(currentUser, ArtricleStatus.CREATED));
 		model.addAttribute("moderate_article_count", service.getCountByStatus(ArtricleStatus.MODERATION));
 		model.addAttribute("moderate_user_article_count", service.getCountByUserAndStatus(currentUser, ArtricleStatus.MODERATION));
 		model.addAttribute("user_count", usersRepository.count()); 

@@ -11,8 +11,9 @@ import club.dnd5.portal.model.user.User;
 
 @Repository
 public interface UserRepository extends DataTablesRepository<User, Long> {
-    Optional<User> findByName(String name);
+	Optional<User> findByName(String name);
 	Optional<User> findByEmail(String email);
+
 	@Query("SELECT count(u) FROM User u LEFT JOIN u.roles r WHERE r.name = :role")
 	long countByRoles(@Param("role") String role);
 }

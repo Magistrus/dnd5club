@@ -90,6 +90,7 @@ ol,
 ul {
   color: var(--text-color);
   padding-left: 24px;
+  margin: 0 0 12px 0;
 }
 
 ul li {
@@ -163,7 +164,7 @@ blockquote p:last-child {
   display: flex;
   align-items: center;
   margin-top: 24px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 h5.header_separator {

@@ -74,4 +74,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public long getCountByUserAndStatus(User user, ArtricleStatus status) {
 		return repo.countByCreatorAndStatus(user, status);
 	}
+
+	@Override
+	public Collection<Article> findAllByCreatorAndStatus(User user, ArtricleStatus status) {
+		return repo.findAllByCreatorAndStatusOrderByCreatedDesc(user, status);
+	}
 }

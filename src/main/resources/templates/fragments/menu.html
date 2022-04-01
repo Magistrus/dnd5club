@@ -165,17 +165,17 @@
 					<li><a th:href="@{/items/magic}">Магические предметы</a></li>
 				</ul>
 			</li>
-			<li id="gods_item_menu">
-				<a th:href="@{/gods}">
+			<li id="screens_item_menu">
+				<a th:href="@{/screens}">
 					<i class="icon_menu">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M12 21V3M12 21C9.3345 21 6.93964 19.8412 5.29168 18M12 21C14.6655 21 17.0604 19.8412 18.7083 18M12 3C7.02944 3 3 7.02944 3 12C3 14.3051 3.86656 16.4077 5.29168 18M12 3C16.9706 3 21 7.02944 21 12C21 14.3051 20.1334 16.4077 18.7083 18M5.29168 18C5.29168 18 8 16.5 12 16.5C16 16.5 18.7083 18 18.7083 18M5.29168 6C5.29168 6 8 7.5 12 7.5C16 7.5 18.7083 6 18.7083 6" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M9 9H15M9 11.5H13M17 9H20V16M9 14H14M2 6H8H16H22V19H16H8H2V6ZM4 9H7V12H4V9ZM4 14H7V16H4V14Z" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</i>
-					<span class="link_name">Боги</span>
+					<span class="link_name">Ширма</span>
 				</a>
 				<ul class="sub_menu blank">
-					<li class="link_name"><span>Боги</span></li>
+					<li class="link_name"><span>Ширма</span></li>
 				</ul>
 			</li>
 			<li id="workshop_item_menu">
@@ -183,22 +183,22 @@
 					<a>
 						<i class="icon_menu">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M9 9H15M9 11.5H13M17 9H20V16M9 14H14M2 6H8H16H22V19H16H8H2V6ZM4 9H7V12H4V9ZM4 14H7V16H4V14Z" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
+								<path d="M20 19V3.5C20 2.67157 19.3284 2 18.5 2H7M20 19V21.5C20 22.3284 19.3284 23 18.5 23H5.5C4.67157 23 4 22.3284 4 21.5V20M20 19H7M7 2H5.5C4.67157 2 4 2.67157 4 3.5V15V17.5C4 18.3284 4.67157 19 5.5 19H7M7 2V9.5V14M7 19V16M12 16H15M10 6V7C10 7.55228 10.4477 8 11 8H16C16.5523 8 17 7.55228 17 7V6C17 5.44772 16.5523 5 16 5H11C10.4477 5 10 5.44772 10 6Z" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>									
 						</i>
-						<span class="link_name">Мастерская</span>
+						<span class="link_name">База знаний</span>
 					</a>
 					<i class="arrow icon_menu">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
+						</svg>						
 					</i>
 				</div>
 				<ul class="sub_menu">
-					<li class="link_name"><span>Мастерская</span></li>
-					<li><a th:href="@{/screens}">Ширма</a></li>
-					<li><a th:href="@{/conditions}">Состояния и болезни</a></li>
+					<li class="link_name"><span>База знаний</span></li>
+					<li><a th:href="@{/gods}">Боги</a></li>
 					<li><a th:href="@{/rules}">Правила и термины</a></li>
+					<li><a th:href="@{/books}">Источники</a></li>
 				</ul>
 			</li>
 			<li id="instruments_item_menu">
@@ -226,7 +226,6 @@
 					<!-- <li><a th:href="@{/tools/items/magic}">Покупка магических вещей</a></li> -->
 					<li><a th:href="@{/tools/wildmagic}">Дикая магия</a></li>
 					<li><a th:href="@{/tools/madness}">Безумие</a></li>
-					<li><a th:href="@{/books}">Источники</a></li>
 				</ul>
 			</li>
 			<li>
