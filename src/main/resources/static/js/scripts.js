@@ -89,11 +89,11 @@ $(document).ready(function () {
         $('#items_item_menu').addClass('active');
     } else if (path.startsWith('/bestiary')) {
         $('#bestiary_item_menu').addClass('active');
-    } else if (path.startsWith('/gods')) {
-        $('#gods_item_menu').addClass('active');
-    } else if (path.startsWith('/screens') || path.startsWith('/conditions') || path.startsWith('/rules')) {
+    } else if (path.startsWith('/screens')) {
+        $('#screens_item_menu').addClass('active');
+    } else if (path.startsWith('/gods') || path.startsWith('/rules') || path.startsWith('/books')) {
         $('#workshop_item_menu').addClass('active');
-    } else if (path.startsWith('/tools/trader') || path.startsWith('/tools/encounters') || path.startsWith('/rules') || path.startsWith('/tools/treasury') || path.startsWith('/tools/tavern') || path.startsWith('/tools/wildmagic') || path.startsWith('/tools/madness') || path.startsWith('/books')) {
+    } else if (path.startsWith('/tools/trader') || path.startsWith('/tools/encounters') || path.startsWith('/rules') || path.startsWith('/tools/treasury') || path.startsWith('/tools/tavern') || path.startsWith('/tools/wildmagic') || path.startsWith('/tools/madness')) {
         $('#instruments_item_menu').addClass('active');
     }
 
