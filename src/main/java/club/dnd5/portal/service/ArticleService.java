@@ -14,10 +14,12 @@ public interface ArticleService {
 	
 	Collection<Article> findAllByStatus(ArtricleStatus status, Sort sort);
 	Collection<Article> findAllByCreator(User user);
+	Collection<Article> findAllByCreatorAndStatus(User user, ArtricleStatus created);
 
 	Article save(Article article, User creator);
 
 	long getCountArticlesByUser(User user);
 	long getCountByStatus(ArtricleStatus status);
 	long getCountByUserAndStatus(User user, ArtricleStatus status);
+
 }

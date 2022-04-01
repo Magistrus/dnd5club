@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +58,38 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("articles", service.findAllByCreator(user.get()));
+		model.addAttribute("version", version);
+		return "profile/articles";
+	}
+	
+	@GetMapping("/profile/articles/created")
+	public String getProfileCreatedArticles(Model model, String status, Principal principal, HttpServletRequest request) {
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
+		if (!user.isPresent()) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("articles", service.findAllByCreatorAndStatus(user.get(), ArtricleStatus.CREATED));
+		model.addAttribute("version", version);
+		return "profile/articles";
+	}
+	
+	@GetMapping("/profile/articles/moderated")
+	public String getProfileModeratedArticles(Model model, String status, Principal principal, HttpServletRequest request) {
+		Optional<User> user = usersRepository.findByEmail(principal.getName());
+		if (!user.isPresent()) {
+			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
+			return "forward: /error";
+		}
+		model.addAttribute("articles", service.findAllByCreatorAndStatus(user.get(), ArtricleStatus.MODERATION));
+		model.addAttribute("version", version);
+		return "profile/articles";
+	}
+	
+	@Secured({"ROLE_ADMIN", "ROLE_MODERATOR"})
+	@GetMapping("/profile/articles/moderate")
+	public String getProfileShoulBeModeratedArticles(Model model, String status, Principal principal, HttpServletRequest request) {
+		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.MODERATION, Sort.by(Direction.DESC, "moderated")));
 		model.addAttribute("version", version);
 		return "profile/articles";
 	}
@@ -108,6 +141,7 @@ public class ArticleController {
 		return "redirect:/profile/articles";
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_MODERATOR", "ROLE_WRITER"})
 	@PostMapping(value = "/profile/articles", params = "publishe")
 	public String publisheArticle(Model model, Principal principal, Article article) {
 		Optional<User> user = usersRepository.findByEmail(principal.getName());
@@ -119,6 +153,7 @@ public class ArticleController {
 		return "redirect:/profile/articles";
 	}
 
+	@Secured({"ROLE_ADMIN", "ROLE_MODERATOR"})
 	@PostMapping(value = "/profile/articles", params = "cancel")
 	public String cancelArticle(Model model, Principal principal, Article article) {
 		model.addAttribute("version", version);

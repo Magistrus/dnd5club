@@ -36,7 +36,7 @@ public class ProfileController {
 			return "forward: /error";
 		}
 		User currentUser = user.get();
-		model.addAttribute("all_article_count", service.getCountArticlesByUser(user.get()));
+		model.addAttribute("all_article_count", service.getCountByUserAndStatus(currentUser, ArtricleStatus.CREATED));
 		model.addAttribute("moderate_article_count", service.getCountByStatus(ArtricleStatus.MODERATION));
 		model.addAttribute("moderate_user_article_count", service.getCountByUserAndStatus(currentUser, ArtricleStatus.MODERATION));
 		model.addAttribute("user_count", usersRepository.count()); 
