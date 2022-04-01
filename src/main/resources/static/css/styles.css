@@ -748,10 +748,6 @@ label.select_box {
   position: relative;
 }
 
-.dnd5-popup-block .main {
-  height: 75vh;
-  margin-top: 16px;
-}
 
 .popup-modal-dismiss {
   right: 12px;
@@ -788,6 +784,7 @@ label.select_box {
 
 .dnd5-popup-block .wrapper {
   max-height: 65vh;
+  margin-top: 16px;
 }
 
 .dnd5-popup-block .header h4 {
