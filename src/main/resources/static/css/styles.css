@@ -740,17 +740,14 @@ label.select_box {
 
 /******** Всплывающие окно / popup ********/
 .dnd5-popup-block {
-
-}
-
-.dnd5-popup-block {
   width: 50%;
   max-height: 80vh;
   background: var(--bg-main);
   margin: 40px auto;
-  padding: 24px 24px 12px 24px;
+  padding: 24px 24px 24px 24px;
   position: relative;
 }
+
 
 .popup-modal-dismiss {
   right: 12px;
@@ -787,6 +784,7 @@ label.select_box {
 
 .dnd5-popup-block .wrapper {
   max-height: 65vh;
+  margin-top: 16px;
 }
 
 .dnd5-popup-block .header h4 {
