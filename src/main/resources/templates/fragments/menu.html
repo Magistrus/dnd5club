@@ -33,7 +33,7 @@
 	</div>
 	<nav>
 		<ul class="nav_links sidebar-menu">
-			<li class="profile_menu_button hidden_li hide_block" sec:authorize="isAnonymous()">
+			<li class="profile_menu_button hidden_li hide_block-" sec:authorize="isAnonymous()">
 				<a th:href="@{/loginform}" class="ajax-popup-link">
 					<i class="icon_menu">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@
 					<li class="link_name"><span>Вход в профиль</span></li>
 				</ul>
 			</li>
-			<li sec:authorize="isAuthenticated()" class="profile_menu_button hide_block">
+			<li sec:authorize="isAuthenticated()" class="profile_menu_button hide_block-">
 				<div class="dropdown">
 					<a>
 						<i class="icon_menu">
