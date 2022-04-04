@@ -6,6 +6,10 @@
   max-width: 660px;
 } */
 
+.ce-block {
+  max-width: 860px;
+}
+
 .editor_text .codex-editor__redactor {
   padding-bottom: 100px !important;
 }
@@ -26,10 +30,15 @@
   background-color: var(--hover);
 }
 
+.editor_text .ce-block--selected .ce-block__content {
+  background-color: var(--hover);
+}
+
 .editor_text .codex-editor--narrow .ce-toolbox {
   background-color: var(--bg-sub-menu);
 }
 
+.editor_text .ce-settings,
 .editor_text .ce-inline-toolbar {
   background-color: var(--bg-sub-menu);
   border: 1px solid var(--border);
