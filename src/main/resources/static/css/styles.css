@@ -317,7 +317,7 @@ label.check_block .check+span {
 
 /******** Поля ввода / input ********/
 input {
-  border-radius: 0px;
+  border-radius: 4px;
   border:1px solid var(--border);
   outline:none;
   padding: 0px 12px;
@@ -1948,6 +1948,7 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .header_block .search_block .search_int {
+  border-radius: 0px;
   border-top: none;
   border-bottom: none;
   border-right: none;
@@ -2758,6 +2759,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper.options .search_block .btn_search_icon,
 #right_block .info_wrapper.spells .search_block .btn_search_icon {
+  border-radius: 0px;
   height: 45px;
   width: 45px;
   bottom: 0;
