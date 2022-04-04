@@ -12,7 +12,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +32,6 @@ public class BackgroundController {
 	private BackgroundDatatableRepository repository;
 	
 	private Map<TypeBook, List<Book>> sources;
-
-	@Value("${git.commit.id}")
-	private String version;
 	
 	@PostConstruct
 	public void init() {
@@ -57,7 +53,6 @@ public class BackgroundController {
 		model.addAttribute("metaTitle", "Предыстории персонажей (Backgrounds) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds");
 		model.addAttribute("metaDescription", "Предыстории персонажей по D&D 5 редакции");
-		model.addAttribute("version", version);
 		return "backgrounds";
 	}
 	

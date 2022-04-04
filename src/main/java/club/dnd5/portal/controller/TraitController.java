@@ -10,7 +10,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +30,6 @@ public class TraitController {
 	
 	private Map<TypeBook, List<Book>> sources;
 
-	@Value("${git.commit.id}")
-	private String version;
-
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -53,7 +49,6 @@ public class TraitController {
 		model.addAttribute("metaTitle", "Черты (Traits) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/traits");
 		model.addAttribute("metaDescription", "Списко черт персонажей по D&D 5 редакции");
-		model.addAttribute("version", version);
 		return "traits";
 	}
 	
@@ -76,7 +71,6 @@ public class TraitController {
 		model.addAttribute("metaTitle", String.format("%s (%s)", trait.getName(), trait.getEnglishName()) + " | Черты D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/traits/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - черта персонажа по D&D 5-редакции", trait.getName(), trait.getEnglishName()));
-		model.addAttribute("version", version);
 		return "traits";
 	}
 	

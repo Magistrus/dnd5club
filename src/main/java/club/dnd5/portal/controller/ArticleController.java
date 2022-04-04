@@ -8,7 +8,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.annotation.Secured;
@@ -31,14 +30,10 @@ public class ArticleController {
 	
 	@Autowired
 	private UserRepository usersRepository;
-	
-	@Value("${git.commit.id}")
-	private String version;
 
 	@GetMapping("/articles")
 	public String getArticles(Model model) {
 		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.PUBLISHED, Sort.by(Direction.DESC, "published")));
-		model.addAttribute("version", version);
 		return "articles";
 	}
 
@@ -46,7 +41,6 @@ public class ArticleController {
 	public String getArticle(Model model, @PathVariable Integer id) {
 		Optional<Article> article = service.findById(id);
 		model.addAttribute("article", article.get());
-		model.addAttribute("version", version);
 		return "article";
 	}
 	
@@ -58,7 +52,6 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("articles", service.findAllByCreator(user.get()));
-		model.addAttribute("version", version);
 		return "profile/articles";
 	}
 	
@@ -70,7 +63,6 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("articles", service.findAllByCreatorAndStatus(user.get(), ArtricleStatus.CREATED));
-		model.addAttribute("version", version);
 		return "profile/articles";
 	}
 	
@@ -82,7 +74,6 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("articles", service.findAllByCreatorAndStatus(user.get(), ArtricleStatus.MODERATION));
-		model.addAttribute("version", version);
 		return "profile/articles";
 	}
 	
@@ -90,7 +81,6 @@ public class ArticleController {
 	@GetMapping("/profile/articles/moderate")
 	public String getProfileShoulBeModeratedArticles(Model model, String status, Principal principal, HttpServletRequest request) {
 		model.addAttribute("articles", service.findAllByStatus(ArtricleStatus.MODERATION, Sort.by(Direction.DESC, "moderated")));
-		model.addAttribute("version", version);
 		return "profile/articles";
 	}
 	
@@ -100,7 +90,6 @@ public class ArticleController {
 		Optional<User> user = usersRepository.findByEmail(principal.getName());
 		article.setAuthor(user.get().getName());
 		model.addAttribute("article", article);
-		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
 	
@@ -109,14 +98,12 @@ public class ArticleController {
 		Optional<User> creator = usersRepository.findByEmail(principal.getName());
 		article = service.save(article, creator.get());
 		model.addAttribute("article", article);
-		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
 	
 	@PostMapping(value = "/profile/articles", params = "preview")
 	public String previewArticle(Model model, Principal principal, Article article) {
 		model.addAttribute("article", article);
-		model.addAttribute("version", version);
 		return "article";
 	}
 	
@@ -126,7 +113,6 @@ public class ArticleController {
 		article.setStatus(ArtricleStatus.REMOVED);
 		article.setDeleted(LocalDateTime.now());
 		article = service.save(article, creator.get());
-		model.addAttribute("version", version);
 		return "redirect:/profile/articles";
 	}
 	
@@ -137,7 +123,6 @@ public class ArticleController {
 		article.setModerated(LocalDateTime.now());
 		User currentUser = user.get();
 		article = service.save(article, currentUser);
-		model.addAttribute("version", version);
 		return "redirect:/profile/articles";
 	}
 	
@@ -149,14 +134,12 @@ public class ArticleController {
 		article.setPublished(LocalDateTime.now());
 		User currentUser = user.get();
 		article = service.save(article, currentUser);
-		model.addAttribute("version", version);
 		return "redirect:/profile/articles";
 	}
 
 	@Secured({"ROLE_ADMIN", "ROLE_MODERATOR"})
 	@PostMapping(value = "/profile/articles", params = "cancel")
 	public String cancelArticle(Model model, Principal principal, Article article) {
-		model.addAttribute("version", version);
 		return "redirect:/profile/articles";
 	}
 	
@@ -168,7 +151,6 @@ public class ArticleController {
 			return "forward: /error";
 		}
 		model.addAttribute("article", article.get());
-		model.addAttribute("version", version);
 		return "profile/form_article";
 	}
 }
