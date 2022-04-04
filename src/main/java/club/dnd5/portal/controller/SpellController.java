@@ -10,7 +10,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +37,6 @@ public class SpellController {
 	@Autowired
 	private ArchetypeSpellRepository archetypeSpellRepository;
 
-	@Value("${git.commit.id}")
-	private String version;
-
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
@@ -60,7 +56,6 @@ public class SpellController {
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells");
 		model.addAttribute("metaDescription", "Заклинания по D&D 5 редакции");
-		model.addAttribute("version", version);
 		return "spells";
 	}
 	
@@ -83,7 +78,6 @@ public class SpellController {
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
 		model.addAttribute("metaDescription", String.format("%s %s, %s", (spellDto.getLevel() == 0 ? "Заговор" : spellDto.getLevel() + " уровень"), spellDto.getName(), spellDto.getSchool()));
 		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.webp", spell.getSchool().name()));
-		model.addAttribute("version", version);
 		return "spells";
 	}
 	

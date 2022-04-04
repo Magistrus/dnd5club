@@ -8,7 +8,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +23,11 @@ public class ScreenController {
 	@Autowired
 	private ScreenDatatableRepository repository;
 
-	@Value("${git.commit.id}")
-	private String version;
-
 	@GetMapping("/screens")
 	public String getScreens(Model model) {
 		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/screens");
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Драконов по D&D 5 редакции");
-		model.addAttribute("version", version);
 		return "screens";
 	}
 	
@@ -50,7 +45,6 @@ public class ScreenController {
 		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.getName(), screen.getEnglishName()));
-		model.addAttribute("version", version);
 		return "screens";
 	}
 	

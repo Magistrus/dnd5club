@@ -243,21 +243,23 @@ details[open] > summary.header_separator:after {
   opacity: 1;
 }
 
-summary::before {
-  content: '◀';
-  display: block;
-  top: 12px;
-  right: 8px;
-  position: absolute;
-  width: 16px;
-  height: 24px;
+summary:before {
   transform: rotate(-90deg);
-  font-size: 18px;
+  top: 16px;
+  right: 12px;
+  position: absolute;
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 12px 7px 0;
+  border-color: transparent currentColor transparent transparent;
 }
 
 details[open] > summary::before {
   transform: rotate(90deg);
-  top: 10px;
+  top: 14px;
 }
 
 @media (max-width: 800px) {
