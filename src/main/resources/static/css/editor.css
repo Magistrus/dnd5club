@@ -2,12 +2,23 @@
   
 }
 
-/* .editor_text .ce-block__content {
-  max-width: 660px;
-} */
+.editor_text .ce-block__content,
+.editor_text .ce-toolbar__content {
+  max-width: none;
+}
 
-.ce-block {
-  max-width: 860px;
+@media (max-width: 1200px) {
+  .editor_text .ce-block__content,
+  .editor_text .ce-toolbar__content {
+    max-width: calc(100% - 80px);
+  }
+}
+
+@media (max-width: 650px) {
+  .editor_text .ce-block__content,
+  .editor_text .ce-toolbar__content {
+    max-width: none;
+  }
 }
 
 .editor_text .codex-editor__redactor {
@@ -16,6 +27,10 @@
 
 .editor_text .codex-editor svg {
   fill: var(--text-color);
+}
+
+.editor_text .tc-toolbox__toggler svg rect {
+  fill: var(--hover);
 }
 
 .editor_text .ce-toolbar__plus--active, .ce-toolbar__plus:hover {
@@ -34,12 +49,65 @@
   background-color: var(--hover);
 }
 
+.editor_text .ce-inline-tool:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .ce-inline-toolbar__dropdown:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .ce-conversion-tool__icon {
+  background-color: var(--hover);
+}
+
+.editor_text .ce-settings__button:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .cdx-settings-button:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .tc-add-row:hover:before {
+  background-color: var(--hover);
+}
+
 .editor_text .codex-editor--narrow .ce-toolbox {
   background-color: var(--bg-sub-menu);
+}
+
+.editor_text .ce-conversion-toolbar {
+  background-color: var(--bg-sub-menu);
+  border: 1px solid var(--border);
 }
 
 .editor_text .ce-settings,
 .editor_text .ce-inline-toolbar {
   background-color: var(--bg-sub-menu);
   border: 1px solid var(--border);
+}
+
+.editor_text .tc-add-column,
+.editor_text .tc-wrap,
+.editor_text .tc-cell,
+.editor_text .tc-row,
+.editor_text .tc-table {
+  border-color: var(--border);
+}
+
+.editor_text .tc-add-column:hover, .editor_text .tc-add-row:hover {
+  background-color: var(--hover);
+}
+
+@media (max-width: 650px) {
+  .editor_text .ce-toolbar {
+    background-color: var(--bg-sub-menu);
+    border: 1px solid var(--border);
+  }
+
+  .editor_text .ce-toolbox {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
