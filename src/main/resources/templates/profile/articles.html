@@ -20,7 +20,7 @@
 								<span class="status" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>
 								<div class="btn_cont">
 									<a th:href="@{|/articles/${article.id}|}">Предпросмотр</a>
-									<a th:if="${article.status.name()  eq 'CREATED'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a>
+									<a th:if="${article.status.name() eq 'CREATED'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a>
 									<a sec:authorize="hasAnyRole('ADMIN','MODERATOR')" th:if="${article.status.name() eq 'MODERATION'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Опубликовать</a>
 								</div>
 							</div>
