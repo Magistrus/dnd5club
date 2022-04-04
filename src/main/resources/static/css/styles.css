@@ -368,6 +368,7 @@ textarea:hover,
 input:hover {
   background-color: var(--bg-inpur-hover) !important;
   border:1px solid var(--primary);
+  color: var(--text-color);
 }
 
 textarea:focus,
@@ -375,6 +376,7 @@ input:focus {
   background-color: var(--bg-inpur-focus) !important;
   border:1px solid var(--primary);
   outline: none;
+  color: var(--text-color);
 }
 
 label.select_box {

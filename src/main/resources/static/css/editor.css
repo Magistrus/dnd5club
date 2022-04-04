@@ -1,0 +1,36 @@
+.editor_text {
+  
+}
+
+/* .editor_text .ce-block__content {
+  max-width: 660px;
+} */
+
+.editor_text .codex-editor__redactor {
+  padding-bottom: 100px !important;
+}
+
+.editor_text .codex-editor svg {
+  fill: var(--text-color);
+}
+
+.editor_text .ce-toolbar__plus--active, .ce-toolbar__plus:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .ce-toolbar__settings-btn--active, .ce-toolbar__settings-btn:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .ce-toolbox__button--active, .ce-toolbox__button:hover {
+  background-color: var(--hover);
+}
+
+.editor_text .codex-editor--narrow .ce-toolbox {
+  background-color: var(--bg-sub-menu);
+}
+
+.editor_text .ce-inline-toolbar {
+  background-color: var(--bg-sub-menu);
+  border: 1px solid var(--border);
+}

@@ -39,7 +39,7 @@
 									<input type="text" placeholder="Описание" th:field="*{description}">
 								</div>
 							</div>
-							<div class="row_input">
+							<div class="main editor_text">
 								<textarea id="text"
                                           class="hide_block"
                                           name="text"
@@ -51,11 +51,16 @@
 							</div>
 							<div class="bottom">
 								<div class="row_input">
-									<input type="text" placeholder="Автор" th:field="*{author}">
+									<input class="hide_block" type="text" placeholder="Автор" th:field="*{author}">
 									<input type="text" placeholder="Перевод" th:field="*{translation}">
 									<input type="text" placeholder="Автор оригинала" th:field="*{originalAuthor}">
+								</div>
+								<div class="row_input">
 									<input type="text" name="article_link_original" placeholder="Ссылка на оригинал" th:field="*{originalUrl}">
 									<input type="text" name="article_source_name" placeholder="Название оригинального источника" th:field="*{originalName}">
+								</div>
+								<div class="row_input">
+									<input type="text" name="link_to_image" placeholder="Ссылка на картинку для сетей">
 								</div>
 							</div>
 						</div>
