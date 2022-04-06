@@ -465,6 +465,12 @@ table tbody tr:hover {
   background-color: var(--hover);
 }
 
+table.dataTable tr.dtrg-group {
+  margin: 0 0 16px 0;
+  border: 0;
+  border-radius: 0;
+}
+
 table.dataTable tr.dtrg-group td {
   background-color:var(--hover) !important;
   cursor:auto;

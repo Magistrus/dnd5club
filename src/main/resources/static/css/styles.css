@@ -2954,12 +2954,12 @@ body.compact_menu #right_block {
   background-color: transparent !important;
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid var(--border);
+  margin: 16px 16px;
+  /* border-bottom: 1px solid var(--border); */
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
 }
-
-/* .table_list tr:nth-child(2n) {
-  background: var(--bg-table-row) ;
-} */
 
 .table_list tr.custom_source {
   background: var(--bg-homebrew-gradient) !important;
@@ -3011,16 +3011,20 @@ body.compact_menu #right_block {
 
 .table_list tr td .info_block {
   min-width: 42px;
-  height: 42px;
+  /* height: 42px; */
   font-size: 17px;
   text-align: center;
   line-height: 42px;
-  margin-right: 16px;
+  /* margin-right: 16px; */
   position:relative;
+
+  height: 100%;
+  border-right: 1px solid var(--border);
+  margin: 0px 16px 0px -4px;
 }
 
 .table_list tr .info_block::after {
-  content: '';
+  /* content: ''; */
   position: absolute;
   border: 1px solid var(--border);
   border-radius: 50%;
