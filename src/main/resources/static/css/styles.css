@@ -1550,13 +1550,13 @@ body:before {
   margin-top: 40px;
   margin-bottom: 40px;
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   justify-content: space-between;
 }
 
 @media (max-width: 600px) {
   .page_main .social_links {
-    flex-direction: column;  
+    flex-direction: column;
     align-items: center;
     padding: 16px;
   }
@@ -1984,6 +1984,7 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .header_block .search_block .search_int {
+  border-radius: 0px;
   border-top: none;
   border-bottom: none;
   border-right: none;
@@ -2794,6 +2795,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper.options .search_block .btn_search_icon,
 #right_block .info_wrapper.spells .search_block .btn_search_icon {
+  border-radius: 0px;
   height: 45px;
   width: 45px;
   bottom: 0;
