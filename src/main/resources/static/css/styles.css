@@ -2344,6 +2344,10 @@ table.table_card tr.dtrg-group td {
   color: var(--text-g-color);
 }
 
+.table_card tr td .archetype_list li.select_point p span {
+  color: var(--text-btn-color);
+}
+
 .table_card tr td .archetype_list li .add_favorites {
   background: red;
   width: 16px;
