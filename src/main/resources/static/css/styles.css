@@ -863,6 +863,7 @@ label.select_box {
   margin-bottom: 16px;
   padding: 12px 12px;
   height: auto;
+  border-radius: 8px;
 }
 
 .login_form .right_block .form input.check {
