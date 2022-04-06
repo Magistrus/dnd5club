@@ -1,5 +1,5 @@
 .editor_text {
-  
+
 }
 
 .editor_text .ce-block__content,
@@ -49,7 +49,20 @@
   background-color: var(--hover);
 }
 
-.editor_text .ce-inline-tool:hover {
+.editor_text .ce-inline-tool {
+  color: var(--text-color);
+}
+
+.editor_text .ce-inline-tool svg {
+  fill: currentColor;
+}
+
+.editor_text .ce-inline-tool.ce-inline-tool--active {
+  color: var(--primary);
+}
+
+.editor_text .ce-inline-tool:hover,
+.editor_text .ce-conversion-tool:hover {
   background-color: var(--hover);
 }
 
@@ -110,4 +123,30 @@
     display: flex;
     flex-wrap: wrap;
   }
+}
+
+dnd5club-saving-throw,
+dnd5club-dice-text,
+dnd5club-advantage,
+dnd5club-disadvantage {
+  padding: 0 3px;
+  border-radius: 4px;
+  color: var(--text-btn-color);
+}
+
+dnd5club-dice-text {
+  background-color: var(--bg-dice);
+  color: var(--text-btn-color)
+}
+
+dnd5club-saving-throw {
+  background-color: var(--bg-advantage);
+}
+
+dnd5club-advantage {
+  background-color: var(--bg-disadvantage);
+}
+
+dnd5club-disadvantage {
+  background-color: var(--bg-saving_throw);
 }

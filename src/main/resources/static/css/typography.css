@@ -267,7 +267,7 @@ details[open] > summary::before {
     top: 10px;
     right: 8px;
   }
-  
+
   details[open] > summary::before {
     top: 8px;
   }
@@ -338,6 +338,10 @@ details[open].spoiler div > details {
 
 
 /********* Выделение в тексте *********/
+dnd5club-dice-text,
+dnd5club-saving-throw,
+dnd5club-advantage,
+dnd5club-disadvantage,
 span.dice_text,
 span.homebrew_text,
 span.advantage,
@@ -348,6 +352,7 @@ span.saving_throw {
   color: var(--text-btn-color);
 }
 
+dnd5club-dice-text,
 span.dice_text {
   background-color: var(--bg-dice);
   color: var(--text-btn-color) !important;
@@ -358,14 +363,17 @@ span.homebrew_text {
   text-transform: none;
 }
 
+dnd5club-advantage,
 span.advantage {
   background-color: var(--bg-advantage);
 }
 
+dnd5club-disadvantage,
 span.disadvantage {
   background-color: var(--bg-disadvantage);
 }
 
+dnd5club-saving-throw,
 span.saving_throw {
   background-color: var(--bg-saving_throw);
 }
