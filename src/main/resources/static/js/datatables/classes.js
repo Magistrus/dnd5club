@@ -31,7 +31,7 @@ $(document).ready(function () {
                                 result += '<div class="archetype_list"><h4>Основное:</h4><ul>';
                                 row.archetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '" data-arch-source="'+item.bookshort+'"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                       .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
                             }
@@ -39,7 +39,7 @@ $(document).ready(function () {
                                 result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('classes') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingArchetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '" data-arch-source="'+item.bookshort+'"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                    .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div></div>';
                             }
@@ -47,7 +47,7 @@ $(document).ready(function () {
                                 result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('classes') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewArchetypes.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '" data-arch-source="'+item.bookshort+'"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                    .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
                             }
@@ -259,7 +259,9 @@ function selectClass(data) {
 }
 
 function setActiveArchetype(data, className, archetypeName) {
-    $('#class_name').text(data.name + ' ' + $('#' + archetypeName).text());
+	let $name = $('#' + archetypeName);
+    $('#class_name').text(data.name + ' ' + $name.attr('data-name'));
+    $('#english_name').html(data.englishName + ' ' + $name.attr('data-english-name'));
     document.title = data.name + ' (' + data.englishName + ') - ' + $('#' + archetypeName)
         .text() + ' | Подклассы D&D 5e';
     var url = '/classes/' + className + '/architypes/' + archetypeName;
