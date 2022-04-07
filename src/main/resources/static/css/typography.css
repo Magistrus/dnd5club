@@ -350,6 +350,8 @@ span.saving_throw {
   padding: 0px 3px;
   border-radius: 4px;
   color: var(--text-btn-color);
+  font-style: normal;
+  font-weight: 400;
 }
 
 dnd5club-dice-text,
