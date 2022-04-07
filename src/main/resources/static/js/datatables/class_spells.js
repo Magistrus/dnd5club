@@ -28,7 +28,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         var result = '<div class="tip info_block" title="' + (row.level === 0 ? 'Заговор' : row.level + ' уровень заклинания') + '">' + (row.level === 0 ? '◐' : row.level) + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
-                        result += '</span><span>[' + row.englishName + ']</span></h3>';
+                        result += '</span> <ename>[' + row.englishName + ']</ename></h3>';
                         result += '<div class="secondary_name">';
                         if (row.concentration) {
                             result += '<span class="tip concentration" title="Концентрация">К</span>';

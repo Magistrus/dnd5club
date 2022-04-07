@@ -21,8 +21,8 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     if (type === 'display') {
                         var result = '<div class="content"><h3 class="row_name"><span>' + row.name;
-                        result += '</span><span>[' + row.englishName + ']</span></h3>';
-                        result += '<div class="content_description"><div class="secondary_name s1">' + row.type + '</div>';
+                        result += '</span> <ename>[' + row.englishName + ']</ename></h3>';
+                        result += '<div class="content_description"><div class="secondary_name s1 md_w100">' + row.type + '</div>';
                         result += '<div class="secondary_name s2 alg_left"><span class="tip dice_text" title="Урон">' + row.damage + '</span> &nbsp; <span class="tip" title="Тип урона">' + row.damageType + '</span></div>';
                         result += '<div class="secondary_name s3"><span class="tip excretion" title="Стоимость">' + row.cost + '</span></div></div></div>';
                         return result;
