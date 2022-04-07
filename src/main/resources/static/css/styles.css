@@ -3779,6 +3779,7 @@ body.compact_menu #right_block.weapons {
 
 .filter_container .filter_block .filter_crumbs_box .separator_row .header_separator {
   margin-top: 4px;
+  width: 100%;
 }
 
 .filter_container .filter_block .filter_crumbs_box .separator_row label {

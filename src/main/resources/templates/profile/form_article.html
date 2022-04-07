@@ -53,9 +53,14 @@
                                 <div id="text-faker"></div>
 							</div>
 							<div class="bottom">
+								<label for="link_access" class="check_block"><input id="link_access" class="toggle" type="checkbox" name="link_access"><span>Доступ по ссылке</span></label>
+
+								<div class="row_input">
+									<input type="text" name="tags" placeholder="Теги">
+								</div>
 								<div class="row_input">
 									<input class="hide_block" type="text" placeholder="Автор" th:field="*{author}">
-									<input type="text" placeholder="Перевод" th:field="*{translation}">
+									<input type="text" placeholder="Автор перевода" th:field="*{translation}">
 									<input type="text" placeholder="Автор оригинала" th:field="*{originalAuthor}">
 								</div>
 								<div class="row_input">
@@ -64,6 +69,7 @@
 								</div>
 								<div class="row_input">
 									<input type="text" name="link_to_image" placeholder="Ссылка на картинку для сетей">
+									<input type="text" name="author_to_image" placeholder="Автор картинки">
 								</div>
 							</div>
 						</div>

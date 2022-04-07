@@ -125,6 +125,26 @@
   }
 }
 
+.editor_text .ce-block__content .cdx-input {
+  border: 0;
+}
+
+.editor_text .ce-block__content .cdx-quote__caption {
+  border-top: 1px solid var(--border);
+}
+
+.editor_text .cdx-list {
+  color: var(--text-color);
+  padding-left: 24px;
+  margin: 0 0 12px 0;
+}
+
+.editor_text .cdx-list li {
+  line-height: 20px;
+  padding: 0;
+  margin-bottom: 4px;
+}
+
 dnd5club-saving-throw,
 dnd5club-dice-text,
 dnd5club-advantage,
