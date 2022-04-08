@@ -368,6 +368,7 @@ textarea:hover,
 input:hover {
   background-color: var(--bg-inpur-hover) !important;
   border:1px solid var(--primary);
+  color: var(--text-color);
 }
 
 textarea:focus,
@@ -375,6 +376,7 @@ input:focus {
   background-color: var(--bg-inpur-focus) !important;
   border:1px solid var(--primary);
   outline: none;
+  color: var(--text-color);
 }
 
 label.select_box {
@@ -814,8 +816,58 @@ label.select_box {
 
 /******** Форма входа / login_form ********/
 .login_form {
-  width: 300px;
+  width: 600px;
   padding: 0;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.login_form .left_block {
+  width: 200px;
+  background: var(--bg-img-login) no-repeat;
+  background-size: cover;
+}
+
+.login_form .right_block {
+  width: 400px;
+  height: 400px;
+}
+
+@media (max-width: 860px) {
+  .login_form {
+    width: auto;
+  }
+
+  .login_form .left_block {
+    display: none;
+  }
+
+  .login_form .right_block {
+    width: 100%;
+  }
+}
+
+.login_form .right_block .popup-modal-dismiss {
+  top: 16px;
+  right: 16px;
+}
+
+.login_form .right_block .form {
+  width: 300px;
+  margin: 100px auto;
+}
+
+.login_form .right_block .form input {
+  margin-bottom: 16px;
+  padding: 12px 12px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.login_form .right_block .form input.check {
+  margin-bottom: 0px;
 }
 
 .form-text.text-danger,
@@ -825,24 +877,8 @@ label.select_box {
   color: var(--text-btn-color);
 }
 
-.login_form .header {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 12px 24px;
-}
-
-.login_form #login-form input.form-control {
-  padding: 6px 12px;
-  margin: 0;
-}
-
-.login_form .remember_row {
-  padding: 16px 12px 0px 12px;
-}
-
 .registration_form .bottom,
 .login_form .bottom {
-  border-top: 1px solid var(--border);
   display: flex;
 }
 
@@ -854,8 +890,9 @@ label.select_box {
   border:none;
   cursor: pointer;
   color: var(--text-btn-color);
-  margin-right: auto;
+  margin-right: 16px;
   margin-bottom: 0;
+  border-radius: 8px;
 }
 
 .registration_form .bottom button:hover,
@@ -1514,13 +1551,13 @@ body:before {
   margin-top: 40px;
   margin-bottom: 40px;
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   justify-content: space-between;
 }
 
 @media (max-width: 600px) {
   .page_main .social_links {
-    flex-direction: column;  
+    flex-direction: column;
     align-items: center;
     padding: 16px;
   }
@@ -1825,7 +1862,7 @@ body:before {
 
 .news_wrapper .news_page_list .short_news {
   background-color: var(--bg-secondary);
-  padding: 16px 24px 16px 24px;
+  padding: 4px 16px 16px 16px;
   margin-bottom: 16px;
 }
 
@@ -1835,10 +1872,12 @@ body:before {
 
 .news_wrapper .news_page_list .short_news .header .title {
   margin-top: 0;
+  font-size: calc(var(--h3-font-size) - 4px);
+  margin-bottom: 0px;
 }
 
 .news_wrapper .news_page_list .short_news .header h5 {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .news_wrapper .news_page_list .short_news .description {
@@ -2306,6 +2345,10 @@ table.table_card tr.dtrg-group td {
   font-size: calc(var(--main-font-size) - 2px);
   margin-left: 4px;
   color: var(--text-g-color);
+}
+
+.table_card tr td .archetype_list li.select_point p span {
+  color: var(--text-btn-color);
 }
 
 .table_card tr td .archetype_list li .add_favorites {
@@ -2913,12 +2956,11 @@ body.compact_menu #right_block {
   background-color: transparent !important;
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid var(--border);
+  margin: 16px 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
 }
-
-/* .table_list tr:nth-child(2n) {
-  background: var(--bg-table-row) ;
-} */
 
 .table_list tr.custom_source {
   background: var(--bg-homebrew-gradient) !important;
@@ -2970,16 +3012,23 @@ body.compact_menu #right_block {
 
 .table_list tr td .info_block {
   min-width: 42px;
-  height: 42px;
   font-size: 17px;
   text-align: center;
   line-height: 42px;
-  margin-right: 16px;
   position:relative;
+  height: 100%;
+  border-right: 1px solid var(--border);
+  margin: 0px 16px 0px -4px;
+}
+
+@media (max-width: 1200px) {
+  .table_list tr td .info_block {
+    margin: 0px 16px 0px -8px;
+  }
 }
 
 .table_list tr .info_block::after {
-  content: '';
+  /* content: ''; */
   position: absolute;
   border: 1px solid var(--border);
   border-radius: 50%;
@@ -3031,13 +3080,12 @@ body.compact_menu #right_block {
   font-family: 'Open Sans';
 }
 
-.table_list tr .row_name span:first-child {
+.table_list tr .row_name span {
   color: var(--text-color-title);
 }
 
-.table_list tr .row_name span {
+.table_list tr .row_name ename {
   color: var(--text-g-color);
-  margin-right: 6px;
 }
 
 .table_list tr span.ritual,
@@ -3072,41 +3120,26 @@ body.compact_menu #right_block {
   text-align: left;
 }
 
-@media (max-width: 1200px) {
-  .table_list tr td .secondary_name.l_alg_left {
-    text-align: left;
-  }
+.aright {
+  text-align: right;
 }
 
 .table_list tr td .secondary_name.s1 {
-  flex: 1 1 50%;
+  flex: 1 1 auto;
 }
 
 .table_list tr td .secondary_name.s2 {
-  flex: 1 1 30%;
-  margin-left: auto;
+  flex: 1 0 auto;
 }
 
 .table_list tr td .secondary_name.s3 {
-  flex: 1 1 20%;
-  margin-left: auto;
+  flex: 1 0 auto;
 }
+
 
 @media (max-width: 1200px) {
-  .table_list tr td .secondary_name.s1 {
+  .table_list tr td .secondary_name.md_w100 {
     flex: 1 1 100%;
-  }
-}
-
-@media (max-width: 500px) {
-  .table_list tr td .secondary_name.s2 {
-    flex: 1 1 70%;
-    margin-left: auto;
-  }
-
-  .table_list tr td .secondary_name.s3 {
-    flex: 1 1 30%;
-    margin-left: auto;
   }
 }
 
@@ -3742,6 +3775,7 @@ body.compact_menu #right_block.weapons {
 
 .filter_container .filter_block .filter_crumbs_box .separator_row .header_separator {
   margin-top: 4px;
+  width: 100%;
 }
 
 .filter_container .filter_block .filter_crumbs_box .separator_row label {

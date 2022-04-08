@@ -23,6 +23,9 @@ public class MainController {
 	
 	@GetMapping("/telegram_bot")
 	public String getPageTelegrammBot(Model model) {
+		model.addAttribute("metaTitle", "DnD5Club Telegram Bot");
+		model.addAttribute("metaUrl", "https://dnd5.club/telegram_bot");
+		model.addAttribute("metaDescription", "Бот в Telegram, который поможет вам быстро найти нужные вам заклинания в компактном виде или бросить кубы, если вы забыли их дома.");
 		return "telegram_bot";
 	}
 }

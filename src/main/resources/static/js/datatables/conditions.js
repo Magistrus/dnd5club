@@ -20,7 +20,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         var result = '<div class="wrapper"><div class="content"><h3 class="row_name"><span>' + row.name;
                         result += '</span><span class="books tip" title="' + row.book + '">' + row.book + '</span></h3>';
-                        result += '<div class="two_row"><span>' + row.englishName + '</span></dv></dv></dv>';
+                        result += '<div class="two_row"><ename>' + row.englishName + '</ename></dv></dv></dv>';
                         return result;
                     }
                     return data;
