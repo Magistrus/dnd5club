@@ -2954,16 +2954,10 @@ body.compact_menu #right_block {
   background-color: transparent !important;
   display: flex;
   flex-direction: row;
-  margin: 16px 24px;
+  margin: 16px 16px;
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
-}
-
-@media (max-width: 1200px) {
-  .table_list tr {
-    margin: 16px 16px;
-  }
 }
 
 .table_list tr.custom_source {
