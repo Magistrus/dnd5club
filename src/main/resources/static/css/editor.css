@@ -1,5 +1,4 @@
 .editor_text {
-
 }
 
 .editor_text .ce-block__content,
@@ -98,6 +97,10 @@
 .editor_text .tc-popover__item-icon {
   background: var(--bg-sub-menu);
   border-color: var(--border);
+}
+
+.editor_text .codex-editor--narrow .ce-toolbar__actions {
+  right: 100%;
 }
 
 .editor_text .codex-editor--narrow .ce-toolbox {
