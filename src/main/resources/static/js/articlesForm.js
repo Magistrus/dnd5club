@@ -10,7 +10,7 @@ function saveForm() {
         clearTimeout(savingDebounce);
     }
 
-    if (xhr.readyState > 0 || xhr.readyState < 4) {
+    if (xhr.readyState > 0 && xhr.readyState < 4) {
         xhr.abort();
     }
 
