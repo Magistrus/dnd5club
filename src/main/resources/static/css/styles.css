@@ -1862,7 +1862,7 @@ body:before {
 
 .news_wrapper .news_page_list .short_news {
   background-color: var(--bg-secondary);
-  padding: 16px 24px 16px 24px;
+  padding: 4px 16px 16px 16px;
   margin-bottom: 16px;
 }
 
@@ -1872,10 +1872,12 @@ body:before {
 
 .news_wrapper .news_page_list .short_news .header .title {
   margin-top: 0;
+  font-size: calc(var(--h3-font-size) - 4px);
+  margin-bottom: 0px;
 }
 
 .news_wrapper .news_page_list .short_news .header h5 {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .news_wrapper .news_page_list .short_news .description {
