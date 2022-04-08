@@ -1,46 +1,5 @@
-const realTextarea = document.getElementById('text');
-const textContent = realTextarea.value;
-const form = document.getElementById('article_edit');
-const xhr = new XMLHttpRequest();
-
-let savingDebounce;
-
-function saveForm() {
-    if (savingDebounce) {
-        clearTimeout(savingDebounce);
-    }
-
-    if (xhr.readyState > 0 || xhr.readyState < 4) {
-        xhr.abort();
-    }
-
-    savingDebounce = setTimeout(async function () {
-        if (!textContent) {
-            return;
-        }
-
-        const body = new FormData(form);
-
-        body.append('save', 'save');
-
-        xhr.open(
-            form.getAttribute('method'),
-            form.getAttribute('action')
-        )
-
-        xhr.send(body);
-
-        xhr.onload = function () {
-            if (xhr.status !== 200) {
-                throw new Error(xhr.statusText);
-            }
-        };
-
-        xhr.onerror = function () {
-            throw new Error("Something wrong..")
-        }
-    }, 1200);
-}
+const editorData = document.getElementById('editor-data');
+const textContent = editorData.innerHTML;
 
 let parsedContent = {};
 
@@ -49,9 +8,10 @@ if (textContent.length) {
 }
 
 const editorJSOptions = {
-    holder: 'text-faker',
+    holder: 'text-preview',
     placeholder: 'Содержание статьи...',
     data: parsedContent,
+    readOnly: true,
     logLevel: 'ERROR',
     tools: {
         checklist: {
@@ -181,21 +141,6 @@ const editorJSOptions = {
             },
         }
     },
-    onChange: function () {
-        editor.save()
-            .then(async function (output) {
-                realTextarea.value = JSON.stringify(output);
-
-                saveForm();
-            })
-            .catch(function (err) {
-                console.error(err);
-            })
-    }
 };
 
 const editor = new EditorJS(editorJSOptions);
-
-for (let i = 0; i < form.elements.length; i++) {
-    form.elements[i].addEventListener('input', saveForm);
-}
