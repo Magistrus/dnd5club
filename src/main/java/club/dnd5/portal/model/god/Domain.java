@@ -24,6 +24,7 @@ public enum Domain {
 
 	STORM("Шторм"),
 	DECEPTION("Обман"),
+	REPOSE("Упокоение"),
 	UNDEFINE("Нет жрецов"); 
 
 	private String cyrilicName;
