@@ -31,17 +31,14 @@ public class ClassFetureDto {
 		description = feature.getDescription();
 		type = String.valueOf(feature.getLevel());
 		switch (feature.getLevel()) {
-		case 2:
+		case 5:
 		case 6:
 		case 7:
 		case 8:
-			type += "-ой";
-			break;
-		case 3:
-			type += "-ий";
+			type += "-го уровня";
 			break;
 		default:
-			type += "-ый";
+			type += "-й уровень";
 			break;
 		}
 		prefix ="c";
@@ -65,7 +62,7 @@ public class ClassFetureDto {
 			className += "а"; 
 		}
 		child = feature.getChild();
-		type+= " уровень, умение " + StringUtils.capitalizeWords(className.toLowerCase());
+		type+= ", умение " + StringUtils.capitalizeWords(className.toLowerCase());
 		order = 2;
 	}
 
@@ -78,22 +75,19 @@ public class ClassFetureDto {
 		description = feature.getDescription();
 		type = String.valueOf(feature.getLevel());
 		switch (feature.getLevel()) {
-		case 2:
+		case 5:
 		case 6:
 		case 7:
 		case 8:
-			type += "-ой";
-			break;
-		case 3:
-			type += "-ий";
+			type += "-го уровня";
 			break;
 		default:
-			type += "-ый";
+			type += "-й уровень";
 			break;
 		}
 		child = feature.getChild();
 		prefix ="a";
-		type += " уровень, умение " + archetypeName;
+		type += ", умение " + archetypeName;
 		order = 1;
 	}
 }
