@@ -59,6 +59,7 @@
   flex: 0 1 50%;
   border-radius: 16px;
   margin-bottom: 16px;
+  max-width: 300px;
 }
 
 .profile .block_card .card h5 {
