@@ -34,12 +34,15 @@ public class Article {
 	private String text;
 	@Enumerated(EnumType.STRING)
 	private ArtricleStatus status;
+	private boolean linkAccess;
+	private String tags;
 	private String author;
 	private String translation;
 	private String originalAuthor;
 	private String originalUrl;
 	private String originalName;
-	
+	private String imageUrl;
+	private String imageAuthor;
 	private String cause_canceled;
 	
 	@ManyToOne

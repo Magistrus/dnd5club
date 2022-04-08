@@ -14,7 +14,6 @@ import club.dnd5.portal.dto.item.ArmorDto;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 
-
 @Controller
 public class ArmorController {
 	@Autowired

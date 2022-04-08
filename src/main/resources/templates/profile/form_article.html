@@ -52,12 +52,12 @@
                             <div id="text-faker"></div>
                         </div>
                         <div class="bottom">
-                            <label for="link_access" class="check_block"><input id="link_access" class="toggle"
+                            <label for="link_access" class="check_block"><input class="toggle"
                                                                                 type="checkbox"
-                                                                                name="link_access"><span>Доступ по ссылке</span></label>
+                                                                                th:field="*{linkAccess}"><span>Доступ по ссылке</span></label>
 
                             <div class="row_input">
-                                <input type="text" name="tags" placeholder="Теги">
+                                <input type="text" name="tags" placeholder="Теги" th:field="*{tags}">
                             </div>
                             <div class="row_input">
                                 <input class="hide_block" type="text" placeholder="Автор" th:field="*{author}">
@@ -71,8 +71,8 @@
                                        placeholder="Название оригинального источника" th:field="*{originalName}">
                             </div>
                             <div class="row_input">
-                                <input type="text" name="link_to_image" placeholder="Ссылка на картинку для сетей">
-                                <input type="text" name="author_to_image" placeholder="Автор картинки">
+                                <input type="text" placeholder="Ссылка на картинку для сетей" th:field="*{imageUrl}">
+                                <input type="text" placeholder="Автор картинки" th:field="*{imageAuthor}">
                             </div>
                         </div>
                     </div>
