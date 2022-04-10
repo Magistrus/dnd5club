@@ -13,8 +13,7 @@
 								<h3 class="title" th:text="${article.title}">Заголовое</h3>
 								<h5 class="subtitle" th:text="${article.description}">Краткое описание</h5>
 							</div>
-							<div class="description" th:utext="${article.shortText}">
-							</div>
+							<div class="description" th:utext="${article.shortText}"></div>
 							<div class="bottom">
 								<time th:datetime="${article.created}" th:text="${article.lastDate}">05 марта 2022</time>
 								<span class="status" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>

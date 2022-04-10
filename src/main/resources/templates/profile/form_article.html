@@ -37,27 +37,40 @@
                             <input type="text" hidden="true" th:field="*{creator}">
                             <input type="text" hidden="true" th:field="*{status}">
                             <div class="row_input">
-                                <input type="text" placeholder="Название" th:field="*{title}">
+                                <input type="text"
+                                       required="required"
+                                       aria-required="true"
+                                       minlength="3"
+                                       maxlength="255"
+                                       placeholder="Название"
+                                       th:field="*{title}"
+                                >
                             </div>
                             <div class="row_input">
                                 <input type="text" placeholder="Описание" th:field="*{description}">
                             </div>
                         </div>
                         <div class="main editor_text">
-								<textarea id="text"
-                                          class="hide_block"
-                                          name="text"
-                                          th:field="*{text}"
-                                ></textarea>
+                            <textarea id="text"
+                                      class="hide_block"
+                                      name="text"
+                                      required="required"
+                                      aria-required="true"
+                                      minlength="200"
+                                      th:field="*{text}"
+                            ></textarea>
                             <div id="text-faker"></div>
                         </div>
                         <div class="bottom">
-                            <label for="link_access" class="check_block"><input id="link_access" class="toggle"
-                                                                                type="checkbox"
-                                                                                name="link_access"><span>Доступ по ссылке</span></label>
+                            <label for="link_access" class="check_block">
+                                <input class="toggle"
+                                       type="checkbox"
+                                       th:field="*{linkAccess}">
+                                <span>Доступ по ссылке</span>
+                            </label>
 
                             <div class="row_input">
-                                <input type="text" name="tags" placeholder="Теги">
+                                <input type="text" name="tags" placeholder="Теги" th:field="*{tags}">
                             </div>
                             <div class="row_input">
                                 <input class="hide_block" type="text" placeholder="Автор" th:field="*{author}">
@@ -71,8 +84,8 @@
                                        placeholder="Название оригинального источника" th:field="*{originalName}">
                             </div>
                             <div class="row_input">
-                                <input type="text" name="link_to_image" placeholder="Ссылка на картинку для сетей">
-                                <input type="text" name="author_to_image" placeholder="Автор картинки">
+                                <input type="text" placeholder="Ссылка на картинку для сетей" th:field="*{imageUrl}">
+                                <input type="text" placeholder="Автор картинки" th:field="*{imageAuthor}">
                             </div>
                         </div>
                     </div>
@@ -111,7 +124,7 @@
                                     name="save"
                                     value="save"
                             >
-                                Сохранить в черовики
+                                Сохранить черновик
                             </button>
 
                             <button id="preview"

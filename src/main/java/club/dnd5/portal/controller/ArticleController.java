@@ -88,6 +88,7 @@ public class ArticleController {
 	public String getProfileArticleForm(Model model, Principal principal, HttpServletRequest request) {
 		Article article = new Article();
 		Optional<User> user = usersRepository.findByEmail(principal.getName());
+		article = service.save(article, user.get());
 		article.setAuthor(user.get().getName());
 		model.addAttribute("article", article);
 		return "profile/form_article";

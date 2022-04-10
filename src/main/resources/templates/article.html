@@ -1,5 +1,27 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+    <script th:src="@{/resources/js/editorjs/editor.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/checklist.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/code.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/delimiter.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/embed.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/header.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/image.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/inline-code.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/link.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/list.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/marker.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/paragraph.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/personality.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/quote.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/table.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/warning.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-dice-text.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-saving-throw.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-advantage.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-disadvantage.js}"></script>
+</head>
 <body id="body" class="overflow-hidden">
 	<div id="container" class="container">
 		<div class="row">
@@ -10,17 +32,20 @@
 					<div class="news_page">
 						<div class="header">
 							<h1 class="title" th:text="*{title}">Заголовок</h1>
-							<h3 class="subtitle" th:text="*{description}">Описание</h3>
-							<time datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
+							<h3 th:if="*{description.length()}" class="subtitle" th:text="*{description}">Описание</h3>
+							<time th:if="*{publishedDate.length()}" datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
 						</div>
-						<th:block th:utext="*{text}"></th:block>
+                        <div id="editor-data" class="hide_block">
+                            <th:block th:utext="*{text}"></th:block>
+                        </div>
+						<div id="text-preview" class="editor_readonly"></div>
 						<div class="bottom">
 							<div class="info">
 								<ul class="meta">
 									<li th:text="|Автор: *{author}|"></li>
-									<li th:text="|Перевод:  *{translation}|"></li>
-									<li th:text="|Автор оригинала: *{originalAuthor}|"></li>
-									<li>Источник : <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
+									<li th:if="*{translation.length()}" th:text="|Перевод:  *{translation}|"></li>
+									<li th:if="*{originalAuthor.length()}" th:text="|Автор оригинала: *{originalAuthor}|"></li>
+									<li th:if="*{originalUrl.length()}">Источник: <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
 								</ul>
 							</div>
 							<div class="social_links">
@@ -97,4 +122,9 @@
 		</div>
 	</div>
 </body>
+
+<script th:src="@{|/resources/js/article.js?v=${version}|}" layout:fragment="js-script"></script>
+<script>
+    const editorIsReadOnly = true;
+</script>
 </html>
