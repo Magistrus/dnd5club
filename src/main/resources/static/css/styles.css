@@ -162,12 +162,10 @@ hr {
 .check[type="checkbox"]::after {
   content: "";
   grid-area: 1 / -1;
-  width: calc(var(--size) + 0px);
-  height: calc(var(--size) + 0px);
-  margin-left: -2px;
-  margin-top: -5px;
-  transform: translateX(10%);
-  transform-origin: center center;
+  width: calc(var(--size) - 2px);
+  height: calc(var(--size) - 2px);
+  margin-left: 0px;
+  margin-top: -4px;
   transition: all 250ms ease;
   border-radius: 3px;
   background: #fff;
@@ -1863,7 +1861,10 @@ body:before {
 .news_wrapper .news_page_list .short_news {
   background-color: var(--bg-secondary);
   padding: 4px 16px 16px 16px;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
+  display: block;
+  border-radius: 8px;
+  position: relative;
 }
 
 .news_wrapper .news_page_list .short_news .header {
@@ -1891,13 +1892,24 @@ body:before {
   -moz-box-orient: vertical;
   line-clamp: 2;
   box-orient: vertical;
+  margin-bottom: 0;
 }
 
 .news_wrapper .news_page_list .short_news .bottom {
-  margin-top: 16px;
-  margin-bottom: 0px;
+  margin: 0;
   display: flex;
   align-items: center;
+  border: 0;
+  position: absolute;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 4px 8px;
+  right: 0px;
+  bottom: -16px;
+}
+
+.news_wrapper .news_page_list .short_news .bottom p {
+  margin-bottom: 0px;
 }
 
 .news_wrapper .news_page_list .short_news .bottom .btn {

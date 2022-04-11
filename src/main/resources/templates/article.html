@@ -90,7 +90,7 @@
 							<button id="publishe" name="publishe" sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn" value="publishe">Опубликовать</button>
 							<button th:if = "*{status eq 'MODERATION'}" id="reject" name="reject" sec:authorize="hasAnyRole('ADMIN','MODERATOR')" class="btn" value="reject">Отклонить</button>
 							<button id="moderate" name="moderate" class="btn" value="moderate">На проверку</button>
-							<button id="edit" name="edit" class="btn secondary" value="edit">Редактировать</button>
+							<a th:if="${article.status.name() eq 'CREATED'}" th:href="@{|/profile/articles/${article.id}|}" class="btn secondary">Редактировать</a>
 							<button id="cancel" name="cancel" class="btn secondary" value="cancel">Назад</button>
 							<button id="delete" name="delete" th:unless="*{id eq null}" class="btn secondary" value="delete">Удалить</button>
 						</div>
