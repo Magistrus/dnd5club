@@ -41,7 +41,7 @@ $(document).ready(function () {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
                                     .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
-                                result += '</ul></div></div>';
+                                result += '</ul></div>';
                             }
                             if (row.moduleSubraces.length > 0) {
                                 result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Приключения:</h4><ul>';
