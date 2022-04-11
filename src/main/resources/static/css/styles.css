@@ -3470,7 +3470,7 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
 }
 
 .block_information #left_block.races .table_card tbody {
