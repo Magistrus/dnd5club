@@ -3483,9 +3483,15 @@ body.full_screen_right_block .screens .card_block .block {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   #left_block.races .table_card tbody {
     grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
   }
 }
 
