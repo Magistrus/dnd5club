@@ -1874,11 +1874,12 @@ body:before {
 .news_wrapper .news_page_list .short_news .header .title {
   margin-top: 0;
   font-size: calc(var(--h3-font-size) - 4px);
-  margin-bottom: 0px;
+  margin-bottom: 16px;
+  line-height: 24px;
 }
 
 .news_wrapper .news_page_list .short_news .header h5 {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .news_wrapper .news_page_list .short_news .description {
