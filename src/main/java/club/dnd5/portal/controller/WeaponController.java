@@ -89,4 +89,9 @@ public class WeaponController {
 		model.addAttribute("weapon", repository.findByEnglishName(name.replace('_', ' ')));
 		return "fragments/weapon :: view";
 	}
+	@GetMapping("/weapons/property/fragment/{name:[A-Za-z_,']+}")
+	public String getWeaponFragmentPropertyByName(Model model, @PathVariable String name) throws InvalidAttributesException {
+		model.addAttribute("property", propertyRepository.findByEnglishName(name.replace('_', ' ')));
+		return "fragments/weapon :: property_view";
+	}
 }
