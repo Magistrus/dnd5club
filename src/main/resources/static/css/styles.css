@@ -1750,6 +1750,7 @@ body:before {
 
 .news_wrapper .right .btn_block .btn.secondary {
   background-color: var(--bg-sub-menu);
+  color: var(--text-color);
 }
 
 .news_wrapper .right .btn_block .btn.secondary:hover {
