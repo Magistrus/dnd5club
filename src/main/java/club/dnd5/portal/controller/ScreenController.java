@@ -3,7 +3,6 @@ package club.dnd5.portal.controller;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
-import javax.naming.directory.InvalidAttributesException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,16 +55,16 @@ public class ScreenController {
 		return "screens";
 	}
 	
-	@GetMapping("/screens/fragment/{id}")
-	public String getScreenFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+	@GetMapping("/screens/fragment/{id:\\d+}")
+	public String getScreenFragmentById(Model model, @PathVariable Integer id) {
 		model.addAttribute("screens", repository.findById(id).get().getChields()
 				.stream()
 				.collect(Collectors.groupingBy(Screen::getCategory, LinkedHashMap::new, Collectors.toList())));
 		return "fragments/screen :: view";
 	}
 	
-	@GetMapping("/screens/fragmentone/{id}")
-	public String getScreenOneFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
+	@GetMapping("/screens/fragmentone/{id:\\d+}")
+	public String getScreenOneFragmentById(Model model, @PathVariable Integer id) {
 		model.addAttribute("screen", repository.findById(id).get());
 		return "fragments/screen :: viewOne";
 	}
