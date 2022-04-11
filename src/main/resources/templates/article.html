@@ -32,20 +32,20 @@
 					<div class="news_page">
 						<div class="header">
 							<h1 class="title" th:text="*{title}">Заголовок</h1>
-							<h3 class="subtitle" th:text="*{description}">Описание</h3>
-							<time datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
+							<h3 th:if="*{description.length()}" class="subtitle" th:text="*{description}">Описание</h3>
+							<time th:if="*{publishedDate.length()}" datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
 						</div>
                         <div id="editor-data" class="hide_block">
                             <th:block th:utext="*{text}"></th:block>
                         </div>
-						<div id="text-preview" class="body"></div>
+						<div id="text-preview" class="editor_readonly"></div>
 						<div class="bottom">
 							<div class="info">
 								<ul class="meta">
 									<li th:text="|Автор: *{author}|"></li>
-									<li th:text="|Перевод:  *{translation}|"></li>
-									<li th:text="|Автор оригинала: *{originalAuthor}|"></li>
-									<li>Источник : <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
+									<li th:if="*{translation.length()}" th:text="|Перевод:  *{translation}|"></li>
+									<li th:if="*{originalAuthor.length()}" th:text="|Автор оригинала: *{originalAuthor}|"></li>
+									<li th:if="*{originalUrl.length()}">Источник: <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
 								</ul>
 							</div>
 							<div class="social_links">
