@@ -1893,11 +1893,11 @@ body:before {
   text-overflow: ellipsis;
   white-space: normal;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   display: -moz-box;
   -moz-box-orient: vertical;
-  line-clamp: 2;
+  line-clamp: 4;
   box-orient: vertical;
   margin-bottom: 0;
 }
