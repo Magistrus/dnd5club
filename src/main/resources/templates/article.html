@@ -32,7 +32,7 @@
 					<div class="news_page">
 						<div class="header">
 							<h1 class="title" th:text="*{title}">Заголовок</h1>
-							<h3 th:if="*{description.length()}" class="subtitle" th:text="*{description}">Описание</h3>
+							<h3 th:if="*{description.length()}" class="subtitle" th:text="*{description}">Красткое содержание</h3>
 							<time th:if="*{publishedDate.length()}" datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
 						</div>
                         <div id="editor-data" class="hide_block">
