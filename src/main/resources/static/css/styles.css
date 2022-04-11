@@ -3470,7 +3470,7 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
 }
 
 .block_information #left_block.races .table_card tbody {
@@ -3483,9 +3483,15 @@ body.full_screen_right_block .screens .card_block .block {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   #left_block.races .table_card tbody {
     grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
   }
 }
 
