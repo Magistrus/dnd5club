@@ -856,10 +856,11 @@ label.select_box {
 .login_form .right_block .form {
   width: 300px;
   margin: 100px auto;
+  padding: 0;
 }
 
 .login_form .right_block .form.registration_form {
-  margin: 2px auto;
+  margin: 38px auto;
 }
 
 .login_form .right_block .form input {
