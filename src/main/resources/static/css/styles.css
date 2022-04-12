@@ -850,11 +850,16 @@ label.select_box {
 .login_form .right_block .popup-modal-dismiss {
   top: 16px;
   right: 16px;
+  z-index: 10;
 }
 
 .login_form .right_block .form {
   width: 300px;
   margin: 100px auto;
+}
+
+.login_form .right_block .form.registration_form {
+  margin: 2px auto;
 }
 
 .login_form .right_block .form input {
@@ -875,13 +880,11 @@ label.select_box {
   color: var(--text-btn-color);
 }
 
-.registration_form .bottom,
-.login_form .bottom {
+.form .bottom {
   display: flex;
 }
 
-.registration_form .bottom button,
-.login_form .bottom button {
+.form .bottom button {
   height: 44px;
   background: var(--primary);
   padding: 12px 12px;
@@ -893,8 +896,7 @@ label.select_box {
   border-radius: 8px;
 }
 
-.registration_form .bottom button:hover,
-.login_form .bottom button:hover {
+.form .bottom button:hover {
   background: var(--primary-hover);
 }
 
@@ -921,17 +923,6 @@ label.select_box {
   top: 50%;
   left: 50%;
   position: relative;
-}
-
-.registration_form {
-  width: 400px;
-  padding: 0;
-}
-
-.registration_form .header {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 12px 24px;
 }
 
 .img_responsive img {
