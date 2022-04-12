@@ -8,22 +8,19 @@
 					<div class="left">
 					</div>
 					<div class="news_page_list">
-						<div class="short_news" th:each="article : ${articles}">
+						<a th:href="@{|/articles/${article.id}|}" class="short_news" th:each="article : ${articles}">
 							<div class="header">
 								<h3 class="title" th:text="${article.title}">Заголовое</h3>
-								<h5 class="subtitle" th:text="${article.description}">Краткое описание</h5>
+								<h5 class="subtitle" th:text="${article.description}">Краткое содержание</h5>
 							</div>
-							<div class="description" th:utext="${article.shortText}"></div>
+							<p class="description" th:utext="${article.shortText}"></p>
 							<div class="bottom">
-								<time th:datetime="${article.created}" th:text="${article.lastDate}">05 марта 2022</time>
-								<span class="status" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>
-								<div class="btn_cont">
-									<a th:href="@{|/articles/${article.id}|}">Предпросмотр</a>
-									<a th:if="${article.status.name() eq 'CREATED'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Редактировать</a>
-									<a sec:authorize="hasAnyRole('ADMIN','MODERATOR')" th:if="${article.status.name() eq 'MODERATION'}" th:href="@{|/profile/articles/${article.id}|}" class="btn">Опубликовать</a>
-								</div>
+								<p>
+									<span class="status" th:appendclass="${article.status}" th:text="${article.status.name}">Статус</span>
+									<time th:datetime="${article.created}" th:text="${article.lastDate}">05 марта 2022</time>
+								</p>
 							</div>
-						</div>
+						</a>
 					</div>
 					<div class="right">
 					</div>
