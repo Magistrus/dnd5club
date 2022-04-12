@@ -1,11 +1,13 @@
 const realTextarea = document.getElementById('text');
-const textContent = realTextarea.value;
+const textFaker = document.getElementById('text-faker');
 const form = document.getElementById('article_edit');
 const xhr = new XMLHttpRequest();
 
 let savingDebounce;
 
 function saveForm() {
+    editorSaveHandler();
+
     if (savingDebounce) {
         clearTimeout(savingDebounce);
     }
@@ -14,14 +16,35 @@ function saveForm() {
         xhr.abort();
     }
 
-    savingDebounce = setTimeout(async function () {
-        if (!textContent) {
-            return;
+    savingDebounce = setTimeout(function () {
+        const body = new FormData();
+        const fakerContent = textFaker.innerText;
+
+        for (let i = 0; i < form.elements.length; i++) {
+            if (!['INPUT', 'TEXTAREA'].includes(form.elements[i].tagName)) {
+                continue;
+            }
+
+            if (!form.elements[i].required) {
+                body.append(form.elements[i].name, form.elements[i].value);
+
+                continue;
+            }
+
+            if (form.elements[i].name === 'text' && fakerContent.length < form.elements[i].minLength) {
+                form.elements[i].value = '';
+            }
+
+            if (!form.elements[i].checkValidity()) {
+                return;
+            }
+
+            body.append(form.elements[i].name, form.elements[i].value);
         }
 
-        const body = new FormData(form);
-
-        body.append('save', 'save');
+        if (!body.has('save')) {
+            body.append('save', 'save');
+        }
 
         xhr.open(
             form.getAttribute('method'),
@@ -42,10 +65,20 @@ function saveForm() {
     }, 1200);
 }
 
+function editorSaveHandler() {
+    editor.save()
+        .then(function (output) {
+            realTextarea.value = JSON.stringify(output);
+        })
+        .catch(function (err) {
+            console.error(err);
+        })
+}
+
 let parsedContent = {};
 
-if (textContent.length) {
-    parsedContent = JSON.parse(textContent);
+if (realTextarea.value.length) {
+    parsedContent = JSON.parse(realTextarea.value);
 }
 
 const editorJSOptions = {
@@ -182,15 +215,7 @@ const editorJSOptions = {
         }
     },
     onChange: function () {
-        editor.save()
-            .then(async function (output) {
-                realTextarea.value = JSON.stringify(output);
-
-                saveForm();
-            })
-            .catch(function (err) {
-                console.error(err);
-            })
+        saveForm();
     }
 };
 
@@ -198,4 +223,5 @@ const editor = new EditorJS(editorJSOptions);
 
 for (let i = 0; i < form.elements.length; i++) {
     form.elements[i].addEventListener('input', saveForm);
+    form.elements[i].addEventListener('change', saveForm);
 }

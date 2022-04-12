@@ -47,12 +47,18 @@
                                 >
                             </div>
                             <div class="row_input">
-                                <input type="text" placeholder="Описание" th:field="*{description}">
+                                <input type="text"
+                                       required="required"
+                                       aria-required="true"
+                                       minlength="3"
+                                       maxlength="255"
+                                       placeholder="Описание"
+                                       th:field="*{description}"
+                                >
                             </div>
                         </div>
                         <div class="main editor_text">
                             <textarea id="text"
-                                      class="hide_block"
                                       name="text"
                                       required="required"
                                       aria-required="true"
