@@ -16,10 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.boot.json.JacksonJsonParser;
 
 import club.dnd5.portal.model.user.User;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,7 +36,7 @@ public class Article {
 	private String title;
 	private String description;
 	@Column(columnDefinition = "TEXT")
-	private String text;
+	private String text = "";
 	@Enumerated(EnumType.STRING)
 	private ArtricleStatus status;
 	private boolean linkAccess;
@@ -65,6 +65,9 @@ public class Article {
 	
 	@SuppressWarnings("unchecked")
 	public String getShortText() {
+		if (StringUtils.isEmpty(text)) {
+			return "";
+		}
 		StringBuilder builder = new StringBuilder();
 		JacksonJsonParser parser = new JacksonJsonParser();
 		List<Map<String, Object>> result =  (List<Map<String, Object>>) parser.parseMap(text).getOrDefault("blocks", "");
