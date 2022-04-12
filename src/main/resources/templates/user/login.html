@@ -23,9 +23,16 @@
 				</div>
 				<div class="bottom">
 					<button type="submit" name="submit" class="button" value="Вход">Вход</button>
-					<a class="button" th:href="@{/registration}">Регистрация</a>
+					<a class="ajax-popup-link button" th:href="@{/regform}">Регистрация</a>
 				</div>
 			</form>
+			<script type="text/javascript">
+		    $('.ajax-popup-link').magnificPopup({
+		        type: 'ajax',
+		        closeOnBgClick: true,
+				modal: true,
+		    });
+			</script>
 		</div>
 	</div>
 </body>

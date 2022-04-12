@@ -132,4 +132,10 @@ public class UserController {
 	public String getLoginForm(Model model, String error, String logout) {
 		return "user/login :: form";
 	}
+	
+	@GetMapping("/regform")
+	public String getRegForm(Model model, String error, String logout) {
+		model.addAttribute("user", new UserRegForm());
+		return "user/registration :: form";
+	}
 }
