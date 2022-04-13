@@ -2,6 +2,8 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
+    <script th:src="@{/resources/js/uuidv4.min.js}"></script>
+    <script th:src="@{/resources/js/axios.min.js}"></script>
     <script th:src="@{/resources/js/editorjs/editor.js}"></script>
     <script th:src="@{/resources/js/editorjs/plugins/checklist.js}"></script>
     <script th:src="@{/resources/js/editorjs/plugins/code.js}"></script>
@@ -27,12 +29,12 @@
 <div id="container" class="container">
     <div class="row">
         <div layout:fragment="content" class="article page_main" data-simplebar>
-            <form id="article_edit" th:action="@{|/profile/articles/|}" th:object="${article}" method="post">
+            <form id="article_edit" th:object="${article}">
                 <div class="news_wrapper">
                     <div class="left"></div>
                     <div class="news_page">
                         <div class="header">
-                            <input type="number" hidden="true" th:field="*{id}">
+                            <input type="text" hidden="true" name="uuid" id="uuid">
                             <input type="text" hidden="true" th:field="*{created}">
                             <input type="text" hidden="true" th:field="*{creator}">
                             <input type="text" hidden="true" th:field="*{status}">
@@ -97,11 +99,9 @@
                     </div>
                     <div class="right">
                         <div class="btn_block">
-                            <button id="publishe"
+                            <button id="publish"
                                     sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')"
                                     class="btn"
-                                    name="publishe"
-                                    value="publishe"
                             >
                                 Опубликовать
                             </button>
@@ -110,33 +110,24 @@
                                     id="reject"
                                     sec:authorize="hasAnyRole('ADMIN','MODERATOR')"
                                     class="btn"
-                                    name="reject"
-                                    value="reject"
                             >
                                 Отклонить
                             </button>
 
                             <button id="moderate"
                                     class="btn"
-                                    name="moderate"
-                                    value="moderate"
                             >
                                 На проверку
                             </button>
 
                             <button id="save"
-                                    type="submit"
                                     class="btn secondary"
-                                    name="save"
-                                    value="save"
                             >
                                 Сохранить черновик
                             </button>
 
                             <button id="preview"
                                     class="btn secondary"
-                                    name="preview"
-                                    value="preview"
                             >
                                 Предпросмотр
                             </button>
@@ -144,19 +135,15 @@
                             <button id="delete"
                                     th:unless="*{id eq null}"
                                     class="btn secondary"
-                                    name="delete"
-                                    value="delete"
                             >
                                 Удалить
                             </button>
 
-                            <button id="cancel"
-                                    class="btn secondary"
-                                    name="cancel"
-                                    value="cancel"
+                            <a href="#"
+                               class="btn secondary"
                             >
                                 Отмена
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

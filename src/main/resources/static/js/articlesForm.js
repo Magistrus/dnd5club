@@ -1,78 +1,236 @@
 const realTextarea = document.getElementById('text');
 const textFaker = document.getElementById('text-faker');
 const form = document.getElementById('article_edit');
-const xhr = new XMLHttpRequest();
+const controller = new AbortController();
+const query = axios.create({
+    baseURL: '/profile/articles',
+    timeout: 5000,
+    method: 'post',
+    responseType: 'json',
+    signal: controller.signal,
+    validateStatus: function (status) {
+        return status === 200;
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const field = document.getElementById('uuid');
+    const uuid = field.value;
+
+    if (!uuid) {
+        field.value = uuidv4();
+    }
+});
 
 let savingDebounce;
 
-function saveForm() {
-    editorSaveHandler();
-
+function clearDebounce() {
     if (savingDebounce) {
         clearTimeout(savingDebounce);
     }
+}
 
-    if (xhr.readyState > 0 && xhr.readyState < 4) {
-        xhr.abort();
-    }
+function getArticleId() {
+    return new Promise(function (resolve, reject) {
+        const idField = form.querySelector(`[name="id"]`);
 
-    savingDebounce = setTimeout(function () {
-        const body = new FormData();
-        const fakerContent = textFaker.innerText;
+        if (!idField) {
+            reject();
 
-        for (let i = 0; i < form.elements.length; i++) {
-            if (!['INPUT', 'TEXTAREA'].includes(form.elements[i].tagName)) {
-                continue;
-            }
-
-            if (!form.elements[i].required) {
-                body.append(form.elements[i].name, form.elements[i].value);
-
-                continue;
-            }
-
-            if (form.elements[i].name === 'text' && fakerContent.length < form.elements[i].minLength) {
-                form.elements[i].value = '';
-            }
-
-            if (!form.elements[i].checkValidity()) {
-                return;
-            }
-
-            body.append(form.elements[i].name, form.elements[i].value);
+            return;
         }
 
-        if (!body.has('save')) {
-            body.append('save', 'save');
+        const id = idField.value;
+
+        if (!id) {
+            reject();
+
+            return;
         }
 
-        xhr.open(
-            form.getAttribute('method'),
-            form.getAttribute('action')
-        )
+        resolve(id);
+    })
+}
 
-        xhr.send(body);
+function getTextJson() {
+    let json;
 
-        xhr.onload = function () {
-            if (xhr.status !== 200) {
-                throw new Error(xhr.statusText);
-            }
+    editor.save()
+        .then(function (output) {
+            json = JSON.stringify(output);
+        });
+
+    return json;
+}
+
+function getFormData() {
+    return new Promise(function (resolve, reject) {
+        const textJson = getTextJson();
+
+        if (!textJson) {
+            reject('Content is empty');
+
+            return;
+        }
+
+        const formBody = {
+            uuid: null,
+            created: null,
+            creator: null,
+            status: null,
+            title: null,
+            description: null,
+            text: null,
+            linkAccess: null,
+            tags: null,
+            translation: null,
+            originalAuthor: null,
+            originalUrl: null,
+            originalName: null,
+            imageUrl: null,
+            imageAuthor: null,
         };
+        const fieldNames = Object.values(formBody);
+        const fakerContent = textFaker.innerText;
+        const isFieldSuccess = function (element) {
+            if (!element.required) {
+                return true;
+            }
 
-        xhr.onerror = function () {
-            throw new Error("Something wrong..")
+            if (element.name === 'text' && fakerContent.length < element.minLength) {
+                element.value = '';
+            }
+
+            return element.checkValidity();
+        }
+
+        let error;
+
+        for (let i = 0; i < fieldNames.length && !error; i++) {
+            const name = fieldNames[i];
+            const field = form.querySelector(`[name=${ name }]`);
+
+            if (!field) {
+                error = true;
+
+                console.error('Field with name ' + name + ' not found');
+
+                continue;
+            }
+
+            if (!['INPUT', 'TEXTAREA'].includes(field.tagName)) {
+                continue;
+            }
+
+            if (isFieldSuccess(field)) {
+                formBody[name] = field.value;
+
+                continue;
+            }
+
+            error = field.reportValidity();
+        }
+
+        if (!error) {
+            resolve(formBody);
+
+            return;
+        }
+
+        reject();
+    });
+}
+
+function autoSave() {
+    clearDebounce();
+
+    savingDebounce = setTimeout(async function () {
+        try {
+            const data = await getFormData();
+
+            await query({
+                url: '/auto-save',
+                data
+            });
+        } catch (err) {
+            throw new Error(err);
         }
     }, 1200);
 }
 
-function editorSaveHandler() {
-    editor.save()
-        .then(function (output) {
-            realTextarea.value = JSON.stringify(output);
-        })
-        .catch(function (err) {
-            console.error(err);
-        })
+async function publishArticle() {
+    try {
+        clearDebounce();
+
+        const data = await getFormData();
+
+        await query({
+            url: '/publish',
+            data
+        });
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+async function sendToModerate() {
+    try {
+        clearDebounce();
+
+        const data = await getFormData();
+
+        await query({
+            url: '/moderate',
+            data
+        });
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+async function saveDraft() {
+    try {
+        clearDebounce();
+
+        const data = await getFormData();
+
+        await query({
+            url: '/save',
+            data
+        });
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+async function goToPreview() {
+    try {
+        clearDebounce();
+
+        const data = await getFormData();
+
+        await query({
+            url: '/preview',
+            data
+        });
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+async function deleteArticle() {
+    try {
+        clearDebounce();
+
+        const id = await getArticleId();
+
+        await query({
+            url: '/delete',
+            data: id
+        });
+    } catch (err) {
+        throw new Error(err);
+    }
 }
 
 let parsedContent = {};
@@ -215,13 +373,79 @@ const editorJSOptions = {
         }
     },
     onChange: function () {
-        saveForm();
+        autoSave();
     }
 };
 
 const editor = new EditorJS(editorJSOptions);
 
 for (let i = 0; i < form.elements.length; i++) {
-    form.elements[i].addEventListener('input', saveForm);
-    form.elements[i].addEventListener('change', saveForm);
+    form.elements[i].addEventListener('input', autoSave);
+    form.elements[i].addEventListener('change', autoSave);
 }
+
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+});
+
+const publishBtn = document.getElementById('publish');
+const moderateBtn = document.getElementById('moderate');
+const saveBtn = document.getElementById('save');
+const previewBtn = document.getElementById('preview');
+const deleteBtn = document.getElementById('delete');
+
+function isLeftClick(event) {
+    const e = event || window.event;
+
+    return 'object' === typeof e && e.button === 0;
+}
+
+publishBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    if (!isLeftClick(e)) {
+        return;
+    }
+
+    await publishArticle();
+});
+
+moderateBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    if (!isLeftClick(e)) {
+        return;
+    }
+
+    await sendToModerate();
+});
+
+saveBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    if (!isLeftClick(e)) {
+        return;
+    }
+
+    await saveDraft();
+});
+
+previewBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    if (!isLeftClick(e)) {
+        return;
+    }
+
+    await goToPreview();
+});
+
+deleteBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    if (!isLeftClick(e)) {
+        return;
+    }
+
+    await deleteArticle();
+});
