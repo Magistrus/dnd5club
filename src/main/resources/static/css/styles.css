@@ -67,6 +67,10 @@ hr {
   margin-top: 0px;
 }
 
+.w-auto {
+  width: auto !important;
+}
+
 .hide_block {
   display: none !important;
 }
