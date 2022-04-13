@@ -67,6 +67,10 @@ hr {
   margin-top: 0px;
 }
 
+.w-auto {
+  width: auto !important;
+}
+
 .hide_block {
   display: none !important;
 }
@@ -856,10 +860,11 @@ label.select_box {
 .login_form .right_block .form {
   width: 300px;
   margin: 100px auto;
+  padding: 0;
 }
 
 .login_form .right_block .form.registration_form {
-  margin: 2px auto;
+  margin: 38px auto;
 }
 
 .login_form .right_block .form input {
