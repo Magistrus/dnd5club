@@ -2151,7 +2151,6 @@ table.table_card tr.dtrg-group td {
   background-color: var(--bg-secondary) !important;
   border-radius: 16px;
   cursor: pointer;
-  border: 1px solid var(--bg-secondary);
 }
 
 #left_block.races .table_card tr.custom_source,
@@ -2160,8 +2159,17 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr.selected {
-  border: 1px solid var(--primary);
-  background-color: var(--bg-sub-menu) !important;
+  background-color: var(--primary-active) !important;
+}
+
+.table_card tr.selected td .content .row_name span,
+.table_card tr.selected td .content .two_row {
+  color: var(--text-btn-color);
+}
+
+.table_card tr:hover.selected td .content .row_name span,
+.table_card tr:hover.selected td .content .two_row {
+  color: var(--text-color);
 }
 
 .table_card tr td {
@@ -2990,6 +2998,7 @@ body.compact_menu #right_block {
 .table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
+  border-color: var(--primary-active);
 }
 
 .table_list tr td {
