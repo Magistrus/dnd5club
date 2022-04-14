@@ -2,7 +2,7 @@ const realTextarea = document.getElementById('text');
 const textFaker = document.getElementById('text-faker');
 const form = document.getElementById('article_edit');
 const controller = new AbortController();
-const query = axios.create({
+const articleQuery = axios.create({
     baseURL: '/profile/articles',
     timeout: 5000,
     method: 'post',
@@ -136,7 +136,7 @@ async function saveHandler(debounceClearing = true) {
         const data = await getFormData();
 
         await controller.abort();
-        await query({
+        await articleQuery({
             url: '/save',
             data
         });
@@ -171,7 +171,7 @@ async function APIArticleQuery(url) {
 
         const data = await getArticleUUID();
 
-        return query({
+        return articleQuery({
             url,
             data
         });
