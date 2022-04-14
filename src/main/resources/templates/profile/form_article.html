@@ -34,7 +34,8 @@
                     <div class="left"></div>
                     <div class="news_page">
                         <div class="header">
-                            <input type="text" hidden="true" name="uuid" id="uuid">
+                            <input type="submit" hidden="true" onclick="return false;">
+                            <input type="text" hidden="true" name="id" id="id">
                             <input type="text" hidden="true" th:field="*{created}">
                             <input type="text" hidden="true" th:field="*{creator}">
                             <input type="text" hidden="true" th:field="*{status}">
@@ -70,10 +71,12 @@
                             <div id="text-faker"></div>
                         </div>
                         <div class="bottom">
-                            <label for="link_access" class="check_block">
+                            <label class="check_block">
                                 <input class="toggle"
                                        type="checkbox"
-                                       th:field="*{linkAccess}">
+                                       id="linkAccess"
+                                       name="linkAccess"
+                                       th:checked="*{linkAccess}">
                                 <span>Доступ по ссылке</span>
                             </label>
 

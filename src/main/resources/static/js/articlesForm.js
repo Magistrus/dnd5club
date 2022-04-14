@@ -8,13 +8,11 @@ const query = axios.create({
     method: 'post',
     responseType: 'json',
     signal: controller.signal,
-    validateStatus: function (status) {
-        return status === 200;
-    }
+    redirect: 'follow',
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const field = document.getElementById('uuid');
+    const field = document.getElementById('id');
     const uuid = field.value;
 
     if (!uuid) {
@@ -30,53 +28,34 @@ function clearDebounce() {
     }
 }
 
-function getArticleId() {
+function getArticleUUID() {
     return new Promise(function (resolve, reject) {
-        const idField = form.querySelector(`[name="id"]`);
+        const uuidField = form.querySelector(`[name="id"]`);
 
-        if (!idField) {
+        if (!uuidField) {
             reject();
 
             return;
         }
 
-        const id = idField.value;
+        const uuid = uuidField.value;
 
-        if (!id) {
+        if (!uuid) {
             reject();
 
             return;
         }
 
-        resolve(id);
+        resolve(uuid);
     })
 }
 
-function getTextJson() {
-    let json;
-
-    editor.save()
-        .then(function (output) {
-            json = JSON.stringify(output);
-        });
-
-    return json;
-}
-
-function getFormData() {
-    return new Promise(function (resolve, reject) {
-        const textJson = getTextJson();
-
-        if (!textJson) {
-            reject('Content is empty');
-
-            return;
-        }
+async function getFormData() {
+    try {
+        await editor.save();
 
         const formBody = {
-            uuid: null,
-            created: null,
-            creator: null,
+            id: null,
             status: null,
             title: null,
             description: null,
@@ -90,7 +69,7 @@ function getFormData() {
             imageUrl: null,
             imageAuthor: null,
         };
-        const fieldNames = Object.values(formBody);
+        const fieldNames = Object.keys(formBody);
         const fakerContent = textFaker.innerText;
         const isFieldSuccess = function (element) {
             if (!element.required) {
@@ -100,6 +79,7 @@ function getFormData() {
             if (element.name === 'text' && fakerContent.length < element.minLength) {
                 element.value = '';
             }
+
 
             return element.checkValidity();
         }
@@ -123,7 +103,13 @@ function getFormData() {
             }
 
             if (isFieldSuccess(field)) {
-                formBody[name] = field.value;
+                if (field.type === 'checkbox') {
+                    formBody[name] = field.checked;
+
+                    continue;
+                }
+
+                formBody[name] = field.value.trim();
 
                 continue;
             }
@@ -132,13 +118,31 @@ function getFormData() {
         }
 
         if (!error) {
-            resolve(formBody);
-
-            return;
+            return formBody;
         }
 
-        reject();
-    });
+        console.error('Oops...');
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+async function saveHandler(debounceClearing = true) {
+    try {
+        if (debounceClearing) {
+            clearDebounce();
+        }
+
+        const data = await getFormData();
+
+        await controller.abort();
+        await query({
+            url: '/save',
+            data
+        });
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 function autoSave() {
@@ -146,90 +150,65 @@ function autoSave() {
 
     savingDebounce = setTimeout(async function () {
         try {
-            const data = await getFormData();
-
-            await query({
-                url: '/auto-save',
-                data
-            });
+            await saveHandler(false);
         } catch (err) {
-            throw new Error(err);
+            console.error(err);
         }
     }, 1200);
 }
 
-async function publishArticle() {
+async function saveDraft() {
     try {
-        clearDebounce();
+        await saveHandler();
+    } catch (err) {
+        console.error(err);
+    }
+}
 
-        const data = await getFormData();
+async function APIArticleQuery(url) {
+    try {
+        await saveHandler();
 
-        await query({
-            url: '/publish',
+        const data = await getArticleUUID();
+
+        return query({
+            url,
             data
         });
     } catch (err) {
-        throw new Error(err);
+        console.error(err);
+    }
+}
+
+async function publishArticle() {
+    try {
+        await APIArticleQuery('/publish');
+    } catch (err) {
+        console.error(err);
     }
 }
 
 async function sendToModerate() {
     try {
-        clearDebounce();
-
-        const data = await getFormData();
-
-        await query({
-            url: '/moderate',
-            data
-        });
+        await APIArticleQuery('/moderate');
     } catch (err) {
-        throw new Error(err);
-    }
-}
-
-async function saveDraft() {
-    try {
-        clearDebounce();
-
-        const data = await getFormData();
-
-        await query({
-            url: '/save',
-            data
-        });
-    } catch (err) {
-        throw new Error(err);
+        console.error(err);
     }
 }
 
 async function goToPreview() {
     try {
-        clearDebounce();
-
-        const data = await getFormData();
-
-        await query({
-            url: '/preview',
-            data
-        });
+        await APIArticleQuery('/preview');
     } catch (err) {
-        throw new Error(err);
+        console.error(err);
     }
 }
 
 async function deleteArticle() {
     try {
-        clearDebounce();
-
-        const id = await getArticleId();
-
-        await query({
-            url: '/delete',
-            data: id
-        });
+        await APIArticleQuery('/delete');
     } catch (err) {
-        throw new Error(err);
+        console.error(err);
     }
 }
 
@@ -383,10 +362,6 @@ for (let i = 0; i < form.elements.length; i++) {
     form.elements[i].addEventListener('input', autoSave);
     form.elements[i].addEventListener('change', autoSave);
 }
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-});
 
 const publishBtn = document.getElementById('publish');
 const moderateBtn = document.getElementById('moderate');
