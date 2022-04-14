@@ -69,6 +69,7 @@ $(document).ready(function () {
 
             if (selectedScreen) {
                 selectScreen(selectedScreen);
+                document.getElementById('list_page_two_block').classList.add('block_information');
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedScreen.id) {
