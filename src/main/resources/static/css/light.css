@@ -1,8 +1,8 @@
 :root {
   --bg-transparent: #ffffff00;
-  --bg-main: #ede7d6;
-  --bg-secondary: #ebdfbe;
-  --bg-sub-menu: #e3d4a9;
+  --bg-main: #F9F6EB;
+  --bg-secondary: #F3EDD8;
+  --bg-sub-menu: #F1E9CB;
   --bg-dice: #8d8be1;
   --bg-homebrew: #319f52;
   --bg-homebrew-gradient: linear-gradient(to right, var(--bg-transparent), #B8D2B2 90%);
@@ -26,7 +26,7 @@
   --link-color-hover:#9e5924;
   --hover: rgba(00, 00, 00, 0.08);
   --bg-table-row: rgba(00, 00, 00, 0.05);
-  --border: #CCC6C4;
+  --border: #EEE2BA;
   --primary: #5e5446;
   --primary-hover: #796e5e;
   --primary-active: #696052;
