@@ -2156,8 +2156,8 @@ table.table_card tr.dtrg-group td {
 
 #left_block.races .table_card tr.custom_source,
 #left_block.classes .table_card tr.custom_source {
-  /* background: var(--bg-homebrew-gradient) !important; */
-  background: linear-gradient(to left, var(--bg-transparent), #B8D2B2 90%) !important;
+  background: var(--bg-homebrew-gradient-left) !important;
+  /* background: linear-gradient(to left, var(--bg-transparent), var(--bg-homebrew) 90%) !important; */
 }
 
 .table_card tr.selected {
