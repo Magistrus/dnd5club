@@ -152,6 +152,10 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
+
             if (selectedSpell === null) {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null) {
                     return;
