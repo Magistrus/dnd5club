@@ -74,9 +74,11 @@ $(document).ready(function () {
             if (window.innerWidth >= 1200) {
                 $('#list_page_two_block').addClass('block_information');
             }
+            
             if (!$('#list_page_two_block').hasClass('block_information') && !selectedCondition) {
                 return;
             }
+
             if (selectedCondition) {
                 selectCondition(selectedCondition);
                 var rowIndexes = [];
