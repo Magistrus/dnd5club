@@ -2149,7 +2149,7 @@ table.table_card tr.dtrg-group td {
   width: 100%;
   overflow: hidden;
   background-color: var(--bg-secondary) !important;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
 }
 
@@ -2982,7 +2982,7 @@ body.compact_menu #right_block {
   flex-direction: row;
   margin: 16px 16px;
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
