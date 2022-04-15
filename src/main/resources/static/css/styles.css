@@ -2977,7 +2977,7 @@ body.compact_menu #right_block {
 }
 
 .table_list tr {
-  background-color: transparent !important;
+  background-color: var(--bg-main) !important;
   display: flex;
   flex-direction: row;
   margin: 16px 16px;
@@ -2991,8 +2991,11 @@ body.compact_menu #right_block {
 }
 
 .table_list tr:hover {
-  background-color: var(--hover) !important;
   cursor: pointer;
+}
+
+.table_list tr:hover td {
+  background-color: var(--hover) !important;
 }
 
 .table_list tr.selected {

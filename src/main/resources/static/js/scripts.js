@@ -24,6 +24,7 @@ $(document).ready(function () {
         if (windowWidth < 1200) {
             elem.removeClass('compact_menu');
             $('#body').removeClass('full_screen_right_block');
+            // $('#list_page_two_block').removeClass('block_information');
 
             window.addEventListener('popstate', handlerBackBtnFromCard);
         }
