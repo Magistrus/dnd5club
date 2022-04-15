@@ -8,20 +8,23 @@ $(document).ready(function () {
 
         if (check === 'true' && windowWidth > 1200) {
             elem.addClass('compact_menu');
-            $('#list_page_two_block').addClass('block_information');
             return;
         }
 
-        if (windowWidth < 1400) {
-            elem.addClass('compact_menu');
-        } else {
-            elem.removeClass('compact_menu');
-        }
+        // if (windowWidth < 1400) {
+        //     elem.addClass('compact_menu');
+        // } else {
+        //     elem.removeClass('compact_menu');
+        // }
+
+        // if (windowWidth > 1200) {
+        //     $('#list_page_two_block').addClass('block_information');
+        // }
 
         if (windowWidth < 1200) {
             elem.removeClass('compact_menu');
             $('#body').removeClass('full_screen_right_block');
-            $('#list_page_two_block').removeClass('block_information');
+            // $('#list_page_two_block').removeClass('block_information');
 
             window.addEventListener('popstate', handlerBackBtnFromCard);
         }
