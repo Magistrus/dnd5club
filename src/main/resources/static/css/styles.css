@@ -936,7 +936,7 @@ label.select_box {
 
 
 /******** Главная ********/
-body:before {
+.main_page_wrapper:before {
   content: '';
   display: block;
   position: absolute;
@@ -949,8 +949,8 @@ body:before {
   opacity: 0.3;
 }
 
-@media (max-width: 600px) {
-  body:before {
+@media (max-width: 1200px) {
+  .main_page_wrapper:before {
     display: none !important;
   }
 }
@@ -2148,16 +2148,15 @@ table.table_card tr.dtrg-group td {
   display: inline-block;
   width: 100%;
   overflow: hidden;
-  background-color: var(--bg-secondary) !important;
+  background-color: var(--bg-table-list) !important;
   border-radius: 12px;
   cursor: pointer;
-  border: 1px solid var(--border);
+  border: 1px solid var(--bg-secondary);
 }
 
 #left_block.races .table_card tr.custom_source,
 #left_block.classes .table_card tr.custom_source {
   background: var(--bg-homebrew-gradient-left) !important;
-  /* background: linear-gradient(to left, var(--bg-transparent), var(--bg-homebrew) 90%) !important; */
 }
 
 .table_card tr.selected {
@@ -2969,11 +2968,11 @@ body.compact_menu #right_block {
 }
 
 .table_list tr {
-  background-color: var(--bg-main) !important;
+  background-color: var(--bg-table-list) !important;
   display: flex;
   flex-direction: row;
   margin: 16px 16px;
-  border: 1px solid var(--border);
+  /* border: 1px solid var(--border); */
   border-radius: 12px;
   overflow: hidden;
 }
@@ -3583,6 +3582,23 @@ body.full_screen_right_block .screens .card_block .block {
 /******** Предыстории / backgrounds ********/
 .backgrounds {
 
+}
+
+
+/******** Драгоценности / treasures ********/
+.treasures {
+
+}
+
+#left_block.treasures table.table_list {
+  max-width: 60%;
+  background-color: var(--bg-main);
+}
+
+@media (max-width: 1200px) {
+  #left_block.treasures table.table_list {
+    max-width: 100%;
+  }
 }
 
 
