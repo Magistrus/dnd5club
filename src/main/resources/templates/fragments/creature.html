@@ -164,11 +164,11 @@
 		</p>
 		<details th:if="*{description}">
 			<summary class="h4 header_separator"><span>Описание</span></summary>
-			<div th:if="*{description}" th:utext="*{description}"></div>
+			<div class="content" th:if="*{description}" th:utext="*{description}"></div>
 		</details>
 		<details th:each="race : *{races}">
 			<summary class="h4 header_separator"><span th:text="${race.name}">Описание родительского типа</span></summary>
-			<div th:utext="${race.description}"></div>
+			<div class="content" th:utext="${race.description}"></div>
 		</details>
 	</div>
 </body>
