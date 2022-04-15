@@ -20,7 +20,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         var result = '<div class="info_block tip" title="' + row.alignment + '">' + row.aligmentShort + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
-                        result += '</span><span>[' + row.englishName + ']</span></h3>';
+                        result += '</span> <ename>[' + row.englishName + ']</ename></h3>';
                         result += '<div class="secondary_name>' + row.commitment + '</div></div>';
                         return result;
                     }
@@ -102,6 +102,10 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
+
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
 
             if (rowSelectIndex === 0 && selectedGod === null) {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedGod === null) {

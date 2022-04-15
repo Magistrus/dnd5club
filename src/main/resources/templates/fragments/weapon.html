@@ -33,5 +33,8 @@
 		<th:block th:utext="*{description}"></th:block>
 		<p th:if="*{special}"><strong>Особое свойство:</strong> <span th:utext="*{special}"></span></p>
 	</th:block>
+	<th:block th:object="${property}" th:fragment="property_view">
+		<div th:utext="*{description}"></div>
+	</th:block>
 </body>
 </html>

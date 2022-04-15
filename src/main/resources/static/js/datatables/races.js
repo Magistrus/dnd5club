@@ -22,7 +22,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         let result = '<div class="wrapper"><i class="info_block">' + row.icon + '</i>';
                         result += '<div class="content"><h3 class="row_name"><span><span class="name">' + row.name;
-                        result += '</span> <span>[' + row.englishName + ']</span></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
+                        result += '</span> <ename>[' + row.englishName + ']</ename></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
                         result += '<div class="two_row"><span>' + row.ability + '</span></div></div>';
                         if (row.hasSubraces == true) {
                             result += '<button class="open tip" title="Разновидности" data-tipped-options="position: \'left\'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 14L11.2929 19.2929C11.6834 19.6834 12.3166 19.6834 12.7071 19.2929L18 14M12 11V11C13.6569 11 15 9.65685 15 8V8C15 6.34315 13.6569 5 12 5V5C10.3431 5 9 6.34315 9 8V8C9 9.65685 10.3431 11 12 11Z" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
@@ -31,7 +31,7 @@ $(document).ready(function () {
                                 result += '<div class="archetype_list"><h4>Основное:</h4><ul>';
                                 row.subraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                    .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
                             }
@@ -39,7 +39,15 @@ $(document).ready(function () {
                                 result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingSubraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                    .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
+                                });
+                                result += '</ul></div>';
+                            }
+                            if (row.moduleSubraces.length > 0) {
+                                result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Приключения:</h4><ul>';
+                                row.moduleSubraces.forEach(function (item, i, arr) {
+                                    result += '<li class="archetype_item" id="' + item.englishName.split(' ')
+                                    .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div></div>';
                             }
@@ -47,7 +55,7 @@ $(document).ready(function () {
                                 result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('races') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewSubraces.forEach(function (item, i, arr) {
                                     result += '<li class="archetype_item" id="' + item.englishName.split(' ')
-                                                                                      .join('_') + '"><i class="add_favorites"></i><p>' + item.name + ' <span>' + item.bookshort + ' / ' + item.englishName + '</span></p></li>';
+                                    .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
                             }
@@ -101,6 +109,10 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
+
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
 
             if (selectedRace) {
                 selectRace(selectedRace);
@@ -253,7 +265,9 @@ function selectRace(data) {
 }
 
 function setActiveSubrace(data, raceName, subraceName) {
-    $('#race_name').text($('#' + subraceName).text());
+	let $name = $('#' + subraceName);
+    $('#race_name').text($name.attr('data-name'));
+    $('#english_name').html(data.englishName + ' ' + $name.attr('data-english-name'));
     document.title = data.name + ' (' + subraceName + ') - ' + $('#' + subraceName).text() + ' | Подклассы D&D 5e';
     var url = '/races/' + data.englishName + '/subrace/' + subraceName.split(' ').join('_');
     $("#content_block").load(url, function () {

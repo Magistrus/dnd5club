@@ -17,7 +17,7 @@
 		<meta property="og:url" id="meta_url" th:content="${metaUrl eq null ? 'https://dnd5.club/' : metaUrl}">
 		<meta property="og:title" id= "meta_title" th:content="${metaTitle eq null ? 'DnD5.club Oнлайн-справочник' : metaTitle}">
 		<meta property="og:description" th:content="${metaDescription eq null ? 'DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.' : metaDescription}">
-		<meta property="og:image" id="meta_image" th:content="${metaImage eq null ? 'https://image.dnd5.club:8089/dnd-meta.webp' : metaImage}">
+		<meta property="og:image" id="meta_image" th:content="${metaImage eq null ? 'https://image.dnd5.club:8089/dnd-meta.jpg' : metaImage}">
 		<meta name="twitter:title" th:content="${metaTitle eq null ? 'DnD5.club Oнлайн-справочник' : metaTitle}">
 		<meta name="yandex-verification" content="fcb3cea757dfffdd" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,12 +42,13 @@
 		<!-- Favicon-->
 		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon_new.svg?v=7}" />
 		<!-- Core theme CSS -->
-		<link rel="stylesheet" type="text/css" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css|}" id="theme_css" th:class="${session.theme}" />
+		<link rel="stylesheet" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css?v=${version}|}" id="theme_css" th:class="${session.theme}" />
 		<link rel="stylesheet" th:href="@{|/resources/css/typography.css?v=${version}|}" />
 		<link rel="stylesheet" th:href="@{|/resources/css/styles.css?v=${version}|}" />
 		<link rel="stylesheet" th:href="@{|/resources/css/print.css?v=${version}|}" />
 		<link rel="stylesheet" th:href="@{|/resources/css/search.css?v=${version}|}" />
 		<link rel="stylesheet" th:href="@{|/resources/css/personal-area.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/resources/css/editor.css?v=${version}|}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
 		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
 		<!-- Menu -->

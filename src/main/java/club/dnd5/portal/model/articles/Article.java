@@ -2,6 +2,8 @@ package club.dnd5.portal.model.articles;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.boot.json.JacksonJsonParser;
+
 import club.dnd5.portal.model.user.User;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,15 +36,18 @@ public class Article {
 	private String title;
 	private String description;
 	@Column(columnDefinition = "TEXT")
-	private String text;
+	private String text = "";
 	@Enumerated(EnumType.STRING)
 	private ArtricleStatus status;
+	private boolean linkAccess;
+	private String tags;
 	private String author;
 	private String translation;
 	private String originalAuthor;
 	private String originalUrl;
 	private String originalName;
-	
+	private String imageUrl;
+	private String imageAuthor;
 	private String cause_canceled;
 	
 	@ManyToOne
@@ -55,9 +63,22 @@ public class Article {
 	private LocalDateTime published;
 	private LocalDateTime deleted;
 	
+	@SuppressWarnings("unchecked")
 	public String getShortText() {
-		return text;
-		//return text.length() > 400 ? text.substring(0, 400) : text;
+		if (StringUtils.isEmpty(text)) {
+			return "";
+		}
+		StringBuilder builder = new StringBuilder();
+		JacksonJsonParser parser = new JacksonJsonParser();
+		List<Map<String, Object>> result =  (List<Map<String, Object>>) parser.parseMap(text).getOrDefault("blocks", "");
+		for (Map<String, Object> map : result) {
+			if (map.get("type").equals("paragraph")) {
+				Map<String, Object> m = ((Map<String, Object>) map.get("data"));
+				builder.append(m.get("text"));
+				builder.append(" ");
+			}
+		}
+		return builder.toString();
 	}
 
 	public String getPublishedDate() {

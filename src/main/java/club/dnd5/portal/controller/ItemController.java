@@ -10,7 +10,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +28,6 @@ public class ItemController {
 	private ItemDatatableRepository repository;
 	
 	private Map<TypeBook, List<Book>> sources;
-
-	@Value("${git.commit.id}")
-	private String version;
 
 	@PostConstruct
 	public void init() {
@@ -52,7 +48,6 @@ public class ItemController {
 		model.addAttribute("metaTitle", "Снаряжение (Items) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items");
 		model.addAttribute("metaDescription", "Снаряжение и инструменты по D&D 5 редакции");
-		model.addAttribute("version", version);
 		return "items";
 	}
 	
@@ -73,7 +68,6 @@ public class ItemController {
 		model.addAttribute("metaTitle", item.getName() + " | Снаряжение D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) снаряжение по D&D 5 редакции", item.getName(), item.getEnglishName()));
-		model.addAttribute("version", version);
 		return "items";
 	}
 	

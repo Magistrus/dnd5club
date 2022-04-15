@@ -5,7 +5,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +20,12 @@ public class RuleController {
 	@Autowired
 	private RuleDatatableRepository repository;
 
-	@Value("${git.commit.id}")
-	private String version;
-
 	@GetMapping("/rules")
 	public String getRules(Model model) {
 		model.addAttribute("categories", repository.findAllCategories());
 		model.addAttribute("metaUrl", "https://dnd5.club/rules/");
 		model.addAttribute("metaTitle", "Правила и термины [Rules] D&D 5e");
 		model.addAttribute("metaDescription", "Правила и термины [Rules] D&D 5e");
-		model.addAttribute("version", version);
 		return "rules";
 	}
 	
@@ -46,7 +41,6 @@ public class RuleController {
 		model.addAttribute("metaDescription", String.format("%s (%s) Правила и термины по D&D 5 редакции", rule.getName(), rule.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/rules/" + name);
 		model.addAttribute("selectedRule", new RuleDto(rule));
-		model.addAttribute("version", version);
 		return "rules";
 	}
 	

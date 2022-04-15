@@ -5,7 +5,7 @@
   --bg-sub-menu: #2C3034;
   --bg-dice: #585595;
   --bg-homebrew: #23492e;
-  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-transparent), var(--bg-homebrew)310%);
+  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-main), #1F2E27 90%);
   --bg-advantage: #026a02;
   --bg-disadvantage: #774747;
   --bg-saving_throw: #fe5e00;
@@ -34,6 +34,7 @@
 
 /********* IMG BG *********/
 :root {
+  --bg-img-login: url(/resources/assets/img/bg_login.png);
   --bg-img-main: url(/resources/assets/style/dark/test.webp);
   --bg-img-bestiary-forest: url(/resources/assets/style/dark/forest.webp);
   --bg-img-bard: url(/resources/assets/style/dark/bard.webp);

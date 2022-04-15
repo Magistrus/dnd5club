@@ -1,5 +1,27 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+    <script th:src="@{/resources/js/editorjs/editor.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/checklist.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/code.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/delimiter.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/embed.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/header.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/image.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/inline-code.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/link.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/list.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/marker.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/paragraph.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/personality.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/quote.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/table.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/warning.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-dice-text.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-saving-throw.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-advantage.js}"></script>
+    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-disadvantage.js}"></script>
+</head>
 <body id="body" class="overflow-hidden">
 	<div id="container" class="container">
 		<div class="row">
@@ -10,35 +32,35 @@
 					<div class="news_page">
 						<div class="header">
 							<h1 class="title" th:text="*{title}">Заголовок</h1>
-							<h3 class="subtitle" th:text="*{description}">Описание</h3>
-							<time datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
+							<h3 th:if="*{description.length()}" class="subtitle" th:text="*{description}">Краткое содержание</h3>
+							<time th:if="*{publishedDate.length()}" datetime="2022-03-05" th:text="*{publishedDate}">05 марта 2022</time>
 						</div>
-						<th:block th:utext="*{text}"></th:block>
+                        <div id="editor-data" class="hide_block">
+                            <th:block th:utext="*{text}"></th:block>
+                        </div>
+						<div id="text-preview" class="editor_readonly"></div>
 						<div class="bottom">
 							<div class="info">
-								<div class="block_1">
-									<ul class="meta">
-										<li th:text="|Автор: *{author}|"></li>
-										<li th:text="|Перевод:  *{translation}|"></li>
-										<li th:text="|Автор оригинала: *{originalAuthor}|"></li>
-										<li>Источник : <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
-									</ul>
-								</div>
-								<div class="block_2">
-									<h5>Советуем подписаться, чтобы не пропустить!</h5>
-									<a href="#">
+								<ul class="meta">
+									<li th:text="|Автор: *{author}|"></li>
+									<li th:if="*{translation.length()}" th:text="|Перевод:  *{translation}|"></li>
+									<li th:if="*{originalAuthor.length()}" th:text="|Автор оригинала: *{originalAuthor}|"></li>
+									<li th:if="*{originalUrl.length()}">Источник: <a th:href="*{originalUrl}" th:text="*{originalName}"></a></li>
+								</ul>
+							</div>
+							<div class="social_links">
+								<h5>Советуем подписаться, чтобы быть в курсе всех новостей!</h5>
+								<div class="icon">
+									<a href="https://discord.gg/zqBnMJVf3z">
 										<i class="icon_action">
-											<svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19.915 13.028c-.388-.49-.277-.708 0-1.146.005-.005 3.208-4.431 3.538-5.932l.002-.001c.164-.547 0-.949-.793-.949h-2.624c-.668 0-.976.345-1.141.731 0 0-1.336 3.198-3.226 5.271-.61.599-.892.791-1.225.791-.164 0-.419-.192-.419-.739v-5.105c0-.656-.187-.949-.74-.949h-4.126c-.419 0-.668.306-.668.591 0 .622.945.765 1.043 2.515v3.797c0 .832-.151.985-.486.985-.892 0-3.057-3.211-4.34-6.886-.259-.713-.512-1.001-1.185-1.001h-2.625c-.749 0-.9.345-.9.731 0 .682.892 4.073 4.148 8.553 2.17 3.058 5.226 4.715 8.006 4.715 1.671 0 1.875-.368 1.875-1.001 0-2.922-.151-3.198.686-3.198.388 0 1.056.192 2.616 1.667 1.783 1.749 2.076 2.532 3.074 2.532h2.624c.748 0 1.127-.368.909-1.094-.499-1.527-3.871-4.668-4.023-4.878z" fill="#4b729f"/></svg>
+											<svg viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M114.54 38.2242C107.015 34.8185 99.1799 32.3416 91.0359 31C90.005 32.8577 88.871 35.2313 88.0463 37.1922C79.3869 35.8505 70.6244 35.8505 61.965 37.1922C61.0372 35.0249 60.0063 32.9609 58.8724 31C50.7284 32.3416 42.7906 34.8185 35.3683 38.3274C20.5236 60.516 16.5031 82.0854 18.4618 103.448C27.2243 109.95 36.9146 114.904 47.3265 118C49.6975 114.801 51.7593 111.498 53.5118 107.989C50.1099 106.751 46.9142 105.203 43.8215 103.345C44.6462 102.726 45.3678 102.107 46.1925 101.488C64.4391 110.157 85.6753 110.157 103.922 101.488C104.747 102.107 105.468 102.726 106.293 103.345C103.2 105.203 99.9015 106.751 96.4995 107.989C98.252 111.498 100.314 114.801 102.685 118C113.097 114.801 122.89 109.95 131.55 103.448C133.817 78.6797 127.426 57.2135 114.54 38.2242ZM55.9859 90.2384C50.3161 90.2384 45.7802 85.0783 45.7802 78.7829C45.7802 72.4875 50.3161 67.2242 55.9859 67.2242C61.7588 67.2242 66.2947 72.3843 66.2947 78.7829C66.1916 85.0783 61.7588 90.2384 55.9859 90.2384ZM93.9223 90.2384C88.2525 90.2384 83.7166 85.0783 83.7166 78.7829C83.7166 72.4875 88.2525 67.2242 93.9223 67.2242C99.6953 67.2242 104.231 72.3843 104.128 78.7829C104.025 85.1815 99.5922 90.2384 93.9223 90.2384Z" fill="white"/>
+											</svg>
 										</i>
 									</a>
-									<a href="#">
+									<a href="https://vk.com/dnd5club">
 										<i class="icon_action">
-											<svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19.915 13.028c-.388-.49-.277-.708 0-1.146.005-.005 3.208-4.431 3.538-5.932l.002-.001c.164-.547 0-.949-.793-.949h-2.624c-.668 0-.976.345-1.141.731 0 0-1.336 3.198-3.226 5.271-.61.599-.892.791-1.225.791-.164 0-.419-.192-.419-.739v-5.105c0-.656-.187-.949-.74-.949h-4.126c-.419 0-.668.306-.668.591 0 .622.945.765 1.043 2.515v3.797c0 .832-.151.985-.486.985-.892 0-3.057-3.211-4.34-6.886-.259-.713-.512-1.001-1.185-1.001h-2.625c-.749 0-.9.345-.9.731 0 .682.892 4.073 4.148 8.553 2.17 3.058 5.226 4.715 8.006 4.715 1.671 0 1.875-.368 1.875-1.001 0-2.922-.151-3.198.686-3.198.388 0 1.056.192 2.616 1.667 1.783 1.749 2.076 2.532 3.074 2.532h2.624c.748 0 1.127-.368.909-1.094-.499-1.527-3.871-4.668-4.023-4.878z" fill="#4b729f"/></svg>
-										</i>
-									</a>
-									<a href="#">
-										<i class="icon_action">
-											<svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19.915 13.028c-.388-.49-.277-.708 0-1.146.005-.005 3.208-4.431 3.538-5.932l.002-.001c.164-.547 0-.949-.793-.949h-2.624c-.668 0-.976.345-1.141.731 0 0-1.336 3.198-3.226 5.271-.61.599-.892.791-1.225.791-.164 0-.419-.192-.419-.739v-5.105c0-.656-.187-.949-.74-.949h-4.126c-.419 0-.668.306-.668.591 0 .622.945.765 1.043 2.515v3.797c0 .832-.151.985-.486.985-.892 0-3.057-3.211-4.34-6.886-.259-.713-.512-1.001-1.185-1.001h-2.625c-.749 0-.9.345-.9.731 0 .682.892 4.073 4.148 8.553 2.17 3.058 5.226 4.715 8.006 4.715 1.671 0 1.875-.368 1.875-1.001 0-2.922-.151-3.198.686-3.198.388 0 1.056.192 2.616 1.667 1.783 1.749 2.076 2.532 3.074 2.532h2.624c.748 0 1.127-.368.909-1.094-.499-1.527-3.871-4.668-4.023-4.878z" fill="#4b729f"/></svg>
+											<svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19.915 13.028c-.388-.49-.277-.708 0-1.146.005-.005 3.208-4.431 3.538-5.932l.002-.001c.164-.547 0-.949-.793-.949h-2.624c-.668 0-.976.345-1.141.731 0 0-1.336 3.198-3.226 5.271-.61.599-.892.791-1.225.791-.164 0-.419-.192-.419-.739v-5.105c0-.656-.187-.949-.74-.949h-4.126c-.419 0-.668.306-.668.591 0 .622.945.765 1.043 2.515v3.797c0 .832-.151.985-.486.985-.892 0-3.057-3.211-4.34-6.886-.259-.713-.512-1.001-1.185-1.001h-2.625c-.749 0-.9.345-.9.731 0 .682.892 4.073 4.148 8.553 2.17 3.058 5.226 4.715 8.006 4.715 1.671 0 1.875-.368 1.875-1.001 0-2.922-.151-3.198.686-3.198.388 0 1.056.192 2.616 1.667 1.783 1.749 2.076 2.532 3.074 2.532h2.624c.748 0 1.127-.368.909-1.094-.499-1.527-3.871-4.668-4.023-4.878z" fill="#ffffff"/></svg>
 										</i>
 									</a>
 								</div>
@@ -68,23 +90,13 @@
 							<button id="publishe" name="publishe" sec:authorize="hasAnyRole('ADMIN','MODERATOR', 'WRITER')" class="btn" value="publishe">Опубликовать</button>
 							<button th:if = "*{status eq 'MODERATION'}" id="reject" name="reject" sec:authorize="hasAnyRole('ADMIN','MODERATOR')" class="btn" value="reject">Отклонить</button>
 							<button id="moderate" name="moderate" class="btn" value="moderate">На проверку</button>
-							<button id="edit" name="edit" class="btn secondary" value="edit">Редактировать</button>
+							<a th:if="${article.status.name() eq 'CREATED'}" th:href="@{|/profile/articles/${article.id}|}" class="btn secondary">Редактировать</a>
 							<button id="cancel" name="cancel" class="btn secondary" value="cancel">Назад</button>
 							<button id="delete" name="delete" th:unless="*{id eq null}" class="btn secondary" value="delete">Удалить</button>
 						</div>
 						<!-- <div class="contents" data-simplebar>
 							<ul class="list">
 								<li>Игроки опасаются столкновений, рассчитанных на полную группу</li>
-								<li>Игроки держатся вместе из вежливости по отношению к мастеру</li>
-								<li>Игроки держатся вместе, чтобы все были вовлечены в действие
-									<ul>
-										<li>Если обе подгруппы вступают в бой, проведите их, используя общую инициативу</li>
-										<li>Делегируйте неигровых персонажей и даже монстров незанятым игрокам</li>
-										<li>Разведите игроков по отдельным комнатам</li>
-									</ul>
-								</li>
-								<li>Игроки опасаются столкновений, рассчитанных на полную группу</li>
-								<li>Игроки держатся вместе из вежливости по отношению к мастеру</li>
 								<li>Игроки держатся вместе, чтобы все были вовлечены в действие
 									<ul>
 										<li>Если обе подгруппы вступают в бой, проведите их, используя общую инициативу</li>
@@ -100,4 +112,9 @@
 		</div>
 	</div>
 </body>
+
+<script th:src="@{|/resources/js/article.js?v=${version}|}" layout:fragment="js-script"></script>
+<script>
+    const editorIsReadOnly = true;
+</script>
 </html>

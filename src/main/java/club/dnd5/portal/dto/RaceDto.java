@@ -27,6 +27,7 @@ public class RaceDto {
 	private boolean hasSubraces;
 	private List<RaceDto> subraces;
 	private List<RaceDto> settingSubraces;
+	private List<RaceDto> moduleSubraces;
 	private List<RaceDto> homebrewSubraces;
 
 	public RaceDto(Race race) {
@@ -42,6 +43,7 @@ public class RaceDto {
 		hasSubraces = !race.getSubRaces().isEmpty();
 		subraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.OFFICAL && !a.isView()).map(RaceDto::new).collect(Collectors.toList());
 		settingSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.SETTING && !a.isView()).map(RaceDto::new).collect(Collectors.toList());
+		moduleSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.MODULE && !a.isView()).map(RaceDto::new).collect(Collectors.toList());
 		homebrewSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.CUSTOM && !a.isView()).map(RaceDto::new).collect(Collectors.toList());
 		homebrew = race.getBook().getType() == TypeBook.CUSTOM;
 		setting = race.getBook().getType() == TypeBook.SETTING;

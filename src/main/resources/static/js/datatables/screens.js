@@ -19,7 +19,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     if (type === 'display') {
                         var result = '<div class="wrapper"><div class="content"><h3 class="row_name"><span class="name">' + row.name;
-                        result += '</span></h3><div class="two_row"><span>' + row.englishName + '</span></dv></dv></dv>';
+                        result += '</span></h3><div class="two_row"><ename>' + row.englishName + '</ename></dv></dv></dv>';
                         return result;
                     }
                     return data;
@@ -67,8 +67,13 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
+
             if (selectedScreen) {
                 selectScreen(selectedScreen);
+                document.getElementById('list_page_two_block').classList.add('block_information');
                 var rowIndexes = [];
                 table.rows(function (idx, data, node) {
                     if (data.id === selectedScreen.id) {

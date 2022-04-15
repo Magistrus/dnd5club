@@ -29,7 +29,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         var result = '<div class="tip info_block" title="' + (row.level === 0 ? 'Заговор' : row.level + ' уровень заклинания') + '">' + (row.level === 0 ? '◐' : row.level) + '</div>';
                         result += '<div class="content"><h3 class="row_name"><span>' + row.name;
-                        result += '</span><span>[' + row.englishName + ']</span></h3>';
+                        result += '</span> <ename>[' + row.englishName + ']</ename></h3>';
                         result += '<div class="content_description"><div class="secondary_name s1">';
                         if (row.concentration) {
                             result += '<span class="tip concentration" title="Концентрация">К</span>';
@@ -38,7 +38,7 @@ $(document).ready(function () {
                             result += '<span class="tip ritual" title="Ритуал">Р</span>';
                         }
                         result += '<p class="capitalize_text">' + row.school + '</p></div>';
-                        result += '<div class="secondary_name s2 l_alg_left">';
+                        result += '<div class="secondary_name s2 aright">';
                         if (row.verbal) {
                             result += '<span class="tip excretion" title="Вербальный">' + row.verbal + '</span>';
                         }
@@ -151,6 +151,10 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
+
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
 
             if (selectedSpell === null) {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedSpell === null) {

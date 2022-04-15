@@ -7,7 +7,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +23,6 @@ public class ProfileController {
 	
 	@Autowired
 	private ArticleService service;
-	
-	@Value("${git.commit.id}")
-	private String version;
 	
 	@GetMapping ("/profile")
 	public String getProfileForm(Model model, Principal principal, HttpServletRequest request) {
@@ -46,7 +42,6 @@ public class ProfileController {
 		model.addAttribute("name", currentUser.getName());
 		model.addAttribute("email", currentUser.getEmail());
 		model.addAttribute("roles", currentUser.getRoles());
-		model.addAttribute("version", version);
 		return "user/profile";
 	}
 }

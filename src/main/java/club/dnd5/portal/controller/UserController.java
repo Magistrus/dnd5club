@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,20 +36,15 @@ public class UserController {
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
 	
-	@Value("${git.commit.id}")
-	private String version;
-	
 	@GetMapping("/admin/users")
 	public String getUsers(Model model) {
 		model.addAttribute("roles", roleRepository.findAll());
-		model.addAttribute("version", version);
 		return "/user/admin/users";
 	}
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
 		model.addAttribute("user", new UserRegForm());
-		model.addAttribute("version", version);
 		return "user/registration";
 	}
 
@@ -131,12 +125,17 @@ public class UserController {
 		if (logout != null) {
 			model.addAttribute("message", "Вы успешно вышли из системы.");
 		}
-		model.addAttribute("version", version);
 		return "user/login";
 	}
 
 	@GetMapping("/loginform")
 	public String getLoginForm(Model model, String error, String logout) {
 		return "user/login :: form";
+	}
+	
+	@GetMapping("/regform")
+	public String getRegForm(Model model, String error, String logout) {
+		model.addAttribute("user", new UserRegForm());
+		return "user/registration :: form";
 	}
 }

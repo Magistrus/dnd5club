@@ -19,7 +19,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     if (type === 'display') {
                         var result = '<h3 class="row_name"><span>' + row.name;
-                        result += '</span><span>[' + row.englishName + ']</span></h3>';
+                        result += '</span> <ename>[' + row.englishName + ']</ename></h3>';
                         return result;
                     }
                     return data;
@@ -78,6 +78,10 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
+
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
 
             if (rowSelectIndex === 0 && selectedRule === null) {
                 if (!$('#list_page_two_block').hasClass('block_information') && selectedRule === null) {
