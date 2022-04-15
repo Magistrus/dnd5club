@@ -936,7 +936,7 @@ label.select_box {
 
 
 /******** Главная ********/
-body:before {
+.main_page_wrapper:before {
   content: '';
   display: block;
   position: absolute;
@@ -949,8 +949,8 @@ body:before {
   opacity: 0.3;
 }
 
-@media (max-width: 600px) {
-  body:before {
+@media (max-width: 1200px) {
+  .main_page_wrapper:before {
     display: none !important;
   }
 }
@@ -3582,6 +3582,23 @@ body.full_screen_right_block .screens .card_block .block {
 /******** Предыстории / backgrounds ********/
 .backgrounds {
 
+}
+
+
+/******** Драгоценности / treasures ********/
+.treasures {
+
+}
+
+#left_block.treasures table.table_list {
+  max-width: 60%;
+  background-color: var(--bg-main);
+}
+
+@media (max-width: 1200px) {
+  #left_block.treasures table.table_list {
+    max-width: 100%;
+  }
 }
 
 
