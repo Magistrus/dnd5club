@@ -67,6 +67,10 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
+
             if (selectedScreen) {
                 selectScreen(selectedScreen);
                 document.getElementById('list_page_two_block').classList.add('block_information');

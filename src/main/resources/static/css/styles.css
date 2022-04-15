@@ -2149,9 +2149,9 @@ table.table_card tr.dtrg-group td {
   width: 100%;
   overflow: hidden;
   background-color: var(--bg-secondary) !important;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
-  border: 1px solid var(--bg-secondary);
+  border: 1px solid var(--bg-transparent);
 }
 
 #left_block.races .table_card tr.custom_source,
@@ -2160,8 +2160,7 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr.selected {
-  border: 1px solid var(--primary);
-  background-color: var(--bg-sub-menu) !important;
+  border-color: var(--primary) !important;
 }
 
 .table_card tr td {
@@ -2969,12 +2968,12 @@ body.compact_menu #right_block {
 }
 
 .table_list tr {
-  background-color: transparent !important;
+  background-color: var(--bg-main) !important;
   display: flex;
   flex-direction: row;
   margin: 16px 16px;
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -2983,13 +2982,17 @@ body.compact_menu #right_block {
 }
 
 .table_list tr:hover {
-  background-color: var(--hover) !important;
   cursor: pointer;
+}
+
+.table_list tr:hover td {
+  background-color: var(--hover) !important;
 }
 
 .table_list tr.selected {
   background: var(--bg-main);
   color:var(--text-color-active);
+  border-color: var(--primary-active);
 }
 
 .table_list tr td {
@@ -3015,7 +3018,22 @@ body.compact_menu #right_block {
 .table_list tr.selected td .row_name,
 .table_list tr.selected td .secondary_name,
 .table_list tr.selected td .secondary_name p,
+.table_list tr.selected td ename,
 .table_list tr.selected td span {
+  color: var(--text-btn-color) !important;
+}
+
+.table_list tr:hover.selected td .info_block,
+.table_list tr:hover.selected td .row_name,
+.table_list tr:hover.selected td .secondary_name,
+.table_list tr:hover.selected td .secondary_name p,
+.table_list tr:hover.selected td ename,
+.table_list tr:hover.selected td span {
+  color: var(--text-color) !important;
+}
+
+.table_list tr:hover.selected td .concentration,
+.table_list tr:hover.selected td .ritual {
   color: var(--text-btn-color) !important;
 }
 
