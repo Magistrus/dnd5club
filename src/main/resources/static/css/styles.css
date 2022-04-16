@@ -936,7 +936,7 @@ label.select_box {
 
 
 /******** Главная ********/
-body:before {
+.main_page_wrapper:before {
   content: '';
   display: block;
   position: absolute;
@@ -949,8 +949,8 @@ body:before {
   opacity: 0.3;
 }
 
-@media (max-width: 600px) {
-  body:before {
+@media (max-width: 1200px) {
+  .main_page_wrapper:before {
     display: none !important;
   }
 }
@@ -2148,28 +2148,19 @@ table.table_card tr.dtrg-group td {
   display: inline-block;
   width: 100%;
   overflow: hidden;
-  background-color: var(--bg-secondary) !important;
-  border-radius: 16px;
+  background-color: var(--bg-table-list) !important;
+  border-radius: 12px;
   cursor: pointer;
+  border: 1px solid var(--bg-secondary);
 }
 
 #left_block.races .table_card tr.custom_source,
 #left_block.classes .table_card tr.custom_source {
-  background: linear-gradient(to left, var(--bg-secondary) 60%, var(--bg-homebrew) 140%) !important;
+  background: var(--bg-homebrew-gradient-left) !important;
 }
 
 .table_card tr.selected {
-  background-color: var(--primary-active) !important;
-}
-
-.table_card tr.selected td .content .row_name span,
-.table_card tr.selected td .content .two_row {
-  color: var(--text-btn-color);
-}
-
-.table_card tr:hover.selected td .content .row_name span,
-.table_card tr:hover.selected td .content .two_row {
-  color: var(--text-color);
+  border-color: var(--primary) !important;
 }
 
 .table_card tr td {
@@ -2977,12 +2968,12 @@ body.compact_menu #right_block {
 }
 
 .table_list tr {
-  background-color: var(--bg-main) !important;
+  background-color: var(--bg-table-list) !important;
   display: flex;
   flex-direction: row;
   margin: 16px 16px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  /* border: 1px solid var(--border); */
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -3027,7 +3018,22 @@ body.compact_menu #right_block {
 .table_list tr.selected td .row_name,
 .table_list tr.selected td .secondary_name,
 .table_list tr.selected td .secondary_name p,
+.table_list tr.selected td ename,
 .table_list tr.selected td span {
+  color: var(--text-btn-color) !important;
+}
+
+.table_list tr:hover.selected td .info_block,
+.table_list tr:hover.selected td .row_name,
+.table_list tr:hover.selected td .secondary_name,
+.table_list tr:hover.selected td .secondary_name p,
+.table_list tr:hover.selected td ename,
+.table_list tr:hover.selected td span {
+  color: var(--text-color) !important;
+}
+
+.table_list tr:hover.selected td .concentration,
+.table_list tr:hover.selected td .ritual {
   color: var(--text-btn-color) !important;
 }
 
@@ -3073,12 +3079,13 @@ body.compact_menu #right_block {
   background: var(--border);
   border: 1px solid var(--border);
   border-radius: 50%;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   display: block;
   top: 14px;
-  right: -5px;
+  right: -7px;
   z-index: 1;
+  box-shadow: 0px 0px 1px 1px #0006;
 }
 
 .table_list tr.selected .info_block::after,
@@ -3575,6 +3582,23 @@ body.full_screen_right_block .screens .card_block .block {
 /******** Предыстории / backgrounds ********/
 .backgrounds {
 
+}
+
+
+/******** Драгоценности / treasures ********/
+.treasures {
+
+}
+
+#left_block.treasures table.table_list {
+  max-width: 60%;
+  background-color: var(--bg-main);
+}
+
+@media (max-width: 1200px) {
+  #left_block.treasures table.table_list {
+    max-width: 100%;
+  }
 }
 
 

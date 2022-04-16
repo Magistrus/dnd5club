@@ -124,6 +124,11 @@ $(document).ready(function () {
         },
         drawCallback: function (settings) {
             addEventListeners();
+
+            if (window.innerWidth >= 1200) {
+                $('#list_page_two_block').addClass('block_information');
+            }
+            
             if (selectedCreature) {
                 selectCreature(selectedCreature);
                 var rowIndexes = [];
@@ -267,11 +272,6 @@ function selectCreature(data) {
     });
 }
 
-function selectDescription(id) {
-    var url = '/bestiary/description/' + id;
-    $("#content_block").load(url);
-}
-
 $('#btn_close').on('click', function () {
     selectedCreature = null;
     $('#creatures').dataTable().api().rows().deselect();
@@ -295,16 +295,7 @@ $('#statblock').on('click', function () {
         selectCreature(selectedCreature);
     }
 });
-$('#description').on('click', function () {
-    $('#description').addClass('active');
-    $('#statblock').removeClass('active');
-    if (selectedCreature === null) {
-        let table = $('#creatures').DataTable();
-        selectDescription(table.row({ selected: true }).data().id);
-    } else {
-        selectDescription(selectedCreature.id);
-    }
-});
+
 $('.cr_checkbox').on('change', function (e) {
     let properties = $('input:checkbox[name="cr"]:checked').map(function () {
         return this.value;

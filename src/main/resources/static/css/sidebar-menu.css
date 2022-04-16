@@ -221,7 +221,7 @@
   color: var(--text-color);
   padding: 0px 16px 0px 40px;
   white-space: nowrap;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .navbar .nav_links li .sub_menu label {

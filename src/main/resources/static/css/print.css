@@ -88,4 +88,12 @@
     max-width: calc(16% - 8px);
     flex: 1 0 calc(16% - 8px);
   }
+
+  details {
+    display: none;
+  }
+
+  details[open] {
+    display: block;
+  }
 }
