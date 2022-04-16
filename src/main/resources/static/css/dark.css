@@ -5,7 +5,8 @@
   --bg-sub-menu: #2C3034;
   --bg-dice: #585595;
   --bg-homebrew: #23492e;
-  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-main), #1F2E27 90%);
+  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-table-list), #1c3222 90%);
+  --bg-homebrew-gradient-left: linear-gradient(to left, var(--bg-table-list), #1c3222 90%);
   --bg-advantage: #026a02;
   --bg-disadvantage: #774747;
   --bg-saving_throw: #fe5e00;
@@ -13,6 +14,7 @@
   --bg-inpur-hover: rgba(255, 255, 255, 0.1);
   --bg-inpur-focus: #3a3e42;
   --bg-details-title: #343a40;
+  --bg-table-list: #23282a;
   --text-color:#cdcdcd;
   --text-color-active:#fff;
   --text-color-title:#fff;
