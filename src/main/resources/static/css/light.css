@@ -1,18 +1,20 @@
 :root {
   --bg-transparent: #ffffff00;
-  --bg-main: #ede7d6;
-  --bg-secondary: #ebdfbe;
-  --bg-sub-menu: #e3d4a9;
+  --bg-main: #F9F6EB;
+  --bg-secondary: #F3F1DB;
+  --bg-sub-menu: #F2EACD;
   --bg-dice: #8d8be1;
   --bg-homebrew: #319f52;
-  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-transparent), #B8D2B2 90%);
+  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-table-list), #B8D2B2 90%);
+  --bg-homebrew-gradient-left: linear-gradient(to left, var(--bg-table-list), #B8D2B2 90%);
   --bg-advantage: #026a02;
   --bg-disadvantage: #d96666;
   --bg-saving_throw: #fe5e00;
-  --bg-blockquote: #ddc684;
+  --bg-blockquote: #e3dfd3;
   --bg-inpur-hover: rgba(3, 3, 3, 0.15);
   --bg-inpur-focus: #bebebe;
-  --bg-details-title: #e3d4a9;
+  --bg-details-title: #f3e9cb;
+  --bg-table-list: #ebe7d9;
   --text-color:#404040;
   --text-color-active:#922610;
   --text-color-title:#922610;
@@ -26,7 +28,7 @@
   --link-color-hover:#9e5924;
   --hover: rgba(00, 00, 00, 0.08);
   --bg-table-row: rgba(00, 00, 00, 0.05);
-  --border: #CCC6C4;
+  --border: #EEE2BA;
   --primary: #5e5446;
   --primary-hover: #796e5e;
   --primary-active: #696052;
