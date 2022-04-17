@@ -126,7 +126,16 @@ public class HeroClass {
 			return name + "ом";
 		}
 	}
-
+	public String getGenitiveName() {
+		switch (name) {
+		case "ЧАРОДЕЙ":
+			return "чародея";
+		case "ИЗОБРЕТАТЕЛЬ":
+			return "изобретателя";
+		default:
+			return name.toLowerCase() + "а";
+		}
+	}
 	public String getCapitalazeName() {
 		return StringUtils.capitalize(name.toLowerCase());
 	}
