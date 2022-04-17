@@ -7,7 +7,8 @@ const TOGGLE_ID = {
     filter: {
         settings: 'filter_settings',
         homebrew: 'filter_homebrew',
-        adventure: 'filter_adventure'
+        adventure: 'filter_adventure',
+        npc: 'npc'
     }
 }
 
@@ -15,7 +16,11 @@ function setFiltered() {
     const filterIcon = document.getElementById('icon_filter');
     const isCustom = () => {
         const container = document.querySelector('.filter_container');
-        const blocks = container.querySelectorAll('.filter_block');
+        const blocks = [
+            ...container.querySelectorAll('.filter_block'),
+            ...container.querySelectorAll('.filter_block_toggle')
+        ];
+        const defaultEnabledToggles = ['npc'];
 
         let result = false;
 
@@ -23,8 +28,15 @@ function setFiltered() {
             const inputList = blocks[i].querySelectorAll('input');
 
             for (let index = 0; index < inputList.length && !result; index++) {
-                result = (!blocks[i].classList.contains('sources') && inputList[index].checked)
-                    || (blocks[i].classList.contains('sources') && !inputList[index].checked)
+                if (inputList[index].checked) {
+                    result = !blocks[i].classList.contains('sources')
+                        && !defaultEnabledToggles.includes(inputList[index].name);
+
+                    continue;
+                }
+
+                result = blocks[i].classList.contains('sources')
+                    || defaultEnabledToggles.includes(inputList[index].name);
             }
         }
 
@@ -131,29 +143,53 @@ function restoreSourceContainer() {
 function resetAllFilters() {
     const filterContainer = document.querySelector('.filter_container');
     const resetControls = filterContainer.querySelectorAll('button[id$=_clear_btn]');
-    const resetFilters = (list) => {
-        for (let i = 0; i < list.length; i++) {
-            list[i].checked = !!list[i].closest('.filter_block').classList.contains('sources');
+
+    if (resetControls.length) {
+        const resetFilters = (list) => {
+            for (let i = 0; i < list.length; i++) {
+                list[i].checked = !!list[i].closest('.filter_block').classList.contains('sources');
+            }
+
+            list[0].dispatchEvent(new Event('change'))
         }
 
-        list[0].dispatchEvent(new Event('change'))
+        for (let index = 0; index < resetControls.length; index++) {
+            const block = resetControls[index].closest('.filter_block');
+            const inputList = block.querySelectorAll('input');
+
+            if (!inputList.length) {
+                continue;
+            }
+
+            resetFilters(inputList);
+
+            resetControls[index].classList.add('hide_block');
+        }
     }
 
-    if (!resetControls.length) {
-        return;
-    }
+    const toggleBlocks = filterContainer.querySelectorAll('.filter_block_toggle');
 
-    for (let index = 0; index < resetControls.length; index++) {
-        const block = resetControls[index].closest('.filter_block');
-        const inputList = block.querySelectorAll('input');
+    if (toggleBlocks.length) {
+        const defaultEnabledToggles = ['npc'];
+        const resetFilters = (list) => {
+            for (let i = 0; i < list.length; i++) {
+                list[i].checked = defaultEnabledToggles.includes(list[i].name);
+            }
 
-        if (!inputList.length) {
-            continue;
+            list[0].dispatchEvent(new Event('change'))
         }
 
-        resetFilters(inputList);
+        for (let index = 0; index < toggleBlocks.length; index++) {
+            const inputList = toggleBlocks[index].querySelectorAll('input');
 
-        resetControls[index].classList.add('hide_block');
+            if (!inputList.length) {
+                continue;
+            }
+
+            resetFilters(inputList);
+
+            resetControls[index].classList.add('hide_block');
+        }
     }
 }
 
@@ -167,7 +203,7 @@ function saveFilter(storageKey) {
             filter.name === 'settings_off'
             || filter.name === 'homebrew_off'
             || filter.name === 'adventure_off'
-            || filter.name === 'only_archetypes'
+            || filter.name === TOGGLE_ID.filter.npc
         ) {
             continue;
         }
@@ -182,6 +218,7 @@ function saveFilter(storageKey) {
     const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
     const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
     const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
+    const npcToggle = document.getElementById(TOGGLE_ID.filter.npc);
 
     if (homebrewToggle) {
         const checked = checkFilters(homebrewToggle);
@@ -202,6 +239,10 @@ function saveFilter(storageKey) {
 
         adventuresToggle.checked = checked;
         data[TOGGLE_ID.filter.adventure] = checked;
+    }
+
+    if (npcToggle) {
+        data[TOGGLE_ID.filter.npc] = npcToggle.checked;
     }
 
     const storageData = localStorage.getItem(STORAGE_KEY);
@@ -229,6 +270,7 @@ function restoreFilter(storageKey) {
         const homebrewToggle = document.getElementById(TOGGLE_ID.filter.homebrew);
         const settingsToggle = document.getElementById(TOGGLE_ID.filter.settings);
         const adventuresToggle = document.getElementById(TOGGLE_ID.filter.adventure);
+        const npcToggle = document.getElementById(TOGGLE_ID.filter.npc);
 
         if (homebrewToggle) {
             const saved = TOGGLE_ID.filter.homebrew in storage;
@@ -265,6 +307,14 @@ function restoreFilter(storageKey) {
                 switchFilters(adventuresToggle);
             }
         }
+
+        if (npcToggle) {
+            const saved = TOGGLE_ID.filter.npc in storage;
+
+            npcToggle.checked = saved
+                ? storage[TOGGLE_ID.filter.npc]
+                : true;
+        }
     }
 
     if (!storageData) {
@@ -294,6 +344,7 @@ function restoreFilter(storageKey) {
             filter.name === 'settings_off'
             || filter.name === 'homebrew_off'
             || filter.name === 'adventure_off'
+            || filter.name === 'npc'
         ) {
             continue;
         }
@@ -426,6 +477,21 @@ function isSettingsShowed(storageKey) {
 
     return !!sectionStorage && TOGGLE_ID.filter.settings in sectionStorage
         ? sectionStorage[TOGGLE_ID.filter.settings]
+        : true;
+}
+
+function isNPCOn() {
+    const storageKey = 'creatures';
+    const storage = localStorage.getItem(STORAGE_KEY);
+    const parsed = !!storage && JSON.parse(storage)
+        ? JSON.parse(storage)
+        : undefined;
+    const sectionStorage = !!parsed && storageKey in parsed
+        ? parsed[storageKey]
+        : undefined;
+
+    return !!sectionStorage && TOGGLE_ID.filter.npc in sectionStorage
+        ? sectionStorage[TOGGLE_ID.filter.npc]
         : true;
 }
 
