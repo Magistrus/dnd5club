@@ -15,7 +15,7 @@ public class ClassesApiController {
 	@Autowired
 	private ClassRepository classRepo;
 	
-	@GetMapping("/v1/api/classes")
+	@GetMapping("/api/v1/classes")
 	public List<ClassApiDto> getClasses() {
 		return classRepo.findAll().stream().map(ClassApiDto::new).collect(Collectors.toList());
 	}
