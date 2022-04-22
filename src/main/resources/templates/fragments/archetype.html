@@ -112,7 +112,7 @@
 						<table th:unless=${archetypeSpells.empty}>
 							<thead>
 								<tr>
-									<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>персонажа
+									<th align="center" th:unless="${heroClass.id eq 5}" class="text-center">Уровень<br>[[${heroClass.genitiveName}]]
 									</th>
 									<th align="center" th:if="${heroClass.id eq 5}" class="text-center">Уровень<br>заклинания
 									</th>
