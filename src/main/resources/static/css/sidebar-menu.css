@@ -5,7 +5,7 @@
   left: 0;
   height: 100%;
   width: 270px;
-  border-right: 1px solid var(--border);
+  /* border-right: 1px solid var(--border); */
   z-index: 100;
   background-color: inherit;  
 }
@@ -22,8 +22,8 @@
 .navbar .nav_head {
   display: flex;
   flex-direction: row;
-  background-color: var(--hover);
-  border-bottom: 1px solid var(--border);
+  /* background-color: var(--hover); */
+  /* border-bottom: 1px solid var(--border); */
 }
 
 .navbar .nav_head .logo:after {
@@ -55,7 +55,7 @@
 .navbar .nav_head .close_menu {
   height: 26px;
   width: 26px;
-  display: block;
+  /* display: block; */
   border: 1px solid var(--border);
   background-color: var(--bg-main);
   background-image: var(--close-menu);
@@ -66,6 +66,8 @@
   right: -12px;
   top: 24px;
   padding: 0;
+
+  display: none !important;
 }
 
 .navbar .nav_head .close_menu:hover svg path {
