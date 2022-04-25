@@ -9,10 +9,10 @@ import lombok.ToString;
 @ToString
 
 public enum TypeBook {
-	OFFICAL("Официальные издания"),
+	OFFICAL("Основное"),
 	MODULE("Приключения"),
-	SETTING("Официальные сеттинги"),
-	CUSTOM("Не официальное (homebrew)");
+	SETTING("Сеттинги"),
+	CUSTOM("Homebrew");
 
 	private String name;
 }
