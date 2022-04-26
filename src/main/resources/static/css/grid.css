@@ -79,7 +79,7 @@ body .block_information #left_block {
   height: 96%;
   margin-top: 16px;
   right: 0px;
-  box-shadow: 0px 0px 23px 7px #0000001f;
+  /* box-shadow: 0px 0px 23px 7px #0000001f; */
   border-radius: 12px;
 }
 
