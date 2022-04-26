@@ -920,7 +920,7 @@ body:before {
   bottom: 0;
   right: 0px;
   background: var(--bg-img-main) no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: right;
   width: 700px;
   height: 100%;
