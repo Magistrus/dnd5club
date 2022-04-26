@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#charachter_item_menu').addClass('showMenu');
+    let pageInitiated = false;
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#traits').DataTable({
@@ -92,7 +93,7 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
-            if (window.innerWidth >= 1200) {
+            if (!pageInitiated && window.innerWidth >= 1200) {
                 $('#list_page_two_block').addClass('block_information');
             }
             
