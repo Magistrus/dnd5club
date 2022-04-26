@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#treasury_item_menu').addClass('showMenu');
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#treasures').DataTable({

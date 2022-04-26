@@ -1,5 +1,6 @@
 $(document).ready(function () {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    $('#charachter_item_menu').addClass('showMenu');
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     let table = $('#classes').DataTable({
