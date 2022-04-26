@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
   height: calc(100% - 0px);
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 @media (max-width: 1200px) {
@@ -21,7 +21,7 @@ body {
   height: calc(100% - 0px);
   outline: none;
   color: var(--text-color);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .overflow-hidden {
@@ -913,7 +913,7 @@ label.select_box {
 
 
 /******** Главная ********/
-.main_page_wrapper:before {
+body:before {
   content: '';
   display: block;
   position: absolute;
@@ -921,15 +921,20 @@ label.select_box {
   right: 0px;
   background: var(--bg-img-main) no-repeat;
   background-size: contain;
+  background-position: right;
   width: 700px;
-  height: 700px;
+  height: 100%;
   opacity: 0.3;
 }
 
 @media (max-width: 1200px) {
-  .main_page_wrapper:before {
+  body:before {
     display: none !important;
   }
+}
+
+.main_page .container {
+  width: auto;
 }
 
 .main_page_wrapper .header {
@@ -1004,14 +1009,14 @@ label.select_box {
 
 .main_page_wrapper .main_block {
   height: 100%;
-  display: flex;
+  /* display: flex; */
 }
 
 .main_page_wrapper .main_block .cont {
   height: 100%;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .main_page_wrapper .main_block .cont .wrapper {
