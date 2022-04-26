@@ -177,6 +177,7 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
+
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#conditions').dataTable().api().rows().deselect();
