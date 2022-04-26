@@ -140,7 +140,7 @@ $(document).ready(function () {
                 $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
                 table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
-            if (window.innerWidth >= 1200) {
+            if (!pageInitiated && window.innerWidth >= 1200) {
                 $('#creatures tbody tr:eq(' + rowSelectIndex + ')').click();
                 table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
