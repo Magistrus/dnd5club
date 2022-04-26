@@ -244,7 +244,7 @@
   opacity: 1;
 }
 
-.navbar .nav_links li.active {
+.navbar .nav_links > li.active {
   background: var(--primary-active);
 }
 
@@ -266,11 +266,19 @@
 }
 
 .navbar .nav_links li.active .sub_menu {
+  background: var(--primary-active);
+}
+
+.navbar .nav_links li.active:hover .sub_menu {
   background: var(--primary-hover);
 }
 
-.navbar .nav_links li.active .sub_menu li {
+.navbar .nav_links li.showMenu.active:hover .sub_menu li {
   background: var(--primary-hover);
+}
+
+.navbar .nav_links li.showMenu.active .sub_menu li.active  {
+  background: var(--hover);
 }
 
 .navbar .nav_links li.active .icon_menu.arrow path {

@@ -2911,7 +2911,7 @@ table.table_card tr.dtrg-group td {
   height: auto;
   min-height: 30px;
   align-items: center;
-  padding: 6px 8px !important;
+  padding: 8px 10px !important;
 }
 
 .table_list tr:hover.selected td {
@@ -3496,17 +3496,6 @@ body.full_screen_right_block .screens .card_block .block {
 /******** Драгоценности / treasures ********/
 .treasures {
 
-}
-
-#left_block.treasures table.table_list {
-  max-width: 60%;
-  background-color: var(--bg-main);
-}
-
-@media (max-width: 1200px) {
-  #left_block.treasures table.table_list {
-    max-width: 100%;
-  }
 }
 
 

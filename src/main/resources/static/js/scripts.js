@@ -82,20 +82,38 @@ $(document).ready(function () {
         $.magnificPopup.close();
     });
     let path = $(location).attr('pathname');
-    if (path.startsWith('/classes') || path.startsWith('/races') || path.startsWith('/traits') || path.startsWith('/options') || path.startsWith('/backgrounds')) {
-        $('#charachter_item_menu').addClass('active');
+    if (path.startsWith('/classes')) {
+        $('#charachter_item_menu_classes, #charachter_item_menu').addClass('active');
+    } else if (path.startsWith('/races')) {
+        $('#charachter_item_menu_races, #charachter_item_menu').addClass('active');
+    } else if (path.startsWith('/traits')) {
+        $('#charachter_item_menu_traits, #charachter_item_menu').addClass('active');
+    } else if (path.startsWith('/options')) {
+        $('#charachter_item_menu_options, #charachter_item_menu').addClass('active');
+    } else if (path.startsWith('/backgrounds')) {
+        $('#charachter_item_menu_backgrounds, #charachter_item_menu').addClass('active');
     } else if (path.startsWith('/spells')) {
         $('#spells_item_menu').addClass('active');
-    } else if (path.startsWith('/treasures') || path.startsWith('/items/magic')) {
-        $('#treasury_item_menu').addClass('active');
-    } else if (path.startsWith('/weapons') || path.startsWith('/armors') || path.startsWith('/items')) {
-        $('#items_item_menu').addClass('active');
+    } else if (path.startsWith('/treasures')) {
+        $('#treasury_item_menu_treasures, #treasury_item_menu').addClass('active');
+    } else if (path.startsWith('/items/magic')) {
+        $('#treasury_item_menu_magic, #treasury_item_menu').addClass('active');
+    } else if (path.startsWith('/weapons')) {
+        $('#items_item_menu_weapons, #items_item_menu').addClass('active');
+    } else if (path.startsWith('/armors')) {
+        $('#items_item_menu_armors, #items_item_menu').addClass('active');
+    } else if (path.startsWith('/items')) {
+        $('#items_item_menu_items, #items_item_menu').addClass('active');
     } else if (path.startsWith('/bestiary')) {
         $('#bestiary_item_menu').addClass('active');
     } else if (path.startsWith('/screens')) {
         $('#screens_item_menu').addClass('active');
-    } else if (path.startsWith('/gods') || path.startsWith('/rules') || path.startsWith('/books')) {
-        $('#workshop_item_menu').addClass('active');
+    } else if (path.startsWith('/gods')) {
+        $('#workshop_item_menu, #workshop_item_menu_gods').addClass('active');
+    } else if (path.startsWith('/rules')) {
+        $('#workshop_item_menu, #workshop_item_menu_rules').addClass('active');
+    } else if (path.startsWith('/books')) {
+        $('#workshop_item_menu, #workshop_item_menu_books').addClass('active');
     } else if (path.startsWith('/tools/trader') || path.startsWith('/tools/encounters') || path.startsWith('/rules') || path.startsWith('/tools/treasury') || path.startsWith('/tools/tavern') || path.startsWith('/tools/wildmagic') || path.startsWith('/tools/madness')) {
         $('#instruments_item_menu').addClass('active');
     }
