@@ -1,3 +1,6 @@
+$(document).ready(function () {
+	$('#instruments_item_menu').addClass('showMenu');
+});
 $('#generate').on('click', function() {
 	let type = '?level='+$('#level').val()+'&type=' + $('#type').val(); 
 	var parent = document.createElement("div");
