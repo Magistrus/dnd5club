@@ -190,8 +190,15 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
+
 $('#btn_close').on('click', function () {
-    $('#items').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#items').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {

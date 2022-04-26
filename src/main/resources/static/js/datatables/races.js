@@ -305,6 +305,7 @@ $('#text_clear').on('click', function () {
     $('#text_clear').hide();
     $('#races').DataTable().tables().search($(this).val()).draw();
 });
+
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#races').dataTable().api().rows().deselect();

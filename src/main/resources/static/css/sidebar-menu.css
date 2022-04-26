@@ -112,7 +112,7 @@
 .navbar .nav_links li {
   position: relative;
   list-style: none;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   margin-bottom: 18px;
   margin-left: 16px;
   margin-right: 16px;
@@ -267,10 +267,12 @@
 
 .navbar .nav_links li.active .sub_menu {
   background: var(--primary-active);
+  /* transition: all 0.3s ease; */
 }
 
 .navbar .nav_links li.active:hover .sub_menu {
   background: var(--primary-hover);
+  /* transition: all 0.3s ease; */
 }
 
 .navbar .nav_links li.showMenu.active:hover .sub_menu li {

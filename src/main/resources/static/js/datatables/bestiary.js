@@ -271,7 +271,13 @@ function selectCreature(data) {
 
 $('#btn_close').on('click', function () {
     selectedCreature = null;
-    $('#creatures').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#creatures').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {
