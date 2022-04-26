@@ -1936,7 +1936,8 @@ label.select_box {
 }
 
 #left_block .filters+.search_panes+.container_left {
-  height: calc(100% - 96px);
+  height: calc(100% - 100px);
+  border-radius: 12px;
 }
 
 #left_block .header_block .btn_search_icon {
