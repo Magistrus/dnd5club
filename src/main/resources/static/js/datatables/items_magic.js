@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#treasury_item_menu').addClass('showMenu');
+    let pageInitiated = false;
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#items_magic').DataTable({
@@ -118,7 +119,7 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
-            if (window.innerWidth >= 1200) {
+            if (!pageInitiated && window.innerWidth >= 1200) {
                 $('#list_page_two_block').addClass('block_information');
             }
 
@@ -140,6 +141,8 @@ $(document).ready(function () {
             }
             $('#items_magic tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            pageInitiated = true;
         }
     });
     $('#items_magic tbody').on('mouseup', 'tr', function (e) {
