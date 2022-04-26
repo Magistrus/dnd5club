@@ -24,6 +24,26 @@ body {
   /* overflow: hidden; */
 }
 
+body:before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0px;
+  background: var(--bg-img-main) no-repeat;
+  background-size: contain;
+  background-position: right;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+@media (max-width: 1200px) {
+  body:before {
+    display: none !important;
+  }
+}
+
 .overflow-hidden {
   overflow: hidden !important;
 }
@@ -913,26 +933,6 @@ label.select_box {
 
 
 /******** Главная ********/
-body:before {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0px;
-  background: var(--bg-img-main) no-repeat;
-  background-size: cover;
-  background-position: right;
-  width: 700px;
-  height: 100%;
-  opacity: 0.3;
-}
-
-@media (max-width: 1200px) {
-  body:before {
-    display: none !important;
-  }
-}
-
 .main_page .container {
   width: auto;
 }
@@ -2658,10 +2658,10 @@ table.table_card tr.dtrg-group td {
   display: none;
 }
 
-.no_close_left_block.block_information #right_block .header_block .btn_close,
+/* .no_close_left_block.block_information #right_block .header_block .btn_close,
 .table_list_block.block_information #right_block .header_block .btn_close {
   display: none;
-}
+} */
 
 .table_list_block.block_information #right_block.races .header_block .btn_close,
 .table_list_block.block_information #right_block.conditions .header_block .btn_close,
