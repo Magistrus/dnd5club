@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let pageInitiated = false;
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#spells').DataTable({
