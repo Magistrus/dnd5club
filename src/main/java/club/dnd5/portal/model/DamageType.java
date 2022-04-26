@@ -68,7 +68,7 @@ public enum DamageType {
 	}
 	
 	public static Set<DamageType> getSpellDamage(){
-		return EnumSet.of(FAIR, COLD, LIGHTNING, POISON, ACID, SOUND, NECTOTIC, BLUDGEONING, PIERCING, SLASHING, RADIANT, FORCE, PSYCHIC);
+		return EnumSet.of(FAIR, COLD, LIGHTNING, POISON, ACID, SOUND, NECTOTIC, BLUDGEONING, PIERCING, SLASHING, RADIANT, FORCE, PSYCHIC, NO_DAMAGE);
 	}
 
 	public static Set<DamageType> getWeaponDamage() {
