@@ -1383,9 +1383,15 @@ label.select_box {
 #left_block .header_block {
   height: 44px !important;
   overflow: hidden;
-  border-radius: 16px;
-  margin: 16px 16px 16px 16px;
+  border-radius: 12px;
+  margin: 16px 16px 16px 0px;
   border: 1px solid var(--border);
+}
+
+@media (max-width: 1200px) {
+  #left_block .header_block {
+    margin: 16px 16px 16px 16px;
+  }
 }
 
 .header_block .header_row .title_row {
@@ -1422,10 +1428,6 @@ label.select_box {
 
   .header_block {
     border-right: none;
-  }
-
-  .header_block .search_block {
-    border-right: 1px solid var(--border);
   }
 }
 
@@ -2044,7 +2046,7 @@ table.table_card tr.dtrg-group td {
 .table_card tbody {
   align-items: center;
   width: 100%;
-  padding: 0px 16px;
+  padding: 0px 16px 0px 0px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
   grid-column-gap: 16px;
@@ -2658,15 +2660,17 @@ table.table_card tr.dtrg-group td {
   display: none;
 }
 
-/* .no_close_left_block.block_information #right_block .header_block .btn_close,
+.table_list_block.block_information #right_block.screens .header_block .btn_close,
+.table_list_block.block_information #right_block.races .header_block .btn_close,
+.table_list_block.block_information #right_block.classes .header_block .btn_close {
+  display: flex !important;
+}
+
 .table_list_block.block_information #right_block .header_block .btn_close {
   display: none;
-} */
+}
 
-.table_list_block.block_information #right_block.races .header_block .btn_close,
-.table_list_block.block_information #right_block.conditions .header_block .btn_close,
-.table_list_block.block_information #right_block.screens .header_block .btn_close,
-.table_list_block.block_information #right_block.classes .header_block .btn_close {
+.full_screen_right_block .table_list_block.block_information #right_block .header_block .btn_close {
   display: flex;
 }
 
@@ -2880,9 +2884,15 @@ table.table_card tr.dtrg-group td {
   background-color: var(--bg-table-list) !important;
   display: flex;
   flex-direction: row;
-  margin: 0px 16px 12px 16px;
+  margin: 0px 16px 12px 0px;
   border-radius: 12px;
   overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .table_list tr {
+    margin: 0px 16px 12px 16px;
+  }
 }
 
 .table_list tr.custom_source {
@@ -3506,22 +3516,19 @@ body.full_screen_right_block .screens .card_block .block {
 
 body .block_information #left_block.armors,
 body .block_information #left_block.weapons  {
-  width: 54%;
-}
-
-body.compact_menu #left_block.armors,
-body.compact_menu #left_block.weapons {
-  width: calc(52vw - 72px);
+  width: 50%;
 }
 
 #right_block.armors,
 #right_block.weapons {
-  width: calc(46% - 8px);
+  width: calc(50% - 8px);
 }
 
-body.compact_menu #right_block.armors,
-body.compact_menu #right_block.weapons {
-  --width-right-block:calc(48vw - 0px);
+@media (max-width: 1200px) {
+  #right_block.armors,
+#right_block.weapons {
+  width: calc(100% - 0px);
+}
 }
 
 
