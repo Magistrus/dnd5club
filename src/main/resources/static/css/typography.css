@@ -4,7 +4,7 @@
   --h2-font-size:28px;
   --h3-font-size:26px;
   --h4-font-size:22px;
-  --h5-font-size:14px;
+  --h5-font-size:13px;
 }
 
 :root {
@@ -18,12 +18,12 @@
 
 @media (max-width: 800px) {
   :root {
-    --main-font-size:14px;
+    --main-font-size:13px;
     --h1-font-size:32px;
     --h2-font-size:28px;
     --h3-font-size:26px;
     --h4-font-size:20px;
-    --h5-font-size:14px;
+    --h5-font-size:13px;
   }
 }
 
@@ -469,12 +469,18 @@ table tbody tr:hover {
 }
 
 table.dataTable tr.dtrg-group {
-  margin: 0 0 16px 0;
+  margin: 0px 16px 16px 16px;
   border: 0;
-  border-radius: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table.dataTable tr + tr.dtrg-group {
+  margin-top: 32px;
 }
 
 table.dataTable tr.dtrg-group td {
   background-color:var(--hover) !important;
   cursor:auto;
+  padding: 0 16px !important;
 }

@@ -28,31 +28,6 @@ body {
   overflow: hidden !important;
 }
 
-.container {
-  width: 100%;
-  position: relative;
-  margin-right: auto;
-  /* margin-left: 270px; */
-  margin-left: auto !important;
-  height: 100%;
-  max-width: 1360px;
-}
-
-@media (max-width: 1200px) {
-  .container {
-    margin-left: 0px !important;
-  }
-}
-
-.container>div {
-  height: 100%;
-  /* overflow-y: hidden; */
-}
-
-.compact_menu .container {
-  margin-left: 72px;
-}
-
 ::selection {
   background: var(--primary);
   color: var(--text-btn-color);
@@ -420,6 +395,7 @@ label.select_box {
       -ms-user-select: none;
           user-select: none;
   -webkit-touch-callout: none;
+  border-radius: 4px;
 }
 
 .select:hover {
@@ -734,7 +710,6 @@ label.select_box {
 }
 
 .simplebar-scrollbar:before {
-  border-radius: 0 !important;
   background-color: var(--primary) !important;
 }
 
@@ -1334,28 +1309,12 @@ label.select_box {
 
 
 /******** Общее по блокам ********/
-:root {
-  --left-block-width-standart: 37vw;
-  --left-block-width-open-menu: 44vw;
-  --right-block-width-standart:63vw;
-  --right-block-width-open-menu:56vw;
-}
-
-@media (max-width: 1366px) {
-  :root {
-    --left-block-width-open-menu: 50vw;
-    --right-block-width-open-menu:50vw;
-  }
-}
-
 .header_block {
   height: 72px;
   position: relative;
-  /* background-color: var(--bg-main); */
-  /* background-image: var(--bg-title-img); */
+  background-color: var(--bg-sub-menu);
   background-position:top left;
   background-repeat:no-repeat;
-  border-right: 1px solid var(--border);
   z-index: 3;
 }
 
@@ -1395,7 +1354,7 @@ label.select_box {
   white-space: nowrap;
   position: relative;
   color: var(--text-color-title);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 @media (max-width: 800px) {
@@ -1420,7 +1379,7 @@ label.select_box {
   height: 44px !important;
   overflow: hidden;
   border-radius: 16px;
-  margin: 16px 16px 0px 16px;
+  margin: 16px 16px 16px 16px;
   border: 1px solid var(--border);
 }
 
@@ -1960,43 +1919,7 @@ label.select_box {
   margin-right: 0px;
   margin-left: 0px;
   position: relative;
-  height: 100%;
-
-  width: 550px !important;
-}
-
-@media (max-width: 1200px) {
-  body #left_block {
-    width: calc(100vw - 0px) !important;
-  }
-}
-
-#left_block.full_screen_left_block {
-  width: calc(100vw - 270px) !important;
-}
-
-body.compact_menu #left_block.full_screen_left_block {
-  width: calc(100vw - 72px) !important;
-}
-
-@media (max-width: 1200px) {
-  #left_block.full_screen_left_block,
-  body.compact_menu #left_block.full_screen_left_block {
-    width: calc(100vw - 0px) !important;
-  }
-}
-
-body.compact_menu #left_block {
-  width: calc(100vw - 72px);
-}
-
-body .block_information #left_block {
-  width: calc(var(--left-block-width-open-menu) - 270px);
-}
-
-body.compact_menu .block_information #left_block {
-  width: calc(var(--left-block-width-standart) - 72px);
-}
+  height: 100%;}
 
 #left_block .container_left {
   position: relative;
@@ -2005,7 +1928,7 @@ body.compact_menu .block_information #left_block {
 }
 
 #left_block .filters+.search_panes+.container_left {
-  height: calc(100% - 86px);
+  height: calc(100% - 96px);
 }
 
 #left_block .header_block .btn_search_icon {
@@ -2020,10 +1943,8 @@ body.compact_menu .block_information #left_block {
 
 #left_block .header_block .search_block .search_int {
   border-radius: 0px;
-  border-top: none;
-  border-bottom: none;
-  border-right: none;
-  padding-left: 52px;
+  border: 0;
+  padding-left: 44px;
   padding-right: 40px;
   background-color: var(--bg-secondary);
   color: var(--text-color);
@@ -2118,7 +2039,7 @@ table.table_card tr.dtrg-group td {
 .table_card tbody {
   align-items: center;
   width: 100%;
-  padding: 16px 24px;
+  padding: 0px 16px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
   grid-column-gap: 16px;
@@ -2397,24 +2318,10 @@ table.table_card tr.dtrg-group td {
 }
 
 #right_block {
-  --width-right-block:calc(var(--right-block-width-open-menu) - 0px);
-  width: var(--width-right-block);
-  top: 0;
-  /* height: 100%; */
-  height: 96%;
-  right: 0px;
   position: absolute;
   background-color: var(--bg-secondary);
-  /* border-left: 1px solid var(--border); */
-  overflow: hidden;
-  display: none;
-  box-shadow: 0px 0px 23px 7px #0000001f;
   z-index: 10;
-
-  border-radius: 16px;
-  margin-top: 16px;
   overflow: hidden;
-  width: 810px !important;
 }
 
 #right_block .image-container {
@@ -2440,16 +2347,8 @@ table.table_card tr.dtrg-group td {
   object-fit: cover;
 }
 
-body.compact_menu #right_block {
-  --width-right-block:calc(var(--right-block-width-standart) - 0px);
-}
-
 #right_block .header_block {
   /* background-image: var(--bg-title-img-2); */
-}
-
-.block_information #right_block {
-  display: block;
 }
 
 #right_block.sub_menu_block .header_block {
@@ -2798,12 +2697,12 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_block,
 #right_block .info_wrapper.spells .search_block {
   height: 45px;
-  width: calc(var(--width-right-block) - 1px);
-  right: 0;
+  width: calc(42% - 0px);
+  right: auto;
   display: flex;
   position: fixed;
   background-color: var(--bg-secondary);
-  top: 119px;
+  top: 135px;
   z-index: 2;
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
@@ -2817,14 +2716,9 @@ body.compact_menu #right_block {
   }
 }
 
-.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.options .search_block,
-.full_screen_right_block.compact_menu .block_information #right_block .info_wrapper.spells .search_block {
-  width: calc(var(--width-right-block) - 74px);
-}
-
-.full_screen_right_block .block_information #right_block .info_wrapper.options .search_block,
-.full_screen_right_block .block_information #right_block .info_wrapper.spells .search_block {
-  width: calc(var(--width-right-block) - 272px);
+.full_screen_right_block #right_block .info_wrapper.options .search_block,
+.full_screen_right_block #right_block .info_wrapper.spells .search_block {
+  width: calc(72% - 0px);
 }
 
 #right_block .info_wrapper.options .search_block .search_int,
@@ -2853,7 +2747,6 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.spells .search_block .btn_filters {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border);
-  /* min-width: 44px; */
   padding: 0 10px;
   height: 45px;
   display: flex;
@@ -2871,13 +2764,15 @@ body.compact_menu #right_block {
 #right_block .info_wrapper.options .search_panes,
 #right_block .info_wrapper.spells .search_panes {
   position: fixed;
-  width: calc(var(--width-right-block) - 1px);
+  width: calc(42% - 0px);
   box-shadow: none;
+  padding: 0;
 }
 
 #right_block .info_wrapper.options .search_panes .filter_container,
 #right_block .info_wrapper.spells .search_panes .filter_container {
   margin-bottom: 46px;
+  border-radius: 0px
 }
 
 @media (max-width: 1200px) {
@@ -2891,7 +2786,7 @@ body.compact_menu #right_block {
 
 #right_block .info_wrapper.options .content_block #content_block,
 #right_block .info_wrapper.spells .content_block #content_block {
-  padding: 45px 0 0 0;
+  padding: 58px 0 0 0;
   width: 100% !important;
 }
 
@@ -2965,19 +2860,6 @@ body.compact_menu #right_block {
 }
 
 
-/******** Правый блок во весь экран / Full screen ********/
-.full_screen_right_block .block_information #right_block {
-  --width-right-block:100%;
-  right: 0px;
-  width: 100%;
-  z-index: 11;
-}
-
-.full_screen_right_block .block_information #left_block .container_left {
-  overflow: hidden !important;
-}
-
-
 /******** Список из таблицы********/
 .table_list {
   border: none;
@@ -2993,8 +2875,7 @@ body.compact_menu #right_block {
   background-color: var(--bg-table-list) !important;
   display: flex;
   flex-direction: row;
-  margin: 16px 16px;
-  /* border: 1px solid var(--border); */
+  margin: 0px 16px 12px 16px;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -3631,7 +3512,7 @@ body.full_screen_right_block .screens .card_block .block {
 
 body .block_information #left_block.armors,
 body .block_information #left_block.weapons  {
-  width: calc(58vw - 270px);
+  width: 54%;
 }
 
 body.compact_menu #left_block.armors,
@@ -3641,7 +3522,7 @@ body.compact_menu #left_block.weapons {
 
 #right_block.armors,
 #right_block.weapons {
-  --width-right-block:calc(42vw - 0px);
+  width: calc(46% - 8px);
 }
 
 body.compact_menu #right_block.armors,
@@ -3765,8 +3646,10 @@ body.compact_menu #right_block.weapons {
   position: absolute;
   color:var(--text-color);
   z-index: 10;
-  width: 100%;
-  max-height: calc(100% - 117px);
+  /* width: 100%; */
+  width: calc(100% - 32px);
+  padding: 0 16px;
+  max-height: calc(100% - 96px);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
 }
 
@@ -3776,6 +3659,8 @@ body.compact_menu #right_block.weapons {
   background-color: var(--bg-sub-menu);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
   padding: 16px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .filter_container .filter_block_toggle {
@@ -3919,13 +3804,13 @@ body.compact_menu #right_block.weapons {
   position: relative;
 }
 
-body.compact_menu #left_block.tools_block {
+/* body.compact_menu #left_block.tools_block {
   width: calc(100vw - 72px) !important;
-}
+} */
 
-body #left_block.tools_block {
+/* body #left_block.tools_block {
   width: calc(100vw - 271px) !important;
-}
+} */
 
 @media (max-width: 1200px) {
   body.compact_menu #left_block.tools_block,
@@ -3934,20 +3819,28 @@ body #left_block.tools_block {
   }
 }
 
+#left_block.trader .header_block,
+#left_block.wildmagic .header_block,
+#left_block.encounters .header_block,
+#left_block.treasury .header_block,
+#left_block.madness .header_block {
+  display: none;
+}
+
 #left_block.wildmagic .container_left {
   height: calc(100% - 195px);
 }
 
 #left_block.encounters .container_left {
-  height: calc(100% - 336px);
+  height: calc(100% - 268px);
 }
 
 #left_block.madness .container_left {
-  height: calc(100% - 336px);
+  height: calc(100% - 268px);
 }
 
 #left_block.trader .container_left {
-  height: calc(100% - 336px);
+  height: calc(100% - 268px);
 }
 
 #left_block.treasury .container_left {

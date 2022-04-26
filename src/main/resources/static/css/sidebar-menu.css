@@ -55,7 +55,7 @@
 .navbar .nav_head .close_menu {
   height: 26px;
   width: 26px;
-  /* display: block; */
+  display: block;
   border: 1px solid var(--border);
   background-color: var(--bg-main);
   background-image: var(--close-menu);
@@ -63,11 +63,9 @@
   background-position: center;
   border-radius: 16px;
   position: absolute;
-  right: -12px;
-  top: 24px;
+  left: 22px;
+  top: 64px;
   padding: 0;
-
-  display: none !important;
 }
 
 .navbar .nav_head .close_menu:hover svg path {
@@ -86,8 +84,8 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   position: absolute;
-  top: 24px;
-  left: 60px;
+  left: 22px;
+  top: 64px;
   transform: rotate(-180deg);
   padding: 0;
 }
