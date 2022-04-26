@@ -37,8 +37,8 @@
 /********* IMG BG *********/
 :root {
   --bg-img-login: url(/resources/assets/img/bg_login.png);
-  --bg-img-main: url(/resources/assets/style/light/test.webp);
-  --bg-img-bestiary-forest: url(/resources/assets/style/dark/forest.webp);
+  --bg-img-main: url(/resources/assets/img/light/test.webp);
+  --bg-img-bestiary-forest: url(/resources/assets/img/dark/forest.webp);
   --bg-img-bard: url(/resources/assets/style/dark/bard.webp);
 }
 
