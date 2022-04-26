@@ -18,6 +18,7 @@ import lombok.Setter;
 public class RaceApiDto {
 	private NameApiDto name;
 	private String abilities;
+	private String type;
 	private SourceApiDto source;
 
 	private List<RaceApiDto> subraces;
@@ -29,6 +30,7 @@ public class RaceApiDto {
 		if (!race.getSubRaces().isEmpty()) {
 			subraces = race.getSubRaces().stream().map(RaceApiDto::new).collect(Collectors.toList());
 		}
+		type = race.getBook().getType().getName();
 		abilities = race.getAbilityBonuses();
 		icon = race.getIcon();
 	}
