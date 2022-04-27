@@ -12,8 +12,8 @@
 				</div>
 			</div>
 			<div class="tools_settings">
-				<h5>Показатель опасности монстра:</h5>
-				<div class="row_input">
+				<label class="select_box">
+					<span>Показатель опасности монстра:</span>
 					<div class="select js-dropdown">
 						<input id="cr" type="hidden" name="cr" class="js-dropdown__input">
 							<i class="icon_arrow">
@@ -29,7 +29,7 @@
 							<li th:data-dropdown-value="4">17+</li>
 						</ul>
 					</div>
-				</div>
+				</label>
 				<br />
 				<div class="btn-wrapper">
 					<button id="generate" class="btn btn_primary">Создать сокровищницу</button>
@@ -117,10 +117,12 @@
 								<td>
 									<div class="content">
 										<h3 class="row_name"><span th:text="${treasure.name}"></span></h3>
-										<div class="secondary_name tip" th:text="${treasure.type.name}" title="Тип"></div>
+										<div class="content_description">
+											<div class="secondary_name s1 tip" th:text="${treasure.type.name}" title="Тип"></div>
+											<div class="tip secondary_name s2 aright" th:text="|${treasure.cost} зм.|" title="Базовая стоимость"></div>
+										</div>
 									</div>
 								</td>
-								<td class="tip" th:text="|${treasure.cost} зм.|" title="Базовая стоимость"></td>
 							</tr>
 						</tbody>
 					</table>
