@@ -12,39 +12,41 @@
 				</div>
 			</div>
 			<div class="tools_settings">
-				<h5>Средний уровень группы:</h5>
 				<div class="row_input">
-					<div class="select js-dropdown">
-						<input id="level" type="hidden" name="level" class="js-dropdown__input">
-							<i class="icon_arrow">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"	xmlns="http://www.w3.org/2000/svg">
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i>
-						<span class="placeholder js-dropdown__current size">Уровень</span>
-						<ul data-simplebar>
-							<li th:data-dropdown-value="1">1-4</li>
-							<li th:data-dropdown-value="2">5-10</li>
-							<li th:data-dropdown-value="3">11-15</li>
-							<li th:data-dropdown-value="4">17-20</li>
-						</ul>
-					</div>
-				</div>
-				<br />
-				<h5>Окружающая среда:</h5>
-				<div class="row_input">
-					<div class="select js-dropdown">
-						<input id="type" type="hidden" name="type" class="js-dropdown__input" value="RANDOM">
-							<i class="icon_arrow">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"	xmlns="http://www.w3.org/2000/svg">
-									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-							</i>
-						<span class="placeholder js-dropdown__current size">Окружающая среда</span>
-						<ul data-simplebar>
-							<li th:each="type : ${types}" th:text="${type.name}" th:data-dropdown-value="${type}">1</li>
-						</ul>
-					</div>
+					<label class="select_box">
+						<span>Средний уровень группы:</span>
+						<div class="select js-dropdown">
+							<input id="level" type="hidden" name="level" class="js-dropdown__input">
+								<i class="icon_arrow">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"	xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+								</i>
+							<span class="placeholder js-dropdown__current size">Уровень</span>
+							<ul data-simplebar>
+								<li th:data-dropdown-value="1">1-4</li>
+								<li th:data-dropdown-value="2">5-10</li>
+								<li th:data-dropdown-value="3">11-15</li>
+								<li th:data-dropdown-value="4">17-20</li>
+							</ul>
+						</div>
+					</label>
+
+					<label class="select_box">
+						<span>Окружающая среда:</span>
+						<div class="select js-dropdown">
+							<input id="type" type="hidden" name="type" class="js-dropdown__input" value="RANDOM">
+								<i class="icon_arrow">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"	xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+								</i>
+							<span class="placeholder js-dropdown__current size">Окружающая среда</span>
+							<ul data-simplebar>
+								<li th:each="type : ${types}" th:text="${type.name}" th:data-dropdown-value="${type}">1</li>
+							</ul>
+						</div>
+					</label>
 				</div>
 				<br />
 				<div class="btn-wrapper">

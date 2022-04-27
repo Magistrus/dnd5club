@@ -384,6 +384,11 @@ label.select_box {
 }
 
 .select_box span {
+  display: block;
+  padding-bottom: 4px;
+}
+
+.row_input .select_box span {
   margin-left: 4px;
 }
 
@@ -3777,23 +3782,20 @@ body .block_information #left_block.weapons  {
 
 /******** Инструменты / tools ********/
 #left_block .tools_settings {
-  padding: 24px 24px 12px 24px;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 16px 6px 16px;
+  border: 1px solid var(--border);
   position: relative;
+  border-radius: 12px;
+  margin-top: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  margin-left: 0px;
+  background-color: var(--bg-main);
 }
 
-/* body.compact_menu #left_block.tools_block {
-  width: calc(100vw - 72px) !important;
-} */
-
-/* body #left_block.tools_block {
-  width: calc(100vw - 271px) !important;
-} */
-
 @media (max-width: 1200px) {
-  body.compact_menu #left_block.tools_block,
-  body #left_block.tools_block {
-    width: calc(100vw - 0px) !important;
+  #left_block .tools_settings {
+    margin-left: 16px;
   }
 }
 
@@ -3805,29 +3807,35 @@ body .block_information #left_block.weapons  {
   display: none;
 }
 
-#left_block.wildmagic .container_left {
-  height: calc(100% - 195px);
+#left_block.trader .container_left {
+  height: calc(100% - 298px);
 }
 
 #left_block.encounters .container_left {
-  height: calc(100% - 268px);
+  height: calc(100% - 220px);
+}
+
+#left_block.wildmagic .container_left {
+  height: calc(100% - 148px);
 }
 
 #left_block.madness .container_left {
-  height: calc(100% - 268px);
-}
-
-#left_block.trader .container_left {
-  height: calc(100% - 268px);
+  height: calc(100% - 180px);
 }
 
 #left_block.treasury .container_left {
-  height: calc(100% - 249px);
+  height: calc(100% - 224px);
 }
 
 #left_block.treasury h4.header_separator {
-  margin-left: 24px;
-  margin-right: 24px;
+  margin-right: 16px;
+}
+
+@media (max-width: 1200px) {
+  #left_block.treasury h4.header_separator {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
 }
 
 #left_block.treasury h4.header_separator span {
@@ -3835,40 +3843,64 @@ body .block_information #left_block.weapons  {
 }
 
 #left_block.encounters .content_block #content_block {
-  padding: 24px;
   position: relative;
 }
 
 .tools_block_result {
-  border-bottom: 1px solid var(--border);
-  padding: 12px 24px 0 24px;
+  padding: 12px 12px 1px 12px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  margin-right: 16px;
+  margin-left: 0px;
+}
+
+@media (max-width: 1200px) {
+  .tools_block_result {
+    padding: 12px 12px 1px 12px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #left_block.trader .container_left {
+    height: calc(100% - 278px);
+  }
+
+  #left_block.treasury .container_left {
+    height: calc(100% - 196px);
+  }
 }
 
 @media (max-width: 500px) {
   #left_block.trader .container_left {
-    height: calc(100% - 341px);
-  }
-
-  #left_block.wildmagic .container_left {
-    height: calc(100% - 197px);
-  }
-
-  #left_block.madness .container_left {
-    height: calc(100% - 278px);
+    height: calc(100% - 296px);
   }
 
   #left_block.encounters .container_left {
-    height: calc(100% - 254px);
+    height: calc(100% - 220px);
+  }
+
+  #left_block.wildmagic .container_left {
+    height: calc(100% - 148px);
+  }
+
+  #left_block.madness .container_left {
+    height: calc(100% - 212px);
   }
 }
 
 @media (max-width: 360px) {
   #left_block.wildmagic .container_left {
-    height: calc(100% - 219px);
+    height: calc(100% - 164px);
   }
 
   #left_block.encounters .container_left {
-    height: calc(100% - 389px);
+    height: calc(100% - 356px);
   }
 }
 
@@ -3906,6 +3938,7 @@ button {
   flex: 1 0 auto;
   margin-right: 8px;
   color: var(--text-btn-color);
+  border-radius: 8px;
 }
 
 .btn_primary {
