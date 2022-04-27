@@ -25,6 +25,7 @@ public class ClassApiDto {
 
 	public ClassApiDto(HeroClass heroClass) {
 		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
+		url = String.format("/classes/%s", heroClass.getEnglishName().replace(' ', '_'));
 		source = new SourceApiDto(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());
 		archetypes = heroClass.getArchetypes().stream().map(ArchetypeApiDto::new).collect(Collectors.toList());
