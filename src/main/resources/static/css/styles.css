@@ -3305,7 +3305,7 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-#right_block.spells::after {
+/* #right_block.spells::after {
   content: '';
   background-image: var(--bg-img-spells);
   background-repeat: no-repeat;
@@ -3320,7 +3320,7 @@ body.full_screen_right_block .screens .card_block .block {
   bottom: 0;
   z-index: 0;
   opacity: var(--bg-opacity-spells);
-}
+} */
 
 #right_block.spells .content_block #content_block {
   position: relative;
