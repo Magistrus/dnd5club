@@ -102,6 +102,6 @@ public class Archetype {
 	}
 
 	public String getUrlName() {
-		return name.replace(' ', '_');
+		return englishName.replace(' ', '_');
 	}
 }
