@@ -17,19 +17,28 @@ import lombok.Setter;
 @Setter
 public class RaceApiDto {
 	private NameApiDto name;
+	private String url;
 	private String abilities;
+	private SourceTypeApiDto type;
 	private SourceApiDto source;
 
 	private List<RaceApiDto> subraces;
 	private String icon;
 
 	public RaceApiDto(Race race) {
-		name = new NameApiDto(race.getCapitalazeName(), race.getEnglishName(), String.format("/races/%s", race.getEnglishName().replace(' ', '_')));
+		name = new NameApiDto(race.getCapitalazeName(), race.getEnglishName());
+		if (race.getParent() == null) {
+			url = String.format("/races/%s", race.getUrlName());
+		}
+		else {
+			url = String.format("/races/%s/%s", race.getParent().getUrlName(), race.getUrlName());
+		}
 		source = new SourceApiDto(race.getBook());
 		if (!race.getSubRaces().isEmpty()) {
 			subraces = race.getSubRaces().stream().map(RaceApiDto::new).collect(Collectors.toList());
 		}
+		type = new SourceTypeApiDto(race.getBook().getType().getName(), race.getBook().getType().ordinal());
 		abilities = race.getAbilityBonuses();
-		icon = race.getIcon();
+		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let pageInitiated = false;
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#conditions').DataTable({
@@ -71,7 +72,7 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
-            if (window.innerWidth >= 1200) {
+            if (!pageInitiated && window.innerWidth >= 1200) {
                 $('#list_page_two_block').addClass('block_information');
             }
             
@@ -92,6 +93,8 @@ $(document).ready(function () {
                 $('#conditions tbody tr:eq(' + rowSelectIndex + ')').click();
                 table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
             }
+
+            pageInitiated = true;
         }
     });
 
@@ -177,6 +180,7 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
+
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#conditions').dataTable().api().rows().deselect();

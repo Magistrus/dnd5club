@@ -1,3 +1,6 @@
+$(document).ready(function () {
+	$('#instruments_item_menu').addClass('showMenu');
+});
 $('#generate').on('click', function() {
 	const url = '/tools/treasury/random/?cr='+ $('#cr').val();
 	$("#generate_content_block").load(url, function() {

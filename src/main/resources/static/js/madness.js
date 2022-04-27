@@ -1,3 +1,6 @@
+$(document).ready(function () {
+	$('#instruments_item_menu').addClass('showMenu');
+});
 $('#generate').on('click', function() {
 	var parent = document.createElement("div");
 	parent.classList.add("tools_block_result");

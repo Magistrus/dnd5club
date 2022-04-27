@@ -1,6 +1,8 @@
 package club.dnd5.portal.model;
 
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 import lombok.Getter;
@@ -10,7 +12,7 @@ public enum Alignment {
 	LAWFUL_GOOD("ЗД", "законно-добрый", "законно-добрая", "законно-доброе"), //0 
 	LAWFUL_NEUTRAL("ЗН", "законно-нейтральный", "законно-нейтральная", "законно-нейтральное"), // 1
 	LAWFUL_EVIL("ЗЗ", "законно-злой","законно-злая", "законно-злое"), //2 
-	TRUE_NEUTRAL("ЗН", "законно-нейтральный", "законно-нейтральная","законно-нейтральное"), //3
+	TRUE_NEUTRAL("Н", "нейтральный", "нейтральная","нейтральное"), //3
 	NEUTRAL_GOOD("НД", "нейтрально-добрый", "нейтрально-добрая", "нейтрально-доброе"), // 4
 	NEUTRAL_EVIL("НЗ", "нейтрально-злой", "нейтрально-злая", "нейтрально-злое"), //5 
 	CHAOTIC_GOOD("ХД", "хаотично-добрый", "хаотично-добрая","хаотично-доброе"), //6
@@ -87,7 +89,17 @@ public enum Alignment {
 		}
 	}
 	
-	public static Set<Alignment> getGods(){
-		return EnumSet.of(LAWFUL_GOOD, LAWFUL_NEUTRAL, LAWFUL_EVIL, TRUE_NEUTRAL, NEUTRAL_GOOD, NEUTRAL_EVIL, CHAOTIC_GOOD, CHAOTIC_NEUTRAL, CHAOTIC_EVIL, NEUTRAL);
+	public static List<Alignment> getGods(){
+		return Arrays.asList(
+				LAWFUL_GOOD,
+				LAWFUL_NEUTRAL,
+				LAWFUL_EVIL,
+				TRUE_NEUTRAL,
+				NEUTRAL_GOOD,
+				NEUTRAL_EVIL,
+				CHAOTIC_GOOD,
+				CHAOTIC_NEUTRAL,
+				CHAOTIC_EVIL,
+				NEUTRAL);
 	}
 }

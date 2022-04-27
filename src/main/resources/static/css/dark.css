@@ -37,9 +37,11 @@
 /********* IMG BG *********/
 :root {
   --bg-img-login: url(/resources/assets/img/bg_login.png);
-  --bg-img-main: url(/resources/assets/style/dark/test.webp);
-  --bg-img-bestiary-forest: url(/resources/assets/style/dark/forest.webp);
+  --bg-img-main: url(/resources/assets/img/dark/test.webp);
+  --bg-img-bestiary-forest: url(/resources/assets/img/dark/forest.webp);
   --bg-img-bard: url(/resources/assets/style/dark/bard.webp);
+  --bg-img-spells: url(/resources/assets/img/dark/bg_spells.webp);
+  --bg-opacity-spells: 0.12;
 }
 
 :root{
@@ -49,12 +51,6 @@
   --very_rare:#e770ff;
   --legendary:#f6ff00;
   --artifact:#ff8900;
-}
-
-/********* IMG BG *********/
-:root {
-  --bg-title-img:url(/resources/assets/style/dark/bg_title.png);
-  --bg-title-img-2:url(/resources/assets/style/dark/bg_title_2.png);
 }
 
 /********* Logo *********/
