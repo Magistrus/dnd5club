@@ -10,6 +10,6 @@ import lombok.Setter;
 public class ClassInfoApiDto {
 	private NameApiDto name;
 	public ClassInfoApiDto(HeroClass heroClass) {
-		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName(), heroClass.getEnglishName().replace(' ', '_'));
+		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 	}
 }
