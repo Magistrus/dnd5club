@@ -76,7 +76,7 @@ body .block_information #left_block {
   top: 0;
   display: none;
   width: calc(60% - 8px);
-  height: 96%;
+  height: calc(100% - 38px);
   margin-top: 16px;
   right: 0px;
   /* box-shadow: 0px 0px 23px 7px #0000001f; */

@@ -747,6 +747,7 @@ label.select_box {
   margin: 40px auto;
   padding: 24px 24px 24px 24px;
   position: relative;
+  border-radius: 12px;
 }
 
 
@@ -1935,7 +1936,8 @@ label.select_box {
 }
 
 #left_block .filters+.search_panes+.container_left {
-  height: calc(100% - 96px);
+  height: calc(100% - 100px);
+  border-radius: 12px;
 }
 
 #left_block .header_block .btn_search_icon {
@@ -2154,7 +2156,7 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr td .content .row_name {
-  font-size: calc(var(--h5-font-size) + 2px);
+  font-size: calc(var(--h5-font-size) + 0px);
   margin: 0;
   font-weight: 500;
   line-height: normal;
@@ -2456,7 +2458,7 @@ table.table_card tr.dtrg-group td {
   padding: 0 0 32px 32px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1400px) {
   #right_block .avatar {
     width: 200px;
   }
@@ -2706,29 +2708,21 @@ table.table_card tr.dtrg-group td {
 #right_block .info_wrapper.options .search_block,
 #right_block .info_wrapper.spells .search_block {
   height: 45px;
-  width: calc(42% - 0px);
+  width: 100%;
   right: auto;
   display: flex;
-  position: fixed;
+  position: sticky;
   background-color: var(--bg-secondary);
-  top: 135px;
+  top: 0px;
   z-index: 2;
   border-bottom: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  border-left: 1px solid var(--border);
 }
 
-@media (max-width: 1200px) {
-  #right_block .info_wrapper.options .search_block,
-  #right_block .info_wrapper.spells .search_block {
-    width: 100% !important;
-  }
+#right_block .info_wrapper.options #spells_wrapper,
+#right_block .info_wrapper.spells #spells_wrapper {
+  margin-top: 16px;
 }
 
-.full_screen_right_block #right_block .info_wrapper.options .search_block,
-.full_screen_right_block #right_block .info_wrapper.spells .search_block {
-  width: calc(72% - 0px);
-}
 
 #right_block .info_wrapper.options .search_block .search_int,
 #right_block .info_wrapper.spells .search_block .search_int {
@@ -2772,10 +2766,11 @@ table.table_card tr.dtrg-group td {
 
 #right_block .info_wrapper.options .search_panes,
 #right_block .info_wrapper.spells .search_panes {
-  position: fixed;
-  width: calc(42% - 0px);
+  position: sticky;
+  width: 100%;
   box-shadow: none;
   padding: 0;
+  top: 46px;
 }
 
 #right_block .info_wrapper.options .search_panes .filter_container,
@@ -2787,16 +2782,18 @@ table.table_card tr.dtrg-group td {
 @media (max-width: 1200px) {
   #right_block .info_wrapper.options .search_panes,
   #right_block .info_wrapper.spells .search_panes {
-    width: 100%;
     height: calc(100% - 236px);
   }
 }
 
-
 #right_block .info_wrapper.options .content_block #content_block,
 #right_block .info_wrapper.spells .content_block #content_block {
-  padding: 58px 0 0 0;
-  width: 100% !important;
+  padding: 0;
+}
+
+#right_block .info_wrapper.options .content_block #content_block .table_list tr,
+#right_block .info_wrapper.spells .content_block #content_block .table_list tr {
+  margin: 0px 16px 12px 16px;
 }
 
 .grid_stat_block {
@@ -3386,16 +3383,6 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-#right_block.classes .info_wrapper .content_block #content_block {
-  width: calc(100% - 48px);
-}
-
-@media (max-width: 1200px) {
-  #right_block.classes .info_wrapper .content_block #content_block {
-    width: calc(100% - 32px);
-  }
-}
-
 #right_block.classes .content_block h4.mt {
   margin-top: -24px !important;
 }
@@ -3468,6 +3455,18 @@ body.full_screen_right_block .screens .card_block .block {
   grid-row-gap: 8px;
   grid-template-columns: repeat(auto-fit, minmax(19%, 1fr));
   margin-bottom: 16px;
+}
+
+@media (max-width: 1400px) {
+  .races .content_block .scores {
+    grid-template-columns: repeat(auto-fit, minmax(42%, 1fr));
+  }
+}
+
+@media (max-width: 1200px) {
+  .races .content_block .scores {
+    grid-template-columns: repeat(auto-fit, minmax(19%, 1fr));
+  }
 }
 
 .races .content_block .scores .score {
@@ -3647,11 +3646,17 @@ body .block_information #left_block.weapons  {
   position: absolute;
   color:var(--text-color);
   z-index: 10;
-  /* width: 100%; */
-  width: calc(100% - 32px);
-  padding: 0 16px;
+  width: calc(100% - 16px);
+  padding: 0 16px 0 0;
   max-height: calc(100% - 96px);
   box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
+}
+
+@media (max-width: 1200px) {
+  .search_panes {
+    width: calc(100% - 32px);
+    padding: 0 16px;
+  }
 }
 
 .filter_container {
@@ -3988,7 +3993,6 @@ button {
     width: auto;
     padding: 16px;
     position: relative;
-    overflow-x: hidden;
   }
 
   #right_block .info_wrapper .simplebar-content {
