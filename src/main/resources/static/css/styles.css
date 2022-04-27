@@ -2231,14 +2231,6 @@ table.table_card tr.dtrg-group td {
   display: block;
 }
 
-@media (max-width: 1000px) {
-  .table_card tr td .archetypes {
-    margin-left:76px;
-    padding: 0 16px 16px 0;
-    display: none;
-  }
-}
-
 .table_card tr td .archetype_list {
   margin-bottom: 16px;
 }
