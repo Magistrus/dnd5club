@@ -2332,10 +2332,6 @@ table.table_card tr.dtrg-group td {
   object-fit: cover;
 }
 
-#right_block .header_block {
-  /* background-image: var(--bg-title-img-2); */
-}
-
 #right_block.sub_menu_block .header_block {
   height: 118px;
 }
