@@ -15,6 +15,6 @@ public class ArchetypeApiDto {
 		name = new NameApiDto(archetype.getCapitalizeName(), archetype.getEnglishName());
 		type = new SourceTypeApiDto(archetype.getBook().getType().getName(), archetype.getBook().getType().ordinal());
 		source = new SourceApiDto(archetype.getBook());
-		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName());
+		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName(), archetype.getHeroClass().getUrlName());
 	}
 }

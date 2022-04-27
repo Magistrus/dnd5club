@@ -30,6 +30,5 @@ public class ClassApiDto {
 		dice = String.format("к%d", heroClass.getDiceHp());
 		archetypes = heroClass.getArchetypes().stream().map(ArchetypeApiDto::new).collect(Collectors.toList());
 		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-'));
-		
 	}
 }
