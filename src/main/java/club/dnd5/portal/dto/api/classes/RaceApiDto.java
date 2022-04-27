@@ -39,6 +39,6 @@ public class RaceApiDto {
 		}
 		type = new SourceTypeApiDto(race.getBook().getType().getName(), race.getBook().getType().ordinal());
 		abilities = race.getAbilityBonuses();
-		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-'));
+		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }

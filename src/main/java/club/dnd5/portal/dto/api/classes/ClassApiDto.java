@@ -29,6 +29,6 @@ public class ClassApiDto {
 		source = new SourceApiDto(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());
 		archetypes = heroClass.getArchetypes().stream().map(ArchetypeApiDto::new).collect(Collectors.toList());
-		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-'));
+		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }
