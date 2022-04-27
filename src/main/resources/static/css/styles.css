@@ -2352,12 +2352,16 @@ table.table_card tr.dtrg-group td {
 
 #right_block .header_block .header_sub_menu button {
   display: flex;
-  padding: 0px 32px;
+  flex: 1 0;
   align-items: center;
   height: 46px;
   color: var(--text-color);
   border-right: 1px solid var(--border);
-  border-top: 2px solid var(--bg-transparent);
+  justify-content: center;
+}
+
+#right_block .header_block .header_sub_menu button:last-child {
+  border-right: 0px;
 }
 
 #right_block .header_block .header_sub_menu button:hover {
@@ -2507,28 +2511,12 @@ table.table_card tr.dtrg-group td {
 }
 
 @media (max-width: 1200px) {
-  #right_block .header_block .header_sub_menu button {
-    flex: 1 0;
-    justify-content: center;
-    padding: 0px;
-  }
-
-  #right_block .header_block .header_sub_menu button:last-child {
-    border-right: none;
-  }
-}
-
-@media (max-width: 1200px) {
   #right_block.classes .header_block .header_sub_menu button .icon_action {
     margin-right: 0px;
   }
 
   #right_block.classes .header_block .header_sub_menu button span {
     display: none;
-  }
-
-  #right_block.classes .header_block .header_sub_menu button.active {
-    padding: 0 16px;
   }
 
   #right_block.classes .header_block .header_sub_menu button.active .icon_action {
