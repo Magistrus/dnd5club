@@ -2428,7 +2428,7 @@ table.table_card tr.dtrg-group td {
 
 #right_block .avatar {
   position: relative;
-  width: 270px;
+  width: 200px;
   min-height: 100px;
   float: right;
   padding: 0 0 32px 32px;
@@ -2436,7 +2436,7 @@ table.table_card tr.dtrg-group td {
 
 @media (max-width: 1400px) {
   #right_block .avatar {
-    width: 200px;
+    width: 180px;
   }
 }
 
@@ -2458,7 +2458,7 @@ table.table_card tr.dtrg-group td {
   background: var(--bg-sub-menu);
   box-shadow: 0px 6px 21px #00000036;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   height: auto;
 }
 
@@ -2869,7 +2869,7 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_list tr.custom_source {
-  background: var(--bg-homebrew-gradient) !important;
+  background: var(--bg-homebrew-gradient-left) !important;
 }
 
 .table_list tr:hover {
