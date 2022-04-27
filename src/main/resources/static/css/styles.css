@@ -35,7 +35,7 @@ body:before {
   background-position: right;
   width: 100%;
   height: 100%;
-  opacity: 0.3;
+  opacity: 0.65;
 }
 
 @media (max-width: 1200px) {
@@ -947,7 +947,7 @@ label.select_box {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 32px 32px 16px 32px;
+  margin: 16px 0px 16px 0px;
 }
 
 .main_page_wrapper .header .proner_block {
@@ -1034,12 +1034,14 @@ label.select_box {
 .main_page_wrapper .main_block .card_row {
   display: flex;
   flex-wrap: wrap;
-  padding: 0px 24px;
+  padding: 0px 0px;
+  margin: 0 -8px;
 }
 
 @media (max-width: 1200px) {
   .main_page_wrapper .main_block .card_row {
     padding: 0px 8px;
+    margin: 0 0px;
   }
 }
 
@@ -1058,7 +1060,7 @@ label.select_box {
   min-width: calc(12% - 40px);
   margin: 16px 8px 0px 8px;
   background-color: var(--bg-secondary);
-  border-radius: 16px;
+  border-radius: 12px;
   display: grid;
   justify-content: center;
   padding: 12px 12px 12px 12px;
@@ -1156,7 +1158,7 @@ label.select_box {
 }
 
 .main_page_wrapper .info_main_block {
-  padding: 16px 32px;
+  padding: 16px 0px;
 }
 
 @media (max-width: 1200px) {
@@ -1216,11 +1218,11 @@ label.select_box {
 .main_page_wrapper .dnd5club_tel_bot {
   display: flex;
   flex-direction: row;
-  margin: 32px 32px -16px 32px;
+  margin: 32px 0px -16px 0px;
   padding: 16px 16px 0px 16px;
   background-color: var(--hover);
   /* background-color: var(--primary-active); */
-  border-radius: 16px;
+  border-radius: 12px;
   width: 600px;
 }
 
@@ -1533,7 +1535,7 @@ label.select_box {
 
 .page_main .social_links {
   background-color: var(--hover);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 32px;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -3296,6 +3298,23 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
+#right_block.spells::after {
+  content: '';
+  background-image: var(--bg-img-spells);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right bottom;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  opacity: var(--bg-opacity-spells);
+}
+
 #right_block.spells .content_block #content_block {
   position: relative;
 }
@@ -3490,9 +3509,9 @@ body .block_information #left_block.weapons  {
 
 @media (max-width: 1200px) {
   #right_block.armors,
-#right_block.weapons {
-  width: calc(100% - 0px);
-}
+  #right_block.weapons {
+    width: calc(100% - 0px);
+  }
 }
 
 
