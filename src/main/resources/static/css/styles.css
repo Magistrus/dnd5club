@@ -2860,6 +2860,10 @@ table.table_card tr.dtrg-group td {
   overflow: hidden;
 }
 
+.table_list tr:last-child {
+  margin-bottom: 0px;
+}
+
 @media (max-width: 1200px) {
   .table_list tr {
     margin: 0px 16px 12px 16px;
