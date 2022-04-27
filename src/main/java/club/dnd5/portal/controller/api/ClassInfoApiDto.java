@@ -25,7 +25,7 @@ public class ClassInfoApiDto {
 	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images) {
 		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		this.images = images;
-		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/traits", heroClass.getUrlName()), "tab-traits", 0));
+		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s", heroClass.getUrlName()), "tab-traits", 0));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "tab_description", 1));
 		if (heroClass.getSpellcasterType() != SpellcasterType.NONE) {
 			tabs.add(new ClassTabApiDto("Заклинания", String.format("/classes/%s/description", heroClass.getUrlName()), "tab-spells", 2));	
@@ -37,9 +37,9 @@ public class ClassInfoApiDto {
 
 	public ClassInfoApiDto(Archetype archetype, Collection<String> images) {
 		HeroClass heroClass = archetype.getHeroClass();
-		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
+		name = new NameApiDto(archetype.getCapitalizeName(), archetype.getEnglishName());
 		this.images = images;
-		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/%s/traits", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0));
+		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab_description", 1));
 		if (heroClass.getSpellcasterType() != SpellcasterType.NONE || archetype.getSpellcasterType() != SpellcasterType.NONE) {
 			tabs.add(new ClassTabApiDto("Заклинания", String.format("/classes/%s/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab-spells", 2));	
