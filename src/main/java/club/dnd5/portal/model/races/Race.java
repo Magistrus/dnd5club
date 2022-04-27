@@ -124,6 +124,9 @@ public class Race implements Serializable {
 		if (bonuses.size() == 6) {
 			return "+1 к каждой характеристике";
 		}
+		if (bonuses.isEmpty()) {
+			return "—";
+		}
 		return bonuses.stream()
 				.map(b -> {
 					if (b.getAbility() == AbilityType.CHOICE_UNIQUE || b.getAbility() == AbilityType.CHOICE || b.getAbility() == AbilityType.ONE) {
