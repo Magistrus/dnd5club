@@ -40,6 +40,8 @@
   --bg-img-main: url(/resources/assets/img/dark/test.webp);
   --bg-img-bestiary-forest: url(/resources/assets/img/dark/forest.webp);
   --bg-img-bard: url(/resources/assets/style/dark/bard.webp);
+  --bg-img-spells: url(/resources/assets/img/bg_spells.webp);
+  --bg-opacity-spells: 0.12;
 }
 
 :root{

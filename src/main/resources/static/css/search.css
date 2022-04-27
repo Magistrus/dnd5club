@@ -5,10 +5,15 @@
 .search_row_g {
   height: 46px;
   width: 40%;
-  border: 1px solid var(--border);
+  /* border: 1px solid var(--border); */
   position: relative;
-  border-radius: 50px;
+  border-radius: 12px;
   overflow: hidden;
+  padding: auto;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
 }
 
 @media (max-width: 600px) {
