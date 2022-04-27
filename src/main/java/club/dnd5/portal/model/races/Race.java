@@ -126,7 +126,7 @@ public class Race implements Serializable {
 		}
 		return bonuses.stream()
 				.map(b -> {
-					if (b.getAbility() == AbilityType.CHOICE_UNIQUE || b.getAbility() == AbilityType.CHOICE) {
+					if (b.getAbility() == AbilityType.CHOICE_UNIQUE || b.getAbility() == AbilityType.CHOICE || b.getAbility() == AbilityType.ONE) {
 						return String.format("%s %+d", b.getAbility().getCyrilicName(), b.getBonus()); 
 					}
 					else if (b.getAbility() == AbilityType.CHOICE_DOUBLE) {
