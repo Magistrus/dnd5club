@@ -2347,6 +2347,7 @@ table.table_card tr.dtrg-group td {
 #right_block .header_block .header_sub_menu button {
   display: flex;
   flex: 1 0;
+  justify-content: center;
   align-items: center;
   height: 46px;
   color: var(--text-color);
