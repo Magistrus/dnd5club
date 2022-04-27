@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.classes.ClassApiDto;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
@@ -34,5 +35,13 @@ public class ClassesApiController {
 		HeroClass heroClass = classRepo.findByEnglishName(englishName);
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
 		return new ClassInfoApiDto(heroClass, images);
+	}
+	
+	@GetMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ClassInfoApiDto getArchetypeInfo(@PathVariable String className, @PathVariable String archetypeName) {
+		HeroClass heroClass = classRepo.findByEnglishName(className);
+		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace('_', ' '))).findFirst().get();
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, heroClass.getId());
+		return new ClassInfoApiDto(archetype, images);
 	}
 }
