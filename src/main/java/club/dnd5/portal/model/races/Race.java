@@ -226,4 +226,8 @@ public class Race implements Serializable {
 	public String getCapitalazeName() {
 		return StringUtils.capitalize(name.toLowerCase());
 	}
+
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
 }
