@@ -51,12 +51,6 @@
   --artifact:#ff8900;
 }
 
-/********* IMG BG *********/
-:root {
-  --bg-title-img:url(/resources/assets/style/light/bg_title.png);
-  --bg-title-img-2:url(/resources/assets/style/light/bg_title_2.png);
-}
-
 /********* Logo *********/
 :root {
   --icon-logo-menu: url(/resources/assets/icon/light/logo.svg);
