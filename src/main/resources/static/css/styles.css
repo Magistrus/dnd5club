@@ -2354,12 +2354,15 @@ table.table_card tr.dtrg-group td {
 
 #right_block .header_block .header_sub_menu button {
   display: flex;
-  padding: 0px 32px;
+  flex: 1 0;
   align-items: center;
   height: 46px;
   color: var(--text-color);
   border-right: 1px solid var(--border);
-  border-top: 2px solid var(--bg-transparent);
+}
+
+#right_block .header_block .header_sub_menu button:last-child {
+  border-right: 0px;
 }
 
 #right_block .header_block .header_sub_menu button:hover {
