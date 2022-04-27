@@ -100,4 +100,8 @@ public class Archetype {
 	public List<ArchetypeTrait> getFeats(){
 		return feats.stream().sorted(Comparator.comparing(ArchetypeTrait::getLevel)).collect(Collectors.toList());
 	}
+
+	public String getUrlName() {
+		return name.replace(' ', '_');
+	}
 }
