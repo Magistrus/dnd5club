@@ -7,14 +7,14 @@ import lombok.Getter;
 @Getter
 public class ArchetypeApiDto {
 	private NameApiDto name;
-	private String type;
+	private SourceTypeApiDto type;
 	private SourceApiDto source;
+	private String url;
 
 	public ArchetypeApiDto(Archetype archetype) {
-		name = new NameApiDto(archetype.getCapitalizeName(), archetype.getEnglishName(),
-				String.format("/classes/%s/%s", archetype.getHeroClass().getEnglishName().replace(' ', '_'),
-						archetype.getEnglishName().replace(' ', '_')));
-		type = archetype.getBook().getType().getName();
+		name = new NameApiDto(archetype.getCapitalizeName(), archetype.getEnglishName());
+		type = new SourceTypeApiDto(archetype.getBook().getType().getName(), archetype.getBook().getType().ordinal());
 		source = new SourceApiDto(archetype.getBook());
+		url = String.format("/classes/%s/%s", archetype.getHeroClass().getEnglishName().replace(' ', '-'));
 	}
 }

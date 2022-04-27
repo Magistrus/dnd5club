@@ -17,16 +17,17 @@ import lombok.Setter;
 @Setter
 public class ClassApiDto {
 	private NameApiDto name;
+	private String url;
 	private SourceApiDto source;
 	private String dice;
 	private List<ArchetypeApiDto> archetypes;
 	private String icon;
 
 	public ClassApiDto(HeroClass heroClass) {
-		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName(), String.format("/classes/%s", heroClass.getEnglishName().replace(' ', '_')));
+		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		source = new SourceApiDto(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());
 		archetypes = heroClass.getArchetypes().stream().map(ArchetypeApiDto::new).collect(Collectors.toList());
-		icon = heroClass.getIcon();
+		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-'));
 	}
 }
