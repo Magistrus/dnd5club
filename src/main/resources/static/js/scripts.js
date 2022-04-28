@@ -114,8 +114,16 @@ $(document).ready(function () {
         $('#workshop_item_menu, #workshop_item_menu_rules').addClass('active');
     } else if (path.startsWith('/books')) {
         $('#workshop_item_menu, #workshop_item_menu_books').addClass('active');
-    } else if (path.startsWith('/tools/trader') || path.startsWith('/tools/encounters') || path.startsWith('/rules') || path.startsWith('/tools/treasury') || path.startsWith('/tools/tavern') || path.startsWith('/tools/wildmagic') || path.startsWith('/tools/madness')) {
-        $('#instruments_item_menu').addClass('active');
+    } else if (path.startsWith('/tools/trader')) {
+        $('#instruments_item_menu, #instruments_item_menu_trader').addClass('active');
+    } else if (path.startsWith('/tools/encounters')) {
+        $('#instruments_item_menu, #instruments_item_menu_encounters').addClass('active');
+    } else if (path.startsWith('/tools/treasury')) {
+        $('#instruments_item_menu, #instruments_item_menu_treasury').addClass('active');
+    } else if (path.startsWith('/tools/wildmagic')) {
+        $('#instruments_item_menu, #instruments_item_menu_wildmagic').addClass('active');
+    } else if (path.startsWith('/tools/madness')) {
+        $('#instruments_item_menu, #instruments_item_menu_madness').addClass('active');
     }
 
     const spoilers = document.querySelectorAll('.header')
