@@ -25,10 +25,10 @@ public class ClassInfoApiDto {
 	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images) {
 		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		this.images = images;
-		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s", heroClass.getUrlName()), "tab-traits", 0));
-		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "tab_description", 1));
+		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "tab-traits", 0));
+		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "tab-description", 1));
 		if (heroClass.getSpellcasterType() != SpellcasterType.NONE) {
-			tabs.add(new ClassTabApiDto("Заклинания", String.format("/classes/%s/description", heroClass.getUrlName()), "tab-spells", 2));	
+			tabs.add(new ClassTabApiDto("Заклинания", String.format("/classes/%s/spells", heroClass.getUrlName()), "tab-spells", 2));	
 		}
 		if (heroClass.getOptionType() != null) {
 			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/options", heroClass.getUrlName()), "tab-option", 3));
@@ -39,10 +39,10 @@ public class ClassInfoApiDto {
 		HeroClass heroClass = archetype.getHeroClass();
 		name = new NameApiDto(archetype.getCapitalizeName(), archetype.getEnglishName());
 		this.images = images;
-		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0));
-		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab_description", 1));
+		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0));
+		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab-description", 1));
 		if (heroClass.getSpellcasterType() != SpellcasterType.NONE || archetype.getSpellcasterType() != SpellcasterType.NONE) {
-			tabs.add(new ClassTabApiDto("Заклинания", String.format("/classes/%s/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab-spells", 2));	
+			tabs.add(new ClassTabApiDto("Заклинания", String.format("/classes/%s/%s/spells", heroClass.getUrlName(), archetype.getUrlName()), "tab-spells", 2));	
 		}
 		if (heroClass.getOptionType() != null) {
 			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "tab-option", 3));
