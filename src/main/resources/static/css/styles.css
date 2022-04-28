@@ -2347,6 +2347,7 @@ table.table_card tr.dtrg-group td {
 #right_block .header_block .header_sub_menu button {
   display: flex;
   flex: 1 0;
+  justify-content: center;
   align-items: center;
   height: 46px;
   color: var(--text-color);
@@ -2860,6 +2861,10 @@ table.table_card tr.dtrg-group td {
   overflow: hidden;
 }
 
+.table_list tr:last-child {
+  margin-bottom: 0px;
+}
+
 @media (max-width: 1200px) {
   .table_list tr {
     margin: 0px 16px 12px 16px;
@@ -3305,7 +3310,7 @@ body.full_screen_right_block .screens .card_block .block {
 
 }
 
-#right_block.spells::after {
+/* #right_block.spells::after {
   content: '';
   background-image: var(--bg-img-spells);
   background-repeat: no-repeat;
@@ -3320,7 +3325,7 @@ body.full_screen_right_block .screens .card_block .block {
   bottom: 0;
   z-index: 0;
   opacity: var(--bg-opacity-spells);
-}
+} */
 
 #right_block.spells .content_block #content_block {
   position: relative;
