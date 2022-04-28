@@ -1,6 +1,8 @@
 package club.dnd5.portal.model;
 
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -67,8 +69,8 @@ public enum DamageType {
 		return EnumSet.of(PHYSICAL, NO_NOSILVER, NO_ADMANTIT, PHYSICAL_MAGIC);
 	}
 	
-	public static Set<DamageType> getSpellDamage(){
-		return EnumSet.of(FAIR, COLD, LIGHTNING, POISON, ACID, SOUND, NECTOTIC, BLUDGEONING, PIERCING, SLASHING, RADIANT, FORCE, PSYCHIC);
+	public static List<DamageType> getSpellDamage(){
+		return Arrays.asList(NO_DAMAGE, BLUDGEONING, PIERCING, SLASHING, FAIR, COLD, LIGHTNING, POISON, ACID, SOUND, NECTOTIC, RADIANT, FORCE, PSYCHIC);
 	}
 
 	public static Set<DamageType> getWeaponDamage() {

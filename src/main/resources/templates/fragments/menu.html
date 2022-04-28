@@ -86,11 +86,11 @@
 				</div>
 				<ul class="sub_menu">
 					<li class="link_name"><span>Персонаж</span></li>
-					<li><a th:href="@{/classes}">Классы</a></li>
-					<li><a th:href="@{/races}">Расы</a></li>
-					<li><a th:href="@{/traits}">Черты</a></li>
-					<li><a th:href="@{/options}">Особенности классов</a></li>
-					<li><a th:href="@{/backgrounds}">Предыстории</a></li>
+					<li id="charachter_item_menu_classes"><a th:href="@{/classes}">Классы</a></li>
+					<li id="charachter_item_menu_races"><a th:href="@{/races}">Расы</a></li>
+					<li id="charachter_item_menu_traits"><a th:href="@{/traits}">Черты</a></li>
+					<li id="charachter_item_menu_options"><a th:href="@{/options}">Особенности классов</a></li>
+					<li id="charachter_item_menu_backgrounds"><a th:href="@{/backgrounds}">Предыстории</a></li>
 				</ul>
 			</li>
 			<li id="spells_item_menu">
@@ -124,9 +124,9 @@
 				</div>
 				<ul class="sub_menu">
 					<li class="link_name"><span>Инвентарь</span></li>
-					<li><a th:href="@{/weapons}">Оружие</a></li>
-					<li><a th:href="@{/armors}">Доспехи</a></li>
-					<li><a th:href="@{/items}">Снаряжение</a></li>
+					<li id="items_item_menu_weapons"><a th:href="@{/weapons}">Оружие</a></li>
+					<li id="items_item_menu_armors"><a th:href="@{/armors}">Доспехи</a></li>
+					<li id="items_item_menu_items"><a th:href="@{/items}">Снаряжение</a></li>
 				</ul>
 			</li>
 			<li id="bestiary_item_menu">
@@ -161,8 +161,8 @@
 				</div>
 				<ul class="sub_menu">
 					<li class="link_name"><span>Сокровища</span></li>
-					<li><a th:href="@{/treasures}">Драгоценности</a></li>
-					<li><a th:href="@{/items/magic}">Магические предметы</a></li>
+					<li id="treasury_item_menu_treasures"><a th:href="@{/treasures}">Драгоценности</a></li>
+					<li id="treasury_item_menu_magic"><a th:href="@{/items/magic}">Магические предметы</a></li>
 				</ul>
 			</li>
 			<li id="screens_item_menu">
@@ -196,9 +196,9 @@
 				</div>
 				<ul class="sub_menu">
 					<li class="link_name"><span>База знаний</span></li>
-					<li><a th:href="@{/gods}">Боги</a></li>
-					<li><a th:href="@{/rules}">Правила и термины</a></li>
-					<li><a th:href="@{/books}">Источники</a></li>
+					<li id="workshop_item_menu_gods"><a th:href="@{/gods}">Боги</a></li>
+					<li id="workshop_item_menu_rules"><a th:href="@{/rules}">Правила и термины</a></li>
+					<li id="workshop_item_menu_books"><a th:href="@{/books}">Источники</a></li>
 				</ul>
 			</li>
 			<li id="instruments_item_menu">
@@ -219,13 +219,13 @@
 				</div>
 				<ul class="sub_menu end">
 					<li class="link_name"><span>Инструменты</span></li>
-					<li><a th:href="@{/tools/trader}">Торговец</a></li>
-					<li><a th:href="@{/tools/encounters}">Случайные столкновения</a></li>
-					<li><a th:href="@{/tools/treasury}">Сокровищница</a></li>
+					<li id="instruments_item_menu_trader"><a th:href="@{/tools/trader}">Торговец</a></li>
+					<li id="instruments_item_menu_encounters"><a th:href="@{/tools/encounters}">Случайные столкновения</a></li>
+					<li id="instruments_item_menu_treasury"><a th:href="@{/tools/treasury}">Сокровищница</a></li>
 					<!-- <li><a th:href="@{/tools/tavern}">Таверна (в разработке)</a></li> -->
 					<!-- <li><a th:href="@{/tools/items/magic}">Покупка магических вещей</a></li> -->
-					<li><a th:href="@{/tools/wildmagic}">Дикая магия</a></li>
-					<li><a th:href="@{/tools/madness}">Безумие</a></li>
+					<li id="instruments_item_menu_wildmagic"><a th:href="@{/tools/wildmagic}">Дикая магия</a></li>
+					<li id="instruments_item_menu_madness"><a th:href="@{/tools/madness}">Безумие</a></li>
 				</ul>
 			</li>
 			<li>

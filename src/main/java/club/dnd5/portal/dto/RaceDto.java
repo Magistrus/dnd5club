@@ -40,7 +40,7 @@ public class RaceDto {
 		ability = race.getAbilityBonuses();
 		icon = race.getIcon() == null ? "" : race.getIcon();
 		
-		hasSubraces = !race.getSubRaces().isEmpty();
+		hasSubraces = race.getSubRaces().stream().filter(subrace -> !subrace.isView()).count() > 0;
 		subraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.OFFICAL && !a.isView()).map(RaceDto::new).collect(Collectors.toList());
 		settingSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.SETTING && !a.isView()).map(RaceDto::new).collect(Collectors.toList());
 		moduleSubraces = race.getSubRaces().stream().filter(a-> a.getBook().getType() == TypeBook.MODULE && !a.isView()).map(RaceDto::new).collect(Collectors.toList());

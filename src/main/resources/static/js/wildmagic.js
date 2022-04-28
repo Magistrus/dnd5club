@@ -1,3 +1,6 @@
+$(document).ready(function () {
+	$('#instruments_item_menu').addClass('showMenu');
+});
 $('#generate').on('click', function() {
 	let type = '?type=base'; 
 	if (document.getElementById('additional').checked){

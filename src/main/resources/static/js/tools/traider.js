@@ -1,3 +1,7 @@
+$(document).ready(function () {
+	$('#instruments_item_menu').addClass('showMenu');
+});
+
 $('#generate').on('click', function() {
 	if (!$('#result').val()){
 		

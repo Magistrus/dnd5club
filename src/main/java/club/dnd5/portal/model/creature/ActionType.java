@@ -10,6 +10,7 @@ public enum ActionType {
 	REACTION("Реакции"),
 	LEGENDARY("Легендарные действия"),
 	BONUS("Бонусные действия"),
-	LAIR("Действия логова");
+	LAIR("Действия логова"),
+	MYSTICAL("Мистическое действие");
 	private String name;
 }

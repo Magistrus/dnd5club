@@ -101,7 +101,7 @@ public class ArticleController {
 		model.addAttribute("article", article);
 		return "profile/form_article";
 	}
-	
+
 	@PostMapping(value = "/profile/articles", params = "preview")
 	public String previewArticle(Model model, Principal principal, Article article) {
 		model.addAttribute("article", article);

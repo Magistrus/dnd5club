@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('#charachter_item_menu').addClass('showMenu');
+    let pageInitiated = false;
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#options').DataTable({
@@ -90,7 +92,7 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
-            if (window.innerWidth >= 1200) {
+            if (!pageInitiated && window.innerWidth >= 1200) {
                 $('#list_page_two_block').addClass('block_information');
             }
 
@@ -112,6 +114,8 @@ $(document).ready(function () {
             }
             $('#options tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            pageInitiated = true;
         },
         createdRow: function (row, data, dataIndex) {
             if (data.homebrew) {
@@ -209,8 +213,15 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
+
 $('#btn_close').on('click', function () {
-    $('#options').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#options').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {

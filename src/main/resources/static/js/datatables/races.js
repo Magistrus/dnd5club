@@ -1,5 +1,6 @@
 $(document).ready(function () {
     document.getElementById('list_page_two_block').classList.remove('block_information');
+    $('#charachter_item_menu').addClass('showMenu');
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     let table = $('#races').DataTable({
@@ -304,6 +305,7 @@ $('#text_clear').on('click', function () {
     $('#text_clear').hide();
     $('#races').DataTable().tables().search($(this).val()).draw();
 });
+
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#races').dataTable().api().rows().deselect();

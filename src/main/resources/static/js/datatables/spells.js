@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let pageInitiated = false;
     var scrollEventHeight = 0;
     var rowSelectIndex = 0;
     var table = $('#spells').DataTable({
@@ -152,7 +153,7 @@ $(document).ready(function () {
         drawCallback: function (settings) {
             addEventListeners();
 
-            if (window.innerWidth >= 1200) {
+            if (!pageInitiated && window.innerWidth >= 1200) {
                 $('#list_page_two_block').addClass('block_information');
             }
 
@@ -187,6 +188,8 @@ $(document).ready(function () {
             }
             $('#spells tbody tr:eq(' + rowSelectIndex + ')').click();
             table.row(':eq(' + rowSelectIndex + ')', { page: 'current' }).select();
+
+            pageInitiated = true;
         }
     });
     $('#spells tbody').on('mouseup', 'tr', function (e) {
@@ -281,8 +284,15 @@ $('#text_clear').on('click', function () {
     table.tables().search($(this).val()).draw();
     $('#text_clear').hide();
 });
+
 $('#btn_close').on('click', function () {
-    $('#spells').dataTable().api().rows().deselect();
+    if (window.innerWidth < 1200) {
+        $('#spells').dataTable().api().rows().deselect();
+
+        return;
+    }
+
+    closeHandler();
 });
 
 function closeHandler() {
