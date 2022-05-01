@@ -11,4 +11,5 @@ public class ClassTabApiDto {
 	private String url;
 	private String icon;
 	private int order;
+	private boolean raw;
 }
