@@ -1,4 +1,4 @@
-package club.dnd5.portal.dto.api.classes;
+package club.dnd5.portal.dto.api.races;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.classes.NameApiDto;
+import club.dnd5.portal.dto.api.classes.SourceTypeApiDto;
 import club.dnd5.portal.model.races.Race;
 import lombok.Getter;
 import lombok.Setter;

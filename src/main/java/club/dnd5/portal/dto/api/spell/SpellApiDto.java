@@ -23,6 +23,7 @@ public class SpellApiDto {
 	private ComponentsApiDto components = new ComponentsApiDto();
 	private Boolean ritual;
 	private Boolean concentration;
+	private String url;
 	private SourceApiDto source;
 
 	public SpellApiDto(Spell spell) {
@@ -44,6 +45,7 @@ public class SpellApiDto {
 		if (spell.getConcentration()) {
 			concentration = Boolean.TRUE;
 		}
+		url = String.format("/spells/%s", spell.getUrlName());
 		if (spell.getBook().getType() == TypeBook.CUSTOM) {
 			source = new SourceApiDto();
 			source.setHomebrew(Boolean.TRUE);

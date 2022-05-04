@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.classes.RaceApiDto;
+import club.dnd5.portal.dto.api.races.RaceApiDto;
 import club.dnd5.portal.repository.classes.RaceRepository;
 
 @RestController
