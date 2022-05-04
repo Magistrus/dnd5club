@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
 import club.dnd5.portal.dto.api.classes.NameApiDto;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +30,13 @@ public class SpellApiDto {
 		level = spell.getLevel();
 		school = spell.getSchool().getName();
 		if (spell.getVerbalComponent()) {
-			components.setV(true);	
+			components.setV(Boolean.TRUE);	
 		}
 		if (spell.getSomaticComponent()) {
-			components.setS(true);	
+			components.setS(Boolean.TRUE);	
 		}
 		if (spell.getMaterialComponent()) {
-			components.setM(spell.getAdditionalMaterialComponent());
+			components.setM(Boolean.TRUE);
 		}
 		if (spell.getRitual()) {
 			ritual = Boolean.TRUE;
@@ -43,6 +44,9 @@ public class SpellApiDto {
 		if (spell.getConcentration()) {
 			concentration = Boolean.TRUE;
 		}
-		source = new SourceApiDto(spell.getBook());
+		if (spell.getBook().getType() == TypeBook.CUSTOM) {
+			source = new SourceApiDto();
+			source.setHomebrew(Boolean.TRUE);
+		}
 	}
 }

@@ -17,7 +17,7 @@ import lombok.Setter;
 public class ComponentsApiDto {
 	private Boolean v;
 	private Boolean s;
-	private String m;
+	private Boolean m;
 	public ComponentsApiDto(Spell spell) {
 		
 	}
