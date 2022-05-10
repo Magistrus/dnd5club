@@ -1,4 +1,4 @@
-package club.dnd5.portal.controller.api;
+package club.dnd5.portal.dto.api.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

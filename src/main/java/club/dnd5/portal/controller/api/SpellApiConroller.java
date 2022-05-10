@@ -23,12 +23,11 @@ import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController
-@RequestMapping("/api")
 public class SpellApiConroller {
 	@Autowired
 	private SpellDatatableRepository repo;
 	
-	@GetMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<SpellApiDto> getSpells() {
 		DataTablesInput input = new DataTablesInput();
 		input.setLength(-1);
@@ -38,7 +37,7 @@ public class SpellApiConroller {
 	}
 	
 	@CrossOrigin
-	@PostMapping(value = "/v1/spells", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/api/fvtt/v1/spells", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<SpellApiDto> getSpells(@RequestBody SpellRequestDto request){
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
@@ -78,7 +77,6 @@ public class SpellApiConroller {
 			input.setStart(request.getPage());
 		}
 		Specification<Spell> specification = null;
-		//input.setOrder(Arrays.asList(new Order(0, "asc")));
 		if (request.getSearch() != null) {
 			if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
 				specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());

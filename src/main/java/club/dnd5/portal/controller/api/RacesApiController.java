@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.races.RaceApi;
@@ -17,7 +17,7 @@ public class RacesApiController {
 	@Autowired
 	private RaceRepository raceRepo;
 	
-	@GetMapping(value = "/api/v1/races", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/races", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<RaceApi> getClasses() {
 		return raceRepo.findAllByParent(null, Sort.by("name")).stream().map(RaceApi::new).collect(Collectors.toList());
 	}
