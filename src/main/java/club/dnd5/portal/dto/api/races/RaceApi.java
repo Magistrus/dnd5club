@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
-import club.dnd5.portal.dto.api.classes.NameApiDto;
-import club.dnd5.portal.dto.api.classes.SourceTypeApiDto;
+import club.dnd5.portal.dto.api.classes.NameApi;
+import club.dnd5.portal.dto.api.classes.SourceTypeApi;
 import club.dnd5.portal.model.races.Race;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,18 +17,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RaceApiDto {
-	private NameApiDto name;
+public class RaceApi {
+	private NameApi name;
 	private String url;
 	private String abilities;
-	private SourceTypeApiDto type;
+	private SourceTypeApi type;
 	private SourceApiDto source;
 
-	private List<RaceApiDto> subraces;
+	private List<RaceApi> subraces;
 	private String icon;
 
-	public RaceApiDto(Race race) {
-		name = new NameApiDto(race.getCapitalazeName(), race.getEnglishName());
+	public RaceApi(Race race) {
+		name = new NameApi(race.getCapitalazeName(), race.getEnglishName());
 		if (race.getParent() == null) {
 			url = String.format("/races/%s", race.getUrlName());
 		}
@@ -37,9 +37,9 @@ public class RaceApiDto {
 		}
 		source = new SourceApiDto(race.getBook());
 		if (!race.getSubRaces().isEmpty()) {
-			subraces = race.getSubRaces().stream().map(RaceApiDto::new).collect(Collectors.toList());
+			subraces = race.getSubRaces().stream().map(RaceApi::new).collect(Collectors.toList());
 		}
-		type = new SourceTypeApiDto(race.getBook().getType().getName(), race.getBook().getType().ordinal());
+		type = new SourceTypeApi(race.getBook().getType().getName(), race.getBook().getType().ordinal());
 		abilities = race.getAbilityBonuses();
 		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}

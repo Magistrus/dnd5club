@@ -6,7 +6,7 @@ import java.util.Collection;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.classes.NameApiDto;
+import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.SpellcasterType;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
@@ -18,12 +18,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassInfoApiDto {
-	private NameApiDto name;
+	private NameApi name;
 	private Collection<ClassTabApiDto> tabs = new ArrayList<>(5);
 	private Collection<String> images;
 
 	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images) {
-		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
+		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "tab-traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "tab-description", 1, true));
@@ -37,7 +37,7 @@ public class ClassInfoApiDto {
 
 	public ClassInfoApiDto(Archetype archetype, Collection<String> images) {
 		HeroClass heroClass = archetype.getHeroClass();
-		name = new NameApiDto(archetype.getCapitalizeName(), archetype.getEnglishName());
+		name = new NameApi(archetype.getCapitalizeName(), archetype.getEnglishName());
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab-description", 1, true));

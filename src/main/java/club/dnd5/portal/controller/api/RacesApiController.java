@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.races.RaceApiDto;
+import club.dnd5.portal.dto.api.races.RaceApi;
 import club.dnd5.portal.repository.classes.RaceRepository;
 
 @RestController
@@ -18,7 +18,7 @@ public class RacesApiController {
 	private RaceRepository raceRepo;
 	
 	@GetMapping(value = "/api/v1/races", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<RaceApiDto> getClasses() {
-		return raceRepo.findAllByParent(null, Sort.by("name")).stream().map(RaceApiDto::new).collect(Collectors.toList());
+	public List<RaceApi> getClasses() {
+		return raceRepo.findAllByParent(null, Sort.by("name")).stream().map(RaceApi::new).collect(Collectors.toList());
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,15 @@ import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 public class SpellApiConroller {
 	@Autowired
 	private SpellDatatableRepository repo;
+	
+	@GetMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<SpellApiDto> getSpells() {
+		DataTablesInput input = new DataTablesInput();
+		input.setLength(-1);
+		return repo.findAll(input).getData().stream()
+				.map(SpellApiDto::new)
+				.collect(Collectors.toList());
+	}
 	
 	@CrossOrigin
 	@PostMapping(value = "/v1/spells", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

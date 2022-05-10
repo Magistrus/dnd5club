@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import club.dnd5.portal.model.book.Book;
@@ -22,4 +23,7 @@ public interface SpellDatatableRepository extends DataTablesRepository<Spell, In
 	List<Book> findHomebrewBook();
 	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'SETTING' ORDER BY s.book.year")
 	List<Book> findSettingBook();
+	
+	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = :type ORDER BY s.book.year")
+	List<Book> findBook(@Param("type") TypeBook type);
 }

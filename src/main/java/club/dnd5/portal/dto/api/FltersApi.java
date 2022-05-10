@@ -1,9 +1,8 @@
-package club.dnd5.portal.dto.api.spell;
+package club.dnd5.portal.dto.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,11 +13,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ComponentsApiDto {
-	private Boolean v;
-	private Boolean s;
-	private Boolean m;
-	public ComponentsApiDto(Spell spell) {
-		
-	}
+public class FltersApi {
+	private FilterApi classes;
+	private FilterApi races;
+	private FilterApi spells;
 }

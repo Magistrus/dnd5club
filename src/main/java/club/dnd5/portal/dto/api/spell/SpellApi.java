@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
-import club.dnd5.portal.dto.api.classes.NameApiDto;
+import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
@@ -16,18 +16,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SpellApiDto {
-	private NameApiDto name;
+public class SpellApi {
+	private NameApi name;
 	private byte level;
 	private String school;
-	private ComponentsApiDto components = new ComponentsApiDto();
+	private ComponentsApi components = new ComponentsApi();
 	private Boolean ritual;
 	private Boolean concentration;
 	private String url;
 	private SourceApiDto source;
 
-	public SpellApiDto(Spell spell) {
-		name = new NameApiDto(spell.getCapitalazeName(), spell.getEnglishName());
+	public SpellApi(Spell spell) {
+		name = new NameApi(spell.getCapitalazeName(), spell.getEnglishName());
 		level = spell.getLevel();
 		school = spell.getSchool().getName();
 		if (spell.getVerbalComponent()) {

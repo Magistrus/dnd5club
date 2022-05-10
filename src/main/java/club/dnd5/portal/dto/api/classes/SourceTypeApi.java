@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SourceTypeApiDto {
+public class SourceTypeApi {
 	private String name;
 	private int order;
 }
