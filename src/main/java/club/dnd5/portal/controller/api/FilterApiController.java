@@ -132,6 +132,17 @@ public class FilterApiController {
 				 .collect(Collectors.toList()));
 		spellOtherFilters.add(schoolSpellFilter);
 		
+		FilterApi componentsSpellFilter = new FilterApi("Компоненты", "components");
+		List<FilterValueApi> componentValues = new ArrayList<>();
+		componentValues.add(new FilterValueApi("вербальный", "1", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("соматический", "2", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("материальный", "3", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("расходуемый", "4", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("не расходуемый", "5", Boolean.TRUE));
+		
+		componentsSpellFilter.setValues(componentValues );
+		spellOtherFilters.add(componentsSpellFilter);
+		
 		spellFilters.setOther(spellOtherFilters);
 		
 		filters.setSpells(spellFilters);
