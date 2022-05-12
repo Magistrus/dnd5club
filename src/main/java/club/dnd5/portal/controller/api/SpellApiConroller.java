@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.spell.SpellApi;
 import club.dnd5.portal.dto.api.spells.SpellApiDto;
 import club.dnd5.portal.dto.api.spells.SpellRequestDto;
 import club.dnd5.portal.model.splells.Spell;
@@ -28,11 +28,11 @@ public class SpellApiConroller {
 	private SpellDatatableRepository repo;
 	
 	@PostMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<SpellApiDto> getSpells() {
+	public List<SpellApi> getSpells() {
 		DataTablesInput input = new DataTablesInput();
 		input.setLength(-1);
 		return repo.findAll(input).getData().stream()
-				.map(SpellApiDto::new)
+				.map(SpellApi::new)
 				.collect(Collectors.toList());
 	}
 	
