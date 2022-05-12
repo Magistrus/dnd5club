@@ -32,14 +32,14 @@ public class ClassesApiController {
 		return classRepo.findAll().stream().map(ClassApi::new).collect(Collectors.toList());
 	}
 	
-	@GetMapping(value = "/api/v1/classes/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/classes/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ClassInfoApiDto getClassInfo(@PathVariable String englishName) {
 		HeroClass heroClass = classRepo.findByEnglishName(englishName);
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
 		return new ClassInfoApiDto(heroClass, images);
 	}
 	
-	@GetMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ClassInfoApiDto getArchetypeInfo(@PathVariable String className, @PathVariable String archetypeName) {
 		HeroClass heroClass = classRepo.findByEnglishName(className);
 		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace('_', ' '))).findFirst().get();
