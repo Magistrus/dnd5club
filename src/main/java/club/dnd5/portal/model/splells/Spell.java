@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -37,7 +39,7 @@ public class Spell {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private Byte level;
+	private byte level;
 	private Boolean ritual;
 	
 	private String name;
@@ -99,5 +101,13 @@ public class Spell {
 
 	public String getTimesDescription() {
 		return "";
+	}
+	
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
+	
+	public String getCapitalazeName() {
+		return StringUtils.capitalize(name.toLowerCase());
 	}
 }
