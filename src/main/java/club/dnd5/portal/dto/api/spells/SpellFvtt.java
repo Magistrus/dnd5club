@@ -24,7 +24,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SpellApiDto implements Serializable {
+public class SpellFvtt implements Serializable {
 	private static final long serialVersionUID = 6266015163866595679L;
 	private String name;
     private String englishName;
@@ -45,7 +45,7 @@ public class SpellApiDto implements Serializable {
     private EntriesHigherLevel entriesHigherLevel;
     private Meta meta;
 
-	public SpellApiDto(Spell spell) {
+	public SpellFvtt(Spell spell) {
 		this.name = StringUtils.capitalize(spell.getName().toLowerCase());
 		this.englishName = spell.getEnglishName();
 		this.level = spell.getLevel();
