@@ -36,11 +36,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FBeast {
 	public String name;
+	public Object type; //
 	public String source;
 	public int page;
 	public List<FOtherSource> otherSources;
 	public String size; //
-	public Object type; //
+
 	public List<String> alignment; //
 	public List<Object> ac = new ArrayList<>(2); //
 	public FvHp hp;
@@ -254,6 +255,5 @@ public class FBeast {
 		if (damageTags.isEmpty()) {
 			damageTags = null;
 		}
-		
 	}
 }

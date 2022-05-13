@@ -58,5 +58,6 @@ public class FItem {
 		name = armor.getCyrillicName();
 		data = new FItemData(armor);
 		type = "equipment";
+		img = armor.getFvttIcon();
 	}
 }
