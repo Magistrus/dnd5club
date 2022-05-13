@@ -61,10 +61,9 @@ public class SpellApiConroller {
 		column.setSearch(new Search("", Boolean.FALSE));
 		column.setSearchable(Boolean.FALSE);
 		column.setOrderable(Boolean.TRUE);
-		
-
 		columns.add(column);
 		input.setColumns(columns);
+		input.setLength(-1);
 		Specification<Spell> specification = null;
 		if (search != null) {
 			if (exact != null) {
