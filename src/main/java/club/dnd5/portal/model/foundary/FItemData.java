@@ -118,7 +118,7 @@ public class FItemData {
 		uses = new FUses();
 		consume = new FConsume();
 		save = new FSave();
-		armor = new FArmor();
+		armor = new FArmor(armorType.getArmorClass(), armorType.getArmorType(), armorType.getArmorDexBonus());
 		hp = new FIHP();
 		properties = new FWeaponProperties();
 	}

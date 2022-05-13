@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.races.Race;
 
 @Repository
@@ -30,5 +31,8 @@ public abstract interface RaceRepository extends JpaRepository<Race, Integer> {
 	List<Book> findModuleBook();
 	@Query("SELECT r.book FROM Race r GROUP BY r.book HAVING r.book.type = 'CUSTOM' ORDER BY r.book.year")
 	List<Book> findHomebrewBook();
+	
+	@Query("SELECT r.book FROM Race r GROUP BY r.book HAVING r.book.type = :type ORDER BY r.book.year")
+	List<Book> findBook(@Param("type") TypeBook type);
 
 }
