@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.AbilityType;
@@ -21,6 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
+
+@JsonPropertyOrder({ "name", "source", "page", "level" ,"school","time", "range", "components", "duration", "meta", "entries" })
 
 @Getter
 @Setter
