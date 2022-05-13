@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-				.allowedOrigins("https://svifty7.github.io/")
+				.allowedOrigins("https://svifty7.github.io/", "http://localhost:8080")
 				.allowedMethods("*");
 	}
 
