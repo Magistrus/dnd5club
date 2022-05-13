@@ -13,12 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.spell.SpellApi;
 import club.dnd5.portal.dto.api.spells.SpellApiDto;
-import club.dnd5.portal.dto.api.spells.SpellRequestDto;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
