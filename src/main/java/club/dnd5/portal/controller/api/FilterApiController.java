@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
-import club.dnd5.portal.dto.api.FltersApi;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.MagicSchool;
@@ -35,13 +34,18 @@ public class FilterApiController {
 	@Autowired
 	private SpellDatatableRepository spellRepository;
 	
-	@PostMapping("/api/v1/filters")
-	public FltersApi getFilters() {
-		FltersApi filters = new FltersApi();
-		// фильтры классов
-		filters.setClasses(getClassFilters());
-		
-		// фильтры заклинаний
+	@PostMapping("/api/v1/filters/classes")
+	public FilterApi getClassFilter() {
+		return getClassFilters();
+	}
+	
+	@PostMapping("/api/v1/filters/races")
+	public FilterApi getRaceFilter() {
+		return null;
+	}
+	
+	@PostMapping("/api/v1/filters/spells")
+	public FilterApi getSpellFilter() {
 		FilterApi spellFilters = new FilterApi();
 		List<FilterApi> spellSources = new ArrayList<>();
 		FilterApi spellMainFilter = new FilterApi("main");
@@ -105,11 +109,9 @@ public class FilterApiController {
 		spellOtherFilters.add(componentsSpellFilter);
 		
 		spellFilters.setOther(spellOtherFilters);
-		
-		filters.setSpells(spellFilters);
-		return filters;
+		return spellFilters;
 	}
-
+	
 	private FilterApi getClassFilters() {
 		FilterApi classFilter = new FilterApi();
 		List<FilterApi> classSources = new ArrayList<>();
