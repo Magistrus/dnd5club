@@ -28,4 +28,11 @@ public class MainController {
 		model.addAttribute("metaDescription", "Бот в Telegram, который поможет вам быстро найти нужные вам заклинания в компактном виде или бросить кубы, если вы забыли их дома.");
 		return "telegram_bot";
 	}
+	@GetMapping("/fvtt_export")
+	public String getPageFvttExport(Model model) {
+		model.addAttribute("metaTitle", "DnD5Club Export beat to FVTT");
+		model.addAttribute("metaUrl", "https://dnd5.club/fvtt_export");
+		model.addAttribute("metaDescription", "Инструкция по экспорту существ из Бестиария в FVTT.");
+		return "fvtt_export";
+	}
 }
