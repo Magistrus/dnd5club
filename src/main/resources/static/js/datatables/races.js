@@ -8,7 +8,7 @@ $(document).ready(function () {
         dom: 'tS',
         serverSide: true,
         deferRender: true,
-        iDisplayLength: 80,
+        iDisplayLength: 200,
         scrollCollapse: true,
         select: true,
         select: {
