@@ -38,6 +38,8 @@ public class FSpeed {
 		if (creature.getDiggingSpeed() != null) {
 			burrow = creature.getDiggingSpeed();
 		}
-		canHover = creature.getHover() != null && creature.getHover() == 1; 
+		if (creature.getHover() != null && creature.getHover()==1) {
+			canHover = Boolean.TRUE;	
+		}
 	}
 }

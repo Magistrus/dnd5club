@@ -16,17 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SpellApi {
-	protected NameApi name;
-	protected byte level;
-	protected String school;
-	protected ComponentsApi components = new ComponentsApi();
-	protected Boolean ritual;
-	protected Boolean concentration;
-	protected String url;
-	protected SourceApiDto source;
-
-	public SpellApi(Spell spell) {
+public class SpellDetailApi extends SpellApi {
+	
+	public SpellDetailApi(Spell spell) {
 		name = new NameApi(spell.getCapitalazeName(), spell.getEnglishName());
 		level = spell.getLevel();
 		school = spell.getSchool().getName();
