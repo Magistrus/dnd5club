@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.splells.Spell;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

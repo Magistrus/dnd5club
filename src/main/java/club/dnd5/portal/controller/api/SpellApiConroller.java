@@ -22,6 +22,7 @@ import club.dnd5.portal.dto.api.spell.SpellDetailApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
 import club.dnd5.portal.dto.api.spells.SpellsFvtt;
 import club.dnd5.portal.model.classes.archetype.Archetype;
+import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
@@ -47,9 +48,13 @@ public class SpellApiConroller {
 	public SpellDetailApi getSpell(@PathVariable String englishName) {
 		Spell spell = repo.findByEnglishName(englishName.replace('_', ' '));
 		SpellDetailApi spellApi = new SpellDetailApi(spell);
-		List<Archetype> spells = archetypeSpellRepository.findAllBySpell(spell.getId());
-		if (!spells.isEmpty()) {
-			spellApi.setSubclasses(spells.stream().map(SpellClassApi::new).collect(Collectors.toList()));
+		List<Archetype> archetypes = archetypeSpellRepository.findAllBySpell(spell.getId());
+		if (!archetypes.isEmpty()) {
+			spellApi.setSubclasses(archetypes.stream().map(SpellClassApi::new).collect(Collectors.toList()));
+		}
+		List<Race> races = repo.findAllRaceBySpell(spell.getId());
+		if (!races.isEmpty()) {
+			spellApi.setRaces(races.stream().map(SpellClassApi::new).collect(Collectors.toList()));
 		}
 		return spellApi;
 	}

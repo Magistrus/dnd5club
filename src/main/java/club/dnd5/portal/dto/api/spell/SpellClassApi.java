@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
+import club.dnd5.portal.model.races.Race;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +30,10 @@ public class SpellClassApi {
 	public SpellClassApi(Archetype archetype) {
 		name = archetype.getCapitalizeName();
 		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName(), archetype.getUrlName());
+	}
+	
+	public SpellClassApi(Race race) {
+		name = race.getCapitalazeName();
+		url = String.format("/classes/%s", race.getUrlName());
 	}
 }
