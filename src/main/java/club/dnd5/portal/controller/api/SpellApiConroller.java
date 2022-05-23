@@ -12,10 +12,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.spell.SpellApi;
+import club.dnd5.portal.dto.api.spell.SpellDetailApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
 import club.dnd5.portal.dto.api.spells.SpellsFvtt;
 import club.dnd5.portal.model.splells.Spell;
@@ -33,6 +35,11 @@ public class SpellApiConroller {
 		return repo.findAll(input).getData().stream()
 				.map(SpellApi::new)
 				.collect(Collectors.toList());
+	}
+	
+	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public SpellDetailApi getSpell(@PathVariable String englishName) {
+		return new SpellDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
 	}
 	
 	@CrossOrigin

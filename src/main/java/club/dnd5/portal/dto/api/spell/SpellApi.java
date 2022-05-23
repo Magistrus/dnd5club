@@ -46,8 +46,8 @@ public class SpellApi {
 			concentration = Boolean.TRUE;
 		}
 		url = String.format("/spells/%s", spell.getUrlName());
+		source = new SourceApiDto(spell.getBook());
 		if (spell.getBook().getType() == TypeBook.CUSTOM) {
-			source = new SourceApiDto();
 			source.setHomebrew(Boolean.TRUE);
 		}
 	}
