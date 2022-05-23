@@ -17,16 +17,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.spell.SpellApi;
+import club.dnd5.portal.dto.api.spell.SpellClassApi;
 import club.dnd5.portal.dto.api.spell.SpellDetailApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
 import club.dnd5.portal.dto.api.spells.SpellsFvtt;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.splells.Spell;
+import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 
 @RestController
 public class SpellApiConroller {
 	@Autowired
 	private SpellDatatableRepository repo;
+	
+	@Autowired
+	private ArchetypeSpellRepository archetypeSpellRepository;
 	
 	@PostMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<SpellApi> getSpells() {
@@ -39,7 +45,13 @@ public class SpellApiConroller {
 	
 	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public SpellDetailApi getSpell(@PathVariable String englishName) {
-		return new SpellDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+		Spell spell = repo.findByEnglishName(englishName.replace('_', ' '));
+		SpellDetailApi spellApi = new SpellDetailApi(spell);
+		List<Archetype> spells = archetypeSpellRepository.findAllBySpell(spell.getId());
+		if (!spells.isEmpty()) {
+			spellApi.setSubclasses(spells.stream().map(SpellClassApi::new).collect(Collectors.toList()));
+		}
+		return spellApi;
 	}
 	
 	@CrossOrigin

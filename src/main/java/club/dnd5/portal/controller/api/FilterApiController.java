@@ -17,7 +17,6 @@ import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.Dice;
-import club.dnd5.portal.model.SpellcasterType;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,5 +24,10 @@ public class SpellClassApi {
 		name = heroClass.getCapitalazeName();
 		url = String.format("/classes/%s", heroClass.getUrlName());
 		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
+	}
+	
+	public SpellClassApi(Archetype archetype) {
+		name = archetype.getCapitalizeName();
+		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName(), archetype.getUrlName());
 	}
 }
