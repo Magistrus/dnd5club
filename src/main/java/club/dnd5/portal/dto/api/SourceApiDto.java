@@ -18,11 +18,20 @@ public class SourceApiDto {
 	private String shortName;
 	private String name;
 	private Boolean homebrew;
+	private Short page;
+	
 	public SourceApiDto(Book book) {
-		shortName = book.getSource();
 		name = book.getName();
+		shortName = book.getSource();
 		if (book.getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;
+		}
+	}
+	
+	public SourceApiDto(Book book, Short page) {
+		this(book);
+		if (page != null) {
+			this.page = page;
 		}
 	}
 }

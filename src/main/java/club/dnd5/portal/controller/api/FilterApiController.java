@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
@@ -44,7 +46,7 @@ public class FilterApiController {
 	}
 	
 	@PostMapping("/api/v1/filters/races")
-	public FilterApi getRaceFilter() {
+	public FilterApi getRacesFilter() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> sources = new ArrayList<>();
 		FilterApi mainFilter = new FilterApi("main");
@@ -99,7 +101,7 @@ public class FilterApiController {
 	}
 	
 	@PostMapping("/api/v1/filters/spells")
-	public FilterApi getSpellFilter() {
+	public FilterApi getSpellsFilter() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> sources = new ArrayList<>();
 		FilterApi spellMainFilter = new FilterApi("main");
@@ -132,11 +134,8 @@ public class FilterApiController {
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
-		FilterApi levelFilter = new FilterApi("Уровень", "level");
-		levelFilter.setValues(IntStream.rangeClosed(0, 9)
-				 .mapToObj(level -> new FilterValueApi(level == 0 ? "заговор" : String.valueOf(level),  String.valueOf(level), Boolean.TRUE))
-				 .collect(Collectors.toList()));
-		otherFilters.add(levelFilter);
+		
+		otherFilters.add(getLevelsFilter(9));
 
 		FilterApi spellClassFilter = new FilterApi("Классы", "class");
 		spellClassFilter.setValues(IntStream.range(0, classesMap.length)
@@ -144,13 +143,40 @@ public class FilterApiController {
 				 .collect(Collectors.toList()));
 		otherFilters.add(spellClassFilter);
 		
-		FilterApi schoolSpellFilter = new FilterApi("Классы", "school");
+		FilterApi schoolSpellFilter = new FilterApi("Школа", "school");
 		schoolSpellFilter.setValues(
 				Arrays.stream(MagicSchool.values())
 				 .map(school -> new FilterValueApi(school.getName(), school.name(), Boolean.TRUE))
 				 .collect(Collectors.toList()));
+		
 		otherFilters.add(schoolSpellFilter);
 		
+		otherFilters.add(getCompomemtsFilter());
+		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/spells/{englishClassName}")
+	public FilterApi getSpellsByClassFilter(@PathVariable String englishClassName) {
+		FilterApi filters = new FilterApi();
+
+		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
+		List<FilterApi> otherFilters = new ArrayList<>();
+		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
+		otherFilters.add(getCompomemtsFilter());
+		return filters;
+	}
+	
+	private FilterApi getLevelsFilter(int maxLevel) {
+		FilterApi levelFilter = new FilterApi("Уровень", "level");
+		levelFilter.setValues(IntStream.rangeClosed(0, maxLevel)
+				 .mapToObj(level -> new FilterValueApi(level == 0 ? "заговор" : String.valueOf(level),  String.valueOf(level), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		return levelFilter;
+	}
+	
+	private FilterApi getCompomemtsFilter() {
 		FilterApi componentsSpellFilter = new FilterApi("Компоненты", "components");
 		List<FilterValueApi> componentValues = new ArrayList<>();
 		componentValues.add(new FilterValueApi("вербальный", "1", Boolean.TRUE));
@@ -159,11 +185,8 @@ public class FilterApiController {
 		componentValues.add(new FilterValueApi("расходуемый", "4", Boolean.TRUE));
 		componentValues.add(new FilterValueApi("не расходуемый", "5", Boolean.TRUE));
 		
-		componentsSpellFilter.setValues(componentValues );
-		otherFilters.add(componentsSpellFilter);
-		
-		filters.setOther(otherFilters);
-		return filters;
+		componentsSpellFilter.setValues(componentValues);
+		return componentsSpellFilter;
 	}
 	
 	private FilterApi getClassFilters() {

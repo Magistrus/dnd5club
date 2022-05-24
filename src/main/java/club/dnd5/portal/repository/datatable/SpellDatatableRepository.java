@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
 
 @Repository
@@ -16,7 +17,10 @@ public interface SpellDatatableRepository extends DataTablesRepository<Spell, In
 	Spell findByEnglishName(String name);
 
 	List<Spell> findByLevelAndBook_type(byte level, TypeBook type);
-
+	
+	@Query("SELECT DISTINCT r FROM Race r JOIN r.spells s WHERE s.id=:spellId")
+	List<Race> findAllRaceBySpell(@Param("spellId") int spellId);
+	
 	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'OFFICAL' ORDER BY s.book.year")
 	List<Book> findBook();
 	@Query("SELECT s.book FROM Spell s GROUP BY s.book HAVING s.book.type = 'CUSTOM' ORDER BY s.book.year")

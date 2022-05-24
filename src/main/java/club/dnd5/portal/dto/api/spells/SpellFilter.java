@@ -29,10 +29,10 @@ public class SpellFilter {
     private List<String> schools;
     @JsonProperty("component") 
     private List<String> components;
-    private boolean ritual;
-    private boolean concentration;
+    private Boolean ritual;
+    private Boolean concentration;
     @JsonProperty("damageType")
     private List<String> damageTypes;
-    private boolean homebrew;
-    private boolean settings;
+    private Boolean homebrew;
+    private Boolean settings;
 }

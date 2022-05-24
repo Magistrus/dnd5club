@@ -16,5 +16,5 @@ import lombok.Setter;
 public class ComponentsApi {
 	private Boolean v;
 	private Boolean s;
-	private Boolean m;
+	private Object m;
 }

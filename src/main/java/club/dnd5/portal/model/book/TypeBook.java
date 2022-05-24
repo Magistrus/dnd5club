@@ -12,6 +12,7 @@ public enum TypeBook {
 	OFFICAL("Основное"),
 	MODULE("Приключения"),
 	SETTING("Сеттинги"),
+	TEST("Тестовый материал"),
 	CUSTOM("Homebrew");
 
 	private String name;

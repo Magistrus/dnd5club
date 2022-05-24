@@ -17,14 +17,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SpellApi {
-	private NameApi name;
-	private byte level;
-	private String school;
-	private ComponentsApi components = new ComponentsApi();
-	private Boolean ritual;
-	private Boolean concentration;
-	private String url;
-	private SourceApiDto source;
+	protected NameApi name;
+	protected byte level;
+	protected String school;
+	protected ComponentsApi components = new ComponentsApi();
+	protected Boolean ritual;
+	protected Boolean concentration;
+	protected String url;
+	protected SourceApiDto source;
 
 	public SpellApi(Spell spell) {
 		name = new NameApi(spell.getCapitalazeName(), spell.getEnglishName());
@@ -46,8 +46,8 @@ public class SpellApi {
 			concentration = Boolean.TRUE;
 		}
 		url = String.format("/spells/%s", spell.getUrlName());
+		source = new SourceApiDto(spell.getBook());
 		if (spell.getBook().getType() == TypeBook.CUSTOM) {
-			source = new SourceApiDto();
 			source.setHomebrew(Boolean.TRUE);
 		}
 	}
