@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -14,13 +17,17 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.spell.SpellApi;
 import club.dnd5.portal.dto.api.spell.SpellClassApi;
 import club.dnd5.portal.dto.api.spell.SpellDetailApi;
+import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
 import club.dnd5.portal.dto.api.spells.SpellsFvtt;
+import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
@@ -36,12 +43,66 @@ public class SpellApiConroller {
 	private ArchetypeSpellRepository archetypeSpellRepository;
 	
 	@PostMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<SpellApi> getSpells() {
+	public List<SpellApi> getSpells(@RequestBody SpellRequesApi request) {
+		Specification<Spell> specification = null;
+
 		DataTablesInput input = new DataTablesInput();
+		List<Column> columns = new ArrayList<Column>(3);
+		Column column = new Column();
+		column.setData("name");
+		column.setName("name");
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.TRUE);
+		column.setSearch(new Search("", Boolean.FALSE));
+		columns.add(column);
+		
+		column = new Column();
+		column.setData("englishName");
+		column.setName("englishName");
+		column.setSearch(new Search("", Boolean.FALSE));
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.TRUE);
+		columns.add(column);
+		
+		column = new Column();
+		column.setData("altName");
+		column.setName("altName");
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.FALSE);
+
+		columns.add(column);
+		
+		input.setColumns(columns);
 		input.setLength(-1);
-		return repo.findAll(input).getData().stream()
-				.map(SpellApi::new)
-				.collect(Collectors.toList());
+		if (request.getSearch() != null) {
+			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
+				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
+					specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());
+				} else {
+					input.getSearch().setValue(request.getSearch().getValue());
+					input.getSearch().setRegex(Boolean.FALSE);
+				}
+			}
+		}
+		if (request.getFilter() != null) {
+			if (!request.getFilter().getLevels().isEmpty()) {
+				specification = addSpecification(specification, (root, query, cb) -> root.get("level").in(request.getFilter().getLevels()));
+			}
+			if (!request.getFilter().getMyclass().isEmpty()) {
+				specification = addSpecification(specification, (root, query, cb) -> {
+					Join<HeroClass, Spell> join = root.join("heroClass", JoinType.LEFT);
+					query.distinct(true);
+					return cb.and(join.get("id").in(request.getFilter().getMyclass()));
+				});
+			}
+			if (!request.getFilter().getBooks().isEmpty()) {
+				specification = addSpecification(specification, (root, query, cb) -> {
+					Join<Book, Spell> join = root.join("book", JoinType.INNER);
+					return join.get("source").in(request.getFilter().getBooks());
+				});
+			}
+		}
+		return repo.findAll(input, specification, specification, SpellApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -99,5 +160,12 @@ public class SpellApiConroller {
 			}
 		}
 		return new SpellsFvtt(repo.findAll(input, specification, specification, SpellFvtt::new).getData());
+	}
+
+	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
+		if (specification == null) {
+			return Specification.where(addSpecification);
+		}
+		return specification.and(addSpecification);
 	}
 }
