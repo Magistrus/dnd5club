@@ -953,11 +953,10 @@ label.select_box {
 .main_page_wrapper .header .proner_block {
   display: flex;
   height: 30px;
-  border: 1px solid var(--border);
-  border-radius: 32px;
+  border-radius: 12px;
   padding: 8px 16px;
   align-items: center;
-  background-color: var(--hover);
+  background-color: var(--bg-table-list);
 }
 
 .main_page_wrapper .header .proner_block .icon {
@@ -1049,106 +1048,121 @@ label.select_box {
   margin-top: 16px;
 }
 
-.compact_menu .main_page_wrapper .main_block .card_row .card {
-  flex: 1 1 calc(12% - 40px);
-  min-width: calc(12% - 40px);
-  text-decoration: none;
-}
-
 .main_page_wrapper .main_block .card_row .card {
-  flex: 1 1 calc(12% - 40px);
-  min-width: calc(12% - 40px);
+  flex: 1 1 calc(15% - 40px);
+  min-width: calc(15% - 40px);
   margin: 16px 8px 0px 8px;
   background-color: var(--bg-secondary);
   border-radius: 12px;
   display: grid;
-  justify-content: center;
+  justify-content: start;
   padding: 12px 12px 12px 12px;
   text-decoration: none;
-}
-
-@media (max-width: 1500px) {
-  .main_page_wrapper .main_block .card_row .card {
-    flex: 1 1 calc(14% - 40px);
-    min-width: calc(14% - 40px);
-  }
+  position: relative;
+  overflow: hidden;
 }
 
 @media (max-width: 500px) {
   .main_page_wrapper .main_block .card_row .card {
     margin: 16px 8px 0px 8px;
     padding: 8px 12px 8px 12px;
-    flex-direction: row;
   }
 }
 
-@media (max-width: 400px) {
-  .main_page_wrapper .main_block .card_row .card {
-    flex-direction: column;
-  }
-}
-
-.main_page_wrapper .main_block .card_row a.card:hover {
-  background-color: var(--primary-hover);
-  transition: background-color 0.6s;
-  color:var(--text-btn-color);
-}
-
-.main_page_wrapper .main_block .card_row a.card h4 {
-  color:var(--text-color);
-  transition: color 0.6s;
-  font-size: calc(var(--h4-font-size) - 6px);
-  text-align: center;
-  line-height: 16px;
-  font-family: "Open Sans";
-  font-weight: 400;
-}
-
-.main_page_wrapper .main_block .card_row a.card:hover h4 {
-  color:var(--text-btn-color);
-  transition: color 0.6s;
-}
-
-.main_page_wrapper .main_block .card_row .card .icon {
-  width: 100%;
-  background-repeat: no-repeat;
+.main_page_wrapper .main_block .card_row .card .bg_img {
+  transition: transform 0.6s;
   background-position: center;
-  display: grid;
-  justify-content: center;
-  margin-bottom: 4px;
+  background-size: cover;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
-.main_page_wrapper .main_block .card_row .card .icon svg {
-  width: 50px;
-  height: 50px;
+.main_page_wrapper .main_block .card_row .card.classes .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_classes.png);
 }
 
-@media (max-width: 500px) {
-  .main_page_wrapper .main_block .card_row .card .icon svg {
-    width: 40px;
-    height: 40px;
-  }
+.main_page_wrapper .main_block .card_row .card.races .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_races.png);
 }
 
-.main_page_wrapper .main_block .card_row .card .icon svg path {
-  stroke:var(--primary);
-  transition: stroke 0.6s;
+.main_page_wrapper .main_block .card_row .card.traits .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_traits.png);
 }
 
+.main_page_wrapper .main_block .card_row .card.options .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_options.png);
+}
 
-.main_page_wrapper .main_block .card_row .card:hover .icon svg path  {
-  stroke: var(--text-btn-color);
-  transition: stroke 0.6s;
+.main_page_wrapper .main_block .card_row .card.backgrounds .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_backgrounds.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.weapons .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_weapons.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.armors .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_armors.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.items .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_items.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.bestiary .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_bestiary.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.items_magic .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_items_magic.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.screens .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_screens.png);
+}
+
+.main_page_wrapper .main_block .card_row .card.spells .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_spells.png);
+}
+
+.main_page_wrapper .main_block .card_row a.card:after {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background: var(--bg-liner-main_page);
+  content: "";
+}
+
+.main_page_wrapper .main_block .card_row a.card:hover .bg_img {
+  transition: transform 0.6s;
+  transform: scale(1.15);
 }
 
 .main_page_wrapper .main_block .card_row .card .title {
   display: grid;
   align-items: center;
+  height: 32px;
+  z-index: 1;
 }
 
-@media (max-width: 400px) {
-  .main_page_wrapper .main_block .card_row .card .icon {
-    margin-right: 0px;
+.main_page_wrapper .main_block .card_row a.card h4 {
+  color:var(--text-color-title);
+  font-size: calc(var(--h4-font-size) - 8px);
+  line-height: 16px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  margin-right: 50%;
+}
+
+@media (max-width: 800px) {
+  .main_page_wrapper .main_block .card_row a.card h4 {
+    font-size: calc(var(--h4-font-size) - 6px);
   }
 }
 
@@ -1215,15 +1229,44 @@ label.select_box {
   }
 }
 
+.main_page_wrapper .dnd5club_tel_bot:after {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background: var(--bg-liner-main_page);
+  content: "";
+}
+
+.main_page_wrapper .dnd5club_tel_bot .bg_img {
+  transition: transform 0.6s;
+  background-position: center;
+  background-size: cover;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.main_page_wrapper .dnd5club_tel_bot .bg_img {
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_bot.png);
+}
+
 .main_page_wrapper .dnd5club_tel_bot {
   display: flex;
   flex-direction: row;
   margin: 32px 0px -16px 0px;
   padding: 16px 16px 0px 16px;
-  background-color: var(--hover);
-  /* background-color: var(--primary-active); */
+  background-color: var(--bg-table-list);
   border-radius: 12px;
-  width: 600px;
+  width: 33%;
+  position: relative;
+  overflow: hidden;
 }
 
 @media (max-width: 1200px) {
@@ -1238,12 +1281,6 @@ label.select_box {
   }
 }
 
-.main_page_wrapper .dnd5club_tel_bot h4,
-.main_page_wrapper .dnd5club_tel_bot a,
-.main_page_wrapper .dnd5club_tel_bot p {
-  /* color: var(--text-btn-color); */
-}
-
 .main_page_wrapper .dnd5club_tel_bot i {
   min-width: 48px;
   height: 48px;
@@ -1251,8 +1288,11 @@ label.select_box {
 }
 
 .main_page_wrapper .dnd5club_tel_bot i path {
-  /* stroke: var(--text-btn-color); */
   stroke: var(--primary);
+}
+
+.main_page_wrapper .dnd5club_tel_bot .info {
+  z-index: 1;
 }
 
 .main_page_wrapper .dnd5club_tel_bot .info h4 {

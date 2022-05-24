@@ -15,6 +15,7 @@
   --bg-inpur-focus: #3a3e42;
   --bg-details-title: #343a40;
   --bg-table-list: #1F262C;
+  --bg-liner-main_page: linear-gradient(to right,rgba(0, 0, 0, 0.6),transparent);
   --text-color:#ffffff99;
   --text-color-active:#fff;
   --text-color-title:#fff;
