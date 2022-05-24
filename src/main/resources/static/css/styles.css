@@ -1096,7 +1096,7 @@ label.select_box {
 }
 
 .main_page_wrapper .main_block .card_row .card.backgrounds .bg_img {
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_backgrounds.png);
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_backgrounds_2.png);
 }
 
 .main_page_wrapper .main_block .card_row .card.weapons .bg_img {
@@ -1112,7 +1112,7 @@ label.select_box {
 }
 
 .main_page_wrapper .main_block .card_row .card.bestiary .bg_img {
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_bestiary.png);
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_bestiary_2.png);
 }
 
 .main_page_wrapper .main_block .card_row .card.items_magic .bg_img {
@@ -1254,7 +1254,7 @@ label.select_box {
 }
 
 .main_page_wrapper .dnd5club_tel_bot .bg_img {
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_bot.png);
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_bot_2.png);
 }
 
 .main_page_wrapper .dnd5club_tel_bot {
