@@ -102,7 +102,7 @@ body .block_information #left_block {
   #right_block {
     margin-top: 0px;
     border-radius: 0px;
-    height: calc(100% - 72px);
+    height: calc(100% - 0px);
   }
 }
 
