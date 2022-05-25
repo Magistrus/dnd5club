@@ -1540,7 +1540,7 @@ label.select_box {
 
 /******** Page Страница ********/
 .page_main {
-  margin-left: -270px;
+  max-width: 100% !important;
 }
 
 .page_main .ce-paragraph {
@@ -1549,10 +1549,6 @@ label.select_box {
   font-weight: 400;
   margin: 0 0 8px 0;
   color: var(--text-color);
-}
-
-.compact_menu .page_main {
-  margin-left: -72px;
 }
 
 .page_wrapper {
@@ -1571,6 +1567,7 @@ label.select_box {
   max-width: 860px;
   background-color: var(--bg-secondary);
   padding: 0px 24px 0px 24px;
+  margin: auto;
 }
 
 @media (max-width: 1500px) {
