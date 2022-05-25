@@ -1079,14 +1079,14 @@ label.select_box {
   width: 220px;
   height: 56px;
   right: 0;
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_2.png);
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_3.png);
   content: '';
 }
 
 @media (max-width: 1200px) {
   .main_page_wrapper .main_block .card_row .card:before {
     height: 48px;
-    background-image: url(/resources/assets/img/bg_main_page_button_nav_mobile_2.png);
+    background-image: url(/resources/assets/img/bg_main_page_button_nav_mobile_3.png);
 
   }
 }
@@ -1244,22 +1244,22 @@ label.select_box {
   margin-bottom: 8px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .main_page_wrapper .main_block .card_row .card {
-    flex: 1 1 calc(50% - 40px);
-    min-width: calc(50% - 40px);
+    flex: 1 1 calc(25% - 40px);
+    min-width: calc(25% - 40px);
+  } 
+}
+
+@media (max-width: 800px) {
+  .main_page_wrapper .main_block .card_row .card {
+    flex: 1 1 calc(33% - 40px);
+    min-width: calc(33% - 40px);
   }
 
   .compact_menu .main_page_wrapper .main_block .card_row .card {
     flex: 1 1 calc(33% - 40px);
     min-width: calc(33% - 40px);
-  }
-}
-
-@media (max-width: 1200px) {
-  .main_page_wrapper .main_block .card_row .card {
-    flex: 1 1 calc(25% - 40px);
-    min-width: calc(25% - 40px);
   }
 }
 
