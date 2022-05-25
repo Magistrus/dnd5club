@@ -2042,6 +2042,16 @@ label.select_box {
   border-radius: 12px;
 }
 
+@media (max-width: 1200px) {
+  #left_block .container_left {
+    height: calc(100% - 128px);
+  }
+  
+  #left_block .filters+.search_panes+.container_left {
+    height: calc(100% - 156px);
+  }
+}
+
 #left_block .header_block .btn_search_icon {
   height: 45px;
   width: 45px;

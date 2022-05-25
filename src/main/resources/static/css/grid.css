@@ -6,6 +6,12 @@
   height: 100%;
 }
 
+/* @media (max-width: 1200px) {
+  .container {
+    height: calc(100% - 72px);
+  }
+} */
+
 .container>div {
   height: 100%;
   max-width: 1320px;
@@ -54,6 +60,7 @@
   .container>div {
     margin-right: 0;
     margin-left: 0;
+    margin-bottom: 72px;
   }
 }
 
@@ -94,7 +101,7 @@ body .block_information #left_block {
   #right_block {
     margin-top: 0px;
     border-radius: 0px;
-    height: 100%;
+    height: calc(100% - 72px);
   }
 }
 
