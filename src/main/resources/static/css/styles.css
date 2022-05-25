@@ -1193,7 +1193,7 @@ label.select_box {
   bottom: 0;
   left: 0;
   display: block;
-  background: var(--bg-liner-main_page);
+  background: var(--bg-liner-main-page);
   content: "";
 }
 
@@ -1295,7 +1295,7 @@ label.select_box {
   bottom: 0;
   left: 0;
   display: block;
-  background: var(--bg-liner-main_page);
+  background: var(--bg-liner-main-page);
   content: "";
 }
 
