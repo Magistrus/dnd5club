@@ -1017,6 +1017,12 @@ label.select_box {
   /* display: flex; */
 }
 
+@media (max-width: 1200px) {
+  .main_page_wrapper .main_block {
+    margin-bottom: 72px;
+  }
+}
+
 .main_page_wrapper .main_block .cont {
   height: 100%;
   width: 100%;
