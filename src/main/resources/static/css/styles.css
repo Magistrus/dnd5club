@@ -1079,14 +1079,14 @@ label.select_box {
   width: 220px;
   height: 56px;
   right: 0;
-  background-image: url(/resources/assets/img/bg_main_page_button_nav.png);
+  background-image: url(/resources/assets/img/bg_main_page_button_nav_2.png);
   content: '';
 }
 
 @media (max-width: 1200px) {
   .main_page_wrapper .main_block .card_row .card:before {
     height: 48px;
-    background-image: url(/resources/assets/img/bg_main_page_button_nav_mobile.png);
+    background-image: url(/resources/assets/img/bg_main_page_button_nav_mobile_2.png);
 
   }
 }
