@@ -6,7 +6,7 @@ html {
 
 @media (max-width: 1200px) {
   html {
-    height: calc(100% - 73px);
+    /* height: calc(100% - 73px); */
     overflow-y: scroll;
   }
 }
