@@ -31,6 +31,7 @@ public class Option {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String altName;
 	private String englishName;
 	
 	@ElementCollection(targetClass = OptionType.class)

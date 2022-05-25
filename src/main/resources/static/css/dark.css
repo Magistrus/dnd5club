@@ -1,8 +1,8 @@
 :root {
   --bg-transparent: #ffffff00;
-  --bg-main: #1d2124;
-  --bg-secondary: #272B2F;
-  --bg-sub-menu: #2C3034;
+  --bg-main: #131A20;
+  --bg-secondary: #252B32;
+  --bg-sub-menu: #293137;
   --bg-dice: #585595;
   --bg-homebrew: #23492e;
   --bg-homebrew-gradient: linear-gradient(to right, var(--bg-table-list), #1c3222 90%);
@@ -14,8 +14,9 @@
   --bg-inpur-hover: rgba(255, 255, 255, 0.1);
   --bg-inpur-focus: #3a3e42;
   --bg-details-title: #343a40;
-  --bg-table-list: #23282a;
-  --text-color:#cdcdcd;
+  --bg-table-list: #1F262C;
+  --bg-liner-main-page: linear-gradient(to right,#0f151b,transparent);
+  --text-color:#ffffff99;
   --text-color-active:#fff;
   --text-color-title:#fff;
   --text-b-color:#fff;

@@ -1,14 +1,11 @@
-package club.dnd5.portal.controller.api;
+package club.dnd5.portal.dto.api.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-
 @Getter
-public class ClassTabApiDto {
+public class SourceTypeApi {
 	private String name;
-	private String url;
-	private String icon;
 	private int order;
 }

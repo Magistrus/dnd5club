@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class NameApiDto {
+public class NameApi {
 	private String rus;
 	private String eng;
 }

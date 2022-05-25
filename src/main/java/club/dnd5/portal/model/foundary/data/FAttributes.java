@@ -1,5 +1,6 @@
 package club.dnd5.portal.model.foundary.data;
 
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.Spellcater;
@@ -26,9 +27,9 @@ public class FAttributes {
 
 	public FAttributes(Creature creature) {
 		if (creature.getArmorTypes().contains(ArmorType.NATURAL)) {
-			ac = new FAC(creature.getAC(), "natural", "", (byte) 0);
+			ac = new FAC(creature.getAC(), "natural", "", (byte) (10 + AbilityType.getModifier(creature.getDexterity())));
 		} else {
-			ac = new FAC(creature.getAC(), "default", "", (byte) 0);
+			ac = new FAC(creature.getAC(), "default", "", (byte) (10 + AbilityType.getModifier(creature.getDexterity())));
 		}
 		hp = new FHP(creature);
 		init = new FInit();

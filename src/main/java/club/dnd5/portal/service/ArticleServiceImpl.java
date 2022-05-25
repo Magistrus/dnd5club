@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

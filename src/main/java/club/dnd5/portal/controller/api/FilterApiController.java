@@ -1,0 +1,233 @@
+package club.dnd5.portal.controller.api;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
+import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.Dice;
+import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.splells.MagicSchool;
+import club.dnd5.portal.repository.classes.ArchetypeRepository;
+import club.dnd5.portal.repository.classes.ClassRepository;
+import club.dnd5.portal.repository.classes.RaceRepository;
+import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
+
+@RestController
+public class FilterApiController {
+	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
+			{ "4", "Жрец" }, { "5", "Колдун" }, { "6", "Паладин" }, { "7", "Следопыт" }, { "8", "Чародей" },
+			{ "14", "Изобретатель" } };
+	
+	@Autowired
+	private ClassRepository classRepository;
+	@Autowired
+	private ArchetypeRepository archetypeRepository;
+	@Autowired
+	private RaceRepository raceRepository;
+	@Autowired
+	private SpellDatatableRepository spellRepository;
+	
+	@PostMapping("/api/v1/filters/classes")
+	public FilterApi getClassFilter() {
+		return getClassFilters();
+	}
+	
+	@PostMapping("/api/v1/filters/races")
+	public FilterApi getRacesFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi mainFilter = new FilterApi("main");
+		mainFilter.setValues(
+				raceRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(mainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				raceRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				raceRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				raceRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		FilterApi levelFilter = new FilterApi("Увеличение характеристик", "abilities");
+		levelFilter.setValues(
+				EnumSet.of(AbilityType.STRENGTH, AbilityType.DEXTERITY,AbilityType.CONSTITUTION,AbilityType.INTELLIGENCE,AbilityType.WISDOM,AbilityType.CHARISMA)
+				.stream()
+				.map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				.collect(Collectors.toList()));
+		otherFilters.add(levelFilter);
+		
+		FilterApi skillFilter = new FilterApi("Способности", "skills");
+		List<FilterValueApi> values = new ArrayList<>();
+		values.add(new FilterValueApi("тёмное зрение", "darkvision", Boolean.TRUE));
+		values.add(new FilterValueApi("полет", "fly", Boolean.TRUE));
+		values.add(new FilterValueApi("плавание", "swim", Boolean.TRUE));
+		values.add(new FilterValueApi("лазание", "climb", Boolean.TRUE));
+
+		skillFilter.setValues(values);
+		otherFilters.add(skillFilter);
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/spells")
+	public FilterApi getSpellsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				spellRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				spellRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				spellRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				spellRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		otherFilters.add(getLevelsFilter(9));
+
+		FilterApi spellClassFilter = new FilterApi("Классы", "class");
+		spellClassFilter.setValues(IntStream.range(0, classesMap.length)
+				 .mapToObj(indexSpellClass -> new FilterValueApi(classesMap[indexSpellClass][1], classesMap[indexSpellClass][0], Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(spellClassFilter);
+		
+		FilterApi schoolSpellFilter = new FilterApi("Школа", "school");
+		schoolSpellFilter.setValues(
+				Arrays.stream(MagicSchool.values())
+				 .map(school -> new FilterValueApi(school.getName(), school.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		
+		otherFilters.add(schoolSpellFilter);
+		
+		otherFilters.add(getCompomemtsFilter());
+		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/spells/{englishClassName}")
+	public FilterApi getSpellsByClassFilter(@PathVariable String englishClassName) {
+		FilterApi filters = new FilterApi();
+
+		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
+		List<FilterApi> otherFilters = new ArrayList<>();
+		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
+		otherFilters.add(getCompomemtsFilter());
+		return filters;
+	}
+	
+	private FilterApi getLevelsFilter(int maxLevel) {
+		FilterApi levelFilter = new FilterApi("Уровень", "level");
+		levelFilter.setValues(IntStream.rangeClosed(0, maxLevel)
+				 .mapToObj(level -> new FilterValueApi(level == 0 ? "заговор" : String.valueOf(level),  String.valueOf(level), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		return levelFilter;
+	}
+	
+	private FilterApi getCompomemtsFilter() {
+		FilterApi componentsSpellFilter = new FilterApi("Компоненты", "components");
+		List<FilterValueApi> componentValues = new ArrayList<>();
+		componentValues.add(new FilterValueApi("вербальный", "1", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("соматический", "2", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("материальный", "3", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("расходуемый", "4", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("не расходуемый", "5", Boolean.TRUE));
+		
+		componentsSpellFilter.setValues(componentValues);
+		return componentsSpellFilter;
+	}
+	
+	private FilterApi getClassFilters() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> classSources = new ArrayList<>();
+
+		FilterApi mainFilter = new FilterApi("main");
+		mainFilter.setValues(
+				Stream.concat(classRepository.findBook(TypeBook.OFFICAL).stream(), archetypeRepository.findBook(TypeBook.OFFICAL).stream())
+				.distinct()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		classSources.add(mainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				Stream.concat(classRepository.findBook(TypeBook.SETTING).stream(), archetypeRepository.findBook(TypeBook.SETTING).stream())
+				.distinct()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		classSources.add(settingFilter);
+
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				Stream.concat(classRepository.findBook(TypeBook.CUSTOM).stream(), archetypeRepository.findBook(TypeBook.CUSTOM).stream())
+				.distinct()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		classSources.add(homebrewFilter);
+		
+		filters.setSources(classSources);
+		
+		List<FilterApi> others = new ArrayList<>();
+		FilterApi hillDiceFilter = new FilterApi("Кость хитов", "hitdice");
+		hillDiceFilter.setValues(
+				EnumSet.of(Dice.d6, Dice.d8, Dice.d10, Dice.d12).stream()
+				.map(dice -> new FilterValueApi(dice.getName(), dice.name(), Boolean.TRUE))
+				.collect(Collectors.toList())
+		);
+		others.add(hillDiceFilter);
+		filters.setOther(others);
+		return filters;
+	}
+}

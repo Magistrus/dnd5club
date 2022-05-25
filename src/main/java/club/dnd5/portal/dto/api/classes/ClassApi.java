@@ -15,16 +15,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClassApiDto {
-	private NameApiDto name;
+public class ClassApi {
+	private NameApi name;
 	private String url;
 	private SourceApiDto source;
 	private String dice;
 	private List<ArchetypeApiDto> archetypes;
 	private String icon;
 
-	public ClassApiDto(HeroClass heroClass) {
-		name = new NameApiDto(heroClass.getCapitalazeName(), heroClass.getEnglishName());
+	public ClassApi(HeroClass heroClass) {
+		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		url = String.format("/classes/%s", heroClass.getUrlName());
 		source = new SourceApiDto(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());

@@ -1,8 +1,9 @@
-package club.dnd5.portal.dto.api.spells;
+package club.dnd5.portal.dto.api.classes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.model.classes.Option;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Order {
-    private String field;
-    private String direction;
+public class OptionApi {
+	protected NameApi name;
+	public OptionApi(Option option) {
+		name = new NameApi(option.getName(), option.getEnglishName());
+	}
 }

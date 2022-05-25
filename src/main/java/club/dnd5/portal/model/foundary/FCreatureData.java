@@ -1,5 +1,8 @@
 package club.dnd5.portal.model.foundary;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.foundary.data.FAbilities;
 import club.dnd5.portal.model.foundary.data.FAttributes;
@@ -10,6 +13,8 @@ import club.dnd5.portal.model.foundary.data.details.FDetails;
 import club.dnd5.portal.model.foundary.spell.FSpells;
 import lombok.Getter;
 import lombok.Setter;
+
+@JsonInclude(Include.NON_NULL)
 
 @Getter
 @Setter

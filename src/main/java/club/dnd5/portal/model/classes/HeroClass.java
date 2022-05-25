@@ -126,6 +126,7 @@ public class HeroClass {
 			return name + "ом";
 		}
 	}
+	
 	public String getGenitiveName() {
 		switch (name) {
 		case "ЧАРОДЕЙ":
@@ -136,9 +137,11 @@ public class HeroClass {
 			return name.toLowerCase() + "а";
 		}
 	}
+	
 	public String getUrlName() {
 		return englishName.replace(' ', '_');
 	}
+	
 	public String getCapitalazeName() {
 		return StringUtils.capitalize(name.toLowerCase());
 	}

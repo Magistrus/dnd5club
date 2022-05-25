@@ -1,8 +1,10 @@
 package club.dnd5.portal.model.foundary.data;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.creature.Creature;
@@ -10,9 +12,11 @@ import club.dnd5.portal.model.foundary.FAbility;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({ "str", "dex", "con", "int", "wis", "cha" })
+
 @Getter
 @Setter
-@JsonPropertyOrder({ "str", "dex", "con", "int", "wis", "cha" })
 public class FAbilities {
 	private FAbility str;
 	private FAbility dex;
