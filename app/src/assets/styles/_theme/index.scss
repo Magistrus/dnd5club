@@ -1,0 +1,20 @@
+@import "theme-dark";
+@import "theme-light";
+
+:root {
+  --max-vh: 100vh;
+
+  // Colors
+  --discord-base: #5865F2;
+  --discord-hover: #3c48cc;
+  --patreon-base: #FF424D;
+  --patreon-hover: #c52a3a;
+  --vk-base: #1179FC;
+  --vk-hover: #0765d8;
+  --boosty-base: #EF5C34;
+  --boosty-hover: #d45124;
+
+  // Backgrounds
+  --bg-img-bestiary-forest: url("/resources/app/img/bg-forest.webp");
+  --bg-img-bard: url("/resources/app/img/bg-bard.webp");
+}

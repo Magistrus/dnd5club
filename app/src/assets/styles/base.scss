@@ -1,0 +1,153 @@
+// Variables
+@import "variables";
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--primary);
+    border-radius: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    outline: none;
+  }
+
+  &::selection {
+    background: var(--primary);
+    color: var(--text-btn-color);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.schema {
+  display: none !important;
+}
+
+body {
+  display: flex;
+  font-family: "Open Sans", sans-serif;
+  background-color: var(--bg-main);
+  font-size: var(--main-font-size);
+  outline: none;
+  color: var(--text-color);
+  position: relative;
+  z-index: 1;
+  transition:
+          background-color ease-in-out .2s,
+          color ease-in-out .2s;
+}
+
+html,
+body,
+#dnd5club,
+.dnd5club {
+  width: 100%;
+  height: var(--max-vh);
+  overflow: hidden auto;
+}
+
+.dnd5club {
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include media-min($md) {
+    flex-direction: row;
+  }
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.become-button {
+  @include css_anim();
+
+  padding: 8px 16px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-btn-color);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  span {
+    margin-left: 8px;
+  }
+
+  & + & {
+    margin-left: 8px;
+  }
+
+  @include media-min($md) {
+    &:hover {
+      color: var(--text-btn-color);
+    }
+  }
+
+  &.is-discord {
+    background-color: var(--discord-base);
+
+    @include media-min($md) {
+      &:hover {
+        background-color: var(--discord-hover);
+      }
+    }
+  }
+
+  &.is-patreon {
+    background-color: var(--patreon-base);
+
+    @include media-min($md) {
+      &:hover {
+        background-color: var(--patreon-hover);
+      }
+    }
+  }
+
+  &.is-vk {
+    background-color: var(--vk-base);
+
+    @include media-min($md) {
+      &:hover {
+        background-color: var(--vk-hover);
+      }
+    }
+  }
+
+  &.is-boosty {
+    background-color: var(--boosty-base);
+
+    @include media-min($md) {
+      &:hover {
+        background-color: var(--boosty-hover);
+      }
+    }
+  }
+}
+
+input {
+  &[type="text"],
+  &[type="number"] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

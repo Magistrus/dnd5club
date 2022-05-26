@@ -1,0 +1,49 @@
+{
+  "name": "dnd5club",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "watch": "vue-cli-service build --watch --mode=develop",
+    "build": "vue-cli-service build",
+    "lint:js": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint --fix"
+  },
+  "dependencies": {
+    "@vuelidate/core": "^2.0.0-alpha.41",
+    "@vuelidate/validators": "^2.0.0-alpha.29",
+    "@vueuse/core": "^8.5.0",
+    "@vueuse/gesture": "^2.0.0-beta.1",
+    "@vueuse/integrations": "^8.5.0",
+    "@vueuse/motion": "^2.0.0-beta.12",
+    "axios": "^0.27.2",
+    "core-js": "^3.22.7",
+    "floating-vue": "^2.0.0-beta.16",
+    "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
+    "normalize.css": "^8.0.1",
+    "pinia": "^2.0.14",
+    "swiper": "^8.1.6",
+    "vue": "^3.2.36",
+    "vue-easy-lightbox": "^1.4.1",
+    "vue-masonry": "^0.15.0",
+    "vue-multiselect": "^3.0.0-alpha.2",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.2",
+    "@vue/cli-plugin-babel": "~5.0.4",
+    "@vue/cli-plugin-eslint": "~5.0.4",
+    "@vue/cli-plugin-router": "~5.0.4",
+    "@vue/cli-service": "~5.0.4",
+    "@vue/eslint-config-airbnb": "^6.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "^9.0.1",
+    "eslint-plugin-vuejs-accessibility": "^1.1.1",
+    "file-loader": "^6.2.0",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
+    "svg-sprite-loader": "^6.0.11",
+    "svgo-loader": "^3.0.0"
+  }
+}

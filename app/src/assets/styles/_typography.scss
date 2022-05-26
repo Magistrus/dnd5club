@@ -1,0 +1,444 @@
+:root {
+  --main-font-size: 14px;
+  --h1-font-size: 32px;
+  --h2-font-size: 28px;
+  --h3-font-size: 26px;
+  --h4-font-size: 20px;
+  --h5-font-size: 14px;
+  --main-line-height: calc(var(--main-font-size) + 8px);
+  --h1-line-height: calc(var(--h1-font-size) + 10px);
+  --h2-line-height: calc(var(--h2-font-size) + 10px);
+  --h3-line-height: calc(var(--h3-font-size) + 6px);
+  --h4-line-height: calc(var(--h4-font-size) + 10px);
+  --h5-line-height: calc(var(--h5-font-size) + 6px);
+
+  @include media-min($lg) {
+    --main-font-size: 14px;
+    --h1-font-size: 42px;
+    --h2-font-size: 28px;
+    --h3-font-size: 26px;
+    --h4-font-size: 22px;
+    --h5-font-size: 14px;
+  }
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+  font-weight: 300;
+  margin: 0;
+  color: var(--text-color-title);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  font-weight: 400;
+  margin: 0;
+  color: var(--text-color-title);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  font-weight: 300;
+  line-height: var(--h3-line-height);
+  margin: 0;
+  color: var(--text-color-title);
+  font-family: "Lora", serif;
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+  font-weight: 300;
+  margin: 0;
+  color: var(--text-color-title);
+  font-family: "Lora", serif;
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+  font-weight: 600;
+  line-height: var(--h5-line-height);
+  margin: 0;
+  color: var(--text-color-title);
+  position: relative;
+}
+
+p {
+  font-size: var(--main-font-size);
+  line-height: var(--main-line-height);
+  font-weight: 400;
+  margin: 0 0 12px 0;
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+@include media-min($md) {
+  a:hover {
+    color: var(--link-color-hover);
+  }
+}
+
+ul {
+  color: var(--text-color);
+  line-height: 16px;
+  padding-left: 24px;
+}
+
+ul li {
+  line-height: 20px;
+}
+
+strong,
+b {
+  font-weight: 600;
+  color: var(--text-b-color);
+}
+
+.btn_text {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.small_btn {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.caption_text {
+  font-size: 11px;
+  color: var(--text-g-color);
+  line-height: 12px;
+  font-weight: 300;
+  margin: -8px 0 12px 0;
+}
+
+h4 + .caption_text {
+  margin-top: -6px;
+}
+
+summary.header_separator + .caption_text {
+  margin-top: -10px;
+}
+
+.uppercase_text {
+  text-transform: uppercase;
+}
+
+.capitalize_text {
+  text-transform: capitalize;
+}
+
+blockquote {
+  font-family: "Neucha", cursive;
+  padding: 16px 16px 16px 16px;
+  background-color: var(--bg-blockquote);
+  border-radius: 16px;
+  margin-bottom: 32px;
+  margin-top: 32px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 20px;
+  margin-inline-end: 20px;
+}
+
+blockquote p {
+  letter-spacing: 1.5px;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.header_separator {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.filter_crumbs_box .header_separator {
+  margin: 16px 4px 4px;
+  font-weight: 400;
+}
+
+.header_separator:not(:empty)::after {
+  margin-left: 8px;
+}
+
+.header_separator::after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--bg-inpur-focus);
+  flex: 1;
+}
+
+.header_separator > span {
+  margin-right: 8px;
+}
+
+
+/********* Сворачивание текста / details  *********/
+details {
+  margin-bottom: 16px;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+details[open] {
+  margin-bottom: 24px;
+}
+
+details .content {
+  padding: 0 8px;
+}
+
+details > summary.h4 {
+  padding: 8px 8px;
+  font-size: var(--h4-font-size);
+  font-weight: 300;
+  margin: 0 0 4px 0;
+  color: var(--text-color-title);
+  position: relative;
+  font-family: "Lora", serif;
+  cursor: pointer;
+  background: var(--bg-details-title);
+  border-radius: 8px;
+  width: auto;
+}
+
+details[open] > summary.h4 {
+  background: none;
+}
+
+summary::marker {
+  content: '';
+}
+
+summary.header_separator:after {
+  opacity: 0;
+  margin-right: 24px;
+}
+
+details[open] > summary.header_separator:after {
+  opacity: 1;
+}
+
+summary::before {
+  content: '◀';
+  display: block;
+  top: 12px;
+  right: 8px;
+  position: absolute;
+  width: 16px;
+  height: 24px;
+  transform: rotate(-90deg);
+  font-size: 18px;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+  top: 10px;
+}
+
+@media (max-width: 800px) {
+  summary::before {
+    top: 10px;
+    right: 8px;
+  }
+
+  details[open] > summary::before {
+    top: 8px;
+  }
+}
+
+summary.h5 {
+  font-size: var(--h5-font-size);
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0 0 8px 0;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+@include media-min($md) {
+  summary.h4:hover,
+  summary.h5:hover {
+    color: var(--text-color);
+  }
+}
+
+h4.separator_card {
+  width: 100%;
+  margin-left: 8px;
+}
+
+.archetype_feet {
+  color: var(--text-a-color) !important;
+}
+
+.align_left {
+  text-align: left !important;
+}
+
+details.spoiler {
+  padding: 0 0 4px 0;
+  margin: 0 -8px 16px -8px;
+  border-radius: 8px;
+}
+
+details[open].spoiler {
+  background-color: var(--bg-details-title);
+}
+
+details[open].spoiler > summary.h4 {
+  margin: 0 0 4px 0;
+  background: var(--hover);
+  border-radius: 8px 8px 0 0;
+}
+
+details[open].spoiler > summary::after {
+  right: 8px !important;
+}
+
+details[open].spoiler h4.header_separator > span {
+  font-size: calc(var(--h4-font-size) - 2px);
+}
+
+details[open].spoiler table {
+  background-color: var(--bg-sub-menu);
+  border-radius: 8px;
+}
+
+details[open].spoiler div > details {
+  margin-bottom: 0;
+}
+
+
+/********* Выделение в тексте *********/
+span.dice_text,
+span.homebrew_text,
+span.advantage,
+span.disadvantage,
+span.saving_throw {
+  padding: 0 3px;
+  border-radius: 4px;
+  color: var(--text-btn-color);
+}
+
+span.dice_text {
+  background-color: var(--bg-dice);
+  color: var(--text-btn-color) !important;
+}
+
+span.homebrew_text {
+  background-color: var(--bg-homebrew);
+  text-transform: none;
+}
+
+span.advantage {
+  background-color: var(--bg-advantage);
+}
+
+span.disadvantage {
+  background-color: var(--bg-disadvantage);
+}
+
+span.saving_throw {
+  background-color: var(--bg-saving_throw);
+}
+
+
+/********* Таблицы *********/
+table.dataTable.no-footer {
+  border: none !important;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table-responsive .simplebar-content {
+  display: block !important;
+}
+
+table {
+  color: var(--text-color);
+  border-spacing: inherit;
+  border-radius: 0;
+  border: 1px solid var(--border);
+  width: 100% !important;
+  overflow: auto;
+  margin-bottom: 16px;
+}
+
+table thead {
+  background-color: var(--bg-sub-menu);
+  font-size: 11px;
+}
+
+table thead th {
+  padding: 4px 4px;
+}
+
+table td {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  height: 30px;
+  padding: 4px 4px;
+}
+
+table td:last-child {
+  border-right: 0 solid var(--border);
+}
+
+table.dnd5_table {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.table-responsive.class {
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .table-responsive.class {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: 30px;
+  }
+
+  .full_screen_right_block .table-responsive.class {
+    margin-top: -16px;
+  }
+}
+
+.class table.dnd5_table {
+  border: none;
+}
+
+.class table.dnd5_table td {
+  padding: 4px 4px;
+  height: auto;
+}
+
+.class table.dnd5_table th.bb {
+  border-bottom: 1px solid;
+}
+
+@include media-min($md) {
+  table tbody tr:hover {
+    background-color: var(--hover);
+  }
+}
+
+table.dataTable tr.dtrg-group td {
+  background-color: var(--hover) !important;
+  cursor: auto;
+}

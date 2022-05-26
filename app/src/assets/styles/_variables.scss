@@ -1,0 +1,100 @@
+// media quires
+$xs: 0;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+$full_hd: 1920px;
+$retina: 2560px;
+$ultra_hd: 3840px;
+
+@mixin media-min($breakpoint) {
+  @if $breakpoint == all {
+    @media screen {
+      @content;
+    }
+  } @else if $breakpoint != all {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin media-max($breakpoint) {
+  @if $breakpoint == all {
+    @media screen {
+      @content;
+    }
+  } @else if $breakpoint != all {
+    @media screen and (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin media-minmax($min, $max) {
+    @media screen and (max-width: $min - 1px), screen and (min-width: $max) {
+      @content;
+    }
+}
+
+@mixin media-fromto($min, $max) {
+    @media screen and (min-width: $min - 1px) and (max-width: $max) {
+      @content;
+    }
+}
+
+// Mixins
+@mixin css_anim($time: .15s, $item: all, $style: ease-in-out) {
+  transition: $item $style $time;
+
+  @include media-min($md) {
+    &:hover {
+      transition: $item $style $time;
+    }
+  }
+}
+
+@mixin empty-block($width, $height: $width, $display: block) {
+  content: '';
+  display: $display;
+  width: $width;
+  height: $height;
+}
+
+@mixin back-img($size: cover, $posX: center, $posY: center, $repeat: no-repeat) {
+  background-size: $size;
+  background-position-x: $posX;
+  background-position-y: $posY;
+  background-repeat: $repeat;
+}
+
+// <transition name="<class>"/>
+.fade {
+  &-enter-from, &-leave-to {
+    opacity: 0;
+  }
+
+  &-enter-to, &-leave-from {
+    opacity: 1;
+  }
+
+  &-enter-active, &-leave-active {
+    @include css_anim;
+  }
+}
+
+.vue-anim {
+  &-fade-enter-active {
+    @include css_anim;
+  }
+
+  &-fade-leave-active {
+    transition: none;
+  }
+}
+
+:root {
+
+}

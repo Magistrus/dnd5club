@@ -1,0 +1,137 @@
+@import "normalize.css";
+@import 'floating-vue/dist/style.css';
+@import "vue-multiselect/dist/vue-multiselect.css";
+
+.v-popper {
+  &--theme-tooltip {
+    & .v-popper {
+      &__inner {
+        background-color: rgb(29, 33, 36);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text-btn-color);
+        padding: 10px;
+        line-height: 16px;
+        font: {
+          size: 11px;
+        }
+      }
+    }
+
+    &[data-popper-placement] {
+      .v-popper {
+        &__arrow {
+          &-inner,
+          &-outer {
+            display: none;
+          }
+
+          &-container {
+            background-color: rgb(29, 33, 36);
+            width: 8px;
+            height: 8px;
+            border-top: 1px solid var(--border) !important;
+            border-left: 1px solid var(--border) !important;
+            border-right: 0 !important;
+            border-bottom: 0 !important;
+            z-index: 1;
+          }
+        }
+      }
+    }
+
+    &[data-popper-placement^=left] {
+      .v-popper {
+        &__arrow {
+          &-container {
+            transform: rotate(135deg);
+            right: -4px;
+          }
+        }
+      }
+    }
+
+    &[data-popper-placement^=top] {
+      .v-popper {
+        &__arrow {
+          &-container {
+            transform: rotate(-135deg);
+            bottom: -4px;
+          }
+        }
+      }
+    }
+
+    &[data-popper-placement^=right] {
+      .v-popper {
+        &__arrow {
+          &-container {
+            transform: rotate(-45deg);
+            left: -4px;
+          }
+        }
+      }
+    }
+
+    &[data-popper-placement^=bottom] {
+      .v-popper {
+        &__arrow {
+          &-container {
+            transform: rotate(45deg);
+            top: -4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ps {
+  height: 100%;
+  width: 100%;
+
+  &__thumb {
+    &-x,
+    &-y {
+      background-color: var(--primary);
+    }
+  }
+
+  & &__rail {
+    &-x,
+    &-y {
+      &:hover,
+      &:focus,
+      &.ps--clicking {
+        background-color: transparent;
+
+        .ps {
+          &__thumb {
+            &-x,
+            &-y {
+              background-color: var(--primary);
+              width: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.swiper {
+  &:hover {
+    .swiper-scrollbar {
+      opacity: 1 !important;
+    }
+  }
+}
+
+.vel-modal {
+  .vel-img-wrapper {
+    .vel-img {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+}

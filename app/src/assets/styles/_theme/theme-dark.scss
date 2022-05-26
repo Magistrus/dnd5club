@@ -1,0 +1,48 @@
+:root[data-theme="theme-dark"] {
+  --bg-transparent: #ffffff00;
+  --bg-main: #131A20;
+  --bg-secondary: #252B32;
+  --bg-sub-menu: #293137;
+  --bg-dice: #585595;
+  --bg-homebrew: #23492e;
+  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-table-list), #1c3222 90%);
+  --bg-homebrew-gradient-left: linear-gradient(to left, var(--bg-table-list), #1c3222 90%);
+  --bg-advantage: #026a02;
+  --bg-disadvantage: #774747;
+  --bg-saving_throw: #fe5e00;
+  --bg-blockquote: #1e2226;
+  --bg-inpur-hover: rgba(255, 255, 255, 0.1);
+  --bg-inpur-focus: #3a3e42;
+  --bg-details-title: #343a40;
+  --bg-table-list: #1F262C;
+  --bg-liner-main-page: linear-gradient(to right,#0f151b,transparent);
+  --text-color:#ffffff99;
+  --text-color-active:#fff;
+  --text-color-title:#fff;
+  --text-b-color:#fff;
+  --text-g-color:#A4A4A4;
+  --text-s-color:#c4c5ff;
+  --text-a-color:#34bb3e;
+  --text-btn-color: #f8f8f8;
+  --text-print-color:#000;
+  --link-color:#a397e4;
+  --link-color-hover:#f8f8f8;
+  --hover: rgba(255, 255, 255, 0.05);
+  --bg-table-row: rgba(255, 255, 255, 0.03);
+  --border: #35393D;
+  --primary: #7B61FF;
+  --primary-hover: #44439E;
+  --primary-active: #332f86;
+  --logo-base-color: #ffffff;
+  --logo-additional-color: #ce0000;
+
+  --common: #fff;
+  --uncommon: #8aff91;
+  --rare: #a5f1ff;
+  --very_rare: #e770ff;
+  --legendary: #f6ff00;
+  --artifact: #ff8900;
+
+  /********* IMG BG *********/
+  --bg-img-main: url("/resources/app/img/dark/bg-main.webp");
+}
