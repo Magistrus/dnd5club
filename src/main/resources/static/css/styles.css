@@ -2418,7 +2418,7 @@ table.table_card tr.dtrg-group td {
   width: 100%;
   padding: 0 0 0px 0px;
   z-index: 2;
-  margin-bottom: 16px;
+  margin-bottom: 0px;
 }
 
 #left_block.classes .table_card tr td:hover {
@@ -2430,20 +2430,24 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td button.open {
-  width: auto;
   margin: 0px;
-  min-width: 24px;
+  width: 24px;
+  height: 32px;
   position: absolute;
   right: 0;
-  left: 0;
   bottom: 0;
   z-index: 2;
   padding: 8px 4px;
-  background-color: var(--bg-secondary);
+  background-color: var(--primary);
   color: var(--text-color-title);
   text-transform: uppercase;
   font-weight: 600;
   font-size: calc(var(--main-font-size) - 2px);
+  border-top-left-radius: 12px;
+}
+
+#left_block.classes .table_card tr td button:hover {
+  background-color: var(--primary-hover);
 }
 
 #left_block.classes .table_card tr.open td button .open {
@@ -2456,6 +2460,10 @@ table.table_card tr.dtrg-group td {
 
 #left_block.classes .table_card tr.open td button .close {
   display: block !important;
+}
+
+#left_block.classes .table_card tr td button svg path {
+  stroke: var(--text-btn-color);
 }
 
 #left_block.classes .table_card tr,
@@ -2560,7 +2568,7 @@ table.table_card tr.dtrg-group td {
   background-size: cover;
   display: block;
   position: absolute;
-  width: 520px;
+  width: 400px;
   height: 600px;
   right: 0px;
   top: 0px;
@@ -2582,10 +2590,10 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .archetypes {
-  margin-top: -24px;
+  margin-top: 8px;
   margin-left: 12px;
   z-index: 1;
-  padding: 0px 16px 32px 0;
+  padding: 0px 16px 0px 0;
 }
 
 #left_block.classes .table_card tr.selected {
@@ -2595,10 +2603,6 @@ table.table_card tr.dtrg-group td {
 #left_block.classes .table_card tr td .archetype_list li {
   margin-bottom: 0px;
   width: fit-content;
-}
-
-#left_block.classes .table_card tr .bottom_row {
-  margin-bottom: 16px;
 }
 
 #left_block.classes .table_card tr .bottom_row span {
