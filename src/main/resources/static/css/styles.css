@@ -2408,6 +2408,7 @@ table.table_card tr.dtrg-group td {
 
 #left_block.classes .table_card tr td .wrapper {
   z-index: 1;
+  padding: 16px 16px !important;
 }
 
 #left_block.classes .table_card tr td .content {
@@ -2416,8 +2417,8 @@ table.table_card tr.dtrg-group td {
   justify-content: space-around;
   width: 100%;
   padding: 0 0 0px 0px;
-  margin-left: 24px;
   z-index: 2;
+  margin-bottom: 16px;
 }
 
 #left_block.classes .table_card tr td:hover {
@@ -2433,21 +2434,27 @@ table.table_card tr.dtrg-group td {
   margin: 0px;
   min-width: 24px;
   position: absolute;
+  right: 0;
   left: 0;
-  top: 0;
   bottom: 0;
   z-index: 2;
+  padding: 8px 4px;
+  background-color: var(--bg-secondary);
+  color: var(--text-btn-color);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: calc(var(--main-font-size) - 2px);
 }
 
-#left_block.classes .table_card tr.open td button svg.open {
+#left_block.classes .table_card tr.open td button .open {
   display: none;
 }
 
-#left_block.classes .table_card tr td button svg.close {
+#left_block.classes .table_card tr td button .close {
   display: none;
 }
 
-#left_block.classes .table_card tr.open td button svg.close {
+#left_block.classes .table_card tr.open td button .close {
   display: block !important;
 }
 
@@ -2575,9 +2582,10 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .archetypes {
-  margin-left: 28px;
+  margin-top: -24px;
+  margin-left: 12px;
   z-index: 1;
-  padding: 0px 16px 0px 0;
+  padding: 0px 16px 32px 0;
 }
 
 #left_block.classes .table_card tr.selected {
@@ -2589,10 +2597,19 @@ table.table_card tr.dtrg-group td {
   width: fit-content;
 }
 
-#left_block.classes .table_card tr .books {
+#left_block.classes .table_card tr .bottom_row {
+  margin-bottom: 16px;
+}
+
+#left_block.classes .table_card tr .bottom_row span {
   margin-left: 0;
-  font-size: calc(var(--h5-font-size) - 1px);
+  margin-right: 4px;
+  font-size: calc(var(--h5-font-size) - 2px);
   width: fit-content;
+  background-color: var(--primary-active);
+  color: var(--text-btn-color);
+  border-radius: 20px;
+  padding: 4px 8px;
 }
 
 #left_block.classes .table_card tr td .content .row_name {
@@ -2600,7 +2617,7 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .content .two_row {
-  margin-bottom: 4px;  
+  margin-bottom: 24px;  
 }
 
 
@@ -4233,6 +4250,14 @@ body .block_information #left_block.weapons  {
 
 
 /******** Кнопки ********/
+button:active, button:focus {
+  outline: none !important;
+}
+
+button::-moz-focus-inner {
+  border: 0 !important;
+}
+
 .row {
   display: flex;
   margin-bottom: 24px;
