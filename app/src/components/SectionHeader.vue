@@ -33,8 +33,8 @@
             >
                 <button
                     v-if="print"
-                    type="button"
                     class="section-header__control--optional is-only-desktop"
+                    type="button"
                     @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
@@ -42,8 +42,8 @@
 
                 <button
                     v-if="exportFoundry"
-                    type="button"
                     class="section-header__control--optional is-only-desktop"
+                    type="button"
                 >
                     <svg-icon icon-name="export-foundry"/>
                 </button>
@@ -55,8 +55,8 @@
             >
                 <button
                     v-if="fullscreen"
-                    type="button"
                     class="section-header__control--main is-only-desktop"
+                    type="button"
                     @click.left.exact.prevent="uiStore.setFullscreenState(!uiStore.getContentConfig.fullscreen)"
                 >
                     <svg-icon :icon-name="uiStore.getContentConfig.fullscreen ? 'exit-fullscreen' : 'fullscreen'"/>
@@ -64,8 +64,8 @@
 
                 <button
                     v-if="close"
-                    type="button"
                     class="section-header__control--main"
+                    type="button"
                     @click.left.exact.prevent.stop="close()"
                 >
                     <svg-icon icon-name="close"/>
@@ -226,7 +226,7 @@
         }
 
         &__subtitle {
-            font-size: calc( var(--h2-font-size) - 14px);
+            font-size: calc(var(--h2-font-size) - 14px);
             color: var(--text-g-color);
             overflow: hidden;
             text-overflow: ellipsis;

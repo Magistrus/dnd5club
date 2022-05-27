@@ -1,8 +1,8 @@
 <template>
     <div
         v-if="modelValue?.length"
-        class="filter-item"
         :class="{ 'is-active': opened }"
+        class="filter-item"
     >
         <div class="filter-item__header">
             <div
@@ -14,8 +14,8 @@
                 </div>
 
                 <button
-                    type="button"
                     class="filter-item__button filter-item__button--toggle"
+                    type="button"
                     @click.self.left.exact.prevent="opened = !opened"
                 >
                     <svg-icon icon-name="arrow-stroke"/>
@@ -24,8 +24,8 @@
 
             <button
                 v-if="isFilterCustomized"
-                type="button"
                 class="filter-item__button filter-item__button--reset"
+                type="button"
                 @click.left.exact.prevent="resetValues"
             >
                 <svg-icon icon-name="close"/>
@@ -52,7 +52,7 @@
 <script>
     import _ from 'lodash';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import FieldCheckbox from '@/components/UI/FieldType/FieldCheckbox';
+    import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
 
     export default {
         name: 'FilterItemCheckboxes',

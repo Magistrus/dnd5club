@@ -5,23 +5,23 @@ import { useFilterStore } from '@/store/FilterStore/FilterStore';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
-export const useSpellsStore = defineStore('SpellsStore', {
+export const useTraitsStore = defineStore('TraitsStore', {
     state: () => ({
-        spells: [],
-        selectedSpell: undefined
+        traits: [],
+        selectedTrait: undefined
     }),
 
     getters: {
-        getSpells: state => state.spells,
-        getCurrentSpell: state => state.selectedSpell
+        getTraits: state => state.traits,
+        getCurrentTrait: state => state.selectedTrait
     },
 
     actions: {
-        async spellsQuery() {
+        async traitsQuery() {
             try {
                 const filterStore = useFilterStore();
 
-                await filterStore.initFilter('spells');
+                await filterStore.initFilter('traits');
 
                 const apiOptions = {
                     page: 1,
@@ -43,19 +43,19 @@ export const useSpellsStore = defineStore('SpellsStore', {
                     apiOptions.filter = filterStore.getQueryParams();
                 }
 
-                const resp = await http.post('/spells', apiOptions);
+                const resp = await http.post('/traits', apiOptions);
 
-                this.spells = resp.data;
+                this.traits = resp.data;
             } catch (err) {
                 console.error(err)
             }
         },
 
-        async spellInfoQuery(spellName) {
+        async traitInfoQuery(traitName) {
             try {
-                const resp = await http.post(`/spells/${ spellName }`);
+                const resp = await http.post(`/traits/${ traitName }`);
 
-                this.selectedSpell = resp.data;
+                this.selectedTrait = resp.data;
             } catch (err) {
                 console.error(err)
             }

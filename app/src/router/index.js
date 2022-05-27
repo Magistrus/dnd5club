@@ -3,12 +3,15 @@ import { useUIStore } from '@/store/UIStore/UIStore';
 import { useClassesStore } from '@/store/CharacterStore/ClassesStore';
 import { useRacesStore } from '@/store/CharacterStore/RacesStore';
 import { useSpellsStore } from '@/store/SpellsStore/SpellsStore';
+import { useTraitsStore } from '@/store/CharacterStore/TraitsStore';
+import { useBackgroundsStore } from '@/store/CharacterStore/BackgroundsStore';
+import { useOptionsStore } from '@/store/CharacterStore/OptionsStore';
 
 const routes = [
     {
         name: 'classes',
         path: '/classes',
-        component: () => import('@/views/CharacterViews/Classes/ClassesView.vue'),
+        component: () => import('@/views/Character/Classes/ClassesView.vue'),
         beforeEnter: async (to, from, next) => {
             const store = useClassesStore();
 
@@ -16,22 +19,25 @@ const routes = [
 
             next();
         },
-        children: [{
-            name: 'classDetail',
-            path: ':className/:classArchetype?',
-            component: () => import('@/views/CharacterViews/Classes/ClassDetail.vue'),
-            beforeEnter: async (to, from, next) => {
-                const store = useClassesStore();
+        children: [
+            {
+                name: 'classDetail',
+                path: ':className/:classArchetype?',
+                component: () => import('@/views/Character/Classes/ClassDetail.vue'),
+                beforeEnter: async (to, from, next) => {
+                    const store = useClassesStore();
 
-                await store.classInfoQuery(to.params.className, to.params.classArchetype);
+                    await store.classInfoQuery(to.params.className, to.params.classArchetype);
 
-                next()
+                    next()
+                }
             }
-        }]
-    }, {
+        ]
+    },
+    {
         name: 'races',
         path: '/races',
-        component: () => import('@/views/CharacterViews/Races/RacesView.vue'),
+        component: () => import('@/views/Character/Races/RacesView.vue'),
         beforeEnter: async (to, from, next) => {
             const store = useRacesStore();
 
@@ -39,34 +45,103 @@ const routes = [
 
             next();
         },
-        children: [{
-            name: 'raceDetail',
-            path: ':raceName/:subrace?',
-            component: () => import('@/views/CharacterViews/Races/RaceDetail.vue'),
-            beforeEnter: async (to, from, next) => {
-                const store = useRacesStore();
+        children: [
+            {
+                name: 'raceDetail',
+                path: ':raceName/:subrace?',
+                component: () => import('@/views/Character/Races/RaceDetail.vue'),
+                beforeEnter: async (to, from, next) => {
+                    const store = useRacesStore();
 
-                await store.raceInfoQuery(to.params.raceName, to.params.subrace);
+                    await store.raceInfoQuery(to.params.raceName, to.params.subrace);
 
-                next()
-            },
-        }]
-    }, {
+                    next()
+                },
+            }
+        ]
+    },
+    {
         name: 'traits',
         path: '/traits',
-        component: () => import('@/views/CharacterViews/Traits/TraitsView.vue'),
-    }, {
-        name: 'options',
-        path: '/options',
-        component: () => import('@/views/CharacterViews/Options/OptionsView.vue'),
-    }, {
+        component: () => import('@/views/Character/Traits/TraitsView.vue'),
+        beforeEnter: async (to, from, next) => {
+            const store = useTraitsStore();
+
+            await store.traitsQuery();
+
+            next();
+        },
+        // children: [
+        //     {
+        //         name: 'traitDetail',
+        //         path: ':traitName',
+        //         component: () => import('@/views/Character/Traits/TraitDetail.vue'),
+        //         beforeEnter: async (to, from, next) => {
+        //             const store = useTraitsStore();
+        //
+        //             await store.traitInfoQuery(to.params.traitName);
+        //
+        //             next()
+        //         },
+        //     }
+        // ]
+    },
+    {
         name: 'backgrounds',
         path: '/backgrounds',
-        component: () => import('@/views/CharacterViews/Backgrounds/BackgroundsView.vue'),
-    }, {
+        component: () => import('@/views/Character/Backgrounds/BackgroundsView.vue'),
+        beforeEnter: async (to, from, next) => {
+            const store = useBackgroundsStore();
+
+            await store.backgroundsQuery();
+
+            next();
+        },
+        // children: [
+        //     {
+        //         name: 'traitDetail',
+        //         path: ':traitName',
+        //         component: () => import('@/views/Character/Traits/TraitDetail.vue'),
+        //         beforeEnter: async (to, from, next) => {
+        //             const store = useTraitsStore();
+        //
+        //             await store.traitInfoQuery(to.params.traitName);
+        //
+        //             next()
+        //         },
+        //     }
+        // ]
+    },
+    {
+        name: 'options',
+        path: '/options',
+        component: () => import('@/views/Character/Options/OptionsView.vue'),
+        beforeEnter: async (to, from, next) => {
+            const store = useOptionsStore();
+
+            await store.optionsQuery();
+
+            next();
+        },
+        // children: [
+        //     {
+        //         name: 'traitDetail',
+        //         path: ':traitName',
+        //         component: () => import('@/views/Character/Traits/TraitDetail.vue'),
+        //         beforeEnter: async (to, from, next) => {
+        //             const store = useTraitsStore();
+        //
+        //             await store.traitInfoQuery(to.params.traitName);
+        //
+        //             next()
+        //         },
+        //     }
+        // ]
+    },
+    {
         name: 'spells',
         path: '/spells',
-        component: () => import('@/views/SpellViews/Spells/SpellsView.vue'),
+        component: () => import('@/views/Spells/SpellsView.vue'),
         beforeEnter: async (to, from, next) => {
             const store = useSpellsStore();
 
@@ -74,83 +149,21 @@ const routes = [
 
             next()
         },
-        children: [{
-            name: 'spellDetail',
-            path: ':spellName',
-            component: () => import('@/views/SpellViews/Spells/SpellDetail.vue'),
-            beforeEnter: async (to, from, next) => {
-                const store = useSpellsStore();
+        children: [
+            {
+                name: 'spellDetail',
+                path: ':spellName',
+                component: () => import('@/views/Spells/SpellDetail.vue'),
+                beforeEnter: async (to, from, next) => {
+                    const store = useSpellsStore();
 
-                await store.spellInfoQuery(to.params.spellName);
+                    await store.spellInfoQuery(to.params.spellName);
 
-                next()
-            },
-        }]
-    }, {
-        name: 'weapons',
-        path: '/weapons',
-        component: () => import('@/views/InventoryViews/Weapons/WeaponsView.vue'),
-    }, {
-        name: 'armors',
-        path: '/armors',
-        component: () => import('@/views/InventoryViews/Armors/ArmorsView.vue'),
-    }, {
-        name: 'items',
-        path: '/items',
-        component: () => import('@/views/InventoryViews/Items/ItemsView.vue'),
-    }, {
-        name: 'creatures',
-        path: '/creatures',
-        component: () => import('@/views/CreatureViews/Creatures/CreaturesView.vue'),
-    }, {
-        name: 'treasures',
-        path: '/treasures',
-        component: () => import('@/views/TreasureViews/Treasures/TreasuresView.vue'),
-    }, {
-        name: 'magic-items',
-        path: '/items/magic',
-        component: () => import('@/views/TreasureViews/MagicItems/MagicItemsView.vue'),
-    }, {
-        name: 'screens',
-        path: '/screens',
-        component: () => import('@/views/ScreenViews/Screens/ScreensView.vue'),
-    }, {
-        name: 'gods',
-        path: '/gods',
-        component: () => import('@/views/WikiViews/Gods/GodsView.vue'),
-    }, {
-        name: 'rules',
-        path: '/rules',
-        component: () => import('@/views/WikiViews/Rules/RulesView.vue'),
-    }, {
-        name: 'books',
-        path: '/books',
-        component: () => import('@/views/WikiViews/Books/BooksView.vue'),
-    }, {
-        name: 'trader',
-        path: '/trader',
-        component: () => import('@/views/ToolViews/Trader/TraderView.vue'),
-    }, {
-        name: 'encounters',
-        path: '/encounters',
-        component: () => import('@/views/ToolViews/Encounters/EncountersView.vue'),
-    }, {
-        name: 'treasury',
-        path: '/treasury',
-        component: () => import('@/views/ToolViews/Treasury/TreasuryView.vue'),
-    }, {
-        name: 'tavern',
-        path: '/tavern',
-        component: () => import('@/views/ToolViews/Tavern/TavernView.vue'),
-    }, {
-        name: 'wild-magic',
-        path: '/wildmagic',
-        component: () => import('@/views/ToolViews/WildMagic/WildMagicView.vue'),
-    }, {
-        name: 'madness',
-        path: '/madness',
-        component: () => import('@/views/ToolViews/Madness/MadnessView.vue'),
-    }
+                    next()
+                },
+            }
+        ]
+    },
 ];
 
 const router = createRouter({

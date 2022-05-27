@@ -9,16 +9,16 @@
 
                     <input
                         v-model="search"
-                        type="text"
                         placeholder="Поиск..."
+                        type="text"
                         @input.prevent="$emit('search', search)"
                     >
                 </label>
 
                 <button
                     v-if="!!search"
-                    type="button"
                     class="filter__search_clear"
+                    type="button"
                     @click.left.exact.prevent="search = ''"
                 >
                     <svg-icon icon-name="close"/>
@@ -27,15 +27,15 @@
 
             <button
                 v-if="filter"
-                type="button"
-                class="filter__button"
                 :class="{ 'is-opened': showed }"
+                class="filter__button"
+                type="button"
                 @click.left.exact.prevent="showed = !showed"
             >
                 <svg-icon
+                    :fill-enable="true"
                     :icon-name="isFilterCustomized ? 'filter-customized' : 'filter'"
                     :stroke-enable="false"
-                    :fill-enable="true"
                 />
 
                 <span>Фильтр</span>
@@ -44,8 +44,8 @@
             <button
                 v-if="!!filter && isFilterCustomized"
                 v-tooltip.bottom-end="'Стереть фильтр'"
-                type="button"
                 class="filter__button"
+                type="button"
                 @click.left.exact.prevent="resetFilter"
             >
                 <svg-icon icon-name="clear-filter"/>

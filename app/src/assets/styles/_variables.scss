@@ -34,15 +34,15 @@ $ultra_hd: 3840px;
 }
 
 @mixin media-minmax($min, $max) {
-    @media screen and (max-width: $min - 1px), screen and (min-width: $max) {
-      @content;
-    }
+  @media screen and (max-width: $min - 1px), screen and (min-width: $max) {
+    @content;
+  }
 }
 
 @mixin media-fromto($min, $max) {
-    @media screen and (min-width: $min - 1px) and (max-width: $max) {
-      @content;
-    }
+  @media screen and (min-width: $min - 1px) and (max-width: $max) {
+    @content;
+  }
 }
 
 // Mixins

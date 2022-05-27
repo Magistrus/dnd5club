@@ -3,15 +3,14 @@ import { createPinia } from 'pinia';
 import { VueMasonryPlugin } from 'vue-masonry';
 import { VTooltip } from 'floating-vue';
 import VueEasyLightbox from 'vue-easy-lightbox';
+import initialScript from '@/utils/BaseScripts';
+import registerComponents from '@/utils/RegisterComponents';
 import router from './router';
-import App from './App.vue';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import '@/assets/styles/index.scss';
-import ClassesView from './views/CharacterViews/Classes/ClassesView';
-import SpellsView from './views/SpellViews/Spells/SpellsView';
 
-const app = createApp(App);
+const app = createApp({});
 
 app.use(createPinia())
     .use(router)
@@ -20,9 +19,8 @@ app.use(createPinia())
 
 app.directive('tooltip', VTooltip);
 
-/* eslint-disable vue/match-component-file-name */
-app.component('ClassesView', ClassesView);
-app.component('SpellsView', SpellsView);
-/* eslint-enable vue/match-component-file-name */
+registerComponents(app);
 
-app.mount('#container');
+app.mount('#dnd5club');
+
+initialScript();

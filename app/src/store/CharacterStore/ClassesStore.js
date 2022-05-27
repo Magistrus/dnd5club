@@ -42,8 +42,8 @@ export const useClassesStore = defineStore('ClassesStore', {
                     }]
                 };
 
-                if (filterStore.getFilter) {
-                    apiOptions.filter = filterStore.getFilter;
+                if (filterStore.getFilter && filterStore.isFilterCustomized) {
+                    apiOptions.filter = filterStore.getQueryParams();
                 }
 
                 const res = await http.post('/classes', apiOptions);

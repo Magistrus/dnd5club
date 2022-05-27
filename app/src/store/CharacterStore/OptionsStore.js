@@ -5,23 +5,23 @@ import { useFilterStore } from '@/store/FilterStore/FilterStore';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
-export const useSpellsStore = defineStore('SpellsStore', {
+export const useOptionsStore = defineStore('OptionsStore', {
     state: () => ({
-        spells: [],
-        selectedSpell: undefined
+        options: [],
+        selectedOption: undefined
     }),
 
     getters: {
-        getSpells: state => state.spells,
-        getCurrentSpell: state => state.selectedSpell
+        getOptions: state => state.options,
+        getCurrentOption: state => state.selectedOption
     },
 
     actions: {
-        async spellsQuery() {
+        async optionsQuery() {
             try {
                 const filterStore = useFilterStore();
 
-                await filterStore.initFilter('spells');
+                await filterStore.initFilter('options');
 
                 const apiOptions = {
                     page: 1,
@@ -43,19 +43,19 @@ export const useSpellsStore = defineStore('SpellsStore', {
                     apiOptions.filter = filterStore.getQueryParams();
                 }
 
-                const resp = await http.post('/spells', apiOptions);
+                const resp = await http.post('/options', apiOptions);
 
-                this.spells = resp.data;
+                this.options = resp.data;
             } catch (err) {
                 console.error(err)
             }
         },
 
-        async spellInfoQuery(spellName) {
+        async optionInfoQuery(spellName) {
             try {
-                const resp = await http.post(`/spells/${ spellName }`);
+                const resp = await http.post(`/options/${ spellName }`);
 
-                this.selectedSpell = resp.data;
+                this.selectedOption = resp.data;
             } catch (err) {
                 console.error(err)
             }

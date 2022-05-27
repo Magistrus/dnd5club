@@ -5,23 +5,23 @@ import { useFilterStore } from '@/store/FilterStore/FilterStore';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
-export const useSpellsStore = defineStore('SpellsStore', {
+export const useBackgroundsStore = defineStore('BackgroundsStore', {
     state: () => ({
-        spells: [],
-        selectedSpell: undefined
+        backgrounds: [],
+        selectedBackground: undefined
     }),
 
     getters: {
-        getSpells: state => state.spells,
-        getCurrentSpell: state => state.selectedSpell
+        getBackgrounds: state => state.backgrounds,
+        getCurrentBackground: state => state.selectedBackground
     },
 
     actions: {
-        async spellsQuery() {
+        async backgroundsQuery() {
             try {
                 const filterStore = useFilterStore();
 
-                await filterStore.initFilter('spells');
+                await filterStore.initFilter('backgrounds');
 
                 const apiOptions = {
                     page: 1,
@@ -43,19 +43,19 @@ export const useSpellsStore = defineStore('SpellsStore', {
                     apiOptions.filter = filterStore.getQueryParams();
                 }
 
-                const resp = await http.post('/spells', apiOptions);
+                const resp = await http.post('/backgrounds', apiOptions);
 
-                this.spells = resp.data;
+                this.backgrounds = resp.data;
             } catch (err) {
                 console.error(err)
             }
         },
 
-        async spellInfoQuery(spellName) {
+        async backgroundInfoQuery(spellName) {
             try {
-                const resp = await http.post(`/spells/${ spellName }`);
+                const resp = await http.post(`/backgrounds/${ spellName }`);
 
-                this.selectedSpell = resp.data;
+                this.selectedBackground = resp.data;
             } catch (err) {
                 console.error(err)
             }

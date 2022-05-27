@@ -97,10 +97,12 @@
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3ZFWDQ"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
-		<div th:replace="fragments/menu :: menu"></div>
-		<div id="container" class="container">
-			<div layout:fragment="content"></div>
-		</div>
+    <div id="dnd5club" class="dnd5club">
+        <div th:replace="fragments/menu :: menu"></div>
+        <div id="container" class="container">
+            <div layout:fragment="content"></div>
+        </div>
+    </div>
 	</body>
 	<th:block th:fragment="mainJS">
 	<script th:src="@{/js/simplebar.min.js}"></script>

@@ -1,11 +1,11 @@
 <template>
     <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="svg-icon"
         :class="classList"
-        viewBox="0 0 16 16"
         aria-hidden="true"
+        class="svg-icon"
         role="img"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
     >
         <use :xlink:href="svg"/>
     </svg>

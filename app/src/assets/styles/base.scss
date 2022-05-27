@@ -45,9 +45,8 @@ body {
   color: var(--text-color);
   position: relative;
   z-index: 1;
-  transition:
-          background-color ease-in-out .2s,
-          color ease-in-out .2s;
+  transition: background-color ease-in-out .2s,
+  color ease-in-out .2s;
 }
 
 html,
@@ -149,5 +148,25 @@ input {
   &[type="number"] {
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  position: relative;
+
+  &:after {
+    content: 'β';
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    color: var(--primary);
+    font-size: 17px;
+    font-weight: 600;
   }
 }

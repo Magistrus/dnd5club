@@ -12,10 +12,12 @@
 		<script th:src="@{/js/datatables/jquery.spring-friendly.js}"></script>
 	</head>
 	<body id="body">
-		<div th:replace="fragments/menu :: menu"></div>
-		<div id="container" class="container">
-			<div layout:fragment="content"></div>
-		</div>
+    <div id="dnd5club" class="dnd5club">
+        <div th:replace="fragments/menu :: menu"></div>
+        <div id="container" class="container">
+            <div layout:fragment="content"></div>
+        </div>
+    </div>
 	</body>
 	<th:block th:replace="layouts/layout :: mainJS"/>
     <script th:src="@{|/js/datatables/helpers/filters.js?v=${version}|}"></script>

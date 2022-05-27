@@ -1,7 +1,7 @@
 <template>
     <div
-        class="content-layout"
         :class="layoutClasses"
+        class="content-layout"
     >
         <div class="content-layout__body">
             <div class="content-layout__list">
@@ -54,70 +54,71 @@
 </script>
 
 <style lang="scss" scoped>
-.content-layout {
-    width: 100%;
-    height: var(--max-vh);
-    padding: 24px;
-
-    &__body {
+    .content-layout {
         width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: flex-start;
-        position: relative;
-    }
+        height: var(--max-vh);
+        padding: 24px;
 
-    &__list {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-    }
+        &__body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            position: relative;
+        }
 
-    &__filter {
-        flex-shrink: 0;
-        padding-bottom: 24px;
-    }
+        &__list {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-    &__items {
-        flex: 1 1 100%;
-        overflow: auto;
-    }
+        &__filter {
+            flex-shrink: 0;
+            padding-bottom: 24px;
+        }
 
-    &__selected {
-        width: calc(60% - 24px);
-        height: 100%;
-        margin-left: 24px;
-        overflow: hidden;
-        border-radius: 12px;
-    }
+        &__items {
+            flex: 1 1 100%;
+            overflow: auto;
+        }
 
-    &.is-small {
-        &.is-showed-right-side {
-            .content-layout {
-                &__list {
-                    width: 40%;
+        &__selected {
+            width: calc(60% - 24px);
+            height: 100%;
+            margin-left: 24px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        &.is-small {
+            &.is-showed-right-side {
+                .content-layout {
+                    &__list {
+                        width: 40%;
+                    }
                 }
             }
         }
-    }
 
-    &.is-fullscreen {
-        .content-layout {
-            &__body {
-                border-radius: 12px;
-                overflow: hidden;
+        &.is-fullscreen {
+            .content-layout {
+                &__body {
+                    border-radius: 12px;
+                    overflow: hidden;
+                }
+
+                &__selected {
+                    position: absolute;
+                    width: 100%;
+                    margin-left: 0;
+                }
             }
 
-            &__selected {
-                position: absolute;
-                width: 100%;
-                margin-left: 0;
+            &.is-showed-right-side {
             }
         }
-
-        &.is-showed-right-side {
-        }
     }
-}
 </style>
