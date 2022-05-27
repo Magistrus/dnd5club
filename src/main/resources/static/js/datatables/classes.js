@@ -21,12 +21,12 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        let result = '<button class="open tip" title="' + row.archetypeName + '" data-tipped-options="position: \'right\'"><svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+                        let result = '<button class="open"><span class="open">Показать ' + row.archetypeName + '</span><span class="close">Скрыть ' + row.archetypeName + '</span></button>';
                         result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
-                        result += '<div class="content"><h3 class="row_name"><span><span class="name">' + row.name;
-                        result += '</span> <ename>[' + row.englishName + ']</ename></span></h3>';
-                        result += '<div class="two_row"><span>Кость хитов: ' + row.hitDice + '</span></div>';
-                        result += '<span class="books tip" title="' + row.book + '"  data-tipped-options="position: \'right\'">' + row.bookshort + '</span></div>';
+                        result += '<div class="content"><h3 class="row_name"><span class="name">' + row.name;
+                        result += '</span></h3>';
+                        result += '<div class="two_row"><ename>' + row.englishName + '</ename></div>';
+                        result += '<div class="bottom_row"><span>' + row.hitDice + '</span><span class="books tip" title="' + row.book + '"  data-tipped-options="position: \'right\'">' + row.bookshort + '</span></div></div>';
                         if (row.archetypeName !== null) {
                             result += '</div>';
                             result += '<div class="archetypes"><div class="main">'; 
