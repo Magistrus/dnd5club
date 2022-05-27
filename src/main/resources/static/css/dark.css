@@ -37,11 +37,11 @@
 
 /********* IMG BG *********/
 :root {
-  --bg-img-login: url(/resources/assets/img/bg_login.png);
-  --bg-img-main: url(/resources/assets/img/dark/test.webp);
-  --bg-img-bestiary-forest: url(/resources/assets/img/dark/forest.webp);
-  --bg-img-bard: url(/resources/assets/style/dark/bard.webp);
-  --bg-img-spells: url(/resources/assets/img/dark/bg_spells.webp);
+  --bg-img-login: url(/assets/img/bg_login.png);
+  --bg-img-main: url(/assets/img/dark/test.webp);
+  --bg-img-bestiary-forest: url(/assets/img/dark/forest.webp);
+  --bg-img-bard: url(/assets/style/dark/bard.webp);
+  --bg-img-spells: url(/assets/img/dark/bg_spells.webp);
   --bg-opacity-spells: 0.12;
 }
 
@@ -56,5 +56,5 @@
 
 /********* Logo *********/
 :root {
-  --icon-logo-menu: url(/resources/assets/icon/dark/logo.svg);
+  --icon-logo-menu: url(/assets/icon/dark/logo.svg);
 }

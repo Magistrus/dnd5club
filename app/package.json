@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "watch": "vue-cli-service build --watch --mode=develop",
-    "build": "vue-cli-service build",
+    "watch": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --watch --mode=develop --no-clean",
+    "build:dev": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --mode=develop --no-clean",
+    "build:prod": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --no-clean",
     "lint:js": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix"
   },
@@ -41,6 +42,7 @@
     "eslint-plugin-vue": "^9.0.1",
     "eslint-plugin-vuejs-accessibility": "^1.1.1",
     "file-loader": "^6.2.0",
+    "rimraf": "^3.0.2",
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
     "svg-sprite-loader": "^6.0.11",

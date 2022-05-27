@@ -130,7 +130,7 @@
                     href="//boosty.to/dnd5club"
                     target="_blank"
                 > <img
-                    src="resources/app/img/boosty.png"
+                    src="/app/img/boosty.png"
                     alt="Мы на Boosty"
                     style="height: 12px;"
                 > Boosty</a>, а так-же вы
@@ -170,7 +170,7 @@
                     target="_blank"
                 >
                     <img
-                        :src="`resources/app/img/partners/${partner.img.path}`"
+                        :src="`/app/img/partners/${partner.img.path}`"
                         :alt="partner.img.alt"
                     >
 

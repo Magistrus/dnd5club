@@ -8,14 +8,21 @@ import App from './App.vue';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import '@/assets/styles/index.scss';
+import ClassesView from './views/CharacterViews/Classes/ClassesView';
+import SpellsView from './views/SpellViews/Spells/SpellsView';
 
 const app = createApp(App);
 
 app.use(createPinia())
     .use(router)
     .use(VueMasonryPlugin)
-    .use(VueEasyLightbox)
+    .use(VueEasyLightbox);
 
-app.directive('tooltip', VTooltip)
+app.directive('tooltip', VTooltip);
+
+/* eslint-disable vue/match-component-file-name */
+app.component('ClassesView', ClassesView);
+app.component('SpellsView', SpellsView);
+/* eslint-enable vue/match-component-file-name */
 
 app.mount('#container');

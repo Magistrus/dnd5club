@@ -1085,14 +1085,14 @@ label.select_box {
   width: 220px;
   height: 56px;
   right: 0;
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_3.png);
+  background-image: url(/assets/img/bg_main_page_button_nav_3.png);
   content: '';
 }
 
 @media (max-width: 1200px) {
   .main_page_wrapper .main_block .card_row .card:before {
     height: 48px;
-    background-image: url(/resources/assets/img/bg_main_page_button_nav_mobile_3.png);
+    background-image: url(/assets/img/bg_main_page_button_nav_mobile_3.png);
 
   }
 }
@@ -1149,43 +1149,43 @@ label.select_box {
   .main_page_wrapper .main_block .card_row .races.card:before {
     background-position: 0 -48px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .traits.card:before {
     background-position: 0 -96px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .options.card:before {
     background-position: 0 -144px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .backgrounds.card:before {
     background-position: 0 -192px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .spells.card:before {
     background-position: 0 -240px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .weapons.card:before {
     background-position: 0 -288px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .armors.card:before {
     background-position: 0 -336px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .items.card:before {
     background-position: 0 -384px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .items_magic.card:before {
     background-position: 0 -432px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .bestiary.card:before {
     background-position: 0 -480px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .screens.card:before {
     background-position: 0 -528px;
   }
@@ -1254,7 +1254,7 @@ label.select_box {
   .main_page_wrapper .main_block .card_row .card {
     flex: 1 1 calc(25% - 40px);
     min-width: calc(25% - 40px);
-  } 
+  }
 }
 
 @media (max-width: 800px) {
@@ -1318,7 +1318,7 @@ label.select_box {
 }
 
 .main_page_wrapper .dnd5club_tel_bot .bg_img {
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_bot_2.png);
+  background-image: url(/assets/img/bg_main_page_button_nav_bot_2.png);
 }
 
 .main_page_wrapper .dnd5club_tel_bot {
@@ -4078,7 +4078,7 @@ button {
   color: #fff;
   border-radius: 30px;
   display: inline-block;
-  background-image: url(/resources/assets/become-boosty-button.svg);
+  background-image: url(/assets/become-boosty-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
@@ -4093,7 +4093,7 @@ button {
 
 .become-vk-button {
   background-color: #1179FC;
-  background-image: url(/resources/assets/become-vk-button.svg);
+  background-image: url(/assets/become-vk-button.svg);
 }
 
 .become-vk-button:hover {
@@ -4103,7 +4103,7 @@ button {
 
 .become-discord-button {
   background-color: #5865F2;
-  background-image: url(/resources/assets/discord.svg);
+  background-image: url(/assets/discord.svg);
 }
 
 .become-discord-button:hover {

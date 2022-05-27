@@ -1,13 +1,17 @@
 const path = require('path');
 
 module.exports = {
-    outputDir: path.resolve(__dirname, '../src/main/resources/static/app/'),
-    assetsDir: './resources/app/',
+    outputDir: path.resolve(__dirname, '../src/main/resources/static/'),
+    assetsDir: './app/',
     filenameHashing: false,
     runtimeCompiler: true,
     productionSourceMap: false,
     transpileDependencies: true,
     chainWebpack: config => {
+        config.plugins.delete('html');
+        config.plugins.delete('preload');
+        config.plugins.delete('prefetch');
+
         config.module
             .rule('svg')
             .exclude

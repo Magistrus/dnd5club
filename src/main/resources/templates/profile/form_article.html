@@ -2,26 +2,26 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <script th:src="@{/resources/js/editorjs/editor.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/checklist.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/code.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/delimiter.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/embed.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/header.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/image.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/inline-code.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/link.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/list.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/marker.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/paragraph.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/personality.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/quote.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/table.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/warning.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-dice-text.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-saving-throw.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-advantage.js}"></script>
-    <script th:src="@{/resources/js/editorjs/plugins/dnd5club-markers-disadvantage.js}"></script>
+    <script th:src="@{/js/editorjs/editor.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/checklist.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/code.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/delimiter.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/embed.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/header.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/image.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/inline-code.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/link.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/list.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/marker.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/paragraph.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/personality.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/quote.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/table.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/warning.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/dnd5club-markers-dice-text.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/dnd5club-markers-saving-throw.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/dnd5club-markers-advantage.js}"></script>
+    <script th:src="@{/js/editorjs/plugins/dnd5club-markers-disadvantage.js}"></script>
 </head>
 <body id="body" class="overflow-hidden">
 <div id="container" class="container">
@@ -166,5 +166,5 @@
 </div>
 </body>
 
-<script th:src="@{|/resources/js/articlesForm.js?v=${version}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/js/articlesForm.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>

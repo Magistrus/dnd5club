@@ -1,1 +1,0 @@
-"use strict";(self["webpackChunkdnd5club"]=self["webpackChunkdnd5club"]||[]).push([[447],{4447:function(r,n,e){e.r(n),e.d(n,{default:function(){return i}});var t=e(9199);const u={class:"trader"};function a(r,n,e,a,c,d){return(0,t.wg)(),(0,t.iD)("div",u," trader ")}var c={name:"TraderView"},d=e(89);const s=(0,d.Z)(c,[["render",a]]);var i=s}}]);

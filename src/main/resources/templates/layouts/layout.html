@@ -25,37 +25,40 @@
 
 		<link rel="canonical" th:href="@{${metaUrl eq null ? '#' : metaUrl}}">
 		<link rel="manifest" href="/manifest.json" crossorigin="anonymous">
-		<link rel="apple-touch-icon" sizes="48x48" href="/resources/assets/style/icons/48.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="/resources/assets/style/icons/72.png">
-		<link rel="apple-touch-icon" sizes="96x96" href="/resources/assets/style/icons/96.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="/resources/assets/style/icons/144.png">
-		<link rel="apple-touch-icon" sizes="192x192" href="/resources/assets/style/icons/192.png">
-		<link rel="apple-touch-icon" sizes="256x256" href="/resources/assets/style/icons/265.png">
-		<link rel="apple-touch-icon" sizes="384x384" href="/resources/assets/style/icons/384.png">
-		<link rel="apple-touch-icon" sizes="512x512" href="/resources/assets/style/icons/512.png">
+		<link rel="apple-touch-icon" sizes="48x48" href="/assets/style/icons/48.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/assets/style/icons/72.png">
+		<link rel="apple-touch-icon" sizes="96x96" href="/assets/style/icons/96.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/assets/style/icons/144.png">
+		<link rel="apple-touch-icon" sizes="192x192" href="/assets/style/icons/192.png">
+		<link rel="apple-touch-icon" sizes="256x256" href="/assets/style/icons/265.png">
+		<link rel="apple-touch-icon" sizes="384x384" href="/assets/style/icons/384.png">
+		<link rel="apple-touch-icon" sizes="512x512" href="/assets/style/icons/512.png">
+        <!-- Vue App -->
+        <script defer="defer" th:src="@{|/app/js/chunk-vendors.js?v=${version}|}"></script>
+        <script defer="defer" th:src="@{|/app/js/app.js?v=${version}|}"></script>
 		<!-- Simplebar -->
-		<link rel="stylesheet" th:href="@{/resources/css/simplebar.css}" />
+		<link rel="stylesheet" th:href="@{/css/simplebar.css}" />
 		<!-- Tipped -->
-		<link rel="stylesheet" th:href="@{/resources/css/tipped.css}" />
+		<link rel="stylesheet" th:href="@{/css/tipped.css}" />
 		<!-- Modal -->
-		<link rel="stylesheet" th:href="@{/resources/css/magnific-popup.css}" />
+		<link rel="stylesheet" th:href="@{/css/magnific-popup.css}" />
 		<!-- Favicon-->
-		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon_new.svg?v=7}" />
+		<link rel="icon" type="image/svg+xml" th:href="@{/assets/favicon_new.svg?v=7}" />
 		<!-- Core theme CSS -->
-		<link rel="stylesheet" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css?v=${version}|}" id="theme_css" th:class="${session.theme}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/typography.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/styles.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/grid.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/print.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/search.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/personal-area.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/editor.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
-		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
-		<link rel="stylesheet" th:href="@{/resources/app/css/chunk-vendors.css}" />
-		<link rel="stylesheet" th:href="@{/resources/app/css/app.css}" />
+		<link rel="stylesheet" media="all" th:href="@{|/css/${session.theme eq null ? 'dark': session.theme}.css?v=${version}|}" id="theme_css" th:class="${session.theme}" />
+		<link rel="stylesheet" th:href="@{|/css/typography.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/styles.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/grid.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/print.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/search.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/personal-area.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/editor.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{/css/datatables/jquery.dataTables.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/datatables/searchPanes.dataTables.min.css}" />
+		<link rel="stylesheet" th:href="@{|/app/css/chunk-vendors.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/app/css/app.css?v=${version}|}" />
 		<!-- Menu -->
-		<link rel="stylesheet" th:href="@{|/resources/css/sidebar-menu.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/sidebar-menu.css?v=${version}|}" />
 		<!-- Google Font -->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -63,7 +66,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-		<script th:src="@{/resources/js/jquery.magnific-popup.min.js}"></script>
+		<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 
 		<!-- Google Tag Manager -->
 		<script	script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -100,13 +103,11 @@
 		</div>
 	</body>
 	<th:block th:fragment="mainJS">
-	<script th:src="@{/resources/js/simplebar.min.js}"></script>
-	<script th:src="@{|/resources/js/scripts.js?v=${version}|}"></script>
-	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
-	<script th:src="@{|/resources/js/scheme.js?v=${version}|}"></script>
-	<script th:src="@{/resources/js/tipped.min.js}"></script>
-	<script th:src="@{/resources/app/js/chunk-vendors.js}"></script>
-	<script th:src="@{/resources/app/js/app.js}"></script>
+	<script th:src="@{/js/simplebar.min.js}"></script>
+	<script th:src="@{|/js/scripts.js?v=${version}|}"></script>
+	<script th:src="@{/js/sidebar-menu.js}"></script>
+	<script th:src="@{|/js/scheme.js?v=${version}|}"></script>
+	<script th:src="@{/js/tipped.min.js}"></script>
 	</th:block>
 	<script layout:fragment="js-script"></script>
 

@@ -16,7 +16,7 @@
 				<span class="placeholder js-dropdown__current" th:text="${selectedRaceName}">Выбрать подрасу</span>
 				<ul data-simplebar>
 					<li th:each="subrace : *{subRaces}" th:data-dropdown-value="${subrace.englishName.replace(' ', '_')}" th:text="|${subrace.name} ${subrace.book.source}|"
-					th:class="|${subrace.book.type.name().toLowerCase()}_source ${race.id eq subrace.id ? 'selected' : ''}|" 
+					th:class="|${subrace.book.type.name().toLowerCase()}_source ${race.id eq subrace.id ? 'selected' : ''}|"
 					th:classappend="${subrace.book.type.name() ne 'OFFICAL' ? 'hide_block':''}"
 					></li>
 				</ul>
@@ -41,7 +41,7 @@
 		</div>
 		<div class="avatar">
 			<div class="image-container">
-				<a th:if="${images.empty}" id="race_href" class="test-popup-link" th:href="@{/resources/assets/style/dark/no_img_best.png}"><img id="race_img" th:src="@{/resources/assets/style/dark/no_img_best.png}" alt="Title best"></a>
+				<a th:if="${images.empty}" id="race_href" class="test-popup-link" th:href="@{/assets/style/dark/no_img_best.png}"><img id="race_img" th:src="@{/assets/style/dark/no_img_best.png}" alt="Title best"></a>
 				<a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}"><img th:if="${iterStat.first}" th:src="${image}"/></a>
 			</div>
 		</div>

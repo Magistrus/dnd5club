@@ -219,5 +219,5 @@ $('.html_text').trumbowyg({
     autogrowOnEnter: true,
     urlProtocol: true,
     defaultLinkTarget: '_blank',
-    svgPath: '/resources/assets/trumbowyg-icons.svg',
+    svgPath: '/assets/trumbowyg-icons.svg',
 })
