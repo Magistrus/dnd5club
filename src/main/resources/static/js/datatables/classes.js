@@ -23,7 +23,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         let result = ''
                         if (row.archetypeName !== null) {
-                        	result +='<button class="open"><span class="open">Показать ' + row.archetypeName + '</span><span class="close">Скрыть ' + row.archetypeName + '</span></button>';
+                        	result +='<button class="open tip" title="' + row.archetypeName + '" data-tipped-options="position: \'left\'"><svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
                         }
                         result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
                         result += '<div class="content"><h3 class="row_name"><span class="name">' + row.name;
