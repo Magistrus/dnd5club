@@ -21,7 +21,10 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        let result = '<button class="open"><span class="open">Показать ' + row.archetypeName + '</span><span class="close">Скрыть ' + row.archetypeName + '</span></button>';
+                        let result = ''
+                        if (row.archetypeName !== null) {
+                        	result +='<button class="open"><span class="open">Показать ' + row.archetypeName + '</span><span class="close">Скрыть ' + row.archetypeName + '</span></button>';
+                        }
                         result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
                         result += '<div class="content"><h3 class="row_name"><span class="name">' + row.name;
                         result += '</span></h3>';
