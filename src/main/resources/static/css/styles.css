@@ -2411,6 +2411,18 @@ table.table_card tr.dtrg-group td {
   z-index: 2;
 }
 
+#left_block.classes .table_card tr[data-class-source="TCE"] td .content {
+  margin-left: 0;
+}
+
+#left_block.classes .table_card tr td:hover {
+  background: transparent;
+}
+
+#left_block.classes .table_card tr.selected td:hover {
+  background: transparent !important;
+}
+
 #left_block.classes .table_card tr td button.open {
   width: auto;
   margin: 0px;
@@ -2420,6 +2432,22 @@ table.table_card tr.dtrg-group td {
   top: 0;
   bottom: 0;
   z-index: 2;
+}
+
+#left_block.classes .table_card tr[data-class-source="TCE"] td button {
+  display: none;
+}
+
+#left_block.classes .table_card tr.open td button svg.open {
+  display: none;
+}
+
+#left_block.classes .table_card tr td button svg.close {
+  display: none;
+}
+
+#left_block.classes .table_card tr.open td button svg.close {
+  display: block !important;
 }
 
 #left_block.classes .table_card tr,
@@ -2437,14 +2465,14 @@ table.table_card tr.dtrg-group td {
   display: block;
   background: var(--bg-liner-list);
   content: "";
-  opacity: 0.7;
+  opacity: 1;
   z-index: 1;
   height: 1000px;
 }
 
 #left_block.classes .table_card tr.custom_source td .wrapper:after {
   background: var(--bg-homebrew-gradient-left) !important;
-  opacity: 0.5;
+  opacity: 0.2;
 }
 
 #left_block.classes .table_card tr td .Bard.wrapper:before {
@@ -2503,6 +2531,22 @@ table.table_card tr.dtrg-group td {
   background-image: url(/resources/assets/img/classes/Sorcerer.png);
 }
 
+#left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
+  background-image: url(/resources/assets/img/classes/blood_hunter.png);
+}
+
+#left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
+  background-image: url(/resources/assets/img/classes/warrior_sidekick.png);
+}
+
+#left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
+  background-image: url(/resources/assets/img/classes/spellcaster_sidekick.png);
+}
+
+#left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
+  background-image: url(/resources/assets/img/classes/expert_sidekick.png);
+}
+
 #left_block.classes .table_card tr td .wrapper:before {
   transition: transform 0.6s;
   background-size: cover;
@@ -2518,6 +2562,15 @@ table.table_card tr.dtrg-group td {
 
 #left_block.classes .table_card tr.open td .wrapper:before {
   opacity: 0.4;
+}
+
+#left_block.classes .table_card tr td:hover .wrapper:before {
+  transition: transform 0.6s;
+  transform: scale(1.03);
+}
+
+#left_block.classes .table_card tr.open  td:hover .wrapper:before {
+  transform: scale(1.0);
 }
 
 #left_block.classes .table_card tr td .archetypes {
