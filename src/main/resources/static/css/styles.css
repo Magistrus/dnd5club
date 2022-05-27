@@ -2440,7 +2440,7 @@ table.table_card tr.dtrg-group td {
   z-index: 2;
   padding: 8px 4px;
   background-color: var(--bg-secondary);
-  color: var(--text-btn-color);
+  color: var(--text-color-title);
   text-transform: uppercase;
   font-weight: 600;
   font-size: calc(var(--main-font-size) - 2px);
