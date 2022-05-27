@@ -2132,7 +2132,7 @@ label.select_box {
   border: 0;
 }
 
-table.table_card tr.dtrg-group {
+table.table_card tr.dtrg-group:first-child {
   display: none;
 }
 
@@ -2141,6 +2141,7 @@ table.table_card tr.dtrg-group {
   min-width: 100%;
   grid-column-start: 1;
   grid-column-end: 4;
+  display: block;
 }
 
 table.table_card tr.dtrg-group td {
@@ -2396,6 +2397,14 @@ table.table_card tr.dtrg-group td {
   margin-right: 4px;
 }
 
+#left_block.classes .table_card tr td .content .row_name {
+  font-size: calc(var(--h5-font-size) + 2px);
+}
+
+#left_block.classes .table_card tr td .archetype_list > h4 {
+  font-size: calc(var(--h5-font-size) + 0px);
+  margin-bottom: 0px;
+}
 
 #left_block.classes .table_card tr td .wrapper {
   z-index: 1;
@@ -2410,10 +2419,6 @@ table.table_card tr.dtrg-group td {
   margin-left: 24px;
   z-index: 2;
 }
-
-/* #left_block.classes .table_card tr[data-class-source="TCE"] td .content {
-  margin-left: 0;
-} */
 
 #left_block.classes .table_card tr td:hover {
   background: transparent;
@@ -2433,10 +2438,6 @@ table.table_card tr.dtrg-group td {
   bottom: 0;
   z-index: 2;
 }
-
-/* #left_block.classes .table_card tr[data-class-source="TCE"] td button {
-  display: none;
-} */
 
 #left_block.classes .table_card tr.open td button svg.open {
   display: none;
@@ -2576,7 +2577,7 @@ table.table_card tr.dtrg-group td {
 #left_block.classes .table_card tr td .archetypes {
   margin-left: 30px;
   z-index: 1;
-  padding: 0 16px 0px 0;
+  padding: 0px 16px 0px 0;
 }
 
 #left_block.classes .table_card tr.selected {
@@ -2585,6 +2586,7 @@ table.table_card tr.dtrg-group td {
 
 #left_block.classes .table_card tr td .archetype_list li {
   margin-bottom: 0px;
+  width: fit-content;
 }
 
 #left_block.classes .table_card tr .books {
