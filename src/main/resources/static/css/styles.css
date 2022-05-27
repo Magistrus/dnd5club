@@ -2411,9 +2411,9 @@ table.table_card tr.dtrg-group td {
   z-index: 2;
 }
 
-#left_block.classes .table_card tr[data-class-source="TCE"] td .content {
+/* #left_block.classes .table_card tr[data-class-source="TCE"] td .content {
   margin-left: 0;
-}
+} */
 
 #left_block.classes .table_card tr td:hover {
   background: transparent;
@@ -2434,9 +2434,9 @@ table.table_card tr.dtrg-group td {
   z-index: 2;
 }
 
-#left_block.classes .table_card tr[data-class-source="TCE"] td button {
+/* #left_block.classes .table_card tr[data-class-source="TCE"] td button {
   display: none;
-}
+} */
 
 #left_block.classes .table_card tr.open td button svg.open {
   display: none;
