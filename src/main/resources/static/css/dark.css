@@ -16,7 +16,7 @@
   --bg-details-title: #343a40;
   --bg-table-list: #1F262C;
   --bg-liner-main-page: linear-gradient(to right,#0f151b,transparent);
-  --bg-liner-list: linear-gradient(to right,var(--bg-table-list),transparent);
+  --bg-liner-list: linear-gradient(to right,var(--bg-table-list),transparent 410px);
   --text-color:#ffffff99;
   --text-color-active:#fff;
   --text-color-title:#fff;
