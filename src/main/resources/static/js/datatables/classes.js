@@ -303,10 +303,10 @@ $('#class_description').on('click', function () {
     this.classList.add('active');
     var data = $('#classes').DataTable().rows({ selected: true }).data()[0];
     if ($('li').hasClass('select_point')) {
-        url = '/classes/' + data.englishName + '/archetype/' + $('li.select_point').attr('id') + '/description';
+        url = '/classes/' + data.englishName.split(' ').join('_') + '/archetype/' + $('li.select_point').attr('id') + '/description';
         loadDescription(url);
     } else {
-        var url = '/classes/' + data.englishName + '/description';
+        var url = '/classes/' + data.englishName.split(' ').join('_') + '/description';
         loadDescription(url);
     }
     localStorage.setItem('class_info', 'description');
@@ -338,10 +338,8 @@ $('#text_clear').on('click', function () {
 $('#btn_close').on('click', function () {
     if (window.innerWidth < 1200) {
         $('#classes').dataTable().api().rows().deselect();
-
         return;
     }
-
     closeHandler();
 });
 
@@ -524,7 +522,7 @@ function loadDescription(url) {
 
 function loadClassSpells() {
     let data = $('#classes').DataTable().rows({ selected: true }).data()[0];
-    let url = '/classes/spells/' + data.englishName;
+    let url = '/classes/spells/' + data.englishName.split(' ').join('_');
     $('#content_block').load(url, function () {
         $('#info_wrapper').removeClass('traits');
         $('#info_wrapper').removeClass('description');
@@ -536,7 +534,7 @@ function loadClassSpells() {
 
 function loadClassOptions() {
     let data = $('#classes').DataTable().rows({ selected: true }).data()[0];
-    var url = '/classes/options/' + data.englishName;
+    var url = '/classes/options/' + data.englishName.split(' ').join('_');
     $('#content_block').load(url, function () {
         $('#info_wrapper').removeClass('traits');
         $('#info_wrapper').removeClass('description');
@@ -549,7 +547,7 @@ function loadClassOptions() {
 
 function loadImages() {
     let data = $('#classes').DataTable().rows({ selected: true }).data()[0];
-    var englishName = data.englishName.replace(' ', '_');
+    var englishName = data.englishName.split(' ').join('_');
     var url = '/classes/images/' + englishName;
     $('#content_block').load(url, function () {
         $('#info_wrapper').removeClass('traits');
