@@ -51,20 +51,10 @@ body {
 
 html,
 body,
-#dnd5club,
-.dnd5club {
+#dnd5club {
   width: 100%;
   height: var(--max-vh);
   overflow: hidden auto;
-}
-
-.dnd5club {
-  display: flex;
-  flex-direction: column-reverse;
-
-  @include media-min($md) {
-    flex-direction: row;
-  }
 }
 
 button {

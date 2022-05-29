@@ -8,6 +8,7 @@
 
                 <button
                     v-if="copy"
+                    v-tooltip.bottom="{ content: 'Скопировать ссылку' }"
                     class="section-header__title--copy"
                     @click.left.exact.prevent.stop="copyText"
                 >
@@ -33,6 +34,7 @@
             >
                 <button
                     v-if="print"
+                    v-tooltip.bottom="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
                     @click.left.exact.prevent.stop="openPrintWindow"
@@ -42,6 +44,7 @@
 
                 <button
                     v-if="exportFoundry"
+                    v-tooltip.bottom="{ content: 'Экспорт в Foundry VTT' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
                 >
@@ -55,6 +58,11 @@
             >
                 <button
                     v-if="fullscreen"
+                    v-tooltip.bottom="{
+                        content: uiStore.getContentConfig.fullscreen
+                            ? 'Свернуть окно'
+                            : 'Развернуть окно'
+                    }"
                     class="section-header__control--main is-only-desktop"
                     type="button"
                     @click.left.exact.prevent="uiStore.setFullscreenState(!uiStore.getContentConfig.fullscreen)"
@@ -64,6 +72,7 @@
 
                 <button
                     v-if="close"
+                    v-tooltip.bottom="{ content: 'Закрыть' }"
                     class="section-header__control--main"
                     type="button"
                     @click.left.exact.prevent.stop="close()"

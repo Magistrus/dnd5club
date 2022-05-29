@@ -139,7 +139,7 @@
     import {
         A11y, FreeMode, Mousewheel, Scrollbar
     } from 'swiper';
-    import SectionHeader from '@/components/SectionHeader';
+    import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
     import HTTPService from '@/services/HTTPService';
     import { useClassesStore } from '@/store/CharacterStore/ClassesStore';

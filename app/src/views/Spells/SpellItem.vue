@@ -42,6 +42,7 @@
                         >
                             <div
                                 v-if="spellItem.concentration"
+                                v-tooltip="{ content: 'Концентрация' }"
                                 class="spell-item__modification"
                             >
                                 К
@@ -49,6 +50,7 @@
 
                             <div
                                 v-if="spellItem.ritual"
+                                v-tooltip="{ content: 'Ритуал' }"
                                 class="spell-item__modification"
                             >
                                 Р
@@ -68,6 +70,7 @@
                         >
                             <div
                                 v-if="spellItem.components.v"
+                                v-tooltip="{ content: 'Вербальный' }"
                                 class="spell-item__component"
                             >
                                 В
@@ -75,6 +78,7 @@
 
                             <div
                                 v-if="spellItem.components.s"
+                                v-tooltip="{ content: 'Соматический' }"
                                 class="spell-item__component"
                             >
                                 С
@@ -82,6 +86,7 @@
 
                             <div
                                 v-if="!!spellItem.components.m"
+                                v-tooltip="{ content: 'Материальный' }"
                                 class="spell-item__component"
                             >
                                 М
@@ -148,7 +153,7 @@
                     return;
                 }
 
-                console.log('in tab')
+                console.warn('in tab')
             }
         }
     }

@@ -55,7 +55,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
             try {
                 const apiOptions = {
                     page: 1,
-                    limit: 120,
+                    limit: 30,
                     search: {
                         exact: false,
                         value: opts.searchStr

@@ -20,6 +20,7 @@
 
                 <button
                     v-if="!!search"
+                    v-tooltip.bottom="{ content: 'Стереть строку поиска' }"
                     class="filter__search_clear"
                     type="button"
                     @click.left.exact.prevent="search = ''"
@@ -30,6 +31,7 @@
 
             <button
                 v-if="filter"
+                v-tooltip.bottom="{ content: showed ? 'Скрыть фильтры' : 'Показать фильтры' }"
                 :class="{ 'is-opened': showed }"
                 class="filter__button"
                 type="button"
@@ -46,7 +48,7 @@
 
             <button
                 v-if="!!filter && isFilterCustomized"
-                v-tooltip.bottom-end="'Стереть фильтр'"
+                v-tooltip.bottom-end="'Сбросить все фильтры'"
                 class="filter__button"
                 type="button"
                 @click.left.exact.prevent="resetFilter"

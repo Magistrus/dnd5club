@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import SectionHeader from '@/components/SectionHeader';
+    import SectionHeader from '@/components/UI/SectionHeader';
     import { useRacesStore } from '@/store/CharacterStore/RacesStore';
 
     export default {
