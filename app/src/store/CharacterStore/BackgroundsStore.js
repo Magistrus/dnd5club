@@ -1,34 +1,64 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/utils/HTTPService';
-import { useFilterStore } from '@/store/FilterStore/FilterStore';
+import HTTPService from '@/services/HTTPService';
+import FilterService from '@/services/FilterService';
 
+const DB_NAME = 'backgrounds';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useBackgroundsStore = defineStore('BackgroundsStore', {
     state: () => ({
         backgrounds: [],
-        selectedBackground: undefined
+        selectedBackground: undefined,
+        filter: undefined
     }),
 
     getters: {
+        getFilter: state => state.filter,
         getBackgrounds: state => state.backgrounds,
         getCurrentBackground: state => state.selectedBackground
     },
 
     actions: {
-        async backgroundsQuery() {
+        async initFilter(storeKey) {
             try {
-                const filterStore = useFilterStore();
+                this.filter = new FilterService();
 
-                await filterStore.initFilter('backgrounds');
+                const filterOptions = {
+                    dbName: DB_NAME,
+                }
 
+                if (storeKey) {
+                    filterOptions.storeKey = storeKey;
+                }
+
+                await this.filter.init({
+                    ...filterOptions,
+                    url: '/filters/backgrounds'
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
+        /**
+         * @param {{searchStr: string, url: string}} options
+         * @returns {Promise<void>}
+         */
+        async backgroundsQuery(options) {
+            const opts = {
+                searchStr: '',
+                url: '/backgrounds',
+                ...options
+            }
+
+            try {
                 const apiOptions = {
                     page: 1,
                     limit: 120,
                     search: {
                         exact: false,
-                        value: ''
+                        value: opts.searchStr
                     },
                     order: [{
                         field: 'level',
@@ -39,11 +69,11 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                     }]
                 };
 
-                if (filterStore.getFilter && filterStore.isFilterCustomized) {
-                    apiOptions.filter = filterStore.getQueryParams();
+                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                    apiOptions.filter = this.filter.getQueryParams;
                 }
 
-                const resp = await http.post('/backgrounds', apiOptions);
+                const resp = await http.post(opts.url, apiOptions);
 
                 this.backgrounds = resp.data;
             } catch (err) {

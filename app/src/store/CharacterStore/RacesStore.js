@@ -1,35 +1,65 @@
 import { defineStore } from 'pinia';
 import _ from 'lodash';
-import HTTPService from '@/utils/HTTPService';
-import { useFilterStore } from '@/store/FilterStore/FilterStore';
+import HTTPService from '@/services/HTTPService';
+import FilterService from '@/services/FilterService';
 
+const DB_NAME = 'races';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useRacesStore = defineStore('RacesStore', {
     state: () => ({
         races: [],
-        selectedRace: undefined
+        selectedRace: undefined,
+        filter: undefined
     }),
 
     getters: {
+        getFilter: state => state.filter,
         getRaces: state => state.races,
         getCurrentRace: state => state.selectedRace
     },
 
     actions: {
-        async racesQuery() {
+        async initFilter(storeKey) {
             try {
-                const filterStore = useFilterStore();
+                this.filter = new FilterService();
 
-                await filterStore.initFilter('races');
+                const filterOptions = {
+                    dbName: DB_NAME,
+                }
 
+                if (storeKey) {
+                    filterOptions.storeKey = storeKey;
+                }
+
+                await this.filter.init({
+                    ...filterOptions,
+                    url: '/filters/races'
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
+        /**
+         * @param {{searchStr: string, url: string}} options
+         * @returns {Promise<void>}
+         */
+        async racesQuery(options) {
+            const opts = {
+                searchStr: '',
+                url: '/races',
+                ...options
+            }
+
+            try {
                 const apiOptions = {
                     page: 1,
                     limit: 30,
                     search: {
                         exact: false,
-                        value: ''
+                        value: opts.searchStr
                     },
                     order: [{
                         field: 'level',
@@ -40,11 +70,11 @@ export const useRacesStore = defineStore('RacesStore', {
                     }]
                 };
 
-                if (filterStore.getFilter && filterStore.isFilterCustomized) {
-                    apiOptions.filter = filterStore.getQueryParams();
+                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                    apiOptions.filter = this.filter.getQueryParams;
                 }
 
-                const res = await http.post('/races', apiOptions);
+                const res = await http.post(opts.url, apiOptions);
 
                 if (res.status !== 200) {
                     console.error(res.statusText);

@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import _ from 'lodash';
-import HTTPService from '@/utils/HTTPService';
-import { useFilterStore } from '@/store/FilterStore/FilterStore';
+import HTTPService from '@/services/HTTPService';
+import FilterService from '@/services/FilterService';
 
+const DB_NAME = 'classes';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
@@ -11,27 +12,56 @@ export const useClassesStore = defineStore('ClassesStore', {
         classes: [],
         selectedClass: undefined,
         currentArchetypes: [],
+        filter: undefined
     }),
 
     getters: {
+        getFilter: state => state.filter,
         getClasses: state => state.classes,
         getCurrentClass: state => state.selectedClass,
         getCurrentArchetypes: state => state.currentArchetypes
     },
 
     actions: {
-        async classesQuery() {
+        async initFilter(storeKey) {
             try {
-                const filterStore = useFilterStore();
+                this.filter = new FilterService();
 
-                await filterStore.initFilter('classes');
+                const filterOptions = {
+                    dbName: DB_NAME,
+                }
 
+                if (storeKey) {
+                    filterOptions.storeKey = storeKey;
+                }
+
+                await this.filter.init({
+                    ...filterOptions,
+                    url: '/filters/classes'
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
+        /**
+         * @param {{searchStr: string, url: string}} options
+         * @returns {Promise<void>}
+         */
+        async classesQuery(options) {
+            const opts = {
+                searchStr: '',
+                url: '/classes',
+                ...options
+            }
+
+            try {
                 const apiOptions = {
                     page: 1,
                     limit: 30,
                     search: {
                         exact: false,
-                        value: ''
+                        value: opts.searchStr
                     },
                     order: [{
                         field: 'level',
@@ -42,11 +72,11 @@ export const useClassesStore = defineStore('ClassesStore', {
                     }]
                 };
 
-                if (filterStore.getFilter && filterStore.isFilterCustomized) {
-                    apiOptions.filter = filterStore.getQueryParams();
+                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                    apiOptions.filter = this.filter.getQueryParams;
                 }
 
-                const res = await http.post('/classes', apiOptions);
+                const res = await http.post(opts.url, apiOptions);
 
                 if (res.status !== 200) {
                     console.error(res.statusText);

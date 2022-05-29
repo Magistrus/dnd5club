@@ -1,11 +1,10 @@
 <template>
     <content-layout :show-right-side="showRightSide">
-        <template #filter>
-            <list-filter/>
-        </template>
-
-        <template #header-block>
-            <section-header/>
+        <template
+            v-if="filter"
+            #filter
+        >
+            <list-filter :filter-instance="filter"/>
         </template>
 
         <template #items>
@@ -33,12 +32,10 @@
     import ClassItem from '@/views/Character/Classes/ClassItem';
     import ListFilter from '@/components/filter/ListFilter';
     import ContentLayout from '@/components/content/ContentLayout';
-    import SectionHeader from "@/components/SectionHeader";
 
     export default {
         name: 'ClassesView',
         components: {
-            SectionHeader,
             ContentLayout,
             ListFilter,
             ClassItem,
@@ -47,6 +44,10 @@
             classesStore: useClassesStore(),
         }),
         computed: {
+            filter() {
+                return this.classesStore.getFilter;
+            },
+
             showRightSide() {
                 return this.$route.name === 'classDetail'
             }

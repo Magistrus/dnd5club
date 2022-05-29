@@ -1,5 +1,8 @@
 <template>
-    <div class="filter">
+    <div
+        class="filter"
+        :class="{ 'in-tab': inTab }"
+    >
         <div class="filter__body">
             <div class="filter__search">
                 <label class="filter__search_field">
@@ -52,56 +55,70 @@
             </button>
         </div>
 
-        <div
+        <teleport
             v-if="!!filter"
-            v-show="showed"
-            class="filter__dropdown"
+            :to="inTab ? '[data-tab-filter]' : '[data-content-filter]'"
         >
-            <div class="filter__dropdown_body">
-                <filter-item-sources
-                    v-if="filter?.sources"
-                    :model-value="filter.sources"
-                    @update:model-value="setSourcesValue($event)"
-                />
+            <div
+                v-show="showed"
+                class="filter__dropdown"
+            >
+                <div class="filter__dropdown_body">
+                    <filter-item-sources
+                        v-if="filter?.sources"
+                        :model-value="filter.sources"
+                        @update:model-value="setSourcesValue($event)"
+                    />
 
-                <filter-item-checkboxes
-                    v-for="(block, blockKey) in otherFilters"
-                    :key="blockKey"
-                    :model-value="block.values"
-                    :name="block.name"
-                    @update:model-value="setOtherValue($event, blockKey)"
-                />
+                    <filter-item-checkboxes
+                        v-for="(block, blockKey) in otherFilters"
+                        :key="blockKey"
+                        :model-value="block.values"
+                        :name="block.name"
+                        @update:model-value="setOtherValue($event, blockKey)"
+                    />
+                </div>
             </div>
-        </div>
+        </teleport>
     </div>
 </template>
 
 <script>
     import _ from 'lodash';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import { useFilterStore } from '@/store/FilterStore/FilterStore';
     import FilterItemSources from '@/components/filter/FilterItem/FilterItemSources';
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
+    import FilterService from "@/services/FilterService";
 
     export default {
         name: 'ListFilter',
         components: { FilterItemCheckboxes, FilterItemSources, SvgIcon },
+        props: {
+            filterInstance: {
+                type: FilterService,
+                default: undefined,
+                required: true
+            },
+            inTab: {
+                type: Boolean,
+                default: false
+            },
+        },
         emits: ['clear-filter', 'search', 'update'],
         data: () => ({
             search: '',
             showed: false,
-            filterStore: useFilterStore(),
         }),
         computed: {
             filter: {
                 get() {
-                    return this.filterStore?.getFilter || undefined;
+                    return this.filterInstance?.getState || undefined;
                 },
 
                 async set(value) {
-                    await this.filterStore.saveFilter(value);
+                    await this.filterInstance.save(value);
 
-                    this.$emit('update', this.filterStore.getQueryParams());
+                    this.$emit('update', this.filterInstance.getQueryParams);
                 }
             },
 
@@ -125,7 +142,7 @@
             },
 
             isFilterCustomized() {
-                return this.filterStore.isFilterCustomized;
+                return this.filterInstance.isCustomized;
             },
         },
         methods: {
@@ -145,7 +162,7 @@
             },
 
             async resetFilter() {
-                await this.filterStore.resetFilter();
+                await this.filterInstance.reset();
             },
         }
     }
@@ -159,10 +176,9 @@
             width: 100%;
             display: flex;
             position: relative;
-            border: 1px solid var(--border);
-            border-radius: 12px;
             overflow: hidden;
             background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
         }
 
         &__search {
@@ -282,18 +298,28 @@
         }
 
         &__dropdown {
-            position: absolute;
-            top: calc(100% + 16px);
             background-color: var(--bg-sub-menu);
             width: 100%;
-            max-height: calc(var(--max-vh) - 72px - 42px - 73px - 16px); // head, filter, menu, padding
+            max-height: 100%;
             overflow: hidden auto;
-            z-index: 10;
             border-radius: 12px;
 
             &_body {
                 width: 100%;
                 padding: 16px;
+            }
+        }
+
+        &:not(.in-tab) {
+            .filter {
+                &__body {
+                    border: 1px solid var(--border);
+                    border-radius: 12px;
+                }
+
+                &__dropdown {
+                    border-radius: 0;
+                }
             }
         }
     }

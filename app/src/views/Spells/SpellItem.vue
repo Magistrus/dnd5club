@@ -12,7 +12,7 @@
             :href="href"
             class="spell-item"
             v-bind="$attrs"
-            @click.left.exact.prevent="navigate()"
+            @click.left.exact.prevent="clickHandler(navigate)"
         >
             <div class="spell-item__content">
                 <div
@@ -110,6 +110,10 @@
             spellItem: {
                 type: Object,
                 default: () => ({})
+            },
+            inTab: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -136,6 +140,16 @@
             updateGrid() {
                 this.$nextTick(() => this.$redrawVueMasonry('spell-items'))
             },
+
+            clickHandler(callback) {
+                if (!this.inTab) {
+                    callback();
+
+                    return;
+                }
+
+                console.log('in tab')
+            }
         }
     }
 </script>

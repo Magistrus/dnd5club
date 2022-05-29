@@ -1,34 +1,64 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/utils/HTTPService';
-import { useFilterStore } from '@/store/FilterStore/FilterStore';
+import HTTPService from '@/services/HTTPService';
+import FilterService from '@/services/FilterService';
 
+const DB_NAME = 'options';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useOptionsStore = defineStore('OptionsStore', {
     state: () => ({
         options: [],
-        selectedOption: undefined
+        selectedOption: undefined,
+        filter: undefined
     }),
 
     getters: {
+        getFilter: state => state.filter,
         getOptions: state => state.options,
         getCurrentOption: state => state.selectedOption
     },
 
     actions: {
-        async optionsQuery() {
+        async initFilter(storeKey) {
             try {
-                const filterStore = useFilterStore();
+                this.filter = new FilterService();
 
-                await filterStore.initFilter('options');
+                const filterOptions = {
+                    dbName: DB_NAME,
+                }
 
+                if (storeKey) {
+                    filterOptions.storeKey = storeKey;
+                }
+
+                await this.filter.init({
+                    ...filterOptions,
+                    url: '/filters/options'
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
+        /**
+         * @param {{searchStr: string, url: string}} options
+         * @returns {Promise<void>}
+         */
+        async optionsQuery(options) {
+            const opts = {
+                searchStr: '',
+                url: '/options',
+                ...options
+            }
+
+            try {
                 const apiOptions = {
                     page: 1,
                     limit: 120,
                     search: {
                         exact: false,
-                        value: ''
+                        value: opts.searchStr
                     },
                     order: [{
                         field: 'level',
@@ -39,11 +69,11 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     }]
                 };
 
-                if (filterStore.getFilter && filterStore.isFilterCustomized) {
-                    apiOptions.filter = filterStore.getQueryParams();
+                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                    apiOptions.filter = this.filter.getQueryParams;
                 }
 
-                const resp = await http.post('/options', apiOptions);
+                const resp = await http.post(opts.url, apiOptions);
 
                 this.options = resp.data;
             } catch (err) {

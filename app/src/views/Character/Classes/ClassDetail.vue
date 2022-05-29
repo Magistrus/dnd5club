@@ -23,7 +23,7 @@
             <swiper-slide
                 v-for="(tab, tabKey) in tabs.list"
                 :key="tabKey"
-                :class="{ 'is-active': currentTab?.name === tab.name }"
+                :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !currentTab?.name }"
                 class="class-detail__tab"
                 @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
             >
@@ -31,14 +31,16 @@
                     <svg-icon :icon-name="tab.icon"/>
                 </div>
 
-                <div class="class-detail__tab_name">
+                <div
+                    v-if="tab.name"
+                    class="class-detail__tab_name"
+                >
                     {{ tab.name }}
                 </div>
             </swiper-slide>
         </swiper>
 
         <div
-            v-if="currentTab?.content"
             ref="classBody"
             class="class-detail__body"
         >
@@ -50,6 +52,7 @@
                     :group-select="false"
                     :model-value="currentSelectArchetype"
                     :options="currentArchetypes"
+                    :searchable="false"
                     group-label="group"
                     group-values="list"
                     label="name"
@@ -83,7 +86,16 @@
                 </field-select>
             </div>
 
-            <div class="class-detail__body--inner">
+            <spells-view
+                v-if="currentTab?.name === 'Заклинания'"
+                :store-key="currentClass.name.eng.replaceAll(' ', '')"
+                :in-tab="true"
+            />
+
+            <div
+                v-else
+                class="class-detail__body--inner"
+            >
                 <!-- eslint-disable vue/no-v-html -->
                 <div
                     class="class-detail__raw"
@@ -129,13 +141,15 @@
     } from 'swiper';
     import SectionHeader from '@/components/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import HTTPService from '@/utils/HTTPService';
+    import HTTPService from '@/services/HTTPService';
     import { useClassesStore } from '@/store/CharacterStore/ClassesStore';
     import FieldSelect from '@/components/form/FieldType/FieldSelect';
+    import SpellsView from "@/views/Spells/SpellsView";
 
     export default {
         name: 'ClassDetail',
         components: {
+            SpellsView,
             FieldSelect,
             SvgIcon,
             SectionHeader,
@@ -216,7 +230,6 @@
 
                 if (this.currentClass?.images) {
                     this.tabs.list.push({
-                        name: 'Изображения',
                         icon: 'tab-images',
                         active: false,
                         order: this.tabs.length,
@@ -264,7 +277,7 @@
                 try {
                     const tab = this.tabs.list[index];
 
-                    if (!tab.content) {
+                    if (!tab.content && tab.name !== 'Заклинания') {
                         const res = await this.getTabContent(tab);
 
                         if (res.status !== 200) {
@@ -363,6 +376,10 @@
             height: 46px;
             flex: 1 1 100%;
             min-width: fit-content;
+
+            &.is-only-icon {
+                flex: 1 0 fit-content;
+            }
 
             & + & {
                 border-left: 1px solid var(--border);

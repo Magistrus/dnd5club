@@ -4,12 +4,26 @@
         class="content-layout"
     >
         <div class="content-layout__body">
-            <div class="content-layout__list">
+            <div
+                ref="list"
+                class="content-layout__list"
+            >
                 <div
-                    v-if="$slots.filter"
+                    ref="filter"
                     class="content-layout__filter"
                 >
-                    <slot name="filter"/>
+                    <div
+                        v-if="$slots.filter"
+                        class="content-layout__filter_body"
+                    >
+                        <slot name="filter"/>
+                    </div>
+
+                    <div
+                        data-content-filter
+                        class="content-layout__filter_dropdown"
+                        :style="{ height: `${dropdownHeight}px` }"
+                    />
                 </div>
 
                 <div class="content-layout__items">
@@ -40,6 +54,8 @@
         },
         data: () => ({
             uiStore: useUIStore(),
+            filterUpdated: false,
+            dropdownHeight: 0
         }),
         computed: {
             layoutClasses() {
@@ -50,6 +66,32 @@
                 }
             }
         },
+        updated() {
+            if (!this.filterUpdated && this.$refs.list && this.$refs.filter && this.$slots.filter) {
+                this.calcDropdownHeight();
+
+                this.filterUpdated = true;
+            }
+        },
+        mounted() {
+            this.calcDropdownHeight();
+
+            window.addEventListener('resize', this.calcDropdownHeight);
+        },
+        beforeUnmount() {
+            window.removeEventListener('resize', this.calcDropdownHeight);
+        },
+        methods: {
+            calcDropdownHeight() {
+                if (this.$refs.filter && this.$refs.list) {
+                    const { filter, list } = this.$refs;
+                    const filterRect = filter.getBoundingClientRect();
+                    const listRect = list.getBoundingClientRect();
+
+                    this.dropdownHeight = listRect.height - filterRect.height;
+                }
+            }
+        }
     }
 </script>
 
@@ -64,7 +106,6 @@
             height: 100%;
             display: flex;
             justify-content: flex-start;
-            position: relative;
         }
 
         &__list {
@@ -77,7 +118,25 @@
 
         &__filter {
             flex-shrink: 0;
-            padding-bottom: 24px;
+            position: relative;
+
+            &_body {
+                padding-bottom: 24px;
+            }
+
+            &_dropdown {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 10;
+
+                ::v-deep(*) {
+                    pointer-events: auto;
+                }
+            }
         }
 
         &__items {

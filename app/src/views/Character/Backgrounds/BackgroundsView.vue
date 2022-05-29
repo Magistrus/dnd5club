@@ -1,7 +1,10 @@
 <template>
     <content-layout :show-right-side="showRightSide">
-        <template #filter>
-            <list-filter/>
+        <template
+            v-if="filter"
+            #filter
+        >
+            <list-filter :filter-instance="filter"/>
         </template>
 
         <template #items>
@@ -41,6 +44,10 @@
             backgroundsStore: useBackgroundsStore(),
         }),
         computed: {
+            filter() {
+                return this.backgroundsStore.getFilter;
+            },
+
             showRightSide() {
                 return this.$route.name === 'backgroundDetail'
             },

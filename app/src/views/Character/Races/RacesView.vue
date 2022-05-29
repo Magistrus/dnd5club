@@ -1,7 +1,10 @@
 <template>
-    <content-layout :show-right-side="$route.name === 'raceDetail'">
-        <template #filter>
-            <list-filter/>
+    <content-layout :show-right-side="showRightSide">
+        <template
+            v-if="filter"
+            #filter
+        >
+            <list-filter :filter-instance="filter"/>
         </template>
 
         <template #items>
@@ -14,7 +17,7 @@
                 transition-duration="0.15s"
             >
                 <race-item
-                    v-for="(el, key) in getRaces"
+                    v-for="(el, key) in racesStore.getRaces"
                     :key="key"
                     :race-item="el"
                     :to="{ path: el.url }"
@@ -25,7 +28,6 @@
 </template>
 
 <script>
-    import { mapState } from 'pinia/dist/pinia';
     import ListFilter from '@/components/filter/ListFilter';
     import { useRacesStore } from '@/store/CharacterStore/RacesStore';
     import ContentLayout from '@/components/content/ContentLayout';
@@ -38,8 +40,17 @@
             ContentLayout,
             ListFilter,
         },
+        data: () => ({
+            racesStore: useRacesStore(),
+        }),
         computed: {
-            ...mapState(useRacesStore, ['getRaces', 'getCurrentRace']),
+            filter() {
+                return this.racesStore.getFilter;
+            },
+
+            showRightSide() {
+                return this.$route.name === 'raceDetail'
+            },
         },
     }
 </script>

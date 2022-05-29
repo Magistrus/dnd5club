@@ -1,13 +1,14 @@
 <template>
     <div
         v-if="modelValue?.length"
+        ref="filterItem"
         :class="{ 'is-active': opened }"
         class="filter-item"
     >
         <div class="filter-item__header">
             <div
                 class="filter-item__trigger"
-                @click.left.exact.prevent="opened = !opened"
+                @click.left.exact.prevent="toggleBlock"
             >
                 <div class="filter-item__name">
                     {{ name }}
@@ -16,7 +17,7 @@
                 <button
                     class="filter-item__button filter-item__button--toggle"
                     type="button"
-                    @click.self.left.exact.prevent="opened = !opened"
+                    @click.self.left.exact.prevent="toggleBlock"
                 >
                     <svg-icon icon-name="arrow-stroke"/>
                 </button>
@@ -114,6 +115,15 @@
 
             emitValues(values) {
                 this.$emit('update:model-value', values);
+            },
+
+            toggleBlock() {
+                this.opened = !this.opened;
+
+                this.$refs.filterItem.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                })
             }
         }
     }

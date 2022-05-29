@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { useUIStore } from '@/store/UIStore/UIStore';
 import { useClassesStore } from '@/store/CharacterStore/ClassesStore';
 import { useRacesStore } from '@/store/CharacterStore/RacesStore';
 import { useSpellsStore } from '@/store/SpellsStore/SpellsStore';
@@ -15,6 +14,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             const store = useClassesStore();
 
+            await store.initFilter();
             await store.classesQuery();
 
             next();
@@ -41,6 +41,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             const store = useRacesStore();
 
+            await store.initFilter();
             await store.racesQuery();
 
             next();
@@ -53,6 +54,7 @@ const routes = [
                 beforeEnter: async (to, from, next) => {
                     const store = useRacesStore();
 
+                    await store.initFilter();
                     await store.raceInfoQuery(to.params.raceName, to.params.subrace);
 
                     next()
@@ -67,6 +69,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             const store = useTraitsStore();
 
+            await store.initFilter();
             await store.traitsQuery();
 
             next();
@@ -93,6 +96,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             const store = useBackgroundsStore();
 
+            await store.initFilter();
             await store.backgroundsQuery();
 
             next();
@@ -119,6 +123,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             const store = useOptionsStore();
 
+            await store.initFilter();
             await store.optionsQuery();
 
             next();
@@ -145,6 +150,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             const store = useSpellsStore();
 
+            await store.initFilter();
             await store.spellsQuery();
 
             next()
@@ -172,9 +178,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const UIStore = useUIStore();
-
-    UIStore.closeMenu();
     next();
 })
 
