@@ -2492,75 +2492,75 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .Bard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/bard_2.png);
+  background-image: url(/resources/assets/img/classes/bard.webp);
 }
 
 #left_block.classes .table_card tr td .Barbarian.wrapper:before {
-  background-image: url(/resources/assets/img/classes/barbarian_2.png);
+  background-image: url(/resources/assets/img/classes/barbarian.webp);
 }
 
 #left_block.classes .table_card tr td .Fighter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/fighter_2.png);
+  background-image: url(/resources/assets/img/classes/fighter.webp);
 }
 
 #left_block.classes .table_card tr td .Wizard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/wizard_2.png);
+  background-image: url(/resources/assets/img/classes/wizard.webp);
 }
 
 #left_block.classes .table_card tr td .Druid.wrapper:before {
-  background-image: url(/resources/assets/img/classes/druid_2.png);
+  background-image: url(/resources/assets/img/classes/druid.webp);
 }
 
 #left_block.classes .table_card tr td .Cleric.wrapper:before {
-  background-image: url(/resources/assets/img/classes/cleric_2.png);
+  background-image: url(/resources/assets/img/classes/cleric.webp);
 }
 
 #left_block.classes .table_card tr td .Artificer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/artificer_2.png);
+  background-image: url(/resources/assets/img/classes/artificer.webp);
 }
 
 #left_block.classes .table_card tr td .Warlock.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warlock_2.png);
+  background-image: url(/resources/assets/img/classes/warlock.webp);
 }
 
 #left_block.classes .table_card tr td .Monk.wrapper:before {
-  background-image: url(/resources/assets/img/classes/monk_2.png);
+  background-image: url(/resources/assets/img/classes/monk.webp);
 }
 
 #left_block.classes .table_card tr td .Paladin.wrapper:before {
-  background-image: url(/resources/assets/img/classes/paladin_2.png);
+  background-image: url(/resources/assets/img/classes/paladin.webp);
 }
 
 #left_block.classes .table_card tr td .Rogue.wrapper:before {
-  background-image: url(/resources/assets/img/classes/rogue_2.png);
+  background-image: url(/resources/assets/img/classes/rogue.webp);
 }
 
 #left_block.classes .table_card tr td .Ranger.wrapper:before {
-  background-image: url(/resources/assets/img/classes/ranger_2.png);
+  background-image: url(/resources/assets/img/classes/ranger.webp);
 }
 
 #left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/sorcerer_2.png);
+  background-image: url(/resources/assets/img/classes/sorcerer.webp);
 }
 
 #left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/sorcerer_2.png);
+  background-image: url(/resources/assets/img/classes/sorcerer.webp);
 }
 
 #left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/blood_hunter_2.png);
+  background-image: url(/resources/assets/img/classes/blood-hunter.webp);
 }
 
 #left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warrior_sidekick_2.png);
+  background-image: url(/resources/assets/img/classes/warrior-sidekick.webp);
 }
 
 #left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/spellcaster_sidekick_2.png);
+  background-image: url(/resources/assets/img/classes/spellcaster-sidekick.webp);
 }
 
 #left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/expert_sidekick_2.png);
+  background-image: url(/resources/assets/img/classes/expert-sidekick.webp);
 }
 
 #left_block.classes .table_card tr td .wrapper:before {
@@ -2577,7 +2577,7 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr.open td .wrapper:before {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 #left_block.classes .table_card tr td:hover .wrapper:before {
