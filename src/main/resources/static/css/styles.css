@@ -2624,12 +2624,12 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .content .two_row {
-  margin-bottom: 24px;  
+  margin-bottom: 18px;  
 }
 
 @media (max-width: 1200px) {
   #left_block.classes .table_card tr td .content .two_row {
-    margin-bottom: 16px;  
+    margin-bottom: 12px;  
   }
 }
 
