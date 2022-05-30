@@ -2411,6 +2411,12 @@ table.table_card tr.dtrg-group td {
   padding: 16px 16px !important;
 }
 
+@media (max-width: 1200px) {
+  #left_block.classes .table_card tr td .wrapper {
+    padding: 12px 12px !important;
+  }
+}
+
 #left_block.classes .table_card tr td .content {
   display: flex;
   flex-direction: column;
@@ -2610,6 +2616,7 @@ table.table_card tr.dtrg-group td {
   color: var(--text-btn-color);
   border-radius: 20px;
   padding: 4px 8px;
+  display: inline-block;
 }
 
 #left_block.classes .table_card tr td .content .row_name {
@@ -2618,6 +2625,12 @@ table.table_card tr.dtrg-group td {
 
 #left_block.classes .table_card tr td .content .two_row {
   margin-bottom: 24px;  
+}
+
+@media (max-width: 1200px) {
+  #left_block.classes .table_card tr td .content .two_row {
+    margin-bottom: 16px;  
+  }
 }
 
 
