@@ -262,6 +262,7 @@ function selectRace(data) {
 }
 
 function setActiveSubrace(data, raceName, subraceName) {
+	subraceName = subraceName.replace(raceName, '');
 	let $name = $('#'+ subraceName);
     $('#race_name').text($name.attr('data-name'));
     $('#english_name').html(data.englishName + ' ' + $name.attr('data-english-name'));
