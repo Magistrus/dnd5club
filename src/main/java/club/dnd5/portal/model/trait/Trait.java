@@ -33,7 +33,7 @@ public class Trait {
 	
 	private String name;
 	private String englishName;
-	
+	private String altName;
 	private String requirement;
 	
 	@Column(columnDefinition = "TEXT")
@@ -54,4 +54,8 @@ public class Trait {
 	@ManyToOne
 	@JoinColumn(name = "source")
 	private Book book;
+
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
 }
