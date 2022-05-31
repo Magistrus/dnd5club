@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.book.TypeBook;
-import club.dnd5.portal.model.classes.Option;
+import club.dnd5.portal.model.trait.Trait;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,14 +14,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OptionApi {
+public class TraitApi {
 	protected NameApi name;
 	private String url;
 	private Boolean homebrew;
-	public OptionApi(Option option) {
-		name = new NameApi(option.getName(), option.getEnglishName());
-		url = String.format("/options/%s", option.getUrlName());
-		if (option.getBook().getType() == TypeBook.CUSTOM) {
+	public TraitApi(Trait trait) {
+		name = new NameApi(trait.getName(), trait.getEnglishName());
+		url = String.format("/traits/%s", trait.getUrlName());
+		if (trait.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;
 		}
 	}
