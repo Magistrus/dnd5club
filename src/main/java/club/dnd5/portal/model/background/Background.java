@@ -39,7 +39,8 @@ public class Background {
 
 	private String name;
 	private String englishName;
-
+	private String altName;
+	
 	@Column(columnDefinition = "TEXT")
 	private String toolOwnership;
 
