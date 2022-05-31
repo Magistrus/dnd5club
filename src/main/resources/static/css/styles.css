@@ -2633,6 +2633,12 @@ table.table_card tr.dtrg-group td {
   }
 }
 
+@media (max-width: 1200px) {
+  #left_block.classes table.table_card tr.dtrg-group td {
+    margin: 24px 0 0px -16px;
+  }
+}
+
 
 /******** Правый блок ********/
 #right_block {
