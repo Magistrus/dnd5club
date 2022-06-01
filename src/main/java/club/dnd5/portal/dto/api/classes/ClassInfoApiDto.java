@@ -36,7 +36,7 @@ public class ClassInfoApiDto {
 
 	public ClassInfoApiDto(Archetype archetype, Collection<String> images) {
 		HeroClass heroClass = archetype.getHeroClass();
-		name = new NameApi(archetype.getCapitalizeName(), archetype.getEnglishName());
+		name = new NameApi(archetype.getHeroClass().getCapitalazeName() + " " + archetype.getCapitalizeName(), archetype.getHeroClass().getEnglishName()+ " " + archetype.getEnglishName());
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab-description", 1, true));
