@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import _ from 'lodash';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
+import errorHandler from '@/helpers/errorHandler';
 
 const DB_NAME = 'classes';
 const http = new HTTPService();
@@ -40,7 +41,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                     url: '/filters/classes'
                 });
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -79,7 +80,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                 const res = await http.post(opts.url, apiOptions);
 
                 if (res.status !== 200) {
-                    console.error(res.statusText);
+                    errorHandler(res.statusText);
 
                     return;
                 }
@@ -117,7 +118,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.classes = result;
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -151,7 +152,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                 const res = await http.post(url);
 
                 if (res.status !== 200) {
-                    console.error(res.statusText);
+                    errorHandler(res.statusText);
 
                     return;
                 }
@@ -165,7 +166,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                         }))
                 };
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 

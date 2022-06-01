@@ -92,6 +92,7 @@
     import FilterItemSources from '@/components/filter/FilterItem/FilterItemSources';
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
     import FilterService from "@/services/FilterService";
+    import errorHandler from "@/helpers/errorHandler";
 
     export default {
         name: 'ListFilter',
@@ -127,7 +128,7 @@
 
                         this.emitSearch(value);
                     } catch (err) {
-                        console.error(err)
+                        errorHandler(err)
                     }
                 }
             },
@@ -143,7 +144,7 @@
 
                         this.emitFilter();
                     } catch (err) {
-                        console.error(err)
+                        errorHandler(err)
                     }
                 }
             },

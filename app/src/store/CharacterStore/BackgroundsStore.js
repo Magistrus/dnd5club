@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
+import errorHandler from '@/helpers/errorHandler';
 
 const DB_NAME = 'backgrounds';
 const http = new HTTPService();
@@ -37,7 +38,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                     url: '/filters/backgrounds'
                 });
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -77,7 +78,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
 
                 this.backgrounds = resp.data;
             } catch (err) {
-                console.error(err)
+                errorHandler(err)
             }
         },
 
@@ -87,7 +88,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
 
                 this.selectedBackground = resp.data;
             } catch (err) {
-                console.error(err)
+                errorHandler(err)
             }
         }
     }

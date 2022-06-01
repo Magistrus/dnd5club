@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import _ from 'lodash';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
+import errorHandler from '@/helpers/errorHandler';
 
 const DB_NAME = 'races';
 const http = new HTTPService();
@@ -38,7 +39,7 @@ export const useRacesStore = defineStore('RacesStore', {
                     url: '/filters/races'
                 });
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -77,7 +78,7 @@ export const useRacesStore = defineStore('RacesStore', {
                 const res = await http.post(opts.url, apiOptions);
 
                 if (res.status !== 200) {
-                    console.error(res.statusText);
+                    errorHandler(res.statusText);
 
                     return;
                 }
@@ -121,7 +122,7 @@ export const useRacesStore = defineStore('RacesStore', {
 
                 this.races = result;
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -130,7 +131,7 @@ export const useRacesStore = defineStore('RacesStore', {
                 const res = await http.post(url);
 
                 if (res.status !== 200) {
-                    console.error(res.statusText);
+                    errorHandler(res.statusText);
 
                     return;
                 }
@@ -146,7 +147,7 @@ export const useRacesStore = defineStore('RacesStore', {
                     }
                 });
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 

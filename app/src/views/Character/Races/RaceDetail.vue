@@ -13,6 +13,7 @@
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useRacesStore } from '@/store/CharacterStore/RacesStore';
+    import errorHandler from "@/helpers/errorHandler";
 
     export default {
         name: 'RaceDetail',
@@ -31,7 +32,7 @@
                     next();
                 })
                 .catch(err => {
-                    console.error(err)
+                    errorHandler(err)
                 });
         },
         data: () => ({

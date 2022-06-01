@@ -1,6 +1,6 @@
 <template>
-    <content-layout
-        v-if="!inTab"
+    <component
+        :is="layout"
         :show-right-side="showRightSide"
         @list-end="nextPage"
     >
@@ -23,34 +23,7 @@
                 :to="{path: spell.url}"
             />
         </template>
-    </content-layout>
-
-    <tab-layout
-        v-else
-        @list-end="nextPage"
-    >
-        <template
-            v-if="filter"
-            #filter
-        >
-            <list-filter
-                :filter-instance="filter"
-                :in-tab="inTab"
-                @search="spellsQuery"
-                @update="spellsQuery"
-            />
-        </template>
-
-        <template #items>
-            <spell-item
-                v-for="(spell, key) in spellsStore.getSpells"
-                :key="key"
-                :spell-item="spell"
-                :to="{path: spell.url}"
-                :in-tab="inTab"
-            />
-        </template>
-    </tab-layout>
+    </component>
 </template>
 
 <script>
@@ -59,6 +32,7 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import SpellItem from '@/views/Spells/SpellItem';
     import TabLayout from "@/components/content/TabLayout";
+    import { shallowRef } from "vue";
 
     export default {
         name: 'SpellsView',
@@ -84,6 +58,10 @@
         },
         data: () => ({
             spellsStore: useSpellsStore(),
+            layoutComponents: {
+                tab: shallowRef(TabLayout),
+                content: shallowRef(ContentLayout)
+            }
         }),
         computed: {
             filter() {
@@ -97,6 +75,12 @@
             showRightSide() {
                 return this.$route.name === 'spellDetail'
             },
+
+            layout() {
+                return this.inTab
+                    ? this.layoutComponents.tab
+                    : this.layoutComponents.content;
+            }
         },
         async mounted() {
             await this.spellsStore.initFilter(this.storeKey);

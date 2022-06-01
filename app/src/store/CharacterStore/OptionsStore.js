@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
+import errorHandler from '@/helpers/errorHandler';
 
 const DB_NAME = 'options';
 const http = new HTTPService();
@@ -37,7 +38,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     url: '/filters/options'
                 });
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -77,7 +78,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
                 this.options = resp.data;
             } catch (err) {
-                console.error(err)
+                errorHandler(err)
             }
         },
 
@@ -87,7 +88,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
                 this.selectedOption = resp.data;
             } catch (err) {
-                console.error(err)
+                errorHandler(err)
             }
         }
     }

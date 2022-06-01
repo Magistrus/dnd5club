@@ -87,6 +87,7 @@
 <script>
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useUIStore } from '@/store/UIStore/UIStore';
+    import errorHandler from "@/helpers/errorHandler";
 
     export default {
         name: 'SectionHeader',
@@ -145,7 +146,7 @@
 
                         return;
                     } catch (err) {
-                        console.error(err)
+                        errorHandler(err)
                     }
                 }
 

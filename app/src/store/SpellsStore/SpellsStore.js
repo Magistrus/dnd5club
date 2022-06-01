@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
+import errorHandler from '@/helpers/errorHandler';
 
 const DB_NAME = 'spells';
 const http = new HTTPService();
@@ -47,7 +48,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 await this.filter.init(filterOptions);
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
@@ -92,7 +93,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 return data
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
 
                 return [];
             }
@@ -154,7 +155,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 return resp.data
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
 
                 return undefined;
             }

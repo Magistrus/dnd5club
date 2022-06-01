@@ -1,6 +1,7 @@
 import localforage from 'localforage';
 import _ from 'lodash';
 import HTTPService from '@/services/HTTPService';
+import errorHandler from '@/helpers/errorHandler';
 
 export default class FilterService {
     constructor() {
@@ -159,7 +160,7 @@ export default class FilterService {
 
             await this.store.setItem(this.storeKey, restored);
         } catch (err) {
-            console.error(err);
+            errorHandler(err);
         }
     }
 

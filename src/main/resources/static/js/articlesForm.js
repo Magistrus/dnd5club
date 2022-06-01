@@ -71,7 +71,7 @@ function editorSaveHandler() {
             realTextarea.value = JSON.stringify(output);
         })
         .catch(function (err) {
-            console.error(err);
+            errorHandler(err);
         })
 }
 

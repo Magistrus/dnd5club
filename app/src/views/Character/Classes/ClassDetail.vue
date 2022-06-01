@@ -145,6 +145,7 @@
     import { useClassesStore } from '@/store/CharacterStore/ClassesStore';
     import FieldSelect from '@/components/form/FieldType/FieldSelect';
     import SpellsView from "@/views/Spells/SpellsView";
+    import errorHandler from "@/helpers/errorHandler";
 
     export default {
         name: 'ClassDetail',
@@ -172,7 +173,7 @@
                     next();
                 })
                 .catch(err => {
-                    console.error(err)
+                    errorHandler(err)
                 });
         },
         data: () => ({
@@ -281,7 +282,7 @@
                         const res = await this.getTabContent(tab);
 
                         if (res.status !== 200) {
-                            console.error(res.statusText);
+                            errorHandler(res.statusText);
 
                             return;
                         }
@@ -303,7 +304,7 @@
                         }
                     })
                 } catch (err) {
-                    console.error(err)
+                    errorHandler(err)
                 }
             },
         }

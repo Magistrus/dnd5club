@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import localforage from 'localforage';
 import { DB_NAME, THEME_DB_KEY } from '@/common/const/UI';
 import HTTPService from '@/services/HTTPService';
+import errorHandler from '@/helpers/errorHandler';
 
 const http = new HTTPService();
 
@@ -52,7 +53,7 @@ export const useUIStore = defineStore('UIStore', {
 
                 await http.post('/session/theme', { theme: themeName })
             } catch (err) {
-                console.error(err);
+                errorHandler(err);
             }
         },
 
