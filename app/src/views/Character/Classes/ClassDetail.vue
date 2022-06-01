@@ -23,7 +23,7 @@
             <swiper-slide
                 v-for="(tab, tabKey) in tabs.list"
                 :key="tabKey"
-                :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !currentTab?.name }"
+                :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !tab.name }"
                 class="class-detail__tab"
                 @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
             >
@@ -162,7 +162,7 @@
             const store = useClassesStore();
 
             store.deselectClass();
-            store.classInfoQuery(to.params.className, to.params?.classArchetype)
+            store.classInfoQuery(to.url)
                 .then(async () => {
                     this.loading = false;
 
@@ -306,10 +306,6 @@
                     console.error(err)
                 }
             },
-
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('classes-detail-images'))
-            },
         }
     }
 </script>
@@ -319,7 +315,6 @@
         overflow: hidden;
         width: 100%;
         height: 100%;
-        background-color: var(--bg-secondary);
         display: flex;
         flex-direction: column;
 

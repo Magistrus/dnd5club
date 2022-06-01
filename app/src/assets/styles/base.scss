@@ -64,7 +64,7 @@ button {
 }
 
 .become-button {
-  @include css_anim();
+  @include css_anim($time: .2s);
 
   padding: 8px 16px;
   border-radius: 30px;

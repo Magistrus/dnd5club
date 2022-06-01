@@ -70,7 +70,7 @@ export const useRacesStore = defineStore('RacesStore', {
                     }]
                 };
 
-                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
                     apiOptions.filter = this.filter.getQueryParams;
                 }
 
@@ -125,14 +125,8 @@ export const useRacesStore = defineStore('RacesStore', {
             }
         },
 
-        async raceInfoQuery(raceName, subrace) {
+        async raceInfoQuery(url) {
             try {
-                let url = `/races/${ raceName }`;
-
-                if (subrace) {
-                    url += `/${ subrace }`;
-                }
-
                 const res = await http.post(url);
 
                 if (res.status !== 200) {

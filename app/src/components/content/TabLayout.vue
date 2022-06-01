@@ -21,7 +21,10 @@
             />
         </div>
 
-        <div class="tab-layout__items">
+        <div
+            ref="items"
+            class="tab-layout__items"
+        >
             <div class="tab-layout__items--inner">
                 <slot name="items"/>
             </div>
@@ -31,8 +34,11 @@
 
 <script>
 
+    import { useInfiniteScroll } from "@vueuse/core/index";
+
     export default {
         name: 'TabLayout',
+        emits: ['list-end'],
         data: () => ({
             filterUpdated: false,
             dropdownHeight: 0
@@ -48,6 +54,16 @@
             this.calcDropdownHeight();
 
             window.addEventListener('resize', this.calcDropdownHeight);
+
+            useInfiniteScroll(
+                this.$refs.items,
+                () => {
+                    this.$emit('list-end');
+                },
+                {
+                    distance: 250
+                }
+            );
         },
         beforeUnmount() {
             window.removeEventListener('resize', this.calcDropdownHeight);

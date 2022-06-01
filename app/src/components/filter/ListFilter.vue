@@ -11,10 +11,11 @@
                     </span>
 
                     <input
-                        v-model="search"
+                        v-model.trim="search"
                         placeholder="Поиск..."
                         type="text"
-                        @input.prevent="$emit('search', search)"
+                        :autocomplete="false"
+                        :spellcheck="false"
                     >
                 </label>
 
@@ -105,22 +106,45 @@
                 type: Boolean,
                 default: false
             },
+            exactSearch: {
+                type: Boolean,
+                default: false
+            }
         },
         emits: ['clear-filter', 'search', 'update'],
         data: () => ({
-            search: '',
-            showed: false,
+            showed: false
         }),
         computed: {
-            filter: {
+            search: {
                 get() {
-                    return this.filterInstance?.getState || undefined;
+                    return this.filterInstance?.getSearchState || ''
                 },
 
                 async set(value) {
-                    await this.filterInstance.save(value);
+                    try {
+                        await this.filterInstance.updateSearch(value);
 
-                    this.$emit('update', this.filterInstance.getQueryParams);
+                        this.emitSearch(value);
+                    } catch (err) {
+                        console.error(err)
+                    }
+                }
+            },
+
+            filter: {
+                get() {
+                    return this.filterInstance?.getFilterState || undefined;
+                },
+
+                async set(value) {
+                    try {
+                        await this.filterInstance.save(value);
+
+                        this.emitFilter();
+                    } catch (err) {
+                        console.error(err)
+                    }
                 }
             },
 
@@ -147,6 +171,9 @@
                 return this.filterInstance.isCustomized;
             },
         },
+        beforeUnmount() {
+            this.cancelEmits();
+        },
         methods: {
             setSourcesValue(value) {
                 this.filter = {
@@ -165,7 +192,29 @@
 
             async resetFilter() {
                 await this.filterInstance.reset();
+
+                this.emitFilter();
             },
+
+            // eslint-disable-next-line func-names
+            emitSearch: _.debounce(function(value) {
+                this.$emit('search', value);
+            }, 500),
+
+            // eslint-disable-next-line func-names
+            emitFilter: _.debounce(function() {
+                this.$emit('update');
+            }, 500),
+
+            cancelEmits() {
+                if (typeof this.emitSearch?.cancel === "function") {
+                    this.emitSearch.cancel();
+                }
+
+                if (typeof this.emitFilter?.cancel === "function") {
+                    this.emitFilter.cancel();
+                }
+            }
         }
     }
 </script>

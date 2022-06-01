@@ -11,10 +11,11 @@ export default class HTTPService {
         });
     }
 
-    async post(url, data) {
+    async post(url, data, signal) {
         return this.instance({
             url,
             data,
+            signal,
             method: 'post',
         })
     }

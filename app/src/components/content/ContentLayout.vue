@@ -5,6 +5,7 @@
     >
         <div class="content-layout__body">
             <div
+                id="left_block"
                 ref="list"
                 class="content-layout__list"
             >
@@ -26,13 +27,17 @@
                     />
                 </div>
 
-                <div class="content-layout__items">
+                <div
+                    ref="items"
+                    class="content-layout__items"
+                >
                     <slot name="items"/>
                 </div>
             </div>
 
             <div
                 v-if="showRightSide"
+                id="right_block"
                 class="content-layout__selected"
             >
                 <router-view/>
@@ -43,6 +48,7 @@
 
 <script>
     import { useUIStore } from '@/store/UIStore/UIStore';
+    import { useInfiniteScroll } from "@vueuse/core/index";
 
     export default {
         name: 'ContentLayout',
@@ -52,6 +58,7 @@
                 default: false
             }
         },
+        emits: ['list-end'],
         data: () => ({
             uiStore: useUIStore(),
             filterUpdated: false,
@@ -64,7 +71,7 @@
                     'is-fullscreen': this.uiStore.getContentConfig.fullscreen,
                     'is-small': !this.uiStore.getContentConfig.fullscreen,
                 }
-            }
+            },
         },
         updated() {
             if (!this.filterUpdated && this.$refs.list && this.$refs.filter && this.$slots.filter) {
@@ -77,6 +84,16 @@
             this.calcDropdownHeight();
 
             window.addEventListener('resize', this.calcDropdownHeight);
+
+            useInfiniteScroll(
+                this.$refs.items,
+                () => {
+                    this.$emit('list-end');
+                },
+                {
+                    distance: 1080
+                }
+            );
         },
         beforeUnmount() {
             window.removeEventListener('resize', this.calcDropdownHeight);
@@ -108,7 +125,7 @@
             justify-content: flex-start;
         }
 
-        &__list {
+        &__list#left_block {
             width: 100%;
             height: 100%;
             display: flex;
@@ -144,18 +161,22 @@
             overflow: auto;
         }
 
-        &__selected {
-            width: calc(60% - 24px);
-            height: 100%;
-            margin-left: 24px;
+        &__selected#right_block {
+            display: block;
+            top: 0;
+            right: 0;
+            width: calc(60% - 48px);
+            height: calc(100% - 48px);
+            margin: 24px;
             overflow: hidden;
             border-radius: 12px;
+            background-color: var(--bg-secondary);
         }
 
         &.is-small {
             &.is-showed-right-side {
                 .content-layout {
-                    &__list {
+                    &__list#left_block {
                         width: 40%;
                     }
                 }
@@ -169,7 +190,7 @@
                     overflow: hidden;
                 }
 
-                &__selected {
+                &__selected#right_block {
                     position: absolute;
                     width: 100%;
                     margin-left: 0;

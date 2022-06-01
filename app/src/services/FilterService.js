@@ -6,14 +6,23 @@ export default class FilterService {
     constructor() {
         this.http = new HTTPService();
         this.filter = undefined;
+        this.search = '';
     }
 
-    get getState() {
+    get getFilterState() {
         return this.filter;
+    }
+
+    get getSearchState() {
+        return this.search
     }
 
     get isCustomized() {
         let status = false;
+
+        if (!this.getFilterState) {
+            return status;
+        }
 
         const isValueCustomized = value => value.default !== value.value
 
@@ -318,5 +327,19 @@ export default class FilterService {
         this.filter = clone;
 
         await this.store.setItem(this.storeKey, clone);
+    }
+
+    updateSearch(searchStr = '') {
+        return new Promise((resolve, reject) => {
+            if (typeof searchStr !== 'string') {
+                reject(Error('searchStr is not a string'));
+
+                return;
+            }
+
+            this.search = searchStr;
+
+            resolve();
+        })
     }
 }

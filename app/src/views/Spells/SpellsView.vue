@@ -2,34 +2,33 @@
     <content-layout
         v-if="!inTab"
         :show-right-side="showRightSide"
+        @list-end="nextPage"
     >
         <template
             v-if="filter"
             #filter
         >
-            <list-filter :filter-instance="filter"/>
+            <list-filter
+                :filter-instance="filter"
+                @search="spellsQuery"
+                @update="spellsQuery"
+            />
         </template>
 
         <template #items>
-            <div
-                v-masonry="'spell-items'"
-                class="spell-items"
-                gutter="12"
-                horizontal-order="false"
-                item-selector=".spell-item"
-                transition-duration="0.15s"
-            >
-                <spell-item
-                    v-for="(el, key) in spellsStore.getSpells"
-                    :key="key"
-                    :spell-item="el"
-                    :to="{path: el.url}"
-                />
-            </div>
+            <spell-item
+                v-for="(spell, key) in spells"
+                :key="key"
+                :spell-item="spell"
+                :to="{path: spell.url}"
+            />
         </template>
     </content-layout>
 
-    <tab-layout v-else>
+    <tab-layout
+        v-else
+        @list-end="nextPage"
+    >
         <template
             v-if="filter"
             #filter
@@ -37,15 +36,17 @@
             <list-filter
                 :filter-instance="filter"
                 :in-tab="inTab"
+                @search="spellsQuery"
+                @update="spellsQuery"
             />
         </template>
 
         <template #items>
             <spell-item
-                v-for="(el, key) in spellsStore.getSpells"
+                v-for="(spell, key) in spellsStore.getSpells"
                 :key="key"
-                :spell-item="el"
-                :to="{path: el.url}"
+                :spell-item="spell"
+                :to="{path: spell.url}"
                 :in-tab="inTab"
             />
         </template>
@@ -65,7 +66,7 @@
             TabLayout,
             ContentLayout,
             SpellItem,
-            ListFilter
+            ListFilter,
         },
         props: {
             inTab: {
@@ -89,17 +90,41 @@
                 return this.spellsStore.getFilter;
             },
 
+            spells() {
+                return this.spellsStore.getSpells || [];
+            },
+
             showRightSide() {
                 return this.$route.name === 'spellDetail'
             },
         },
-        async beforeCreate() {
-            if (this.inTab && this.storeKey) {
-                const store = useSpellsStore();
+        async mounted() {
+            await this.spellsStore.initFilter(this.storeKey);
+            await this.spellsStore.initSpells(this.url);
 
-                await store.initFilter(this.storeKey);
-                await store.spellsQuery();
+            if (this.spells.length && this.$route.name !== 'spellDetail') {
+                await this.$router.push({ path: this.spells[0].url })
+            }
+        },
+        beforeUnmount() {
+            this.spellsStore.clearStore();
+        },
+        methods: {
+            async spellsQuery() {
+                await this.spellsStore.initSpells(this.url);
+            },
+
+            async nextPage() {
+                await this.spellsStore.nextPage();
             }
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .spell-items {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+</style>

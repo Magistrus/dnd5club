@@ -6,12 +6,11 @@
         v-bind="$props"
     >
         <a
+            v-bind="$attrs"
             ref="spellItem"
-            v-masonry-tile
             :class="getClassList(isActive)"
             :href="href"
             class="spell-item"
-            v-bind="$attrs"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
             <div class="spell-item__content">
@@ -97,15 +96,31 @@
             </div>
         </a>
     </router-link>
+
+    <base-modal
+        v-if="spell.data"
+        v-model="spell.show"
+    >
+        <template #title>
+            {{ spell.data.name.rus }}
+        </template>
+
+        <template #default>
+            <spell-body :spell="spell.data"/>
+        </template>
+    </base-modal>
 </template>
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useResizeObserver } from '@vueuse/core/index';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
+    import { useSpellsStore } from "@/store/SpellsStore/SpellsStore";
+    import SpellBody from "@/views/Spells/SpellBody";
+    import BaseModal from "@/components/UI/BaseModal";
 
     export default {
         name: 'SpellItem',
+        components: { BaseModal, SpellBody },
         directives: {
             CapitalizeFirst
         },
@@ -121,6 +136,13 @@
                 default: false
             }
         },
+        data: () => ({
+            spellsStore: useSpellsStore(),
+            spell: {
+                show: false,
+                data: undefined
+            }
+        }),
         computed: {
             hasComponents() {
                 const { spellItem } = this;
@@ -128,22 +150,13 @@
                 return spellItem?.components?.v || spellItem?.components?.s || !!spellItem?.components?.m
             },
         },
-        mounted() {
-            this.$nextTick(() => {
-                useResizeObserver(this.$refs.spellItem, this.updateGrid);
-            });
-        },
         methods: {
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
-                    'is-spell-selected': this.$route.name === 'spellDetail',
-                    'is-green': this.spellItem?.homebrew
+                    'is-green': this.spellItem?.source?.homebrew,
+                    'in-tab': this.inTab
                 }
-            },
-
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('spell-items'))
             },
 
             clickHandler(callback) {
@@ -153,7 +166,13 @@
                     return;
                 }
 
-                console.warn('in tab')
+                this.spellsStore.spellInfoQuery(this.spellItem.url)
+                    .then(spell => {
+                        this.spell = {
+                            show: true,
+                            data: spell
+                        }
+                    });
             }
         }
     }
@@ -166,18 +185,7 @@
         background-color: var(--bg-table-list);
         width: 100%;
         margin-bottom: 12px;
-
-        @include media-min($md) {
-            width: calc(50% - 6px);
-        }
-
-        @include media-min($xxl) {
-            width: calc(100% / 3 - 12px * 2 / 3);
-        }
-
-        &.is-spell-selected {
-            width: 100%;
-        }
+        display: block;
 
         &.is-green {
             .spell-item {
@@ -191,6 +199,7 @@
             display: flex;
             flex-direction: row;
             padding: 8px 10px;
+            width: 100%;
         }
 
         &__lvl {
@@ -283,8 +292,6 @@
         }
 
         &.router-link-active {
-            width: 100%;
-
             .spell-item {
                 &__content {
                     background-color: var(--primary-active);

@@ -163,7 +163,7 @@
                     'router-link-active': isActive
                         || this.$route.fullPath.match(new RegExp(`^${ this.classItem?.url }`)),
                     'is-class-selected': this.$route.name === 'classDetail',
-                    'is-green': this.classItem?.homebrew
+                    'is-green': this.classItem?.source?.homebrew
                 }
             },
 
@@ -196,7 +196,11 @@
         }
 
         &.is-green {
-            background-color: var(--bg-homebrew-gradient-left);
+            .class-item {
+                &__content {
+                    background-color: var(--bg-homebrew-gradient-left);
+                }
+            }
         }
 
         &__content {

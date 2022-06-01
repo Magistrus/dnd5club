@@ -55,7 +55,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
             try {
                 const apiOptions = {
                     page: 1,
-                    limit: 120,
+                    limit: 70,
                     search: {
                         exact: false,
                         value: opts.searchStr
@@ -69,7 +69,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                     }]
                 };
 
-                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
                     apiOptions.filter = this.filter.getQueryParams;
                 }
 

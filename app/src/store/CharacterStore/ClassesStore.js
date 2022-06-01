@@ -72,7 +72,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                     }]
                 };
 
-                if (this.filter && this.filter.getState && this.filter.isCustomized) {
+                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
                     apiOptions.filter = this.filter.getQueryParams;
                 }
 
@@ -121,10 +121,8 @@ export const useClassesStore = defineStore('ClassesStore', {
             }
         },
 
-        async classInfoQuery(className, archName) {
+        async classInfoQuery(url) {
             try {
-                let url = `/classes/${ className }`;
-
                 const getArchetypes = list => {
                     const sorted = [];
 
@@ -146,13 +144,9 @@ export const useClassesStore = defineStore('ClassesStore', {
                     }));
                 }
 
-                const classLink = this.classes.find(classItem => classItem.url === url);
+                const classLink = this.classes.find(classItem => url.match(classItem.url));
 
                 this.currentArchetypes = getArchetypes(classLink.archetypes);
-
-                if (archName) {
-                    url += `/${ archName }`;
-                }
 
                 const res = await http.post(url);
 
