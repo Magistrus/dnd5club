@@ -262,7 +262,8 @@ function selectRace(data) {
 }
 
 function setActiveSubrace(data, raceName, subraceName) {
-	let $name = $('#'+ subraceName);
+	subraceName = subraceName.replace(raceName, '');
+	let $name = $('#' + raceName + subraceName);
     $('#race_name').text($name.attr('data-name'));
     $('#english_name').html(data.englishName + ' ' + $name.attr('data-english-name'));
     document.title = data.name + ' (' + subraceName + ') - ' + $('#' + subraceName).text() + ' | Подклассы D&D 5e';
