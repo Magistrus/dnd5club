@@ -42,7 +42,7 @@
         name: 'SpellDetail',
         components: { SpellBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
-            await this.loadNewSpell(to.fullPath);
+            await this.loadNewSpell(to.path);
 
             next();
         },
@@ -54,11 +54,11 @@
         }),
         computed: {
             urlForCopy() {
-                return window.location.origin + this.$route.fullPath;
+                return window.location.origin + this.$route.path;
             },
         },
         async mounted() {
-            await this.loadNewSpell(this.$route.fullPath);
+            await this.loadNewSpell(this.$route.path);
         },
         methods: {
             close() {

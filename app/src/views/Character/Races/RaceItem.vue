@@ -168,7 +168,7 @@
         methods: {
             getParentClasses(isActive) {
                 return {
-                    'router-link-active': isActive || this.$route.fullPath.match(new RegExp(`^${ this.raceItem.url }`)),
+                    'router-link-active': isActive || this.$route.path.match(new RegExp(`^${ this.raceItem.url }`)),
                     'is-race-selected': this.$route.name === 'raceDetail',
                     'is-green': this.raceItem.type?.name.toLowerCase() === 'homebrew'
                 }

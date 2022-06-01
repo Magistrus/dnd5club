@@ -11,58 +11,70 @@ const http = new HTTPService();
 export const useClassesStore = defineStore('ClassesStore', {
     state: () => ({
         classes: [],
-        selectedClass: undefined,
-        currentArchetypes: [],
-        filter: undefined
+        filter: undefined,
+        config: {
+            page: 0,
+            url: '/classes',
+        },
+        controllers: {
+            classesQuery: undefined,
+            classInfoQuery: undefined
+        }
     }),
 
     getters: {
         getFilter: state => state.filter,
         getClasses: state => state.classes,
-        getCurrentClass: state => state.selectedClass,
-        getCurrentArchetypes: state => state.currentArchetypes
     },
 
     actions: {
-        async initFilter(storeKey) {
+        async initFilter(storeKey, url) {
             try {
                 this.filter = new FilterService();
 
                 const filterOptions = {
                     dbName: DB_NAME,
+                    url: '/filters/classes'
                 }
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
-                await this.filter.init({
-                    ...filterOptions,
-                    url: '/filters/classes'
-                });
+                if (url) {
+                    filterOptions.url = url
+                }
+
+                await this.filter.init(filterOptions);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
         /**
-         * @param {{searchStr: string, url: string}} options
-         * @returns {Promise<void>}
+         * @param {{}} options
+         * @param {number} options.page
+         * @param {number} options.limit
+         * @param {object} options.filter
+         * @param {boolean} options.search.exact
+         * @param {string} options.search.value
+         * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
+         * @returns {Promise<*[]>}
          */
-        async classesQuery(options) {
-            const opts = {
-                searchStr: '',
-                url: '/classes',
-                ...options
-            }
-
+        async classesQuery(options = {}) {
             try {
+                if (this.controllers.classesQuery) {
+                    this.controllers.classesQuery.abort()
+                }
+
+                this.controllers.classesQuery = new AbortController();
+
                 const apiOptions = {
-                    page: 1,
-                    limit: 30,
+                    page: 0,
+                    limit: -1,
                     search: {
                         exact: false,
-                        value: opts.searchStr
+                        value: this.filter?.getSearchState || ''
                     },
                     order: [{
                         field: 'level',
@@ -70,20 +82,13 @@ export const useClassesStore = defineStore('ClassesStore', {
                     }, {
                         field: 'name',
                         direction: 'asc'
-                    }]
+                    }],
+                    ...options
                 };
 
-                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
-                    apiOptions.filter = this.filter.getQueryParams;
-                }
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.classesQuery.signal);
 
-                const res = await http.post(opts.url, apiOptions);
-
-                if (res.status !== 200) {
-                    errorHandler(res.statusText);
-
-                    return;
-                }
+                this.controllers.classesQuery = undefined;
 
                 const result = [];
                 const sort = list => {
@@ -109,57 +114,56 @@ export const useClassesStore = defineStore('ClassesStore', {
                     return formatted
                 }
 
-                for (let i = 0; i < res.data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     result.push({
-                        ...res.data[i],
-                        archetypes: sort(res.data[i].archetypes),
+                        ...data[i],
+                        archetypes: sort(data[i].archetypes),
                     })
                 }
 
-                this.classes = result;
+                return result
             } catch (err) {
                 errorHandler(err);
+
+                return []
             }
+        },
+
+        async initClasses(url) {
+            this.clearClasses();
+            this.clearConfig();
+
+            if (url) {
+                this.config.url = url
+            }
+
+            const config = {
+                page: this.config.page,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            this.classes = await this.classesQuery(config);
         },
 
         async classInfoQuery(url) {
             try {
-                const getArchetypes = list => {
-                    const sorted = [];
-
-                    for (let i = 0; i < list.length; i++) {
-                        const el = list[i];
-
-                        if (Array.isArray(el) && el.length) {
-                            sorted.push(...el);
-                        }
-                    }
-
-                    return sorted.map(el => ({
-                        group: el.name,
-                        list: el.list.map(arch => ({
-                            name: arch.name.rus,
-                            source: arch.source.shortName,
-                            url: arch.url
-                        }))
-                    }));
+                if (this.controllers.classInfoQuery) {
+                    this.controllers.classInfoQuery.abort()
                 }
 
-                const classLink = this.classes.find(classItem => url.match(classItem.url));
+                this.controllers.classInfoQuery = new AbortController();
 
-                this.currentArchetypes = getArchetypes(classLink.archetypes);
+                const { data } = await http.post(url, {}, this.controllers.classInfoQuery.signal);
 
-                const res = await http.post(url);
+                this.controllers.classInfoQuery = undefined;
 
-                if (res.status !== 200) {
-                    errorHandler(res.statusText);
-
-                    return;
-                }
-
-                this.selectedClass = {
-                    ...res.data,
-                    tabs: _.sortBy(res.data.tabs, ['order'])
+                return {
+                    ...data,
+                    tabs: _.sortBy(data.tabs, ['order'])
                         .map((tab, index) => ({
                             ...tab,
                             active: index === 0
@@ -167,11 +171,30 @@ export const useClassesStore = defineStore('ClassesStore', {
                 };
             } catch (err) {
                 errorHandler(err);
+
+                return undefined
             }
         },
 
-        deselectClass() {
-            this.selectedClass = undefined;
+        clearClasses() {
+            this.classes = [];
+        },
+
+        clearFilter() {
+            this.filter = undefined;
+        },
+
+        clearConfig() {
+            this.config = {
+                page: 0,
+                url: '/classes',
+            };
+        },
+
+        clearStore() {
+            this.clearClasses();
+            this.clearFilter();
+            this.clearConfig();
         }
     }
 });

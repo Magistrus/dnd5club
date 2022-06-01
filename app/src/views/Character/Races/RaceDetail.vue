@@ -45,7 +45,7 @@
             },
 
             urlForCopy() {
-                return window.location.origin + this.$route.fullPath
+                return window.location.origin + this.$route.path
             }
         },
         methods: {}

@@ -1,107 +1,132 @@
 <template>
-    <div
-        v-if="!loading && currentClass"
-        class="class-detail"
-    >
+    <div class="class-detail">
         <section-header
             :close="closeClass"
             :copy="urlForCopy"
-            :subtitle="currentClass.name.eng"
-            :title="currentClass.name.rus"
+            :subtitle="currentClass?.name?.eng || ''"
+            :title="currentClass?.name?.rus || ''"
             fullscreen
         />
 
-        <swiper
-            v-if="tabs.list.length"
-            :free-mode="true"
-            :modules="tabs.modules"
-            :mousewheel="false"
-            :scrollbar="{ draggable: true, hide: true, snapOnRelease: true }"
-            :slides-per-view="'auto'"
-            class="class-detail__tabs"
+        <div
+            v-if="loading"
+            class="class-detail__content"
         >
-            <swiper-slide
-                v-for="(tab, tabKey) in tabs.list"
-                :key="tabKey"
-                :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !tab.name }"
-                class="class-detail__tab"
-                @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
-            >
-                <div class="class-detail__tab_icon">
-                    <svg-icon :icon-name="tab.icon"/>
+            <div class="class-detail__loader">
+                <div class="class-detail__loader_img">
+                    <img
+                        alt=""
+                        src="/app/img/loader.png"
+                    >
                 </div>
-
-                <div
-                    v-if="tab.name"
-                    class="class-detail__tab_name"
-                >
-                    {{ tab.name }}
-                </div>
-            </swiper-slide>
-        </swiper>
+            </div>
+        </div>
 
         <div
-            ref="classBody"
-            class="class-detail__body"
+            v-else-if="error"
+            class="class-detail__content"
         >
-            <div
-                v-if="currentArchetypes.length && currentTab.name === 'Навыки'"
-                class="class-detail__select"
-            >
-                <field-select
-                    :group-select="false"
-                    :model-value="currentSelectArchetype"
-                    :options="currentArchetypes"
-                    :searchable="false"
-                    group-label="group"
-                    group-values="list"
-                    label="name"
-                    track-by="url"
-                >
-                    <template #option="{ option }">
-                        <div
-                            v-if="option?.group"
-                            class="class-detail__select_option"
-                        >
-                            <span class="class-detail__select_option--name">{{ option.group }}</span>
-                        </div>
-
-                        <router-link
-                            v-else-if="option?.name"
-                            :to="option.url"
-                            class="class-detail__select_option"
-                        >
-                            <span class="class-detail__select_option--name">{{ option.name }}</span>
-
-                            <span
-                                v-if="option?.source"
-                                class="class-detail__select_option--source"
-                            >[{{ option.source }}]</span>
-                        </router-link>
-                    </template>
-
-                    <template #placeholder>
-                        --- Архетипы ---
-                    </template>
-                </field-select>
+            <div class="class-detail__err">
+                err
             </div>
+        </div>
 
-            <spells-view
-                v-if="currentTab?.name === 'Заклинания'"
-                :store-key="currentClass.name.eng.replaceAll(' ', '')"
-                :in-tab="true"
-            />
+        <div
+            v-else-if="currentClass"
+            class="class-detail__content"
+        >
+            <swiper
+                v-if="tabs.list.length"
+                :free-mode="true"
+                :modules="tabs.modules"
+                :mousewheel="false"
+                :scrollbar="{ draggable: true, hide: true, snapOnRelease: true }"
+                :slides-per-view="'auto'"
+                class="class-detail__tabs"
+            >
+                <swiper-slide
+                    v-for="(tab, tabKey) in tabs.list"
+                    :key="tabKey"
+                    :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !tab.name }"
+                    class="class-detail__tab"
+                    @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
+                >
+                    <div class="class-detail__tab_icon">
+                        <svg-icon :icon-name="tab.icon"/>
+                    </div>
+
+                    <div
+                        v-if="tab.name"
+                        class="class-detail__tab_name"
+                    >
+                        {{ tab.name }}
+                    </div>
+                </swiper-slide>
+            </swiper>
 
             <div
-                v-else
-                class="class-detail__body--inner"
+                ref="classBody"
+                class="class-detail__body"
             >
-                <!-- eslint-disable vue/no-v-html -->
                 <div
-                    class="class-detail__raw"
-                    v-html="currentTab.content"
+                    v-if="currentArchetypes.length && currentTab.name === 'Навыки'"
+                    class="class-detail__select"
+                >
+                    <field-select
+                        :group-select="false"
+                        :model-value="currentSelectArchetype"
+                        :options="currentArchetypes"
+                        :searchable="false"
+                        group-label="group"
+                        group-values="list"
+                        label="name"
+                        track-by="url"
+                    >
+                        <template #option="{ option }">
+                            <div
+                                v-if="option?.group"
+                                class="class-detail__select_option"
+                            >
+                                <span class="class-detail__select_option--name">{{ option.group }}</span>
+                            </div>
+
+                            <div
+                                v-else-if="option?.name"
+                                class="class-detail__select_option"
+                                @click.left.prevent.exact="goToArchetype(option.url)"
+                            >
+                                <span class="class-detail__select_option--name">{{ option.name }}</span>
+
+                                <span
+                                    v-if="option?.source"
+                                    class="class-detail__select_option--source"
+                                >[{{ option.source }}]</span>
+                            </div>
+                        </template>
+
+                        <template #placeholder>
+                            --- Архетипы ---
+                        </template>
+                    </field-select>
+                </div>
+
+                <spells-view
+                    v-if="currentTab?.name === 'Заклинания'"
+                    :store-key="currentClass.name.eng.replaceAll(' ', '')"
+                    :in-tab="true"
                 />
-                <!-- eslint-enable vue/no-v-html -->
+
+                <div
+                    v-else
+                    class="class-detail__body--inner"
+                >
+                    <!-- eslint-disable vue/no-v-html -->
+                    <div
+                        class="class-detail__raw"
+                        v-html="currentTab.content"
+                    />
+                    <!-- eslint-enable vue/no-v-html -->
+                </div>
             </div>
         </div>
     </div>
@@ -118,20 +143,6 @@
     >
         <template #toolbar/>
     </vue-easy-lightbox>
-
-    <div
-        v-show="loading"
-        class="class-detail"
-    >
-        <div class="class-detail__loader">
-            <div class="class-detail__loader_img">
-                <img
-                    alt=""
-                    src="/app/img/loader.png"
-                >
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>
@@ -157,29 +168,17 @@
             Swiper,
             SwiperSlide,
         },
-        beforeRouteUpdate(to, from, next) {
-            this.loading = true;
+        async beforeRouteUpdate(to, from, next) {
+            await this.loadNewClass(to.path);
 
-            const store = useClassesStore();
-
-            store.deselectClass();
-            store.classInfoQuery(to.url)
-                .then(async () => {
-                    this.loading = false;
-
-                    await this.initTabs();
-                    await this.setTab(0);
-
-                    next();
-                })
-                .catch(err => {
-                    errorHandler(err)
-                });
+            next();
         },
         data: () => ({
             http: new HTTPService(),
             classesStore: useClassesStore(),
             loading: true,
+            error: false,
+            currentClass: undefined,
             currentTab: undefined,
             tabs: {
                 list: [],
@@ -192,11 +191,11 @@
         }),
         computed: {
             urlForCopy() {
-                return window.location.origin + this.$route.fullPath
+                return window.location.origin + this.$route.path
             },
 
-            currentClass() {
-                return this.classesStore.getCurrentClass || undefined
+            classes() {
+                return this.classesStore.getClasses || []
             },
 
             currentSelectArchetype() {
@@ -204,7 +203,7 @@
 
                 for (let i = 0; i < this.currentArchetypes.length && !selected; i++) {
                     for (let index = 0; index < this.currentArchetypes[i].list.length && !selected; index++) {
-                        if (this.currentArchetypes[i].list[index].url === this.$route.fullPath) {
+                        if (this.currentArchetypes[i].list[index].url === this.$route.path) {
                             selected = this.currentArchetypes[i].list[index];
                         }
                     }
@@ -214,22 +213,68 @@
             },
 
             currentArchetypes() {
-                return this.classesStore.getCurrentArchetypes || undefined
+                const getArchetypes = list => {
+                    const sorted = [];
+
+                    for (let i = 0; i < list.length; i++) {
+                        const el = list[i];
+
+                        if (Array.isArray(el) && el.length) {
+                            sorted.push(...el);
+                        }
+                    }
+
+                    return sorted.map(el => ({
+                        group: el.name,
+                        list: el.list.map(arch => ({
+                            name: arch.name.rus,
+                            source: arch.source.shortName,
+                            url: arch.url
+                        }))
+                    }));
+                }
+
+                const classLink = this.classes.find(classItem => this.$route.path.match(classItem.url));
+
+                return classLink
+                    ? getArchetypes(classLink.archetypes)
+                    : [];
             },
         },
-        async beforeMount() {
-            await this.initTabs();
-
-            this.loading = false;
+        async mounted() {
+            await this.loadNewClass(this.$route.path);
         },
         methods: {
-            async initTabs() {
-                this.tabs.list = this.currentClass.tabs.map(tab => ({
+            async loadNewClass(url) {
+                try {
+                    this.error = false;
+                    this.loading = true;
+                    this.currentTab = undefined;
+                    this.tabs.list = [];
+                    this.images = {
+                        show: false,
+                        index: 0
+                    };
+
+                    const loadedClass = await this.classesStore.classInfoQuery(url);
+
+                    await this.initTabs(loadedClass);
+
+                    this.currentClass = loadedClass;
+
+                    this.loading = false;
+                } catch (err) {
+                    this.error = true;
+                }
+            },
+
+            async initTabs(loadedClass) {
+                this.tabs.list = loadedClass.tabs.map(tab => ({
                     ...tab,
                     content: undefined
                 }));
 
-                if (this.currentClass?.images) {
+                if (loadedClass.images) {
                     this.tabs.list.push({
                         icon: 'tab-images',
                         active: false,
@@ -237,14 +282,34 @@
                         callback: () => {
                             this.images.show = true
                         }
-                    })
+                    });
                 }
 
                 await this.setTab(0);
             },
 
-            closeClass() {
-                this.$router.push({ name: 'classes' });
+            async setTab(index) {
+                try {
+                    const tab = this.tabs.list[index];
+
+                    if (!tab.content && tab.name !== 'Заклинания') {
+                        const { data } = await this.getTabContent(tab);
+
+                        tab.content = data;
+                    }
+
+                    this.currentTab = tab;
+
+                    this.$nextTick(() => {
+                        if (this.$refs.classBody) {
+                            this.$refs.classBody.scrollIntoView({
+                                block: 'start',
+                            });
+                        }
+                    })
+                } catch (err) {
+                    errorHandler(err)
+                }
             },
 
             async clickTabHandler({
@@ -274,38 +339,21 @@
                 return res;
             },
 
-            async setTab(index) {
-                try {
-                    const tab = this.tabs.list[index];
+            goToArchetype(path) {
+                this.$router.push({ path })
+            },
 
-                    if (!tab.content && tab.name !== 'Заклинания') {
-                        const res = await this.getTabContent(tab);
+            scrollToSection() {
+                const section = this.$refs.classBody.querySelector(this.$route.hash);
 
-                        if (res.status !== 200) {
-                            errorHandler(res.statusText);
+                section.scrollIntoView({
+                    block: "start",
+                    behavior: "smooth"
+                });
+            },
 
-                            return;
-                        }
-
-                        tab.content = res.data;
-                    }
-
-                    this.currentTab = tab;
-
-                    this.$nextTick(() => {
-                        if (this.$refs.classBody) {
-                            this.$refs.classBody.scrollIntoView({
-                                block: 'start'
-                            });
-                        }
-
-                        if (this.$refs.rawDetail) {
-                            this.$refs.rawDetail.innerHTML = tab.content;
-                        }
-                    })
-                } catch (err) {
-                    errorHandler(err)
-                }
+            closeClass() {
+                this.$router.push({ name: 'classes' });
             },
         }
     }
@@ -444,6 +492,14 @@
                     color: var(--text-g-color);
                 }
             }
+        }
+
+        &__content {
+            width: 100%;
+            flex: 1 1 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         &__body {

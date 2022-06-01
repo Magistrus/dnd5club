@@ -10,6 +10,7 @@
         >
             <list-filter
                 :filter-instance="filter"
+                :in-tab="inTab"
                 @search="spellsQuery"
                 @update="spellsQuery"
             />
@@ -19,6 +20,7 @@
             <spell-item
                 v-for="(spell, key) in spells"
                 :key="key"
+                :in-tab="inTab"
                 :spell-item="spell"
                 :to="{path: spell.url}"
             />
@@ -86,7 +88,7 @@
             await this.spellsStore.initFilter(this.storeKey);
             await this.spellsStore.initSpells(this.url);
 
-            if (this.spells.length && this.$route.name !== 'spellDetail') {
+            if (this.spells.length && this.$route.name === 'spells') {
                 await this.$router.push({ path: this.spells[0].url })
             }
         },
