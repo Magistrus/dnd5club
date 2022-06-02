@@ -2411,6 +2411,12 @@ table.table_card tr.dtrg-group td {
   padding: 16px 16px !important;
 }
 
+@media (max-width: 1200px) {
+  #left_block.classes .table_card tr td .wrapper {
+    padding: 12px 12px !important;
+  }
+}
+
 #left_block.classes .table_card tr td .content {
   display: flex;
   flex-direction: column;
@@ -2492,75 +2498,71 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .Bard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/bard_2.png);
+  background-image: url(/resources/assets/img/classes/bard_2.webp);
 }
 
 #left_block.classes .table_card tr td .Barbarian.wrapper:before {
-  background-image: url(/resources/assets/img/classes/barbarian_2.png);
+  background-image: url(/resources/assets/img/classes/barbarian_2.webp);
 }
 
 #left_block.classes .table_card tr td .Fighter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/fighter_2.png);
+  background-image: url(/resources/assets/img/classes/fighter_2.webp);
 }
 
 #left_block.classes .table_card tr td .Wizard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/wizard_2.png);
+  background-image: url(/resources/assets/img/classes/wizard_2.webp);
 }
 
 #left_block.classes .table_card tr td .Druid.wrapper:before {
-  background-image: url(/resources/assets/img/classes/druid_2.png);
+  background-image: url(/resources/assets/img/classes/druid_2.webp);
 }
 
 #left_block.classes .table_card tr td .Cleric.wrapper:before {
-  background-image: url(/resources/assets/img/classes/cleric_2.png);
+  background-image: url(/resources/assets/img/classes/cleric_2.webp);
 }
 
 #left_block.classes .table_card tr td .Artificer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/artificer_2.png);
+  background-image: url(/resources/assets/img/classes/artificer_2.webp);
 }
 
 #left_block.classes .table_card tr td .Warlock.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warlock_2.png);
+  background-image: url(/resources/assets/img/classes/warlock_2.webp);
 }
 
 #left_block.classes .table_card tr td .Monk.wrapper:before {
-  background-image: url(/resources/assets/img/classes/monk_2.png);
+  background-image: url(/resources/assets/img/classes/monk_2.webp);
 }
 
 #left_block.classes .table_card tr td .Paladin.wrapper:before {
-  background-image: url(/resources/assets/img/classes/paladin_2.png);
+  background-image: url(/resources/assets/img/classes/paladin_2.webp);
 }
 
 #left_block.classes .table_card tr td .Rogue.wrapper:before {
-  background-image: url(/resources/assets/img/classes/rogue_2.png);
+  background-image: url(/resources/assets/img/classes/rogue_2.webp);
 }
 
 #left_block.classes .table_card tr td .Ranger.wrapper:before {
-  background-image: url(/resources/assets/img/classes/ranger_2.png);
+  background-image: url(/resources/assets/img/classes/ranger_2.webp);
 }
 
 #left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/sorcerer_2.png);
-}
-
-#left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/sorcerer_2.png);
+  background-image: url(/resources/assets/img/classes/sorcerer_2.webp);
 }
 
 #left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/blood_hunter_2.png);
+  background-image: url(/resources/assets/img/classes/blood-hunter_2.webp);
 }
 
 #left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warrior_sidekick_2.png);
+  background-image: url(/resources/assets/img/classes/warrior-sidekick_2.webp);
 }
 
 #left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/spellcaster_sidekick_2.png);
+  background-image: url(/resources/assets/img/classes/spellcaster-sidekick_2.webp);
 }
 
 #left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/expert_sidekick_2.png);
+  background-image: url(/resources/assets/img/classes/expert-sidekick_2.webp);
 }
 
 #left_block.classes .table_card tr td .wrapper:before {
@@ -2577,7 +2579,7 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr.open td .wrapper:before {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 #left_block.classes .table_card tr td:hover .wrapper:before {
@@ -2614,6 +2616,7 @@ table.table_card tr.dtrg-group td {
   color: var(--text-btn-color);
   border-radius: 20px;
   padding: 4px 8px;
+  display: inline-block;
 }
 
 #left_block.classes .table_card tr td .content .row_name {
@@ -2621,7 +2624,19 @@ table.table_card tr.dtrg-group td {
 }
 
 #left_block.classes .table_card tr td .content .two_row {
-  margin-bottom: 24px;  
+  margin-bottom: 18px;  
+}
+
+@media (max-width: 1200px) {
+  #left_block.classes .table_card tr td .content .two_row {
+    margin-bottom: 12px;  
+  }
+}
+
+@media (max-width: 1200px) {
+  #left_block.classes table.table_card tr.dtrg-group td {
+    margin: 24px 0 0px -16px;
+  }
 }
 
 

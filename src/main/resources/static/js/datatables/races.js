@@ -31,7 +31,7 @@ $(document).ready(function () {
                             if (row.subraces.length > 0) {
                                 result += '<div class="archetype_list"><h4>Основное:</h4><ul>';
                                 row.subraces.forEach(function (item, i, arr) {
-                                    result += '<li class="archetype_item" id="' + item.englishName.split(' ')
+                                    result += '<li class="archetype_item" id="' + row.englishName + item.englishName.split(' ')
                                     .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
@@ -39,7 +39,7 @@ $(document).ready(function () {
                             if (row.settingSubraces.length > 0) {
                                 result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Сеттинги:</h4><ul>';
                                 row.settingSubraces.forEach(function (item, i, arr) {
-                                    result += '<li class="archetype_item" id="' + item.englishName.split(' ')
+                                    result += '<li class="archetype_item" id="' + row.englishName + item.englishName.split(' ')
                                     .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
@@ -47,7 +47,7 @@ $(document).ready(function () {
                             if (row.moduleSubraces.length > 0) {
                                 result += '<div class="archetype_list setting_source ' + (!isSettingsShowed('races') ? 'hide_block' : '') + '"><h4>Приключения:</h4><ul>';
                                 row.moduleSubraces.forEach(function (item, i, arr) {
-                                    result += '<li class="archetype_item" id="' + item.englishName.split(' ')
+                                    result += '<li class="archetype_item" id="' + row.englishName + item.englishName.split(' ')
                                     .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div></div>';
@@ -55,7 +55,7 @@ $(document).ready(function () {
                             if (row.homebrewSubraces.length > 0) {
                                 result += '<div class="homebrew_list archetype_list custom_source ' + (!isHomebrewShowed('races') ? 'hide_block' : '') + '"><h4>Homebrew:</h4><ul>';
                                 row.homebrewSubraces.forEach(function (item, i, arr) {
-                                    result += '<li class="archetype_item" id="' + item.englishName.split(' ')
+                                    result += '<li class="archetype_item" id="' + row.englishName + item.englishName.split(' ')
                                     .join('_') + '" data-arch-source="'+item.bookshort+'"' + '" data-name="'+item.name+'"'  + '" data-english-name="'+item.englishName+'"><i class="add_favorites"></i><p>' + item.name + ' <span class="tip" title="' + item.book + '">' + item.bookshort + '</span><span> / ' + item.englishName + '</span></p></li>';
                                 });
                                 result += '</ul></div>';
@@ -262,7 +262,8 @@ function selectRace(data) {
 }
 
 function setActiveSubrace(data, raceName, subraceName) {
-	let $name = $('#' + subraceName);
+	subraceName = subraceName.replace(raceName, '');
+	let $name = $('#' + raceName + subraceName);
     $('#race_name').text($name.attr('data-name'));
     $('#english_name').html(data.englishName + ' ' + $name.attr('data-english-name'));
     document.title = data.name + ' (' + subraceName + ') - ' + $('#' + subraceName).text() + ' | Подклассы D&D 5e';

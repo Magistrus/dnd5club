@@ -13,6 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OptionRequesApi extends RequestApi {
-    public OptionFilter filter;
+public class TraitRequesApi extends RequestApi {
+    public TraitFilter filter;
 }

@@ -1,6 +1,7 @@
 package club.dnd5.portal.dto.api.spell;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.classes.HeroClass;
@@ -20,6 +21,8 @@ public class SpellClassApi {
 	private String source;
 	private String url;
 	private String icon;
+    @JsonProperty("class")
+	private String parent;
 	
 	public SpellClassApi(HeroClass heroClass){
 		name = heroClass.getCapitalazeName();
@@ -30,6 +33,7 @@ public class SpellClassApi {
 	public SpellClassApi(Archetype archetype) {
 		name = archetype.getCapitalizeName();
 		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName(), archetype.getUrlName());
+		parent = archetype.getHeroClass().getCapitalazeName();
 	}
 	
 	public SpellClassApi(Race race) {
