@@ -2319,11 +2319,16 @@ table.table_card tr.dtrg-group td {
   padding: 0px !important;
 }
 
+#left_block.races .table_card tr td {
+  height: 260px;
+}
+
 .table_card tr td .wrapper {
   display: flex;
   flex-direction: row;
   z-index: 1;
   padding: 16px 16px !important;
+  height: 100%;
 }
 
 @media (max-width: 1200px) {
@@ -2333,11 +2338,10 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr td .content {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: 100%; */
   z-index: 2;
+  height: 100%;
 }
 
 .table_card tr td .content .row_name {
@@ -2415,6 +2419,10 @@ table.table_card tr.dtrg-group td {
 
 .table_card tr.open td button .close {
   display: block !important;
+}
+
+#left_block.races .table_card tr td .content .bottom_row {
+  margin-top: auto;
 }
 
 .table_card tr td .archetypes {
@@ -3603,7 +3611,7 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(22%, 1fr));
 }
 
 .block_information #left_block.races .table_card tbody {
