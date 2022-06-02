@@ -33,26 +33,25 @@
 @media (max-width: 1720px) {
   .container>div {
     margin-left: 20%;
-    margin-right: 2%;
   }
 
-  .compact_menu .container>div {
+  /* .compact_menu .container>div {
     margin-right: auto;
-    margin-left: auto;
-  }
+  } */
 }
 
 @media (max-width: 1480px) {
   .compact_menu .container>div {
     margin-left: 8%;
-    margin-right: 2%;
+  }
+  .container>div.main_page_wrapper {
+    margin-right: 24px;
   }
 }
 
 @media (max-width: 1360px) {
   .container>div {
     margin-left: 23%;
-    margin-right: 2%;
   }
 }
 
@@ -62,6 +61,10 @@
     margin-left: 0;
     /* margin-bottom: 72px; */
     height: calc(100% - 72px);
+  }
+
+  .container>div.main_page_wrapper {
+    margin-right: 0px;
   }
 }
 
