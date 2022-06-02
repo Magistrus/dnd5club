@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class VersionControllerAdvice {
 	@Value("${git.commit.id}")
 	private String version;
+	
+	@Value("${spring.profiles.active}")
+	private String profile;
 
 	@ModelAttribute
 	public void handleRequest(HttpServletRequest request, Model model) {
 		model.addAttribute("version", version);
+		model.addAttribute("profile", profile);
 	}
 }

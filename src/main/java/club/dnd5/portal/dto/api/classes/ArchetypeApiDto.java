@@ -12,7 +12,7 @@ public class ArchetypeApiDto {
 	private String url;
 
 	public ArchetypeApiDto(Archetype archetype) {
-		name = new NameApi(archetype.getHeroClass().getCapitalazeName() + " " + archetype.getCapitalizeName(), archetype.getEnglishName() + " " + archetype.getEnglishName());
+		name = new NameApi(archetype.getCapitalizeName(), archetype.getEnglishName());
 		type = new SourceTypeApi(archetype.getBook().getType().getName(), archetype.getBook().getType().ordinal());
 		source = new SourceApiDto(archetype.getBook());
 		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName(), archetype.getUrlName());
