@@ -2302,16 +2302,12 @@ table.table_card tr.dtrg-group td {
   background-color: var(--bg-table-list) !important;
   border-radius: 12px;
   cursor: pointer;
-  border: 1px solid var(--bg-secondary);
+  position: relative;
+  border: 0;
 }
 
-#left_block.races .table_card tr.custom_source,
-#left_block.classes .table_card tr.custom_source {
+.table_card tr.custom_source {
   background: var(--bg-homebrew-gradient-left) !important;
-}
-
-.table_card tr.selected {
-  border-color: var(--primary) !important;
 }
 
 .table_card tr td {
@@ -2323,43 +2319,25 @@ table.table_card tr.dtrg-group td {
   padding: 0px !important;
 }
 
-.table_card tr td:hover {
-  background: var(--hover);
-}
-
-.table_card tr.selected td:hover {
-  background-color: var(--bg-sub-menu) !important;
-}
-
 .table_card tr td .wrapper {
   display: flex;
   flex-direction: row;
-  padding: 10px 12px !important;
+  z-index: 1;
+  padding: 16px 16px !important;
+}
+
+@media (max-width: 1200px) {
+  .table_card tr td .wrapper {
+    padding: 12px 12px !important;
+  }
 }
 
 .table_card tr td .content {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 100%;
-  padding: 0 0 0 0;
+  width: 100%; */
   z-index: 2;
-  margin-bottom: 0px;
-}
-
-.table_card tr td .info_block {
-  width: 42px;
-  min-width: 42px;
-  height: 42px;
-}
-
-.table_card tr td .info_block svg {
-  width: 100%;
-  height: 100%;
-}
-
-.table_card tr td .info_block path {
-  stroke: var(--primary);
 }
 
 .table_card tr td .content .row_name {
@@ -2370,42 +2348,43 @@ table.table_card tr.dtrg-group td {
   display: flex;
   margin-bottom: 4px;
   font-family: 'Open Sans';
-}
-
-.table_card tr .row_name span.name {
   color: var(--text-color-title);
-}
-
-.table_card tr .row_name span {
-  color: var(--text-g-color);
-}
-
-.table_card tr .books {
-  margin-left: auto;
-  font-size: var(--main-font-size);
 }
 
 .table_card tr td .content .two_row {
   display: flex;
   font-size: calc(var(--h5-font-size) - 1px);
+  margin-bottom: 18px;  
+}
+
+@media (max-width: 1200px) {
+  .table_card tr td .content .two_row {
+    margin-bottom: 12px;  
+  }
+}
+
+.table_card tr .bottom_row span {
+  margin-left: 0;
+  margin-right: 4px;
+  font-size: calc(var(--h5-font-size) - 2px);
+  width: fit-content;
+  background-color: var(--primary-active);
+  color: var(--text-btn-color);
+  border-radius: 20px;
+  padding: 4px 8px;
+  display: inline-block;
 }
 
 .table_card tr td button.open {
   margin: 0px;
-  width: 24px;
+  width: 32px;
   height: 32px;
   position: absolute;
   right: 0;
   bottom: 0;
   z-index: 2;
-  padding: 8px 4px;
   background-color: var(--primary);
-  color: var(--text-color-title);
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: calc(var(--main-font-size) - 2px);
   border-top-left-radius: 12px;
-  min-width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2416,13 +2395,10 @@ table.table_card tr.dtrg-group td {
   background-color: var(--primary-hover);
 }
 
-.table_card tr td button.open:hover {
-  background-color: var(--hover);
-}
-
 .table_card tr td button.open svg {
   width: 24px;
   height: 24px;
+  min-width: 24px;
 }
 
 .table_card tr td button.open path {
@@ -2441,14 +2417,9 @@ table.table_card tr.dtrg-group td {
   display: block !important;
 }
 
-.table_card tr.open td button.open svg {
-  transform: rotate(180deg)
-}
-
 .table_card tr td .archetypes {
   margin-top: 8px;
-  margin-left: 8px;
-  padding: 0 16px 0px 0;
+  margin-left: 16px;
   display: none;
   z-index: 1;
 }
@@ -2457,24 +2428,8 @@ table.table_card tr.dtrg-group td {
   display: block;
 }
 
-.table_card tr td .archetype_list {
-  margin-bottom: 16px;
-}
-
-.table_card tr td .archetype_list .select_point {
-  background: var(--primary-active);
-}
-
-.table_card tr td .archetype_list .select_point p {
-  color: var(--text-btn-color);
-}
-
-.table_card tr td .archetype_list .select_point:hover {
-  background: var(--primary-hover);
-}
-
 .table_card tr td .archetype_list > h4 {
-  padding: 0 8px;
+  padding: 0;
   font-size: calc(var(--h5-font-size) + 0px);
   margin-top: 0;
   margin-bottom: 0px;
@@ -2484,7 +2439,11 @@ table.table_card tr.dtrg-group td {
 .table_card tr td .archetype_list > ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 16px -8px;
+}
+
+.table_card tr td .archetype_list .select_point {
+  background: var(--primary-active);
 }
 
 .table_card tr td .archetype_list li {
@@ -2492,6 +2451,8 @@ table.table_card tr.dtrg-group td {
   display: flex;
   align-items: center;
   border-radius: 8px;
+  margin-bottom: 0px;
+  width: fit-content;
 }
 
 .table_card tr td .archetype_list li:hover {
@@ -2503,49 +2464,15 @@ table.table_card tr.dtrg-group td {
   line-height: normal;
 }
 
-.table_card tr td .archetype_list li p span {
-  font-size: calc(var(--main-font-size) - 2px);
-  margin-left: 4px;
-  color: var(--text-g-color);
-}
-
-.table_card tr td .archetype_list li.select_point p span {
+.table_card tr td .archetype_list .select_point p {
   color: var(--text-btn-color);
 }
 
-.table_card tr td .archetype_list li .add_favorites {
-  background: red;
-  width: 16px;
-  height: 16px;
-  display: none;
-  margin-right: 4px;
+.table_card tr td .archetype_list li p span {
+  font-size: calc(var(--main-font-size) - 2px); 
 }
 
-#left_block.classes .table_card tr td .wrapper {
-  z-index: 1;
-  padding: 16px 16px !important;
-}
-
-@media (max-width: 1200px) {
-  #left_block.classes .table_card tr td .wrapper {
-    padding: 12px 12px !important;
-  }
-}
-
-#left_block.classes .table_card tr td:hover {
-  background: transparent;
-}
-
-#left_block.classes .table_card tr.selected td:hover {
-  background: transparent !important;
-}
-
-#left_block.classes .table_card tr,
-#left_block.classes .table_card tr td .wrapper {
-  position: relative;
-}
-
-#left_block.classes .table_card tr td .wrapper:after {
+.table_card tr td .wrapper:after {
   position: absolute;
   pointer-events: none;
   top: 0;
@@ -2560,50 +2487,9 @@ table.table_card tr.dtrg-group td {
   height: 1000px;
 }
 
-#left_block.classes .table_card tr.custom_source td .wrapper:after {
+.table_card tr.custom_source td .wrapper:after {
   background: var(--bg-homebrew-gradient-left) !important;
   opacity: 0.2;
-}
-
-#left_block.classes .table_card tr.selected {
-  border-color: transparent !important;
-}
-
-#left_block.classes .table_card tr td .archetype_list li {
-  margin-bottom: 0px;
-  width: fit-content;
-}
-
-#left_block.classes .table_card tr .bottom_row span {
-  margin-left: 0;
-  margin-right: 4px;
-  font-size: calc(var(--h5-font-size) - 2px);
-  width: fit-content;
-  background-color: var(--primary-active);
-  color: var(--text-btn-color);
-  border-radius: 20px;
-  padding: 4px 8px;
-  display: inline-block;
-}
-
-#left_block.classes .table_card tr td .content .row_name {
-  margin-bottom: 4px;
-}
-
-#left_block.classes .table_card tr td .content .two_row {
-  margin-bottom: 18px;  
-}
-
-@media (max-width: 1200px) {
-  #left_block.classes .table_card tr td .content .two_row {
-    margin-bottom: 12px;  
-  }
-}
-
-@media (max-width: 1200px) {
-  #left_block.classes table.table_card tr.dtrg-group td {
-    margin: 24px 0 0px -16px;
-  }
 }
 
 
