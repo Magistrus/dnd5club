@@ -21,7 +21,7 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        let result = '<div class="wrapper"><i class="info_block">' + row.icon + '</i>';
+                        let result = '<div class="wrapper">';
                         result += '<div class="content"><h3 class="row_name"><span><span class="name">' + row.name;
                         result += '</span> <ename>[' + row.englishName + ']</ename></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
                         result += '<div class="two_row"><span>' + row.ability + '</span></div></div>';
