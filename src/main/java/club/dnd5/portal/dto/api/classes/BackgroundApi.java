@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.book.TypeBook;
-import club.dnd5.portal.model.trait.Trait;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
