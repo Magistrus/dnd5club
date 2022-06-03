@@ -90,4 +90,8 @@ public class Background {
 	public String getCapitalazeName() {
 		return StringUtils.capitalizeWords(name.toLowerCase());
 	}
+
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
 }
