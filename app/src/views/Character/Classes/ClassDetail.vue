@@ -199,7 +199,9 @@
         }),
         computed: {
             urlForCopy() {
-                return window.location.origin + this.$route.path
+                return !this.error && !this.loading
+                    ? window.location.origin + this.$route.path
+                    : '';
             },
 
             classes() {

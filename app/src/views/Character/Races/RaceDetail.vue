@@ -1,7 +1,7 @@
 <template>
     <div class="race-detail">
         <section-header
-            :copy="loading || error ? '' : urlForCopy"
+            :copy="urlForCopy"
             :subtitle="race?.name?.eng || ''"
             :title="race?.name?.rus || ''"
             fullscreen
@@ -30,8 +30,10 @@
         }),
         computed: {
             urlForCopy() {
-                return window.location.origin + this.$route.path
-            }
+                return !this.error && !this.loading
+                    ? window.location.origin + this.$route.path
+                    : '';
+            },
         },
         async mounted() {
             await this.loadNewRace(this.$route.path);
