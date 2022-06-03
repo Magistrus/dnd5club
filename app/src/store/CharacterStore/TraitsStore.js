@@ -78,9 +78,6 @@ export const useTraitsStore = defineStore('TraitsStore', {
                         value: this.filter?.getSearchState || ''
                     },
                     order: [{
-                        field: 'level',
-                        direction: 'asc'
-                    }, {
                         field: 'name',
                         direction: 'asc'
                     }],

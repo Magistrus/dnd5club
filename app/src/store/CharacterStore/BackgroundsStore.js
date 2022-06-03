@@ -78,9 +78,6 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                         value: this.filter?.getSearchState || ''
                     },
                     order: [{
-                        field: 'level',
-                        direction: 'asc'
-                    }, {
                         field: 'name',
                         direction: 'asc'
                     }],

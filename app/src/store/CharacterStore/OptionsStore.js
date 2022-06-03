@@ -78,9 +78,6 @@ export const useOptionsStore = defineStore('OptionsStore', {
                         value: this.filter?.getSearchState || ''
                     },
                     order: [{
-                        field: 'level',
-                        direction: 'asc'
-                    }, {
                         field: 'name',
                         direction: 'asc'
                     }],
