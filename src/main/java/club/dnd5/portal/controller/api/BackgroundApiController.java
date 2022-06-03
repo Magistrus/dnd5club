@@ -18,21 +18,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.classes.TraitApi;
+import club.dnd5.portal.dto.api.classes.BackgroundApi;
 import club.dnd5.portal.dto.api.classes.TraitRequesApi;
+import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.splells.Spell;
-import club.dnd5.portal.model.trait.Trait;
-import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
+import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 
 @RestController
-public class TraitApiController {
+public class BackgroundApiController {
 	@Autowired
-	private TraitDatatableRepository repo;
+	private BackgroundDatatableRepository repo;
 	
-	@PostMapping(value = "/api/v1/traits", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<TraitApi> getBackgrounds(@RequestBody TraitRequesApi request) {
-		Specification<Trait> specification = null;
+	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
+		Specification<Background> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
@@ -91,7 +91,7 @@ public class TraitApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, TraitApi::new).getData();
+		return repo.findAll(input, specification, specification, BackgroundApi::new).getData();
 	}
 	
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
