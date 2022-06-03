@@ -31,7 +31,7 @@
 	</th:block>
 	<th:block th:fragment="viewOne" th:object="${screen}">
 		<p class="row_info bg_grey">
-			<span class="left_info">Раздел: <a th:href="@{|/screens/*{parent.urlName}|}" th:text="*{parent.name}"></a> <span th:unless="*{category.empty}" th:text="|Категория: *{category}|"/></span>
+			<span class="left_info">Раздел: <a th:href="@{|/screens/*{parent.urlName}|}" th:text="*{parent.name}"></a></span>
 			<span>Источник: <span class="homebrew_text" th:if="*{book.type.name() eq 'CUSTOM'}">Homebrew</span> <span class="tip" th:text="*{book.source}" th:title="*{book.name}">Источник</span></span>
 		</p>
 		<div th:utext="*{description}"></div>
