@@ -726,7 +726,7 @@ label.select_box {
 }
 
 
-/******** Скролл ********/
+/******** Скролл / scroll ********/
 .tpd-tooltip  .tooltip_scroll{
 	overflow-y: auto;
 	min-height: 50px;
