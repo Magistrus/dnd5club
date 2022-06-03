@@ -19,7 +19,7 @@ public class BackgroundApi {
 	private String url;
 	private Boolean homebrew;
 	public BackgroundApi(Background background) {
-		name = new NameApi(background.getName(), background.getEnglishName());
+		name = new NameApi(background.getCapitalazeName(), background.getEnglishName());
 		url = String.format("/backgrounds/%s", background.getUrlName());
 		if (background.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;
