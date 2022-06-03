@@ -1,56 +1,66 @@
 <template>
-    <content-layout :show-right-side="showRightSide">
-        <template
-            v-if="filter"
-            #filter
+    <content-layout
+        :show-right-side="showRightSide"
+        :filter-instance="filter"
+        @search="racesQuery"
+        @update="racesQuery"
+    >
+        <div
+            v-masonry="'race-items'"
+            class="race-items"
+            gutter="16"
+            horizontal-order="false"
+            item-selector=".race-item"
+            transition-duration="0.15s"
         >
-            <list-filter :filter-instance="filter"/>
-        </template>
-
-        <template #items>
-            <div
-                v-masonry="'races-items'"
-                class="race-items"
-                gutter="16"
-                horizontal-order="true"
-                item-selector=".race-item"
-                transition-duration="0.15s"
-            >
-                <race-item
-                    v-for="(el, key) in racesStore.getRaces"
-                    :key="key"
-                    :race-item="el"
-                    :to="{ path: el.url }"
-                />
-            </div>
-        </template>
+            <race-item
+                v-for="(race, key) in races"
+                :key="key"
+                :race-item="race"
+                :to="{path: race.url}"
+            />
+        </div>
     </content-layout>
 </template>
 
 <script>
-    import ListFilter from '@/components/filter/ListFilter';
-    import { useRacesStore } from '@/store/CharacterStore/RacesStore';
     import ContentLayout from '@/components/content/ContentLayout';
-    import RaceItem from '@/views/Character/Races/RaceItem';
+    import { useRacesStore } from "@/store/CharacterStore/RacesStore";
+    import RaceItem from "@/views/Character/Races/RaceItem";
 
     export default {
         name: 'RacesView',
         components: {
             RaceItem,
             ContentLayout,
-            ListFilter,
         },
         data: () => ({
             racesStore: useRacesStore(),
         }),
         computed: {
             filter() {
-                return this.racesStore.getFilter;
+                return this.racesStore.getFilter || undefined;
+            },
+
+            races() {
+                return this.racesStore.getRaces || [];
             },
 
             showRightSide() {
                 return this.$route.name === 'raceDetail'
             },
         },
+        async mounted() {
+            await this.racesStore.initFilter();
+            await this.racesStore.initRaces();
+        },
+        beforeUnmount() {
+            this.racesStore.clearStore();
+        },
+        methods: {
+            async racesQuery() {
+                await this.racesStore.initRaces();
+            },
+        }
     }
 </script>

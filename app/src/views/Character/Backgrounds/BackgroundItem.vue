@@ -7,7 +7,6 @@
     >
         <a
             ref="backgroundItem"
-            v-masonry-tile
             :class="getClassList(isActive)"
             :href="href"
             class="background-item"
@@ -31,8 +30,8 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useResizeObserver } from '@vueuse/core/index';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
+    import { useBackgroundsStore } from "@/store/CharacterStore/BackgroundsStore";
 
     export default {
         name: 'BackgroundItem',
@@ -45,13 +44,19 @@
             backgroundItem: {
                 type: Object,
                 default: () => ({})
+            },
+            inTab: {
+                type: Boolean,
+                default: false
             }
         },
-        mounted() {
-            this.$nextTick(() => {
-                useResizeObserver(this.$refs.backgroundItem, this.updateGrid);
-            });
-        },
+        data: () => ({
+            backgroundsStore: useBackgroundsStore(),
+            background: {
+                show: false,
+                data: undefined
+            }
+        }),
         methods: {
             getClassList(isActive) {
                 return {
@@ -61,9 +66,21 @@
                 }
             },
 
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('background-items'))
-            },
+            clickHandler(callback) {
+                if (!this.inTab) {
+                    callback();
+
+                    return;
+                }
+
+                this.backgroundsStore.backgroundInfoQuery(this.backgroundItem.url)
+                    .then(spell => {
+                        this.background = {
+                            show: true,
+                            data: spell
+                        }
+                    });
+            }
         }
     }
 </script>
@@ -75,18 +92,7 @@
         background-color: var(--bg-table-list);
         width: 100%;
         margin-bottom: 12px;
-
-        @include media-min($md) {
-            width: calc(50% - 6px);
-        }
-
-        @include media-min($xxl) {
-            width: calc(100% / 3 - 12px * 2 / 3);
-        }
-
-        &.is-background-selected {
-            width: 100%;
-        }
+        display: block;
 
         &.is-green {
             .background-item {

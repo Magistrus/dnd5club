@@ -1,56 +1,90 @@
 <template>
-    <content-layout :show-right-side="showRightSide">
-        <template
-            v-if="filter"
-            #filter
-        >
-            <list-filter :filter-instance="filter"/>
-        </template>
-
-        <template #items>
-            <div
-                v-masonry="'option-items'"
-                class="option-items"
-                gutter="12"
-                horizontal-order="false"
-                item-selector=".option-item"
-                transition-duration="0.15s"
-            >
-                <option-item
-                    v-for="(el, key) in optionsStore.getOptions"
-                    :key="key"
-                    :option-item="el"
-                    :to="{path: el.url}"
-                />
-            </div>
-        </template>
-    </content-layout>
+    <component
+        :is="layout"
+        :show-right-side="showRightSide"
+        :filter-instance="filter"
+        @search="optionsQuery"
+        @update="optionsQuery"
+    >
+        <option-item
+            v-for="(option, key) in options"
+            :key="key"
+            :in-tab="inTab"
+            :option-item="option"
+            :to="{path: option.url}"
+        />
+    </component>
 </template>
 
 <script>
-    import ListFilter from '@/components/filter/ListFilter';
     import ContentLayout from '@/components/content/ContentLayout';
-    import OptionItem from "@/views/Character/Options/OptionItem";
+    import TabLayout from "@/components/content/TabLayout";
+    import { shallowRef } from "vue";
     import { useOptionsStore } from "@/store/CharacterStore/OptionsStore";
+    import OptionItem from "@/views/Character/Options/OptionItem";
 
     export default {
         name: 'OptionsView',
         components: {
             OptionItem,
+            TabLayout,
             ContentLayout,
-            ListFilter
+        },
+        props: {
+            inTab: {
+                type: Boolean,
+                default: false
+            },
+            storeKey: {
+                type: String,
+                default: ''
+            },
+            url: {
+                type: String,
+                default: ''
+            }
         },
         data: () => ({
             optionsStore: useOptionsStore(),
+            layoutComponents: {
+                tab: shallowRef(TabLayout),
+                content: shallowRef(ContentLayout)
+            }
         }),
         computed: {
             filter() {
-                return this.optionsStore.getFilter;
+                return this.optionsStore.getFilter || undefined;
+            },
+
+            options() {
+                return this.optionsStore.getOptions || [];
             },
 
             showRightSide() {
                 return this.$route.name === 'optionDetail'
             },
+
+            layout() {
+                return this.inTab
+                    ? this.layoutComponents.tab
+                    : this.layoutComponents.content;
+            }
         },
+        async mounted() {
+            await this.optionsStore.initFilter(this.storeKey);
+            await this.optionsStore.initOptions(this.url);
+
+            if (this.options.length && this.$route.name === 'options') {
+                await this.$router.push({ path: this.options[0].url })
+            }
+        },
+        beforeUnmount() {
+            this.optionsStore.clearStore();
+        },
+        methods: {
+            async optionsQuery() {
+                await this.optionsStore.initOptions(this.url);
+            },
+        }
     }
 </script>

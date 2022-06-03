@@ -10,56 +10,72 @@ const http = new HTTPService();
 export const useOptionsStore = defineStore('OptionsStore', {
     state: () => ({
         options: [],
-        selectedOption: undefined,
-        filter: undefined
+        filter: undefined,
+        config: {
+            page: 0,
+            limit: -1,
+            end: false,
+            url: '/options',
+        },
+        controllers: {
+            optionsQuery: undefined,
+            optionInfoQuery: undefined
+        }
     }),
 
     getters: {
         getFilter: state => state.filter,
         getOptions: state => state.options,
-        getCurrentOption: state => state.selectedOption
     },
 
     actions: {
-        async initFilter(storeKey) {
+        async initFilter(storeKey, url) {
             try {
                 this.filter = new FilterService();
 
                 const filterOptions = {
                     dbName: DB_NAME,
+                    url: '/filters/options'
                 }
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
-                await this.filter.init({
-                    ...filterOptions,
-                    url: '/filters/options'
-                });
+                if (url) {
+                    filterOptions.url = url
+                }
+
+                await this.filter.init(filterOptions);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
         /**
-         * @param {{searchStr: string, url: string}} options
-         * @returns {Promise<void>}
+         * @param {{}} options
+         * @param {number} options.page
+         * @param {number} options.limit
+         * @param {object} options.filter
+         * @param {boolean} options.search.exact
+         * @param {string} options.search.value
+         * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
+         * @returns {Promise<*[]>}
          */
-        async optionsQuery(options) {
-            const opts = {
-                searchStr: '',
-                url: '/options',
-                ...options
-            }
-
+        async optionsQuery(options = {}) {
             try {
+                if (this.controllers.optionsQuery) {
+                    this.controllers.optionsQuery.abort()
+                }
+
+                this.controllers.optionsQuery = new AbortController();
+
                 const apiOptions = {
-                    page: 1,
-                    limit: 70,
+                    page: 0,
+                    limit: -1,
                     search: {
                         exact: false,
-                        value: opts.searchStr
+                        value: this.filter?.getSearchState || ''
                     },
                     order: [{
                         field: 'level',
@@ -67,29 +83,108 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     }, {
                         field: 'name',
                         direction: 'asc'
-                    }]
+                    }],
+                    ...options
                 };
 
-                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
-                    apiOptions.filter = this.filter.getQueryParams;
-                }
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.optionsQuery.signal);
 
-                const resp = await http.post(opts.url, apiOptions);
+                this.controllers.optionsQuery = undefined;
 
-                this.options = resp.data;
+                return data
             } catch (err) {
-                errorHandler(err)
+                errorHandler(err);
+
+                return [];
             }
         },
 
-        async optionInfoQuery(spellName) {
-            try {
-                const resp = await http.post(`/options/${ spellName }`);
+        async initOptions(url) {
+            this.clearOptions();
+            this.clearConfig();
 
-                this.selectedOption = resp.data;
-            } catch (err) {
-                errorHandler(err)
+            if (url) {
+                this.config.url = url
             }
+
+            const config = {
+                page: this.config.page,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            const options = await this.optionsQuery(config);
+
+            this.options = options;
+            this.config.end = options.length < config.limit;
+        },
+
+        async nextPage() {
+            if (this.config.end) {
+                return
+            }
+
+            const config = {
+                page: this.config.page + 1,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            const options = await this.optionsQuery(config);
+
+            this.config.page = config.page;
+            this.config.end = options.length < config.limit;
+
+            this.options.push(...options);
+        },
+
+        async optionInfoQuery(url) {
+            try {
+                if (this.controllers.optionInfoQuery) {
+                    this.controllers.optionInfoQuery.abort()
+                }
+
+                this.controllers.optionInfoQuery = new AbortController();
+
+                const resp = await http.post(url, {}, this.controllers.optionInfoQuery.signal);
+
+                this.controllers.optionInfoQuery = undefined;
+
+                return resp.data
+            } catch (err) {
+                errorHandler(err);
+
+                return undefined;
+            }
+        },
+
+        clearOptions() {
+            this.options = [];
+        },
+
+        clearFilter() {
+            this.filter = undefined;
+        },
+
+        clearConfig() {
+            this.config = {
+                page: 0,
+                limit: -1,
+                end: false,
+                url: '/options',
+            };
+        },
+
+        clearStore() {
+            this.clearOptions();
+            this.clearFilter();
+            this.clearConfig();
         }
     }
 })

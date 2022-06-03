@@ -2,35 +2,23 @@
     <component
         :is="layout"
         :show-right-side="showRightSide"
+        :filter-instance="filter"
+        @search="spellsQuery"
+        @update="spellsQuery"
         @list-end="nextPage"
     >
-        <template
-            v-if="filter"
-            #filter
-        >
-            <list-filter
-                :filter-instance="filter"
-                :in-tab="inTab"
-                @search="spellsQuery"
-                @update="spellsQuery"
-            />
-        </template>
-
-        <template #items>
-            <spell-item
-                v-for="(spell, key) in spells"
-                :key="key"
-                :in-tab="inTab"
-                :spell-item="spell"
-                :to="{path: spell.url}"
-            />
-        </template>
+        <spell-item
+            v-for="(spell, key) in spells"
+            :key="key"
+            :in-tab="inTab"
+            :spell-item="spell"
+            :to="{path: spell.url}"
+        />
     </component>
 </template>
 
 <script>
     import { useSpellsStore } from '@/store/SpellsStore/SpellsStore';
-    import ListFilter from '@/components/filter/ListFilter';
     import ContentLayout from '@/components/content/ContentLayout';
     import SpellItem from '@/views/Spells/SpellItem';
     import TabLayout from "@/components/content/TabLayout";
@@ -42,7 +30,6 @@
             TabLayout,
             ContentLayout,
             SpellItem,
-            ListFilter,
         },
         props: {
             inTab: {
@@ -67,7 +54,7 @@
         }),
         computed: {
             filter() {
-                return this.spellsStore.getFilter;
+                return this.spellsStore.getFilter || undefined;
             },
 
             spells() {
@@ -106,11 +93,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .spell-items {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-</style>

@@ -10,7 +10,7 @@
                     v-if="copy"
                     v-tooltip.bottom="{ content: 'Скопировать ссылку' }"
                     class="section-header__title--copy"
-                    @click.left.exact.prevent.stop="copyText"
+                    @click.left.exact.prevent="copyText"
                 >
                     <svg-icon icon-name="copy"/>
                 </button>
@@ -37,16 +37,17 @@
                     v-tooltip.bottom="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
-                    @click.left.exact.prevent.stop="openPrintWindow"
+                    @click.left.exact.prevent="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
                 </button>
 
                 <button
-                    v-if="exportFoundry"
+                    v-if="onExportFoundry"
                     v-tooltip.bottom="{ content: 'Экспорт в Foundry VTT' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
+                    @click.left.exact.prevent="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>
                 </button>
@@ -71,11 +72,11 @@
                 </button>
 
                 <button
-                    v-if="close"
+                    v-if="onClose"
                     v-tooltip.bottom="{ content: 'Закрыть' }"
                     class="section-header__control--main"
                     type="button"
-                    @click.left.exact.prevent.stop="close()"
+                    @click.left.exact.prevent="$emit('close')"
                 >
                     <svg-icon icon-name="close"/>
                 </button>
@@ -109,29 +110,29 @@
                 type: Boolean,
                 default: false
             },
-            exportFoundry: {
-                type: Boolean,
-                default: false
-            },
             fullscreen: {
                 type: Boolean,
                 default: false
             },
-            close: {
+            onClose: {
                 type: Function,
-                default: undefined
-            }
+                default: null
+            },
+            onExportFoundry: {
+                type: Function,
+                default: null
+            },
         },
         data: () => ({
             uiStore: useUIStore()
         }),
         computed: {
             hasOptionalControls() {
-                return !!this.print || !!this.exportFoundry;
+                return !!this.print || !!this.onExportFoundry;
             },
 
             hasMainControls() {
-                return !!this.close || !!this.fullscreen;
+                return !!this.onClose || !!this.fullscreen;
             },
 
             hasControls() {

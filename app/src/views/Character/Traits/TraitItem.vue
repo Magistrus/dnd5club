@@ -7,7 +7,6 @@
     >
         <a
             ref="traitItem"
-            v-masonry-tile
             :class="getClassList(isActive)"
             :href="href"
             class="trait-item"
@@ -28,11 +27,8 @@
                 </div>
 
                 <div class="trait-item__row">
-                    <div
-                        v-capitalize-first
-                        class="trait-item__requirements"
-                    >
-                        {{ traitItem?.requirements?.join(', ') || 'Нет' }}
+                    <div class="trait-item__requirements">
+                        {{ traitItem.requirements }}
                     </div>
                 </div>
             </div>
@@ -42,27 +38,29 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useResizeObserver } from '@vueuse/core/index';
-    import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
+    import { useTraitsStore } from "@/store/CharacterStore/TraitsStore";
 
     export default {
         name: 'TraitItem',
-        directives: {
-            CapitalizeFirst
-        },
         inheritAttrs: false,
         props: {
             ...RouterLink.props,
             traitItem: {
                 type: Object,
                 default: () => ({})
+            },
+            inTab: {
+                type: Boolean,
+                default: false
             }
         },
-        mounted() {
-            this.$nextTick(() => {
-                useResizeObserver(this.$refs.traitItem, this.updateGrid);
-            });
-        },
+        data: () => ({
+            traitsStore: useTraitsStore(),
+            trait: {
+                show: false,
+                data: undefined
+            }
+        }),
         methods: {
             getClassList(isActive) {
                 return {
@@ -72,9 +70,21 @@
                 }
             },
 
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('trait-items'))
-            },
+            clickHandler(callback) {
+                if (!this.inTab) {
+                    callback();
+
+                    return;
+                }
+
+                this.traitsStore.traitInfoQuery(this.traitItem.url)
+                    .then(spell => {
+                        this.trait = {
+                            show: true,
+                            data: spell
+                        }
+                    });
+            }
         }
     }
 </script>
@@ -86,18 +96,7 @@
         background-color: var(--bg-table-list);
         width: 100%;
         margin-bottom: 12px;
-
-        @include media-min($md) {
-            width: calc(50% - 6px);
-        }
-
-        @include media-min($xxl) {
-            width: calc(100% / 3 - 12px * 2 / 3);
-        }
-
-        &.is-trait-selected {
-            width: 100%;
-        }
+        display: block;
 
         &.is-green {
             .trait-item {
@@ -109,7 +108,7 @@
 
         &__body {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             padding: 8px 10px;
         }
 

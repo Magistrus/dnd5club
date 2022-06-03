@@ -156,6 +156,12 @@ module.exports = {
         'vuejs-accessibility/click-events-have-key-events': 'off',
         'vuejs-accessibility/mouse-events-have-key-events': 'off',
         'vuejs-accessibility/label-has-for': 'off',
+        'vue/require-explicit-emits': [
+            "warn",
+            {
+                "allowProps": true
+            }
+        ]
     },
     overrides: [
         {

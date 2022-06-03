@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import _ from 'lodash';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
 import errorHandler from '@/helpers/errorHandler';
@@ -11,56 +10,72 @@ const http = new HTTPService();
 export const useRacesStore = defineStore('RacesStore', {
     state: () => ({
         races: [],
-        selectedRace: undefined,
-        filter: undefined
+        filter: undefined,
+        config: {
+            page: 0,
+            limit: -1,
+            end: false,
+            url: '/races',
+        },
+        controllers: {
+            racesQuery: undefined,
+            raceInfoQuery: undefined
+        }
     }),
 
     getters: {
         getFilter: state => state.filter,
         getRaces: state => state.races,
-        getCurrentRace: state => state.selectedRace
     },
 
     actions: {
-        async initFilter(storeKey) {
+        async initFilter(storeKey, url) {
             try {
                 this.filter = new FilterService();
 
                 const filterOptions = {
                     dbName: DB_NAME,
+                    url: '/filters/races'
                 }
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
-                await this.filter.init({
-                    ...filterOptions,
-                    url: '/filters/races'
-                });
+                if (url) {
+                    filterOptions.url = url
+                }
+
+                await this.filter.init(filterOptions);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
         /**
-         * @param {{searchStr: string, url: string}} options
-         * @returns {Promise<void>}
+         * @param {{}} options
+         * @param {number} options.page
+         * @param {number} options.limit
+         * @param {object} options.filter
+         * @param {boolean} options.search.exact
+         * @param {string} options.search.value
+         * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
+         * @returns {Promise<*[]>}
          */
-        async racesQuery(options) {
-            const opts = {
-                searchStr: '',
-                url: '/races',
-                ...options
-            }
-
+        async racesQuery(options = {}) {
             try {
+                if (this.controllers.racesQuery) {
+                    this.controllers.racesQuery.abort()
+                }
+
+                this.controllers.racesQuery = new AbortController();
+
                 const apiOptions = {
-                    page: 1,
-                    limit: 30,
+                    page: 0,
+                    limit: -1,
                     search: {
                         exact: false,
-                        value: opts.searchStr
+                        value: this.filter?.getSearchState || ''
                     },
                     order: [{
                         field: 'level',
@@ -68,91 +83,108 @@ export const useRacesStore = defineStore('RacesStore', {
                     }, {
                         field: 'name',
                         direction: 'asc'
-                    }]
+                    }],
+                    ...options
                 };
 
-                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
-                    apiOptions.filter = this.filter.getQueryParams;
-                }
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.racesQuery.signal);
 
-                const res = await http.post(opts.url, apiOptions);
+                this.controllers.racesQuery = undefined;
 
-                if (res.status !== 200) {
-                    errorHandler(res.statusText);
-
-                    return;
-                }
-
-                const result = [];
-                const sort = list => {
-                    const types = list.map(subrace => subrace.type);
-                    const typesSorted = _.uniqWith(_.sortBy(types, ['order']), _.isEqual);
-                    const formatted = [];
-
-                    let index = 0;
-
-                    for (let i = 0; i < typesSorted.length; i++) {
-                        if (i === 0 || i % 2 === 0) {
-                            formatted.push([]);
-
-                            index++;
-                        }
-
-                        formatted[index - 1].push({
-                            name: typesSorted[i].name,
-                            list: list.filter(subrace => subrace.type.name === typesSorted[i].name)
-                        });
-                    }
-
-                    return formatted
-                }
-
-                for (let i = 0; i < res.data.length; i++) {
-                    if ('subraces' in res.data[i]) {
-                        result.push({
-                            ...res.data[i],
-                            subraces: sort(res.data[i].subraces),
-                        });
-
-                        continue;
-                    }
-
-                    result.push({ ...res.data[i] })
-                }
-
-                this.races = result;
+                return data
             } catch (err) {
                 errorHandler(err);
+
+                return [];
             }
+        },
+
+        async initRaces(url) {
+            this.clearRaces();
+            this.clearConfig();
+
+            if (url) {
+                this.config.url = url
+            }
+
+            const config = {
+                page: this.config.page,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            const races = await this.racesQuery(config);
+
+            this.races = races;
+            this.config.end = races.length < config.limit;
+        },
+
+        async nextPage() {
+            if (this.config.end) {
+                return
+            }
+
+            const config = {
+                page: this.config.page + 1,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            const races = await this.racesQuery(config);
+
+            this.config.page = config.page;
+            this.config.end = races.length < config.limit;
+
+            this.races.push(...races);
         },
 
         async raceInfoQuery(url) {
             try {
-                const res = await http.post(url);
-
-                if (res.status !== 200) {
-                    errorHandler(res.statusText);
-
-                    return;
+                if (this.controllers.raceInfoQuery) {
+                    this.controllers.raceInfoQuery.abort()
                 }
 
-                this.$patch({
-                    selectedRace: {
-                        ...res.data,
-                        tabs: _.sortBy(res.data.tabs, ['order'])
-                            .map((tab, index) => ({
-                                ...tab,
-                                active: index === 0
-                            }))
-                    }
-                });
+                this.controllers.raceInfoQuery = new AbortController();
+
+                const resp = await http.post(url, {}, this.controllers.raceInfoQuery.signal);
+
+                this.controllers.raceInfoQuery = undefined;
+
+                return resp.data
             } catch (err) {
                 errorHandler(err);
+
+                return undefined;
             }
         },
 
-        deselectRace() {
-            this.selectedRace = undefined;
+        clearRaces() {
+            this.races = [];
+        },
+
+        clearFilter() {
+            this.filter = undefined;
+        },
+
+        clearConfig() {
+            this.config = {
+                page: 0,
+                limit: -1,
+                end: false,
+                url: '/races',
+            };
+        },
+
+        clearStore() {
+            this.clearRaces();
+            this.clearFilter();
+            this.clearConfig();
         }
     }
-});
+})

@@ -10,14 +10,16 @@
                 class="content-layout__list"
             >
                 <div
+                    v-if="filterInstance"
                     ref="filter"
                     class="content-layout__filter"
                 >
-                    <div
-                        v-if="$slots.filter"
-                        class="content-layout__filter_body"
-                    >
-                        <slot name="filter"/>
+                    <div class="content-layout__filter_body">
+                        <list-filter
+                            :filter-instance="filterInstance"
+                            @search="$emit('search', $event)"
+                            @update="$emit('update', $event)"
+                        />
                     </div>
 
                     <div
@@ -31,7 +33,7 @@
                     ref="items"
                     class="content-layout__items"
                 >
-                    <slot name="items"/>
+                    <slot name="default"/>
                 </div>
             </div>
 
@@ -48,21 +50,28 @@
 
 <script>
     import { useUIStore } from '@/store/UIStore/UIStore';
-    import { useInfiniteScroll } from "@vueuse/core/index";
+    import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import ListFilter from "@/components/filter/ListFilter";
+    import FilterService from "@/services/FilterService";
 
     export default {
         name: 'ContentLayout',
+        components: { ListFilter },
         props: {
             showRightSide: {
                 type: Boolean,
                 default: false
+            },
+            filterInstance: {
+                type: FilterService,
+                default: undefined
             }
         },
-        emits: ['list-end'],
+        emits: ['list-end', 'update', 'search'],
         data: () => ({
             uiStore: useUIStore(),
-            filterUpdated: false,
-            dropdownHeight: 0
+            dropdownHeight: 0,
+            filterInstalled: false,
         }),
         computed: {
             layoutClasses() {
@@ -74,39 +83,32 @@
             },
         },
         updated() {
-            if (!this.filterUpdated && this.$refs.list && this.$refs.filter && this.$slots.filter) {
-                this.calcDropdownHeight();
+            if (!this.filterInstalled && this.$refs.filter) {
+                this.filterInstalled = true;
 
-                this.filterUpdated = true;
+                useResizeObserver(this.$refs.list, this.calcDropdownHeight);
             }
         },
         mounted() {
-            this.calcDropdownHeight();
-
-            window.addEventListener('resize', this.calcDropdownHeight);
-
             useInfiniteScroll(
                 this.$refs.items,
                 () => {
                     this.$emit('list-end');
-                },
-                {
-                    distance: 1080
                 }
             );
-        },
-        beforeUnmount() {
-            window.removeEventListener('resize', this.calcDropdownHeight);
         },
         methods: {
             calcDropdownHeight() {
                 if (this.$refs.filter && this.$refs.list) {
-                    const { filter, list } = this.$refs;
-                    const filterRect = filter.getBoundingClientRect();
-                    const listRect = list.getBoundingClientRect();
+                    const filterRect = useElementBounding(this.$refs.filter);
+                    const listRect = useElementBounding(this.$refs.list);
 
-                    this.dropdownHeight = listRect.height - filterRect.height;
+                    this.dropdownHeight = listRect.height.value - filterRect.height.value || 0;
+
+                    return;
                 }
+
+                this.dropdownHeight = 0;
             }
         }
     }

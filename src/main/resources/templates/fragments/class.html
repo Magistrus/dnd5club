@@ -5,20 +5,6 @@
 </head>
 <body>
 	<th:block th:object="${heroClass}" th:fragment="view">
-		<div class="archetype_mobile_selector">
-			<div class="select js-dropdown">
-				<input id="mobile_selector" type="hidden" name="archetype" class="js-dropdown__input">
-				<i class="icon_arrow">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</i>
-				<span class="placeholder js-dropdown__current" th:text="|--- *{archetypeName} ---|">Выбрать архитип</span>
-				<ul data-simplebar>
-					<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:text="|${archetype.name} ${archetype.book.source}|" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}" th:data-arch-source="${archetype.book.source}"></li>
-				</ul>
-			</div>
-		</div>
 		<th:block th:fragment="classInfo1(selectedArchetype)">
 			<details open class="feet_show mt-0">
 				<summary class="h4 header_separator feet_show"><span>Хиты</span></summary>

@@ -172,7 +172,7 @@
             },
 
             updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('classes-items'))
+                this.$nextTick(() => this.$redrawVueMasonry('class-items'))
             },
         }
     }
@@ -182,6 +182,7 @@
     .class-item {
         width: 100%;
         margin-bottom: 16px;
+        display: block;
 
         @include media-min($md) {
             width: calc(50% - 8px);

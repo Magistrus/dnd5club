@@ -116,7 +116,10 @@ export const useSpellsStore = defineStore('SpellsStore', {
                 config.filter = this.filter.getQueryParams;
             }
 
-            this.spells = await this.spellsQuery(config);
+            const spells = await this.spellsQuery(config);
+
+            this.spells = spells;
+            this.config.end = spells.length < config.limit;
         },
 
         async nextPage() {
@@ -136,7 +139,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
             const spells = await this.spellsQuery(config);
 
             this.config.page = config.page;
-            this.config.end = spells.length < this.config.limit;
+            this.config.end = spells.length < config.limit;
 
             this.spells.push(...spells);
         },

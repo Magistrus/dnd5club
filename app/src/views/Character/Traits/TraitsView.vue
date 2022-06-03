@@ -1,56 +1,90 @@
 <template>
-    <content-layout :show-right-side="showRightSide">
-        <template
-            v-if="filter"
-            #filter
-        >
-            <list-filter :filter-instance="filter"/>
-        </template>
-
-        <template #items>
-            <div
-                v-masonry="'trait-items'"
-                class="trait-items"
-                gutter="12"
-                horizontal-order="false"
-                item-selector=".trait-item"
-                transition-duration="0.15s"
-            >
-                <trait-item
-                    v-for="(el, key) in traitsStore.getTraits"
-                    :key="key"
-                    :to="{path: el.url}"
-                    :trait-item="el"
-                />
-            </div>
-        </template>
-    </content-layout>
+    <component
+        :is="layout"
+        :show-right-side="showRightSide"
+        :filter-instance="filter"
+        @search="traitsQuery"
+        @update="traitsQuery"
+    >
+        <trait-item
+            v-for="(trait, key) in traits"
+            :key="key"
+            :in-tab="inTab"
+            :trait-item="trait"
+            :to="{path: trait.url}"
+        />
+    </component>
 </template>
 
 <script>
-    import ListFilter from '@/components/filter/ListFilter';
     import ContentLayout from '@/components/content/ContentLayout';
-    import TraitItem from "@/views/Character/Traits/TraitItem";
+    import TabLayout from "@/components/content/TabLayout";
+    import { shallowRef } from "vue";
     import { useTraitsStore } from "@/store/CharacterStore/TraitsStore";
+    import TraitItem from "@/views/Character/Traits/TraitItem";
 
     export default {
         name: 'TraitsView',
         components: {
             TraitItem,
+            TabLayout,
             ContentLayout,
-            ListFilter
+        },
+        props: {
+            inTab: {
+                type: Boolean,
+                default: false
+            },
+            storeKey: {
+                type: String,
+                default: ''
+            },
+            url: {
+                type: String,
+                default: ''
+            }
         },
         data: () => ({
             traitsStore: useTraitsStore(),
+            layoutComponents: {
+                tab: shallowRef(TabLayout),
+                content: shallowRef(ContentLayout)
+            }
         }),
         computed: {
             filter() {
-                return this.traitsStore.getFilter;
+                return this.traitsStore.getFilter || undefined;
+            },
+
+            traits() {
+                return this.traitsStore.getTraits || [];
             },
 
             showRightSide() {
                 return this.$route.name === 'traitDetail'
             },
+
+            layout() {
+                return this.inTab
+                    ? this.layoutComponents.tab
+                    : this.layoutComponents.content;
+            }
         },
+        async mounted() {
+            await this.traitsStore.initFilter(this.storeKey);
+            await this.traitsStore.initTraits(this.url);
+
+            if (this.traits.length && this.$route.name === 'traits') {
+                await this.$router.push({ path: this.traits[0].url })
+            }
+        },
+        beforeUnmount() {
+            this.traitsStore.clearStore();
+        },
+        methods: {
+            async traitsQuery() {
+                await this.traitsStore.initTraits(this.url);
+            },
+        }
     }
 </script>

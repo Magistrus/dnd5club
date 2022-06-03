@@ -73,7 +73,7 @@
         </p>
 
         <div
-            v-if="spell?.classes?.length"
+            v-if="spell.classes?.length"
             class="spell_stat_block_bottom"
         >
             <p>Классы:</p>
@@ -92,7 +92,7 @@
         </div>
 
         <div
-            v-if="spell.subclasses"
+            v-if="spell.subclasses?.length"
             class="spell_stat_block_bottom"
         >
             <p>Подклассы:</p>
@@ -103,7 +103,7 @@
                     :key="key"
                 >
                     <a
-                        v-tooltip="{content: el.className}"
+                        v-tooltip="{content: el.class}"
                         class="tip"
                         :href="el.url"
                     >{{ el.name }}</a>

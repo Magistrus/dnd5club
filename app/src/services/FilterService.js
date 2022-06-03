@@ -327,6 +327,12 @@ export default class FilterService {
 
         this.filter = clone;
 
+        if (!this.isCustomized) {
+            await this.store.removeItem(this.storeKey);
+
+            return
+        }
+
         await this.store.setItem(this.storeKey, clone);
     }
 

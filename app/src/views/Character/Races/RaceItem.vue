@@ -1,6 +1,5 @@
 <template>
     <router-link
-        v-if="typeof raceItem.url !== 'undefined'"
         v-slot="{href, navigate, isActive}"
         :to="{ path: raceItem.url }"
         custom
@@ -179,7 +178,7 @@
             },
 
             updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('races-items'))
+                this.$nextTick(() => this.$redrawVueMasonry('race-items'))
             },
         }
     }
@@ -189,6 +188,7 @@
     .race-item {
         width: 100%;
         margin-bottom: 16px;
+        display: block;
 
         @include media-min($md) {
             width: calc(50% - 8px);

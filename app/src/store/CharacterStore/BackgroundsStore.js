@@ -10,56 +10,72 @@ const http = new HTTPService();
 export const useBackgroundsStore = defineStore('BackgroundsStore', {
     state: () => ({
         backgrounds: [],
-        selectedBackground: undefined,
-        filter: undefined
+        filter: undefined,
+        config: {
+            page: 0,
+            limit: -1,
+            end: false,
+            url: '/backgrounds',
+        },
+        controllers: {
+            backgroundsQuery: undefined,
+            backgroundInfoQuery: undefined
+        }
     }),
 
     getters: {
         getFilter: state => state.filter,
         getBackgrounds: state => state.backgrounds,
-        getCurrentBackground: state => state.selectedBackground
     },
 
     actions: {
-        async initFilter(storeKey) {
+        async initFilter(storeKey, url) {
             try {
                 this.filter = new FilterService();
 
                 const filterOptions = {
                     dbName: DB_NAME,
+                    url: '/filters/backgrounds'
                 }
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
-                await this.filter.init({
-                    ...filterOptions,
-                    url: '/filters/backgrounds'
-                });
+                if (url) {
+                    filterOptions.url = url
+                }
+
+                await this.filter.init(filterOptions);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
         /**
-         * @param {{searchStr: string, url: string}} options
-         * @returns {Promise<void>}
+         * @param {{}} options
+         * @param {number} options.page
+         * @param {number} options.limit
+         * @param {object} options.filter
+         * @param {boolean} options.search.exact
+         * @param {string} options.search.value
+         * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
+         * @returns {Promise<*[]>}
          */
-        async backgroundsQuery(options) {
-            const opts = {
-                searchStr: '',
-                url: '/backgrounds',
-                ...options
-            }
-
+        async backgroundsQuery(options = {}) {
             try {
+                if (this.controllers.backgroundsQuery) {
+                    this.controllers.backgroundsQuery.abort()
+                }
+
+                this.controllers.backgroundsQuery = new AbortController();
+
                 const apiOptions = {
-                    page: 1,
-                    limit: 70,
+                    page: 0,
+                    limit: -1,
                     search: {
                         exact: false,
-                        value: opts.searchStr
+                        value: this.filter?.getSearchState || ''
                     },
                     order: [{
                         field: 'level',
@@ -67,29 +83,108 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                     }, {
                         field: 'name',
                         direction: 'asc'
-                    }]
+                    }],
+                    ...options
                 };
 
-                if (this.filter && this.filter.getFilterState && this.filter.isCustomized) {
-                    apiOptions.filter = this.filter.getQueryParams;
-                }
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.backgroundsQuery.signal);
 
-                const resp = await http.post(opts.url, apiOptions);
+                this.controllers.backgroundsQuery = undefined;
 
-                this.backgrounds = resp.data;
+                return data
             } catch (err) {
-                errorHandler(err)
+                errorHandler(err);
+
+                return [];
             }
         },
 
-        async backgroundInfoQuery(spellName) {
-            try {
-                const resp = await http.post(`/backgrounds/${ spellName }`);
+        async initBackgrounds(url) {
+            this.clearBackgrounds();
+            this.clearConfig();
 
-                this.selectedBackground = resp.data;
-            } catch (err) {
-                errorHandler(err)
+            if (url) {
+                this.config.url = url
             }
+
+            const config = {
+                page: this.config.page,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            const backgrounds = await this.backgroundsQuery(config);
+
+            this.backgrounds = backgrounds;
+            this.config.end = backgrounds.length < config.limit;
+        },
+
+        async nextPage() {
+            if (this.config.end) {
+                return
+            }
+
+            const config = {
+                page: this.config.page + 1,
+                limit: this.config.limit,
+            }
+
+            if (this.filter && this.filter.isCustomized) {
+                config.filter = this.filter.getQueryParams;
+            }
+
+            const backgrounds = await this.backgroundsQuery(config);
+
+            this.config.page = config.page;
+            this.config.end = backgrounds.length < config.limit;
+
+            this.backgrounds.push(...backgrounds);
+        },
+
+        async backgroundInfoQuery(url) {
+            try {
+                if (this.controllers.backgroundInfoQuery) {
+                    this.controllers.backgroundInfoQuery.abort()
+                }
+
+                this.controllers.backgroundInfoQuery = new AbortController();
+
+                const resp = await http.post(url, {}, this.controllers.backgroundInfoQuery.signal);
+
+                this.controllers.backgroundInfoQuery = undefined;
+
+                return resp.data
+            } catch (err) {
+                errorHandler(err);
+
+                return undefined;
+            }
+        },
+
+        clearBackgrounds() {
+            this.backgrounds = [];
+        },
+
+        clearFilter() {
+            this.filter = undefined;
+        },
+
+        clearConfig() {
+            this.config = {
+                page: 0,
+                limit: -1,
+                end: false,
+                url: '/backgrounds',
+            };
+        },
+
+        clearStore() {
+            this.clearBackgrounds();
+            this.clearFilter();
+            this.clearConfig();
         }
     }
 })

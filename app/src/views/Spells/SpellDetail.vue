@@ -1,7 +1,7 @@
 <template>
     <div class="spell-detail">
         <section-header
-            :copy="loading || error ? urlForCopy : ''"
+            :copy="loading || error ? '' : urlForCopy"
             :subtitle="spell?.name?.eng || ''"
             :title="spell?.name?.rus || ''"
             fullscreen

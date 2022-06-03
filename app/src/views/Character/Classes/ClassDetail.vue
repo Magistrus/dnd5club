@@ -1,11 +1,11 @@
 <template>
     <div class="class-detail">
         <section-header
-            :close="closeClass"
             :copy="urlForCopy"
             :subtitle="currentClass?.name?.eng || ''"
             :title="currentClass?.name?.rus || ''"
             fullscreen
+            @close="close"
         />
 
         <div
@@ -113,7 +113,13 @@
                 <spells-view
                     v-if="currentTab?.name === 'Заклинания'"
                     :store-key="currentClass.name.eng.replaceAll(' ', '')"
-                    :in-tab="true"
+                    in-tab
+                />
+
+                <options-view
+                    v-else-if="currentTab?.name === 'Боевые стили'"
+                    :store-key="currentClass.name.eng.replaceAll(' ', '')"
+                    in-tab
                 />
 
                 <div
@@ -157,10 +163,12 @@
     import FieldSelect from '@/components/form/FieldType/FieldSelect';
     import SpellsView from "@/views/Spells/SpellsView";
     import errorHandler from "@/helpers/errorHandler";
+    import OptionsView from "@/views/Character/Options/OptionsView";
 
     export default {
         name: 'ClassDetail',
         components: {
+            OptionsView,
             SpellsView,
             FieldSelect,
             SvgIcon,
@@ -292,7 +300,7 @@
                 try {
                     const tab = this.tabs.list[index];
 
-                    if (!tab.content && tab.name !== 'Заклинания') {
+                    if (!tab.content && !['Заклинания', 'Боевые стили'].includes(tab.name)) {
                         const { data } = await this.getTabContent(tab);
 
                         tab.content = data;
@@ -352,7 +360,7 @@
                 });
             },
 
-            closeClass() {
+            close() {
                 this.$router.push({ name: 'classes' });
             },
         }

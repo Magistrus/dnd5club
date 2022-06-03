@@ -7,7 +7,6 @@
     >
         <a
             ref="optionItem"
-            v-masonry-tile
             :class="getClassList(isActive)"
             :href="href"
             class="option-item"
@@ -31,8 +30,8 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useResizeObserver } from '@vueuse/core/index';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
+    import { useOptionsStore } from "@/store/CharacterStore/OptionsStore";
 
     export default {
         name: 'OptionItem',
@@ -45,13 +44,19 @@
             optionItem: {
                 type: Object,
                 default: () => ({})
+            },
+            inTab: {
+                type: Boolean,
+                default: false
             }
         },
-        mounted() {
-            this.$nextTick(() => {
-                useResizeObserver(this.$refs.optionItem, this.updateGrid);
-            });
-        },
+        data: () => ({
+            optionsStore: useOptionsStore(),
+            option: {
+                show: false,
+                data: undefined
+            }
+        }),
         methods: {
             getClassList(isActive) {
                 return {
@@ -61,9 +66,21 @@
                 }
             },
 
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('option-items'))
-            },
+            clickHandler(callback) {
+                if (!this.inTab) {
+                    callback();
+
+                    return;
+                }
+
+                this.optionsStore.optionInfoQuery(this.optionItem.url)
+                    .then(spell => {
+                        this.option = {
+                            show: true,
+                            data: spell
+                        }
+                    });
+            }
         }
     }
 </script>
@@ -75,18 +92,7 @@
         background-color: var(--bg-table-list);
         width: 100%;
         margin-bottom: 12px;
-
-        @include media-min($md) {
-            width: calc(50% - 6px);
-        }
-
-        @include media-min($xxl) {
-            width: calc(100% / 3 - 12px * 2 / 3);
-        }
-
-        &.is-option-selected {
-            width: 100%;
-        }
+        display: block;
 
         &.is-green {
             .option-item {

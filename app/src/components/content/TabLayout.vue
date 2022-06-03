@@ -4,14 +4,17 @@
         class="tab-layout"
     >
         <div
+            v-if="filterInstance"
             ref="filter"
             class="tab-layout__filter"
         >
-            <div
-                v-if="$slots.filter"
-                class="tab-layout__filter_body"
-            >
-                <slot name="filter"/>
+            <div class="tab-layout__filter_body">
+                <list-filter
+                    :in-tab="true"
+                    :filter-instance="filterInstance"
+                    @search="$emit('search', $event)"
+                    @update="$emit('update', $event)"
+                />
             </div>
 
             <div
@@ -26,7 +29,7 @@
             class="tab-layout__items"
         >
             <div class="tab-layout__items--inner">
-                <slot name="items"/>
+                <slot name="default"/>
             </div>
         </div>
     </div>
@@ -34,49 +37,51 @@
 
 <script>
 
-    import { useInfiniteScroll } from "@vueuse/core/index";
+    import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import FilterService from "@/services/FilterService";
+    import ListFilter from "@/components/filter/ListFilter";
 
     export default {
         name: 'TabLayout',
-        emits: ['list-end'],
+        components: { ListFilter },
+        props: {
+            filterInstance: {
+                type: FilterService,
+                default: undefined
+            }
+        },
+        emits: ['list-end', 'search', 'update'],
         data: () => ({
-            filterUpdated: false,
-            dropdownHeight: 0
+            dropdownHeight: 0,
+            filterInstalled: false,
         }),
         updated() {
-            if (!this.filterUpdated && this.$refs.layout && this.$refs.filter && this.$slots.filter) {
-                this.calcDropdownHeight();
+            if (!this.filterInstalled && this.$refs.filter) {
+                this.filterInstalled = true;
 
-                this.filterUpdated = true;
+                useResizeObserver(this.$refs.layout, this.calcDropdownHeight);
             }
         },
         mounted() {
-            this.calcDropdownHeight();
-
-            window.addEventListener('resize', this.calcDropdownHeight);
-
             useInfiniteScroll(
                 this.$refs.items,
                 () => {
                     this.$emit('list-end');
-                },
-                {
-                    distance: 250
                 }
             );
-        },
-        beforeUnmount() {
-            window.removeEventListener('resize', this.calcDropdownHeight);
         },
         methods: {
             calcDropdownHeight() {
                 if (this.$refs.filter && this.$refs.layout) {
-                    const { filter, layout } = this.$refs;
-                    const filterRect = filter.getBoundingClientRect();
-                    const layoutRect = layout.getBoundingClientRect();
+                    const filterRect = useElementBounding(this.$refs.filter);
+                    const layoutRect = useElementBounding(this.$refs.layout);
 
-                    this.dropdownHeight = layoutRect.height - filterRect.height;
+                    this.dropdownHeight = layoutRect.height.value - filterRect.height.value || 0;
+
+                    return;
                 }
+
+                this.dropdownHeight = 0;
             }
         }
     }
