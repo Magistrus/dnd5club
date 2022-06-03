@@ -48,4 +48,8 @@ public class Screen {
 	@ManyToOne
 	@JoinColumn(name = "source")
 	private Book book;
+	
+	public String getUrlName() {
+		return englishName.replace(' ', ' ');
+	}
 }

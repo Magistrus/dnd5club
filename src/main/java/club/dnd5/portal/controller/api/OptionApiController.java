@@ -2,9 +2,11 @@ package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.Column;
@@ -77,6 +79,18 @@ public class OptionApiController {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+		}
+		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
+			
+			specification = addSpecification(specification, (root, query, cb) -> {
+				List<Order> orders = request.getOrders().stream()
+						.map(
+							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
+						)
+						.collect(Collectors.toList());
+				query.orderBy(orders);
+				return cb.and();
+			});
 		}
 		return repo.findAll(input, specification, specification, OptionApi::new).getData();
 	}
