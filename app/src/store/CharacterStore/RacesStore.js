@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
 import errorHandler from '@/helpers/errorHandler';
+import _ from 'lodash';
 
 const DB_NAME = 'races';
 const http = new HTTPService();
@@ -88,7 +89,44 @@ export const useRacesStore = defineStore('RacesStore', {
 
                 this.controllers.racesQuery = undefined;
 
-                return data
+                const result = [];
+                const sort = list => {
+                    const types = list.map(subrace => subrace.type);
+                    const typesSorted = _.uniqWith(_.sortBy(types, ['order']), _.isEqual);
+                    const formatted = [];
+
+                    let index = 0;
+
+                    for (let i = 0; i < typesSorted.length; i++) {
+                        if (i === 0 || i % 2 === 0) {
+                            formatted.push([]);
+
+                            index++;
+                        }
+
+                        formatted[index - 1].push({
+                            name: typesSorted[i].name,
+                            list: list.filter(subrace => subrace.type.name === typesSorted[i].name)
+                        });
+                    }
+
+                    return formatted
+                }
+
+                for (let i = 0; i < data.length; i++) {
+                    if ('subraces' in data[i]) {
+                        result.push({
+                            ...data[i],
+                            subraces: sort(data[i].subraces),
+                        });
+
+                        continue;
+                    }
+
+                    result.push({ ...data[i] })
+                }
+
+                return result
             } catch (err) {
                 errorHandler(err);
 

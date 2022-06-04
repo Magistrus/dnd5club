@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/services/HTTPService';
 import FilterService from '@/services/FilterService';
 import errorHandler from '@/helpers/errorHandler';
+import _ from 'lodash';
 
 const DB_NAME = 'options';
 const http = new HTTPService();
@@ -17,6 +18,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
             end: false,
             url: '/options',
         },
+        customFilter: undefined,
         controllers: {
             optionsQuery: undefined,
             optionInfoQuery: undefined
@@ -29,8 +31,11 @@ export const useOptionsStore = defineStore('OptionsStore', {
     },
 
     actions: {
-        async initFilter(storeKey, url) {
+        async initFilter(storeKey, customFilter) {
             try {
+                this.clearFilter();
+                this.clearCustomFilter();
+
                 this.filter = new FilterService();
 
                 const filterOptions = {
@@ -42,8 +47,9 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     filterOptions.storeKey = storeKey;
                 }
 
-                if (url) {
-                    filterOptions.url = url
+                if (customFilter) {
+                    filterOptions.customFilter = customFilter;
+                    this.customFilter = _.cloneDeep(customFilter);
                 }
 
                 await this.filter.init(filterOptions);
@@ -83,6 +89,10 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     }],
                     ...options
                 };
+
+                if (this.customFilter) {
+                    apiOptions.customFilter = this.customFilter;
+                }
 
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.optionsQuery.signal);
 
@@ -167,6 +177,10 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
         clearFilter() {
             this.filter = undefined;
+        },
+
+        clearCustomFilter() {
+            this.customFilter = undefined;
         },
 
         clearConfig() {

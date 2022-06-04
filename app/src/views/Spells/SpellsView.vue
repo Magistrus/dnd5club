@@ -40,9 +40,9 @@
                 type: String,
                 default: ''
             },
-            url: {
-                type: String,
-                default: ''
+            customFilter: {
+                type: Object,
+                default: undefined
             }
         },
         data: () => ({
@@ -72,8 +72,8 @@
             }
         },
         async mounted() {
-            await this.spellsStore.initFilter(this.storeKey);
-            await this.spellsStore.initSpells(this.url);
+            await this.spellsStore.initFilter(this.storeKey, this.customFilter);
+            await this.spellsStore.initSpells();
 
             if (this.spells.length && this.$route.name === 'spells') {
                 await this.$router.push({ path: this.spells[0].url })
@@ -84,7 +84,7 @@
         },
         methods: {
             async spellsQuery() {
-                await this.spellsStore.initSpells(this.url);
+                await this.spellsStore.initSpells();
             },
 
             async nextPage() {

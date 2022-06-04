@@ -79,15 +79,13 @@
             <p>Классы:</p>
 
             <div class="classes_icon">
-                <a
+                <class-square
                     v-for="(el, key) in spell.classes"
                     :key="key"
-                    v-tooltip="{content: el.name}"
-                    class="spell-body__class-icon"
-                    :href="el.url"
-                >
-                    <svg-icon :icon-name="el.icon"/>
-                </a>
+                    :name="el.name"
+                    :url="el.url"
+                    :icon="el.icon"
+                />
             </div>
         </div>
 
@@ -117,10 +115,12 @@
 
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
+    import ClassSquare from "@/components/UI/ClassSquare";
 
     export default {
         name: "SpellBody",
         components: {
+            ClassSquare,
             SvgIcon
         },
         props: {
@@ -153,25 +153,5 @@
 <style lang="scss" scoped>
     .spell-body {
         padding: 24px;
-
-        &__class-icon {
-            @include css_anim();
-
-            display: block;
-            width: 48px;
-            height: 48px;
-            padding: 8px;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: var(--hover);
-            border-radius: 8px;
-            margin-right: 8px;
-            cursor: pointer;
-            color: var(--primary);
-
-            &:hover {
-                color: var(--link-color-hover);
-            }
-        }
     }
 </style>

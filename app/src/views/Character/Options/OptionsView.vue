@@ -39,9 +39,9 @@
                 type: String,
                 default: ''
             },
-            url: {
-                type: String,
-                default: ''
+            customFilter: {
+                type: Object,
+                default: undefined
             }
         },
         data: () => ({
@@ -71,8 +71,8 @@
             }
         },
         async mounted() {
-            await this.optionsStore.initFilter(this.storeKey);
-            await this.optionsStore.initOptions(this.url);
+            await this.optionsStore.initFilter(this.storeKey, this.customFilter);
+            await this.optionsStore.initOptions();
 
             if (this.options.length && this.$route.name === 'options') {
                 await this.$router.push({ path: this.options[0].url })
@@ -83,7 +83,7 @@
         },
         methods: {
             async optionsQuery() {
-                await this.optionsStore.initOptions(this.url);
+                await this.optionsStore.initOptions();
             },
         }
     }

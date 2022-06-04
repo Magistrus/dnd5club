@@ -39,10 +39,6 @@
                 type: String,
                 default: ''
             },
-            url: {
-                type: String,
-                default: ''
-            }
         },
         data: () => ({
             backgroundsStore: useBackgroundsStore(),
@@ -72,7 +68,7 @@
         },
         async mounted() {
             await this.backgroundsStore.initFilter(this.storeKey);
-            await this.backgroundsStore.initBackgrounds(this.url);
+            await this.backgroundsStore.initBackgrounds();
 
             if (this.backgrounds.length && this.$route.name === 'backgrounds') {
                 await this.$router.push({ path: this.backgrounds[0].url })
@@ -83,7 +79,7 @@
         },
         methods: {
             async backgroundsQuery() {
-                await this.backgroundsStore.initBackgrounds(this.url);
+                await this.backgroundsStore.initBackgrounds();
             },
         }
     }

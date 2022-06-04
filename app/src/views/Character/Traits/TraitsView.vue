@@ -39,10 +39,6 @@
                 type: String,
                 default: ''
             },
-            url: {
-                type: String,
-                default: ''
-            }
         },
         data: () => ({
             traitsStore: useTraitsStore(),
@@ -72,7 +68,7 @@
         },
         async mounted() {
             await this.traitsStore.initFilter(this.storeKey);
-            await this.traitsStore.initTraits(this.url);
+            await this.traitsStore.initTraits();
 
             if (this.traits.length && this.$route.name === 'traits') {
                 await this.$router.push({ path: this.traits[0].url })
@@ -83,7 +79,7 @@
         },
         methods: {
             async traitsQuery() {
-                await this.traitsStore.initTraits(this.url);
+                await this.traitsStore.initTraits();
             },
         }
     }

@@ -6,6 +6,8 @@ import RacesView from '@/views/Character/Races/RacesView';
 import TraitsView from '@/views/Character/Traits/TraitsView';
 import BackgroundsView from '@/views/Character/Backgrounds/BackgroundsView';
 import OptionsView from '@/views/Character/Options/OptionsView';
+import SvgIcon from '@/components/UI/SvgIcon';
+import DiceRoller from '@/components/UI/DiceRoller';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -17,5 +19,7 @@ export default function registerComponents(app) {
     app.component('SpellsView', SpellsView);
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);
     app.component('SiteLogo', SiteLogo);
+    app.component('SvgIcon', SvgIcon);
+    app.component('DiceRoller', DiceRoller);
     /* eslint-enable vue/match-component-file-name */
 }
