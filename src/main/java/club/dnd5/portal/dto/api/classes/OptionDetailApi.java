@@ -1,13 +1,10 @@
 package club.dnd5.portal.dto.api.classes;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
-import club.dnd5.portal.dto.api.spell.SpellClassApi;
-import club.dnd5.portal.model.trait.Trait;
+import club.dnd5.portal.model.classes.Option;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,14 +14,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TraitDetailApi extends TraitApi {
+public class OptionDetailApi extends OptionApi {
 	private String description;
-	private List<SpellClassApi> classes;
 	private SourceApiDto source;
-	public TraitDetailApi(Trait trait) {
-		super(trait);
-		url = null;
-		description = trait.getDescription();
-		source = new SourceApiDto(trait.getBook());
+
+	public OptionDetailApi(Option option) {
+		description = option.getDescription();
+		source = new SourceApiDto(option.getBook());
 	}
 }
