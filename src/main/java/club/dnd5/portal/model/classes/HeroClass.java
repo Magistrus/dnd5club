@@ -133,6 +133,8 @@ public class HeroClass {
 			return "чародея";
 		case "ИЗОБРЕТАТЕЛЬ":
 			return "изобретателя";
+		case "Напарник БОЕЦ":
+			return "Напарника бойца";
 		default:
 			return name.toLowerCase() + "а";
 		}
