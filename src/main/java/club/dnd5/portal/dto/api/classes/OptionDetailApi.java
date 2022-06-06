@@ -19,6 +19,8 @@ public class OptionDetailApi extends OptionApi {
 	private SourceApiDto source;
 
 	public OptionDetailApi(Option option) {
+		super(option);
+		url = null;
 		description = option.getDescription();
 		source = new SourceApiDto(option.getBook());
 	}
