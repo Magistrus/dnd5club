@@ -2323,6 +2323,11 @@ table.table_card tr.dtrg-group td {
   height: 260px;
 }
 
+#left_block.races .table_card tr.open td {
+  min-height: 260px;
+  height: auto;
+}
+
 .table_card tr td .wrapper {
   display: flex;
   flex-direction: row;
@@ -3614,12 +3619,12 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 .block_information #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
 }
 
 @media (max-width: 1600px) {
   .block_information #left_block.races .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
   }
 }
 
