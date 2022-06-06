@@ -3,27 +3,17 @@
         v-if="spell"
         class="spell_wrapper spell-body"
     >
-        <p class="row_info">
-            <span class="left_info">
-                {{ spell.level ? `${ spell.level } уровень` : 'заговор' }},
-                {{ spell.school }}
-                {{ spell.ritual ? '(ритуал)' : '' }}
-            </span>
-
-            <span>
-                Источник:
-
-                <span
-                    v-if="spell.source.homebrew"
-                    class="homebrew_text"
-                >Homebrew</span>
-
-                <span
-                    v-tooltip="{content: spell.source.name}"
-                    class="tip"
-                > {{ spell.source.shortName }}</span>
-            </span>
-        </p>
+        <detail-tob-bar
+            :left="`${
+                spell.level ? `${ spell.level } уровень` : 'заговор'
+            }, ${
+                spell.school
+            }${
+                spell.ritual ? ' (ритуал)' : ''
+            }`"
+            :source="spell.source"
+            :bg-grey="false"
+        />
 
         <div class="grid_stat_block">
             <div class="block">
@@ -116,10 +106,12 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import ClassSquare from "@/components/UI/ClassSquare";
+    import DetailTobBar from "@/components/UI/DetailTobBar";
 
     export default {
         name: "SpellBody",
         components: {
+            DetailTobBar,
             ClassSquare,
             SvgIcon
         },

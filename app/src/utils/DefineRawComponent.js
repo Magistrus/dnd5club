@@ -1,4 +1,4 @@
-import { defineComponent, shallowRef } from 'vue';
+import { defineComponent } from 'vue';
 import HTTPService from '@/services/HTTPService';
 
 const http = new HTTPService();
@@ -9,21 +9,19 @@ async function defineRawComponent(template, url) {
     }
 
     try {
-        let html;
+        let html = template;
 
-        if (!template) {
+        if (!html && !template) {
             const { data } = await http.rawGet(url);
 
             html = data;
         }
 
-        const component = defineComponent({
+        return defineComponent({
             // eslint-disable-next-line vue/match-component-file-name
             name: 'RawContent',
             template: html
         });
-
-        return shallowRef(component);
     } catch (err) {
         return err
     }

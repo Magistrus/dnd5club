@@ -5,10 +5,9 @@
             :title="background?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
-            @close="close"
         />
 
-        <raw-content :template="background?.content"/>
+        <background-body :background="background"/>
     </div>
 </template>
 
@@ -17,10 +16,11 @@
     import { useBackgroundsStore } from '@/store/CharacterStore/BackgroundsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
+    import BackgroundBody from "@/views/Character/Backgrounds/BackgroundBody";
 
     export default {
         name: 'BackgroundDetail',
-        components: { RawContent, SectionHeader },
+        components: { BackgroundBody, RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBackground(to.path);
 

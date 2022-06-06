@@ -43,8 +43,8 @@ const routes = [
         component: () => import('@/views/Character/Backgrounds/BackgroundsView'),
         children: [
             {
-                name: 'traitDetail',
-                path: ':traitName',
+                name: 'backgroundDetail',
+                path: ':backgroundName',
                 component: () => import('@/views/Character/Backgrounds/BackgroundDetail'),
             }
         ]
@@ -55,8 +55,8 @@ const routes = [
         component: () => import('@/views/Character/Options/OptionsView'),
         children: [
             {
-                name: 'traitDetail',
-                path: ':traitName',
+                name: 'optionDetail',
+                path: ':optionName',
                 component: () => import('@/views/Character/Options/OptionDetail'),
             }
         ]

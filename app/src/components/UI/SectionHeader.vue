@@ -6,14 +6,15 @@
                     {{ title }}
                 </div>
 
-                <button
+                <a
                     v-if="copy"
                     v-tooltip.bottom="{ content: 'Скопировать ссылку' }"
+                    :href="urlForCopy"
                     class="section-header__title--copy"
-                    @click.left.exact.prevent="copyText"
+                    @click.left.exact.prevent.stop="copyText"
                 >
                     <svg-icon icon-name="copy"/>
-                </button>
+                </a>
             </div>
 
             <div
@@ -37,7 +38,7 @@
                     v-tooltip.bottom="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
-                    @click.left.exact.prevent="openPrintWindow"
+                    @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
                 </button>
@@ -47,7 +48,7 @@
                     v-tooltip.bottom="{ content: 'Экспорт в Foundry VTT' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
-                    @click.left.exact.prevent="$emit('exportFoundry')"
+                    @click.left.exact.prevent.stop="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>
                 </button>
@@ -66,7 +67,7 @@
                     }"
                     class="section-header__control--main is-only-desktop"
                     type="button"
-                    @click.left.exact.prevent="uiStore.setFullscreenState(!uiStore.getContentConfig.fullscreen)"
+                    @click.left.exact.prevent.stop="uiStore.setFullscreenState(!uiStore.getContentConfig.fullscreen)"
                 >
                     <svg-icon :icon-name="uiStore.getContentConfig.fullscreen ? 'exit-fullscreen' : 'fullscreen'"/>
                 </button>
@@ -76,7 +77,7 @@
                     v-tooltip.bottom="{ content: 'Закрыть' }"
                     class="section-header__control--main"
                     type="button"
-                    @click.left.exact.prevent="$emit('close')"
+                    @click.left.exact.prevent.stop="$emit('close')"
                 >
                     <svg-icon icon-name="close"/>
                 </button>
@@ -137,15 +138,17 @@
 
             hasControls() {
                 return !!this.hasOptionalControls || !!this.hasMainControls
+            },
+
+            urlForCopy() {
+                return window.location.origin + window.location.pathname;
             }
         },
         methods: {
             async copyText() {
-                const urlForCopy = window.location.origin + window.location.pathname;
-
                 if (navigator.clipboard) {
                     try {
-                        await navigator.clipboard.writeText(urlForCopy);
+                        await navigator.clipboard.writeText(this.urlForCopy);
 
                         return;
                     } catch (err) {
@@ -155,7 +158,7 @@
 
                 const field = document.body.appendChild(document.createElement('input'));
 
-                field.value = urlForCopy;
+                field.value = this.urlForCopy;
 
                 field.focus();
                 field.select();
@@ -181,6 +184,7 @@
         overflow: hidden;
         flex-shrink: 0;
         background-color: var(--bg-sub-menu);
+        border-bottom: 1px solid var(--border);
 
         &__body {
             padding: 0 16px;

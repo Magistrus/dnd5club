@@ -5,10 +5,12 @@
             :title="option?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
-            @close="close"
         />
 
-        <raw-content :template="option?.content"/>
+        <option-body
+            v-if="option"
+            :option="option"
+        />
     </div>
 </template>
 
@@ -17,10 +19,11 @@
     import { useOptionsStore } from '@/store/CharacterStore/OptionsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
+    import OptionBody from "@/views/Character/Options/OptionBody";
 
     export default {
         name: 'OptionDetail',
-        components: { RawContent, SectionHeader },
+        components: { OptionBody, RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewOption(to.path);
 

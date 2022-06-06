@@ -1,19 +1,29 @@
 <template>
     <div class="raw-content">
-        <suspense>
-            <component :is="component"/>
+        <div
+            v-if="loading && !error"
+            class="raw-content__loading"
+        >
+            Загрузка...
+        </div>
 
-            <template #fallback>
-                <div class="raw-content__error">
-                    Загрузка...
-                </div>
-            </template>
-        </suspense>
+        <div
+            v-else-if="error || (!loading && !component)"
+            class="raw-content__loading"
+        >
+            Ошибка...
+        </div>
+
+        <component
+            :is="component"
+            v-else
+        />
     </div>
 </template>
 
 <script>
     import defineRawComponent from "@/utils/DefineRawComponent";
+    import { shallowRef } from "vue";
 
     export default {
         name: "RawContent",
@@ -29,9 +39,14 @@
         },
         data: () => ({
             component: undefined,
-            error: false
+            error: false,
+            loading: true
         }),
         watch: {
+            async template() {
+                await this.initComponent();
+            },
+
             async url() {
                 await this.initComponent();
             }
@@ -42,9 +57,16 @@
         methods: {
             async initComponent() {
                 try {
-                    this.component = await defineRawComponent(this.template, this.url)
+                    this.error = false;
+                    this.loading = true;
+
+                    const component = await defineRawComponent(this.template, this.url);
+
+                    this.component = shallowRef(component);
+                    this.loading = false;
                 } catch (err) {
                     this.error = true;
+                    this.loading = false;
                 }
             }
         }

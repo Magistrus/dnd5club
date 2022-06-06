@@ -385,7 +385,7 @@
             width: 100%;
             flex-shrink: 0;
             border: {
-                width: 1px 0;
+                width: 0 0 1px;
                 style: solid;
                 color: var(--border);
             };

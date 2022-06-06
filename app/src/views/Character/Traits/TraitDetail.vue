@@ -5,10 +5,9 @@
             :title="trait?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
-            @close="close"
         />
 
-        <raw-content :template="trait?.content"/>
+        <trait-body :trait="trait"/>
     </div>
 </template>
 
@@ -17,10 +16,11 @@
     import { useTraitsStore } from '@/store/CharacterStore/TraitsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
+    import TraitBody from "@/views/Character/Traits/TraitBody";
 
     export default {
         name: 'TraitDetail',
-        components: { RawContent, SectionHeader },
+        components: { TraitBody, RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewTrait(to.path);
 
