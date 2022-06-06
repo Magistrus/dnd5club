@@ -1,47 +1,47 @@
 <template>
-    <div class="race-detail">
+    <div class="trait-detail">
         <section-header
-            :subtitle="race?.name?.eng || ''"
-            :title="race?.name?.rus || ''"
+            :subtitle="trait?.name?.eng || ''"
+            :title="trait?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
             @close="close"
         />
 
-        <raw-content :template="race?.content"/>
+        <raw-content :template="trait?.content"/>
     </div>
 </template>
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useRacesStore } from '@/store/CharacterStore/RacesStore';
+    import { useTraitsStore } from '@/store/CharacterStore/TraitsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
 
     export default {
-        name: 'RaceDetail',
+        name: 'TraitDetail',
         components: { RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
-            await this.loadNewRace(to.path);
+            await this.loadNewTrait(to.path);
 
             next();
         },
         data: () => ({
-            raceStore: useRacesStore(),
-            race: undefined,
+            traitStore: useTraitsStore(),
+            trait: undefined,
             loading: false,
             error: false,
         }),
         async mounted() {
-            await this.loadNewRace(this.$route.path);
+            await this.loadNewTrait(this.$route.path);
         },
         methods: {
-            async loadNewRace(url) {
+            async loadNewTrait(url) {
                 try {
                     this.error = false;
                     this.loading = true;
 
-                    this.race = await this.raceStore.raceInfoQuery(url);
+                    this.trait = await this.traitStore.traitInfoQuery(url);
 
                     this.loading = false;
                 } catch (err) {
@@ -53,7 +53,7 @@
             },
 
             close() {
-                this.$router.push({ name: 'races' })
+                this.$router.push({ name: 'traits' })
             }
         }
     }

@@ -71,9 +71,21 @@
                     : this.layoutComponents.content;
             }
         },
+        watch: {
+            storeKey: {
+                async handler() {
+                    await this.init();
+                }
+            },
+            customFilter: {
+                deep: true,
+                async handler() {
+                    await this.init();
+                }
+            },
+        },
         async mounted() {
-            await this.spellsStore.initFilter(this.storeKey, this.customFilter);
-            await this.spellsStore.initSpells();
+            await this.init();
 
             if (this.spells.length && this.$route.name === 'spells') {
                 await this.$router.push({ path: this.spells[0].url })
@@ -83,6 +95,11 @@
             this.spellsStore.clearStore();
         },
         methods: {
+            async init() {
+                await this.spellsStore.initFilter(this.storeKey, this.customFilter);
+                await this.spellsStore.initSpells();
+            },
+
             async spellsQuery() {
                 await this.spellsStore.initSpells();
             },

@@ -1,47 +1,47 @@
 <template>
-    <div class="race-detail">
+    <div class="option-detail">
         <section-header
-            :subtitle="race?.name?.eng || ''"
-            :title="race?.name?.rus || ''"
+            :subtitle="option?.name?.eng || ''"
+            :title="option?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
             @close="close"
         />
 
-        <raw-content :template="race?.content"/>
+        <raw-content :template="option?.content"/>
     </div>
 </template>
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useRacesStore } from '@/store/CharacterStore/RacesStore';
+    import { useOptionsStore } from '@/store/CharacterStore/OptionsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
 
     export default {
-        name: 'RaceDetail',
+        name: 'OptionDetail',
         components: { RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
-            await this.loadNewRace(to.path);
+            await this.loadNewOption(to.path);
 
             next();
         },
         data: () => ({
-            raceStore: useRacesStore(),
-            race: undefined,
+            optionStore: useOptionsStore(),
+            option: undefined,
             loading: false,
             error: false,
         }),
         async mounted() {
-            await this.loadNewRace(this.$route.path);
+            await this.loadNewOption(this.$route.path);
         },
         methods: {
-            async loadNewRace(url) {
+            async loadNewOption(url) {
                 try {
                     this.error = false;
                     this.loading = true;
 
-                    this.race = await this.raceStore.raceInfoQuery(url);
+                    this.option = await this.optionStore.optionInfoQuery(url);
 
                     this.loading = false;
                 } catch (err) {
@@ -53,7 +53,7 @@
             },
 
             close() {
-                this.$router.push({ name: 'races' })
+                this.$router.push({ name: 'options' })
             }
         }
     }

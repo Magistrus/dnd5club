@@ -1,15 +1,24 @@
 <template>
     <span
-        v-tooltip="{ content: 'Нажмите для броска' }"
+        v-tooltip="{
+            content: result || 'Нажмите для броска',
+            shown: !!result,
+            html: true,
+            hideTriggers: () => ['hover', 'click']
+        }"
         class="dice-roller"
-        :class="className"
+        :class="classes"
         @click.left.exact.prevent="tryRoll"
     >
-        {{ result }}
+        {{ formula }}
     </span>
 </template>
 
 <script>
+    import { DiceRoll } from "@dice-roller/rpg-dice-roller";
+    import errorHandler from "@/helpers/errorHandler";
+    import _ from "lodash";
+
     export default {
         name: "DiceRoller",
         props: {
@@ -24,58 +33,60 @@
             }
         },
         data: () => ({
-            roll: undefined
+            roll: undefined,
+            error: false,
         }),
         computed: {
             result() {
-                return `${ this.formula }${ this.roll ? ` = ${ this.roll }` : '' }`
+                return this.roll ? `Результат: <b>${ this.roll }</b>` : ''
             },
 
-            className() {
-                return `is-${ this.type }`;
+            classes() {
+                const classes = [`is-${ this.type }`];
+
+                if (this.error) {
+                    classes.push('is-error');
+                }
+
+                return classes
             },
 
             computedFormula() {
                 switch (this.type) {
                     case 'advantage':
-                        return '2к20';
+                        return '2d20kh1';
                     case 'disadvantage':
-                        return '2к20';
+                        return '2d20kl1';
                     case 'saving-throw':
-                        return 'к20';
+                        return 'd20';
                     default:
-                        return this.formula
+                        return this.formula.replace('к', 'd');
                 }
             },
         },
         methods: {
-            getParsedString() {
-                const arr = this.computedFormula.split('к');
-                const [count, dice] = arr;
+            // eslint-disable-next-line func-names
+            tryRoll: _.throttle(function() {
+                try {
+                    this.error = false;
 
-                let result = 0;
+                    const roller = new DiceRoll(this.computedFormula);
+                    const result = roller.toJSON();
 
-                for (let i = 0; i < count; i++) {
-                    result += this.getDiceResult(dice);
+                    this.roll = result.total;
+
+                    this.clearRoll();
+                } catch (err) {
+                    this.error = true;
+
+                    errorHandler(err);
                 }
+            }, 1000),
 
-                return result;
-            },
-
-            getDiceResult(dice) {
-                const min = Math.ceil(1);
-                const max = Math.floor(dice);
-
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            },
-
-            tryRoll() {
-                this.roll = this.getParsedString();
-
-                setTimeout(() => {
-                    this.roll = undefined;
-                }, 5000);
-            }
+            // eslint-disable-next-line func-names
+            clearRoll: _.debounce(function() {
+                this.roll = undefined
+            }, 5000),
         }
     }
 </script>
@@ -103,6 +114,10 @@
 
         &.is-saving-throw {
             background-color: var(--bg-saving_throw);
+        }
+
+        &.is-error {
+            background-color: var(--error);
         }
     }
 </style>

@@ -1,9 +1,9 @@
 <template>
     <div class="spell-detail">
         <section-header
-            :copy="loading || error ? '' : urlForCopy"
             :subtitle="spell?.name?.eng || ''"
             :title="spell?.name?.rus || ''"
+            :copy="!error && !loading"
             fullscreen
         />
 
@@ -52,13 +52,6 @@
             loading: true,
             error: false,
         }),
-        computed: {
-            urlForCopy() {
-                return !this.error && !this.loading
-                    ? window.location.origin + this.$route.path
-                    : '';
-            },
-        },
         async mounted() {
             await this.loadNewSpell(this.$route.path);
         },

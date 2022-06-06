@@ -161,10 +161,6 @@ export const useClassesStore = defineStore('ClassesStore', {
                 return {
                     ...data,
                     tabs: _.sortBy(data.tabs, ['order'])
-                        .map((tab, index) => ({
-                            ...tab,
-                            active: index === 0
-                        }))
                 };
             } catch (err) {
                 errorHandler(err);

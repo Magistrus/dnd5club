@@ -1,47 +1,47 @@
 <template>
-    <div class="race-detail">
+    <div class="background-detail">
         <section-header
-            :subtitle="race?.name?.eng || ''"
-            :title="race?.name?.rus || ''"
+            :subtitle="background?.name?.eng || ''"
+            :title="background?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
             @close="close"
         />
 
-        <raw-content :template="race?.content"/>
+        <raw-content :template="background?.content"/>
     </div>
 </template>
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useRacesStore } from '@/store/CharacterStore/RacesStore';
+    import { useBackgroundsStore } from '@/store/CharacterStore/BackgroundsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
 
     export default {
-        name: 'RaceDetail',
+        name: 'BackgroundDetail',
         components: { RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
-            await this.loadNewRace(to.path);
+            await this.loadNewBackground(to.path);
 
             next();
         },
         data: () => ({
-            raceStore: useRacesStore(),
-            race: undefined,
+            backgroundStore: useBackgroundsStore(),
+            background: undefined,
             loading: false,
             error: false,
         }),
         async mounted() {
-            await this.loadNewRace(this.$route.path);
+            await this.loadNewBackground(this.$route.path);
         },
         methods: {
-            async loadNewRace(url) {
+            async loadNewBackground(url) {
                 try {
                     this.error = false;
                     this.loading = true;
 
-                    this.race = await this.raceStore.raceInfoQuery(url);
+                    this.background = await this.backgroundStore.backgroundInfoQuery(url);
 
                     this.loading = false;
                 } catch (err) {
@@ -53,7 +53,7 @@
             },
 
             close() {
-                this.$router.push({ name: 'races' })
+                this.$router.push({ name: 'backgrounds' })
             }
         }
     }

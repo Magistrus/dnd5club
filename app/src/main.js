@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { VueMasonryPlugin } from 'vue-masonry';
-import { VTooltip } from 'floating-vue';
+import FloatingVue from 'floating-vue';
 import VueEasyLightbox from 'vue-easy-lightbox';
 import { vfmPlugin } from 'vue-final-modal';
 import initialScript from '@/utils/BaseScripts';
@@ -17,13 +17,21 @@ app.use(createPinia())
     .use(router)
     .use(VueMasonryPlugin)
     .use(VueEasyLightbox)
+    .use(FloatingVue, {
+        instantMove: true,
+        themes: {
+            tooltip: {
+                handleResize: true,
+                html: true,
+                loadingContent: 'Посылаем запрос вселенной...',
+            }
+        }
+    })
     .use(vfmPlugin({
         key: '$vfm',
         componentName: 'VueFinalModal',
         dynamicContainerName: 'ModalsContainer'
     }));
-
-app.directive('tooltip', VTooltip);
 
 registerComponents(app);
 

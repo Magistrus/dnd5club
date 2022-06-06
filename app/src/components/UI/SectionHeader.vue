@@ -103,8 +103,8 @@
                 default: ''
             },
             copy: {
-                type: String,
-                default: ''
+                type: Boolean,
+                default: false
             },
             print: {
                 type: Boolean,
@@ -141,9 +141,11 @@
         },
         methods: {
             async copyText() {
+                const urlForCopy = window.location.origin + window.location.pathname;
+
                 if (navigator.clipboard) {
                     try {
-                        await navigator.clipboard.writeText(this.copy);
+                        await navigator.clipboard.writeText(urlForCopy);
 
                         return;
                     } catch (err) {
@@ -153,7 +155,7 @@
 
                 const field = document.body.appendChild(document.createElement('input'));
 
-                field.value = this.copy;
+                field.value = urlForCopy;
 
                 field.focus();
                 field.select();

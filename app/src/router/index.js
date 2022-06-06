@@ -29,37 +29,37 @@ const routes = [
         name: 'traits',
         path: '/traits',
         component: () => import('@/views/Character/Traits/TraitsView'),
-        // children: [
-        //     {
-        //         name: 'traitDetail',
-        //         path: ':traitName',
-        //         component: () => import('@/views/Character/Traits/TraitDetail'),
-        //     }
-        // ]
+        children: [
+            {
+                name: 'traitDetail',
+                path: ':traitName',
+                component: () => import('@/views/Character/Traits/TraitDetail'),
+            }
+        ]
     },
     {
         name: 'backgrounds',
         path: '/backgrounds',
         component: () => import('@/views/Character/Backgrounds/BackgroundsView'),
-        // children: [
-        //     {
-        //         name: 'traitDetail',
-        //         path: ':traitName',
-        //         component: () => import('@/views/Character/Backgrounds/BackgroundDetail'),
-        //     }
-        // ]
+        children: [
+            {
+                name: 'traitDetail',
+                path: ':traitName',
+                component: () => import('@/views/Character/Backgrounds/BackgroundDetail'),
+            }
+        ]
     },
     {
         name: 'options',
         path: '/options',
         component: () => import('@/views/Character/Options/OptionsView'),
-        // children: [
-        //     {
-        //         name: 'traitDetail',
-        //         path: ':traitName',
-        //         component: () => import('@/views/Character/Options/OptionDetail'),
-        //     }
-        // ]
+        children: [
+            {
+                name: 'traitDetail',
+                path: ':traitName',
+                component: () => import('@/views/Character/Options/OptionDetail'),
+            }
+        ]
     },
     {
         name: 'spells',

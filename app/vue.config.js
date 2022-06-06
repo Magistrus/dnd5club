@@ -6,7 +6,7 @@ module.exports = {
     filenameHashing: false,
     runtimeCompiler: true,
     productionSourceMap: false,
-    transpileDependencies: true,
+    transpileDependencies: false,
     chainWebpack: config => {
         config.plugins.delete('html');
         config.plugins.delete('preload');

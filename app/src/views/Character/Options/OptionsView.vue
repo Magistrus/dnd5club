@@ -70,9 +70,21 @@
                     : this.layoutComponents.content;
             }
         },
+        watch: {
+            storeKey: {
+                async handler() {
+                    await this.init();
+                }
+            },
+            customFilter: {
+                deep: true,
+                async handler() {
+                    await this.init();
+                }
+            },
+        },
         async mounted() {
-            await this.optionsStore.initFilter(this.storeKey, this.customFilter);
-            await this.optionsStore.initOptions();
+            await this.init();
 
             if (this.options.length && this.$route.name === 'options') {
                 await this.$router.push({ path: this.options[0].url })
@@ -85,6 +97,11 @@
             async optionsQuery() {
                 await this.optionsStore.initOptions();
             },
+
+            async init() {
+                await this.optionsStore.initFilter(this.storeKey, this.customFilter);
+                await this.optionsStore.initOptions();
+            }
         }
     }
 </script>

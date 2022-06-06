@@ -1,9 +1,9 @@
 <template>
     <div class="class-detail">
         <section-header
-            :copy="urlForCopy"
             :subtitle="currentClass?.name?.eng || ''"
             :title="currentClass?.name?.rus || ''"
+            :copy="!error && !loading"
             fullscreen
             @close="close"
         />
@@ -65,6 +65,7 @@
             </swiper>
 
             <div
+                v-if="currentTab"
                 ref="classBody"
                 class="class-detail__body"
             >
@@ -112,13 +113,13 @@
 
                 <spells-view
                     v-if="currentTab?.icon === 'tab-spells'"
-                    :store-key="currentClass.name.eng.replaceAll(' ', '')"
+                    :store-key="`${currentClass.name.rus + currentTab.name}`.replaceAll(' ', '')"
                     in-tab
                 />
 
                 <options-view
                     v-else-if="currentTab?.icon === 'tab-option'"
-                    :store-key="currentClass.name.eng.replaceAll(' ', '')"
+                    :store-key="`${currentClass.name.rus + currentTab.name}`.replaceAll(' ', '')"
                     in-tab
                 />
 
@@ -126,9 +127,7 @@
                     v-else
                     class="class-detail__body--inner"
                 >
-                    <!-- eslint-disable vue/no-v-html -->
-                    <component :is="component"/>
-                    <!-- eslint-enable vue/no-v-html -->
+                    <raw-content :url="currentTab.url"/>
                 </div>
             </div>
         </div>
@@ -161,11 +160,12 @@
     import SpellsView from "@/views/Spells/SpellsView";
     import errorHandler from "@/helpers/errorHandler";
     import OptionsView from "@/views/Character/Options/OptionsView";
-    import { defineComponent, markRaw } from "vue";
+    import RawContent from "@/components/content/RawContent";
 
     export default {
         name: 'ClassDetail',
         components: {
+            RawContent,
             OptionsView,
             SpellsView,
             FieldSelect,
@@ -194,36 +194,10 @@
                 show: false,
                 index: 0,
             },
-            templates: {},
         }),
         computed: {
-            urlForCopy() {
-                return !this.error && !this.loading
-                    ? window.location.origin + this.$route.path
-                    : '';
-            },
-
             classes() {
                 return this.classesStore.getClasses || []
-            },
-
-            component() {
-                /* eslint-disable vue/one-component-per-file */
-                switch (this.currentTab?.icon) {
-                    case 'tab-traits':
-                        return markRaw(defineComponent({
-                            name: 'ClassRawTraits',
-                            template: this.templates[this.currentTab.name]
-                        }));
-                    case 'tab-description':
-                        return markRaw(defineComponent({
-                            name: 'ClassRawDescription',
-                            template: this.templates[this.currentTab.name]
-                        }));
-                    default:
-                        return undefined;
-                }
-                /* eslint-enable vue/one-component-per-file */
             },
 
             currentSelectArchetype() {
@@ -298,20 +272,10 @@
 
             async initTabs(loadedClass) {
                 this.tabs.list = loadedClass.tabs;
-                this.templates = {};
-
-                for (const tab of loadedClass.tabs) {
-                    if (!tab.raw) {
-                        continue;
-                    }
-
-                    this.templates[tab.name] = await this.getTabContent(tab);
-                }
 
                 if (loadedClass.images) {
                     this.tabs.list.push({
                         icon: 'tab-images',
-                        active: false,
                         order: this.tabs.length,
                         callback: () => {
                             this.images.show = true
@@ -325,7 +289,6 @@
             async setTab(index) {
                 try {
                     this.loading = true;
-                    this.currentTab = undefined;
 
                     this.currentTab = this.tabs.list[index];
                     this.loading = false;
@@ -356,12 +319,6 @@
                 }
 
                 await this.setTab(index);
-            },
-
-            async getTabContent(tab) {
-                const { data } = await this.http.rawGet(tab.url);
-
-                return data;
             },
 
             goToArchetype(path) {

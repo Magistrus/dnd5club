@@ -157,9 +157,9 @@ module.exports = {
         'vuejs-accessibility/mouse-events-have-key-events': 'off',
         'vuejs-accessibility/label-has-for': 'off',
         'vue/require-explicit-emits': [
-            "warn",
+            'warn',
             {
-                "allowProps": true
+                allowProps: true
             }
         ]
     },
