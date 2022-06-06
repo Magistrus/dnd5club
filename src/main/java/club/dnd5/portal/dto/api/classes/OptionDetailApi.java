@@ -15,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OptionDetailApi extends OptionApi {
+	private String requirements ;
 	private String description;
 	private SourceApiDto source;
 
@@ -23,5 +24,6 @@ public class OptionDetailApi extends OptionApi {
 		url = null;
 		description = option.getDescription();
 		source = new SourceApiDto(option.getBook());
+		requirements = option.getPrerequisite();
 	}
 }
