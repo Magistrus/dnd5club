@@ -2358,7 +2358,7 @@ table.table_card tr.dtrg-group td {
 .table_card tr td .content .two_row {
   display: flex;
   font-size: calc(var(--h5-font-size) - 1px);
-  margin-bottom: 18px;  
+  margin-bottom: 8px;  
 }
 
 @media (max-width: 1200px) {
@@ -2368,8 +2368,7 @@ table.table_card tr.dtrg-group td {
 }
 
 .table_card tr .bottom_row span {
-  margin-left: 0;
-  margin-right: 4px;
+  margin: 8px 4px 0 0;
   font-size: calc(var(--h5-font-size) - 2px);
   width: fit-content;
   background-color: var(--primary-active);
@@ -3611,7 +3610,7 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(22%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
 }
 
 .block_information #left_block.races .table_card tbody {
@@ -3624,15 +3623,27 @@ body.full_screen_right_block .screens .card_block .block {
   }
 }
 
+@media (max-width: 1400px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+  }
+}
+
 @media (max-width: 1200px) {
   #left_block.races .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   }
 }
 
 @media (max-width: 800px) {
   #left_block.races .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(60%, 1fr));
   }
 }
 
