@@ -14,11 +14,13 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.classes.TraitApi;
+import club.dnd5.portal.dto.api.classes.TraitDetailApi;
 import club.dnd5.portal.dto.api.classes.TraitRequesApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.splells.Spell;
@@ -93,7 +95,10 @@ public class TraitApiController {
 		}
 		return repo.findAll(input, specification, specification, TraitApi::new).getData();
 	}
-	
+	@PostMapping(value = "/api/v1/traits/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public TraitDetailApi getTrait(@PathVariable String englishName) {
+		return new TraitDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+	}
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {
 			return Specification.where(addSpecification);

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.spell.SpellApi;
-import club.dnd5.portal.dto.api.spell.SpellClassApi;
+import club.dnd5.portal.dto.api.spell.ReferenceClassApi;
 import club.dnd5.portal.dto.api.spell.SpellDetailApi;
 import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
@@ -126,11 +126,11 @@ public class SpellApiConroller {
 		SpellDetailApi spellApi = new SpellDetailApi(spell);
 		List<Archetype> archetypes = archetypeSpellRepository.findAllBySpell(spell.getId());
 		if (!archetypes.isEmpty()) {
-			spellApi.setSubclasses(archetypes.stream().map(SpellClassApi::new).collect(Collectors.toList()));
+			spellApi.setSubclasses(archetypes.stream().map(ReferenceClassApi::new).collect(Collectors.toList()));
 		}
 		List<Race> races = repo.findAllRaceBySpell(spell.getId());
 		if (!races.isEmpty()) {
-			spellApi.setRaces(races.stream().map(SpellClassApi::new).collect(Collectors.toList()));
+			spellApi.setRaces(races.stream().map(ReferenceClassApi::new).collect(Collectors.toList()));
 		}
 		return spellApi;
 	}

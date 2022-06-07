@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class TraitApi {
 	protected NameApi name;
-	private String url;
+	protected String url;
 	private String requirements ;
 	private Boolean homebrew;
 	public TraitApi(Trait trait) {
