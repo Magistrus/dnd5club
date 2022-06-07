@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.RequestApi;
-import club.dnd5.portal.dto.api.classes.OptionFilter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
