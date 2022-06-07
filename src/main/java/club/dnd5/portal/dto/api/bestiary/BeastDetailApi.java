@@ -35,6 +35,8 @@ public class BeastDetailApi extends BeastApi {
 	private String intellect;
 	private String wiz;
 	private String cha;
+	
+	private String description;
 
 	public BeastDetailApi(Creature beast) {
 		super(beast);
@@ -57,6 +59,7 @@ public class BeastDetailApi extends BeastApi {
 		intellect = String.format("%d (%d)", beast.getIntellect(), AbilityType.getModifier(beast.getIntellect()));
 		wiz = String.format("%d (%d)", beast.getWizdom(), AbilityType.getModifier(beast.getWizdom()));
 		cha = String.format("%d (%d)", beast.getCharisma(), AbilityType.getModifier(beast.getCharisma()));
-
+		
+		description = beast.getDescription();
 	}
 }
