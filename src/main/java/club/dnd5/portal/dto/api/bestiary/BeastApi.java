@@ -18,9 +18,11 @@ public class BeastApi {
 	private NameApi name;
 	private String type;
 	private String challengeRating;
+	protected String url;
 	public BeastApi(Creature beast) {
 		name = new NameApi(beast.getName(), beast.getEnglishName());
 		type = beast.getType().getCyrilicName();
 		challengeRating = beast.getChallengeRating();
+		url = String.format("/bestiary/%s", beast.getUrlName());
 	}
 }
