@@ -17,10 +17,12 @@ import lombok.Setter;
 public class WeaponDetailApi extends WeaponApi {
 	private SourceApiDto source;
 	private Float weight;
+	private String description;
 	public WeaponDetailApi(Weapon weapon) {
 		super(weapon);
 		url = null;
 		source = new SourceApiDto(weapon.getBook());
 		weight = weapon.getWeight();
+		description = weapon.getDescription();
 	}
 }

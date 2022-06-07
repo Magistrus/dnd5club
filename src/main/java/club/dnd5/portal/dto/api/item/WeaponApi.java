@@ -31,6 +31,6 @@ public class WeaponApi {
 		}
 		type = new TypeApi(weapon.getType().getName(), weapon.getType().ordinal());
 		damage = new DamageApi(weapon.getDamage(), weapon.getDamageType().getCyrilicName());
-		price = String.format("%d %s.",weapon.getCost(), weapon.getCurrency().getName());
+		price = String.format("%d %s.", weapon.getCost(), weapon.getCurrency().getName());
 	}
 }

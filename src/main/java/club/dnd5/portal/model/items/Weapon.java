@@ -77,10 +77,12 @@ public class Weapon {
 	private Book book;
 	
 	public String getDamage() {
-		if (numberDice == null) {
-			return String.format("%d", damageDice);
+		if (damageDice != null && numberDice == null) {
+			return String.format("%s", damageDice.getName());
 			
+		} else if (damageDice == null) {
+			return null;
 		}
-		return String.format("%d%d", numberDice, damageDice);
+		return String.format("%d%s", numberDice, damageDice.getName());
 	}
 }
