@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.item.WeaponApi;
-import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
+import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 
 @RestController
 public class MagicItemApiController {
 	@Autowired
-	private WeaponDatatableRepository repo;
+	private MagicItemDatatableRepository repo;
 	
-	@PostMapping(value = "/api/v1/weapons", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<WeaponApi> getWeapons(){
+	@PostMapping(value = "/api/v1/magic/items", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<WeaponApi> getItems(){
 		return null;
 	}
 }

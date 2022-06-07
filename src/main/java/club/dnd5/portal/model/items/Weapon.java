@@ -31,6 +31,7 @@ public class Weapon {
 	
 	private String name;
 	private String englishName;
+	private String altName;
 	private Integer cost;
 	
 	@Enumerated(EnumType.ORDINAL)
