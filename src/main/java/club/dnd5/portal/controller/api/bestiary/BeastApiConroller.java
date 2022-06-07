@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.bestiary;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,8 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +27,8 @@ import club.dnd5.portal.dto.api.bestiary.BeastDetailApi;
 import club.dnd5.portal.dto.api.bestiary.BeastlRequesApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.foundary.FBeastiary;
+import club.dnd5.portal.model.fvtt.plutonium.FBeast;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
@@ -106,6 +111,13 @@ public class BeastApiConroller {
 	public BeastDetailApi getBeast(@PathVariable String englishName) {
 		Creature beast = repo.findByEnglishName(englishName.replace('_', ' '));
 		return new BeastDetailApi(beast);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/api/fvtt/v1/bestiary")
+	public FBeastiary getCreatures(){
+		List<FBeast> list = ((Collection<Creature>) repo.findAll()).stream().map(FBeast::new).collect(Collectors.toList());
+		return new FBeastiary(list);
 	}
 	
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {

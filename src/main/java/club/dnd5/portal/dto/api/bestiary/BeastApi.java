@@ -16,9 +16,11 @@ import lombok.Setter;
 @Setter
 public class BeastApi {
 	private NameApi name;
+	private String type;
 	private String challengeRating;
 	public BeastApi(Creature beast) {
 		name = new NameApi(beast.getName(), beast.getEnglishName());
+		type = beast.getType().getCyrilicName();
 		challengeRating = beast.getChallengeRating();
 	}
 }
