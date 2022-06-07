@@ -1,5 +1,8 @@
 package club.dnd5.portal.dto.api.item;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -18,11 +21,18 @@ public class WeaponDetailApi extends WeaponApi {
 	private SourceApiDto source;
 	private Float weight;
 	private String description;
+	private String special;
+	private List<PropertyApi> properties;
 	public WeaponDetailApi(Weapon weapon) {
 		super(weapon);
 		url = null;
 		source = new SourceApiDto(weapon.getBook());
 		weight = weapon.getWeight();
 		description = weapon.getDescription();
+		special = weapon.getSpecial();
+		properties = weapon.getProperties()
+				.stream()
+				.map(property-> new PropertyApi(weapon, property))
+				.collect(Collectors.toList());
 	}
 }
