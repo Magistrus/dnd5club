@@ -17,7 +17,7 @@ public interface OptionDatatableRepository extends DataTablesRepository<Option, 
 	Option findByEnglishName(String name);
 
 	@Query("SELECT o.prerequisite FROM Option o WHERE o.prerequisite IS NOT NULL GROUP BY o.prerequisite")
-	Collection<String> finAlldPrerequisite();
+	Collection<String> findAlldPrerequisite();
 	
 	@Query("SELECT c.book FROM Option c GROUP BY c.book HAVING c.book.type = :type ORDER BY c.book.year")
 	List<Book> findBook(@Param("type") TypeBook type);

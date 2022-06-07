@@ -219,7 +219,7 @@ public class ClassController {
 	public String getClassOption(Model model, Device device, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("heroClass", heroClass);
-		model.addAttribute("requirements", optionRepository.finAlldPrerequisite());
+		model.addAttribute("requirements", optionRepository.findAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
 		return "fragments/class_options :: view";
 	}
