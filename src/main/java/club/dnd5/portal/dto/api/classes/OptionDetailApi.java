@@ -1,6 +1,7 @@
 package club.dnd5.portal.dto.api.classes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -29,5 +30,6 @@ public class OptionDetailApi extends OptionApi {
 		description = option.getDescription();
 		source = new SourceApiDto(option.getBook());
 		requirements = option.getPrerequisite();
+		classes = option.getOptionTypes().stream().map(SpellClassApi::new).collect(Collectors.toList());
 	}
 }
