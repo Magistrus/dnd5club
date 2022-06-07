@@ -37,6 +37,10 @@ public class ArmorApi {
 				break;
 			case MEDIUM:
 				armorClass = String.format("%d + модификатор Лов (макс. 2)", armor.getAC());
+				break;
+			case SHIELD:
+				armorClass = String.format("+%d", armor.getAC());
+				break;
 			default:
 				armorClass = String.format("%d", armor.getAC());
 		}
