@@ -22,6 +22,7 @@ public class ItemDetailApi extends ItemApi {
 	private Float weight;
 	private String description;
 	private List<String> categories;
+	private String image;
 	
 	public ItemDetailApi(Equipment item) {
 		super(item);
