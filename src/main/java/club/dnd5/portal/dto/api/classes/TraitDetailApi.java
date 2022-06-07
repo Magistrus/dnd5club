@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
-import club.dnd5.portal.dto.api.spell.SpellClassApi;
+import club.dnd5.portal.dto.api.spell.ReferenceClassApi;
 import club.dnd5.portal.model.trait.Trait;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 public class TraitDetailApi extends TraitApi {
 	private String description;
-	private List<SpellClassApi> classes;
+	private List<ReferenceClassApi> classes;
 	private SourceApiDto source;
 	public TraitDetailApi(Trait trait) {
 		super(trait);

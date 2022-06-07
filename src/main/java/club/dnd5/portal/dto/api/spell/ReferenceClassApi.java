@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SpellClassApi {
+public class ReferenceClassApi {
 	private String name;
 	private String source;
 	private String url;
@@ -25,26 +25,30 @@ public class SpellClassApi {
     @JsonProperty("class")
 	private String parent;
 	
-	public SpellClassApi(HeroClass heroClass){
+	public ReferenceClassApi(HeroClass heroClass){
 		name = heroClass.getCapitalazeName();
 		url = String.format("/classes/%s", heroClass.getUrlName());
 		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 	
-	public SpellClassApi(Archetype archetype) {
+	public ReferenceClassApi(Archetype archetype) {
 		name = archetype.getCapitalizeName();
 		url = String.format("/classes/%s/%s", archetype.getHeroClass().getUrlName(), archetype.getUrlName());
 		parent = archetype.getHeroClass().getCapitalazeName();
 	}
 	
-	public SpellClassApi(Race race) {
+	public ReferenceClassApi(Race race) {
 		name = race.getCapitalazeName();
 		url = String.format("/classes/%s", race.getUrlName());
 	}
 	
-	public SpellClassApi(OptionType optionType) {
+	public ReferenceClassApi(OptionType optionType) {
 		name = optionType.getName();
-		url = String.format("", optionType.getClassName().replace(' ', '_'));
+		if (optionType.getArhetypeName() != null) {
+			url = String.format("/classes/%s/%s", optionType.getArhetypeName().replace(' ', '_'), optionType.getClassName().replace(' ', '_'));
+		} else {
+			url = String.format("/classes/%s", optionType.getClassName().replace(' ', '_'));
+		}
 		icon = String.format("class-%s", optionType.getClassName().replace(' ', '-').toLowerCase());
 	}
 }

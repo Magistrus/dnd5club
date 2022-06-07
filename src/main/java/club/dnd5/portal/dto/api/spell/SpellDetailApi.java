@@ -20,10 +20,10 @@ public class SpellDetailApi extends SpellApi {
 	private String range;
 	private String duration;
 	private String time;
-	private List<SpellClassApi> classes;
-	private List<SpellClassApi> subclasses;
-	private List<SpellClassApi> races;
-	private List<SpellClassApi> backgrounds;
+	private List<ReferenceClassApi> classes;
+	private List<ReferenceClassApi> subclasses;
+	private List<ReferenceClassApi> races;
+	private List<ReferenceClassApi> backgrounds;
 	
 	private String description;
 	private String upper;
@@ -34,7 +34,7 @@ public class SpellDetailApi extends SpellApi {
 		time = spell.getTimes().stream().map(t -> t.getName()).collect(Collectors.joining(" или "));
 		description = spell.getDescription();
 		components.setM(spell.getAdditionalMaterialComponent());
-		classes = spell.getHeroClass().stream().map(SpellClassApi::new).collect(Collectors.toList());
+		classes = spell.getHeroClass().stream().map(ReferenceClassApi::new).collect(Collectors.toList());
 		if (spell.getUpperLevel()!=null) {
 			upper = spell.getUpperLevel();
 		}

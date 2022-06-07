@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.SourceApiDto;
-import club.dnd5.portal.dto.api.spell.SpellClassApi;
+import club.dnd5.portal.dto.api.spell.ReferenceClassApi;
 import club.dnd5.portal.model.classes.Option;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class OptionDetailApi extends OptionApi {
 	private String requirements ;
 	private String description;
 	private SourceApiDto source;
-	private List<SpellClassApi> classes;
+	private List<ReferenceClassApi> classes;
 
 	public OptionDetailApi(Option option) {
 		super(option);
@@ -30,6 +30,6 @@ public class OptionDetailApi extends OptionApi {
 		description = option.getDescription();
 		source = new SourceApiDto(option.getBook());
 		requirements = option.getPrerequisite();
-		classes = option.getOptionTypes().stream().map(SpellClassApi::new).collect(Collectors.toList());
+		classes = option.getOptionTypes().stream().map(ReferenceClassApi::new).collect(Collectors.toList());
 	}
 }

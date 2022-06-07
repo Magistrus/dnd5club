@@ -19,14 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.classes.OptionApi;
-import club.dnd5.portal.dto.api.classes.OptionDetailApi;
-import club.dnd5.portal.dto.api.classes.OptionRequesApi;
 import club.dnd5.portal.dto.api.item.WeaponApi;
 import club.dnd5.portal.dto.api.item.WeaponDetailApi;
 import club.dnd5.portal.dto.api.item.WeaponRequesApi;
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
@@ -87,7 +83,6 @@ public class WeaponApiController {
 			}
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
 			specification = addSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
