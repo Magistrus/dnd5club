@@ -23,6 +23,7 @@ public class ItemDetailApi extends ItemApi {
 	private String description;
 	private List<String> categories;
 	private String image;
+	private String price;
 	
 	public ItemDetailApi(Equipment item) {
 		super(item);
@@ -33,5 +34,6 @@ public class ItemDetailApi extends ItemApi {
 			description = item.getDescription();
 		}
 		categories = item.getTypes().stream().map(category -> category.getCyrilicName()).collect(Collectors.toList());
+		price = item.getTextCost();
 	}
 }

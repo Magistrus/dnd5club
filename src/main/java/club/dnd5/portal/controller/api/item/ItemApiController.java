@@ -98,7 +98,8 @@ public class ItemApiController {
 	
 	@PostMapping(value = "/api/v1/items/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ItemDetailApi getOption(@PathVariable String englishName) {
-		return new ItemDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+		Equipment item = repo.findByEnglishName(englishName.replace('_', ' '));
+		return new ItemDetailApi(item);
 	}
 	
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
