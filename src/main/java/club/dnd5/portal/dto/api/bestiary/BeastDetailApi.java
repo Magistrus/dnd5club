@@ -36,13 +36,7 @@ public class BeastDetailApi extends BeastApi {
 	private String armorText;
 	private HitPointsApi hits;
 	private Collection<NameValueApi> speed;
-	private String str;
-	private String dex;
-	private String con;
-	@JsonProperty("int")
-	private String intellect;
-	private String wiz;
-	private String cha;
+	private AbilityApi ability;
 	
 	private Collection<NameValueApi> savingThrows;
 	private Collection<NameValueApi> skills;
@@ -98,12 +92,6 @@ public class BeastDetailApi extends BeastApi {
 			speed.add(new NameValueApi("лазая", beast.getClimbingSpeed()));
 		}
 
-		str = String.format("%d (%d)", beast.getStrength(), AbilityType.getModifier(beast.getStrength()));
-		dex = String.format("%d (%d)", beast.getDexterity(), AbilityType.getModifier(beast.getDexterity()));
-		con = String.format("%d (%d)", beast.getConstitution(), AbilityType.getModifier(beast.getConstitution()));
-		intellect = String.format("%d (%d)", beast.getIntellect(), AbilityType.getModifier(beast.getIntellect()));
-		wiz = String.format("%d (%d)", beast.getWizdom(), AbilityType.getModifier(beast.getWizdom()));
-		cha = String.format("%d (%d)", beast.getCharisma(), AbilityType.getModifier(beast.getCharisma()));
 		if (!beast.getSavingThrows().isEmpty()) {
 			savingThrows = beast.getSavingThrows().stream().map(st -> new NameValueApi(st.getAbility().getCyrilicName(), st.getBonus())).collect(Collectors.toList());
 		}
