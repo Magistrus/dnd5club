@@ -1,7 +1,7 @@
 package club.dnd5.portal.dto.api.bestiary;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,10 +17,10 @@ import club.dnd5.portal.model.creature.Action;
 import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Condition;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.creature.HabitatType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.val;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"name", "size", "type", "str", "dex", "con", "int", "wiz", "cha"})
@@ -32,10 +32,10 @@ public class BeastDetailApi extends BeastApi {
 	private String size;
 	private String alignment;
 	private Byte armorClass;
-	private List<String> armors;
+	private Collection<String> armors;
 	private String armorText;
 	private HitPointsApi hits;
-	private List<NameValueApi> speed;
+	private Collection<NameValueApi> speed;
 	private String str;
 	private String dex;
 	private String con;
@@ -44,24 +44,27 @@ public class BeastDetailApi extends BeastApi {
 	private String wiz;
 	private String cha;
 	
-	private List<NameValueApi> savingThrows;
-	private List<NameValueApi> skills;
+	private Collection<NameValueApi> savingThrows;
+	private Collection<NameValueApi> skills;
 	
-	private List<String> damageResistances;
-	private List<String> damageImmunities;
-	private List<String> damageVulnerabilities;
-	private List<String> conditionImmunities;
+	private Collection<String> damageResistances;
+	private Collection<String> damageImmunities;
+	private Collection<String> damageVulnerabilities;
+	private Collection<String> conditionImmunities;
 	private SenseApi senses;
 	
-	private List<NameValueApi> feats;
-	private List<NameValueApi> actions;
-	private List<NameValueApi> reactions;
-	private List<NameValueApi> bonusActions;
-	private List<NameValueApi> legendary;
-	private List<NameValueApi> mysticalActions;
+	private Collection<NameValueApi> feats;
+	private Collection<NameValueApi> actions;
+	private Collection<NameValueApi> reactions;
+	private Collection<NameValueApi> bonusActions;
+	private Collection<NameValueApi> legendary;
+	private Collection<NameValueApi> mysticalActions;
 	
 	private String description;
-
+	
+	private Collection<String> environment;
+	private Collection<String> images;
+	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
 		size = beast.getSizeName();
@@ -123,7 +126,7 @@ public class BeastDetailApi extends BeastApi {
 		if (!beast.getFeats().isEmpty()) {
 			feats = beast.getFeats().stream().map(feat -> new NameValueApi(feat.getName(), feat.getDescription())).collect(Collectors.toList());
 		}
-		List<Action> actionsBeast = beast.getActions(ActionType.ACTION);
+		Collection<Action> actionsBeast = beast.getActions(ActionType.ACTION);
 		if (!actionsBeast.isEmpty()) {
 			actions = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
 		}
@@ -144,5 +147,8 @@ public class BeastDetailApi extends BeastApi {
 			mysticalActions = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
 		}
 		description = beast.getDescription();
+		if (!beast.getHabitates().isEmpty()) {
+			environment = beast.getHabitates().stream().map(HabitatType::getName).collect(Collectors.toList());	
+		}
 	}
 }

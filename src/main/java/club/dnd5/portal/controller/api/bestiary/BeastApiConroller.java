@@ -29,13 +29,18 @@ import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.foundary.FBeastiary;
 import club.dnd5.portal.model.fvtt.plutonium.FBeast;
+import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.splells.Spell;
+import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController
 public class BeastApiConroller {
 	@Autowired
 	private BestiaryDatatableRepository repo;
+
+	@Autowired
+	private ImageRepository imageRepo;
 
 	@PostMapping(value = "/api/v1/bestiary", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BeastApi> getBestiary(@RequestBody BeastlRequesApi request) {
@@ -110,6 +115,11 @@ public class BeastApiConroller {
 	@PostMapping(value = "/api/v1/bestiary/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public BeastDetailApi getBeast(@PathVariable String englishName) {
 		Creature beast = repo.findByEnglishName(englishName.replace('_', ' '));
+		BeastDetailApi beastApi = new BeastDetailApi(beast);
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, beast.getId());
+		if (!images.isEmpty()) {
+			beastApi.setImages(images);
+		}
 		return new BeastDetailApi(beast);
 	}
 	
