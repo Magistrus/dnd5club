@@ -40,9 +40,10 @@ public class SpellController {
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
-		sources.put(TypeBook.OFFICAL, repository.findBook());
-		sources.put(TypeBook.SETTING, repository.findSettingBook());
-		sources.put(TypeBook.CUSTOM, repository.findHomebrewBook());
+		sources.put(TypeBook.OFFICAL, repository.findBook(TypeBook.OFFICAL));
+		sources.put(TypeBook.SETTING, repository.findBook(TypeBook.SETTING));
+		sources.put(TypeBook.MODULE, repository.findBook(TypeBook.MODULE));
+		sources.put(TypeBook.CUSTOM, repository.findBook(TypeBook.CUSTOM));
 	}
 	
 	@GetMapping("/spells")
