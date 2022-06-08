@@ -1,11 +1,13 @@
 package club.dnd5.portal.dto.api.bestiary;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.model.AbilityType;
@@ -18,9 +20,10 @@ import club.dnd5.portal.model.creature.Creature;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.val;
 
 @JsonInclude(Include.NON_NULL)
-
+@JsonPropertyOrder({"name", "size", "type", "str", "dex", "con", "int", "wiz", "cha"})
 @NoArgsConstructor
 @Getter
 @Setter
@@ -32,7 +35,7 @@ public class BeastDetailApi extends BeastApi {
 	private List<String> armors;
 	private String armorText;
 	private HitPointsApi hits;
-	private String speed;
+	private List<NameValueApi> speed;
 	private String str;
 	private String dex;
 	private String con;
@@ -48,6 +51,7 @@ public class BeastDetailApi extends BeastApi {
 	private List<String> damageImmunities;
 	private List<String> damageVulnerabilities;
 	private List<String> conditionImmunities;
+	private SenseApi senses;
 	
 	private List<NameValueApi> feats;
 	private List<NameValueApi> actions;
@@ -72,7 +76,25 @@ public class BeastDetailApi extends BeastApi {
 			armorText = beast.getBonusAC();
 		}
 		hits = new HitPointsApi(beast);
-		speed = beast.getAllSpeed();
+		speed = new ArrayList<>(5);
+		speed.add(new NameValueApi(null, beast.getSpeed()));
+		if (beast.getFlySpeed() != null) {
+			NameValueApi value = new NameValueApi("летая", beast.getFlySpeed());
+			if (beast.getHover() != null) {
+				value.setHover(Boolean.TRUE);
+			}
+			speed.add(value);
+		}
+		if (beast.getSwimmingSpped() != null) {
+			speed.add(new NameValueApi("плавая", beast.getSwimmingSpped()));
+		}
+		if (beast.getDiggingSpeed() != null) {
+			speed.add(new NameValueApi("копая ", beast.getDiggingSpeed()));
+		}
+		if (beast.getClimbingSpeed() != null) {
+			speed.add(new NameValueApi("лазая", beast.getClimbingSpeed()));
+		}
+
 		str = String.format("%d (%d)", beast.getStrength(), AbilityType.getModifier(beast.getStrength()));
 		dex = String.format("%d (%d)", beast.getDexterity(), AbilityType.getModifier(beast.getDexterity()));
 		con = String.format("%d (%d)", beast.getConstitution(), AbilityType.getModifier(beast.getConstitution()));
@@ -97,6 +119,7 @@ public class BeastDetailApi extends BeastApi {
 		if (!beast.getImmunityStates().isEmpty()) {
 			conditionImmunities = beast.getImmunityStates().stream().map(Condition::getCyrilicName).collect(Collectors.toList());
 		}
+		senses = new SenseApi(beast);
 		if (!beast.getFeats().isEmpty()) {
 			feats = beast.getFeats().stream().map(feat -> new NameValueApi(feat.getName(), feat.getDescription())).collect(Collectors.toList());
 		}
