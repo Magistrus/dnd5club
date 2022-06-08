@@ -78,7 +78,7 @@ public class BeastDetailApi extends BeastApi {
 		if (beast.getFlySpeed() != null) {
 			NameValueApi value = new NameValueApi("летая", beast.getFlySpeed());
 			if (beast.getHover() != null) {
-				value.setHover(Boolean.TRUE);
+				value.setAdditional("парит");
 			}
 			speed.add(value);
 		}

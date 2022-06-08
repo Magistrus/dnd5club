@@ -39,7 +39,7 @@ public class SenseApi {
 			}
 			NameValueApi value = new NameValueApi("слепое зрение", beast.getBlindsight());
 			if (beast.getBlindsightRadius() != null) {
-				value.setRadius(Boolean.TRUE);
+				value.setAdditional("слеп за пределами этого радиуса");
 			}
 			senses.add(value);
 		}
@@ -49,7 +49,7 @@ public class SenseApi {
 			}
 			NameValueApi value = new NameValueApi("чувство вибрации", beast.getVibration());
 			if (beast.getBlindsightRadius() != null && beast.getBlindsightRadius() == 1) {
-				value.setRadius(Boolean.TRUE);
+				value.setAdditional("слеп за пределами этого радиуса");
 			}
 			senses.add(value);
 		}

@@ -16,8 +16,7 @@ import lombok.Setter;
 public class NameValueApi {
 	private String name;
 	private Object value;
-	private Boolean hover;
-	private Boolean radius;
+	private Object additional;
 	public NameValueApi(String name, Object value) {
 		this.name = name;
 		this.value = value;
