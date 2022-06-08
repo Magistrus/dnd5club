@@ -11,6 +11,8 @@ import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.creature.Action;
+import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Condition;
 import club.dnd5.portal.model.creature.Creature;
 import lombok.Getter;
@@ -44,7 +46,15 @@ public class BeastDetailApi extends BeastApi {
 	
 	private List<String> damageResistances;
 	private List<String> damageImmunities;
+	private List<String> damageVulnerabilities;
 	private List<String> conditionImmunities;
+	
+	private List<NameValueApi> feats;
+	private List<NameValueApi> actions;
+	private List<NameValueApi> reactions;
+	private List<NameValueApi> bonusActions;
+	private List<NameValueApi> legendary;
+	private List<NameValueApi> mysticalActions;
 	
 	private String description;
 
@@ -81,8 +91,34 @@ public class BeastDetailApi extends BeastApi {
 		if (!beast.getImmunityDamages().isEmpty()) {
 			damageImmunities = beast.getImmunityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
+		if (!beast.getVulnerabilityDamages().isEmpty()) {
+			damageImmunities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
+		}
 		if (!beast.getImmunityStates().isEmpty()) {
 			conditionImmunities = beast.getImmunityStates().stream().map(Condition::getCyrilicName).collect(Collectors.toList());
+		}
+		if (!beast.getFeats().isEmpty()) {
+			feats = beast.getFeats().stream().map(feat -> new NameValueApi(feat.getName(), feat.getDescription())).collect(Collectors.toList());
+		}
+		List<Action> actionsBeast = beast.getActions(ActionType.ACTION);
+		if (!actionsBeast.isEmpty()) {
+			actions = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
+		}
+		actionsBeast = beast.getActions(ActionType.REACTION);
+		if (!actionsBeast.isEmpty()) {
+			reactions = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
+		}
+		actionsBeast = beast.getActions(ActionType.BONUS);
+		if (!actionsBeast.isEmpty()) {
+			bonusActions = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
+		}
+		actionsBeast = beast.getActions(ActionType.LEGENDARY);
+		if (!actionsBeast.isEmpty()) {
+			legendary = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
+		}
+		actionsBeast = beast.getActions(ActionType.MYSTICAL);
+		if (!actionsBeast.isEmpty()) {
+			mysticalActions = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
 		}
 		description = beast.getDescription();
 	}

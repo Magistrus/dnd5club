@@ -22,7 +22,7 @@ public class HitPointsApi {
 	public HitPointsApi(Creature beast) {
 		average = beast.getAverageHp();
 		if (beast.getDiceHp() != null && beast.getCountDiceHp() != null && beast.getBonusHP() != null) {
-			formula = String.format("%d%s%s%d", beast.getCountDiceHp(), beast.getDiceHp().getName(),  beast.getBonusHP() >=0 ? "+" : "-", Math.abs(beast.getBonusHP()));
+			formula = String.format("%d%s%s%d", beast.getCountDiceHp(), beast.getDiceHp().getName(),  beast.getBonusHP() >=0 ? " + " : " - ", Math.abs(beast.getBonusHP()));
 		} else if (beast.getDiceHp() != null && beast.getCountDiceHp() != null) {
 			formula = String.format("%d%s", beast.getCountDiceHp(), beast.getDiceHp().getName());
 		} 
