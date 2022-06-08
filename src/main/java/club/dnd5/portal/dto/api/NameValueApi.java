@@ -5,19 +5,21 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
 
-@RequiredArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
 public class NameValueApi {
-	 @NonNull private String name;
-	 @NonNull private Object value;
-	 private Boolean hover;
-	 private Boolean radius;
+	private String name;
+	private Object value;
+	private Boolean hover;
+	private Boolean radius;
+	public NameValueApi(String name, Object value) {
+		this.name = name;
+		this.value = value;
+	}
 }

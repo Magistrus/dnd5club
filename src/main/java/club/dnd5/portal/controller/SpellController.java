@@ -71,6 +71,7 @@ public class SpellController {
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
 		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("adventureBooks", sources.get(TypeBook.MODULE));
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		SpellDto spellDto = new SpellDto(spell);
 		model.addAttribute("selectedSpell", spellDto);

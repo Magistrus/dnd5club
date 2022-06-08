@@ -37,7 +37,11 @@ public class SenseApi {
 			if (senses == null) {
 				senses = new ArrayList<>(2);
 			}
-			senses.add(new NameValueApi("слепое зрение", beast.getBlindsight()));
+			NameValueApi value = new NameValueApi("слепое зрение", beast.getBlindsight());
+			if (beast.getBlindsightRadius() != null) {
+				value.setRadius(Boolean.TRUE);
+			}
+			senses.add(value);
 		}
 		if (beast.getVibration() != null) {
 			if (senses == null) {
