@@ -13,7 +13,7 @@
 			<div class="grid_stat_block">
 				<div class="block">
 					<p>Время накладывания:</p>
-					<span th:each="timecast : *{times}" th:utext="${timecast.name}">Время накладывания</span>
+					<span th:each="timecast, iterStat : *{times}" th:utext="${iterStat.last ? timecast.name : timecast.name + ' или '}">Время накладывания</span>
 				</div>
 				<div class="block distance">
 					<p>Дистанция:</p>
