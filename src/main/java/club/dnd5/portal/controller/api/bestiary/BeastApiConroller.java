@@ -1,6 +1,7 @@
-package club.dnd5.portal.controller.api;
+package club.dnd5.portal.controller.api.bestiary;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,27 +15,36 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.classes.BackgroundApi;
-import club.dnd5.portal.dto.api.classes.BackgroundDetailApi;
-import club.dnd5.portal.dto.api.classes.TraitRequesApi;
-import club.dnd5.portal.model.background.Background;
+import club.dnd5.portal.dto.api.bestiary.BeastApi;
+import club.dnd5.portal.dto.api.bestiary.BeastDetailApi;
+import club.dnd5.portal.dto.api.bestiary.BeastlRequesApi;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.foundary.FBeastiary;
+import club.dnd5.portal.model.fvtt.plutonium.FBeast;
+import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.splells.Spell;
-import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.ImageRepository;
+import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
 @RestController
-public class BackgroundApiController {
+public class BeastApiConroller {
 	@Autowired
-	private BackgroundDatatableRepository repo;
-	
-	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
-		Specification<Background> specification = null;
+	private BestiaryDatatableRepository repo;
+
+	@Autowired
+	private ImageRepository imageRepo;
+
+	@PostMapping(value = "/api/v1/bestiary", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<BeastApi> getBestiary(@RequestBody BeastlRequesApi request) {
+		Specification<Creature> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
@@ -59,28 +69,8 @@ public class BackgroundApiController {
 		column.setName("altName");
 		column.setSearchable(Boolean.TRUE);
 		column.setOrderable(Boolean.FALSE);
+
 		columns.add(column);
-		
-		input.setColumns(columns);
-		input.setLength(-1);
-		if (request.getSearch() != null) {
-			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
-				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
-					specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());
-				} else {
-					input.getSearch().setValue(request.getSearch().getValue());
-					input.getSearch().setRegex(Boolean.FALSE);
-				}
-			}
-		}
-		if (request.getFilter() != null) {
-			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
-					Join<Book, Spell> join = root.join("book", JoinType.INNER);
-					return join.get("source").in(request.getFilter().getBooks());
-				});
-			}
-		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
 			specification = addSpecification(specification, (root, query, cb) -> {
@@ -93,14 +83,53 @@ public class BackgroundApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, BackgroundApi::new).getData();
+		input.setColumns(columns);
+		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
+		if (request.getPage() != null && request.getLimit()!=null) {
+			input.setStart(request.getPage() * request.getLimit());	
+		}
+		if (request.getSearch() != null) {
+			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
+				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
+					specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());
+				} else {
+					input.getSearch().setValue(request.getSearch().getValue());
+					input.getSearch().setRegex(Boolean.FALSE);
+				}
+			}
+		}
+		if (request.getFilter() != null) {
+			if (!request.getFilter().getChallengeRatings().isEmpty()) {
+				specification = addSpecification(specification, (root, query, cb) -> root.get("challengeRating").in(request.getFilter().getChallengeRatings()));
+			}
+			if (!request.getFilter().getBooks().isEmpty()) {
+				specification = addSpecification(specification, (root, query, cb) -> {
+					Join<Book, Spell> join = root.join("book", JoinType.INNER);
+					return join.get("source").in(request.getFilter().getBooks());
+				});
+			}
+		}
+		return repo.findAll(input, specification, specification, BeastApi::new).getData();
 	}
 	
-	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public BackgroundDetailApi getBackground(@PathVariable String englishName) {
-		return new BackgroundDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+	@PostMapping(value = "/api/v1/bestiary/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public BeastDetailApi getBeast(@PathVariable String englishName) {
+		Creature beast = repo.findByEnglishName(englishName.replace('_', ' '));
+		BeastDetailApi beastApi = new BeastDetailApi(beast);
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, beast.getId());
+		if (!images.isEmpty()) {
+			beastApi.setImages(images);
+		}
+		return new BeastDetailApi(beast);
 	}
-
+	
+	@CrossOrigin
+	@GetMapping("/api/fvtt/v1/bestiary")
+	public FBeastiary getCreatures(){
+		List<FBeast> list = ((Collection<Creature>) repo.findAll()).stream().map(FBeast::new).collect(Collectors.toList());
+		return new FBeastiary(list);
+	}
+	
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {
 			return Specification.where(addSpecification);

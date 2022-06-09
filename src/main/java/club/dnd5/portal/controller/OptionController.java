@@ -55,7 +55,7 @@ public class OptionController {
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 
 		model.addAttribute("categories", Option.OptionType.values());
-		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
+		model.addAttribute("prerequsites", repository.findAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
 		model.addAttribute("metaTitle", "Особенности классов (Options) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/options");
@@ -75,7 +75,7 @@ public class OptionController {
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 
 		model.addAttribute("categories", Option.OptionType.values());
-		model.addAttribute("prerequsites", repository.finAlldPrerequisite());
+		model.addAttribute("prerequsites", repository.findAlldPrerequisite());
 		model.addAttribute("levels", prerequsitlevels);
 
 		model.addAttribute("selectedOption", new OptionDto(option));
