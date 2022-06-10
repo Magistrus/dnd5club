@@ -75,9 +75,9 @@
 							<label class="crumbs tip" th:each="book : ${settingBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked
 							> <span class="tip" th:text="${book.source}"></span></label>
 							<div class="separator_row" style="width: 100%;">
-								<h5 class="header_separator">Приключения</h5>
-								<label for="filter_settings" class="check_block"><input id="filter_adventure" class="toggle" type="checkbox" name="settings_off"></label>
-							</div>
+                                <h5 class="header_separator">Приключения</h5>
+                                <label for="filter_adventure" class="check_block"><input id="filter_adventure" class="toggle" type="checkbox" name="adventure_off"></label>
+                            </div>
 							<label class="crumbs tip" th:each="book : ${adventureBooks}" th:title="|${book.name}|"> <input class="book_checkbox filter" type="checkbox" name="book" th:value="${book}" checked
 							> <span class="tip" th:text="${book.source}"></span></label>
 							<div class="separator_row" style="width: 100%;">
