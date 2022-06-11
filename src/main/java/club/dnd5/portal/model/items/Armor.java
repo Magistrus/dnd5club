@@ -23,6 +23,7 @@ public class Armor {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private String altName;
 	private int AC;
 	private int cost;
 	private float weight;

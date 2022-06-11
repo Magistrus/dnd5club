@@ -3,18 +3,21 @@ package club.dnd5.portal.dto.api.item;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import lombok.AllArgsConstructor;
+import club.dnd5.portal.model.items.MagicItem;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class TypeApi {
-	private String name;
-	private int order;
+public class MagicItemApi extends ItemApi {
+	private String rarity;
+	public MagicItemApi(MagicItem item) {
+		super(item);
+		type = new TypeApi(item.getType().getCyrilicName(), item.getType().ordinal());
+		rarity = item.getRarity().getCyrilicName();
+	}
 }

@@ -1,4 +1,4 @@
-name: Deploy devdnd5club
+name: Deploy devdnd5club test
 
 on:
   push:

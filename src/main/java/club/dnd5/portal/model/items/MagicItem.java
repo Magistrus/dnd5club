@@ -32,6 +32,7 @@ public class MagicItem {
 	private Integer id;
 	private String name;
 	private String englishName;
+	private String altName;
 
 	@Enumerated(EnumType.ORDINAL)
 	private Rarity rarity;
