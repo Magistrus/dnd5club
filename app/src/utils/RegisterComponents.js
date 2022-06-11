@@ -11,6 +11,7 @@ import DiceRoller from '@/components/UI/DiceRoller';
 import WeaponsView from '@/views/Inventory/Weapons/WeaponsView';
 import ArmorsView from '@/views/Inventory/Armors/ArmorsView';
 import ItemsView from '@/views/Inventory/Items/ItemsView';
+import BestiaryView from '@/views/Bestiary/BestiaryView';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -24,6 +25,7 @@ export default function registerComponents(app) {
     app.component('WeaponsView', WeaponsView);
     app.component('ArmorsView', ArmorsView);
     app.component('ItemsView', ItemsView);
+    app.component('BestiaryView', BestiaryView);
 
     // Components
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);

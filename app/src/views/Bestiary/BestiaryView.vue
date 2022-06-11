@@ -3,29 +3,29 @@
         :is="layout"
         :show-right-side="showRightSide"
         :filter-instance="filter"
-        @search="spellsQuery"
-        @update="spellsQuery"
+        @search="bestiaryQuery"
+        @update="bestiaryQuery"
         @list-end="nextPage"
     >
         <spell-link
-            v-for="(spell, key) in spells"
+            v-for="(creature, key) in bestiary"
             :key="key"
             :in-tab="inTab"
-            :spell="spell"
-            :to="{path: spell.url}"
+            :creature="creature"
+            :to="{path: creature.url}"
         />
     </component>
 </template>
 
 <script>
-    import { useSpellsStore } from '@/store/Spells/SpellsStore';
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
     import SpellLink from "@/views/Spells/SpellLink";
+    import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
 
     export default {
-        name: 'SpellsView',
+        name: 'BestiaryView',
         components: {
             SpellLink,
             TabLayout,
@@ -46,7 +46,7 @@
             }
         },
         data: () => ({
-            spellsStore: useSpellsStore(),
+            bestiaryStore: useBestiaryStore(),
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
@@ -54,11 +54,11 @@
         }),
         computed: {
             filter() {
-                return this.spellsStore.getFilter || undefined;
+                return this.bestiaryStore.getFilter || undefined;
             },
 
-            spells() {
-                return this.spellsStore.getSpells || [];
+            bestiary() {
+                return this.bestiaryStore.getBestiary || [];
             },
 
             showRightSide() {
@@ -87,25 +87,25 @@
         async mounted() {
             await this.init();
 
-            if (this.spells.length && this.$route.name === 'spells') {
-                await this.$router.push({ path: this.spells[0].url })
+            if (this.bestiary.length && this.$route.name === 'spells') {
+                await this.$router.push({ path: this.bestiary[0].url })
             }
         },
         beforeUnmount() {
-            this.spellsStore.clearStore();
+            this.bestiaryStore.clearStore();
         },
         methods: {
             async init() {
-                await this.spellsStore.initFilter(this.storeKey, this.customFilter);
-                await this.spellsStore.initSpells();
+                await this.bestiaryStore.initFilter(this.storeKey, this.customFilter);
+                await this.bestiaryStore.initBestiary();
             },
 
-            async spellsQuery() {
-                await this.spellsStore.initSpells();
+            async bestiaryQuery() {
+                await this.bestiaryStore.initBestiary();
             },
 
             async nextPage() {
-                await this.spellsStore.nextPage();
+                await this.bestiaryStore.nextPage();
             }
         }
     }

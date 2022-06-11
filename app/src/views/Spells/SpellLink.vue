@@ -1,13 +1,13 @@
 <template>
     <router-link
         v-slot="{ href, navigate, isActive }"
-        :to="{ path: spellItem.url }"
+        :to="{ path: spell.url }"
         custom
         v-bind="$props"
     >
         <a
             v-bind="$attrs"
-            ref="spellItem"
+            ref="spell"
             :class="getClassList(isActive)"
             :href="href"
             class="spell-link"
@@ -15,32 +15,32 @@
         >
             <div class="spell-link__content">
                 <div
-                    v-tooltip="{ content: spellItem.level ? `${spellItem.level} уровень заклинания` : 'Заговор' }"
+                    v-tooltip="{ content: spell.level ? `${spell.level} уровень заклинания` : 'Заговор' }"
                     class="spell-link__lvl"
                 >
-                    <span>{{ spellItem.level || '◐' }}</span>
+                    <span>{{ spell.level || '◐' }}</span>
                 </div>
 
                 <div class="spell-link__body">
                     <div class="spell-link__row">
                         <div class="spell-link__name">
                             <div class="spell-link__name--rus">
-                                {{ spellItem.name.rus }}
+                                {{ spell.name.rus }}
                             </div>
 
                             <div class="spell-link__name--eng">
-                                [{{ spellItem.name.eng }}]
+                                [{{ spell.name.eng }}]
                             </div>
                         </div>
                     </div>
 
                     <div class="spell-link__row">
                         <div
-                            v-if="spellItem.concentration || spellItem.ritual"
+                            v-if="spell.concentration || spell.ritual"
                             class="spell-link__modifications"
                         >
                             <div
-                                v-if="spellItem.concentration"
+                                v-if="spell.concentration"
                                 v-tooltip="{ content: 'Концентрация' }"
                                 class="spell-link__modification"
                             >
@@ -48,7 +48,7 @@
                             </div>
 
                             <div
-                                v-if="spellItem.ritual"
+                                v-if="spell.ritual"
                                 v-tooltip="{ content: 'Ритуал' }"
                                 class="spell-link__modification"
                             >
@@ -60,7 +60,7 @@
                             v-capitalize-first
                             class="spell-link__school"
                         >
-                            {{ spellItem.school }}
+                            {{ spell.school }}
                         </div>
 
                         <div
@@ -68,7 +68,7 @@
                             class="spell-link__components"
                         >
                             <div
-                                v-if="spellItem.components.v"
+                                v-if="spell.components.v"
                                 v-tooltip="{ content: 'Вербальный' }"
                                 class="spell-link__component"
                             >
@@ -76,7 +76,7 @@
                             </div>
 
                             <div
-                                v-if="spellItem.components.s"
+                                v-if="spell.components.s"
                                 v-tooltip="{ content: 'Соматический' }"
                                 class="spell-link__component"
                             >
@@ -84,7 +84,7 @@
                             </div>
 
                             <div
-                                v-if="!!spellItem.components.m"
+                                v-if="!!spell.components.m"
                                 v-tooltip="{ content: 'Материальный' }"
                                 class="spell-link__component"
                             >
@@ -98,15 +98,15 @@
     </router-link>
 
     <base-modal
-        v-if="spell.data"
-        v-model="spell.show"
+        v-if="spellModal.data"
+        v-model="spellModal.show"
     >
         <template #title>
-            {{ spell.data.name.rus }}
+            {{ spellModal.data.name.rus }}
         </template>
 
         <template #default>
-            <spell-body :spell="spell.data"/>
+            <spell-body :spell="spellModal.data"/>
         </template>
     </base-modal>
 </template>
@@ -127,7 +127,7 @@
         inheritAttrs: false,
         props: {
             ...RouterLink.props,
-            spellItem: {
+            spell: {
                 type: Object,
                 default: () => ({})
             },
@@ -138,23 +138,23 @@
         },
         data: () => ({
             spellsStore: useSpellsStore(),
-            spell: {
+            spellModal: {
                 show: false,
                 data: undefined
             }
         }),
         computed: {
             hasComponents() {
-                const { spellItem } = this;
+                const { spell } = this;
 
-                return spellItem?.components?.v || spellItem?.components?.s || !!spellItem?.components?.m
+                return spell?.components?.v || spell?.components?.s || !!spell?.components?.m
             },
         },
         methods: {
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
-                    'is-green': this.spellItem?.source?.homebrew,
+                    'is-green': this.spell?.source?.homebrew,
                     'in-tab': this.inTab
                 }
             },
@@ -166,9 +166,9 @@
                     return;
                 }
 
-                this.spellsStore.spellInfoQuery(this.spellItem.url)
+                this.spellsStore.spellInfoQuery(this.spell.url)
                     .then(spell => {
-                        this.spell = {
+                        this.spellModal = {
                             show: true,
                             data: spell
                         }

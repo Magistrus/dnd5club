@@ -108,6 +108,18 @@ const routes = [
                 component: () => import('@/views/Inventory/Items/ItemDetail'),
             }
         ]
+    },
+    {
+        name: 'bestiary',
+        path: '/bestiary',
+        component: () => import('@/views/Bestiary/BestiaryView'),
+        children: [
+            {
+                name: 'creatureDetail',
+                path: ':creatureName',
+                component: () => import('@/views/Bestiary/CreatureDetail'),
+            }
+        ]
     }
 ];
 
