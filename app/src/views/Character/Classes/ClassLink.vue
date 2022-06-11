@@ -9,42 +9,42 @@
             ref="classItem"
             v-masonry-tile
             :class="getClassList(isActive)"
-            class="class-item"
+            class="class-link"
             v-bind="$attrs"
         >
-            <div class="class-item__content">
-                <div class="class-item__main">
+            <div class="class-link__content">
+                <div class="class-link__main">
                     <a
                         :href="href"
-                        class="class-item__link"
+                        class="class-link__link"
                         @click.left.prevent.exact="navigate()"
                     >
-                        <span class="class-item__icon">
+                        <span class="class-link__icon">
                             <svg-icon :icon-name="classItem.icon"/>
                         </span>
 
-                        <span class="class-item__body">
-                            <span class="class-item__body_row">
-                                <span class="class-item__name">
-                                    <span class="class-item__name--rus">
+                        <span class="class-link__body">
+                            <span class="class-link__body_row">
+                                <span class="class-link__name">
+                                    <span class="class-link__name--rus">
                                         {{ classItem.name.rus }}
                                     </span>
 
-                                    <span class="class-item__name--eng">
+                                    <span class="class-link__name--eng">
                                         [{{ classItem.name.eng }}]
                                     </span>
                                 </span>
 
                                 <span
                                     v-tooltip="{ content: classItem.source.name }"
-                                    class="class-item__book"
+                                    class="class-link__book"
                                 >
                                     {{ classItem.source.shortName }}
                                 </span>
                             </span>
 
-                            <span class="class-item__body_row">
-                                <span class="class-item__dice">
+                            <span class="class-link__body_row">
+                                <span class="class-link__dice">
                                     {{ classItem.dice }}
                                 </span>
                             </span>
@@ -55,7 +55,7 @@
                         v-if="hasArchetypes"
                         v-tooltip.left="{ content: 'Архетипы' }"
                         :class="{ 'is-active': submenu.show }"
-                        class="class-item__toggle"
+                        class="class-link__toggle"
                         type="button"
                         @click.left.exact.prevent="toggleArch"
                     >
@@ -66,32 +66,32 @@
                 <div
                     v-if="hasArchetypes"
                     :class="{ 'is-active': isOpenedArchetypes }"
-                    class="class-item__arch-list"
+                    class="class-link__arch-list"
                 >
                     <div
                         v-for="(col, colKey) in classItem.archetypes"
                         :key="colKey"
-                        class="class-item__arch-list_col"
+                        class="class-link__arch-list_col"
                     >
                         <div
                             v-for="(group, groupKey) in col"
                             :key="groupKey"
-                            class="class-item__arch-type"
+                            class="class-link__arch-type"
                         >
-                            <div class="class-item__arch-type_name">
+                            <div class="class-link__arch-type_name">
                                 {{ group.name }}
                             </div>
 
-                            <div class="class-item__arch-type_items">
+                            <div class="class-link__arch-type_items">
                                 <router-link
                                     v-for="(arch, archKey) in group.list"
                                     :key="archKey"
                                     :to="{ path: arch.url }"
-                                    class="class-item__arch-item"
+                                    class="class-link__arch-item"
                                 >
-                                    <span class="class-item__arch-item_name">{{ arch.name.rus }}</span>
+                                    <span class="class-link__arch-item_name">{{ arch.name.rus }}</span>
 
-                                    <span class="class-item__arch-item_book">
+                                    <span class="class-link__arch-item_book">
                                         <span v-tooltip="{ content: arch.source.name }">
                                             {{ arch.source.shortName }}
                                         </span>
@@ -116,7 +116,7 @@
     import SvgIcon from '@/components/UI/SvgIcon';
 
     export default {
-        name: 'ClassItem',
+        name: 'ClassLink',
         components: { SvgIcon },
         inheritAttrs: false,
         props: {
@@ -172,14 +172,14 @@
             },
 
             updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('class-items'))
+                this.$nextTick(() => this.$redrawVueMasonry('class-links'))
             },
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .class-item {
+    .class-link {
         width: 100%;
         margin-bottom: 16px;
         display: block;
@@ -197,7 +197,7 @@
         }
 
         &.is-green {
-            .class-item {
+            .class-link {
                 &__content {
                     background-color: var(--bg-homebrew-gradient-left);
                 }
@@ -235,7 +235,7 @@
                 color: var(--primary);
             }
 
-            & + .class-item {
+            & + .class-link {
                 &__body {
                     padding-left: 16px;
                 }
@@ -380,7 +380,7 @@
                 &.router-link-active {
                     background-color: var(--primary-active);
 
-                    .class-item__arch-item {
+                    .class-link__arch-item {
                         &_name,
                         &_book {
                             color: var(--text-btn-color);
@@ -392,7 +392,7 @@
 
         @include media-min($md) {
             &:hover {
-                .class-item {
+                .class-link {
                     &__content {
                         background-color: var(--bg-sub-menu)
                     }
@@ -401,7 +401,7 @@
         }
 
         &.router-link-active {
-            .class-item {
+            .class-link {
                 &__content {
                     border-color: var(--primary);
                 }

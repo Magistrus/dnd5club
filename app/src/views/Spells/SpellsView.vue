@@ -7,7 +7,7 @@
         @update="spellsQuery"
         @list-end="nextPage"
     >
-        <spell-item
+        <spell-link
             v-for="(spell, key) in spells"
             :key="key"
             :in-tab="inTab"
@@ -20,16 +20,16 @@
 <script>
     import { useSpellsStore } from '@/store/Spells/SpellsStore';
     import ContentLayout from '@/components/content/ContentLayout';
-    import SpellItem from '@/views/Spells/SpellItem';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
+    import SpellLink from "@/views/Spells/SpellLink";
 
     export default {
         name: 'SpellsView',
         components: {
+            SpellLink,
             TabLayout,
             ContentLayout,
-            SpellItem,
         },
         props: {
             inTab: {

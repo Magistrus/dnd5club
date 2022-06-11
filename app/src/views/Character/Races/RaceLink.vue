@@ -9,42 +9,42 @@
             ref="raceItem"
             v-masonry-tile
             :class="getParentClasses(isActive)"
-            class="race-item"
+            class="race-link"
             v-bind="$attrs"
         >
-            <div class="race-item__content">
-                <div class="race-item__main">
+            <div class="race-link__content">
+                <div class="race-link__main">
                     <a
                         :href="href"
-                        class="race-item__link"
+                        class="race-link__link"
                         @click.left.prevent.exact="navigate()"
                     >
-                        <span class="race-item__icon">
+                        <span class="race-link__icon">
                             <svg-icon :icon-name="raceItem.icon"/>
                         </span>
 
-                        <span class="race-item__body">
-                            <span class="race-item__body_row">
-                                <span class="race-item__name">
-                                    <span class="race-item__name--rus">
+                        <span class="race-link__body">
+                            <span class="race-link__body_row">
+                                <span class="race-link__name">
+                                    <span class="race-link__name--rus">
                                         {{ raceItem.name.rus }}
                                     </span>
 
-                                    <span class="race-item__name--eng">
+                                    <span class="race-link__name--eng">
                                         [{{ raceItem.name.eng }}]
                                     </span>
                                 </span>
 
                                 <span
                                     v-tooltip="{ content: raceItem.source.name }"
-                                    class="race-item__book"
+                                    class="race-link__book"
                                 >
                                     {{ raceItem.source.shortName }}
                                 </span>
                             </span>
 
-                            <span class="race-item__body_row">
-                                <span class="race-item__abilities">
+                            <span class="race-link__body_row">
+                                <span class="race-link__abilities">
                                     {{ raceItem.abilities }}
                                 </span>
                             </span>
@@ -55,7 +55,7 @@
                         v-if="hasSubraces"
                         v-tooltip.left="{ content: 'Разновидности' }"
                         :class="{ 'is-active': submenu.show }"
-                        class="race-item__toggle"
+                        class="race-link__toggle"
                         type="button"
                         @click.left.exact.prevent="toggleSubrace"
                     >
@@ -66,32 +66,32 @@
                 <div
                     v-if="hasSubraces"
                     :class="{ 'is-active': isOpenedSubraces }"
-                    class="race-item__subrace-list"
+                    class="race-link__subrace-list"
                 >
                     <div
                         v-for="(col, colKey) in raceItem.subraces"
                         :key="colKey"
-                        class="race-item__subrace-list_col"
+                        class="race-link__subrace-list_col"
                     >
                         <div
                             v-for="(group, groupKey) in col"
                             :key="groupKey"
-                            class="race-item__subrace-type"
+                            class="race-link__subrace-type"
                         >
-                            <div class="race-item__subrace-type_name">
+                            <div class="race-link__subrace-type_name">
                                 {{ group.name }}
                             </div>
 
-                            <div class="race-item__subrace-type_items">
+                            <div class="race-link__subrace-type_items">
                                 <router-link
                                     v-for="(subrace, subraceKey) in group.list"
                                     :key="subraceKey"
                                     :to="{ path: subrace.url }"
-                                    class="race-item__subrace-item"
+                                    class="race-link__subrace-link"
                                 >
-                                    <span class="race-item__subrace-item_name">{{ subrace.name.rus }}</span>
+                                    <span class="race-link__subrace-link_name">{{ subrace.name.rus }}</span>
 
-                                    <span class="race-item__subrace-item_book">
+                                    <span class="race-link__subrace-link_book">
                                         <span v-tooltip="{ content: subrace.source.name }">
                                             {{ subrace.source.shortName }}
                                         </span>
@@ -116,7 +116,7 @@
     import SvgIcon from '@/components/UI/SvgIcon';
 
     export default {
-        name: 'RaceItem',
+        name: 'RaceLink',
         components: { SvgIcon },
         inheritAttrs: false,
         props: {
@@ -178,14 +178,14 @@
             },
 
             updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('race-items'))
+                this.$nextTick(() => this.$redrawVueMasonry('race-links'))
             },
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .race-item {
+    .race-link {
         width: 100%;
         margin-bottom: 16px;
         display: block;
@@ -233,7 +233,7 @@
                 color: var(--primary);
             }
 
-            & + .race-item {
+            & + .race-link {
                 &__body {
                     padding-left: 16px;
                 }
@@ -383,7 +383,7 @@
 
         @include media-min($md) {
             &:hover {
-                .race-item {
+                .race-link {
                     &__content {
                         background-color: var(--bg-sub-menu)
                     }
@@ -392,7 +392,7 @@
         }
 
         &.is-green {
-            .race-item {
+            .race-link {
                 &__content {
                     background: var(--bg-homebrew-gradient-left);
                 }
@@ -400,7 +400,7 @@
         }
 
         &.router-link-active {
-            .race-item {
+            .race-link {
                 &__content {
                     border-color: var(--primary);
                 }

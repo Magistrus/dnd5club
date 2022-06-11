@@ -3,15 +3,15 @@
         :is="layout"
         :show-right-side="showRightSide"
         :filter-instance="filter"
-        @search="optionsQuery"
-        @update="optionsQuery"
+        @search="itemsQuery"
+        @update="itemsQuery"
     >
-        <option-link
-            v-for="(option, key) in options"
+        <item-link
+            v-for="(item, key) in items"
             :key="key"
             :in-tab="inTab"
-            :option-item="option"
-            :to="{path: option.url}"
+            :item-item="item"
+            :to="{path: item.url}"
         />
     </component>
 </template>
@@ -20,13 +20,13 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
-    import { useOptionsStore } from "@/store/Character/OptionsStore";
-    import OptionLink from "@/views/Character/Options/OptionLink";
+    import ItemLink from "@/views/Inventory/Items/ItemLink";
+    import { useItemsStore } from "@/store/Inventory/ItemsStore";
 
     export default {
-        name: 'OptionsView',
+        name: 'ItemsView',
         components: {
-            OptionLink,
+            ItemLink,
             TabLayout,
             ContentLayout,
         },
@@ -45,7 +45,7 @@
             }
         },
         data: () => ({
-            optionsStore: useOptionsStore(),
+            itemsStore: useItemsStore(),
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
@@ -53,15 +53,15 @@
         }),
         computed: {
             filter() {
-                return this.optionsStore.getFilter || undefined;
+                return this.itemsStore.getFilter || undefined;
             },
 
-            options() {
-                return this.optionsStore.getOptions || [];
+            items() {
+                return this.itemsStore.getItems || [];
             },
 
             showRightSide() {
-                return this.$route.name === 'optionDetail'
+                return this.$route.name === 'itemDetail'
             },
 
             layout() {
@@ -86,22 +86,22 @@
         async mounted() {
             await this.init();
 
-            if (this.options.length && this.$route.name === 'options') {
-                await this.$router.push({ path: this.options[0].url })
+            if (this.items.length && this.$route.name === 'items') {
+                await this.$router.push({ path: this.items[0].url })
             }
         },
         beforeUnmount() {
-            this.optionsStore.clearStore();
+            this.itemsStore.clearStore();
         },
         methods: {
-            async optionsQuery() {
-                await this.optionsStore.initOptions();
+            async itemsQuery() {
+                await this.itemsStore.initItems();
             },
 
             async init() {
-                await this.optionsStore.initFilter(this.storeKey, this.customFilter);
-                await this.optionsStore.initOptions();
-            }
+                await this.itemsStore.initFilter(this.storeKey, this.customFilter);
+                await this.itemsStore.initItems();
+            },
         }
     }
 </script>

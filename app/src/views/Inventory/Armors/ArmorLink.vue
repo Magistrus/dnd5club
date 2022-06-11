@@ -1,70 +1,57 @@
 <template>
     <router-link
         v-slot="{ href, navigate, isActive }"
-        :to="{ path: weapon.url }"
+        :to="{ path: armor.url }"
         custom
         v-bind="$props"
     >
         <a
             v-bind="$attrs"
-            class="weapon-item"
+            class="armor-link"
             :class="getClassList(isActive)"
             :href="href"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
             <div
-                v-if="weapon.name"
-                class="weapon-item__row"
+                v-if="armor.name"
+                class="armor-link__row"
             >
-                <div class="weapon-item__name">
-                    <div class="weapon-item__name--rus">
-                        {{ weapon.name.rus }}
+                <div class="armor-link__name">
+                    <div class="armor-link__name--rus">
+                        {{ armor.name.rus }}
                     </div>
 
                     <div
-                        v-if="weapon.name.eng"
-                        class="weapon-item__name--eng"
+                        v-if="armor.name.eng"
+                        class="armor-link__name--eng"
                     >
-                        [{{ weapon.name.eng }}]
+                        [{{ armor.name.eng }}]
                     </div>
                 </div>
             </div>
 
-            <div class="weapon-item__row">
+            <div class="armor-link__row">
                 <div
-                    v-if="weapon.type?.name"
-                    class="weapon-item__type"
+                    v-if="armor.type?.name"
+                    class="armor-link__type"
                 >
-                    {{ weapon.type.name }}
+                    {{ armor.type.name }}
                 </div>
 
                 <div
-                    v-if="weapon.damage"
-                    class="weapon-item__damage"
+                    v-if="armor.armorClass"
+                    v-tooltip="{ content: 'Класс доспеха (АС)' }"
+                    class="armor-link__armor-class"
                 >
-                    <div
-                        v-if="weapon.damage.dice"
-                        v-tooltip="{ content: 'Урон' }"
-                        class="weapon-item__damage_dice"
-                    >
-                        {{ weapon.damage.dice }}
-                    </div>
-
-                    <div
-                        v-if="weapon.damage.type"
-                        v-tooltip="{ content: 'Тип урона' }"
-                        class="weapon-item__damage_type"
-                    >
-                        {{ weapon.damage.type }}
-                    </div>
+                    {{ armor.armorClass }}
                 </div>
 
                 <div
-                    v-if="weapon.price"
+                    v-if="armor.price"
                     v-tooltip="{ content: 'Стоимость' }"
-                    class="weapon-item__price"
+                    class="armor-link__price"
                 >
-                    {{ weapon.price }}
+                    {{ armor.price }}
                 </div>
             </div>
         </a>
@@ -75,9 +62,9 @@
     import { RouterLink } from "vue-router";
 
     export default {
-        name: "WeaponItem",
+        name: 'ArmorLink',
         props: {
-            weapon: {
+            armor: {
                 type: Object,
                 required: true,
                 default: undefined
@@ -92,7 +79,7 @@
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
-                    'is-green': this.weapon.homebrew,
+                    'is-green': this.armor.homebrew,
                     'in-tab': this.inTab
                 }
             },
@@ -105,7 +92,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .weapon-item {
+    .armor-link {
         border-radius: 12px;
         overflow: hidden;
         background-color: var(--bg-table-list);
@@ -115,7 +102,7 @@
         padding: 8px 10px;
 
         &.is-green {
-            .weapon-item {
+            .armor-link {
                 background-color: var(--bg-homebrew-gradient-left);
             }
         }
@@ -150,7 +137,7 @@
         }
 
         &:hover {
-            .weapon-item {
+            .armor-link {
                 background-color: var(--hover);
             }
         }
@@ -158,7 +145,7 @@
         &.router-link-active {
             background-color: var(--primary-active);
 
-            .weapon-item {
+            .armor-link {
                 &__name {
                     &--rus,
                     &--eng {

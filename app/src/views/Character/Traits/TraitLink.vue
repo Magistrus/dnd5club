@@ -9,25 +9,25 @@
             ref="traitItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="trait-item"
+            class="trait-link"
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="trait-item__body">
-                <div class="trait-item__row">
-                    <div class="trait-item__name">
-                        <div class="trait-item__name--rus">
+            <div class="trait-link__body">
+                <div class="trait-link__row">
+                    <div class="trait-link__name">
+                        <div class="trait-link__name--rus">
                             {{ traitItem.name.rus }}
                         </div>
 
-                        <div class="trait-item__name--eng">
+                        <div class="trait-link__name--eng">
                             [{{ traitItem.name.eng }}]
                         </div>
                     </div>
                 </div>
 
-                <div class="trait-item__row">
-                    <div class="trait-item__requirements">
+                <div class="trait-link__row">
+                    <div class="trait-link__requirements">
                         {{ traitItem.requirements }}
                     </div>
                 </div>
@@ -41,7 +41,7 @@
     import { useTraitsStore } from "@/store/Character/TraitsStore";
 
     export default {
-        name: 'TraitItem',
+        name: 'TraitLink',
         inheritAttrs: false,
         props: {
             ...RouterLink.props,
@@ -90,7 +90,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .trait-item {
+    .trait-link {
         border-radius: 12px;
         overflow: hidden;
         background-color: var(--bg-table-list);
@@ -99,7 +99,7 @@
         display: block;
 
         &.is-green {
-            .trait-item {
+            .trait-link {
                 &__body {
                     background-color: var(--bg-homebrew-gradient-left);
                 }
@@ -148,7 +148,7 @@
         }
 
         &:hover {
-            .trait-item {
+            .trait-link {
                 &__content {
                     background-color: var(--hover);
                 }
@@ -158,7 +158,7 @@
         &.router-link-active {
             width: 100%;
 
-            .trait-item {
+            .trait-link {
                 &__body {
                     background-color: var(--primary-active);
                 }

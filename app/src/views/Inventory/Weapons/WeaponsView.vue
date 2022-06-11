@@ -16,7 +16,7 @@
             </div>
 
             <div class="weapons-group__list">
-                <weapon-item
+                <weapon-link
                     v-for="(weapon, weaponKey) in group.list"
                     :key="weaponKey"
                     :weapon="weapon"
@@ -28,16 +28,16 @@
 </template>
 
 <script>
-    import WeaponItem from "@/views/Inventory/Weapons/WeaponItem";
     import { shallowRef } from "vue";
     import TabLayout from "@/components/content/TabLayout";
     import ContentLayout from "@/components/content/ContentLayout";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import _ from "lodash";
+    import WeaponLink from "@/views/Inventory/Weapons/WeaponLink";
 
     export default {
         name: "WeaponsView",
-        components: { WeaponItem },
+        components: { WeaponLink },
         props: {
             inTab: {
                 type: Boolean,

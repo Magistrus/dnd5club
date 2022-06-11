@@ -10,39 +10,39 @@
             ref="spellItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="spell-item"
+            class="spell-link"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
-            <div class="spell-item__content">
+            <div class="spell-link__content">
                 <div
                     v-tooltip="{ content: spellItem.level ? `${spellItem.level} уровень заклинания` : 'Заговор' }"
-                    class="spell-item__lvl"
+                    class="spell-link__lvl"
                 >
                     <span>{{ spellItem.level || '◐' }}</span>
                 </div>
 
-                <div class="spell-item__body">
-                    <div class="spell-item__row">
-                        <div class="spell-item__name">
-                            <div class="spell-item__name--rus">
+                <div class="spell-link__body">
+                    <div class="spell-link__row">
+                        <div class="spell-link__name">
+                            <div class="spell-link__name--rus">
                                 {{ spellItem.name.rus }}
                             </div>
 
-                            <div class="spell-item__name--eng">
+                            <div class="spell-link__name--eng">
                                 [{{ spellItem.name.eng }}]
                             </div>
                         </div>
                     </div>
 
-                    <div class="spell-item__row">
+                    <div class="spell-link__row">
                         <div
                             v-if="spellItem.concentration || spellItem.ritual"
-                            class="spell-item__modifications"
+                            class="spell-link__modifications"
                         >
                             <div
                                 v-if="spellItem.concentration"
                                 v-tooltip="{ content: 'Концентрация' }"
-                                class="spell-item__modification"
+                                class="spell-link__modification"
                             >
                                 К
                             </div>
@@ -50,7 +50,7 @@
                             <div
                                 v-if="spellItem.ritual"
                                 v-tooltip="{ content: 'Ритуал' }"
-                                class="spell-item__modification"
+                                class="spell-link__modification"
                             >
                                 Р
                             </div>
@@ -58,19 +58,19 @@
 
                         <div
                             v-capitalize-first
-                            class="spell-item__school"
+                            class="spell-link__school"
                         >
                             {{ spellItem.school }}
                         </div>
 
                         <div
                             v-if="hasComponents"
-                            class="spell-item__components"
+                            class="spell-link__components"
                         >
                             <div
                                 v-if="spellItem.components.v"
                                 v-tooltip="{ content: 'Вербальный' }"
-                                class="spell-item__component"
+                                class="spell-link__component"
                             >
                                 В
                             </div>
@@ -78,7 +78,7 @@
                             <div
                                 v-if="spellItem.components.s"
                                 v-tooltip="{ content: 'Соматический' }"
-                                class="spell-item__component"
+                                class="spell-link__component"
                             >
                                 С
                             </div>
@@ -86,7 +86,7 @@
                             <div
                                 v-if="!!spellItem.components.m"
                                 v-tooltip="{ content: 'Материальный' }"
-                                class="spell-item__component"
+                                class="spell-link__component"
                             >
                                 М
                             </div>
@@ -119,7 +119,7 @@
     import BaseModal from "@/components/UI/BaseModal";
 
     export default {
-        name: 'SpellItem',
+        name: 'SpellLink',
         components: { BaseModal, SpellBody },
         directives: {
             CapitalizeFirst
@@ -179,7 +179,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .spell-item {
+    .spell-link {
         border-radius: 12px;
         overflow: hidden;
         background-color: var(--bg-table-list);
@@ -188,7 +188,7 @@
         display: block;
 
         &.is-green {
-            .spell-item {
+            .spell-link {
                 &__content {
                     background-color: var(--bg-homebrew-gradient-left);
                 }
@@ -284,7 +284,7 @@
         }
 
         &:hover {
-            .spell-item {
+            .spell-link {
                 &__content {
                     background-color: var(--hover);
                 }
@@ -292,7 +292,7 @@
         }
 
         &.router-link-active {
-            .spell-item {
+            .spell-link {
                 &__content {
                     background-color: var(--primary-active);
                 }

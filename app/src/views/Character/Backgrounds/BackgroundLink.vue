@@ -1,26 +1,26 @@
 <template>
     <router-link
         v-slot="{ href, navigate, isActive }"
-        :to="{ path: optionItem.url }"
+        :to="{ path: backgroundItem.url }"
         custom
         v-bind="$props"
     >
         <a
-            ref="optionItem"
+            ref="backgroundItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="option-item"
+            class="background-link"
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="option-item__body">
-                <div class="option-item__name">
-                    <div class="option-item__name--rus">
-                        {{ optionItem.name.rus }}
+            <div class="background-link__body">
+                <div class="background-link__name">
+                    <div class="background-link__name--rus">
+                        {{ backgroundItem.name.rus }}
                     </div>
 
-                    <div class="option-item__name--eng">
-                        [{{ optionItem.name.eng }}]
+                    <div class="background-link__name--eng">
+                        [{{ backgroundItem.name.eng }}]
                     </div>
                 </div>
             </div>
@@ -31,17 +31,17 @@
 <script>
     import { RouterLink } from 'vue-router';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
-    import { useOptionsStore } from "@/store/Character/OptionsStore";
+    import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
 
     export default {
-        name: 'OptionItem',
+        name: 'BackgroundLink',
         directives: {
             CapitalizeFirst
         },
         inheritAttrs: false,
         props: {
             ...RouterLink.props,
-            optionItem: {
+            backgroundItem: {
                 type: Object,
                 default: () => ({})
             },
@@ -51,8 +51,8 @@
             }
         },
         data: () => ({
-            optionsStore: useOptionsStore(),
-            option: {
+            backgroundsStore: useBackgroundsStore(),
+            background: {
                 show: false,
                 data: undefined
             }
@@ -61,8 +61,8 @@
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
-                    'is-option-selected': this.$route.name === 'optionDetail',
-                    'is-green': this.optionItem?.homebrew
+                    'is-background-selected': this.$route.name === 'backgroundDetail',
+                    'is-green': this.backgroundItem?.homebrew
                 }
             },
 
@@ -73,9 +73,9 @@
                     return;
                 }
 
-                this.optionsStore.optionInfoQuery(this.optionItem.url)
+                this.backgroundsStore.backgroundInfoQuery(this.backgroundItem.url)
                     .then(spell => {
-                        this.option = {
+                        this.background = {
                             show: true,
                             data: spell
                         }
@@ -86,7 +86,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .option-item {
+    .background-link {
         border-radius: 12px;
         overflow: hidden;
         background-color: var(--bg-table-list);
@@ -95,7 +95,7 @@
         display: block;
 
         &.is-green {
-            .option-item {
+            .background-link {
                 &__body {
                     background-color: var(--bg-homebrew-gradient-left);
                 }
@@ -130,7 +130,7 @@
         }
 
         &:hover {
-            .option-item {
+            .background-link {
                 &__body {
                     background-color: var(--hover);
                 }
@@ -140,7 +140,7 @@
         &.router-link-active {
             width: 100%;
 
-            .option-item {
+            .background-link {
                 &__body {
                     background-color: var(--primary-active);
                 }

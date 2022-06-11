@@ -13,7 +13,7 @@
             item-selector=".class-item"
             transition-duration="0.15s"
         >
-            <class-item
+            <class-link
                 v-for="(el, key) in classes"
                 :key="key"
                 :class-item="el"
@@ -25,14 +25,14 @@
 
 <script>
     import { useClassesStore } from '@/store/Character/ClassesStore';
-    import ClassItem from '@/views/Character/Classes/ClassItem';
     import ContentLayout from '@/components/content/ContentLayout';
+    import ClassLink from "@/views/Character/Classes/ClassLink";
 
     export default {
         name: 'ClassesView',
         components: {
+            ClassLink,
             ContentLayout,
-            ClassItem,
         },
         data: () => ({
             classesStore: useClassesStore(),

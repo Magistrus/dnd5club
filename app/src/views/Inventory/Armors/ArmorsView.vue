@@ -16,7 +16,7 @@
             </div>
 
             <div class="armors-group__list">
-                <armor-item
+                <armor-link
                     v-for="(armor, armorKey) in group.list"
                     :key="armorKey"
                     :armor="armor"
@@ -28,16 +28,16 @@
 </template>
 
 <script>
-    import ArmorItem from "@/views/Inventory/Armors/ArmorItem";
     import { shallowRef } from "vue";
     import TabLayout from "@/components/content/TabLayout";
     import ContentLayout from "@/components/content/ContentLayout";
     import _ from "lodash";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
+    import ArmorLink from "@/views/Inventory/Armors/ArmorLink";
 
     export default {
         name: "ArmorsView",
-        components: { ArmorItem },
+        components: { ArmorLink },
         props: {
             inTab: {
                 type: Boolean,

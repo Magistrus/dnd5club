@@ -6,7 +6,7 @@
         @search="traitsQuery"
         @update="traitsQuery"
     >
-        <trait-item
+        <trait-link
             v-for="(trait, key) in traits"
             :key="key"
             :in-tab="inTab"
@@ -21,12 +21,12 @@
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
     import { useTraitsStore } from "@/store/Character/TraitsStore";
-    import TraitItem from "@/views/Character/Traits/TraitItem";
+    import TraitLink from "@/views/Character/Traits/TraitLink";
 
     export default {
         name: 'TraitsView',
         components: {
-            TraitItem,
+            TraitLink,
             TabLayout,
             ContentLayout,
         },

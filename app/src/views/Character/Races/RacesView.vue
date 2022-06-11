@@ -13,7 +13,7 @@
             item-selector=".race-item"
             transition-duration="0.15s"
         >
-            <race-item
+            <race-link
                 v-for="(race, key) in races"
                 :key="key"
                 :race-item="race"
@@ -26,12 +26,12 @@
 <script>
     import ContentLayout from '@/components/content/ContentLayout';
     import { useRacesStore } from "@/store/Character/RacesStore";
-    import RaceItem from "@/views/Character/Races/RaceItem";
+    import RaceLink from "@/views/Character/Races/RaceLink";
 
     export default {
         name: 'RacesView',
         components: {
-            RaceItem,
+            RaceLink,
             ContentLayout,
         },
         data: () => ({

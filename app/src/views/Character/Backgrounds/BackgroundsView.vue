@@ -6,7 +6,7 @@
         @search="backgroundsQuery"
         @update="backgroundsQuery"
     >
-        <background-item
+        <background-link
             v-for="(background, key) in backgrounds"
             :key="key"
             :in-tab="inTab"
@@ -21,12 +21,12 @@
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
     import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
-    import BackgroundItem from "@/views/Character/Backgrounds/BackgroundItem";
+    import BackgroundLink from "@/views/Character/Backgrounds/BackgroundLink";
 
     export default {
         name: 'BackgroundsView',
         components: {
-            BackgroundItem,
+            BackgroundLink,
             TabLayout,
             ContentLayout,
         },

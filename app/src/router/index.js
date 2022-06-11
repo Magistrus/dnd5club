@@ -96,6 +96,18 @@ const routes = [
                 component: () => import('@/views/Inventory/Armors/ArmorDetail'),
             }
         ]
+    },
+    {
+        name: 'items',
+        path: '/items',
+        component: () => import('@/views/Inventory/Items/ItemsView'),
+        children: [
+            {
+                name: 'itemDetail',
+                path: ':itemName',
+                component: () => import('@/views/Inventory/Items/ItemDetail'),
+            }
+        ]
     }
 ];
 
