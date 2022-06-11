@@ -35,7 +35,7 @@
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
-    import { useSpellsStore } from "@/store/SpellsStore/SpellsStore";
+    import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
 
     export default {

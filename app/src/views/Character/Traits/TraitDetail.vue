@@ -13,7 +13,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useTraitsStore } from '@/store/CharacterStore/TraitsStore';
+    import { useTraitsStore } from '@/store/Character/TraitsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
     import TraitBody from "@/views/Character/Traits/TraitBody";

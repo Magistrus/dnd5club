@@ -114,7 +114,7 @@
 <script>
     import { RouterLink } from 'vue-router';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
-    import { useSpellsStore } from "@/store/SpellsStore/SpellsStore";
+    import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
     import BaseModal from "@/components/UI/BaseModal";
 

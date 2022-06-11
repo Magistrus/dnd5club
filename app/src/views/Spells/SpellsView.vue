@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import { useSpellsStore } from '@/store/SpellsStore/SpellsStore';
+    import { useSpellsStore } from '@/store/Spells/SpellsStore';
     import ContentLayout from '@/components/content/ContentLayout';
     import SpellItem from '@/views/Spells/SpellItem';
     import TabLayout from "@/components/content/TabLayout";

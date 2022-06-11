@@ -33,7 +33,7 @@
 <script>
     import { mapActions, mapState } from 'pinia/dist/pinia';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import { useUIStore } from '@/store/UIStore/UIStore';
+    import { useUIStore } from '@/store/UI/UIStore';
 
     export default {
         name: 'MenuThemeSwitcher',

@@ -31,7 +31,7 @@
 <script>
     import { RouterLink } from 'vue-router';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
-    import { useOptionsStore } from "@/store/CharacterStore/OptionsStore";
+    import { useOptionsStore } from "@/store/Character/OptionsStore";
 
     export default {
         name: 'OptionItem',

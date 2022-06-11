@@ -31,7 +31,7 @@
 <script>
     import { RouterLink } from 'vue-router';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
-    import { useBackgroundsStore } from "@/store/CharacterStore/BackgroundsStore";
+    import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
 
     export default {
         name: 'BackgroundItem',

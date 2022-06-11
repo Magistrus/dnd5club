@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import { useClassesStore } from '@/store/CharacterStore/ClassesStore';
+    import { useClassesStore } from '@/store/Character/ClassesStore';
     import ClassItem from '@/views/Character/Classes/ClassItem';
     import ContentLayout from '@/components/content/ContentLayout';
 

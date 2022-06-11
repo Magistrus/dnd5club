@@ -1,4 +1,4 @@
-import { useUIStore } from '@/store/UIStore/UIStore';
+import { useUIStore } from '@/store/UI/UIStore';
 
 // eslint-disable-next-line func-names
 export default function initialScript() {

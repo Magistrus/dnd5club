@@ -13,7 +13,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useBackgroundsStore } from '@/store/CharacterStore/BackgroundsStore';
+    import { useBackgroundsStore } from '@/store/Character/BackgroundsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
     import BackgroundBody from "@/views/Character/Backgrounds/BackgroundBody";

@@ -20,7 +20,7 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
-    import { useBackgroundsStore } from "@/store/CharacterStore/BackgroundsStore";
+    import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
     import BackgroundItem from "@/views/Character/Backgrounds/BackgroundItem";
 
     export default {

@@ -14,7 +14,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useRacesStore } from '@/store/CharacterStore/RacesStore';
+    import { useRacesStore } from '@/store/Character/RacesStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
 

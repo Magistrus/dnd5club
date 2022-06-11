@@ -88,7 +88,7 @@
 
 <script>
     import SvgIcon from '@/components/UI/SvgIcon';
-    import { useUIStore } from '@/store/UIStore/UIStore';
+    import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/helpers/errorHandler";
 
     export default {

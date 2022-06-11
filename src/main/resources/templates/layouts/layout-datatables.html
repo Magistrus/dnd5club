@@ -111,7 +111,9 @@
     <div id="dnd5club" class="dnd5club">
         <div th:replace="fragments/menu :: menu"></div>
         <div id="container" class="container">
-            <div layout:fragment="content"></div>
+            <router-view>
+                <div layout:fragment="content"></div>
+            </router-view>
         </div>
     </div>
 	</body>

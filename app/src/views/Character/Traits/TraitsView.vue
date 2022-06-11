@@ -20,7 +20,7 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
-    import { useTraitsStore } from "@/store/CharacterStore/TraitsStore";
+    import { useTraitsStore } from "@/store/Character/TraitsStore";
     import TraitItem from "@/views/Character/Traits/TraitItem";
 
     export default {

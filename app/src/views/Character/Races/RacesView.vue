@@ -25,7 +25,7 @@
 
 <script>
     import ContentLayout from '@/components/content/ContentLayout';
-    import { useRacesStore } from "@/store/CharacterStore/RacesStore";
+    import { useRacesStore } from "@/store/Character/RacesStore";
     import RaceItem from "@/views/Character/Races/RaceItem";
 
     export default {

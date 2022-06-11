@@ -155,7 +155,7 @@
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
     import HTTPService from '@/services/HTTPService';
-    import { useClassesStore } from '@/store/CharacterStore/ClassesStore';
+    import { useClassesStore } from '@/store/Character/ClassesStore';
     import FieldSelect from '@/components/form/FieldType/FieldSelect';
     import SpellsView from "@/views/Spells/SpellsView";
     import errorHandler from "@/helpers/errorHandler";

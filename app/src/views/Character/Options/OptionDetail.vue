@@ -16,7 +16,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import { useOptionsStore } from '@/store/CharacterStore/OptionsStore';
+    import { useOptionsStore } from '@/store/Character/OptionsStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
     import OptionBody from "@/views/Character/Options/OptionBody";

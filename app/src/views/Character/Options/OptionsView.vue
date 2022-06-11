@@ -20,7 +20,7 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
-    import { useOptionsStore } from "@/store/CharacterStore/OptionsStore";
+    import { useOptionsStore } from "@/store/Character/OptionsStore";
     import OptionItem from "@/views/Character/Options/OptionItem";
 
     export default {

@@ -38,7 +38,7 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useTraitsStore } from "@/store/CharacterStore/TraitsStore";
+    import { useTraitsStore } from "@/store/Character/TraitsStore";
 
     export default {
         name: 'TraitItem',
