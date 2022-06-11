@@ -82,49 +82,18 @@ const routes = [
                 name: 'weaponDetail',
                 path: ':weaponName',
                 component: () => import('@/views/Inventory/Weapons/WeaponDetail'),
-                props: {
-                    weapon: {
-                        name: {
-                            rus: 'Боевая коса',
-                            eng: 'Battle scythe',
-                        },
-                        type: 'Простое рукопашное',
-                        source: {
-                            homebrew: true,
-                            name: 'EEW',
-                            shortName: 'Расширенное и экзотическое оружие'
-                        },
-                        price: '1 зм',
-                        damage: {
-                            dice: '1к8',
-                            type: 'рубящий'
-                        },
-                        weight: '6.0',
-                        properties: [
-                            {
-                                url: '/screens/Equipment#Versatile',
-                                name: 'Универсальное',
-                                twoHandDice: '1к10',
-                                description: 'Описание для универсального оружия'
-                            },
-                            {
-                                url: '/screens/Equipment#Reach',
-                                name: 'Досягаемость',
-                                distance: '10 фт.',
-                                description: 'Описание для досягаемого оружия'
-                            },
-                        ],
-                        description: '<p>Боевая коса — это древковое режущее оружие пехоты, которое представляло'
-                            + ' собой древко или шест, с насаженной на него хозяйственной косой, шинковочным ножом или'
-                            + ' специально изготовленным двулезвийным клинком, чаще дугообразной формы.</p>',
-                        special: '<span>Когда Вы атакуете не ожидающего нападения гуманоида этим оружием и'
-                            + ' наносите урон, вы можете попытаться ударом лишить цель сознания. После того как атака'
-                            + ' попала, вы можете выбрать кинуть <dice-roller :formula="\'4к4\'">4к4</dice-roller>.'
-                            + ' Если количество хитов у цели меньше или равно результату'
-                            + ' броска, цель падает без сознания. Если у цели остается больше хитов, чем результат,'
-                            + ' цель остается в сознании, и бросок не имеет никакого эффекта.</span>'
-                    }
-                }
+            }
+        ]
+    },
+    {
+        name: 'armors',
+        path: '/armors',
+        component: () => import('@/views/Inventory/Armors/ArmorsView'),
+        children: [
+            {
+                name: 'armorDetail',
+                path: ':armorName',
+                component: () => import('@/views/Inventory/Armors/ArmorDetail'),
             }
         ]
     }

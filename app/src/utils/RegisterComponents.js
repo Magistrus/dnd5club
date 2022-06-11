@@ -9,6 +9,7 @@ import OptionsView from '@/views/Character/Options/OptionsView';
 import SvgIcon from '@/components/UI/SvgIcon';
 import DiceRoller from '@/components/UI/DiceRoller';
 import WeaponsView from '@/views/Inventory/Weapons/WeaponsView';
+import ArmorsView from '@/views/Inventory/Armors/ArmorsView';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -20,6 +21,7 @@ export default function registerComponents(app) {
     app.component('OptionsView', OptionsView);
     app.component('SpellsView', SpellsView);
     app.component('WeaponsView', WeaponsView);
+    app.component('ArmorsView', ArmorsView);
 
     // Components
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);
