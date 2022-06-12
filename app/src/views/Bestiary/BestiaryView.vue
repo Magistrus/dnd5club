@@ -7,7 +7,7 @@
         @update="bestiaryQuery"
         @list-end="nextPage"
     >
-        <spell-link
+        <creature-link
             v-for="(creature, key) in bestiary"
             :key="key"
             :in-tab="inTab"
@@ -21,13 +21,13 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
-    import SpellLink from "@/views/Spells/SpellLink";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
+    import CreatureLink from "@/views/Bestiary/CreatureLink";
 
     export default {
         name: 'BestiaryView',
         components: {
-            SpellLink,
+            CreatureLink,
             TabLayout,
             ContentLayout,
         },
@@ -62,7 +62,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'spellDetail'
+                return this.$route.name === 'creatureDetail'
             },
 
             layout() {
@@ -87,7 +87,7 @@
         async mounted() {
             await this.init();
 
-            if (this.bestiary.length && this.$route.name === 'spells') {
+            if (this.bestiary.length && this.$route.name === 'bestiary') {
                 await this.$router.push({ path: this.bestiary[0].url })
             }
         },

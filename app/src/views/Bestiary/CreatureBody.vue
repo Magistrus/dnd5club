@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="creature"
-        class="spell_wrapper spell-body"
+        class="creature_wrapper creature-body bestiary"
     >
         <detail-tob-bar
             :left="creature.size + ' ' + creature.type + ', ' + creature.alignment + ' / '"
@@ -31,7 +31,7 @@
 
                 <span>{{ `${creature.armorClass}${creature.armorText ? ` (${creature.armorText})` : ''}` }}</span>
 
-                <span v-if="creature.armors.length">
+                <span v-if="creature.armors?.length">
                     ({{ creature.armors.join(', ') }})
                 </span>
             </p>
@@ -57,7 +57,7 @@
                         title="Сила"
                     >СИЛ</strong>
                 </h4>
-                <p>{{ creature.str }}</p>
+                <p>{{ creature.ability.str }}</p>
             </div>
 
             <div class="scores-dexterity">
@@ -67,7 +67,7 @@
                         title="Ловкость"
                     >ЛОВ</strong>
                 </h4>
-                <p>{{ creature.dex }}</p>
+                <p>{{ creature.ability.dex }}</p>
             </div>
 
             <div class="scores-constitution">
@@ -77,7 +77,7 @@
                         title="Телосложение"
                     >ТЕЛ</strong>
                 </h4>
-                <p>{{ creature.con }}</p>
+                <p>{{ creature.ability.con }}</p>
             </div>
 
             <div class="scores-intelligence">
@@ -87,7 +87,7 @@
                         title="Интеллект"
                     >ИНТ</strong>
                 </h4>
-                <p>{{ creature.int }}</p>
+                <p>{{ creature.ability.int }}</p>
             </div>
 
             <div class="scores-wisdom">
@@ -97,7 +97,7 @@
                         title="Мудрость"
                     >МДР</strong>
                 </h4>
-                <p>{{ creature.wiz }}</p>
+                <p>{{ creature.ability.wiz }}</p>
             </div>
 
             <div class="scores-charisma">
@@ -107,7 +107,7 @@
                         title="Харизма"
                     >ХАР</strong>
                 </h4>
-                <p>{{ creature.cha }}</p>
+                <p>{{ creature.ability.cha }}</p>
             </div>
         </div>
 
@@ -145,12 +145,11 @@
                 <strong>Чувства</strong> <span>{{ senses }}</span>
             </p>
 
-            <!--            <p>-->
-            <!--                <strong>Языки</strong> <span th:if="${creature.languages.empty}"> — </span><span-->
-            <!--                    th:each="language, iterStat : ${creature.languages}"-->
-            <!--                    th:text="${iterStat.last ? language.name : language.name + ', '}"-->
-            <!--                />-->
-            <!--            </p>-->
+            <p>
+                <strong>Языки</strong>
+
+                <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }} </span>
+            </p>
 
             <p>
                 <strong>Уровень опасности</strong>
@@ -383,7 +382,7 @@
                     const index = senses.push(`${ sense.name } ${ sense.value }`);
 
                     if (sense.additional) {
-                        senses[index] += `(${sense.additional})`;
+                        senses[index - 1] += `(${sense.additional})`;
                     }
                 }
 
@@ -398,7 +397,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .spell-body {
+    .creature-body {
         padding: 24px;
     }
 </style>

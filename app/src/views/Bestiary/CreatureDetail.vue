@@ -59,7 +59,7 @@
         },
         methods: {
             close() {
-                this.$router.push({ name: 'creatures' });
+                this.$router.push({ name: 'bestiary' });
             },
 
             async loadNewCreature(url) {

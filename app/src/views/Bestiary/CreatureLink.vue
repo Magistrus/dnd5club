@@ -15,7 +15,7 @@
         >
             <div class="creature-link__content">
                 <div class="creature-link__rating">
-                    <span>{{ creature.chellengeRating || '-' }}</span>
+                    <span>{{ 'challengeRating' in creature ? creature.challengeRating : '-' }}</span>
                 </div>
 
                 <div class="creature-link__body">
