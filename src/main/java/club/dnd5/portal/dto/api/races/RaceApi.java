@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.dto.api.classes.SourceTypeApi;
 import club.dnd5.portal.model.races.Race;
@@ -22,7 +22,7 @@ public class RaceApi {
 	private String url;
 	private String abilities;
 	private SourceTypeApi type;
-	private SourceApiDto source;
+	private SourceApi source;
 
 	private List<RaceApi> subraces;
 	private String icon;
@@ -35,7 +35,7 @@ public class RaceApi {
 		else {
 			url = String.format("/races/%s/%s", race.getParent().getUrlName(), race.getUrlName());
 		}
-		source = new SourceApiDto(race.getBook());
+		source = new SourceApi(race.getBook());
 		if (!race.getSubRaces().isEmpty()) {
 			subraces = race.getSubRaces().stream().map(RaceApi::new).collect(Collectors.toList());
 		}

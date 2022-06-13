@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.items.Equipment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemDetailApi extends ItemApi {
-	private SourceApiDto source;
+	private SourceApi source;
 	private Float weight;
 	private String description;
 	private List<String> categories;
@@ -28,7 +28,7 @@ public class ItemDetailApi extends ItemApi {
 	public ItemDetailApi(Equipment item) {
 		super(item);
 		url = null;
-		source = new SourceApiDto(item.getBook());
+		source = new SourceApi(item.getBook());
 		weight = item.getWeight();
 		if (item.getDescription() != null) {
 			description = item.getDescription();

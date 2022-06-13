@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import club.dnd5.portal.dto.api.NameValueApi;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
@@ -57,6 +58,7 @@ public class BeastDetailApi extends BeastApi {
 	
 	private Collection<String> environment;
 	private Collection<String> images;
+	private SourceApi source;
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
@@ -142,5 +144,6 @@ public class BeastDetailApi extends BeastApi {
 		if (!beast.getHabitates().isEmpty()) {
 			environment = beast.getHabitates().stream().map(HabitatType::getName).collect(Collectors.toList());	
 		}
+		source = new SourceApi(beast.getBook());
 	}
 }
