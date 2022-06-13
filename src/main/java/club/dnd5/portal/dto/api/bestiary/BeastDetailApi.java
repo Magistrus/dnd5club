@@ -54,6 +54,7 @@ public class BeastDetailApi extends BeastApi {
 	private Collection<NameValueApi> mysticalActions;
 	
 	private String description;
+	private Collection<TagApi> tags;
 	
 	private Collection<String> environment;
 	private Collection<String> images;
@@ -147,6 +148,9 @@ public class BeastDetailApi extends BeastApi {
 		source = new SourceApi(beast.getBook());
 		if (beast.getLair() != null) {
 			lair = new LairApi(beast.getLair());
+		}
+		if (beast.getRaces().isEmpty()) {
+			tags = beast.getRaces().stream().map(TagApi::new).collect(Collectors.toList());
 		}
 	}
 }
