@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import club.dnd5.portal.dto.api.NameValueApi;
+import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
@@ -29,7 +30,7 @@ import lombok.Setter;
 @Setter
 public class BeastDetailApi extends BeastApi {
 	private Integer experience;
-	private String size;
+	private NameApi size;
 	private String alignment;
 	private Byte armorClass;
 	private Collection<String> armors;
@@ -61,7 +62,7 @@ public class BeastDetailApi extends BeastApi {
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
-		size = beast.getSizeName();
+		size = new NameApi(beast.getSizeName(), beast.getSize().name().toLowerCase());
 		experience = beast.getExp();
 		alignment = beast.getAligment();
 		armorClass = beast.getAC();
@@ -106,7 +107,7 @@ public class BeastDetailApi extends BeastApi {
 			damageImmunities = beast.getImmunityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
 		if (!beast.getVulnerabilityDamages().isEmpty()) {
-			damageImmunities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
+			damageVulnerabilities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
 		if (!beast.getImmunityStates().isEmpty()) {
 			conditionImmunities = beast.getImmunityStates().stream().map(Condition::getCyrilicName).collect(Collectors.toList());

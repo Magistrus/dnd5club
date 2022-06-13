@@ -52,6 +52,7 @@ public class SpellController {
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
 		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
+		model.addAttribute("adventureBooks", sources.get(TypeBook.MODULE));
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");
