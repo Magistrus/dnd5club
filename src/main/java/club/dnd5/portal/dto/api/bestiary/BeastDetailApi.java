@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.dto.api.SourceApi;
-import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.creature.Action;
@@ -67,7 +66,7 @@ public class BeastDetailApi extends BeastApi {
 		experience = beast.getExp();
 		alignment = beast.getAligment();
 		armorClass = beast.getAC();
-		
+		setType(new TypeDetailApi(beast));
 		if (!beast.getArmorTypes().isEmpty()) {
 			armors = beast.getArmorTypes().stream().map(ArmorType::getCyrillicName).collect(Collectors.toList());
 		}
