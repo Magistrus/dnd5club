@@ -19,9 +19,9 @@ import lombok.Setter;
 @Setter
 public class RaceApi {
 	private NameApi name;
-	private String url;
+	protected String url;
 	private String abilities;
-	private SourceTypeApi type;
+	protected Object type;
 	private SourceApi source;
 
 	private List<RaceApi> subraces;

@@ -262,13 +262,14 @@ function selectClass(data) {
         });
         toggleSourcesItems();
         setTimeout(function () {
-        if (hash){
-        	const el = document.getElementById(hash.replace('#', ''));
-        	el.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-          });
-        }
+        	if (hash){
+        		const el = document.getElementById(hash.replace('#', ''));
+        		el.scrollIntoView({
+        			behavior: "smooth",
+        			block: "center"
+        		});
+        		hash = '';
+        	}
         }, 300);
     });
 }
@@ -300,6 +301,7 @@ function setActiveArchetype(data, className, archetypeName) {
                     behavior: "smooth",
                     block: "center"
               });
+              hash = '';
             }
         }, 300);
     });
