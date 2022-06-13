@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class OptionApi {
 	protected NameApi name;
-	private String url;
+	protected String url;
 	private Boolean homebrew;
 	public OptionApi(Option option) {
 		name = new NameApi(option.getName(), option.getEnglishName());

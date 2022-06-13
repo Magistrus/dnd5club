@@ -32,10 +32,16 @@ $(document).ready(function () {
                 data: 'ordering',
                 searchable: false,
             },
+            {
+                data: 'altName',
+            },
+            {
+                data: 'category',
+            },
         ],
         columnDefs: [
             {
-                "targets": [ 1, 2 ],
+                "targets": [ 1, 2 ,3, 4 ],
                 "visible": false
             },
         ],

@@ -340,4 +340,7 @@ public class Creature {
 	public int getBonusHpAbs() {
 		return bonusHP == null ? 0 : Math.abs(bonusHP);
 	}
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
 }

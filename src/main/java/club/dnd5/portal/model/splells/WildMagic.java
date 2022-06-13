@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import club.dnd5.portal.model.book.Book;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,4 +23,7 @@ public class WildMagic {
 	private Integer id;
 	@Column(columnDefinition = "TEXT")
 	private String description;
+	@ManyToOne
+	@JoinColumn(name = "source")
+	private Book book;
 }

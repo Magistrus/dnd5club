@@ -16,14 +16,14 @@ import lombok.Setter;
 @Setter
 public class TraitApi {
 	protected NameApi name;
-	private String url;
-	private String requrements;
+	protected String url;
+	private String requirements ;
 	private Boolean homebrew;
 	public TraitApi(Trait trait) {
 		name = new NameApi(trait.getName(), trait.getEnglishName());
 		url = String.format("/traits/%s", trait.getUrlName());
 		if (trait.getRequirement()!=null) {
-			requrements = trait.getRequirement();
+			requirements  = trait.getRequirement();
 		}
 		if (trait.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;
