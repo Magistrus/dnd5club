@@ -131,7 +131,7 @@ public class BeastDetailApi extends BeastApi {
 			legendary = new LegendaryApi();
 			legendary.setLegendary(actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList()));
 			if (beast.getLegendary() != null) {
-				legendary.setAdditional(beast.getLegendary());
+				legendary.setDescription(beast.getLegendary());
 			}
 		}
 		actionsBeast = beast.getActions(ActionType.MYSTICAL);

@@ -21,5 +21,5 @@ import lombok.Setter;
 public class LegendaryApi {
 	private Collection<NameValueApi> legendary;
 	private int count;
-	private String additional;
+	private String description;
 }
