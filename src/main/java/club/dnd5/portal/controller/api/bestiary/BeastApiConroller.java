@@ -120,7 +120,7 @@ public class BeastApiConroller {
 		if (!images.isEmpty()) {
 			beastApi.setImages(images);
 		}
-		return new BeastDetailApi(beast);
+		return beastApi;
 	}
 	
 	@CrossOrigin

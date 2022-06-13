@@ -107,7 +107,7 @@ public class BeastDetailApi extends BeastApi {
 			damageImmunities = beast.getImmunityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
 		if (!beast.getVulnerabilityDamages().isEmpty()) {
-			damageImmunities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
+			damageVulnerabilities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
 		if (!beast.getImmunityStates().isEmpty()) {
 			conditionImmunities = beast.getImmunityStates().stream().map(Condition::getCyrilicName).collect(Collectors.toList());
