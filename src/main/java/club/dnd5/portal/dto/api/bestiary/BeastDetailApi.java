@@ -12,6 +12,7 @@ import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.Language;
 import club.dnd5.portal.model.creature.Action;
 import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Condition;
@@ -27,6 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BeastDetailApi extends BeastApi {
+	private int id;
 	private Integer experience;
 	private SizeApi size;
 	private String alignment;
@@ -45,6 +47,7 @@ public class BeastDetailApi extends BeastApi {
 	private Collection<String> damageVulnerabilities;
 	private Collection<String> conditionImmunities;
 	private SenseApi senses;
+	private Collection<String> language;
 	
 	private Collection<NameValueApi> feats;
 	private Collection<NameValueApi> actions;
@@ -63,6 +66,7 @@ public class BeastDetailApi extends BeastApi {
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
+		id = beast.getId();
 		size = new SizeApi(beast.getSizeName(), beast.getSize().name().toLowerCase(), beast.getSize().getCell());
 		experience = beast.getExp();
 		alignment = beast.getAligment();
@@ -149,8 +153,11 @@ public class BeastDetailApi extends BeastApi {
 		if (beast.getLair() != null) {
 			lair = new LairApi(beast.getLair());
 		}
-		if (beast.getRaces().isEmpty()) {
+		if (!beast.getRaces().isEmpty()) {
 			tags = beast.getRaces().stream().map(TagApi::new).collect(Collectors.toList());
+		}
+		if (!beast.getLanguages().isEmpty()) {
+			language = 	beast.getLanguages().stream().map(Language::getName).collect(Collectors.toList());
 		}
 	}
 }
