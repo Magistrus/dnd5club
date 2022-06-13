@@ -24,6 +24,7 @@ import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"name", "size", "type", "str", "dex", "con", "int", "wiz", "cha"})
+
 @NoArgsConstructor
 @Getter
 @Setter

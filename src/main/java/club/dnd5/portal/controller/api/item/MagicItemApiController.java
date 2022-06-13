@@ -14,11 +14,13 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.item.MagicItemApi;
+import club.dnd5.portal.dto.api.item.MagicItemDetailApi;
 import club.dnd5.portal.dto.api.item.WeaponRequesApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.items.MagicItem;
@@ -93,5 +95,10 @@ public class MagicItemApiController {
 			});
 		}
 		return repo.findAll(input, specification, specification, MagicItemApi::new).getData();
+	}
+
+	@PostMapping(value = "/api/v1/magic/items/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MagicItemDetailApi getItem(@PathVariable String englishName) {
+		return new MagicItemDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
 	}
 }
