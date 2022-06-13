@@ -59,6 +59,7 @@ public class BeastDetailApi extends BeastApi {
 	private Collection<String> environment;
 	private Collection<String> images;
 	private SourceApi source;
+	private LairApi lair;
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
@@ -145,5 +146,8 @@ public class BeastDetailApi extends BeastApi {
 			environment = beast.getHabitates().stream().map(HabitatType::getName).collect(Collectors.toList());	
 		}
 		source = new SourceApi(beast.getBook());
+		if (beast.getLair() != null) {
+			lair = new LairApi(beast.getLair());
+		}
 	}
 }
