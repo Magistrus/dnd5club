@@ -132,7 +132,7 @@ public class BeastDetailApi extends BeastApi {
 		actionsBeast = beast.getActions(ActionType.LEGENDARY);
 		if (!actionsBeast.isEmpty()) {
 			legendary = new LegendaryApi();
-			legendary.setLegendary(actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList()));
+			legendary.setList(actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList()));
 			if (beast.getLegendary() != null) {
 				legendary.setDescription(beast.getLegendary());
 			}

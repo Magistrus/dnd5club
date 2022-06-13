@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LegendaryApi {
-	private Collection<NameValueApi> legendary;
+	private Collection<NameValueApi> list;
 	private int count;
 	private String description;
 }
