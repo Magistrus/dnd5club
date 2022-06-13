@@ -301,7 +301,7 @@ function setActiveArchetype(data, className, archetypeName) {
                     block: "center"
               });
             }
-            }, 300);
+        }, 300);
     });
     history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName  + hash);
 }

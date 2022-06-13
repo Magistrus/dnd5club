@@ -6,12 +6,10 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
-import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.creature.Action;
@@ -52,7 +50,7 @@ public class BeastDetailApi extends BeastApi {
 	private Collection<NameValueApi> actions;
 	private Collection<NameValueApi> reactions;
 	private Collection<NameValueApi> bonusActions;
-	private Collection<NameValueApi> legendary;
+	private LegendaryApi legendary;
 	private Collection<NameValueApi> mysticalActions;
 	
 	private String description;
@@ -130,7 +128,11 @@ public class BeastDetailApi extends BeastApi {
 		}
 		actionsBeast = beast.getActions(ActionType.LEGENDARY);
 		if (!actionsBeast.isEmpty()) {
-			legendary = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
+			legendary = new LegendaryApi();
+			legendary.setLegendary(actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList()));
+			if (beast.getLegendary() != null) {
+				legendary.setAdditional(beast.getLegendary());
+			}
 		}
 		actionsBeast = beast.getActions(ActionType.MYSTICAL);
 		if (!actionsBeast.isEmpty()) {
