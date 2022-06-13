@@ -76,11 +76,7 @@
             },
 
             exportFoundry() {
-                if (!this.creature?.foundry) {
-                    return
-                }
-
-                window.open(this.creature.foundry, '_self');
+                window.open(`/creature/json/${ this.creature.id }`, '_self');
             }
         }
     }

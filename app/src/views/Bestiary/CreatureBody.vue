@@ -4,32 +4,28 @@
         class="creature_wrapper creature-body bestiary"
     >
         <detail-tob-bar
-            :left="creature.size + ' ' + creature.type + ', ' + creature.alignment + ' / '"
+            :left="topBarLeftString"
             :source="creature.source"
         />
 
-        <!--        <div class="avatar">-->
-        <!--            <div class="image-container">-->
-        <!--                <a-->
-        <!--                    id="creatute_href"-->
-        <!--                    th:if="${images.empty}"-->
-        <!--                    class="test-popup-link"-->
-        <!--                    th:href="@{/assets/style/dark/no_img_best.png}"-->
-        <!--                >-->
-        <!--                    <img-->
-        <!--                        id="creatute_img"-->
-        <!--                        th:src="@{/assets/style/dark/no_img_best.png}"-->
-        <!--                        alt="Title best"-->
-        <!--                    >-->
-        <!--                </a>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <div class="avatar">
+            <div class="image-container">
+                <a id="creatute_href">
+                    <img
+                        id="creatute_img"
+                        :src="!creature.images?.length ? '/assets/style/dark/no-img-best.png' : creature.images[0]"
+                        alt="Title best"
+                        @click.left.exact.prevent="showGallery"
+                    >
+                </a>
+            </div>
+        </div>
 
         <div class="beast_info">
             <p>
                 <strong>Класс доспеха</strong>
 
-                <span>{{ `${creature.armorClass}${creature.armorText ? ` (${creature.armorText})` : ''}` }}</span>
+                <span>{{ `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }` }}</span>
 
                 <span v-if="creature.armors?.length">
                     ({{ creature.armors.join(', ') }})
@@ -141,14 +137,14 @@
                 <span>{{ creature.conditionImmunities.join(', ') }}</span>
             </p>
 
-            <p>
+            <p v-if="senses">
                 <strong>Чувства</strong> <span>{{ senses }}</span>
             </p>
 
             <p>
                 <strong>Языки</strong>
 
-                <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }} </span>
+                <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }}</span>
             </p>
 
             <p>
@@ -217,23 +213,24 @@
                 </span>
             </div>
         </div>
-        <div v-if="creature.legendary?.length">
+        <div v-if="creature.legendary?.list?.length">
             <h4 class="header_separator">
                 <span>Легендарные Действия</span>
             </h4>
 
-            <!--            <div-->
-            <!--                th:unless="${creature.legendary eq null}"-->
-            <!--                th:utext="${creature.legendary}"-->
-            <!--            />-->
-            <!--            -->
-            <!--            <p th:if="${creature.legendary eq null}">-->
-            <!--                <span th:text="${creature.name}"/> может совершить 3 легендарных действия, выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное действие, и только-->
-            <!--                в конце хода другого существа. <span th:text="${creature.name}"/> восстанавливает использованные легендарные действия в начале своего хода.-->
-            <!--            </p>-->
+            <p v-if="!creature.legendary.description">
+                <span>{{ creature.name.rus }}</span> может совершить 3 легендарных действия,
+                выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное
+                действие, и только в конце хода другого существа. <span>{{ creature.name.rus }}</span> восстанавливает
+                использованные легендарные действия в начале своего хода.
+            </p>
+
+            <p v-else>
+                {{ creature.legendary.description }}
+            </p>
 
             <div
-                v-for="(action, key) in creature.legendary"
+                v-for="(action, key) in creature.legendary.list"
                 :key="key"
             >
                 <span class="bestiary_h5">
@@ -244,35 +241,35 @@
             </div>
         </div>
 
-        <!--        <th:block th:if="*{lair}">-->
-        <!--            <h4 class="header_separator">-->
-        <!--                <span>Логово</span>-->
-        <!--            </h4>-->
-        <!--            <div-->
-        <!--                th:if="*{lair.description}"-->
-        <!--                th:utext="*{lair.description}"-->
-        <!--            />-->
-        <!--            <h4-->
-        <!--                class="header_separator"-->
-        <!--                th:if="*{lair.action}"-->
-        <!--            >-->
-        <!--                <span>Действия логова:</span>-->
-        <!--            </h4>-->
-        <!--            <div-->
-        <!--                th:if="*{lair.action}"-->
-        <!--                th:utext="*{lair.action}"-->
-        <!--            />-->
-        <!--            <h4-->
-        <!--                class="header_separator"-->
-        <!--                th:if="*{lair.effect}"-->
-        <!--            >-->
-        <!--                <span>Региональные эффекты:</span>-->
-        <!--            </h4>-->
-        <!--            <div-->
-        <!--                th:if="*{lair.effect}"-->
-        <!--                th:utext="*{lair.effect}"-->
-        <!--            />-->
-        <!--        </th:block>-->
+        <div v-if="creature.lair?.description">
+            <h4 class="header_separator">
+                <span>Логово</span>
+            </h4>
+
+            <raw-content :template="creature.lair.description"/>
+        </div>
+
+        <div v-if="creature.lair?.action">
+            <h4
+                class="header_separator"
+                th:if="*{lair.action}"
+            >
+                <span>Действия логова:</span>
+            </h4>
+
+            <raw-content :template="creature.lair.action"/>
+        </div>
+
+        <div v-if="creature.lair?.effect">
+            <h4
+                class="header_separator"
+                th:if="*{lair.effect}"
+            >
+                <span>Региональные эффекты:</span>
+            </h4>
+
+            <raw-content :template="creature.lair.effect"/>
+        </div>
 
         <div v-if="creature.environment?.length">
             <h4 class="header_separator">
@@ -293,19 +290,32 @@
         </details>
 
         <details
-            v-for="(race, key) in creature.races"
+            v-for="(tag, key) in creature.tags"
             :key="key"
         >
             <summary class="h4 header_separator">
-                <span>{{ race.name }}</span>
+                <span>{{ tag.name }}</span>
             </summary>
 
             <raw-content
                 class="content"
-                :template="race.description"
+                :template="tag.description"
             />
         </details>
     </div>
+
+    <vue-easy-lightbox
+        v-if="creature?.images"
+        :imgs="creature.images"
+        :index="gallery.index"
+        :visible="gallery.show"
+        loop
+        move-disabled
+        scroll-disabled
+        @hide="gallery.show = false"
+    >
+        <template #toolbar/>
+    </vue-easy-lightbox>
 </template>
 
 <script>
@@ -327,8 +337,18 @@
                 required: true
             }
         },
-        data: () => ({}),
+        data: () => ({
+            gallery: {
+                index: 0,
+                show: false,
+            }
+        }),
         computed: {
+            topBarLeftString() {
+                // eslint-disable-next-line max-len
+                return `${ this.creature.size.rus } ${ this.creature.type.name }${ this.creature.type.tags?.length ? ` (${ this.creature.type.tags.join(', ') })` : '' }, ${ this.creature.alignment } / ${ this.creature.size.eng } ${ this.creature.size.cell }`
+            },
+
             speed() {
                 if (!this.creature.speed?.length) {
                     return '';
@@ -372,26 +392,30 @@
             },
 
             senses() {
-                if (!this.creature.senses?.senses?.length) {
-                    return '';
-                }
-
                 const senses = [];
 
-                for (const sense of this.creature.senses.senses) {
-                    const index = senses.push(`${ sense.name } ${ sense.value }`);
+                if (this.creature.senses?.senses?.length) {
+                    for (const sense of this.creature.senses.senses) {
+                        const index = senses.push(`${ sense.name } ${ sense.value }`);
 
-                    if (sense.additional) {
-                        senses[index - 1] += `(${sense.additional})`;
+                        if (sense.additional) {
+                            senses[index - 1] += `(${ sense.additional })`;
+                        }
                     }
                 }
 
-                if (this.creature.senses.passivePerception) {
+                if (this.creature.senses?.passivePerception) {
                     senses.push(`пассивная Внимательность ${ this.creature.senses.passivePerception }`);
                 }
 
                 return senses.join(', ')
             },
+        },
+        methods: {
+            showGallery() {
+                this.gallery.show = true;
+                this.gallery.index = 0;
+            }
         }
     }
 </script>
