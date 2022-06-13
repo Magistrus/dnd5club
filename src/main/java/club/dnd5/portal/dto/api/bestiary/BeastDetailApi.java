@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 public class BeastDetailApi extends BeastApi {
 	private Integer experience;
-	private NameApi size;
+	private SizeApi size;
 	private String alignment;
 	private Byte armorClass;
 	private Collection<String> armors;
@@ -60,7 +60,7 @@ public class BeastDetailApi extends BeastApi {
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
-		size = new NameApi(beast.getSizeName(), beast.getSize().name().toLowerCase());
+		size = new SizeApi(beast.getSizeName(), beast.getSize().name().toLowerCase(), beast.getSize().getCell());
 		experience = beast.getExp();
 		alignment = beast.getAligment();
 		armorClass = beast.getAC();
