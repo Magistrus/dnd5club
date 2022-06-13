@@ -38,7 +38,7 @@ public class MagicItemApiController {
 		Specification<MagicItem> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
+		List<Column> columns = new ArrayList<>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
