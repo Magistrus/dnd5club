@@ -3,7 +3,7 @@ package club.dnd5.portal.dto.api.spell;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.Spell;
@@ -24,7 +24,7 @@ public class SpellApi {
 	protected Boolean ritual;
 	protected Boolean concentration;
 	protected String url;
-	protected SourceApiDto source;
+	protected SourceApi source;
 
 	public SpellApi(Spell spell) {
 		name = new NameApi(spell.getCapitalazeName(), spell.getEnglishName());
@@ -46,7 +46,7 @@ public class SpellApi {
 			concentration = Boolean.TRUE;
 		}
 		url = String.format("/spells/%s", spell.getUrlName());
-		source = new SourceApiDto(spell.getBook());
+		source = new SourceApi(spell.getBook());
 		if (spell.getBook().getType() == TypeBook.CUSTOM) {
 			source.setHomebrew(Boolean.TRUE);
 		}

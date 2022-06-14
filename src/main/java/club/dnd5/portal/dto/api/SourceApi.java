@@ -14,13 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SourceApiDto {
+public class SourceApi {
 	private String shortName;
 	private String name;
 	private Boolean homebrew;
 	private Short page;
 	
-	public SourceApiDto(Book book) {
+	public SourceApi(Book book) {
 		name = book.getName();
 		shortName = book.getSource();
 		if (book.getType() == TypeBook.CUSTOM) {
@@ -28,7 +28,7 @@ public class SourceApiDto {
 		}
 	}
 	
-	public SourceApiDto(Book book, Short page) {
+	public SourceApi(Book book, Short page) {
 		this(book);
 		if (page != null) {
 			this.page = page;

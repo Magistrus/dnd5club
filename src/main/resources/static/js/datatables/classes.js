@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	hash = $(location).attr('hash');
     document.getElementById('list_page_two_block').classList.remove('block_information');
     $('#charachter_item_menu').addClass('showMenu');
     var scrollEventHeight = 0;
@@ -232,7 +233,7 @@ function selectClass(data) {
     $('#english_name').html(data.englishName);
 
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
-    history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
+    history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_') + hash);
     selectedClass = data;
 
     if (selectedArchetype) {
@@ -241,7 +242,7 @@ function selectClass(data) {
         return;
     }
     var url = '/classes/fragment_id/' + data.id;
-    $("#content_block").load(url, function () {
+    $("#content_block").load(url, function (response, status, xhr) {
         $('#info_wrapper').removeClass('description');
         $('#info_wrapper').removeClass('spells');
         $('#info_wrapper').removeClass('images');
@@ -259,8 +260,17 @@ function selectClass(data) {
         $('#mobile_selector').change(function () {
             setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
         });
-
         toggleSourcesItems();
+        setTimeout(function () {
+        	if (hash){
+        		const el = document.getElementById(hash.replace('#', ''));
+        		el.scrollIntoView({
+        			behavior: "smooth",
+        			block: "center"
+        		});
+        		hash = '';
+        	}
+        }, 300);
     });
 }
 
@@ -284,8 +294,18 @@ function setActiveArchetype(data, className, archetypeName) {
         $('#class_traits').addClass('active');
         showOnlyArchetype();
         selectedArchetype = null;
+        setTimeout(function () {
+            if (hash){
+            	const el = document.getElementById(hash.replace('#', ''));
+            	el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+              });
+              hash = '';
+            }
+        }, 300);
     });
-    history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
+    history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName  + hash);
 }
 
 $('#class_traits').on('click', function () {
