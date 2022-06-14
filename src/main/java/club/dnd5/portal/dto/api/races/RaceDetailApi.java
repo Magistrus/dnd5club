@@ -1,6 +1,6 @@
 package club.dnd5.portal.dto.api.races;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -16,8 +16,10 @@ import lombok.Setter;
 @Getter
 public class RaceDetailApi extends RaceApi {
 	private SourceApi sourceApi;
-	private List<String> ability;
+	private Collection<String> ability;
 	private String size;
+	private Collection<String> images;
+	
 	public RaceDetailApi(Race race) {
 		super(race);
 		url = null;
