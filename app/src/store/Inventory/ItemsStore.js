@@ -38,37 +38,37 @@ export const useItemsStore = defineStore('ItemsStore', {
 
                 this.filter = new FilterService();
 
-                const filterItems = {
+                const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/items'
                 }
 
                 if (storeKey) {
-                    filterItems.storeKey = storeKey;
+                    filterOptions.storeKey = storeKey;
                 }
 
                 if (customFilter) {
-                    filterItems.customFilter = customFilter;
+                    filterOptions.customFilter = customFilter;
                     this.customFilter = _.cloneDeep(customFilter);
                 }
 
-                await this.filter.init(filterItems);
+                await this.filter.init(filterOptions);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
         /**
-         * @param {{}} items
-         * @param {number} items.page
-         * @param {number} items.limit
-         * @param {object} items.filter
-         * @param {boolean} items.search.exact
-         * @param {string} items.search.value
-         * @param {{field: string, direction: 'asc' | 'desc'}[]} items.order
+         * @param {{}} options
+         * @param {number} options.page
+         * @param {number} options.limit
+         * @param {object} options.filter
+         * @param {boolean} options.search.exact
+         * @param {string} options.search.value
+         * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
          * @returns {Promise<*[]>}
          */
-        async itemsQuery(items = {}) {
+        async itemsQuery(options = {}) {
             try {
                 if (this.controllers.itemsQuery) {
                     this.controllers.itemsQuery.abort()
@@ -76,7 +76,7 @@ export const useItemsStore = defineStore('ItemsStore', {
 
                 this.controllers.itemsQuery = new AbortController();
 
-                const apiItems = {
+                const apiOptions = {
                     page: 0,
                     limit: -1,
                     search: {
@@ -87,14 +87,14 @@ export const useItemsStore = defineStore('ItemsStore', {
                         field: 'name',
                         direction: 'asc'
                     }],
-                    ...items
+                    ...options
                 };
 
                 if (this.customFilter) {
-                    apiItems.customFilter = this.customFilter;
+                    apiOptions.customFilter = this.customFilter;
                 }
 
-                const { data } = await http.post(this.config.url, apiItems, this.controllers.itemsQuery.signal);
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.itemsQuery.signal);
 
                 this.controllers.itemsQuery = undefined;
 

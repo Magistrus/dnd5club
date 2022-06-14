@@ -33,7 +33,7 @@ public class MagicItemApiController {
 	@Autowired
 	private MagicItemDatatableRepository repo;
 
-	@PostMapping(value = "/api/v1/magic/items", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/items/magic", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MagicItemApi> getItems(@RequestBody WeaponRequesApi request) {
 		Specification<MagicItem> specification = null;
 
@@ -63,7 +63,10 @@ public class MagicItemApiController {
 		columns.add(column);
 
 		input.setColumns(columns);
-		input.setLength(-1);
+		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
+		if (request.getPage() != null && request.getLimit()!=null) {
+			input.setStart(request.getPage() * request.getLimit());
+		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -97,7 +100,7 @@ public class MagicItemApiController {
 		return repo.findAll(input, specification, specification, MagicItemApi::new).getData();
 	}
 
-	@PostMapping(value = "/api/v1/magic/items/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/items/magic/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MagicItemDetailApi getItem(@PathVariable String englishName) {
 		return new MagicItemDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
 	}

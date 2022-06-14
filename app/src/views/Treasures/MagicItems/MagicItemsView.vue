@@ -60,7 +60,7 @@
             },
 
             magicItems() {
-                return this.magicItemsStore.getMagicItems || [];
+                return this.magicItemsStore.getItems || [];
             },
 
             showRightSide() {
