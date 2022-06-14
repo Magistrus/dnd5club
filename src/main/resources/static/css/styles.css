@@ -2255,6 +2255,23 @@ table.table_card tr.dtrg-group td {
   height: 42px;
 }
 
+#left_block.classes .table_card tr td .info_block {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  display: block;
+  z-index: 2;
+  background: var(--hover);
+  border-radius: 8px;
+  padding:6px;
+  margin: 0px 8px 0 0;
+}
+
+#left_block.classes .table_card tr td .info_block path {
+  stroke: none;
+  fill: var(--primary);
+}
+
 .table_card tr td .info_block svg {
   width: 100%;
   height: 100%;
@@ -2425,6 +2442,17 @@ table.table_card tr.dtrg-group td {
   padding: 0 0 0px 0px;
   z-index: 2;
   margin-bottom: 0px;
+}
+
+.table_card tr td .content .row  {
+  display: flex;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 1200px) {
+  .table_card tr td .content .row  {
+    margin-bottom: 12px;
+  }
 }
 
 #left_block.classes .table_card tr td:hover {
@@ -2621,16 +2649,6 @@ table.table_card tr.dtrg-group td {
 
 #left_block.classes .table_card tr td .content .row_name {
   margin-bottom: 4px;
-}
-
-#left_block.classes .table_card tr td .content .two_row {
-  margin-bottom: 18px;  
-}
-
-@media (max-width: 1200px) {
-  #left_block.classes .table_card tr td .content .two_row {
-    margin-bottom: 12px;  
-  }
 }
 
 @media (max-width: 1200px) {
@@ -3707,8 +3725,7 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 .spell_stat_block_bottom .icon svg path {
-  stroke: var(--primary);
-  stroke-width:2.5px;
+  fill: var(--primary);
 }
 
 @media (max-width: 1200px) {
