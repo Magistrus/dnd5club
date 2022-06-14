@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.GroupApi;
-import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.classes.HeroClass;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ import lombok.Setter;
 public class ClassApi {
 	private NameApi name;
 	private String url;
-	private SourceApiDto source;
+	private SourceApi source;
 	private String dice;
 	private List<ArchetypeApiDto> archetypes;
 	private GroupApi group;
@@ -28,7 +28,7 @@ public class ClassApi {
 	public ClassApi(HeroClass heroClass) {
 		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		url = String.format("/classes/%s", heroClass.getUrlName());
-		source = new SourceApiDto(heroClass.getBook());
+		source = new SourceApi(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());
 		archetypes = heroClass.getArchetypes().stream().map(ArchetypeApiDto::new).collect(Collectors.toList());
 		if(heroClass.isSidekick())
