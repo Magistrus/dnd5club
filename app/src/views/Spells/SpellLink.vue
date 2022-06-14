@@ -211,12 +211,12 @@
             flex-shrink: 0;
             font-size: 17px;
             color: var(--text-color);
+            border-right: 1px solid var(--border);
         }
 
         &__body {
             flex: 1 1 100%;
             padding-left: 16px;
-            border-left: 1px solid var(--border);
         }
 
         &__row {

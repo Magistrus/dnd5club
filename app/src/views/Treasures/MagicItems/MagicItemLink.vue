@@ -1,42 +1,45 @@
 <template>
     <router-link
         v-slot="{ href, navigate, isActive }"
-        :to="{ path: creature.url }"
+        :to="{ path: magicItem.url }"
         custom
         v-bind="$props"
     >
         <a
             v-bind="$attrs"
-            ref="creature"
+            ref="magicItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="creature-link"
+            class="magic-item-link"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="creature-link__content">
-                <div class="creature-link__rating">
-                    <span>{{ 'challengeRating' in creature ? creature.challengeRating : '-' }}</span>
+            <div class="magic-item-link__content">
+                <div
+                    class="magic-item-link__rarity"
+                    :class="getRarityClass"
+                >
+                    <span>{{ getRarityAbbreviation }}</span>
                 </div>
 
-                <div class="creature-link__body">
-                    <div class="creature-link__row">
-                        <div class="creature-link__name">
-                            <div class="creature-link__name--rus">
-                                {{ creature.name.rus }}
+                <div class="magic-item-link__body">
+                    <div class="magic-item-link__row">
+                        <div class="magic-item-link__name">
+                            <div class="magic-item-link__name--rus">
+                                {{ magicItem.name.rus }}
                             </div>
 
-                            <div class="creature-link__name--eng">
-                                [{{ creature.name.eng }}]
+                            <div class="magic-item-link__name--eng">
+                                [{{ magicItem.name.eng }}]
                             </div>
                         </div>
                     </div>
 
-                    <div class="creature-link__row">
+                    <div class="magic-item-link__row">
                         <div
                             v-capitalize-first
-                            class="creature-link__type"
+                            class="magic-item-link__type"
                         >
-                            {{ creature.type }}
+                            {{ magicItem.type.name }}
                         </div>
                     </div>
                 </div>
@@ -48,17 +51,17 @@
 <script>
     import { RouterLink } from 'vue-router';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
-    import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
+    import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
 
     export default {
-        name: 'CreatureLink',
+        name: 'MagicItemLink',
         directives: {
             CapitalizeFirst
         },
         inheritAttrs: false,
         props: {
             ...RouterLink.props,
-            creature: {
+            magicItem: {
                 type: Object,
                 default: () => ({})
             },
@@ -68,13 +71,49 @@
             }
         },
         data: () => ({
-            bestiaryStore: useBestiaryStore(),
+            magicItemsStore: useMagicItemsStore(),
         }),
+        computed: {
+            getRarityAbbreviation() {
+                const words = this.magicItem.rarity.split(' ');
+
+                let abbreviation = '';
+
+                for (const word of words) {
+                    if (!word) {
+                        continue;
+                    }
+
+                    abbreviation += word[0].toUpperCase();
+                }
+
+                return abbreviation;
+            },
+
+            getRarityClass() {
+                switch (this.magicItem.rarity) {
+                    case 'артефакт':
+                        return 'is-artifact'
+                    case 'легендарный':
+                        return 'is-legendary'
+                    case 'очень редкий':
+                        return 'is-very-rare'
+                    case 'редкий':
+                        return 'is-rare'
+                    case 'необычный':
+                        return 'is-uncommon'
+                    case 'обычный':
+                        return 'is-common'
+                    default:
+                        return 'is-unknown'
+                }
+            }
+        },
         methods: {
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
-                    'is-green': this.creature?.source?.homebrew,
+                    'is-green': this.magicItem?.source?.homebrew,
                     'in-tab': this.inTab
                 }
             },
@@ -83,7 +122,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .creature-link {
+    .magic-item-link {
         border-radius: 12px;
         overflow: hidden;
         background-color: var(--bg-table-list);
@@ -92,7 +131,7 @@
         display: block;
 
         &.is-green {
-            .creature-link {
+            .magic-item-link {
                 &__content {
                     background-color: var(--bg-homebrew-gradient-left);
                 }
@@ -106,7 +145,7 @@
             width: 100%;
         }
 
-        &__rating {
+        &__rarity {
             width: 42px;
             height: 42px;
             display: flex;
@@ -159,7 +198,7 @@
         }
 
         &:hover {
-            .creature-link {
+            .magic-item-link {
                 &__content {
                     background-color: var(--hover);
                 }
@@ -167,7 +206,7 @@
         }
 
         &.router-link-active {
-            .creature-link {
+            .magic-item-link {
                 &__content {
                     background-color: var(--primary-active);
                 }

@@ -8,7 +8,7 @@ const DB_NAME = 'items';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
-export const useItemsStore = defineStore('ItemsStore', {
+export const useMagicItemsStore = defineStore('MagicItemsStore', {
     state: () => ({
         items: [],
         filter: undefined,
@@ -16,7 +16,7 @@ export const useItemsStore = defineStore('ItemsStore', {
             page: 0,
             limit: 70,
             end: false,
-            url: '/items',
+            url: '/magic/items', // TODO: Согласовать URL
         },
         customFilter: undefined,
         controllers: {
@@ -40,7 +40,7 @@ export const useItemsStore = defineStore('ItemsStore', {
 
                 const filterItems = {
                     dbName: DB_NAME,
-                    url: '/filters/items'
+                    url: '/filters/magic/items'
                 }
 
                 if (storeKey) {
@@ -188,7 +188,7 @@ export const useItemsStore = defineStore('ItemsStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/items',
+                url: '/magic/items',
             };
         },
 

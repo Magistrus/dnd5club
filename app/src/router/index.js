@@ -98,6 +98,18 @@ const routes = [
         ]
     },
     {
+        name: 'magicItems',
+        path: '/items/magic',
+        component: () => import('@/views/Treasures/MagicItems/MagicItemsView'),
+        children: [
+            {
+                name: 'magicItemsDetail',
+                path: ':magicItemsName',
+                component: () => import('@/views/Treasures/MagicItems/MagicItemDetail'),
+            }
+        ]
+    },
+    {
         name: 'items',
         path: '/items',
         component: () => import('@/views/Inventory/Items/ItemsView'),
@@ -120,7 +132,7 @@ const routes = [
                 component: () => import('@/views/Bestiary/CreatureDetail'),
             }
         ]
-    }
+    },
 ];
 
 const router = createRouter({

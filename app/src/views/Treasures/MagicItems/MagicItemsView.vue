@@ -3,15 +3,15 @@
         :is="layout"
         :show-right-side="showRightSide"
         :filter-instance="filter"
-        @search="itemsQuery"
-        @update="itemsQuery"
+        @search="magicItemsQuery"
+        @update="magicItemsQuery"
         @list-end="nextPage"
     >
-        <item-link
-            v-for="(item, key) in items"
+        <magic-item-link
+            v-for="(item, key) in magicItems"
             :key="key"
             :in-tab="inTab"
-            :item-item="item"
+            :magic-item="item"
             :to="{path: item.url}"
         />
     </component>
@@ -21,13 +21,15 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
-    import ItemLink from "@/views/Inventory/Items/ItemLink";
-    import { useItemsStore } from "@/store/Inventory/ItemsStore";
+    import CreatureLink from "@/views/Bestiary/CreatureLink";
+    import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
+    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
 
     export default {
-        name: 'ItemsView',
+        name: 'MagicItemsView',
         components: {
-            ItemLink,
+            MagicItemLink,
+            CreatureLink,
             TabLayout,
             ContentLayout,
         },
@@ -46,7 +48,7 @@
             }
         },
         data: () => ({
-            itemsStore: useItemsStore(),
+            magicItemsStore: useMagicItemsStore(),
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
@@ -54,15 +56,15 @@
         }),
         computed: {
             filter() {
-                return this.itemsStore.getFilter || undefined;
+                return this.magicItemsStore.getFilter || undefined;
             },
 
-            items() {
-                return this.itemsStore.getItems || [];
+            magicItems() {
+                return this.magicItemsStore.getMagicItems || [];
             },
 
             showRightSide() {
-                return this.$route.name === 'itemDetail'
+                return this.$route.name === 'magicItemDetail'
             },
 
             layout() {
@@ -87,25 +89,25 @@
         async mounted() {
             await this.init();
 
-            if (this.items.length && this.$route.name === 'items') {
-                await this.$router.push({ path: this.items[0].url })
+            if (this.magicItems.length && this.$route.name === 'magicItems') {
+                await this.$router.push({ path: this.magicItems[0].url })
             }
         },
         beforeUnmount() {
-            this.itemsStore.clearStore();
+            this.magicItemsStore.clearStore();
         },
         methods: {
-            async itemsQuery() {
-                await this.itemsStore.initItems();
+            async init() {
+                await this.magicItemsStore.initFilter(this.storeKey, this.customFilter);
+                await this.magicItemsStore.initItems();
             },
 
-            async init() {
-                await this.itemsStore.initFilter(this.storeKey, this.customFilter);
-                await this.itemsStore.initItems();
+            async magicItemsQuery() {
+                await this.magicItemsStore.initItems();
             },
 
             async nextPage() {
-                await this.itemsStore.nextPage();
+                await this.magicItemsStore.nextPage();
             }
         }
     }
