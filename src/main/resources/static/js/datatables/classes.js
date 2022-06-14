@@ -27,7 +27,11 @@ $(document).ready(function () {
                         	result +='<button class="open tip" title="' + row.archetypeName + '" data-tipped-options="position: \'left\'"><svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
                         }
                         result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
-                        result += '<div class="content"><div class="row"><i class="info_block">' + row.icon + '</i><div><h3 class="row_name"><span class="name">' + row.name;
+                        result += '<div class="content"><div class="row">';
+                        if (row.archetypeName !== null) {
+                            result +='<i class="info_block">' + row.icon + '</i>';
+                        }
+                        result +='<div><h3 class="row_name"><span class="name">' + row.name;
                         result += '</span></h3>';
                         result += '<div class="two_row"><ename>' + row.englishName + '</ename></div></div></div>';
                         result += '<div class="bottom_row"><span>' + row.hitDice + '</span><span class="books tip" title="' + row.book + '"  data-tipped-options="position: \'right\'">' + row.bookshort + '</span></div></div>';
