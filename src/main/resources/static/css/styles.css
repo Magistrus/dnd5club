@@ -1472,6 +1472,12 @@ details.copy_link:hover::before {
   background-color: var(--bg-details-title);
 }
 
+@media (max-width: 1200px) {
+  .copy_link:hover::before {
+    display: none !important;
+  }
+}
+
 
 /******** Общее по блокам ********/
 .header_block {
@@ -3086,7 +3092,7 @@ table.table_card tr.dtrg-group td {
 }
 
 #right_block .info_wrapper .content_block #content_block {
-  padding: 24px 28px;
+  padding: 24px 32px;
   position: relative;
 }
 
