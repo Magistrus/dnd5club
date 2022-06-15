@@ -26,8 +26,7 @@ public class RaceApi {
 	protected Object type;
 	private SourceApi source;
 
-	private List<RaceApi> subraces;
-	protected Collection<RaceSkillApi> skill;
+	protected List<RaceApi> subraces;
 
 	private String icon;
 
@@ -49,10 +48,5 @@ public class RaceApi {
 				.map(bonus -> new NameValueApi(bonus.getAbility().getCyrilicName(), bonus.getAbility().getShortName(), bonus.getBonus()))
 				.collect(Collectors.toList());
 		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
-		fillSkill(race);
-	}
-
-	protected void fillSkill(Race race) {
-		
 	}
 }
