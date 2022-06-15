@@ -1445,10 +1445,10 @@ label.select_box {
   height: 24px;
   position: absolute;
   top: 0;
-  left: -20px;
+  left: -16px;
   cursor: pointer;
   border-radius: 4px;
-  background-color: var(--bg-sub-menu);
+  background-color: var(--bg-secondary);
   z-index: 2;
 }
 
@@ -1458,7 +1458,7 @@ label.select_box {
 
 .copy_link:hover::after {
   content: '';
-  width: 28px;
+  width: 24px;
   height: 100%;
   position: absolute;
   display: block;
@@ -1469,7 +1469,6 @@ label.select_box {
 
 details.copy_link:hover::before {
   top: 10px;
-  background-color: var(--bg-details-title);
 }
 
 @media (max-width: 1200px) {
@@ -3092,7 +3091,7 @@ table.table_card tr.dtrg-group td {
 }
 
 #right_block .info_wrapper .content_block #content_block {
-  padding: 24px 32px;
+  padding: 24px 24px;
   position: relative;
 }
 
