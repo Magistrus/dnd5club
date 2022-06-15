@@ -22,9 +22,11 @@ public class NameValueApi {
 		this.name = name;
 		this.value = value;
 	}
-	public NameValueApi(String name, String shortName, Object value) {
+	public NameValueApi(String name, String shortName, Integer value) {
 		this.name = name;
-		this.value = value;
+		if (value != 0) {
+			this.value = value;
+		}
 		this.shortName = shortName;
 	}
 }
