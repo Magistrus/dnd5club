@@ -26,6 +26,7 @@ public class RaceDetailApi extends RaceApi {
 	private Collection<NameValueApi> speed = new ArrayList<>(5);
 	private Collection<String> images;
 	private Collection<RaceSkillApi> skill;
+	private Integer darkvision;
 	
 	public RaceDetailApi(Race race) {
 		super(race);
@@ -34,6 +35,7 @@ public class RaceDetailApi extends RaceApi {
 		type = race.getType().getCyrilicName();
 		size = race.getSize().getCyrilicName();
 		speed.add(new NameValueApi(null, race.getSpeed()));
+		darkvision = race.getDarkvision();
 		if (race.getParent() != null) {
 			final Set<Integer> replaceFeatureIds = race.getFeatures().stream().map(Feature::getReplaceFeatureId).filter(Objects::nonNull).collect(Collectors.toSet());
 			List<RaceSkillApi> subraceSkills = race.getFeatures()
