@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,22 +20,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.classes.BackgroundApi;
-import club.dnd5.portal.dto.api.classes.BackgroundDetailApi;
-import club.dnd5.portal.dto.api.classes.TraitRequesApi;
-import club.dnd5.portal.model.background.Background;
+import club.dnd5.portal.dto.api.GodApi;
+import club.dnd5.portal.dto.api.GodDetailApi;
+import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.splells.Spell;
-import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.model.god.God;
+import club.dnd5.portal.model.image.ImageType;
+import club.dnd5.portal.repository.ImageRepository;
+import club.dnd5.portal.repository.datatable.GodDatatableRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
-public class BackgroundApiController {
+public class GodApiConroller {
 	@Autowired
-	private BackgroundDatatableRepository repo;
+	private GodDatatableRepository repo;
 	
-	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
-		Specification<Background> specification = null;
+	@Autowired
+	private ImageRepository imageRepo;
+	
+	@PostMapping(value = "/api/v1/gods", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<GodApi> getGods(@RequestBody SpellRequesApi request) {
+		Specification<God> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
@@ -59,8 +65,19 @@ public class BackgroundApiController {
 		column.setName("altName");
 		column.setSearchable(Boolean.TRUE);
 		column.setOrderable(Boolean.FALSE);
+
 		columns.add(column);
-		
+		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+				List<Order> orders = request.getOrders().stream()
+						.map(
+							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
+						)
+						.collect(Collectors.toList());
+				query.orderBy(orders);
+				return cb.and();
+			});
+		}
 		input.setColumns(columns);
 		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
 		if (request.getPage() != null && request.getLimit()!=null) {
@@ -78,36 +95,23 @@ public class BackgroundApiController {
 		}
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
-					Join<Book, Spell> join = root.join("book", JoinType.INNER);
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<Book, God> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
 		}
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
-			specification = addSpecification(specification, (root, query, cb) -> {
-				List<Order> orders = request.getOrders().stream()
-						.map(
-							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
-						)
-						.collect(Collectors.toList());
-				query.orderBy(orders);
-				return cb.and();
-			});
-		}
-		return repo.findAll(input, specification, specification, BackgroundApi::new).getData();
+		return repo.findAll(input, specification, specification, GodApi::new).getData();
 	}
 	
-	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public BackgroundDetailApi getBackground(@PathVariable String englishName) {
-		return new BackgroundDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
-	}
-
-	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
-		if (specification == null) {
-			return Specification.where(addSpecification);
+	@PostMapping(value = "/api/v1/gods/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public GodDetailApi getGod(@PathVariable String englishName) {
+		God god = repo.findByEnglishName(englishName.replace('_', ' '));
+		GodDetailApi godApi = new GodDetailApi(god);
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, god.getId());
+		if (!images.isEmpty()) {
+			godApi.setImages(images);
 		}
-		return specification.and(addSpecification);
+		return godApi;
 	}
 }

@@ -33,6 +33,7 @@ public class God {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String altName;
 	private String englishName;
 	private String commitment;
 	
@@ -77,5 +78,9 @@ public class God {
 	
 	public String getRank() {
 		return rank.getName(sex);
+	}
+	
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
 	}
 }

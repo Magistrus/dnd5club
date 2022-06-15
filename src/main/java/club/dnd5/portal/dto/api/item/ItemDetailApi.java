@@ -23,7 +23,6 @@ public class ItemDetailApi extends ItemApi {
 	private String description;
 	private List<String> categories;
 	private String image;
-	private String price;
 	
 	public ItemDetailApi(Equipment item) {
 		super(item);

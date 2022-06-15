@@ -22,6 +22,5 @@ public class RaceSkillApi {
 		if (feature.isFeature()) {
 			opened = Boolean.TRUE;
 		}
-		
 	}
 }
