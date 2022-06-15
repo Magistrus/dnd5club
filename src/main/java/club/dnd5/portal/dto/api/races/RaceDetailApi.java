@@ -2,7 +2,6 @@ package club.dnd5.portal.dto.api.races;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.NameValueApi;
-import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.races.Feature;
 import club.dnd5.portal.model.races.Race;
 import lombok.Getter;
@@ -24,7 +22,6 @@ import lombok.Setter;
 @Getter
 public class RaceDetailApi extends RaceApi {
 	private String description;
-	private SourceApi sourceApi;
 	private String size;
 	private Collection<NameValueApi> speed = new ArrayList<>(5);
 	private Collection<String> images;
@@ -34,7 +31,6 @@ public class RaceDetailApi extends RaceApi {
 		super(race);
 		description = race.getDescription();
 		url = null;
-		sourceApi = new SourceApi(race.getBook());
 		type = race.getType().getCyrilicName();
 		size = race.getSize().getCyrilicName();
 		speed.add(new NameValueApi(null, race.getSpeed()));
