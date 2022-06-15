@@ -133,6 +133,11 @@ const routes = [
             }
         ]
     },
+    {
+        name: 'treasures',
+        path: '/treasures',
+        component: () => import('@/views/Treasures/Treasures/TreasuresView'),
+    },
 ];
 
 const router = createRouter({
@@ -142,6 +147,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     next();
-})
+});
 
 export default router;

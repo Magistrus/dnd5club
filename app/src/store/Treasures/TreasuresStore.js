@@ -4,30 +4,30 @@ import FilterService from '@/services/FilterService';
 import errorHandler from '@/helpers/errorHandler';
 import _ from 'lodash';
 
-const DB_NAME = 'items';
+const DB_NAME = 'treasures';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
-export const useMagicItemsStore = defineStore('MagicItemsStore', {
+export const useTreasuresStore = defineStore('TreasuresStore', {
     state: () => ({
-        items: [],
+        treasures: [],
         filter: undefined,
         config: {
             page: 0,
             limit: 70,
             end: false,
-            url: '/items/magic',
+            url: '/treasures',
         },
         customFilter: undefined,
         controllers: {
-            itemsQuery: undefined,
-            itemInfoQuery: undefined
+            treasuresQuery: undefined,
+            treasureInfoQuery: undefined
         }
     }),
 
     getters: {
         getFilter: state => state.filter,
-        getItems: state => state.items,
+        getTreasures: state => state.treasures,
     },
 
     actions: {
@@ -40,7 +40,7 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
 
                 const filterOptions = {
                     dbName: DB_NAME,
-                    url: '/filters/items/magic'
+                    url: '/filters/treasures'
                 }
 
                 if (storeKey) {
@@ -68,13 +68,13 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
          * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
          * @returns {Promise<*[]>}
          */
-        async itemsQuery(options = {}) {
+        async treasuresQuery(options = {}) {
             try {
-                if (this.controllers.itemsQuery) {
-                    this.controllers.itemsQuery.abort()
+                if (this.controllers.treasuresQuery) {
+                    this.controllers.treasuresQuery.abort()
                 }
 
-                this.controllers.itemsQuery = new AbortController();
+                this.controllers.treasuresQuery = new AbortController();
 
                 const apiOptions = {
                     page: 0,
@@ -84,9 +84,6 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
                         value: this.filter?.getSearchState || ''
                     },
                     order: [{
-                        field: 'rarity',
-                        direction: 'asc'
-                    }, {
                         field: 'name',
                         direction: 'asc'
                     }],
@@ -97,9 +94,9 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
                     apiOptions.customFilter = this.customFilter;
                 }
 
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.itemsQuery.signal);
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.treasuresQuery.signal);
 
-                this.controllers.itemsQuery = undefined;
+                this.controllers.treasuresQuery = undefined;
 
                 return data
             } catch (err) {
@@ -109,8 +106,8 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
             }
         },
 
-        async initItems(url) {
-            this.clearItems();
+        async initTreasures(url) {
+            this.clearTreasures();
             this.clearConfig();
 
             if (url) {
@@ -126,10 +123,10 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
                 config.filter = this.filter.getQueryParams;
             }
 
-            const items = await this.itemsQuery(config);
+            const treasures = await this.treasuresQuery(config);
 
-            this.items = items;
-            this.config.end = items.length < config.limit;
+            this.treasures = treasures;
+            this.config.end = treasures.length < config.limit;
         },
 
         async nextPage() {
@@ -146,36 +143,16 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
                 config.filter = this.filter.getQueryParams;
             }
 
-            const items = await this.itemsQuery(config);
+            const treasures = await this.treasuresQuery(config);
 
             this.config.page = config.page;
-            this.config.end = items.length < config.limit;
+            this.config.end = treasures.length < config.limit;
 
-            this.items.push(...items);
+            this.treasures.push(...treasures);
         },
 
-        async itemInfoQuery(url) {
-            try {
-                if (this.controllers.itemInfoQuery) {
-                    this.controllers.itemInfoQuery.abort()
-                }
-
-                this.controllers.itemInfoQuery = new AbortController();
-
-                const resp = await http.post(url, {}, this.controllers.itemInfoQuery.signal);
-
-                this.controllers.itemInfoQuery = undefined;
-
-                return resp.data
-            } catch (err) {
-                errorHandler(err);
-
-                return undefined;
-            }
-        },
-
-        clearItems() {
-            this.items = [];
+        clearTreasures() {
+            this.treasures = [];
         },
 
         clearFilter() {
@@ -191,12 +168,12 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/items/magic',
+                url: '/treasures',
             };
         },
 
         clearStore() {
-            this.clearItems();
+            this.clearTreasures();
             this.clearFilter();
             this.clearConfig();
         }

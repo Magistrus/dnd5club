@@ -13,6 +13,7 @@ import ArmorsView from '@/views/Inventory/Armors/ArmorsView';
 import ItemsView from '@/views/Inventory/Items/ItemsView';
 import BestiaryView from '@/views/Bestiary/BestiaryView';
 import MagicItemsView from '@/views/Treasures/MagicItems/MagicItemsView';
+import TreasuresView from '@/views/Treasures/Treasures/TreasuresView';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -28,6 +29,7 @@ export default function registerComponents(app) {
     app.component('ItemsView', ItemsView);
     app.component('BestiaryView', BestiaryView);
     app.component('MagicItemsView', MagicItemsView);
+    app.component('TreasuresView', TreasuresView);
 
     // Components
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);
