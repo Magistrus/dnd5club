@@ -44,7 +44,7 @@ public class RaceApi {
 		type = new SourceTypeApi(race.getBook().getType().getName(), race.getBook().getType().ordinal());
 		abilities = race.getAbilityValueBonuses()
 				.stream()
-				.map(bonus -> new NameValueApi(bonus.getAbility().getCyrilicName(), bonus.getBonus()))
+				.map(bonus -> new NameValueApi(bonus.getAbility().getCyrilicName(), bonus.getAbility().getShortName(), bonus.getBonus()))
 				.collect(Collectors.toList());
 		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}
