@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class NameValueApi {
 	private String name;
-	private String shortname;
+	private String shortName;
 	private Object value;
 	private Object additional;
 	public NameValueApi(String name, Object value) {
@@ -25,7 +25,6 @@ public class NameValueApi {
 	public NameValueApi(String name, String shortName, Object value) {
 		this.name = name;
 		this.value = value;
-		this.shortname = shortName;
+		this.shortName = shortName;
 	}
-
 }
