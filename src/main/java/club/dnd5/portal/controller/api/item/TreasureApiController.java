@@ -21,18 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.item.ItemApi;
 import club.dnd5.portal.dto.api.item.ItemRequesApi;
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.items.Equipment;
+import club.dnd5.portal.model.items.Treasure;
 import club.dnd5.portal.model.splells.Spell;
-import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
+import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
 
 @RestController
 public class TreasureApiController {
 	@Autowired
-	private ItemDatatableRepository repo;
+	private TreasureDatatableRepository repo;
 	
-	@PostMapping(value = "/api/v1/items", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/treasures", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ItemApi> getItem(@RequestBody ItemRequesApi request) {
-		Specification<Equipment> specification = null;
+		Specification<Treasure> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
