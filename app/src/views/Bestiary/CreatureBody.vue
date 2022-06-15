@@ -10,9 +10,9 @@
 
         <div class="avatar">
             <div class="image-container">
-                <a id="creatute_href">
+                <a id="creature_href">
                     <img
-                        id="creatute_img"
+                        id="creature_img"
                         :src="!creature.images?.length ? '/assets/style/dark/no-img-best.png' : creature.images[0]"
                         alt="Title best"
                         @click.left.exact.prevent="showGallery"
@@ -413,6 +413,10 @@
         },
         methods: {
             showGallery() {
+                if (!this.creature.images?.length) {
+                    return;
+                }
+
                 this.gallery.show = true;
                 this.gallery.index = 0;
             }

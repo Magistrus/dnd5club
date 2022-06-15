@@ -103,8 +103,8 @@ const routes = [
         component: () => import('@/views/Treasures/MagicItems/MagicItemsView'),
         children: [
             {
-                name: 'magicItemsDetail',
-                path: ':magicItemsName',
+                name: 'magicItemDetail',
+                path: ':magicItemName',
                 component: () => import('@/views/Treasures/MagicItems/MagicItemDetail'),
             }
         ]

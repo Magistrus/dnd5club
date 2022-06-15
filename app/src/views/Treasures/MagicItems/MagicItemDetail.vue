@@ -1,19 +1,17 @@
 <template>
-    <div class="creature-detail">
+    <div class="magic-item-detail">
         <section-header
-            :subtitle="creature?.name?.eng || ''"
-            :title="creature?.name?.rus || ''"
+            :subtitle="magicItem?.name?.eng || ''"
+            :title="magicItem?.name?.rus || ''"
             :copy="!error && !loading"
             fullscreen
-            print
-            @export-foundry="exportFoundry"
         />
 
         <div
             v-if="loading"
-            class="creature-detail__loader"
+            class="magic-item-detail__loader"
         >
-            <div class="creature-detail__loader_img">
+            <div class="magic-item-detail__loader_img">
                 <img
                     alt=""
                     src="/app/img/loader.png"
@@ -23,67 +21,63 @@
 
         <div
             v-else-if="error"
-            class="creature-detail__err"
+            class="magic-item-detail__err"
         >
             error...
         </div>
 
-        <creature-body
-            v-else-if="creature"
-            :creature="creature"
+        <magic-item-body
+            v-else-if="magicItem"
+            :magic-item="magicItem"
         />
     </div>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
-    import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
-    import CreatureBody from "@/views/Bestiary/CreatureBody";
+    import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
+    import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
 
     export default {
         name: 'MagicItemDetail',
-        components: { CreatureBody, SectionHeader },
+        components: { MagicItemBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
-            await this.loadNewCreature(to.path);
+            await this.loadNewMagicItem(to.path);
 
             next();
         },
         data: () => ({
-            bestiaryStore: useBestiaryStore(),
-            creature: undefined,
+            magicItemsStore: useMagicItemsStore(),
+            magicItem: undefined,
             loading: true,
             error: false,
         }),
         async mounted() {
-            await this.loadNewCreature(this.$route.path);
+            await this.loadNewMagicItem(this.$route.path);
         },
         methods: {
             close() {
-                this.$router.push({ name: 'bestiary' });
+                this.$router.push({ name: 'magicItems' });
             },
 
-            async loadNewCreature(url) {
+            async loadNewMagicItem(url) {
                 try {
                     this.error = false;
                     this.loading = true;
 
-                    this.creature = await this.bestiaryStore.creatureInfoQuery(url);
+                    this.magicItem = await this.magicItemsStore.itemInfoQuery(url);
 
                     this.loading = false;
                 } catch (err) {
                     this.error = true;
                 }
             },
-
-            exportFoundry() {
-                window.open(`/creature/json/${ this.creature.id }`, '_self');
-            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .creature-detail {
+    .magic-item-detail {
         overflow: hidden;
         width: 100%;
         height: 100%;
