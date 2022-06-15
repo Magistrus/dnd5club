@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.item;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +24,10 @@ import club.dnd5.portal.dto.api.item.MagicItemApi;
 import club.dnd5.portal.dto.api.item.MagicItemDetailApi;
 import club.dnd5.portal.dto.api.item.WeaponRequesApi;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.splells.Spell;
+import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
@@ -32,8 +35,10 @@ import club.dnd5.portal.util.SpecificationUtil;
 public class MagicItemApiController {
 	@Autowired
 	private MagicItemDatatableRepository repo;
+	@Autowired
+	private ImageRepository imageRepo;
 
-	@PostMapping(value = "/api/v1/items/magic", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/magic/items", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MagicItemApi> getItems(@RequestBody WeaponRequesApi request) {
 		Specification<MagicItem> specification = null;
 
@@ -63,10 +68,7 @@ public class MagicItemApiController {
 		columns.add(column);
 
 		input.setColumns(columns);
-		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
-		if (request.getPage() != null && request.getLimit()!=null) {
-			input.setStart(request.getPage() * request.getLimit());
-		}
+		input.setLength(request.getLimit());
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -100,8 +102,14 @@ public class MagicItemApiController {
 		return repo.findAll(input, specification, specification, MagicItemApi::new).getData();
 	}
 
-	@PostMapping(value = "/api/v1/items/magic/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/magic/items/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MagicItemDetailApi getItem(@PathVariable String englishName) {
-		return new MagicItemDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+		MagicItem item = repo.findByEnglishName(englishName.replace('_', ' '));
+		MagicItemDetailApi itemApi = new MagicItemDetailApi(item);
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
+		if (!images.isEmpty()) {
+			itemApi.setImages(images);
+		}
+		return itemApi;
 	}
 }
