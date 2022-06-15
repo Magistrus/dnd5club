@@ -45,7 +45,7 @@
 
                             <span class="race-link__body_row">
                                 <span class="race-link__abilities">
-                                    {{ raceItem.abilities }}
+                                    {{ abilities }}
                                 </span>
                             </span>
                         </span>
@@ -145,6 +145,24 @@
 
             hasSubraces() {
                 return !!this.raceItem?.subraces?.length
+            },
+
+            abilities() {
+                if (!this.raceItem.abilities?.length) {
+                    return ''
+                }
+
+                const abilities = [];
+
+                for (const ability of this.raceItem.abilities) {
+                    abilities.push(
+                        ability.value
+                            ? `${ ability.shortName } ${ ability.value > 0 ? `+${ ability.value }` : ability.value }`
+                            : ability.name
+                    )
+                }
+
+                return abilities.join(', ')
             },
         },
         watch: {

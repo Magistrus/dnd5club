@@ -50,7 +50,7 @@
     </div>
 
     <vue-easy-lightbox
-        v-if="magicItem?.images"
+        v-if="magicItem.images?.length"
         :imgs="magicItem.images"
         :index="gallery.index"
         :visible="gallery.show"

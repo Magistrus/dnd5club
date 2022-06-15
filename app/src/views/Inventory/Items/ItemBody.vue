@@ -34,6 +34,7 @@
         props: {
             item: {
                 type: Object,
+                default: undefined,
                 required: true
             }
         },

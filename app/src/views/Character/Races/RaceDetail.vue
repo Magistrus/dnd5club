@@ -8,7 +8,10 @@
             @close="close"
         />
 
-        <raw-content :template="race?.content"/>
+        <race-body
+            v-if="race"
+            :race="race"
+        />
     </div>
 </template>
 
@@ -17,10 +20,11 @@
     import { useRacesStore } from '@/store/Character/RacesStore';
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/helpers/errorHandler";
+    import RaceBody from "@/views/Character/Races/RaceBody";
 
     export default {
         name: 'RaceDetail',
-        components: { RawContent, SectionHeader },
+        components: { RaceBody, RawContent, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRace(to.path);
 

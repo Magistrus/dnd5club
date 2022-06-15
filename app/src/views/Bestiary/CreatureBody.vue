@@ -305,7 +305,7 @@
     </div>
 
     <vue-easy-lightbox
-        v-if="creature?.images"
+        v-if="creature.images?.length"
         :imgs="creature.images"
         :index="gallery.index"
         :visible="gallery.show"

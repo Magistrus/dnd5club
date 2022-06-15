@@ -16,6 +16,7 @@
         props: {
             background: {
                 type: Object,
+                default: undefined,
                 required: true
             }
         }

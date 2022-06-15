@@ -134,7 +134,7 @@
     </div>
 
     <vue-easy-lightbox
-        v-if="currentClass?.images"
+        v-if="currentClass.images?.length"
         :imgs="currentClass.images"
         :index="images.index"
         :visible="images.show"

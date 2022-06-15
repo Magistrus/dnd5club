@@ -21,6 +21,7 @@
         props: {
             option: {
                 type: Object,
+                default: undefined,
                 required: true
             }
         }

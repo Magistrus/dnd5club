@@ -21,6 +21,7 @@
         props: {
             trait: {
                 type: Object,
+                default: undefined,
                 required: true
             }
         }
