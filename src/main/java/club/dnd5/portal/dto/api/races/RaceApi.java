@@ -26,7 +26,8 @@ public class RaceApi {
 	protected Object type;
 	private SourceApi source;
 
-	private List<RaceApi> subraces;
+	protected List<RaceApi> subraces;
+
 	private String icon;
 
 	public RaceApi(Race race) {
