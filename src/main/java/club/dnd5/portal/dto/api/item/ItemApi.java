@@ -22,7 +22,7 @@ public class ItemApi {
 	protected String url;
 	private Boolean homebrew;
 	protected TypeApi type;
-	private Integer price;
+	protected Object price;
 	
 	public ItemApi(Equipment item) {
 		name = new NameApi(item.getName(), item.getEnglishName());
