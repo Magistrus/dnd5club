@@ -22,7 +22,7 @@ public class NameValueApi {
 		this.name = name;
 		this.value = value;
 	}
-	public NameValueApi(String name, String shortName, Integer value) {
+	public NameValueApi(String name, String shortName, Byte value) {
 		this.name = name;
 		if (value != 0) {
 			this.value = value;
