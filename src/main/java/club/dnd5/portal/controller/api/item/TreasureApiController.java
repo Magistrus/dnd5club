@@ -1,4 +1,4 @@
-package club.dnd5.portal.controller.api;
+package club.dnd5.portal.controller.api.item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,27 +14,25 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.classes.BackgroundApi;
-import club.dnd5.portal.dto.api.classes.BackgroundDetailApi;
-import club.dnd5.portal.dto.api.classes.TraitRequesApi;
-import club.dnd5.portal.model.background.Background;
+import club.dnd5.portal.dto.api.item.ItemApi;
+import club.dnd5.portal.dto.api.item.ItemRequesApi;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.items.Treasure;
 import club.dnd5.portal.model.splells.Spell;
-import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
 
 @RestController
-public class BackgroundApiController {
+public class TreasureApiController {
 	@Autowired
-	private BackgroundDatatableRepository repo;
+	private TreasureDatatableRepository repo;
 	
-	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
-		Specification<Background> specification = null;
+	@PostMapping(value = "/api/v1/treasures", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ItemApi> getItem(@RequestBody ItemRequesApi request) {
+		Specification<Treasure> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
@@ -63,9 +61,6 @@ public class BackgroundApiController {
 		
 		input.setColumns(columns);
 		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
-		if (request.getPage() != null && request.getLimit()!=null) {
-			input.setStart(request.getPage() * request.getLimit());	
-		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -84,8 +79,7 @@ public class BackgroundApiController {
 				});
 			}
 		}
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
+		if (request.getOrders() !=null && !request.getOrders().isEmpty()) {
 			specification = addSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
@@ -96,14 +90,9 @@ public class BackgroundApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, BackgroundApi::new).getData();
+		return repo.findAll(input, specification, specification, ItemApi::new).getData();
 	}
 	
-	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public BackgroundDetailApi getBackground(@PathVariable String englishName) {
-		return new BackgroundDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
-	}
-
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {
 			return Specification.where(addSpecification);

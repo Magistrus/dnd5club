@@ -23,17 +23,19 @@ import lombok.Setter;
 @Setter
 public class MagicItemDetailApi extends MagicItemApi {
 	private String description;
-	private Boolean custamization;
+	private Boolean customization;
 	private Collection<String> detailType;
 	private Collection<String> detailCustamization;
 	private CostApi cost;
 	private SourceApi source;
+	private Collection<String> images;
+	
 	public MagicItemDetailApi(MagicItem item) {
 		super(item);
 		url = null;
 		description = item.getDescription();
 		if (item.getCustomization()) {
-			custamization = item.getCustomization(); 
+			customization = item.getCustomization(); 
 		}
 		if (!item.getArmors().isEmpty()) {
 			detailType = item.getArmors().stream().map(Armor::getName).collect(Collectors.toList());

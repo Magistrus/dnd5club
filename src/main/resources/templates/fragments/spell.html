@@ -51,12 +51,22 @@
 				<div>
 					<th:block th:each="archetype, iter : ${archetypes}">
 						<a class="tip" th:href="|@{/classes/}${archetype.heroClass.englishName.replace(' ', '_')}/${archetype.englishName.replace(' ', '_')}|" th:title="${archetype.heroClass.name}"
-							th:text="${archetype.capitalizeName}"
+							th:text="${iter.last ? archetype.capitalizeName : archetype.capitalizeName + ', '}"
 						></a>
-						<span th:unless="${iter.last}">,&nbsp;</span>
 					</th:block>
 				</div>
 			</div>
+			<div th:unless="${races.empty}" class="spell_stat_block_bottom">
+				<p>Расы:</p>
+				<div>
+					<th:block th:each="race, iter : ${races}">
+						<a class="tip" th:href="|@{/races/}${race.englishName.replace(' ', '_')}}|" th:title="${race.name}"
+							th:text="${iter.last ? race.capitalizeName : race.capitalizeName + ', '}"
+						></a>
+					</th:block>
+				</div>
+			</div>
+			
 		</div>
 	</th:block>
 </body>
