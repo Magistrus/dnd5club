@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class BeastApi {
 	private NameApi name;
-	private String type;
+	protected Object type;
 	private String challengeRating;
 	protected String url;
 	public BeastApi(Creature beast) {

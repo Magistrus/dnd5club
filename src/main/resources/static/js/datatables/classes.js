@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	hash = $(location).attr('hash');
     document.getElementById('list_page_two_block').classList.remove('block_information');
     $('#charachter_item_menu').addClass('showMenu');
     var scrollEventHeight = 0;
@@ -26,9 +27,13 @@ $(document).ready(function () {
                         	result +='<button class="open tip" title="' + row.archetypeName + '" data-tipped-options="position: \'left\'"><svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
                         }
                         result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
-                        result += '<div class="content"><h3 class="row_name"><span class="name">' + row.name;
+                        result += '<div class="content"><div class="row">';
+                        if (row.archetypeName !== null) {
+                            result +='<i class="info_block">' + row.icon + '</i>';
+                        }
+                        result +='<div><h3 class="row_name"><span class="name">' + row.name;
                         result += '</span></h3>';
-                        result += '<div class="two_row"><ename>' + row.englishName + '</ename></div>';
+                        result += '<div class="two_row"><ename>' + row.englishName + '</ename></div></div></div>';
                         result += '<div class="bottom_row"><span>' + row.hitDice + '</span><span class="books tip" title="' + row.book + '"  data-tipped-options="position: \'right\'">' + row.bookshort + '</span></div></div>';
                         if (row.archetypeName !== null) {
                             result += '</div>';
@@ -232,7 +237,7 @@ function selectClass(data) {
     $('#english_name').html(data.englishName);
 
     document.title = data.name + ' (' + data.englishName + ')' + ' | Классы D&D 5e';
-    history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_'));
+    history.pushState('data to be passed', '', '/classes/' + data.englishName.split(' ').join('_') + hash);
     selectedClass = data;
 
     if (selectedArchetype) {
@@ -241,7 +246,7 @@ function selectClass(data) {
         return;
     }
     var url = '/classes/fragment_id/' + data.id;
-    $("#content_block").load(url, function () {
+    $("#content_block").load(url, function (response, status, xhr) {
         $('#info_wrapper').removeClass('description');
         $('#info_wrapper').removeClass('spells');
         $('#info_wrapper').removeClass('images');
@@ -259,8 +264,17 @@ function selectClass(data) {
         $('#mobile_selector').change(function () {
             setActiveArchetype(data, data.englishName.replace(' ', '_'), $('#mobile_selector').val());
         });
-
         toggleSourcesItems();
+        setTimeout(function () {
+        	if (hash){
+        		const el = document.getElementById(hash.replace('#', ''));
+        		el.scrollIntoView({
+        			behavior: "smooth",
+        			block: "center"
+        		});
+        		hash = '';
+        	}
+        }, 300);
     });
 }
 
@@ -284,8 +298,18 @@ function setActiveArchetype(data, className, archetypeName) {
         $('#class_traits').addClass('active');
         showOnlyArchetype();
         selectedArchetype = null;
+        setTimeout(function () {
+            if (hash){
+            	const el = document.getElementById(hash.replace('#', ''));
+            	el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+              });
+              hash = '';
+            }
+        }, 300);
     });
-    history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName);
+    history.pushState('data to be passed', className, '/classes/' + className + '/' + archetypeName  + hash);
 }
 
 $('#class_traits').on('click', function () {
