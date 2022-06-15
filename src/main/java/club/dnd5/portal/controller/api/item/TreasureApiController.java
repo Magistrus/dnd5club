@@ -30,7 +30,7 @@ public class TreasureApiController {
 	@Autowired
 	private ItemDatatableRepository repo;
 	
-	@PostMapping(value = "/api/v1/items", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/treasures", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ItemApi> getItem(@RequestBody ItemRequesApi request) {
 		Specification<Equipment> specification = null;
 
