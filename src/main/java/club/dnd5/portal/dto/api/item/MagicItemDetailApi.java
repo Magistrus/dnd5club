@@ -28,6 +28,8 @@ public class MagicItemDetailApi extends MagicItemApi {
 	private Collection<String> detailCustamization;
 	private CostApi cost;
 	private SourceApi source;
+	private Collection<String> images;
+	
 	public MagicItemDetailApi(MagicItem item) {
 		super(item);
 		url = null;
