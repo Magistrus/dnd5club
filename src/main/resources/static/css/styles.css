@@ -3712,6 +3712,36 @@ body.full_screen_right_block .screens .card_block .block {
   }
 }
 
+#left_block.races .table_card tr td .content {
+  height: 228px;
+}
+
+#left_block.races .table_card tr td .wrapper:before {
+  transition: transform 0.6s;
+  background-size: cover;
+  display: block;
+  position: absolute;
+  width: 250px;
+  height: 360px;
+  right: 0px;
+  top: 0px;
+  content: '';
+  opacity: 1.0;
+}
+
+#left_block.races .table_card tr td .Aarakocra.wrapper:before {
+  background-image: url(/resources/assets/img/races/aarakocra.webp);
+}
+
+#left_block.races .table_card tr td .Aarakocra_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/aarakocra.webp);
+}
+
+#left_block.races .table_card tr td .Tiefling.wrapper:before {
+  background-image: url(/resources/assets/img/races/tiefling.webp);
+}
+
+
 
 /******** Предыстории / backgrounds ********/
 .backgrounds {
