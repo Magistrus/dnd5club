@@ -53,6 +53,10 @@ body:before {
   color: var(--text-btn-color);
 }
 
+:focus-visible {
+  outline: none !important;
+}
+
 hr {
   height: 1px;
   border: none;
@@ -1422,6 +1426,55 @@ label.select_box {
   border-radius: 50%;
   margin-right: 4px;
   border: 1px solid var(--border);
+}
+
+
+/******** Скопировать ссылку ********/
+.copy_link {
+  position: relative;
+}
+
+.copy_link::before {
+  display: none;
+}
+
+.copy_link:hover::before {
+  content: var(--copy-link);
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  left: -16px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: var(--bg-secondary);
+  z-index: 2;
+}
+
+.copy_link::after {
+  display: none;
+}
+
+.copy_link:hover::after {
+  content: '';
+  width: 24px;
+  height: 100%;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: -16px;
+  background-color: transparent;
+}
+
+details.copy_link:hover::before {
+  top: 10px;
+}
+
+@media (max-width: 1200px) {
+  .copy_link:hover::before {
+    display: none !important;
+  }
 }
 
 
@@ -3038,7 +3091,7 @@ table.table_card tr.dtrg-group td {
 }
 
 #right_block .info_wrapper .content_block #content_block {
-  padding: 24px;
+  padding: 24px 24px;
   position: relative;
 }
 
