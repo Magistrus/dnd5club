@@ -2567,6 +2567,54 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/gnome.webp);
 }
 
+#left_block.races .table_card tr td .Goblin.wrapper:before {
+  background-image: url(/resources/assets/img/races/goblin.webp);
+}
+
+#left_block.races .table_card tr td .Goblin_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/goblin_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Goliath.wrapper:before {
+  background-image: url(/resources/assets/img/races/goliath.webp);
+}
+
+#left_block.races .table_card tr td .Goliath_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/goliath_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Mushroom.wrapper:before {
+  background-image: url(/resources/assets/img/races/mushroom.webp);
+}
+
+#left_block.races .table_card tr td .Dhampir.wrapper:before {
+  background-image: url(/resources/assets/img/races/dhampir.webp);
+}
+
+#left_block.races .table_card tr td .Dwarf.wrapper:before {
+  background-image: url(/resources/assets/img/races/dwarf.webp);
+}
+
+#left_block.races .table_card tr td .Genasi.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Water_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_water_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Air_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_air_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Earthr_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_earthr_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Fair_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_fair_mpmm.webp);
+}
+
 
 /******** Левый блок ********/
 #left_block {
