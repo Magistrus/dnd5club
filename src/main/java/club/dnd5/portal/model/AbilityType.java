@@ -21,18 +21,30 @@ public enum AbilityType {
 	WISDOM("Мудрость"),           // 4
 	CHARISMA("Харизма"),          // 5
 
-	CHOICE("к одной другой"),
+	CHOICE("к другой"),
 	ONE("к одной"),
-	CHOICE_UNIQUE("к двум другим"),
-	CHOICE_DOUBLE("Одну +2 и +1 или Три +1");
+	CHOICE_UNIQUE("к 2 другим"),
+	CHOICE_DOUBLE("+2 и +1 / +1 к трем");
 
 	private String cyrilicName;
 
 	public String getShortName() {
-		if (this == WISDOM) {
-			return "Мдр";
+		switch (this) {
+			case STRENGTH:
+			case DEXTERITY:
+			case CONSTITUTION:
+			case INTELLIGENCE:
+			case CHARISMA:
+				return cyrilicName.substring(0,3);
+			case WISDOM:
+				return "Мдр";
+			case CHOICE:
+			case CHOICE_UNIQUE:
+			case CHOICE_DOUBLE:
+				return cyrilicName;
+			default:
+				return "";
 		}
-		return cyrilicName.substring(0,3);
 	}
 
 	public static AbilityType parseShortName(String shortName) {

@@ -120,6 +120,7 @@
 		</div>
 		<div th:unless="${creature.getActions('REACTION').empty}">
 			<h4 class="header_separator"><span>Реакции</span></h4>
+			<div th:unless="${creature.reaction eq null}" th:utext="${creature.reaction}"></div>
 			<div th:each="action : ${creature.getActions('REACTION')}">
 				<span th:id="|a${action.id}|" class="bestiary_h5">
 					<h5 th:text="|${action.name}.|"></h5>
