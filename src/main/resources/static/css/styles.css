@@ -2615,6 +2615,62 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/genasi_fair_mpmm.webp);
 }
 
+#left_block.races .table_card tr td .Dragonborn.wrapper:before {
+  background-image: url(/resources/assets/img/races/dragonborn.webp);
+}
+
+#left_block.races .table_card tr td .Duergar_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/duergar_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Harengon.wrapper:before {
+  background-image: url(/resources/assets/img/races/harengon.webp);
+}
+
+#left_block.races .table_card tr td .Changeling.wrapper:before {
+  background-image: url(/resources/assets/img/races/changeling.webp);
+}
+
+#left_block.races .table_card tr td .Changeling_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/changeling_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Kalashtar.wrapper:before {
+  background-image: url(/resources/assets/img/races/kalashtar.webp);
+}
+
+#left_block.races .table_card tr td .Kender.wrapper:before {
+  background-image: url(/resources/assets/img/races/kender.webp);
+}
+
+#left_block.races .table_card tr td .Kenku.wrapper:before {
+  background-image: url(/resources/assets/img/races/kenku.webp);
+}
+
+#left_block.races .table_card tr td .Kenku_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/kenku_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Centaur.wrapper:before {
+  background-image: url(/resources/assets/img/races/centaur.webp);
+}
+
+#left_block.races .table_card tr td .Centaur_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/centaur_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Kobold.wrapper:before {
+  background-image: url(/resources/assets/img/races/kobold.webp);
+}
+
+#left_block.races .table_card tr td .Kobold_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/kobold_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Warforged.wrapper:before {
+  background-image: url(/resources/assets/img/races/warforged.webp);
+}
+
 
 /******** Левый блок ********/
 #left_block {
