@@ -14,6 +14,7 @@ import ItemsView from '@/views/Inventory/Items/ItemsView';
 import BestiaryView from '@/views/Bestiary/BestiaryView';
 import MagicItemsView from '@/views/Treasures/MagicItems/MagicItemsView';
 import TreasuresView from '@/views/Treasures/Treasures/TreasuresView';
+import GodsView from '@/views/Wiki/Gods/GodsView';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -30,6 +31,7 @@ export default function registerComponents(app) {
     app.component('BestiaryView', BestiaryView);
     app.component('MagicItemsView', MagicItemsView);
     app.component('TreasuresView', TreasuresView);
+    app.component('GodsView', GodsView);
 
     // Components
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);

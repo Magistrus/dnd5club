@@ -67,7 +67,8 @@
                 this.$refs.items,
                 () => {
                     this.$emit('list-end');
-                }
+                },
+                { distance: 1080 }
             );
         },
         methods: {

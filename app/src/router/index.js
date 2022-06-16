@@ -134,6 +134,18 @@ const routes = [
         ]
     },
     {
+        name: 'gods',
+        path: '/gods',
+        component: () => import('@/views/Wiki/Gods/GodsView'),
+        children: [
+            {
+                name: 'godDetail',
+                path: ':godName',
+                component: () => import('@/views/Wiki/Gods/GodDetail'),
+            }
+        ]
+    },
+    {
         name: 'treasures',
         path: '/treasures',
         component: () => import('@/views/Treasures/Treasures/TreasuresView'),

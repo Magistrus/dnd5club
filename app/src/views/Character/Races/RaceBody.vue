@@ -9,7 +9,7 @@
                 <a id="race_href">
                     <img
                         id="race_img"
-                        :src="!race.images?.length ? '/assets/style/dark/no-img-best.png' : race.images[0]"
+                        :src="!race.images?.length ? '/app/img/dark/no-img-best.png' : race.images[0]"
                         :alt="race.name.rus"
                         @click.left.exact.prevent="showGallery"
                     >
