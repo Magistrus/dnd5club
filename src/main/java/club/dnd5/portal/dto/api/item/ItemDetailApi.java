@@ -18,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemDetailApi extends ItemApi {
-	private SourceApi source;
 	private Float weight;
 	private String description;
 	private List<String> categories;
