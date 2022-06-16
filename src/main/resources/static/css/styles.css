@@ -2155,6 +2155,12 @@ table.table_card tr.dtrg-group {
   cursor: pointer;
   position: relative;
   border: 0;
+  border: 1px solid transparent;
+}
+
+.table_card tr.selected {
+  /* box-shadow: 3px 3px 0px var(--primary); */
+  border-color: var(--primary-active);
 }
 
 .table_card tr.custom_source {
