@@ -22,7 +22,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     if (type === 'display') {
                         let result = '';
-                        if (row.archetypeName !== null) {
+                        if (row.hasSubraces == true) {
                         	result +='<button class="open tip" title="Разновидности" data-tipped-options="position: \'left\'"><svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
                         }
                         result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
