@@ -2627,6 +2627,10 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/harengon.webp);
 }
 
+#left_block.races .table_card tr td .Harengon_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/harengon_mpmm.webp);
+}
+
 #left_block.races .table_card tr td .Changeling.wrapper:before {
   background-image: url(/resources/assets/img/races/changeling.webp);
 }
@@ -2875,7 +2879,7 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/yuan-ti.webp);
 }
 
-#left_block.races .table_card tr td .Yuan-ti_MPMM.wrapper:before {
+#left_block.races .table_card tr td .Yuan-Ti_MPMM.wrapper:before {
   background-image: url(/resources/assets/img/races/yuan-ti_mpmm.webp);
 }
 
