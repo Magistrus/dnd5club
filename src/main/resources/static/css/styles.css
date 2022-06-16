@@ -2077,6 +2077,813 @@ details.copy_link:hover::before {
 }
 
 
+/******** table_card классы / расы ********/
+.table_card {
+  display: flex;
+  overflow: hidden;
+  border: 0;
+}
+
+.table_card tbody {
+  align-items: center;
+  width: 100%;
+  padding: 0px 16px 0px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  align-items: start;
+}
+
+.block_information .table_card tbody {
+  grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+}
+
+.block_information table.table_card tr.dtrg-group {
+  grid-column-end:2;
+}
+
+.table_card tr.dtrg-group:first-child {
+  display: none;
+}
+
+table.table_card tr.dtrg-group {
+  background-color: transparent !important;
+  min-width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  display: block;
+}
+
+#left_block .table_card tr.dtrg-group td {
+  background-color: transparent !important;
+  font-size: var(--h3-font-size);
+  font-weight: 300;
+  margin: 24px 0 0px 0;
+  color: var(--text-color-title);
+  position: relative;
+  font-family: 'Lora';
+}
+
+@media (max-width: 1600px) {
+  .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
+  }
+
+  table.table_card tr.dtrg-group {
+    grid-column-end: 3;
+  }
+}
+
+@media (max-width: 1200px) {
+  .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    padding: 16px 16px;
+  }
+
+  table.table_card tr.dtrg-group {
+    grid-column-end: 2;
+  }
+}
+
+.table_card tr {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-table-list) !important;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  border: 0;
+}
+
+.table_card tr.custom_source {
+  background: var(--bg-homebrew-gradient-left) !important;
+}
+
+.table_card tr td {
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0px !important;
+}
+
+.table_card tr td .wrapper {
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+  padding: 16px 16px !important;
+  height: 100%;
+}
+
+@media (max-width: 1200px) {
+  .table_card tr td .wrapper {
+    padding: 12px 12px !important;
+  }
+}
+
+.table_card tr td .wrapper .content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 0 0px 0px;
+  z-index: 2;
+  margin-bottom: 0px;
+}
+
+.table_card tr td .wrapper .content .bottom_row {
+  margin-top: auto;
+}
+
+#left_block .table_card tr td .row {
+  margin-bottom: 18px;
+}
+
+#left_block .table_card tr td .info_block {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  display: block;
+  z-index: 2;
+  background: var(--hover);
+  border-radius: 8px;
+  padding:6px;
+  margin: 0px 8px 0 0;
+}
+
+.table_card tr td .info_block svg {
+  width: 100%;
+  height: 100%;
+}
+
+#left_block .table_card tr td .info_block path {
+  stroke: none;
+  fill: var(--primary);
+}
+
+.table_card tr td .content .row_name {
+  font-size: calc(var(--h5-font-size) + 2px);
+  margin: 0;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  margin-bottom: 4px;
+  font-family: 'Open Sans';
+}
+
+.table_card tr td .content .row_name span.name {
+  color: var(--text-color-title);
+}
+
+.table_card tr td .content .two_row {
+  display: flex;
+  font-size: calc(var(--h5-font-size) - 1px);
+}
+
+.table_card tr .bottom_row span {
+  margin: 8px 4px 0 0;
+  font-size: calc(var(--h5-font-size) - 2px);
+  width: fit-content;
+  background-color: var(--primary-active);
+  color: var(--text-btn-color);
+  border-radius: 20px;
+  padding: 4px 8px;
+  display: inline-block;
+}
+
+.table_card tr td .archetypes {
+  margin-top: 8px;
+  margin-left: 12px;
+  z-index: 1;
+  padding: 0px 16px 0px 0;
+  display: none;
+}
+
+.table_card tr.open td .archetypes {
+  display: block !important;
+}
+
+.table_card tr td .archetype_list {
+  margin-bottom: 16px;
+}
+
+.table_card tr td .archetype_list {
+  margin-bottom: 16px;
+}
+
+.table_card tr td .archetype_list > h4 {
+  font-size: calc(var(--h5-font-size) + 0px);
+  margin-bottom: 0px;
+  padding: 0 8px;
+  margin-top: 0;
+  line-height: normal;
+}
+
+.table_card tr td .archetype_list > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.table_card tr td .archetype_list li {
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 0px;
+  width: fit-content;
+}
+
+.table_card tr td .archetype_list li p {
+  margin: 0;
+  line-height: normal;
+}
+
+.table_card tr td .archetype_list li p span {
+  font-size: calc(var(--main-font-size) - 2px);
+  margin-left: 4px;
+}
+
+.table_card tr td .archetype_list li:hover {
+  background: var(--hover);
+}
+
+.table_card tr td .archetype_list li.select_point {
+  background: var(--primary-active);
+}
+
+.table_card tr td .archetype_list li.select_point p {
+  color: var(--text-btn-color);
+}
+
+.table_card tr td button.open {
+  margin: 0px;
+  width: 24px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 8px 4px;
+  background-color: var(--primary);
+  color: var(--text-color-title);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: calc(var(--main-font-size) - 2px);
+  border-top-left-radius: 12px;
+}
+
+.table_card tr.open td button .open {
+  display: none;
+}
+
+.table_card tr td button .close {
+  display: none;
+}
+
+.table_card tr.open td button .close {
+  display: block !important;
+}
+
+.table_card tr td button svg path {
+  stroke: var(--text-btn-color);
+}
+
+.table_card tr td .wrapper:after {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background: var(--bg-liner-list);
+  content: "";
+  opacity: 1;
+  z-index: 1;
+  height: 1000px;
+}
+
+.table_card tr.custom_source td .wrapper:after {
+  background: var(--bg-homebrew-gradient-left) !important;
+  opacity: 0.2;
+}
+
+.table_card tr.open td .wrapper:before {
+  opacity: 0.3 !important;
+}
+
+.table_card tr td:hover .wrapper:before {
+  transition: transform 0.6s;
+  transform: scale(1.03);
+}
+
+.table_card tr.open td:hover .wrapper:before {
+  transform: scale(1.0);
+}
+
+#left_block .table_card tr td .wrapper:before {
+  transition: transform 0.6s;
+  background-size: cover;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  content: '';
+  opacity: 1.0;
+}
+
+#left_block.classes .table_card tr td .wrapper:before {
+  width: 400px;
+  height: 600px;
+}
+
+#left_block.races .table_card tr td .wrapper:before {
+  width: 250px;
+  height: 360px;
+}
+
+#left_block.classes .table_card tr td .Bard.wrapper:before {
+  background-image: url(/resources/assets/img/classes/bard_2.webp);
+}
+
+#left_block.classes .table_card tr td .Barbarian.wrapper:before {
+  background-image: url(/resources/assets/img/classes/barbarian_2.webp);
+}
+
+#left_block.classes .table_card tr td .Fighter.wrapper:before {
+  background-image: url(/resources/assets/img/classes/fighter_2.webp);
+}
+
+#left_block.classes .table_card tr td .Wizard.wrapper:before {
+  background-image: url(/resources/assets/img/classes/wizard_2.webp);
+}
+
+#left_block.classes .table_card tr td .Druid.wrapper:before {
+  background-image: url(/resources/assets/img/classes/druid_2.webp);
+}
+
+#left_block.classes .table_card tr td .Cleric.wrapper:before {
+  background-image: url(/resources/assets/img/classes/cleric_2.webp);
+}
+
+#left_block.classes .table_card tr td .Artificer.wrapper:before {
+  background-image: url(/resources/assets/img/classes/artificer_2.webp);
+}
+
+#left_block.classes .table_card tr td .Warlock.wrapper:before {
+  background-image: url(/resources/assets/img/classes/warlock_2.webp);
+}
+
+#left_block.classes .table_card tr td .Monk.wrapper:before {
+  background-image: url(/resources/assets/img/classes/monk_2.webp);
+}
+
+#left_block.classes .table_card tr td .Paladin.wrapper:before {
+  background-image: url(/resources/assets/img/classes/paladin_2.webp);
+}
+
+#left_block.classes .table_card tr td .Rogue.wrapper:before {
+  background-image: url(/resources/assets/img/classes/rogue_2.webp);
+}
+
+#left_block.classes .table_card tr td .Ranger.wrapper:before {
+  background-image: url(/resources/assets/img/classes/ranger_2.webp);
+}
+
+#left_block.classes .table_card tr td .Sorcerer.wrapper:before {
+  background-image: url(/resources/assets/img/classes/sorcerer_2.webp);
+}
+
+#left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
+  background-image: url(/resources/assets/img/classes/blood-hunter_2.webp);
+}
+
+#left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
+  background-image: url(/resources/assets/img/classes/warrior-sidekick_2.webp);
+}
+
+#left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
+  background-image: url(/resources/assets/img/classes/spellcaster-sidekick_2.webp);
+}
+
+#left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
+  background-image: url(/resources/assets/img/classes/expert-sidekick_2.webp);
+}
+
+#left_block.races .table_card tr td .content {
+  height: 180px;
+}
+
+@media (max-width: 1200px) {
+  #left_block.races .table_card tr td .content {
+    height: 130px;
+  }
+}
+
+#left_block.races .table_card tr td .Aarakocra.wrapper:before {
+  background-image: url(/resources/assets/img/races/aarakocra.webp);
+}
+
+#left_block.races .table_card tr td .Aarakocra_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/aarakocra_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Aasimar.wrapper:before {
+  background-image: url(/resources/assets/img/races/aasimar.webp);
+}
+
+#left_block.races .table_card tr td .Aasimar_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/aasimar_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Autognome.wrapper:before {
+  background-image: url(/resources/assets/img/races/autognome.webp);
+}
+
+#left_block.races .table_card tr td .Vedalken.wrapper:before {
+  background-image: url(/resources/assets/img/races/vedalken.webp);
+}
+
+#left_block.races .table_card tr td .Verdan.wrapper:before {
+  background-image: url(/resources/assets/img/races/verdan.webp);
+}
+
+#left_block.races .table_card tr td .Tiefling.wrapper:before {
+  background-image: url(/resources/assets/img/races/tiefling.webp);
+}
+
+#left_block.races .table_card tr td .Bugbear.wrapper:before {
+  background-image: url(/resources/assets/img/races/bugbear.webp);
+}
+
+#left_block.races .table_card tr td .Bugbear_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/bugbear_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Bearfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/bearfolk.webp);
+}
+
+#left_block.races .table_card tr td .Reborn.wrapper:before {
+  background-image: url(/resources/assets/img/races/reborn.webp);
+}
+
+#left_block.races .table_card tr td .Simic_Hybrid.wrapper:before {
+  background-image: url(/resources/assets/img/races/simic_hybrid.webp);
+}
+
+#left_block.races .table_card tr td .Gith.wrapper:before {
+  background-image: url(/resources/assets/img/races/gith.webp);
+}
+
+#left_block.races .table_card tr td .Githzerai_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/githzerai_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Githyanki_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/githyanki_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Giff.wrapper:before {
+  background-image: url(/resources/assets/img/races/giff.webp);
+}
+
+#left_block.races .table_card tr td .Deep_Gnome_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/deep_gnome_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Gnoll.wrapper:before {
+  background-image: url(/resources/assets/img/races/gnoll.webp);
+}
+
+#left_block.races .table_card tr td .Gnome.wrapper:before {
+  background-image: url(/resources/assets/img/races/gnome.webp);
+}
+
+#left_block.races .table_card tr td .Goblin.wrapper:before {
+  background-image: url(/resources/assets/img/races/goblin.webp);
+}
+
+#left_block.races .table_card tr td .Goblin_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/goblin_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Goliath.wrapper:before {
+  background-image: url(/resources/assets/img/races/goliath.webp);
+}
+
+#left_block.races .table_card tr td .Goliath__MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/goliath_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Mushroom.wrapper:before {
+  background-image: url(/resources/assets/img/races/mushroom.webp);
+}
+
+#left_block.races .table_card tr td .Dhampir.wrapper:before {
+  background-image: url(/resources/assets/img/races/dhampir.webp);
+}
+
+#left_block.races .table_card tr td .Dwarf.wrapper:before {
+  background-image: url(/resources/assets/img/races/dwarf.webp);
+}
+
+#left_block.races .table_card tr td .Genasi.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Water_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_water_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Air_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_air_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Earthr_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_earthr_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Genasi_Fair_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/genasi_fair_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Dragonborn.wrapper:before {
+  background-image: url(/resources/assets/img/races/dragonborn.webp);
+}
+
+#left_block.races .table_card tr td .Duergar__MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/duergar_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Harengon.wrapper:before {
+  background-image: url(/resources/assets/img/races/harengon.webp);
+}
+
+#left_block.races .table_card tr td .Harengon_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/harengon_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Changeling.wrapper:before {
+  background-image: url(/resources/assets/img/races/changeling.webp);
+}
+
+#left_block.races .table_card tr td .Changeling_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/changeling_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Kalashtar.wrapper:before {
+  background-image: url(/resources/assets/img/races/kalashtar.webp);
+}
+
+#left_block.races .table_card tr td .Kender.wrapper:before {
+  background-image: url(/resources/assets/img/races/kender.webp);
+}
+
+#left_block.races .table_card tr td .Kenku.wrapper:before {
+  background-image: url(/resources/assets/img/races/kenku.webp);
+}
+
+#left_block.races .table_card tr td .Kenku_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/kenku_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Centaur.wrapper:before {
+  background-image: url(/resources/assets/img/races/centaur.webp);
+}
+
+#left_block.races .table_card tr td .Centaur_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/centaur_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Kobold.wrapper:before {
+  background-image: url(/resources/assets/img/races/kobold.webp);
+}
+
+#left_block.races .table_card tr td .Kobold_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/kobold_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Warforged.wrapper:before {
+  background-image: url(/resources/assets/img/races/warforged.webp);
+}
+
+#left_block.races .table_card tr td .Leonin.wrapper:before {
+  background-image: url(/resources/assets/img/races/leonin.webp);
+}
+
+#left_block.races .table_card tr td .Locathah.wrapper:before {
+  background-image: url(/resources/assets/img/races/locathah.webp);
+}
+
+#left_block.races .table_card tr td .Loxodon.wrapper:before {
+  background-image: url(/resources/assets/img/races/loxodon.webp);
+}
+
+#left_block.races .table_card tr td .Lizardfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/lizardfolk.webp);
+}
+
+#left_block.races .table_card tr td .Lizardfolk_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/lizardfolk_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Medusa.wrapper:before {
+  background-image: url(/resources/assets/img/races/medusa.webp);
+}
+
+#left_block.races .table_card tr td .Minotaur.wrapper:before {
+  background-image: url(/resources/assets/img/races/minotaur.webp);
+}
+
+#left_block.races .table_card tr td .Minotaur_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/minotaur_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Sea_Elf_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/sea_elf_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Undead.wrapper:before {
+  background-image: url(/resources/assets/img/races/undead.webp);
+}
+
+#left_block.races .table_card tr td .Nymph.wrapper:before {
+  background-image: url(/resources/assets/img/races/nymph.webp);
+}
+
+#left_block.races .table_card tr td .Orc.wrapper:before {
+  background-image: url(/resources/assets/img/races/orc.webp);
+}
+
+#left_block.races .table_card tr td .Orc_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/orc_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Plasmoid.wrapper:before {
+  background-image: url(/resources/assets/img/races/plasmoid.webp);
+}
+
+#left_block.races .table_card tr td .Half-Orc.wrapper:before {
+  background-image: url(/resources/assets/img/races/half-orc.webp);
+}
+
+#left_block.races .table_card tr td .Halfling.wrapper:before {
+  background-image: url(/resources/assets/img/races/halfling.webp);
+}
+
+#left_block.races .table_card tr td .Half-Elf.wrapper:before {
+  background-image: url(/resources/assets/img/races/half-elf.webp);
+}
+
+#left_block.races .table_card tr td .Hexblood.wrapper:before {
+  background-image: url(/resources/assets/img/races/hexblood.webp);
+}
+
+#left_block.races .table_card tr td .Awakened.wrapper:before {
+  background-image: url(/resources/assets/img/races/awakened.webp);
+}
+
+#left_block.races .table_card tr td .Ravenfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/ravenfolk.webp);
+}
+
+#left_block.races .table_card tr td .Ratfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/ratfolk.webp);
+}
+
+#left_block.races .table_card tr td .Satyr.wrapper:before {
+  background-image: url(/resources/assets/img/races/satyr.webp);
+}
+
+#left_block.races .table_card tr td .Satyr_ODL.wrapper:before {
+  background-image: url(/resources/assets/img/races/satyr_odl.webp);
+}
+
+#left_block.races .table_card tr td .Satyr_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/satyr_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Silva.wrapper:before {
+  background-image: url(/resources/assets/img/races/silva.webp);
+}
+
+#left_block.races .table_card tr td .Siren.wrapper:before {
+  background-image: url(/resources/assets/img/races/siren.webp);
+}
+
+#left_block.races .table_card tr td .Owlin.wrapper:before {
+  background-image: url(/resources/assets/img/races/owlin.webp);
+}
+
+#left_block.races .table_card tr td .Tabaxi.wrapper:before {
+  background-image: url(/resources/assets/img/races/tabaxi.webp);
+}
+
+#left_block.races .table_card tr td .Tabaxi_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/tabaxi_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Shadow_fairy.wrapper:before {
+  background-image: url(/resources/assets/img/races/shadow_fairy.webp);
+}
+
+#left_block.races .table_card tr td .Tortle.wrapper:before {
+  background-image: url(/resources/assets/img/races/tortle.webp);
+}
+
+#left_block.races .table_card tr td .Tortle_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/tortle_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Thri-kreen.wrapper:before {
+  background-image: url(/resources/assets/img/races/thri-kreen.webp);
+}
+
+#left_block.races .table_card tr td .Triton.wrapper:before {
+  background-image: url(/resources/assets/img/races/triton.webp);
+}
+
+#left_block.races .table_card tr td .Triton_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/triton_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Trollkin.wrapper:before {
+  background-image: url(/resources/assets/img/races/trollkin.webp);
+}
+
+#left_block.races .table_card tr td .Fairyblood.wrapper:before {
+  background-image: url(/resources/assets/img/races/fairyblood.webp);
+}
+
+#left_block.races .table_card tr td .Firbolg.wrapper:before {
+  background-image: url(/resources/assets/img/races/firbolg.webp);
+}
+
+#left_block.races .table_card tr td .Firbolg_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/firbolg_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Fairy.wrapper:before {
+  background-image: url(/resources/assets/img/races/fairy.webp);
+}
+
+#left_block.races .table_card tr td .Fairy_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/fairy_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Hadozee.wrapper:before {
+  background-image: url(/resources/assets/img/races/hadozee.webp);
+}
+
+#left_block.races .table_card tr td .Hobgoblin.wrapper:before {
+  background-image: url(/resources/assets/img/races/hobgoblin.webp);
+}
+
+#left_block.races .table_card tr td .Hobgoblin_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/hobgoblin_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Human.wrapper:before {
+  background-image: url(/resources/assets/img/races/human.webp);
+}
+
+#left_block.races .table_card tr td .Shadar-Kai_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/shadar-kai_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Shifter.wrapper:before {
+  background-image: url(/resources/assets/img/races/shifter.webp);
+}
+
+#left_block.races .table_card tr td .Shifter_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/shifter_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Eladrin_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/eladrin_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Elf.wrapper:before {
+  background-image: url(/resources/assets/img/races/elf.webp);
+}
+
+#left_block.races .table_card tr td .Yuan-ti.wrapper:before {
+  background-image: url(/resources/assets/img/races/yuan-ti.webp);
+}
+
+#left_block.races .table_card tr td .Yuan-Ti_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/yuan-ti_mpmm.webp);
+}
+
+
 /******** Левый блок ********/
 #left_block {
 
@@ -2177,537 +2984,6 @@ details.copy_link:hover::before {
 #right_block .btn_filters span,
 #left_block .header_block .btn_filters span {
   margin-left: 8px;
-}
-
-.table_card {
-  display: flex;
-  overflow: hidden;
-  border: 0;
-}
-
-table.table_card tr.dtrg-group:first-child {
-  display: none;
-}
-
-table.table_card tr.dtrg-group {
-  background-color: transparent !important;
-  min-width: 100%;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  display: block;
-}
-
-table.table_card tr.dtrg-group td {
-  background-color: transparent !important;
-  font-size: var(--h3-font-size);
-  font-weight: 300;
-  margin: 24px 0 0px 0;
-  color: var(--text-color-title);
-  position: relative;
-  font-family: 'Lora';
-}
-
-.table_card tbody {
-  align-items: center;
-  width: 100%;
-  padding: 0px 16px 0px 0px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  align-items: start;
-}
-
-@media (max-width: 1200px) {
-  .table_card tbody {
-    padding: 16px 16px;
-  }
-}
-
-.block_information .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
-}
-
-.block_information table.table_card tr.dtrg-group {
-  grid-column-end:2;
-}
-
-@media (max-width: 1600px) {
-  .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
-  }
-
-  table.table_card tr.dtrg-group {
-    grid-column-end: 3;
-  }
-}
-
-@media (max-width: 1200px) {
-  .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-  }
-
-  table.table_card tr.dtrg-group {
-    grid-column-end: 2;
-  }
-}
-
-.table_card tr {
-  display: inline-block;
-  width: 100%;
-  overflow: hidden;
-  background-color: var(--bg-table-list) !important;
-  border-radius: 12px;
-  cursor: pointer;
-  border: 1px solid var(--bg-secondary);
-}
-
-#left_block.races .table_card tr.custom_source,
-#left_block.classes .table_card tr.custom_source {
-  background: var(--bg-homebrew-gradient-left) !important;
-}
-
-.table_card tr.selected {
-  border-color: var(--primary) !important;
-}
-
-.table_card tr td {
-  border: none;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0px !important;
-}
-
-.table_card tr td:hover {
-  background: var(--hover);
-}
-
-.table_card tr.selected td:hover {
-  background-color: var(--bg-sub-menu) !important;
-}
-
-.table_card tr td .wrapper {
-  display: flex;
-  flex-direction: row;
-  padding: 10px 12px !important;
-}
-
-.table_card tr td .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
-  padding: 0 0 0 16px;
-}
-
-.table_card tr td .info_block {
-  width: 42px;
-  min-width: 42px;
-  height: 42px;
-}
-
-#left_block.classes .table_card tr td .info_block {
-  width: 32px;
-  min-width: 32px;
-  height: 32px;
-  display: block;
-  z-index: 2;
-  background: var(--hover);
-  border-radius: 8px;
-  padding:6px;
-  margin: 0px 8px 0 0;
-}
-
-#left_block.classes .table_card tr td .info_block path {
-  stroke: none;
-  fill: var(--primary);
-}
-
-.table_card tr td .info_block svg {
-  width: 100%;
-  height: 100%;
-}
-
-.table_card tr td .info_block path {
-  stroke: var(--primary);
-}
-
-.table_card tr td .content .row_name {
-  font-size: calc(var(--h5-font-size) + 0px);
-  margin: 0;
-  font-weight: 500;
-  line-height: normal;
-  display: flex;
-  margin-bottom: 0px;
-  font-family: 'Open Sans';
-}
-
-.table_card tr .row_name span.name {
-  color: var(--text-color-title);
-}
-
-.table_card tr .row_name span {
-  color: var(--text-g-color);
-}
-
-.table_card tr .books {
-  margin-left: auto;
-  font-size: var(--main-font-size);
-}
-
-.table_card tr td .content .two_row {
-  display: flex;
-  font-size: calc(var(--h5-font-size) - 1px);
-}
-
-.table_card tr td button.open {
-  color: var(--link-color);
-  padding: 0;
-  width: 32px;
-  min-width: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bg-secondary);
-  margin: -10px -12px -10px 12px;
-  position: relative;
-  overflow: hidden;
-}
-
-.table_card tr td button.open:hover {
-  background-color: var(--hover);
-}
-
-.table_card tr td button.open svg {
-  width: 24px;
-  height: 24px;
-}
-
-.table_card tr td button.open path {
-  stroke: var(--primary);
-}
-
-.table_card tr.open td button.open svg {
-  transform: rotate(180deg)
-}
-
-.table_card tr td .archetypes {
-  margin-left:64px;
-  padding: 0 16px 16px 0;
-  display: none;
-}
-
-.table_card tr.open td .archetypes {
-  display: block;
-}
-
-.table_card tr td .archetype_list {
-  margin-bottom: 16px;
-}
-
-.table_card tr td .archetype_list .select_point {
-  background: var(--primary-active);
-}
-
-.table_card tr td .archetype_list .select_point p {
-  color: var(--text-btn-color);
-}
-
-.table_card tr td .archetype_list .select_point:hover {
-  background: var(--primary-hover);
-}
-
-.table_card tr td .archetype_list > h4 {
-  padding: 0 8px;
-  font-size: calc(var(--h5-font-size) + 2px);
-  margin-top: 0;
-  margin-bottom: 4px;
-  line-height: normal;
-}
-
-.table_card tr td .archetype_list > ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.table_card tr td .archetype_list li {
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-}
-
-.table_card tr td .archetype_list li:hover {
-  background: var(--hover);
-}
-
-.table_card tr td .archetype_list li p {
-  margin: 0;
-  line-height: normal;
-}
-
-.table_card tr td .archetype_list li p span {
-  font-size: calc(var(--main-font-size) - 2px);
-  margin-left: 4px;
-  color: var(--text-g-color);
-}
-
-.table_card tr td .archetype_list li.select_point p span {
-  color: var(--text-btn-color);
-}
-
-.table_card tr td .archetype_list li .add_favorites {
-  background: red;
-  width: 16px;
-  height: 16px;
-  display: none;
-  margin-right: 4px;
-}
-
-#left_block.classes .table_card tr td .content .row_name {
-  font-size: calc(var(--h5-font-size) + 2px);
-}
-
-#left_block.classes .table_card tr td .archetype_list > h4 {
-  font-size: calc(var(--h5-font-size) + 0px);
-  margin-bottom: 0px;
-}
-
-#left_block.classes .table_card tr td .wrapper {
-  z-index: 1;
-  padding: 16px 16px !important;
-}
-
-@media (max-width: 1200px) {
-  #left_block.classes .table_card tr td .wrapper {
-    padding: 12px 12px !important;
-  }
-}
-
-#left_block.classes .table_card tr td .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
-  padding: 0 0 0px 0px;
-  z-index: 2;
-  margin-bottom: 0px;
-}
-
-.table_card tr td .content .row  {
-  display: flex;
-  margin-bottom: 18px;
-}
-
-@media (max-width: 1200px) {
-  .table_card tr td .content .row  {
-    margin-bottom: 12px;
-  }
-}
-
-#left_block.classes .table_card tr td:hover {
-  background: transparent;
-}
-
-#left_block.classes .table_card tr.selected td:hover {
-  background: transparent !important;
-}
-
-#left_block.classes .table_card tr td button.open {
-  margin: 0px;
-  width: 24px;
-  height: 32px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  padding: 8px 4px;
-  background-color: var(--primary);
-  color: var(--text-color-title);
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: calc(var(--main-font-size) - 2px);
-  border-top-left-radius: 12px;
-}
-
-#left_block.classes .table_card tr td button:hover {
-  background-color: var(--primary-hover);
-}
-
-#left_block.classes .table_card tr.open td button .open {
-  display: none;
-}
-
-#left_block.classes .table_card tr td button .close {
-  display: none;
-}
-
-#left_block.classes .table_card tr.open td button .close {
-  display: block !important;
-}
-
-#left_block.classes .table_card tr td button svg path {
-  stroke: var(--text-btn-color);
-}
-
-#left_block.classes .table_card tr,
-#left_block.classes .table_card tr td .wrapper {
-  position: relative;
-}
-
-#left_block.classes .table_card tr td .wrapper:after {
-  position: absolute;
-  pointer-events: none;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  background: var(--bg-liner-list);
-  content: "";
-  opacity: 1;
-  z-index: 1;
-  height: 1000px;
-}
-
-#left_block.classes .table_card tr.custom_source td .wrapper:after {
-  background: var(--bg-homebrew-gradient-left) !important;
-  opacity: 0.2;
-}
-
-#left_block.classes .table_card tr td .Bard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/bard_2.webp);
-}
-
-#left_block.classes .table_card tr td .Barbarian.wrapper:before {
-  background-image: url(/resources/assets/img/classes/barbarian_2.webp);
-}
-
-#left_block.classes .table_card tr td .Fighter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/fighter_2.webp);
-}
-
-#left_block.classes .table_card tr td .Wizard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/wizard_2.webp);
-}
-
-#left_block.classes .table_card tr td .Druid.wrapper:before {
-  background-image: url(/resources/assets/img/classes/druid_2.webp);
-}
-
-#left_block.classes .table_card tr td .Cleric.wrapper:before {
-  background-image: url(/resources/assets/img/classes/cleric_2.webp);
-}
-
-#left_block.classes .table_card tr td .Artificer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/artificer_2.webp);
-}
-
-#left_block.classes .table_card tr td .Warlock.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warlock_2.webp);
-}
-
-#left_block.classes .table_card tr td .Monk.wrapper:before {
-  background-image: url(/resources/assets/img/classes/monk_2.webp);
-}
-
-#left_block.classes .table_card tr td .Paladin.wrapper:before {
-  background-image: url(/resources/assets/img/classes/paladin_2.webp);
-}
-
-#left_block.classes .table_card tr td .Rogue.wrapper:before {
-  background-image: url(/resources/assets/img/classes/rogue_2.webp);
-}
-
-#left_block.classes .table_card tr td .Ranger.wrapper:before {
-  background-image: url(/resources/assets/img/classes/ranger_2.webp);
-}
-
-#left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/sorcerer_2.webp);
-}
-
-#left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/blood-hunter_2.webp);
-}
-
-#left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warrior-sidekick_2.webp);
-}
-
-#left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/spellcaster-sidekick_2.webp);
-}
-
-#left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/expert-sidekick_2.webp);
-}
-
-#left_block.classes .table_card tr td .wrapper:before {
-  transition: transform 0.6s;
-  background-size: cover;
-  display: block;
-  position: absolute;
-  width: 400px;
-  height: 600px;
-  right: 0px;
-  top: 0px;
-  content: '';
-  opacity: 1.0;
-}
-
-#left_block.classes .table_card tr.open td .wrapper:before {
-  opacity: 0.3;
-}
-
-#left_block.classes .table_card tr td:hover .wrapper:before {
-  transition: transform 0.6s;
-  transform: scale(1.03);
-}
-
-#left_block.classes .table_card tr.open  td:hover .wrapper:before {
-  transform: scale(1.0);
-}
-
-#left_block.classes .table_card tr td .archetypes {
-  margin-top: 8px;
-  margin-left: 12px;
-  z-index: 1;
-  padding: 0px 16px 0px 0;
-}
-
-#left_block.classes .table_card tr.selected {
-  border-color: transparent !important;
-}
-
-#left_block.classes .table_card tr td .archetype_list li {
-  margin-bottom: 0px;
-  width: fit-content;
-}
-
-#left_block.classes .table_card tr .bottom_row span {
-  margin-left: 0;
-  margin-right: 4px;
-  font-size: calc(var(--h5-font-size) - 2px);
-  width: fit-content;
-  background-color: var(--primary-active);
-  color: var(--text-btn-color);
-  border-radius: 20px;
-  padding: 4px 8px;
-  display: inline-block;
-}
-
-#left_block.classes .table_card tr td .content .row_name {
-  margin-bottom: 4px;
-}
-
-@media (max-width: 1200px) {
-  #left_block.classes table.table_card tr.dtrg-group td {
-    margin: 24px 0 0px -16px;
-  }
 }
 
 
@@ -3820,28 +4096,40 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(32%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
 }
 
 .block_information #left_block.races .table_card tbody {
-  grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
 }
 
 @media (max-width: 1600px) {
   .block_information #left_block.races .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+  }
+}
+
+@media (max-width: 1400px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
   }
 }
 
 @media (max-width: 1200px) {
   #left_block.races .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   }
 }
 
 @media (max-width: 800px) {
   #left_block.races .table_card tbody {
-    grid-template-columns: repeat(auto-fit, minmax(99%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  #left_block.races .table_card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(60%, 1fr));
   }
 }
 
