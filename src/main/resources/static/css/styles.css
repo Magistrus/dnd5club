@@ -2619,7 +2619,7 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/dragonborn.webp);
 }
 
-#left_block.races .table_card tr td .Duergar_MPMM.wrapper:before {
+#left_block.races .table_card tr td .Duergar__MPMM.wrapper:before {
   background-image: url(/resources/assets/img/races/duergar_mpmm.webp);
 }
 
@@ -2669,6 +2669,214 @@ table.table_card tr.dtrg-group {
 
 #left_block.races .table_card tr td .Warforged.wrapper:before {
   background-image: url(/resources/assets/img/races/warforged.webp);
+}
+
+#left_block.races .table_card tr td .Leonin.wrapper:before {
+  background-image: url(/resources/assets/img/races/leonin.webp);
+}
+
+#left_block.races .table_card tr td .Locathah.wrapper:before {
+  background-image: url(/resources/assets/img/races/locathah.webp);
+}
+
+#left_block.races .table_card tr td .Loxodon.wrapper:before {
+  background-image: url(/resources/assets/img/races/loxodon.webp);
+}
+
+#left_block.races .table_card tr td .Lizardfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/lizardfolk.webp);
+}
+
+#left_block.races .table_card tr td .Lizardfolk_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/lizardfolk_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Medusa.wrapper:before {
+  background-image: url(/resources/assets/img/races/medusa.webp);
+}
+
+#left_block.races .table_card tr td .Minotaur.wrapper:before {
+  background-image: url(/resources/assets/img/races/minotaur.webp);
+}
+
+#left_block.races .table_card tr td .Minotaur_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/minotaur_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Sea_Elf_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/sea_elf_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Undead.wrapper:before {
+  background-image: url(/resources/assets/img/races/undead.webp);
+}
+
+#left_block.races .table_card tr td .Nymph.wrapper:before {
+  background-image: url(/resources/assets/img/races/nymph.webp);
+}
+
+#left_block.races .table_card tr td .Orc.wrapper:before {
+  background-image: url(/resources/assets/img/races/orc.webp);
+}
+
+#left_block.races .table_card tr td .Orc_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/orc_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Plasmoid.wrapper:before {
+  background-image: url(/resources/assets/img/races/plasmoid.webp);
+}
+
+#left_block.races .table_card tr td .Half-Orc.wrapper:before {
+  background-image: url(/resources/assets/img/races/half-orc.webp);
+}
+
+#left_block.races .table_card tr td .Halfling.wrapper:before {
+  background-image: url(/resources/assets/img/races/halfling.webp);
+}
+
+#left_block.races .table_card tr td .Half-Elf.wrapper:before {
+  background-image: url(/resources/assets/img/races/half-elf.webp);
+}
+
+#left_block.races .table_card tr td .Hexblood.wrapper:before {
+  background-image: url(/resources/assets/img/races/hexblood.webp);
+}
+
+#left_block.races .table_card tr td .Awakened.wrapper:before {
+  background-image: url(/resources/assets/img/races/awakened.webp);
+}
+
+#left_block.races .table_card tr td .Ravenfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/ravenfolk.webp);
+}
+
+#left_block.races .table_card tr td .Ratfolk.wrapper:before {
+  background-image: url(/resources/assets/img/races/ratfolk.webp);
+}
+
+#left_block.races .table_card tr td .Satyr.wrapper:before {
+  background-image: url(/resources/assets/img/races/satyr.webp);
+}
+
+#left_block.races .table_card tr td .Satyr_ODL.wrapper:before {
+  background-image: url(/resources/assets/img/races/satyr_odl.webp);
+}
+
+#left_block.races .table_card tr td .Satyr_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/satyr_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Silva.wrapper:before {
+  background-image: url(/resources/assets/img/races/silva.webp);
+}
+
+#left_block.races .table_card tr td .Siren.wrapper:before {
+  background-image: url(/resources/assets/img/races/siren.webp);
+}
+
+#left_block.races .table_card tr td .Owlin.wrapper:before {
+  background-image: url(/resources/assets/img/races/owlin.webp);
+}
+
+#left_block.races .table_card tr td .Tabaxi.wrapper:before {
+  background-image: url(/resources/assets/img/races/tabaxi.webp);
+}
+
+#left_block.races .table_card tr td .Tabaxi_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/tabaxi_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Shadow_fairy.wrapper:before {
+  background-image: url(/resources/assets/img/races/shadow_fairy.webp);
+}
+
+#left_block.races .table_card tr td .Tortle.wrapper:before {
+  background-image: url(/resources/assets/img/races/tortle.webp);
+}
+
+#left_block.races .table_card tr td .Tortle_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/tortle_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Thri-kreen.wrapper:before {
+  background-image: url(/resources/assets/img/races/thri-kreen.webp);
+}
+
+#left_block.races .table_card tr td .Triton.wrapper:before {
+  background-image: url(/resources/assets/img/races/triton.webp);
+}
+
+#left_block.races .table_card tr td .Triton_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/triton_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Trollkin.wrapper:before {
+  background-image: url(/resources/assets/img/races/trollkin.webp);
+}
+
+#left_block.races .table_card tr td .Fairyblood.wrapper:before {
+  background-image: url(/resources/assets/img/races/fairyblood.webp);
+}
+
+#left_block.races .table_card tr td .Firbolg.wrapper:before {
+  background-image: url(/resources/assets/img/races/firbolg.webp);
+}
+
+#left_block.races .table_card tr td .Firbolg_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/firbolg_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Fairy.wrapper:before {
+  background-image: url(/resources/assets/img/races/fairy.webp);
+}
+
+#left_block.races .table_card tr td .Fairy_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/fairy_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Hadozee.wrapper:before {
+  background-image: url(/resources/assets/img/races/hadozee.webp);
+}
+
+#left_block.races .table_card tr td .Hobgoblin.wrapper:before {
+  background-image: url(/resources/assets/img/races/hobgoblin.webp);
+}
+
+#left_block.races .table_card tr td .Hobgoblin_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/hobgoblin_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Human.wrapper:before {
+  background-image: url(/resources/assets/img/races/human.webp);
+}
+
+#left_block.races .table_card tr td .Shadar-Kai_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/shadar-kai_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Shifter.wrapper:before {
+  background-image: url(/resources/assets/img/races/shifter.webp);
+}
+
+#left_block.races .table_card tr td .Shifter_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/shifter_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Eladrin_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/eladrin_mpmm.webp);
+}
+
+#left_block.races .table_card tr td .Elf.wrapper:before {
+  background-image: url(/resources/assets/img/races/elf.webp);
+}
+
+#left_block.races .table_card tr td .Yuan-ti.wrapper:before {
+  background-image: url(/resources/assets/img/races/yuan-ti.webp);
+}
+
+#left_block.races .table_card tr td .Yuan-ti_MPMM.wrapper:before {
+  background-image: url(/resources/assets/img/races/yuan-ti_mpmm.webp);
 }
 
 
