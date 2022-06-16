@@ -32,4 +32,8 @@ public class Rule {
 	@JoinColumn(name = "source")
 	private Book book;
 	private Short page;
+	
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
 }

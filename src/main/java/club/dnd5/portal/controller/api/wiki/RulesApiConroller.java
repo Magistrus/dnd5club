@@ -1,7 +1,6 @@
-package club.dnd5.portal.controller.api;
+package club.dnd5.portal.controller.api.wiki;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,27 +19,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.GodApi;
-import club.dnd5.portal.dto.api.GodDetailApi;
 import club.dnd5.portal.dto.api.spell.SpellRequesApi;
+import club.dnd5.portal.dto.api.wiki.RuleApi;
+import club.dnd5.portal.dto.api.wiki.RuleDetailApi;
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.god.God;
-import club.dnd5.portal.model.image.ImageType;
-import club.dnd5.portal.repository.ImageRepository;
-import club.dnd5.portal.repository.datatable.GodDatatableRepository;
+import club.dnd5.portal.model.rule.Rule;
+import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
-public class GodApiConroller {
+public class RulesApiConroller {
 	@Autowired
-	private GodDatatableRepository repo;
+	private RuleDatatableRepository repo;
 	
-	@Autowired
-	private ImageRepository imageRepo;
-	
-	@PostMapping(value = "/api/v1/gods", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<GodApi> getGods(@RequestBody SpellRequesApi request) {
-		Specification<God> specification = null;
+	@PostMapping(value = "/api/v1/rules", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<RuleApi> getRules(@RequestBody SpellRequesApi request) {
+		Specification<Rule> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
 		List<Column> columns = new ArrayList<Column>(3);
@@ -96,22 +90,17 @@ public class GodApiConroller {
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-					Join<Book, God> join = root.join("book", JoinType.INNER);
+					Join<Book, Rule> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
 		}
-		return repo.findAll(input, specification, specification, GodApi::new).getData();
+		return repo.findAll(input, specification, specification, RuleApi::new).getData();
 	}
 	
-	@PostMapping(value = "/api/v1/gods/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public GodDetailApi getGod(@PathVariable String englishName) {
-		God god = repo.findByEnglishName(englishName.replace('_', ' '));
-		GodDetailApi godApi = new GodDetailApi(god);
-		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, god.getId());
-		if (!images.isEmpty()) {
-			godApi.setImages(images);
-		}
-		return godApi;
+	@PostMapping(value = "/api/v1/rules/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RuleDetailApi getRule(@PathVariable String englishName) {
+		Rule god = repo.findByEnglishName(englishName.replace('_', ' '));
+		return new RuleDetailApi(god);
 	}
 }

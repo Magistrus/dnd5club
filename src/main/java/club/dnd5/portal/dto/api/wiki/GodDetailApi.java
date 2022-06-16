@@ -1,4 +1,4 @@
-package club.dnd5.portal.dto.api;
+package club.dnd5.portal.dto.api.wiki;
 
 import java.util.Collection;
 import java.util.Collections;
