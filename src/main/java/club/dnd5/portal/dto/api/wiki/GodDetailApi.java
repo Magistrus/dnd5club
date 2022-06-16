@@ -1,5 +1,6 @@
 package club.dnd5.portal.dto.api.wiki;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ import lombok.Setter;
 public class GodDetailApi extends GodApi {
 	private String description;
 	private String rank;
-	private String titles;
+	private Collection<String> titles;
 	private String symbol;
 	private Collection<String> domains;
 	private Collection<String> panteons;
@@ -34,7 +35,7 @@ public class GodDetailApi extends GodApi {
 		alignment = god.getAligment().getCyrilicName();
 		rank = String.format("%s %s", god.getRank(), god.getSex().getCyrilicName());
 		if (god.getNicknames() != null) {
-			titles = god.getNicknames();
+			titles = Arrays.asList(god.getNicknames().split(","));
 		}
 		symbol = god.getSymbol();
 		domains = god.getDomains().stream().map(Domain::getCyrilicName).collect(Collectors.toList());
