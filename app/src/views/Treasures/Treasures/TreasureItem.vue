@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="treasure-link__price">
-                    {{ treasure.cost }}
+                    {{ treasure.price }}
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
 
         &__body {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             padding: 8px 10px;
             width: 100%;
             color: var(--text-color-title);
