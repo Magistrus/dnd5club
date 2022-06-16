@@ -134,14 +134,14 @@
     </div>
 
     <vue-easy-lightbox
-        v-if="currentClass.images?.length"
-        :imgs="currentClass.images"
-        :index="images.index"
-        :visible="images.show"
+        v-if="currentClass?.images?.length"
+        :imgs="currentClass?.images"
+        :index="gallery.index"
+        :visible="gallery.show"
         loop
         move-disabled
         scroll-disabled
-        @hide="images.show = false"
+        @hide="gallery.show = false"
     >
         <template #toolbar/>
     </vue-easy-lightbox>
@@ -190,7 +190,7 @@
                 list: [],
                 modules: [FreeMode, Scrollbar, Mousewheel, A11y]
             },
-            images: {
+            gallery: {
                 show: false,
                 index: 0,
             },
@@ -277,9 +277,7 @@
                     this.tabs.list.push({
                         icon: 'tab-images',
                         order: this.tabs.length,
-                        callback: () => {
-                            this.images.show = true
-                        }
+                        callback: () => this.showGallery
                     });
                 }
 
@@ -332,6 +330,15 @@
                     block: "start",
                     behavior: "smooth"
                 });
+            },
+
+            showGallery() {
+                if (!this.currentClass?.images?.length) {
+                    return;
+                }
+
+                this.gallery.show = true;
+                this.gallery.index = 0;
             },
 
             close() {
