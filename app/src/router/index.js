@@ -146,6 +146,30 @@ const routes = [
         ]
     },
     {
+        name: 'rules',
+        path: '/rules',
+        component: () => import('@/views/Wiki/Rules/RulesView'),
+        children: [
+            {
+                name: 'ruleDetail',
+                path: ':ruleName',
+                component: () => import('@/views/Wiki/Rules/RuleDetail'),
+            }
+        ]
+    },
+    {
+        name: 'books',
+        path: '/books',
+        component: () => import('@/views/Wiki/Books/BooksView'),
+        children: [
+            {
+                name: 'bookDetail',
+                path: ':bookName',
+                component: () => import('@/views/Wiki/Books/BookDetail'),
+            }
+        ]
+    },
+    {
         name: 'treasures',
         path: '/treasures',
         component: () => import('@/views/Treasures/Treasures/TreasuresView'),

@@ -1,5 +1,6 @@
 package club.dnd5.portal.dto.api.wiki;
 
+import club.dnd5.portal.dto.api.SourceApi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -19,13 +20,11 @@ import lombok.Setter;
 public class RuleApi {
 	protected NameApi name;
 	protected String url;
-	private Boolean homebrew;
-	
+	protected SourceApi source;
+
 	public RuleApi(Rule rule) {
 		name = new NameApi(rule.getName(), rule.getEnglishName());
 		url = String.format("/rules/%s", rule.getUrlName());
-		if (rule.getBook().getType() == TypeBook.CUSTOM) {
-			homebrew = Boolean.TRUE;
-		}
+		source = new SourceApi(rule.getBook());
 	}
 }

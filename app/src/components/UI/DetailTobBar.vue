@@ -11,17 +11,19 @@
         </span>
 
         <span>
-            Источник:
+            <slot>
+                Источник:
 
-            <span
-                v-if="source.homebrew"
-                class="homebrew_text"
-            >Homebrew</span>
+                <span
+                    v-if="source.homebrew"
+                    class="homebrew_text"
+                >Homebrew</span>
 
-            <span
-                v-tooltip="{content: source.name}"
-                class="tip"
-            >{{ source.shortName }}</span>
+                <span
+                    v-tooltip="{content: source.name}"
+                    class="tip"
+                >{{ source.shortName }}</span>
+            </slot>
         </span>
     </p>
 </template>
@@ -41,7 +43,7 @@
             bgGrey: {
                 type: Boolean,
                 default: true
-            }
+            },
         }
     }
 </script>
