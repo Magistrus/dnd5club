@@ -21,7 +21,7 @@ public enum AbilityType {
 	WISDOM("Мудрость"),           // 4
 	CHARISMA("Харизма"),          // 5
 
-	CHOICE("к одной другой"),
+	CHOICE("к другой"),
 	ONE("к одной"),
 	CHOICE_UNIQUE("к 2 другим"),
 	CHOICE_DOUBLE("+2 и +1 / +1 к трем");
@@ -30,6 +30,12 @@ public enum AbilityType {
 
 	public String getShortName() {
 		switch (this) {
+			case STRENGTH:
+			case DEXTERITY:
+			case CONSTITUTION:
+			case INTELLIGENCE:
+			case CHARISMA:
+				return cyrilicName.substring(0,3);
 			case WISDOM:
 				return "Мдр";
 			case CHOICE:
@@ -37,7 +43,7 @@ public enum AbilityType {
 			case CHOICE_DOUBLE:
 				return cyrilicName;
 			default:
-				return cyrilicName.substring(0,3);
+				return "";
 		}
 	}
 
