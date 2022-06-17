@@ -1,7 +1,6 @@
 package club.dnd5.portal.model;
 
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -11,7 +10,15 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Dice {
-	d4(4), d6(6), d8(8), d10(10), d12(12), d20(20), d100(100), d3(3), d2(2);
+	d4(4),
+	d6(6),
+	d8(8),
+	d10(10),
+	d12(12),
+	d20(20),
+	d100(100),
+	d3(3),
+	d2(2);
 
 	private static Random rnd = new Random();
 

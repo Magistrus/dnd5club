@@ -66,7 +66,7 @@ public class TreasuryToolController {
 			platina = Dice.roll(3, Dice.d6) * 10;
 		} else if (cr == 3) {
 			gold = Dice.roll(4, Dice.d6) * 1000;
-			platina *= Dice.roll(5, Dice.d6) * 100;
+			platina = Dice.roll(5, Dice.d6) * 100;
 		} else if (cr == 4) {
 			gold = Dice.roll(12, Dice.d6) * 1000;
 			platina = Dice.roll(8, Dice.d6) * 1000;
@@ -79,7 +79,7 @@ public class TreasuryToolController {
 		model.addAttribute("platina", platina);
 
 		List<ItemMagicDto> things = new ArrayList<>();
-		int ri = Dice.roll(4, Dice.d100);
+		int ri = Dice.roll(Dice.d100);
 
 		if (cr == 1) {
 			if (ri >= 37 && ri <= 60) {
