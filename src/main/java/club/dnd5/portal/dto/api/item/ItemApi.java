@@ -54,4 +54,8 @@ public class ItemApi {
 		}
 		source = new SourceApi(item.getBook());
 	}
+	
+	public void changeName(String newName) {
+		name.setRus(String.format("%s %s", name.getRus(), newName));
+	}
 }
