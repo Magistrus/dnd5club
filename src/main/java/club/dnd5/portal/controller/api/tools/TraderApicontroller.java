@@ -42,17 +42,17 @@ public class TraderApicontroller {
 	public List<NameValueApi> getMagicLevels(){
 		List<NameValueApi> magicLevels = new ArrayList<>(3);
 		magicLevels.add(new NameValueApi("Мало", 0));
-		magicLevels.add(new NameValueApi("Норма", 0));
-		magicLevels.add(new NameValueApi("Много", 0));
+		magicLevels.add(new NameValueApi("Норма", 1));
+		magicLevels.add(new NameValueApi("Много", 2));
 		return magicLevels;
 	}
 	
 	@PostMapping("/api/v1/tools/trader")
 	public List<MagicItemApi> getItems(@RequestBody RequestTraderApi reques){
 		int coef = 0;
-		if (reques.getMagicLevel() == 1) {
+		if (reques.getMagicLevel() == 0) {
 			coef = -10;
-		} else if (reques.getMagicLevel() == 3) {
+		} else if (reques.getMagicLevel() == 2) {
 			coef = 10;
 		}
 		List<MagicItemApi> list = new ArrayList<>();
