@@ -1,7 +1,5 @@
 package club.dnd5.portal.dto.api.wiki;
 
-import javax.xml.transform.Source;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -20,6 +18,7 @@ public class RuleDetailApi extends RuleApi {
 	private String description;
 	private String type;
 	private SourceApi source;
+	
 	public RuleDetailApi(Rule rule) {
 		super(rule);
 		url = null;

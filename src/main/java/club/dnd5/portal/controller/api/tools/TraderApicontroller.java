@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.NameValueApi;
@@ -47,7 +48,7 @@ public class TraderApicontroller {
 	}
 	
 	@PostMapping("/api/v1/tools/trader")
-	public List<MagicItemApi> getItems(RequestTraderApi reques){
+	public List<MagicItemApi> getItems(@RequestBody RequestTraderApi reques){
 		int coef = 0;
 		if (reques.getMagicLevel() == 1) {
 			coef = -10;
