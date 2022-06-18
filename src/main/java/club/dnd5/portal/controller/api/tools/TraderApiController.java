@@ -27,7 +27,7 @@ import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 
 @RestController
-public class TraderApicontroller {
+public class TraderApiController {
 	private static final Random rnd = new Random();
 	@Autowired
 	private MagicItemDatatableRepository magicItemRepo;
