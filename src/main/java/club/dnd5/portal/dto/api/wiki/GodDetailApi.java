@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.god.Domain;
 import club.dnd5.portal.model.god.God;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class GodDetailApi extends GodApi {
 	private Collection<String> domains;
 	private Collection<String> panteons;
 	private Collection<String> images;
+	private SourceApi source;
 
 	public GodDetailApi(God god) {
 		super(god);
@@ -40,5 +42,6 @@ public class GodDetailApi extends GodApi {
 		symbol = god.getSymbol();
 		domains = god.getDomains().stream().map(Domain::getCyrilicName).collect(Collectors.toList());
 		panteons = Collections.singleton(god.getPantheon().getName());
+		source = new SourceApi(god.getBook());
 	}
 }
