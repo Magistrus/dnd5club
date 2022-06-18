@@ -67,12 +67,12 @@ public class TraderApicontroller {
 		return list;
 	}
 	
-	private List<MagicItemApi> getMagicThings(Integer result, int start, int end, String tableName, int count) {
-		if (result == null) {
-			result = 1;
+	private List<MagicItemApi> getMagicThings(Integer persuasion, int start, int end, String tableName, int count) {
+		if (persuasion == null) {
+			persuasion = 1;
 		}
 		List<MagicItemApi> list = new ArrayList<>();
-		if (result >= start) {
+		if (persuasion >= start) {
 			for (int i = 0; i < 1 + rnd.nextInt(count); i++) {
 				int ri = Dice.roll(Dice.d100);
 				// System.out.println("table= " + tableName + " in " + ri);
