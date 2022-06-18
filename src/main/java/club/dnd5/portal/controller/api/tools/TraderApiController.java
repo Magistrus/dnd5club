@@ -1,8 +1,10 @@
 package club.dnd5.portal.controller.api.tools;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,23 +57,32 @@ public class TraderApiController {
 		} else if (reques.getMagicLevel() == 2) {
 			coef = 10;
 		}
+		if (reques.getUnique() == null) {
+			reques.setUnique(Boolean.FALSE);
+		}
 		List<MagicItemApi> list = new ArrayList<>();
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 1, 5, "А", 6));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 6, 10, "Б", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 11, 15, "В", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 16, 20, "Г", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 21, 25, "Д", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 26, 30, "Е", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 31, 35, "Е1", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 36, 40, "Ж", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 41, 1000, "З", 4));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 1, 5, "А", 6, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 6, 10, "Б", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 11, 15, "В", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 16, 20, "Г", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 21, 25, "Д", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 26, 30, "Е", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 31, 35, "Е1", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 36, 40, "Ж", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 41, 1000, "З", 4, reques.getUnique()));
 		return list;
 	}
 	
-	private List<MagicItemApi> getMagicThings(Integer persuasion, int start, int end, String tableName, int count) {
+	private List<MagicItemApi> getMagicItems(Integer persuasion,
+			int start,
+			int end,
+			String tableName,
+			int count, 
+			boolean unique) {
 		if (persuasion == null) {
 			persuasion = 1;
 		}
+		Set<String> names = new HashSet<>();
 		List<MagicItemApi> list = new ArrayList<>();
 		if (persuasion >= start) {
 			for (int i = 0; i < 1 + rnd.nextInt(count); i++) {
@@ -488,7 +499,14 @@ public class TraderApiController {
 					} else if (itemApi.getName().getRus().contains("Доспех Сопротивления")) {
 						itemApi.changeName(getResistenceType());
 					}
+					if (unique) {
+						if (names.contains(itemApi.getName().getRus())) {
+							count++;
+							continue;
+						}
+					}
 					list.add(itemApi);
+					names.add(itemApi.getName().getRus());
 				}
 			}
 		}
