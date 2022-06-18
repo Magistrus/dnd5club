@@ -22,7 +22,7 @@ public class BookApi {
 	private String description;
 	public BookApi(Book book) {
 		name = new NameApi(book.getName(), book.getEnglishName());
-		url = String.format("/options/%s", book.getUrlName());
+		url = String.format("/books/%s", book.getUrlName());
 		type = new TypeApi(book.getType().getName(), book.getType().ordinal());
 	}
 }
