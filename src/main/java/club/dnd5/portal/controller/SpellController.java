@@ -1,5 +1,6 @@
 package club.dnd5.portal.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,7 @@ public class SpellController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
+		model.addAttribute("races", Collections.emptyList());
 		model.addAttribute("classes", classesMap);
 		model.addAttribute("schools", MagicSchool.values());
 		model.addAttribute("damageTypes", DamageType.getSpellDamage());
@@ -87,6 +89,7 @@ public class SpellController {
 	@GetMapping("/spells/fragment/{id}")
 	public String getSpellFragmentById(Model model, @PathVariable Integer id) throws InvalidAttributesException {
 		model.addAttribute("archetypes", archetypeSpellRepository.findAllBySpell(id));
+		model.addAttribute("races", Collections.emptyList());
 		model.addAttribute("spell", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		return "fragments/spell :: view";
 	}
@@ -94,6 +97,7 @@ public class SpellController {
 	@GetMapping("/spells/id")
 	public String getSpell(Model model, Integer id) throws InvalidAttributesException {
 		model.addAttribute("archetypes", archetypeSpellRepository.findAllBySpell(id));
+		model.addAttribute("races", Collections.emptyList());
 		model.addAttribute("spell", repository.findById(id).orElseThrow(InvalidAttributesException::new));
 		return "fragments/spell :: view";
 	}

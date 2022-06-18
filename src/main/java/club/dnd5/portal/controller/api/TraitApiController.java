@@ -33,7 +33,7 @@ public class TraitApiController {
 	private TraitDatatableRepository repo;
 	
 	@PostMapping(value = "/api/v1/traits", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<TraitApi> getBackgrounds(@RequestBody TraitRequesApi request) {
+	public List<TraitApi> getTraits(@RequestBody TraitRequesApi request) {
 		Specification<Trait> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -98,10 +98,12 @@ public class TraitApiController {
 		}
 		return repo.findAll(input, specification, specification, TraitApi::new).getData();
 	}
+	
 	@PostMapping(value = "/api/v1/traits/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public TraitDetailApi getTrait(@PathVariable String englishName) {
 		return new TraitDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
 	}
+	
 	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
 		if (specification == null) {
 			return Specification.where(addSpecification);

@@ -26,6 +26,7 @@ public class Book implements Serializable, Comparable<Book>{
 	@Column(unique = true, nullable = false)
 	private String source;
 	private String name;
+	private String altName;
 	private String englishName;
 
 	@Column(columnDefinition = "TEXT")
@@ -75,4 +76,7 @@ public class Book implements Serializable, Comparable<Book>{
 		return true;
 	}
 	
+	public String getUrlName() {
+		return englishName.replace(' ', '_');
+	}
 }

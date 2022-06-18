@@ -150,7 +150,7 @@ public class ItemMagicDto {
 		case "легендарный":
 			return (rnd.nextInt(6) + rnd.nextInt(6) + 2) * 25000;
 		default:
-			return 300000*(1 + rnd.nextInt(10));
+			return 300000 * (1 + rnd.nextInt(10));
 		}
 	}
 
