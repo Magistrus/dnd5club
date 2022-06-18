@@ -35,7 +35,7 @@ public class ItemApi {
 	}
 
 	public ItemApi(MagicItem item) {
-		name = new NameApi(item.getName(), item.getEnglishName());
+		name = new NameApi(item.getCapitalazeName(), item.getEnglishName());
 		url = String.format("/items/magic/%s", item.getEnglishName().replace(' ', '_'));
 		if (item.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;	

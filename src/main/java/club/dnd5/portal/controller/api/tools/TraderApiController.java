@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.NameValueApi;
@@ -26,7 +27,7 @@ import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 
 @RestController
-public class TraderApicontroller {
+public class TraderApiController {
 	private static final Random rnd = new Random();
 	@Autowired
 	private MagicItemDatatableRepository magicItemRepo;
@@ -41,17 +42,17 @@ public class TraderApicontroller {
 	public List<NameValueApi> getMagicLevels(){
 		List<NameValueApi> magicLevels = new ArrayList<>(3);
 		magicLevels.add(new NameValueApi("Мало", 0));
-		magicLevels.add(new NameValueApi("Норма", 0));
-		magicLevels.add(new NameValueApi("Много", 0));
+		magicLevels.add(new NameValueApi("Норма", 1));
+		magicLevels.add(new NameValueApi("Много", 2));
 		return magicLevels;
 	}
 	
 	@PostMapping("/api/v1/tools/trader")
-	public List<MagicItemApi> getItems(RequestTraderApi reques){
+	public List<MagicItemApi> getItems(@RequestBody RequestTraderApi reques){
 		int coef = 0;
-		if (reques.getMagicLevel() == 1) {
+		if (reques.getMagicLevel() == 0) {
 			coef = -10;
-		} else if (reques.getMagicLevel() == 3) {
+		} else if (reques.getMagicLevel() == 2) {
 			coef = 10;
 		}
 		List<MagicItemApi> list = new ArrayList<>();
@@ -360,7 +361,7 @@ public class TraderApicontroller {
 						} else if (rb < 11) {
 							itemApi.changeName("(снаряды для пращи)");
 						}
-					} else if (itemApi.getName().getRus().contains("Свиток Заклинания")) {
+					} else if (itemApi.getName().getRus().contains("Свиток заклинания")) {
 						if (itemApi.getName().getRus().contains("заговор")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 0, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.book.TypeBook;
-import club.dnd5.portal.model.god.God;
 import club.dnd5.portal.model.rule.Rule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
