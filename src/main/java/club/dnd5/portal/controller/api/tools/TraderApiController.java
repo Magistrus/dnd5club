@@ -361,7 +361,7 @@ public class TraderApiController {
 						} else if (rb < 11) {
 							itemApi.changeName("(снаряды для пращи)");
 						}
-					} else if (itemApi.getName().getRus().contains("Свиток Заклинания")) {
+					} else if (itemApi.getName().getRus().contains("Свиток заклинания")) {
 						if (itemApi.getName().getRus().contains("заговор")) {
 							List<Spell> spells = spellRepo.findByLevelAndBook_type((byte) 0, TypeBook.OFFICAL);
 							Spell spell = spells.get(rnd.nextInt(spells.size()));
