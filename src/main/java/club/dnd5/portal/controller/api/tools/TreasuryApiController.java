@@ -7,30 +7,34 @@ import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.NameValueApi;
+import club.dnd5.portal.dto.api.item.ItemApi;
 import club.dnd5.portal.dto.api.item.MagicItemApi;
 import club.dnd5.portal.dto.api.spell.SpellApi;
-import club.dnd5.portal.dto.api.tools.RequestTraderApi;
+import club.dnd5.portal.dto.api.tools.CoinsApi;
+import club.dnd5.portal.dto.api.tools.RequestTreasuryApi;
+import club.dnd5.portal.dto.api.tools.TreasuryApi;
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.MagicThingTable;
 import club.dnd5.portal.model.items.Rarity;
+import club.dnd5.portal.model.items.Treasure;
+import club.dnd5.portal.model.items.TreasureType;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.ItemMagicTableRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
+import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 
 @RestController
-public class TraderApiController {
-	private static final Random rnd = new Random();
+public class TreasuryApiController {
+	public static final Random rnd = new Random();
 	@Autowired
 	private MagicItemDatatableRepository magicItemRepo;
 	@Autowired
@@ -39,59 +43,351 @@ public class TraderApiController {
 	private WeaponDatatableRepository weaponRepo;
 	@Autowired
 	private ItemMagicTableRepository mtRepo;
-	
-	@GetMapping("/api/v1/tools/trader")
-	public List<NameValueApi> getMagicLevels(){
-		List<NameValueApi> magicLevels = new ArrayList<>(3);
-		magicLevels.add(new NameValueApi("Мало", 0));
-		magicLevels.add(new NameValueApi("Норма", 1));
-		magicLevels.add(new NameValueApi("Много", 2));
-		return magicLevels;
-	}
-	
-	@PostMapping("/api/v1/tools/trader")
-	public List<MagicItemApi> getItems(@RequestBody RequestTraderApi reques){
-		int coef = 0;
-		if (reques.getMagicLevel() == 0) {
-			coef = -10;
-		} else if (reques.getMagicLevel() == 2) {
-			coef = 10;
+	@Autowired
+	private TreasureDatatableRepository treasureRepo;
+
+	@PostMapping("/api/v1/tools/treasury")
+	public TreasuryApi getItems(@RequestBody RequestTreasuryApi reques) {
+		TreasuryApi treasuryApi = new TreasuryApi();
+		if (reques.getCr() == null) {
+			reques.setCr(Dice.d4.roll());
 		}
 		if (reques.getUnique() == null) {
 			reques.setUnique(Boolean.FALSE);
 		}
-		List<MagicItemApi> list = new ArrayList<>();
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 1, 5, "А", 6, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 6, 10, "Б", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 11, 15, "В", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 16, 20, "Г", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 21, 25, "Д", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 26, 30, "Е", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 31, 35, "Е1", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 36, 40, "Ж", 4, reques.getUnique()));
-		list.addAll(getMagicItems(reques.getPersuasion() + coef, 41, 1000, "З", 4, reques.getUnique()));
-		return list;
-	}
-	
-	private List<MagicItemApi> getMagicItems(Integer persuasion,
-			int start,
-			int end,
-			String tableName,
-			int count, 
-			boolean unique) {
-		if (persuasion == null) {
-			persuasion = 1;
+		if (reques.getCoins() != null && reques.getCoins()) {
+			CoinsApi coins = new CoinsApi();
+			treasuryApi.setCoins(coins);
+			switch (reques.getCr()) {
+			case 1:
+				coins.setCopper(Dice.d6.roll(6) * 100);
+				coins.setSilver(Dice.d6.roll(3) * 100);
+				coins.setGold(Dice.d6.roll(2) * 10);
+				break;
+			case 2:
+				coins.setCopper(Dice.d6.roll(2) * 100);
+				coins.setSilver(Dice.d6.roll(2) * 1000);
+				coins.setGold(Dice.d6.roll(6) * 100);
+				coins.setPlatinum(Dice.d6.roll(3) * 10);
+				break;
+			case 3:
+				coins.setGold(Dice.d6.roll(4) * 1000);
+				coins.setPlatinum(Dice.d6.roll(5) * 100);
+				break;
+			case 4:
+				coins.setGold(Dice.d6.roll(12) * 1000);
+				coins.setPlatinum(Dice.d6.roll(8) * 1000);
+				break;
+			default:
+				break;
+			}
 		}
+		if (reques.getMagicItem() != null && reques.getMagicItem()) {
+			List<MagicItemApi> magicItems = new ArrayList<>();
+			int ri = Dice.d100.roll();
+			switch (reques.getCr()) {
+			case 1:
+				if (ri >= 37 && ri <= 60) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "А", 6, reques.getUnique()));
+				} else if (ri >= 61 && ri <= 75) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Б", 4, reques.getUnique()));
+				} else if (ri >= 76 && ri <= 85) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 4, reques.getUnique()));
+				} else if (ri >= 86 && ri <= 97) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е", 4, reques.getUnique()));
+				} else if (ri >= 98 && ri <= 100) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 1, reques.getUnique()));
+				}
+				break;
+			case 2:
+				if (ri >= 29 && ri <= 44) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "А", 6, reques.getUnique()));
+				} else if (ri >= 45 && ri <= 63) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Б", 4, reques.getUnique()));
+				} else if (ri >= 64 && ri <= 74) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 4, reques.getUnique()));
+				} else if (ri >= 75 && ri <= 80) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Г", 1, reques.getUnique()));
+				} else if (ri >= 81 && ri <= 94) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е", 4, reques.getUnique()));
+				} else if (ri >= 95 && ri <= 98) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 4, reques.getUnique()));
+				} else if (ri >= 96 && ri <= 100) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Ж", 1, reques.getUnique()));
+				}
+				break;
+			case 3:
+				if (ri >= 16 && ri <= 29) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "А", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Б", 6, reques.getUnique()));
+				} else if (ri >= 30 && ri <= 50) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 6, reques.getUnique()));
+				} else if (ri >= 51 && ri <= 66) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Г", 4, reques.getUnique()));
+				} else if (ri >= 67 && ri <= 74) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Д", 1, reques.getUnique()));
+				} else if (ri >= 75 && ri <= 82) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 4, reques.getUnique()));
+				} else if (ri >= 83 && ri <= 92) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Ж", 4, reques.getUnique()));
+				} else if (ri >= 93 && ri <= 100) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "З", 1, reques.getUnique()));
+				}
+				break;
+			case 4:
+				if (ri >= 3 && ri <= 14) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 8, reques.getUnique()));
+				} else if (ri >= 15 && ri <= 46) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Г", 6, reques.getUnique()));
+				} else if (ri >= 47 && ri <= 68) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Д", 6, reques.getUnique()));
+				} else if (ri >= 69 && ri <= 72) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 6, reques.getUnique()));
+				} else if (ri >= 73 && ri <= 80) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Ж", 4, reques.getUnique()));
+				} else if (ri >= 81 && ri <= 100) {
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "З", 4, reques.getUnique()));
+				}
+				break;
+			default:
+				break;
+			}
+			treasuryApi.setMagicItems(magicItems);
+		}
+		List<ItemApi> arts = new ArrayList<>();
+		List<ItemApi> gems = new ArrayList<>();
+		int ri = Dice.d100.roll();
+		if (reques.getCr() == 1) {
+			
+			if (ri >= 7 && ri <= 16) {
+				gems.addAll(getTreasures(10, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 17 && ri <= 26) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 27 && ri <= 36) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 37 && ri <= 44) {
+				gems.addAll(getTreasures(10, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 45 && ri <= 52) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 53 && ri <= 60) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 61 && ri <= 65) {
+				gems.addAll(getTreasures(10, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 66 && ri <= 70) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 71 && ri <= 75) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 76 && ri <= 78) {
+				gems.addAll(getTreasures(10, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 79 && ri <= 80) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 81 && ri <= 85) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 86 && ri <= 92) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 93 && ri <= 97) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 2, Dice.d6));
+			} else if (ri >= 98 && ri <= 99) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri == 100) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 2, Dice.d6));
+			}
+		} else if (reques.getCr() == 2) {
+			if (ri >= 5 && ri <= 10) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 11 && ri <= 16) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 17 && ri <= 22) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 23 && ri <= 28) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 29 && ri <= 32) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 33 && ri <= 36) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 37 && ri <= 40) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 41 && ri <= 44) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 45 && ri <= 49) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 50 && ri <= 54) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 55 && ri <= 59) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 60 && ri <= 63) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 64 && ri <= 66) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 67 && ri <= 69) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 70 && ri <= 72) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 73 && ri <= 74) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 75 && ri <= 76) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 77 && ri <= 78) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri == 79) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri == 80) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 81 && ri <= 84) {
+				arts.addAll(getTreasures(25, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 85 && ri <= 88) {
+				gems.addAll(getTreasures(50, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 89 && ri <= 91) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 92 && ri <= 94) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 95 && ri <= 96) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 97 && ri <= 98) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri == 99) {
+				gems.addAll(getTreasures(100, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri == 100) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d6));
+			}
+		} else if (reques.getCr() == 3) {
+			if (ri >= 4 && ri <= 6) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 7 && ri <= 9) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 10 && ri <= 12) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 13 && ri <= 15) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 16 && ri <= 19) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 20 && ri <= 23) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 24 && ri <= 26) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 27 && ri <= 29) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 30 && ri <= 35) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 36 && ri <= 40) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 41 && ri <= 45) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 46 && ri <= 50) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 51 && ri <= 54) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 55 && ri <= 58) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 59 && ri <= 62) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 63 && ri <= 66) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 67 && ri <= 68) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 69 && ri <= 70) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 71 && ri <= 72) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 73 && ri <= 74) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 75 && ri <= 76) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 77 && ri <= 78) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 79 && ri <= 80) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 81 && ri <= 82) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 83 && ri <= 85) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 86 && ri <= 88) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 89 && ri <= 90) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 91 && ri <= 92) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 93 && ri <= 94) {
+				arts.addAll(getTreasures(250, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 95 && ri <= 96) {
+				arts.addAll(getTreasures(750, TreasureType.WORKS_OF_ART, 2, Dice.d4));
+			} else if (ri >= 97 && ri <= 98) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 99 && ri <= 100) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			}
+		} else if (reques.getCr() == 4) {
+			if (ri >= 3 && ri <= 5) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 6 && ri <= 8) {
+				arts.addAll(getTreasures(2500, TreasureType.WORKS_OF_ART, 1, Dice.d10));
+			} else if (ri >= 9 && ri <= 11) {
+				arts.addAll(getTreasures(7500, TreasureType.WORKS_OF_ART, 1, Dice.d4));
+			} else if (ri >= 12 && ri <= 14) {
+				gems.addAll(getTreasures(5000, TreasureType.GEM, 1, Dice.d8));
+			} else if (ri >= 15 && ri <= 22) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 23 && ri <= 30) {
+				arts.addAll(getTreasures(2500, TreasureType.WORKS_OF_ART, 1, Dice.d10));
+			} else if (ri >= 31 && ri <= 38) {
+				arts.addAll(getTreasures(7500, TreasureType.WORKS_OF_ART, 1, Dice.d4));
+			} else if (ri >= 39 && ri <= 46) {
+				gems.addAll(getTreasures(5000, TreasureType.GEM, 1, Dice.d8));
+			} else if (ri >= 47 && ri <= 52) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 53 && ri <= 58) {
+				arts.addAll(getTreasures(2500, TreasureType.WORKS_OF_ART, 1, Dice.d10));
+			} else if (ri >= 59 && ri <= 63) {
+				arts.addAll(getTreasures(7500, TreasureType.WORKS_OF_ART, 1, Dice.d4));
+			} else if (ri >= 64 && ri <= 68) {
+				gems.addAll(getTreasures(5000, TreasureType.GEM, 1, Dice.d8));
+			} else if (ri == 69) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri == 70) {
+				arts.addAll(getTreasures(2500, TreasureType.WORKS_OF_ART, 1, Dice.d10));
+			} else if (ri == 71) {
+				arts.addAll(getTreasures(7500, TreasureType.WORKS_OF_ART, 1, Dice.d4));
+			} else if (ri == 72) {
+				gems.addAll(getTreasures(5000, TreasureType.GEM, 1, Dice.d8));
+			} else if (ri >= 73 && ri <= 74) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 75 && ri <= 76) {
+				arts.addAll(getTreasures(2500, TreasureType.WORKS_OF_ART, 1, Dice.d10));
+			} else if (ri >= 77 && ri <= 78) {
+				arts.addAll(getTreasures(7500, TreasureType.WORKS_OF_ART, 1, Dice.d4));
+			} else if (ri >= 79 && ri <= 80) {
+				gems.addAll(getTreasures(500, TreasureType.GEM, 1, Dice.d8));
+			} else if (ri >= 81 && ri <= 85) {
+				gems.addAll(getTreasures(1000, TreasureType.GEM, 3, Dice.d6));
+			} else if (ri >= 86 && ri <= 90) {
+				arts.addAll(getTreasures(2500, TreasureType.WORKS_OF_ART, 1, Dice.d10));
+			} else if (ri >= 91 && ri <= 95) {
+				arts.addAll(getTreasures(7500, TreasureType.WORKS_OF_ART, 1, Dice.d4));
+			} else if (ri >= 96 && ri <= 100) {
+				gems.addAll(getTreasures(5000, TreasureType.GEM, 1, Dice.d8));
+			}
+			if (reques.getArt() != null && reques.getArt()) {
+				treasuryApi.setArts(arts);
+			}
+			if (reques.getGem() != null && reques.getGem()) {
+				treasuryApi.setGems(gems);
+			}
+		}
+		return treasuryApi;
+	}
+
+	private List<MagicItemApi> getMagicItems(Integer result, int start, int end, String tableName, int count,
+			boolean unique) {
 		Set<String> names = new HashSet<>();
 		List<MagicItemApi> list = new ArrayList<>();
-		if (persuasion >= start) {
+		if (result >= start) {
 			for (int i = 0; i < 1 + rnd.nextInt(count); i++) {
 				int ri = Dice.roll(Dice.d100);
 				// System.out.println("table= " + tableName + " in " + ri);
 				MagicThingTable mt = mtRepo.findOne(ri, tableName);
 				if (mt != null) {
 					MagicItemApi itemApi = new MagicItemApi(mt.getMagicThing());
-					itemApi.setCostDmg(getCost(mt.getMagicThing().getRarity()));
 					if (tableName.equals("Б")) {
 						if (ri == 91) {
 							int zap = Dice.roll(4, Dice.d4);
@@ -172,22 +468,18 @@ public class TraderApiController {
 						case 35:
 							itemApi.changeName("(кожаный)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 10);
 							break;
 						case 36:
 							itemApi.changeName("(кольчуга)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 75);
 							break;
 						case 37:
 							itemApi.changeName("(кольчужная рубаха)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 50);
 							break;
 						case 38:
 							itemApi.changeName("(чешуйчатый)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 50);
 							break;
 						case 60:
 							itemApi.changeName(getResistenceType());
@@ -207,37 +499,30 @@ public class TraderApiController {
 						case 65:
 							itemApi.changeName("(кираса)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 400);
 							break;
 						case 66:
 							itemApi.changeName("(кираса)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 400);
 							break;
 						case 67:
 							itemApi.changeName("(проклёпанная кожа)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 400);
 							break;
 						case 68:
 							itemApi.changeName("(кожаный)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 10);
 							break;
 						case 69:
 							itemApi.changeName("(кольчуга)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 75);
 							break;
 						case 70:
 							itemApi.changeName("(кольчужная рубаха)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 50);
 							break;
 						case 71:
 							itemApi.changeName("(чешуйчатый)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 50);
 							break;
 						case 89:
 							String aligment = Alignment.values()[rnd.nextInt(Alignment.values().length)]
@@ -265,55 +550,46 @@ public class TraderApiController {
 						case 43:
 							itemApi.changeName("(латы)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 1500);
 							break;
 						case 44:
 						case 45:
 							itemApi.changeName("(полулаты)");
 							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 750);
 							break;
 						case 46:
 						case 47:
 							itemApi.changeName("(чешуйчатый)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.UNCOMMON) + 50);
 							break;
 						case 48:
 						case 49:
 							itemApi.changeName("(кираса)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 400);
 							break;
 						case 50:
 						case 51:
 							itemApi.changeName("(наборной)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 200);
 							break;
 						case 52:
 						case 53:
 							itemApi.changeName("(проклёпанная кожа)");
 							itemApi.setRarity(Rarity.RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.RARE) + 45);
 							break;
 						case 54:
 						case 55:
 							itemApi.changeName("(кожаный)");
 							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 10);
 							break;
 						case 56:
 						case 57:
 							itemApi.changeName("(кольчуга)");
 							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 75);
 							break;
 						case 58:
 						case 59:
 							itemApi.changeName("(кольчужная рубаха)");
 							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-							itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 50);
 							break;
 						case 76:
 							switch (Dice.roll(Dice.d12)) {
@@ -321,41 +597,34 @@ public class TraderApiController {
 							case 2:
 								itemApi.changeName("(полулаты)");
 								itemApi.setRarity(Rarity.RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.RARE) + 750);
 								break;
 							case 3:
 							case 4:
 								itemApi.changeName("(латы)");
 								itemApi.setRarity(Rarity.RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.RARE) + 1500);
 								break;
 							case 5:
 							case 6:
 								itemApi.changeName("(проклёпанная кожа)");
 								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 7:
 							case 8:
 								itemApi.changeName("(кираса)");
 								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 9:
 							case 10:
 								itemApi.changeName("(набороной)");
 								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 11:
 								itemApi.changeName("(полулаты)");
 								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 12:
 								itemApi.changeName("(латы)");
 								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
-								itemApi.setCostDmg(getCost(Rarity.VERY_RARE) + 1550);
 								break;
 							}
 							break;
@@ -498,9 +767,8 @@ public class TraderApiController {
 						}
 					} else if (itemApi.getName().getRus().contains("Доспех cопротивления")) {
 						itemApi.changeName(getResistenceType());
-					}
-					else if (itemApi.getName().getRus().contains("Камень элементаля")) {
-						switch(Dice.roll(Dice.d4)) {
+					} else if (itemApi.getName().getRus().contains("Камень элементаля")) {
+						switch (Dice.roll(Dice.d4)) {
 						case 1:
 							itemApi.changeName("Изумруд	(элементаль воды)");
 							break;
@@ -514,10 +782,8 @@ public class TraderApiController {
 							itemApi.changeName("Красный корунд (элементаль огня)");
 							break;
 						}
-						
 					} else if (itemApi.getName().getRus().contains("Свиток защиты")) {
-						//int roll = Dice.d100.roll();
-						
+						// int roll = Dice.d100.roll();
 					}
 					if (unique) {
 						if (names.contains(itemApi.getName().getRus())) {
@@ -559,20 +825,13 @@ public class TraderApiController {
 		return "";
 	}
 
-	private int getCost(Rarity rarity) {
-		switch (rarity) {
-		case COMMON:
-			return Dice.roll(Dice.d6) * 10;
-		case UNCOMMON:
-			return Dice.roll(Dice.d6) * 100;
-		case RARE:
-			return Dice.roll(2, Dice.d10) * 1000;
-		case VERY_RARE:
-			return Dice.roll(Dice.d4) * 10000;
-		case LEGENDARY:
-			return Dice.roll(2, Dice.d6) * 25000;
-		default:
-			return 0;
+	private List<ItemApi> getTreasures(int cost, TreasureType type, int count, Dice dice) {
+		List<ItemApi> treasures = new ArrayList<>();
+		int ri = dice.roll(count);
+		for (int i = 0; i < ri; i++) {
+			List<Treasure> treasuresFind = treasureRepo.findAllByCostAndType(cost, type);
+			treasures.add(new ItemApi(treasuresFind.get(rnd.nextInt(treasuresFind.size()))));
 		}
+		return treasures;
 	}
 }
