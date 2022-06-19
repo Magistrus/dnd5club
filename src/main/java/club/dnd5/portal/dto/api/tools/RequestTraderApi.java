@@ -15,4 +15,5 @@ import lombok.Setter;
 public class RequestTraderApi {
 	private Integer magicLevel;
 	private Integer persuasion;
+	private Boolean unique;
 }

@@ -1,8 +1,10 @@
 package club.dnd5.portal.controller.api.tools;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,23 +57,32 @@ public class TraderApiController {
 		} else if (reques.getMagicLevel() == 2) {
 			coef = 10;
 		}
+		if (reques.getUnique() == null) {
+			reques.setUnique(Boolean.FALSE);
+		}
 		List<MagicItemApi> list = new ArrayList<>();
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 1, 5, "А", 6));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 6, 10, "Б", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 11, 15, "В", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 16, 20, "Г", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 21, 25, "Д", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 26, 30, "Е", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 31, 35, "Е1", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 36, 40, "Ж", 4));
-		list.addAll(getMagicThings(reques.getPersuasion() + coef, 41, 1000, "З", 4));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 1, 5, "А", 6, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 6, 10, "Б", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 11, 15, "В", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 16, 20, "Г", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 21, 25, "Д", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 26, 30, "Е", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 31, 35, "Е1", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 36, 40, "Ж", 4, reques.getUnique()));
+		list.addAll(getMagicItems(reques.getPersuasion() + coef, 41, 1000, "З", 4, reques.getUnique()));
 		return list;
 	}
 	
-	private List<MagicItemApi> getMagicThings(Integer persuasion, int start, int end, String tableName, int count) {
+	private List<MagicItemApi> getMagicItems(Integer persuasion,
+			int start,
+			int end,
+			String tableName,
+			int count, 
+			boolean unique) {
 		if (persuasion == null) {
 			persuasion = 1;
 		}
+		Set<String> names = new HashSet<>();
 		List<MagicItemApi> list = new ArrayList<>();
 		if (persuasion >= start) {
 			for (int i = 0; i < 1 + rnd.nextInt(count); i++) {
@@ -139,11 +150,11 @@ public class TraderApiController {
 							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 75);
 							break;
 						case 67:
-							itemApi.changeName("Адамантиновый Доспех (кольчужная рубаха)");
+							itemApi.changeName("(кольчужная рубаха)");
 							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 50);
 							break;
 						case 68:
-							itemApi.changeName("Адамантиновый Доспех (чещуйчатый доспех)");
+							itemApi.changeName("(чещуйчатый доспех)");
 							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 50);
 							break;
 						}
@@ -350,7 +361,7 @@ public class TraderApiController {
 							break;
 						}
 					}
-					if (itemApi.getName().getRus().contains("Боеприпасы")) {
+					if (itemApi.getName().getRus().startsWith("Боеприпасы")) {
 						int rb = Dice.roll(Dice.d12);
 						if (rb <= 6) {
 							itemApi.changeName("(стрелы)");
@@ -451,7 +462,7 @@ public class TraderApiController {
 							itemApi.changeName("(Серпентиновая сова)");
 							break;
 						}
-					} else if (itemApi.getName().getRus().contains("Зелье Сопротивления")) {
+					} else if (itemApi.getName().getRus().contains("Зелье сопротивления")) {
 						String resistType = getResistenceType();
 						switch (resistType) {
 						case "(звуку)":
@@ -485,10 +496,34 @@ public class TraderApiController {
 							itemApi = new MagicItemApi(magicItemRepo.findById(896).get());
 							break;
 						}
-					} else if (itemApi.getName().getRus().contains("Доспех Сопротивления")) {
+					} else if (itemApi.getName().getRus().contains("Доспех cопротивления")) {
 						itemApi.changeName(getResistenceType());
 					}
+					else if (itemApi.getName().getRus().contains("Камень элементаля")) {
+						switch(Dice.roll(Dice.d4)) {
+						case 1:
+							itemApi.changeName("Изумруд	(элементаль воды)");
+							break;
+						case 2:
+							itemApi.changeName("Синий сапфир элементаль воздуха");
+							break;
+						case 3:
+							itemApi.changeName("Жёлтый бриллиант (элементаль земли)");
+							break;
+						case 4:
+							itemApi.changeName("Красный корунд (элементаль огня)");
+							break;
+						}
+						
+					}
+					if (unique) {
+						if (names.contains(itemApi.getName().getRus())) {
+							count++;
+							continue;
+						}
+					}
 					list.add(itemApi);
+					names.add(itemApi.getName().getRus());
 				}
 			}
 		}
@@ -524,13 +559,13 @@ public class TraderApiController {
 	private int getCost(Rarity rarity) {
 		switch (rarity) {
 		case COMMON:
-			return Dice.roll(2, Dice.d6) * 10;
+			return Dice.roll(Dice.d6) * 10;
 		case UNCOMMON:
-			return Dice.roll(2, Dice.d6) * 100;
+			return Dice.roll(Dice.d6) * 100;
 		case RARE:
 			return Dice.roll(2, Dice.d10) * 1000;
 		case VERY_RARE:
-			return Dice.roll(2, Dice.d4) * 10000;
+			return Dice.roll(Dice.d4) * 10000;
 		case LEGENDARY:
 			return Dice.roll(2, Dice.d6) * 25000;
 		default:
