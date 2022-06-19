@@ -15,9 +15,9 @@ import lombok.Setter;
 public class RequestTreasuryApi {
 	private Integer cr;
 	private Boolean coins;
-	private Boolean magicItems;
+	private Boolean magicItem;
 	private Boolean scroll;
-	private Boolean items;
+	private Boolean item;
 	private Boolean trinket;
 	private Boolean art;
 	private Boolean gem;

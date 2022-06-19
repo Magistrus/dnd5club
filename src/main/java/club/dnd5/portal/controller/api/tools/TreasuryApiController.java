@@ -84,7 +84,7 @@ public class TreasuryApiController {
 		}
 		List<MagicItemApi> things = new ArrayList<>();
 		int ri = Dice.d100.roll();
-		if (reques.getMagicItems() != null && reques.getMagicItems()) {
+		if (reques.getMagicItem() != null && reques.getMagicItem()) {
 			switch (reques.getCr()) {
 			case 1:
 				if (ri >= 37 && ri <= 60) {
