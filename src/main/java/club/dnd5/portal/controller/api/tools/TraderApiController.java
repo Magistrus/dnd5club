@@ -542,13 +542,13 @@ public class TraderApiController {
 	private int getCost(Rarity rarity) {
 		switch (rarity) {
 		case COMMON:
-			return Dice.roll(2, Dice.d6) * 10;
+			return Dice.roll(Dice.d6) * 10;
 		case UNCOMMON:
-			return Dice.roll(2, Dice.d6) * 100;
+			return Dice.roll(Dice.d6) * 100;
 		case RARE:
 			return Dice.roll(2, Dice.d10) * 1000;
 		case VERY_RARE:
-			return Dice.roll(2, Dice.d4) * 10000;
+			return Dice.roll(Dice.d4) * 10000;
 		case LEGENDARY:
 			return Dice.roll(2, Dice.d6) * 25000;
 		default:
