@@ -150,11 +150,11 @@ public class TraderApiController {
 							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 75);
 							break;
 						case 67:
-							itemApi.changeName("Адамантиновый Доспех (кольчужная рубаха)");
+							itemApi.changeName("(кольчужная рубаха)");
 							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 50);
 							break;
 						case 68:
-							itemApi.changeName("Адамантиновый Доспех (чещуйчатый доспех)");
+							itemApi.changeName("(чещуйчатый доспех)");
 							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 50);
 							break;
 						}
@@ -498,6 +498,23 @@ public class TraderApiController {
 						}
 					} else if (itemApi.getName().getRus().contains("Доспех cопротивления")) {
 						itemApi.changeName(getResistenceType());
+					}
+					else if (itemApi.getName().getRus().contains("Камень элементаля")) {
+						switch(Dice.roll(Dice.d4)) {
+						case 1:
+							itemApi.changeName("Изумруд	(элементаль воды)");
+							break;
+						case 2:
+							itemApi.changeName("Синий сапфир элементаль воздуха");
+							break;
+						case 3:
+							itemApi.changeName("Жёлтый бриллиант (элементаль земли)");
+							break;
+						case 4:
+							itemApi.changeName("Красный корунд (элементаль огня)");
+							break;
+						}
+						
 					}
 					if (unique) {
 						if (names.contains(itemApi.getName().getRus())) {
