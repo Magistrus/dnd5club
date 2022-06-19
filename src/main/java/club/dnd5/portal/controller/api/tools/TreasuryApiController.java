@@ -82,81 +82,84 @@ public class TreasuryApiController {
 				break;
 			}
 		}
-		List<MagicItemApi> things = new ArrayList<>();
-		int ri = Dice.d100.roll();
 		if (reques.getMagicItem() != null && reques.getMagicItem()) {
+			List<MagicItemApi> magicItems = new ArrayList<>();
+			int ri = Dice.d100.roll();
 			switch (reques.getCr()) {
 			case 1:
 				if (ri >= 37 && ri <= 60) {
-					things.addAll(getMagicItems(ri, 1, 1000, "А", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "А", 6, reques.getUnique()));
 				} else if (ri >= 61 && ri <= 75) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Б", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Б", 4, reques.getUnique()));
 				} else if (ri >= 76 && ri <= 85) {
-					things.addAll(getMagicItems(ri, 1, 1000, "В", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 4, reques.getUnique()));
 				} else if (ri >= 86 && ri <= 97) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Е", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е", 4, reques.getUnique()));
 				} else if (ri >= 98 && ri <= 100) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Е1", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 1, reques.getUnique()));
 				}
 				break;
 			case 2:
 				if (ri >= 29 && ri <= 44) {
-					things.addAll(getMagicItems(ri, 1, 1000, "А", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "А", 6, reques.getUnique()));
 				} else if (ri >= 45 && ri <= 63) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Б", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Б", 4, reques.getUnique()));
 				} else if (ri >= 64 && ri <= 74) {
-					things.addAll(getMagicItems(ri, 1, 1000, "В", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 4, reques.getUnique()));
 				} else if (ri >= 75 && ri <= 80) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Г", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Г", 1, reques.getUnique()));
 				} else if (ri >= 81 && ri <= 94) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Е", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е", 4, reques.getUnique()));
 				} else if (ri >= 95 && ri <= 98) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Е1", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 4, reques.getUnique()));
 				} else if (ri >= 96 && ri <= 100) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Ж", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Ж", 1, reques.getUnique()));
 				}
 				break;
 			case 3:
 				if (ri >= 16 && ri <= 29) {
-					things.addAll(getMagicItems(ri, 1, 1000, "А", 4, reques.getUnique()));
-					things.addAll(getMagicItems(ri, 1, 1000, "Б", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "А", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Б", 6, reques.getUnique()));
 				} else if (ri >= 30 && ri <= 50) {
-					things.addAll(getMagicItems(ri, 1, 1000, "В", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 6, reques.getUnique()));
 				} else if (ri >= 51 && ri <= 66) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Г", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Г", 4, reques.getUnique()));
 				} else if (ri >= 67 && ri <= 74) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Д", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Д", 1, reques.getUnique()));
 				} else if (ri >= 75 && ri <= 82) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Е", 1, reques.getUnique()));
-					things.addAll(getMagicItems(ri, 1, 1000, "Е1", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 4, reques.getUnique()));
 				} else if (ri >= 83 && ri <= 92) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Ж", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Ж", 4, reques.getUnique()));
 				} else if (ri >= 93 && ri <= 100) {
-					things.addAll(getMagicItems(ri, 1, 1000, "З", 1, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "З", 1, reques.getUnique()));
 				}
 				break;
 			case 4:
 				if (ri >= 3 && ri <= 14) {
-					things.addAll(getMagicItems(ri, 1, 1000, "В", 8, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "В", 8, reques.getUnique()));
 				} else if (ri >= 15 && ri <= 46) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Г", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Г", 6, reques.getUnique()));
 				} else if (ri >= 47 && ri <= 68) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Д", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Д", 6, reques.getUnique()));
 				} else if (ri >= 69 && ri <= 72) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Е1", 6, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Е1", 6, reques.getUnique()));
 				} else if (ri >= 73 && ri <= 80) {
-					things.addAll(getMagicItems(ri, 1, 1000, "Ж", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "Ж", 4, reques.getUnique()));
 				} else if (ri >= 81 && ri <= 100) {
-					things.addAll(getMagicItems(ri, 1, 1000, "З", 4, reques.getUnique()));
+					magicItems.addAll(getMagicItems(ri, 1, 1000, "З", 4, reques.getUnique()));
 				}
 				break;
 			default:
 				break;
 			}
+			treasuryApi.setMagicItems(magicItems);
 		}
 		List<ItemApi> arts = new ArrayList<>();
 		List<ItemApi> gems = new ArrayList<>();
+		int ri = Dice.d100.roll();
 		if (reques.getCr() == 1) {
+			
 			if (ri >= 7 && ri <= 16) {
 				gems.addAll(getTreasures(10, TreasureType.GEM, 2, Dice.d6));
 			} else if (ri >= 17 && ri <= 26) {
