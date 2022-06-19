@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
 import club.dnd5.portal.model.Alignment;
+import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.MagicThingTable;
 import club.dnd5.portal.model.items.Rarity;
@@ -71,7 +72,7 @@ public class TraderToolController {
 		List<ItemMagicDto> list = new ArrayList<>();
 		if (result >= start) {
 			for (int i = 0; i < 1 + rnd.nextInt(count); i++) {
-				int ri = 1 + rnd.nextInt(100);
+				int ri = Dice.roll(Dice.d100);
 				// System.out.println("table= " + tableName + " in " + ri);
 				MagicThingTable mt = mtRepo.findOne(ri, tableName);
 				if (mt != null) {
@@ -79,14 +80,14 @@ public class TraderToolController {
 					dto.setCost(getCost(mt.getMagicThing().getRarity()));
 					if (tableName.equals("Б")) {
 						if (ri == 91) {
-							int zap = 4 + rnd.nextInt(4) + rnd.nextInt(4) + rnd.nextInt(4) + rnd.nextInt(4);
+							int zap = Dice.roll(4, Dice.d4);
 							dto.setName(dto.getName() + "(дополнительных заплаток " + zap + ")");
 						}
 					}
 					if (tableName.equals("В")) {
 						if (ri >= 82 && ri <= 84) {
 							String effect = "";
-							int er = 1 + rnd.nextInt(100);
+							int er = Dice.roll(Dice.d100);
 							if (er <= 15) {
 								effect = "веер";
 							} else if (er <= 40) {
@@ -103,7 +104,7 @@ public class TraderToolController {
 							dto.setName(dto.getName() + " (Эффект: " + effect + ")");
 						} else if (ri >= 85 && ri <= 87) {
 							String effect = "";
-							int er = 1 + rnd.nextInt(100);
+							int er = Dice.roll(Dice.d100);
 							if (er <= 10) {
 								effect = "Аберрации";
 							} else if (er <= 20) {
@@ -126,7 +127,7 @@ public class TraderToolController {
 							dto.setName(dto.getName() + " (Вид существ: " + effect + ")");
 						} else if (ri >= 88 && ri <= 89) {
 							dto.setName(dto.getName() + " (Бобов: "
-									+ (3 + rnd.nextInt(4) + rnd.nextInt(4) + rnd.nextInt(4)) + ")");
+									+ Dice.roll(2, Dice.d4) + ")");
 						}
 					}
 					if (tableName.equals("E")) {
@@ -231,7 +232,7 @@ public class TraderToolController {
 							dto.setName(dto.getName() + "(Мировоззрение: " + aligment + ")");
 							break;
 						case 91:
-							int rg = 1 + rnd.nextInt(20);
+							int rg = Dice.roll(Dice.d20);
 							String golemType = "";
 							if (rg >= 1 && rg <= 5)
 								golemType = "Глинянный";
@@ -302,7 +303,7 @@ public class TraderToolController {
 							dto.setCost(getCost(Rarity.VERY_RARE) + 50);
 							break;
 						case 76:
-							switch (1 + rnd.nextInt(12)) {
+							switch (Dice.roll(Dice.d12)) {
 							case 1:
 							case 2:
 								dto.setName("Доспех +2 (полулаты)");
@@ -348,7 +349,7 @@ public class TraderToolController {
 						}
 					}
 					if (dto.getName().contains("Боеприпасы")) {
-						int rb = rnd.nextInt(12);
+						int rb = Dice.roll(Dice.d12);
 						if (rb <= 6) {
 							dto.setName(dto.getName() + " (стрелы)");
 						} else if (rb < 9) {
@@ -434,7 +435,7 @@ public class TraderToolController {
 						Weapon weapon = weapons.get(rnd.nextInt(weapons.size()));
 						dto.setName(dto.getName() + " (" + weapon.getName().toLowerCase() + ")");
 					} else if (tableName.equals("Е1") && ri >= 12 && ri <= 14) {
-						switch (1 + rnd.nextInt(8)) {
+						switch (Dice.roll(Dice.d8)) {
 						case 1:
 							dto.setName("Статуэтка чудесной силы " + "(Бронзовый грифон)");
 							break;
@@ -504,7 +505,7 @@ public class TraderToolController {
 	}
 
 	private String getResistenceType() {
-		switch (1 + rnd.nextInt(10)) {
+		switch (Dice.roll(Dice.d10)) {
 		case 1:
 			return "(звуку)";
 		case 2:
@@ -532,15 +533,15 @@ public class TraderToolController {
 	private int getCost(Rarity rarity) {
 		switch (rarity) {
 		case COMMON:
-			return (2 + rnd.nextInt(6)) * 10;
+			return Dice.roll(2, Dice.d6) * 10;
 		case UNCOMMON:
-			return (2 + rnd.nextInt(6)) * 100;
+			return Dice.roll(2, Dice.d6) * 100;
 		case RARE:
-			return (2 + rnd.nextInt(10) + rnd.nextInt(10)) * 1000;
+			return Dice.roll(2, Dice.d10) * 1000;
 		case VERY_RARE:
-			return (2 + rnd.nextInt(4)) * 10000;
+			return Dice.roll(2, Dice.d4) * 10000;
 		case LEGENDARY:
-			return (2 + rnd.nextInt(6) + rnd.nextInt(6)) * 25000;
+			return Dice.roll(2, Dice.d6) * 25000;
 		default:
 			return 0;
 		}

@@ -33,7 +33,7 @@ public class OptionApiController {
 	private OptionDatatableRepository repo;
 	
 	@PostMapping(value = "/api/v1/options", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OptionApi> getSpells(@RequestBody OptionRequesApi request) {
+	public List<OptionApi> getOptions(@RequestBody OptionRequesApi request) {
 		Specification<Option> specification = null;
 
 		DataTablesInput input = new DataTablesInput();

@@ -1,12 +1,9 @@
-package club.dnd5.portal.controller.api.item;
+package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,30 +17,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.item.MagicItemApi;
-import club.dnd5.portal.dto.api.item.MagicItemDetailApi;
-import club.dnd5.portal.dto.api.item.WeaponRequesApi;
+import club.dnd5.portal.dto.api.BookApi;
+import club.dnd5.portal.dto.api.BookRequestApi;
 import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.image.ImageType;
-import club.dnd5.portal.model.items.MagicItem;
-import club.dnd5.portal.model.splells.Spell;
-import club.dnd5.portal.repository.ImageRepository;
-import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
+import club.dnd5.portal.repository.datatable.BookDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
-public class MagicItemApiController {
+public class BookApiController {
 	@Autowired
-	private MagicItemDatatableRepository repo;
-	@Autowired
-	private ImageRepository imageRepo;
+	private BookDatatableRepository repo;
 
-	@PostMapping(value = "/api/v1/items/magic", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MagicItemApi> getItems(@RequestBody WeaponRequesApi request) {
-		Specification<MagicItem> specification = null;
+	@PostMapping(value = "/api/v1/books", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<BookApi> getBooks(@RequestBody BookRequestApi request) {
+		Specification<Book> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<>(3);
+		List<Column> columns = new ArrayList<Column>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
@@ -69,8 +59,8 @@ public class MagicItemApiController {
 
 		input.setColumns(columns);
 		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
-		if (request.getPage() != null && request.getLimit()!=null) {
-			input.setStart(request.getPage() * request.getLimit());	
+		if (request.getPage() != null && request.getLimit() != null) {
+			input.setStart(request.getPage() * request.getLimit());
 		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
@@ -83,16 +73,8 @@ public class MagicItemApiController {
 				}
 			}
 		}
-		if (request.getFilter() != null) {
-
-			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-					Join<Book, Spell> join = root.join("book", JoinType.INNER);
-					return join.get("source").in(request.getFilter().getBooks());
-				});
-			}
-		}
 		if (request.getOrders() != null && !request.getOrders().isEmpty()) {
+
 			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField()))
@@ -102,17 +84,14 @@ public class MagicItemApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, MagicItemApi::new).getData();
+		return repo.findAll(input, specification, specification, BookApi::new).getData();
 	}
 
-	@PostMapping(value = "/api/v1/items/magic/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MagicItemDetailApi getItem(@PathVariable String englishName) {
-		MagicItem item = repo.findByEnglishName(englishName.replace('_', ' '));
-		MagicItemDetailApi itemApi = new MagicItemDetailApi(item);
-		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
-		if (!images.isEmpty()) {
-			itemApi.setImages(images);
-		}
-		return itemApi;
+	@PostMapping(value = "/api/v1/books/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public BookApi getBook(@PathVariable String englishName) {
+		Book book = repo.findByEnglishName(englishName.replace('_', ' '));
+		BookApi bookApi = new BookApi(book);
+		bookApi.setDescription(book.getDescription());
+		return bookApi;
 	}
 }

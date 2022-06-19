@@ -26,6 +26,7 @@ import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class BackgroundApiController {
@@ -78,7 +79,7 @@ public class BackgroundApiController {
 		}
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
@@ -86,7 +87,7 @@ public class BackgroundApiController {
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
-			specification = addSpecification(specification, (root, query, cb) -> {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
 							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
@@ -102,12 +103,5 @@ public class BackgroundApiController {
 	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public BackgroundDetailApi getBackground(@PathVariable String englishName) {
 		return new BackgroundDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
-	}
-
-	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
-		if (specification == null) {
-			return Specification.where(addSpecification);
-		}
-		return specification.and(addSpecification);
 	}
 }
