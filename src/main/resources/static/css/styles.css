@@ -2509,6 +2509,10 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/aasimar_mpmm.webp);
 }
 
+#left_block.races .table_card tr td .Aven.wrapper:before {
+  background-image: url(/resources/assets/img/races/aven.webp);
+}
+
 #left_block.races .table_card tr td .Autognome.wrapper:before {
   background-image: url(/resources/assets/img/races/autognome.webp);
 }
@@ -2717,6 +2721,10 @@ table.table_card tr.dtrg-group {
   background-image: url(/resources/assets/img/races/sea_elf_mpmm.webp);
 }
 
+#left_block.races .table_card tr td .Naga.wrapper:before {
+  background-image: url(/resources/assets/img/races/naga.webp);
+}
+
 #left_block.races .table_card tr td .Undead.wrapper:before {
   background-image: url(/resources/assets/img/races/undead.webp);
 }
@@ -2847,6 +2855,10 @@ table.table_card tr.dtrg-group {
 
 #left_block.races .table_card tr td .Hadozee.wrapper:before {
   background-image: url(/resources/assets/img/races/hadozee.webp);
+}
+
+#left_block.races .table_card tr td .Khenra.wrapper:before {
+  background-image: url(/resources/assets/img/races/khenra.webp);
 }
 
 #left_block.races .table_card tr td .Hobgoblin.wrapper:before {
