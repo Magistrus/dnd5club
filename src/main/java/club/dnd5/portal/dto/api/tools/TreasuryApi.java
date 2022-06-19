@@ -21,4 +21,5 @@ public class TreasuryApi {
 	private Collection<MagicItemApi> magicItems;
 	private Collection<ItemApi> gems;
 	private Collection<ItemApi> arts;
+	private Collection<ItemApi> trinkets;
 }
