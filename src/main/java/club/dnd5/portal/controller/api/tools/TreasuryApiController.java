@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.tools;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -159,7 +160,6 @@ public class TreasuryApiController {
 		List<ItemApi> gems = new ArrayList<>();
 		int ri = Dice.d100.roll();
 		if (reques.getCr() == 1) {
-			
 			if (ri >= 7 && ri <= 16) {
 				gems.addAll(getTreasures(10, TreasureType.GEM, 2, Dice.d6));
 			} else if (ri >= 17 && ri <= 26) {
@@ -367,12 +367,20 @@ public class TreasuryApiController {
 			} else if (ri >= 96 && ri <= 100) {
 				gems.addAll(getTreasures(5000, TreasureType.GEM, 1, Dice.d8));
 			}
-			if (reques.getArt() != null && reques.getArt()) {
-				treasuryApi.setArts(arts);
+		}
+		if (reques.getArt() != null && reques.getArt()) {
+			treasuryApi.setArts(arts);
+		}
+		if (reques.getGem() != null && reques.getGem()) {
+			treasuryApi.setGems(gems);
+		}
+		if (reques.getTrinket() != null && reques.getTrinket()) {
+			List<Treasure> items = treasureRepo.findAllByTypeIn(EnumSet.range(TreasureType.BAUBLE, TreasureType.IDR_TRINKET));
+			List<ItemApi> trinkets = new ArrayList<>();
+			for (int i = 0; i < 1 + Dice.d12.roll(); i++) {
+				trinkets.add(new ItemApi(items.get(rnd.nextInt(items.size()))));
 			}
-			if (reques.getGem() != null && reques.getGem()) {
-				treasuryApi.setGems(gems);
-			}
+			treasuryApi.setTrinkets(trinkets);
 		}
 		return treasuryApi;
 	}
