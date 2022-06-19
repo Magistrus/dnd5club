@@ -361,7 +361,7 @@ public class TraderApiController {
 							break;
 						}
 					}
-					if (itemApi.getName().getRus().contains("Боеприпасы")) {
+					if (itemApi.getName().getRus().startsWith("Боеприпасы")) {
 						int rb = Dice.roll(Dice.d12);
 						if (rb <= 6) {
 							itemApi.changeName("(стрелы)");
@@ -462,7 +462,7 @@ public class TraderApiController {
 							itemApi.changeName("(Серпентиновая сова)");
 							break;
 						}
-					} else if (itemApi.getName().getRus().contains("Зелье Сопротивления")) {
+					} else if (itemApi.getName().getRus().contains("Зелье сопротивления")) {
 						String resistType = getResistenceType();
 						switch (resistType) {
 						case "(звуку)":
@@ -496,7 +496,7 @@ public class TraderApiController {
 							itemApi = new MagicItemApi(magicItemRepo.findById(896).get());
 							break;
 						}
-					} else if (itemApi.getName().getRus().contains("Доспех Сопротивления")) {
+					} else if (itemApi.getName().getRus().contains("Доспех cопротивления")) {
 						itemApi.changeName(getResistenceType());
 					}
 					if (unique) {
