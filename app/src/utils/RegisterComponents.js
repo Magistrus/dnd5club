@@ -16,7 +16,8 @@ import MagicItemsView from '@/views/Treasures/MagicItems/MagicItemsView';
 import TreasuresView from '@/views/Treasures/Treasures/TreasuresView';
 import GodsView from '@/views/Wiki/Gods/GodsView';
 import RulesView from '@/views/Wiki/Rules/RulesView';
-import SourcesView from '@/views/Wiki/Books/SourcesView';
+import BooksView from '@/views/Wiki/Books/BooksView';
+import TraderView from '@/views/Tools/Trader/TraderView';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -35,7 +36,8 @@ export default function registerComponents(app) {
     app.component('TreasuresView', TreasuresView);
     app.component('GodsView', GodsView);
     app.component('RulesView', RulesView);
-    app.component('SourcesView', SourcesView);
+    app.component('BooksView', BooksView);
+    app.component('TraderView', TraderView);
 
     // Components
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);

@@ -174,6 +174,11 @@ const routes = [
         path: '/treasures',
         component: () => import('@/views/Treasures/Treasures/TreasuresView'),
     },
+    {
+        name: 'trader',
+        path: '/tools/trader',
+        component: () => import('@/views/Tools/Trader/TraderView'),
+    },
 ];
 
 const router = createRouter({

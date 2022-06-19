@@ -30,6 +30,13 @@
                 </div>
 
                 <div
+                    v-if="$slots.fixed"
+                    class="content-layout__fixed"
+                >
+                    <slot name="fixed"/>
+                </div>
+
+                <div
                     ref="items"
                     class="content-layout__items"
                 >
@@ -38,11 +45,13 @@
             </div>
 
             <div
-                v-if="showRightSide"
+                v-if="rightBlockVisible"
                 id="right_block"
                 class="content-layout__selected"
             >
-                <router-view/>
+                <router-view v-if="!$slots['right-side']"/>
+
+                <slot name="right-side"/>
             </div>
         </div>
     </div>
@@ -76,11 +85,15 @@
         computed: {
             layoutClasses() {
                 return {
-                    'is-showed-right-side': this.showRightSide,
+                    'is-showed-right-side': this.rightBlockVisible,
                     'is-fullscreen': this.uiStore.getContentConfig.fullscreen,
                     'is-small': !this.uiStore.getContentConfig.fullscreen,
                 }
             },
+
+            rightBlockVisible() {
+                return this.showRightSide || !!this.$slots['right-side']
+            }
         },
         updated() {
             if (!this.filterInstalled && this.$refs.filter) {
