@@ -44,7 +44,6 @@ public class ItemApi {
 
 	public ItemApi(Treasure item) {
 		name = new NameApi(item.getName(), item.getEnglishName());
-		url = String.format("/items/magic/%s", item.getEnglishName().replace(' ', '_'));
 		if (item.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;	
 		}
