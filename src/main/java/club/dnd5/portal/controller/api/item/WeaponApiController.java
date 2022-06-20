@@ -33,7 +33,7 @@ public class WeaponApiController {
 	private WeaponDatatableRepository repo;
 	
 	@PostMapping(value = "/api/v1/weapons", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<WeaponApi> getItem(@RequestBody WeaponRequesApi request) {
+	public List<WeaponApi> getWeapon(@RequestBody WeaponRequesApi request) {
 		Specification<Weapon> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -62,7 +62,10 @@ public class WeaponApiController {
 		columns.add(column);
 		
 		input.setColumns(columns);
-		input.setLength(-1);
+		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
+		if (request.getPage() != null && request.getLimit()!=null) {
+			input.setStart(request.getPage() * request.getLimit());	
+		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -97,7 +100,7 @@ public class WeaponApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/weapons/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public WeaponDetailApi getOption(@PathVariable String englishName) {
+	public WeaponDetailApi getWeapon(@PathVariable String englishName) {
 		return new WeaponDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
 	}
 	

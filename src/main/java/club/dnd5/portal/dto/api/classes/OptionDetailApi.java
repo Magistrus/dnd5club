@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.spell.ReferenceClassApi;
 import club.dnd5.portal.model.classes.Option;
 import lombok.Getter;
@@ -21,14 +21,14 @@ import lombok.Setter;
 public class OptionDetailApi extends OptionApi {
 	private String requirements ;
 	private String description;
-	private SourceApiDto source;
+	private SourceApi source;
 	private List<ReferenceClassApi> classes;
 
 	public OptionDetailApi(Option option) {
 		super(option);
 		url = null;
 		description = option.getDescription();
-		source = new SourceApiDto(option.getBook());
+		source = new SourceApi(option.getBook());
 		requirements = option.getPrerequisite();
 		classes = option.getOptionTypes().stream().map(ReferenceClassApi::new).collect(Collectors.toList());
 	}

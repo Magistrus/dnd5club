@@ -29,9 +29,9 @@ public class Treasure {
 	private String name;
 	@Column(unique = true)
 	private String englishName;
-	@Column(columnDefinition = "TEXT")
-	private String description;
-	private int cost;
+	private String altName;
+
+	private Integer cost;
 	
 	@Enumerated(EnumType.STRING)
 	private TreasureType type;

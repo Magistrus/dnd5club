@@ -3,7 +3,7 @@ package club.dnd5.portal.dto.api.item;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApiDto;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.items.Armor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ArmorDetailApi extends ArmorApi {
-	private SourceApiDto source;
+	private SourceApi source;
 	private Float weight;
 	private String description;
 	private Boolean disadvantage;
@@ -25,7 +25,7 @@ public class ArmorDetailApi extends ArmorApi {
 	public ArmorDetailApi(Armor armor) {
 		super(armor);
 		url = null;
-		source = new SourceApiDto(armor.getBook());
+		source = new SourceApi(armor.getBook());
 		weight = armor.getWeight();
 		description = armor.getDescription();
 		if (armor.isStelsHindrance()) {

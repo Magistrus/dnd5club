@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.thymeleaf.util.StringUtils;
+
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.classes.HeroClass;
 import lombok.Getter;
@@ -88,7 +90,11 @@ public class MagicItem {
 	public int getBaseCost() {
 		return cost;
 	}
-
+	
+	public String getCapitalazeName() {
+		return StringUtils.capitalize(name.toLowerCase());
+	}
+	
 	@Override
 	public String toString() {
 		return name.toLowerCase();

@@ -21,12 +21,17 @@ $(document).ready(function () {
                 data: "name",
                 render: function (data, type, row) {
                     if (type === 'display') {
-                        let result = '<div class="wrapper"><i class="info_block">' + row.icon + '</i>';
-                        result += '<div class="content"><h3 class="row_name"><span><span class="name">' + row.name;
-                        result += '</span> <ename>[' + row.englishName + ']</ename></span><span class="books tip" title="' + row.book + '">' + row.bookshort + '</span></h3>';
-                        result += '<div class="two_row"><span>' + row.ability + '</span></div></div>';
+                        let result = '';
                         if (row.hasSubraces == true) {
-                            result += '<button class="open tip" title="Разновидности" data-tipped-options="position: \'left\'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 14L11.2929 19.2929C11.6834 19.6834 12.3166 19.6834 12.7071 19.2929L18 14M12 11V11C13.6569 11 15 9.65685 15 8V8C15 6.34315 13.6569 5 12 5V5C10.3431 5 9 6.34315 9 8V8C9 9.65685 10.3431 11 12 11Z" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
+                        	result +='<button class="open tip" title="Разновидности" data-tipped-options="position: \'left\'"><svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12M12 12V7M12 12L12 17M12 12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12H12L17 12" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+                        }
+                        result += '<div class="wrapper ' + row.englishName.split(' ').join('_') + '">';
+                        result += '<div class="content"><h3 class="row_name"><span class="name">' + row.name;
+                        result += '</span></h3>';
+                        result += '<div class="two_row"><ename>' + row.englishName + '</ename></div>';
+                        result += '<div class="bottom_row"><span class="books tip" title="' + row.book + '"  data-tipped-options="position: \'right\'">' + row.bookshort + '</span> <span>' + row.ability + '</span></div></div>';
+                        if (row.hasSubraces == true) {
+                            result += '</div>';
                             result += '<div class="archetypes"><div class="main">';
                             if (row.subraces.length > 0) {
                                 result += '<div class="archetype_list"><h4>Основное:</h4><ul>';

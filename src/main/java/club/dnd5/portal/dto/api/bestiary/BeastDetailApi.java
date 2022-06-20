@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import club.dnd5.portal.dto.api.NameValueApi;
-import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.Language;
 import club.dnd5.portal.model.creature.Action;
 import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Condition;
@@ -24,12 +24,14 @@ import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"name", "size", "type", "str", "dex", "con", "int", "wiz", "cha"})
+
 @NoArgsConstructor
 @Getter
 @Setter
 public class BeastDetailApi extends BeastApi {
+	private int id;
 	private Integer experience;
-	private String size;
+	private SizeApi size;
 	private String alignment;
 	private Byte armorClass;
 	private Collection<String> armors;
@@ -46,26 +48,31 @@ public class BeastDetailApi extends BeastApi {
 	private Collection<String> damageVulnerabilities;
 	private Collection<String> conditionImmunities;
 	private SenseApi senses;
+	private Collection<String> language;
 	
 	private Collection<NameValueApi> feats;
 	private Collection<NameValueApi> actions;
 	private Collection<NameValueApi> reactions;
 	private Collection<NameValueApi> bonusActions;
-	private Collection<NameValueApi> legendary;
+	private LegendaryApi legendary;
 	private Collection<NameValueApi> mysticalActions;
 	
 	private String description;
+	private Collection<TagApi> tags;
 	
 	private Collection<String> environment;
 	private Collection<String> images;
+	private SourceApi source;
+	private LairApi lair;
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
-		size = beast.getSizeName();
+		id = beast.getId();
+		size = new SizeApi(beast.getSizeName(), beast.getSize().name().toLowerCase(), beast.getSize().getCell());
 		experience = beast.getExp();
 		alignment = beast.getAligment();
 		armorClass = beast.getAC();
-		
+		setType(new TypeDetailApi(beast));
 		if (!beast.getArmorTypes().isEmpty()) {
 			armors = beast.getArmorTypes().stream().map(ArmorType::getCyrillicName).collect(Collectors.toList());
 		}
@@ -106,7 +113,7 @@ public class BeastDetailApi extends BeastApi {
 			damageImmunities = beast.getImmunityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
 		if (!beast.getVulnerabilityDamages().isEmpty()) {
-			damageImmunities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
+			damageVulnerabilities = beast.getVulnerabilityDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());
 		}
 		if (!beast.getImmunityStates().isEmpty()) {
 			conditionImmunities = beast.getImmunityStates().stream().map(Condition::getCyrilicName).collect(Collectors.toList());
@@ -129,7 +136,11 @@ public class BeastDetailApi extends BeastApi {
 		}
 		actionsBeast = beast.getActions(ActionType.LEGENDARY);
 		if (!actionsBeast.isEmpty()) {
-			legendary = actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList());
+			legendary = new LegendaryApi();
+			legendary.setList(actionsBeast.stream().map(action -> new NameValueApi(action.getName(), action.getDescription())).collect(Collectors.toList()));
+			if (beast.getLegendary() != null) {
+				legendary.setDescription(beast.getLegendary());
+			}
 		}
 		actionsBeast = beast.getActions(ActionType.MYSTICAL);
 		if (!actionsBeast.isEmpty()) {
@@ -138,6 +149,16 @@ public class BeastDetailApi extends BeastApi {
 		description = beast.getDescription();
 		if (!beast.getHabitates().isEmpty()) {
 			environment = beast.getHabitates().stream().map(HabitatType::getName).collect(Collectors.toList());	
+		}
+		source = new SourceApi(beast.getBook());
+		if (beast.getLair() != null) {
+			lair = new LairApi(beast.getLair());
+		}
+		if (!beast.getRaces().isEmpty()) {
+			tags = beast.getRaces().stream().map(TagApi::new).collect(Collectors.toList());
+		}
+		if (!beast.getLanguages().isEmpty()) {
+			language = 	beast.getLanguages().stream().map(Language::getName).collect(Collectors.toList());
 		}
 	}
 }

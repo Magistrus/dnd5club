@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import club.dnd5.portal.dto.item.ItemMagicDto;
 import club.dnd5.portal.model.Alignment;
+import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.MagicThingTable;
 import club.dnd5.portal.model.items.Rarity;
@@ -47,7 +48,7 @@ public class TreasuryToolController {
 	@GetMapping("/tools/treasury/random")
 	public String getTreasures(Model model, Integer cr) {
 		if (cr == null) {
-			cr = 1 + rnd.nextInt(4);
+			cr = Dice.roll(Dice.d4);
 		}
 		int coper = 0;
 		int silver = 0;
@@ -55,53 +56,20 @@ public class TreasuryToolController {
 		int electrum = 0;
 		int platina = 0;
 		if (cr == 1) {
-			for (int i = 0; i < 6; i++) {
-				coper += 1 + rnd.nextInt(6);
-			}
-			coper *= 100;
-			for (int i = 0; i < 3; i++) {
-				silver += 1 + rnd.nextInt(6);
-			}
-			silver *= 100;
-			for (int i = 0; i < 2; i++) {
-				gold += 1 + rnd.nextInt(6);
-			}
-			gold *= 10;
+			coper = Dice.roll(6, Dice.d6) * 100;
+			silver = Dice.roll(3, Dice.d6) * 100;
+			gold = Dice.roll(2, Dice.d6) * 10;
 		} else if (cr == 2) {
-			for (int i = 0; i < 2; i++) {
-				coper += 1 + rnd.nextInt(6);
-			}
-			coper *= 100;
-			for (int i = 0; i < 2; i++) {
-				silver += 1 + rnd.nextInt(6);
-			}
-			silver *= 1000;
-			for (int i = 0; i < 6; i++) {
-				gold += 1 + rnd.nextInt(6);
-			}
-			gold *= 100;
-			for (int i = 0; i < 3; i++) {
-				platina += 1 + rnd.nextInt(6);
-			}
-			platina *= 10;
+			coper = Dice.roll(2, Dice.d6) * 100;
+			silver = Dice.roll(2, Dice.d6) * 1000;
+			gold = Dice.roll(6, Dice.d6) * 100;
+			platina = Dice.roll(3, Dice.d6) * 10;
 		} else if (cr == 3) {
-			for (int i = 0; i < 4; i++) {
-				gold += 1 + rnd.nextInt(6);
-			}
-			gold *= 14000;
-			for (int i = 0; i < 5; i++) {
-				platina += 1 + rnd.nextInt(6);
-			}
-			platina *= 100;
+			gold = Dice.roll(4, Dice.d6) * 1000;
+			platina = Dice.roll(5, Dice.d6) * 100;
 		} else if (cr == 4) {
-			for (int i = 0; i < 12; i++) {
-				gold += 1 + rnd.nextInt(6);
-			}
-			gold *= 42_000;
-			for (int i = 0; i < 8; i++) {
-				platina += 1 + rnd.nextInt(6);
-			}
-			platina *= 1_000;
+			gold = Dice.roll(12, Dice.d6) * 1000;
+			platina = Dice.roll(8, Dice.d6) * 1000;
 		}
 
 		model.addAttribute("coper", coper);
@@ -111,7 +79,7 @@ public class TreasuryToolController {
 		model.addAttribute("platina", platina);
 
 		List<ItemMagicDto> things = new ArrayList<>();
-		int ri = 1 + rnd.nextInt(100);
+		int ri = Dice.roll(Dice.d100);
 
 		if (cr == 1) {
 			if (ri >= 37 && ri <= 60) {
@@ -399,7 +367,7 @@ public class TreasuryToolController {
 		List<ItemMagicDto> list = new ArrayList<>();
 		if (result >= start) {
 			for (int i = 0; i < 1 + rnd.nextInt(count); i++) {
-				int ri = 1 + rnd.nextInt(100);
+				int ri = Dice.roll(Dice.d100);
 				// System.out.println("table= " + tableName + " in " + ri);
 				MagicThingTable mt = mtRepo.findOne(ri, tableName);
 				if (mt != null) {
@@ -407,14 +375,14 @@ public class TreasuryToolController {
 					dto.setCost(getCost(mt.getMagicThing().getRarity()));
 					if (tableName.equals("Б")) {
 						if (ri == 91) {
-							int zap = 4 + rnd.nextInt(4) + rnd.nextInt(4) + rnd.nextInt(4) + rnd.nextInt(4);
+							int zap = 4 + Dice.roll(4, Dice.d4);
 							dto.setName(dto.getName() + "(дополнительных заплаток " + zap + ")");
 						}
 					}
 					if (tableName.equals("В")) {
 						if (ri >= 82 && ri <= 84) {
 							String effect = "";
-							int er = 1 + rnd.nextInt(100);
+							int er = Dice.roll(Dice.d100);
 							if (er <= 15) {
 								effect = "веер";
 							} else if (er <= 40) {
@@ -431,7 +399,7 @@ public class TreasuryToolController {
 							dto.setName(dto.getName() + " (Эффект: " + effect + ")");
 						} else if (ri >= 85 && ri <= 87) {
 							String effect = "";
-							int er = 1 + rnd.nextInt(100);
+							int er = Dice.roll(Dice.d100);
 							if (er <= 10) {
 								effect = "Аберрации";
 							} else if (er <= 20) {
@@ -454,7 +422,7 @@ public class TreasuryToolController {
 							dto.setName(dto.getName() + " (Вид существ: " + effect + ")");
 						} else if (ri >= 88 && ri <= 89) {
 							dto.setName(dto.getName() + " (Бобов: "
-									+ (3 + rnd.nextInt(4) + rnd.nextInt(4) + rnd.nextInt(4)) + ")");
+									+ (3 + Dice.roll(3, Dice.d4)) + ")");
 						}
 					}
 					if (tableName.equals("E")) {
@@ -559,7 +527,7 @@ public class TreasuryToolController {
 							dto.setName(dto.getName() + "(Мировоззрение: " + aligment + ")");
 							break;
 						case 91:
-							int rg = 1 + rnd.nextInt(20);
+							int rg = Dice.roll(Dice.d20);
 							String golemType = "";
 							if (rg >= 1 && rg <= 5)
 								golemType = "Глинянный";
@@ -630,7 +598,7 @@ public class TreasuryToolController {
 							dto.setCost(getCost(Rarity.VERY_RARE) + 50);
 							break;
 						case 76:
-							switch (1 + rnd.nextInt(12)) {
+							switch (Dice.roll(Dice.d12)) {
 							case 1:
 							case 2:
 								dto.setName("Доспех +2 (полулаты)");
@@ -676,7 +644,7 @@ public class TreasuryToolController {
 						}
 					}
 					if (dto.getName().contains("Боеприпасы")) {
-						int rb = rnd.nextInt(12);
+						int rb = Dice.roll(Dice.d12);
 						if (rb <= 6) {
 							dto.setName(dto.getName() + " (стрелы)");
 						} else if (rb < 9) {

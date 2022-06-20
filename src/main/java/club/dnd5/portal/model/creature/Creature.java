@@ -169,7 +169,10 @@ public class Creature {
 
 	@Column(columnDefinition = "TEXT")
 	private String legendary;
-
+	
+	@Column(columnDefinition = "TEXT")
+	private String reaction;
+	
 	@ManyToMany
 	private List<CreatureRace> races;
 	

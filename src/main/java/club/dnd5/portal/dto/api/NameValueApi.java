@@ -15,10 +15,18 @@ import lombok.Setter;
 @Setter
 public class NameValueApi {
 	private String name;
+	private String shortName;
 	private Object value;
 	private Object additional;
 	public NameValueApi(String name, Object value) {
 		this.name = name;
 		this.value = value;
+	}
+	public NameValueApi(String name, String shortName, Byte value) {
+		this.name = name;
+		if (value != 0) {
+			this.value = value;
+		}
+		this.shortName = shortName;
 	}
 }

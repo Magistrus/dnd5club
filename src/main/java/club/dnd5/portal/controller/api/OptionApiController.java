@@ -33,7 +33,7 @@ public class OptionApiController {
 	private OptionDatatableRepository repo;
 	
 	@PostMapping(value = "/api/v1/options", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OptionApi> getSpells(@RequestBody OptionRequesApi request) {
+	public List<OptionApi> getOptions(@RequestBody OptionRequesApi request) {
 		Specification<Option> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -62,7 +62,10 @@ public class OptionApiController {
 		columns.add(column);
 		
 		input.setColumns(columns);
-		input.setLength(-1);
+		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
+		if (request.getPage() != null && request.getLimit()!=null) {
+			input.setStart(request.getPage() * request.getLimit());	
+		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
