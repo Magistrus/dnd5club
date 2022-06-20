@@ -23,7 +23,19 @@ public enum Dice {
 	private static Random rnd = new Random();
 
 	private int maxValue;
-
+	
+	public  int roll() {
+		return 1 + rnd.nextInt(this.getMaxValue());
+	}
+	
+	public  int roll(int diceCount) {
+		int result = 0;
+		for (int i = 0; i < diceCount; i++) {
+			result += roll();
+		}
+		return result;
+	}
+	
 	public static Dice parse(int dice) {
 		switch (dice) {
 		case 4:
