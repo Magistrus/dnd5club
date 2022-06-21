@@ -1,11 +1,6 @@
 package club.dnd5.portal.controller.api.tools;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.dto.api.tools.RandomEncounterApi;
 import club.dnd5.portal.dto.api.tools.RandomEncounterTableApi;
 import club.dnd5.portal.dto.api.tools.RequestRandomEncounterApi;
@@ -24,7 +18,7 @@ import club.dnd5.portal.repository.datatable.RandomEncounterRepository;
 
 
 @RestController
-public class RandomEncounterController {
+public class RandomEncounterApiController {
 	public static final Random rnd = new Random();
 	
 	@Autowired

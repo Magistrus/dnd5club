@@ -24,41 +24,23 @@ import lombok.Setter;
 @Setter
 
 @Entity()
-@Table(name = "random_encounters", 
-	indexes = {@Index(name = "fn_index", columnList = "start, end, level, type")}
-)
-public class RandomEncounterRow {
+@Table(name = "encounters")
+public class RandomEncounter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	private Integer level;
+	private String formula;
+	private String environment;
 	
-	private int start;
-	private int end;
-
-	private int level;
-
 	@Enumerated (EnumType.STRING)
 	private HabitatType type;
 	
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	
-	@OneToMany
-	@JoinColumn(name ="encounter_id")
-	private List<RandomCreature> creatures;
-	
-	@ManyToOne
-	@JoinColumn(name = "encounter_id")
-	private RandomEncounter encounter;
-
 	@ManyToOne
 	@JoinColumn(name = "source")
 	private Book book;
-	
-	public String getK100() {
-		if (start == end) {
-			return String.format("%02d", start);
-		}
-		return String.format("%02d-%02d", end, start);
-	}
 }
