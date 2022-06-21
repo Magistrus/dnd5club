@@ -9,18 +9,22 @@
             ref="optionItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="option-link"
+            class="link-item"
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="option-link__body">
-                <div class="option-link__name">
-                    <div class="option-link__name--rus">
-                        {{ optionItem.name.rus }}
-                    </div>
+            <div class="link-item__content">
+                <div class="link-item__body">
+                    <div class="link-item__row">
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
+                                {{ optionItem.name.rus }}
+                            </div>
 
-                    <div class="option-link__name--eng">
-                        [{{ optionItem.name.eng }}]
+                            <div class="link-item__name--eng">
+                                [{{ optionItem.name.eng }}]
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,73 +89,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .option-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
-
-        &.is-green {
-            .option-link {
-                &__body {
-                    background-color: var(--bg-homebrew-gradient-left);
-                }
-            }
-        }
-
-        &__body {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 8px 10px;
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
-        }
-
-        &:hover {
-            .option-link {
-                &__body {
-                    background-color: var(--hover);
-                }
-            }
-        }
-
-        &.router-link-active {
-            width: 100%;
-
-            .option-link {
-                &__body {
-                    background-color: var(--primary-active);
-                }
-
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
-                }
-            }
-        }
-    }
-</style>
+<style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

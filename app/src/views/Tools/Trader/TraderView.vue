@@ -130,7 +130,7 @@
         </template>
 
         <template #default>
-            <trader-magic-item-link
+            <magic-item-link
                 v-for="(item, key) in groupedResults"
                 :key="key"
                 :magic-item="item"
@@ -150,17 +150,18 @@
     import errorHandler from "@/helpers/errorHandler";
     import _ from "lodash";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import TraderMagicItemLink from "@/views/Tools/Trader/TraderMagicItemLink";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import SpellBody from "@/views/Spells/SpellBody";
     import { reactive } from "vue";
+    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
 
     export default {
         name: "TraderView",
         components: {
+            MagicItemLink,
             SpellBody,
             MagicItemBody,
-            TraderMagicItemLink, FieldCheckbox, SectionHeader, FieldSelect, ContentLayout
+            FieldCheckbox, SectionHeader, FieldSelect, ContentLayout
         },
         data: () => ({
             magicCount: [

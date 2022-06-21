@@ -9,18 +9,22 @@
             ref="backgroundItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="background-link"
+            class="link-item"
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="background-link__body">
-                <div class="background-link__name">
-                    <div class="background-link__name--rus">
-                        {{ backgroundItem.name.rus }}
-                    </div>
+            <div class="link-item__content">
+                <div class="link-item__body">
+                    <div class="link-item__row">
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
+                                {{ backgroundItem.name.rus }}
+                            </div>
 
-                    <div class="background-link__name--eng">
-                        [{{ backgroundItem.name.eng }}]
+                            <div class="link-item__name--eng">
+                                [{{ backgroundItem.name.eng }}]
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,7 +65,6 @@
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
-                    'is-background-selected': this.$route.name === 'backgroundDetail',
                     'is-green': this.backgroundItem?.homebrew
                 }
             },
@@ -85,73 +88,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .background-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
-
-        &.is-green {
-            .background-link {
-                &__body {
-                    background-color: var(--bg-homebrew-gradient-left);
-                }
-            }
-        }
-
-        &__body {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 8px 10px;
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
-        }
-
-        &:hover {
-            .background-link {
-                &__body {
-                    background-color: var(--hover);
-                }
-            }
-        }
-
-        &.router-link-active {
-            width: 100%;
-
-            .background-link {
-                &__body {
-                    background-color: var(--primary-active);
-                }
-
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
-                }
-            }
-        }
-    }
-</style>
+<style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>
