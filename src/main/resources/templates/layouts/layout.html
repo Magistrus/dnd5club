@@ -41,8 +41,8 @@
 		<!-- Core theme CSS -->
 		<link rel="stylesheet" th:href="@{/css/datatables/jquery.dataTables.min.css}" />
 		<link rel="stylesheet" th:href="@{/css/datatables/searchPanes.dataTables.min.css}" />
-		<link rel="stylesheet" th:href="@{|/app/css/chunk-vendors.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/app/css/app.css?v=${version}|}" />
+		<link rel="preload" as="style" th:href="@{|/app/css/chunk-vendors.css?v=${version}|}" onload="this.rel='stylesheet'"/>
+		<link rel="preload" as="style" th:href="@{|/app/css/app.css?v=${version}|}" onload="this.rel='stylesheet'" />
 		<!-- Google Font -->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -89,7 +89,6 @@
     </div>
 	</body>
 	<th:block th:fragment="mainJS">
-	<script th:src="@{/js/simplebar.min.js}"></script>
 	<script th:src="@{|/js/scripts.js?v=${version}|}"></script>
 	<script th:src="@{/js/sidebar-menu.js}"></script>
 	<script th:src="@{/js/tipped.min.js}"></script>
