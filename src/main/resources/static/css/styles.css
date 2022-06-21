@@ -4055,9 +4055,9 @@ body.full_screen_right_block .screens .card_block .block {
 
 .spell_stat_block_bottom .icon {
   display: block;
-  width: 24px;
-  height: 24px;
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
   background-repeat: no-repeat;
   background-position: center;
   background-color: var(--hover);
@@ -4067,8 +4067,8 @@ body.full_screen_right_block .screens .card_block .block {
 }
 
 .spell_stat_block_bottom .icon svg {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 .spell_stat_block_bottom .icon svg path {
