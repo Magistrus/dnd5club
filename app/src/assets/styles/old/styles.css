@@ -1089,14 +1089,14 @@ label.select_box {
   width: 220px;
   height: 56px;
   right: 0;
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_3.png);
+  background-image: url(/assets/img/bg_main_page_button_nav_3.png);
   content: '';
 }
 
 @media (max-width: 1200px) {
   .main_page_wrapper .main_block .card_row .card:before {
     height: 48px;
-    background-image: url(/resources/assets/img/bg_main_page_button_nav_mobile_3.png);
+    background-image: url(/assets/img/bg_main_page_button_nav_mobile_3.png);
 
   }
 }
@@ -1153,43 +1153,43 @@ label.select_box {
   .main_page_wrapper .main_block .card_row .races.card:before {
     background-position: 0 -48px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .traits.card:before {
     background-position: 0 -96px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .options.card:before {
     background-position: 0 -144px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .backgrounds.card:before {
     background-position: 0 -192px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .spells.card:before {
     background-position: 0 -240px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .weapons.card:before {
     background-position: 0 -288px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .armors.card:before {
     background-position: 0 -336px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .items.card:before {
     background-position: 0 -384px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .items_magic.card:before {
     background-position: 0 -432px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .bestiary.card:before {
     background-position: 0 -480px;
   }
-  
+
   .main_page_wrapper .main_block .card_row .screens.card:before {
     background-position: 0 -528px;
   }
@@ -1258,7 +1258,7 @@ label.select_box {
   .main_page_wrapper .main_block .card_row .card {
     flex: 1 1 calc(25% - 40px);
     min-width: calc(25% - 40px);
-  } 
+  }
 }
 
 @media (max-width: 800px) {
@@ -1322,7 +1322,7 @@ label.select_box {
 }
 
 .main_page_wrapper .dnd5club_tel_bot .bg_img {
-  background-image: url(/resources/assets/img/bg_main_page_button_nav_bot_2.png);
+  background-image: url(/assets/img/bg_main_page_button_nav_bot_2.png);
 }
 
 .main_page_wrapper .dnd5club_tel_bot {
@@ -2416,71 +2416,71 @@ table.table_card tr.dtrg-group {
 }
 
 #left_block.classes .table_card tr td .Bard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/bard_2.webp);
+  background-image: url(/assets/img/classes/bard_2.webp);
 }
 
 #left_block.classes .table_card tr td .Barbarian.wrapper:before {
-  background-image: url(/resources/assets/img/classes/barbarian_2.webp);
+  background-image: url(/assets/img/classes/barbarian_2.webp);
 }
 
 #left_block.classes .table_card tr td .Fighter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/fighter_2.webp);
+  background-image: url(/assets/img/classes/fighter_2.webp);
 }
 
 #left_block.classes .table_card tr td .Wizard.wrapper:before {
-  background-image: url(/resources/assets/img/classes/wizard_2.webp);
+  background-image: url(/assets/img/classes/wizard_2.webp);
 }
 
 #left_block.classes .table_card tr td .Druid.wrapper:before {
-  background-image: url(/resources/assets/img/classes/druid_2.webp);
+  background-image: url(/assets/img/classes/druid_2.webp);
 }
 
 #left_block.classes .table_card tr td .Cleric.wrapper:before {
-  background-image: url(/resources/assets/img/classes/cleric_2.webp);
+  background-image: url(/assets/img/classes/cleric_2.webp);
 }
 
 #left_block.classes .table_card tr td .Artificer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/artificer_2.webp);
+  background-image: url(/assets/img/classes/artificer_2.webp);
 }
 
 #left_block.classes .table_card tr td .Warlock.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warlock_2.webp);
+  background-image: url(/assets/img/classes/warlock_2.webp);
 }
 
 #left_block.classes .table_card tr td .Monk.wrapper:before {
-  background-image: url(/resources/assets/img/classes/monk_2.webp);
+  background-image: url(/assets/img/classes/monk_2.webp);
 }
 
 #left_block.classes .table_card tr td .Paladin.wrapper:before {
-  background-image: url(/resources/assets/img/classes/paladin_2.webp);
+  background-image: url(/assets/img/classes/paladin_2.webp);
 }
 
 #left_block.classes .table_card tr td .Rogue.wrapper:before {
-  background-image: url(/resources/assets/img/classes/rogue_2.webp);
+  background-image: url(/assets/img/classes/rogue_2.webp);
 }
 
 #left_block.classes .table_card tr td .Ranger.wrapper:before {
-  background-image: url(/resources/assets/img/classes/ranger_2.webp);
+  background-image: url(/assets/img/classes/ranger_2.webp);
 }
 
 #left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/resources/assets/img/classes/sorcerer_2.webp);
+  background-image: url(/assets/img/classes/sorcerer_2.webp);
 }
 
 #left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
-  background-image: url(/resources/assets/img/classes/blood-hunter_2.webp);
+  background-image: url(/assets/img/classes/blood-hunter_2.webp);
 }
 
 #left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/warrior-sidekick_2.webp);
+  background-image: url(/assets/img/classes/warrior-sidekick_2.webp);
 }
 
 #left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/spellcaster-sidekick_2.webp);
+  background-image: url(/assets/img/classes/spellcaster-sidekick_2.webp);
 }
 
 #left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
-  background-image: url(/resources/assets/img/classes/expert-sidekick_2.webp);
+  background-image: url(/assets/img/classes/expert-sidekick_2.webp);
 }
 
 #left_block.races .table_card tr td .content {
@@ -2494,411 +2494,411 @@ table.table_card tr.dtrg-group {
 }
 
 #left_block.races .table_card tr td .Aarakocra.wrapper:before {
-  background-image: url(/resources/assets/img/races/aarakocra.webp);
+  background-image: url(/assets/img/races/aarakocra.webp);
 }
 
 #left_block.races .table_card tr td .Aarakocra_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/aarakocra_mpmm.webp);
+  background-image: url(/assets/img/races/aarakocra_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Aasimar.wrapper:before {
-  background-image: url(/resources/assets/img/races/aasimar2.webp);
+  background-image: url(/assets/img/races/aasimar2.webp);
 }
 
 #left_block.races .table_card tr td .Aasimar_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/aasimar_mpmm2.webp);
+  background-image: url(/assets/img/races/aasimar_mpmm2.webp);
 }
 
 #left_block.races .table_card tr td .Aven.wrapper:before {
-  background-image: url(/resources/assets/img/races/aven.webp);
+  background-image: url(/assets/img/races/aven.webp);
 }
 
 #left_block.races .table_card tr td .Autognome.wrapper:before {
-  background-image: url(/resources/assets/img/races/autognome.webp);
+  background-image: url(/assets/img/races/autognome.webp);
 }
 
 #left_block.races .table_card tr td .Vedalken.wrapper:before {
-  background-image: url(/resources/assets/img/races/vedalken.webp);
+  background-image: url(/assets/img/races/vedalken.webp);
 }
 
 #left_block.races .table_card tr td .Verdan.wrapper:before {
-  background-image: url(/resources/assets/img/races/verdan2.webp);
+  background-image: url(/assets/img/races/verdan2.webp);
 }
 
 #left_block.races .table_card tr td .Tiefling.wrapper:before {
-  background-image: url(/resources/assets/img/races/tiefling.webp);
+  background-image: url(/assets/img/races/tiefling.webp);
 }
 
 #left_block.races .table_card tr td .Bugbear.wrapper:before {
-  background-image: url(/resources/assets/img/races/bugbear.webp);
+  background-image: url(/assets/img/races/bugbear.webp);
 }
 
 #left_block.races .table_card tr td .Bugbear_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/bugbear_mpmm.webp);
+  background-image: url(/assets/img/races/bugbear_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Bearfolk.wrapper:before {
-  background-image: url(/resources/assets/img/races/bearfolk.webp);
+  background-image: url(/assets/img/races/bearfolk.webp);
 }
 
 #left_block.races .table_card tr td .Reborn.wrapper:before {
-  background-image: url(/resources/assets/img/races/reborn.webp);
+  background-image: url(/assets/img/races/reborn.webp);
 }
 
 #left_block.races .table_card tr td .Simic_Hybrid.wrapper:before {
-  background-image: url(/resources/assets/img/races/simic_hybrid.webp);
+  background-image: url(/assets/img/races/simic_hybrid.webp);
 }
 
 #left_block.races .table_card tr td .Gith.wrapper:before {
-  background-image: url(/resources/assets/img/races/gith.webp);
+  background-image: url(/assets/img/races/gith.webp);
 }
 
 #left_block.races .table_card tr td .Githzerai_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/githzerai_mpmm.webp);
+  background-image: url(/assets/img/races/githzerai_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Githyanki_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/githyanki_mpmm.webp);
+  background-image: url(/assets/img/races/githyanki_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Giff.wrapper:before {
-  background-image: url(/resources/assets/img/races/giff.webp);
+  background-image: url(/assets/img/races/giff.webp);
 }
 
 #left_block.races .table_card tr td .Deep_Gnome_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/deep_gnome_mpmm.webp);
+  background-image: url(/assets/img/races/deep_gnome_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Gnoll.wrapper:before {
-  background-image: url(/resources/assets/img/races/gnoll.webp);
+  background-image: url(/assets/img/races/gnoll.webp);
 }
 
 #left_block.races .table_card tr td .Gnome.wrapper:before {
-  background-image: url(/resources/assets/img/races/gnome2.webp);
+  background-image: url(/assets/img/races/gnome2.webp);
 }
 
 #left_block.races .table_card tr td .Goblin.wrapper:before {
-  background-image: url(/resources/assets/img/races/goblin.webp);
+  background-image: url(/assets/img/races/goblin.webp);
 }
 
 #left_block.races .table_card tr td .Goblin_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/goblin_mpmm.webp);
+  background-image: url(/assets/img/races/goblin_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Goliath.wrapper:before {
-  background-image: url(/resources/assets/img/races/goliath2.webp);
+  background-image: url(/assets/img/races/goliath2.webp);
 }
 
 #left_block.races .table_card tr td .Goliath__MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/goliath_mpmm2.webp);
+  background-image: url(/assets/img/races/goliath_mpmm2.webp);
 }
 
 #left_block.races .table_card tr td .Mushroom.wrapper:before {
-  background-image: url(/resources/assets/img/races/mushroom.webp);
+  background-image: url(/assets/img/races/mushroom.webp);
 }
 
 #left_block.races .table_card tr td .Dhampir.wrapper:before {
-  background-image: url(/resources/assets/img/races/dhampir.webp);
+  background-image: url(/assets/img/races/dhampir.webp);
 }
 
 #left_block.races .table_card tr td .Dwarf.wrapper:before {
-  background-image: url(/resources/assets/img/races/dwarf.webp);
+  background-image: url(/assets/img/races/dwarf.webp);
 }
 
 #left_block.races .table_card tr td .Genasi.wrapper:before {
-  background-image: url(/resources/assets/img/races/genasi.webp);
+  background-image: url(/assets/img/races/genasi.webp);
 }
 
 #left_block.races .table_card tr td .Genasi_Water_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/genasi_water_mpmm.webp);
+  background-image: url(/assets/img/races/genasi_water_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Genasi_Air_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/genasi_air_mpmm.webp);
+  background-image: url(/assets/img/races/genasi_air_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Genasi_Earthr_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/genasi_earthr_mpmm.webp);
+  background-image: url(/assets/img/races/genasi_earthr_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Genasi_Fair_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/genasi_fair_mpmm.webp);
+  background-image: url(/assets/img/races/genasi_fair_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Dragonborn.wrapper:before {
-  background-image: url(/resources/assets/img/races/dragonborn.webp);
+  background-image: url(/assets/img/races/dragonborn.webp);
 }
 
 #left_block.races .table_card tr td .Duergar__MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/duergar_mpmm.webp);
+  background-image: url(/assets/img/races/duergar_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Harengon.wrapper:before {
-  background-image: url(/resources/assets/img/races/harengon.webp);
+  background-image: url(/assets/img/races/harengon.webp);
 }
 
 #left_block.races .table_card tr td .Harengon_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/harengon_mpmm.webp);
+  background-image: url(/assets/img/races/harengon_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Changeling.wrapper:before {
-  background-image: url(/resources/assets/img/races/changeling.webp);
+  background-image: url(/assets/img/races/changeling.webp);
 }
 
 #left_block.races .table_card tr td .Changeling_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/changeling_mpmm.webp);
+  background-image: url(/assets/img/races/changeling_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Kalashtar.wrapper:before {
-  background-image: url(/resources/assets/img/races/kalashtar.webp);
+  background-image: url(/assets/img/races/kalashtar.webp);
 }
 
 #left_block.races .table_card tr td .Kender.wrapper:before {
-  background-image: url(/resources/assets/img/races/kender.webp);
+  background-image: url(/assets/img/races/kender.webp);
 }
 
 #left_block.races .table_card tr td .Kenku.wrapper:before {
-  background-image: url(/resources/assets/img/races/kenku.webp);
+  background-image: url(/assets/img/races/kenku.webp);
 }
 
 #left_block.races .table_card tr td .Kenku_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/kenku_mpmm.webp);
+  background-image: url(/assets/img/races/kenku_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Centaur.wrapper:before {
-  background-image: url(/resources/assets/img/races/centaur.webp);
+  background-image: url(/assets/img/races/centaur.webp);
 }
 
 #left_block.races .table_card tr td .Centaur_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/centaur_mpmm.webp);
+  background-image: url(/assets/img/races/centaur_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Kobold.wrapper:before {
-  background-image: url(/resources/assets/img/races/kobold.webp);
+  background-image: url(/assets/img/races/kobold.webp);
 }
 
 #left_block.races .table_card tr td .Kobold_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/kobold_mpmm.webp);
+  background-image: url(/assets/img/races/kobold_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Warforged.wrapper:before {
-  background-image: url(/resources/assets/img/races/warforged.webp);
+  background-image: url(/assets/img/races/warforged.webp);
 }
 
 #left_block.races .table_card tr td .Leonin.wrapper:before {
-  background-image: url(/resources/assets/img/races/leonin.webp);
+  background-image: url(/assets/img/races/leonin.webp);
 }
 
 #left_block.races .table_card tr td .Locathah.wrapper:before {
-  background-image: url(/resources/assets/img/races/locathah.webp);
+  background-image: url(/assets/img/races/locathah.webp);
 }
 
 #left_block.races .table_card tr td .Loxodon.wrapper:before {
-  background-image: url(/resources/assets/img/races/loxodon.webp);
+  background-image: url(/assets/img/races/loxodon.webp);
 }
 
 #left_block.races .table_card tr td .Lizardfolk.wrapper:before {
-  background-image: url(/resources/assets/img/races/lizardfolk.webp);
+  background-image: url(/assets/img/races/lizardfolk.webp);
 }
 
 #left_block.races .table_card tr td .Lizardfolk_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/lizardfolk_mpmm.webp);
+  background-image: url(/assets/img/races/lizardfolk_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Medusa.wrapper:before {
-  background-image: url(/resources/assets/img/races/medusa.webp);
+  background-image: url(/assets/img/races/medusa.webp);
 }
 
 #left_block.races .table_card tr td .Minotaur.wrapper:before {
-  background-image: url(/resources/assets/img/races/minotaur.webp);
+  background-image: url(/assets/img/races/minotaur.webp);
 }
 
 #left_block.races .table_card tr td .Minotaur_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/minotaur_mpmm.webp);
+  background-image: url(/assets/img/races/minotaur_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Sea_Elf_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/sea_elf_mpmm.webp);
+  background-image: url(/assets/img/races/sea_elf_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Naga.wrapper:before {
-  background-image: url(/resources/assets/img/races/naga.webp);
+  background-image: url(/assets/img/races/naga.webp);
 }
 
 #left_block.races .table_card tr td .Undead.wrapper:before {
-  background-image: url(/resources/assets/img/races/undead.webp);
+  background-image: url(/assets/img/races/undead.webp);
 }
 
 #left_block.races .table_card tr td .Nymph.wrapper:before {
-  background-image: url(/resources/assets/img/races/nymph2.webp);
+  background-image: url(/assets/img/races/nymph2.webp);
 }
 
 #left_block.races .table_card tr td .Orc.wrapper:before {
-  background-image: url(/resources/assets/img/races/orc.webp);
+  background-image: url(/assets/img/races/orc.webp);
 }
 
 #left_block.races .table_card tr td .Orc_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/orc_mpmm.webp);
+  background-image: url(/assets/img/races/orc_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Plasmoid.wrapper:before {
-  background-image: url(/resources/assets/img/races/plasmoid.webp);
+  background-image: url(/assets/img/races/plasmoid.webp);
 }
 
 #left_block.races .table_card tr td .Half-Orc.wrapper:before {
-  background-image: url(/resources/assets/img/races/half-orc2.webp);
+  background-image: url(/assets/img/races/half-orc2.webp);
 }
 
 #left_block.races .table_card tr td .Halfling.wrapper:before {
-  background-image: url(/resources/assets/img/races/halfling.webp);
+  background-image: url(/assets/img/races/halfling.webp);
 }
 
 #left_block.races .table_card tr td .Half-Elf.wrapper:before {
-  background-image: url(/resources/assets/img/races/half-elf.webp);
+  background-image: url(/assets/img/races/half-elf.webp);
 }
 
 #left_block.races .table_card tr td .Hexblood.wrapper:before {
-  background-image: url(/resources/assets/img/races/hexblood.webp);
+  background-image: url(/assets/img/races/hexblood.webp);
 }
 
 #left_block.races .table_card tr td .Awakened.wrapper:before {
-  background-image: url(/resources/assets/img/races/awakened.webp);
+  background-image: url(/assets/img/races/awakened.webp);
 }
 
 #left_block.races .table_card tr td .Ravenfolk.wrapper:before {
-  background-image: url(/resources/assets/img/races/ravenfolk.webp);
+  background-image: url(/assets/img/races/ravenfolk.webp);
 }
 
 #left_block.races .table_card tr td .Ratfolk.wrapper:before {
-  background-image: url(/resources/assets/img/races/ratfolk.webp);
+  background-image: url(/assets/img/races/ratfolk.webp);
 }
 
 #left_block.races .table_card tr td .Satyr.wrapper:before {
-  background-image: url(/resources/assets/img/races/satyr.webp);
+  background-image: url(/assets/img/races/satyr.webp);
 }
 
 #left_block.races .table_card tr td .Satyr_ODL.wrapper:before {
-  background-image: url(/resources/assets/img/races/satyr_odl.webp);
+  background-image: url(/assets/img/races/satyr_odl.webp);
 }
 
 #left_block.races .table_card tr td .Satyr_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/satyr_mpmm.webp);
+  background-image: url(/assets/img/races/satyr_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Silva.wrapper:before {
-  background-image: url(/resources/assets/img/races/silva.webp);
+  background-image: url(/assets/img/races/silva.webp);
 }
 
 #left_block.races .table_card tr td .Siren.wrapper:before {
-  background-image: url(/resources/assets/img/races/siren.webp);
+  background-image: url(/assets/img/races/siren.webp);
 }
 
 #left_block.races .table_card tr td .Owlin.wrapper:before {
-  background-image: url(/resources/assets/img/races/owlin.webp);
+  background-image: url(/assets/img/races/owlin.webp);
 }
 
 #left_block.races .table_card tr td .Tabaxi.wrapper:before {
-  background-image: url(/resources/assets/img/races/tabaxi.webp);
+  background-image: url(/assets/img/races/tabaxi.webp);
 }
 
 #left_block.races .table_card tr td .Tabaxi_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/tabaxi_mpmm.webp);
+  background-image: url(/assets/img/races/tabaxi_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Shadow_fairy.wrapper:before {
-  background-image: url(/resources/assets/img/races/shadow_fairy.webp);
+  background-image: url(/assets/img/races/shadow_fairy.webp);
 }
 
 #left_block.races .table_card tr td .Tortle.wrapper:before {
-  background-image: url(/resources/assets/img/races/tortle.webp);
+  background-image: url(/assets/img/races/tortle.webp);
 }
 
 #left_block.races .table_card tr td .Tortle_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/tortle_mpmm.webp);
+  background-image: url(/assets/img/races/tortle_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Thri-kreen.wrapper:before {
-  background-image: url(/resources/assets/img/races/thri-kreen.webp);
+  background-image: url(/assets/img/races/thri-kreen.webp);
 }
 
 #left_block.races .table_card tr td .Triton.wrapper:before {
-  background-image: url(/resources/assets/img/races/triton.webp);
+  background-image: url(/assets/img/races/triton.webp);
 }
 
 #left_block.races .table_card tr td .Triton_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/triton_mpmm.webp);
+  background-image: url(/assets/img/races/triton_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Trollkin.wrapper:before {
-  background-image: url(/resources/assets/img/races/trollkin.webp);
+  background-image: url(/assets/img/races/trollkin.webp);
 }
 
 #left_block.races .table_card tr td .Fairyblood.wrapper:before {
-  background-image: url(/resources/assets/img/races/fairyblood.webp);
+  background-image: url(/assets/img/races/fairyblood.webp);
 }
 
 #left_block.races .table_card tr td .Firbolg.wrapper:before {
-  background-image: url(/resources/assets/img/races/firbolg.webp);
+  background-image: url(/assets/img/races/firbolg.webp);
 }
 
 #left_block.races .table_card tr td .Firbolg_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/firbolg_mpmm.webp);
+  background-image: url(/assets/img/races/firbolg_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Fairy.wrapper:before {
-  background-image: url(/resources/assets/img/races/fairy.webp);
+  background-image: url(/assets/img/races/fairy.webp);
 }
 
 #left_block.races .table_card tr td .Fairy_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/fairy_mpmm.webp);
+  background-image: url(/assets/img/races/fairy_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Hadozee.wrapper:before {
-  background-image: url(/resources/assets/img/races/hadozee.webp);
+  background-image: url(/assets/img/races/hadozee.webp);
 }
 
 #left_block.races .table_card tr td .Khenra.wrapper:before {
-  background-image: url(/resources/assets/img/races/khenra2.webp);
+  background-image: url(/assets/img/races/khenra2.webp);
 }
 
 #left_block.races .table_card tr td .Hobgoblin.wrapper:before {
-  background-image: url(/resources/assets/img/races/hobgoblin.webp);
+  background-image: url(/assets/img/races/hobgoblin.webp);
 }
 
 #left_block.races .table_card tr td .Hobgoblin_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/hobgoblin_mpmm.webp);
+  background-image: url(/assets/img/races/hobgoblin_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Human.wrapper:before {
-  background-image: url(/resources/assets/img/races/human.webp);
+  background-image: url(/assets/img/races/human.webp);
 }
 
 #left_block.races .table_card tr td .Shadar-Kai_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/shadar-kai_mpmm.webp);
+  background-image: url(/assets/img/races/shadar-kai_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Shifter.wrapper:before {
-  background-image: url(/resources/assets/img/races/shifter.webp);
+  background-image: url(/assets/img/races/shifter.webp);
 }
 
 #left_block.races .table_card tr td .Shifter_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/shifter_mpmm.webp);
+  background-image: url(/assets/img/races/shifter_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Eladrin_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/eladrin_mpmm.webp);
+  background-image: url(/assets/img/races/eladrin_mpmm.webp);
 }
 
 #left_block.races .table_card tr td .Elf.wrapper:before {
-  background-image: url(/resources/assets/img/races/elf.webp);
+  background-image: url(/assets/img/races/elf.webp);
 }
 
 #left_block.races .table_card tr td .Yuan-ti.wrapper:before {
-  background-image: url(/resources/assets/img/races/yuan-ti.webp);
+  background-image: url(/assets/img/races/yuan-ti.webp);
 }
 
 #left_block.races .table_card tr td .Yuan-Ti_MPMM.wrapper:before {
-  background-image: url(/resources/assets/img/races/yuan-ti_mpmm.webp);
+  background-image: url(/assets/img/races/yuan-ti_mpmm.webp);
 }
 
 
@@ -4705,7 +4705,7 @@ button {
   color: #fff;
   border-radius: 30px;
   display: inline-block;
-  background-image: url(/resources/assets/become-boosty-button.svg);
+  background-image: url(/assets/become-boosty-button.svg);
   background-repeat: no-repeat;
   background-position: 14px;
   background-size: 26px 26px;
@@ -4720,7 +4720,7 @@ button {
 
 .become-vk-button {
   background-color: #1179FC;
-  background-image: url(/resources/assets/become-vk-button.svg);
+  background-image: url(/assets/become-vk-button.svg);
 }
 
 .become-vk-button:hover {
@@ -4730,7 +4730,7 @@ button {
 
 .become-discord-button {
   background-color: #5865F2;
-  background-image: url(/resources/assets/discord.svg);
+  background-image: url(/assets/discord.svg);
 }
 
 .become-discord-button:hover {
