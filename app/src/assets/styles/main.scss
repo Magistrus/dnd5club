@@ -4,7 +4,15 @@
   position: relative;
   margin: auto;
   height: 100%;
-  padding: 24px;
+  padding: 24px 0px;
+
+  @media (max-width: 1400px) {
+    padding: 24px 24px;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 16px 16px;
+  }
 }
 
 .main_block {

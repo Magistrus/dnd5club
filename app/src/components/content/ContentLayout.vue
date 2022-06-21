@@ -138,6 +138,7 @@
             height: 100%;
             display: flex;
             justify-content: flex-start;
+            position: relative;
         }
 
         &__list#left_block {
@@ -146,6 +147,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
 
         &__filter {
@@ -180,12 +182,17 @@
             display: block;
             top: 0;
             right: 0;
-            width: calc(60% - 48px);
-            height: calc(100% - 48px);
-            margin: 24px;
+            width: calc(60% - 24px);
+            height: 100%;
             overflow: hidden;
             border-radius: 12px;
             background-color: var(--bg-secondary);
+            position: absolute;
+            z-index: 10;
+
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
         }
 
         &.is-small {
@@ -206,9 +213,9 @@
                 }
 
                 &__selected#right_block {
-                    position: absolute;
+                    // position: absolute;
                     width: 100%;
-                    margin-left: 0;
+                    // margin-left: 48px;
                 }
             }
 
