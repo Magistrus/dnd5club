@@ -184,7 +184,6 @@
             right: 0;
             width: calc(60% - 24px);
             height: 100%;
-            // margin: 24px;
             overflow: hidden;
             border-radius: 12px;
             background-color: var(--bg-secondary);
@@ -192,7 +191,7 @@
             z-index: 10;
 
             @media (max-width: 1200px) {
-                width: calc(100% - 48px);
+                width: 100%;
             }
         }
 

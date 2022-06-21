@@ -4,10 +4,10 @@
   position: relative;
   margin: auto;
   height: 100%;
-  padding: 24px;
+  padding: 24px 0;
 
-  > div {
-    height: calc(var(--max-vh) - 48px);
+  @media (max-width: 1200px) {
+    padding: 16px 16px;
   }
 }
 
