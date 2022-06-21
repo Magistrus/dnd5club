@@ -14,12 +14,10 @@
   }
 }
 
-
-
 ::-webkit-scrollbar-thumb {
   border: 5px solid transparent;
   background-clip: content-box;
-  border-radius: 6px;
+  border-radius: 10px;
   box-shadow: inset 0 0 0 10px var(--background-color-thumb);
 }
 
@@ -38,6 +36,7 @@
   outline: none;
   appearance: none;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 
   &::selection {
     background: var(--primary);

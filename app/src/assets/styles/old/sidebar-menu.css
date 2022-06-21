@@ -8,6 +8,7 @@
   /* border-right: 1px solid var(--border); */
   z-index: 100;
   background-color: inherit;  
+  display: none;
 }
 
 .compact_menu .navbar {
