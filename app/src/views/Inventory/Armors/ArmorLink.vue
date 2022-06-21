@@ -7,51 +7,55 @@
     >
         <a
             v-bind="$attrs"
-            class="armor-link"
+            class="link-item"
             :class="getClassList(isActive)"
             :href="href"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
-            <div
-                v-if="armor.name"
-                class="armor-link__row"
-            >
-                <div class="armor-link__name">
-                    <div class="armor-link__name--rus">
-                        {{ armor.name.rus }}
-                    </div>
-
+            <div class="link-item__content">
+                <div class="link-item__body">
                     <div
-                        v-if="armor.name.eng"
-                        class="armor-link__name--eng"
+                        v-if="armor.name"
+                        class="link-item__row"
                     >
-                        [{{ armor.name.eng }}]
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
+                                {{ armor.name.rus }}
+                            </div>
+
+                            <div
+                                v-if="armor.name.eng"
+                                class="link-item__name--eng"
+                            >
+                                [{{ armor.name.eng }}]
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="armor-link__row">
-                <div
-                    v-if="armor.type?.name"
-                    class="armor-link__type"
-                >
-                    {{ armor.type.name }}
-                </div>
+                    <div class="link-item__row">
+                        <div
+                            v-if="armor.type?.name"
+                            class="link-item__type"
+                        >
+                            {{ armor.type.name }}
+                        </div>
 
-                <div
-                    v-if="armor.armorClass"
-                    v-tooltip="{ content: 'Класс доспеха (АС)' }"
-                    class="armor-link__armor-class"
-                >
-                    {{ armor.armorClass }}
-                </div>
+                        <div
+                            v-if="armor.armorClass"
+                            v-tooltip="{ content: 'Класс доспеха (АС)' }"
+                            class="link-item__ac"
+                        >
+                            {{ armor.armorClass }}
+                        </div>
 
-                <div
-                    v-if="armor.price"
-                    v-tooltip="{ content: 'Стоимость' }"
-                    class="armor-link__price"
-                >
-                    {{ armor.price }}
+                        <div
+                            v-if="armor.price"
+                            v-tooltip="{ content: 'Стоимость' }"
+                            class="link-item__price"
+                        >
+                            {{ armor.price }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </a>
@@ -92,65 +96,24 @@
 </script>
 
 <style lang="scss" scoped>
-    .armor-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
-        padding: 8px 10px;
+    @import "../../../assets/styles/link-item";
 
-        &.is-green {
-            .armor-link {
-                background-color: var(--bg-homebrew-gradient-left);
-            }
+    .link-item {
+        &__type,
+        &__ac {
+            color: var(--text-g-color);
         }
 
-        &__row {
-            display: flex;
-            align-items: center;
-
-            & + & {
-                margin-top: 4px;
-            }
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
-        }
-
-        &:hover {
-            .armor-link {
-                background-color: var(--hover);
-            }
+        &_price {
+            color: var(--text-color-title);
         }
 
         &.router-link-active {
-            background-color: var(--primary-active);
-
-            .armor-link {
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
+            .link-item {
+                &__type,
+                &__ac,
+                &_price {
+                    color: var(--text-btn-color);
                 }
             }
         }

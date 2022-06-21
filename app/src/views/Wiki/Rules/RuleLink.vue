@@ -13,14 +13,18 @@
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="rule-link__body">
-                <div class="rule-link__name">
-                    <div class="rule-link__name--rus">
-                        {{ rule.name.rus }}
-                    </div>
+            <div class="link-item__content">
+                <div class="rule-link__body">
+                    <div class="link-item__row">
+                        <div class="rule-link__name">
+                            <div class="rule-link__name--rus">
+                                {{ rule.name.rus }}
+                            </div>
 
-                    <div class="rule-link__name--eng">
-                        [{{ rule.name.eng }}]
+                            <div class="rule-link__name--eng">
+                                [{{ rule.name.eng }}]
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,73 +89,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .rule-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
-
-        &.is-green {
-            .rule-link {
-                &__body {
-                    background-color: var(--bg-homebrew-gradient-left);
-                }
-            }
-        }
-
-        &__body {
-            display: flex;
-            flex-direction: row;
-            align-rules: center;
-            padding: 8px 10px;
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
-        }
-
-        &:hover {
-            .rule-link {
-                &__body {
-                    background-color: var(--hover);
-                }
-            }
-        }
-
-        &.router-link-active {
-            width: 100%;
-
-            .rule-link {
-                &__body {
-                    background-color: var(--primary-active);
-                }
-
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
-                }
-            }
-        }
-    }
-</style>
+<style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

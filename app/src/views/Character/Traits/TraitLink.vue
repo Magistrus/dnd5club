@@ -9,26 +9,28 @@
             ref="traitItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="trait-link"
+            class="link-item"
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="trait-link__body">
-                <div class="trait-link__row">
-                    <div class="trait-link__name">
-                        <div class="trait-link__name--rus">
-                            {{ traitItem.name.rus }}
-                        </div>
+            <div class="link-item__content">
+                <div class="link-item__body">
+                    <div class="link-item__row">
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
+                                {{ traitItem.name.rus }}
+                            </div>
 
-                        <div class="trait-link__name--eng">
-                            [{{ traitItem.name.eng }}]
+                            <div class="link-item__name--eng">
+                                [{{ traitItem.name.eng }}]
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="trait-link__row">
-                    <div class="trait-link__requirements">
-                        {{ traitItem.requirements }}
+                    <div class="link-item__row">
+                        <div class="link-item__requirements">
+                            {{ traitItem.requirements }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,88 +92,19 @@
 </script>
 
 <style lang="scss" scoped>
-    .trait-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
+    @import '../../../assets/styles/link-item.scss';
 
-        &.is-green {
-            .trait-link {
-                &__body {
-                    background-color: var(--bg-homebrew-gradient-left);
-                }
-            }
-        }
-
-        &__body {
-            display: flex;
-            flex-direction: column;
-            padding: 8px 10px;
-        }
-
-        &__row {
-            display: flex;
-            align-items: center;
-
-            & + & {
-                margin-top: 4px;
-            }
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
-        }
-
+    .link-item {
         &__requirements {
             color: var(--text-g-color);
             font-size: calc(var(--main-font-size) - 1px);
             line-height: normal;
         }
 
-        &:hover {
-            .trait-link {
-                &__content {
-                    background-color: var(--hover);
-                }
-            }
-        }
-
         &.router-link-active {
-            width: 100%;
-
-            .trait-link {
-                &__body {
-                    background-color: var(--primary-active);
-                }
-
-                &__school {
+            .link-item {
+                &__requirements {
                     color: var(--text-btn-color);
-                }
-
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
                 }
             }
         }

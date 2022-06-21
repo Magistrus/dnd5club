@@ -10,36 +10,47 @@
             ref="magicItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="magic-item-link"
-            @click.left.exact.prevent="navigate()"
+            class="link-item"
+            @click.left.exact.prevent="clickHandler(navigate)"
         >
-            <div class="magic-item-link__content">
+            <div class="link-item__content">
                 <div
-                    class="magic-item-link__rarity"
+                    class="link-item__rarity"
                     :class="getRarityClass"
                 >
                     <span>{{ getRarityAbbreviation }}</span>
                 </div>
 
-                <div class="magic-item-link__body">
-                    <div class="magic-item-link__row">
-                        <div class="magic-item-link__name">
-                            <div class="magic-item-link__name--rus">
+                <div class="link-item__body">
+                    <div class="link-item__row">
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
                                 {{ magicItem.name.rus }}
                             </div>
 
-                            <div class="magic-item-link__name--eng">
+                            <div class="link-item__name--eng">
                                 [{{ magicItem.name.eng }}]
                             </div>
                         </div>
                     </div>
 
-                    <div class="magic-item-link__row">
+                    <div class="link-item__row">
                         <div
                             v-capitalize-first
-                            class="magic-item-link__type"
+                            class="link-item__type"
                         >
                             {{ magicItem.type.name }}
+                        </div>
+
+                        <div
+                            v-if="magicItem.custom?.count"
+                            class="link-item__count"
+                        >
+                            {{ `x${ magicItem.custom.count }` }}
+                        </div>
+
+                        <div class="link-item__price">
+                            {{ `${ magicItem.custom?.price || magicItem.price || 0 } зм` }}
                         </div>
                     </div>
                 </div>
@@ -66,6 +77,10 @@
                 default: () => ({})
             },
             inTab: {
+                type: Boolean,
+                default: false
+            },
+            inTools: {
                 type: Boolean,
                 default: false
             }
@@ -117,8 +132,110 @@
                     'in-tab': this.inTab
                 }
             },
+
+            clickHandler(callback) {
+                if (this.inTools) {
+                    this.$emit('select-item');
+
+                    return;
+                }
+
+                callback();
+            }
         }
     }
 </script>
 
-<style lang="scss" scoped src="./MagicItemLink.scss"/>
+<style lang="scss" scoped>
+    @import "../../../assets/styles/link-item";
+
+    .link-item {
+        &__rarity {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 17px;
+            color: var(--text-color);
+            border-right: 1px solid var(--border);
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                background: var(--border);
+                border: 1px solid var(--border);
+                border-radius: 50%;
+                width: 11px;
+                height: 11px;
+                display: block;
+                top: 50%;
+                right: 0;
+                z-index: 1;
+                box-shadow: 0 0 1px 1px #0006;
+                transform: translateY(-50%) translateX(50%);
+            }
+
+            &.is-common {
+                &:after {
+                    background-color: var(--common);
+                }
+            }
+
+            &.is-uncommon {
+                &:after {
+                    background-color: var(--uncommon);
+                }
+            }
+
+            &.is-rare {
+                &:after {
+                    background-color: var(--rare);
+                }
+            }
+
+            &.is-very-rare {
+                &:after {
+                    background-color: var(--very_rare);
+                }
+            }
+
+            &.is-legendary {
+                &:after {
+                    background-color: var(--legendary);
+                }
+            }
+
+            &.is-artifact {
+                &:after {
+                    background-color: var(--artifact);
+                }
+            }
+        }
+
+        &__type {
+            color: var(--text-g-color);
+            font-size: calc(var(--main-font-size) - 1px);
+            line-height: normal;
+        }
+
+        &__count,
+        &__price {
+            margin-left: auto;
+            display: block;
+        }
+
+        &.router-link-active {
+            .link-item {
+                &__rating,
+                &__type,
+                &__count,
+                &__price {
+                    color: var(--text-btn-color);
+                }
+            }
+        }
+    }
+</style>

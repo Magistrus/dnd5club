@@ -2,25 +2,34 @@
     <div
         ref="treasure"
         :class="{ 'is-green': treasure?.source?.homebrew, 'in-tab': inTab}"
-        class="treasure-link"
+        class="link-item"
     >
-        <div class="treasure-link__body">
-            <div class="treasure-link__row">
-                <div class="treasure-link__name">
-                    {{ treasure.name.rus }}
-                </div>
-            </div>
-
-            <div class="treasure-link__row">
-                <div
-                    v-tooltip="{ content: treasure.source.name }"
-                    class="treasure-link__source"
-                >
-                    {{ treasure.source.shortName }}
+        <div class="link-item__content">
+            <div class="link-item__body">
+                <div class="link-item__row">
+                    <div class="link-item__name">
+                        {{ treasure.name.rus }}
+                    </div>
                 </div>
 
-                <div class="treasure-link__price">
-                    {{ treasure.price || 0 }} зм
+                <div class="link-item__row">
+                    <div
+                        v-tooltip="{ content: treasure.source.name }"
+                        class="link-item__source"
+                    >
+                        {{ treasure.source.shortName }}
+                    </div>
+
+                    <div
+                        v-if="treasure.custom?.count"
+                        class="link-item__count"
+                    >
+                        x{{ treasure.custom.count }}
+                    </div>
+
+                    <div class="link-item__price">
+                        {{ treasure.custom?.price || treasure.price || 0 }} зм
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,4 +52,19 @@
     }
 </script>
 
-<style lang="scss" scoped src="./TreasureItem.scss"/>
+<style lang="scss" scoped>
+    @import "../../../assets/styles/link-item";
+
+    .link-item {
+        &__source {
+            display: flex;
+            margin-right: 8px;
+        }
+
+        &__count,
+        &__price {
+            display: flex;
+            margin-left: auto;
+        }
+    }
+</style>

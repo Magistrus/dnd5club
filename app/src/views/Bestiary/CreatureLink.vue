@@ -10,31 +10,31 @@
             ref="creature"
             :class="getClassList(isActive)"
             :href="href"
-            class="creature-link"
+            class="link-item"
             @click.left.exact.prevent="navigate()"
         >
-            <div class="creature-link__content">
-                <div class="creature-link__rating">
+            <div class="link-item__content">
+                <div class="link-item__rating">
                     <span>{{ 'challengeRating' in creature ? creature.challengeRating : '-' }}</span>
                 </div>
 
-                <div class="creature-link__body">
-                    <div class="creature-link__row">
-                        <div class="creature-link__name">
-                            <div class="creature-link__name--rus">
+                <div class="link-item__body">
+                    <div class="link-item__row">
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
                                 {{ creature.name.rus }}
                             </div>
 
-                            <div class="creature-link__name--eng">
+                            <div class="link-item__name--eng">
                                 [{{ creature.name.eng }}]
                             </div>
                         </div>
                     </div>
 
-                    <div class="creature-link__row">
+                    <div class="link-item__row">
                         <div
                             v-capitalize-first
-                            class="creature-link__type"
+                            class="link-item__type"
                         >
                             {{ creature.type }}
                         </div>
@@ -83,29 +83,9 @@
 </script>
 
 <style lang="scss" scoped>
-    .creature-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
+    @import "../../assets/styles/link-item.scss";
 
-        &.is-green {
-            .creature-link {
-                &__content {
-                    background-color: var(--bg-homebrew-gradient-left);
-                }
-            }
-        }
-
-        &__content {
-            display: flex;
-            flex-direction: row;
-            padding: 8px 10px;
-            width: 100%;
-        }
-
+    .link-item {
         &__rating {
             width: 42px;
             height: 42px;
@@ -116,40 +96,7 @@
             font-size: 17px;
             color: var(--text-color);
             border-right: 1px solid var(--border);
-        }
-
-        &__body {
-            flex: 1 1 100%;
-            padding-left: 16px;
-        }
-
-        &__row {
-            display: flex;
-            align-items: center;
-
-            & + & {
-                margin-top: 4px;
-            }
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
+            margin-right: 16px;
         }
 
         &__type {
@@ -158,30 +105,11 @@
             line-height: normal;
         }
 
-        &:hover {
-            .creature-link {
-                &__content {
-                    background-color: var(--hover);
-                }
-            }
-        }
-
         &.router-link-active {
-            .creature-link {
-                &__content {
-                    background-color: var(--primary-active);
-                }
-
+            .link-item {
                 &__rating,
                 &__type {
                     color: var(--text-btn-color);
-                }
-
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
                 }
             }
         }

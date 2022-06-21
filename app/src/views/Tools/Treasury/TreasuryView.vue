@@ -206,7 +206,7 @@
                     <span>Магические предметы</span>
                 </h4>
 
-                <treasury-magic-item-link
+                <magic-item-link
                     v-for="(item, key) in groupedResult.magicItems"
                     :key="key"
                     :magic-item="item"
@@ -224,7 +224,7 @@
                     <span>Драгоценные камни</span>
                 </h4>
 
-                <treasury-treasure-item
+                <treasure-item
                     v-for="(item, key) in groupedResult.gems"
                     :key="key"
                     :treasure="item"
@@ -239,7 +239,7 @@
                     <span>Предметы искусства</span>
                 </h4>
 
-                <treasury-treasure-item
+                <treasure-item
                     v-for="(item, key) in groupedResult.arts"
                     :key="key"
                     :treasure="item"
@@ -254,7 +254,7 @@
                     <span>Безделушки</span>
                 </h4>
 
-                <treasury-treasure-item
+                <treasure-item
                     v-for="(item, key) in groupedResult.trinkets"
                     :key="key"
                     :treasure="item"
@@ -274,15 +274,15 @@
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import SpellBody from "@/views/Spells/SpellBody";
-    import TreasuryMagicItemLink from "@/views/Tools/Treasury/TreasuryMagicItemLink";
-    import TreasuryTreasureItem from "@/views/Tools/Treasury/TreasuryTreasureItem";
     import { reactive } from "vue";
+    import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
+    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
 
     export default {
         name: "TreasuryView",
         components: {
-            TreasuryTreasureItem,
-            TreasuryMagicItemLink,
+            MagicItemLink,
+            TreasureItem,
             SpellBody,
             MagicItemBody,
             FieldCheckbox, SectionHeader, FieldSelect, ContentLayout

@@ -7,64 +7,68 @@
     >
         <a
             v-bind="$attrs"
-            class="weapon-link"
+            class="link-item"
             :class="getClassList(isActive)"
             :href="href"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
-            <div
-                v-if="weapon.name"
-                class="weapon-link__row"
-            >
-                <div class="weapon-link__name">
-                    <div class="weapon-link__name--rus">
-                        {{ weapon.name.rus }}
-                    </div>
-
+            <div class="link-item__content">
+                <div class="link-item__body">
                     <div
-                        v-if="weapon.name.eng"
-                        class="weapon-link__name--eng"
+                        v-if="weapon.name"
+                        class="link-item__row"
                     >
-                        [{{ weapon.name.eng }}]
-                    </div>
-                </div>
-            </div>
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
+                                {{ weapon.name.rus }}
+                            </div>
 
-            <div class="weapon-link__row">
-                <div
-                    v-if="weapon.type?.name"
-                    class="weapon-link__type"
-                >
-                    {{ weapon.type.name }}
-                </div>
-
-                <div
-                    v-if="weapon.damage"
-                    class="weapon-link__damage"
-                >
-                    <div
-                        v-if="weapon.damage.dice"
-                        v-tooltip="{ content: 'Урон' }"
-                        class="weapon-link__damage_dice"
-                    >
-                        {{ weapon.damage.dice }}
+                            <div
+                                v-if="weapon.name.eng"
+                                class="link-item__name--eng"
+                            >
+                                [{{ weapon.name.eng }}]
+                            </div>
+                        </div>
                     </div>
 
-                    <div
-                        v-if="weapon.damage.type"
-                        v-tooltip="{ content: 'Тип урона' }"
-                        class="weapon-link__damage_type"
-                    >
-                        {{ weapon.damage.type }}
-                    </div>
-                </div>
+                    <div class="link-item__row">
+                        <div
+                            v-if="weapon.type?.name"
+                            class="link-item__type"
+                        >
+                            {{ weapon.type.name }}
+                        </div>
 
-                <div
-                    v-if="weapon.price"
-                    v-tooltip="{ content: 'Стоимость' }"
-                    class="weapon-link__price"
-                >
-                    {{ weapon.price }}
+                        <div
+                            v-if="weapon.damage"
+                            class="link-item__damage"
+                        >
+                            <div
+                                v-if="weapon.damage.dice"
+                                v-tooltip="{ content: 'Урон' }"
+                                class="link-item__damage_dice"
+                            >
+                                {{ weapon.damage.dice }}
+                            </div>
+
+                            <div
+                                v-if="weapon.damage.type"
+                                v-tooltip="{ content: 'Тип урона' }"
+                                class="link-item__damage_type"
+                            >
+                                {{ weapon.damage.type }}
+                            </div>
+                        </div>
+
+                        <div
+                            v-if="weapon.price"
+                            v-tooltip="{ content: 'Стоимость' }"
+                            class="link-item__price"
+                        >
+                            {{ weapon.price }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </a>
@@ -104,68 +108,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .weapon-link {
-        border-radius: 12px;
-        overflow: hidden;
-        background-color: var(--bg-table-list);
-        width: 100%;
-        margin-bottom: 12px;
-        display: block;
-        padding: 8px 10px;
-
-        &.is-green {
-            .weapon-link {
-                background-color: var(--bg-homebrew-gradient-left);
-            }
-        }
-
-        &__row {
-            display: flex;
-            align-items: center;
-
-            & + & {
-                margin-top: 4px;
-            }
-        }
-
-        &__name {
-            display: block;
-            font-size: var(--main-font-size);
-            font-weight: 500;
-
-            &--rus,
-            &--eng {
-                display: inline;
-                line-height: normal;
-            }
-
-            &--rus {
-                color: var(--text-color-title);
-            }
-
-            &--eng {
-                color: var(--text-g-color);
-            }
-        }
-
-        &:hover {
-            .weapon-link {
-                background-color: var(--hover);
-            }
-        }
-
-        &.router-link-active {
-            background-color: var(--primary-active);
-
-            .weapon-link {
-                &__name {
-                    &--rus,
-                    &--eng {
-                        color: var(--text-btn-color);
-                    }
-                }
-            }
-        }
-    }
-</style>
+<style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>
