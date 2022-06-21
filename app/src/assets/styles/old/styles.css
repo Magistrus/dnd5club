@@ -11,6 +11,26 @@ html {
   }
 }
 
+.search_row_g {
+  height: 46px;
+  width: 40%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: auto;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+}
+
+@media (max-width: 600px){
+  .search_row_g {
+      width: 100%;
+      margin-right: 16px;
+  }
+}
+
 body {
   display: flex;
   margin: 0;
@@ -36,6 +56,7 @@ body:before {
   width: 100%;
   height: 100%;
   opacity: 0.65;
+  z-index: -1;
 }
 
 @media (max-width: 1200px) {
@@ -956,7 +977,7 @@ label.select_box {
 
 .main_page_wrapper .header .proner_block {
   display: flex;
-  height: 30px;
+  height: 46px;
   border-radius: 12px;
   padding: 8px 16px;
   align-items: center;
@@ -987,15 +1008,6 @@ label.select_box {
 
 .main_page_wrapper .header .proner_block:hover .icon svg path {
   stroke: var(--text-btn-color);
-}
-
-@media (max-width: 1200px) {
-  .main_page_wrapper .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 16px 16px 16px 16px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1045,13 +1057,6 @@ label.select_box {
   flex-wrap: wrap;
   padding: 0px 0px;
   margin: 0 -8px;
-}
-
-@media (max-width: 1200px) {
-  .main_page_wrapper .main_block .card_row {
-    padding: 0px 8px;
-    margin: 0 0px;
-  }
 }
 
 .main_page_wrapper .main_block .card_row:first-child {
@@ -1243,12 +1248,6 @@ label.select_box {
   padding: 16px 0px;
 }
 
-@media (max-width: 1200px) {
-  .main_page_wrapper .info_main_block {
-    padding: 16px 16px;
-  }
-}
-
 .main_page_wrapper .info_main_block h3 {
   margin-top: 32px;
   margin-bottom: 8px;
@@ -1335,12 +1334,6 @@ label.select_box {
   width: 33%;
   position: relative;
   overflow: hidden;
-}
-
-@media (max-width: 1200px) {
-  .main_page_wrapper .dnd5club_tel_bot {
-    margin: 32px 16px -16px 16px;
-  }
 }
 
 @media (max-width: 800px) {
