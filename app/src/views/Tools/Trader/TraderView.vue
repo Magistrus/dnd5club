@@ -14,7 +14,7 @@
                         :searchable="false"
                         label="name"
                         track-by="value"
-                        @update:modelValue="magicCountValue = $event"
+                        @update:model-value="magicCountValue = $event"
                     >
                         <template #placeholder>
                             Количество
@@ -39,7 +39,7 @@
                     <field-checkbox
                         :model-value="form.unique"
                         type="toggle"
-                        @update:modelValue="form.unique = $event"
+                        @update:model-value="form.unique = $event"
                     >
                         Только уникальные
                     </field-checkbox>
@@ -153,6 +153,7 @@
     import TraderMagicItemLink from "@/views/Tools/Trader/TraderMagicItemLink";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import SpellBody from "@/views/Spells/SpellBody";
+    import { reactive } from "vue";
 
     export default {
         name: "TraderView",
@@ -233,17 +234,17 @@
                         continue;
                     }
 
-                    const prices = _.chain(group.map(o => o.costDmg))
+                    const prices = _.chain(group.map(o => o.price))
                         .sortedUniq()
                         .value();
 
-                    res.push({
+                    res.push(reactive({
                         ...el,
                         custom: {
                             count: group.length,
                             price: this.settings.max ? _.max(prices) : Math.round(_.mean(prices))
                         }
-                    })
+                    }))
                 }
 
                 return res

@@ -202,14 +202,13 @@
                 default: false
             }
         },
-        emits: ['remove', 'open', 'close', 'tag', 'search-change', 'select', 'update:modelValue'],
         computed: {
             value: {
                 get() {
                     return this.modelValue
                 },
                 set(value) {
-                    this.$emit('update:modelValue', value)
+                    this.$emit('update:model-value', value)
                 }
             }
         },

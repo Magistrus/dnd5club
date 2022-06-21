@@ -19,8 +19,15 @@
                     {{ treasure.source.shortName }}
                 </div>
 
+                <div
+                    v-if="treasure.custom?.count"
+                    class="treasure-link__count"
+                >
+                    x{{ treasure.custom.count }}
+                </div>
+
                 <div class="treasure-link__price">
-                    {{ treasure.price || 0 }} зм
+                    {{ treasure.custom?.price ||treasure.price || 0 }} зм
                 </div>
             </div>
         </div>
@@ -28,19 +35,20 @@
 </template>
 
 <script>
+    import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
+
     export default {
-        name: 'TreasureItem',
-        props: {
-            treasure: {
-                type: Object,
-                default: () => ({})
-            },
-            inTab: {
-                type: Boolean,
-                default: false
-            }
-        },
+        name: 'TreasuryTreasureItem',
+        extends: TreasureItem,
     }
 </script>
 
-<style lang="scss" scoped src="./TreasureItem.scss"/>
+<style lang="scss" scoped>
+    @import "../../Treasures/Treasures/TreasureItem";
+
+    .treasure-link {
+        &__count {
+            margin-left: auto;
+        }
+    }
+</style>

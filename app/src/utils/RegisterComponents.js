@@ -18,6 +18,7 @@ import GodsView from '@/views/Wiki/Gods/GodsView';
 import RulesView from '@/views/Wiki/Rules/RulesView';
 import BooksView from '@/views/Wiki/Books/BooksView';
 import TraderView from '@/views/Tools/Trader/TraderView';
+import TreasuryView from '@/views/Tools/Treasury/TreasuryView';
 
 export default function registerComponents(app) {
     /* eslint-disable vue/match-component-file-name */
@@ -38,6 +39,7 @@ export default function registerComponents(app) {
     app.component('RulesView', RulesView);
     app.component('BooksView', BooksView);
     app.component('TraderView', TraderView);
+    app.component('TreasuryView', TreasuryView);
 
     // Components
     app.component('MenuThemeSwitcher', MenuThemeSwitcher);

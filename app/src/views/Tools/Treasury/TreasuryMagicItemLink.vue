@@ -55,7 +55,7 @@
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
 
     export default {
-        name: "TraderMagicItemLink",
+        name: "TreasuryMagicItemLink",
         extends: MagicItemLink,
         props: {
             isActive: {
