@@ -5,6 +5,10 @@
   margin: auto;
   height: 100%;
   padding: 24px;
+
+  > div {
+    height: calc(var(--max-vh) - 48px);
+  }
 }
 
 .main_block {

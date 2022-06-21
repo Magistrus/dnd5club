@@ -2620,13 +2620,13 @@ table.table_card tr.dtrg-group {
 
 }
 
-#left_block {
+/* #left_block {
   overflow-x: hidden;
   overflow-y: hidden;
   margin-right: 0px;
   margin-left: 0px;
   position: relative;
-  height: 100%;}
+  height: 100%;} */
 
 #left_block .container_left {
   position: relative;
@@ -2723,12 +2723,12 @@ table.table_card tr.dtrg-group {
 
 }
 
-#right_block {
+/* #right_block {
   position: absolute;
   background-color: var(--bg-secondary);
   z-index: 10;
   overflow: hidden;
-}
+} */
 
 #right_block .image-container {
   position: relative;

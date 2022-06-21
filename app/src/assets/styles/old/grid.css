@@ -12,7 +12,7 @@
 
 /* ------------------------------------- */
 
-#left_block {
+/* #left_block {
   width: 100%;
 }
 
@@ -20,28 +20,28 @@
   body #left_block {
     width: 100% !important;
   }
-}
+} */
 
-body .block_information #left_block {
+/* body .block_information #left_block {
   width: 40%;
-}
+} */
 
 /* ------------------------------------- */
 
-#right_block {
+/* #right_block {
   top: 0;
   display: none;
   width: calc(60% - 8px);
   height: calc(100% - 38px);
   margin-top: 16px;
   right: 0px;
-  /* box-shadow: 0px 0px 23px 7px #0000001f; */
+  box-shadow: 0px 0px 23px 7px #0000001f;
   border-radius: 12px;
-}
+} */
 
-.block_information #right_block {
+/* .block_information #right_block {
   display: block;
-}
+} */
 
 @media (max-width: 1200px) {
   #right_block {
