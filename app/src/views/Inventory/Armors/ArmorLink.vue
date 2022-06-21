@@ -104,7 +104,7 @@
             color: var(--text-g-color);
         }
 
-        &_price {
+        &__price {
             color: var(--text-color-title);
         }
 
@@ -112,7 +112,7 @@
             .link-item {
                 &__type,
                 &__ac,
-                &_price {
+                &__price {
                     color: var(--text-btn-color);
                 }
             }
