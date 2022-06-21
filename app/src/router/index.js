@@ -177,7 +177,7 @@ const routes = [
     {
         name: 'trader',
         path: '/tools/trader',
-        component: () => import('@/views/Tools/Trader/TraderView'),
+        component: () => import('@/views/Tools/TraderView'),
     },
 ];
 

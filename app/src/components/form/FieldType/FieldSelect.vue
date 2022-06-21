@@ -202,18 +202,10 @@
                 default: false
             }
         },
-        computed: {
-            value: {
-                get() {
-                    return this.modelValue
-                },
-                set(value) {
-                    this.$emit('update:model-value', value)
-                }
-            }
-        },
         methods: {
             onSelect(event) {
+                console.log(event);
+                this.$emit('input', event);
                 this.$emit('select', event);
             },
             onRemove(event) {

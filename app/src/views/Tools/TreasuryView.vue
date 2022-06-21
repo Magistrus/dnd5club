@@ -6,33 +6,79 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <p>Количество магии в мире:</p>
+                    <p>Показатель опасности монстров:</p>
 
                     <field-select
-                        :options="magicCount"
-                        :model-value="magicCountValue"
+                        v-model="crValue"
+                        :options="crList"
                         :searchable="false"
                         label="name"
                         track-by="value"
-                        @update:model-value="magicCountValue = $event"
                     >
                         <template #placeholder>
-                            Количество
+                            Показатель опасности
                         </template>
                     </field-select>
                 </div>
 
                 <div class="tools_settings__row">
-                    <label class="select_box">
-                        <span>Результат проверки Харизмы (Убеждение):</span>
+                    <field-checkbox
+                        :model-value="form.coins"
+                        type="toggle"
+                        @update:model-value="form.coins = $event"
+                    >
+                        Монеты
+                    </field-checkbox>
+                </div>
 
-                        <input
-                            v-model="form.persuasion"
-                            type="number"
-                            class="form-control select"
-                            placeholder="Харизма (Убеждение)"
-                        >
-                    </label>
+                <div class="tools_settings__row">
+                    <field-checkbox
+                        :model-value="form.magicItem"
+                        type="toggle"
+                        @update:model-value="form.magicItem = $event"
+                    >
+                        Магические предметы
+                    </field-checkbox>
+                </div>
+
+                <div class="tools_settings__row">
+                    <field-checkbox
+                        :model-value="form.scroll"
+                        type="toggle"
+                        @update:model-value="form.scroll = $event"
+                    >
+                        Свитки
+                    </field-checkbox>
+                </div>
+
+                <div class="tools_settings__row">
+                    <field-checkbox
+                        :model-value="form.trinket"
+                        type="toggle"
+                        @update:model-value="form.trinket = $event"
+                    >
+                        Безделушки
+                    </field-checkbox>
+                </div>
+
+                <div class="tools_settings__row">
+                    <field-checkbox
+                        :model-value="form.art"
+                        type="toggle"
+                        @update:model-value="form.art = $event"
+                    >
+                        Предметы искусства
+                    </field-checkbox>
+                </div>
+
+                <div class="tools_settings__row">
+                    <field-checkbox
+                        :model-value="form.gem"
+                        type="toggle"
+                        @update:model-value="form.gem = $event"
+                    >
+                        Драгоценные камни
+                    </field-checkbox>
                 </div>
 
                 <div class="tools_settings__row">
@@ -52,7 +98,7 @@
                     <field-checkbox
                         :model-value="settings.grouping"
                         type="toggle"
-                        @update:modelValue="settings.grouping = $event"
+                        @update:model-value="settings.grouping = $event"
                     >
                         Группировать одинаковые
                     </field-checkbox>
@@ -65,7 +111,7 @@
                     <field-checkbox
                         :model-value="settings.max"
                         type="toggle"
-                        @update:modelValue="settings.max = $event"
+                        @update:model-value="settings.max = $event"
                     >
                         {{ `Отображать ${settings.max ? 'максимальную' : 'среднюю'} цену` }}
                     </field-checkbox>
@@ -77,7 +123,7 @@
                         class="btn btn_primary"
                         type="submit"
                     >
-                        Найти торговца
+                        Создать сокровищницу
                     </button>
                 </div>
             </form>
@@ -86,15 +132,15 @@
         <template #right-side>
             <section-header
                 fullscreen
-                :title="selected.item?.name.rus || 'В продаже'"
-                :subtitle="selected.item?.name.eng || 'On sale'"
+                :title="selected.item?.name.rus || 'В сокровищнице'"
+                :subtitle="selected.item?.name.eng || 'In treasury'"
             />
 
             <div
                 v-if="loading && !error"
-                class="trader__loader"
+                class="treasury__loader"
             >
-                <div class="trader__loader_img">
+                <div class="treasury__loader_img">
                     <img
                         alt=""
                         src="/app/img/loader.png"
@@ -104,21 +150,21 @@
 
             <div
                 v-else-if="error"
-                class="trader__err"
+                class="treasury__err"
             >
                 error...
             </div>
 
             <div
                 v-if="!selected.item"
-                class="trader__empty"
+                class="treasury__empty"
             >
                 <p>Список товаров пуст.</p>
             </div>
 
             <div
                 v-else
-                class="trader__content"
+                class="treasury__content"
             >
                 <magic-item-body :magic-item="detailCard.item"/>
 
@@ -130,14 +176,89 @@
         </template>
 
         <template #default>
-            <magic-item-link
-                v-for="(item, key) in groupedResults"
-                :key="key"
-                :magic-item="item"
-                :is-active="selected.index === key"
-                :to="{path: item.url}"
-                @select-item="selectItem(key)"
-            />
+            <div
+                v-if="groupedResult.coins"
+                class="treasury-group"
+            >
+                <h4 class="header_separator">
+                    <span>Магические предметы</span>
+                </h4>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>{{ groupedResult.coins.copper || 0 }} мм</td>
+                            <td>{{ groupedResult.coins.silver || 0 }} см</td>
+                            <td>{{ groupedResult.coins.electrum || 0 }} эм</td>
+                            <td>{{ groupedResult.coins.gold || 0 }} зм</td>
+                            <td>{{ groupedResult.coins.platinum || 0 }} пм</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div
+                v-if="groupedResult.magicItems?.length"
+                class="treasury-group"
+            >
+                <h4 class="header_separator">
+                    <span>Магические предметы</span>
+                </h4>
+
+                <magic-item-link
+                    v-for="(item, key) in groupedResult.magicItems"
+                    :key="key"
+                    :magic-item="item"
+                    :is-active="selected.index === key"
+                    :to="{path: item.url}"
+                    @select-item="selectItem('magicItems', key)"
+                />
+            </div>
+
+            <div
+                v-if="groupedResult.gems?.length"
+                class="treasury-group"
+            >
+                <h4 class="header_separator">
+                    <span>Драгоценные камни</span>
+                </h4>
+
+                <treasure-item
+                    v-for="(item, key) in groupedResult.gems"
+                    :key="key"
+                    :treasure="item"
+                />
+            </div>
+
+            <div
+                v-if="groupedResult.arts?.length"
+                class="treasury-group"
+            >
+                <h4 class="header_separator">
+                    <span>Предметы искусства</span>
+                </h4>
+
+                <treasure-item
+                    v-for="(item, key) in groupedResult.arts"
+                    :key="key"
+                    :treasure="item"
+                />
+            </div>
+
+            <div
+                v-if="groupedResult.trinkets?.length"
+                class="treasury-group"
+            >
+                <h4 class="header_separator">
+                    <span>Безделушки</span>
+                </h4>
+
+                <treasure-item
+                    v-for="(item, key) in groupedResult.trinkets"
+                    :key="key"
+                    :treasure="item"
+                />
+            </div>
         </template>
     </content-layout>
 </template>
@@ -153,41 +274,52 @@
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import SpellBody from "@/views/Spells/SpellBody";
     import { reactive } from "vue";
+    import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
 
     export default {
-        name: "TraderView",
+        name: "TreasuryView",
         components: {
             MagicItemLink,
+            TreasureItem,
             SpellBody,
             MagicItemBody,
             FieldCheckbox, SectionHeader, FieldSelect, ContentLayout
         },
         data: () => ({
-            magicCount: [
+            crList: [
                 {
-                    name: 'Мало',
+                    name: '0-4',
                     value: 1,
                 },
                 {
-                    name: 'Норма',
+                    name: '5-10',
                     value: 2,
                 },
                 {
-                    name: 'Много',
+                    name: '11-15',
                     value: 3,
+                },
+                {
+                    name: '17+',
+                    value: 4,
                 },
             ],
             form: {
-                magicLevel: 1,
-                persuasion: 1,
+                cr: 1,
+                coins: true,
+                magicItem: true,
+                scroll: true,
+                trinket: true,
+                art: true,
+                gem: true,
                 unique: true
             },
             settings: {
                 grouping: true,
                 max: false,
             },
-            results: [],
+            result: {},
             detailCard: {
                 item: undefined,
                 spell: undefined
@@ -205,50 +337,62 @@
             }
         }),
         computed: {
-            magicCountValue: {
+            crValue: {
                 get() {
-                    return this.magicCount.find(el => el.value === this.form.magicLevel)
+                    return this.crList.find(el => el.value === this.form.cr)
                 },
 
                 set(e) {
-                    this.form.magicLevel = e.value
+                    this.form.cr = e.value
                 }
             },
 
-            groupedResults() {
+            groupedResult() {
                 if (!this.settings.grouping) {
-                    return this.results;
+                    return this.result;
                 }
 
-                const groups = _.chain(this.results)
-                    .groupBy(o => o.name.rus)
-                    .map(item => item)
-                    .value();
-                const res = [];
+                const result = {};
 
-                for (const group of groups) {
-                    const el = group[0];
-
-                    if (group.length === 1) {
-                        res.push(el);
+                for (const [key, value] of Object.entries(this.result)) {
+                    if (!value || !Array.isArray(value)) {
+                        result[key] = value;
 
                         continue;
                     }
 
-                    const prices = _.chain(group.map(o => o.price))
-                        .sortedUniq()
+                    const groups = _.chain(value)
+                        .groupBy(o => o.name.rus)
+                        .map(item => item)
                         .value();
+                    const res = [];
 
-                    res.push(reactive({
-                        ...el,
-                        custom: {
-                            count: group.length,
-                            price: this.settings.max ? _.max(prices) : Math.round(_.mean(prices))
+                    for (const group of groups) {
+                        const el = group[0];
+
+                        if (group.length === 1) {
+                            res.push(el);
+
+                            continue;
                         }
-                    }))
+
+                        const prices = _.chain(group.map(o => o.price))
+                            .sortedUniq()
+                            .value();
+
+                        res.push(reactive({
+                            ...el,
+                            custom: {
+                                count: group.length,
+                                price: this.settings.max ? _.max(prices) : Math.round(_.mean(prices))
+                            }
+                        }))
+                    }
+
+                    result[key] = res;
                 }
 
-                return res
+                return result
             }
         },
         methods: {
@@ -260,7 +404,7 @@
 
                 this.controllers.list = new AbortController();
 
-                this.http.post('/tools/trader', this.form, this.controllers.list.signal)
+                this.http.post('/tools/treasury', this.form, this.controllers.list.signal)
                     .then(res => {
                         if (res.status !== 200) {
                             errorHandler(res.statusText);
@@ -268,12 +412,12 @@
                             return;
                         }
 
-                        this.results = [];
+                        this.result = [];
 
                         this.clearSelected();
 
                         this.$nextTick(() => {
-                            this.results = res.data;
+                            this.result = res.data;
                         })
                     })
                     .catch(err => {
@@ -291,7 +435,7 @@
                 this.detailCard.spell = undefined;
             },
 
-            async selectItem(index) {
+            async selectItem(group, index) {
                 try {
                     if (this.controllers.detail) {
                         this.controllers.detail.abort();
@@ -304,7 +448,7 @@
 
                     this.controllers.detail = new AbortController();
 
-                    const item = this.groupedResults[index];
+                    const item = this.groupedResult[group][index];
                     const resMagicItem = await this.http.post(item.url, null, this.controllers.detail.signal);
 
                     if (resMagicItem.status !== 200) {
