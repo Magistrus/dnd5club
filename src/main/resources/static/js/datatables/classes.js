@@ -169,7 +169,6 @@ $(document).ready(function () {
             }
         } else if (e.target.tagName == 'BUTTON' || e.target.parentNode.tagName == 'BUTTON' || e.target.parentNode.parentNode.tagName == 'BUTTON') {
             tr[0].classList.toggle('open');
-            SimpleBar.instances.get(document.querySelector('[data-simplebar]')).recalculate();
         } else {
             $('li').removeClass('select_point');
             $('tr').removeClass('open');
