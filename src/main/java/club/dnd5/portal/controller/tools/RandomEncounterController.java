@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.model.creature.HabitatType;
-import club.dnd5.portal.model.encounters.RandomEncounter;
+import club.dnd5.portal.model.encounters.RandomEncounterRow;
 import club.dnd5.portal.repository.datatable.RandomEncounterRepository;
 
 @Controller
@@ -32,7 +32,7 @@ public class RandomEncounterController {
 	
 	@GetMapping("/tools/encounters/table")
 	public String getRandomEncounters(Model model, Integer level, HabitatType type) {
-		List<RandomEncounter> encounters = repo.findAllByLevelAndType(level, type);
+		List<RandomEncounterRow> encounters = repo.findAllByLevelAndType(level, type);
 		model.addAttribute("encounters", encounters);
 		return "tools/random_encounters :: table";
 	}
@@ -51,7 +51,7 @@ public class RandomEncounterController {
 			habitatType = HabitatType.valueOf(type);
 		}
 		int index = 1 + rnd.nextInt(100);
-		RandomEncounter encounter = repo.findOne(index, level, habitatType);
+		RandomEncounterRow encounter = repo.findOne(index, level, habitatType);
 		return String.format("Окружающая среда: <strong>%s</strong><br>%s", habitatType.getName(), encounter.getDescription());
 	}
 }

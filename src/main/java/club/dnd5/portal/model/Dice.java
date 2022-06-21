@@ -24,11 +24,11 @@ public enum Dice {
 
 	private int maxValue;
 	
-	public  int roll() {
+	public int roll() {
 		return 1 + rnd.nextInt(this.getMaxValue());
 	}
 	
-	public  int roll(int diceCount) {
+	public int roll(int diceCount) {
 		int result = 0;
 		for (int i = 0; i < diceCount; i++) {
 			result += roll();
@@ -55,15 +55,7 @@ public enum Dice {
 		}
 		return null;
 	}
-
-	public String getName() {
-		return "к" + maxValue;
-	}
-
-	public static Set<Dice> getCreatures() {
-		return EnumSet.of(d4, d6, d8, d10, d12, d20);
-	}
-
+	
 	public static Dice parse(String dice) {
 		switch (dice) {
 		case "k4":
@@ -82,6 +74,14 @@ public enum Dice {
 			return d100;
 		}
 		return null;
+	}
+	
+	public String getName() {
+		return "к" + maxValue;
+	}
+
+	public static Set<Dice> getCreatures() {
+		return EnumSet.of(d4, d6, d8, d10, d12, d20);
 	}
 
 	public static int roll(Dice dice) {

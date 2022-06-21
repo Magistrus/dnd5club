@@ -27,14 +27,16 @@ import lombok.Setter;
 @Table(name = "random_encounters", 
 	indexes = {@Index(name = "fn_index", columnList = "start, end, level, type")}
 )
-public class RandomEncounter {
+public class RandomEncounterRow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private int start;
 	private int end;
+
 	private int level;
+
 	@Enumerated (EnumType.STRING)
 	private HabitatType type;
 	
