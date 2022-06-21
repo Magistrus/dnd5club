@@ -131,8 +131,7 @@
 <style lang="scss" scoped>
     .content-layout {
         width: 100%;
-        height: var(--max-vh);
-        padding: 24px;
+        height: 100%;
 
         &__body {
             width: 100%;
