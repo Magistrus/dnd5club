@@ -39,6 +39,7 @@
         >
             <div
                 v-for="(group, groupKey) in modelValue"
+                v-show="!!group.values?.length"
                 :key="groupKey"
                 class="filter-item__source-group"
             >

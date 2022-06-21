@@ -1,13 +1,11 @@
 <template>
-    <div
-        class="dnd5club-select"
-        v-bind="$attrs"
-    >
+    <div class="dnd5club-select">
         <multiselect
             v-bind="$props"
             @close="onClose"
             @open="onOpen"
             @remove="onRemove"
+            @update:model-value="onUpdate"
             @select="onSelect"
             @tag="onTag"
             @search-change="onSearch"
@@ -91,7 +89,6 @@
             Multiselect,
             SvgIcon
         },
-        inheritAttrs: false,
         props: {
             modelValue: {
                 type: [Number, String, Object, Array],
@@ -202,10 +199,12 @@
                 default: false
             }
         },
+        emits: ['open', 'search-change', 'close', 'select', 'update:model-value', 'remove', 'tag'],
         methods: {
+            onUpdate(event) {
+                this.$emit('update:model-value', event);
+            },
             onSelect(event) {
-                console.log(event);
-                this.$emit('input', event);
                 this.$emit('select', event);
             },
             onRemove(event) {

@@ -51,7 +51,7 @@
                     <field-checkbox
                         :model-value="settings.grouping"
                         type="toggle"
-                        @update:modelValue="settings.grouping = $event"
+                        @update:model-value="settings.grouping = $event"
                     >
                         Группировать одинаковые
                     </field-checkbox>
@@ -64,7 +64,7 @@
                     <field-checkbox
                         :model-value="settings.max"
                         type="toggle"
-                        @update:modelValue="settings.max = $event"
+                        @update:model-value="settings.max = $event"
                     >
                         {{ `Отображать ${settings.max ? 'максимальную' : 'среднюю'} цену` }}
                     </field-checkbox>
@@ -210,7 +210,6 @@
                 },
 
                 set(e) {
-                    console.log(e);
                     this.form.magicLevel = e.value
                 }
             },
