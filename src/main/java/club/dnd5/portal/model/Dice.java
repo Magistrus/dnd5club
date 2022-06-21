@@ -95,5 +95,4 @@ public enum Dice {
 		}
 		return result;
 	}
-
 }
