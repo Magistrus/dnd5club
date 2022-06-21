@@ -5,8 +5,8 @@
   --bg-sub-menu: #293137;
   --bg-dice: #585595;
   --bg-homebrew: #23492e;
-  --bg-homebrew-gradient: linear-gradient(to right, var(--bg-table-list), #1c3222 90%);
-  --bg-homebrew-gradient-left: linear-gradient(to left, var(--bg-table-list), #1c3222 90%);
+  --bg-homebrew-gradient: linear-gradient(50deg, var(--bg-table-list), var(--bg-homebrew) 140%);
+  --bg-homebrew-gradient-left: linear-gradient(-50deg, var(--bg-table-list), var(--bg-homebrew) 140%);
   --bg-advantage: #026a02;
   --bg-disadvantage: #774747;
   --bg-saving_throw: #fe5e00;
@@ -16,6 +16,7 @@
   --bg-details-title: #343a40;
   --bg-table-list: #1F262C;
   --bg-liner-main-page: linear-gradient(to right, #0f151b, transparent);
+  --bg-liner-list: linear-gradient(to right, var(--bg-table-list), transparent);
   --text-color: #ffffff99;
   --text-color-active: #fff;
   --text-color-title: #fff;
@@ -25,14 +26,14 @@
   --text-a-color: #34bb3e;
   --text-btn-color: #f8f8f8;
   --text-print-color: #000;
-  --link-color: #a397e4;
-  --link-color-hover: #f8f8f8;
+  --link-color: #5c85d6;
+  --link-color-hover: #8da9e2;
   --hover: rgba(255, 255, 255, 0.05);
   --bg-table-row: rgba(255, 255, 255, 0.03);
   --border: #35393D;
-  --primary: #7B61FF;
-  --primary-hover: #44439E;
-  --primary-active: #332f86;
+  --primary: #3567C9;
+  --primary-hover: #325CAB;
+  --primary-active: #2552a5;
   --logo-base-color: #ffffff;
   --logo-additional-color: #ce0000;
 

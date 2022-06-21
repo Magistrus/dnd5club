@@ -1,24 +1,29 @@
 :root {
-  --main-font-size: 14px;
-  --h1-font-size: 32px;
-  --h2-font-size: 28px;
-  --h3-font-size: 26px;
-  --h4-font-size: 20px;
-  --h5-font-size: 14px;
-  --main-line-height: calc(var(--main-font-size) + 8px);
-  --h1-line-height: calc(var(--h1-font-size) + 10px);
-  --h2-line-height: calc(var(--h2-font-size) + 10px);
-  --h3-line-height: calc(var(--h3-font-size) + 6px);
-  --h4-line-height: calc(var(--h4-font-size) + 10px);
-  --h5-line-height: calc(var(--h5-font-size) + 6px);
+  --main-font-size:14px;
+  --h1-font-size:42px;
+  --h2-font-size:28px;
+  --h3-font-size:26px;
+  --h4-font-size:22px;
+  --h5-font-size:14px;
+}
 
-  @include media-min($lg) {
-    --main-font-size: 14px;
-    --h1-font-size: 42px;
-    --h2-font-size: 28px;
-    --h3-font-size: 26px;
-    --h4-font-size: 22px;
-    --h5-font-size: 14px;
+:root {
+  --main-line-height:calc(var(--main-font-size) + 8px);
+  --h1-line-height:calc(var(--h1-font-size) + 10px);
+  --h2-line-height:calc(var(--h2-font-size) + 10px);
+  --h3-line-height:calc(var(--h3-font-size) + 6px);
+  --h4-line-height:calc(var(--h4-font-size) + 10px);
+  --h5-line-height:calc(var(--h5-font-size) + 8px);
+}
+
+@media (max-width: 800px) {
+  :root {
+    --main-font-size:14px;
+    --h1-font-size:32px;
+    --h2-font-size:28px;
+    --h3-font-size:26px;
+    --h4-font-size:20px;
+    --h5-font-size:14px;
   }
 }
 
@@ -40,24 +45,25 @@ h3 {
   font-size: var(--h3-font-size);
   font-weight: 300;
   line-height: var(--h3-line-height);
-  margin: 0;
+  margin: 28px 0 8px 0;
   color: var(--text-color-title);
-  font-family: "Lora", serif;
+  font-family: 'Lora';
 }
 
 h4 {
   font-size: var(--h4-font-size);
   font-weight: 300;
-  margin: 0;
+  margin: 28px 0 6px 0;
   color: var(--text-color-title);
-  font-family: "Lora", serif;
+  position: relative;
+  font-family: 'Lora';
 }
 
 h5 {
   font-size: var(--h5-font-size);
   font-weight: 600;
   line-height: var(--h5-line-height);
-  margin: 0;
+  margin: 0px 0 0px 0;
   color: var(--text-color-title);
   position: relative;
 }
@@ -76,20 +82,20 @@ a {
   font-weight: 400;
 }
 
-@include media-min($md) {
-  a:hover {
-    color: var(--link-color-hover);
-  }
+a:hover {
+  color: var(--link-color-hover);
 }
 
+ol,
 ul {
   color: var(--text-color);
-  line-height: 16px;
   padding-left: 24px;
+  margin: 0 0 12px 0;
 }
 
 ul li {
   line-height: 20px;
+  margin-bottom: 4px;
 }
 
 strong,
@@ -134,35 +140,44 @@ summary.header_separator + .caption_text {
 }
 
 blockquote {
-  font-family: "Neucha", cursive;
+  font-family: 'Neucha', cursive;
   padding: 16px 16px 16px 16px;
   background-color: var(--bg-blockquote);
   border-radius: 16px;
   margin-bottom: 32px;
   margin-top: 32px;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 20px;
-  margin-inline-end: 20px;
+
+  margin-block-start: 16px;
+  margin-block-end: 16px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 blockquote p {
-  letter-spacing: 1.5px;
+  letter-spacing:1.5px;
 }
 
 blockquote p:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0px;
 }
 
 .header_separator {
   display: flex;
   align-items: center;
-  margin-top: 24px;
-  width: 100%;
+  margin-top: 28px;
+  /* width: 100%; */
+}
+
+h5.header_separator {
+  margin-top: 0px;
+  margin-bottom: 8px;
 }
 
 .filter_crumbs_box .header_separator {
-  margin: 16px 4px 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  margin-top: 16px;
   font-weight: 400;
 }
 
@@ -188,10 +203,11 @@ details {
   margin-bottom: 16px;
   margin-left: -8px;
   margin-right: -8px;
+  margin-top: 20px;
 }
 
 details[open] {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 details .content {
@@ -202,10 +218,10 @@ details > summary.h4 {
   padding: 8px 8px;
   font-size: var(--h4-font-size);
   font-weight: 300;
-  margin: 0 0 4px 0;
+  margin: 0px 0px 4px 0px;
   color: var(--text-color-title);
   position: relative;
-  font-family: "Lora", serif;
+  font-family: 'Lora';
   cursor: pointer;
   background: var(--bg-details-title);
   border-radius: 8px;
@@ -229,7 +245,7 @@ details[open] > summary.header_separator:after {
   opacity: 1;
 }
 
-summary::before {
+summary:before {
   transform: rotate(-90deg);
   top: 16px;
   right: 12px;
@@ -245,7 +261,7 @@ summary::before {
 
 details[open] > summary::before {
   transform: rotate(90deg);
-  top: 10px;
+  top: 14px;
 }
 
 @media (max-width: 800px) {
@@ -263,16 +279,14 @@ summary.h5 {
   font-size: var(--h5-font-size);
   font-weight: 400;
   line-height: 18px;
-  margin: 0 0 8px 0;
+  margin: 0px 0 8px 0;
   color: var(--text-color);
   cursor: pointer;
 }
 
-@include media-min($md) {
-  summary.h4:hover,
-  summary.h5:hover {
-    color: var(--text-color);
-  }
+summary.h4:hover,
+summary.h5:hover {
+  color: var(--text-color);
 }
 
 h4.separator_card {
@@ -281,7 +295,7 @@ h4.separator_card {
 }
 
 .archetype_feet {
-  color: var(--text-a-color) !important;
+  color:var(--text-a-color) !important;
 }
 
 .align_left {
@@ -289,7 +303,7 @@ h4.separator_card {
 }
 
 details.spoiler {
-  padding: 0 0 4px 0;
+  padding: 0 0px 4px 0px;
   margin: 0 -8px 16px -8px;
   border-radius: 8px;
 }
@@ -299,9 +313,12 @@ details[open].spoiler {
 }
 
 details[open].spoiler > summary.h4 {
-  margin: 0 0 4px 0;
+  margin: 0px 0px 4px 0px;
   background: var(--hover);
-  border-radius: 8px 8px 0 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 details[open].spoiler > summary::after {
@@ -309,7 +326,7 @@ details[open].spoiler > summary::after {
 }
 
 details[open].spoiler h4.header_separator > span {
-  font-size: calc(var(--h4-font-size) - 2px);
+  font-size:calc(var(--h4-font-size) - 2px);
 }
 
 details[open].spoiler table {
@@ -323,16 +340,23 @@ details[open].spoiler div > details {
 
 
 /********* Выделение в тексте *********/
+dnd5club-dice-text,
+dnd5club-saving-throw,
+dnd5club-advantage,
+dnd5club-disadvantage,
 span.dice_text,
 span.homebrew_text,
 span.advantage,
 span.disadvantage,
 span.saving_throw {
-  padding: 0 3px;
+  padding: 0px 3px;
   border-radius: 4px;
   color: var(--text-btn-color);
+  font-style: normal;
+  font-weight: 400;
 }
 
+dnd5club-dice-text,
 span.dice_text {
   background-color: var(--bg-dice);
   color: var(--text-btn-color) !important;
@@ -343,14 +367,17 @@ span.homebrew_text {
   text-transform: none;
 }
 
+dnd5club-advantage,
 span.advantage {
   background-color: var(--bg-advantage);
 }
 
+dnd5club-disadvantage,
 span.disadvantage {
   background-color: var(--bg-disadvantage);
 }
 
+dnd5club-saving-throw,
 span.saving_throw {
   background-color: var(--bg-saving_throw);
 }
@@ -372,10 +399,10 @@ table.dataTable.no-footer {
 table {
   color: var(--text-color);
   border-spacing: inherit;
-  border-radius: 0;
+  border-radius: 0px;
   border: 1px solid var(--border);
   width: 100% !important;
-  overflow: auto;
+  overflow: scroll;
   margin-bottom: 16px;
 }
 
@@ -390,18 +417,22 @@ table thead th {
 
 table td {
   border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border); */
   height: 30px;
   padding: 4px 4px;
 }
 
+table tbody tr:nth-child(2n) {
+  background: var(--bg-table-row);
+}
+
 table td:last-child {
-  border-right: 0 solid var(--border);
+  border-right: 0px solid var(--border);
 }
 
 table.dnd5_table {
   height: 100%;
-  margin-bottom: 0;
+  margin-bottom: 0px;
 }
 
 .table-responsive.class {
@@ -434,13 +465,29 @@ table.dnd5_table {
   border-bottom: 1px solid;
 }
 
-@include media-min($md) {
-  table tbody tr:hover {
-    background-color: var(--hover);
+table tbody tr:hover {
+  background-color: var(--hover);
+}
+
+table.dataTable tr.dtrg-group {
+  margin: 0px 16px 16px 0px;
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  table.dataTable tr.dtrg-group {
+    margin: 0px 16px 16px 16px;
   }
 }
 
+table.dataTable tr + tr.dtrg-group {
+  margin-top: 32px;
+}
+
 table.dataTable tr.dtrg-group td {
-  background-color: var(--hover) !important;
-  cursor: auto;
+  background-color:var(--hover) !important;
+  cursor:auto;
+  padding: 0 16px !important;
 }
