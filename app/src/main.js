@@ -19,8 +19,13 @@ app.use(createPinia())
     .use(VueEasyLightbox)
     .use(FloatingVue, {
         instantMove: true,
+        disposeTimeout: 0,
         themes: {
             tooltip: {
+                delay: {
+                    show: 200,
+                    hide: 0,
+                },
                 handleResize: true,
                 html: true,
                 loadingContent: 'Посылаем запрос вселенной...',
