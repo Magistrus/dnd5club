@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@Entity()
+@Entity
 @Table(name = "random_creatures")
 public class RandomCreature {
 	@Id
