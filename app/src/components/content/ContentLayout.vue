@@ -148,11 +148,21 @@
             flex-direction: column;
             overflow: hidden;
             position: relative;
+            padding-right: 4px;
+
+            ::-webkit-scrollbar-track {
+                background-color: transparent;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
         }
 
         &__filter {
             flex-shrink: 0;
             position: relative;
+            margin-right: 16px;
 
             &_body {
                 padding-bottom: 24px;
@@ -182,7 +192,7 @@
             display: block;
             top: 0;
             right: 0;
-            width: calc(60% - 24px);
+            width: calc(60% - 10px);
             height: 100%;
             overflow: hidden;
             border-radius: 12px;
