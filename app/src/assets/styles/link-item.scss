@@ -1,17 +1,13 @@
 .link-item {
   border-radius: 12px;
   overflow: hidden;
-  background-color: var(--bg-table-list);
+  background: var(--bg-table-list);
   width: 100%;
   margin-bottom: 12px;
   display: block;
 
   &.is-green {
-    .link-item {
-      &__content {
-        background-color: var(--bg-homebrew-gradient-left);
-      }
-    }
+    background: var(--bg-homebrew-gradient-left);
   }
 
   &__content {

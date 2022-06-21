@@ -11,26 +11,6 @@ html {
   }
 }
 
-/* .search_row_g {
-  height: 46px;
-  width: 40%;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: auto;
-  background-color: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  padding-left: 16px;
-} */
-
-/* @media (max-width: 600px){
-  .search_row_g {
-      width: 100%;
-      margin-right: 16px;
-  }
-} */
-
 body {
   display: flex;
   margin: 0;
@@ -2619,14 +2599,6 @@ table.table_card tr.dtrg-group {
 #left_block {
 
 }
-
-/* #left_block {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  margin-right: 0px;
-  margin-left: 0px;
-  position: relative;
-  height: 100%;} */
 
 #left_block .container_left {
   position: relative;
