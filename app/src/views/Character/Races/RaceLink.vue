@@ -196,7 +196,7 @@
             },
 
             updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('race-links'))
+                this.$nextTick(() => this.$redrawVueMasonry('race-items'))
             },
         }
     }

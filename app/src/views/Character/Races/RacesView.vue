@@ -10,7 +10,7 @@
             class="race-items"
             gutter="16"
             horizontal-order="false"
-            item-selector=".race-item"
+            item-selector=".link-item-expand"
             transition-duration="0.15s"
         >
             <race-link

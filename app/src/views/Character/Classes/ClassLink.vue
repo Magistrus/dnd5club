@@ -154,14 +154,16 @@
             },
 
             iconPath() {
-                console.log(this.classItem)
                 return this.classItem?.name?.eng?.trim()?.toLowerCase()?.replaceAll(' ', '-')
             }
         },
         watch: {
-            isOpenedArchetypes() {
-                this.updateGrid();
-            },
+            submenu: {
+                deep: true,
+                handler() {
+                    this.updateGrid();
+                },
+            }
         },
         mounted() {
             this.$nextTick(() => {
@@ -183,7 +185,7 @@
             },
 
             updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('class-links'))
+                this.$nextTick(() => this.$redrawVueMasonry('class-items'))
             },
 
             selectClass(callback) {
