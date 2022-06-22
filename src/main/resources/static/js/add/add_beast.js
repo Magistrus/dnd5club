@@ -1,3 +1,5 @@
+// TODO: Go to Vue.js
+
 $('#beast_size').change(function () {
 	switch($('#beast_size').val()){
 	case 'TINY':

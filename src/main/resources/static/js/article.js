@@ -1,3 +1,5 @@
+// TODO: Go to Vue.js
+
 const editorData = document.getElementById('editor-data');
 const textContent = editorData.innerHTML;
 

@@ -4,10 +4,10 @@ import { VueMasonryPlugin } from 'vue-masonry';
 import FloatingVue from 'floating-vue';
 import VueEasyLightbox from 'vue-easy-lightbox';
 import { vfmPlugin } from 'vue-final-modal';
-import initialScript from '@/utils/BaseScripts';
 import registerComponents from '@/utils/RegisterComponents';
 import App from '@/App';
 import router from './router';
+import '@/utils/BaseScripts';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import '@/assets/styles/index.scss';
@@ -42,5 +42,3 @@ app.use(createPinia())
 registerComponents(app);
 
 app.mount('#dnd5club');
-
-initialScript();
