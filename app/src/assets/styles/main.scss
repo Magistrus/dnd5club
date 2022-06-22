@@ -372,3 +372,53 @@
     height: 160px;
   }
 }
+
+.scores {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &__stats {
+    text-align: center;
+    min-width: calc(16% - 8px);
+    flex: 1 0 calc(16% - 8px);
+    background-color: var(--hover);
+    border-radius: 4px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+
+    h4 {
+      margin: 10px 0 2px;
+      font-size: var(--main-font-size);
+      line-height: 1.2em;
+      text-transform: uppercase;
+      color: var(--text-s-color);
+    }
+
+    p {
+      margin: 0 0 10px;
+      line-height: 1.2em;
+    }
+
+    @media (max-width: 1500px) {
+      max-width: calc(33% - 8px);
+      flex: 1 0 calc(33% - 8px);
+    }
+
+    @media (max-width: 1200px) {
+      // max-width: calc(16% - 8px);
+      flex: 1 0 calc(16% - 8px);
+    }
+    
+    @media (max-width: 800px) {
+      max-width: calc(33% - 8px);
+      flex: 1 0 calc(33% - 8px);
+    }
+    
+    @media (max-width: 360px) {
+      max-width: calc(50% - 8px);
+      flex: 1 0 calc(50% - 8px);
+    }
+  }
+}
