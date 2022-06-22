@@ -65,8 +65,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 16px;
+            padding: 16px 24px;
             flex-shrink: 0;
+            background-color: var(--hover);
+
+            @media (max-width: 1200px) {
+                padding: 12px 16px;
+            }
         }
 
         &__title {

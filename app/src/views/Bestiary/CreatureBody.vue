@@ -23,9 +23,9 @@
 
         <div class="beast_info">
             <p>
-                <strong>Класс доспеха</strong>
+                <strong>Класс доспеха </strong>
 
-                <span>{{ `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }` }}</span>
+                <span>{{ `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }` }} </span>
 
                 <span v-if="creature.armors?.length">
                     ({{ creature.armors.join(', ') }})
@@ -33,20 +33,20 @@
             </p>
 
             <p>
-                <strong>Хиты</strong>
+                <strong>Хиты </strong>
 
                 <span>{{ creature.hits.average }} ({{ creature.hits.formula }}) {{ creature.hits.text || '' }}</span>
             </p>
 
             <p>
-                <strong>Скорость</strong>
+                <strong>Скорость </strong>
 
                 <span v-if="speed">{{ speed }}</span>
             </p>
         </div>
 
         <div class="scores">
-            <div class="scores-strength">
+            <div class="scores__stats strength">
                 <h4>
                     <strong
                         class="tip"
@@ -56,7 +56,7 @@
                 <p>{{ creature.ability.str }}</p>
             </div>
 
-            <div class="scores-dexterity">
+            <div class="scores__stats dexterity">
                 <h4>
                     <strong
                         class="tip"
@@ -66,7 +66,7 @@
                 <p>{{ creature.ability.dex }}</p>
             </div>
 
-            <div class="scores-constitution">
+            <div class="scores__stats constitution">
                 <h4>
                     <strong
                         class="tip"
@@ -76,7 +76,7 @@
                 <p>{{ creature.ability.con }}</p>
             </div>
 
-            <div class="scores-intelligence">
+            <div class="scores__stats intelligence">
                 <h4>
                     <strong
                         class="tip"
@@ -86,7 +86,7 @@
                 <p>{{ creature.ability.int }}</p>
             </div>
 
-            <div class="scores-wisdom">
+            <div class="scores__stats wisdom">
                 <h4>
                     <strong
                         class="tip"
@@ -96,7 +96,7 @@
                 <p>{{ creature.ability.wiz }}</p>
             </div>
 
-            <div class="scores-charisma">
+            <div class="scores__stats charisma">
                 <h4>
                     <strong
                         class="tip"
@@ -109,46 +109,46 @@
 
         <div class="beast_info">
             <p v-if="savingThrows">
-                <strong>Спасброски</strong> <span>{{ savingThrows }}</span>
+                <strong>Спасброски </strong> <span>{{ savingThrows }}</span>
             </p>
 
             <p v-if="skills">
-                <strong>Навыки</strong> <span>{{ skills }}</span>
+                <strong>Навыки </strong> <span>{{ skills }}</span>
             </p>
 
             <p v-if="creature.damageVulnerability">
-                <strong>Уязвимость к урону</strong>
+                <strong>Уязвимость к урону </strong>
 
                 <span>{{ creature.damageVulnerability.join(', ') }}</span>
             </p>
             <p v-if="creature.damageResistances">
-                <strong>Сопротивление к урону</strong>
+                <strong>Сопротивление к урону </strong>
 
                 <span>{{ creature.damageResistances.join(', ') }}</span>
             </p>
             <p v-if="creature.damageImmunities">
-                <strong>Иммунитет к урону</strong>
+                <strong>Иммунитет к урону </strong>
 
                 <span>{{ creature.damageImmunities.join(', ') }}</span>
             </p>
             <p v-if="creature.conditionImmunities">
-                <strong>Иммунитет к состояниям</strong>
+                <strong>Иммунитет к состояниям </strong>
 
                 <span>{{ creature.conditionImmunities.join(', ') }}</span>
             </p>
 
             <p v-if="senses">
-                <strong>Чувства</strong> <span>{{ senses }}</span>
+                <strong>Чувства </strong> <span>{{ senses }}</span>
             </p>
 
             <p>
-                <strong>Языки</strong>
+                <strong>Языки </strong>
 
                 <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }}</span>
             </p>
 
             <p>
-                <strong>Уровень опасности</strong>
+                <strong>Уровень опасности </strong>
 
                 <span>{{ creature.challengeRating }} ({{ creature.experience }} опыта)</span>
             </p>

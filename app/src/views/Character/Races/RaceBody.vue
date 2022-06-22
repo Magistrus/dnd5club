@@ -18,7 +18,7 @@
         </div>
 
         <div class="scores">
-            <div class="score">
+            <div class="scores__stats">
                 <h4>
                     <strong
                         class="tip"
@@ -28,7 +28,7 @@
 
                 <p>{{ race.type || '' }}</p>
             </div>
-            <div class="score">
+            <div class="scores__stats">
                 <h4>
                     <strong
                         class="tip"
@@ -40,7 +40,7 @@
                     {{ abilities }}
                 </p>
             </div>
-            <div class="score">
+            <div class="scores__stats">
                 <h4>
                     <strong
                         class="tip"
@@ -49,7 +49,7 @@
                 </h4>
                 <p>{{ race.size }}</p>
             </div>
-            <div class="score">
+            <div class="scores__stats">
                 <h4>
                     <strong
                         class="tip"
@@ -60,7 +60,7 @@
             </div>
             <div
                 v-if="race.darkvision"
-                class="score"
+                class="scores__stats"
             >
                 <h4>
                     <strong
