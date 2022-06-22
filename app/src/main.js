@@ -6,12 +6,13 @@ import VueEasyLightbox from 'vue-easy-lightbox';
 import { vfmPlugin } from 'vue-final-modal';
 import initialScript from '@/utils/BaseScripts';
 import registerComponents from '@/utils/RegisterComponents';
+import App from '@/App';
 import router from './router';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import '@/assets/styles/index.scss';
 
-const app = createApp({});
+const app = createApp(App);
 
 app.use(createPinia())
     .use(router)
