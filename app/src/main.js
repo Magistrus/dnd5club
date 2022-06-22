@@ -30,6 +30,7 @@ app.use(createPinia())
                 handleResize: true,
                 html: true,
                 loadingContent: 'Посылаем запрос вселенной...',
+                hideTriggers: events => [...events, 'scroll'],
             }
         }
     })
