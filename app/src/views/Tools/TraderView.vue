@@ -135,6 +135,7 @@
                 :magic-item="item"
                 :is-active="selected.index === key"
                 :to="{path: item.url}"
+                in-tools
                 @select-item="selectItem(key)"
             />
         </template>
@@ -259,7 +260,12 @@
 
                 this.controllers.list = new AbortController();
 
-                this.http.post('/tools/trader', this.form, this.controllers.list.signal)
+                const options = {
+                    ...this.form,
+                    persuasion: this.form.persuasion || 1
+                }
+
+                this.http.post('/tools/trader', options, this.controllers.list.signal)
                     .then(res => {
                         if (res.status !== 200) {
                             errorHandler(res.statusText);
