@@ -67,5 +67,11 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 16px;
         }
+
+        @media (max-width: 1200px) {
+            margin-left: -16px;
+            margin-right: -16px;
+            padding: 12px 16px 12px 16px;
+        }
     }
 </style>
