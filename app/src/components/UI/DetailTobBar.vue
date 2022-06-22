@@ -22,7 +22,7 @@
                 <span
                     v-tooltip="{content: source.name}"
                     class="tip"
-                >{{ source.shortName }}</span>
+                >&nbsp;{{ source.shortName }}</span>
             </slot>
         </span>
     </p>
@@ -50,6 +50,22 @@
 
 <style lang="scss" scoped>
     .row_info {
-        margin: 0;
+        display: flex;
+        margin-top: -24px;
+        margin-left: -24px;
+        margin-right: -24px;
+        margin-bottom: 0;
+        padding: 12px 24px 12px 24px;
+
+        &.left_info {
+            font-style: italic;
+            margin-right: auto;
+        }
+
+        &.bg_grey{
+            background: var(--bg-sub-menu);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
     }
 </style>
