@@ -6,15 +6,18 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
+                    Виды безумия:
+                </div>
+
+                <div class="tools_settings__row">
                     <field-checkbox
-                        v-for="(source, key) in tables"
+                        v-for="(type, key) in types"
                         :key="key"
-                        v-tooltip="{ content: source.name }"
-                        :model-value="source.value"
+                        :model-value="type.toggled"
                         type="crumb"
-                        @update:model-value="source.value = $event"
+                        @update:model-value="toggleType($event, type)"
                     >
-                        {{ source.shortName }}
+                        {{ type.name }}
                     </field-checkbox>
                 </div>
 
@@ -57,17 +60,20 @@
             <div
                 v-for="(item, key) in results"
                 :key="key"
-                class="wild-magic-item"
+                class="madness-item"
             >
-                <div class="wild-magic-item__body">
-                    <raw-content :template="item.description"/>
+                <div>
+                    <b>Тип:</b> {{ item.type.name }}
                 </div>
 
-                <div
-                    v-tooltip="{content: item.source.name}"
-                    class="wild-magic-item__src"
-                >
-                    {{ item.source.shortName }}
+                <div>
+                    <b>Длительность:</b> {{ item.type.additional }}
+                </div>
+
+                <br>
+
+                <div>
+                    <raw-content :template="item.description"/>
                 </div>
             </div>
         </template>
@@ -84,12 +90,12 @@
     import { reactive } from "vue";
 
     export default {
-        name: "WildMagicView",
+        name: "MadnessView",
         components: { RawContent, FieldCheckbox, ContentLayout },
         data: () => ({
             http: new HTTPService(),
             count: 1,
-            tables: [],
+            types: [],
             results: [],
             controller: undefined
         }),
@@ -99,7 +105,7 @@
         methods: {
             async getTables() {
                 try {
-                    const resp = await this.http.get('/tools/wildmagic');
+                    const resp = await this.http.get('/tools/madness');
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -107,9 +113,9 @@
                         return;
                     }
 
-                    this.tables = resp.data.map(source => ({
-                        ...source,
-                        value: source.shortName === 'PHB'
+                    this.types = resp.data.map(type => ({
+                        ...type,
+                        toggled: false
                     }));
                 } catch (err) {
                     errorHandler(err);
@@ -126,13 +132,16 @@
 
                 try {
                     const options = {
-                        count: this.count || 1,
-                        sources: this.tables
-                            .filter(source => source.value)
-                            .map(source => source.shortName)
+                        count: this.count || 1
                     }
 
-                    const resp = await this.http.post('/tools/wildmagic', options, this.controller.signal)
+                    const type = this.types.find(el => el.toggled);
+
+                    if (type) {
+                        options.type = type.value;
+                    }
+
+                    const resp = await this.http.post('/tools/madness', options, this.controller.signal)
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -149,27 +158,30 @@
                     this.controller = undefined;
                 }
             }, 300),
+
+            toggleType(e, type) {
+                for (let i = 0; i < this.types.length; i++) {
+                    if (this.types[i].value !== type.value) {
+                        this.types[i].toggled = false;
+
+                        continue;
+                    }
+
+                    this.types[i].toggled = e;
+                }
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .wild-magic-item {
+    .madness-item {
         border-radius: 12px;
         overflow: hidden;
         background-color: var(--bg-table-list);
         width: 100%;
-        display: flex;
-        align-items: flex-start;
+        display: block;
         margin-bottom: 12px;
         padding: 12px;
-
-        &__body {
-            flex: 1 1 100%;
-        }
-
-        &__src {
-            flex-shrink: 0;
-        }
     }
 </style>

@@ -179,6 +179,21 @@ const routes = [
         path: '/tools/trader',
         component: () => import('@/views/Tools/TraderView'),
     },
+    {
+        name: 'treasury',
+        path: '/tools/treasury',
+        component: () => import('@/views/Tools/TreasuryView'),
+    },
+    {
+        name: 'wild-magic',
+        path: '/tools/wildmagic',
+        component: () => import('@/views/Tools/WildMagicView'),
+    },
+    {
+        name: 'madness',
+        path: '/tools/madness',
+        component: () => import('@/views/Tools/MadnessView'),
+    },
 ];
 
 const router = createRouter({
