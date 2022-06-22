@@ -14,7 +14,7 @@
         >
             <div class="link-item-expand__content">
                 <img
-                    :src="`/assets/img/races/${iconPath}.webp`"
+                    :src="`/assets/img/races/${raceItem.icon}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -25,7 +25,7 @@
                     <a
                         :href="href"
                         class="link-item-expand__link"
-                        @click.left.prevent.exact="navigate()"
+                        @click.left.prevent.exact="selectRace(navigate)"
                     >
 
                         <span class="link-item-expand__body">
@@ -70,7 +70,7 @@
 
                 <div
                     v-if="hasSubraces"
-                    :class="{ 'is-active': isOpenedSubraces }"
+                    :class="{ 'is-active': submenu.show }"
                     class="link-item-expand__arch-list"
                 >
                     <div
@@ -140,14 +140,6 @@
             }
         },
         computed: {
-            isOpenedSubraces() {
-                if (this.$route.params?.raceName === this.raceItem.url) {
-                    return true
-                }
-
-                return this.submenu.show
-            },
-
             hasSubraces() {
                 return !!this.raceItem?.subraces?.length
             },
@@ -169,10 +161,6 @@
 
                 return abilities.join(', ')
             },
-
-            iconPath() {
-                return this.raceItem?.name?.eng?.trim()?.toLowerCase()?.replaceAll(' ', '-').replaceAll('--', '-')
-            },
         },
         watch: {
             submenu: {
@@ -180,10 +168,6 @@
                 handler() {
                     this.updateGrid();
                 }
-            },
-
-            isOpenedSubraces() {
-                this.updateGrid();
             },
         },
         mounted() {
@@ -206,6 +190,12 @@
 
             updateGrid() {
                 this.$nextTick(() => this.$redrawVueMasonry('race-items'))
+            },
+
+            selectRace(callback) {
+                this.submenu.show = true;
+
+                callback();
             },
         }
     }

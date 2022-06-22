@@ -14,7 +14,7 @@
         >
             <div class="link-item-expand__content">
                 <img
-                    :src="`/assets/img/classes/${iconPath}.webp`"
+                    :src="`/assets/img/classes/${classItem.icon}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -153,10 +153,6 @@
             hasArchetypes() {
                 return !!this.classItem?.archetypes?.length
             },
-
-            iconPath() {
-                return this.classItem?.name?.eng?.trim()?.toLowerCase()?.replaceAll(' ', '-')
-            }
         },
         watch: {
             submenu: {
