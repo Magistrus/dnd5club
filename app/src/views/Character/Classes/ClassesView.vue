@@ -10,7 +10,7 @@
             class="class-items"
             gutter="16"
             horizontal-order="false"
-            item-selector=".class-item"
+            item-selector=".link-item-expand"
             transition-duration="0.15s"
         >
             <class-link
