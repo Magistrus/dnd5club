@@ -12,14 +12,14 @@
             class="link-item-expand"
             v-bind="$attrs"
         >
-            <div class="link-item-expand__content">                
+            <div class="link-item-expand__content">
                 <img
-                    :src="`/assets/img/classes/${iconPath}.webp`"
+                    :src="`/assets/img/classes/${classItem.icon}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
-                
-                <div class="link-item-expand__content__gradient"></div>
+
+                <div class="link-item-expand__content__gradient"/>
 
                 <div class="link-item-expand__main">
                     <a
@@ -153,10 +153,6 @@
             hasArchetypes() {
                 return !!this.classItem?.archetypes?.length
             },
-
-            iconPath() {
-                return this.classItem?.name?.eng?.trim()?.toLowerCase()?.replaceAll(' ', '-')
-            }
         },
         watch: {
             submenu: {

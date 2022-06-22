@@ -5,7 +5,11 @@
         class="class-square"
         :href="url"
     >
-        <svg-icon :icon-name="icon" :stroke-enable="false" fill-enable/>
+        <svg-icon
+            :icon-name="icon"
+            :stroke-enable="false"
+            fill-enable
+        />
     </a>
 </template>
 

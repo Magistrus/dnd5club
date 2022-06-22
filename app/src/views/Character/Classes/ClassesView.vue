@@ -6,19 +6,32 @@
         @update="classesQuery"
     >
         <div
-            v-masonry="'class-items'"
-            class="class-items"
-            gutter="16"
-            horizontal-order="false"
-            item-selector=".link-item-expand"
-            transition-duration="0.15s"
+            v-for="(group, groupKey) in classes"
+            :key="groupKey"
+            class="class-group"
         >
-            <class-link
-                v-for="(el, key) in classes"
-                :key="key"
-                :class-item="el"
-                :to="{ path: el.url }"
-            />
+            <div
+                v-if="group.group?.name"
+                class="class-group__name"
+            >
+                {{ group.group.name }}
+            </div>
+
+            <div
+                v-masonry="'class-items'"
+                class="class-group__list"
+                gutter="16"
+                horizontal-order="false"
+                item-selector=".link-item-expand"
+                transition-duration="0.15s"
+            >
+                <class-link
+                    v-for="(el, elKey) in group.list"
+                    :key="elKey"
+                    :class-item="el"
+                    :to="{ path: el.url }"
+                />
+            </div>
         </div>
     </content-layout>
 </template>
@@ -27,6 +40,7 @@
     import { useClassesStore } from '@/store/Character/ClassesStore';
     import ContentLayout from '@/components/content/ContentLayout';
     import ClassLink from "@/views/Character/Classes/ClassLink";
+    import _ from "lodash";
 
     export default {
         name: 'ClassesView',
@@ -43,7 +57,24 @@
             },
 
             classes() {
-                return this.classesStore.getClasses || [];
+                const classes = this.classesStore.getClasses || [];
+
+                if (!classes?.length) {
+                    return [];
+                }
+
+                const groups = _.chain(classes.filter(item => 'group' in item))
+                    .groupBy(o => o.group.name)
+                    .map(list => ({
+                        group: list[0].group,
+                        list
+                    }))
+                    .sortBy(o => o.group.order)
+                    .value();
+
+                return [{
+                    list: classes.filter(item => !('group' in item))
+                }, ...groups];
             },
 
             showRightSide() {
