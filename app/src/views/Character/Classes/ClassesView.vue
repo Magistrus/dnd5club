@@ -95,3 +95,16 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+        .class-group {
+            &__name {
+            font-size: var(--h3-font-size);
+            font-weight: 300;
+            margin: 24px 0 16px 0;
+            color: var(--text-color-title);
+            position: relative;
+            font-family: 'Lora';
+            }
+        }
+</style>
