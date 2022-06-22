@@ -13,7 +13,11 @@
             v-bind="$attrs"
         >
             <div class="link-item-expand__content">
-                <img :src="`/assets/img/classes/${iconPath}.webp`" alt="img-bg" class="">
+                <img
+                    :src="`/assets/img/classes/${iconPath}.webp`"
+                    alt="img-bg"
+                    class=""
+                >
 
                 <div class="link-item-expand__main">
                     <a
@@ -21,44 +25,44 @@
                         class="link-item-expand__link"
                         @click.left.prevent.exact="selectClass(navigate)"
                     >
-                    
-                    <span class="link-item-expand__body">
-                        <span class="link-item-expand__body_row">
 
-                            <span class="link-item-expand__icon">
-                                <svg-icon
-                                    :icon-name="classItem.icon"
-                                    :stroke-enable="false"
-                                    fill-enable
-                                />
+                        <span class="link-item-expand__body">
+                            <span class="link-item-expand__body_row">
+
+                                <span class="link-item-expand__icon">
+                                    <svg-icon
+                                        :icon-name="classItem.icon"
+                                        :stroke-enable="false"
+                                        fill-enable
+                                    />
+                                </span>
+
+                                <span class="link-item-expand__name">
+                                    <span class="link-item-expand__name--rus">
+                                        {{ classItem.name.rus }}
+                                    </span>
+
+                                    <span class="link-item-expand__name--eng">
+                                        {{ classItem.name.eng }}
+                                    </span>
+
+                                </span>
                             </span>
 
-                            <span class="link-item-expand__name">
-                                <span class="link-item-expand__name--rus">
-                                    {{ classItem.name.rus }}
+                            <span class="link-item-expand__body_row">
+                                <span class="link-item-expand__dice">
+                                    {{ classItem.dice }}
                                 </span>
 
-                                <span class="link-item-expand__name--eng">
-                                    {{ classItem.name.eng }}
+                                <span
+                                    v-tooltip="{ content: classItem.source.name }"
+                                    class="link-item-expand__book"
+                                >
+                                    {{ classItem.source.shortName }}
                                 </span>
-
                             </span>
                         </span>
 
-                        <span class="link-item-expand__body_row">
-                            <span class="link-item-expand__dice">
-                                {{ classItem.dice }}
-                            </span>
-
-                            <span
-                                v-tooltip="{ content: classItem.source.name }"
-                                class="link-item-expand__book"
-                            >
-                                {{ classItem.source.shortName }}
-                            </span>
-                        </span>
-                    </span>
-                    
                     </a>
 
                     <button
@@ -150,7 +154,8 @@
             },
 
             iconPath() {
-                return this.classItem?.name?.eng?.trim()?.toLowerCase()?.replaseAll(' ', '')
+                console.log(this.classItem)
+                return this.classItem?.name?.eng?.trim()?.toLowerCase()?.replaceAll(' ', '-')
             }
         },
         watch: {
