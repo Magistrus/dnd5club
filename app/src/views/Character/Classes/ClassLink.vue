@@ -13,13 +13,13 @@
             v-bind="$attrs"
         >
             <div class="link-item-expand__content">
+                <div class="link-item-expand__content__gradient"></div>
+
                 <img
                     :src="`/assets/img/classes/${iconPath}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
-
-                <div class="link-item-expand__content__gradient"></div>
 
                 <div class="link-item-expand__main">
                     <a

@@ -95,7 +95,6 @@
             &_icon {
                 width: 32px;
                 height: 32px;
-                padding: 8px;
 
                 ::v-deep(> svg) {
                     width: 100%;
@@ -118,7 +117,7 @@
         }
 
         &__safe {
-            padding: 16px;
+            // padding: 16px;
         }
     }
 </style>

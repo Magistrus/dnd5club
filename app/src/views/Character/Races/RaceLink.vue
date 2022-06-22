@@ -13,15 +13,20 @@
             v-bind="$attrs"
         >
             <div class="link-item-expand__content">
+                <div class="link-item-expand__content__gradient"></div>
+
+                <img
+                    :src="`/assets/img/races/${iconPath}.webp`"
+                    alt="img-bg"
+                    class="link-item-expand__content__img-bg"
+                >
+
                 <div class="link-item-expand__main">
                     <a
                         :href="href"
                         class="link-item-expand__link"
                         @click.left.prevent.exact="navigate()"
                     >
-                        <span class="link-item-expand__icon">
-                            <svg-icon :icon-name="raceItem.icon"/>
-                        </span>
 
                         <span class="link-item-expand__body">
                             <span class="link-item-expand__body_row">
@@ -31,8 +36,14 @@
                                     </span>
 
                                     <span class="link-item-expand__name--eng">
-                                        [{{ raceItem.name.eng }}]
+                                        {{ raceItem.name.eng }}
                                     </span>
+                                </span>
+                            </span>
+
+                            <span class="link-item-expand__body_row">
+                                <span class="link-item-expand__abilities">
+                                    {{ abilities }}
                                 </span>
 
                                 <span
@@ -40,12 +51,6 @@
                                     class="link-item-expand__book"
                                 >
                                     {{ raceItem.source.shortName }}
-                                </span>
-                            </span>
-
-                            <span class="link-item-expand__body_row">
-                                <span class="link-item-expand__abilities">
-                                    {{ abilities }}
                                 </span>
                             </span>
                         </span>
@@ -59,7 +64,7 @@
                         type="button"
                         @click.left.exact.prevent="toggleSubrace"
                     >
-                        <svg-icon icon-name="expand-down"/>
+                        <svg-icon :icon-name="submenu.show ? 'minus' : 'plus'"/>
                     </button>
                 </div>
 
@@ -164,6 +169,10 @@
 
                 return abilities.join(', ')
             },
+
+            iconPath() {
+                return this.raceItem?.name?.eng?.trim()?.toLowerCase()?.replaceAll(' ', '-').replaceAll('--', '-')
+            },
         },
         watch: {
             submenu: {
@@ -205,5 +214,35 @@
 <style lang="scss" scoped>
     @import "../../../assets/styles/link-item-expand";
 
-    .link-item-expand {}
+    .link-item-expand {
+        width: 100%;
+
+        &.is-selected {
+            width: calc(100% / 2 - 16px / 2);
+        }
+
+        &__body {
+            &_row {
+                &:first-child {
+                    margin-bottom: 20px;
+
+                    @include media-min($sm) {
+                        margin-bottom: 110px;
+                    }
+                }
+            }
+        }
+
+        @include media-min($sm) {
+            width: calc(100% / 2 - 16px / 2);
+        }
+
+        @include media-min($lg) {
+            width: calc(100% / 4 - 16px * 3 / 4);
+        }
+
+        @include media-min($xxl) {
+            width: calc(100% / 5 - 16px * 4 / 5);
+        }
+    }
 </style>

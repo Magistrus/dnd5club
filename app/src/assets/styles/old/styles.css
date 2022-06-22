@@ -9,6 +9,10 @@
   }
 } */
 
+/* .is-green  .link-item-expand__content__gradient {
+        background: var(--bg-homebrew-gradient-left);
+      } */
+
 .overflow-hidden {
   overflow: hidden !important;
 }
@@ -700,81 +704,6 @@ label.select_box {
 }
 
 
-
-/******** Всплывающие окно / popup ********/
-.dnd5-popup-block {
-  width: 50%;
-  max-height: 80vh;
-  background: var(--bg-main);
-  margin: 40px auto;
-  padding: 24px 24px 24px 24px;
-  position: relative;
-  border-radius: 12px;
-}
-
-
-.popup-modal-dismiss {
-  right: 12px;
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-}
-
-.popup-modal-dismiss:hover .icon_action {
-  background-color:unset;
-}
-
-.popup-modal-dismiss:hover {
-  background-color: var(--hover);
-}
-
-.dnd5-popup-block .mfp-close {
-  color: var(--primary);
-  position: absolute;
-  top: 12px;
-  right: 12px;
-}
-
-.dnd5-popup-block .header {
-  margin-top: -12px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-}
-
-.dnd5-popup-block .wrapper {
-  max-height: 65vh;
-  margin-top: 16px;
-}
-
-.dnd5-popup-block .header h4 {
-  margin: 0;
-  line-height: 22px;
-}
-
-@media (max-width: 1200px) {
-  .dnd5-popup-block {
-    width: 80%;
-  }
-}
-
-@media (max-width: 1200px) {
-  .dnd5-popup-block .mfp-close {
-    top: 6px;
-    right: 6px;
-  }
-
-  .dnd5-popup-block {
-    width: 90%;
-    max-height: 90vh;
-    margin: 20px auto;
-    padding: 16px 16px 12px 16px;
-  }
-}
 
 /******** Форма входа / login_form ********/
 .login_form {
@@ -2009,74 +1938,6 @@ table.table_card tr.dtrg-group {
 #left_block.races .table_card tr td .wrapper:before {
   width: 250px;
   height: 360px;
-}
-
-#left_block.classes .table_card tr td .Bard.wrapper:before {
-  background-image: url(/assets/img/classes/bard_2.webp);
-}
-
-#left_block.classes .table_card tr td .Barbarian.wrapper:before {
-  background-image: url(/assets/img/classes/barbarian_2.webp);
-}
-
-#left_block.classes .table_card tr td .Fighter.wrapper:before {
-  background-image: url(/assets/img/classes/fighter_2.webp);
-}
-
-#left_block.classes .table_card tr td .Wizard.wrapper:before {
-  background-image: url(/assets/img/classes/wizard_2.webp);
-}
-
-#left_block.classes .table_card tr td .Druid.wrapper:before {
-  background-image: url(/assets/img/classes/druid_2.webp);
-}
-
-#left_block.classes .table_card tr td .Cleric.wrapper:before {
-  background-image: url(/assets/img/classes/cleric_2.webp);
-}
-
-#left_block.classes .table_card tr td .Artificer.wrapper:before {
-  background-image: url(/assets/img/classes/artificer_2.webp);
-}
-
-#left_block.classes .table_card tr td .Warlock.wrapper:before {
-  background-image: url(/assets/img/classes/warlock_2.webp);
-}
-
-#left_block.classes .table_card tr td .Monk.wrapper:before {
-  background-image: url(/assets/img/classes/monk_2.webp);
-}
-
-#left_block.classes .table_card tr td .Paladin.wrapper:before {
-  background-image: url(/assets/img/classes/paladin_2.webp);
-}
-
-#left_block.classes .table_card tr td .Rogue.wrapper:before {
-  background-image: url(/assets/img/classes/rogue_2.webp);
-}
-
-#left_block.classes .table_card tr td .Ranger.wrapper:before {
-  background-image: url(/assets/img/classes/ranger_2.webp);
-}
-
-#left_block.classes .table_card tr td .Sorcerer.wrapper:before {
-  background-image: url(/assets/img/classes/sorcerer_2.webp);
-}
-
-#left_block.classes .table_card tr td .Blood_Hunter.wrapper:before {
-  background-image: url(/assets/img/classes/blood-hunter_2.webp);
-}
-
-#left_block.classes .table_card tr td .Warrior_Sidekick.wrapper:before {
-  background-image: url(/assets/img/classes/warrior-sidekick_2.webp);
-}
-
-#left_block.classes .table_card tr td .Spellcaster_Sidekick.wrapper:before {
-  background-image: url(/assets/img/classes/spellcaster-sidekick_2.webp);
-}
-
-#left_block.classes .table_card tr td .Expert_Sidekick.wrapper:before {
-  background-image: url(/assets/img/classes/expert-sidekick_2.webp);
 }
 
 #left_block.races .table_card tr td .content {

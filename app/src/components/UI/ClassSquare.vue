@@ -5,7 +5,7 @@
         class="class-square"
         :href="url"
     >
-        <svg-icon :icon-name="icon"/>
+        <svg-icon :icon-name="icon" :stroke-enable="false" fill-enable/>
     </a>
 </template>
 

@@ -4,12 +4,12 @@
   display: block;
 
   @include media-min($md) {
-    width: calc(33% - 16px / 2); // 16px - это отступ между элементами
+    width: calc(100% / 2 - 16px / 2);
   }
 
-  // @include media-min($xxl) {
-  //   width: calc(100% / 3 - 16px * 2 / 3);
-  // }
+  @include media-min($xl) {
+    width: calc(100% / 3 - 16px * 2 / 3);
+  }
 
   &.is-selected {
     width: 100%;
@@ -18,7 +18,9 @@
   &.is-green {
     .link-item-expand {
       &__content {
+      &__gradient  {
         background: var(--bg-homebrew-gradient-left);
+      }
       }
     }
   }
@@ -36,8 +38,13 @@
       top: 0;
       right: 0;
       pointer-events: none;
-      z-index: 1;
       transition: transform 0.6s;
+      opacity: 0.7;
+      width: auto;
+
+      @include media-min($sm) {
+        width: 100%;
+      }
     }
 
     &__gradient {
@@ -52,7 +59,6 @@
       opacity: 1;
       height: 100%;
       width: 100%;
-      z-index: 1;
     }
   }
 
@@ -130,6 +136,7 @@
     }
   }
 
+  &__abilities,
   &__book,
   &__dice {
     margin: 8px 4px 0 0;
