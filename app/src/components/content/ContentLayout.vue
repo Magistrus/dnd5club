@@ -162,7 +162,7 @@
         &__filter {
             flex-shrink: 0;
             position: relative;
-            margin-right: 16px;
+            margin-right: 14px;
 
             &_body {
                 padding-bottom: 24px;
@@ -175,7 +175,7 @@
                 width: 100%;
                 height: 100%;
                 pointer-events: none;
-                z-index: 10;
+                z-index: 12;
 
                 ::v-deep(*) {
                     pointer-events: auto;
