@@ -1,3 +1,5 @@
+// TODO: Go to Vue.js
+
 $(document).ready(function() {
 	var scrollEventHeight = 0;
 	var table = $('#users').DataTable({

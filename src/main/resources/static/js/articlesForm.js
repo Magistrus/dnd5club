@@ -1,3 +1,5 @@
+// TODO: Go to Vue.js
+
 const realTextarea = document.getElementById('text');
 const textFaker = document.getElementById('text-faker');
 const form = document.getElementById('article_edit');
