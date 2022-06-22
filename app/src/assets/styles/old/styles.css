@@ -1,49 +1,13 @@
-html {
+/* html {
   box-sizing: border-box;
   height: calc(100% - 0px);
-  /* overflow-y: hidden; */
 }
 
 @media (max-width: 1200px) {
   html {
-    /* height: calc(100% - 73px); */
     overflow-y: scroll;
   }
-}
-
-body {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans';
-  background-color: var(--bg-main);
-  font-size: var(--main-font-size);
-  height: calc(100% - 0px);
-  outline: none;
-  color: var(--text-color);
-  /* overflow: hidden; */
-}
-
-body:before {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0px;
-  background: var(--bg-img-main) no-repeat;
-  background-size: contain;
-  background-position: right;
-  width: 100%;
-  height: 100%;
-  opacity: 0.65;
-  z-index: -1;
-}
-
-@media (max-width: 1200px) {
-  body:before {
-    display: none !important;
-  }
-}
+} */
 
 .overflow-hidden {
   overflow: hidden !important;
@@ -67,10 +31,6 @@ hr {
 
 .mt-0 {
   margin-top: 0px;
-}
-
-.w-auto {
-  width: auto !important;
 }
 
 .hide_block {
@@ -739,14 +699,6 @@ label.select_box {
 	width: 450px;
 }
 
-.simplebar-scrollbar:before {
-  background-color: var(--primary) !important;
-}
-
-.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
-  top:0px;
-  bottom: 0px;
-}
 
 
 /******** Всплывающие окно / popup ********/
@@ -1119,55 +1071,6 @@ label.select_box {
   border-radius: 50%;
   margin-right: 4px;
   border: 1px solid var(--border);
-}
-
-
-/******** Скопировать ссылку ********/
-.copy_link {
-  position: relative;
-}
-
-.copy_link::before {
-  display: none;
-}
-
-.copy_link:hover::before {
-  content: var(--copy-link);
-  display: block;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  top: 0;
-  left: -16px;
-  cursor: pointer;
-  border-radius: 4px;
-  background-color: var(--bg-secondary);
-  z-index: 2;
-}
-
-.copy_link::after {
-  display: none;
-}
-
-.copy_link:hover::after {
-  content: '';
-  width: 24px;
-  height: 100%;
-  position: absolute;
-  display: block;
-  top: 0;
-  left: -16px;
-  background-color: transparent;
-}
-
-details.copy_link:hover::before {
-  top: 10px;
-}
-
-@media (max-width: 1200px) {
-  .copy_link:hover::before {
-    display: none !important;
-  }
 }
 
 

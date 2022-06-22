@@ -1,3 +1,18 @@
+.bg-img-main {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  opacity: 0.65;
+  z-index: -1;
+  height: 100%;
+  overflow: hidden;
+  /* background: var(--bg-img-main) no-repeat; */
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1320px;
