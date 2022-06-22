@@ -70,12 +70,11 @@
                     <button
                         v-if="hasArchetypes"
                         v-tooltip.left="{ content: 'Архетипы' }"
-                        :class="{ 'is-active': submenu.show }"
                         class="link-item-expand__toggle"
                         type="button"
                         @click.left.exact.prevent="toggleArch"
                     >
-                        <svg-icon icon-name="expand-down"/>
+                        <svg-icon :icon-name="submenu.show ? 'minus' : 'plus'"/>
                     </button>
                 </div>
 

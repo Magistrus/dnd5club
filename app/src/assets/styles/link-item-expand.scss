@@ -164,7 +164,7 @@
 
     @include media-min($md) {
       &:hover {
-        background-color: var(--hover);
+        background-color: var(--primary-hover);
       }
     }
 
@@ -173,12 +173,6 @@
 
       width: 24px;
       height: 24px;
-    }
-
-    &.is-active {
-      svg {
-        transform: rotate(-180deg);
-      }
     }
   }
 
