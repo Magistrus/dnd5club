@@ -1,0 +1,39 @@
+.navbar {
+	display: flex;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 56px;
+	width: 100%;
+	background: var(--bg-liner-menu);
+	display: flex;
+
+	&__head {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		background: var(--bg-liner-menu);
+		width: 100%;
+		padding: 0 24px;
+
+		&__logo {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			position: relative;
+
+			&:after {
+				content: 'β';
+				display: block;
+				position: absolute;
+				top: 0px;
+				right: -8px;
+				color: var(--primary);
+				font-size: 17px;
+				font-weight: 600;
+			  }
+		}
+	}
+}
