@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,21 +23,25 @@ import lombok.Setter;
 @Setter
 
 @Entity()
-@Table(name = "encounters")
-public class RandomEncounter {
+@Table(name = "random_encounter_tables")
+public class RandomEncounterеTable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private Integer level;
-	private String formula;
-	private String environment;
-	
-	@Enumerated (EnumType.STRING)
-	private HabitatType type;
 	
 	@Column(columnDefinition = "TEXT")
-	private String description;
+	private String name;
+	
+	private Integer level;
+	private String formula;
+
+	@Enumerated (EnumType.STRING)
+	private HabitatType type;
+	private String environment;
+	
+	@OneToMany
+	@JoinColumn(name = "encounter_id")
+	private List<RandomEncounterRow> encounters;
 	
 	@ManyToOne
 	@JoinColumn(name = "source")

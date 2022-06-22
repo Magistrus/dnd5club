@@ -49,7 +49,7 @@ public class RandomEncounterRow {
 	
 	@ManyToOne
 	@JoinColumn(name = "encounter_id")
-	private RandomEncounter encounter;
+	private RandomEncounterеTable encounter;
 
 	@ManyToOne
 	@JoinColumn(name = "source")
