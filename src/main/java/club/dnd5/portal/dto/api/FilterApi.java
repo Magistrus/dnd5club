@@ -20,6 +20,7 @@ public class FilterApi {
 	private Boolean colapse;
 	private List<FilterApi> sources;
 	private List<FilterApi> other;
+	private List<FilterApi> custom;
 		private List<FilterValueApi> values;
 	
 	public FilterApi(String key) {
