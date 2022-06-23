@@ -112,14 +112,14 @@
                 </div>
 
                 <spells-view
-                    v-if="currentTab?.icon === 'tab-spells'"
-                    :store-key="`${currentClass.name.rus + currentTab.name}`.replaceAll(' ', '')"
+                    v-if="currentTab.icon === 'tab-spells'"
+                    :store-key="getStoreKey"
                     in-tab
                 />
 
                 <options-view
-                    v-else-if="currentTab?.icon === 'tab-option'"
-                    :store-key="`${currentClass.name.rus + currentTab.name}`.replaceAll(' ', '')"
+                    v-else-if="currentTab.icon === 'tab-option'"
+                    :store-key="getStoreKey"
                     in-tab
                 />
 
@@ -196,6 +196,11 @@
         computed: {
             classes() {
                 return this.classesStore.getClasses || []
+            },
+
+            getStoreKey() {
+                return `${this.currentClass.name.eng + this.currentTab.icon + this.currentTab.order}`
+                    .replaceAll(' ', '')
             },
 
             currentSelectArchetype() {

@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import _ from 'lodash';
 
 const DB_NAME = 'spells';
 const http = new HTTPService();
@@ -18,7 +17,6 @@ export const useSpellsStore = defineStore('SpellsStore', {
             end: false,
             url: '/spells',
         },
-        customFilter: undefined,
         controllers: {
             spellsQuery: undefined,
             spellInfoQuery: undefined
@@ -49,7 +47,6 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 if (customFilter) {
                     filterOptions.customFilter = customFilter;
-                    this.customFilter = _.cloneDeep(customFilter);
                 }
 
                 await this.filter.init(filterOptions);
@@ -92,10 +89,6 @@ export const useSpellsStore = defineStore('SpellsStore', {
                     }],
                     ...options
                 };
-
-                if (this.customFilter) {
-                    apiOptions.customFilter = this.customFilter;
-                }
 
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.spellsQuery.signal);
 

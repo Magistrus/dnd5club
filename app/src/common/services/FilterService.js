@@ -144,21 +144,31 @@ export default class FilterService {
                 storeName: opts.storeName
             });
 
+            const setStore = async filter => {
+                const restored = await this.getRestored(filter);
+
+                if (!restored) {
+                    return;
+                }
+
+                this.filter = restored;
+
+                await this.store.setItem(this.storeKey, restored);
+            }
+
+            if (opts.customFilter) {
+                await setStore(opts.customFilter);
+
+                return;
+            }
+
             const resp = await this.http.post(opts.url);
 
             if (!resp.data || resp.status !== 200) {
                 return;
             }
 
-            const restored = await this.getRestored(resp.data);
-
-            if (!restored) {
-                return;
-            }
-
-            this.filter = restored;
-
-            await this.store.setItem(this.storeKey, restored);
+            await setStore(resp.data)
         } catch (err) {
             errorHandler(err);
         }
