@@ -41,10 +41,10 @@
                 </div>
                 <div class="club__card__header__info">
                     <div class="row">
-                        -
+                        Онлайн справчник по D&D 5e
                     </div>
                     <div class="row">
-                        DND 5 Club
+                        DnD 5 Club
                     </div>
                 </div>
             </header>
