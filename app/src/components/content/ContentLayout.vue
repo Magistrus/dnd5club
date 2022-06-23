@@ -198,7 +198,7 @@
             border-radius: 12px;
             background-color: var(--bg-secondary);
             position: absolute;
-            z-index: 10;
+            z-index: 12;
 
             @media (max-width: 1200px) {
                 width: 100%;
