@@ -15,7 +15,7 @@
         >
             <div class="link-item__content">
                 <div
-                    v-tooltip="{ content: spell.level ? `${spell.level} уровень заклинания` : 'Заговор' }"
+                    v-tippy="{ content: spell.level ? `${spell.level} уровень заклинания` : 'Заговор' }"
                     class="link-item__lvl"
                 >
                     <span>{{ spell.level || '◐' }}</span>
@@ -41,7 +41,7 @@
                         >
                             <div
                                 v-if="spell.concentration"
-                                v-tooltip="{ content: 'Концентрация' }"
+                                v-tippy="{ content: 'Концентрация' }"
                                 class="link-item__modification"
                             >
                                 К
@@ -49,7 +49,7 @@
 
                             <div
                                 v-if="spell.ritual"
-                                v-tooltip="{ content: 'Ритуал' }"
+                                v-tippy="{ content: 'Ритуал' }"
                                 class="link-item__modification"
                             >
                                 Р
@@ -69,7 +69,7 @@
                         >
                             <div
                                 v-if="spell.components.v"
-                                v-tooltip="{ content: 'Вербальный' }"
+                                v-tippy="{ content: 'Вербальный' }"
                                 class="link-item__component"
                             >
                                 В
@@ -77,7 +77,7 @@
 
                             <div
                                 v-if="spell.components.s"
-                                v-tooltip="{ content: 'Соматический' }"
+                                v-tippy="{ content: 'Соматический' }"
                                 class="link-item__component"
                             >
                                 С
@@ -85,7 +85,7 @@
 
                             <div
                                 v-if="!!spell.components.m"
-                                v-tooltip="{ content: 'Материальный' }"
+                                v-tippy="{ content: 'Материальный' }"
                                 class="link-item__component"
                             >
                                 М

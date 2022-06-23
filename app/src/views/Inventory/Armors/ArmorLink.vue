@@ -42,7 +42,7 @@
 
                         <div
                             v-if="armor.armorClass"
-                            v-tooltip="{ content: 'Класс доспеха (АС)' }"
+                            v-tippy="{ content: 'Класс доспеха (АС)' }"
                             class="link-item__ac"
                         >
                             {{ armor.armorClass }}
@@ -50,7 +50,7 @@
 
                         <div
                             v-if="armor.price"
-                            v-tooltip="{ content: 'Стоимость' }"
+                            v-tippy="{ content: 'Стоимость' }"
                             class="link-item__price"
                         >
                             {{ armor.price }}

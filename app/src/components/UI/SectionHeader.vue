@@ -8,7 +8,7 @@
 
                 <a
                     v-if="copy"
-                    v-tooltip.bottom="{ content: 'Скопировать ссылку' }"
+                    v-tippy="{ content: 'Скопировать ссылку' }"
                     :href="urlForCopy"
                     class="section-header__title--copy"
                     @click.left.exact.prevent.stop="copyText"
@@ -35,7 +35,7 @@
             >
                 <button
                     v-if="print"
-                    v-tooltip.bottom="{ content: 'Открыть окно печати' }"
+                    v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
                     @click.left.exact.prevent.stop="openPrintWindow"
@@ -45,7 +45,7 @@
 
                 <button
                     v-if="onExportFoundry"
-                    v-tooltip.bottom="{ content: 'Экспорт в Foundry VTT' }"
+                    v-tippy="{ content: 'Экспорт в Foundry VTT' }"
                     class="section-header__control--optional is-only-desktop"
                     type="button"
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"
@@ -60,7 +60,7 @@
             >
                 <button
                     v-if="fullscreen"
-                    v-tooltip.bottom="{
+                    v-tippy="{
                         content: uiStore.getContentConfig.fullscreen
                             ? 'Свернуть окно'
                             : 'Развернуть окно'
@@ -74,7 +74,7 @@
 
                 <button
                     v-if="onClose"
-                    v-tooltip.bottom="{ content: 'Закрыть' }"
+                    v-tippy="{ content: 'Закрыть' }"
                     class="section-header__control--main"
                     type="button"
                     @click.left.exact.prevent.stop="$emit('close')"

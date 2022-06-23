@@ -57,7 +57,7 @@
                                 </span>
 
                                 <span
-                                    v-tooltip="{ content: classItem.source.name }"
+                                    v-tippy="{ content: classItem.source.name }"
                                     class="link-item-expand__book"
                                 >
                                     {{ classItem.source.shortName }}
@@ -69,7 +69,7 @@
 
                     <button
                         v-if="hasArchetypes"
-                        v-tooltip.left="{ content: 'Архетипы' }"
+                        v-tippy="{ content: 'Архетипы', placement: 'left' }"
                         class="link-item-expand__toggle"
                         type="button"
                         @click.left.exact.prevent="toggleArch"
@@ -107,7 +107,7 @@
                                     <span class="link-item-expand__arch-item_name">{{ arch.name.rus }}</span>
 
                                     <span class="link-item-expand__arch-item_book">
-                                        <span v-tooltip="{ content: arch.source.name }">
+                                        <span v-tippy="{ content: arch.source.name }">
                                             {{ arch.source.shortName }}
                                         </span>
 

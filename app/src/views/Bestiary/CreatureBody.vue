@@ -49,8 +49,7 @@
             <div class="scores__stats strength">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Сила"
+                        v-tippy="'Сила'"
                     >СИЛ</strong>
                 </h4>
                 <p>{{ creature.ability.str }}</p>
@@ -59,8 +58,7 @@
             <div class="scores__stats dexterity">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Ловкость"
+                        v-tippy="'Ловкость'"
                     >ЛОВ</strong>
                 </h4>
                 <p>{{ creature.ability.dex }}</p>
@@ -69,8 +67,7 @@
             <div class="scores__stats constitution">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Телосложение"
+                        v-tippy="'Телосложение'"
                     >ТЕЛ</strong>
                 </h4>
                 <p>{{ creature.ability.con }}</p>
@@ -79,8 +76,7 @@
             <div class="scores__stats intelligence">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Интеллект"
+                        v-tippy="'Интеллект'"
                     >ИНТ</strong>
                 </h4>
                 <p>{{ creature.ability.int }}</p>
@@ -89,8 +85,7 @@
             <div class="scores__stats wisdom">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Мудрость"
+                        v-tippy="'Мудрость'"
                     >МДР</strong>
                 </h4>
                 <p>{{ creature.ability.wiz }}</p>
@@ -99,8 +94,7 @@
             <div class="scores__stats charisma">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Харизма"
+                        v-tippy="'Харизма'"
                     >ХАР</strong>
                 </h4>
                 <p>{{ creature.ability.cha }}</p>

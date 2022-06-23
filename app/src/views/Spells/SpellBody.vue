@@ -39,17 +39,17 @@
 
                 <span
                     v-if="spell.components.v"
-                    v-tooltip="{ content: tooltip.v }"
+                    v-tippy="{ content: tooltip.v }"
                 >Вербальный{{ spell.components.s || spell.components.m ? ', ' : '' }}</span>
 
                 <span
                     v-if="spell.components.s"
-                    v-tooltip="{ content: tooltip.s }"
+                    v-tippy="{ content: tooltip.s }"
                 >Соматический{{ spell.components.m ? ', ' : '' }}</span>
 
                 <span
                     v-if="spell.components.m"
-                    v-tooltip="{ content: tooltip.m }"
+                    v-tippy="{ content: tooltip.m }"
                 >Материальный ({{ spell.components.m }})</span>
             </div>
         </div>
@@ -91,8 +91,7 @@
                     :key="key"
                 >
                     <a
-                        v-tooltip="{content: el.class}"
-                        class="tip"
+                        v-tippy="{content: el.class}"
                         :href="el.url"
                     >{{ el.name }}</a>
 

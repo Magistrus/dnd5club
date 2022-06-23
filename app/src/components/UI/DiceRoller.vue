@@ -1,16 +1,14 @@
 <template>
     <span
-        v-tooltip="{
+        v-tippy="{
             content: result || 'Нажмите для броска',
-            shown: !!result,
-            html: true,
-            hideTriggers: () => ['hover', 'click']
+            hideOnClick: false,
         }"
         class="dice-roller"
         :class="classes"
         @click.left.exact.prevent="tryRoll"
     >
-        {{ formula }}
+        <slot>{{ formula }}</slot>
     </span>
 </template>
 

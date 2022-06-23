@@ -21,8 +21,7 @@
             <div class="scores__stats">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Тип существа"
+                        v-tippy="'Тип существа'"
                     >ТИП</strong>
                 </h4>
 
@@ -31,8 +30,7 @@
             <div class="scores__stats">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Увеличение характеристик"
+                        v-tippy="'Увеличение характеристик'"
                     >ХАР</strong>
                 </h4>
 
@@ -43,8 +41,7 @@
             <div class="scores__stats">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Размер"
+                        v-tippy="'Размер'"
                     >РАЗ</strong>
                 </h4>
                 <p>{{ race.size }}</p>
@@ -52,8 +49,7 @@
             <div class="scores__stats">
                 <h4>
                     <strong
-                        class="tip"
-                        title="Скорость"
+                        v-tippy="'Скорость'"
                     >СКР</strong>
                 </h4>
                 <p>{{ speed }}</p>
@@ -64,8 +60,7 @@
             >
                 <h4>
                     <strong
-                        class="tip"
-                        title="Темное зрение"
+                        v-tippy="'Темное зрение'"
                     >ТЗ</strong>
                 </h4>
                 <p>{{ `${ race.darkvision } фт.` }}</p>

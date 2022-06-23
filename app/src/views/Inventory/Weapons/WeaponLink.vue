@@ -46,7 +46,7 @@
                         >
                             <div
                                 v-if="weapon.damage.dice"
-                                v-tooltip="{ content: 'Урон' }"
+                                v-tippy="{ content: 'Урон' }"
                                 class="link-item__damage_dice"
                             >
                                 {{ weapon.damage.dice }}
@@ -54,7 +54,7 @@
 
                             <div
                                 v-if="weapon.damage.type"
-                                v-tooltip="{ content: 'Тип урона' }"
+                                v-tippy="{ content: 'Тип урона' }"
                                 class="link-item__damage_type"
                             >
                                 {{ weapon.damage.type }}
@@ -63,7 +63,7 @@
 
                         <div
                             v-if="weapon.price"
-                            v-tooltip="{ content: 'Стоимость' }"
+                            v-tippy="{ content: 'Стоимость' }"
                             class="link-item__price"
                         >
                             {{ weapon.price }}
