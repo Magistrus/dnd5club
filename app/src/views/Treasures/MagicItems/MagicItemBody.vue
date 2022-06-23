@@ -31,15 +31,13 @@
 
         <p>
             <b>Стоимость по <span
-                class="tip"
-                title="Руководство Мастера"
+                v-tippy="'Руководство Мастера'"
             >DMG</span>:</b> <span>{{ magicItem.cost.dmg }}</span>
 
             <br>
 
             <b>Стоимость по <span
-                class="tip"
-                title="Руководство Зантара обо всем"
+                v-tippy="'Руководство Зантара обо всем'"
             >XGE</span>:</b> <span>{{ magicItem.cost.xge }}</span>
         </p>
 

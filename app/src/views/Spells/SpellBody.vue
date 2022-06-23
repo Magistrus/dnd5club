@@ -92,7 +92,6 @@
                 >
                     <a
                         v-tippy="{content: el.class}"
-                        class="tip"
                         :href="el.url"
                     >{{ el.name }}</a>
 

@@ -21,7 +21,6 @@
 
                 <span
                     v-tippy="{content: source.name}"
-                    class="tip"
                 >&nbsp;{{ source.shortName }}</span>
             </slot>
         </span>

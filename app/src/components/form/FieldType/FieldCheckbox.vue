@@ -1,14 +1,12 @@
 <template>
     <div
         v-if="type === 'crumb'"
+        v-tippy="tooltip"
         :class="{'is-active': value}"
         class="field-checkbox field-checkbox--crumb"
         @click.left.exact.prevent="value = !value"
     >
-        <div
-            v-tippy="tooltip"
-            class="field-checkbox__label"
-        >
+        <div class="field-checkbox__label">
             <slot/>
         </div>
     </div>

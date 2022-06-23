@@ -76,7 +76,6 @@
 
 <script>
     import ContentLayout from "@/components/content/ContentLayout";
-    import HTTPService from "@/services/HTTPService";
     import errorHandler from "@/helpers/errorHandler";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import _ from "lodash";
@@ -87,7 +86,6 @@
         name: "WildMagicView",
         components: { RawContent, FieldCheckbox, ContentLayout },
         data: () => ({
-            http: new HTTPService(),
             count: 1,
             tables: [],
             results: [],
@@ -99,7 +97,7 @@
         methods: {
             async getTables() {
                 try {
-                    const resp = await this.http.get('/tools/wildmagic');
+                    const resp = await this.$http.get('/tools/wildmagic');
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -132,7 +130,7 @@
                             .map(source => source.shortName)
                     }
 
-                    const resp = await this.http.post('/tools/wildmagic', options, this.controller.signal)
+                    const resp = await this.$http.post('/tools/wildmagic', options, this.controller.signal)
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);

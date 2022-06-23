@@ -82,7 +82,6 @@
 
 <script>
     import ContentLayout from "@/components/content/ContentLayout";
-    import HTTPService from "@/services/HTTPService";
     import errorHandler from "@/helpers/errorHandler";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import _ from "lodash";
@@ -93,7 +92,6 @@
         name: "MadnessView",
         components: { RawContent, FieldCheckbox, ContentLayout },
         data: () => ({
-            http: new HTTPService(),
             count: 1,
             types: [],
             results: [],
@@ -105,7 +103,7 @@
         methods: {
             async getTables() {
                 try {
-                    const resp = await this.http.get('/tools/madness');
+                    const resp = await this.$http.get('/tools/madness');
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -141,7 +139,7 @@
                         options.type = type.value;
                     }
 
-                    const resp = await this.http.post('/tools/madness', options, this.controller.signal)
+                    const resp = await this.$http.post('/tools/madness', options, this.controller.signal)
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);

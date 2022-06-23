@@ -268,7 +268,6 @@
     import ContentLayout from "@/components/content/ContentLayout";
     import FieldSelect from "@/components/form/FieldType/FieldSelect";
     import SectionHeader from "@/components/UI/SectionHeader";
-    import HTTPService from "@/services/HTTPService";
     import errorHandler from "@/helpers/errorHandler";
     import _ from "lodash";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
@@ -331,7 +330,6 @@
             },
             loading: false,
             error: false,
-            http: new HTTPService(),
             controllers: {
                 list: undefined,
                 detail: undefined
@@ -410,7 +408,7 @@
                     cr: this.cr || 1
                 }
 
-                this.http.post('/tools/treasury', options, this.controllers.list.signal)
+                this.$http.post('/tools/treasury', options, this.controllers.list.signal)
                     .then(res => {
                         if (res.status !== 200) {
                             errorHandler(res.statusText);
@@ -455,7 +453,7 @@
                     this.controllers.detail = new AbortController();
 
                     const item = this.groupedResult[group][index];
-                    const resMagicItem = await this.http.post(item.url, null, this.controllers.detail.signal);
+                    const resMagicItem = await this.$http.post(item.url, null, this.controllers.detail.signal);
 
                     if (resMagicItem.status !== 200) {
                         this.error = true;
@@ -470,7 +468,7 @@
                     this.controllers.detail = new AbortController();
 
                     if (item.spell?.url) {
-                        const resSpell = await this.http.post(item.spell.url, null, this.controllers.detail.signal);
+                        const resSpell = await this.$http.post(item.spell.url, null, this.controllers.detail.signal);
 
                         if (resSpell.status !== 200) {
                             this.error = true;

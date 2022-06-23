@@ -154,7 +154,6 @@
     } from 'swiper';
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import HTTPService from '@/services/HTTPService';
     import { useClassesStore } from '@/store/Character/ClassesStore';
     import FieldSelect from '@/components/form/FieldType/FieldSelect';
     import SpellsView from "@/views/Spells/SpellsView";
@@ -180,7 +179,6 @@
             next();
         },
         data: () => ({
-            http: new HTTPService(),
             classesStore: useClassesStore(),
             loading: true,
             error: false,

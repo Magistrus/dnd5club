@@ -2,42 +2,47 @@
 @import "vue-multiselect/dist/vue-multiselect.css";
 @import "tippy.js/dist/tippy.css";
 
-.tippy-box[data-theme~=dnd5club] {
-  background-color: rgb(29, 33, 36);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+[data-tippy-root] {
+  display: inline;
+  cursor: auto;
 
-  & > .tippy-backdrop {
-    background-color: rgb(29, 33, 36)
-  }
+  .tippy-box[data-theme~=dnd5club] {
+    background-color: rgb(29, 33, 36);
+    border: 1px solid var(--border);
+    border-radius: 8px;
 
-  & > .tippy-content {
-    padding: 10px;
-    color: var(--text-btn-color);
-    line-height: 16px;
-    font: {
-      size: 11px;
+    & > .tippy-backdrop {
+      background-color: rgb(29, 33, 36)
     }
-  }
 
-  & > .tippy-svg-arrow {
-    fill: rgb(29, 33, 36)
-  }
+    & > .tippy-content {
+      padding: 10px;
+      color: var(--text-btn-color);
+      line-height: 16px;
+      font: {
+        size: 11px;
+      }
+    }
 
-  &[data-placement^=top] > .tippy-arrow:before {
-    border-top-color: rgb(29, 33, 36)
-  }
+    & > .tippy-svg-arrow {
+      fill: rgb(29, 33, 36)
+    }
 
-  &[data-placement^=bottom] > .tippy-arrow:before {
-    border-bottom-color: rgb(29, 33, 36)
-  }
+    &[data-placement^=top] > .tippy-arrow:before {
+      border-top-color: rgb(29, 33, 36)
+    }
 
-  &[data-placement^=left] > .tippy-arrow:before {
-    border-left-color: rgb(29, 33, 36)
-  }
+    &[data-placement^=bottom] > .tippy-arrow:before {
+      border-bottom-color: rgb(29, 33, 36)
+    }
 
-  &[data-placement^=right] > .tippy-arrow:before {
-    border-right-color: rgb(29, 33, 36)
+    &[data-placement^=left] > .tippy-arrow:before {
+      border-left-color: rgb(29, 33, 36)
+    }
+
+    &[data-placement^=right] > .tippy-arrow:before {
+      border-right-color: rgb(29, 33, 36)
+    }
   }
 }
 
