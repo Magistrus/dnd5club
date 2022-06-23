@@ -54,8 +54,10 @@
 
 		.hamburger {
 			display: block;
-			padding: 0 7px;
 			margin-right: 8px;
+			margin-left: -7px;
+			height: auto;
+			padding: 7px 8px;
 
 			.line {
 				width: 24px;
@@ -90,6 +92,10 @@
 				-o-transform: translateY(-13px) rotate(-45deg);
 				transform: translateY(-13px) rotate(-45deg);
 			}
+
+			@media (max-width: 1200px) {
+				margin-left: -7px;
+			}
 		}
 		  
 		&__logo {
@@ -110,6 +116,10 @@
 				font-size: 17px;
 				font-weight: 600;
 			  }
+		}
+
+		@media (max-width: 1200px) {
+			padding: 0 16px;
 		}
 	}
 }

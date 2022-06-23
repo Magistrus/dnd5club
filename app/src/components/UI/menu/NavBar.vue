@@ -4,7 +4,7 @@
     >
         <div class="navbar__head">
 			<div class="navbar__head__start">
-				<div class="hamburger" id="hamburger-1">
+				<div class="hamburger btn_nav">
 					<span class="line"></span>
 					<span class="line"></span>
 					<span class="line"></span>
