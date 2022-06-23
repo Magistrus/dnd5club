@@ -50,8 +50,6 @@ export const useUIStore = defineStore('UIStore', {
                 }
 
                 html.dataset.theme = `theme-${ themeName }`;
-
-                await http.post('/session/theme', { theme: themeName })
             } catch (err) {
                 errorHandler(err);
             }
