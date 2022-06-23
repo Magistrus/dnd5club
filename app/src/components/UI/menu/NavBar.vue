@@ -21,6 +21,10 @@
                 <menu-theme-switcher/>
             </div>
         </div>
+
+		<aside class="club__card">
+
+		</aside>
     </div>
 </template>
 

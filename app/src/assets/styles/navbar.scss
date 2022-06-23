@@ -7,6 +7,7 @@
 	width: 100%;
 	background: var(--bg-liner-menu);
 	display: flex;
+	position: relative;
 
 	&::before {
 		position: absolute;
@@ -64,10 +65,11 @@
 			display: block;
 			margin-right: 8px;
 			height: auto;
-			padding: 7px 8px;
+			padding: 7px 9px;
+			z-index: 20;
 
 			.line {
-				width: 24px;
+				width: 22px;
 				height: 2px;
 				background-color: var(--text-color);
 				display: block;
@@ -91,17 +93,20 @@
 					}
 
 					&:nth-child(1) {
-						-webkit-transform: translateY(7px) rotate(45deg);
-						-ms-transform: translateY(7px) rotate(45deg);
-						-o-transform: translateY(7px) rotate(45deg);
 						transform: translateY(7px) rotate(45deg);
 					}
 
 					&:nth-child(3) {
-						-webkit-transform: translateY(-7px) rotate(-45deg);
-						-ms-transform: translateY(-7px) rotate(-45deg);
-						-o-transform: translateY(-7px) rotate(-45deg);
 						transform: translateY(-7px) rotate(-45deg);
+					}
+				}
+			}
+
+			&:hover {
+				.line {
+					&:nth-child(1) {
+						transform: translateX(-6px);
+						width: 14px;
 					}
 				}
 			}
@@ -130,5 +135,36 @@
 		@media (max-width: 1200px) {
 			padding: 0 16px;
 		}
+	}
+}
+
+.club__card {
+	background-color: var(--bg-secondary);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 500px;
+	height: 500px;
+	z-index: 19;
+	border-radius: 8px;
+	box-shadow: 0px 0px 27px #0006;
+	margin: 4px 0 0 12px;
+	opacity: 0;
+	pointer-events: none;
+	transform: scale(0);
+	transform-origin: top left;
+	visibility: hidden;
+	transition: transform 250ms;
+
+	&.is-active {
+		opacity: 1;
+		pointer-events: auto;
+		transform: none;
+		transition-delay: 0ms;
+		visibility: visible;
+	}
+
+	@media (max-width: 1200px) {
+		margin: 4px 0 0 4px;
 	}
 }

@@ -970,6 +970,7 @@ label.select_box {
   border-radius: 8px;
   display: inline-flex;
   margin: 4px 4px;
+  align-items: center;
 }
 
 .friends_list .friend_block:hover {
