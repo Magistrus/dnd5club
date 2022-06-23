@@ -4,7 +4,7 @@
     >
         <div class="navbar__head">
             <div class="navbar__head__start">
-                <div class="hamburger btn_nav">
+                <div class="hamburger btn_nav" :class="{ 'is-active': menu }" @click.left.exact.prevent="toggleMenu">
                     <span class="line"/>
                     <span class="line"/>
                     <span class="line"/>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-		<aside class="club__card">
+		<aside class="club__card" :class="{ 'is-active': menu }">
 			<header class="club__card__header">
 				<div class="club__card__header_logo">
 					<site-logo :size="62"/>
@@ -45,7 +45,15 @@
 
     export default {
         name: "NavBar",
-        components: { MenuThemeSwitcher }
+        components: { MenuThemeSwitcher },
+		data: () => ({
+			menu: false
+		}),
+		methods: {
+			toggleMenu () {
+				this.menu=!this.menu
+			}
+		}
     }
 </script>
 

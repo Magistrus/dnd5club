@@ -109,6 +109,15 @@
 						width: 14px;
 					}
 				}
+
+				&.is-active {
+					.line {
+						&:nth-child(1) {
+							transform: translateY(7px) rotate(45deg);
+							width: 22px;
+						}
+					}
+				}
 			}
 		}
 		  
