@@ -48,6 +48,27 @@
                     </div>
                 </div>
             </header>
+
+            <section class="club__card__menu">
+                <nav class="navigation">
+                    <label class="navigation__head">
+                        <span>
+                            Навигация
+                        </span>
+                    </label>
+                    <ul>
+                        <li>
+                            <a href="">Row 1</a>
+                        </li>
+                        <li>
+                            <a href="">Row 2</a>
+                        </li>
+                        <li>
+                            <a href="">Row 3</a>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
         </aside>
     </div>
 </template>

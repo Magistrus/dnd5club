@@ -180,7 +180,7 @@ hr {
 }
 
 .toggle[type="checkbox"]:checked::after {
-   transform: translateX(calc(var(--width) - var(--size) * 0.8 - 10%));
+  transform: translateX(calc(var(--width) - var(--size) * 0.8 - 10%));
 }
 
 .check:disabled,
@@ -191,7 +191,7 @@ hr {
 
 .check:disabled::before,
 .toggle[type="checkbox"]:disabled::before {
-   background: #2be;
+  background: #2be;
 }
 
 label.check_block {
@@ -203,14 +203,14 @@ label.check_block {
 }
 
 label.check_block .toggle[type="checkbox"] {
-  margin:0;
+  margin: 0;
 }
 
-label.check_block .toggle+span {
+label.check_block .toggle + span {
   margin-left: 4px;
 }
 
-label.check_block .check+span {
+label.check_block .check + span {
   margin-left: 4px;
 }
 
@@ -227,18 +227,18 @@ label.check_block .check+span {
 /******** Поля ввода / input ********/
 input {
   border-radius: 4px;
-  border:1px solid var(--border);
-  outline:none;
+  border: 1px solid var(--border);
+  outline: none;
   padding: 0px 12px;
   background: var(--hover);
   color: var(--text-color);
   font-size: var(--main-font-size);
   height: 38px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 input[type="radio"] {
@@ -253,17 +253,17 @@ input[type="radio"].check {
 textarea {
   border-radius: 0px;
   font-size: var(--main-font-size);
-  outline:none;
-  border:1px solid var(--border);
+  outline: none;
+  border: 1px solid var(--border);
   background: var(--hover);
   color: var(--text-color);
   padding: 12px 12px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   resize: vertical;
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .row_input textarea,
@@ -276,14 +276,14 @@ textarea {
 textarea:hover,
 input:hover {
   background-color: var(--bg-inpur-hover) !important;
-  border:1px solid var(--primary);
+  border: 1px solid var(--primary);
   color: var(--text-color);
 }
 
 textarea:focus,
 input:focus {
   background-color: var(--bg-inpur-focus) !important;
-  border:1px solid var(--primary);
+  border: 1px solid var(--primary);
   outline: none;
   color: var(--text-color);
 }
@@ -324,18 +324,18 @@ label.select_box {
   vertical-align: middle;
   text-align: left;
   background: var(--hover);
-  border:1px solid var(--border);
+  border: 1px solid var(--border);
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   -webkit-touch-callout: none;
   border-radius: 4px;
 }
 
 .select:hover {
   background: var(--hover);
-  border:1px solid var(--primary-hover);
+  border: 1px solid var(--primary-hover);
   color: var(--text-color-active);
 }
 
@@ -417,7 +417,7 @@ label.select_box {
 }
 
 .select.is-open .icon_arrow {
-  transform:rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 
 .select.is-open ul {
@@ -548,7 +548,7 @@ label.select_box {
   height: 44px;
   background: var(--primary);
   padding: 12px 12px;
-  border:none;
+  border: none;
   cursor: pointer;
   color: var(--text-btn-color);
   margin-right: 16px;
@@ -589,7 +589,6 @@ label.select_box {
   width: 100%;
 }
 
-
 /******** Главная ********/
 .main_page_wrapper .info_main_block {
   padding: 16px 0px;
@@ -627,10 +626,10 @@ label.select_box {
 }
 
 .main_page_wrapper .news_block {
-  --width-news-blok:25%;
+  --width-news-blok: 25%;
   min-width: var(--width-news-blok);
   max-width: var(--width-news-blok);
-  flex:1 1 var(--width-news-blok);
+  flex: 1 1 var(--width-news-blok);
   height: 100%;
   background-color: var(--bg-main);
   border-left: 1px solid var(--border);
@@ -729,7 +728,7 @@ label.select_box {
 }
 
 .main_page_wrapper .news_block .news_list .news {
-  border-bottom:1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   padding: 16px;
 }
 
@@ -768,7 +767,6 @@ label.select_box {
   margin-right: 4px;
   border: 1px solid var(--border);
 }
-
 
 /******** Page Страница ********/
 .page_main {
@@ -825,7 +823,7 @@ label.select_box {
 .page_wrapper .center .header h1 {
   margin-bottom: 16px;
   font-weight: 500;
-  font-family: 'Lora';
+  font-family: "Lora";
 }
 
 .page_wrapper .center .header h3 {
@@ -844,7 +842,7 @@ label.select_box {
   font-weight: 300;
   width: 100%;
   display: inline-block;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   margin-top: 0px;
 }
 
@@ -920,7 +918,6 @@ label.select_box {
   fill: var(--primary-hover);
 }
 
-
 /******** Статья ********/
 .news_wrapper {
   height: 100%;
@@ -962,7 +959,7 @@ label.select_box {
 .news_wrapper .news_page .header h1 {
   margin-bottom: 16px;
   font-weight: 500;
-  font-family: 'Lora';
+  font-family: "Lora";
 }
 
 .news_wrapper .news_page .header .subtitle {
@@ -970,7 +967,7 @@ label.select_box {
   font-weight: 300;
   width: 100%;
   display: inline-block;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   margin-top: 0px;
 }
 
@@ -1037,10 +1034,9 @@ label.select_box {
   align-items: flex-start;
 }
 
-
 @media (max-width: 1200px) {
   .news_wrapper .right .btn_block {
-    position:relative;
+    position: relative;
     margin-left: 0px;
     margin-right: 0px;
     padding: 16px;
@@ -1147,12 +1143,12 @@ label.select_box {
   background-color: var(--hover);
 }
 
-.news_wrapper .similar_articles a h4{
+.news_wrapper .similar_articles a h4 {
   margin-top: 0;
   font-size: 20px;
 }
 
-.news_wrapper .similar_articles a p{
+.news_wrapper .similar_articles a p {
   margin-bottom: 0;
 }
 
@@ -1249,12 +1245,8 @@ label.select_box {
   background-color: var(--primary-hover);
 }
 
-
-
-
 /******** Информация о заклинание / spells ********/
 .spells {
-
 }
 
 #right_block.spells .content_block #content_block {
@@ -1302,10 +1294,8 @@ label.select_box {
   }
 }
 
-
 /******** Классы / classes ********/
 .classes {
-
 }
 
 #right_block.classes .content_block h4.mt {
@@ -1328,10 +1318,8 @@ label.select_box {
   border-bottom: 0;
 }
 
-
 /******** Расы / races ********/
 .races {
-
 }
 
 #left_block.races .table_card tbody {
@@ -1432,26 +1420,20 @@ label.select_box {
   }
 }
 
-
 /******** Предыстории / backgrounds ********/
 .backgrounds {
-
 }
-
 
 /******** Драгоценности / treasures ********/
 .treasures {
-
 }
-
 
 /******** Оружие / Weapons ********/
 .weapons {
-
 }
 
 body .block_information #left_block.armors,
-body .block_information #left_block.weapons  {
+body .block_information #left_block.weapons {
   width: 50%;
 }
 
@@ -1467,14 +1449,12 @@ body .block_information #left_block.weapons  {
   }
 }
 
-
 /******** Бестиарий / bestiary ********/
 .bestiary {
-
 }
 
 #right_block.bestiary::after {
-  content: '';
+  content: "";
   background-image: var(--bg-img-bestiary-forest);
   background-repeat: no-repeat;
   display: block;
@@ -1485,7 +1465,7 @@ body .block_information #left_block.weapons  {
   right: 0;
   bottom: 0;
   z-index: 0;
-  opacity: 0.10;
+  opacity: 0.1;
 }
 
 .bestiary_h5 h5 {
@@ -1498,7 +1478,7 @@ body .block_information #left_block.weapons  {
 }
 
 .bestiary_h5 h5:before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   left: -6px;
@@ -1515,7 +1495,7 @@ body .block_information #left_block.weapons  {
   flex-wrap: wrap;
 }
 
-#right_block.bestiary .scores>div {
+#right_block.bestiary .scores > div {
   text-align: center;
   min-width: calc(16% - 8px);
   flex: 1 0 calc(16% - 8px);
@@ -1530,35 +1510,35 @@ body .block_information #left_block.weapons  {
 }
 
 @media (max-width: 1500px) {
-  #right_block.bestiary .scores>div {
+  #right_block.bestiary .scores > div {
     max-width: calc(33% - 8px);
     flex: 1 0 calc(33% - 8px);
   }
 }
 
 @media (max-width: 1200px) {
-  #right_block.bestiary .scores>div {
+  #right_block.bestiary .scores > div {
     max-width: calc(16% - 8px);
     flex: 1 0 calc(16% - 8px);
   }
 }
 
 @media (max-width: 800px) {
-  #right_block.bestiary .scores>div {
+  #right_block.bestiary .scores > div {
     max-width: calc(33% - 8px);
     flex: 1 0 calc(33% - 8px);
   }
 }
 
 @media (max-width: 500px) {
-  #right_block.bestiary .scores>div {
+  #right_block.bestiary .scores > div {
     max-width: calc(33% - 8px);
     flex: 1 0 calc(33% - 8px);
   }
 }
 
 @media (max-width: 360px) {
-  #right_block.bestiary .scores>div {
+  #right_block.bestiary .scores > div {
     max-width: calc(50% - 8px);
     flex: 1 0 calc(50% - 8px);
   }
