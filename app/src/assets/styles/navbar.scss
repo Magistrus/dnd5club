@@ -6,7 +6,8 @@
 	height: 56px;
 	width: 100%;
 	background: var(--bg-liner-menu);
-	display: flex;
+	position: fixed;
+	z-index: 100;
 
 	&::before {
 		position: absolute;
@@ -40,7 +41,7 @@
 		}
 
 		&__end {
-			margin-right: -7px;
+			margin-right: 8px;
 		}
 
 		.btn_nav {
@@ -48,14 +49,19 @@
 			height: 40px;
 			border-radius: 8px;
 			padding: 0 5px;
+			display: flex;
+			align-items: center;
+			color: var(--text-color);
+			font-weight: 600;
 
 			&:hover {
 				background-color: var(--hover);
+				color: var(--text-b-color);
 
 				svg,
 				path {
-					fill: var(--primary-hover);
-					stroke: var(--primary-hover);
+					fill: var(--text-b-color);
+					stroke: var(--text-b-color);
 				}
 			}
 		}
@@ -64,10 +70,11 @@
 			display: block;
 			margin-right: 8px;
 			height: auto;
-			padding: 7px 8px;
+			padding: 7px 9px;
+			z-index: 20;
 
 			.line {
-				width: 24px;
+				width: 22px;
 				height: 2px;
 				background-color: var(--text-color);
 				display: block;
@@ -78,11 +85,7 @@
 				border-radius: 2px;
 		  	}
 
-			&:hover {
-				cursor: pointer;
-			}
-
-			&:hover {
+			&.is-active {
 
 				.line {
 
@@ -91,17 +94,33 @@
 					}
 
 					&:nth-child(1) {
-						-webkit-transform: translateY(7px) rotate(45deg);
-						-ms-transform: translateY(7px) rotate(45deg);
-						-o-transform: translateY(7px) rotate(45deg);
 						transform: translateY(7px) rotate(45deg);
 					}
 
 					&:nth-child(3) {
-						-webkit-transform: translateY(-7px) rotate(-45deg);
-						-ms-transform: translateY(-7px) rotate(-45deg);
-						-o-transform: translateY(-7px) rotate(-45deg);
 						transform: translateY(-7px) rotate(-45deg);
+					}
+				}
+			}
+
+			&:hover {
+				cursor: pointer;
+
+				.line {
+					background-color: var(--text-b-color);
+					
+					&:nth-child(1) {
+						transform: translateX(-6px);
+						width: 14px;
+					}
+				}
+
+				&.is-active {
+					.line {
+						&:nth-child(1) {
+							transform: translateY(7px) rotate(45deg);
+							width: 22px;
+						}
 					}
 				}
 			}
@@ -111,24 +130,84 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 40px;
-			height: 40px;
 			position: relative;
 
-			&:after {
-				content: 'β';
-				display: block;
-				position: absolute;
-				top: 0px;
-				right: -8px;
-				color: var(--primary);
-				font-size: 17px;
-				font-weight: 600;
-			  }
+			// &:after {
+			// 	content: 'β';
+			// 	display: block;
+			// 	position: absolute;
+			// 	top: 5px;
+			// 	right: -5px;
+			// 	color: var(--primary);
+			// 	font-size: 20px;
+			// 	font-weight: 600;
+			//   }
 		}
 
 		@media (max-width: 1200px) {
 			padding: 0 16px;
+		}
+	}
+}
+
+.club__card {
+	background-color: var(--bg-secondary);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 500px;
+	height: 500px;
+	z-index: 19;
+	border-radius: 8px;
+	box-shadow: 0px 0px 27px #0006;
+	margin: 8px 0 0 16px;
+	opacity: 0;
+	pointer-events: none;
+	transform: scale(0);
+	transform-origin: top left;
+	visibility: hidden;	
+    transition: transform 250ms cubic-bezier(0.215,0.61,0.355,1),opacity 250ms ease,visibility 0ms linear 250ms;
+
+
+	&.is-active {
+		opacity: 1;
+		pointer-events: auto;
+		transform: none;
+		transition-delay: 0ms;
+		visibility: visible;
+	}
+
+	@media (max-width: 1200px) {
+		margin: 8px 0 0 8px;
+	}
+
+	&__header {
+		padding: 32px 16px 16px 16px;
+		border-bottom: 1px solid var(--hover);
+		display: flex;
+
+		&__logo {
+			margin-right: 12px;
+		}
+
+		&__info {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;	
+
+			.row {
+				color: var(--text-b-color);
+
+				&:nth-child(1) {
+					font-size:  var(--h5-font-size);
+					margin-bottom: 4px;
+				}
+
+				&:nth-child(2) {
+					font-size:  var(--h3-font-size);
+					font-weight: 600;
+				}
+			}
 		}
 	}
 }
