@@ -16,11 +16,16 @@
     }
 
     & > .tippy-content {
-      padding: 10px;
+      max-height: 320px;
+      overflow: auto;
       color: var(--text-btn-color);
       line-height: 16px;
       font: {
         size: 11px;
+      }
+
+      > * {
+        padding: 10px;
       }
     }
 

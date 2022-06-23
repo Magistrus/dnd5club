@@ -2,6 +2,8 @@ import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher';
 import SiteLogo from '@/components/UI/SiteLogo';
 import SvgIcon from '@/components/UI/SvgIcon';
 import DiceRoller from '@/components/UI/DiceRoller';
+import RawContent from '@/components/content/RawContent';
+import SpellTooltip from '@/views/Character/Races/SpellTooltip';
 
 /* eslint-disable vue/match-component-file-name */
 export default function registerComponents(app) {
@@ -10,5 +12,7 @@ export default function registerComponents(app) {
     app.component('SiteLogo', SiteLogo);
     app.component('SvgIcon', SvgIcon);
     app.component('DiceRoller', DiceRoller);
+    app.component('RawContent', RawContent);
+    app.component('SpellTooltip', SpellTooltip);
 }
 /* eslint-enable vue/match-component-file-name */
