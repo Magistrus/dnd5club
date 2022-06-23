@@ -37,7 +37,11 @@
 		}
 
 		&__start {
-			margin-left: -7px;
+			margin-left: 0px;
+
+			@media (max-width: 1500px) {
+				margin-left: -7px;
+			}
 		}
 
 		&__end {

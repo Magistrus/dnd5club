@@ -17,7 +17,7 @@
                     href="/"
                     class="btn_nav"
                 >
-					<span>DND5Club</span>
+                    <span>DND5Club</span>
                 </a>
             </div>
 
@@ -32,12 +32,12 @@
         >
             <header class="club__card__header">
                 <div class="club__card__header__logo">
-					<a
-						href="/"
-						class="navbar__head__logo"
-					>
-                    	<site-logo :size="84"/>
-					</a>
+                    <a
+                        href="/"
+                        class="navbar__head__logo"
+                    >
+                        <site-logo :size="84"/>
+                    </a>
                 </div>
                 <div class="club__card__header__info">
                     <div class="row">
