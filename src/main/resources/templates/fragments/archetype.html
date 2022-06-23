@@ -14,13 +14,13 @@
 					</svg>
 				</i>
 				<span class="placeholder js-dropdown__current" th:text="|${selectedArchetype.name} ${selectedArchetype.book.source}|"></span>
-				<ul data-simplebar>
+				<ul >
 					<li th:each="archetype : *{archetypes}" th:data-dropdown-value="${archetype.englishName.replace(' ', '_')}" th:class="${archetype.id eq selectedArchetype.id ? 'selected' : ''}" th:text="|${archetype.name} ${archetype.book.source}|" th:classappend="${archetype.book.type.name() eq 'CUSTOM' ? 'custom_source hide_block': archetype.book.type.name() eq 'SETTING' ? 'setting_source hide_block':''}"  th:data-arch-source="${archetype.book.source}"></li>
 				</ul>
 			</div>
 		</div>
 		<div th:replace="fragments/class :: classInfo1(${selectedArchetype.englishName})"></div>
-		<div class="table-responsive class" data-simplebar>
+		<div class="table-responsive class" >
 			<table class="dnd5_table">
 				<thead>
 					<tr align="center">
@@ -79,8 +79,8 @@
 								th:text="${featureLevel.sufix}"
 							/></td>
 						<th:block th:unless="*{spellcasterType.name() eq 'NONE' or spellcasterType.name() eq 'PARTLY'}">
-							<td th:text="${heroClass.levelDefenitions[level - 1].slot1 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot1}" /></td>
-							<td th:text="${heroClass.levelDefenitions[level - 1].slot2 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot2}" />
+							<td th:text="${heroClass.levelDefenitions[level - 1].slot1 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot1}" />
+                            <td th:text="${heroClass.levelDefenitions[level - 1].slot2 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot2}" />
 							<td th:text="${heroClass.levelDefenitions[level - 1].slot3 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot3}" />
 							<td th:text="${heroClass.levelDefenitions[level - 1].slot4 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot4}" />
 							<td th:text="${heroClass.levelDefenitions[level - 1].slot5 eq 0 ? '—' : heroClass.levelDefenitions[level - 1].slot5}" />
@@ -92,8 +92,8 @@
 							</th:block>
 						</th:block>
 						<th:block th:unless="${selectedArchetype.levelDefenitions.empty}">
-							<td th:text="${selectedArchetype.levelDefenitions[level - 1].slot1 eq 0 ? '—' : selectedArchetype.levelDefenitions[level - 1].slot1}" /></td>
-							<td th:text="${selectedArchetype.levelDefenitions[level - 1].slot2 eq 0 ? '—' : selectedArchetype.levelDefenitions[level - 1].slot2}" />
+							<td th:text="${selectedArchetype.levelDefenitions[level - 1].slot1 eq 0 ? '—' : selectedArchetype.levelDefenitions[level - 1].slot1}" />
+                            <td th:text="${selectedArchetype.levelDefenitions[level - 1].slot2 eq 0 ? '—' : selectedArchetype.levelDefenitions[level - 1].slot2}" />
 							<td th:text="${selectedArchetype.levelDefenitions[level - 1].slot3 eq 0 ? '—' : selectedArchetype.levelDefenitions[level - 1].slot3}" />
 							<td th:text="${selectedArchetype.levelDefenitions[level - 1].slot4 eq 0 ? '—' : selectedArchetype.levelDefenitions[level - 1].slot4}" />
 						</th:block>
@@ -107,7 +107,7 @@
 				<summary class="h4 header_separator" th:classappend="${feature.prefix eq 'a' or feature.prefix eq 'ad' ? 'archetype_feet' : ''}" th:id="|${feature.prefix}${feature.id}|"><span th:text="${feature.name}"></span></summary>
 				<div class="content">
 					<div class="caption_text" th:text="${feature.type}"></div>
-					<p th:utext="${feature.description}" />
+					<p th:utext="${feature.description}"></p>
 					<div th:if="${feature.prefix eq 'ad'}" align="center">
 						<table th:unless=${archetypeSpells.empty}>
 							<thead>

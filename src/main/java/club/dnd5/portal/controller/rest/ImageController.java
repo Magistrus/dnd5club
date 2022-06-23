@@ -33,7 +33,7 @@ public class ImageController {
 		}
 		return repo.findAllByTypeAndRefId(type, id);
 	}
-	
+
 	private String getDefault(ImageType type) {
 		Object themeObject = session.getAttribute("theme");
 		String theme = null;
@@ -42,6 +42,6 @@ public class ImageController {
 		} else {
 			theme = themeObject.toString();
 		}
-		return "/resources/assets/style/" + theme + "/no_img_best.png";
+		return "/assets/style/" + theme + "/no_img_best.png";
 	}
 }

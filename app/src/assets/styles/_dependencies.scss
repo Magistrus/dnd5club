@@ -1,0 +1,102 @@
+@import "normalize.css";
+@import "vue-multiselect/dist/vue-multiselect.css";
+@import "tippy.js/dist/tippy.css";
+
+[data-tippy-root] {
+  display: inline;
+  cursor: auto;
+
+  .tippy-box[data-theme~=dnd5club] {
+    background-color: rgb(29, 33, 36);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    & > .tippy-backdrop {
+      background-color: rgb(29, 33, 36)
+    }
+
+    & > .tippy-content {
+      max-height: 320px;
+      overflow: auto;
+      color: var(--text-btn-color);
+      line-height: 16px;
+      font: {
+        size: 11px;
+      }
+
+      > * {
+        padding: 10px;
+      }
+    }
+
+    & > .tippy-svg-arrow {
+      fill: rgb(29, 33, 36)
+    }
+
+    &[data-placement^=top] > .tippy-arrow:before {
+      border-top-color: rgb(29, 33, 36)
+    }
+
+    &[data-placement^=bottom] > .tippy-arrow:before {
+      border-bottom-color: rgb(29, 33, 36)
+    }
+
+    &[data-placement^=left] > .tippy-arrow:before {
+      border-left-color: rgb(29, 33, 36)
+    }
+
+    &[data-placement^=right] > .tippy-arrow:before {
+      border-right-color: rgb(29, 33, 36)
+    }
+  }
+}
+
+.ps {
+  height: 100%;
+  width: 100%;
+
+  &__thumb {
+    &-x,
+    &-y {
+      background-color: var(--primary);
+    }
+  }
+
+  & &__rail {
+    &-x,
+    &-y {
+      &:hover,
+      &:focus,
+      &.ps--clicking {
+        background-color: transparent;
+
+        .ps {
+          &__thumb {
+            &-x,
+            &-y {
+              background-color: var(--primary);
+              width: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.swiper {
+  &:hover {
+    .swiper-scrollbar {
+      opacity: 1 !important;
+    }
+  }
+}
+
+.vel-modal {
+  .vel-img-wrapper {
+    .vel-img {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+}

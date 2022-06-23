@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" >
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="${session.theme eq null ? 'theme-dark': session.theme}">
 	<head>
 	 	<th:block th:fragment="mainLayout" >
 		<meta charset="UTF-8">
@@ -9,6 +9,7 @@
 		<meta name="robots" content="noindex, nofollow" />
 
 		<title th:text="${metaTitle eq null ? 'DnD5 Club Oнлайн-справочник' : metaTitle}">DnD5.club Oнлайн-справочник</title>
+
 		<meta name="description" th:content="${metaDescription eq null ? 'DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.' : metaDescription}"/>
 		<meta name="keywords" content="d&d, d&d5, dnd, dnd5, dnd5 классы, dnd5 расы, dnd5 бестиарий, dnd5 заклинания, dnd5 руководства, dnd5 предметы, dnd5 магические предметы, dnd5 инструменты, dnd5 время простоя, dnd5 покупка магических вещей, dnd5 таверна на скорую руку, dnd5 дикая магия, dnd5 безумие, dnd5 торговец, dnd5 сокровищница, dnd5 случайные столкновения, dnd5 источники, dnd 5, dnd 5 классы, dnd 5 расы, dnd 5 бестиарий, dnd 5 заклинания, dnd 5 руководства, dnd 5 предметы, dnd 5 магические предметы, dnd 5 инструменты, dnd 5 время простоя, dnd 5 покупка магических вещей, dnd 5 таверна на скорую руку, dnd 5 дикая магия, dnd 5 безумие, dnd 5 торговец, dnd 5 сокровищница, dnd 5 случайные столкновения, dnd 5 источники, d&d 5, d&d 5 классы, d&d 5 расы, d&d 5 бестиарий, d&d 5 заклинания, d&d 5 руководства, d&d 5 предметы, d&d 5 магические предметы, d&d 5 инструменты, d&d 5 время простоя, d&d 5 покупка магических вещей, d&d 5 таверна на скорую руку, d&d 5 дикая магия, d&d 5 безумие, d&d 5 торговец, d&d 5 сокровищница, d&d 5 случайные столкновения, d&d 5 источники, d&d5, d&d5 классы, d&d5 расы, d&d5 бестиарий, d&d5 заклинания, d&d5 руководства, d&d5 предметы, d&d5 магические предметы, d&d5 инструменты, d&d5 время простоя, d&d5 покупка магических вещей, d&d5 таверна на скорую руку, d&d5 дикая магия, d&d5 безумие, d&d5 торговец, d&d5 сокровищница, d&d5 случайные столкновения, d&d5 источники,  dungeons and dragons, dungeons and dragons классы, dungeons and dragons расы, dungeons and dragons бестиарий, dungeons and dragons заклинания, dungeons and dragons руководства, dungeons and dragons предметы, dungeons and dragons магические предметы, dungeons and dragons инструменты, dungeons and dragons время простоя, dungeons and dragons покупка магических вещей, dungeons and dragons таверна на скорую руку, dungeons and dragons дикая магия, dungeons and dragons безумие, dungeons and dragons торговец, dungeons and dragons сокровищница, dungeons and dragons случайные столкновения, dungeons and dragons источники,  подземелья и драконы, подземелья и драконы классы, подземелья и драконы расы, подземелья и драконы бестиарий, подземелья и драконы заклинания, подземелья и драконы руководства, подземелья и драконы предметы, подземелья и драконы магические предметы, подземелья и драконы инструменты, подземелья и драконы время простоя, подземелья и драконы покупка магических вещей, подземелья и драконы таверна на скорую руку, подземелья и драконы дикая магия, подземелья и драконы безумие, подземелья и драконы торговец, подземелья и драконы сокровищница, подземелья и драконы случайные столкновения, подземелья и драконы источники, днд, днд классы, днд расы, днд бестиарий, днд заклинания, днд руководства, днд предметы, днд магические предметы, днд инструменты, днд время простоя, днд покупка магических вещей, днд таверна на скорую руку, днд дикая магия, днд безумие, днд торговец, днд сокровищница, днд случайные столкновения, днд источники">
 
@@ -25,43 +26,33 @@
 
 		<link rel="canonical" th:href="@{${metaUrl eq null ? '#' : metaUrl}}">
 		<link rel="manifest" href="/manifest.json" crossorigin="anonymous">
-		<link rel="apple-touch-icon" sizes="48x48" href="/resources/assets/style/icons/48.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="/resources/assets/style/icons/72.png">
-		<link rel="apple-touch-icon" sizes="96x96" href="/resources/assets/style/icons/96.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="/resources/assets/style/icons/144.png">
-		<link rel="apple-touch-icon" sizes="192x192" href="/resources/assets/style/icons/192.png">
-		<link rel="apple-touch-icon" sizes="256x256" href="/resources/assets/style/icons/265.png">
-		<link rel="apple-touch-icon" sizes="384x384" href="/resources/assets/style/icons/384.png">
-		<link rel="apple-touch-icon" sizes="512x512" href="/resources/assets/style/icons/512.png">
-		<!-- Simplebar -->
-		<link rel="stylesheet" th:href="@{/resources/css/simplebar.css}" />
-		<!-- Tipped -->
-		<link rel="stylesheet" th:href="@{/resources/css/tipped.css}" />
-		<!-- Modal -->
-		<link rel="stylesheet" th:href="@{/resources/css/magnific-popup.css}" />
-		<!-- Favicon-->
-		<link rel="icon" type="image/svg+xml" th:href="@{/resources/assets/favicon_new.svg?v=7}" />
-		<!-- Core theme CSS -->
-		<link rel="stylesheet" media="all" th:href="@{|/resources/css/${session.theme eq null ? 'dark': session.theme}.css?v=${version}|}" id="theme_css" th:class="${session.theme}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/typography.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/styles.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/grid.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/print.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/search.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/personal-area.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/resources/css/editor.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{/resources/css/datatables/jquery.dataTables.min.css}" />
-		<link rel="stylesheet" th:href="@{/resources/css/datatables/searchPanes.dataTables.min.css}" />
-		<!-- Menu -->
-		<link rel="stylesheet" th:href="@{|/resources/css/sidebar-menu.css?v=${version}|}" />
+        <link rel="icon" type="image/svg+xml" th:href="@{/assets/favicon_new.svg?v=7}" />
+		<link rel="apple-touch-icon" sizes="48x48" href="/assets/style/icons/48.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/assets/style/icons/72.png">
+		<link rel="apple-touch-icon" sizes="96x96" href="/assets/style/icons/96.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/assets/style/icons/144.png">
+		<link rel="apple-touch-icon" sizes="192x192" href="/assets/style/icons/192.png">
+		<link rel="apple-touch-icon" sizes="256x256" href="/assets/style/icons/265.png">
+		<link rel="apple-touch-icon" sizes="384x384" href="/assets/style/icons/384.png">
+		<link rel="apple-touch-icon" sizes="512x512" href="/assets/style/icons/512.png">
+
+        <!-- Vue App -->
+        <script defer="defer" th:src="@{|/app/js/chunk-vendors.js?v=${version}|}"></script>
+        <script defer="defer" th:src="@{|/app/js/app.js?v=${version}|}"></script>
+        <!-- End Vue App -->
+
+		<!-- Core CSS -->
+		<link rel="preload" as="style" th:href="@{|/app/css/chunk-vendors.css?v=${version}|}" onload="this.rel='stylesheet'"/>
+		<link rel="preload" as="style" th:href="@{|/app/css/app.css?v=${version}|}" onload="this.rel='stylesheet'" />
+            <!-- End Core CSS -->
+
 		<!-- Google Font -->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-		<script th:src="@{/resources/js/jquery.magnific-popup.min.js}"></script>
+            <!-- End Google Font -->
 
 		<!-- Google Tag Manager -->
 		<script	script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -70,10 +61,6 @@
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 		})(window,document,'script','dataLayer','GTM-W3ZFWDQ');</script>
 		<!-- End Google Tag Manager -->
-
-		<!-- Google Search -->
-		<script async src="https://cse.google.com/cse.js?cx=5459ff1051ffdf020"></script>
-		<!-- End Google Search -->
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script th:if="${profile eq 'prod'}" async src="https://www.googletagmanager.com/gtag/js?id=G-WXD97L1HCX"></script>
@@ -84,31 +71,29 @@
 			gtag('config', 'G-WXD97L1HCX');
 		</script>
 		<!-- //Global site tag (gtag.js) - Google Analytics -->
-
 		</th:block>
 	</head>
 	<body id="body">
+
 	<!-- Google Tag Manager (noscript) -->
 	<noscript th:if="${profile eq 'prod'}"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3ZFWDQ"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
-		<div th:replace="fragments/menu :: menu"></div>
-		<div id="container" class="container">
-			<div layout:fragment="content"></div>
-		</div>
+
+    <div id="dnd5club" class="dnd5club">
+        <!-- <div th:replace="fragments/menu :: menu"></div> -->
+		<nav-bar></nav-bar>
+        <div id="container" class="container">
+            <div layout:fragment="content"></div>
+        </div>
+        <img v-if="uiStore.getTheme" :src="`/app/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+    </div>
 	</body>
+
 	<th:block th:fragment="mainJS">
-	<script th:src="@{/resources/js/simplebar.min.js}"></script>
-	<script th:src="@{|/resources/js/scripts.js?v=${version}|}"></script>
-	<script th:src="@{/resources/js/sidebar-menu.js}"></script>
-	<script th:src="@{|/resources/js/scheme.js?v=${version}|}"></script>
-	<script th:src="@{/resources/js/tipped.min.js}"></script>
 	</th:block>
+
 	<script layout:fragment="js-script"></script>
 
 	<!-- Yandex.Metrika counter --> <script th:if="${profile eq 'prod'}" type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/86582536" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
-
-	<script>
-		$("#table_row").click();
-	</script>
 </html>

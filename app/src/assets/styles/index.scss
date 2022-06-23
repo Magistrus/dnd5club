@@ -1,0 +1,21 @@
+// Old Styles
+@import "old/editor.css";
+@import "old/personal-area.css";
+@import "old/print.css";
+@import "old/sidebar-menu.css";
+@import "old/styles.css";
+
+// Dependencies
+@import "dependencies";
+
+// Themes
+@import "_theme";
+
+// Base styles
+@import "typography";
+@import "base";
+@import "main";
+@import "navbar";
+
+// Temp TODO: remove this!
+@import "temp-hardcode";
