@@ -6,6 +6,7 @@ import VueTippy from 'vue-tippy/dist/vue-tippy';
 import { vfmPlugin } from 'vue-final-modal';
 import registerComponents from '@/utils/RegisterComponents';
 import HTTPService from '@/services/HTTPService';
+import VueTippyConfig from '@/utils/VueTippyConfig';
 import App from '@/App';
 import router from './router';
 import '@/utils/BaseScripts';
@@ -21,17 +22,7 @@ app.use(createPinia())
     .use(router)
     .use(VueMasonryPlugin)
     .use(VueEasyLightbox)
-    .use(VueTippy, {
-        directive: 'tippy',
-        defaultProps: {
-            allowHTML: true,
-            interactive: true,
-            sticky: true,
-            theme: 'dnd5club',
-            strategy: 'fixed',
-            inlinePositioning: true,
-        }
-    })
+    .use(VueTippy, VueTippyConfig)
     .use(vfmPlugin({
         key: '$vfm',
         componentName: 'VueFinalModal',

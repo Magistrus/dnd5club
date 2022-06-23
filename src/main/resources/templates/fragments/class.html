@@ -57,7 +57,8 @@
 						<td align="center" th:text="${'+' + levelDef[level]}" />
 						<td class="align_left"><th:block th:each="trait, iter : ${heroClass.getTraits(level)}">
 								<a class="tip_scroll" th:unless=${trait.architype} th:href="|#c${trait.child eq null ? trait.id : trait.child}|" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"
-									th:data-tipped-options="@{ajax: { url: '/classes/feature/{id}'}(id=${trait.id})}"
+									th:data-tippy-url="|/classes/feature/${trait.id}|"
+                                   v-tippy="'Думаю...'"
 								></a>
 								<a th:if=${trait.architype} th:href="${'#c' + trait.id}" th:utext="|${trait.name.toLowerCase()}${iter.last or iter.size eq 1 ? '': ', '}|"></a>
 							</th:block></td>
@@ -147,9 +148,9 @@
 						<tr th:each="element : ${archetype.levelSpells}">
 							<td align="center" th:text="${element.key}"></td>
 							<td><th:block th:each="spell, iterStat : ${element.value}">
-									<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
-										th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
-									></a>
+                                <spell-tooltip th:url="|/spells/${spell.spell.englishName}|">
+									<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"></a>
+                                </spell-tooltip>
 									<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
 									<span th:if="${not iterStat.last}">, </span>
 								</th:block></td>
