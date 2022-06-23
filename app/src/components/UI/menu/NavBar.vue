@@ -23,7 +23,19 @@
         </div>
 
 		<aside class="club__card">
-
+			<header class="club__card__header">
+				<div class="club__card__header_logo">
+					<site-logo :size="62"/>
+				</div>
+				<div class="club__card__header_info">
+					<div>
+						row 1
+					</div>
+					<div>
+						DND 5 Club
+					</div>
+				</div>
+			</header>
 		</aside>
     </div>
 </template>
