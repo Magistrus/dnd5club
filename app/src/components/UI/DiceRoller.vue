@@ -14,7 +14,7 @@
 
 <script>
     import { DiceRoll } from "@dice-roller/rpg-dice-roller";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import _ from "lodash";
 
     export default {

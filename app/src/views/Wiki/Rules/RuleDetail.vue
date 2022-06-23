@@ -16,7 +16,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleBody from "@/views/Wiki/Rules/RuleBody";
 

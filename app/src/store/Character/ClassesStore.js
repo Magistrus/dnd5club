@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import _ from 'lodash';
-import HTTPService from '@/services/HTTPService';
-import FilterService from '@/services/FilterService';
-import errorHandler from '@/helpers/errorHandler';
+import HTTPService from '@/common/services/HTTPService';
+import FilterService from '@/common/services/FilterService';
+import errorHandler from '@/common/helpers/errorHandler';
 
 const DB_NAME = 'classes';
 const http = new HTTPService();

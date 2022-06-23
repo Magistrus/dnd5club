@@ -38,7 +38,7 @@
 <script>
 
     import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
-    import FilterService from "@/services/FilterService";
+    import FilterService from "@/common/services/FilterService";
     import ListFilter from "@/components/filter/ListFilter";
 
     export default {

@@ -19,7 +19,7 @@
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useRacesStore } from '@/store/Character/RacesStore';
     import RawContent from "@/components/content/RawContent";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import RaceBody from "@/views/Character/Races/RaceBody";
 
     export default {

@@ -15,7 +15,7 @@
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useTraitsStore } from '@/store/Character/TraitsStore';
     import RawContent from "@/components/content/RawContent";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import TraitBody from "@/views/Character/Traits/TraitBody";
 
     export default {

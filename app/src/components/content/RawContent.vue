@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import defineRawComponent from "@/utils/DefineRawComponent";
+    import defineRawComponent from "@/common/utils/DefineRawComponent";
     import { shallowRef } from "vue";
 
     export default {

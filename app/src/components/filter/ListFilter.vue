@@ -91,8 +91,8 @@
     import SvgIcon from '@/components/UI/SvgIcon';
     import FilterItemSources from '@/components/filter/FilterItem/FilterItemSources';
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
-    import FilterService from "@/services/FilterService";
-    import errorHandler from "@/helpers/errorHandler";
+    import FilterService from "@/common/services/FilterService";
+    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         name: 'ListFilter',

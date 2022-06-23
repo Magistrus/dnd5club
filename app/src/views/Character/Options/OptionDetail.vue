@@ -18,7 +18,7 @@
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useOptionsStore } from '@/store/Character/OptionsStore';
     import RawContent from "@/components/content/RawContent";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import OptionBody from "@/views/Character/Options/OptionBody";
 
     export default {
