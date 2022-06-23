@@ -25,7 +25,7 @@
             <p>
                 <strong>Класс доспеха </strong>
 
-                <span>{{ `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }` }} </span>
+                <span>{{ `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }` }}</span>
 
                 <span v-if="creature.armors?.length">
                     ({{ creature.armors.join(', ') }})
