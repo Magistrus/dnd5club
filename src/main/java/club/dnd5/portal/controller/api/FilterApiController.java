@@ -182,8 +182,10 @@ public class FilterApiController {
 		FilterApi customFilter = new FilterApi();
 		customFilter.setName("Классы");
 		customFilter.setKey("class");
+
 		FilterValueApi customValue = new FilterValueApi();
 		customValue.setLabel(heroClass.getCapitalazeName());
+		customValue.setDefaultValue(Boolean.TRUE);
 		customValue.setKey(String.valueOf(heroClass.getId()));
 		customFilter.setValues(Collections.singletonList(customValue));
 		customFilters.add(customFilter);
