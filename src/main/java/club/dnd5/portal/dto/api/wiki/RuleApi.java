@@ -1,11 +1,10 @@
 package club.dnd5.portal.dto.api.wiki;
 
-import club.dnd5.portal.dto.api.SourceApi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
-import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.rule.Rule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
