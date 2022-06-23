@@ -51,7 +51,7 @@
                             >
                                 {{ weapon.damage.dice }}
                             </span>
-
+                            &nbsp;
                             <span
                                 v-if="weapon.damage.type"
                                 v-tippy="{ content: 'Тип урона' }"
