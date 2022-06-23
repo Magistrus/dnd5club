@@ -17,7 +17,7 @@
                     href="/"
                     class="btn_nav"
                 >
-                    <span>DND5Club</span>
+                    <span>DND5 Club</span>
                 </a>
             </div>
 
@@ -44,7 +44,7 @@
                         Онлайн справчник по D&D 5e
                     </div>
                     <div class="row">
-                        DnD 5 Club
+                        DND5 Club
                     </div>
                 </div>
             </header>
