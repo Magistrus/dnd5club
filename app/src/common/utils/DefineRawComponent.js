@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import HTTPService from '@/services/HTTPService';
+import HTTPService from '@/common/services/HTTPService';
 
 const http = new HTTPService();
 

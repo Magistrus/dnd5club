@@ -16,7 +16,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
     import ItemBody from "@/views/Inventory/Items/ItemBody";
 

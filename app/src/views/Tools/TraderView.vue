@@ -146,7 +146,7 @@
     import ContentLayout from "@/components/content/ContentLayout";
     import FieldSelect from "@/components/form/FieldType/FieldSelect";
     import SectionHeader from "@/components/UI/SectionHeader";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import _ from "lodash";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";

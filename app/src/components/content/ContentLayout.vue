@@ -61,7 +61,7 @@
     import { useUIStore } from '@/store/UI/UIStore';
     import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
-    import FilterService from "@/services/FilterService";
+    import FilterService from "@/common/services/FilterService";
 
     export default {
         name: 'ContentLayout',

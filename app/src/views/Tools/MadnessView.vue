@@ -82,7 +82,7 @@
 
 <script>
     import ContentLayout from "@/components/content/ContentLayout";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import _ from "lodash";
     import RawContent from "@/components/content/RawContent";

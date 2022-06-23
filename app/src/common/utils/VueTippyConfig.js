@@ -1,5 +1,5 @@
-import HTTPService from '@/services/HTTPService';
-import errorHandler from '@/helpers/errorHandler';
+import HTTPService from '@/common/services/HTTPService';
+import errorHandler from '@/common/helpers/errorHandler';
 
 export default {
     defaultProps: {

@@ -32,7 +32,7 @@
 <script>
     import { Tippy } from "vue-tippy";
     import SpellBody from "@/views/Spells/SpellBody";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         name: "SpellTooltip",

@@ -16,7 +16,7 @@
 
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import { useBooksStore } from "@/store/Wiki/BooksStore";
     import BookBody from "@/views/Wiki/Books/BookBody";
 

@@ -157,7 +157,7 @@
     import { useClassesStore } from '@/store/Character/ClassesStore';
     import FieldSelect from '@/components/form/FieldType/FieldSelect';
     import SpellsView from "@/views/Spells/SpellsView";
-    import errorHandler from "@/helpers/errorHandler";
+    import errorHandler from "@/common/helpers/errorHandler";
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
 

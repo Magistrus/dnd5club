@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia';
 import localforage from 'localforage';
 import { DB_NAME, THEME_DB_KEY } from '@/common/const/UI';
-import HTTPService from '@/services/HTTPService';
-import errorHandler from '@/helpers/errorHandler';
-
-const http = new HTTPService();
+import errorHandler from '@/common/helpers/errorHandler';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useUIStore = defineStore('UIStore', {
@@ -50,8 +47,6 @@ export const useUIStore = defineStore('UIStore', {
                 }
 
                 html.dataset.theme = `theme-${ themeName }`;
-
-                await http.post('/session/theme', { theme: themeName })
             } catch (err) {
                 errorHandler(err);
             }
