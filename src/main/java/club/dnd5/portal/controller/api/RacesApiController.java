@@ -45,7 +45,7 @@ public class RacesApiController {
 	
 	@PostMapping(value = "/api/v1/races/{englishRaceName}/{englishSubraceName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RaceDetailApi getSubrace(@PathVariable String englishRaceName, @PathVariable String englishSubraceName) {
-		Optional<Race> race = raceRepo.findBySubrace(englishRaceName.replace('_', ' '), englishSubraceName.replace('_', ' '));
+		Optional<Race> race = raceRepo.findBySubrace(englishRaceName, englishSubraceName.replace('_', ' '));
 		RaceDetailApi raceApi = new RaceDetailApi(race.get());
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
 		if (!images.isEmpty()) {
