@@ -28,10 +28,38 @@
   &__row {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     & + & {
-      margin-top: 4px;
+      margin-top: 8px;
     }
+  }
+
+  &__type,
+  &__damage,
+  &__ac,
+  &__price {
+    display: flex;
+    flex: 1 0 auto;
+    color: var(--text-g-color);
+    font-size: calc(var(--main-font-size) - 1px);
+  }
+
+  &__type {
+    @media (max-width: 1200px) {
+      flex: 1 0 100%;
+      margin-bottom: 6px;
+    }
+  }
+
+  &__ac {
+    flex: 1 0 auto;
+    max-width: 300px;
+    justify-content: flex-start;
+  }
+
+  &__price {
+    justify-content: flex-end;
   }
 
   &__name {
@@ -74,6 +102,18 @@
           color: var(--text-btn-color);
         }
       }
+
+      &__type,
+      &__damage,
+      &__price {
+        color: var(--text-btn-color);
+      }
     }
   }
 }
+
+// .armors-group {
+//   &__name {
+//       background-color: var(--hover);
+//   }
+// }

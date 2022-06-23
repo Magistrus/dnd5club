@@ -45,15 +45,20 @@
                             v-tippy="{ content: 'Класс доспеха (АС)' }"
                             class="link-item__ac"
                         >
+                        <span>
+
                             {{ armor.armorClass }}
+                        </span>
                         </div>
 
                         <div
                             v-if="armor.price"
                             v-tippy="{ content: 'Стоимость' }"
                             class="link-item__price"
-                        >
+                        ><span>
+
                             {{ armor.price }}
+                        </span>
                         </div>
                     </div>
                 </div>
