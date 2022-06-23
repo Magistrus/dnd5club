@@ -164,7 +164,7 @@
 	z-index: 19;
 	border-radius: 8px;
 	box-shadow: 0px 0px 27px #0006;
-	margin: 8px 0 0 16px;
+	margin: 8px 0 0 24px;
 	opacity: 0;
 	pointer-events: none;
 	transform: scale(0);
@@ -179,6 +179,10 @@
 		transform: none;
 		transition-delay: 0ms;
 		visibility: visible;
+	}
+
+	@media (max-width: 1500px) {
+		margin: 8px 0 0 16px;
 	}
 
 	@media (max-width: 1200px) {
