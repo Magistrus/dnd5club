@@ -16,9 +16,8 @@ jobs:
           node-version: 16
           script: |
             cd ./app
-            cp .env.example .env
             npm ci
-            npm run build:dev
+            npm run build:prod
             cd ../
 
       - name: set up JDK 1.8
