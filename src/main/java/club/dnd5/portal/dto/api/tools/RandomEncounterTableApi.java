@@ -20,11 +20,11 @@ import lombok.Setter;
 public class RandomEncounterTableApi {
 	private String name;
 	private String[] thead = new String[2];
-	private Collection<Collection<String>> tbody;
+	private Collection<Collection<String>> tbody = new ArrayList<>(100);
 	
 	public RandomEncounterTableApi(RandomEncounterеTable table) {
 		name = table.getName();
-		thead[0] = String.format("<dice-roller formula=\"%$1s\">%$1s</dice-roller>", table.getFormula());
+		thead[0] = String.format("<dice-roller formula=\"%s\">%s</dice-roller>", table.getFormula(), table.getFormula());
 		thead[1] = "Столкновение";
 		for (RandomEncounterRow reRow : table.getEncounters()) {
 			Collection<String> row = new ArrayList<>(2);
