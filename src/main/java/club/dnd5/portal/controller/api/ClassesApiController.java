@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,17 +33,23 @@ public class ClassesApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ClassInfoApiDto getClassInfo(@PathVariable String englishName) {
-		HeroClass heroClass = classRepo.findByEnglishName(englishName);
+	public ResponseEntity<ClassInfoApiDto> getClassInfo(@PathVariable String englishName) {
+		HeroClass heroClass = classRepo.findByEnglishName(englishName.replace('_', ' '));
+		if (heroClass == null) {
+			return ResponseEntity.notFound().build();
+		}
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
-		return new ClassInfoApiDto(heroClass, images);
+		return ResponseEntity.ok(new ClassInfoApiDto(heroClass, images));
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ClassInfoApiDto getArchetypeInfo(@PathVariable String className, @PathVariable String archetypeName) {
-		HeroClass heroClass = classRepo.findByEnglishName(className);
+	public ResponseEntity<ClassInfoApiDto> getArchetypeInfo(@PathVariable String className, @PathVariable String archetypeName) {
+		HeroClass heroClass = classRepo.findByEnglishName(className.replace('_', ' '));
+		if (heroClass == null) {
+			return ResponseEntity.notFound().build();
+		}
 		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace('_', ' '))).findFirst().get();
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, heroClass.getId());
-		return new ClassInfoApiDto(archetype, images);
+		return ResponseEntity.ok(new ClassInfoApiDto(archetype, images));
 	}
 }
