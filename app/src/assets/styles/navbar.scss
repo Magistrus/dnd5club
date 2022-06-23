@@ -8,13 +8,42 @@
 	background: var(--bg-liner-menu);
 	display: flex;
 
+	&::before {
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		right: 0;
+		bottom: -10px;
+		left: 0;
+		background: var(--bg-liner-menu);
+		content: '';
+	}
+
 	&__head {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		background: var(--bg-liner-menu);
 		width: 100%;
 		padding: 0 24px;
+		justify-content: space-between;
+		background: var(--bg-liner-menu);
+
+		.btn_nav {
+			cursor: pointer;
+			height: 40px;
+			border-radius: 8px;
+			padding: 0 5px;
+
+			&:hover {
+				background-color: var(--hover);
+
+				svg,
+				path {
+					fill: var(--primary-hover);
+					stroke: var(--primary-hover);
+				}
+			}
+		}
 
 		&__logo {
 			display: flex;

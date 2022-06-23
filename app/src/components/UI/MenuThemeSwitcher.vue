@@ -1,33 +1,20 @@
 <template>
-    <li
-        class="mt-auto"
+    <div
+        class="theme_mode btn_nav"
+        @click.left.exact.prevent="switchTheme"
     >
-        <a
-            href="#"
-            @click.left.exact.prevent="switchTheme"
+        <i
+            id="icon_dark_mod"
+            class="icon_menu"
         >
-            <i
-                id="icon_dark_mod"
-                class="icon_menu"
-            >
-                <svg-icon
-                    :fill-enable="true"
-                    :icon-name="`${currentIcon}-theme`"
-                    :stroke-enable="true"
-                />
-            </i>
-            <span
-                id="theme_mode"
-                class="link_name"
-            >{{ currentLabel }}</span>
-        </a>
-
-        <ul class="sub_menu blank">
-            <li class="link_name">
-                <span id="theme_mode_link">{{ currentLabel }}</span>
-            </li>
-        </ul>
-    </li>
+            <svg-icon
+                :fill-enable="true"
+                :icon-name="`${currentIcon}-theme`"
+                :stroke-enable="true"
+            />
+        </i>
+        <!-- <span>{{ currentLabel }}</span> -->
+    </div>
 </template>
 
 <script>
@@ -66,3 +53,19 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+.theme_mode {
+    display: flex;
+    align-items: center;
+
+    i {
+        // margin-right: 4px;
+
+        svg {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
+</style>

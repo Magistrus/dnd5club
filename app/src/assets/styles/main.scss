@@ -51,76 +51,23 @@
 
 .main_block {
 
-  .search_row_g {
-    height: 46px;
-    width: 40%;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    padding: 0;
-    background-color: var(--bg-secondary);
-    display: flex;
-    align-items: center;
-    padding-left: 16px;
-
-    @media (max-width: 600px) {
-      width: 100%;
-      margin-right: 16px;
-    }
-  }
-
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0px 0px 16px 0px;
 
-
-    .proner_block {
-      display: flex;
+    .search_row_g {
       height: 46px;
+      width: 100%;
+      position: relative;
       border-radius: 12px;
-      padding: 8px 16px;
+      overflow: hidden;
+      padding: 0;
+      background-color: var(--bg-secondary);
+      display: flex;
       align-items: center;
-      background-color: var(--bg-table-list);
-
-      .icon {
-        width: 28px;
-        height: 28px;
-        margin-right: 8px;
-
-        path {
-          stroke-width: 2;
-          stroke: var(--primary);
-        }
-
-        @media (max-width: 600px) {
-          margin: 0;
-        }
-      }
-
-      &:hover {
-        background-color: var(--primary-hover);
-        color: var(--text-btn-color);
-
-        path {
-          stroke: var(--text-btn-color);
-        }
-      }
-
-      .title {
-        margin: 0;
-        font-family: 'Open Sans';
-        font-size: 16px;
-
-        @media (max-width: 600px) {
-          display: none;
-        }
-      }
-
-      @media (max-width: 600px) {
-        padding: 8px;
-      }
+      padding-left: 16px;
     }
   }
 

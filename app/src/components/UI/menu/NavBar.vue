@@ -3,15 +3,19 @@
         class="navbar"
     >
         <div class="navbar__head">
-            <a
-                href="/"
-                class="navbar__head__logo"
-            >
-                <site-logo :size="52"/>
-            </a>
-        </div>
+			<div class="navbar__head__start">
+				<a
+					href="/"
+					class="navbar__head__logo"
+				>
+					<site-logo :size="52"/>
+				</a>
+			</div>
 
-        <menu-theme-switcher/>
+			<div class="navbar__head__end">
+				<menu-theme-switcher/>
+			</div>
+        </div>
     </div>
 </template>
 
