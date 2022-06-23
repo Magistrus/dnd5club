@@ -9,7 +9,7 @@
                     <field-checkbox
                         v-for="(source, key) in tables"
                         :key="key"
-                        v-tooltip="{ content: source.name }"
+                        v-tippy="{ content: source.name }"
                         :model-value="source.value"
                         type="crumb"
                         @update:model-value="source.value = $event"
@@ -64,7 +64,7 @@
                 </div>
 
                 <div
-                    v-tooltip="{content: item.source.name}"
+                    v-tippy="{content: item.source.name}"
                     class="wild-magic-item__src"
                 >
                     {{ item.source.shortName }}

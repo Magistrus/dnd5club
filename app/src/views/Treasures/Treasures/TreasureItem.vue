@@ -14,7 +14,7 @@
 
                 <div class="link-item__row">
                     <div
-                        v-tooltip="{ content: treasure.source.name }"
+                        v-tippy="{ content: treasure.source.name }"
                         class="link-item__source"
                     >
                         {{ treasure.source.shortName }}

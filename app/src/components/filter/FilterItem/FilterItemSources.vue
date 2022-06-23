@@ -24,7 +24,7 @@
 
             <button
                 v-if="isFilterCustomized"
-                v-tooltip="{ content: 'Сбросить источники' }"
+                v-tippy="{ content: 'Сбросить источники' }"
                 class="filter-item__button filter-item__button--reset"
                 type="button"
                 @click.left.exact.prevent="resetSources"
@@ -52,7 +52,7 @@
                     </div>
 
                     <field-checkbox
-                        v-tooltip="{ content: `${
+                        v-tippy="{ content: `${
                             isGroupActive(groupKey) ? 'Выключить' : 'Включить'
                         } «` + group.name + '»' }"
                         :model-value="isGroupActive(groupKey)"

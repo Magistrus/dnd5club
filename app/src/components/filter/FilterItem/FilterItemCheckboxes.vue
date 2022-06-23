@@ -25,7 +25,7 @@
 
             <button
                 v-if="isFilterCustomized"
-                v-tooltip="{ content: 'Сбросить блок «' + name + '»' }"
+                v-tippy="{ content: 'Сбросить блок «' + name + '»' }"
                 class="filter-item__button filter-item__button--reset"
                 type="button"
                 @click.left.exact.prevent="resetValues"

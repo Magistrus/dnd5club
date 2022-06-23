@@ -20,7 +20,7 @@
                 >Homebrew</span>
 
                 <span
-                    v-tooltip="{content: source.name}"
+                    v-tippy="{content: source.name}"
                     class="tip"
                 >&nbsp;{{ source.shortName }}</span>
             </slot>

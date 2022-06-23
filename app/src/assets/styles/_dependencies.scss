@@ -1,88 +1,43 @@
 @import "normalize.css";
-@import 'floating-vue/dist/style.css';
 @import "vue-multiselect/dist/vue-multiselect.css";
+@import "tippy.js/dist/tippy.css";
 
-.v-popper {
-  &--theme-tooltip {
-    & .v-popper {
-      &__inner {
-        background-color: rgb(29, 33, 36);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        color: var(--text-btn-color);
-        padding: 10px;
-        line-height: 16px;
-        font: {
-          size: 11px;
-        }
-      }
+.tippy-box[data-theme~=dnd5club] {
+  background-color: rgb(29, 33, 36);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  & > .tippy-backdrop {
+    background-color: rgb(29, 33, 36)
+  }
+
+  & > .tippy-content {
+    padding: 10px;
+    color: var(--text-btn-color);
+    line-height: 16px;
+    font: {
+      size: 11px;
     }
+  }
 
-    &[data-popper-placement] {
-      .v-popper {
-        &__arrow {
-          &-inner,
-          &-outer {
-            display: none;
-          }
+  & > .tippy-svg-arrow {
+    fill: rgb(29, 33, 36)
+  }
 
-          &-container {
-            background-color: rgb(29, 33, 36);
-            width: 8px;
-            height: 8px;
-            border-top: 1px solid var(--border) !important;
-            border-left: 1px solid var(--border) !important;
-            border-right: 0 !important;
-            border-bottom: 0 !important;
-            z-index: 1;
-          }
-        }
-      }
-    }
+  &[data-placement^=top] > .tippy-arrow:before {
+    border-top-color: rgb(29, 33, 36)
+  }
 
-    &[data-popper-placement^=left] {
-      .v-popper {
-        &__arrow {
-          &-container {
-            transform: rotate(135deg);
-            right: -4px;
-          }
-        }
-      }
-    }
+  &[data-placement^=bottom] > .tippy-arrow:before {
+    border-bottom-color: rgb(29, 33, 36)
+  }
 
-    &[data-popper-placement^=top] {
-      .v-popper {
-        &__arrow {
-          &-container {
-            transform: rotate(-135deg);
-            bottom: -4px;
-          }
-        }
-      }
-    }
+  &[data-placement^=left] > .tippy-arrow:before {
+    border-left-color: rgb(29, 33, 36)
+  }
 
-    &[data-popper-placement^=right] {
-      .v-popper {
-        &__arrow {
-          &-container {
-            transform: rotate(-45deg);
-            left: -4px;
-          }
-        }
-      }
-    }
-
-    &[data-popper-placement^=bottom] {
-      .v-popper {
-        &__arrow {
-          &-container {
-            transform: rotate(45deg);
-            top: -4px;
-          }
-        }
-      }
-    }
+  &[data-placement^=right] > .tippy-arrow:before {
+    border-right-color: rgb(29, 33, 36)
   }
 }
 

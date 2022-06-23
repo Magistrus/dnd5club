@@ -6,7 +6,7 @@
         @click.left.exact.prevent="value = !value"
     >
         <div
-            v-tooltip="tooltip"
+            v-tippy="tooltip"
             class="field-checkbox__label"
         >
             <slot/>

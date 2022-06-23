@@ -43,13 +43,13 @@
                     :key="propKey"
                 >
                     <a
-                        v-tooltip="{ content: property.description, html: true }"
+                        v-tippy="{ content: property.description }"
                         :href="property.url"
                     >{{ property.name }}</a>
 
                     <span
                         v-if="property.twoHandDice"
-                        v-tooltip="{content: 'При атаке двумя руками'}"
+                        v-tippy="{content: 'При атаке двумя руками'}"
                         class="tip"
                     >({{ property.twoHandDice }})</span>
 

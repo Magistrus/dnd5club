@@ -47,7 +47,7 @@
                                 </span>
 
                                 <span
-                                    v-tooltip="{ content: raceItem.source.name }"
+                                    v-tippy="{ content: raceItem.source.name }"
                                     class="link-item-expand__book"
                                 >
                                     {{ raceItem.source.shortName }}
@@ -58,7 +58,7 @@
 
                     <button
                         v-if="hasSubraces"
-                        v-tooltip.left="{ content: 'Разновидности' }"
+                        v-tippy="{ content: 'Разновидности', placement: 'left' }"
                         :class="{ 'is-active': submenu.show }"
                         class="link-item-expand__toggle"
                         type="button"
@@ -97,7 +97,7 @@
                                     <span class="link-item-expand__arch-item_name">{{ subrace.name.rus }}</span>
 
                                     <span class="link-item-expand__arch-item_book">
-                                        <span v-tooltip="{ content: subrace.source.name }">
+                                        <span v-tippy="{ content: subrace.source.name }">
                                             {{ subrace.source.shortName }}
                                         </span>
 
