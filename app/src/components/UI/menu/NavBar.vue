@@ -4,16 +4,20 @@
     >
         <div class="navbar__head">
             <div class="navbar__head__start">
-                <div class="hamburger btn_nav" :class="{ 'is-active': menu }" @click.left.exact.prevent="toggleMenu">
+                <div
+                    class="hamburger btn_nav"
+                    :class="{ 'is-active': menu }"
+                    @click.left.exact.prevent="toggleMenu"
+                >
                     <span class="line"/>
                     <span class="line"/>
                     <span class="line"/>
                 </div>
                 <a
                     href="/"
-                    class="navbar__head__logo"
+                    class="btn_nav"
                 >
-                    <site-logo :size="52"/>
+					<span>DND5Club</span>
                 </a>
             </div>
 
@@ -22,21 +26,29 @@
             </div>
         </div>
 
-		<aside class="club__card" :class="{ 'is-active': menu }">
-			<header class="club__card__header">
-				<div class="club__card__header_logo">
-					<site-logo :size="62"/>
-				</div>
-				<div class="club__card__header_info">
-					<div>
-						row 1
-					</div>
-					<div>
-						DND 5 Club
-					</div>
-				</div>
-			</header>
-		</aside>
+        <aside
+            class="club__card"
+            :class="{ 'is-active': menu }"
+        >
+            <header class="club__card__header">
+                <div class="club__card__header__logo">
+					<a
+						href="/"
+						class="navbar__head__logo"
+					>
+                    	<site-logo :size="84"/>
+					</a>
+                </div>
+                <div class="club__card__header__info">
+                    <div class="row">
+                        -
+                    </div>
+                    <div class="row">
+                        DND 5 Club
+                    </div>
+                </div>
+            </header>
+        </aside>
     </div>
 </template>
 
@@ -46,14 +58,14 @@
     export default {
         name: "NavBar",
         components: { MenuThemeSwitcher },
-		data: () => ({
-			menu: false
-		}),
-		methods: {
-			toggleMenu () {
-				this.menu=!this.menu
-			}
-		}
+        data: () => ({
+            menu: false
+        }),
+        methods: {
+            toggleMenu() {
+                this.menu = !this.menu
+            }
+        }
     }
 </script>
 
