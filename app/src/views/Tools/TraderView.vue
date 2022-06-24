@@ -83,49 +83,55 @@
         </template>
 
         <template #right-side>
-            <section-header
-                fullscreen
-                :title="selected.item?.name.rus || 'В продаже'"
-                :subtitle="selected.item?.name.eng || 'On sale'"
-            />
+            <content-detail>
+                <template #fixed>
+                    <section-header
+                        fullscreen
+                        :title="selected.item?.name.rus || 'В продаже'"
+                        :subtitle="selected.item?.name.eng || 'On sale'"
+                    />
+                </template>
 
-            <div
-                v-if="loading && !error"
-                class="trader__loader"
-            >
-                <div class="trader__loader_img">
-                    <img
-                        alt=""
-                        src="/app/img/loader.png"
+                <template #default>
+                    <div
+                        v-if="loading && !error"
+                        class="trader__loader"
                     >
-                </div>
-            </div>
+                        <div class="trader__loader_img">
+                            <img
+                                alt=""
+                                src="/app/img/loader.png"
+                            >
+                        </div>
+                    </div>
 
-            <div
-                v-else-if="error"
-                class="trader__err"
-            >
-                error...
-            </div>
+                    <div
+                        v-else-if="error"
+                        class="trader__err"
+                    >
+                        error...
+                    </div>
 
-            <div
-                v-if="!selected.item"
-                class="trader__empty"
-            >
-                <p>Список товаров пуст.</p>
-            </div>
+                    <div
+                        v-if="!selected.item"
+                        class="trader__empty"
+                    >
+                        <p>Список товаров пуст.</p>
+                    </div>
 
-            <div
-                v-else
-                class="trader__content"
-            >
-                <magic-item-body :magic-item="detailCard.item"/>
+                    <div
+                        v-else
+                        class="trader__content"
+                    >
+                        <spell-body
+                            v-if="detailCard.spell"
+                            :spell="detailCard.spell"
+                        />
 
-                <spell-body
-                    v-if="detailCard.spell"
-                    :spell="detailCard.spell"
-                />
-            </div>
+                        <magic-item-body :magic-item="detailCard.item"/>
+                    </div>
+                </template>
+            </content-detail>
         </template>
 
         <template #default>
@@ -157,10 +163,12 @@
     import sortedUniq from 'lodash/sortedUniq';
     import throttle from 'lodash/throttle';
     import groupBy from "lodash/groupBy";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: "TraderView",
         components: {
+            ContentDetail,
             MagicItemLink,
             SpellBody,
             MagicItemBody,

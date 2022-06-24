@@ -1,22 +1,29 @@
 <template>
-    <section-header
-        :title="weapon?.name?.rus"
-        :subtitle="weapon?.name?.eng"
-        fullscreen
-        copy
-    />
+    <content-detail>
+        <template #fixed>
+            <section-header
+                :title="weapon?.name?.rus"
+                :subtitle="weapon?.name?.eng"
+                fullscreen
+                copy
+            />
+        </template>
 
-    <weapon-body :weapon="weapon"/>
+        <template #default>
+            <weapon-body :weapon="weapon"/>
+        </template>
+    </content-detail>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
     import WeaponBody from "@/views/Inventory/Weapons/WeaponBody";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: "WeaponDetail",
-        components: { WeaponBody, SectionHeader },
+        components: { ContentDetail, WeaponBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewWeapon(to.path);
 

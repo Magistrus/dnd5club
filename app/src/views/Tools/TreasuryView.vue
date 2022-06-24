@@ -130,49 +130,55 @@
         </template>
 
         <template #right-side>
-            <section-header
-                fullscreen
-                :title="selected.item?.name.rus || 'В сокровищнице'"
-                :subtitle="selected.item?.name.eng || 'In treasury'"
-            />
+            <content-detail>
+                <template #fixed>
+                    <section-header
+                        fullscreen
+                        :title="selected.item?.name.rus || 'В сокровищнице'"
+                        :subtitle="selected.item?.name.eng || 'In treasury'"
+                    />
+                </template>
 
-            <div
-                v-if="loading && !error"
-                class="treasury__loader"
-            >
-                <div class="treasury__loader_img">
-                    <img
-                        alt=""
-                        src="/app/img/loader.png"
+                <template #default>
+                    <div
+                        v-if="loading && !error"
+                        class="treasury__loader"
                     >
-                </div>
-            </div>
+                        <div class="treasury__loader_img">
+                            <img
+                                alt=""
+                                src="/app/img/loader.png"
+                            >
+                        </div>
+                    </div>
 
-            <div
-                v-else-if="error"
-                class="treasury__err"
-            >
-                error...
-            </div>
+                    <div
+                        v-else-if="error"
+                        class="treasury__err"
+                    >
+                        error...
+                    </div>
 
-            <div
-                v-if="!selected.item"
-                class="treasury__empty"
-            >
-                <p>Список товаров пуст.</p>
-            </div>
+                    <div
+                        v-if="!selected.item"
+                        class="treasury__empty"
+                    >
+                        <p>Список товаров пуст.</p>
+                    </div>
 
-            <div
-                v-else
-                class="treasury__content"
-            >
-                <magic-item-body :magic-item="detailCard.item"/>
+                    <div
+                        v-else
+                        class="treasury__content"
+                    >
+                        <magic-item-body :magic-item="detailCard.item"/>
 
-                <spell-body
-                    v-if="detailCard.spell"
-                    :spell="detailCard.spell"
-                />
-            </div>
+                        <spell-body
+                            v-if="detailCard.spell"
+                            :spell="detailCard.spell"
+                        />
+                    </div>
+                </template>
+            </content-detail>
         </template>
 
         <template #default>
@@ -280,10 +286,12 @@
     import max from "lodash/max";
     import mean from "lodash/mean";
     import throttle from "lodash/throttle";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: "TreasuryView",
         components: {
+            ContentDetail,
             MagicItemLink,
             TreasureItem,
             SpellBody,

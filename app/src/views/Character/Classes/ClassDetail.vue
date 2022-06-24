@@ -1,40 +1,14 @@
 <template>
-    <div class="class-detail">
-        <section-header
-            :subtitle="currentClass?.name?.eng || ''"
-            :title="currentClass?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-            @close="close"
-        />
+    <content-detail class="class-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="currentClass?.name?.eng || ''"
+                :title="currentClass?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+                @close="close"
+            />
 
-        <div
-            v-if="loading"
-            class="class-detail__content"
-        >
-            <div class="class-detail__loader">
-                <div class="class-detail__loader_img">
-                    <img
-                        alt=""
-                        src="/app/img/loader.png"
-                    >
-                </div>
-            </div>
-        </div>
-
-        <div
-            v-else-if="error"
-            class="class-detail__content"
-        >
-            <div class="class-detail__err">
-                err
-            </div>
-        </div>
-
-        <div
-            v-else-if="currentClass"
-            class="class-detail__content"
-        >
             <swiper
                 v-if="tabs.list.length"
                 :free-mode="true"
@@ -63,88 +37,118 @@
                     </div>
                 </swiper-slide>
             </swiper>
+        </template>
 
+        <template #default>
             <div
-                v-if="currentTab"
-                ref="classBody"
-                class="class-detail__body"
+                v-if="loading"
+                class="class-detail__content"
             >
-                <div
-                    v-if="currentArchetypes.length && currentTab.name === 'Навыки'"
-                    class="class-detail__select"
-                >
-                    <field-select
-                        :group-select="false"
-                        :model-value="currentSelectArchetype"
-                        :options="currentArchetypes"
-                        :searchable="false"
-                        group-label="group"
-                        group-values="list"
-                        label="name"
-                        track-by="url"
-                    >
-                        <template #option="{ option }">
-                            <div
-                                v-if="option?.group"
-                                class="class-detail__select_option"
-                            >
-                                <span class="class-detail__select_option--name">{{ option.group }}</span>
-                            </div>
-
-                            <div
-                                v-else-if="option?.name"
-                                class="class-detail__select_option"
-                                @click.left.prevent.exact="goToArchetype(option.url)"
-                            >
-                                <span class="class-detail__select_option--name">{{ option.name }}</span>
-
-                                <span
-                                    v-if="option?.source"
-                                    class="class-detail__select_option--source"
-                                >[{{ option.source }}]</span>
-                            </div>
-                        </template>
-
-                        <template #placeholder>
-                            --- Архетипы ---
-                        </template>
-                    </field-select>
-                </div>
-
-                <spells-view
-                    v-if="currentTab.icon === 'tab-spells'"
-                    :store-key="getStoreKey"
-                    in-tab
-                />
-
-                <options-view
-                    v-else-if="currentTab.icon === 'tab-option'"
-                    :store-key="getStoreKey"
-                    in-tab
-                />
-
-                <div
-                    v-else
-                    class="class-detail__body--inner"
-                >
-                    <raw-content :url="currentTab.url"/>
+                <div class="class-detail__loader">
+                    <div class="class-detail__loader_img">
+                        <img
+                            alt=""
+                            src="/app/img/loader.png"
+                        >
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <vue-easy-lightbox
-        v-if="currentClass?.images?.length"
-        :imgs="currentClass?.images"
-        :index="gallery.index"
-        :visible="gallery.show"
-        loop
-        move-disabled
-        scroll-disabled
-        @hide="gallery.show = false"
-    >
-        <template #toolbar/>
-    </vue-easy-lightbox>
+            <div
+                v-else-if="error"
+                class="class-detail__content"
+            >
+                <div class="class-detail__err">
+                    err
+                </div>
+            </div>
+
+            <div
+                v-else-if="currentClass"
+                class="class-detail__content"
+            >
+                <div
+                    v-if="currentTab"
+                    ref="classBody"
+                    class="class-detail__body"
+                >
+                    <div
+                        v-if="currentArchetypes.length && currentTab.name === 'Навыки'"
+                        class="class-detail__select"
+                    >
+                        <field-select
+                            :group-select="false"
+                            :model-value="currentSelectArchetype"
+                            :options="currentArchetypes"
+                            :searchable="false"
+                            group-label="group"
+                            group-values="list"
+                            label="name"
+                            track-by="url"
+                        >
+                            <template #option="{ option }">
+                                <div
+                                    v-if="option?.group"
+                                    class="class-detail__select_option"
+                                >
+                                    <span class="class-detail__select_option--name">{{ option.group }}</span>
+                                </div>
+
+                                <div
+                                    v-else-if="option?.name"
+                                    class="class-detail__select_option"
+                                    @click.left.prevent.exact="goToArchetype(option.url)"
+                                >
+                                    <span class="class-detail__select_option--name">{{ option.name }}</span>
+
+                                    <span
+                                        v-if="option?.source"
+                                        class="class-detail__select_option--source"
+                                    >[{{ option.source }}]</span>
+                                </div>
+                            </template>
+
+                            <template #placeholder>
+                                --- Архетипы ---
+                            </template>
+                        </field-select>
+                    </div>
+
+                    <spells-view
+                        v-if="currentTab.icon === 'tab-spells'"
+                        :store-key="getStoreKey"
+                        in-tab
+                    />
+
+                    <options-view
+                        v-else-if="currentTab.icon === 'tab-option'"
+                        :store-key="getStoreKey"
+                        in-tab
+                    />
+
+                    <div
+                        v-else
+                        class="class-detail__body--inner"
+                    >
+                        <raw-content :url="currentTab.url"/>
+                    </div>
+                </div>
+            </div>
+
+            <vue-easy-lightbox
+                v-if="currentClass?.images?.length"
+                :imgs="currentClass?.images"
+                :index="gallery.index"
+                :visible="gallery.show"
+                loop
+                move-disabled
+                scroll-disabled
+                @hide="gallery.show = false"
+            >
+                <template #toolbar/>
+            </vue-easy-lightbox>
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -160,10 +164,12 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'ClassDetail',
         components: {
+            ContentDetail,
             RawContent,
             OptionsView,
             SpellsView,
