@@ -87,12 +87,13 @@
 </template>
 
 <script>
-    import _ from 'lodash';
     import SvgIcon from '@/components/UI/SvgIcon';
     import FilterItemSources from '@/components/filter/FilterItem/FilterItemSources';
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
     import FilterService from "@/common/services/FilterService";
     import errorHandler from "@/common/helpers/errorHandler";
+    import cloneDeep from "lodash/cloneDeep";
+    import debounce from "lodash/debounce";
 
     export default {
         name: 'ListFilter',
@@ -184,7 +185,7 @@
             },
 
             setOtherValue(value, index) {
-                const otherFilters = _.cloneDeep(this.otherFilters);
+                const otherFilters = cloneDeep(this.otherFilters);
 
                 otherFilters[index].values = value;
 
@@ -198,12 +199,12 @@
             },
 
             // eslint-disable-next-line func-names
-            emitSearch: _.debounce(function(value) {
+            emitSearch: debounce(function(value) {
                 this.$emit('search', value);
             }, 500),
 
             // eslint-disable-next-line func-names
-            emitFilter: _.debounce(function() {
+            emitFilter: debounce(function() {
                 this.$emit('update');
             }, 500),
 

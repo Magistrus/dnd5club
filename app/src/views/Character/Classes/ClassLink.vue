@@ -171,7 +171,7 @@
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive
-                        || this.$route.path.match(new RegExp(`^${ this.classItem?.url }`)),
+                        || this.$route.params.className === this.$router.resolve(this.classItem.url)?.params?.className,
                     'is-selected': this.$route.name === 'classDetail',
                     'is-green': this.classItem?.source?.homebrew
                 }

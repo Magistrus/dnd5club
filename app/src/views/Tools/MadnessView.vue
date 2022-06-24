@@ -84,8 +84,9 @@
     import ContentLayout from "@/components/content/ContentLayout";
     import errorHandler from "@/common/helpers/errorHandler";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import _ from "lodash";
     import RawContent from "@/components/content/RawContent";
+    import throttle from 'lodash/throttle';
+
     import { reactive } from "vue";
 
     export default {
@@ -121,7 +122,7 @@
             },
 
             // eslint-disable-next-line func-names
-            sendForm: _.throttle(async function() {
+            sendForm: throttle(async function() {
                 if (this.controller) {
                     this.controller.abort();
                 }

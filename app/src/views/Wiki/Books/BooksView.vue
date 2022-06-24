@@ -32,10 +32,11 @@
 <script>
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useBooksStore } from "@/store/Wiki/BooksStore";
     import BookLink from "@/views/Wiki/Books/BookLink";
-    import _ from "lodash";
+
+    import { shallowRef } from "vue";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: 'BooksView',
@@ -86,7 +87,7 @@
                     types.push(book.type);
                 }
 
-                for (const type of _.sortBy(types, [o => o.order])) {
+                for (const type of sortBy(types, [o => o.order])) {
                     books.push({
                         name: type.name,
                         list: this.booksStore.getBooks.filter(book => book.type.name === type.name)
