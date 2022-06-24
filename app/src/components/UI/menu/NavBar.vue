@@ -50,15 +50,22 @@
             </header>
 
             <section class="club__card__menu">
-                <div class="navigation" v-for="(group, groupKey) in groups" :key="groupKey">
+                <div
+                    v-for="(group, groupKey) in groups"
+                    :key="groupKey"
+                    class="navigation"
+                >
                     <label class="navigation__head">
                         <span>
-                            {{group.label}}
+                            {{ group.label }}
                         </span>
                     </label>
                     <ul>
-                        <li v-for="(link, linkKey) in group.links" :key="linkKey">
-                            <a :href="link.url">{{link.label}}</a>
+                        <li
+                            v-for="(link, linkKey) in group.links"
+                            :key="linkKey"
+                        >
+                            <a :href="link.url">{{ link.label }}</a>
                         </li>
                     </ul>
                 </div>
@@ -76,47 +83,47 @@
         data: () => ({
             menu: false,
             groups: [
-                    {
-                        "label": "Персонаж",
-                        "links": [
+                {
+                    label: "Персонаж",
+                    links: [
                         {
-                            "label": "Классы",
-                            "url": "/classes",
-                            "icon": "menu-classes"
+                            label: "Классы",
+                            url: "/classes",
+                            icon: "menu-classes"
                         },
                         {
-                            "label": "Расы",
-                            "url": "/races",
-                            "icon": "menu-races"
+                            label: "Расы",
+                            url: "/races",
+                            icon: "menu-races"
                         },
                         {
-                            "label": "Черты",
-                            "url": "/traits",
-                            "icon": "menu-traits"
+                            label: "Черты",
+                            url: "/traits",
+                            icon: "menu-traits"
                         }
-                        ]
-                    },
-                    {
-                        "label": "Персонаж",
-                        "links": [
-                        {
-                            "label": "Классы",
-                            "url": "/classes",
-                            "icon": "menu-classes"
-                        },
-                        {
-                            "label": "Расы",
-                            "url": "/races",
-                            "icon": "menu-races"
-                        },
-                        {
-                            "label": "Черты",
-                            "url": "/traits",
-                            "icon": "menu-traits"
-                        }
-                        ]
-                    },
                     ]
+                },
+                {
+                    label: "Персонаж",
+                    links: [
+                        {
+                            label: "Классы",
+                            url: "/classes",
+                            icon: "menu-classes"
+                        },
+                        {
+                            label: "Расы",
+                            url: "/races",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Черты",
+                            url: "/traits",
+                            icon: "menu-traits"
+                        }
+                    ]
+                },
+            ]
         }),
         methods: {
             toggleMenu() {
