@@ -6,13 +6,13 @@
         />
 
         <p v-if="item.price">
-            <b>Стоимость:</b>
+            <b>Стоимость: </b>
 
             <span>{{ item.price }}</span>
         </p>
 
         <p v-if="item.weight">
-            <b>Вес (в фунтах):</b>
+            <b>Вес (в фунтах): </b>
 
             <span>{{ item.weight }}</span>
         </p>
