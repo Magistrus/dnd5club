@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import _ from 'lodash';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
+import { isEqual, sortBy, uniqWith } from 'lodash/fp';
 
 const DB_NAME = 'classes';
 const http = new HTTPService();
@@ -91,7 +91,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                 const result = [];
                 const sort = list => {
                     const types = list.map(arch => arch.type);
-                    const typesSorted = _.uniqWith(_.sortBy(types, ['order']), _.isEqual);
+                    const typesSorted = uniqWith(sortBy(types, ['order']), isEqual);
                     const formatted = [];
 
                     let index = 0;
@@ -178,7 +178,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 return {
                     ...data,
-                    tabs: _.sortBy(data.tabs, ['order'])
+                    tabs: sortBy(data.tabs, ['order'])
                 };
             } catch (err) {
                 errorHandler(err);

@@ -40,7 +40,7 @@
     import { useClassesStore } from '@/store/Character/ClassesStore';
     import ContentLayout from '@/components/content/ContentLayout';
     import ClassLink from "@/views/Character/Classes/ClassLink";
-    import _ from "lodash";
+    import { chain } from 'lodash/fp';
 
     export default {
         name: 'ClassesView',
@@ -63,7 +63,7 @@
                     return [];
                 }
 
-                const groups = _.chain(classes.filter(item => 'group' in item))
+                const groups = chain(classes.filter(item => 'group' in item))
                     .groupBy(o => o.group.name)
                     .map(list => ({
                         group: list[0].group,

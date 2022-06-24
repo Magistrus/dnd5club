@@ -52,9 +52,9 @@
 </template>
 
 <script>
-    import _ from 'lodash';
     import SvgIcon from '@/components/UI/SvgIcon';
     import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
+    import { cloneDeep } from "lodash/fp";
 
     export default {
         name: 'FilterItemCheckboxes',
@@ -97,7 +97,7 @@
         },
         methods: {
             resetValues() {
-                const values = _.cloneDeep(this.modelValue)
+                const values = cloneDeep(this.modelValue)
                     .map(value => ({
                         ...value,
                         value: value.default
@@ -107,7 +107,7 @@
             },
 
             setValue(newValue, index) {
-                const values = _.cloneDeep(this.modelValue);
+                const values = cloneDeep(this.modelValue);
 
                 values[index].value = newValue;
 
