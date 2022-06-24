@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.TypeBook;
@@ -31,6 +32,8 @@ import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
+import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
+import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
 
 @RestController
 public class FilterApiController {
@@ -53,6 +56,11 @@ public class FilterApiController {
 	private OptionDatatableRepository optionRepository;
 	@Autowired
 	private BackgroundDatatableRepository backgroundRepository;
+
+	@Autowired
+	private WeaponDatatableRepository weaponRepository;
+	@Autowired
+	private WeaponPropertyDatatableRepository propertyRepository;
 	
 	@PostMapping("/api/v1/filters/classes")
 	public FilterApi getClassFilter() {
@@ -336,6 +344,66 @@ public class FilterApiController {
 				 .collect(Collectors.toList()));
 		
 		otherFilters.add(schoolSpellFilter);
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/weapons")
+	public FilterApi getWeaponsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				weaponRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				weaponRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				weaponRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				weaponRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi damageTypeFilter = new FilterApi("По типу урона", "damageType");
+		damageTypeFilter.setValues(
+				DamageType.getWeaponDamage().stream()
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(damageTypeFilter);
+
+		FilterApi properetyTypeFilter = new FilterApi("По свойствам", "properrty");
+		properetyTypeFilter.setValues(
+				propertyRepository.findAll().stream()
+				 .map(value -> new FilterValueApi(value.getName(), value.getId(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(properetyTypeFilter);
+
+		FilterApi diceFilter = new FilterApi("По кости урона", "dice");
+		diceFilter.setValues(
+				Arrays.stream(new String[]{"к4", "2к4", "к6", "2к6", "к8", "к10", "к12"})
+				 .map(value -> new FilterValueApi(value, value, Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(diceFilter);
+		
 		filters.setOther(otherFilters);
 		return filters;
 	}

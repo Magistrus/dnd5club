@@ -18,12 +18,12 @@ import lombok.Setter;
 @Setter
 public class FilterValueApi {
     private String label; // отображаемое название
-    private String key; // ключ для сохранения и запроса
+    private Object key; // ключ для сохранения и запроса
 	@JsonProperty("default")
     private Boolean defaultValue; // значение по-умолчанию
     private String tooltip; // подсказка при наведении
 
-    public FilterValueApi(String label, String key, Boolean defaultValue) {
+    public FilterValueApi(String label, Object key, Boolean defaultValue) {
 		this.label = label;
 		this.key = key;
 		this.defaultValue = defaultValue;
