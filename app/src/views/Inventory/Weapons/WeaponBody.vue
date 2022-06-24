@@ -11,13 +11,13 @@
 
         <div class="grid_stat_block">
             <div class="block">
-                <p>Стоимость:</p>
+                <p>Стоимость: </p>
 
                 <span>{{ weapon.price }}</span>
             </div>
 
             <div class="block">
-                <p>Урон:</p>
+                <p>Урон: </p>
 
                 <dice-roller :formula="weapon.damage.dice">
                     {{ weapon.damage.dice }}
@@ -27,7 +27,7 @@
             </div>
 
             <div class="block">
-                <p>Вес (в фунтах):</p>
+                <p>Вес (в фунтах): </p>
 
                 <span>{{ weapon.weight }}</span>
             </div>
@@ -36,7 +36,7 @@
                 v-if="weapon.properties?.length"
                 class="block"
             >
-                <p>Свойства:</p>
+                <p>Свойства: </p>
 
                 <span
                     v-for="(property, propKey) in weapon.properties"
@@ -52,7 +52,7 @@
                         v-tippy="{content: 'При атаке двумя руками'}"
                     >({{ property.twoHandDice }})</span>
 
-                    <span v-if="property.distance">(дис. {{ property.distance }})</span>
+                    <span v-if="property.distance"> (дис. {{ property.distance }})</span>
 
                     <span v-if="propKey !== weapon.properties.length - 1">, </span>
                 </span>
