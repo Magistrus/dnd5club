@@ -2,7 +2,9 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import { isEqual, sortBy, uniqWith } from 'lodash/fp';
+import uniqWith from 'lodash/uniqWith';
+import sortBy from 'lodash/sortBy';
+import isEqual from 'lodash/isEqual';
 
 const DB_NAME = 'races';
 const http = new HTTPService();
@@ -106,7 +108,10 @@ export const useRacesStore = defineStore('RacesStore', {
 
                         formatted[index - 1].push({
                             name: typesSorted[i].name,
-                            list: list.filter(subrace => subrace.type.name === typesSorted[i].name)
+                            list: sortBy(
+                                list.filter(subrace => subrace.type.name === typesSorted[i].name),
+                                [o => o.name.rus]
+                            )
                         });
                     }
 

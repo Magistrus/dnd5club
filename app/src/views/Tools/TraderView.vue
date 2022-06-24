@@ -152,9 +152,11 @@
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
     import errorHandler from "@/common/helpers/errorHandler";
     import { reactive } from "vue";
-    import {
-        chain, max, mean, throttle
-    } from "lodash";
+    import max from 'lodash/max';
+    import mean from 'lodash/mean';
+    import sortedUniq from 'lodash/sortedUniq';
+    import throttle from 'lodash/throttle';
+    import groupBy from "lodash/groupBy";
 
     export default {
         name: "TraderView",
@@ -220,10 +222,7 @@
                     return this.results;
                 }
 
-                const groups = chain(this.results)
-                    .groupBy(o => o.name.rus)
-                    .map(item => item)
-                    .value();
+                const groups = Object.values(groupBy(this.results, o => o.name.rus));
                 const res = [];
 
                 for (const group of groups) {
@@ -235,9 +234,7 @@
                         continue;
                     }
 
-                    const prices = chain(group.map(o => o.price))
-                        .sortedUniq()
-                        .value();
+                    const prices = sortedUniq(group.map(o => o.price))
 
                     res.push(reactive({
                         ...el,

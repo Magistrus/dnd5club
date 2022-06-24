@@ -2,7 +2,9 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import { isEqual, sortBy, uniqWith } from 'lodash/fp';
+import uniqWith from 'lodash/uniqWith';
+import sortBy from 'lodash/sortBy';
+import isEqual from 'lodash/isEqual';
 
 const DB_NAME = 'classes';
 const http = new HTTPService();
@@ -105,7 +107,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                         formatted[index - 1].push({
                             name: typesSorted[i].name,
-                            list: list.filter(arch => arch.type.name === typesSorted[i].name)
+                            list: sortBy(list.filter(arch => arch.type.name === typesSorted[i].name), [o => o.name.rus])
                         });
                     }
 

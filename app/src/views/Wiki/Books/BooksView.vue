@@ -36,7 +36,7 @@
     import BookLink from "@/views/Wiki/Books/BookLink";
 
     import { shallowRef } from "vue";
-    import { sortBy } from "lodash/fp";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: 'BooksView',

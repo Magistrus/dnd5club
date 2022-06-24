@@ -85,9 +85,9 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import RawContent from "@/components/content/RawContent";
+    import throttle from 'lodash/throttle';
 
     import { reactive } from "vue";
-    import { throttle } from "lodash/fp";
 
     export default {
         name: "MadnessView",

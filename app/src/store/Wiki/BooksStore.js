@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import { cloneDeep } from 'lodash/fp';
+import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'books';
 const http = new HTTPService();

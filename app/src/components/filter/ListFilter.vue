@@ -92,7 +92,8 @@
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
     import FilterService from "@/common/services/FilterService";
     import errorHandler from "@/common/helpers/errorHandler";
-    import { cloneDeep, debounce } from "lodash/fp";
+    import cloneDeep from "lodash/cloneDeep";
+    import debounce from "lodash/debounce";
 
     export default {
         name: 'ListFilter',

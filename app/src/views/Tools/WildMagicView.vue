@@ -81,7 +81,7 @@
     import errorHandler from "@/common/helpers/errorHandler";
 
     import { reactive } from "vue";
-    import { throttle } from "lodash/fp";
+    import throttle from "lodash/throttle";
 
     export default {
         name: "WildMagicView",

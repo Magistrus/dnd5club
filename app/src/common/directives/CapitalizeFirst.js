@@ -1,4 +1,4 @@
-import { upperFirst } from 'lodash/fp';
+import upperFirst from 'lodash/upperFirst';
 
 // eslint-disable-next-line import/prefer-default-export
 export const CapitalizeFirst = {

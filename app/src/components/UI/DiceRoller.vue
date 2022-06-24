@@ -14,8 +14,8 @@
 
 <script>
     import { roll } from 'trpg-dice';
-    import { debounce } from "lodash/fp";
     import errorHandler from "@/common/helpers/errorHandler";
+    import debounce from 'lodash/debounce';
 
     export default {
         name: "DiceRoller",

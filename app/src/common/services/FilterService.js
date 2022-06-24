@@ -1,7 +1,7 @@
 import localforage from 'localforage';
 import HTTPService from '@/common/services/HTTPService';
 import errorHandler from '@/common/helpers/errorHandler';
-import { cloneDeep } from 'lodash/fp';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default class FilterService {
     constructor() {

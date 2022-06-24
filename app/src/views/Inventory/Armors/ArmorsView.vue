@@ -33,7 +33,7 @@
     import ContentLayout from "@/components/content/ContentLayout";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
     import ArmorLink from "@/views/Inventory/Armors/ArmorLink";
-    import { sortBy } from "lodash/fp";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: "ArmorsView",

@@ -54,7 +54,7 @@
 <script>
     import SvgIcon from '@/components/UI/SvgIcon';
     import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
-    import { cloneDeep } from "lodash/fp";
+    import cloneDeep from 'lodash/cloneDeep';
 
     export default {
         name: 'FilterItemCheckboxes',

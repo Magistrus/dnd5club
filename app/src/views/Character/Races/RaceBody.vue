@@ -153,7 +153,7 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DetailTobBar from "@/components/UI/DetailTobBar";
-    import { sortBy } from "lodash/fp";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: "RaceBody",
