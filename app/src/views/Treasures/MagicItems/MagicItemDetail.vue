@@ -1,46 +1,51 @@
 <template>
-    <div class="magic-item-detail">
-        <section-header
-            :subtitle="magicItem?.name?.eng || ''"
-            :title="magicItem?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="magic-item-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="magicItem?.name?.eng || ''"
+                :title="magicItem?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <div
-            v-if="loading"
-            class="magic-item-detail__loader"
-        >
-            <div class="magic-item-detail__loader_img">
-                <img
-                    alt=""
-                    src="/app/img/loader.png"
-                >
+        <template #default>
+            <div
+                v-if="loading"
+                class="magic-item-detail__loader"
+            >
+                <div class="magic-item-detail__loader_img">
+                    <img
+                        alt=""
+                        src="/app/img/loader.png"
+                    >
+                </div>
             </div>
-        </div>
 
-        <div
-            v-else-if="error"
-            class="magic-item-detail__err"
-        >
-            error...
-        </div>
+            <div
+                v-else-if="error"
+                class="magic-item-detail__err"
+            >
+                error...
+            </div>
 
-        <magic-item-body
-            v-else-if="magicItem"
-            :magic-item="magicItem"
-        />
-    </div>
+            <magic-item-body
+                v-else-if="magicItem"
+                :magic-item="magicItem"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'MagicItemDetail',
-        components: { MagicItemBody, SectionHeader },
+        components: { ContentDetail, MagicItemBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewMagicItem(to.path);
 

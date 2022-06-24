@@ -1,14 +1,18 @@
 <template>
-    <div class="trait-detail">
-        <section-header
-            :subtitle="trait?.name?.eng || ''"
-            :title="trait?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="trait-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="trait?.name?.eng || ''"
+                :title="trait?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <trait-body :trait="trait"/>
-    </div>
+        <template #default>
+            <trait-body :trait="trait"/>
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -17,10 +21,13 @@
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import TraitBody from "@/views/Character/Traits/TraitBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'TraitDetail',
-        components: { TraitBody, RawContent, SectionHeader },
+        components: {
+            ContentDetail, TraitBody, RawContent, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewTrait(to.path);
 

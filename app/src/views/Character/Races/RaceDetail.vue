@@ -1,18 +1,22 @@
 <template>
-    <div class="race-detail">
-        <section-header
-            :subtitle="race?.name?.eng || ''"
-            :title="race?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-            @close="close"
-        />
+    <content-detail class="race-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="race?.name?.eng || ''"
+                :title="race?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+                @close="close"
+            />
+        </template>
 
-        <race-body
-            v-if="race"
-            :race="race"
-        />
-    </div>
+        <template #default>
+            <race-body
+                v-if="race"
+                :race="race"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -21,10 +25,13 @@
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import RaceBody from "@/views/Character/Races/RaceBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'RaceDetail',
-        components: { RaceBody, RawContent, SectionHeader },
+        components: {
+            ContentDetail, RaceBody, RawContent, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRace(to.path);
 

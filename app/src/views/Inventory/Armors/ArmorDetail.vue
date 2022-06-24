@@ -1,22 +1,29 @@
 <template>
-    <section-header
-        :title="armor?.name?.rus"
-        :subtitle="armor?.name?.eng"
-        fullscreen
-        copy
-    />
+    <content-detail>
+        <template #fixed>
+            <section-header
+                :title="armor?.name?.rus"
+                :subtitle="armor?.name?.eng"
+                fullscreen
+                copy
+            />
+        </template>
 
-    <armor-body :armor="armor"/>
+        <template #default>
+            <armor-body :armor="armor"/>
+        </template>
+    </content-detail>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
     import ArmorBody from "@/views/Inventory/Armors/ArmorBody";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: "ArmorDetail",
-        components: { ArmorBody, SectionHeader },
+        components: { ContentDetail, ArmorBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewArmor(to.path);
 

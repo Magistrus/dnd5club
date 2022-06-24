@@ -1,17 +1,21 @@
 <template>
-    <div class="option-detail">
-        <section-header
-            :subtitle="option?.name?.eng || ''"
-            :title="option?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="option-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="option?.name?.eng || ''"
+                :title="option?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <option-body
-            v-if="option"
-            :option="option"
-        />
-    </div>
+        <template #default>
+            <option-body
+                v-if="option"
+                :option="option"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -20,10 +24,13 @@
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionBody from "@/views/Character/Options/OptionBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'OptionDetail',
-        components: { OptionBody, RawContent, SectionHeader },
+        components: {
+            ContentDetail, OptionBody, RawContent, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewOption(to.path);
 
