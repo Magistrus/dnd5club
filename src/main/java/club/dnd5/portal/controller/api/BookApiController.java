@@ -12,6 +12,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,10 +89,13 @@ public class BookApiController {
 	}
 
 	@PostMapping(value = "/api/v1/books/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public BookApi getBook(@PathVariable String englishName) {
+	public ResponseEntity<BookApi> getBook(@PathVariable String englishName) {
 		Book book = repo.findByEnglishName(englishName.replace('_', ' '));
+		if (book == null) {
+			return ResponseEntity.notFound().build();
+		}
 		BookApi bookApi = new BookApi(book);
 		bookApi.setDescription(book.getDescription());
-		return bookApi;
+		return ResponseEntity.ok(bookApi);
 	}
 }

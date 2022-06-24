@@ -55,6 +55,7 @@
         margin-right: -24px;
         margin-bottom: 0;
         padding: 12px 24px 12px 24px;
+        justify-content: space-between;
 
         &.left_info {
             font-style: italic;

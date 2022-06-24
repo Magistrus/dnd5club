@@ -1,20 +1,16 @@
 package club.dnd5.portal.controller.api.bestiary;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
@@ -41,7 +37,6 @@ import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.foundary.FBeastiary;
 import club.dnd5.portal.model.fvtt.plutonium.FBeast;
 import club.dnd5.portal.model.image.ImageType;
-import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;

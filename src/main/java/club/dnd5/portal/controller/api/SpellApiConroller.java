@@ -17,6 +17,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import club.dnd5.portal.dto.api.spell.SpellDetailApi;
 import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
 import club.dnd5.portal.dto.api.spells.SpellsFvtt;
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -135,8 +137,11 @@ public class SpellApiConroller {
 	}
 	
 	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public SpellDetailApi getSpell(@PathVariable String englishName) {
+	public ResponseEntity<SpellDetailApi> getSpell(@PathVariable String englishName) {
 		Spell spell = spellRepo.findByEnglishName(englishName.replace('_', ' '));
+		if (spell == null) {
+			return ResponseEntity.notFound().build();
+		}
 		SpellDetailApi spellApi = new SpellDetailApi(spell);
 		List<Archetype> archetypes = archetypeSpellRepository.findAllBySpell(spell.getId());
 		if (!archetypes.isEmpty()) {
@@ -146,7 +151,7 @@ public class SpellApiConroller {
 		if (!races.isEmpty()) {
 			spellApi.setRaces(races.stream().map(ReferenceClassApi::new).collect(Collectors.toList()));
 		}
-		return spellApi;
+		return ResponseEntity.ok(spellApi);
 	}
 	
 	@CrossOrigin
@@ -239,11 +244,85 @@ public class SpellApiConroller {
 				Arrays.stream(MagicSchool.values())
 				 .map(school -> new FilterValueApi(school.getName(), school.name(), Boolean.TRUE))
 				 .collect(Collectors.toList()));
-		
 		otherFilters.add(schoolSpellFilter);
+
+		FilterApi ritualFilter = new FilterApi("Ритуал", "ritual");
+		List<FilterValueApi> values = new ArrayList<>(2);
+		values.add(new FilterValueApi("да", "yes", Boolean.TRUE));
+		values.add(new FilterValueApi("нет", "no", Boolean.TRUE));
+		ritualFilter.setValues(values);
+		otherFilters.add(ritualFilter);
+
+		FilterApi concentrationFilter = new FilterApi("Концентрация", "concentration");
+		values = new ArrayList<>(2);
+		values.add(new FilterValueApi("требуется", "yes", Boolean.TRUE));
+		values.add(new FilterValueApi("не требуется", "no", Boolean.TRUE));
+		concentrationFilter.setValues(values);
+		otherFilters.add(concentrationFilter);
+
+		FilterApi damageTypeFilter = new FilterApi("Тип урона", "damageType");
+		damageTypeFilter.setValues(
+				DamageType.getSpellDamage().stream()
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(damageTypeFilter);
+		
+		FilterApi timecastFilter = new FilterApi("Время накладывания", "timecast");
+		values = new ArrayList<>();
+		values.add(new FilterValueApi("бонусное действие", "1 BONUS", Boolean.TRUE));
+		values.add(new FilterValueApi("реакция", "1 REACTION", Boolean.TRUE));
+		values.add(new FilterValueApi("действие", "1 ACTION", Boolean.TRUE));
+		values.add(new FilterValueApi("ход", "1 ROUND", Boolean.TRUE));
+		values.add(new FilterValueApi("1 минута", "1 MINUTE", Boolean.TRUE));
+		values.add(new FilterValueApi("10 минут", "10 MINUTE", Boolean.TRUE));
+		values.add(new FilterValueApi("1 час", "10 HOUR", Boolean.TRUE));
+		values.add(new FilterValueApi("8 час", "8 HOUR", Boolean.TRUE));
+		values.add(new FilterValueApi("12 час", "12 HOUR", Boolean.TRUE));
+		values.add(new FilterValueApi("24 час", "24 HOUR", Boolean.TRUE));
+		timecastFilter.setValues(values);
+		otherFilters.add(timecastFilter);
+		
+		FilterApi distanceFilter = new FilterApi("Дистанция", "distance");
+		values = new ArrayList<>();
+		values.add(new FilterValueApi("на себя", "self", Boolean.TRUE));
+		values.add(new FilterValueApi("касание", "tuch", Boolean.TRUE));
+		values.add(new FilterValueApi("5 футов", "5 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("10 футов", "10 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("25 футов", "25 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("30 футов", "30 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("40 футов", "40 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("50 футов", "50 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("60 футов", "60 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("90 футов", "90 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("100 футов", "100 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("150 футов", "150 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("300 футов", "300 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("400 футов", "400 fit", Boolean.TRUE));
+		values.add(new FilterValueApi("1 миля", "1 mile", Boolean.TRUE));
+		values.add(new FilterValueApi("500 миль", "500 mile", Boolean.TRUE));
+		values.add(new FilterValueApi("1000 миль", "1000 mile", Boolean.TRUE));
+		distanceFilter.setValues(values);
+		otherFilters.add(distanceFilter);
+		
+		FilterApi durationFilter = new FilterApi("Длительность", "duration");
+		values = new ArrayList<>();
+		values.add(new FilterValueApi("Мгновенная", "instant", Boolean.TRUE));
+		values.add(new FilterValueApi("1 раунд", "round", Boolean.TRUE));
+		values.add(new FilterValueApi("1 минута", "1 minute", Boolean.TRUE));
+		values.add(new FilterValueApi("10 минут", "10 minute", Boolean.TRUE));
+		values.add(new FilterValueApi("1 час", "1 hour", Boolean.TRUE));
+		values.add(new FilterValueApi("8 часов", "8 hour", Boolean.TRUE));
+		values.add(new FilterValueApi("12 часов", "12 hour", Boolean.TRUE));
+		values.add(new FilterValueApi("24 часа", "24 hour", Boolean.TRUE));
+		values.add(new FilterValueApi("1 день", "1 day", Boolean.TRUE));
+		values.add(new FilterValueApi("7 дней", "7 day", Boolean.TRUE));
+		values.add(new FilterValueApi("10 дней", "10 day", Boolean.TRUE));
+		values.add(new FilterValueApi("1 год", "1 year", Boolean.TRUE));
+		durationFilter.setValues(values);
+		otherFilters.add(durationFilter);
 		
 		otherFilters.add(getCompomemtsFilter());
-		
+	
 		filters.setOther(otherFilters);
 		return filters;
 	}

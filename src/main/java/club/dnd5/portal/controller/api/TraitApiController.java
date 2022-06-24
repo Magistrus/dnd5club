@@ -14,6 +14,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -106,8 +107,12 @@ public class TraitApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/traits/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public TraitDetailApi getTrait(@PathVariable String englishName) {
-		return new TraitDetailApi(traitRepository.findByEnglishName(englishName.replace('_', ' ')));
+	public ResponseEntity<TraitDetailApi> getTrait(@PathVariable String englishName) {
+		Trait trait = traitRepository.findByEnglishName(englishName.replace('_', ' '));
+		if (trait == null) {
+			return ResponseEntity.notFound().build(); 
+		}
+		return ResponseEntity.ok(new TraitDetailApi(trait));
 	}
 
 	@PostMapping("/api/v1/filters/traits")
