@@ -48,6 +48,12 @@
       margin-right: 8px;
     }
 
+    .nav_text {
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 0 5px
+    }
+
     .btn_nav {
       cursor: pointer;
       height: 40px;
@@ -69,6 +75,8 @@
         }
       }
     }
+
+
 
     .hamburger {
       display: block;
