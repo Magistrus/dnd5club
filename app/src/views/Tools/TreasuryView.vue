@@ -268,14 +268,18 @@
     import ContentLayout from "@/components/content/ContentLayout";
     import FieldSelect from "@/components/form/FieldType/FieldSelect";
     import SectionHeader from "@/components/UI/SectionHeader";
-    import errorHandler from "@/common/helpers/errorHandler";
-    import _ from "lodash";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import SpellBody from "@/views/Spells/SpellBody";
-    import { reactive } from "vue";
     import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import { reactive } from "vue";
+    import sortedUniq from "lodash/sortedUniq";
+    import groupBy from "lodash/groupBy";
+    import max from "lodash/max";
+    import mean from "lodash/mean";
+    import throttle from "lodash/throttle";
 
     export default {
         name: "TreasuryView",
@@ -360,10 +364,7 @@
                         continue;
                     }
 
-                    const groups = _.chain(value)
-                        .groupBy(o => o.name.rus)
-                        .map(item => item)
-                        .value();
+                    const groups = Object.values(groupBy(value, o => o.name.rus));
                     const res = [];
 
                     for (const group of groups) {
@@ -375,15 +376,13 @@
                             continue;
                         }
 
-                        const prices = _.chain(group.map(o => o.price))
-                            .sortedUniq()
-                            .value();
+                        const prices = sortedUniq(group.map(o => o.price))
 
                         res.push(reactive({
                             ...el,
                             custom: {
                                 count: group.length,
-                                price: this.settings.max ? _.max(prices) : Math.round(_.mean(prices))
+                                price: this.settings.max ? max(prices) : Math.round(mean(prices))
                             }
                         }))
                     }
@@ -396,7 +395,7 @@
         },
         methods: {
             // eslint-disable-next-line func-names
-            sendForm: _.throttle(function() {
+            sendForm: throttle(function() {
                 if (this.controllers.list) {
                     this.controllers.list.abort();
                 }

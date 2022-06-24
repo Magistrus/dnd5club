@@ -1,7 +1,7 @@
 import localforage from 'localforage';
-import _ from 'lodash';
 import HTTPService from '@/common/services/HTTPService';
 import errorHandler from '@/common/helpers/errorHandler';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default class FilterService {
     constructor() {
@@ -180,7 +180,7 @@ export default class FilterService {
 
         await this.store.ready();
 
-        const copy = _.cloneDeep(filter);
+        const copy = cloneDeep(filter);
         const saved = await this.store.getItem(this.storeKey);
 
         const copyIsNewType = (Array.isArray(copy) && !Array.isArray(saved))
@@ -277,7 +277,7 @@ export default class FilterService {
     async reset() {
         await this.store.ready();
 
-        const copy = _.cloneDeep(this.filter);
+        const copy = cloneDeep(this.filter);
 
         let initialFilter;
 
@@ -333,7 +333,7 @@ export default class FilterService {
     async save(filter) {
         await this.store.ready();
 
-        const clone = _.cloneDeep(filter);
+        const clone = cloneDeep(filter);
 
         this.filter = clone;
 
