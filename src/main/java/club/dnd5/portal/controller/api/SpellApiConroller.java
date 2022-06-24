@@ -190,8 +190,9 @@ public class SpellApiConroller {
 		}
 		return new SpellsFvtt(spellRepo.findAll(input, specification, specification, SpellFvtt::new).getData());
 	}
+	
 	@PostMapping("/api/v1/filters/spells")
-	public FilterApi getSpellsFilter() {
+	public FilterApi getFilter() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> sources = new ArrayList<>();
 		FilterApi spellMainFilter = new FilterApi("main");
@@ -248,7 +249,7 @@ public class SpellApiConroller {
 	}
 	
 	@PostMapping("/api/v1/filters/spells/{englishClassName}")
-	public FilterApi getSpellsByClassFilter(@PathVariable String englishClassName) {
+	public FilterApi getByClassFilter(@PathVariable String englishClassName) {
 		FilterApi filters = new FilterApi();
 
 		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
@@ -273,7 +274,7 @@ public class SpellApiConroller {
 	}
 	
 	@PostMapping("/api/v1/filters/spells/{englishClassName}/{englishArchetypeName}")
-	public FilterApi getSpellsByClassFilter(@PathVariable String englishClassName, @PathVariable String englishArchetypeName) {
+	public FilterApi getByClassFilter(@PathVariable String englishClassName, @PathVariable String englishArchetypeName) {
 		FilterApi filters = new FilterApi();
 
 		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
