@@ -117,7 +117,7 @@ public class GodApiConroller {
 	public GodDetailApi getGod(@PathVariable String englishName) {
 		God god = godRepository.findByEnglishName(englishName.replace('_', ' '));
 		GodDetailApi godApi = new GodDetailApi(god);
-		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, god.getId());
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.GOD, god.getId());
 		if (!images.isEmpty()) {
 			godApi.setImages(images);
 		}
