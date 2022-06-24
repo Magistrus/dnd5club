@@ -1,14 +1,18 @@
 <template>
-    <div class="background-detail">
-        <section-header
-            :subtitle="background?.name?.eng || ''"
-            :title="background?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="background-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="background?.name?.eng || ''"
+                :title="background?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <background-body :background="background"/>
-    </div>
+        <template #default>
+            <background-body :background="background"/>
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -17,10 +21,13 @@
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import BackgroundBody from "@/views/Character/Backgrounds/BackgroundBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'BackgroundDetail',
-        components: { BackgroundBody, RawContent, SectionHeader },
+        components: {
+            ContentDetail, BackgroundBody, RawContent, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBackground(to.path);
 

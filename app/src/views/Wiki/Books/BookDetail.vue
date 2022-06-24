@@ -1,17 +1,21 @@
 <template>
-    <div class="book-detail">
-        <section-header
-            :subtitle="book?.name?.eng || ''"
-            :title="book?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="book-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="book?.name?.eng || ''"
+                :title="book?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <book-body
-            v-if="book"
-            :book="book"
-        />
-    </div>
+        <template #default>
+            <book-body
+                v-if="book"
+                :book="book"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -19,10 +23,11 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import { useBooksStore } from "@/store/Wiki/BooksStore";
     import BookBody from "@/views/Wiki/Books/BookBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'BookDetail',
-        components: { BookBody, SectionHeader },
+        components: { ContentDetail, BookBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBook(to.path);
 
