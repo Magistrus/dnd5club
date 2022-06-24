@@ -16,7 +16,6 @@ import lombok.Setter;
 @Setter
 public class MagicItemApi extends ItemApi {
 	private String rarity;
-	private Integer costDmg;
 	private SpellApi spell;
 	
 	public MagicItemApi(MagicItem item) {

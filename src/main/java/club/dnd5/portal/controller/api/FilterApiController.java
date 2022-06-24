@@ -18,17 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.Option;
+import club.dnd5.portal.model.items.EquipmentType;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
+import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
+import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
+import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
 
 @RestController
 public class FilterApiController {
@@ -47,9 +54,17 @@ public class FilterApiController {
 	
 	@Autowired
 	private TraitDatatableRepository traitRepository;
-	
+	@Autowired
+	private OptionDatatableRepository optionRepository;
 	@Autowired
 	private BackgroundDatatableRepository backgroundRepository;
+
+	@Autowired
+	private WeaponDatatableRepository weaponRepository;
+	@Autowired
+	private WeaponPropertyDatatableRepository propertyRepository;
+	@Autowired
+	private ItemDatatableRepository itemRepository;
 	
 	@PostMapping("/api/v1/filters/classes")
 	public FilterApi getClassFilter() {
@@ -238,6 +253,59 @@ public class FilterApiController {
 		return filters;
 	}
 	
+	@PostMapping("/api/v1/filters/options")
+	public FilterApi getOptionFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				optionRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				optionRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				optionRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				optionRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi classOptionFilter = new FilterApi("Классовые особености", "classOption");
+		classOptionFilter.setValues(
+				Arrays.stream(Option.OptionType.values())
+				 .map(ability -> new FilterValueApi(ability.getName(), ability.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(classOptionFilter);
+		
+		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
+		prerequisiteFilter.setValues(
+				optionRepository.findAlldPrerequisite().stream()
+				 .map(ability -> new FilterValueApi(ability, ability, Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(prerequisiteFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
 	@PostMapping("/api/v1/filters/backgrounds")
 	public FilterApi getBackgroundFilter() {
 		FilterApi filters = new FilterApi();
@@ -280,6 +348,113 @@ public class FilterApiController {
 				 .collect(Collectors.toList()));
 		
 		otherFilters.add(schoolSpellFilter);
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/weapons")
+	public FilterApi getWeaponsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				weaponRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				weaponRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				weaponRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				weaponRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi damageTypeFilter = new FilterApi("По типу урона", "damageType");
+		damageTypeFilter.setValues(
+				DamageType.getWeaponDamage().stream()
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(damageTypeFilter);
+
+		FilterApi properetyTypeFilter = new FilterApi("По свойствам", "properrty");
+		properetyTypeFilter.setValues(
+				propertyRepository.findAll().stream()
+				 .map(value -> new FilterValueApi(value.getName(), value.getId(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(properetyTypeFilter);
+
+		FilterApi diceFilter = new FilterApi("По кости урона", "dice");
+		diceFilter.setValues(
+				Arrays.stream(new String[]{"к4", "2к4", "к6", "2к6", "к8", "к10", "к12"})
+				 .map(value -> new FilterValueApi(value, value, Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(diceFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/items")
+	public FilterApi getItemsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				itemRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				itemRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				itemRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				itemRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi damageTypeFilter = new FilterApi("Категория", "category");
+		damageTypeFilter.setValues(
+				Arrays.stream(EquipmentType.values())
+				 .sorted(Comparator.comparing(EquipmentType::getCyrilicName))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(damageTypeFilter);
+
 		filters.setOther(otherFilters);
 		return filters;
 	}
