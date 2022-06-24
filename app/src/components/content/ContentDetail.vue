@@ -20,6 +20,7 @@
     .content-detail {
         display: flex;
         flex-direction: column;
+        height: 100%;
 
         &__fixed,
         &__body {
