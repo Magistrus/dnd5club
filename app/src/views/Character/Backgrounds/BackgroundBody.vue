@@ -1,5 +1,10 @@
 <template>
     <div class="background-body">
+        <detail-tob-bar
+            :left="background?.name?.eng"
+            :source="background?.source"
+        />
+
         <div class="background-body__desc">
             <raw-content :url="background?.url"/>
         </div>
