@@ -36,7 +36,7 @@
                         href="/"
                         class="navbar__head__logo"
                     >
-                        <site-logo :size="84"/>
+                        <site-logo :size="76"/>
                     </a>
                 </div>
                 <div class="club__card__header__info">
@@ -100,26 +100,151 @@
                             label: "Черты",
                             url: "/traits",
                             icon: "menu-traits"
+                        },
+                        {
+                            label: "Особенности классов",
+                            url: "/options",
+                            icon: "menu-traits"
+                        },
+                        {
+                            label: "Предыстории",
+                            url: "/backgrounds",
+                            icon: "menu-traits"
+                        },
+                        {
+                            label: "Заклинания",
+                            url: "/spells",
+                            icon: "menu-traits"
                         }
                     ]
                 },
                 {
-                    label: "Персонаж",
+                    label: "Предметы",
                     links: [
                         {
-                            label: "Классы",
-                            url: "/classes",
+                            label: "Оружие",
+                            url: "/weapons",
                             icon: "menu-classes"
                         },
                         {
-                            label: "Расы",
-                            url: "/races",
+                            label: "Доспехи",
+                            url: "/armors",
                             icon: "menu-races"
                         },
                         {
-                            label: "Черты",
-                            url: "/traits",
+                            label: "Снаряжение",
+                            url: "/items",
                             icon: "menu-traits"
+                        },
+                        {
+                            label: "Драгоценности",
+                            url: "/treasures",
+                            icon: "menu-traits"
+                        },
+                        {
+                            label: "Магические предметы",
+                            url: "/items/magic",
+                            icon: "menu-traits"
+                        }
+                    ]
+                },
+                {
+                    label: "DM",
+                    links: [
+                        {
+                            label: "Бестиарий",
+                            url: "/bestiary",
+                            icon: "menu-classes"
+                        },
+                        {
+                            label: "Ширма",
+                            url: "/screens",
+                            icon: "menu-races"
+                        }
+                    ]
+                },
+                {
+                    label: "Инструменты",
+                    links: [
+                        {
+                            label: "Торговец",
+                            url: "/tools/trader",
+                            icon: "menu-classes"
+                        },
+                        {
+                            label: "Случайные столкновения",
+                            url: "/tools/encounters",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Сокровищница",
+                            url: "/tools/treasury",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Дикая магия",
+                            url: "/tools/wildmagic",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Безумие",
+                            url: "/tools/madness",
+                            icon: "menu-races"
+                        }
+                    ]
+                },
+                {
+                    label: "База знаний",
+                    links: [
+                        {
+                            label: "Боги",
+                            url: "/gods",
+                            icon: "menu-classes"
+                        },
+                        {
+                            label: "Правила и термины",
+                            url: "/rules",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Источники",
+                            url: "/books",
+                            icon: "menu-races"
+                        }
+                    ]
+                },
+                {
+                    label: "Информация",
+                    links: [
+                        {
+                            label: "Мы в Discord",
+                            url: "https://discord.gg/zqBnMJVf3z",
+                            icon: "menu-classes"
+                        },
+                        {
+                            label: "Мы на ВКонтакте",
+                            url: "https://vk.com/dnd5club",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Мы на Boosty",
+                            url: "https://boosty.to/dnd5club",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Наш бот для Telegram",
+                            url: "https://t.me/dnd5club_bot",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Мастер на Boosty",
+                            url: "https://boosty.to/dnd5eclub",
+                            icon: "menu-races"
+                        },
+                        {
+                            label: "Старый сайт",
+                            url: "https://old.dnd5.club/",
+                            icon: "menu-races"
                         }
                     ]
                 },

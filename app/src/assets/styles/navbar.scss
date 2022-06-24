@@ -157,13 +157,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 500px;
-  max-width: 60vw;
+  max-height: 90vh;
+  max-width: 790px;
   overflow: hidden auto;
   z-index: 19;
   border-radius: 8px;
   box-shadow: 0px 0px 27px #0006;
   margin: 8px 0 0 24px;
+  padding: 0 16px 0 16px;
   opacity: 0;
   pointer-events: none;
   transform: scale(0);
@@ -186,6 +187,17 @@
 
   @media (max-width: 1200px) {
     margin: 8px 0 0 8px;
+  }
+
+  @media (max-width: 800px) {
+    max-width: 550px;
+  }
+
+  @media (max-width: 550px) {
+    max-width: 100%;
+    margin: 8px 8px 0 8px;
+    max-height: 100vh;
+    padding: 0 0px 0 16px;
   }
 
   &__header {
@@ -226,15 +238,16 @@
     .navigation {
       display: flex;
       flex-direction: column;
+      width: 240px;
+      margin: 8px 0;
 
       &__head {
-        padding: 8px;
+        padding: 8px 20px;
         display: flex;
+        opacity: 0.8;
         
         span {
           display: block;
-          // padding: 0.625rem 1.25rem;
-          // margin: 0;
           color: var(--text-g-color);
           font-size: inherit;
           font-weight: normal;
@@ -247,7 +260,25 @@
 
         li {
           list-style: none;
-          padding: 6px 8px;
+          margin: 0;
+          border-radius: 6px;
+
+          a {
+            color: var(--text-color);
+            font-weight: 400;
+            padding: 9px 20px;
+            width: 100%;
+            display: flex;
+          }
+
+          &:hover {
+            background-color: var(--primary-hover);
+            cursor: pointer;
+
+            a {
+              color: var(--text-btn-color);
+            }
+          }
         }
       }
     }
