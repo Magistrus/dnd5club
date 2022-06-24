@@ -161,6 +161,7 @@
             color: var(--text-color);
             border-right: 1px solid var(--border);
             position: relative;
+            margin-right: 16px;
 
             &:after {
                 content: '';
