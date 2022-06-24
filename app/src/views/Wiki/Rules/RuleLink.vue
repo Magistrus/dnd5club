@@ -9,19 +9,19 @@
             ref="ruleItem"
             :class="getClassList(isActive)"
             :href="href"
-            class="rule-link"
+            class="link-item"
             v-bind="$attrs"
             @click.left.exact.prevent="navigate()"
         >
             <div class="link-item__content">
-                <div class="rule-link__body">
+                <div class="link-item__body">
                     <div class="link-item__row">
-                        <div class="rule-link__name">
-                            <div class="rule-link__name--rus">
+                        <div class="link-item__name">
+                            <div class="link-item__name--rus">
                                 {{ rule.name.rus }}
                             </div>
 
-                            <div class="rule-link__name--eng">
+                            <div class="link-item__name--eng">
                                 [{{ rule.name.eng }}]
                             </div>
                         </div>
