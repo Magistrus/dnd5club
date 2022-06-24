@@ -451,15 +451,12 @@ public class TreasuryApiController {
 						switch (ri) {
 						case 66:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 75);
 							break;
 						case 67:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 50);
 							break;
 						case 68:
 							itemApi.changeName("(чещуйчатый доспех)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 50);
 							break;
 						}
 					}
@@ -467,11 +464,9 @@ public class TreasuryApiController {
 						switch (ri) {
 						case 15:
 							itemApi.changeName("(кираса)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 400);
 							break;
 						case 16:
 							itemApi.changeName("(наборной доспех)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 200);
 							break;
 						case 35:
 							itemApi.changeName("(кожаный)");
@@ -498,11 +493,9 @@ public class TreasuryApiController {
 						switch (ri) {
 						case 55:
 							itemApi.changeName("(латы)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 1500);
 							break;
 						case 56:
 							itemApi.changeName("(полулаты)");
-							itemApi.setCostDmg(Rarity.getCostDMG(mt.getMagicThing().getRarity()) + 750);
 							break;
 						case 65:
 							itemApi.changeName("(кираса)");
