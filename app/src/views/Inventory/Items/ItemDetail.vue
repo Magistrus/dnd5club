@@ -1,17 +1,21 @@
 <template>
-    <div class="item-detail">
-        <section-header
-            :subtitle="item?.name?.eng || ''"
-            :title="item?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="item-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="item?.name?.eng || ''"
+                :title="item?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <item-body
-            v-if="item"
-            :item="item"
-        />
-    </div>
+        <template #default>
+            <item-body
+                v-if="item"
+                :item="item"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -19,10 +23,11 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
     import ItemBody from "@/views/Inventory/Items/ItemBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'ItemDetail',
-        components: { ItemBody, SectionHeader },
+        components: { ContentDetail, ItemBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewItem(to.path);
 

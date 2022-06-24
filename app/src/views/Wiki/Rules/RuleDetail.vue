@@ -1,17 +1,21 @@
 <template>
-    <div class="rule-detail">
-        <section-header
-            :subtitle="rule?.name?.eng || ''"
-            :title="rule?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="rule-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="rule?.name?.eng || ''"
+                :title="rule?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <rule-body
-            v-if="rule"
-            :rule="rule"
-        />
-    </div>
+        <template #default>
+            <rule-body
+                v-if="rule"
+                :rule="rule"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
@@ -19,10 +23,11 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleBody from "@/views/Wiki/Rules/RuleBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'RuleDetail',
-        components: { RuleBody, SectionHeader },
+        components: { ContentDetail, RuleBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRule(to.path);
 

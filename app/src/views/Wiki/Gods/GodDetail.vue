@@ -1,46 +1,51 @@
 <template>
-    <div class="god-detail">
-        <section-header
-            :subtitle="god?.name?.eng || ''"
-            :title="god?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="god-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="god?.name?.eng || ''"
+                :title="god?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <div
-            v-if="loading"
-            class="god-detail__loader"
-        >
-            <div class="god-detail__loader_img">
-                <img
-                    alt=""
-                    src="/app/img/loader.png"
-                >
+        <template #default>
+            <div
+                v-if="loading"
+                class="god-detail__loader"
+            >
+                <div class="god-detail__loader_img">
+                    <img
+                        alt=""
+                        src="/app/img/loader.png"
+                    >
+                </div>
             </div>
-        </div>
 
-        <div
-            v-else-if="error"
-            class="god-detail__err"
-        >
-            error...
-        </div>
+            <div
+                v-else-if="error"
+                class="god-detail__err"
+            >
+                error...
+            </div>
 
-        <god-body
-            v-else-if="god"
-            :god="god"
-        />
-    </div>
+            <god-body
+                v-else-if="god"
+                :god="god"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useGodsStore } from "@/store/Wiki/GodsStore";
     import GodBody from "@/views/Wiki/Gods/GodBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'GodDetail',
-        components: { GodBody, SectionHeader },
+        components: { ContentDetail, GodBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewGod(to.path);
 

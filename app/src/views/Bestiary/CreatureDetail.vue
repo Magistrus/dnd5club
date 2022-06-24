@@ -1,48 +1,53 @@
 <template>
-    <div class="creature-detail">
-        <section-header
-            :subtitle="creature?.name?.eng || ''"
-            :title="creature?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-            print
-            @export-foundry="exportFoundry"
-        />
+    <content-detail class="creature-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="creature?.name?.eng || ''"
+                :title="creature?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+                print
+                @export-foundry="exportFoundry"
+            />
+        </template>
 
-        <div
-            v-if="loading"
-            class="creature-detail__loader"
-        >
-            <div class="creature-detail__loader_img">
-                <img
-                    alt=""
-                    src="/app/img/loader.png"
-                >
+        <template #default>
+            <div
+                v-if="loading"
+                class="creature-detail__loader"
+            >
+                <div class="creature-detail__loader_img">
+                    <img
+                        alt=""
+                        src="/app/img/loader.png"
+                    >
+                </div>
             </div>
-        </div>
 
-        <div
-            v-else-if="error"
-            class="creature-detail__err"
-        >
-            error...
-        </div>
+            <div
+                v-else-if="error"
+                class="creature-detail__err"
+            >
+                error...
+            </div>
 
-        <creature-body
-            v-else-if="creature"
-            :creature="creature"
-        />
-    </div>
+            <creature-body
+                v-else-if="creature"
+                :creature="creature"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureBody from "@/views/Bestiary/CreatureBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'CreatureDetail',
-        components: { CreatureBody, SectionHeader },
+        components: { ContentDetail, CreatureBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewCreature(to.path);
 

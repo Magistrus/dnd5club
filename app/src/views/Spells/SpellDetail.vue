@@ -1,46 +1,51 @@
 <template>
-    <div class="spell-detail">
-        <section-header
-            :subtitle="spell?.name?.eng || ''"
-            :title="spell?.name?.rus || ''"
-            :copy="!error && !loading"
-            fullscreen
-        />
+    <content-detail class="spell-detail">
+        <template #fixed>
+            <section-header
+                :subtitle="spell?.name?.eng || ''"
+                :title="spell?.name?.rus || ''"
+                :copy="!error && !loading"
+                fullscreen
+            />
+        </template>
 
-        <div
-            v-if="loading"
-            class="spell-detail__loader"
-        >
-            <div class="spell-detail__loader_img">
-                <img
-                    alt=""
-                    src="/app/img/loader.png"
-                >
+        <template #default>
+            <div
+                v-if="loading"
+                class="spell-detail__loader"
+            >
+                <div class="spell-detail__loader_img">
+                    <img
+                        alt=""
+                        src="/app/img/loader.png"
+                    >
+                </div>
             </div>
-        </div>
 
-        <div
-            v-else-if="error"
-            class="spell-detail__err"
-        >
-            error...
-        </div>
+            <div
+                v-else-if="error"
+                class="spell-detail__err"
+            >
+                error...
+            </div>
 
-        <spell-body
-            v-else-if="spell"
-            :spell="spell"
-        />
-    </div>
+            <spell-body
+                v-else-if="spell"
+                :spell="spell"
+            />
+        </template>
+    </content-detail>
 </template>
 
 <script>
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
+    import ContentDetail from "@/components/content/ContentDetail";
 
     export default {
         name: 'SpellDetail',
-        components: { SpellBody, SectionHeader },
+        components: { ContentDetail, SpellBody, SectionHeader },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewSpell(to.path);
 

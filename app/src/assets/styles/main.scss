@@ -349,3 +349,14 @@
     }
   }
 }
+
+.weapons-group,
+.books-group,
+.armors-group {
+    &__name {
+        background-color: var(--hover);
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        border-radius: 6px;
+    }
+}
