@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
-import _ from 'lodash';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
+import uniqWith from 'lodash/uniqWith';
+import sortBy from 'lodash/sortBy';
+import isEqual from 'lodash/isEqual';
 
 const DB_NAME = 'classes';
 const http = new HTTPService();
@@ -12,6 +14,7 @@ export const useClassesStore = defineStore('ClassesStore', {
     state: () => ({
         classes: [],
         filter: undefined,
+        tabFilters: {},
         config: {
             page: 0,
             url: '/classes',
@@ -90,7 +93,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                 const result = [];
                 const sort = list => {
                     const types = list.map(arch => arch.type);
-                    const typesSorted = _.uniqWith(_.sortBy(types, ['order']), _.isEqual);
+                    const typesSorted = uniqWith(sortBy(types, ['order']), isEqual);
                     const formatted = [];
 
                     let index = 0;
@@ -104,7 +107,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                         formatted[index - 1].push({
                             name: typesSorted[i].name,
-                            list: list.filter(arch => arch.type.name === typesSorted[i].name)
+                            list: sortBy(list.filter(arch => arch.type.name === typesSorted[i].name), [o => o.name.rus])
                         });
                     }
 
@@ -158,9 +161,26 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.controllers.classInfoQuery = undefined;
 
+                for (const tab of data.tabs) {
+                    if (!tab.url?.startsWith('/filters')) {
+                        continue;
+                    }
+
+                    const res = await http.post(tab.url);
+
+                    if (res.status === 200) {
+                        this.tabFilters[`${tab.icon}${tab.order}`] = {
+                            other: {
+                                ...res.data.other,
+                                ...res.data.custom
+                            }
+                        };
+                    }
+                }
+
                 return {
                     ...data,
-                    tabs: _.sortBy(data.tabs, ['order'])
+                    tabs: sortBy(data.tabs, ['order'])
                 };
             } catch (err) {
                 errorHandler(err);

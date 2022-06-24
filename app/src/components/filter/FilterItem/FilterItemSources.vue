@@ -78,9 +78,9 @@
 </template>
 
 <script>
-    import _ from 'lodash';
     import SvgIcon from '@/components/UI/SvgIcon';
     import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
+    import cloneDeep from 'lodash/cloneDeep';
 
     export default {
         name: 'FilterItemSources',
@@ -121,7 +121,7 @@
                     return;
                 }
 
-                const sources = _.cloneDeep(this.modelValue);
+                const sources = cloneDeep(this.modelValue);
 
                 for (let i = 0; i < sources[index].values.length; i++) {
                     sources[index].values[i].value = e;
@@ -145,7 +145,7 @@
             },
 
             resetSources() {
-                const sources = _.cloneDeep(this.modelValue)
+                const sources = cloneDeep(this.modelValue)
                     .map(group => ({
                         ...group,
                         values: group.values.map(value => ({
@@ -158,7 +158,7 @@
             },
 
             setSourceValue(newValue, groupKey, checkboxKey) {
-                const sources = _.cloneDeep(this.modelValue);
+                const sources = cloneDeep(this.modelValue);
 
                 sources[groupKey].values[checkboxKey].value = newValue;
 

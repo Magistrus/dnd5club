@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'options';
 const http = new HTTPService();
@@ -49,7 +49,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
                 if (customFilter) {
                     filterOptions.customFilter = customFilter;
-                    this.customFilter = _.cloneDeep(customFilter);
+                    this.customFilter = cloneDeep(customFilter);
                 }
 
                 await this.filter.init(filterOptions);

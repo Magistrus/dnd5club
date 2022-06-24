@@ -31,9 +31,9 @@
     import { shallowRef } from "vue";
     import TabLayout from "@/components/content/TabLayout";
     import ContentLayout from "@/components/content/ContentLayout";
-    import _ from "lodash";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
     import ArmorLink from "@/views/Inventory/Armors/ArmorLink";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: "ArmorsView",
@@ -80,7 +80,7 @@
                     types.push(armor.type);
                 }
 
-                for (const type of _.sortBy(types, [o => o.order])) {
+                for (const type of sortBy(types, [o => o.order])) {
                     armors.push({
                         name: type.name,
                         list: this.armorsStore.getArmors.filter(armor => armor.type.name === type.name)

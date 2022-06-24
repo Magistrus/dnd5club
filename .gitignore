@@ -1,16 +1,13 @@
-
 target/
-
-src/main/resources/application-dev.properties
-
-src/main/resources/robot.txt
-
+/src/main/resources/application-dev.properties
+/src/main/resources/robot.txt
 .factorypath
 
-
 # Frontend Build
-src/main/resources/static/app
+/src/main/resources/static/app
+/src/main/resources/static/report.json
 
 # IDE Settings
 .idea
+.vscode
 dnd5.iml

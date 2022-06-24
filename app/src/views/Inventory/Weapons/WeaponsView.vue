@@ -32,8 +32,8 @@
     import TabLayout from "@/components/content/TabLayout";
     import ContentLayout from "@/components/content/ContentLayout";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
-    import _ from "lodash";
     import WeaponLink from "@/views/Inventory/Weapons/WeaponLink";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: "WeaponsView",
@@ -80,7 +80,7 @@
                     types.push(weapon.type);
                 }
 
-                for (const type of _.sortBy(types, [o => o.order])) {
+                for (const type of sortBy(types, [o => o.order])) {
                     weapons.push({
                         name: type.name,
                         list: this.weaponsStore.getWeapons.filter(weapon => weapon.type.name === type.name)

@@ -40,7 +40,8 @@
     import { useClassesStore } from '@/store/Character/ClassesStore';
     import ContentLayout from '@/components/content/ContentLayout';
     import ClassLink from "@/views/Character/Classes/ClassLink";
-    import _ from "lodash";
+    import sortBy from "lodash/sortBy";
+    import groupBy from "lodash/groupBy";
 
     export default {
         name: 'ClassesView',
@@ -63,17 +64,19 @@
                     return [];
                 }
 
-                const groups = _.chain(classes.filter(item => 'group' in item))
-                    .groupBy(o => o.group.name)
-                    .map(list => ({
+                const groups = sortBy(
+                    Object.values(groupBy(
+                        classes.filter(item => 'group' in item),
+                        o => o.group.name
+                    )).map(list => ({
                         group: list[0].group,
-                        list
-                    }))
-                    .sortBy(o => o.group.order)
-                    .value();
+                        list: sortBy(list, [o => o.name.rus])
+                    })),
+                    [o => o.group.order]
+                );
 
                 return [{
-                    list: classes.filter(item => !('group' in item))
+                    list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])
                 }, ...groups];
             },
 

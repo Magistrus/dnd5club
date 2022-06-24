@@ -153,7 +153,7 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DetailTobBar from "@/components/UI/DetailTobBar";
-    import _ from "lodash";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: "RaceBody",
@@ -205,7 +205,7 @@
             },
 
             skills() {
-                return _.sortBy(this.race.skills, [o => o.opened, o => !o.subrace])
+                return sortBy(this.race.skills, [o => o.opened, o => !o.subrace])
             }
         },
         methods: {

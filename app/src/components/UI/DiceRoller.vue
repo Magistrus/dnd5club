@@ -13,9 +13,9 @@
 </template>
 
 <script>
-    import { DiceRoll } from "@dice-roller/rpg-dice-roller";
+    import { roll } from 'trpg-dice';
     import errorHandler from "@/common/helpers/errorHandler";
-    import _ from "lodash";
+    import debounce from 'lodash/debounce';
 
     export default {
         name: "DiceRoller",
@@ -52,9 +52,7 @@
             computedFormula() {
                 switch (this.type) {
                     case 'advantage':
-                        return '2d20kh1';
                     case 'disadvantage':
-                        return '2d20kl1';
                     case 'saving-throw':
                         return 'd20';
                     default:
@@ -63,15 +61,42 @@
             },
         },
         methods: {
-            // eslint-disable-next-line func-names
-            tryRoll: _.throttle(function() {
+            tryRoll() {
                 try {
                     this.error = false;
 
-                    const roller = new DiceRoll(this.computedFormula);
-                    const result = roller.toJSON();
+                    const callback = (err, result) => {
+                        if (err) {
+                            this.error = true;
+                        } else {
+                            switch (this.type) {
+                                case 'advantage':
+                                    this.roll = result.min;
 
-                    this.roll = result.total;
+                                    break;
+                                case 'disadvantage':
+                                    this.roll = result.min;
+
+                                    break;
+                                default:
+                                    this.roll = result.avg;
+
+                                    break;
+                            }
+                        }
+                    }
+
+                    switch (this.type) {
+                        case 'advantage':
+                        case 'disadvantage':
+                            roll(this.computedFormula, { roll: 2 }, callback);
+
+                            break;
+                        default:
+                            roll(this.computedFormula, callback);
+
+                            break;
+                    }
 
                     this.clearRoll();
                 } catch (err) {
@@ -79,10 +104,10 @@
 
                     errorHandler(err);
                 }
-            }, 1000),
+            },
 
             // eslint-disable-next-line func-names
-            clearRoll: _.debounce(function() {
+            clearRoll: debounce(function() {
                 this.roll = undefined
             }, 5000),
         }

@@ -76,11 +76,12 @@
 
 <script>
     import ContentLayout from "@/components/content/ContentLayout";
-    import errorHandler from "@/common/helpers/errorHandler";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import _ from "lodash";
     import RawContent from "@/components/content/RawContent";
+    import errorHandler from "@/common/helpers/errorHandler";
+
     import { reactive } from "vue";
+    import throttle from "lodash/throttle";
 
     export default {
         name: "WildMagicView",
@@ -115,7 +116,7 @@
             },
 
             // eslint-disable-next-line func-names
-            sendForm: _.throttle(async function() {
+            sendForm: throttle(async function() {
                 if (this.controller) {
                     this.controller.abort();
                 }

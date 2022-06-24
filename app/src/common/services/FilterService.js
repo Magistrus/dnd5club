@@ -1,7 +1,7 @@
 import localforage from 'localforage';
-import _ from 'lodash';
 import HTTPService from '@/common/services/HTTPService';
 import errorHandler from '@/common/helpers/errorHandler';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default class FilterService {
     constructor() {
@@ -144,21 +144,31 @@ export default class FilterService {
                 storeName: opts.storeName
             });
 
+            const setStore = async filter => {
+                const restored = await this.getRestored(filter);
+
+                if (!restored) {
+                    return;
+                }
+
+                this.filter = restored;
+
+                await this.store.setItem(this.storeKey, restored);
+            }
+
+            if (opts.customFilter) {
+                await setStore(opts.customFilter);
+
+                return;
+            }
+
             const resp = await this.http.post(opts.url);
 
             if (!resp.data || resp.status !== 200) {
                 return;
             }
 
-            const restored = await this.getRestored(resp.data);
-
-            if (!restored) {
-                return;
-            }
-
-            this.filter = restored;
-
-            await this.store.setItem(this.storeKey, restored);
+            await setStore(resp.data)
         } catch (err) {
             errorHandler(err);
         }
@@ -170,7 +180,7 @@ export default class FilterService {
 
         await this.store.ready();
 
-        const copy = _.cloneDeep(filter);
+        const copy = cloneDeep(filter);
         const saved = await this.store.getItem(this.storeKey);
 
         const copyIsNewType = (Array.isArray(copy) && !Array.isArray(saved))
@@ -267,7 +277,7 @@ export default class FilterService {
     async reset() {
         await this.store.ready();
 
-        const copy = _.cloneDeep(this.filter);
+        const copy = cloneDeep(this.filter);
 
         let initialFilter;
 
@@ -323,7 +333,7 @@ export default class FilterService {
     async save(filter) {
         await this.store.ready();
 
-        const clone = _.cloneDeep(filter);
+        const clone = cloneDeep(filter);
 
         this.filter = clone;
 
