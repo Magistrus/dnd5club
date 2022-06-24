@@ -213,6 +213,31 @@ public class FilterApiController {
 		return filters;
 	}
 	
+	@PostMapping("/api/v1/filters/spells/{englishClassName}/{englishArchetypeName}")
+	public FilterApi getSpellsByClassFilter(@PathVariable String englishClassName, @PathVariable String englishArchetypeName) {
+		FilterApi filters = new FilterApi();
+
+		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
+		List<FilterApi> otherFilters = new ArrayList<>();
+		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
+		otherFilters.add(getCompomemtsFilter());
+		filters.setOther(otherFilters);
+		
+		List<FilterApi> customFilters = new ArrayList<>();
+		FilterApi customFilter = new FilterApi();
+		customFilter.setName("Классы");
+		customFilter.setKey("class");
+
+		FilterValueApi customValue = new FilterValueApi();
+		customValue.setLabel(heroClass.getCapitalazeName());
+		customValue.setDefaultValue(Boolean.TRUE);
+		customValue.setKey(String.valueOf(heroClass.getId()));
+		customFilter.setValues(Collections.singletonList(customValue));
+		customFilters.add(customFilter);
+		filters.setCustom(customFilters);
+		return filters;
+	}
+	
 	@PostMapping("/api/v1/filters/traits")
 	public FilterApi getTraitFilter() {
 		FilterApi filters = new FilterApi();
