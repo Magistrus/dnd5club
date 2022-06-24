@@ -16,6 +16,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -107,8 +108,12 @@ public class BackgroundApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public BackgroundDetailApi getBackground(@PathVariable String englishName) {
-		return new BackgroundDetailApi(backgroundRepository.findByEnglishName(englishName.replace('_', ' ')));
+	public ResponseEntity<BackgroundDetailApi> getBackground(@PathVariable String englishName) {
+		Background background = backgroundRepository.findByEnglishName(englishName.replace('_', ' '));
+		if (background == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(new BackgroundDetailApi(background));
 	}
 	
 	@PostMapping("/api/v1/filters/backgrounds")

@@ -17,6 +17,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -136,8 +137,11 @@ public class SpellApiConroller {
 	}
 	
 	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public SpellDetailApi getSpell(@PathVariable String englishName) {
+	public ResponseEntity<SpellDetailApi> getSpell(@PathVariable String englishName) {
 		Spell spell = spellRepo.findByEnglishName(englishName.replace('_', ' '));
+		if (spell == null) {
+			return ResponseEntity.notFound().build();
+		}
 		SpellDetailApi spellApi = new SpellDetailApi(spell);
 		List<Archetype> archetypes = archetypeSpellRepository.findAllBySpell(spell.getId());
 		if (!archetypes.isEmpty()) {
@@ -147,7 +151,7 @@ public class SpellApiConroller {
 		if (!races.isEmpty()) {
 			spellApi.setRaces(races.stream().map(ReferenceClassApi::new).collect(Collectors.toList()));
 		}
-		return spellApi;
+		return ResponseEntity.ok(spellApi);
 	}
 	
 	@CrossOrigin

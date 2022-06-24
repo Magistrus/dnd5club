@@ -30,7 +30,7 @@ import club.dnd5.portal.util.SpecificationUtil;
 @RestController
 public class RulesApiConroller {
 	@Autowired
-	private RuleDatatableRepository repo;
+	private RuleDatatableRepository ruleRepository;
 	
 	@PostMapping(value = "/api/v1/rules", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<RuleApi> getRules(@RequestBody SpellRequesApi request) {
@@ -95,12 +95,12 @@ public class RulesApiConroller {
 				});
 			}
 		}
-		return repo.findAll(input, specification, specification, RuleApi::new).getData();
+		return ruleRepository.findAll(input, specification, specification, RuleApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/rules/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RuleDetailApi getRule(@PathVariable String englishName) {
-		Rule god = repo.findByEnglishName(englishName.replace('_', ' '));
-		return new RuleDetailApi(god);
+		Rule rule = ruleRepository.findByEnglishName(englishName.replace('_', ' '));
+		return new RuleDetailApi(rule);
 	}
 }

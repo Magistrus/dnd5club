@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -94,14 +95,17 @@ public class RacesApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/races/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RaceDetailApi getRace(@PathVariable String englishName) {
+	public ResponseEntity<RaceDetailApi> getRace(@PathVariable String englishName) {
 		Optional<Race> race = raceRepo.findByEnglishName(englishName.replace('_', ' '));
+		if (!race.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		RaceDetailApi raceApi = new RaceDetailApi(race.get());
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
 		if (!images.isEmpty()) {
 			raceApi.setImages(images);
 		}
-		return raceApi;
+		return ResponseEntity.ok(raceApi);
 	}
 	
 	@PostMapping(value = "/api/v1/races/{englishRaceName}/{englishSubraceName}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -15,6 +15,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -106,8 +107,12 @@ public class OptionApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/options/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OptionDetailApi getOption(@PathVariable String englishName) {
-		return new OptionDetailApi(optionRepository.findByEnglishName(englishName.replace('_', ' ')));
+	public ResponseEntity<OptionDetailApi> getOption(@PathVariable String englishName) {
+		Option option = optionRepository.findByEnglishName(englishName.replace('_', ' '));
+		if (option == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(new OptionDetailApi(option));
 	}
 	
 	@PostMapping("/api/v1/filters/options")
