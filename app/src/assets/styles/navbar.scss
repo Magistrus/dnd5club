@@ -9,6 +9,22 @@
   position: fixed;
   z-index: 100;
 
+  .close_blok {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+
+    &.is-active {
+      display: block;
+    }
+  }
+
   &::before {
     position: absolute;
     z-index: -1;
@@ -75,8 +91,6 @@
         }
       }
     }
-
-
 
     .hamburger {
       display: block;

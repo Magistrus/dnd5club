@@ -35,7 +35,11 @@
                 <menu-theme-switcher/>
             </div>
         </div>
-
+        <div
+            class="close_blok"
+            :class="{ 'is-active': menu }"
+            @click.left.exact.prevent="toggleMenu"
+        />
         <aside
             class="club__card"
             :class="{ 'is-active': menu }"
