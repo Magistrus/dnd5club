@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,18 +20,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.classes.OptionApi;
 import club.dnd5.portal.dto.api.classes.OptionDetailApi;
 import club.dnd5.portal.dto.api.classes.OptionRequesApi;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class OptionApiController {
 	@Autowired
-	private OptionDatatableRepository repo;
+	private OptionDatatableRepository optionRepository;
 	
 	@PostMapping(value = "/api/v1/options", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<OptionApi> getOptions(@RequestBody OptionRequesApi request) {
@@ -79,7 +84,7 @@ public class OptionApiController {
 		if (request.getFilter() != null) {
 
 			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
@@ -87,7 +92,7 @@ public class OptionApiController {
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
-			specification = addSpecification(specification, (root, query, cb) -> {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
 							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
@@ -97,18 +102,64 @@ public class OptionApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, OptionApi::new).getData();
+		return optionRepository.findAll(input, specification, specification, OptionApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/options/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public OptionDetailApi getOption(@PathVariable String englishName) {
-		return new OptionDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+		return new OptionDetailApi(optionRepository.findByEnglishName(englishName.replace('_', ' ')));
 	}
 	
-	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
-		if (specification == null) {
-			return Specification.where(addSpecification);
-		}
-		return specification.and(addSpecification);
+	@PostMapping("/api/v1/filters/options")
+	public FilterApi getOptionFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				optionRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				optionRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				optionRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				optionRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi classOptionFilter = new FilterApi("Классовые особености", "classOption");
+		classOptionFilter.setValues(
+				Arrays.stream(Option.OptionType.values())
+				 .map(ability -> new FilterValueApi(ability.getName(), ability.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(classOptionFilter);
+		
+		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
+		prerequisiteFilter.setValues(
+				optionRepository.findAlldPrerequisite().stream()
+				 .map(ability -> new FilterValueApi(ability, ability, Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(prerequisiteFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }

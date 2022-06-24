@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,12 +21,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.item.MagicItemApi;
 import club.dnd5.portal.dto.api.item.MagicItemDetailApi;
 import club.dnd5.portal.dto.api.item.WeaponRequesApi;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.MagicItem;
+import club.dnd5.portal.model.items.MagicThingType;
+import club.dnd5.portal.model.items.Rarity;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
@@ -34,7 +40,7 @@ import club.dnd5.portal.util.SpecificationUtil;
 @RestController
 public class MagicItemApiController {
 	@Autowired
-	private MagicItemDatatableRepository repo;
+	private MagicItemDatatableRepository magicItemRepository;
 	@Autowired
 	private ImageRepository imageRepo;
 
@@ -102,17 +108,91 @@ public class MagicItemApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, MagicItemApi::new).getData();
+		return magicItemRepository.findAll(input, specification, specification, MagicItemApi::new).getData();
 	}
 
 	@PostMapping(value = "/api/v1/items/magic/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MagicItemDetailApi getItem(@PathVariable String englishName) {
-		MagicItem item = repo.findByEnglishName(englishName.replace('_', ' '));
+		MagicItem item = magicItemRepository.findByEnglishName(englishName.replace('_', ' '));
 		MagicItemDetailApi itemApi = new MagicItemDetailApi(item);
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
 		if (!images.isEmpty()) {
 			itemApi.setImages(images);
 		}
 		return itemApi;
+	}
+	
+	@PostMapping("/api/v1/filters/items/magic")
+	public FilterApi getMagicItemsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				magicItemRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				magicItemRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				magicItemRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				magicItemRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi rarityFilter = new FilterApi("Редкость", "rarity");
+		rarityFilter.setValues(
+				Arrays.stream(Rarity.values())
+				 .map(value -> new FilterValueApi(value.getNames()[1], value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(rarityFilter);
+
+		FilterApi typeFilter = new FilterApi("Тип предмета", "type");
+		typeFilter.setValues(
+				Arrays.stream(MagicThingType.values())
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(typeFilter);
+		
+		FilterApi attumentFilter = new FilterApi("Настройка", "type");
+		List<FilterValueApi> values = new ArrayList<>(2);
+		values.add(new FilterValueApi("требуется", 1, Boolean.TRUE));
+		values.add(new FilterValueApi("не требуется", 2, Boolean.TRUE));
+		attumentFilter.setValues(values);
+		otherFilters.add(attumentFilter);
+		
+		FilterApi consumableFilter = new FilterApi("Расходуемый при использовании", "consumable");
+		values = new ArrayList<>(2);
+		values.add(new FilterValueApi("да", 1, Boolean.TRUE));
+		values.add(new FilterValueApi("нет", 2, Boolean.TRUE));
+		consumableFilter.setValues(values);
+		otherFilters.add(consumableFilter);
+		
+		FilterApi chargeFilter = new FilterApi("Есть заряды", "charge");
+		values = new ArrayList<>(2);
+		values.add(new FilterValueApi("да", 1, Boolean.TRUE));
+		values.add(new FilterValueApi("нет", 2, Boolean.TRUE));
+		chargeFilter.setValues(values);
+		otherFilters.add(chargeFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }

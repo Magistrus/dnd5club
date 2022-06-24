@@ -1,6 +1,8 @@
 package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.classes.BackgroundApi;
 import club.dnd5.portal.dto.api.classes.BackgroundDetailApi;
 import club.dnd5.portal.dto.api.classes.TraitRequesApi;
+import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
@@ -31,7 +37,7 @@ import club.dnd5.portal.util.SpecificationUtil;
 @RestController
 public class BackgroundApiController {
 	@Autowired
-	private BackgroundDatatableRepository repo;
+	private BackgroundDatatableRepository backgroundRepository;
 	
 	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
@@ -97,11 +103,57 @@ public class BackgroundApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, BackgroundApi::new).getData();
+		return backgroundRepository.findAll(input, specification, specification, BackgroundApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public BackgroundDetailApi getBackground(@PathVariable String englishName) {
-		return new BackgroundDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+		return new BackgroundDetailApi(backgroundRepository.findByEnglishName(englishName.replace('_', ' ')));
+	}
+	
+	@PostMapping("/api/v1/filters/backgrounds")
+	public FilterApi getBackgroundFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				backgroundRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				backgroundRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				backgroundRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				backgroundRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		FilterApi schoolSpellFilter = new FilterApi("Навыки", "skills");
+		schoolSpellFilter.setValues(
+				Arrays.stream(SkillType.values())
+				 .sorted(Comparator.comparing(SkillType::getCyrilicName))
+				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		
+		otherFilters.add(schoolSpellFilter);
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }

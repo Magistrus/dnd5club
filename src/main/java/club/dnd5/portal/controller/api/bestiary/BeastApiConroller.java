@@ -33,6 +33,7 @@ import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class BeastApiConroller {
@@ -73,7 +74,7 @@ public class BeastApiConroller {
 		columns.add(column);
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
-			specification = addSpecification(specification, (root, query, cb) -> {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
 							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
@@ -100,10 +101,10 @@ public class BeastApiConroller {
 		}
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getChallengeRatings().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> root.get("challengeRating").in(request.getFilter().getChallengeRatings()));
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> root.get("challengeRating").in(request.getFilter().getChallengeRatings()));
 			}
 			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
@@ -128,12 +129,5 @@ public class BeastApiConroller {
 	public FBeastiary getCreatures(){
 		List<FBeast> list = ((Collection<Creature>) repo.findAll()).stream().map(FBeast::new).collect(Collectors.toList());
 		return new FBeastiary(list);
-	}
-	
-	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
-		if (specification == null) {
-			return Specification.where(addSpecification);
-		}
-		return specification.and(addSpecification);
 	}
 }

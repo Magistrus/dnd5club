@@ -28,7 +28,7 @@ import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 
 
 @Controller
-public class ItemMagicController {
+public class MagicItemController {
 	@Autowired
 	private MagicItemDatatableRepository repository;
 	@Autowired
