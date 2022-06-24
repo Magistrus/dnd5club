@@ -8,6 +8,35 @@
                 fullscreen
                 @close="close"
             />
+
+            <swiper
+                v-if="tabs.list.length"
+                :free-mode="true"
+                :modules="tabs.modules"
+                :mousewheel="false"
+                :scrollbar="{ draggable: true, hide: true, snapOnRelease: true }"
+                :slides-per-view="'auto'"
+                class="class-detail__tabs"
+            >
+                <swiper-slide
+                    v-for="(tab, tabKey) in tabs.list"
+                    :key="tabKey"
+                    :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !tab.name }"
+                    class="class-detail__tab"
+                    @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
+                >
+                    <div class="class-detail__tab_icon">
+                        <svg-icon :icon-name="tab.icon"/>
+                    </div>
+
+                    <div
+                        v-if="tab.name"
+                        class="class-detail__tab_name"
+                    >
+                        {{ tab.name }}
+                    </div>
+                </swiper-slide>
+            </swiper>
         </template>
 
         <template #default>
@@ -38,35 +67,6 @@
                 v-else-if="currentClass"
                 class="class-detail__content"
             >
-                <swiper
-                    v-if="tabs.list.length"
-                    :free-mode="true"
-                    :modules="tabs.modules"
-                    :mousewheel="false"
-                    :scrollbar="{ draggable: true, hide: true, snapOnRelease: true }"
-                    :slides-per-view="'auto'"
-                    class="class-detail__tabs"
-                >
-                    <swiper-slide
-                        v-for="(tab, tabKey) in tabs.list"
-                        :key="tabKey"
-                        :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !tab.name }"
-                        class="class-detail__tab"
-                        @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
-                    >
-                        <div class="class-detail__tab_icon">
-                            <svg-icon :icon-name="tab.icon"/>
-                        </div>
-
-                        <div
-                            v-if="tab.name"
-                            class="class-detail__tab_name"
-                        >
-                            {{ tab.name }}
-                        </div>
-                    </swiper-slide>
-                </swiper>
-
                 <div
                     v-if="currentTab"
                     ref="classBody"
