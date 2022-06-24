@@ -50,24 +50,18 @@
             </header>
 
             <section class="club__card__menu">
-                <nav class="navigation">
+                <div class="navigation" v-for="(group, groupKey) in groups" :key="groupKey">
                     <label class="navigation__head">
                         <span>
-                            Навигация
+                            {{group.label}}
                         </span>
                     </label>
                     <ul>
-                        <li>
-                            <a href="">Row 1</a>
-                        </li>
-                        <li>
-                            <a href="">Row 2</a>
-                        </li>
-                        <li>
-                            <a href="">Row 3</a>
+                        <li v-for="(link, linkKey) in group.links" :key="linkKey">
+                            <a :href="link.url">{{link.label}}</a>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </section>
         </aside>
     </div>
@@ -80,7 +74,49 @@
         name: "NavBar",
         components: { MenuThemeSwitcher },
         data: () => ({
-            menu: false
+            menu: false,
+            groups: [
+                    {
+                        "label": "Персонаж",
+                        "links": [
+                        {
+                            "label": "Классы",
+                            "url": "/classes",
+                            "icon": "menu-classes"
+                        },
+                        {
+                            "label": "Расы",
+                            "url": "/races",
+                            "icon": "menu-races"
+                        },
+                        {
+                            "label": "Черты",
+                            "url": "/traits",
+                            "icon": "menu-traits"
+                        }
+                        ]
+                    },
+                    {
+                        "label": "Персонаж",
+                        "links": [
+                        {
+                            "label": "Классы",
+                            "url": "/classes",
+                            "icon": "menu-classes"
+                        },
+                        {
+                            "label": "Расы",
+                            "url": "/races",
+                            "icon": "menu-races"
+                        },
+                        {
+                            "label": "Черты",
+                            "url": "/traits",
+                            "icon": "menu-traits"
+                        }
+                        ]
+                    },
+                    ]
         }),
         methods: {
             toggleMenu() {
