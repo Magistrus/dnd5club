@@ -22,11 +22,13 @@ import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 
@@ -47,7 +49,8 @@ public class FilterApiController {
 	
 	@Autowired
 	private TraitDatatableRepository traitRepository;
-	
+	@Autowired
+	private OptionDatatableRepository optionRepository;
 	@Autowired
 	private BackgroundDatatableRepository backgroundRepository;
 	
@@ -234,6 +237,59 @@ public class FilterApiController {
 				 .collect(Collectors.toList()));
 		
 		otherFilters.add(schoolSpellFilter);
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/options")
+	public FilterApi getOptionFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				optionRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				optionRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				optionRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				optionRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi classOptionFilter = new FilterApi("Классовые особености", "classOption");
+		classOptionFilter.setValues(
+				Arrays.stream(Option.OptionType.values())
+				 .map(ability -> new FilterValueApi(ability.getName(), ability.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(classOptionFilter);
+		
+		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
+		prerequisiteFilter.setValues(
+				optionRepository.findAlldPrerequisite().stream()
+				 .map(ability -> new FilterValueApi(ability, ability, Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(prerequisiteFilter);
+		
 		filters.setOther(otherFilters);
 		return filters;
 	}

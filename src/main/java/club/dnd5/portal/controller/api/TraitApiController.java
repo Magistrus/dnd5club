@@ -83,6 +83,7 @@ public class TraitApiController {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
