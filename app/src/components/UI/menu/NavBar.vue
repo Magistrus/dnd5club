@@ -19,6 +19,16 @@
                 >
                     <span>DND5 Club</span>
                 </a>
+                <span>
+                    <span class="nav_text">
+                        /
+                    </span>
+                    <span
+                        class="nav_text"
+                    >
+                        <span>Name</span>
+                    </span>
+                </span>
             </div>
 
             <div class="navbar__head__end">
@@ -65,7 +75,10 @@
                             v-for="(link, linkKey) in group.links"
                             :key="linkKey"
                         >
-                            <a :href="link.url">{{ link.label }}</a>
+                            <a
+                                :target="link.external ? '_blank' : '_self'"
+                                :href="link.url"
+                            >{{ link.label }}</a>
                         </li>
                     </ul>
                 </div>
@@ -219,32 +232,38 @@
                         {
                             label: "Мы в Discord",
                             url: "https://discord.gg/zqBnMJVf3z",
-                            icon: "menu-classes"
+                            icon: "menu-classes",
+                            external: true,
                         },
                         {
                             label: "Мы на ВКонтакте",
                             url: "https://vk.com/dnd5club",
-                            icon: "menu-races"
+                            icon: "menu-races",
+                            external: true,
                         },
                         {
                             label: "Мы на Boosty",
                             url: "https://boosty.to/dnd5club",
-                            icon: "menu-races"
+                            icon: "menu-races",
+                            external: true,
                         },
                         {
                             label: "Наш бот для Telegram",
                             url: "https://t.me/dnd5club_bot",
-                            icon: "menu-races"
+                            icon: "menu-races",
+                            external: true,
                         },
                         {
                             label: "Мастер на Boosty",
                             url: "https://boosty.to/dnd5eclub",
-                            icon: "menu-races"
+                            icon: "menu-races",
+                            external: true,
                         },
                         {
                             label: "Старый сайт",
                             url: "https://old.dnd5.club/",
-                            icon: "menu-races"
+                            icon: "menu-races",
+                            external: true,
                         }
                     ]
                 },
