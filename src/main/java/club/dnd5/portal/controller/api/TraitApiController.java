@@ -19,18 +19,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.classes.TraitApi;
 import club.dnd5.portal.dto.api.classes.TraitDetailApi;
 import club.dnd5.portal.dto.api.classes.TraitRequesApi;
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class TraitApiController {
 	@Autowired
-	private TraitDatatableRepository repo;
+	private TraitDatatableRepository traitRepository;
 	
 	@PostMapping(value = "/api/v1/traits", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<TraitApi> getTraits(@RequestBody TraitRequesApi request) {
@@ -78,7 +83,7 @@ public class TraitApiController {
 		}
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
@@ -87,7 +92,7 @@ public class TraitApiController {
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
-			specification = addSpecification(specification, (root, query, cb) -> {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
 							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
@@ -97,18 +102,56 @@ public class TraitApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, TraitApi::new).getData();
+		return traitRepository.findAll(input, specification, specification, TraitApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/traits/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public TraitDetailApi getTrait(@PathVariable String englishName) {
-		return new TraitDetailApi(repo.findByEnglishName(englishName.replace('_', ' ')));
+		return new TraitDetailApi(traitRepository.findByEnglishName(englishName.replace('_', ' ')));
 	}
-	
-	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
-		if (specification == null) {
-			return Specification.where(addSpecification);
-		}
-		return specification.and(addSpecification);
+
+	@PostMapping("/api/v1/filters/traits")
+	public FilterApi getTraitFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				traitRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				traitRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				traitRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				traitRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		FilterApi schoolSpellFilter = new FilterApi("Характеристики", "ability");
+		schoolSpellFilter.setValues(
+				AbilityType.getBaseAbility().stream()
+				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		
+		otherFilters.add(schoolSpellFilter);
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }
