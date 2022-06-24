@@ -5,7 +5,7 @@
   "scripts": {
     "watch": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --watch --mode=develop --no-clean",
     "build:dev": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --mode=develop --no-clean",
-    "build:prod": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --no-clean --report-json",
+    "build:prod": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --no-clean",
     "build:analyze": "rimraf ../src/main/resources/static/app/ && vue-cli-service build --no-clean --report-json",
     "lint:js": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix"
