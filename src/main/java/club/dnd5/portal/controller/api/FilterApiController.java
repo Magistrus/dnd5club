@@ -25,12 +25,15 @@ import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.items.EquipmentType;
+import club.dnd5.portal.model.items.MagicThingType;
+import club.dnd5.portal.model.items.Rarity;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
+import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
@@ -65,6 +68,8 @@ public class FilterApiController {
 	private WeaponPropertyDatatableRepository propertyRepository;
 	@Autowired
 	private ItemDatatableRepository itemRepository;
+	@Autowired
+	private MagicItemDatatableRepository magicItemRrepository;
 	
 	@PostMapping("/api/v1/filters/classes")
 	public FilterApi getClassFilter() {
@@ -455,6 +460,80 @@ public class FilterApiController {
 				 .collect(Collectors.toList()));
 		otherFilters.add(damageTypeFilter);
 
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/items/magic")
+	public FilterApi getMagicItemsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				magicItemRrepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				magicItemRrepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				magicItemRrepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				magicItemRrepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi rarityFilter = new FilterApi("Редкость", "rarity");
+		rarityFilter.setValues(
+				Arrays.stream(Rarity.values())
+				 .map(value -> new FilterValueApi(value.getNames()[1], value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(rarityFilter);
+
+		FilterApi typeFilter = new FilterApi("Тип предмета", "type");
+		typeFilter.setValues(
+				Arrays.stream(MagicThingType.values())
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .collect(Collectors.toList()));
+		otherFilters.add(typeFilter);
+		
+		FilterApi attumentFilter = new FilterApi("Настройка", "type");
+		List<FilterValueApi> values = new ArrayList<>(2);
+		values.add(new FilterValueApi("требуется", 1, Boolean.TRUE));
+		values.add(new FilterValueApi("не требуется", 2, Boolean.TRUE));
+		attumentFilter.setValues(values);
+		otherFilters.add(attumentFilter);
+		
+		FilterApi consumableFilter = new FilterApi("Расходуемый при использовании", "consumable");
+		values = new ArrayList<>(2);
+		values.add(new FilterValueApi("да", 1, Boolean.TRUE));
+		values.add(new FilterValueApi("нет", 2, Boolean.TRUE));
+		consumableFilter.setValues(values);
+		otherFilters.add(consumableFilter);
+		
+		FilterApi chargeFilter = new FilterApi("Есть заряды", "charge");
+		values = new ArrayList<>(2);
+		values.add(new FilterValueApi("да", 1, Boolean.TRUE));
+		values.add(new FilterValueApi("нет", 2, Boolean.TRUE));
+		chargeFilter.setValues(values);
+		otherFilters.add(chargeFilter);
+		
 		filters.setOther(otherFilters);
 		return filters;
 	}
