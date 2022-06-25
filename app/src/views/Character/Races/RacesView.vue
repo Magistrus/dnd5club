@@ -11,13 +11,17 @@
             gutter="16"
             horizontal-order="false"
             item-selector=".link-item-expand"
-            transition-duration="0.15s"
+            transition-duration="0s"
+            stagger="0s"
         >
             <race-link
                 v-for="(race, key) in races"
+                ref="race"
                 :key="key"
                 :race-item="race"
                 :to="{path: race.url}"
+                @resize="redrawMasonryOnResize"
+                @submenu-toggled="redrawMasonry"
             />
         </div>
     </content-layout>
@@ -27,6 +31,7 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import { useRacesStore } from "@/store/Character/RacesStore";
     import RaceLink from "@/views/Character/Races/RaceLink";
+    import debounce from "lodash/debounce";
 
     export default {
         name: 'RacesView',
@@ -36,6 +41,7 @@
         },
         data: () => ({
             racesStore: useRacesStore(),
+            isMobile: false,
         }),
         computed: {
             filter() {
@@ -50,6 +56,14 @@
                 return this.$route.name === 'raceDetail'
             },
         },
+        watch: {
+            races: {
+                deep: true,
+                handler() {
+                    this.redrawMasonry();
+                },
+            }
+        },
         async mounted() {
             await this.racesStore.initFilter();
             await this.racesStore.initRaces();
@@ -61,6 +75,17 @@
             async racesQuery() {
                 await this.racesStore.initRaces();
             },
+
+            // eslint-disable-next-line func-names
+            redrawMasonryOnResize: debounce(function() {
+                this.redrawMasonry();
+            }, 100, { maxWait: 300 }),
+
+            redrawMasonry() {
+                this.$nextTick(() => {
+                    this.$redrawVueMasonry('race-items');
+                })
+            }
         }
     }
 </script>
