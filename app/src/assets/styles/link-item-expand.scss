@@ -2,6 +2,7 @@
   width: 100%;
   margin-bottom: 16px;
   display: block;
+  will-change: left, top;
 
   @include media-min($md) {
     width: calc(100% / 2 - 16px / 2);
@@ -280,7 +281,7 @@
     .link-item-expand {
       &__content {
         border-color: var(--primary);
-      
+
         &__img-bg {
           opacity: 0.3;
         }
