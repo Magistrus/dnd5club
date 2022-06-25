@@ -25,11 +25,14 @@ public class SpellFilter {
     
     @JsonProperty("class") 
     private List<String> myclass;
+
     @JsonProperty("school") 
     private List<String> schools;
+
     private List<String> timecast;
     private List<String> distance;
     private List<String> duration;
+
     @JsonProperty("component") 
     private List<String> components;
     private List<String> ritual;

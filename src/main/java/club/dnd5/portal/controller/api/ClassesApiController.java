@@ -102,7 +102,7 @@ public class ClassesApiController {
 		FilterApi hillDiceFilter = new FilterApi("Кость хитов", "hitdice");
 		hillDiceFilter.setValues(
 				EnumSet.of(Dice.d6, Dice.d8, Dice.d10, Dice.d12).stream()
-				.map(dice -> new FilterValueApi(dice.getName(), dice.name(), Boolean.TRUE))
+				.map(dice -> new FilterValueApi(dice.getName(), dice.name()))
 				.collect(Collectors.toList())
 		);
 		others.add(hillDiceFilter);

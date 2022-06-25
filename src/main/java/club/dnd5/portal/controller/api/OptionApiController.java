@@ -153,14 +153,14 @@ public class OptionApiController {
 		FilterApi classOptionFilter = new FilterApi("Классовые особености", "classOption");
 		classOptionFilter.setValues(
 				Arrays.stream(Option.OptionType.values())
-				 .map(ability -> new FilterValueApi(ability.getName(), ability.name(), Boolean.TRUE))
+				 .map(ability -> new FilterValueApi(ability.getName(), ability.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(classOptionFilter);
 		
 		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
 		prerequisiteFilter.setValues(
 				optionRepository.findAlldPrerequisite().stream()
-				 .map(ability -> new FilterValueApi(ability, ability, Boolean.TRUE))
+				 .map(ability -> new FilterValueApi(ability, ability))
 				 .collect(Collectors.toList()));
 		otherFilters.add(prerequisiteFilter);
 		

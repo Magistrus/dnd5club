@@ -150,7 +150,7 @@ public class ItemApiController {
 		damageTypeFilter.setValues(
 				Arrays.stream(EquipmentType.values())
 				 .sorted(Comparator.comparing(EquipmentType::getCyrilicName))
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(damageTypeFilter);
 

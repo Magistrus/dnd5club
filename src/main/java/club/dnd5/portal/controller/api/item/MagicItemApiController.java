@@ -160,35 +160,35 @@ public class MagicItemApiController {
 		FilterApi rarityFilter = new FilterApi("Редкость", "rarity");
 		rarityFilter.setValues(
 				Arrays.stream(Rarity.values())
-				 .map(value -> new FilterValueApi(value.getNames()[1], value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getNames()[1], value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(rarityFilter);
 
 		FilterApi typeFilter = new FilterApi("Тип предмета", "type");
 		typeFilter.setValues(
 				Arrays.stream(MagicThingType.values())
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(typeFilter);
 		
 		FilterApi attumentFilter = new FilterApi("Настройка", "type");
 		List<FilterValueApi> values = new ArrayList<>(2);
-		values.add(new FilterValueApi("требуется", 1, Boolean.TRUE));
-		values.add(new FilterValueApi("не требуется", 2, Boolean.TRUE));
+		values.add(new FilterValueApi("требуется", 1));
+		values.add(new FilterValueApi("не требуется", 2));
 		attumentFilter.setValues(values);
 		otherFilters.add(attumentFilter);
 		
 		FilterApi consumableFilter = new FilterApi("Расходуемый при использовании", "consumable");
 		values = new ArrayList<>(2);
-		values.add(new FilterValueApi("да", 1, Boolean.TRUE));
-		values.add(new FilterValueApi("нет", 2, Boolean.TRUE));
+		values.add(new FilterValueApi("да", 1));
+		values.add(new FilterValueApi("нет", 2));
 		consumableFilter.setValues(values);
 		otherFilters.add(consumableFilter);
 		
 		FilterApi chargeFilter = new FilterApi("Есть заряды", "charge");
 		values = new ArrayList<>(2);
-		values.add(new FilterValueApi("да", 1, Boolean.TRUE));
-		values.add(new FilterValueApi("нет", 2, Boolean.TRUE));
+		values.add(new FilterValueApi("да", 1));
+		values.add(new FilterValueApi("нет", 2));
 		chargeFilter.setValues(values);
 		otherFilters.add(chargeFilter);
 		

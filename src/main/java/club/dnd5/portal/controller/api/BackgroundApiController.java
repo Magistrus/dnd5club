@@ -154,7 +154,7 @@ public class BackgroundApiController {
 		schoolSpellFilter.setValues(
 				Arrays.stream(SkillType.values())
 				 .sorted(Comparator.comparing(SkillType::getCyrilicName))
-				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name(), Boolean.TRUE))
+				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name()))
 				 .collect(Collectors.toList()));
 		
 		otherFilters.add(schoolSpellFilter);

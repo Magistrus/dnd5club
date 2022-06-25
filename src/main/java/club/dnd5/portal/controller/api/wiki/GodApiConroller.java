@@ -155,21 +155,21 @@ public class GodApiConroller {
 		FilterApi alignmentFilter = new FilterApi("Мировоззрение", "alignment");
 		alignmentFilter.setValues(
 				Alignment.getGods().stream()
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(alignmentFilter);
 	
 		FilterApi rankFilter = new FilterApi("Ранг", "rank");
 		rankFilter.setValues(
 				Arrays.stream(Rank.values())
-				 .map(value -> new FilterValueApi(value.getName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(rankFilter);
 		
 		FilterApi pantheonFilter = new FilterApi("Пантеоны", "pantheon");
 		pantheonFilter.setValues(
 				pantheonReposotory.findAll().stream()
-				 .map(value -> new FilterValueApi(value.getName(), value.getId(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getName(), value.getId()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(pantheonFilter);
 		

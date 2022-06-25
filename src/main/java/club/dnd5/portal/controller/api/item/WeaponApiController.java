@@ -151,21 +151,21 @@ public class WeaponApiController {
 		FilterApi damageTypeFilter = new FilterApi("По типу урона", "damageType");
 		damageTypeFilter.setValues(
 				DamageType.getWeaponDamage().stream()
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(damageTypeFilter);
 
 		FilterApi properetyTypeFilter = new FilterApi("По свойствам", "properrty");
 		properetyTypeFilter.setValues(
 				propertyRepository.findAll().stream()
-				 .map(value -> new FilterValueApi(value.getName(), value.getId(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getName(), value.getId()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(properetyTypeFilter);
 
 		FilterApi diceFilter = new FilterApi("По кости урона", "dice");
 		diceFilter.setValues(
 				Arrays.stream(new String[]{"к4", "2к4", "к6", "2к6", "к8", "к10", "к12"})
-				 .map(value -> new FilterValueApi(value, value, Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value, value))
 				 .collect(Collectors.toList()));
 		otherFilters.add(diceFilter);
 		
