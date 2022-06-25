@@ -18,8 +18,8 @@
 
             <div class="books-group__list">
                 <book-link
-                    v-for="(book, bookKey) in group.list"
-                    :key="bookKey"
+                    v-for="book in group.list"
+                    :key="book.url"
                     :in-tab="inTab"
                     :book="book"
                     :to="{path: book.url}"

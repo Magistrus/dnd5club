@@ -97,7 +97,6 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
         },
 
         async initBackgrounds(url) {
-            this.clearBackgrounds();
             this.clearConfig();
 
             if (url) {

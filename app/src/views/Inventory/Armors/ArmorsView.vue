@@ -17,8 +17,8 @@
 
             <div class="armors-group__list">
                 <armor-link
-                    v-for="(armor, armorKey) in group.list"
-                    :key="armorKey"
+                    v-for="armor in group.list"
+                    :key="armor.url"
                     :armor="armor"
                     :to="{ path: armor.url }"
                 />

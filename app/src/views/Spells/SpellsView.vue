@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <spell-link
-            v-for="(spell, key) in spells"
-            :key="key"
+            v-for="spell in spells"
+            :key="spell.url"
             :in-tab="inTab"
             :spell="spell"
             :to="{path: spell.url}"

@@ -27,9 +27,9 @@
                 stagger="0s"
             >
                 <class-link
-                    v-for="(el, elKey) in group.list"
+                    v-for="el in group.list"
                     ref="class"
-                    :key="elKey"
+                    :key="el.url"
                     :class-item="el"
                     :to="{ path: el.url }"
                     @resize="redrawMasonryOnResize"

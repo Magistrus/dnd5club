@@ -107,7 +107,6 @@ export const useRulesStore = defineStore('RulesStore', {
         },
 
         async initRules(url) {
-            this.clearRules();
             this.clearConfig();
 
             if (url) {
