@@ -95,7 +95,6 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
         },
 
         async initWeapons(url) {
-            this.clearWeapons();
             this.clearConfig();
 
             if (url) {

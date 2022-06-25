@@ -95,7 +95,6 @@ export const useArmorsStore = defineStore('ArmorsStore', {
         },
 
         async initArmors(url) {
-            this.clearArmors();
             this.clearConfig();
 
             if (url) {

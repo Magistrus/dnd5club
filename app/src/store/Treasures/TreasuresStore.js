@@ -107,7 +107,6 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
         },
 
         async initTreasures(url) {
-            this.clearTreasures();
             this.clearConfig();
 
             if (url) {

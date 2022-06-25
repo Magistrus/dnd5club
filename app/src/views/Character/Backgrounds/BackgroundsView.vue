@@ -7,8 +7,8 @@
         @update="backgroundsQuery"
     >
         <background-link
-            v-for="(background, key) in backgrounds"
-            :key="key"
+            v-for="background in backgrounds"
+            :key="background.url"
             :in-tab="inTab"
             :background-item="background"
             :to="{path: background.url}"

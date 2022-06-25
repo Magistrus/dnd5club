@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <item-link
-            v-for="(item, key) in items"
-            :key="key"
+            v-for="item in items"
+            :key="item.url"
             :in-tab="inTab"
             :item-item="item"
             :to="{path: item.url}"

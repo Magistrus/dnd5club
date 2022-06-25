@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <rule-link
-            v-for="(rule, key) in rules"
-            :key="key"
+            v-for="rule in rules"
+            :key="rule.url"
             :in-tab="inTab"
             :rule="rule"
             :to="{path: rule.url}"

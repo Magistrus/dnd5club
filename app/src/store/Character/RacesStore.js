@@ -140,7 +140,6 @@ export const useRacesStore = defineStore('RacesStore', {
         },
 
         async initRaces(url) {
-            this.clearRaces();
             this.clearConfig();
 
             if (url) {
@@ -164,7 +163,7 @@ export const useRacesStore = defineStore('RacesStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {

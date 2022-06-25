@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <magic-item-link
-            v-for="(item, key) in magicItems"
-            :key="key"
+            v-for="item in magicItems"
+            :key="item.url"
             :in-tab="inTab"
             :magic-item="item"
             :to="{path: item.url}"

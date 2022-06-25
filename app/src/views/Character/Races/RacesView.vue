@@ -15,9 +15,9 @@
             stagger="0s"
         >
             <race-link
-                v-for="(race, key) in races"
+                v-for="race in races"
                 ref="race"
-                :key="key"
+                :key="race.url"
                 :race-item="race"
                 :to="{path: race.url}"
                 @resize="redrawMasonryOnResize"

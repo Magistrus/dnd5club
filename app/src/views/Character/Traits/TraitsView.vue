@@ -7,8 +7,8 @@
         @update="traitsQuery"
     >
         <trait-link
-            v-for="(trait, key) in traits"
-            :key="key"
+            v-for="trait in traits"
+            :key="trait.url"
             :in-tab="inTab"
             :trait-item="trait"
             :to="{path: trait.url}"

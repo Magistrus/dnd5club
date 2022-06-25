@@ -8,10 +8,9 @@
     >
         <treasure-item
             v-for="(treasure, key) in treasures"
-            :key="key"
+            :key="treasure.name.eng + key"
             :in-tab="inTab"
             :treasure="treasure"
-            :to="{path: treasure.url}"
         />
     </component>
 </template>

@@ -97,7 +97,6 @@ export const useTraitsStore = defineStore('TraitsStore', {
         },
 
         async initTraits(url) {
-            this.clearTraits();
             this.clearConfig();
 
             if (url) {
