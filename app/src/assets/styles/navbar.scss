@@ -74,7 +74,7 @@
       padding: 0 5px
     }
 
-    .btn_nav {
+    .link_nav {
       cursor: pointer;
       height: 40px;
       border-radius: 8px;
@@ -84,10 +84,26 @@
       color: var(--text-color);
       font-weight: 600;
 
+      &:hover {
+        background-color: var(--hover);
+        color: var(--text-b-color);
+      }
+    }
+
+    .btn_nav {
+      cursor: pointer;
+      height: 40px;
+      width: 40px;
+      border-radius: 8px;
+      padding: 0 5px;
+      display: flex;
+      align-items: center;
+      color: var(--text-color);
+
       svg,
       path {
         fill: var(--text-color);
-        stroke: var(--text-color);
+        stroke: none;
       }
 
       &:hover {
