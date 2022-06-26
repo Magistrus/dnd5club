@@ -8,6 +8,7 @@
 
     <auth-reg-modal
         v-model="modal.show"
+
         @close="closeModal"
     >
         <template #title>
@@ -15,6 +16,10 @@
         </template>
 
         <template #default>
+            <button @click.left.exact.prevent="modal.type = 'reg'">
+                ryjgr
+            </button>
+
             <component :is="modalType"/>
         </template>
     </auth-reg-modal>

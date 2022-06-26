@@ -43,12 +43,6 @@
 </script>
 
 <style lang="scss" scoped>
-    ::v-deep(.vfm__container) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     ::v-deep(.auth-reg-modal) {
         background-color: var(--bg-secondary);
         max-width: 90%;
