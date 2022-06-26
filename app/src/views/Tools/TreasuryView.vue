@@ -213,7 +213,7 @@
 
                 <magic-item-link
                     v-for="(item, key) in groupedResult.magicItems"
-                    :key="key"
+                    :key="item.url"
                     :magic-item="item"
                     :is-active="selected.index === key"
                     :to="{path: item.url}"
@@ -232,7 +232,7 @@
 
                 <treasure-item
                     v-for="(item, key) in groupedResult.gems"
-                    :key="key"
+                    :key="item.name.eng + key"
                     :treasure="item"
                 />
             </div>
@@ -247,7 +247,7 @@
 
                 <treasure-item
                     v-for="(item, key) in groupedResult.arts"
-                    :key="key"
+                    :key="item.name.eng + key"
                     :treasure="item"
                 />
             </div>
@@ -262,7 +262,7 @@
 
                 <treasure-item
                     v-for="(item, key) in groupedResult.trinkets"
-                    :key="key"
+                    :key="item.name.eng + key"
                     :treasure="item"
                 />
             </div>

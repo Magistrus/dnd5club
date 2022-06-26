@@ -17,8 +17,8 @@
 
             <div class="weapons-group__list">
                 <weapon-link
-                    v-for="(weapon, weaponKey) in group.list"
-                    :key="weaponKey"
+                    v-for="weapon in group.list"
+                    :key="weapon.url"
                     :weapon="weapon"
                     :to="{ path: weapon.url }"
                 />

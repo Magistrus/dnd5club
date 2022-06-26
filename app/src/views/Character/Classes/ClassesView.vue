@@ -23,13 +23,17 @@
                 gutter="16"
                 horizontal-order="false"
                 item-selector=".link-item-expand"
-                transition-duration="0.15s"
+                transition-duration="0s"
+                stagger="0s"
             >
                 <class-link
-                    v-for="(el, elKey) in group.list"
-                    :key="elKey"
+                    v-for="el in group.list"
+                    ref="class"
+                    :key="el.url"
                     :class-item="el"
                     :to="{ path: el.url }"
+                    @resize="redrawMasonryOnResize"
+                    @submenu-toggled="redrawMasonry"
                 />
             </div>
         </div>
@@ -42,6 +46,7 @@
     import ClassLink from "@/views/Character/Classes/ClassLink";
     import sortBy from "lodash/sortBy";
     import groupBy from "lodash/groupBy";
+    import debounce from "lodash/debounce";
 
     export default {
         name: 'ClassesView',
@@ -84,6 +89,14 @@
                 return this.$route.name === 'classDetail'
             }
         },
+        watch: {
+            classes: {
+                deep: true,
+                handler() {
+                    this.redrawMasonry();
+                },
+            }
+        },
         async mounted() {
             await this.classesStore.initFilter();
             await this.classesStore.initClasses();
@@ -95,6 +108,17 @@
             async classesQuery() {
                 await this.classesStore.initClasses();
             },
+
+            // eslint-disable-next-line func-names
+            redrawMasonryOnResize: debounce(function() {
+                this.redrawMasonry();
+            }, 100, { maxWait: 300 }),
+
+            redrawMasonry() {
+                this.$nextTick(() => {
+                    this.$redrawVueMasonry('class-items');
+                })
+            }
         }
     }
 </script>

@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <god-link
-            v-for="(god, key) in gods"
-            :key="key"
+            v-for="god in gods"
+            :key="god.url"
             :in-tab="inTab"
             :god="god"
             :to="{path: god.url}"

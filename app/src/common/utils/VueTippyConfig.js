@@ -3,7 +3,6 @@ import errorHandler from '@/common/helpers/errorHandler';
 
 export default {
     defaultProps: {
-        content: 'Делаю запрос вселенной...',
         allowHTML: true,
         interactive: true,
         sticky: 'reference',
@@ -15,6 +14,21 @@ export default {
         },
         onShow(instance) {
             const ref = instance.reference;
+
+            let canShow = false;
+
+            if (ref.getAttribute('data-tippy-url')) {
+                canShow = true;
+            }
+
+            if (instance.props.content) {
+                canShow = true;
+            }
+
+            if (!canShow) {
+                return canShow;
+            }
+
             const http = new HTTPService();
 
             if (ref.getAttribute('data-tippy-url')) {
@@ -23,13 +37,21 @@ export default {
                         if (res.status !== 200) {
                             errorHandler(res.statusText);
 
-                            return;
+                            canShow = false;
                         }
 
                         instance.setContent(res.data);
+
+                        canShow = true;
                     })
-                    .catch(err => errorHandler(err));
+                    .catch(err => {
+                        errorHandler(err);
+
+                        canShow = false;
+                    });
             }
+
+            return canShow;
         }
     }
 }

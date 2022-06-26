@@ -7,8 +7,8 @@
         @update="optionsQuery"
     >
         <option-link
-            v-for="(option, key) in options"
-            :key="key"
+            v-for="option in options"
+            :key="option.url"
             :in-tab="inTab"
             :option-item="option"
             :to="{path: option.url}"

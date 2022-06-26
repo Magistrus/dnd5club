@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <creature-link
-            v-for="(creature, key) in bestiary"
-            :key="key"
+            v-for="creature in bestiary"
+            :key="creature.url"
             :in-tab="inTab"
             :creature="creature"
             :to="{path: creature.url}"

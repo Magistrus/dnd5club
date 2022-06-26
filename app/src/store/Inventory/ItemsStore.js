@@ -107,7 +107,6 @@ export const useItemsStore = defineStore('ItemsStore', {
         },
 
         async initItems(url) {
-            this.clearItems();
             this.clearConfig();
 
             if (url) {

@@ -137,7 +137,7 @@
         <template #default>
             <magic-item-link
                 v-for="(item, key) in groupedResults"
-                :key="key"
+                :key="item.url"
                 :magic-item="item"
                 :is-active="selected.index === key"
                 :to="{path: item.url}"

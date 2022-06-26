@@ -4,7 +4,7 @@ import SvgIcon from '@/components/UI/SvgIcon';
 import DiceRoller from '@/components/UI/DiceRoller';
 import NavBar from '@/components/UI/menu/NavBar';
 import RawContent from '@/components/content/RawContent';
-import SpellTooltip from '@/views/Character/Races/SpellTooltip';
+import SpellTooltip from '@/views/Spells/SpellTooltip';
 
 /* eslint-disable vue/match-component-file-name */
 export default function registerComponents(app) {

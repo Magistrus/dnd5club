@@ -130,7 +130,6 @@ export const useClassesStore = defineStore('ClassesStore', {
         },
 
         async initClasses(url) {
-            this.clearClasses();
             this.clearConfig();
 
             if (url) {

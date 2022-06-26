@@ -103,7 +103,6 @@ export const useSpellsStore = defineStore('SpellsStore', {
         },
 
         async initSpells(url) {
-            this.clearSpells();
             this.clearConfig();
 
             if (url) {
