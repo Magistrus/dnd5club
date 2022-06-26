@@ -4,6 +4,7 @@
         :filter-instance="filter"
         @search="racesQuery"
         @update="racesQuery"
+        @list-end="nextPage"
     >
         <div
             v-masonry="'race-items'"
@@ -74,6 +75,10 @@
         methods: {
             async racesQuery() {
                 await this.racesStore.initRaces();
+            },
+
+            async nextPage() {
+                await this.racesStore.nextPage();
             },
 
             // eslint-disable-next-line func-names
