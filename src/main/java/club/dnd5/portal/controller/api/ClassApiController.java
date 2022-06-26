@@ -12,12 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.classes.ClassApi;
 import club.dnd5.portal.dto.api.classes.ClassInfoApiDto;
+import club.dnd5.portal.dto.api.classes.ClassRequestApi;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -28,7 +31,7 @@ import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 
 @RestController
-public class ClassesApiController {
+public class ClassApiController {
 	@Autowired
 	private ClassRepository classRepo;
 	@Autowired
@@ -43,8 +46,12 @@ public class ClassesApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/classes", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ClassApi> getClasses() {
-		return classRepo.findAll().stream().map(ClassApi::new).collect(Collectors.toList());
+	public List<ClassApi> getClasses(@RequestBody ClassRequestApi request) {
+		return classRepo.findAll()
+				.stream()
+				.map(cclass -> new ClassApi(cclass, request))
+				.filter(c -> !c.getArchetypes().isEmpty())
+				.collect(Collectors.toList());
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
