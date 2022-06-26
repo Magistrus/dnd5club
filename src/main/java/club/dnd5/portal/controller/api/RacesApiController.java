@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,11 @@ import club.dnd5.portal.dto.api.classes.RaceRequestApi;
 import club.dnd5.portal.dto.api.races.RaceApi;
 import club.dnd5.portal.dto.api.races.RaceDetailApi;
 import club.dnd5.portal.model.AbilityType;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Race;
+import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.RaceDataRepository;
 import club.dnd5.portal.util.SpecificationUtil;
@@ -144,6 +148,12 @@ public class RacesApiController {
 		if (request.getPage() != null && request.getLimit()!=null) {
 			input.setStart(request.getPage() * request.getLimit());	
 		}
+		if (!request.getFilter().getBooks().isEmpty()) {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+				Join<Book, Race> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(request.getFilter().getBooks());
+			});
+		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -153,7 +163,7 @@ public class RacesApiController {
 					input.getSearch().setRegex(Boolean.FALSE);
 				}
 			}
-			return raceRepository.findAll(input, specification, specification, RaceApi::new).getData();
+						return raceRepository.findAll(input, specification, specification, RaceApi::new).getData();
 		} else {
 			return raceRepository.findAllByParent(null, Sort.by("name")).stream().map(RaceApi::new).collect(Collectors.toList());	
 		}
