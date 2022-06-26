@@ -1,5 +1,5 @@
 <template>
-    <content-layout>
+    <content-layout :show-right-side="showRightSide">
         <template #fixed>
             <form
                 class="tools_settings"
@@ -133,9 +133,11 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        fullscreen
                         :title="selected.item?.name.rus || 'В сокровищнице'"
                         :subtitle="selected.item?.name.eng || 'In treasury'"
+                        :close-on-desktop="getFullscreen"
+                        :fullscreen="!getIsMobile"
+                        @close="close"
                     />
                 </template>
 
@@ -287,6 +289,8 @@
     import mean from "lodash/mean";
     import throttle from "lodash/throttle";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: "TreasuryView",
@@ -345,9 +349,12 @@
             controllers: {
                 list: undefined,
                 detail: undefined
-            }
+            },
+            showRightSide: false,
         }),
         computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+
             crValue: {
                 get() {
                     return this.crList.find(el => el.value === this.form.cr)
@@ -400,6 +407,9 @@
 
                 return result
             }
+        },
+        mounted() {
+            this.showRightSide = !this.getIsMobile
         },
         methods: {
             // eslint-disable-next-line func-names
@@ -506,6 +516,10 @@
                     this.loading = false;
                     this.controllers.detail = undefined;
                 }
+            },
+
+            close() {
+                this.showRightSide = false;
             }
         }
     }

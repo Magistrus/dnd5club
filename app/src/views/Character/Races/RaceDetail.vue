@@ -5,7 +5,8 @@
                 :subtitle="race?.name?.eng || ''"
                 :title="race?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :fullscreen="!getIsMobile"
+                close-on-desktop
                 @close="close"
             />
         </template>
@@ -26,6 +27,8 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import RaceBody from "@/views/Character/Races/RaceBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'RaceDetail',
@@ -43,6 +46,9 @@
             loading: false,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+        },
         async mounted() {
             await this.loadNewRace(this.$route.path);
         },

@@ -5,7 +5,9 @@
                 :subtitle="book?.name?.eng || ''"
                 :title="book?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -24,6 +26,8 @@
     import { useBooksStore } from "@/store/Wiki/BooksStore";
     import BookBody from "@/views/Wiki/Books/BookBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'BookDetail',
@@ -39,6 +43,9 @@
             loading: false,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewBook(this.$route.path);
         },

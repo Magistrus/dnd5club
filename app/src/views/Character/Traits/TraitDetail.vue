@@ -5,7 +5,9 @@
                 :subtitle="trait?.name?.eng || ''"
                 :title="trait?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -22,6 +24,8 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import TraitBody from "@/views/Character/Traits/TraitBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'TraitDetail',
@@ -39,6 +43,9 @@
             loading: false,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewTrait(this.$route.path);
         },

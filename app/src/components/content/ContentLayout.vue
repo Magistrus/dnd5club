@@ -45,7 +45,7 @@
             </div>
 
             <div
-                v-if="rightBlockVisible"
+                v-if="showRightSide"
                 id="right_block"
                 class="content-layout__selected"
             >
@@ -85,15 +85,11 @@
         computed: {
             layoutClasses() {
                 return {
-                    'is-showed-right-side': this.rightBlockVisible,
-                    'is-fullscreen': this.uiStore.getContentConfig.fullscreen,
-                    'is-small': !this.uiStore.getContentConfig.fullscreen,
+                    'is-showed-right-side': this.showRightSide,
+                    'is-fullscreen': this.uiStore.getFullscreen,
+                    'is-small': !this.uiStore.getFullscreen,
                 }
             },
-
-            rightBlockVisible() {
-                return this.showRightSide || !!this.$slots['right-side']
-            }
         },
         updated() {
             if (!this.filterInstalled && this.$refs.filter) {

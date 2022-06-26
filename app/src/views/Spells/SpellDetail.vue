@@ -5,7 +5,9 @@
                 :subtitle="spell?.name?.eng || ''"
                 :title="spell?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -42,6 +44,8 @@
     import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'SpellDetail',
@@ -57,6 +61,9 @@
             loading: true,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewSpell(this.$route.path);
         },

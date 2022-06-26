@@ -23,6 +23,8 @@
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
     import SpellLink from "@/views/Spells/SpellLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'SpellsView',
@@ -53,6 +55,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.spellsStore.getFilter || undefined;
             },
@@ -87,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (this.spells.length && this.$route.name === 'spells') {
+            if (!this.getIsMobile && this.spells.length && this.$route.name === 'spells') {
                 await this.$router.push({ path: this.spells[0].url })
             }
         },

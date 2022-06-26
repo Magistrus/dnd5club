@@ -23,6 +23,8 @@
     import { shallowRef } from "vue";
     import GodLink from "@/views/Wiki/Gods/GodLink";
     import { useGodsStore } from "@/store/Wiki/GodsStore";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'GodsView',
@@ -53,6 +55,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.godsStore.getFilter || undefined;
             },
@@ -87,9 +91,9 @@
         async mounted() {
             await this.init();
 
-            // if (this.gods.length && this.$route.name === 'gods') {
-            //     await this.$router.push({ path: this.gods[0].url })
-            // }
+            if (!this.getIsMobile && this.gods.length && this.$route.name === 'gods') {
+                await this.$router.push({ path: this.gods[0].url })
+            }
         },
         beforeUnmount() {
             this.godsStore.clearStore();

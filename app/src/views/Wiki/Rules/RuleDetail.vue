@@ -5,7 +5,9 @@
                 :subtitle="rule?.name?.eng || ''"
                 :title="rule?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -24,6 +26,8 @@
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleBody from "@/views/Wiki/Rules/RuleBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'RuleDetail',
@@ -39,6 +43,9 @@
             loading: false,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewRule(this.$route.path);
         },

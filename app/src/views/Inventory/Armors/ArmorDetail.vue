@@ -4,8 +4,10 @@
             <section-header
                 :title="armor?.name?.rus"
                 :subtitle="armor?.name?.eng"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
                 copy
+                @close="close"
             />
         </template>
 
@@ -20,6 +22,8 @@
     import ArmorBody from "@/views/Inventory/Armors/ArmorBody";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: "ArmorDetail",
@@ -35,6 +39,9 @@
             loading: true,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewArmor(this.$route.path);
         },

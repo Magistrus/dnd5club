@@ -1,5 +1,5 @@
 <template>
-    <content-layout>
+    <content-layout :show-right-side="showRightSide">
         <template #fixed>
             <form
                 class="tools_settings"
@@ -86,9 +86,11 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        fullscreen
                         :title="selected.item?.name.rus || 'В продаже'"
                         :subtitle="selected.item?.name.eng || 'On sale'"
+                        :close-on-desktop="getFullscreen"
+                        :fullscreen="!getIsMobile"
+                        @close="close"
                     />
                 </template>
 
@@ -164,6 +166,8 @@
     import throttle from 'lodash/throttle';
     import groupBy from "lodash/groupBy";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: "TraderView",
@@ -212,9 +216,12 @@
             controllers: {
                 list: undefined,
                 detail: undefined
-            }
+            },
+            showRightSide: false,
         }),
         computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+
             magicCountValue: {
                 get() {
                     return this.magicCount.find(el => el.value === this.form.magicLevel)
@@ -255,6 +262,9 @@
 
                 return res
             }
+        },
+        mounted() {
+            this.showRightSide = !this.getIsMobile
         },
         methods: {
             // eslint-disable-next-line func-names
@@ -347,7 +357,9 @@
                     this.selected = {
                         index,
                         item
-                    };
+                    }
+
+                    this.showRightSide = true;
                 } catch (err) {
                     this.error = true;
                     this.loading = false;
@@ -361,6 +373,10 @@
                     this.loading = false;
                     this.controllers.detail = undefined;
                 }
+            },
+
+            close() {
+                this.showRightSide = false;
             }
         }
     }

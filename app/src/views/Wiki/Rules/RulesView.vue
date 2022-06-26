@@ -23,6 +23,8 @@
     import { shallowRef } from "vue";
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleLink from "@/views/Wiki/Rules/RuleLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'RulesView',
@@ -53,6 +55,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.rulesStore.getFilter || undefined;
             },
@@ -87,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (this.rules.length && this.$route.name === 'rules') {
+            if (!this.getIsMobile && this.rules.length && this.$route.name === 'rules') {
                 await this.$router.push({ path: this.rules[0].url })
             }
         },

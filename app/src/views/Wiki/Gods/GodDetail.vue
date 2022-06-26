@@ -5,7 +5,9 @@
                 :subtitle="god?.name?.eng || ''"
                 :title="god?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -42,6 +44,8 @@
     import { useGodsStore } from "@/store/Wiki/GodsStore";
     import GodBody from "@/views/Wiki/Gods/GodBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'GodDetail',
@@ -57,6 +61,9 @@
             loading: true,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewGod(this.$route.path);
         },
