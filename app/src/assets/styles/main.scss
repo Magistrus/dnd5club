@@ -155,7 +155,6 @@
   display: flex;
   flex-wrap: wrap;
   background: var(--bg-sub-menu);
-  margin-bottom: 16px;
   border-top: 1px solid var(--border);
 
   .block {
@@ -201,19 +200,6 @@
     }
   }
 }
-
-.content-layout__selected {
-  .grid_stat_block {
-    margin-left: -24px;
-    margin-right: -24px;
-
-    @media (max-width: 1200px) {
-      margin-left: -16px;
-      margin-right: -16px;
-    }
-  }
-}
-
 
 .spell_stat_block_bottom {
   margin: 0 0 12px 0;
@@ -261,7 +247,7 @@
   min-height: 100px;
   float: right;
   padding: 0 0 32px 32px;
-  
+
     .image-container {
       background: var(--bg-sub-menu);
       box-shadow: 0px 6px 21px rgb(0 0 0 / 21%);
@@ -286,7 +272,7 @@
           transform: translate(-50%, 0%);
           -o-object-fit: cover;
           object-fit: cover;
-        }      
+        }
       }
    }
 
@@ -337,12 +323,12 @@
       // max-width: calc(16% - 8px);
       flex: 1 0 calc(16% - 8px);
     }
-    
+
     @media (max-width: 800px) {
       max-width: calc(33% - 8px);
       flex: 1 0 calc(33% - 8px);
     }
-    
+
     @media (max-width: 360px) {
       max-width: calc(50% - 8px);
       flex: 1 0 calc(50% - 8px);
@@ -359,4 +345,12 @@
         margin-bottom: 12px;
         border-radius: 6px;
     }
+}
+
+.content-padding {
+  padding: 16px;
+
+  @include media-min($xl) {
+    padding: 24px;
+  }
 }

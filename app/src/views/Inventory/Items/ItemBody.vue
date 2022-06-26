@@ -5,22 +5,24 @@
             :source="item.source"
         />
 
-        <p v-if="item.price">
-            <b>Стоимость: </b>
+        <div class=" content-padding">
+            <p v-if="item.price">
+                <b>Стоимость: </b>
 
-            <span>{{ item.price }}</span>
-        </p>
+                <span>{{ item.price }}</span>
+            </p>
 
-        <p v-if="item.weight">
-            <b>Вес (в фунтах): </b>
+            <p v-if="item.weight">
+                <b>Вес (в фунтах): </b>
 
-            <span>{{ item.weight }}</span>
-        </p>
+                <span>{{ item.weight }}</span>
+            </p>
 
-        <raw-content
-            v-if="item?.description"
-            :template="item.description"
-        />
+            <raw-content
+                v-if="item?.description"
+                :template="item.description"
+            />
+        </div>
     </div>
 </template>
 
@@ -61,9 +63,3 @@
         }
     }
 </script>
-
-<style scoped lang="scss">
-    .item-body {
-        padding: 24px;
-    }
-</style>
