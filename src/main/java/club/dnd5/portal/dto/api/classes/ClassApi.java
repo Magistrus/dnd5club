@@ -23,18 +23,33 @@ public class ClassApi {
 	private String dice;
 	private List<ArchetypeApiDto> archetypes;
 	private GroupApi group;
-	private String icon;
+	private String image;
+	private Boolean icon;
 
-	public ClassApi(HeroClass heroClass) {
+	public ClassApi(HeroClass heroClass, ClassRequestApi request) {
 		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		url = String.format("/classes/%s", heroClass.getUrlName());
 		source = new SourceApi(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());
-		archetypes = heroClass.getArchetypes().stream().map(ArchetypeApiDto::new).collect(Collectors.toList());
+		if (request.getSearch()!=null && request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty())
+		{
+			archetypes = heroClass.getArchetypes()
+					.stream()
+					.filter(a -> a.getName().toUpperCase().contains((request.getSearch().getValue().toUpperCase()))
+							|| a.getEnglishName().toUpperCase().contains((request.getSearch().getValue().toUpperCase())))
+					.map(ArchetypeApiDto::new)
+					.collect(Collectors.toList());
+		} else {
+			archetypes = heroClass.getArchetypes()
+					.stream()
+					.map(ArchetypeApiDto::new)
+					.collect(Collectors.toList());
+		}
 		if(heroClass.isSidekick())
 		{
 			group = new GroupApi("Напарники", (byte) 0);
 		}
-		icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
+		icon = !heroClass.isSidekick();
+		image = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }
