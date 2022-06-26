@@ -16,7 +16,7 @@ import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.screen.Screen;
 
 @Repository
-public interface RaceDataRepository extends DataTablesRepository<Race, String> {
+public interface RaceDatatableRepository extends DataTablesRepository<Race, String> {
 	Collection<Screen> findAllByParentIsNull();
 	
 	Collection<Race> findAllByParent(Race race, Sort sort);

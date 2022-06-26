@@ -50,7 +50,7 @@ public class ClassApiController {
 			return classRepo.findAll()
 					.stream()
 					.map(cclass -> new ClassApi(cclass, request))
-					.filter(c -> !c.getArchetypes().isEmpty() || !c.getIcon())
+					.filter(c -> !c.getArchetypes().isEmpty())
 					.collect(Collectors.toList());
 		}
 		return classRepo.findAll()

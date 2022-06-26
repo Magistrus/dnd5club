@@ -22,12 +22,12 @@ import club.dnd5.portal.dto.RaceDto;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.races.Race;
-import club.dnd5.portal.repository.datatable.RaceDataRepository;
+import club.dnd5.portal.repository.datatable.RaceDatatableRepository;
 
 @RestController
 public class RaceRestController {
 	@Autowired
-	private RaceDataRepository repo;
+	private RaceDatatableRepository repo;
 	 
 	@GetMapping("/data/races")
 	public DataTablesOutput<RaceDto> getData(@Valid DataTablesInput input,
