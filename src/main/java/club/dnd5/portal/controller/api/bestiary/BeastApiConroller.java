@@ -181,7 +181,7 @@ public class BeastApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		
 		FilterApi crFilter = new FilterApi("Уровень опасности", "challengeRating");
-		crFilter.setColapse(Boolean.FALSE);
+		crFilter.setExpand(Boolean.TRUE);
 		List<FilterValueApi> values = new ArrayList<>();
 		values.add(new FilterValueApi("не определена", "undefined"));
 		values.add(new FilterValueApi("0", "0"));
