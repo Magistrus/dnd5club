@@ -48,6 +48,7 @@ public class Race implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String altName;
 
 	@Column(unique = true)
 	private String englishName;

@@ -12,7 +12,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
@@ -34,18 +33,110 @@ import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Race;
-import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
-import club.dnd5.portal.repository.datatable.RaceDataRepository;
+import club.dnd5.portal.repository.datatable.RaceDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class RacesApiController {
 	@Autowired
-	private RaceDataRepository raceRepository;
+	private RaceDatatableRepository raceRepository;
 	
 	@Autowired
 	private ImageRepository imageRepository;
+	
+	@PostMapping(value = "/api/v1/races", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<RaceApi> getRaces(@RequestBody RaceRequestApi request) {
+		Specification<Race> specification = null;
+
+		DataTablesInput input = new DataTablesInput();
+		List<Column> columns = new ArrayList<Column>(3);
+		Column column = new Column();
+		column.setData("name");
+		column.setName("name");
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.TRUE);
+		column.setSearch(new Search("", Boolean.FALSE));
+		columns.add(column);
+		
+		column = new Column();
+		column.setData("englishName");
+		column.setName("englishName");
+		column.setSearch(new Search("", Boolean.FALSE));
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.TRUE);
+		columns.add(column);
+		
+		column = new Column();
+		column.setData("altName");
+		column.setName("altName");
+		column.setSearchable(Boolean.TRUE);
+		column.setOrderable(Boolean.FALSE);
+
+		columns.add(column);
+		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
+			
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+				List<Order> orders = request.getOrders().stream()
+						.map(
+							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
+						)
+						.collect(Collectors.toList());
+				query.orderBy(orders);
+				return cb.and();
+			});
+		}
+		input.setColumns(columns);
+		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
+		if (request.getPage() != null && request.getLimit()!=null) {
+			input.setStart(request.getPage() * request.getLimit());	
+		}
+		if (request.getFilter() != null && request.getFilter().getBooks() != null && !request.getFilter().getBooks().isEmpty()) {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+				Join<Book, Race> join = root.join("book", JoinType.INNER);
+				return join.get("source").in(request.getFilter().getBooks());
+			});
+		}
+
+		if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
+			if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
+				specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());
+			} else {
+				input.getSearch().setValue(request.getSearch().getValue());
+				input.getSearch().setRegex(Boolean.FALSE);
+			}
+			
+		} else {
+			specification = SpecificationUtil.getAndSpecification(specification, 
+					(root, query, cb) -> cb.isNull(root.get("parent")));	
+		}
+		return raceRepository.findAll(input, specification, specification, RaceApi::new).getData();
+	}
+	
+	@PostMapping(value = "/api/v1/races/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RaceDetailApi> getRace(@PathVariable String englishName) {
+		Optional<Race> race = raceRepository.findByEnglishName(englishName.replace('_', ' '));
+		if (!race.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		RaceDetailApi raceApi = new RaceDetailApi(race.get());
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
+		if (!images.isEmpty()) {
+			raceApi.setImages(images);
+		}
+		return ResponseEntity.ok(raceApi);
+	}
+	
+	@PostMapping(value = "/api/v1/races/{englishRaceName}/{englishSubraceName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RaceDetailApi getSubrace(@PathVariable String englishRaceName, @PathVariable String englishSubraceName) {
+		Optional<Race> race = raceRepository.findBySubrace(englishRaceName.replace('_', ' '), englishSubraceName.replace('_', ' '));
+		RaceDetailApi raceApi = new RaceDetailApi(race.get());
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
+		if (!images.isEmpty()) {
+			raceApi.setImages(images);
+		}
+		return raceApi;
+	}
 	
 	@PostMapping("/api/v1/filters/races")
 	public FilterApi getRacesFilter() {
@@ -100,97 +191,5 @@ public class RacesApiController {
 		otherFilters.add(skillFilter);
 		filters.setOther(otherFilters);
 		return filters;
-	}
-	
-	@PostMapping(value = "/api/v1/races", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<RaceApi> getRaces(@RequestBody RaceRequestApi request) {
-		Specification<Race> specification = null;
-
-		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
-		Column column = new Column();
-		column.setData("name");
-		column.setName("name");
-		column.setSearchable(Boolean.TRUE);
-		column.setOrderable(Boolean.TRUE);
-		column.setSearch(new Search("", Boolean.FALSE));
-		columns.add(column);
-		
-		column = new Column();
-		column.setData("englishName");
-		column.setName("englishName");
-		column.setSearch(new Search("", Boolean.FALSE));
-		column.setSearchable(Boolean.TRUE);
-		column.setOrderable(Boolean.TRUE);
-		columns.add(column);
-		
-		column = new Column();
-		column.setData("altName");
-		column.setName("altName");
-		column.setSearchable(Boolean.TRUE);
-		column.setOrderable(Boolean.FALSE);
-
-		columns.add(column);
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
-			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-				List<Order> orders = request.getOrders().stream()
-						.map(
-							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
-						)
-						.collect(Collectors.toList());
-				query.orderBy(orders);
-				return cb.and();
-			});
-		}
-		input.setColumns(columns);
-		input.setLength(request.getLimit() != null ? request.getLimit() : -1);
-		if (request.getPage() != null && request.getLimit()!=null) {
-			input.setStart(request.getPage() * request.getLimit());	
-		}
-		if (!request.getFilter().getBooks().isEmpty()) {
-			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-				Join<Book, Race> join = root.join("book", JoinType.INNER);
-				return join.get("source").in(request.getFilter().getBooks());
-			});
-		}
-		if (request.getSearch() != null) {
-			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
-				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
-					specification = (root, query, cb) -> cb.equal(root.get("name"), request.getSearch().getValue().trim().toUpperCase());
-				} else {
-					input.getSearch().setValue(request.getSearch().getValue());
-					input.getSearch().setRegex(Boolean.FALSE);
-				}
-			}
-						return raceRepository.findAll(input, specification, specification, RaceApi::new).getData();
-		} else {
-			return raceRepository.findAllByParent(null, Sort.by("name")).stream().map(RaceApi::new).collect(Collectors.toList());	
-		}
-	}
-	
-	@PostMapping(value = "/api/v1/races/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RaceDetailApi> getRace(@PathVariable String englishName) {
-		Optional<Race> race = raceRepository.findByEnglishName(englishName.replace('_', ' '));
-		if (!race.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		RaceDetailApi raceApi = new RaceDetailApi(race.get());
-		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
-		if (!images.isEmpty()) {
-			raceApi.setImages(images);
-		}
-		return ResponseEntity.ok(raceApi);
-	}
-	
-	@PostMapping(value = "/api/v1/races/{englishRaceName}/{englishSubraceName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RaceDetailApi getSubrace(@PathVariable String englishRaceName, @PathVariable String englishSubraceName) {
-		Optional<Race> race = raceRepository.findBySubrace(englishRaceName.replace('_', ' '), englishSubraceName.replace('_', ' '));
-		RaceDetailApi raceApi = new RaceDetailApi(race.get());
-		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
-		if (!images.isEmpty()) {
-			raceApi.setImages(images);
-		}
-		return raceApi;
 	}
 }

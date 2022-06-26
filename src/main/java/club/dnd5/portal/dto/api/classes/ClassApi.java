@@ -31,22 +31,19 @@ public class ClassApi {
 		url = String.format("/classes/%s", heroClass.getUrlName());
 		source = new SourceApi(heroClass.getBook());
 		dice = String.format("к%d", heroClass.getDiceHp());
-		if (request.getSearch()!=null && request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty())
-		{
-			archetypes = heroClass.getArchetypes()
-					.stream()
-					.filter(a -> a.getName().toUpperCase().contains((request.getSearch().getValue().toUpperCase()))
-							|| a.getEnglishName().toUpperCase().contains((request.getSearch().getValue().toUpperCase())))
+		if (request.getSearch() != null && request.getSearch().getValue() != null
+				&& !request.getSearch().getValue().isEmpty()) {
+			archetypes = heroClass.getArchetypes().stream()
+					.filter(a -> a.getName().toUpperCase().contains((request.getSearch().getValue().toUpperCase())) || a
+							.getEnglishName().toUpperCase().contains((request.getSearch().getValue().toUpperCase())))
 					.map(ArchetypeApiDto::new)
 					.collect(Collectors.toList());
 		} else {
 			archetypes = heroClass.getArchetypes()
-					.stream()
-					.map(ArchetypeApiDto::new)
+					.stream().map(ArchetypeApiDto::new)
 					.collect(Collectors.toList());
 		}
-		if(heroClass.isSidekick())
-		{
+		if (heroClass.isSidekick()) {
 			group = new GroupApi("Напарники", (byte) 0);
 		}
 		icon = !heroClass.isSidekick();
