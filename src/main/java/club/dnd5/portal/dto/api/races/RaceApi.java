@@ -28,7 +28,7 @@ public class RaceApi {
 
 	protected List<RaceApi> subraces;
 
-	private String icon;
+	private String image;
 
 	public RaceApi(Race race) {
 		name = new NameApi(race.getCapitalazeName(), race.getEnglishName());
@@ -47,6 +47,6 @@ public class RaceApi {
 				.stream()
 				.map(bonus -> new NameValueApi(bonus.getAbility().getCyrilicName(), bonus.getAbility().getShortName(), bonus.getBonus()))
 				.collect(Collectors.toList());
-		icon = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
+		image = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }
