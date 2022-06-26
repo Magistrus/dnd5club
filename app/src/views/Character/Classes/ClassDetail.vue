@@ -69,7 +69,7 @@
                 class="class-detail__content"
             >
                 <div
-                    v-if="currentTab"
+                    v-if="currentTab && currentTab.icon !== 'tab-spells' && currentTab.icon !== 'tab-option'"
                     ref="classBody"
                     class="class-detail__body"
                 >
@@ -115,25 +115,22 @@
                         </field-select>
                     </div>
 
-                    <spells-view
-                        v-if="currentTab.icon === 'tab-spells'"
-                        :store-key="getStoreKey"
-                        in-tab
-                    />
-
-                    <options-view
-                        v-else-if="currentTab.icon === 'tab-option'"
-                        :store-key="getStoreKey"
-                        in-tab
-                    />
-
-                    <div
-                        v-else
-                        class="class-detail__body--inner"
-                    >
+                    <div class="class-detail__body--inner">
                         <raw-content :url="currentTab.url"/>
                     </div>
                 </div>
+
+                <spells-view
+                    v-else-if="currentTab.icon === 'tab-spells'"
+                    :store-key="getStoreKey"
+                    in-tab
+                />
+
+                <options-view
+                    v-else-if="currentTab.icon === 'tab-option'"
+                    :store-key="getStoreKey"
+                    in-tab
+                />
             </div>
 
             <vue-easy-lightbox
@@ -500,6 +497,7 @@
         &__content {
             width: 100%;
             flex: 1 1 100%;
+            max-height: 100%;
             overflow: hidden;
             display: flex;
             flex-direction: column;

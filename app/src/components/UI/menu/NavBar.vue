@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="navbar"
-    >
+    <div class="navbar">
         <div class="navbar__head">
             <div class="navbar__head__start">
                 <div
@@ -15,7 +13,7 @@
                 </div>
                 <a
                     href="/"
-                    class="btn_nav"
+                    class="link_nav"
                 >
                     <span>DND5 Club</span>
                 </a>
@@ -33,13 +31,17 @@
 
             <div class="navbar__head__end">
                 <menu-theme-switcher/>
+
+                <nav-profile/>
             </div>
         </div>
+
         <div
             class="close_blok"
             :class="{ 'is-active': menu }"
             @click.left.exact.prevent="toggleMenu"
         />
+
         <aside
             class="club__card"
             :class="{ 'is-active': menu }"
@@ -53,10 +55,12 @@
                         <site-logo :size="76"/>
                     </a>
                 </div>
+
                 <div class="club__card__header__info">
                     <div class="row">
                         Онлайн справчник по D&D 5e
                     </div>
+
                     <div class="row">
                         DND5 Club
                     </div>
@@ -74,6 +78,7 @@
                             {{ group.label }}
                         </span>
                     </label>
+
                     <ul>
                         <li
                             v-for="(link, linkKey) in group.links"
@@ -93,10 +98,15 @@
 
 <script>
     import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher.vue';
+    import SvgIcon from "@/components/UI/SvgIcon";
+    import SiteLogo from "@/components/UI/SiteLogo";
+    import NavProfile from "@/components/UI/menu/NavProfile";
 
     export default {
         name: "NavBar",
-        components: { MenuThemeSwitcher },
+        components: {
+            NavProfile, SiteLogo, MenuThemeSwitcher, SvgIcon
+        },
         data: () => ({
             menu: false,
             groups: [
@@ -166,7 +176,7 @@
                     ]
                 },
                 {
-                    label: "DM",
+                    label: "Мастерская",
                     links: [
                         {
                             label: "Бестиарий",

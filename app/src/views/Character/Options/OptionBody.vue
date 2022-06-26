@@ -5,7 +5,7 @@
             :source="option?.source"
         />
 
-        <div class="option-body__desc">
+        <div class="option-body__desc content-padding">
             <raw-content :template="option?.description"/>
         </div>
     </div>
@@ -27,9 +27,3 @@
         }
     }
 </script>
-
-<style scoped lang="scss">
-    .option-body {
-        padding: 24px;
-    }
-</style>

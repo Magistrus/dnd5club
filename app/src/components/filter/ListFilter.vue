@@ -1,9 +1,9 @@
 <template>
-    <div
-        class="filter"
-        :class="{ 'in-tab': inTab }"
-    >
-        <div class="filter__body">
+    <div class="filter">
+        <div
+            class="filter__body"
+            :class="{ 'in-tab': inTab }"
+        >
             <div class="filter__search">
                 <label class="filter__search_field">
                     <span class="filter__search_field_icon">
@@ -59,12 +59,13 @@
         </div>
 
         <teleport
-            v-if="!!filter"
+            v-if="!!filter && isMounted"
             :to="inTab ? '[data-tab-filter]' : '[data-content-filter]'"
         >
             <div
                 v-show="showed"
                 class="filter__dropdown"
+                :class="{ 'in-tab': inTab }"
             >
                 <div class="filter__dropdown_body">
                     <filter-item-sources
@@ -115,7 +116,8 @@
         },
         emits: ['clear-filter', 'search', 'update'],
         data: () => ({
-            showed: false
+            showed: false,
+            isMounted: false
         }),
         computed: {
             search: {
@@ -172,6 +174,9 @@
             isFilterCustomized() {
                 return this.filterInstance.isCustomized;
             },
+        },
+        mounted() {
+            this.isMounted = true;
         },
         beforeUnmount() {
             this.cancelEmits();
@@ -231,7 +236,17 @@
             position: relative;
             overflow: hidden;
             background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            &.in-tab {
+                border: {
+                    radius: 0;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                }
+            }
         }
 
         &__search {
@@ -357,22 +372,13 @@
             overflow: hidden auto;
             border-radius: 12px;
 
+            &.in-tab {
+                border-radius: 0;
+            }
+
             &_body {
                 width: 100%;
                 padding: 16px;
-            }
-        }
-
-        &:not(.in-tab) {
-            .filter {
-                &__body {
-                    border: 1px solid var(--border);
-                    border-radius: 12px;
-                }
-
-                &__dropdown {
-                    border-radius: 0;
-                }
             }
         }
     }

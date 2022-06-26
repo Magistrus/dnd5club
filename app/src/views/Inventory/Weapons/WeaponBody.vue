@@ -21,7 +21,8 @@
 
                 <dice-roller :formula="weapon.damage.dice">
                     {{ weapon.damage.dice }}
-                </dice-roller> <span>{{ weapon.damage.type }}</span>
+                </dice-roller>
+                <span>{{ weapon.damage.type }}</span>
             </div>
 
             <div class="block">
@@ -57,14 +58,17 @@
             </div>
         </div>
 
-        <raw-content
-            v-if="weapon.description"
-            :template="weapon.description"
-        />
+        <div class=" content-padding">
+            <raw-content
+                v-if="weapon.description"
+                :template="weapon.description"
+            />
 
-        <p v-if="weapon.special">
-            <strong>Особое свойство:</strong> <raw-content :template="weapon.special"/>
-        </p>
+            <p v-if="weapon.special">
+                <strong>Особое свойство:</strong>
+                <raw-content :template="weapon.special"/>
+            </p>
+        </div>
     </div>
 </template>
 
@@ -85,9 +89,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .weapon-body {
-        padding: 24px;
-    }
-</style>
