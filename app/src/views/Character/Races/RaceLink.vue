@@ -12,9 +12,11 @@
             class="link-item-expand"
             v-bind="$attrs"
         >
-            <div class="link-item-expand__content">
+            <div
+                class="link-item-expand__content"
+            >
                 <img
-                    :src="`/assets/img/races/${raceItem.image}.webp`"
+                    v-lazy="`/assets/img/races/${raceItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >

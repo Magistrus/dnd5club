@@ -13,7 +13,7 @@
                 <a id="creature_href">
                     <img
                         id="creature_img"
-                        :src="!creature.images?.length ? '/app/img/dark/no-img-best.png' : creature.images[0]"
+                        v-lazy="!creature.images?.length ? '/app/img/dark/no-img-best.png' : creature.images[0]"
                         alt="Title best"
                         @click.left.exact.prevent="showGallery"
                     >
