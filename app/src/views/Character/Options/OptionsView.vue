@@ -22,6 +22,8 @@
     import { shallowRef } from "vue";
     import { useOptionsStore } from "@/store/Character/OptionsStore";
     import OptionLink from "@/views/Character/Options/OptionLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'OptionsView',
@@ -52,6 +54,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.optionsStore.getFilter || undefined;
             },
@@ -86,7 +90,7 @@
         async mounted() {
             await this.init();
 
-            if (this.options.length && this.$route.name === 'options') {
+            if (!this.getIsMobile && this.options.length && this.$route.name === 'options') {
                 await this.$router.push({ path: this.options[0].url })
             }
         },

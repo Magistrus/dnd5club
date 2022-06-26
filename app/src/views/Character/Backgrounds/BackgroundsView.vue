@@ -22,6 +22,8 @@
     import { shallowRef } from "vue";
     import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
     import BackgroundLink from "@/views/Character/Backgrounds/BackgroundLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'BackgroundsView',
@@ -48,6 +50,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.backgroundsStore.getFilter || undefined;
             },
@@ -70,7 +74,7 @@
             await this.backgroundsStore.initFilter(this.storeKey);
             await this.backgroundsStore.initBackgrounds();
 
-            if (this.backgrounds.length && this.$route.name === 'backgrounds') {
+            if (!this.getIsMobile && this.backgrounds.length && this.$route.name === 'backgrounds') {
                 await this.$router.push({ path: this.backgrounds[0].url })
             }
         },

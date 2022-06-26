@@ -37,6 +37,8 @@
 
     import { shallowRef } from "vue";
     import sortBy from "lodash/sortBy";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'BooksView',
@@ -67,6 +69,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.booksStore.getFilter || undefined;
             },
@@ -123,7 +127,7 @@
         async mounted() {
             await this.init();
 
-            if (this.books.length && this.$route.name === 'books') {
+            if (!this.getIsMobile && this.books.length && this.$route.name === 'books') {
                 await this.$router.push({ path: this.books[0].url })
             }
         },

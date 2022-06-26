@@ -5,7 +5,9 @@
                 :subtitle="option?.name?.eng || ''"
                 :title="option?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -25,6 +27,8 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionBody from "@/views/Character/Options/OptionBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'OptionDetail',
@@ -42,6 +46,9 @@
             loading: false,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewOption(this.$route.path);
         },

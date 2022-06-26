@@ -5,7 +5,9 @@
                 :subtitle="item?.name?.eng || ''"
                 :title="item?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -24,6 +26,8 @@
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
     import ItemBody from "@/views/Inventory/Items/ItemBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'ItemDetail',
@@ -39,6 +43,9 @@
             loading: false,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewItem(this.$route.path);
         },

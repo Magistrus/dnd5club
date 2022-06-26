@@ -22,6 +22,8 @@
     import { shallowRef } from "vue";
     import { useTraitsStore } from "@/store/Character/TraitsStore";
     import TraitLink from "@/views/Character/Traits/TraitLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'TraitsView',
@@ -48,6 +50,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.traitsStore.getFilter || undefined;
             },
@@ -70,7 +74,7 @@
             await this.traitsStore.initFilter(this.storeKey);
             await this.traitsStore.initTraits();
 
-            if (this.traits.length && this.$route.name === 'traits') {
+            if (!this.getIsMobile && this.traits.length && this.$route.name === 'traits') {
                 await this.$router.push({ path: this.traits[0].url })
             }
         },
