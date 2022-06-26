@@ -37,7 +37,7 @@
 
 <script>
 
-    import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import FilterService from "@/common/services/FilterService";
     import ListFilter from "@/components/filter/ListFilter";
 
@@ -55,13 +55,6 @@
             dropdownHeight: 0,
             filterInstalled: false,
         }),
-        updated() {
-            if (!this.filterInstalled && this.$refs.filter) {
-                this.filterInstalled = true;
-
-                useResizeObserver(this.$refs.layout, this.calcDropdownHeight);
-            }
-        },
         mounted() {
             useInfiniteScroll(
                 this.$refs.items,
@@ -70,19 +63,15 @@
                 },
                 { distance: 1080 }
             );
+
+            useResizeObserver(this.$refs.items, this.calcDropdownHeight);
         },
         methods: {
-            calcDropdownHeight() {
-                if (this.$refs.filter && this.$refs.layout) {
-                    const filterRect = useElementBounding(this.$refs.filter);
-                    const layoutRect = useElementBounding(this.$refs.layout);
+            calcDropdownHeight(entries) {
+                const entry = entries[0]
+                const { height } = entry.contentRect;
 
-                    this.dropdownHeight = layoutRect.height.value - filterRect.height.value || 0;
-
-                    return;
-                }
-
-                this.dropdownHeight = 0;
+                this.dropdownHeight = height || 0;
             }
         }
     }

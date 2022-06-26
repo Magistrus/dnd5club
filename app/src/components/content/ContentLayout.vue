@@ -59,7 +59,7 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
 
@@ -91,13 +91,6 @@
                 }
             },
         },
-        updated() {
-            if (!this.filterInstalled && this.$refs.filter) {
-                this.filterInstalled = true;
-
-                useResizeObserver(this.$refs.list, this.calcDropdownHeight);
-            }
-        },
         mounted() {
             useInfiniteScroll(
                 this.$refs.items,
@@ -106,19 +99,15 @@
                 },
                 { distance: 1080 }
             );
+
+            useResizeObserver(this.$refs.items, this.calcDropdownHeight);
         },
         methods: {
-            calcDropdownHeight() {
-                if (this.$refs.filter && this.$refs.list) {
-                    const filterRect = useElementBounding(this.$refs.filter);
-                    const listRect = useElementBounding(this.$refs.list);
+            calcDropdownHeight(entries) {
+                const entry = entries[0]
+                const { height } = entry.contentRect;
 
-                    this.dropdownHeight = listRect.height.value - filterRect.height.value || 0;
-
-                    return;
-                }
-
-                this.dropdownHeight = 0;
+                this.dropdownHeight = height || 0;
             }
         }
     }

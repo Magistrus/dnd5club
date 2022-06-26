@@ -55,6 +55,14 @@
             ClassLink,
             ContentLayout,
         },
+        async beforeRouteEnter(to, from, next) {
+            const store = useClassesStore();
+
+            await store.initFilter();
+            await store.initClasses();
+
+            next();
+        },
         data: () => ({
             classesStore: useClassesStore(),
             search: ''
@@ -98,10 +106,6 @@
                     this.redrawMasonry();
                 },
             }
-        },
-        async mounted() {
-            await this.classesStore.initFilter();
-            await this.classesStore.initClasses();
         },
         beforeUnmount() {
             this.classesStore.clearStore();
