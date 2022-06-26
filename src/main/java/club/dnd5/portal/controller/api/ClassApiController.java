@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.FilterApi;
@@ -50,7 +49,7 @@ public class ClassApiController {
 		return classRepo.findAll()
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
-				.filter(c -> !c.getArchetypes().isEmpty())
+				.filter(c -> !c.getArchetypes().isEmpty() || !c.getIcon())
 				.collect(Collectors.toList());
 	}
 	

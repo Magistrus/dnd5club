@@ -48,10 +48,10 @@ public class RaceController {
 	@PostConstruct
 	public void init() {
 		sources = new HashMap<>();
-		sources.put(TypeBook.OFFICAL, raceRepository.findBook());
-		sources.put(TypeBook.SETTING, raceRepository.findSettingBook());
-		sources.put(TypeBook.MODULE, raceRepository.findModuleBook());
-		sources.put(TypeBook.CUSTOM, raceRepository.findHomebrewBook());
+		sources.put(TypeBook.OFFICAL, raceRepository.findBook(TypeBook.OFFICAL));
+		sources.put(TypeBook.SETTING, raceRepository.findBook(TypeBook.SETTING));
+		sources.put(TypeBook.MODULE, raceRepository.findBook(TypeBook.MODULE));
+		sources.put(TypeBook.CUSTOM, raceRepository.findBook(TypeBook.CUSTOM));
 	}
 	
 	@GetMapping("/races")
