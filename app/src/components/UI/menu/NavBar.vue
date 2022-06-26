@@ -13,7 +13,7 @@
                 </div>
                 <a
                     href="/"
-                    class="btn_nav"
+                    class="link_nav"
                 >
                     <span>DND5 Club</span>
                 </a>
