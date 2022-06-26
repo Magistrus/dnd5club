@@ -54,49 +54,51 @@
             </div>
         </div>
 
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div v-html="spell.description"/>
-
-        <p v-if="spell.upper">
+        <div class=" content-padding">
             <!-- eslint-disable-next-line vue/no-v-html -->
-            <strong>На более высоких уровнях: </strong> <span v-html="spell.upper"/>
-        </p>
+            <div v-html="spell.description"/>
 
-        <div
-            v-if="spell.classes?.length"
-            class="spell_stat_block_bottom"
-        >
-            <p>Классы:</p>
+            <p v-if="spell.upper">
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <strong>На более высоких уровнях: </strong> <span v-html="spell.upper"/>
+            </p>
 
-            <div class="classes_icon">
-                <class-square
-                    v-for="(el, key) in spell.classes"
-                    :key="key"
-                    :name="el.name"
-                    :url="el.url"
-                    :icon="el.icon"
-                />
+            <div
+                v-if="spell.classes?.length"
+                class="spell_stat_block_bottom"
+            >
+                <p>Классы:</p>
+
+                <div class="classes_icon">
+                    <class-square
+                        v-for="(el, key) in spell.classes"
+                        :key="key"
+                        :name="el.name"
+                        :url="el.url"
+                        :icon="el.icon"
+                    />
+                </div>
             </div>
-        </div>
 
-        <div
-            v-if="spell.subclasses?.length"
-            class="spell_stat_block_bottom"
-        >
-            <p>Подклассы:</p>
+            <div
+                v-if="spell.subclasses?.length"
+                class="spell_stat_block_bottom"
+            >
+                <p>Подклассы:</p>
 
-            <div>
-                <span
-                    v-for="(el, key) in spell.subclasses"
-                    :key="key"
-                >
-                    <a
-                        v-tippy="{content: el.class}"
-                        :href="el.url"
-                    >{{ el.name }}</a>
+                <div>
+                    <span
+                        v-for="(el, key) in spell.subclasses"
+                        :key="key"
+                    >
+                        <a
+                            v-tippy="{content: el.class}"
+                            :href="el.url"
+                        >{{ el.name }}</a>
 
-                    <span v-if="key !== spell.subclasses.length - 1">,&nbsp;</span>
-                </span>
+                        <span v-if="key !== spell.subclasses.length - 1">,&nbsp;</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -140,13 +142,3 @@
         })
     }
 </script>
-
-<style lang="scss" scoped>
-    .spell-body {
-        padding: 24px;
-
-        @media (max-width: 1200px) {
-            padding: 16px;
-        }
-    }
-</style>

@@ -5,10 +5,12 @@
             :source="rule.source"
         />
 
-        <raw-content
-            v-if="rule?.description"
-            :template="rule.description"
-        />
+        <div class=" content-padding">
+            <raw-content
+                v-if="rule?.description"
+                :template="rule.description"
+            />
+        </div>
     </div>
 </template>
 
@@ -28,9 +30,3 @@
         },
     }
 </script>
-
-<style scoped lang="scss">
-    .rule-body {
-        padding: 24px;
-    }
-</style>

@@ -5,7 +5,7 @@
             :source="trait?.source"
         />
 
-        <div class="trait-body__desc">
+        <div class="trait-body__desc content-padding">
             <raw-content :template="trait?.description"/>
         </div>
     </div>
@@ -27,9 +27,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .trait-body {
-        padding: 24px;
-    }
-</style>

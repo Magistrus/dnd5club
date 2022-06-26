@@ -8,47 +8,49 @@
             :source="god.source"
         />
 
-        <div class="avatar">
-            <div class="image-container">
-                <a id="god_href">
-                    <img
-                        id="god_img"
-                        v-lazy="!god.images?.length ? '/app/img/dark/no-img-best.png' : god.images[0]"
-                        :alt="god.name.rus"
-                        @click.left.exact.prevent="showGallery"
-                    >
-                </a>
+        <div class=" content-padding">
+            <div class="avatar">
+                <div class="image-container">
+                    <a id="god_href">
+                        <img
+                            id="god_img"
+                            v-lazy="!god.images?.length ? '/app/img/dark/no-img-best.png' : god.images[0]"
+                            :alt="god.name.rus"
+                            @click.left.exact.prevent="showGallery"
+                        >
+                    </a>
+                </div>
             </div>
+
+            <p>
+                <b>Мировоззрение:</b> <span>{{ god.alignment }}</span>
+            </p>
+
+            <p>
+                <b>Ранг:</b> <span>{{ god.rank }}</span>
+            </p>
+
+            <p v-if="god.titles?.length">
+                <b>Титулы:</b> <span>{{ god.titles.join(', ') }}</span>
+            </p>
+
+            <p>
+                <b>Символ:</b> <span>{{ god.symbol }}</span>
+            </p>
+
+            <p v-if="god.domains?.length">
+                <b>Домены:</b> <span>{{ god.domains.join(', ') }}</span>
+            </p>
+
+            <p v-if="god.panteons?.length">
+                <b>Пантеон:</b> <span>{{ god.panteons.join(', ') }}</span>
+            </p>
+
+            <raw-content
+                v-if="god.description"
+                :template="god.description"
+            />
         </div>
-
-        <p>
-            <b>Мировоззрение:</b> <span>{{ god.alignment }}</span>
-        </p>
-
-        <p>
-            <b>Ранг:</b> <span>{{ god.rank }}</span>
-        </p>
-
-        <p v-if="god.titles?.length">
-            <b>Титулы:</b> <span>{{ god.titles.join(', ') }}</span>
-        </p>
-
-        <p>
-            <b>Символ:</b> <span>{{ god.symbol }}</span>
-        </p>
-
-        <p v-if="god.domains?.length">
-            <b>Домены:</b> <span>{{ god.domains.join(', ') }}</span>
-        </p>
-
-        <p v-if="god.panteons?.length">
-            <b>Пантеон:</b> <span>{{ god.panteons.join(', ') }}</span>
-        </p>
-
-        <raw-content
-            v-if="god.description"
-            :template="god.description"
-        />
 
         <vue-easy-lightbox
             v-if="god.images?.length"
@@ -102,9 +104,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .god-body {
-        padding: 24px;
-    }
-</style>
