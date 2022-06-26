@@ -14,7 +14,7 @@
         >
             <div class="link-item-expand__content">
                 <img
-                    :src="`/assets/img/classes/${classItem.icon}.webp`"
+                    :src="`/assets/img/classes/${classItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -31,7 +31,10 @@
                         <span class="link-item-expand__body">
                             <span class="link-item-expand__body_row">
 
-                                <span class="link-item-expand__icon">
+                                <span
+                                    v-if="classItem.icon"
+                                    class="link-item-expand__icon"
+                                >
                                     <svg-icon
                                         :icon-name="classItem.icon"
                                         :stroke-enable="false"
