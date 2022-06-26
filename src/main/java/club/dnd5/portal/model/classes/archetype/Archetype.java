@@ -49,6 +49,7 @@ public class Archetype {
 	private byte level;
 	
 	@ManyToOne(targetEntity = HeroClass.class)
+	@JoinColumn(name = "class_id")
 	private HeroClass heroClass;
 	
 	@Column(nullable = true)

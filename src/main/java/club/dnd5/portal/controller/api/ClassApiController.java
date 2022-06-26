@@ -70,7 +70,8 @@ public class ClassApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClassInfoApiDto> getArchetypeInfo(@PathVariable String className, @PathVariable String archetypeName) {
+	public ResponseEntity<ClassInfoApiDto> getArchetypeInfo(@PathVariable String className,
+			@PathVariable String archetypeName) {
 		HeroClass heroClass = classRepo.findByEnglishName(className);
 		if (heroClass == null) {
 			return ResponseEntity.notFound().build();
