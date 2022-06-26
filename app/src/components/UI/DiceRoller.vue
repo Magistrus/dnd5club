@@ -32,6 +32,7 @@
         data: () => ({
             roll: undefined,
             error: false,
+            rpgDiceRoller: undefined,
         }),
         computed: {
             result() {
@@ -61,13 +62,16 @@
                 }
             },
         },
+        async beforeMount() {
+            this.rpgDiceRoller = await import('@dice-roller/rpg-dice-roller');
+        },
         methods: {
             // eslint-disable-next-line func-names
-            tryRoll: _.throttle(function() {
+            tryRoll: _.throttle(async function() {
                 try {
                     this.error = false;
 
-                    const { DiceRoll } = () => import('@dice-roller/rpg-dice-roller');
+                    const { DiceRoll } = this.rpgDiceRoller;
                     const roller = new DiceRoll(this.computedFormula);
                     const result = roller.toJSON();
 
