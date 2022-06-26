@@ -107,7 +107,6 @@ export const useBooksStore = defineStore('BooksStore', {
         },
 
         async initBooks(url) {
-            this.clearBooks();
             this.clearConfig();
 
             if (url) {

@@ -235,89 +235,89 @@ public class SpellApiConroller {
 
 		FilterApi spellClassFilter = new FilterApi("Классы", "class");
 		spellClassFilter.setValues(IntStream.range(0, classesMap.length)
-				 .mapToObj(indexSpellClass -> new FilterValueApi(classesMap[indexSpellClass][1], classesMap[indexSpellClass][0], Boolean.TRUE))
+				 .mapToObj(indexSpellClass -> new FilterValueApi(classesMap[indexSpellClass][1], classesMap[indexSpellClass][0]))
 				 .collect(Collectors.toList()));
 		otherFilters.add(spellClassFilter);
 		
 		FilterApi schoolSpellFilter = new FilterApi("Школа", "school");
 		schoolSpellFilter.setValues(
 				Arrays.stream(MagicSchool.values())
-				 .map(school -> new FilterValueApi(school.getName(), school.name(), Boolean.TRUE))
+				 .map(school -> new FilterValueApi(school.getName(), school.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(schoolSpellFilter);
 
 		FilterApi ritualFilter = new FilterApi("Ритуал", "ritual");
 		List<FilterValueApi> values = new ArrayList<>(2);
-		values.add(new FilterValueApi("да", "yes", Boolean.TRUE));
-		values.add(new FilterValueApi("нет", "no", Boolean.TRUE));
+		values.add(new FilterValueApi("да", "yes"));
+		values.add(new FilterValueApi("нет", "no"));
 		ritualFilter.setValues(values);
 		otherFilters.add(ritualFilter);
 
 		FilterApi concentrationFilter = new FilterApi("Концентрация", "concentration");
 		values = new ArrayList<>(2);
-		values.add(new FilterValueApi("требуется", "yes", Boolean.TRUE));
-		values.add(new FilterValueApi("не требуется", "no", Boolean.TRUE));
+		values.add(new FilterValueApi("требуется", "yes"));
+		values.add(new FilterValueApi("не требуется", "no"));
 		concentrationFilter.setValues(values);
 		otherFilters.add(concentrationFilter);
 
 		FilterApi damageTypeFilter = new FilterApi("Тип урона", "damageType");
 		damageTypeFilter.setValues(
 				DamageType.getSpellDamage().stream()
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(damageTypeFilter);
 		
 		FilterApi timecastFilter = new FilterApi("Время накладывания", "timecast");
 		values = new ArrayList<>();
-		values.add(new FilterValueApi("бонусное действие", "1 BONUS", Boolean.TRUE));
-		values.add(new FilterValueApi("реакция", "1 REACTION", Boolean.TRUE));
-		values.add(new FilterValueApi("действие", "1 ACTION", Boolean.TRUE));
-		values.add(new FilterValueApi("ход", "1 ROUND", Boolean.TRUE));
-		values.add(new FilterValueApi("1 минута", "1 MINUTE", Boolean.TRUE));
-		values.add(new FilterValueApi("10 минут", "10 MINUTE", Boolean.TRUE));
-		values.add(new FilterValueApi("1 час", "10 HOUR", Boolean.TRUE));
-		values.add(new FilterValueApi("8 час", "8 HOUR", Boolean.TRUE));
-		values.add(new FilterValueApi("12 час", "12 HOUR", Boolean.TRUE));
-		values.add(new FilterValueApi("24 час", "24 HOUR", Boolean.TRUE));
+		values.add(new FilterValueApi("бонусное действие", "1 BONUS"));
+		values.add(new FilterValueApi("реакция", "1 REACTION"));
+		values.add(new FilterValueApi("действие", "1 ACTION"));
+		values.add(new FilterValueApi("ход", "1 ROUND"));
+		values.add(new FilterValueApi("1 минута", "1 MINUTE"));
+		values.add(new FilterValueApi("10 минут", "10 MINUTE"));
+		values.add(new FilterValueApi("1 час", "10 HOUR"));
+		values.add(new FilterValueApi("8 час", "8 HOUR"));
+		values.add(new FilterValueApi("12 час", "12 HOUR"));
+		values.add(new FilterValueApi("24 час", "24 HOUR"));
 		timecastFilter.setValues(values);
 		otherFilters.add(timecastFilter);
 		
 		FilterApi distanceFilter = new FilterApi("Дистанция", "distance");
 		values = new ArrayList<>();
-		values.add(new FilterValueApi("на себя", "self", Boolean.TRUE));
-		values.add(new FilterValueApi("касание", "tuch", Boolean.TRUE));
-		values.add(new FilterValueApi("5 футов", "5 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("10 футов", "10 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("25 футов", "25 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("30 футов", "30 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("40 футов", "40 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("50 футов", "50 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("60 футов", "60 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("90 футов", "90 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("100 футов", "100 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("150 футов", "150 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("300 футов", "300 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("400 футов", "400 fit", Boolean.TRUE));
-		values.add(new FilterValueApi("1 миля", "1 mile", Boolean.TRUE));
-		values.add(new FilterValueApi("500 миль", "500 mile", Boolean.TRUE));
-		values.add(new FilterValueApi("1000 миль", "1000 mile", Boolean.TRUE));
+		values.add(new FilterValueApi("на себя", "self"));
+		values.add(new FilterValueApi("касание", "tuch"));
+		values.add(new FilterValueApi("5 футов", "5 fit"));
+		values.add(new FilterValueApi("10 футов", "10 fit"));
+		values.add(new FilterValueApi("25 футов", "25 fit"));
+		values.add(new FilterValueApi("30 футов", "30 fit"));
+		values.add(new FilterValueApi("40 футов", "40 fit"));
+		values.add(new FilterValueApi("50 футов", "50 fit"));
+		values.add(new FilterValueApi("60 футов", "60 fit"));
+		values.add(new FilterValueApi("90 футов", "90 fit"));
+		values.add(new FilterValueApi("100 футов", "100 fit"));
+		values.add(new FilterValueApi("150 футов", "150 fit"));
+		values.add(new FilterValueApi("300 футов", "300 fit"));
+		values.add(new FilterValueApi("400 футов", "400 fit"));
+		values.add(new FilterValueApi("1 миля", "1 mile"));
+		values.add(new FilterValueApi("500 миль", "500 mile"));
+		values.add(new FilterValueApi("1000 миль", "1000 mile"));
 		distanceFilter.setValues(values);
 		otherFilters.add(distanceFilter);
 		
 		FilterApi durationFilter = new FilterApi("Длительность", "duration");
 		values = new ArrayList<>();
-		values.add(new FilterValueApi("Мгновенная", "instant", Boolean.TRUE));
-		values.add(new FilterValueApi("1 раунд", "round", Boolean.TRUE));
-		values.add(new FilterValueApi("1 минута", "1 minute", Boolean.TRUE));
-		values.add(new FilterValueApi("10 минут", "10 minute", Boolean.TRUE));
-		values.add(new FilterValueApi("1 час", "1 hour", Boolean.TRUE));
-		values.add(new FilterValueApi("8 часов", "8 hour", Boolean.TRUE));
-		values.add(new FilterValueApi("12 часов", "12 hour", Boolean.TRUE));
-		values.add(new FilterValueApi("24 часа", "24 hour", Boolean.TRUE));
-		values.add(new FilterValueApi("1 день", "1 day", Boolean.TRUE));
-		values.add(new FilterValueApi("7 дней", "7 day", Boolean.TRUE));
-		values.add(new FilterValueApi("10 дней", "10 day", Boolean.TRUE));
-		values.add(new FilterValueApi("1 год", "1 year", Boolean.TRUE));
+		values.add(new FilterValueApi("Мгновенная", "instant"));
+		values.add(new FilterValueApi("1 раунд", "round"));
+		values.add(new FilterValueApi("1 минута", "1 minute"));
+		values.add(new FilterValueApi("10 минут", "10 minute"));
+		values.add(new FilterValueApi("1 час", "1 hour"));
+		values.add(new FilterValueApi("8 часов", "8 hour"));
+		values.add(new FilterValueApi("12 часов", "12 hour"));
+		values.add(new FilterValueApi("24 часа", "24 hour"));
+		values.add(new FilterValueApi("1 день", "1 day"));
+		values.add(new FilterValueApi("7 дней", "7 day"));
+		values.add(new FilterValueApi("10 дней", "10 day"));
+		values.add(new FilterValueApi("1 год", "1 year"));
 		durationFilter.setValues(values);
 		otherFilters.add(durationFilter);
 		

@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <creature-link
-            v-for="(creature, key) in bestiary"
-            :key="key"
+            v-for="creature in bestiary"
+            :key="creature.url"
             :in-tab="inTab"
             :creature="creature"
             :to="{path: creature.url}"
@@ -23,6 +23,8 @@
     import { shallowRef } from "vue";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureLink from "@/views/Bestiary/CreatureLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'BestiaryView',
@@ -53,6 +55,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.bestiaryStore.getFilter || undefined;
             },
@@ -87,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (this.bestiary.length && this.$route.name === 'bestiary') {
+            if (!this.getIsMobile && this.bestiary.length && this.$route.name === 'bestiary') {
                 await this.$router.push({ path: this.bestiary[0].url })
             }
         },

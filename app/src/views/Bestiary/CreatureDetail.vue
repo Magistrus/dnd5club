@@ -5,8 +5,10 @@
                 :subtitle="creature?.name?.eng || ''"
                 :title="creature?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
                 print
+                @close="close"
                 @export-foundry="exportFoundry"
             />
         </template>
@@ -18,8 +20,8 @@
             >
                 <div class="creature-detail__loader_img">
                     <img
+                        v-lazy="'/app/img/loader.png'"
                         alt=""
-                        src="/app/img/loader.png"
                     >
                 </div>
             </div>
@@ -44,6 +46,8 @@
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureBody from "@/views/Bestiary/CreatureBody";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'CreatureDetail',
@@ -59,6 +63,9 @@
             loading: true,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewCreature(this.$route.path);
         },

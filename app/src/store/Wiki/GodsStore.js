@@ -107,7 +107,6 @@ export const useGodsStore = defineStore('GodsStore', {
         },
 
         async initGods(url) {
-            this.clearGods();
             this.clearConfig();
 
             if (url) {

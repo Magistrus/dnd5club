@@ -180,17 +180,17 @@ public class BeastApiConroller {
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
 		
-		FilterApi crFilter = new FilterApi("Уровень опасности", "cr");
-		crFilter.setColapse(Boolean.FALSE);
+		FilterApi crFilter = new FilterApi("Уровень опасности", "challengeRating");
+		crFilter.setExpand(Boolean.TRUE);
 		List<FilterValueApi> values = new ArrayList<>();
-		values.add(new FilterValueApi("не определена", "undefined", Boolean.TRUE));
-		values.add(new FilterValueApi("0", "0", Boolean.TRUE));
-		values.add(new FilterValueApi("1/8", "1/8", Boolean.TRUE));
-		values.add(new FilterValueApi("1/4", "1/4", Boolean.TRUE));
-		values.add(new FilterValueApi("1/2", "1/2", Boolean.TRUE));
+		values.add(new FilterValueApi("не определена", "undefined"));
+		values.add(new FilterValueApi("0", "0"));
+		values.add(new FilterValueApi("1/8", "1/8"));
+		values.add(new FilterValueApi("1/4", "1/4"));
+		values.add(new FilterValueApi("1/2", "1/2"));
 		values.addAll(
 				IntStream.rangeClosed(1, 30)
-				.mapToObj(value -> new FilterValueApi(String.valueOf(value), value, Boolean.TRUE))
+				.mapToObj(value -> new FilterValueApi(String.valueOf(value), value))
 				.collect(Collectors.toList()));
 		crFilter.setValues(values);
 		otherFilters.add(crFilter);
@@ -198,28 +198,28 @@ public class BeastApiConroller {
 		FilterApi typeFilter = new FilterApi("Тип существа", "type");
 		typeFilter.setValues(
 				CreatureType.getFilterTypes().stream()
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(typeFilter);
 		
 		FilterApi sizeFilter = new FilterApi("Размер существа", "size");
 		sizeFilter.setValues(
 				CreatureSize.getFilterSizes().stream()
-				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(sizeFilter);
 		
 		FilterApi tagFilter = new FilterApi("Тэги", "tag");
 		tagFilter.setValues(
 				tagRepository.findByOrderByName().stream()
-				 .map(value -> new FilterValueApi(value.getName(), value.getId(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getName(), value.getId()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(tagFilter);
 		
 		FilterApi environmentFilter = new FilterApi("Места обитания", "environment");
 		environmentFilter.setValues(
 				HabitatType.types().stream()
-				 .map(value -> new FilterValueApi(value.getName(), value.name(), Boolean.TRUE))
+				 .map(value -> new FilterValueApi(value.getName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(environmentFilter);
 		

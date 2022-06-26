@@ -16,7 +16,7 @@ export const useRacesStore = defineStore('RacesStore', {
         filter: undefined,
         config: {
             page: 0,
-            limit: -1,
+            limit: 70,
             end: false,
             url: '/races',
         },
@@ -140,7 +140,6 @@ export const useRacesStore = defineStore('RacesStore', {
         },
 
         async initRaces(url) {
-            this.clearRaces();
             this.clearConfig();
 
             if (url) {
@@ -164,7 +163,7 @@ export const useRacesStore = defineStore('RacesStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
@@ -215,7 +214,7 @@ export const useRacesStore = defineStore('RacesStore', {
         clearConfig() {
             this.config = {
                 page: 0,
-                limit: -1,
+                limit: 70,
                 end: false,
                 url: '/races',
             };

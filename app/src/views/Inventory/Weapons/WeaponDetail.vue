@@ -4,8 +4,10 @@
             <section-header
                 :title="weapon?.name?.rus"
                 :subtitle="weapon?.name?.eng"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
                 copy
+                @close="close"
             />
         </template>
 
@@ -20,6 +22,8 @@
     import WeaponBody from "@/views/Inventory/Weapons/WeaponBody";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: "WeaponDetail",
@@ -35,6 +39,9 @@
             loading: true,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewWeapon(this.$route.path);
         },

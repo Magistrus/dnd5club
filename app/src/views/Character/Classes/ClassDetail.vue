@@ -5,7 +5,8 @@
                 :subtitle="currentClass?.name?.eng || ''"
                 :title="currentClass?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :fullscreen="!getIsMobile"
+                close-on-desktop
                 @close="close"
             />
 
@@ -47,8 +48,8 @@
                 <div class="class-detail__loader">
                     <div class="class-detail__loader_img">
                         <img
+                            v-lazy="'/app/img/loader.png'"
                             alt=""
-                            src="/app/img/loader.png"
                         >
                     </div>
                 </div>
@@ -165,6 +166,8 @@
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'ClassDetail',
@@ -200,6 +203,8 @@
             },
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             classes() {
                 return this.classesStore.getClasses || []
             },

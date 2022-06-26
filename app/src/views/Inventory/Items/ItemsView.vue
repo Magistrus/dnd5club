@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <item-link
-            v-for="(item, key) in items"
-            :key="key"
+            v-for="item in items"
+            :key="item.url"
             :in-tab="inTab"
             :item-item="item"
             :to="{path: item.url}"
@@ -23,6 +23,8 @@
     import { shallowRef } from "vue";
     import ItemLink from "@/views/Inventory/Items/ItemLink";
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'ItemsView',
@@ -53,6 +55,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.itemsStore.getFilter || undefined;
             },
@@ -87,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (this.items.length && this.$route.name === 'items') {
+            if (!this.getIsMobile && this.items.length && this.$route.name === 'items') {
                 await this.$router.push({ path: this.items[0].url })
             }
         },

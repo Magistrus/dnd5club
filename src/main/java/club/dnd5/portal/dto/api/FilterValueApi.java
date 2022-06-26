@@ -28,4 +28,10 @@ public class FilterValueApi {
 		this.key = key;
 		this.defaultValue = defaultValue;
 	}
+
+    public FilterValueApi(String label, Object key) {
+		this.label = label;
+		this.key = key;
+		this.defaultValue = Boolean.FALSE;
+	}
 }

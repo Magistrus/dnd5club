@@ -13,7 +13,7 @@
                 <a id="magic-item-href">
                     <img
                         id="magic-item-img"
-                        :src="!magicItem.images?.length ? '/app/img/dark/no-img-best.png' : magicItem.images[0]"
+                        v-lazy="!magicItem.images?.length ? '/app/img/dark/no-img-best.png' : magicItem.images[0]"
                         :alt="magicItem.name.rus"
                         @click.left.exact.prevent="showGallery"
                     >

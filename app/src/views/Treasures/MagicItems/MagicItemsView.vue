@@ -8,8 +8,8 @@
         @list-end="nextPage"
     >
         <magic-item-link
-            v-for="(item, key) in magicItems"
-            :key="key"
+            v-for="item in magicItems"
+            :key="item.url"
             :in-tab="inTab"
             :magic-item="item"
             :to="{path: item.url}"
@@ -24,6 +24,8 @@
     import CreatureLink from "@/views/Bestiary/CreatureLink";
     import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'MagicItemsView',
@@ -55,6 +57,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.magicItemsStore.getFilter || undefined;
             },
@@ -89,7 +93,7 @@
         async mounted() {
             await this.init();
 
-            if (this.magicItems.length && this.$route.name === 'magicItems') {
+            if (!this.getIsMobile && this.magicItems.length && this.$route.name === 'magicItems') {
                 await this.$router.push({ path: this.magicItems[0].url })
             }
         },

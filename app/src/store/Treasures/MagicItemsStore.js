@@ -110,7 +110,6 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
         },
 
         async initItems(url) {
-            this.clearItems();
             this.clearConfig();
 
             if (url) {

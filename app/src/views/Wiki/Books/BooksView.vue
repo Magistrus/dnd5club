@@ -18,8 +18,8 @@
 
             <div class="books-group__list">
                 <book-link
-                    v-for="(book, bookKey) in group.list"
-                    :key="bookKey"
+                    v-for="book in group.list"
+                    :key="book.url"
                     :in-tab="inTab"
                     :book="book"
                     :to="{path: book.url}"
@@ -37,6 +37,8 @@
 
     import { shallowRef } from "vue";
     import sortBy from "lodash/sortBy";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'BooksView',
@@ -67,6 +69,8 @@
             }
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.booksStore.getFilter || undefined;
             },
@@ -123,7 +127,7 @@
         async mounted() {
             await this.init();
 
-            if (this.books.length && this.$route.name === 'books') {
+            if (!this.getIsMobile && this.books.length && this.$route.name === 'books') {
                 await this.$router.push({ path: this.books[0].url })
             }
         },

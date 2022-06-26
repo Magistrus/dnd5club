@@ -72,16 +72,16 @@ public class RacesApiController {
 		levelFilter.setValues(
 				EnumSet.of(AbilityType.STRENGTH, AbilityType.DEXTERITY,AbilityType.CONSTITUTION,AbilityType.INTELLIGENCE,AbilityType.WISDOM,AbilityType.CHARISMA)
 				.stream()
-				.map(value -> new FilterValueApi(value.getCyrilicName(), value.name(), Boolean.TRUE))
+				.map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				.collect(Collectors.toList()));
 		otherFilters.add(levelFilter);
 		
 		FilterApi skillFilter = new FilterApi("Способности", "skills");
 		List<FilterValueApi> values = new ArrayList<>();
-		values.add(new FilterValueApi("тёмное зрение", "darkvision", Boolean.TRUE));
-		values.add(new FilterValueApi("полет", "fly", Boolean.TRUE));
-		values.add(new FilterValueApi("плавание", "swim", Boolean.TRUE));
-		values.add(new FilterValueApi("лазание", "climb", Boolean.TRUE));
+		values.add(new FilterValueApi("тёмное зрение", "darkvision"));
+		values.add(new FilterValueApi("полет", "fly"));
+		values.add(new FilterValueApi("плавание", "swim"));
+		values.add(new FilterValueApi("лазание", "climb"));
 
 		skillFilter.setValues(values);
 		otherFilters.add(skillFilter);

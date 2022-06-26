@@ -6,11 +6,8 @@
             uiStore: useUIStore()
         }),
         async mounted() {
-            document.documentElement.style.setProperty('--max-vh', `${ window.innerHeight }px`);
-
-            window.addEventListener('resize', () => {
-                document.documentElement.style.setProperty('--max-vh', `${ window.innerHeight }px`);
-            });
+            this.uiStore.watchMaxHeight();
+            this.uiStore.watchIsMobile();
 
             await this.initTheme();
         },

@@ -14,7 +14,7 @@
         >
             <div class="link-item-expand__content">
                 <img
-                    :src="`/assets/img/classes/${classItem.icon}.webp`"
+                    v-lazy="`/assets/img/classes/${classItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -31,9 +31,12 @@
                         <span class="link-item-expand__body">
                             <span class="link-item-expand__body_row">
 
-                                <span class="link-item-expand__icon">
+                                <span
+                                    v-if="classItem.icon"
+                                    class="link-item-expand__icon"
+                                >
                                     <svg-icon
-                                        :icon-name="classItem.icon"
+                                        :icon-name="classItem.image"
                                         :stroke-enable="false"
                                         fill-enable
                                     />
@@ -74,13 +77,13 @@
                         type="button"
                         @click.left.exact.prevent="toggleArch"
                     >
-                        <svg-icon :icon-name="submenu.show ? 'minus' : 'plus'"/>
+                        <svg-icon :icon-name="submenu ? 'minus' : 'plus'"/>
                     </button>
                 </div>
 
                 <div
                     v-if="hasArchetypes"
-                    :class="{ 'is-active': submenu.show }"
+                    :class="{ 'is-active': submenu }"
                     class="link-item-expand__arch-list"
                 >
                     <div
@@ -127,8 +130,8 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useResizeObserver } from '@vueuse/core/index';
     import SvgIcon from '@/components/UI/SvgIcon';
+    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'ClassLink',
@@ -144,9 +147,7 @@
         },
         data() {
             return {
-                submenu: {
-                    show: false
-                },
+                submenu: false,
             }
         },
         computed: {
@@ -155,17 +156,12 @@
             },
         },
         watch: {
-            submenu: {
-                deep: true,
-                handler() {
-                    this.updateGrid();
-                },
-            }
+            submenu() {
+                this.$emit('submenu-toggled');
+            },
         },
         mounted() {
-            this.$nextTick(() => {
-                useResizeObserver(this.$refs.classItem, this.updateGrid);
-            });
+            this.$nextTick(() => useResizeObserver(this.$refs.classItem, () => this.$emit('resize')));
         },
         methods: {
             getClassList(isActive) {
@@ -178,15 +174,11 @@
             },
 
             toggleArch() {
-                this.submenu.show = !this.submenu.show;
-            },
-
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('class-items'))
+                this.submenu = !this.submenu;
             },
 
             selectClass(callback) {
-                this.submenu.show = true;
+                this.submenu = true;
 
                 callback();
             },

@@ -110,7 +110,6 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
         },
 
         async initBestiary(url) {
-            this.clearBestiary();
             this.clearConfig();
 
             if (url) {

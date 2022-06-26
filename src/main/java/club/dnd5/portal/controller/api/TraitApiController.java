@@ -152,7 +152,7 @@ public class TraitApiController {
 		FilterApi schoolSpellFilter = new FilterApi("Характеристики", "ability");
 		schoolSpellFilter.setValues(
 				AbilityType.getBaseAbility().stream()
-				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name(), Boolean.TRUE))
+				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name()))
 				 .collect(Collectors.toList()));
 		
 		otherFilters.add(schoolSpellFilter);

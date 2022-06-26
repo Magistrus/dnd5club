@@ -14,6 +14,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -99,8 +100,11 @@ public class RulesApiConroller {
 	}
 	
 	@PostMapping(value = "/api/v1/rules/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RuleDetailApi getRule(@PathVariable String englishName) {
+	public ResponseEntity<RuleDetailApi> getRule(@PathVariable String englishName) {
 		Rule rule = ruleRepository.findByEnglishName(englishName.replace('_', ' '));
-		return new RuleDetailApi(rule);
+		if (rule == null) {
+			ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(new RuleDetailApi(rule));
 	}
 }

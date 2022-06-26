@@ -17,8 +17,8 @@
 
             <div class="armors-group__list">
                 <armor-link
-                    v-for="(armor, armorKey) in group.list"
-                    :key="armorKey"
+                    v-for="armor in group.list"
+                    :key="armor.url"
                     :armor="armor"
                     :to="{ path: armor.url }"
                 />
@@ -34,6 +34,8 @@
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
     import ArmorLink from "@/views/Inventory/Armors/ArmorLink";
     import sortBy from "lodash/sortBy";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: "ArmorsView",
@@ -60,6 +62,8 @@
             },
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile']),
+
             filter() {
                 return this.armorsStore.getFilter || undefined;
             },
@@ -116,7 +120,7 @@
         async mounted() {
             await this.init();
 
-            if (this.armors[0]?.list[0]?.length && this.$route.name === 'armors') {
+            if (!this.getIsMobile && this.armors[0]?.list[0]?.length && this.$route.name === 'armors') {
                 await this.$router.push({ path: this.armors[0].list[0].url })
             }
         },

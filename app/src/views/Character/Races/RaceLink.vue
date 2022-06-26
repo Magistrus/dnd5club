@@ -12,9 +12,11 @@
             class="link-item-expand"
             v-bind="$attrs"
         >
-            <div class="link-item-expand__content">
+            <div
+                class="link-item-expand__content"
+            >
                 <img
-                    :src="`/assets/img/races/${raceItem.icon}.webp`"
+                    v-lazy="`/assets/img/races/${raceItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -59,18 +61,18 @@
                     <button
                         v-if="hasSubraces"
                         v-tippy="{ content: 'Разновидности', placement: 'left' }"
-                        :class="{ 'is-active': submenu.show }"
+                        :class="{ 'is-active': submenu }"
                         class="link-item-expand__toggle"
                         type="button"
                         @click.left.exact.prevent="toggleSubrace"
                     >
-                        <svg-icon :icon-name="submenu.show ? 'minus' : 'plus'"/>
+                        <svg-icon :icon-name="submenu ? 'minus' : 'plus'"/>
                     </button>
                 </div>
 
                 <div
                     v-if="hasSubraces"
-                    :class="{ 'is-active': submenu.show }"
+                    :class="{ 'is-active': submenu }"
                     class="link-item-expand__arch-list"
                 >
                     <div
@@ -117,8 +119,8 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import { useResizeObserver } from '@vueuse/core/index';
     import SvgIcon from '@/components/UI/SvgIcon';
+    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'RaceLink',
@@ -134,9 +136,7 @@
         },
         data() {
             return {
-                submenu: {
-                    show: false
-                },
+                submenu: false,
             }
         },
         computed: {
@@ -163,17 +163,12 @@
             },
         },
         watch: {
-            submenu: {
-                deep: true,
-                handler() {
-                    this.updateGrid();
-                }
+            submenu() {
+                this.$emit('submenu-toggled');
             },
         },
         mounted() {
-            this.$nextTick(() => {
-                useResizeObserver(this.$refs.raceItem, this.updateGrid);
-            });
+            this.$nextTick(() => useResizeObserver(this.$refs.raceItem, () => this.$emit('resize')));
         },
         methods: {
             getParentClasses(isActive) {
@@ -186,15 +181,11 @@
             },
 
             toggleSubrace() {
-                this.submenu.show = !this.submenu.show;
-            },
-
-            updateGrid() {
-                this.$nextTick(() => this.$redrawVueMasonry('race-items'))
+                this.submenu = !this.submenu;
             },
 
             selectRace(callback) {
-                this.submenu.show = true;
+                this.submenu = true;
 
                 callback();
             },

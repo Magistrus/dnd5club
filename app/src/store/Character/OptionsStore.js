@@ -107,7 +107,6 @@ export const useOptionsStore = defineStore('OptionsStore', {
         },
 
         async initOptions(url) {
-            this.clearOptions();
             this.clearConfig();
 
             if (url) {

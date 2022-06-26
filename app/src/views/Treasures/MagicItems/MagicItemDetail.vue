@@ -5,7 +5,9 @@
                 :subtitle="magicItem?.name?.eng || ''"
                 :title="magicItem?.name?.rus || ''"
                 :copy="!error && !loading"
-                fullscreen
+                :close-on-desktop="getFullscreen"
+                :fullscreen="!getIsMobile"
+                @close="close"
             />
         </template>
 
@@ -16,8 +18,8 @@
             >
                 <div class="magic-item-detail__loader_img">
                     <img
+                        v-lazy="'/app/img/loader.png'"
                         alt=""
-                        src="/app/img/loader.png"
                     >
                 </div>
             </div>
@@ -42,6 +44,8 @@
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
     import ContentDetail from "@/components/content/ContentDetail";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'MagicItemDetail',
@@ -57,6 +61,9 @@
             loading: true,
             error: false,
         }),
+        computed: {
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+        },
         async mounted() {
             await this.loadNewMagicItem(this.$route.path);
         },
