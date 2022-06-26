@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClassRequestApi extends RequestApi {
-	private ClassFilter filter;
+public class RaceRequestApi extends RequestApi {
+	private RaceFilter filter;
 }

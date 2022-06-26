@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.FilterApi;
@@ -47,10 +46,16 @@ public class ClassApiController {
 	
 	@PostMapping(value = "/api/v1/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ClassApi> getClasses(@RequestBody ClassRequestApi request) {
+		if (request.getSearch() != null && request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
+			return classRepo.findAll()
+					.stream()
+					.map(cclass -> new ClassApi(cclass, request))
+					.filter(c -> !c.getArchetypes().isEmpty() || !c.getIcon())
+					.collect(Collectors.toList());
+		}
 		return classRepo.findAll()
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
-				.filter(c -> !c.getArchetypes().isEmpty())
 				.collect(Collectors.toList());
 	}
 	

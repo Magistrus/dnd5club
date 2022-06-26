@@ -144,6 +144,10 @@
                 default: () => null,
                 required: true
             },
+            afterSearch: {
+                type: Boolean,
+                default: false
+            }
         },
         data() {
             return {
@@ -156,6 +160,16 @@
             },
         },
         watch: {
+            afterSearch(value) {
+                if (value && !this.submenu) {
+                    this.submenu = this.afterSearch;
+
+                    return;
+                }
+
+                this.submenu = false;
+            },
+
             submenu() {
                 this.$emit('submenu-toggled');
             },
