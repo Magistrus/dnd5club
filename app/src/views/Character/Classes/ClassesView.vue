@@ -2,7 +2,7 @@
     <content-layout
         :show-right-side="showRightSide"
         :filter-instance="filter"
-        @search="classesQuery"
+        @search="onSearch"
         @update="classesQuery"
     >
         <div
@@ -32,6 +32,7 @@
                     :key="el.url"
                     :class-item="el"
                     :to="{ path: el.url }"
+                    :after-search="!!search"
                     @resize="redrawMasonryOnResize"
                     @submenu-toggled="redrawMasonry"
                 />
@@ -56,6 +57,7 @@
         },
         data: () => ({
             classesStore: useClassesStore(),
+            search: ''
         }),
         computed: {
             filter() {
@@ -108,6 +110,13 @@
             async classesQuery() {
                 await this.classesStore.initClasses();
             },
+
+            // eslint-disable-next-line func-names
+            onSearch: debounce(async function(e) {
+                await this.classesQuery();
+
+                this.search = e;
+            }, 300),
 
             // eslint-disable-next-line func-names
             redrawMasonryOnResize: debounce(function() {
