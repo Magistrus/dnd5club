@@ -148,8 +148,8 @@
                     >
                         <div class="treasury__loader_img">
                             <img
+                                v-lazy="'/app/img/loader.png'"
                                 alt=""
-                                src="/app/img/loader.png"
                             >
                         </div>
                     </div>
