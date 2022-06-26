@@ -14,7 +14,7 @@
         >
             <div class="link-item-expand__content">
                 <img
-                    :src="`/assets/img/races/${raceItem.icon}.webp`"
+                    :src="`/assets/img/races/${raceItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
