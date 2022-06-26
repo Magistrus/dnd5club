@@ -14,7 +14,7 @@
 
 <script>
     import errorHandler from "@/common/helpers/errorHandler";
-    import _ from "lodash";
+    import debounce from "lodash/debounce";
 
     export default {
         name: "DiceRoller",
@@ -67,7 +67,7 @@
         },
         methods: {
             // eslint-disable-next-line func-names
-            tryRoll: _.throttle(async function() {
+            async tryRoll() {
                 try {
                     this.error = false;
 
@@ -83,10 +83,10 @@
 
                     errorHandler(err);
                 }
-            }, 1000),
+            },
 
             // eslint-disable-next-line func-names
-            clearRoll: _.debounce(function() {
+            clearRoll: debounce(function() {
                 this.roll = undefined
             }, 5000),
         }
