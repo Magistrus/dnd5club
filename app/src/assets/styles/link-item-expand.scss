@@ -245,10 +245,8 @@
         font-size: calc(var(--main-font-size) - 2px);
       }
 
-      @include media-min($md) {
-        &:hover {
-          background-color: var(--hover);
-        }
+      &:hover {
+        background-color: var(--hover);
       }
 
       &.router-link-active {

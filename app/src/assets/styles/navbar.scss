@@ -62,6 +62,10 @@
 
     &__end {
       margin-right: 8px;
+
+      .btn_nav {
+        margin-left: 8px;
+      }
     }
 
     .nav_text {
@@ -79,6 +83,12 @@
       align-items: center;
       color: var(--text-color);
       font-weight: 600;
+
+      svg,
+      path {
+        fill: var(--text-color);
+        stroke: var(--text-color);
+      }
 
       &:hover {
         background-color: var(--hover);
