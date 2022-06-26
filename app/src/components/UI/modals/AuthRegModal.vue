@@ -2,27 +2,28 @@
     <vue-final-modal
         v-slot="{ params, close }"
         v-bind="$attrs"
-        content-class="base-modal"
+        content-class="auth-reg-modal"
         focus-trap
+        esc-to-close
     >
-        <div class="base-modal__header">
-            <div class="base-modal__title">
+        <div class="auth-reg-modal__header">
+            <div class="auth-reg-modal__title">
                 <slot name="title"/>
             </div>
 
             <button
-                class="base-modal__close"
+                class="auth-reg-modal__close"
                 @click.left.exact.prevent="close"
             >
-                <span class="base-modal__close_icon">
+                <span class="auth-reg-modal__close_icon">
                     <svg-icon icon-name="close"/>
                 </span>
             </button>
         </div>
 
-        <div class="base-modal__content">
-            <div class="base-modal__safe">
-                <div class="base-modal__body">
+        <div class="auth-reg-modal__content">
+            <div class="auth-reg-modal__safe">
+                <div class="auth-reg-modal__body">
                     <slot :params="params"/>
                 </div>
             </div>
@@ -33,7 +34,7 @@
     import SvgIcon from "@/components/UI/SvgIcon";
 
     export default {
-        name: "BaseModal",
+        name: "AuthRegModal",
         components: { SvgIcon },
         inheritAttrs: true,
         emits: ['confirm', 'cancel'],
@@ -48,7 +49,7 @@
         justify-content: center;
     }
 
-    ::v-deep(.base-modal) {
+    ::v-deep(.auth-reg-modal) {
         background-color: var(--bg-secondary);
         max-width: 90%;
         max-height: 90%;
@@ -60,7 +61,7 @@
         flex-direction: column;
     }
 
-    .base-modal {
+    .auth-reg-modal {
         &__header {
             display: flex;
             align-items: center;

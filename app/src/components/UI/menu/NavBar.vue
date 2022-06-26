@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="navbar"
-    >
+    <div class="navbar">
         <div class="navbar__head">
             <div class="navbar__head__start">
                 <div
@@ -33,31 +31,17 @@
 
             <div class="navbar__head__end">
                 <menu-theme-switcher/>
-                <div class="btn_nav">
-                    <svg
-                        width="30"
-                        height="30"
-                        viewBox="0 0 30 30"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M24 25C24.5523 25 25 24.5523 25 24V21.25C25 19.9239 24.4732 18.6521 23.5355 17.7145C22.5979 16.7768 21.3261 16.25 20 16.25H10C8.67392 16.25 7.40215 16.7768 6.46447 17.7145C5.52678 18.6521 5 19.9239 5 21.25V24C5 24.5523 5.44772 25 6 25H24Z"
-                            fill="#4D4DAA"
-                        />
-                        <path
-                            d="M20 10C20 12.7614 17.7614 15 15 15C12.2386 15 10 12.7614 10 10C10 7.23858 12.2386 5 15 5C17.7614 5 20 7.23858 20 10Z"
-                            fill="#4D4DAA"
-                        />
-                    </svg>
-                </div>
+
+                <nav-profile/>
             </div>
         </div>
+
         <div
             class="close_blok"
             :class="{ 'is-active': menu }"
             @click.left.exact.prevent="toggleMenu"
         />
+
         <aside
             class="club__card"
             :class="{ 'is-active': menu }"
@@ -71,10 +55,12 @@
                         <site-logo :size="76"/>
                     </a>
                 </div>
+
                 <div class="club__card__header__info">
                     <div class="row">
                         Онлайн справчник по D&D 5e
                     </div>
+
                     <div class="row">
                         DND5 Club
                     </div>
@@ -92,6 +78,7 @@
                             {{ group.label }}
                         </span>
                     </label>
+
                     <ul>
                         <li
                             v-for="(link, linkKey) in group.links"
@@ -111,10 +98,15 @@
 
 <script>
     import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher.vue';
+    import SvgIcon from "@/components/UI/SvgIcon";
+    import SiteLogo from "@/components/UI/SiteLogo";
+    import NavProfile from "@/components/UI/menu/NavProfile";
 
     export default {
         name: "NavBar",
-        components: { MenuThemeSwitcher },
+        components: {
+            NavProfile, SiteLogo, MenuThemeSwitcher, SvgIcon
+        },
         data: () => ({
             menu: false,
             groups: [
