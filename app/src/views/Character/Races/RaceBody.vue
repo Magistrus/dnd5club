@@ -4,136 +4,138 @@
             :source="race.source"
         />
 
-        <div class="avatar">
-            <div class="image-container">
-                <a id="race_href">
-                    <img
-                        id="race_img"
-                        v-lazy="!race.images?.length ? '/app/img/dark/no-img-best.png' : race.images[0]"
-                        :alt="race.name.rus"
-                        @click.left.exact.prevent="showGallery"
-                    >
-                </a>
+        <div class="content-padding">
+            <div class="avatar">
+                <div class="image-container">
+                    <a id="race_href">
+                        <img
+                            id="race_img"
+                            v-lazy="!race.images?.length ? '/app/img/dark/no-img-best.png' : race.images[0]"
+                            :alt="race.name.rus"
+                            @click.left.exact.prevent="showGallery"
+                        >
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="scores">
-            <div class="scores__stats">
-                <h4>
-                    <strong
-                        v-tippy="'Тип существа'"
-                    >ТИП</strong>
-                </h4>
+            <div class="scores">
+                <div class="scores__stats">
+                    <h4>
+                        <strong
+                            v-tippy="'Тип существа'"
+                        >ТИП</strong>
+                    </h4>
 
-                <p>{{ race.type || '' }}</p>
+                    <p>{{ race.type || '' }}</p>
+                </div>
+                <div class="scores__stats">
+                    <h4>
+                        <strong
+                            v-tippy="'Увеличение характеристик'"
+                        >ХАР</strong>
+                    </h4>
+
+                    <p v-if="abilities">
+                        {{ abilities }}
+                    </p>
+                </div>
+                <div class="scores__stats">
+                    <h4>
+                        <strong
+                            v-tippy="'Размер'"
+                        >РАЗ</strong>
+                    </h4>
+                    <p>{{ race.size }}</p>
+                </div>
+                <div class="scores__stats">
+                    <h4>
+                        <strong
+                            v-tippy="'Скорость'"
+                        >СКР</strong>
+                    </h4>
+                    <p>{{ speed }}</p>
+                </div>
+                <div
+                    v-if="race.darkvision"
+                    class="scores__stats"
+                >
+                    <h4>
+                        <strong
+                            v-tippy="'Темное зрение'"
+                        >ТЗ</strong>
+                    </h4>
+                    <p>{{ `${ race.darkvision } фт.` }}</p>
+                </div>
             </div>
-            <div class="scores__stats">
-                <h4>
-                    <strong
-                        v-tippy="'Увеличение характеристик'"
-                    >ХАР</strong>
-                </h4>
-
-                <p v-if="abilities">
-                    {{ abilities }}
-                </p>
-            </div>
-            <div class="scores__stats">
-                <h4>
-                    <strong
-                        v-tippy="'Размер'"
-                    >РАЗ</strong>
-                </h4>
-                <p>{{ race.size }}</p>
-            </div>
-            <div class="scores__stats">
-                <h4>
-                    <strong
-                        v-tippy="'Скорость'"
-                    >СКР</strong>
-                </h4>
-                <p>{{ speed }}</p>
-            </div>
-            <div
-                v-if="race.darkvision"
-                class="scores__stats"
-            >
-                <h4>
-                    <strong
-                        v-tippy="'Темное зрение'"
-                    >ТЗ</strong>
-                </h4>
-                <p>{{ `${ race.darkvision } фт.` }}</p>
-            </div>
-        </div>
-
-        <details
-            v-for="(skill, key) in skills"
-            :key="key"
-            :open="skill.opened"
-            :class="{ 'archetype_feet': skill.subrace }"
-        >
-            <summary class="h4 header_separator">
-                <span>{{ skill.name }}</span>
-            </summary>
-
-            <div class="content">
-                <raw-content
-                    v-if="skill.description"
-                    :template="skill.description"
-                />
-            </div>
-        </details>
-
-        <details>
-            <summary class="h4 header_separator">
-                <span>Описание</span>
-            </summary>
-
-            <div class="content">
-                <raw-content
-                    v-if="race.description"
-                    :template="race.description"
-                />
-            </div>
-        </details>
-
-        <template v-if="race.subraces">
-            <h4>
-                Разновидности
-            </h4>
 
             <details
-                v-for="(subrace, subraceKey) in race.subraces"
-                :key="subraceKey"
-                class="spoiler feet_show"
+                v-for="(skill, key) in skills"
+                :key="key"
+                :open="skill.opened"
+                :class="{ 'archetype_feet': skill.subrace }"
             >
                 <summary class="h4 header_separator">
-                    <span>{{ subrace.name.rus }}</span> <span>{{ subrace.source.shortName }}</span>
+                    <span>{{ skill.name }}</span>
                 </summary>
 
                 <div class="content">
                     <raw-content
-                        v-if="subrace.description"
-                        :template="subrace.description"
+                        v-if="skill.description"
+                        :template="skill.description"
                     />
-
-                    <div
-                        v-for="(skill, skillKey) in subrace.skills"
-                        :key="skillKey"
-                    >
-                        <h4 class="header_separator">
-                            <span>{{ skill.name }}</span>
-                        </h4>
-
-                        <raw-content
-                            v-if="skill.description"
-                            :template="skill.description"
-                        />
-                    </div>
                 </div>
             </details>
-        </template>
+
+            <details>
+                <summary class="h4 header_separator">
+                    <span>Описание</span>
+                </summary>
+
+                <div class="content">
+                    <raw-content
+                        v-if="race.description"
+                        :template="race.description"
+                    />
+                </div>
+            </details>
+
+            <template v-if="race.subraces">
+                <h4>
+                    Разновидности
+                </h4>
+
+                <details
+                    v-for="(subrace, subraceKey) in race.subraces"
+                    :key="subraceKey"
+                    class="spoiler feet_show"
+                >
+                    <summary class="h4 header_separator">
+                        <span>{{ subrace.name.rus }}</span> <span>{{ subrace.source.shortName }}</span>
+                    </summary>
+
+                    <div class="content">
+                        <raw-content
+                            v-if="subrace.description"
+                            :template="subrace.description"
+                        />
+
+                        <div
+                            v-for="(skill, skillKey) in subrace.skills"
+                            :key="skillKey"
+                        >
+                            <h4 class="header_separator">
+                                <span>{{ skill.name }}</span>
+                            </h4>
+
+                            <raw-content
+                                v-if="skill.description"
+                                :template="skill.description"
+                            />
+                        </div>
+                    </div>
+                </details>
+            </template>
+        </div>
     </div>
 
     <vue-easy-lightbox
@@ -220,9 +222,3 @@
         }
     }
 </script>
-
-<style scoped lang="scss">
-    .race-body {
-        padding: 24px;
-    }
-</style>

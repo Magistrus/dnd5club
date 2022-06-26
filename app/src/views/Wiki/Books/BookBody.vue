@@ -1,15 +1,22 @@
 <template>
     <div class="book-body">
         <detail-tob-bar
-            :left="book.type"
+            :left="book.type.name"
         >
-            {{ book.book }}
+            <template
+                v-if="book.shortName"
+                #default
+            >
+                Аббревиатура: {{ book.shortName }}
+            </template>
         </detail-tob-bar>
 
-        <raw-content
-            v-if="book?.description"
-            :template="book.description"
-        />
+        <div class=" content-padding">
+            <raw-content
+                v-if="book?.description"
+                :template="book.description"
+            />
+        </div>
     </div>
 </template>
 
@@ -29,9 +36,3 @@
         },
     }
 </script>
-
-<style scoped lang="scss">
-    .book-body {
-        padding: 24px;
-    }
-</style>

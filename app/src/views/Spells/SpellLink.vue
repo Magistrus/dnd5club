@@ -116,7 +116,7 @@
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
     import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
-    import BaseModal from "@/components/UI/BaseModal";
+    import BaseModal from "@/components/UI/modals/BaseModal";
 
     export default {
         name: 'SpellLink',

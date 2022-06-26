@@ -47,10 +47,12 @@
             </div>
         </div>
 
-        <raw-content
-            v-if="armor.description"
-            :template="armor.description"
-        />
+        <div class=" content-padding">
+            <raw-content
+                v-if="armor.description"
+                :template="armor.description"
+            />
+        </div>
     </div>
 </template>
 
@@ -71,9 +73,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .armor-body {
-        padding: 24px;
-    }
-</style>

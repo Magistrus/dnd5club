@@ -5,7 +5,7 @@
             :source="background?.source"
         />
 
-        <div class="background-body__desc">
+        <div class="background-body__desc content-padding">
             <raw-content :url="background?.url"/>
         </div>
     </div>
@@ -27,9 +27,3 @@
         }
     }
 </script>
-
-<style scoped lang="scss">
-    .background-body {
-        padding: 24px;
-    }
-</style>

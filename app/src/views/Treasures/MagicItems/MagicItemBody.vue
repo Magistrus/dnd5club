@@ -8,43 +8,45 @@
             :source="magicItem.source"
         />
 
-        <div class="avatar">
-            <div class="image-container">
-                <a id="magic-item-href">
-                    <img
-                        id="magic-item-img"
-                        v-lazy="!magicItem.images?.length ? '/app/img/dark/no-img-best.png' : magicItem.images[0]"
-                        :alt="magicItem.name.rus"
-                        @click.left.exact.prevent="showGallery"
-                    >
-                </a>
+        <div class=" content-padding">
+            <div class="avatar">
+                <div class="image-container">
+                    <a id="magic-item-href">
+                        <img
+                            id="magic-item-img"
+                            v-lazy="!magicItem.images?.length ? '/app/img/dark/no-img-best.png' : magicItem.images[0]"
+                            :alt="magicItem.name.rus"
+                            @click.left.exact.prevent="showGallery"
+                        >
+                    </a>
+                </div>
             </div>
+
+            <p>
+                <b>Настройка:</b> <span>{{ magicItem.customization ? 'требуется настройка' : 'нет' }}</span>
+
+                <span v-if="magicItem.detailCustamization?.length">
+                    ({{ magicItem.detailCustamization.join(', ').toLowerCase() }})
+                </span>
+            </p>
+
+            <p>
+                <b>Стоимость по <span
+                    v-tippy="'Руководство Мастера'"
+                >DMG</span>:</b> <span>{{ magicItem.cost.dmg }}</span>
+
+                <br>
+
+                <b>Стоимость по <span
+                    v-tippy="'Руководство Зантара обо всем'"
+                >XGE</span>:</b> <span>{{ magicItem.cost.xge }}</span>
+            </p>
+
+            <raw-content
+                v-if="magicItem.description"
+                :template="magicItem.description"
+            />
         </div>
-
-        <p>
-            <b>Настройка:</b> <span>{{ magicItem.customization ? 'требуется настройка' : 'нет' }}</span>
-
-            <span v-if="magicItem.detailCustamization?.length">
-                ({{ magicItem.detailCustamization.join(', ').toLowerCase() }})
-            </span>
-        </p>
-
-        <p>
-            <b>Стоимость по <span
-                v-tippy="'Руководство Мастера'"
-            >DMG</span>:</b> <span>{{ magicItem.cost.dmg }}</span>
-
-            <br>
-
-            <b>Стоимость по <span
-                v-tippy="'Руководство Зантара обо всем'"
-            >XGE</span>:</b> <span>{{ magicItem.cost.xge }}</span>
-        </p>
-
-        <raw-content
-            v-if="magicItem.description"
-            :template="magicItem.description"
-        />
     </div>
 
     <vue-easy-lightbox
@@ -109,9 +111,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .magic-item-body {
-        padding: 24px;
-    }
-</style>
