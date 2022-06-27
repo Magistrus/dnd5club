@@ -20,9 +20,11 @@ public class BookApi {
 	private String url;
 	private TypeApi type;
 	private String description;
+	private Integer year;
 	public BookApi(Book book) {
 		name = new NameApi(book.getName(), book.getEnglishName());
 		url = String.format("/books/%s", book.getUrlName());
 		type = new TypeApi(book.getType().getName(), book.getType().ordinal());
+		year = book.getYear();
 	}
 }
