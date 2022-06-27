@@ -9,8 +9,8 @@
                     <p>Количество магии в мире:</p>
 
                     <field-select
-                        v-model="magicCountValue"
-                        :options="magicCount"
+                        v-model="magicLevelsValue"
+                        :options="magicLevels"
                         :searchable="false"
                         label="name"
                         track-by="value"
@@ -179,20 +179,7 @@
             FieldCheckbox, SectionHeader, FieldSelect, ContentLayout
         },
         data: () => ({
-            magicCount: [
-                {
-                    name: 'Мало',
-                    value: 1,
-                },
-                {
-                    name: 'Норма',
-                    value: 2,
-                },
-                {
-                    name: 'Много',
-                    value: 3,
-                },
-            ],
+            magicLevels: [],
             form: {
                 magicLevel: 1,
                 persuasion: 1,
@@ -222,9 +209,9 @@
         computed: {
             ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
 
-            magicCountValue: {
+            magicLevelsValue: {
                 get() {
-                    return this.magicCount.find(el => el.value === this.form.magicLevel)
+                    return this.magicLevels.find(el => el.value === this.form.magicLevel)
                 },
 
                 set(e) {
@@ -263,10 +250,29 @@
                 return res
             }
         },
+        async beforeMount() {
+            await this.getLevels();
+        },
         mounted() {
             this.showRightSide = !this.getIsMobile
         },
         methods: {
+            async getLevels() {
+                try {
+                    const resp = await this.$http.get('/tools/trader');
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        return;
+                    }
+
+                    this.magicLevels = resp.data;
+                } catch (err) {
+                    errorHandler(err);
+                }
+            },
+
             // eslint-disable-next-line func-names
             sendForm: throttle(function() {
                 if (this.controllers.list) {

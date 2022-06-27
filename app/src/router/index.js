@@ -194,6 +194,11 @@ const routes = [
         path: '/tools/madness',
         component: () => import('@/views/Tools/MadnessView'),
     },
+    {
+        name: 'encounters',
+        path: '/tools/encounters',
+        component: () => import('@/views/Tools/EncountersView'),
+    },
 ];
 
 const router = createRouter({
