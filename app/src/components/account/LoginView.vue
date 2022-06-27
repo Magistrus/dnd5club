@@ -56,7 +56,7 @@
         }),
         methods: {
             submit() {
-                console.log('login')
+                // console.log('login')
             }
         }
     }
