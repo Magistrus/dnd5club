@@ -149,6 +149,92 @@
       }
     }
   }
+
+  .dnd5club_tel_bot {
+    display: flex;
+    flex-direction: row;
+    margin: 32px 0px -16px 0px;
+    padding: 16px 16px 0px 16px;
+    background-color: var(--bg-table-list);
+    border-radius: 12px;
+    width: 33%;
+    position: relative;
+    overflow: hidden;
+
+    .info {
+      z-index: 1;
+
+      h4 {
+        margin-top: 0;
+      }
+
+      a {
+        margin-right: 8px;
+        margin-bottom: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        display: inline-block;
+      }
+    }
+
+    .bg_img {
+      transition: transform .6s;
+      background-position: 50%;
+      background-size: cover;
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-image: url(/assets/img/bg_main_page_button_nav_bot_2.png);
+    }
+
+    &:after {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      background: var(--bg-liner-main-page);
+      content: "";
+    }
+  }
+
+  .info_main_block {
+    h3 {
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+
+    .friends_list {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -4px -4px;
+
+      .friend_block {
+        padding: 8px 8px;
+        background-color: var(--bg-secondary);
+        color: var(--text-color);
+        border-radius: 8px;
+        display: inline-flex;
+        margin: 4px 4px;
+        align-items: center;
+
+        img {
+          width: 20px;
+          height: 20px;
+          overflow: hidden;
+          display: inline-block;
+          border-radius: 50%;
+          margin-right: 4px;
+          border: 1px solid var(--border);
+        }
+      }
+    }
+  }
 }
 
 .grid_stat_block {
