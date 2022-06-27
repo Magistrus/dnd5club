@@ -26,33 +26,25 @@
 
 		<link rel="canonical" th:href="@{${metaUrl eq null ? '#' : metaUrl}}">
 		<link rel="manifest" href="/manifest.json" crossorigin="anonymous">
-        <link rel="icon" type="image/svg+xml" th:href="@{/assets/favicon_new.svg?v=7}" />
-		<link rel="apple-touch-icon" sizes="48x48" href="/assets/style/icons/48.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="/assets/style/icons/72.png">
-		<link rel="apple-touch-icon" sizes="96x96" href="/assets/style/icons/96.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="/assets/style/icons/144.png">
-		<link rel="apple-touch-icon" sizes="192x192" href="/assets/style/icons/192.png">
-		<link rel="apple-touch-icon" sizes="256x256" href="/assets/style/icons/265.png">
-		<link rel="apple-touch-icon" sizes="384x384" href="/assets/style/icons/384.png">
-		<link rel="apple-touch-icon" sizes="512x512" href="/assets/style/icons/512.png">
+        <link rel="icon" type="image/svg+xml" th:href="@{/favicon_new.svg?v=7}" />
+		<link rel="apple-touch-icon" sizes="48x48" href="/style/icons/48.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/style/icons/72.png">
+		<link rel="apple-touch-icon" sizes="96x96" href="/style/icons/96.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/style/icons/144.png">
+		<link rel="apple-touch-icon" sizes="192x192" href="/style/icons/192.png">
+		<link rel="apple-touch-icon" sizes="256x256" href="/style/icons/265.png">
+		<link rel="apple-touch-icon" sizes="384x384" href="/style/icons/384.png">
+		<link rel="apple-touch-icon" sizes="512x512" href="/style/icons/512.png">
 
         <!-- Vue App -->
-        <script defer="defer" th:src="@{|/app/js/chunk-vendors.js?v=${version}|}"></script>
-        <script defer="defer" th:src="@{|/app/js/app.js?v=${version}|}"></script>
+        <script defer="defer" th:src="@{|/js/chunk-vendors.js?v=${version}|}"></script>
+        <script defer="defer" th:src="@{|/js/app.js?v=${version}|}"></script>
         <!-- End Vue App -->
 
 		<!-- Core CSS -->
-		<link rel="stylesheet" th:href="@{|/app/css/chunk-vendors.css?v=${version}|}" />
-		<link rel="stylesheet" th:href="@{|/app/css/app.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/chunk-vendors.css?v=${version}|}" />
+		<link rel="stylesheet" th:href="@{|/css/app.css?v=${version}|}" />
             <!-- End Core CSS -->
-
-		<!-- Google Font -->
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-            <!-- End Google Font -->
 
 		<!-- Google Tag Manager -->
 		<script	script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -85,7 +77,7 @@
         <div id="container" class="container">
             <div layout:fragment="content"></div>
         </div>
-        <img v-if="uiStore.getTheme" v-lazy="`/app/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.getTheme" v-lazy="`/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 

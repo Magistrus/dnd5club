@@ -4,8 +4,7 @@ target/
 .factorypath
 
 # Frontend Build
-/src/main/resources/static/app
-/src/main/resources/static/report.json
+/src/main/resources/static/
 
 # IDE Settings
 .idea

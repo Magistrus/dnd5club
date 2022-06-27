@@ -14,7 +14,7 @@
                     <a id="creature_href">
                         <img
                             id="creature_img"
-                            v-lazy="!creature.images?.length ? '/app/img/dark/no-img-best.png' : creature.images[0]"
+                            v-lazy="!creature.images?.length ? '/img/dark/no-img-best.png' : creature.images[0]"
                             alt="Title best"
                             @click.left.exact.prevent="showGallery"
                         >
@@ -26,6 +26,7 @@
                 <p>
                     <strong>Класс доспеха </strong>
 
+                    <!-- eslint-disable-next-line max-len -->
                     <span>{{ `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }` }}</span>
 
                     <span v-if="creature.armors?.length">
@@ -36,6 +37,7 @@
                 <p>
                     <strong>Хиты </strong>
 
+                    <!-- eslint-disable-next-line max-len -->
                     <span>{{ creature.hits.average }} ({{ creature.hits.formula }}) {{ creature.hits.text || '' }}</span>
                 </p>
 
@@ -216,6 +218,7 @@
                 <p v-if="!creature.legendary.description">
                     <span>{{ creature.name.rus }}</span> может совершить 3 легендарных действия,
                     выбирая из представленных ниже вариантов. За один раз можно использовать только одно легендарное
+                    <!-- eslint-disable-next-line max-len -->
                     действие, и только в конце хода другого существа. <span>{{ creature.name.rus }}</span> восстанавливает
                     использованные легендарные действия в начале своего хода.
                 </p>

@@ -101,7 +101,7 @@
                     >
                         <div class="trader__loader_img">
                             <img
-                                v-lazy="'/app/img/loader.png'"
+                                v-lazy="'/img/loader.png'"
                                 alt=""
                             >
                         </div>

@@ -16,7 +16,7 @@
                 class="link-item-expand__content"
             >
                 <img
-                    v-lazy="`/assets/img/races/${raceItem.image}.webp`"
+                    v-lazy="`/img/races/${raceItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -201,6 +201,10 @@
 
         &.is-selected {
             width: calc(100% / 2 - 16px / 2);
+
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
         }
 
         &__body {

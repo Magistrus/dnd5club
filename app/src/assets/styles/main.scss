@@ -1,10 +1,10 @@
 .bg-img-main {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   opacity: 0.65;
-  z-index: -1;
-  height: 100%;
+  z-index: -100;
+  height: var(--max-vh);
   overflow: hidden;
 
   @media (max-width: 1200px) {
@@ -81,12 +81,12 @@
         width: 220px;
         height: 56px;
         right: 0;
-        background-image: url(/assets/img/bg_main_page_button_nav_3.png);
+        background-image: url(/public/img/bg_main_page_button_nav_3.png);
         background-position: 0 0;
 
         @media (max-width: 1200px) {
           height: 48px;
-          background-image: url(/assets/img/bg_main_page_button_nav_mobile_3.png);
+          background-image: url(/public/img/bg_main_page_button_nav_mobile_3.png);
         }
       }
 
@@ -197,7 +197,7 @@
       height: 100%;
       top: 0;
       left: 0;
-      background-image: url(/assets/img/bg_main_page_button_nav_bot_2.png);
+      background-image: url(/public/img/bg_main_page_button_nav_bot_2.png);
     }
 
     &:after {
