@@ -13,15 +13,13 @@
         >
 
         <div class="auth-reg-modal__content">
-            <div class="auth-reg-modal__header">
-                <form-button
-                    class="auth-reg-modal__close"
-                    is-link
-                    @click.left.exact.prevent="closeHandler(close)"
-                >
-                    <svg-icon icon-name="close"/>
-                </form-button>
-            </div>
+            <form-button
+                class="auth-reg-modal__close"
+                is-link
+                @click.left.exact.prevent="closeHandler(close)"
+            >
+                <svg-icon icon-name="close"/>
+            </form-button>
 
             <div class="auth-reg-modal__body">
                 <h4>{{ type === 'reg' ? 'Регистрация' : 'Авторизация' }}</h4>
@@ -86,7 +84,7 @@
         box-shadow: 0 0 12px -8px var(--bg-transparent);
         display: flex;
         width: 100%;
-        max-width: $sm;
+        max-width: 600px;
 
         @include media-min($sm) {
             border-radius: 8px;
@@ -96,7 +94,7 @@
     .auth-reg-modal {
         &__bg {
             width: 240px;
-            height: 480px;
+            height: 400px;
             object-fit: cover;
             display: none;
 
@@ -107,11 +105,12 @@
 
         &__content {
             flex: 1 1 100%;
-            height: 480px;
+            height: 400px;
             padding: 16px;
+            position: relative;
 
             @include media-min($md) {
-                padding: 24px;
+                padding: 24px 48px 24px 48px;
             }
         }
 
@@ -129,13 +128,17 @@
             width: 48px;
             height: 48px;
 
+            position: absolute;
+            top: 0;
+            right: 0;
+
             &:hover {
                 color: var(--primary-hover);
             }
         }
 
         &__body {
-            height: calc(100% - 48px);
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
