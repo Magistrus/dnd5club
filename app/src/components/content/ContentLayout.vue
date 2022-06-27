@@ -66,6 +66,7 @@
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia/dist/pinia";
+    import { ref } from "vue";
 
     export default {
         name: 'ContentLayout',
@@ -91,7 +92,7 @@
         },
         mounted() {
             useInfiniteScroll(
-                this.$refs.items,
+                ref(window),
                 () => {
                     this.$emit('list-end');
                 },
@@ -144,6 +145,12 @@
 
             &.is-showed-right-side:not(.is-fullscreen) {
                 width: 40%;
+
+                @media (max-width: 1200px) {
+                    width: 100%;
+                    height: calc(var(--max-vh) - 56px - 24px);
+                    border-radius: 12px;
+                }
             }
 
             &.is-showed-right-side.is-fullscreen {

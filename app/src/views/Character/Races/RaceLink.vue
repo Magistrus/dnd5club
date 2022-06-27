@@ -201,6 +201,10 @@
 
         &.is-selected {
             width: calc(100% / 2 - 16px / 2);
+
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
         }
 
         &__body {
