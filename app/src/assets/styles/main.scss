@@ -147,6 +147,16 @@
           transform: scale(1.15);
         }
       }
+
+      @media (max-width: 1200px) {
+        min-width: 23%;
+        flex: 1 1 23%;
+      }
+
+      @media (max-width: 600px) {
+        min-width: 43%;
+        flex: 1 1 43%;
+      }
     }
   }
 
@@ -200,6 +210,10 @@
       display: block;
       background: var(--bg-liner-main-page);
       content: "";
+    }
+
+    @media (max-width: 800px) {
+      width: auto;
     }
   }
 
