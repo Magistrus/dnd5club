@@ -121,6 +121,8 @@
     import { RouterLink } from 'vue-router';
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useResizeObserver } from "@vueuse/core/index";
+    import { mapState } from "pinia/dist/pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'RaceLink',
@@ -140,6 +142,8 @@
             }
         },
         computed: {
+            ...mapState(useUIStore, ['getFullscreen']),
+
             hasSubraces() {
                 return !!this.raceItem?.subraces?.length
             },
@@ -176,7 +180,8 @@
                     'router-link-active': isActive
                         || this.$route.params.raceName === this.$router.resolve(this.raceItem.url)?.params?.raceName,
                     'is-selected': this.$route.name === 'raceDetail',
-                    'is-green': this.raceItem.type?.name.toLowerCase() === 'homebrew'
+                    'is-green': this.raceItem.type?.name.toLowerCase() === 'homebrew',
+                    'is-fullscreen': this.getFullscreen
                 }
             },
 
@@ -199,11 +204,37 @@
     .link-item-expand {
         width: 100%;
 
-        &.is-selected {
+        @include media-min($sm) {
             width: calc(100% / 2 - 16px / 2);
+        }
 
-            @media (max-width: 1200px) {
-                width: 100%;
+        @include media-min($lg) {
+            width: calc(100% / 4 - 16px * 3 / 4);
+        }
+
+        @include media-min($xxl) {
+            width: calc(100% / 5 - 16px * 4 / 5);
+        }
+
+        &.is-selected {
+            @include media-min($sm) {
+                width: calc(100% / 2 - 16px / 2);
+            }
+
+            @include media-min($lg) {
+                width: calc(100% / 4 - 16px * 3 / 4);
+            }
+
+            @include media-min($xxl) {
+                width: calc(100% / 5 - 16px * 4 / 5);
+            }
+
+            &:not(.is-fullscreen) {
+                width: calc(100% / 2 - 16px / 2);
+
+                @media (max-width: 1200px) {
+                    width: 100%;
+                }
             }
         }
 
@@ -217,18 +248,6 @@
                     }
                 }
             }
-        }
-
-        @include media-min($sm) {
-            width: calc(100% / 2 - 16px / 2);
-        }
-
-        @include media-min($lg) {
-            width: calc(100% / 4 - 16px * 3 / 4);
-        }
-
-        @include media-min($xxl) {
-            width: calc(100% / 5 - 16px * 4 / 5);
         }
     }
 </style>
