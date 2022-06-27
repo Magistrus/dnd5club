@@ -202,7 +202,7 @@
             padding: 0 16px;
             flex: 1 1 100%;
 
-            @include media-min($md) {
+            @media (min-width: 1200px) {
                 padding-left: 24px;
             }
         }
