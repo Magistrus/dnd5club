@@ -12,7 +12,7 @@
 
 		<div class="avatar">
 			<div class="image-container">
-				<a th:if="${images.empty}" id="creatute_href" class="test-popup-link" th:href="@{/assets/style/dark/no_img_best.png}"><img id="creatute_img" th:src="@{/assets/style/dark/no_img_best.png}" alt="Title best"></a>
+				<a th:if="${images.empty}" id="creatute_href" class="test-popup-link" th:href="@{/style/dark/no_img_best.png}"><img id="creatute_img" th:src="@{/style/dark/no_img_best.png}" alt="Title best"></a>
 				<a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}"><img th:if="${iterStat.first}" th:src="${image}"/></a>
 			</div>
 		</div>

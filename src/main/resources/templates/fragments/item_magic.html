@@ -15,8 +15,8 @@
 		</p>
 		<div class="avatar">
 			<div class="image-container">
-				<a th:if="${images.empty}" id="god_href" class="test-popup-link" th:href="@{/assets/style/dark/no_img_best.png}"> <img id="god_img"
-					th:src="@{/assets/style/dark/no_img_best.png}" alt="Title god"
+				<a th:if="${images.empty}" id="god_href" class="test-popup-link" th:href="@{/style/dark/no_img_best.png}"> <img id="god_img"
+					th:src="@{/style/dark/no_img_best.png}" alt="Title god"
 				></a> <a th:each="image, iterStat : ${images}" class="test-popup-link" th:href="${image}"> <img th:if="${iterStat.first}" th:src="${image}" /></a>
 			</div>
 		</div>

@@ -7,7 +7,7 @@
         esc-to-close
     >
         <img
-            src="/assets/img/bg_login.png"
+            src="/img/bg_login.png"
             :alt="type + '_background'"
             class="auth-reg-modal__bg"
         >
