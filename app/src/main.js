@@ -24,9 +24,7 @@ app.use(createPinia())
     .use(VueMasonryPlugin)
     .use(VueEasyLightbox)
     .use(VueTippy, VueTippyConfig)
-    .use(VueLazyload, {
-        observer: true
-    })
+    .use(VueLazyload)
     .use(vfmPlugin({
         key: '$vfm',
         componentName: 'VueFinalModal',
