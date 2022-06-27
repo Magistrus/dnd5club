@@ -17,6 +17,6 @@ import lombok.Setter;
 @Setter
 public class RequestRandomEncounterApi {
 	private Integer level;
-	private String enviroment;
+	private String environment;
 	private Collection<SourceApi> sources;
 }

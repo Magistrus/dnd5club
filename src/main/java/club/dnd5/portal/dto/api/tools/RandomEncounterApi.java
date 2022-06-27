@@ -22,22 +22,42 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RandomEncounterApi {
-	private Collection<NameValueApi> enviroments; 
+	private Collection<NameValueApi> environments; 
 	private Collection<NameValueApi> levels;
-
+	private String level;
+	private String environment;
+	
 	private String description;
 	private SourceApi source;
 	public RandomEncounterApi(RandomEncounterRow encounter) {
 		description = encounter.getDescription();
 		source = new  SourceApi(encounter.getBook());
+		switch (encounter.getEncounter().getLevel()) {
+		case 1:
+			level = "1-4";
+			break;
+		case 2:
+			level = "5-7";
+			break;
+		case 3:
+			level = "11-15";
+			break;
+		case 4:
+			level = "17-20";
+			break;
+		}
+		if (encounter.getEncounter().getType() != null) {
+			environment = encounter.getEncounter().getType().getName();
+		}
 	}
+
 	public RandomEncounterApi(HabitatType[] values) {
 		levels = new ArrayList<>();
 		levels.add(new NameValueApi("1-4", 1));
 		levels.add(new NameValueApi("5-10", 2));
 		levels.add(new NameValueApi("11-15", 3));
 		levels.add(new NameValueApi("17-20", 4));
-		enviroments = Arrays
+		environments = Arrays
 				.stream(values)
 				.map(e -> new NameValueApi(e.getName(), e.name()))
 				.collect(Collectors.toList());
