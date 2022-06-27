@@ -44,7 +44,10 @@
                             </span>
 
                             <span class="link-item-expand__body_row">
-                                <span class="link-item-expand__abilities">
+                                <span
+                                    v-if="abilities"
+                                    class="link-item-expand__abilities"
+                                >
                                     {{ abilities }}
                                 </span>
 
@@ -217,6 +220,8 @@
         }
 
         &.is-selected {
+            width: 100%;
+
             @include media-min($sm) {
                 width: calc(100% / 2 - 16px / 2);
             }
@@ -226,15 +231,7 @@
             }
 
             @include media-min($xxl) {
-                width: calc(100% / 5 - 16px * 4 / 5);
-            }
-
-            &:not(.is-fullscreen) {
                 width: calc(100% / 2 - 16px / 2);
-
-                @media (max-width: 1200px) {
-                    width: 100%;
-                }
             }
         }
 

@@ -63,9 +63,7 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import {
-        useElementBounding, useInfiniteScroll, useResizeObserver
-    } from "@vueuse/core/index";
+    import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia/dist/pinia";
@@ -173,12 +171,10 @@
             }
 
             &.is-showed-right-side {
-                &:not(.is-fullscreen) {
-                    width: 40%;
+                width: 40%;
 
-                    @media (max-width: 1200px) {
-                        width: 100%;
-                    }
+                @media (max-width: 1200px) {
+                    width: 100%;
                 }
             }
         }
@@ -189,7 +185,7 @@
             margin-top: -56px;
             top: 0;
             padding-top: 56px;
-            z-index: 10;
+            z-index: 12;
             pointer-events: none;
             background: linear-gradient(
                     180deg,
