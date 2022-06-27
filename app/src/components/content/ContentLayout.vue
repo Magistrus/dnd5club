@@ -130,8 +130,6 @@
                         const conRect = useElementBounding(this.$refs.container);
                         const docRect = useElementBounding(ref(document.getElementById('dnd5club')));
 
-                        console.log((unref(docRect.width) - unref(conRect.width)) / 2)
-
                         this.$refs.detail.style.maxWidth = this.getIsMobile ? '100%' : `${ unref(conRect.width) }px`;
                         this.$refs.detail.style.left = !this.getIsMobile
                             ? `${ (unref(docRect.width) - unref(conRect.width)) / 2 }px`
