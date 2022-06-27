@@ -1,5 +1,6 @@
 <template>
     <div
+        ref="container"
         :class="{'is-showed-right-side': showRightSide}"
         class="content-layout"
     >
@@ -8,13 +9,11 @@
             :class="{ 'is-fullscreen': getFullscreen }"
         >
             <div
-                ref="list"
                 class="content-layout__list"
                 :class="{ 'is-fullscreen': getFullscreen, 'is-showed-right-side': showRightSide }"
             >
                 <div
                     v-if="filterInstance"
-                    ref="filter"
                     class="content-layout__filter"
                 >
                     <div class="content-layout__filter_body">
@@ -49,6 +48,8 @@
 
             <div
                 v-if="showRightSide"
+                ref="detail"
+                v-scroll-lock="showRightSide && (getIsMobile || getFullscreen)"
                 class="content-layout__selected"
                 :class="{ 'is-fullscreen': getFullscreen }"
             >
@@ -62,11 +63,13 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import {
+        useElementBounding, useInfiniteScroll, useResizeObserver
+    } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia/dist/pinia";
-    import { ref } from "vue";
+    import { ref, unref } from "vue";
 
     export default {
         name: 'ContentLayout',
@@ -85,10 +88,14 @@
         data: () => ({
             dropdownHeight: 0,
             filterInstalled: false,
-            scrollTop: 0
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+        },
+        watch: {
+            getFullscreen() {
+                this.setMaxWidth();
+            }
         },
         mounted() {
             useInfiniteScroll(
@@ -100,6 +107,7 @@
             );
 
             useResizeObserver(this.$refs.items, this.calcDropdownHeight);
+            useResizeObserver(this.$refs.container, this.setMaxWidth);
         },
         methods: {
             calcDropdownHeight(entries) {
@@ -108,6 +116,30 @@
 
                 this.dropdownHeight = height || 0;
             },
+
+            setMaxWidth() {
+                if (this.$refs.detail && this.$refs.container) {
+                    this.$nextTick(() => {
+                        if (!this.getFullscreen) {
+                            this.$refs.detail.style.maxWidth = '';
+                            this.$refs.detail.style.right = '';
+
+                            return;
+                        }
+
+                        const conRect = useElementBounding(this.$refs.container);
+                        const docRect = useElementBounding(ref(document.getElementById('dnd5club')));
+
+                        console.log((unref(docRect.width) - unref(conRect.width)) / 2)
+
+                        this.$refs.detail.style.maxWidth = this.getIsMobile ? '100%' : `${ unref(conRect.width) }px`;
+                        this.$refs.detail.style.left = !this.getIsMobile
+                            ? `${ (unref(docRect.width) - unref(conRect.width)) / 2 }px`
+                            : 0;
+                        this.$refs.detail.style.right = 'initial';
+                    })
+                }
+            }
         }
     }
 </script>
@@ -130,7 +162,6 @@
         &__list {
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             position: relative;
             width: 100%;
             flex-shrink: 0;
@@ -143,28 +174,39 @@
                 }
             }
 
-            &.is-showed-right-side:not(.is-fullscreen) {
-                width: 40%;
+            &.is-showed-right-side {
+                &:not(.is-fullscreen) {
+                    width: 40%;
 
-                @media (max-width: 1200px) {
-                    width: 100%;
-                    height: calc(var(--max-vh) - 56px - 24px);
-                    border-radius: 12px;
+                    @media (max-width: 1200px) {
+                        width: 100%;
+                    }
                 }
-            }
-
-            &.is-showed-right-side.is-fullscreen {
-                height: calc(var(--max-vh) - 56px - 24px);
-                border-radius: 12px;
             }
         }
 
         &__filter {
             flex-shrink: 0;
-            position: relative;
+            position: sticky;
+            margin-top: -56px;
+            top: 0;
+            padding-top: 56px;
+            z-index: 10;
+            pointer-events: none;
+            background: linear-gradient(
+                    180deg,
+                    var(--bg-main) 0,
+                    var(--bg-main) 88px,
+                    var(--bg-main) 88px,
+                    transparent 124px
+            );
 
             &_body {
                 padding-bottom: 24px;
+
+                ::v-deep(*) {
+                    pointer-events: auto;
+                }
             }
 
             &_dropdown {
@@ -197,14 +239,23 @@
 
             @media (max-width: 1200px) {
                 width: 100%;
-                position: absolute;
-                top: 0;
+                height: calc(var(--max-vh) - 56px);
+                position: fixed;
+                top: 56px;
+                left: 0;
+                border-radius: 0;
             }
 
             &.is-fullscreen {
-                top: 0;
                 width: 100%;
-                position: absolute;
+                height: calc(var(--max-vh) - 56px);
+                position: fixed;
+                top: 56px;
+                left: 0;
+                border: {
+                    bottom-left-radius: 0;
+                    bottom-right-radius: 0;
+                };
             }
         }
     }
