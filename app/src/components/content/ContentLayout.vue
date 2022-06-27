@@ -5,7 +5,6 @@
     >
         <div class="content-layout__body">
             <div
-                id="left_block"
                 ref="list"
                 class="content-layout__list"
             >
@@ -46,7 +45,6 @@
 
             <div
                 v-if="showRightSide"
-                id="right_block"
                 class="content-layout__selected"
             >
                 <router-view v-if="!$slots['right-side']"/>
@@ -126,7 +124,7 @@
             position: relative;
         }
 
-        &__list#left_block {
+        &__list {
             width: 100%;
             height: 100%;
             display: flex;
@@ -173,7 +171,7 @@
             overflow: auto;
         }
 
-        &__selected#right_block {
+        &__selected {
             display: block;
             top: 0;
             right: 0;
@@ -193,7 +191,7 @@
         &.is-small {
             &.is-showed-right-side {
                 .content-layout {
-                    &__list#left_block {
+                    &__list {
                         width: 40%;
                     }
                 }
