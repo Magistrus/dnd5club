@@ -1,12 +1,16 @@
 <template>
     <div
-        :class="layoutClasses"
+        :class="{'is-showed-right-side': showRightSide}"
         class="content-layout"
     >
-        <div class="content-layout__body">
+        <div
+            class="content-layout__body"
+            :class="{ 'is-fullscreen': getFullscreen }"
+        >
             <div
                 ref="list"
                 class="content-layout__list"
+                :class="{ 'is-fullscreen': getFullscreen, 'is-showed-right-side': showRightSide }"
             >
                 <div
                     v-if="filterInstance"
@@ -46,6 +50,7 @@
             <div
                 v-if="showRightSide"
                 class="content-layout__selected"
+                :class="{ 'is-fullscreen': getFullscreen }"
             >
                 <router-view v-if="!$slots['right-side']"/>
 
@@ -60,6 +65,8 @@
     import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
+    import { mapState } from "pinia/dist/pinia";
+    import { ref } from "vue";
 
     export default {
         name: 'ContentLayout',
@@ -76,22 +83,16 @@
         },
         emits: ['list-end', 'update', 'search'],
         data: () => ({
-            uiStore: useUIStore(),
             dropdownHeight: 0,
             filterInstalled: false,
+            scrollTop: 0
         }),
         computed: {
-            layoutClasses() {
-                return {
-                    'is-showed-right-side': this.showRightSide,
-                    'is-fullscreen': this.uiStore.getFullscreen,
-                    'is-small': !this.uiStore.getFullscreen,
-                }
-            },
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
         },
         mounted() {
             useInfiniteScroll(
-                this.$refs.items,
+                ref(window),
                 () => {
                     this.$emit('list-end');
                 },
@@ -106,7 +107,7 @@
                 const { height } = entry.contentRect;
 
                 this.dropdownHeight = height || 0;
-            }
+            },
         }
     }
 </script>
@@ -114,24 +115,25 @@
 <style lang="scss" scoped>
     .content-layout {
         width: 100%;
-        height: 100%;
 
         &__body {
             width: 100%;
-            height: 100%;
             display: flex;
             justify-content: flex-start;
             position: relative;
+
+            &.is-fullscreen {
+                border-radius: 12px;
+            }
         }
 
         &__list {
-            width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            padding-right: 4px;
+            width: 100%;
+            flex-shrink: 0;
 
             ::-webkit-scrollbar-track {
                 background-color: transparent;
@@ -140,12 +142,26 @@
                     background-color: transparent;
                 }
             }
+
+            &.is-showed-right-side:not(.is-fullscreen) {
+                width: 40%;
+
+                @media (max-width: 1200px) {
+                    width: 100%;
+                    height: calc(var(--max-vh) - 56px - 24px);
+                    border-radius: 12px;
+                }
+            }
+
+            &.is-showed-right-side.is-fullscreen {
+                height: calc(var(--max-vh) - 56px - 24px);
+                border-radius: 12px;
+            }
         }
 
         &__filter {
             flex-shrink: 0;
             position: relative;
-            margin-right: 14px;
 
             &_body {
                 padding-bottom: 24px;
@@ -166,53 +182,29 @@
             }
         }
 
-        &__items {
-            flex: 1 1 100%;
-            overflow: auto;
-        }
-
         &__selected {
             display: block;
-            top: 0;
+            top: 56px;
             right: 0;
             width: calc(60% - 10px);
-            height: 100%;
+            height: calc(var(--max-vh) - 56px - 24px);
             overflow: hidden;
             border-radius: 12px;
             background-color: var(--bg-secondary);
-            position: absolute;
+            position: sticky;
             z-index: 12;
+            margin-left: auto;
 
             @media (max-width: 1200px) {
                 width: 100%;
-            }
-        }
-
-        &.is-small {
-            &.is-showed-right-side {
-                .content-layout {
-                    &__list {
-                        width: 40%;
-                    }
-                }
-            }
-        }
-
-        &.is-fullscreen {
-            .content-layout {
-                &__body {
-                    border-radius: 12px;
-                    overflow: hidden;
-                }
-
-                &__selected#right_block {
-                    // position: absolute;
-                    width: 100%;
-                    // margin-left: 48px;
-                }
+                position: absolute;
+                top: 0;
             }
 
-            &.is-showed-right-side {
+            &.is-fullscreen {
+                top: 0;
+                width: 100%;
+                position: absolute;
             }
         }
     }

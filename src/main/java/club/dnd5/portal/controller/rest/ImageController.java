@@ -42,6 +42,6 @@ public class ImageController {
 		} else {
 			theme = themeObject.toString();
 		}
-		return "/assets/style/" + theme + "/no_img_best.png";
+		return "/style/" + theme + "/no_img_best.png";
 	}
 }
