@@ -1,7 +1,6 @@
 // Old Styles
 @import "old/editor.css";
 @import "old/personal-area.css";
-@import "old/print.css";
 
 // Dependencies
 @import "dependencies";
@@ -14,6 +13,7 @@
 @import "base";
 @import "main";
 @import "navbar";
+@import "print";
 
 // Temp TODO: remove this!
 @import "temp-hardcode";
