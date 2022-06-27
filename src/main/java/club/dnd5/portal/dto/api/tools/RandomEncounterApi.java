@@ -29,9 +29,10 @@ public class RandomEncounterApi {
 	
 	private String description;
 	private SourceApi source;
+
 	public RandomEncounterApi(RandomEncounterRow encounter) {
 		description = encounter.getDescription();
-		source = new  SourceApi(encounter.getBook());
+		source = new  SourceApi(encounter.getEncounter().getBook());
 		switch (encounter.getEncounter().getLevel()) {
 		case 1:
 			level = "1-4";
