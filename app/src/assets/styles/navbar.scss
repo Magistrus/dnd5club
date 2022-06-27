@@ -87,6 +87,7 @@
       font-weight: 600;
 
       &:hover {
+        color: var(--text-b-color);
         background-color: var(--hover);
       }
     }
@@ -105,6 +106,7 @@
 
       &:hover {
         color: var(--text-b-color);
+        background-color: var(--hover);
       }
     }
 

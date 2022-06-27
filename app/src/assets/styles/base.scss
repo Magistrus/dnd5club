@@ -56,6 +56,15 @@
   display: none !important;
 }
 
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.disable {
+  opacity: 0.6 !important;
+  cursor: no-drop !important;
+}
+
 body {
   display: flex;
   font-family: "Open Sans", sans-serif;
