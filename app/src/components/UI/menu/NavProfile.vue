@@ -3,67 +3,36 @@
         class="btn_nav"
         @click.left.exact.prevent="openModal"
     >
-        <svg-icon icon-name="profile"/>
+        <svg-icon
+            icon-name="profile"
+            :stroke-enable="false"
+            fill-enable
+        />
     </div>
 
     <auth-reg-modal
-        v-model="modal.show"
-
+        v-model="modal"
         @close="closeModal"
-    >
-        <template #title>
-            {{ modal.type === 'reg' ? 'Регистрация' : 'Авторизация' }}
-        </template>
-
-        <template #default>
-            <button @click.left.exact.prevent="modal.type = 'reg'">
-                ryjgr
-            </button>
-
-            <component :is="modalType"/>
-        </template>
-    </auth-reg-modal>
+    />
 </template>
 
 <script>
-    import { defineAsyncComponent } from "vue";
     import AuthRegModal from "@/components/UI/modals/AuthRegModal";
+    import SvgIcon from "@/components/UI/SvgIcon";
 
     export default {
         name: "NavProfile",
-        components: { AuthRegModal },
+        components: { AuthRegModal, SvgIcon },
         data: () => ({
-            modal: {
-                show: false,
-                type: 'auth'
-            }
+            modal: false
         }),
-        computed: {
-            modalType: {
-                get() {
-                    switch (this.modal.type) {
-                        case 'reg':
-                            return defineAsyncComponent(() => import('@/components/account/RegistrationView'));
-
-                        default:
-                            return defineAsyncComponent(() => import('@/components/account/LoginView'));
-                    }
-                },
-
-                set(e) {
-                    this.modal.type = e;
-                }
-            }
-        },
         methods: {
             openModal() {
-                this.modal.show = true;
-                this.modal.type = 'auth';
+                this.modal = true;
             },
 
             closeModal() {
-                this.modal.show = false;
-                this.modal.type = 'auth';
+                this.modal = false;
             }
         }
     }

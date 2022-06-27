@@ -354,3 +354,13 @@
     padding: 24px;
   }
 }
+
+.form {
+  &__row {
+    display: flex;
+
+    & + & {
+      margin-top: 12px;
+    }
+  }
+}
