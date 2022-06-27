@@ -87,6 +87,7 @@
       font-weight: 600;
 
       &:hover {
+        color: var(--text-b-color);
         background-color: var(--hover);
       }
     }
@@ -105,6 +106,7 @@
 
       &:hover {
         color: var(--text-b-color);
+        background-color: var(--hover);
       }
     }
 
@@ -235,7 +237,7 @@
   @media (max-width: 550px) {
     max-width: 100%;
     margin: 8px 8px 0 8px;
-    max-height: 100vh;
+    max-height: calc(100vh - 16px);
     padding: 0 0px 0 16px;
   }
 

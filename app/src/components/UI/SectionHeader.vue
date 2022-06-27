@@ -202,7 +202,7 @@
             padding: 0 16px;
             flex: 1 1 100%;
 
-            @include media-min($md) {
+            @media (min-width: 1200px) {
                 padding-left: 24px;
             }
         }
@@ -221,7 +221,7 @@
                 color: var(--text-color-title);
                 font-weight: 400;
 
-                @include media-min($md) {
+                @media (max-width: 800px) {
                     font-size: calc(var(--h1-font-size) - 16px);
                 }
             }
@@ -243,7 +243,7 @@
                 flex-shrink: 0;
                 transform: translateY(2px);
 
-                @include media-min($md) {
+                @media (min-width: 800px) {
                     display: flex;
 
                     &:hover {
