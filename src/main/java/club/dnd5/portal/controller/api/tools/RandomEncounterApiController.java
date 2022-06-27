@@ -21,41 +21,41 @@ import club.dnd5.portal.model.encounters.RandomEncounterеTable;
 import club.dnd5.portal.repository.datatable.RandomEncounterRepository;
 import club.dnd5.portal.repository.datatable.RandomEncounterTableRepository;
 
-
 @RestController
 public class RandomEncounterApiController {
 	public static final Random rnd = new Random();
-	
+
 	@Autowired
 	private RandomEncounterRepository repo;
 	@Autowired
 	private RandomEncounterTableRepository repoTable;
-	
+
 	@GetMapping("/api/v1/tools/encounters")
 	public RandomEncounterApi getItems() {
 		return new RandomEncounterApi(HabitatType.values());
 	}
-	
+
 	@PostMapping("/api/v1/tools/encounters")
 	public ResponseEntity<RandomEncounterApi> getItems(@RequestBody RequestRandomEncounterApi reques) {
 		if (reques.getLevel() == null) {
 			reques.setLevel(Dice.d4.roll());
 		}
 		HabitatType enviroment;
-		if (reques.getEnviroment() == null) {
+		if (reques.getEnvironment() == null) {
 			Set<HabitatType> enviroments = HabitatType.types();
-			enviroment = enviroments.stream().filter(e -> e.ordinal() == rnd.nextInt(enviroments.size())).findFirst().get();
-		} 
-		else {
-			enviroment = HabitatType.valueOf(reques.getEnviroment());
+			enviroment = enviroments.stream().filter(e -> e.ordinal() == rnd.nextInt(enviroments.size())).findFirst()
+					.get();
+		} else {
+			enviroment = HabitatType.valueOf(reques.getEnvironment());
 		}
 		RandomEncounterRow encounter = repo.findOne(Dice.d100.roll(), reques.getLevel(), enviroment);
 		return ResponseEntity.ok(new RandomEncounterApi(encounter));
 	}
-	
+
 	@PostMapping("/api/v1/tools/encounters/table")
 	public ResponseEntity<RandomEncounterTableApi> getTable(@RequestBody RequestRandomEncounterApi reques) {
-		Optional<RandomEncounterеTable> table = repoTable.findByLevelAndType(reques.getLevel(), HabitatType.valueOf(reques.getEnviroment()));
+		Optional<RandomEncounterеTable> table = repoTable.findByLevelAndType(reques.getLevel(),
+				HabitatType.valueOf(reques.getEnvironment()));
 		if (table.isPresent()) {
 			RandomEncounterTableApi raTable = new RandomEncounterTableApi(table.get());
 			return ResponseEntity.ok(raTable);

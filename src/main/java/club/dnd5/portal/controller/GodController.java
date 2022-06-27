@@ -84,6 +84,10 @@ public class GodController {
 		model.addAttribute("metaTitle", god.getName() + " | Боги D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/gods/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s", god.getName(), god.getEnglishName(), god.getAligment().getCyrilicName(), god.getSex().getCyrilicName(), god.getCommitment()));
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.GOD, god.getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
 		return "gods";
 	}
 	

@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.wiki.RuleApi;
 import club.dnd5.portal.dto.api.wiki.RuleDetailApi;
+import club.dnd5.portal.dto.api.wiki.RuleRequestApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
@@ -34,7 +34,7 @@ public class RulesApiConroller {
 	private RuleDatatableRepository ruleRepository;
 	
 	@PostMapping(value = "/api/v1/rules", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<RuleApi> getRules(@RequestBody SpellRequesApi request) {
+	public List<RuleApi> getRules(@RequestBody RuleRequestApi request) {
 		Specification<Rule> specification = null;
 
 		DataTablesInput input = new DataTablesInput();

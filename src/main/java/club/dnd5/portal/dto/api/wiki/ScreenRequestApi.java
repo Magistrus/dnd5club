@@ -1,11 +1,9 @@
-package club.dnd5.portal.dto.api.tools;
-
-import java.util.Collection;
+package club.dnd5.portal.dto.api.wiki;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApi;
+import club.dnd5.portal.dto.api.RequestApi;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestRandomEncounterApi {
-	private Integer level;
-	private String environment;
-	private Collection<SourceApi> sources;
+public class ScreenRequestApi extends RequestApi {
+	private ScreenFilter filter;
 }
