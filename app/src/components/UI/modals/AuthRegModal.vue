@@ -1,123 +1,152 @@
 <template>
     <vue-final-modal
-        v-slot="{ params, close }"
+        v-slot="{ close }"
         v-bind="$attrs"
         content-class="auth-reg-modal"
         focus-trap
         esc-to-close
     >
-        <div class="auth-reg-modal__header">
-            <div class="auth-reg-modal__title">
-                <slot name="title"/>
-            </div>
-
-            <button
-                class="auth-reg-modal__close"
-                @click.left.exact.prevent="close"
-            >
-                <span class="auth-reg-modal__close_icon">
-                    <svg-icon icon-name="close"/>
-                </span>
-            </button>
-        </div>
+        <img
+            src="/assets/img/bg_login.png"
+            :alt="type + '_background'"
+            class="auth-reg-modal__bg"
+        >
 
         <div class="auth-reg-modal__content">
-            <div class="auth-reg-modal__safe">
-                <div class="auth-reg-modal__body">
-                    <slot :params="params"/>
-                </div>
+            <div class="auth-reg-modal__header">
+                <form-button
+                    class="auth-reg-modal__close"
+                    is-link
+                    @click.left.exact.prevent="closeHandler(close)"
+                >
+                    <svg-icon icon-name="close"/>
+                </form-button>
+            </div>
+
+            <div class="auth-reg-modal__body">
+                <h4>{{ type === 'reg' ? 'Регистрация' : 'Авторизация' }}</h4>
+
+                <transition
+                    name="fade"
+                    mode="out-in"
+                >
+                    <component
+                        :is="formType"
+                        @change-type="type = type === 'auth' ? 'reg' : 'auth'"
+                    />
+                </transition>
             </div>
         </div>
     </vue-final-modal>
 </template>
+
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
+    import { defineAsyncComponent } from "vue";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
         name: "AuthRegModal",
-        components: { SvgIcon },
+        components: {
+            FormButton,
+            SvgIcon
+        },
         inheritAttrs: true,
         emits: ['confirm', 'cancel'],
+        data: () => ({
+            type: 'auth'
+        }),
+        computed: {
+            formType() {
+                switch (this.type) {
+                    case 'reg':
+                        return defineAsyncComponent(() => import('@/components/account/RegistrationView'));
 
+                    default:
+                        return defineAsyncComponent(() => import('@/components/account/LoginView'));
+                }
+            }
+        },
+        methods: {
+            closeHandler(callback) {
+                callback();
+
+                this.type = 'auth';
+            }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     ::v-deep(.auth-reg-modal) {
         background-color: var(--bg-secondary);
-        max-width: 90%;
         max-height: 90%;
         margin: auto;
-        border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 0 12px -8px var(--bg-transparent);
         display: flex;
-        flex-direction: column;
+        width: 100%;
+        max-width: $sm;
+
+        @include media-min($sm) {
+            border-radius: 8px;
+        }
     }
 
     .auth-reg-modal {
-        &__header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            flex-shrink: 0;
-            background-color: var(--hover);
+        &__bg {
+            width: 240px;
+            height: 480px;
+            object-fit: cover;
+            display: none;
 
-            @media (max-width: 1200px) {
-                padding: 12px 16px;
+            @include media-min($md) {
+                display: block;
             }
         }
 
-        &__title {
-            color: var(--text-color-title);
-            font-size: 22px;
-            line-height: 28px;
-            padding-bottom: 4px;
+        &__content {
+            flex: 1 1 100%;
+            height: 480px;
+            padding: 16px;
+
+            @include media-min($md) {
+                padding: 24px;
+            }
+        }
+
+        &__header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
         }
 
         &__close {
             @include css_anim();
 
-            margin-left: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 0;
-            background-color: transparent;
-            cursor: pointer;
             color: var(--primary);
-            appearance: none;
-            padding: 0;
-            border-radius: 8px;
-            overflow: hidden;
-
-            &_icon {
-                width: 32px;
-                height: 32px;
-
-                ::v-deep(> svg) {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
+            padding: 8px;
+            width: 48px;
+            height: 48px;
 
             &:hover {
-                @include media-min($lg) {
-                    color: var(--primary-hover);
-                    background-color: var(--bg-secondary);
-                }
+                color: var(--primary-hover);
             }
         }
 
-        &__content {
-            overflow: auto;
-            width: 100%;
-            flex: 1;
-        }
+        &__body {
+            height: calc(100% - 48px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-        &__safe {
-            // padding: 16px;
+            h4 {
+                margin: 0;
+            }
+
+            .form {
+                margin-top: 24px;
+            }
         }
     }
 </style>

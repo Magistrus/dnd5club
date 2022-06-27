@@ -3,17 +3,11 @@
         class="theme_mode btn_nav"
         @click.left.exact.prevent="switchTheme"
     >
-        <i
-            id="icon_dark_mod"
-            class="icon_menu"
-        >
-            <svg-icon
-                :fill-enable="true"
-                :icon-name="`${currentIcon}-theme`"
-                :stroke-enable="true"
-            />
-        </i>
-        <!-- <span>{{ currentLabel }}</span> -->
+        <svg-icon
+            :icon-name="`${currentIcon}-theme`"
+            :stroke-enable="false"
+            fill-enable
+        />
     </div>
 </template>
 

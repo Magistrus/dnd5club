@@ -75,6 +75,8 @@
     }
 
     .link_nav {
+      @include css_anim();
+
       cursor: pointer;
       height: 40px;
       border-radius: 8px;
@@ -86,11 +88,12 @@
 
       &:hover {
         background-color: var(--hover);
-        color: var(--text-b-color);
       }
     }
 
     .btn_nav {
+      @include css_anim();
+
       cursor: pointer;
       height: 40px;
       width: 40px;
@@ -100,21 +103,8 @@
       align-items: center;
       color: var(--text-color);
 
-      svg,
-      path {
-        fill: var(--text-color);
-        stroke: none;
-      }
-
       &:hover {
-        background-color: var(--hover);
         color: var(--text-b-color);
-
-        svg,
-        path {
-          fill: var(--text-b-color);
-          stroke: var(--text-b-color);
-        }
       }
     }
 
@@ -126,6 +116,8 @@
       z-index: 20;
 
       .line {
+        @include css_anim();
+
         width: 22px;
         height: 2px;
         background-color: var(--text-color);
@@ -218,8 +210,7 @@
   transform: scale(0);
   transform-origin: top left;
   visibility: hidden;
-  transition: transform 250ms cubic-bezier(0.215, 0.61, 0.355, 1),
-  opacity 250ms ease, visibility 0ms linear 250ms;
+  transition: transform 250ms cubic-bezier(0.215, 0.61, 0.355, 1), opacity 250ms ease, visibility 0ms linear 250ms;
 
   &.is-active {
     opacity: 1;
@@ -293,7 +284,7 @@
         padding: 8px 20px;
         display: flex;
         opacity: 0.8;
-        
+
         span {
           display: block;
           color: var(--text-g-color);
@@ -307,6 +298,8 @@
         padding: 0;
 
         li {
+          @include css_anim();
+
           list-style: none;
           margin: 0;
           border-radius: 6px;

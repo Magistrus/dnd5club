@@ -105,6 +105,7 @@
 
         &--toggle {
             display: inline-flex;
+            align-items: center;
 
             .field-checkbox {
                 &__faker {
@@ -131,6 +132,10 @@
                         width: 14px;
                         height: 14px;
                     }
+                }
+
+                &__label {
+                    margin-left: 4px;
                 }
             }
 
