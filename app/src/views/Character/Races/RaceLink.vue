@@ -236,7 +236,7 @@
 
             &.is-fullscreen {
                 @include media-min($sm) {
-                    width: calc(100% / 4 - 16px * 3 / 4);
+                    width: calc(100% / 2 - 16px / 2);
                 }
 
                 @include media-min($lg) {
