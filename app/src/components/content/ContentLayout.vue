@@ -23,12 +23,6 @@
                             @update="$emit('update', $event)"
                         />
                     </div>
-
-                    <div
-                        data-content-filter
-                        class="content-layout__filter_dropdown"
-                        :style="{ height: `${dropdownHeight}px` }"
-                    />
                 </div>
 
                 <div
@@ -232,7 +226,6 @@
             border-radius: 12px;
             background-color: var(--bg-secondary);
             position: sticky;
-            z-index: 12;
             margin-left: auto;
 
             @media (max-width: 1200px) {
