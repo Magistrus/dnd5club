@@ -257,9 +257,13 @@
                     bottom-right-radius: 0;
                 };
 
-                    @media (max-width: 1400px) {
-                        max-width: calc(1320px - 24px - 24px);
-                    }
+                @media (max-width: 1400px) {
+                    max-width: calc(1320px - 24px - 24px);
+                }
+
+                @media (max-width: 1200px) {
+                    height: calc(var(--max-vh) - 56px);
+                }
             }
         }
     }
