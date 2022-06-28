@@ -19,10 +19,12 @@ public class ScreenApi {
 	protected NameApi name;
 	protected String url;
 	protected SourceApi source;
+	private Integer order;
 
 	public ScreenApi(Screen screen) {
 		name = new NameApi(screen.getName(), screen.getEnglishName());
 		url = String.format("/screens/%s", screen.getUrlName());
+		order = screen.getOrdering();
 		//source = new SourceApi(screen.getBook());
 	}
 }
