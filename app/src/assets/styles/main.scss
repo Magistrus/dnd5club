@@ -387,7 +387,6 @@
 }
 
 .scores {
-  margin: 20px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -429,9 +428,14 @@
       flex: 1 0 calc(33% - 8px);
     }
 
-    @media (max-width: 360px) {
+    @media (max-width: 600px) {
       max-width: calc(50% - 8px);
       flex: 1 0 calc(50% - 8px);
+    }
+
+    @media (max-width: 360px) {
+      max-width: calc(100% - 8px);
+      flex: 1 0 calc(100% - 8px);
     }
   }
 }
