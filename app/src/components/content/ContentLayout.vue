@@ -176,6 +176,10 @@
                 @media (max-width: 1200px) {
                     width: 100%;
                 }
+
+                &.is-fullscreen {
+                    width: 100%;
+                }
             }
         }
 
@@ -242,14 +246,20 @@
 
             &.is-fullscreen {
                 width: 100%;
-                height: calc(var(--max-vh) - 56px);
+                height: calc(var(--max-vh) - 56px - 24px);
                 position: fixed;
                 top: 56px;
                 left: 0;
+                max-width: 1320px;
+                margin: auto;
                 border: {
                     bottom-left-radius: 0;
                     bottom-right-radius: 0;
                 };
+
+                    @media (max-width: 1400px) {
+                        max-width: calc(1320px - 24px - 24px);
+                    }
             }
         }
     }

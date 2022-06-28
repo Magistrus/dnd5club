@@ -227,11 +227,25 @@
             }
 
             @include media-min($lg) {
-                width: calc(100% / 4 - 16px * 3 / 4);
+                width: calc(100% / 2 - 16px / 2);
             }
 
             @include media-min($xxl) {
                 width: calc(100% / 2 - 16px / 2);
+            }
+
+            &.is-fullscreen {
+                @include media-min($sm) {
+                    width: calc(100% / 4 - 16px * 3 / 4);
+                }
+
+                @include media-min($lg) {
+                    width: calc(100% / 4 - 16px * 3 / 4);
+                }
+
+                @include media-min($xxl) {
+                    width: calc(100% / 5 - 16px * 4 / 5);
+                }
             }
         }
 
