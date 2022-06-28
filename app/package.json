@@ -23,8 +23,6 @@
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.14",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.15.0",
     "swiper": "^8.2.2",
     "tippy.js": "^6.3.7",
     "vue": "^3.2.36",
