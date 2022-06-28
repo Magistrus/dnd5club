@@ -15,7 +15,7 @@
         <div class="auth-reg-modal__content">
             <form-button
                 class="auth-reg-modal__close"
-                is-link
+                type-link
                 @click.left.exact.prevent="closeHandler(close)"
             >
                 <svg-icon icon-name="close"/>
@@ -123,18 +123,12 @@
         &__close {
             @include css_anim();
 
-            color: var(--primary);
-            padding: 8px;
-            width: 48px;
-            height: 48px;
-
+            padding: 4px;
+            width: 40px;
+            height: 40px;
             position: absolute;
-            top: 0;
-            right: 0;
-
-            &:hover {
-                color: var(--primary-hover);
-            }
+            top: 12px;
+            right: 12px;
         }
 
         &__body {

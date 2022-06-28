@@ -32,7 +32,7 @@
             </form-button>
 
             <form-button
-                is-link
+                type-link
                 @click.left.exact.prevent="$emit('change-type')"
             >
                 Регистрация

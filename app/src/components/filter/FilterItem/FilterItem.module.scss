@@ -44,15 +44,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     color: var(--primary);
 
     svg {
       @include css_anim();
 
-      width: 24px;
-      height: 24px;
+      width: 16px;
+      height: 16px;
     }
 
     @include media-min($md) {
