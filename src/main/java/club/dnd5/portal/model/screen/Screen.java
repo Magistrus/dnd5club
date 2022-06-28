@@ -50,6 +50,6 @@ public class Screen {
 	private Book book;
 	
 	public String getUrlName() {
-		return englishName.replace(' ', ' ');
+		return englishName.replace(' ', '_');
 	}
 }
