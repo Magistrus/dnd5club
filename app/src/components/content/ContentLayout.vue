@@ -241,7 +241,8 @@
                 position: fixed;
                 top: 56px;
                 left: 0;
-                border-radius: 0;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
             }
 
             &.is-fullscreen {

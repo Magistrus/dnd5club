@@ -444,6 +444,10 @@
                 margin-left: 16px;
                 white-space: nowrap;
                 font-size: var(--main-font-size);
+
+                @include media-max(800px) {
+                    display: none;
+                }
             }
 
             @include media-min($md) {
@@ -460,7 +464,19 @@
                     &_name {
                         color: var(--text-btn-color);
                     }
+
+                     &_name {
+                        display: block;
+                     }
                 }
+            }
+
+            @include media-max(1300px) {
+                padding: 0 16px;
+            }
+
+            @include media-max(360px) {
+                padding: 0 8px;
             }
         }
 
