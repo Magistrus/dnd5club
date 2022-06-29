@@ -3,6 +3,7 @@
         v-slot="{ params, close }"
         v-bind="$attrs"
         content-class="base-modal"
+        attach="body"
         focus-trap
         esc-to-close
         lock-scroll
@@ -152,18 +153,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        max-height: var(--max-vh);
+        width: 100%;
     }
 
     ::v-deep(.base-modal) {
         background-color: var(--bg-secondary);
-        max-width: 90%;
-        max-height: 90%;
+        width: 100%;
+        max-width: $md - 1px;
+        max-height: calc(var(--max-vh) - 56px * 2);
         margin: auto;
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 0 12px -8px var(--bg-transparent);
         display: flex;
         flex-direction: column;
+
+        @include media-max($md){
+            border-radius: 0;
+            max-height: 100%;
+        }
     }
 
     .base-modal {
@@ -187,7 +196,12 @@
         }
 
         &__close {
-            margin-left: 16px;
+            margin: {
+                left: 16px;
+                top: -6px;
+                right: -6px;
+                bottom: -6px;
+            }
         }
 
         &__content {
