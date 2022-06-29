@@ -22,16 +22,13 @@
                 </div>
 
                 <div class="tools_settings__row">
-                    <label class="select_box">
-                        <span>Результат проверки Харизмы (Убеждение):</span>
+                    <span>Результат проверки Харизмы (Убеждение):</span>
 
-                        <input
-                            v-model="form.persuasion"
-                            type="number"
-                            class="form-control select"
-                            placeholder="Харизма (Убеждение)"
-                        >
-                    </label>
+                    <field-input
+                        v-model="form.persuasion"
+                        class="form-control select"
+                        placeholder="Харизма (Убеждение)"
+                    />
                 </div>
 
                 <div class="tools_settings__row">
@@ -71,13 +68,9 @@
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <button
-                        id="generate"
-                        class="btn btn_primary"
-                        type="submit"
-                    >
+                    <form-button @click.left.exact.prevent="sendForm">
                         Найти торговца
-                    </button>
+                    </form-button>
                 </div>
             </form>
         </template>
@@ -168,10 +161,14 @@
     import ContentDetail from "@/components/content/ContentDetail";
     import { mapState } from "pinia/dist/pinia";
     import { useUIStore } from "@/store/UI/UIStore";
+    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
         name: "TraderView",
         components: {
+            FormButton,
+            FieldInput,
             ContentDetail,
             MagicItemLink,
             SpellBody,
