@@ -1,6 +1,7 @@
 package club.dnd5.portal.dto.api.races;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,10 @@ public class RaceApi {
 				.stream()
 				.map(bonus -> new NameValueApi(bonus.getAbility().getCyrilicName(), bonus.getAbility().getShortName(), bonus.getBonus()))
 				.collect(Collectors.toList());
+		if (abilities.size() == 6) {
+			abilities = Collections.singletonList(
+					new NameValueApi("все", "к каждой", new Byte((byte) 1)));
+		}
 		image = String.format("race-%s", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }
