@@ -6,36 +6,36 @@
         @update="classesQuery"
     >
         <div
-            v-for="(group, groupKey) in classes"
-            :key="groupKey"
-            class="class-group"
+            ref="classes"
+            class="class-items"
         >
             <div
-                v-if="group.group?.name"
-                class="class-group__name"
+                v-for="(group, groupKey) in classes"
+                :key="groupKey"
+                class="class-items__group"
             >
-                {{ group.group.name }}
-            </div>
+                <div
+                    v-if="group.group?.name"
+                    class="class-items__group_name"
+                >
+                    {{ group.group.name }}
+                </div>
 
-            <div
-                v-masonry="'class-items'"
-                class="class-group__list"
-                gutter="16"
-                horizontal-order="false"
-                item-selector=".link-item-expand"
-                transition-duration="0s"
-                stagger="0s"
-            >
-                <class-link
-                    v-for="el in group.list"
-                    ref="class"
-                    :key="el.url"
-                    :class-item="el"
-                    :to="{ path: el.url }"
-                    :after-search="!!search"
-                    @resize="redrawMasonryOnResize"
-                    @submenu-toggled="redrawMasonry"
-                />
+                <div class="class-items__group_list">
+                    <div
+                        v-for="(column, columnKey) in group.list"
+                        :key="columnKey"
+                        class="class-items__group_col"
+                    >
+                        <class-link
+                            v-for="el in column"
+                            :key="el.url"
+                            :class-item="el"
+                            :to="{ path: el.url }"
+                            :after-search="!!search"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     </content-layout>
@@ -48,6 +48,9 @@
     import sortBy from "lodash/sortBy";
     import groupBy from "lodash/groupBy";
     import debounce from "lodash/debounce";
+    import { useUIStore } from "@/store/UI/UIStore";
+    import { mapState, mapActions } from "pinia";
+    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'ClassesView',
@@ -64,16 +67,19 @@
             next();
         },
         data: () => ({
-            classesStore: useClassesStore(),
-            search: ''
+            search: '',
+            cols: 1
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useClassesStore, ['getClasses', 'getFilter']),
+
             filter() {
-                return this.classesStore.getFilter || undefined;
+                return this.getFilter || undefined;
             },
 
             classes() {
-                const classes = this.classesStore.getClasses || [];
+                const classes = this.getClasses || [];
 
                 if (!classes?.length) {
                     return [];
@@ -85,13 +91,13 @@
                         o => o.group.name
                     )).map(list => ({
                         group: list[0].group,
-                        list: sortBy(list, [o => o.name.rus])
+                        list: this.getSorted(sortBy(list, [o => o.name.rus]))
                     })),
                     [o => o.group.order]
                 );
 
                 return [{
-                    list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])
+                    list: this.getSorted(sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus]))
                 }, ...groups];
             },
 
@@ -100,19 +106,72 @@
             }
         },
         watch: {
-            classes: {
-                deep: true,
-                handler() {
-                    this.redrawMasonry();
-                },
-            }
+            showRightSide() {
+                this.resizeHandler();
+            },
+        },
+        async mounted() {
+            await this.initFilter();
+            await this.initClasses();
+
+            useResizeObserver(this.$refs.classes, this.resizeHandler);
         },
         beforeUnmount() {
-            this.classesStore.clearStore();
+            this.clearStore();
         },
         methods: {
+            ...mapActions(useClassesStore, ['initFilter', 'initClasses', 'nextPage', 'clearStore']),
+
+            resizeHandler() {
+                const getSelectedCols = () => {
+                    if (window.innerWidth >= 1400) {
+                        return this.showRightSide ? 1 : 3;
+                    }
+
+                    if (window.innerWidth >= 992) {
+                        return this.showRightSide ? 1 : 2;
+                    }
+
+                    return 1;
+                }
+
+                if (window.innerWidth >= 1400) {
+                    this.cols = this.getFullscreen ? 3 : getSelectedCols();
+
+                    return;
+                }
+
+                if (window.innerWidth >= 992) {
+                    this.cols = this.getFullscreen ? 2 : getSelectedCols();
+
+                    return;
+                }
+
+                this.cols = 1;
+            },
+
+            getSorted(list) {
+                const classes = [];
+
+                if (!list.length) {
+                    return classes;
+                }
+
+                for (let i = 0; i < list.length; i++) {
+                    const col = i % this.cols;
+
+                    if (!classes[col]) {
+                        classes.push([]);
+                    }
+
+                    classes[col].push(list[i]);
+                }
+
+                return classes;
+            },
+
             async classesQuery() {
-                await this.classesStore.initClasses();
+                await this.initClasses();
             },
 
             // eslint-disable-next-line func-names
@@ -120,31 +179,34 @@
                 await this.classesQuery();
 
                 this.search = e;
-            }, 300),
-
-            // eslint-disable-next-line func-names
-            redrawMasonryOnResize: debounce(function() {
-                this.redrawMasonry();
-            }, 100, { maxWait: 300 }),
-
-            redrawMasonry() {
-                this.$nextTick(() => {
-                    this.$redrawVueMasonry('class-items');
-                })
-            }
+            }, 300)
         }
     }
 </script>
 
 <style lang="scss" scoped>
-        .class-group {
-            &__name {
-            font-size: var(--h3-font-size);
-            font-weight: 300;
-            margin: 24px 0 16px 0;
-            color: var(--text-color-title);
-            position: relative;
-            font-family: 'Lora';
+        .class-items {
+            &__group {
+                &_name {
+                    font-size: var(--h3-font-size);
+                    font-weight: 300;
+                    margin: 24px 0 16px 0;
+                    color: var(--text-color-title);
+                    position: relative;
+                    font-family: 'Lora';
+                }
+
+                &_list {
+                    display: flex;
+                }
+
+                &_col {
+                    flex: 1 1 100%;
+
+                    & + & {
+                        margin-left: 16px;
+                    }
+                }
             }
         }
 </style>
