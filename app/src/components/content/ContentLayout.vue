@@ -23,12 +23,6 @@
                             @update="$emit('update', $event)"
                         />
                     </div>
-
-                    <div
-                        data-content-filter
-                        class="content-layout__filter_dropdown"
-                        :style="{ height: `${dropdownHeight}px` }"
-                    />
                 </div>
 
                 <div
@@ -63,11 +57,11 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useElementBounding, useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia/dist/pinia";
-    import { ref, unref } from "vue";
+    import { ref } from "vue";
 
     export default {
         name: 'ContentLayout',
@@ -86,13 +80,45 @@
         data: () => ({
             dropdownHeight: 0,
             filterInstalled: false,
+            scrollTop: 0,
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
         },
         watch: {
-            getFullscreen() {
-                this.setMaxWidth();
+            showRightSide(value) {
+                if (!this.getFullscreen) {
+                    return;
+                }
+
+                if (value) {
+                    this.scrollTop = window.scrollY;
+
+                    return
+                }
+
+                this.$nextTick(() => {
+                    window.scroll({
+                        top: this.scrollTop
+                    });
+                })
+            },
+
+            getFullscreen(value) {
+                if (value) {
+                    this.scrollTop = window.scrollY;
+
+                    return
+                }
+
+                this.$nextTick(() => {
+                    setTimeout(() => {
+                        window.scroll({
+                            top: this.scrollTop,
+                            behavior: "smooth"
+                        });
+                    }, 300)
+                })
             }
         },
         mounted() {
@@ -105,7 +131,6 @@
             );
 
             useResizeObserver(this.$refs.items, this.calcDropdownHeight);
-            useResizeObserver(this.$refs.container, this.setMaxWidth);
         },
         methods: {
             calcDropdownHeight(entries) {
@@ -114,28 +139,6 @@
 
                 this.dropdownHeight = height || 0;
             },
-
-            setMaxWidth() {
-                if (this.$refs.detail && this.$refs.container) {
-                    this.$nextTick(() => {
-                        if (!this.getFullscreen) {
-                            this.$refs.detail.style.maxWidth = '';
-                            this.$refs.detail.style.right = '';
-
-                            return;
-                        }
-
-                        const conRect = useElementBounding(this.$refs.container);
-                        const docRect = useElementBounding(ref(document.getElementById('dnd5club')));
-
-                        this.$refs.detail.style.maxWidth = this.getIsMobile ? '100%' : `${ unref(conRect.width) }px`;
-                        this.$refs.detail.style.left = !this.getIsMobile
-                            ? `${ (unref(docRect.width) - unref(conRect.width)) / 2 }px`
-                            : 0;
-                        this.$refs.detail.style.right = 'initial';
-                    })
-                }
-            }
         }
     }
 </script>
@@ -179,6 +182,9 @@
 
                 &.is-fullscreen {
                     width: 100%;
+                    height: calc(var(--max-vh) - 56px - 24px);
+                    overflow: hidden;
+                    border-radius: 12px;
                 }
             }
         }
@@ -232,8 +238,8 @@
             border-radius: 12px;
             background-color: var(--bg-secondary);
             position: sticky;
-            z-index: 12;
             margin-left: auto;
+            z-index: 12;
 
             @media (max-width: 1200px) {
                 width: 100%;
@@ -248,19 +254,11 @@
             &.is-fullscreen {
                 width: 100%;
                 height: calc(var(--max-vh) - 56px - 24px);
-                position: fixed;
-                top: 56px;
+                position: absolute;
+                top: 0;
                 left: 0;
-                max-width: 1320px;
+                max-width: var(--max-content);
                 margin: auto;
-                border: {
-                    bottom-left-radius: 0;
-                    bottom-right-radius: 0;
-                };
-
-                @media (max-width: 1400px) {
-                    max-width: calc(1320px - 24px - 24px);
-                }
 
                 @media (max-width: 1200px) {
                     height: calc(var(--max-vh) - 56px);

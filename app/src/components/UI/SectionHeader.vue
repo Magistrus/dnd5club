@@ -193,6 +193,8 @@
         height: 72px;
         display: flex;
         align-items: center;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
         overflow: hidden;
         flex-shrink: 0;
         background-color: var(--bg-sub-menu);
@@ -200,7 +202,7 @@
 
         &__body {
             padding: 0 16px;
-            flex: 1 1 100%;
+            flex: 1;
 
             @media (min-width: 1200px) {
                 padding-left: 24px;
@@ -260,10 +262,13 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+
+            @media (max-width: 1200px) {
+                margin-top: 4px;
+            }
         }
 
         &__controls {
-            margin-left: auto;
             display: flex;
             align-items: center;
             flex-shrink: 0;
@@ -287,6 +292,8 @@
                 flex-shrink: 0;
                 cursor: pointer;
                 color: var(--primary);
+                width: 73px;
+                height: 72px;
 
                 &.is-only-desktop {
                     display: none;
@@ -311,7 +318,7 @@
                 border-left: 1px solid var(--border);
                 height: 72px;
                 padding: 24px;
-                flex: 1 0 73px;
+                flex: 1 0 72px;
             }
 
             &--optional {

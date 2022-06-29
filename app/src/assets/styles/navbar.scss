@@ -6,7 +6,7 @@
   height: 56px;
   width: 100%;
   background: var(--bg-liner-menu);
-  position: fixed;
+  position: sticky;
   z-index: 100;
 
   .close_blok {
@@ -30,10 +30,11 @@
     z-index: -1;
     top: 0;
     right: 0;
-    bottom: -10px;
+    bottom: 0px;
     left: 0;
     background: var(--bg-liner-menu);
     content: "";
+    pointer-events: none;
   }
 
   &__head {

@@ -3,22 +3,23 @@
         v-slot="{ params, close }"
         v-bind="$attrs"
         content-class="base-modal"
+        attach="body"
         focus-trap
         esc-to-close
+        lock-scroll
     >
         <div class="base-modal__header">
             <div class="base-modal__title">
                 <slot name="title"/>
             </div>
 
-            <button
+            <form-button
                 class="base-modal__close"
+                type-link
                 @click.left.exact.prevent="close"
             >
-                <span class="base-modal__close_icon">
-                    <svg-icon icon-name="close"/>
-                </span>
-            </button>
+                <svg-icon icon-name="close"/>
+            </form-button>
         </div>
 
         <div class="base-modal__content">
@@ -28,17 +29,122 @@
                 </div>
             </div>
         </div>
+
+        <div
+            v-if="$slots.buttons"
+            class="base-modal__buttons"
+        >
+            <slot
+                name="buttons"
+                :close="close"
+            />
+        </div>
+
+        <div
+            v-else-if="typeConfirm"
+            class="base-modal__buttons"
+        >
+            <form-button @click.left.exact.prevent="$emit('confirm', close)">
+                Применить
+            </form-button>
+
+            <form-button
+                type-outline
+                @click.left.exact.prevent="close"
+            >
+                Отменить
+            </form-button>
+        </div>
+
+        <div
+            v-else-if="typeRemove"
+            class="base-modal__buttons"
+        >
+            <form-button @click.left.exact.prevent="$emit('confirm', close)">
+                Удалить
+            </form-button>
+
+            <form-button
+                type-outline
+                @click.left.exact.prevent="close"
+            >
+                Отменить
+            </form-button>
+        </div>
+
+        <div
+            v-else-if="typeNotify"
+            class="base-modal__buttons"
+        >
+            <form-button
+                type-outline
+                @click.left.exact.prevent="close"
+            >
+                Закрыть
+            </form-button>
+        </div>
+
+        <div
+            v-else-if="typeError"
+            class="base-modal__buttons"
+        >
+            <form-button
+                outline
+                @click.left.exact.prevent="close"
+            >
+                Закрыть
+            </form-button>
+        </div>
     </vue-final-modal>
 </template>
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
         name: "BaseModal",
-        components: { SvgIcon },
+        components: { FormButton, SvgIcon },
         inheritAttrs: true,
-        emits: ['confirm', 'cancel'],
+        props: {
+            typeConfirm: {
+                type: Boolean,
+                default: false
+            },
+            typeRemove: {
+                type: Boolean,
+                default: false
+            },
+            typeNotify: {
+                type: Boolean,
+                default: false
+            },
+            typeError: {
+                type: Boolean,
+                default: false
+            },
+        },
+        emits: ['confirm'],
+        computed: {
+            type() {
+                if (this.typeConfirm) {
+                    return 'confirm'
+                }
 
+                if (this.typeRemove) {
+                    return 'remove'
+                }
+
+                if (this.typeNotify) {
+                    return 'notify'
+                }
+
+                if (this.typeError) {
+                    return 'error'
+                }
+
+                return ''
+            }
+        }
     }
 </script>
 
@@ -47,18 +153,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        max-height: var(--max-vh);
+        width: 100%;
     }
 
     ::v-deep(.base-modal) {
         background-color: var(--bg-secondary);
-        max-width: 90%;
-        max-height: 90%;
+        width: 100%;
+        max-width: $md - 1px;
+        max-height: calc(var(--max-vh) - 56px * 2);
         margin: auto;
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 0 12px -8px var(--bg-transparent);
         display: flex;
         flex-direction: column;
+
+        @include media-max($md){
+            border-radius: 0;
+            max-height: 100%;
+        }
     }
 
     .base-modal {
@@ -79,40 +193,14 @@
             color: var(--text-color-title);
             font-size: 22px;
             line-height: 28px;
-            padding-bottom: 4px;
         }
 
         &__close {
-            @include css_anim();
-
-            margin-left: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 0;
-            background-color: transparent;
-            cursor: pointer;
-            color: var(--primary);
-            appearance: none;
-            padding: 0;
-            border-radius: 8px;
-            overflow: hidden;
-
-            &_icon {
-                width: 32px;
-                height: 32px;
-
-                ::v-deep(> svg) {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-
-            &:hover {
-                @include media-min($lg) {
-                    color: var(--primary-hover);
-                    background-color: var(--bg-secondary);
-                }
+            margin: {
+                left: 16px;
+                top: -6px;
+                right: -6px;
+                bottom: -6px;
             }
         }
 
@@ -122,8 +210,21 @@
             flex: 1;
         }
 
-        &__safe {
-            // padding: 16px;
+        &__buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 16px;
+            flex-shrink: 0;
+            background-color: var(--bg-sub-menu);
+
+            > * + * {
+                margin-left: 8px;
+                flex-shrink: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 </style>

@@ -3,7 +3,7 @@
         v-if="weapon"
         class="weapon-body"
     >
-        <detail-tob-bar
+        <detail-top-bar
             :left="weapon.type.name"
             :source="weapon.source"
             :bg-grey="false"
@@ -75,11 +75,11 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DiceRoller from "@/components/UI/DiceRoller";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "WeaponBody",
-        components: { DetailTobBar, DiceRoller, RawContent },
+        components: { DetailTopBar, DiceRoller, RawContent },
         props: {
             weapon: {
                 type: Object,

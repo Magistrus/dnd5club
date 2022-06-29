@@ -10,26 +10,28 @@
             {{ left }}
         </span>
 
-        <span>
-            <slot>
-                Источник:
+        <span v-if="source">
+            Источник:
 
-                <span
-                    v-if="source.homebrew"
-                    class="homebrew_text"
-                >Homebrew</span>
+            <span
+                v-if="source.homebrew"
+                class="homebrew_text"
+            >Homebrew</span>
 
-                <span
-                    v-tippy="{content: source.name}"
-                >&nbsp;{{ source.shortName }}</span>
-            </slot>
+            <span
+                v-tippy="{content: source.name}"
+            >&nbsp;{{ source.shortName }}</span>
+        </span>
+
+        <span v-else-if="$slots.default">
+            <slot/>
         </span>
     </div>
 </template>
 
 <script>
     export default {
-        name: "DetailTobBar",
+        name: "DetailTopBar",
         props: {
             left: {
                 type: String,
@@ -37,7 +39,7 @@
             },
             source: {
                 type: Object,
-                default: () => ({})
+                default: undefined
             },
             bgGrey: {
                 type: Boolean,
@@ -65,6 +67,13 @@
 
         @media (max-width: 1200px) {
             padding: 12px 16px 12px 16px;
+            flex-direction: column;
+
+            span {
+                &:nth-child(n + 2) {
+                    margin-top: 12px;
+                }
+            }
         }
     }
 </style>

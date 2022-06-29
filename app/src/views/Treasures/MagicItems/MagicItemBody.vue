@@ -3,7 +3,7 @@
         v-if="magicItem"
         class="magic-item_wrapper magic-item-body bestiary"
     >
-        <detail-tob-bar
+        <detail-top-bar
             :left="topBarLeftString"
             :source="magicItem.source"
         />
@@ -65,14 +65,14 @@
 
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "MagicItemBody",
         components: {
+            DetailTopBar,
             RawContent,
-            DetailTobBar,
             SvgIcon
         },
         props: {

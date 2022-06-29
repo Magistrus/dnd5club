@@ -5,7 +5,7 @@
   opacity: 0.65;
   z-index: -100;
   height: var(--max-vh);
-  overflow: hidden;
+  pointer-events: none;
 
   @media (max-width: 1200px) {
     display: none;
@@ -14,18 +14,17 @@
 
 .container {
   width: 100%;
-  max-width: 1320px;
+  max-width: var(--max-content);
   position: relative;
   margin: auto;
-  height: 100%;
-  padding: 56px 0px 24px 0;
+  padding: 0 0 24px 0;
 
   @media (max-width: 1400px) {
-    padding: 56px 24px 24px 24px;
+    padding: 0 24px 24px 24px;
   }
 
   @media (max-width: 1200px) {
-    padding: 56px 16px 16px 16px;
+    padding: 0 16px 16px 16px;
   }
 }
 

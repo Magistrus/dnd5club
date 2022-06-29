@@ -58,32 +58,35 @@
             </button>
         </div>
 
-        <teleport
-            v-if="!!filter && isMounted"
-            :to="inTab ? '[data-tab-filter]' : '[data-content-filter]'"
+        <base-modal
+            v-if="!!filter"
+            v-model="showed"
+            type-confirm
         >
-            <div
-                v-show="showed"
-                class="filter__dropdown"
-                :class="{ 'in-tab': inTab }"
-            >
-                <div class="filter__dropdown_body">
-                    <filter-item-sources
-                        v-if="filter?.sources"
-                        :model-value="filter.sources"
-                        @update:model-value="setSourcesValue($event)"
-                    />
+            <template #title>
+                Фильтр
+            </template>
 
-                    <filter-item-checkboxes
-                        v-for="(block, blockKey) in otherFilters"
-                        :key="blockKey"
-                        :model-value="block.values"
-                        :name="block.name"
-                        @update:model-value="setOtherValue($event, blockKey)"
-                    />
+            <template #default>
+                <div class="filter__dropdown">
+                    <div class="filter__dropdown_body">
+                        <filter-item-sources
+                            v-if="filter?.sources"
+                            :model-value="filter.sources"
+                            @update:model-value="setSourcesValue($event)"
+                        />
+
+                        <filter-item-checkboxes
+                            v-for="(block, blockKey) in otherFilters"
+                            :key="blockKey"
+                            :model-value="block.values"
+                            :name="block.name"
+                            @update:model-value="setOtherValue($event, blockKey)"
+                        />
+                    </div>
                 </div>
-            </div>
-        </teleport>
+            </template>
+        </base-modal>
     </div>
 </template>
 
@@ -95,10 +98,13 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import cloneDeep from "lodash/cloneDeep";
     import debounce from "lodash/debounce";
+    import BaseModal from "@/components/UI/modals/BaseModal";
 
     export default {
         name: 'ListFilter',
-        components: { FilterItemCheckboxes, FilterItemSources, SvgIcon },
+        components: {
+            BaseModal, FilterItemCheckboxes, FilterItemSources, SvgIcon
+        },
         props: {
             filterInstance: {
                 type: FilterService,
@@ -116,8 +122,7 @@
         },
         emits: ['clear-filter', 'search', 'update'],
         data: () => ({
-            showed: false,
-            isMounted: false
+            showed: false
         }),
         computed: {
             search: {
@@ -268,8 +273,8 @@
                     flex-shrink: 0;
 
                     svg {
-                        width: 24px;
-                        height: 24px;
+                        width: 16px;
+                        height: 16px;
                         color: var(--primary);
                     }
                 }
@@ -366,18 +371,9 @@
         }
 
         &__dropdown {
-            background-color: var(--bg-sub-menu);
             width: 100%;
-            max-height: 100%;
-            overflow: hidden auto;
-            border-radius: 12px;
-
-            &.in-tab {
-                border-radius: 0;
-            }
 
             &_body {
-                width: 100%;
                 padding: 16px;
             }
         }
