@@ -1,6 +1,6 @@
 <template>
     <div class="rule-body">
-        <detail-tob-bar
+        <detail-top-bar
             :left="`Категория: ${rule.type}`"
             :source="rule.source"
         />
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "RuleBody",
-        components: { RawContent, DetailTobBar },
+        components: { DetailTopBar, RawContent },
         props: {
             rule: {
                 type: Object,

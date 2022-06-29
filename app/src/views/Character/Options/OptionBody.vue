@@ -1,6 +1,6 @@
 <template>
     <div class="option-body">
-        <detail-tob-bar
+        <detail-top-bar
             :left="`Требования: ${option?.requirements || 'Нет'}`"
             :source="option?.source"
         />
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "OptionBody",
-        components: { RawContent, DetailTobBar },
+        components: { DetailTopBar, RawContent },
         props: {
             option: {
                 type: Object,

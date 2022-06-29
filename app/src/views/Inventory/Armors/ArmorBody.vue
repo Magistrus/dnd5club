@@ -3,7 +3,7 @@
         v-if="armor"
         class="armor-body"
     >
-        <detail-tob-bar
+        <detail-top-bar
             :left="armor.type.name"
             :source="armor.source"
             :bg-grey="false"
@@ -59,11 +59,11 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DiceRoller from "@/components/UI/DiceRoller";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "ArmorBody",
-        components: { DetailTobBar, DiceRoller, RawContent },
+        components: { DetailTopBar, DiceRoller, RawContent },
         props: {
             armor: {
                 type: Object,

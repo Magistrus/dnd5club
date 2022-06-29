@@ -3,7 +3,7 @@
         v-if="creature"
         class="creature_wrapper creature-body bestiary"
     >
-        <detail-tob-bar
+        <detail-top-bar
             :left="topBarLeftString"
             :source="creature.source"
         />
@@ -319,14 +319,14 @@
 
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "CreatureBody",
         components: {
+            DetailTopBar,
             RawContent,
-            DetailTobBar,
             SvgIcon
         },
         props: {

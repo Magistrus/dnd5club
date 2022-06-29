@@ -197,7 +197,7 @@
                 & + .filter-item {
                     &__source-group {
                         &_body {
-                            margin-top: 4px;
+                            margin-top: 8px;
                         }
                     }
                 }

@@ -74,15 +74,19 @@
     .link-item {
         &__alignment {
             width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             flex-shrink: 0;
             font-size: 17px;
             color: var(--text-color);
             border-right: 1px solid var(--border);
             margin-right: 16px;
+
+            span {
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     }
 </style>

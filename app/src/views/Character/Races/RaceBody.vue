@@ -1,6 +1,6 @@
 <template>
     <div class="race-body">
-        <detail-tob-bar
+        <detail-top-bar
             :source="race.source"
         />
 
@@ -154,12 +154,12 @@
 
 <script>
     import RawContent from "@/components/content/RawContent";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import sortBy from "lodash/sortBy";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "RaceBody",
-        components: { DetailTobBar, RawContent },
+        components: { DetailTopBar, RawContent },
         props: {
             race: {
                 type: Object,
