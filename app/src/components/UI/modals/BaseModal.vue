@@ -31,18 +31,18 @@
         </div>
 
         <div
-            v-if="$slots.buttons"
-            class="base-modal__buttons"
+            v-if="$slots.footer"
+            class="base-modal__footer"
         >
             <slot
-                name="buttons"
+                name="footer"
                 :close="close"
             />
         </div>
 
         <div
             v-else-if="typeConfirm"
-            class="base-modal__buttons"
+            class="base-modal__footer"
         >
             <form-button @click.left.exact.prevent="$emit('confirm', close)">
                 Применить
@@ -58,7 +58,7 @@
 
         <div
             v-else-if="typeRemove"
-            class="base-modal__buttons"
+            class="base-modal__footer"
         >
             <form-button @click.left.exact.prevent="$emit('confirm', close)">
                 Удалить
@@ -74,7 +74,7 @@
 
         <div
             v-else-if="typeNotify"
-            class="base-modal__buttons"
+            class="base-modal__footer"
         >
             <form-button
                 type-outline
@@ -86,7 +86,7 @@
 
         <div
             v-else-if="typeError"
-            class="base-modal__buttons"
+            class="base-modal__footer"
         >
             <form-button
                 outline
@@ -210,9 +210,9 @@
             flex: 1;
         }
 
-        &__buttons {
+        &__footer {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
             padding: 16px;
             flex-shrink: 0;

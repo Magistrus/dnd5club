@@ -61,7 +61,6 @@
         <base-modal
             v-if="!!filter"
             v-model="showed"
-            type-confirm
         >
             <template #title>
                 Фильтр
@@ -85,6 +84,12 @@
                         />
                     </div>
                 </div>
+            </template>
+
+            <template #footer>
+                <h5>
+                    Фильтры применяются автоматически!
+                </h5>
             </template>
         </base-modal>
     </div>
