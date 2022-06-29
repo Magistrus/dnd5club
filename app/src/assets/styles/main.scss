@@ -580,13 +580,6 @@
   &__row {
     margin-top: 16px;
 
-    &.line {
-      display: flex;
-
-      .row {
-        margin-right: 16px;
-      }
-    }
     .field-checkbox {
       margin-right: 16px;
     }
@@ -594,8 +587,16 @@
 
   &__colum {
     display: flex;
-    flex-direction: column;
+
+    .row {
+      margin-right: 16px;
+    }
   }
+
+  // &__colum {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
 
   .label {
     margin-bottom: 8px;
