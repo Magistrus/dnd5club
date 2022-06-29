@@ -64,7 +64,7 @@
             type-confirm
         >
             <template #title>
-                Фильтре
+                Фильтр
             </template>
 
             <template #default>
