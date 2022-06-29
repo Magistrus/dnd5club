@@ -89,18 +89,17 @@
                                 Только уникальные
                             </field-checkbox>
                         </div>
-                    </div>
-
-                    <div
-                        v-if="!form.unique"
-                    >
-                        <field-checkbox
-                            :model-value="settings.grouping"
-                            type="toggle"
-                            @update:model-value="settings.grouping = $event"
+                        <div
+                            v-if="!form.unique"
                         >
-                            Группировать одинаковые
-                        </field-checkbox>
+                            <field-checkbox
+                                :model-value="settings.grouping"
+                                type="toggle"
+                                @update:model-value="settings.grouping = $event"
+                            >
+                                Группировать одинаковые
+                            </field-checkbox>
+                        </div>
                     </div>
 
                     <div
