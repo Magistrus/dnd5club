@@ -6,52 +6,41 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    Виды безумия:
-                </div>
+                    <span class="label">Виды безумия:</span>
 
-                <div class="tools_settings__row">
-                    <field-checkbox
-                        v-for="(type, key) in types"
-                        :key="key"
-                        :model-value="type.toggled"
-                        type="crumb"
-                        @update:model-value="toggleType($event, type)"
-                    >
-                        {{ type.name }}
-                    </field-checkbox>
-                </div>
-
-                <div class="tools_settings__row">
-                    <label class="select_box">
-                        <span>Количество</span>
-
-                        <input
-                            v-model="count"
-                            type="number"
-                            min="1"
-                            class="form-control select"
-                            placeholder="Количество"
+                    <div>
+                        <field-checkbox
+                            v-for="(type, key) in types"
+                            :key="key"
+                            :model-value="type.toggled"
+                            type="crumb"
+                            @update:model-value="toggleType($event, type)"
                         >
-                    </label>
+                            {{ type.name }}
+                        </field-checkbox>
+                    </div>
+                </div>
+
+                <div class="tools_settings__row">
+                    <span class="label">Количеств:</span>
+
+                    <field-input
+                        v-model="count"
+                        type="number"
+                        min="1"
+                        class="form-control select"
+                        placeholder="Количеств"
+                    />
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <button
-                        id="generate"
-                        class="btn btn_primary"
-                        type="submit"
-                    >
+                    <form-button @click.left.exact.prevent="sendForm">
                         Сгенерировать
-                    </button>
+                    </form-button>
 
-                    <button
-                        id="generate"
-                        class="btn btn_primary"
-                        type="submit"
-                        @click.left.exact.prevent="results = []"
-                    >
+                    <form-button @click.left.exact.prevent="results = []">
                         Очистить
-                    </button>
+                    </form-button>
                 </div>
             </form>
         </template>
@@ -86,12 +75,16 @@
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import RawContent from "@/components/content/RawContent";
     import throttle from 'lodash/throttle';
+    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import FormButton from "@/components/form/FormButton";
 
     import { reactive } from "vue";
 
     export default {
         name: "MadnessView",
-        components: { RawContent, FieldCheckbox, ContentLayout },
+        components: {
+            RawContent, FieldCheckbox, ContentLayout, FormButton, FieldInput
+        },
         data: () => ({
             count: 1,
             types: [],

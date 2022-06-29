@@ -6,7 +6,7 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <p>Количество магии в мире:</p>
+                    <span class="label">Количество магии в мире:</span>
 
                     <field-select
                         v-model="magicLevelsValue"
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="tools_settings__row">
-                    <span>Результат проверки Харизмы (Убеждение):</span>
+                    <span class="label">Результат проверки Харизмы (Убеждение):</span>
 
                     <field-input
                         v-model="form.persuasion"
@@ -386,9 +386,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .tools_settings {
-        &__row {
-            margin-top: 8px;
-        }
-    }
+
 </style>
