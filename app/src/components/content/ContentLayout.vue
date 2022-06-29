@@ -35,6 +35,7 @@
                 <div
                     ref="items"
                     class="content-layout__items"
+                    :class="{ 'is-shadow': shadow }"
                 >
                     <slot name="default"/>
                 </div>
@@ -43,7 +44,6 @@
             <div
                 v-if="showRightSide"
                 ref="detail"
-                v-scroll-lock="showRightSide && (getIsMobile || getFullscreen)"
                 class="content-layout__selected"
                 :class="{ 'is-fullscreen': getFullscreen }"
             >
@@ -80,46 +80,11 @@
         data: () => ({
             dropdownHeight: 0,
             filterInstalled: false,
-            scrollTop: 0,
+            scrollTop: '0px',
+            shadow: false
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
-        },
-        watch: {
-            showRightSide(value) {
-                if (!this.getFullscreen) {
-                    return;
-                }
-
-                if (value) {
-                    this.scrollTop = window.scrollY;
-
-                    return
-                }
-
-                this.$nextTick(() => {
-                    window.scroll({
-                        top: this.scrollTop
-                    });
-                })
-            },
-
-            getFullscreen(value) {
-                if (value) {
-                    this.scrollTop = window.scrollY;
-
-                    return
-                }
-
-                this.$nextTick(() => {
-                    setTimeout(() => {
-                        window.scroll({
-                            top: this.scrollTop,
-                            behavior: "smooth"
-                        });
-                    }, 300)
-                })
-            }
         },
         mounted() {
             useInfiniteScroll(
@@ -130,15 +95,38 @@
                 { distance: 1080 }
             );
 
-            useResizeObserver(this.$refs.items, this.calcDropdownHeight);
+            useResizeObserver(this.$refs.items, this.resizeHandler);
+
+            document.addEventListener('scroll', this.scrollHandler);
+        },
+        beforeUnmount() {
+            document.removeEventListener('scroll', this.scrollHandler);
         },
         methods: {
+            resizeHandler(entries) {
+                this.calcDropdownHeight(entries);
+
+                this.toggleShadow();
+            },
+
+            scrollHandler() {
+                if (!this.getFullscreen && !this.showRightSide) {
+                    this.scrollTop = `${ window.scrollY }px`;
+
+                    this.toggleShadow();
+                }
+            },
+
             calcDropdownHeight(entries) {
                 const entry = entries[0]
                 const { height } = entry.contentRect;
 
                 this.dropdownHeight = height || 0;
             },
+
+            toggleShadow() {
+                this.shadow = window.scrollY + window.innerHeight < document.body.offsetHeight - 24
+            }
         }
     }
 </script>
@@ -228,6 +216,37 @@
             }
         }
 
+        &__items {
+            margin-bottom: -16px;
+
+            &:after {
+                @include css_anim();
+
+                content: '';
+                display: block;
+                pointer-events: none;
+                width: calc(100% + 16px);
+                height: 0;
+                box-shadow: 0 0 32px 64px var(--bg-main);
+                position: sticky;
+                bottom: -8px;
+                margin: 0 -8px;
+                z-index: 16;
+                opacity: 0;
+                background-color: var(--bg-main);
+                border: {
+                    top-left-radius: 32px;
+                    top-right-radius: 32px;
+                };
+            }
+
+            &.is-shadow {
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+
         &__selected {
             display: block;
             top: 56px;
@@ -239,7 +258,7 @@
             background-color: var(--bg-secondary);
             position: sticky;
             margin-left: auto;
-            z-index: 12;
+            z-index: 16;
 
             @media (max-width: 1200px) {
                 width: 100%;
