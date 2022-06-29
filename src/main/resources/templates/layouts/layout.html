@@ -77,7 +77,7 @@
         <div id="container" class="container">
             <div layout:fragment="content"></div>
         </div>
-        <img v-if="uiStore.getTheme" v-lazy="`/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.getTheme" :src="`/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 

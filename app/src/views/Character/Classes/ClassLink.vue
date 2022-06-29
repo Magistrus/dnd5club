@@ -14,7 +14,7 @@
         >
             <div class="link-item-expand__content">
                 <img
-                    v-lazy="`/img/classes/${classItem.image}.webp`"
+                    :src="`/img/classes/${classItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >

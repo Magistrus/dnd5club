@@ -14,7 +14,7 @@
                     <a id="god_href">
                         <img
                             id="god_img"
-                            v-lazy="!god.images?.length ? '/img/dark/no-img-best.png' : god.images[0]"
+                            :src="!god.images?.length ? '/img/dark/no-img-best.png' : god.images[0]"
                             :alt="god.name.rus"
                             @click.left.exact.prevent="showGallery"
                         >

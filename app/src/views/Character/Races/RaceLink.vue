@@ -16,7 +16,7 @@
                 class="link-item-expand__content"
             >
                 <img
-                    v-lazy="`/img/races/${raceItem.image}.webp`"
+                    :src="`/img/races/${raceItem.image}.webp`"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >

@@ -20,7 +20,7 @@
             >
                 <div class="creature-detail__loader_img">
                     <img
-                        v-lazy="'/img/loader.png'"
+                        :src="'/img/loader.png'"
                         alt=""
                     >
                 </div>

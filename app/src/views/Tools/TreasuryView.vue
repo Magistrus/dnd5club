@@ -155,7 +155,7 @@
                     >
                         <div class="treasury__loader_img">
                             <img
-                                v-lazy="'/img/loader.png'"
+                                :src="'/img/loader.png'"
                                 alt=""
                             >
                         </div>
