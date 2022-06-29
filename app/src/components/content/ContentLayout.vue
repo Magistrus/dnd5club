@@ -284,5 +284,11 @@
                 }
             }
         }
+
+        &__fixed {
+            position: sticky;
+            top: 56px;
+            z-index: 3;
+        }
     }
 </style>

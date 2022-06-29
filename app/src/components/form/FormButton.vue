@@ -51,7 +51,7 @@
         border-radius: 8px;
         padding: 12px;
         cursor: pointer;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         margin: 0;

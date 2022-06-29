@@ -6,6 +6,7 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
+                    <span class="label">Источники:</span>
                     <field-checkbox
                         v-for="(source, key) in tables"
                         :key="key"
@@ -19,36 +20,25 @@
                 </div>
 
                 <div class="tools_settings__row">
-                    <label class="select_box">
-                        <span>Количество</span>
+                    <span class="label">Количество:</span>
 
-                        <input
-                            v-model="count"
-                            type="number"
-                            min="1"
-                            class="form-control select"
-                            placeholder="Количество"
-                        >
-                    </label>
+                    <field-input
+                        v-model="count"
+                        type="number"
+                        min="1"
+                        class="form-control select"
+                        placeholder="Количеств"
+                    />
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <button
-                        id="generate"
-                        class="btn btn_primary"
-                        type="submit"
-                    >
+                    <form-button @click.left.exact.prevent="sendForm">
                         Сгенерировать
-                    </button>
+                    </form-button>
 
-                    <button
-                        id="generate"
-                        class="btn btn_primary"
-                        type="submit"
-                        @click.left.exact.prevent="results = []"
-                    >
+                    <form-button @click.left.exact.prevent="results = []">
                         Очистить
-                    </button>
+                    </form-button>
                 </div>
             </form>
         </template>
@@ -79,13 +69,17 @@
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
+    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import FormButton from "@/components/form/FormButton";
 
     import { reactive } from "vue";
     import throttle from "lodash/throttle";
 
     export default {
         name: "WildMagicView",
-        components: { RawContent, FieldCheckbox, ContentLayout },
+        components: {
+            RawContent, FieldCheckbox, ContentLayout, FieldInput, FormButton
+        },
         data: () => ({
             count: 1,
             tables: [],

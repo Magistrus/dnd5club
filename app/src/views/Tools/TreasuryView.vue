@@ -6,7 +6,7 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <p>Показатель опасности монстров:</p>
+                    <span class="label">Показатель опасности монстров:</span>
 
                     <field-select
                         v-model="crValue"
@@ -22,109 +22,116 @@
                 </div>
 
                 <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.coins"
-                        type="toggle"
-                        @update:model-value="form.coins = $event"
-                    >
-                        Монеты
-                    </field-checkbox>
+                    <h5 class="label">
+                        Настройки предметов:
+                    </h5>
+                    <div class="tools_settings__colum">
+                        <div class="row">
+                            <div>
+                                <field-checkbox
+                                    :model-value="form.coins"
+                                    type="toggle"
+                                    @update:model-value="form.coins = $event"
+                                >
+                                    Монеты
+                                </field-checkbox>
+                            </div>
+                            <div class="tools_settings__row">
+                                <field-checkbox
+                                    :model-value="form.magicItem"
+                                    type="toggle"
+                                    @update:model-value="form.magicItem = $event"
+                                >
+                                    Магические предметы
+                                </field-checkbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <field-checkbox
+                                    :model-value="form.scroll"
+                                    type="toggle"
+                                    @update:model-value="form.scroll = $event"
+                                >
+                                    Свитки
+                                </field-checkbox>
+                            </div>
+                            <div class="tools_settings__row">
+                                <field-checkbox
+                                    :model-value="form.trinket"
+                                    type="toggle"
+                                    @update:model-value="form.trinket = $event"
+                                >
+                                    Безделушки
+                                </field-checkbox>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                <hr class="hr_main">
                 <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.magicItem"
-                        type="toggle"
-                        @update:model-value="form.magicItem = $event"
-                    >
-                        Магические предметы
-                    </field-checkbox>
+                    <h5 class="label">
+                        Настройки вида:
+                    </h5>
+                    <div class="tools_settings__colum">
+                        <div class="row">
+                            <div>
+                                <field-checkbox
+                                    :model-value="form.art"
+                                    type="toggle"
+                                    @update:model-value="form.art = $event"
+                                >
+                                    Предметы искусства
+                                </field-checkbox>
+                            </div>
+                            <div class="tools_settings__row">
+                                <field-checkbox
+                                    :model-value="form.gem"
+                                    type="toggle"
+                                    @update:model-value="form.gem = $event"
+                                >
+                                    Драгоценные камни
+                                </field-checkbox>
+                            </div>
+                            <div class="tools_settings__row">
+                                <field-checkbox
+                                    :model-value="form.unique"
+                                    type="toggle"
+                                    @update:model-value="form.unique = $event"
+                                >
+                                    Только уникальные
+                                </field-checkbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <field-checkbox
+                                    :model-value="
+                                        settings.grouping"
+                                    type="toggle"
+                                    @update:model-value="settings.grouping = $event"
+                                >
+                                    Группировать одинаковые
+                                </field-checkbox>
+                            </div>
+                            <div
+                                class="tools_settings__row"
+                            >
+                                <field-checkbox
+                                    :model-value="settings.max"
+                                    type="toggle"
+                                    @update:model-value="settings.max = $event"
+                                >
+                                    {{ `Отображать ${settings.max ? 'максимальную' : 'среднюю'} цену` }}
+                                </field-checkbox>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.scroll"
-                        type="toggle"
-                        @update:model-value="form.scroll = $event"
-                    >
-                        Свитки
-                    </field-checkbox>
-                </div>
-
-                <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.trinket"
-                        type="toggle"
-                        @update:model-value="form.trinket = $event"
-                    >
-                        Безделушки
-                    </field-checkbox>
-                </div>
-
-                <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.art"
-                        type="toggle"
-                        @update:model-value="form.art = $event"
-                    >
-                        Предметы искусства
-                    </field-checkbox>
-                </div>
-
-                <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.gem"
-                        type="toggle"
-                        @update:model-value="form.gem = $event"
-                    >
-                        Драгоценные камни
-                    </field-checkbox>
-                </div>
-
-                <div class="tools_settings__row">
-                    <field-checkbox
-                        :model-value="form.unique"
-                        type="toggle"
-                        @update:model-value="form.unique = $event"
-                    >
-                        Только уникальные
-                    </field-checkbox>
-                </div>
-
-                <div
-                    v-if="!form.unique"
-                    class="tools_settings__row"
-                >
-                    <field-checkbox
-                        :model-value="settings.grouping"
-                        type="toggle"
-                        @update:model-value="settings.grouping = $event"
-                    >
-                        Группировать одинаковые
-                    </field-checkbox>
-                </div>
-
-                <div
-                    v-if="!form.unique && settings.grouping"
-                    class="tools_settings__row"
-                >
-                    <field-checkbox
-                        :model-value="settings.max"
-                        type="toggle"
-                        @update:model-value="settings.max = $event"
-                    >
-                        {{ `Отображать ${settings.max ? 'максимальную' : 'среднюю'} цену` }}
-                    </field-checkbox>
-                </div>
-
                 <div class="tools_settings__row btn-wrapper">
-                    <button
-                        id="generate"
-                        class="btn btn_primary"
-                        type="submit"
-                    >
+                    <form-button @click.left.exact.prevent="sendForm">
                         Создать сокровищницу
-                    </button>
+                    </form-button>
                 </div>
             </form>
         </template>
@@ -291,6 +298,7 @@
     import ContentDetail from "@/components/content/ContentDetail";
     import { mapState } from "pinia/dist/pinia";
     import { useUIStore } from "@/store/UI/UIStore";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
         name: "TreasuryView",
@@ -300,7 +308,7 @@
             TreasureItem,
             SpellBody,
             MagicItemBody,
-            FieldCheckbox, SectionHeader, FieldSelect, ContentLayout
+            FieldCheckbox, SectionHeader, FieldSelect, ContentLayout, FormButton
         },
         data: () => ({
             crList: [
@@ -528,7 +536,7 @@
 <style lang="scss" scoped>
     .tools_settings {
         &__row {
-            margin-top: 8px;
+            margin-top: 12px;
         }
     }
 </style>

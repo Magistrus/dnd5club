@@ -567,3 +567,52 @@
     }
   }
 }
+
+
+.tools_settings {
+  padding: 0px 16px 16px 16px;
+  border: 1px solid var(--border);
+  position: relative;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background-color: var(--bg-main);
+
+  &__row {
+    margin-top: 16px;
+
+    .field-checkbox {
+      margin-right: 16px;
+    }
+  }
+
+  &__colum {
+    display: flex;
+
+    .row {
+      margin-right: 16px;
+    }
+  }
+
+  // &__colum {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
+
+  .label {
+    margin-bottom: 8px;
+    display: flex;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: -56px;
+    left: -1px;
+    right: 0px;
+    width: calc(100% + 2px);
+    height: 70px;
+    background-color: var(--bg-main);
+    z-index: -1;
+  }
+}

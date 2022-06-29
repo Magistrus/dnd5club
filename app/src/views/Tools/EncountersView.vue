@@ -6,35 +6,39 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <p>Средний уровень группы</p>
+                    <div class="tools_settings__colum">
+                        <div class="row">
+                            <span class="label">Средний уровень группы</span>
 
-                    <field-select
-                        v-model="level"
-                        :options="levels"
-                        :searchable="false"
-                        label="name"
-                        track-by="value"
-                    >
-                        <template #placeholder>
-                            Уровень
-                        </template>
-                    </field-select>
-                </div>
+                            <field-select
+                                v-model="level"
+                                :options="levels"
+                                :searchable="false"
+                                label="name"
+                                track-by="value"
+                            >
+                                <template #placeholder>
+                                    Уровень
+                                </template>
+                            </field-select>
+                        </div>
 
-                <div class="tools_settings__row">
-                    <p>Окружение</p>
+                        <div class="row">
+                            <span class="label">Окружение</span>
 
-                    <field-select
-                        v-model="env"
-                        :options="environments"
-                        :searchable="false"
-                        label="name"
-                        track-by="value"
-                    >
-                        <template #placeholder>
-                            Окружение
-                        </template>
-                    </field-select>
+                            <field-select
+                                v-model="env"
+                                :options="environments"
+                                :searchable="false"
+                                label="name"
+                                track-by="value"
+                            >
+                                <template #placeholder>
+                                    Окружение
+                                </template>
+                            </field-select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
