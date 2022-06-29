@@ -65,6 +65,14 @@
   cursor: no-drop !important;
 }
 
+.hr_main {
+  height: 1px;
+  border: none;
+  background-color: var(--hover);
+  display: block;
+  margin: 14px 0;
+}
+
 body {
   display: flex;
   font-family: "Open Sans", sans-serif;
