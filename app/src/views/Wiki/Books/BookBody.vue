@@ -1,6 +1,6 @@
 <template>
     <div class="book-body">
-        <detail-tob-bar
+        <detail-top-bar
             :left="book.type.name"
         >
             <template
@@ -9,7 +9,7 @@
             >
                 Аббревиатура: {{ book.shortName }}
             </template>
-        </detail-tob-bar>
+        </detail-top-bar>
 
         <div class=" content-padding">
             <raw-content
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "BookBody",
-        components: { RawContent, DetailTobBar },
+        components: { DetailTopBar, RawContent },
         props: {
             book: {
                 type: Object,

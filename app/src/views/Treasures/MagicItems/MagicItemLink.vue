@@ -152,10 +152,6 @@
     .link-item {
         &__rarity {
             width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             flex-shrink: 0;
             font-size: 17px;
             color: var(--text-color);
@@ -163,55 +159,76 @@
             position: relative;
             margin-right: 16px;
 
-            &:after {
-                content: '';
-                position: absolute;
-                background: var(--border);
-                border: 1px solid var(--border);
-                border-radius: 50%;
-                width: 11px;
-                height: 11px;
-                display: block;
-                top: 50%;
-                right: 0;
-                z-index: 1;
-                box-shadow: 0 0 1px 1px #0006;
-                transform: translateY(-50%) translateX(50%);
+            span {
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    background: var(--border);
+                    border: 1px solid var(--border);
+                    border-radius: 50%;
+                    width: 11px;
+                    height: 11px;
+                    display: block;
+                    top: 50%;
+                    right: 0;
+                    z-index: 1;
+                    box-shadow: 0 0 1px 1px #0006;
+                    transform: translateY(-50%) translateX(50%);
+                }
             }
 
             &.is-common {
-                &:after {
-                    background-color: var(--common);
+                span {
+                    &:after {
+                        background-color: var(--common);
+                    }
                 }
             }
 
             &.is-uncommon {
-                &:after {
-                    background-color: var(--uncommon);
+                span {
+                    &:after {
+                        background-color: var(--uncommon);
+                    }
                 }
             }
 
             &.is-rare {
-                &:after {
-                    background-color: var(--rare);
+                span {
+                    &:after {
+                        background-color: var(--rare);
+                    }
                 }
             }
 
             &.is-very-rare {
-                &:after {
-                    background-color: var(--very_rare);
+                span {
+                    &:after {
+                        background-color: var(--very_rare);
+                    }
                 }
             }
 
             &.is-legendary {
-                &:after {
-                    background-color: var(--legendary);
+                span {
+                    &:after {
+                        background-color: var(--legendary);
+                    }
                 }
             }
 
             &.is-artifact {
-                &:after {
-                    background-color: var(--artifact);
+                span {
+                    &:after {
+                        background-color: var(--artifact);
+                    }
                 }
             }
         }

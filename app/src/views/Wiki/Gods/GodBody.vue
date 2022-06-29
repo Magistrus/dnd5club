@@ -3,7 +3,7 @@
         v-if="god"
         class="god_wrapper god-body gods"
     >
-        <detail-tob-bar
+        <detail-top-bar
             :left="god.name.eng"
             :source="god.source"
         />
@@ -69,14 +69,14 @@
 
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "GodBody",
         components: {
+            DetailTopBar,
             RawContent,
-            DetailTobBar,
             SvgIcon
         },
         props: {

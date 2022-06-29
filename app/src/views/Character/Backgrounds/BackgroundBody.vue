@@ -1,6 +1,6 @@
 <template>
     <div class="background-body">
-        <detail-tob-bar
+        <detail-top-bar
             :left="background?.name?.eng"
             :source="background?.source"
         />
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "BackgroundBody",
-        components: { RawContent, DetailTobBar },
+        components: { DetailTopBar, RawContent },
         props: {
             background: {
                 type: Object,

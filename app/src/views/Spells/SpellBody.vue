@@ -3,7 +3,7 @@
         v-if="spell"
         class="spell_wrapper spell-body"
     >
-        <detail-tob-bar
+        <detail-top-bar
             :left="`${
                 spell.level ? `${ spell.level } уровень` : 'заговор'
             }, ${
@@ -107,12 +107,12 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import ClassSquare from "@/components/UI/ClassSquare";
-    import DetailTobBar from "@/components/UI/DetailTobBar";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "SpellBody",
         components: {
-            DetailTobBar,
+            DetailTopBar,
             ClassSquare,
             SvgIcon
         },
