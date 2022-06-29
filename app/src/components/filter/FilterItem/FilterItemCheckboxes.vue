@@ -17,7 +17,7 @@
                 <button
                     class="filter-item__button filter-item__button--toggle"
                     type="button"
-                    @click.self.left.exact.prevent="toggleBlock"
+                    @click.self.left.exact.prevent.stop="toggleBlock"
                 >
                     <svg-icon icon-name="arrow-stroke"/>
                 </button>

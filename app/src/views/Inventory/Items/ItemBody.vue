@@ -1,6 +1,6 @@
 <template>
     <div class="item-body">
-        <detail-tob-bar
+        <detail-top-bar
             :left="categoriesString"
             :source="item.source"
         />
@@ -27,12 +27,12 @@
 </template>
 
 <script>
-    import DetailTobBar from "@/components/UI/DetailTobBar";
     import RawContent from "@/components/content/RawContent";
+    import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "ItemBody",
-        components: { RawContent, DetailTobBar },
+        components: { DetailTopBar, RawContent },
         props: {
             item: {
                 type: Object,
