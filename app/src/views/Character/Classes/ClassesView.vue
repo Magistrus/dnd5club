@@ -107,16 +107,16 @@
         },
         watch: {
             showRightSide() {
-                this.resizeHandler();
+                this.setColumns();
             },
         },
         async mounted() {
-            this.resizeHandler();
+            this.setColumns();
 
             await this.initFilter();
             await this.initClasses();
 
-            useResizeObserver(this.$refs.classes, this.resizeHandler);
+            useResizeObserver(this.$refs.classes, this.setColumns);
         },
         beforeUnmount() {
             this.clearStore();
@@ -124,7 +124,7 @@
         methods: {
             ...mapActions(useClassesStore, ['initFilter', 'initClasses', 'nextPage', 'clearStore']),
 
-            resizeHandler() {
+            setColumns() {
                 const getSelectedCols = () => {
                     if (window.innerWidth >= 1400) {
                         return this.showRightSide ? 1 : 3;

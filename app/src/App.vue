@@ -10,12 +10,15 @@
             this.uiStore.watchIsMobile();
 
             await this.initTheme();
+            await this.initFullscreen();
         },
         methods: {
             async initTheme() {
-                const uiStore = useUIStore();
+                await this.uiStore.setTheme();
+            },
 
-                await uiStore.setTheme();
+            async initFullscreen() {
+                await this.uiStore.setFullscreenState();
             }
         }
     }
