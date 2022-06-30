@@ -23,7 +23,9 @@ app.use(createPinia())
     .use(router)
     .use(VueEasyLightbox)
     .use(VueTippy, VueTippyConfig)
-    .use(VueLazyload)
+    .use(VueLazyload, {
+        preLoad: 1.7
+    })
     .use(VScrollLock, {
         reserveScrollBarGap: true
     })
