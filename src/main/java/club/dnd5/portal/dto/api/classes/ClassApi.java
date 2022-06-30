@@ -1,6 +1,8 @@
 package club.dnd5.portal.dto.api.classes;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -45,6 +47,10 @@ public class ClassApi {
 		}
 		if (heroClass.isSidekick()) {
 			group = new GroupApi("Напарники", (byte) 0);
+		}
+		if (request.getFilter() !=null && request.getFilter().getBooks()!=null && !request.getFilter().getBooks().isEmpty()) {
+			Set<String> books = new HashSet<>(request.getFilter().getBooks());
+			archetypes = archetypes.stream().filter(a -> books.contains(a.getSource().getShortName())).collect(Collectors.toList());
 		}
 		icon = !heroClass.isSidekick();
 		image = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
