@@ -7,14 +7,13 @@
     >
         <div
             ref="classItem"
-            v-masonry-tile
             :class="getClassList(isActive)"
             class="link-item-expand"
             v-bind="$attrs"
         >
             <div class="link-item-expand__content">
                 <img
-                    v-lazy="`/img/classes/${classItem.image}.webp`"
+                    v-lazy="classItem.image"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
@@ -36,7 +35,7 @@
                                     class="link-item-expand__icon"
                                 >
                                     <svg-icon
-                                        :icon-name="classItem.image"
+                                        :icon-name="classItem.icon"
                                         :stroke-enable="false"
                                         fill-enable
                                     />
