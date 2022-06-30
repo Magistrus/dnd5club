@@ -15,7 +15,7 @@
                     href="/"
                     class="link_nav"
                 >
-                    <span>DND5 Club</span>
+                    <span>DnD5 Club</span>
                 </a>
                 <span>
                     <span class="nav_text">
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="row">
-                        DND5 Club
+                        DnD5 Club
                     </div>
                 </div>
             </header>
