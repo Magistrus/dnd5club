@@ -26,7 +26,7 @@ public class ClassApi {
 	private List<ArchetypeApiDto> archetypes;
 	private GroupApi group;
 	private String image;
-	private Boolean icon;
+	private String icon;
 
 	public ClassApi(HeroClass heroClass, ClassRequestApi request) {
 		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
@@ -52,7 +52,10 @@ public class ClassApi {
 			Set<String> books = new HashSet<>(request.getFilter().getBooks());
 			archetypes = archetypes.stream().filter(a -> books.contains(a.getSource().getShortName())).collect(Collectors.toList());
 		}
-		icon = !heroClass.isSidekick();
-		image = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
+		if (!heroClass.isSidekick()) {
+			icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
+		}
+		
+		image = String.format("https://image.dnd5.club:8089/classes/background/class-%s.webp", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }
