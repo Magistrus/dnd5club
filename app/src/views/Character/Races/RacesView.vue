@@ -7,23 +7,21 @@
         @list-end="nextPage"
     >
         <div
-            v-masonry="'race-items'"
+            ref="races"
             class="race-items"
-            gutter="16"
-            horizontal-order="false"
-            item-selector=".link-item-expand"
-            transition-duration="0s"
-            stagger="0s"
         >
-            <race-link
-                v-for="race in races"
-                ref="race"
-                :key="race.url"
-                :race-item="race"
-                :to="{path: race.url}"
-                @resize="redrawMasonryOnResize"
-                @submenu-toggled="redrawMasonry"
-            />
+            <div
+                v-for="(group, groupKey) in races"
+                :key="groupKey"
+                class="race-items__col"
+            >
+                <race-link
+                    v-for="race in group"
+                    :key="race.url"
+                    :race-item="race"
+                    :to="{path: race.url}"
+                />
+            </div>
         </div>
     </content-layout>
 </template>
@@ -32,7 +30,9 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import { useRacesStore } from "@/store/Character/RacesStore";
     import RaceLink from "@/views/Character/Races/RaceLink";
-    import debounce from "lodash/debounce";
+    import { mapActions, mapState } from "pinia";
+    import { useUIStore } from "@/store/UI/UIStore";
+    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'RacesView',
@@ -41,16 +41,34 @@
             ContentLayout,
         },
         data: () => ({
-            racesStore: useRacesStore(),
-            isMobile: false,
+            cols: 1
         }),
         computed: {
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useRacesStore, ['getRaces', 'getFilter']),
+
             filter() {
-                return this.racesStore.getFilter || undefined;
+                return this.getFilter || undefined
             },
 
             races() {
-                return this.racesStore.getRaces || [];
+                const races = [];
+
+                if (!this.getRaces) {
+                    return races;
+                }
+
+                for (let i = 0; i < this.getRaces.length; i++) {
+                    const col = i % this.cols;
+
+                    if (!races[col]) {
+                        races.push([]);
+                    }
+
+                    races[col].push(this.getRaces[i]);
+                }
+
+                return races;
             },
 
             showRightSide() {
@@ -58,39 +76,77 @@
             },
         },
         watch: {
-            races: {
-                deep: true,
-                handler() {
-                    this.redrawMasonry();
-                },
-            }
+            showRightSide() {
+                this.resizeHandler();
+            },
         },
         async mounted() {
-            await this.racesStore.initFilter();
-            await this.racesStore.initRaces();
+            await this.initFilter();
+            await this.initRaces();
+
+            useResizeObserver(this.$refs.races, this.resizeHandler);
         },
         beforeUnmount() {
-            this.racesStore.clearStore();
+            this.clearStore();
         },
         methods: {
+            ...mapActions(useRacesStore, ['initFilter', 'initRaces', 'nextPage', 'clearStore']),
+
+            resizeHandler() {
+                const getSelectedCols = () => {
+                    if (window.innerWidth >= 1400) {
+                        return this.showRightSide ? 2 : 5;
+                    }
+
+                    if (window.innerWidth >= 992) {
+                        return this.showRightSide ? 2 : 4;
+                    }
+
+                    if (window.innerWidth >= 576) {
+                        return 2;
+                    }
+
+                    return 1;
+                }
+
+                if (window.innerWidth >= 1400) {
+                    this.cols = this.getFullscreen ? 5 : getSelectedCols();
+
+                    return;
+                }
+
+                if (window.innerWidth >= 992) {
+                    this.cols = this.getFullscreen ? 4 : getSelectedCols();
+
+                    return;
+                }
+
+                if (window.innerWidth >= 576) {
+                    this.cols = this.getFullscreen ? 2 : getSelectedCols();
+
+                    return;
+                }
+
+                this.cols = 1;
+            },
+
             async racesQuery() {
-                await this.racesStore.initRaces();
+                await this.initRaces();
             },
-
-            async nextPage() {
-                await this.racesStore.nextPage();
-            },
-
-            // eslint-disable-next-line func-names
-            redrawMasonryOnResize: debounce(function() {
-                this.redrawMasonry();
-            }, 100, { maxWait: 300 }),
-
-            redrawMasonry() {
-                this.$nextTick(() => {
-                    this.$redrawVueMasonry('race-items');
-                })
-            }
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .race-items {
+        display: flex;
+
+        &__col {
+            flex: 1 1 100%;
+
+            & + & {
+                margin-left: 16px;
+            }
+        }
+    }
+</style>
