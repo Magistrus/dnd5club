@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.tools.RandomEncounterApi;
+import club.dnd5.portal.dto.api.tools.RandomEncounterInputApi;
 import club.dnd5.portal.dto.api.tools.RandomEncounterTableApi;
 import club.dnd5.portal.dto.api.tools.RequestRandomEncounterApi;
 import club.dnd5.portal.model.Dice;
@@ -31,8 +32,8 @@ public class RandomEncounterApiController {
 	private RandomEncounterTableRepository repoTable;
 
 	@GetMapping("/api/v1/tools/encounters")
-	public RandomEncounterApi getItems() {
-		return new RandomEncounterApi(HabitatType.values());
+	public RandomEncounterInputApi getItems() { 
+		return new RandomEncounterInputApi(HabitatType.values());
 	}
 
 	@PostMapping("/api/v1/tools/encounters")
