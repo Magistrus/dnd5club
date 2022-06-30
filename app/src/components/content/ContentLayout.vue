@@ -217,7 +217,7 @@
         }
 
         &__items {
-            margin-bottom: -16px;
+            margin-bottom: -24px;
 
             &:after {
                 @include css_anim();
@@ -226,17 +226,18 @@
                 display: block;
                 pointer-events: none;
                 width: calc(100% + 16px);
-                height: 0;
-                box-shadow: 0 0 32px 64px var(--bg-main);
+                height: 24px;
+                box-shadow: 0 0 32px 32px var(--bg-main);
                 position: sticky;
-                bottom: -8px;
-                margin: 0 -8px;
+                bottom: 0px;
+                margin: 0 -16px;
                 z-index: 16;
                 opacity: 0;
                 background-color: var(--bg-main);
+                // background-color: red;
                 border: {
-                    top-left-radius: 32px;
-                    top-right-radius: 32px;
+                    top-left-radius: 20%;
+                    top-right-radius: 20%;
                 };
             }
 
