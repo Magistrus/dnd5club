@@ -73,16 +73,17 @@
 	<!-- End Google Tag Manager (noscript) -->
 
     <div id="dnd5club" class="dnd5club">
-		<nav-bar></nav-bar>
+		<nav-bar th:section="${metaTitle}"></nav-bar>
+
         <div id="container" class="container">
             <div layout:fragment="content"></div>
         </div>
+
         <img v-if="uiStore.getTheme" v-lazy="`/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 
-	<th:block th:fragment="mainJS">
-	</th:block>
+	<th:block th:fragment="mainJS"></th:block>
 
 	<script layout:fragment="js-script"></script>
 
