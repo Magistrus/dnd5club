@@ -1,92 +1,50 @@
 @media print {
-  #right_block .title_icon,
-  .tpd-tooltip,
-  #right_block .btn_close,
-  #right_block .btn_exet_full_screen,
-  #right_block .btn_additional_features,
-  #right_block .header_sub_menu,
+  // body,
+  // .content-layout__selected {
+  //   overflow: hidden;
+  // }
+
+  .content-padding,
+  .creature_wrapper,
+  .content-layout__selected,
+  .content-layout__body,
+  .content-detail__body,
+  .content-detail {
+    overflow: scroll !important;
+    height: 100vh !important;
+    display: block;
+  }
+
+  .scores__stats {
+    max-width: calc(15% - 8px);
+    flex: 1 0 calc(15% - 8px);
+    border: 1px solid rgb(119, 119, 119);
+  }
+
   .navbar,
   .avatar,
-  #right_block #beast_avatar,
-  #left_block {
+  [data-tippy-root],
+  .content-layout__list {
     display: none !important;
   }
 
-  #right_block {
-    display: block;
-    width: 100vw !important;
-    overflow-y: visible !important;
-    position: relative;
-    height: auto !important;
-    box-shadow:none !important;
-  }
-
-  #right_block .header_block {
-    height: 60px !important;
-  }
-
-  #right_block .header_block h1 {
-    font-weight: 500;
-  }
-
-  html {
-    overflow-y: visible !important;
-  }
-
-  body{
-    height: 100% !important;
-  }
-
-  body,
-  .container,
-  .container>div,
-  .simplebar-wrapper,
-  #right_block.sub_menu_block .info_wrapper {
-    overflow-y: visible !important;
-  }
-
-
-  .container,
-  .container>div,
-  .simplebar-wrapper,
-  #right_block.sub_menu_block .info_wrapper {
-    height: auto !important;
-    display: block !important;
-  }
-
-  #right_block h1 a,
-  #right_block h1,
-  #right_block h2 {
-    margin: 0 !important;
-  }
-
-  #right_block h1 a,
-  #right_block h1,
-  #right_block h2,
-  #right_block h3,
-  #right_block h4,
-  #right_block h5,
-  #right_block strong,
-  #right_block span,
-  #right_block p {
+  h1 a,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  strong,
+  span,
+  p,
+  .section-header__title--text {
     color: var(--text-print-color) !important;
   }
 
-  #right_block p {
-    margin: 0 0 6px 0;
-  }
-
-  #right_block.bestiary .scores {
-    margin: 8px 0;
-  }
-
-  h4.header_separator {
-    margin-top: 16px;
-  }
-
-  #right_block.bestiary .scores>div {
-    max-width: calc(16% - 8px);
-    flex: 1 0 calc(16% - 8px);
+  h1 a,
+  h1,
+  h2 {
+    margin: 0 !important;
   }
 
   details {
@@ -96,4 +54,5 @@
   details[open] {
     display: block;
   }
+
 }
