@@ -81,6 +81,8 @@
             },
         },
         async mounted() {
+            this.resizeHandler();
+
             await this.initFilter();
             await this.initRaces();
 
