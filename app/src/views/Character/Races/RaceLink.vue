@@ -7,16 +7,13 @@
     >
         <div
             ref="raceItem"
-            v-masonry-tile
             :class="getParentClasses(isActive)"
             class="link-item-expand"
             v-bind="$attrs"
         >
-            <div
-                class="link-item-expand__content"
-            >
+            <div class="link-item-expand__content">
                 <img
-                    v-lazy="`/img/races/${raceItem.image}.webp`"
+                    v-lazy="raceItem.image"
                     alt="img-bg"
                     class="link-item-expand__content__img-bg"
                 >
