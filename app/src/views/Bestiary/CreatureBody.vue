@@ -284,7 +284,10 @@
                     <span>Описание</span>
                 </summary>
 
-                <raw-content :template="creature.description"/>
+                <raw-content
+                    class="content"
+                    :template="creature.description"
+                />
             </details>
 
             <details

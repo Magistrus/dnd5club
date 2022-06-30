@@ -5,10 +5,12 @@
 	</head>
 	<body id="body">
     <div id="dnd5club" class="dnd5club">
-		<nav-bar></nav-bar>
+		<nav-bar th:section="${metaTitle}"></nav-bar>
+
         <div id="container" class="container">
             <router-view></router-view>
         </div>
+
         <img v-if="uiStore.getTheme" v-lazy="`/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
