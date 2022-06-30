@@ -224,7 +224,7 @@
                 </p>
 
                 <p v-else>
-                    {{ creature.legendary.description }}
+                    <raw-content :template="creature.legendary.description"/>
                 </p>
 
                 <div
