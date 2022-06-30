@@ -1,18 +1,23 @@
 @media print {
-  // body,
-  // .content-layout__selected {
-  //   overflow: hidden;
-  // }
-
+  body,
   .content-padding,
   .creature_wrapper,
   .content-layout__selected,
   .content-layout__body,
   .content-detail__body,
   .content-detail {
-    overflow: scroll !important;
-    height: 100vh !important;
+    height: 100% !important;
     display: block;
+    position: relative;
+  }
+
+  body,
+  .content-padding,
+  .creature_wrapper,
+  .content-layout__selected,
+  .content-detail__body,
+  .content-detail {
+    overflow: scroll !important;
   }
 
   .scores__stats {
