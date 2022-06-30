@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import localforage from 'localforage';
-import { DB_NAME, THEME_DB_KEY } from '@/common/const/UI';
+import { DB_NAME, FULLSCREEN_DB_KEY, THEME_DB_KEY } from '@/common/const/UI';
 import errorHandler from '@/common/helpers/errorHandler';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -19,7 +19,6 @@ export const useUIStore = defineStore('UIStore', {
     getters: {
         getTheme: state => state.theme,
         getIsMobile: state => state.isMobile,
-        getMenuConfig: state => state.menu,
         getMaxHeight: state => state.maxHeight,
         getFullscreen: state => state.fullscreen,
     },
@@ -36,7 +35,7 @@ export const useUIStore = defineStore('UIStore', {
 
                 this.theme = themeName;
 
-                this.store.setItem(THEME_DB_KEY, themeName);
+                await this.store.setItem(THEME_DB_KEY, themeName);
 
                 if (localStorage.getItem(THEME_DB_KEY)) {
                     localStorage.removeItem(THEME_DB_KEY);
@@ -54,8 +53,24 @@ export const useUIStore = defineStore('UIStore', {
             }
         },
 
-        setFullscreenState(state) {
-            this.fullscreen = state;
+        async setFullscreenState(payload) {
+            try {
+                await this.store.ready();
+
+                let fullscreen = payload || false;
+
+                const storageState = await this.store.getItem(FULLSCREEN_DB_KEY);
+
+                if (typeof payload !== 'boolean' && typeof storageState === 'boolean') {
+                    fullscreen = storageState;
+                }
+
+                this.fullscreen = fullscreen;
+
+                await this.store.setItem(FULLSCREEN_DB_KEY, fullscreen);
+            } catch (err) {
+                errorHandler(err);
+            }
         },
 
         watchMaxHeight() {

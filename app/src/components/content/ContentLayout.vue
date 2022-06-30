@@ -57,7 +57,7 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import { useInfiniteScroll } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia/dist/pinia";
@@ -76,12 +76,11 @@
                 default: undefined
             }
         },
-        emits: ['list-end', 'update', 'search'],
+        emits: ['list-end', 'update', 'search', 'resize'],
         data: () => ({
-            dropdownHeight: 0,
-            filterInstalled: false,
-            scrollTop: '0px',
-            shadow: false
+            scrollTop: 0,
+            shadow: false,
+            scroller: undefined
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
@@ -95,33 +94,20 @@
                 { distance: 1080 }
             );
 
-            useResizeObserver(this.$refs.items, this.resizeHandler);
-
             document.addEventListener('scroll', this.scrollHandler);
         },
         beforeUnmount() {
             document.removeEventListener('scroll', this.scrollHandler);
         },
         methods: {
-            resizeHandler(entries) {
-                this.calcDropdownHeight(entries);
-
-                this.toggleShadow();
-            },
-
             scrollHandler() {
-                if (!this.getFullscreen && !this.showRightSide) {
-                    this.scrollTop = `${ window.scrollY }px`;
+                if (!this.showRightSide) {
+                    this.scrollTop = window.scrollY;
+                }
 
+                if (!this.getFullescreen) {
                     this.toggleShadow();
                 }
-            },
-
-            calcDropdownHeight(entries) {
-                const entry = entries[0]
-                const { height } = entry.contentRect;
-
-                this.dropdownHeight = height || 0;
             },
 
             toggleShadow() {

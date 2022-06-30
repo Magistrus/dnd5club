@@ -120,7 +120,6 @@
 <script>
     import { RouterLink } from 'vue-router';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import { useResizeObserver } from "@vueuse/core/index";
     import { mapState } from "pinia/dist/pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
@@ -165,14 +164,6 @@
 
                 return abilities.join(', ')
             },
-        },
-        watch: {
-            submenu() {
-                this.$emit('submenu-toggled');
-            },
-        },
-        mounted() {
-            this.$nextTick(() => useResizeObserver(this.$refs.raceItem, () => this.$emit('resize')));
         },
         methods: {
             getParentClasses(isActive) {

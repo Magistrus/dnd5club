@@ -130,7 +130,6 @@
 <script>
     import { RouterLink } from 'vue-router';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'ClassLink',
@@ -160,7 +159,7 @@
         },
         watch: {
             afterSearch(value) {
-                if (value && !this.submenu) {
+                if (value) {
                     this.submenu = this.afterSearch;
 
                     return;
@@ -168,13 +167,6 @@
 
                 this.submenu = false;
             },
-
-            submenu() {
-                this.$emit('submenu-toggled');
-            },
-        },
-        mounted() {
-            this.$nextTick(() => useResizeObserver(this.$refs.classItem, () => this.$emit('resize')));
         },
         methods: {
             getClassList(isActive) {
