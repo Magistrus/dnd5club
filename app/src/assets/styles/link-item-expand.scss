@@ -26,19 +26,18 @@
 
     &__img-bg {
       position: absolute;
-      top: -30px;
+      top: 0px;
       right: 0;
       pointer-events: none;
       transition: transform 0.6s;
       opacity: 1;
       width: 50%;
 
-      @include media-min($sm) {
-        top: 0px;
+      @include media-min($lg) {
         width: 70%;
       }
 
-      @include media-min($lg) {
+      @include media-min($xxl) {
         width: 100%;
       }
     }
