@@ -201,13 +201,13 @@
 
                 <table class="table">
                     <tbody>
-                    <tr>
-                        <td>{{ groupedResult.coins.copper || 0 }} мм</td>
-                        <td>{{ groupedResult.coins.silver || 0 }} см</td>
-                        <td>{{ groupedResult.coins.electrum || 0 }} эм</td>
-                        <td>{{ groupedResult.coins.gold || 0 }} зм</td>
-                        <td>{{ groupedResult.coins.platinum || 0 }} пм</td>
-                    </tr>
+                        <tr>
+                            <td>{{ groupedResult.coins.copper || 0 }} мм</td>
+                            <td>{{ groupedResult.coins.silver || 0 }} см</td>
+                            <td>{{ groupedResult.coins.electrum || 0 }} эм</td>
+                            <td>{{ groupedResult.coins.gold || 0 }} зм</td>
+                            <td>{{ groupedResult.coins.platinum || 0 }} пм</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -421,7 +421,7 @@
         },
         methods: {
             // eslint-disable-next-line func-names
-            sendForm: throttle(function () {
+            sendForm: throttle(function() {
                 if (this.controllers.list) {
                     this.controllers.list.abort();
                 }

@@ -177,7 +177,7 @@
             },
 
             // eslint-disable-next-line func-names
-            onSearch: debounce(async function (e) {
+            onSearch: debounce(async function(e) {
                 await this.classesQuery();
 
                 this.search = e;

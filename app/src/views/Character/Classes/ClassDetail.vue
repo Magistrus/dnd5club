@@ -151,7 +151,9 @@
 
 <script>
     import { Swiper, SwiperSlide } from 'swiper/vue';
-    import { A11y, FreeMode, Mousewheel, Scrollbar } from 'swiper';
+    import {
+        A11y, FreeMode, Mousewheel, Scrollbar
+    } from 'swiper';
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useClassesStore } from '@/store/Character/ClassesStore';
@@ -315,10 +317,7 @@
                 }
             },
 
-            async clickTabHandler({
-                                      index,
-                                      callback
-                                  }) {
+            async clickTabHandler({ index, callback }) {
                 if (typeof callback === 'function') {
                     callback();
 
