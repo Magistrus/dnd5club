@@ -2,11 +2,11 @@
     <content-detail class="creature-detail">
         <template #fixed>
             <section-header
+                :close-on-desktop="getFullscreen"
+                :copy="!error && !loading"
+                :fullscreen="!getIsMobile"
                 :subtitle="creature?.name?.eng || ''"
                 :title="creature?.name?.rus || ''"
-                :copy="!error && !loading"
-                :close-on-desktop="getFullscreen"
-                :fullscreen="!getIsMobile"
                 print
                 @close="close"
                 @export-foundry="exportFoundry"

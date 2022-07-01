@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="weaponsQuery"
         @update="weaponsQuery"
     >
@@ -19,8 +19,8 @@
                 <weapon-link
                     v-for="weapon in group.list"
                     :key="weapon.url"
-                    :weapon="weapon"
                     :to="{ path: weapon.url }"
+                    :weapon="weapon"
                 />
             </div>
         </div>

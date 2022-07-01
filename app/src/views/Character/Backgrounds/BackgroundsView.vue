@@ -1,16 +1,16 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="backgroundsQuery"
         @update="backgroundsQuery"
     >
         <background-link
             v-for="background in backgrounds"
             :key="background.url"
-            :in-tab="inTab"
             :background-item="background"
+            :in-tab="inTab"
             :to="{path: background.url}"
         />
     </component>

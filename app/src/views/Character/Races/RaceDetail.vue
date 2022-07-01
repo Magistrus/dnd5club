@@ -2,10 +2,10 @@
     <content-detail class="race-detail">
         <template #fixed>
             <section-header
-                :subtitle="race?.name?.eng || ''"
-                :title="race?.name?.rus || ''"
                 :copy="!error && !loading"
                 :fullscreen="!getIsMobile"
+                :subtitle="race?.name?.eng || ''"
+                :title="race?.name?.rus || ''"
                 close-on-desktop
                 @close="close"
             />

@@ -1,8 +1,8 @@
 <template>
     <div class="filter">
         <div
-            class="filter__body"
             :class="{ 'in-tab': inTab }"
+            class="filter__body"
         >
             <div class="filter__search">
                 <label class="filter__search_field">
@@ -12,10 +12,10 @@
 
                     <input
                         v-model.trim="search"
-                        placeholder="Поиск..."
-                        type="text"
                         :autocomplete="false"
                         :spellcheck="false"
+                        placeholder="Поиск..."
+                        type="text"
                     >
                 </label>
 

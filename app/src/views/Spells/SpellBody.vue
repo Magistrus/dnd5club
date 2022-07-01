@@ -4,6 +4,7 @@
         class="spell_wrapper spell-body"
     >
         <detail-top-bar
+            :bg-grey="false"
             :left="`${
                 spell.level ? `${ spell.level } уровень` : 'заговор'
             }, ${
@@ -12,7 +13,6 @@
                 spell.ritual ? ' (ритуал)' : ''
             }`"
             :source="spell.source"
-            :bg-grey="false"
         />
 
         <div class="grid_stat_block">
@@ -73,9 +73,9 @@
                     <class-square
                         v-for="(el, key) in spell.classes"
                         :key="key"
+                        :icon="el.icon"
                         :name="el.name"
                         :url="el.url"
-                        :icon="el.icon"
                     />
                 </div>
             </div>

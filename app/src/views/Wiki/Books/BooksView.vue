@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="booksQuery"
         @update="booksQuery"
         @list-end="nextPage"
@@ -20,8 +20,8 @@
                 <book-link
                     v-for="book in group.list"
                     :key="book.url"
-                    :in-tab="inTab"
                     :book="book"
+                    :in-tab="inTab"
                     :to="{path: book.url}"
                 />
             </div>

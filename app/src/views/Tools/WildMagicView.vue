@@ -24,10 +24,10 @@
 
                     <field-input
                         v-model="count"
-                        type="number"
-                        min="1"
                         class="form-control select"
+                        min="1"
                         placeholder="Количеств"
+                        type="number"
                     />
                 </div>
 
@@ -110,7 +110,7 @@
             },
 
             // eslint-disable-next-line func-names
-            sendForm: throttle(async function() {
+            sendForm: throttle(async function () {
                 if (this.controller) {
                     this.controller.abort();
                 }

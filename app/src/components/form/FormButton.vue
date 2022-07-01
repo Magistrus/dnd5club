@@ -1,7 +1,7 @@
 <template>
     <button
-        class="form-button"
         :class="`is-${type}`"
+        class="form-button"
         type="button"
     >
         <slot/>

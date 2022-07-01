@@ -5,12 +5,12 @@
         class="content-layout"
     >
         <div
-            class="content-layout__body"
             :class="{ 'is-fullscreen': getFullscreen }"
+            class="content-layout__body"
         >
             <div
-                class="content-layout__list"
                 :class="{ 'is-fullscreen': getFullscreen, 'is-showed-right-side': showRightSide }"
+                class="content-layout__list"
             >
                 <div
                     v-if="filterInstance"
@@ -34,8 +34,8 @@
 
                 <div
                     ref="items"
-                    class="content-layout__items"
                     :class="{ 'is-shadow': shadow }"
+                    class="content-layout__items"
                 >
                     <slot name="default"/>
                 </div>
@@ -44,8 +44,8 @@
             <div
                 v-if="showRightSide"
                 ref="detail"
-                class="content-layout__selected"
                 :class="{ 'is-fullscreen': getFullscreen }"
+                class="content-layout__selected"
             >
                 <router-view v-if="!$slots['right-side']"/>
 
@@ -215,7 +215,7 @@
                 height: 24px;
                 box-shadow: 0 0 32px 32px var(--bg-main);
                 position: sticky;
-                bottom: 0px;
+                bottom: 0;
                 margin: 0 -16px;
                 z-index: 16;
                 opacity: 0;

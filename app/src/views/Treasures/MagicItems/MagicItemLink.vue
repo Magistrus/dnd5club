@@ -6,17 +6,17 @@
         v-bind="$props"
     >
         <a
-            v-bind="$attrs"
             ref="magicItem"
             :class="getClassList(isActive)"
             :href="href"
             class="link-item"
+            v-bind="$attrs"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
             <div class="link-item__content">
                 <div
-                    class="link-item__rarity"
                     :class="getRarityClass"
+                    class="link-item__rarity"
                 >
                     <span>{{ getRarityAbbreviation }}</span>
                 </div>

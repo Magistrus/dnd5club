@@ -1,12 +1,12 @@
 <template>
     <div
-        class="btn_nav"
+        class="navbar__btn"
         @click.left.exact.prevent="openModal"
     >
         <svg-icon
-            icon-name="profile"
             :stroke-enable="false"
             fill-enable
+            icon-name="profile"
         />
     </div>
 
