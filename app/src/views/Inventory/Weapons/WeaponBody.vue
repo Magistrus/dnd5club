@@ -21,8 +21,7 @@
 
                 <dice-roller :formula="weapon.damage.dice">
                     {{ weapon.damage.dice }}
-                </dice-roller>
-                <span>{{ weapon.damage.type }}</span>
+                </dice-roller> <span>{{ weapon.damage.type }}</span>
             </div>
 
             <div class="block">
