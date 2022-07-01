@@ -1,7 +1,7 @@
 @media print {
-  @page {
-    margin: 2cm;
-  }
+  // @page {
+  //   margin: auto 0cm auto 0cm;
+  // }
 
   body {
     background: white !important;
@@ -38,6 +38,11 @@
     visibility: visible !important;
     overflow: visible !important;
     color: black !important;
+    padding: 0 !important;
+  }
+
+  .content-layout__selected {
+    top: 0 !important;
   }
 
   .section-header {
@@ -72,6 +77,15 @@
     color: var(--text-print-color) !important;
   }
 
+  .section-header__title--text {
+    font-size: 0.7cm !important;
+  }
+
+  .row_info,
+  .section-header__body {
+    padding: 8px 0 8px 0 !important;
+  }
+
   h1 a,
   h1,
   h2 {
@@ -90,6 +104,6 @@
   }
 
   .content-padding {
-
+    padding: 16px 0 16px 0 !important;
   }
 }
