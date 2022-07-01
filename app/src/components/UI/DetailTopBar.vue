@@ -1,7 +1,7 @@
 <template>
     <div
-        class="row_info"
         :class="{ 'bg_grey': bgGrey }"
+        class="row_info"
     >
         <span
             v-if="left"
@@ -60,7 +60,7 @@
             margin-right: auto;
         }
 
-        &.bg_grey{
+        &.bg_grey {
             background: var(--bg-sub-menu);
             border-bottom: 1px solid var(--border);
         }

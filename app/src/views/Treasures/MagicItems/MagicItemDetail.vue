@@ -2,11 +2,11 @@
     <content-detail class="magic-item-detail">
         <template #fixed>
             <section-header
+                :close-on-desktop="getFullscreen"
+                :copy="!error && !loading"
+                :fullscreen="!getIsMobile"
                 :subtitle="magicItem?.name?.eng || ''"
                 :title="magicItem?.name?.rus || ''"
-                :copy="!error && !loading"
-                :close-on-desktop="getFullscreen"
-                :fullscreen="!getIsMobile"
                 @close="close"
             />
         </template>

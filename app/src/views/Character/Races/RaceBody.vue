@@ -71,8 +71,8 @@
             <details
                 v-for="(skill, key) in skills"
                 :key="key"
-                :open="skill.opened"
                 :class="{ 'archetype_feet': skill.subrace }"
+                :open="skill.opened"
             >
                 <summary class="h4 header_separator">
                     <span>{{ skill.name }}</span>

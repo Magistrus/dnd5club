@@ -5,9 +5,9 @@
             @close="onClose"
             @open="onOpen"
             @remove="onRemove"
-            @update:model-value="onUpdate"
             @select="onSelect"
             @tag="onTag"
+            @update:model-value="onUpdate"
             @search-change="onSearch"
         >
             <template #option="{option, search}">

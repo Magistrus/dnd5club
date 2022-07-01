@@ -2,11 +2,11 @@
     <content-detail class="trait-detail">
         <template #fixed>
             <section-header
+                :close-on-desktop="getFullscreen"
+                :copy="!error && !loading"
+                :fullscreen="!getIsMobile"
                 :subtitle="trait?.name?.eng || ''"
                 :title="trait?.name?.rus || ''"
-                :copy="!error && !loading"
-                :close-on-desktop="getFullscreen"
-                :fullscreen="!getIsMobile"
                 @close="close"
             />
         </template>

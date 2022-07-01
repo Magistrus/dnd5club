@@ -1,6 +1,6 @@
 <template>
     <div
-        class="theme_mode btn_nav"
+        class="navbar__btn"
         @click.left.exact.prevent="switchTheme"
     >
         <svg-icon
@@ -47,19 +47,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-.theme_mode {
-    display: flex;
-    align-items: center;
-
-    i {
-        // margin-right: 4px;
-
-        svg {
-            width: 30px;
-            height: 30px;
-        }
-    }
-}
-</style>

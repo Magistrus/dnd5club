@@ -10,17 +10,17 @@
         >
             <div class="tab-layout__filter_body">
                 <list-filter
-                    :in-tab="true"
                     :filter-instance="filterInstance"
+                    :in-tab="true"
                     @search="$emit('search', $event)"
                     @update="$emit('update', $event)"
                 />
             </div>
 
             <div
-                data-tab-filter
-                class="tab-layout__filter_dropdown"
                 :style="{ height: `${dropdownHeight}px` }"
+                class="tab-layout__filter_dropdown"
+                data-tab-filter
             />
         </div>
 

@@ -4,8 +4,8 @@
             content: result || 'Нажмите для броска',
             hideOnClick: false,
         }"
-        class="dice-roller"
         :class="classes"
+        class="dice-roller"
         @click.left.exact.prevent="tryRoll"
     >
         <slot>{{ formula }}</slot>

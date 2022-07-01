@@ -1,7 +1,7 @@
 <template>
     <content-layout
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="racesQuery"
         @update="racesQuery"
         @list-end="nextPage"

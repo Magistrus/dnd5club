@@ -4,9 +4,9 @@
         class="weapon-body"
     >
         <detail-top-bar
+            :bg-grey="false"
             :left="weapon.type.name"
             :source="weapon.source"
-            :bg-grey="false"
         />
 
         <div class="grid_stat_block">

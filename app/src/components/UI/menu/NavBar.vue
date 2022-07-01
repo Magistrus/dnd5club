@@ -1,10 +1,13 @@
 <template>
-    <div class="navbar">
-        <div class="navbar__head">
-            <div class="navbar__head__start">
+    <div
+        v-scroll-lock="getMenuState"
+        class="navbar"
+    >
+        <header class="navbar__header">
+            <div class="navbar__header_left">
                 <div
-                    class="hamburger btn_nav"
-                    :class="{ 'is-active': menu }"
+                    :class="{ 'is-active': getMenuState }"
+                    class="navbar__btn hamburger"
                     @click.left.exact.prevent="toggleMenu"
                 >
                     <span class="line"/>
@@ -12,90 +15,74 @@
                     <span class="line"/>
                 </div>
 
-                <a
-                    href="/"
-                    class="link_nav"
-                >
-                    <span>DnD5 Club</span>
-                </a>
+                <div class="navbar__section">
+                    <a
+                        class="navbar__link"
+                        href="/"
+                    >DnD5 Club</a>
 
-                <span v-if="section">
-                    <span class="nav_text">
-                        /
-                    </span>
-
-                    <span
-                        class="nav_text"
+                    <div
+                        v-if="section"
+                        class="navbar__text"
                     >
+                        <span>/</span>
+
                         <span>{{ section }}</span>
-                    </span>
-                </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="navbar__head__end">
+            <div class="navbar__header_right">
                 <menu-theme-switcher/>
 
                 <nav-profile/>
             </div>
-        </div>
+        </header>
 
         <div
-            class="close_blok"
-            :class="{ 'is-active': menu }"
-            @click.left.exact.prevent="toggleMenu"
-        />
-
-        <aside
-            class="club__card"
-            :class="{ 'is-active': menu }"
+            :class="{ 'is-active': getMenuState }"
+            class="navbar__popover"
+            @click.left.exact.self.prevent="setMenuState(false)"
         >
-            <header class="club__card__header">
-                <div class="club__card__header__logo">
+            <div class="navbar__popover_body">
+                <div class="navbar__popover_header">
                     <a
+                        class="navbar__popover_logo"
                         href="/"
-                        class="navbar__head__logo"
                     >
                         <site-logo :size="76"/>
                     </a>
-                </div>
 
-                <div class="club__card__header__info">
-                    <div class="row">
-                        Онлайн справчник по D&D 5e
-                    </div>
+                    <div class="navbar__popover_info">
+                        <span>Онлайн справчник по D&D 5e</span>
 
-                    <div class="row">
-                        DnD5 Club
+                        <span>DnD5 Club</span>
                     </div>
                 </div>
-            </header>
 
-            <section class="club__card__menu">
-                <div
-                    v-for="(group, groupKey) in getNavItems"
-                    :key="group.label + groupKey"
-                    class="navigation"
-                >
-                    <label class="navigation__head">
-                        <span>
+                <div class="navbar__menu">
+                    <div
+                        v-for="(group, groupKey) in getNavItems"
+                        :key="group.label + groupKey"
+                        class="navbar__menu_group"
+                    >
+                        <div class="navbar__menu_group_label">
                             {{ group.label }}
-                        </span>
-                    </label>
+                        </div>
 
-                    <ul>
-                        <li
-                            v-for="link in group.links"
-                            :key="link.url"
-                        >
+                        <div class="navbar__menu_group_links">
                             <a
-                                :target="link.external ? '_blank' : '_self'"
+                                v-for="link in group.links"
+                                :key="link.url"
                                 :href="link.url"
+                                :target="link.external ? '_blank' : '_self'"
+                                class="navbar__menu_group_link"
                             >{{ link.label }}</a>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
-            </section>
-        </aside>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -118,25 +105,18 @@
                 default: ''
             }
         },
-        data: () => ({
-            menu: false,
-        }),
         computed: {
-            ...mapState(useNavStore, ['getNavItems'])
+            ...mapState(useNavStore, ['getNavItems', 'getMenuState'])
         },
         created() {
             this.setNavItems();
         },
         methods: {
-            ...mapActions(useNavStore, ['setNavItems']),
+            ...mapActions(useNavStore, ['setNavItems', 'setMenuState']),
 
             toggleMenu() {
-                this.menu = !this.menu
+                this.setMenuState(!this.getMenuState)
             }
         }
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -2,10 +2,10 @@
     <content-detail class="class-detail">
         <template #fixed>
             <section-header
-                :subtitle="currentClass?.name?.eng || ''"
-                :title="currentClass?.name?.rus || ''"
                 :copy="!error && !loading"
                 :fullscreen="!getIsMobile"
+                :subtitle="currentClass?.name?.eng || ''"
+                :title="currentClass?.name?.rus || ''"
                 close-on-desktop
                 @close="close"
             />
@@ -207,7 +207,7 @@
             },
 
             getStoreKey() {
-                return `${this.currentClass.name.eng + this.currentTab.icon + this.currentTab.order}`
+                return `${ this.currentClass.name.eng + this.currentTab.icon + this.currentTab.order }`
                     .replaceAll(' ', '')
             },
 
@@ -317,10 +317,7 @@
                 }
             },
 
-            async clickTabHandler({
-                index,
-                callback
-            }) {
+            async clickTabHandler({ index, callback }) {
                 if (typeof callback === 'function') {
                     callback();
 
@@ -465,9 +462,9 @@
                         color: var(--text-btn-color);
                     }
 
-                     &_name {
+                    &_name {
                         display: block;
-                     }
+                    }
                 }
             }
 

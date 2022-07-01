@@ -105,4 +105,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: var(--max-vh);
+  width: 100%;
+  background-color: var(--bg-light-main);
 }

@@ -24,10 +24,10 @@
 
                     <field-input
                         v-model="count"
-                        type="number"
-                        min="1"
                         class="form-control select"
+                        min="1"
                         placeholder="Количеств"
+                        type="number"
                     />
                 </div>
 

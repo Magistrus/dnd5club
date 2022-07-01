@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="bestiaryQuery"
         @update="bestiaryQuery"
         @list-end="nextPage"
@@ -10,8 +10,8 @@
         <creature-link
             v-for="creature in bestiary"
             :key="creature.url"
-            :in-tab="inTab"
             :creature="creature"
+            :in-tab="inTab"
             :to="{path: creature.url}"
         />
     </component>

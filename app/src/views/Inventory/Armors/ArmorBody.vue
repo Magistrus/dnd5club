@@ -4,9 +4,9 @@
         class="armor-body"
     >
         <detail-top-bar
+            :bg-grey="false"
             :left="armor.type.name"
             :source="armor.source"
-            :bg-grey="false"
         />
 
         <div class="grid_stat_block">

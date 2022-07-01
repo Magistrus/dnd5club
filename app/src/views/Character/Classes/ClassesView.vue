@@ -1,7 +1,7 @@
 <template>
     <content-layout
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="onSearch"
         @update="classesQuery"
     >
@@ -30,9 +30,9 @@
                         <class-link
                             v-for="el in column"
                             :key="el.url"
+                            :after-search="!!search"
                             :class-item="el"
                             :to="{ path: el.url }"
-                            :after-search="!!search"
                         />
                     </div>
                 </div>
@@ -49,7 +49,7 @@
     import groupBy from "lodash/groupBy";
     import debounce from "lodash/debounce";
     import { useUIStore } from "@/store/UI/UIStore";
-    import { mapState, mapActions } from "pinia";
+    import { mapActions, mapState } from "pinia";
     import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
@@ -187,28 +187,28 @@
 </script>
 
 <style lang="scss" scoped>
-        .class-items {
-            &__group {
-                &_name {
-                    font-size: var(--h3-font-size);
-                    font-weight: 300;
-                    margin: 24px 0 16px 0;
-                    color: var(--text-color-title);
-                    position: relative;
-                    font-family: 'Lora';
-                }
+    .class-items {
+        &__group {
+            &_name {
+                font-size: var(--h3-font-size);
+                font-weight: 300;
+                margin: 24px 0 16px 0;
+                color: var(--text-color-title);
+                position: relative;
+                font-family: 'Lora';
+            }
 
-                &_list {
-                    display: flex;
-                }
+            &_list {
+                display: flex;
+            }
 
-                &_col {
-                    flex: 1 1 100%;
+            &_col {
+                flex: 1 1 100%;
 
-                    & + & {
-                        margin-left: 16px;
-                    }
+                & + & {
+                    margin-left: 16px;
                 }
             }
         }
+    }
 </style>

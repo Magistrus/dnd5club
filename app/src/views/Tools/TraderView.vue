@@ -63,7 +63,7 @@
                         type="toggle"
                         @update:model-value="settings.max = $event"
                     >
-                        {{ `Отображать ${settings.max ? 'максимальную' : 'среднюю'} цену` }}
+                        {{ `Отображать ${ settings.max ? 'максимальную' : 'среднюю' } цену` }}
                     </field-checkbox>
                 </div>
 
@@ -79,10 +79,10 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        :title="selected.item?.name.rus || 'В продаже'"
-                        :subtitle="selected.item?.name.eng || 'On sale'"
                         :close-on-desktop="getFullscreen"
                         :fullscreen="!getIsMobile"
+                        :subtitle="selected.item?.name.eng || 'On sale'"
+                        :title="selected.item?.name.rus || 'В продаже'"
                         @close="close"
                     />
                 </template>
@@ -133,8 +133,8 @@
             <magic-item-link
                 v-for="(item, key) in groupedResults"
                 :key="item.url"
-                :magic-item="item"
                 :is-active="selected.index === key"
+                :magic-item="item"
                 :to="{path: item.url}"
                 in-tools
                 @select-item="selectItem(key)"

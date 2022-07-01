@@ -168,7 +168,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                     const res = await http.post(tab.url);
 
                     if (res.status === 200) {
-                        this.tabFilters[`${tab.icon}${tab.order}`] = {
+                        this.tabFilters[`${ tab.icon }${ tab.order }`] = {
                             other: {
                                 ...res.data.other,
                                 ...res.data.custom

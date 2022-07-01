@@ -1,12 +1,12 @@
 <template>
     <tippy
+        :hide-on-click="false"
         interactive
         sticky="reference"
-        theme="dnd5club"
         strategy="fixed"
-        :hide-on-click="false"
-        @click-outside="() => false"
+        theme="dnd5club"
         @show="getContent"
+        @click-outside="() => false"
     >
         <template #default>
             <slot name="default"/>

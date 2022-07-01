@@ -34,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0px 0px 16px 0px;
+    margin: 0 0 16px 0;
 
     .search_row_g {
       height: 46px;
@@ -53,18 +53,18 @@
   .card_row {
     display: flex;
     flex-wrap: wrap;
-    padding: 0px 0px;
+    padding: 0;
     margin: 0 -8px;
 
     .card {
       flex: 1 1 15%;
       min-width: 15%;
-      margin: 16px 8px 0px 8px;
+      margin: 16px 8px 0 8px;
       background-color: var(--bg-secondary);
       border-radius: 12px;
       display: grid;
       justify-content: start;
-      padding: 0px 12px 0px 12px;
+      padding: 0 12px 0 12px;
       text-decoration: none;
       position: relative;
       overflow: hidden;
@@ -126,8 +126,8 @@
           font-family: "Open Sans";
           font-weight: 600;
           margin-right: 50%;
-          margin-top: 0px;
-          margin-bottom: 0px;
+          margin-top: 0;
+          margin-bottom: 0;
 
           @media (max-width: 800px) {
             font-size: calc(var(--h4-font-size) - 6px);
@@ -136,7 +136,7 @@
       }
 
       @media (max-width: 1200px) {
-        margin: 16px 8px 0px 8px;
+        margin: 16px 8px 0 8px;
         height: 48px;
       }
 
@@ -162,8 +162,8 @@
   .dnd5club_tel_bot {
     display: flex;
     flex-direction: row;
-    margin: 32px 0px -16px 0px;
-    padding: 16px 16px 0px 16px;
+    margin: 32px 0 -16px 0;
+    padding: 16px 16px 0 16px;
     background-color: var(--bg-table-list);
     border-radius: 12px;
     width: 33%;
@@ -293,7 +293,7 @@
 }
 
 .tpd-skin-dnd5 {
-  .grid_stat_block{
+  .grid_stat_block {
     .block {
       padding: 4px 8px;
     }
@@ -328,7 +328,7 @@
       color: var(--primary);
 
       &:hover {
-          color: var(--link-color-hover);
+        color: var(--link-color-hover);
       }
     }
   }
@@ -347,33 +347,33 @@
   float: right;
   padding: 0 0 32px 32px;
 
-    .image-container {
-      background: var(--bg-sub-menu);
-      box-shadow: 0px 6px 21px rgb(0 0 0 / 21%);
-      overflow: hidden;
-      border-radius: 12px;
-      height: auto;
-      position: relative;
-      width: 100%;
+  .image-container {
+    background: var(--bg-sub-menu);
+    box-shadow: 0 6px 21px rgb(0 0 0 / 21%);
+    overflow: hidden;
+    border-radius: 12px;
+    height: auto;
+    position: relative;
+    width: 100%;
 
-      a {
+    a {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: grid;
+
+      img {
         position: relative;
+        left: 50%;
+        top: 0%;
         height: 100%;
         width: 100%;
-        display: grid;
-
-        img {
-          position: relative;
-          left: 50%;
-          top: 0%;
-          height: 100%;
-          width: 100%;
-          transform: translate(-50%, 0%);
-          -o-object-fit: cover;
-          object-fit: cover;
-        }
+        transform: translate(-50%, 0%);
+        -o-object-fit: cover;
+        object-fit: cover;
       }
-   }
+    }
+  }
 
   @media (max-width: 1400px) {
     width: 180px;
@@ -442,12 +442,12 @@
 .weapons-group,
 .books-group,
 .armors-group {
-    &__name {
-        background-color: var(--hover);
-        padding: 8px 12px;
-        margin-bottom: 12px;
-        border-radius: 6px;
-    }
+  &__name {
+    background-color: var(--hover);
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
 }
 
 .content-padding {
@@ -489,7 +489,7 @@
       flex: 1 1 620px;
       max-width: 620px;
       background-color: var(--bg-secondary);
-      padding: 0px 24px 0px 24px;
+      padding: 0 24px 0 24px;
       margin: auto;
 
       .header {
@@ -570,7 +570,7 @@
 
 
 .tools_settings {
-  padding: 0px 16px 16px 16px;
+  padding: 0 16px 16px 16px;
   border: 1px solid var(--border);
   position: relative;
   border-radius: 12px;
@@ -609,7 +609,7 @@
     display: block;
     top: -56px;
     left: -1px;
-    right: 0px;
+    right: 0;
     width: calc(100% + 2px);
     height: 70px;
     background-color: var(--bg-main);
