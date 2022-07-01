@@ -28,8 +28,8 @@
 
                     <!-- eslint-disable-next-line max-len -->
                     <span>{{
-                            `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }`
-                        }}</span>
+                        `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }`
+                    }}</span>
 
                     <span v-if="creature.armors?.length">
                         ({{ creature.armors.join(', ') }})
@@ -41,8 +41,8 @@
 
                     <!-- eslint-disable-next-line max-len -->
                     <span>{{ creature.hits.average }} ({{ creature.hits.formula }}) {{
-                            creature.hits.text || ''
-                        }}</span>
+                        creature.hits.text || ''
+                    }}</span>
                 </p>
 
                 <p>

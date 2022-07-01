@@ -271,7 +271,7 @@
             },
 
             // eslint-disable-next-line func-names
-            sendForm: throttle(function () {
+            sendForm: throttle(function() {
                 if (this.controllers.list) {
                     this.controllers.list.abort();
                 }

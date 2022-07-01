@@ -1,12 +1,12 @@
 <template>
     <div
-        v-scroll-lock="menu"
+        v-scroll-lock="getMenuState"
         class="navbar"
     >
         <header class="navbar__header">
             <div class="navbar__header_left">
                 <div
-                    :class="{ 'is-active': menu }"
+                    :class="{ 'is-active': getMenuState }"
                     class="navbar__btn hamburger"
                     @click.left.exact.prevent="toggleMenu"
                 >
@@ -40,9 +40,9 @@
         </header>
 
         <div
-            :class="{ 'is-active': menu }"
+            :class="{ 'is-active': getMenuState }"
             class="navbar__popover"
-            @click.left.exact.self.prevent="toggleMenu"
+            @click.left.exact.self.prevent="setMenuState(false)"
         >
             <div class="navbar__popover_body">
                 <div class="navbar__popover_header">
@@ -105,20 +105,17 @@
                 default: ''
             }
         },
-        data: () => ({
-            menu: false,
-        }),
         computed: {
-            ...mapState(useNavStore, ['getNavItems'])
+            ...mapState(useNavStore, ['getNavItems', 'getMenuState'])
         },
         created() {
             this.setNavItems();
         },
         methods: {
-            ...mapActions(useNavStore, ['setNavItems']),
+            ...mapActions(useNavStore, ['setNavItems', 'setMenuState']),
 
             toggleMenu() {
-                this.menu = !this.menu
+                this.setMenuState(!this.getMenuState)
             }
         }
     }
