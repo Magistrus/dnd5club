@@ -2,11 +2,11 @@
     <content-detail class="rule-detail">
         <template #fixed>
             <section-header
+                :close-on-desktop="getFullscreen"
+                :copy="!error && !loading"
+                :fullscreen="!getIsMobile"
                 :subtitle="rule?.name?.eng || ''"
                 :title="rule?.name?.rus || ''"
-                :copy="!error && !loading"
-                :close-on-desktop="getFullscreen"
-                :fullscreen="!getIsMobile"
                 @close="close"
             />
         </template>

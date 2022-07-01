@@ -2,8 +2,8 @@
     <a
         v-if="icon && url"
         v-tippy="{content: name}"
-        class="class-square"
         :href="url"
+        class="class-square"
     >
         <svg-icon
             :icon-name="icon"

@@ -1,15 +1,15 @@
 <template>
     <vue-final-modal
         v-slot="{ close }"
-        v-bind="$attrs"
         content-class="auth-reg-modal"
-        focus-trap
         esc-to-close
+        focus-trap
+        v-bind="$attrs"
     >
         <img
-            src="/img/bg_login.png"
             :alt="type + '_background'"
             class="auth-reg-modal__bg"
+            src="/img/bg_login.png"
         >
 
         <div class="auth-reg-modal__content">
@@ -25,8 +25,8 @@
                 <h4>{{ type === 'reg' ? 'Регистрация' : 'Авторизация' }}</h4>
 
                 <transition
-                    name="fade"
                     mode="out-in"
+                    name="fade"
                 >
                     <component
                         :is="formType"

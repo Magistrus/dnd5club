@@ -13,24 +13,24 @@
         <div class="form__row">
             <field-input
                 v-model="email"
-                placeholder="Электронный адрес"
                 is-email
+                placeholder="Электронный адрес"
             />
         </div>
 
         <div class="form__row">
             <field-input
                 v-model="password"
-                placeholder="Пароль"
                 is-password
+                placeholder="Пароль"
             />
         </div>
 
         <div class="form__row">
             <field-input
                 v-model="repeat"
-                placeholder="Повторите пароль"
                 is-password
+                placeholder="Повторите пароль"
             />
         </div>
 

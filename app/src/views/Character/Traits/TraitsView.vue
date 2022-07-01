@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="traitsQuery"
         @update="traitsQuery"
     >
@@ -10,8 +10,8 @@
             v-for="trait in traits"
             :key="trait.url"
             :in-tab="inTab"
-            :trait-item="trait"
             :to="{path: trait.url}"
+            :trait-item="trait"
         />
     </component>
 </template>

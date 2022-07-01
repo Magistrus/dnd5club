@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="godsQuery"
         @update="godsQuery"
         @list-end="nextPage"
@@ -10,8 +10,8 @@
         <god-link
             v-for="god in gods"
             :key="god.url"
-            :in-tab="inTab"
             :god="god"
+            :in-tab="inTab"
             :to="{path: god.url}"
         />
     </component>

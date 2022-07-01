@@ -194,5 +194,6 @@
 <style lang="scss" scoped>
     @import "../../../assets/styles/link-item-expand";
 
-    .link-item-expand {}
+    .link-item-expand {
+    }
 </style>

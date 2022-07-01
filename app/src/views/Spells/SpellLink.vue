@@ -6,11 +6,11 @@
         v-bind="$props"
     >
         <a
-            v-bind="$attrs"
             ref="spell"
             :class="getClassList(isActive)"
             :href="href"
             class="link-item"
+            v-bind="$attrs"
             @click.left.exact.prevent="clickHandler(navigate)"
         >
             <div class="link-item__content">

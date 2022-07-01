@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layout"
-        :show-right-side="showRightSide"
         :filter-instance="filter"
+        :show-right-side="showRightSide"
         @search="armorsQuery"
         @update="armorsQuery"
     >

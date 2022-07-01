@@ -2,10 +2,10 @@
     <content-detail>
         <template #fixed>
             <section-header
-                :title="weapon?.name?.rus"
-                :subtitle="weapon?.name?.eng"
                 :close-on-desktop="getFullscreen"
                 :fullscreen="!getIsMobile"
+                :subtitle="weapon?.name?.eng"
+                :title="weapon?.name?.rus"
                 copy
                 @close="close"
             />

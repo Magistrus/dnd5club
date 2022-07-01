@@ -2,10 +2,10 @@
     <content-detail class="class-detail">
         <template #fixed>
             <section-header
-                :subtitle="currentClass?.name?.eng || ''"
-                :title="currentClass?.name?.rus || ''"
                 :copy="!error && !loading"
                 :fullscreen="!getIsMobile"
+                :subtitle="currentClass?.name?.eng || ''"
+                :title="currentClass?.name?.rus || ''"
                 close-on-desktop
                 @close="close"
             />
@@ -151,9 +151,7 @@
 
 <script>
     import { Swiper, SwiperSlide } from 'swiper/vue';
-    import {
-        A11y, FreeMode, Mousewheel, Scrollbar
-    } from 'swiper';
+    import { A11y, FreeMode, Mousewheel, Scrollbar } from 'swiper';
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useClassesStore } from '@/store/Character/ClassesStore';
@@ -207,7 +205,7 @@
             },
 
             getStoreKey() {
-                return `${this.currentClass.name.eng + this.currentTab.icon + this.currentTab.order}`
+                return `${ this.currentClass.name.eng + this.currentTab.icon + this.currentTab.order }`
                     .replaceAll(' ', '')
             },
 
@@ -318,9 +316,9 @@
             },
 
             async clickTabHandler({
-                index,
-                callback
-            }) {
+                                      index,
+                                      callback
+                                  }) {
                 if (typeof callback === 'function') {
                     callback();
 
@@ -465,9 +463,9 @@
                         color: var(--text-btn-color);
                     }
 
-                     &_name {
+                    &_name {
                         display: block;
-                     }
+                    }
                 }
             }
 

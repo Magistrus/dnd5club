@@ -122,7 +122,7 @@
                                     type="toggle"
                                     @update:model-value="settings.max = $event"
                                 >
-                                    {{ `Отображать ${settings.max ? 'максимальную' : 'среднюю'} цену` }}
+                                    {{ `Отображать ${ settings.max ? 'максимальную' : 'среднюю' } цену` }}
                                 </field-checkbox>
                             </div>
                         </div>
@@ -140,10 +140,10 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        :title="selected.item?.name.rus || 'В сокровищнице'"
-                        :subtitle="selected.item?.name.eng || 'In treasury'"
                         :close-on-desktop="getFullscreen"
                         :fullscreen="!getIsMobile"
+                        :subtitle="selected.item?.name.eng || 'In treasury'"
+                        :title="selected.item?.name.rus || 'В сокровищнице'"
                         @close="close"
                     />
                 </template>
@@ -201,13 +201,13 @@
 
                 <table class="table">
                     <tbody>
-                        <tr>
-                            <td>{{ groupedResult.coins.copper || 0 }} мм</td>
-                            <td>{{ groupedResult.coins.silver || 0 }} см</td>
-                            <td>{{ groupedResult.coins.electrum || 0 }} эм</td>
-                            <td>{{ groupedResult.coins.gold || 0 }} зм</td>
-                            <td>{{ groupedResult.coins.platinum || 0 }} пм</td>
-                        </tr>
+                    <tr>
+                        <td>{{ groupedResult.coins.copper || 0 }} мм</td>
+                        <td>{{ groupedResult.coins.silver || 0 }} см</td>
+                        <td>{{ groupedResult.coins.electrum || 0 }} эм</td>
+                        <td>{{ groupedResult.coins.gold || 0 }} зм</td>
+                        <td>{{ groupedResult.coins.platinum || 0 }} пм</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -223,8 +223,8 @@
                 <magic-item-link
                     v-for="(item, key) in groupedResult.magicItems"
                     :key="item.url"
-                    :magic-item="item"
                     :is-active="selected.index === key"
+                    :magic-item="item"
                     :to="{path: item.url}"
                     in-tools
                     @select-item="selectItem('magicItems', key)"
@@ -421,7 +421,7 @@
         },
         methods: {
             // eslint-disable-next-line func-names
-            sendForm: throttle(function() {
+            sendForm: throttle(function () {
                 if (this.controllers.list) {
                     this.controllers.list.abort();
                 }

@@ -10,8 +10,8 @@
         <input
             v-model="value"
             :autocomplete="autocomplete ? 'on' : 'off'"
-            :type="type"
             :placeholder="placeholder"
+            :type="type"
             class="field-input__input"
         >
     </label>

@@ -1,12 +1,12 @@
 <template>
     <vue-final-modal
         v-slot="{ params, close }"
-        v-bind="$attrs"
-        content-class="base-modal"
         attach="body"
-        focus-trap
+        content-class="base-modal"
         esc-to-close
+        focus-trap
         lock-scroll
+        v-bind="$attrs"
     >
         <div class="base-modal__header">
             <div class="base-modal__title">
@@ -35,8 +35,8 @@
             class="base-modal__footer"
         >
             <slot
-                name="footer"
                 :close="close"
+                name="footer"
             />
         </div>
 
@@ -149,14 +149,6 @@
 </script>
 
 <style lang="scss" scoped>
-    ::v-deep(.vfm__container) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        max-height: var(--max-vh);
-        width: 100%;
-    }
-
     ::v-deep(.base-modal) {
         background-color: var(--bg-secondary);
         width: 100%;
@@ -169,7 +161,7 @@
         display: flex;
         flex-direction: column;
 
-        @include media-max($md){
+        @include media-max($md) {
             border-radius: 0;
             max-height: 100%;
         }
