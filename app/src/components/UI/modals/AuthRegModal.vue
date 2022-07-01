@@ -78,7 +78,7 @@
 <style lang="scss" scoped>
     ::v-deep(.auth-reg-modal) {
         background-color: var(--bg-secondary);
-        max-height: 90%;
+        max-height: calc(var(--max-vh) / 100 * 90);
         margin: auto;
         overflow: hidden;
         box-shadow: 0 0 12px -8px var(--bg-transparent);

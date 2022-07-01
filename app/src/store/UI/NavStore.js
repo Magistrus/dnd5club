@@ -3,11 +3,13 @@ import { defineStore } from 'pinia';
 // eslint-disable-next-line import/prefer-default-export
 export const useNavStore = defineStore('NavStore', {
     state: () => ({
-        items: []
+        items: [],
+        opened: false,
     }),
 
     getters: {
-        getNavItems: state => state.items
+        getNavItems: state => state.items,
+        getMenuState: state => state.opened
     },
 
     actions: {
@@ -185,6 +187,16 @@ export const useNavStore = defineStore('NavStore', {
                     ]
                 },
             ]
+        },
+
+        setMenuState(payload) {
+            if (typeof payload !== 'boolean') {
+                this.opened = false;
+
+                return
+            }
+
+            this.opened = payload
         }
     }
 })
