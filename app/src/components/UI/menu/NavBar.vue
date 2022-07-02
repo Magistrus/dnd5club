@@ -1,6 +1,6 @@
 <template>
     <div
-        v-scroll-lock="getMenuState"
+        v-scroll-lock="popover"
         class="navbar"
     >
         <header class="navbar__header">
@@ -41,7 +41,7 @@
 
         <div
             v-if="popover"
-            class="navbar__popover"
+            class="nav-popover"
             @click.left.exact.self.prevent="closeMenu"
         >
             <transition
@@ -51,40 +51,40 @@
             >
                 <div
                     v-if="getMenuState"
-                    class="navbar__popover_body"
+                    class="nav-popover__body"
                 >
-                    <div class="navbar__popover_header">
+                    <div class="nav-popover__header">
                         <a
-                            class="navbar__popover_logo"
+                            class="nav-popover__logo"
                             href="/"
                         >
-                            <site-logo :size="76"/>
+                            <site-logo/>
                         </a>
 
-                        <div class="navbar__popover_info">
+                        <div class="nav-popover__info">
                             <span>Онлайн справчник по D&D 5e</span>
 
                             <span>DnD5 Club</span>
                         </div>
                     </div>
 
-                    <div class="navbar__menu">
+                    <div class="nav-popover__menu">
                         <div
                             v-for="(group, groupKey) in getNavItems"
                             :key="group.label + groupKey"
-                            class="navbar__menu_group"
+                            class="nav-popover__menu_group"
                         >
-                            <div class="navbar__menu_group_label">
+                            <div class="nav-popover__menu_group_label">
                                 {{ group.label }}
                             </div>
 
-                            <div class="navbar__menu_group_links">
+                            <div class="nav-popover__menu_group_links">
                                 <a
                                     v-for="link in group.links"
                                     :key="link.url"
                                     :href="link.url"
                                     :target="link.external ? '_blank' : '_self'"
-                                    class="navbar__menu_group_link"
+                                    class="nav-popover__menu_group_link"
                                 >{{ link.label }}</a>
                             </div>
                         </div>
