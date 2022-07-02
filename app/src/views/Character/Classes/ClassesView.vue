@@ -21,23 +21,13 @@
                     {{ group.group.name }}
                 </div>
 
-                <div
-                    v-masonry="'classes'"
-                    class="class-items__group_list"
-                    item-selector=".link-item-expand"
-                    :transition-duration="0"
-                    horizontal-order="true"
-                    :stagger="0"
-                    :destroy-delay="0"
-                    :gutter="16"
-                >
+                <div class="class-items__group_list">
                     <class-link
                         v-for="el in group.list"
                         :key="el.url"
                         :after-search="!!search"
                         :class-item="el"
                         :to="{ path: el.url }"
-                        :redraw-handler="redrawMasonry"
                     />
                 </div>
             </div>
@@ -117,11 +107,6 @@
         methods: {
             ...mapActions(useClassesStore, ['initFilter', 'initClasses', 'nextPage', 'clearStore']),
 
-            // eslint-disable-next-line func-names
-            redrawMasonry: debounce(function() {
-                this.$redrawVueMasonry('classes')
-            }, 50, { maxWait: 150 }),
-
             async classesQuery() {
                 await this.initClasses();
             },
@@ -149,14 +134,31 @@
             }
 
             &_list {
-                display: flex;
-            }
+                width: 100%;
+                padding: 0;
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-gap: 16px;
+                align-items: start;
 
-            &_col {
-                flex: 1 1 100%;
+                @include media-min($md) {
+                    grid-template-columns: repeat(2, 1fr);
+                }
 
-                & + & {
-                    margin-left: 16px;
+                @include media-min($xl) {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                &.is-selected {
+                    @include media-min($md) {
+                        grid-template-columns: repeat(1, 1fr);
+                    }
+
+                    &.is-fullscreen {
+                        @include media-min($md) {
+                            grid-template-columns: repeat(3, 1fr);
+                        }
+                    }
                 }
             }
         }
