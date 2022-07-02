@@ -128,16 +128,12 @@
   &__popover {
     @include css_anim();
 
-    background-color: transparent;
     position: fixed;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
     width: 100vw;
     height: var(--max-vh);
-    pointer-events: none;
-    z-index: -10;
+    background-color: var(--bg-light-main);
 
     &_body {
       background-color: var(--bg-secondary);
@@ -146,18 +142,13 @@
       left: 0;
       max-height: calc(var(--max-vh) / 100 * 90);
       max-width: 790px;
-      overflow: hidden auto;
+      overflow: auto;
       z-index: 19;
       border-radius: 8px;
       box-shadow: 0 0 27px #0006;
       margin: 8px 0 0 24px;
       padding: 0 16px 0 16px;
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0);
       transform-origin: top left;
-      visibility: hidden;
-      transition: transform 250ms cubic-bezier(0.215, 0.61, 0.355, 1), opacity 250ms ease, visibility 0ms linear 250ms;
 
       @media (max-width: 1500px) {
         margin: 8px 0 0 16px;
@@ -176,22 +167,6 @@
         margin: 8px;
         max-height: calc(var(--max-vh) - 16px);
         padding: 0 0 0 16px;
-      }
-    }
-
-    &.is-active {
-      pointer-events: auto;
-      z-index: 10;
-      background-color: var(--bg-light-main);
-
-      .navbar__popover {
-        &_body {
-          opacity: 1;
-          pointer-events: auto;
-          transform: none;
-          transition-delay: 0ms;
-          visibility: visible;
-        }
       }
     }
 
@@ -264,6 +239,22 @@
         }
       }
     }
+  }
+}
+
+.menu-animation {
+  &-enter-from, &-leave-to {
+    opacity: 0;
+    transform: scale(0) translate3d(0, 0, 0);
+  }
+
+  &-enter-to, &-leave-from {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  &-enter-active, &-leave-active {
+    @include css_anim($time: .25s, $style: cubic-bezier(0.215, 0.61, 0.355, 1));
   }
 }
 
