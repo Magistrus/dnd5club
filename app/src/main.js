@@ -4,6 +4,7 @@ import VueEasyLightbox from 'vue-easy-lightbox';
 import VueTippy from 'vue-tippy/dist/vue-tippy';
 import VueLazyload from 'vue-lazyload';
 import VScrollLock from '@/common/directives/VScrollLock';
+import { VueMasonryPlugin } from 'vue-masonry';
 import { vfmPlugin } from 'vue-final-modal';
 import registerComponents from '@/common/utils/RegisterComponents';
 import HTTPService from '@/common/services/HTTPService';
@@ -29,6 +30,7 @@ app.use(createPinia())
     .use(VScrollLock, {
         reserveScrollBarGap: true
     })
+    .use(VueMasonryPlugin)
     .use(vfmPlugin({
         key: '$vfm',
         componentName: 'VueFinalModal',
