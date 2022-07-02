@@ -8,21 +8,14 @@
     >
         <div
             ref="races"
-            v-masonry="'races'"
             class="race-items"
-            item-selector=".link-item-expand"
-            :transition-duration="0"
-            horizontal-order="true"
-            :stagger="0"
-            :destroy-delay="0"
-            :gutter="16"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
         >
             <race-link
                 v-for="race in getRaces"
                 :key="race.url"
                 :race-item="race"
                 :to="{path: race.url}"
-                :redraw-handler="redrawMasonry"
             />
         </div>
     </content-layout>
@@ -34,8 +27,6 @@
     import RaceLink from "@/views/Character/Races/RaceLink";
     import { mapActions, mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
-    import { useResizeObserver } from "@vueuse/core/index";
-    import debounce from "lodash/debounce";
 
     export default {
         name: 'RacesView',
@@ -58,8 +49,6 @@
         async mounted() {
             await this.initFilter();
             await this.initRaces();
-
-            useResizeObserver(this.$refs.races, this.redrawMasonry);
         },
         beforeUnmount() {
             this.clearStore();
@@ -67,14 +56,44 @@
         methods: {
             ...mapActions(useRacesStore, ['initFilter', 'initRaces', 'nextPage', 'clearStore']),
 
-            // eslint-disable-next-line func-names
-            redrawMasonry: debounce(function() {
-                this.$redrawVueMasonry('races')
-            }, 50, { maxWait: 150 }),
-
             async racesQuery() {
                 await this.initRaces();
             },
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .race-items {
+        width: 100%;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 16px;
+        align-items: start;
+
+        @include media-min($sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-min($lg) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include media-min($xxl) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        &.is-selected {
+            @include media-min($sm) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            &.is-fullscreen {
+                @include media-min($sm) {
+                    grid-template-columns: repeat(5, 1fr);
+                }
+            }
+        }
+    }
+</style>
