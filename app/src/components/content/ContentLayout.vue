@@ -1,6 +1,7 @@
 <template>
     <div
         ref="container"
+        v-scroll-lock="showRightSide && getFullscreen"
         :class="{'is-showed-right-side': showRightSide}"
         class="content-layout"
     >
@@ -34,7 +35,7 @@
 
                 <div
                     ref="items"
-                    :class="{ 'is-shadow': shadow }"
+                    :class="{ 'is-shadow': shadow || (showRightSide || getFullscreen) }"
                     class="content-layout__items"
                 >
                     <slot name="default"/>
@@ -57,13 +58,11 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import {
-        useInfiniteScroll, useEventListener, useWindowScroll
-    } from "@vueuse/core/index";
+    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia";
-    import { ref, unref } from "vue";
+    import { ref } from "vue";
 
     export default {
         name: 'ContentLayout',
@@ -76,16 +75,35 @@
             filterInstance: {
                 type: FilterService,
                 default: undefined
-            }
+            },
         },
         emits: ['list-end', 'update', 'search', 'resize'],
         data: () => ({
-            scrollTop: 0,
             shadow: false,
-            scroll: useWindowScroll()
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+        },
+        watch: {
+            showRightSide: {
+                flush: 'post',
+                handler(value) {
+                    if (value && this.getFullscreen) {
+                        this.$refs.detail.style.top = `${ window.scrollY }px`;
+                    }
+                }
+            },
+            getFullscreen: {
+                handler(value) {
+                    if (value) {
+                        this.$refs.detail.style.top = `${ window.scrollY }px`;
+                    }
+
+                    if (!value) {
+                        this.$refs.detail.style.top = '';
+                    }
+                }
+            }
         },
         mounted() {
             useInfiniteScroll(
@@ -96,22 +114,15 @@
                 { distance: 1080 }
             );
 
-            useEventListener(
-                window,
-                "scroll",
-                this.scrollHandler,
-                {
-                    capture: false,
-                    passive: true
-                }
-            );
+            window.addEventListener('scroll', this.scrollHandler);
+
+            useResizeObserver(this.$refs.items, this.scrollHandler);
+        },
+        beforeUnmount() {
+            window.removeEventListener('scroll', this.scrollHandler);
         },
         methods: {
             scrollHandler() {
-                if (!this.showRightSide) {
-                    this.scrollTop = unref(this.scroll.x);
-                }
-
                 this.toggleShadow();
             },
 
@@ -152,18 +163,15 @@
                 }
             }
 
+            &.is-fullscreen {
+                border-radius: 12px;
+            }
+
             &.is-showed-right-side {
-                width: 40%;
+                width: 100%;
 
-                @media (max-width: 1200px) {
-                    width: 100%;
-                }
-
-                &.is-fullscreen {
-                    width: 100%;
-                    height: calc(var(--max-vh) - 56px - 24px);
-                    overflow: hidden;
-                    border-radius: 12px;
+                @include media-min($sm) {
+                    width: 40%;
                 }
             }
         }
@@ -263,11 +271,11 @@
 
             &.is-fullscreen {
                 width: 100%;
+                max-width: 100%;
                 height: calc(var(--max-vh) - 56px - 24px);
                 position: absolute;
                 top: 0;
                 left: 0;
-                max-width: var(--max-content);
                 margin: auto;
 
                 @media (max-width: 1200px) {
