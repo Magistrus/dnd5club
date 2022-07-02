@@ -7,6 +7,7 @@
     >
         <div
             ref="classItem"
+            v-masonry-tile
             :class="getClassList(isActive)"
             class="link-item-expand"
             v-bind="$attrs"
@@ -130,6 +131,7 @@
 <script>
     import { RouterLink } from 'vue-router';
     import SvgIcon from '@/components/UI/SvgIcon';
+    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'ClassLink',
@@ -145,7 +147,12 @@
             afterSearch: {
                 type: Boolean,
                 default: false
-            }
+            },
+            redrawHandler: {
+                type: Function,
+                default: undefined,
+                required: true
+            },
         },
         data() {
             return {
@@ -167,6 +174,9 @@
 
                 this.submenu = false;
             },
+        },
+        mounted() {
+            useResizeObserver(this.$refs.classItem, this.redrawHandler)
         },
         methods: {
             getClassList(isActive) {

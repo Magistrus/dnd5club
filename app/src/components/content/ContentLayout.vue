@@ -57,11 +57,11 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useInfiniteScroll } from "@vueuse/core/index";
+    import { useInfiniteScroll, useWindowScroll, useEventListener } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
-    import { mapState } from "pinia/dist/pinia";
-    import { ref } from "vue";
+    import { mapState } from "pinia";
+    import { ref, unref } from "vue";
 
     export default {
         name: 'ContentLayout',
@@ -80,7 +80,7 @@
         data: () => ({
             scrollTop: 0,
             shadow: false,
-            scroller: undefined
+            scroll: useWindowScroll()
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
@@ -94,15 +94,19 @@
                 { distance: 1080 }
             );
 
-            document.addEventListener('scroll', this.scrollHandler);
-        },
-        beforeUnmount() {
-            document.removeEventListener('scroll', this.scrollHandler);
+            useEventListener(
+                "scroll",
+                this.scrollHandler,
+                {
+                    capture: false,
+                    passive: true
+                }
+            );
         },
         methods: {
             scrollHandler() {
                 if (!this.showRightSide) {
-                    this.scrollTop = window.scrollY;
+                    this.scrollTop = unref(this.scroll.x);
                 }
 
                 if (!this.getFullescreen) {
@@ -220,7 +224,6 @@
                 z-index: 16;
                 opacity: 0;
                 background-color: var(--bg-main);
-                // background-color: red;
                 border: {
                     top-left-radius: 20%;
                     top-right-radius: 20%;

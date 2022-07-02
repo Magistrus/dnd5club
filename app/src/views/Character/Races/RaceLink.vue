@@ -1,14 +1,15 @@
 <template>
     <router-link
         v-slot="{href, navigate, isActive}"
+        v-bind="$props"
         :to="{ path: raceItem.url }"
         custom
-        v-bind="$props"
     >
         <div
             ref="raceItem"
-            :class="getParentClasses(isActive)"
+            v-masonry-tile
             class="link-item-expand"
+            :class="getParentClasses(isActive)"
             v-bind="$attrs"
         >
             <div class="link-item-expand__content">
@@ -122,6 +123,7 @@
     import SvgIcon from '@/components/UI/SvgIcon';
     import { mapState } from "pinia/dist/pinia";
     import { useUIStore } from "@/store/UI/UIStore";
+    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'RaceLink',
@@ -131,6 +133,11 @@
             raceItem: {
                 type: Object,
                 default: () => null,
+                required: true
+            },
+            redrawHandler: {
+                type: Function,
+                default: undefined,
                 required: true
             },
             ...RouterLink.props
@@ -165,6 +172,9 @@
                 return abilities.join(', ')
             },
         },
+        mounted() {
+            useResizeObserver(this.$refs.raceItem, this.redrawHandler)
+        },
         methods: {
             getParentClasses(isActive) {
                 return {
@@ -193,6 +203,50 @@
     @import "../../../assets/styles/link-item-expand";
 
     .link-item-expand {
+        width: 100%;
+
+        @include media-min($sm) {
+            width: calc(100% / 2 - 16px / 2);
+        }
+
+        @include media-min($lg) {
+            width: calc(100% / 4 - 16px * 3 / 4);
+        }
+
+        @include media-min($xxl) {
+            width: calc(100% / 5 - 16px * 4 / 5);
+        }
+
+        &.is-selected {
+            width: 100%;
+
+            @include media-min($sm) {
+                width: calc(100% / 2 - 16px / 2);
+            }
+
+            @include media-min($lg) {
+                width: calc(100% / 2 - 16px / 2);
+            }
+
+            @include media-min($xxl) {
+                width: calc(100% / 2 - 16px / 2);
+            }
+
+            &.is-fullscreen {
+                @include media-min($sm) {
+                    width: calc(100% / 2 - 16px / 2);
+                }
+
+                @include media-min($lg) {
+                    width: calc(100% / 4 - 16px * 3 / 4);
+                }
+
+                @include media-min($xxl) {
+                    width: calc(100% / 5 - 16px * 4 / 5);
+                }
+            }
+        }
+
         &__body {
             &_row {
                 &:first-child {
