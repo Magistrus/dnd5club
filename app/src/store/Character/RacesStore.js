@@ -16,7 +16,7 @@ export const useRacesStore = defineStore('RacesStore', {
         filter: undefined,
         config: {
             page: 0,
-            limit: 70,
+            limit: -1,
             end: false,
             url: '/races',
         },
@@ -191,7 +191,7 @@ export const useRacesStore = defineStore('RacesStore', {
         clearConfig() {
             this.config = {
                 page: 0,
-                limit: 70,
+                limit: -1,
                 end: false,
                 url: '/races',
             };

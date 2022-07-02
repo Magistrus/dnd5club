@@ -4,7 +4,6 @@
         :show-right-side="showRightSide"
         @search="racesQuery"
         @update="racesQuery"
-        @list-end="nextPage"
     >
         <div
             ref="races"
@@ -54,7 +53,7 @@
             this.clearStore();
         },
         methods: {
-            ...mapActions(useRacesStore, ['initFilter', 'initRaces', 'nextPage', 'clearStore']),
+            ...mapActions(useRacesStore, ['initFilter', 'initRaces', 'clearStore']),
 
             async racesQuery() {
                 await this.initRaces();
@@ -68,9 +67,9 @@
         width: 100%;
         padding: 0;
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
         grid-gap: 16px;
         align-items: start;
+        grid-template-columns: repeat(1, 1fr);
 
         @include media-min($sm) {
             grid-template-columns: repeat(2, 1fr);
@@ -87,12 +86,6 @@
         &.is-selected {
             @include media-min($sm) {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            &.is-fullscreen {
-                @include media-min($sm) {
-                    grid-template-columns: repeat(5, 1fr);
-                }
             }
         }
     }

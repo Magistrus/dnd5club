@@ -8,6 +8,7 @@
         <div
             ref="classes"
             class="class-items"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
         >
             <div
                 v-for="(group, groupKey) in classes"
@@ -137,9 +138,9 @@
                 width: 100%;
                 padding: 0;
                 display: grid;
-                grid-template-columns: repeat(1, 1fr);
                 grid-gap: 16px;
                 align-items: start;
+                grid-template-columns: repeat(1, 1fr);
 
                 @include media-min($md) {
                     grid-template-columns: repeat(2, 1fr);
@@ -148,15 +149,15 @@
                 @include media-min($xl) {
                     grid-template-columns: repeat(3, 1fr);
                 }
+            }
+        }
 
-                &.is-selected {
-                    @include media-min($md) {
-                        grid-template-columns: repeat(1, 1fr);
-                    }
-
-                    &.is-fullscreen {
+        &.is-selected {
+            .class-items {
+                &__group {
+                    &_list {
                         @include media-min($md) {
-                            grid-template-columns: repeat(3, 1fr);
+                            grid-template-columns: repeat(1, 1fr);
                         }
                     }
                 }
