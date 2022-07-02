@@ -70,6 +70,7 @@
       overflow: hidden;
       height: 56px;
       align-items: center;
+      mask-image: radial-gradient(white, black); // Не удалять, это фикс для Safari, чтобы не вылазили углы картинки
 
       &::before {
         content: "";
@@ -82,7 +83,6 @@
         right: 0;
         background-image: url(/img/bg_main_page_button_nav_3.png);
         background-position: 0 0;
-        mask-image: radial-gradient(white, black); // Не удалять, это фикс для Safari, чтобы не вылазили углы картинки
 
         @media (max-width: 1200px) {
           height: 48px;

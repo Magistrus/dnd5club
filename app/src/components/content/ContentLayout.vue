@@ -57,7 +57,9 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useInfiniteScroll, useWindowScroll, useEventListener } from "@vueuse/core/index";
+    import {
+        useInfiniteScroll, useEventListener, useWindowScroll
+    } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia";
@@ -95,6 +97,7 @@
             );
 
             useEventListener(
+                window,
                 "scroll",
                 this.scrollHandler,
                 {
@@ -109,9 +112,7 @@
                     this.scrollTop = unref(this.scroll.x);
                 }
 
-                if (!this.getFullescreen) {
-                    this.toggleShadow();
-                }
+                this.toggleShadow();
             },
 
             toggleShadow() {
