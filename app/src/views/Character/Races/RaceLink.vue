@@ -44,14 +44,14 @@
                             <span class="link-item-expand__body_row">
                                 <span
                                     v-if="abilities"
-                                    class="link-item-expand__abilities"
+                                    class="link-item-expand__tag"
                                 >
                                     {{ abilities }}
                                 </span>
 
                                 <span
                                     v-tippy="{ content: raceItem.source.name }"
-                                    class="link-item-expand__book"
+                                    class="link-item-expand__tag"
                                 >
                                     {{ raceItem.source.shortName }}
                                 </span>
@@ -73,43 +73,37 @@
 
                 <div
                     v-if="hasSubraces"
-                    :class="{ 'is-active': submenu }"
+                    v-show="submenu"
                     class="link-item-expand__arch-list"
                 >
                     <div
-                        v-for="(col, colKey) in raceItem.subraces"
-                        :key="colKey"
-                        class="link-item-expand__arch-list_col"
+                        v-for="(group, groupKey) in raceItem.subraces"
+                        :key="groupKey"
+                        class="link-item-expand__arch-type"
                     >
-                        <div
-                            v-for="(group, groupKey) in col"
-                            :key="groupKey"
-                            class="link-item-expand__arch-type"
-                        >
-                            <div class="link-item-expand__arch-type_name">
-                                {{ group.name }}
-                            </div>
+                        <div class="link-item-expand__arch-type_name">
+                            {{ group.name.name }}
+                        </div>
 
-                            <div class="link-item-expand__arch-type_items">
-                                <router-link
-                                    v-for="(subrace, subraceKey) in group.list"
-                                    :key="subraceKey"
-                                    :to="{ path: subrace.url }"
-                                    class="link-item-expand__arch-item"
-                                >
-                                    <span class="link-item-expand__arch-item_name">{{ subrace.name.rus }}</span>
+                        <div class="link-item-expand__arch-type_items">
+                            <router-link
+                                v-for="(subrace, subraceKey) in group.list"
+                                :key="subraceKey"
+                                :to="{ path: subrace.url }"
+                                class="link-item-expand__arch-item"
+                            >
+                                <span class="link-item-expand__arch-item_name">{{ subrace.name.rus }}</span>
 
-                                    <span class="link-item-expand__arch-item_book">
-                                        <span v-tippy="{ content: subrace.source.name }">
-                                            {{ subrace.source.shortName }}
-                                        </span>
-
-                                        /
-
-                                        <span>{{ subrace.name.eng }}</span>
+                                <span class="link-item-expand__arch-item_book">
+                                    <span v-tippy="{ content: subrace.source.name }">
+                                        {{ subrace.source.shortName }}
                                     </span>
-                                </router-link>
-                            </div>
+
+                                    /
+
+                                    <span>{{ subrace.name.eng }}</span>
+                                </span>
+                            </router-link>
                         </div>
                     </div>
                 </div>

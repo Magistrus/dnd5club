@@ -2,9 +2,9 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import uniqWith from 'lodash/uniqWith';
 import sortBy from 'lodash/sortBy';
-import isEqual from 'lodash/isEqual';
+import groupBy from 'lodash/groupBy';
+import isArray from 'lodash/isArray';
 
 const DB_NAME = 'races';
 const http = new HTTPService();
@@ -91,47 +91,24 @@ export const useRacesStore = defineStore('RacesStore', {
 
                 this.controllers.racesQuery = undefined;
 
-                const result = [];
-                const sort = list => {
-                    const types = list.map(subrace => subrace.type);
-                    const typesSorted = uniqWith(sortBy(types, ['order']), isEqual);
-                    const formatted = [];
+                const getSubraces = list => sortBy(
+                    Object.values(groupBy(list, o => o.type.name))
+                        .map(value => ({
+                            name: value[0].type,
+                            list: value
+                        })),
+                    [o => o.name.order]
+                );
 
-                    let index = 0;
+                return data.map(value => {
+                    const res = value;
 
-                    for (let i = 0; i < typesSorted.length; i++) {
-                        if (i === 0 || i % 2 === 0) {
-                            formatted.push([]);
-
-                            index++;
-                        }
-
-                        formatted[index - 1].push({
-                            name: typesSorted[i].name,
-                            list: sortBy(
-                                list.filter(subrace => subrace.type.name === typesSorted[i].name),
-                                [o => o.name.rus]
-                            )
-                        });
+                    if (isArray(value.subraces)) {
+                        res.subraces = getSubraces(value.subraces);
                     }
 
-                    return formatted
-                }
-
-                for (let i = 0; i < data.length; i++) {
-                    if ('subraces' in data[i]) {
-                        result.push({
-                            ...data[i],
-                            subraces: sort(data[i].subraces),
-                        });
-
-                        continue;
-                    }
-
-                    result.push({ ...data[i] })
-                }
-
-                return result
+                    return res
+                });
             } catch (err) {
                 errorHandler(err);
 
