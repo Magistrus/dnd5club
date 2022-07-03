@@ -313,8 +313,8 @@
 
                     this.$nextTick(() => {
                         if (this.$refs.classBody) {
-                            this.$refs.classBody.scrollIntoView({
-                                block: 'start',
+                            this.$refs.classBody.scroll({
+                                top: 0
                             });
                         }
                     })
@@ -393,7 +393,7 @@
                     return;
                 }
 
-                window.history.pushState(null, null, hash);
+                window.history.pushState({ ...window.history.state }, null, hash);
 
                 this.$refs.classBody.scroll({
                     top: section.getBoundingClientRect().top - 119 - 56,
