@@ -47,16 +47,10 @@
     "eslint-plugin-vue": "^9.0.1",
     "eslint-plugin-vuejs-accessibility": "^1.1.1",
     "file-loader": "^6.2.0",
-    "husky": "^8.0.1",
     "rimraf": "^3.0.2",
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
     "svg-sprite-loader": "^6.0.11",
     "svgo-loader": "^3.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint:js"
-    }
   }
 }
