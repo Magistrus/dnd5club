@@ -35,7 +35,7 @@
 
                 <div
                     ref="items"
-                    :class="{ 'is-shadow': shadow || (showRightSide || getFullscreen) }"
+                    :class="{ 'is-shadow': shadow || (showRightSide && getFullscreen) }"
                     class="content-layout__items"
                 >
                     <slot name="default"/>
@@ -219,8 +219,6 @@
             margin-bottom: -24px;
 
             &:after {
-                @include css_anim();
-
                 content: '';
                 display: block;
                 pointer-events: none;
