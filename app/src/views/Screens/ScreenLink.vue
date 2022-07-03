@@ -72,31 +72,15 @@
 
             async clickHandler(url) {
                 try {
-                    this.modal = {
-                        data: await this.loadNewScreen(url),
-                        show: true
-                    };
+                    if (!this.modal.data) {
+                        this.modal.data = await this.screenInfoQuery(url);
+                    }
+
+                    this.modal.show = true;
                 } catch (err) {
-                    this.error = true;
+                    console.error(err);
                 }
             },
-
-            async loadNewScreen(url) {
-                try {
-                    this.error = false;
-                    this.loading = true;
-
-                    const screen = await this.screenInfoQuery(url);
-
-                    this.loading = false;
-
-                    return screen;
-                } catch (err) {
-                    this.error = true;
-
-                    return undefined;
-                }
-            }
         }
     }
 </script>

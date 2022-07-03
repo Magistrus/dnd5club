@@ -86,25 +86,21 @@
                 }
             },
 
-            clickHandler(callback) {
+            async clickHandler(callback) {
                 if (!this.inTab) {
                     callback();
 
                     return;
                 }
 
-                if (!this.modal.data) {
-                    this.optionsStore.optionInfoQuery(this.optionItem.url)
-                        .then(spell => {
-                            this.modal = {
-                                show: true,
-                                data: spell
-                            }
-                        });
-                }
+                try {
+                    if (!this.modal.data) {
+                        this.modal.data = await this.optionsStore.optionInfoQuery(this.optionItem.url)
+                    }
 
-                if (this.modal.data) {
                     this.modal.show = true;
+                } catch (err) {
+                    console.error(err);
                 }
             }
         }
