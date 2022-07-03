@@ -16,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RaceFilter {
+	List<String> abilities;
+	List<String> skills;
 	@JsonProperty("book")
 	private List<String> books;
 }
