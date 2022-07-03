@@ -145,7 +145,7 @@
             },
 
             urlForCopy() {
-                return window.location.origin + window.location.pathname;
+                return window.location.origin + this.$route.path;
             },
 
             closeAvailable() {
