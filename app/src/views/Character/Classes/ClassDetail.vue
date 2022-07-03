@@ -184,6 +184,8 @@
             SwiperSlide,
         },
         async beforeRouteUpdate(to, from, next) {
+            this.removeScrollListeners();
+
             await this.loadNewClass(to.path);
 
             next();
@@ -260,6 +262,9 @@
         },
         async mounted() {
             await this.loadNewClass(this.$route.path);
+        },
+        beforeUnmount() {
+            this.removeScrollListeners();
         },
         methods: {
             async loadNewClass(url) {
@@ -357,6 +362,10 @@
             },
 
             removeScrollListeners() {
+                if (!this.$refs.classBody) {
+                    return;
+                }
+
                 const links = this.$refs.classBody.querySelectorAll('[href^="#"]');
 
                 for (const link of links) {

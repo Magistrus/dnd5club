@@ -11,7 +11,7 @@
             :href="href"
             class="link-item"
             v-bind="$attrs"
-            @click.left.exact.prevent="navigate()"
+            @click.left.exact.prevent="clickHandler(navigate)"
         >
             <div class="link-item__content">
                 <div class="link-item__body">
@@ -30,15 +30,31 @@
             </div>
         </a>
     </router-link>
+
+    <base-modal
+        v-if="modal.data"
+        v-model="modal.show"
+    >
+        <template #title>
+            {{ modal.data.name.rus }}
+        </template>
+
+        <template #default>
+            <option-body :option="modal.data"/>
+        </template>
+    </base-modal>
 </template>
 
 <script>
     import { RouterLink } from 'vue-router';
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
     import { useOptionsStore } from "@/store/Character/OptionsStore";
+    import BaseModal from "@/components/UI/modals/BaseModal";
+    import OptionBody from "@/views/Character/Options/OptionBody";
 
     export default {
         name: 'OptionLink',
+        components: { OptionBody, BaseModal },
         directives: {
             CapitalizeFirst
         },
@@ -56,7 +72,7 @@
         },
         data: () => ({
             optionsStore: useOptionsStore(),
-            option: {
+            modal: {
                 show: false,
                 data: undefined
             }
@@ -77,13 +93,19 @@
                     return;
                 }
 
-                this.optionsStore.optionInfoQuery(this.optionItem.url)
-                    .then(spell => {
-                        this.option = {
-                            show: true,
-                            data: spell
-                        }
-                    });
+                if (!this.modal.data) {
+                    this.optionsStore.optionInfoQuery(this.optionItem.url)
+                        .then(spell => {
+                            this.modal = {
+                                show: true,
+                                data: spell
+                            }
+                        });
+                }
+
+                if (this.modal.data) {
+                    this.modal.show = true;
+                }
             }
         }
     }
