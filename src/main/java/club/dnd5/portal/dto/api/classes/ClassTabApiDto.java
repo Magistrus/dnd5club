@@ -9,7 +9,7 @@ import lombok.Getter;
 public class ClassTabApiDto {
 	private String name;
 	private String url;
-	private String icon;
+	private String type;
 	private int order;
 	private boolean raw;
 }

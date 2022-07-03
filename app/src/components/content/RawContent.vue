@@ -54,6 +54,9 @@
         async mounted() {
             await this.initComponent();
         },
+        beforeUnmount() {
+            this.$emit('before-unmount');
+        },
         methods: {
             async initComponent() {
                 try {
@@ -64,6 +67,10 @@
 
                     this.component = shallowRef(component);
                     this.loading = false;
+
+                    this.$nextTick(() => {
+                        this.$emit('loaded');
+                    })
                 } catch (err) {
                     this.error = true;
                     this.loading = false;
