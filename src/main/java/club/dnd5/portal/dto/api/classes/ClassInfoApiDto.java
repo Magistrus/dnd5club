@@ -26,13 +26,13 @@ public class ClassInfoApiDto {
 	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images) {
 		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
 		this.images = images;
-		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "tab-traits", 0, true));
-		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "tab-description", 1, true));
+		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "traits", 0, true));
+		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "description", 1, true));
 		if (heroClass.getSpellcasterType() != SpellcasterType.NONE) {
-			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s", heroClass.getUrlName()), "tab-spells", 2, false));	
+			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s", heroClass.getUrlName()), "spells", 2, false));
 		}
 		if (heroClass.getOptionType() != null) {
-			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/options", heroClass.getUrlName()), "tab-option", 3, false));
+			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/options", heroClass.getUrlName()), "options", 3, false));
 		}
 	}
 
@@ -40,16 +40,16 @@ public class ClassInfoApiDto {
 		HeroClass heroClass = archetype.getHeroClass();
 		name = new NameApi(archetype.getHeroClass().getCapitalazeName() + " " + archetype.getCapitalizeName(), archetype.getHeroClass().getEnglishName()+ " " + archetype.getEnglishName());
 		this.images = images;
-		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-traits", 0, true));
-		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "tab-description", 1, true));
+		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "traits", 0, true));
+		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "description", 1, true));
 		if (heroClass.getSpellcasterType() != SpellcasterType.NONE || archetype.getSpellcasterType() != SpellcasterType.NONE) {
-			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "tab-spells", 2, false));	
+			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "spells", 2, false));
 		}
 		if (heroClass.getOptionType() != null) {
-			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "tab-option", 3, false));
+			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "options", 3, false));
 		}
 		if (archetype.getOptionType() != null) {
-			tabs.add(new ClassTabApiDto(archetype.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "tab-option", 4, false));
+			tabs.add(new ClassTabApiDto(archetype.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "options", 4, false));
 		}
 	}
 }

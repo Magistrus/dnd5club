@@ -27,7 +27,7 @@
                     @click.left.exact.prevent="clickTabHandler({ index: tabKey, callback: tab.callback })"
                 >
                     <div class="class-detail__tab_icon">
-                        <svg-icon :icon-name="tab.icon"/>
+                        <svg-icon :icon-name="`tab-${tab.type}`"/>
                     </div>
 
                     <div
@@ -69,12 +69,12 @@
                 class="class-detail__content"
             >
                 <div
-                    v-if="currentTab && currentTab.icon !== 'tab-spells' && currentTab.icon !== 'tab-option'"
+                    v-if="currentTab && currentTab.type !== 'spells' && currentTab.type !== 'options'"
                     ref="classBody"
                     class="class-detail__body"
                 >
                     <div
-                        v-if="currentArchetypes.length && currentTab.name === 'Навыки'"
+                        v-if="getIsMobile && currentArchetypes.length && currentTab.type === 'traits'"
                         class="class-detail__select"
                     >
                         <field-select
@@ -116,18 +116,22 @@
                     </div>
 
                     <div class="class-detail__body--inner">
-                        <raw-content :url="currentTab.url"/>
+                        <raw-content
+                            :url="currentTab.url"
+                            @loaded="initScrollListeners"
+                            @before-unmount="removeScrollListeners"
+                        />
                     </div>
                 </div>
 
                 <spells-view
-                    v-else-if="currentTab.icon === 'tab-spells'"
+                    v-else-if="currentTab.type === 'spells'"
                     :store-key="getStoreKey"
                     in-tab
                 />
 
                 <options-view
-                    v-else-if="currentTab.icon === 'tab-option'"
+                    v-else-if="currentTab.type === 'options'"
                     :store-key="getStoreKey"
                     in-tab
                 />
@@ -207,7 +211,7 @@
             },
 
             getStoreKey() {
-                return `${ this.currentClass.name.eng + this.currentTab.icon + this.currentTab.order }`
+                return `${ this.currentClass.name.eng + this.currentTab.type + this.currentTab.order }`
                     .replaceAll(' ', '')
             },
 
@@ -286,7 +290,7 @@
 
                 if (loadedClass.images) {
                     this.tabs.list.push({
-                        icon: 'tab-images',
+                        type: 'images',
                         order: this.tabs.length,
                         callback: () => this.showGallery
                     });
@@ -331,16 +335,65 @@
                 this.$router.push({ path })
             },
 
-            scrollToSection() {
-                const section = this.$refs.classBody.querySelector(this.$route.hash);
+            initScrollListeners() {
+                if (this.$route.hash) {
+                    const section = this.$refs.classBody.querySelector(this.$route.hash);
 
-                section.scrollIntoView({
-                    block: "start",
+                    if (!section) {
+                        return;
+                    }
+
+                    this.$refs.classBody.scroll({
+                        top: section.getBoundingClientRect().top - 119 - 56,
+                        behavior: "smooth"
+                    });
+                }
+
+                const links = this.$refs.classBody.querySelectorAll('[href^="#"]');
+
+                for (const link of links) {
+                    link.addEventListener('click', this.scrollToSection);
+                }
+            },
+
+            removeScrollListeners() {
+                const links = this.$refs.classBody.querySelectorAll('[href^="#"]');
+
+                for (const link of links) {
+                    link.removeEventListener('click', this.scrollToSection);
+                }
+            },
+
+            scrollToSection(e) {
+                if (e.button) {
+                    return;
+                }
+
+                e.preventDefault();
+
+                const { target } = e;
+                const hash = target.getAttribute('href');
+
+                if (!hash) {
+                    return;
+                }
+
+                const section = this.$refs.classBody.querySelector(hash);
+
+                if (!section) {
+                    return;
+                }
+
+                window.history.pushState(null, null, hash);
+
+                this.$refs.classBody.scroll({
+                    top: section.getBoundingClientRect().top - 119 - 56,
                     behavior: "smooth"
                 });
             },
 
             showGallery() {
+                console.log(this.currentClass.images)
                 if (!this.currentClass?.images?.length) {
                     return;
                 }
