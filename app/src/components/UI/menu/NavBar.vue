@@ -1,6 +1,6 @@
 <template>
     <div
-        v-scroll-lock="getMenuState"
+        v-scroll-lock="popover"
         class="navbar"
     >
         <header class="navbar__header">
@@ -40,48 +40,57 @@
         </header>
 
         <div
-            :class="{ 'is-active': getMenuState }"
-            class="navbar__popover"
-            @click.left.exact.self.prevent="setMenuState(false)"
+            v-if="popover"
+            class="nav-popover"
+            @click.left.exact.self.prevent="closeMenu"
         >
-            <div class="navbar__popover_body">
-                <div class="navbar__popover_header">
-                    <a
-                        class="navbar__popover_logo"
-                        href="/"
-                    >
-                        <site-logo :size="76"/>
-                    </a>
+            <transition
+                name="menu-animation"
+                mode="out-in"
+                @after-leave="onCloseMenu"
+            >
+                <div
+                    v-if="getMenuState"
+                    class="nav-popover__body"
+                >
+                    <div class="nav-popover__header">
+                        <a
+                            class="nav-popover__logo"
+                            href="/"
+                        >
+                            <site-logo/>
+                        </a>
 
-                    <div class="navbar__popover_info">
-                        <span>Онлайн справчник по D&D 5e</span>
+                        <div class="nav-popover__info">
+                            <span>Онлайн справчник по D&D 5e</span>
 
-                        <span>DnD5 Club</span>
-                    </div>
-                </div>
-
-                <div class="navbar__menu">
-                    <div
-                        v-for="(group, groupKey) in getNavItems"
-                        :key="group.label + groupKey"
-                        class="navbar__menu_group"
-                    >
-                        <div class="navbar__menu_group_label">
-                            {{ group.label }}
-                        </div>
-
-                        <div class="navbar__menu_group_links">
-                            <a
-                                v-for="link in group.links"
-                                :key="link.url"
-                                :href="link.url"
-                                :target="link.external ? '_blank' : '_self'"
-                                class="navbar__menu_group_link"
-                            >{{ link.label }}</a>
+                            <span>DnD5 Club</span>
                         </div>
                     </div>
+
+                    <div class="nav-popover__menu">
+                        <div
+                            v-for="(group, groupKey) in getNavItems"
+                            :key="group.label + groupKey"
+                            class="nav-popover__menu_group"
+                        >
+                            <div class="nav-popover__menu_group_label">
+                                {{ group.label }}
+                            </div>
+
+                            <div class="nav-popover__menu_group_links">
+                                <a
+                                    v-for="link in group.links"
+                                    :key="link.url"
+                                    :href="link.url"
+                                    :target="link.external ? '_blank' : '_self'"
+                                    class="nav-popover__menu_group_link"
+                                >{{ link.label }}</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -105,6 +114,9 @@
                 default: ''
             }
         },
+        data: () => ({
+            popover: false
+        }),
         computed: {
             ...mapState(useNavStore, ['getNavItems', 'getMenuState'])
         },
@@ -114,8 +126,30 @@
         methods: {
             ...mapActions(useNavStore, ['setNavItems', 'setMenuState']),
 
+            openMenu() {
+                this.popover = true;
+
+                this.$nextTick(() => {
+                    this.setMenuState(true);
+                })
+            },
+
+            closeMenu() {
+                this.setMenuState(false);
+            },
+
+            onCloseMenu() {
+                this.popover = false;
+            },
+
             toggleMenu() {
-                this.setMenuState(!this.getMenuState)
+                if (this.getMenuState) {
+                    this.closeMenu();
+
+                    return;
+                }
+
+                this.openMenu();
             }
         }
     }

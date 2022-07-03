@@ -8,6 +8,7 @@
         <div
             ref="classes"
             class="class-items"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
         >
             <div
                 v-for="(group, groupKey) in classes"
@@ -22,19 +23,13 @@
                 </div>
 
                 <div class="class-items__group_list">
-                    <div
-                        v-for="(column, columnKey) in group.list"
-                        :key="columnKey"
-                        class="class-items__group_col"
-                    >
-                        <class-link
-                            v-for="el in column"
-                            :key="el.url"
-                            :after-search="!!search"
-                            :class-item="el"
-                            :to="{ path: el.url }"
-                        />
-                    </div>
+                    <class-link
+                        v-for="el in group.list"
+                        :key="el.url"
+                        :after-search="!!search"
+                        :class-item="el"
+                        :to="{ path: el.url }"
+                    />
                 </div>
             </div>
         </div>
@@ -50,7 +45,6 @@
     import debounce from "lodash/debounce";
     import { useUIStore } from "@/store/UI/UIStore";
     import { mapActions, mapState } from "pinia";
-    import { useResizeObserver } from "@vueuse/core/index";
 
     export default {
         name: 'ClassesView',
@@ -68,7 +62,6 @@
         },
         data: () => ({
             search: '',
-            cols: 1
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
@@ -91,13 +84,13 @@
                         o => o.group.name
                     )).map(list => ({
                         group: list[0].group,
-                        list: this.getSorted(sortBy(list, [o => o.name.rus]))
+                        list: sortBy(list, [o => o.name.rus])
                     })),
                     [o => o.group.order]
                 );
 
                 return [{
-                    list: this.getSorted(sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus]))
+                    list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])
                 }, ...groups];
             },
 
@@ -105,72 +98,15 @@
                 return this.$route.name === 'classDetail'
             }
         },
-        watch: {
-            showRightSide() {
-                this.setColumns();
-            },
-        },
         async mounted() {
-            this.setColumns();
-
             await this.initFilter();
             await this.initClasses();
-
-            useResizeObserver(this.$refs.classes, this.setColumns);
         },
         beforeUnmount() {
             this.clearStore();
         },
         methods: {
             ...mapActions(useClassesStore, ['initFilter', 'initClasses', 'nextPage', 'clearStore']),
-
-            setColumns() {
-                const getSelectedCols = () => {
-                    if (window.innerWidth >= 1400) {
-                        return this.showRightSide ? 1 : 3;
-                    }
-
-                    if (window.innerWidth >= 992) {
-                        return this.showRightSide ? 1 : 2;
-                    }
-
-                    return 1;
-                }
-
-                if (window.innerWidth >= 1400) {
-                    this.cols = this.getFullscreen ? 3 : getSelectedCols();
-
-                    return;
-                }
-
-                if (window.innerWidth >= 992) {
-                    this.cols = this.getFullscreen ? 2 : getSelectedCols();
-
-                    return;
-                }
-
-                this.cols = 1;
-            },
-
-            getSorted(list) {
-                const classes = [];
-
-                if (!list.length) {
-                    return classes;
-                }
-
-                for (let i = 0; i < list.length; i++) {
-                    const col = i % this.cols;
-
-                    if (!classes[col]) {
-                        classes.push([]);
-                    }
-
-                    classes[col].push(list[i]);
-                }
-
-                return classes;
-            },
 
             async classesQuery() {
                 await this.initClasses();
@@ -199,14 +135,31 @@
             }
 
             &_list {
-                display: flex;
+                width: 100%;
+                padding: 0;
+                display: grid;
+                grid-gap: 16px;
+                align-items: start;
+                grid-template-columns: repeat(1, 1fr);
+
+                @include media-min($md) {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @include media-min($xl) {
+                    grid-template-columns: repeat(3, 1fr);
+                }
             }
+        }
 
-            &_col {
-                flex: 1 1 100%;
-
-                & + & {
-                    margin-left: 16px;
+        &.is-selected {
+            .class-items {
+                &__group {
+                    &_list {
+                        @include media-min($md) {
+                            grid-template-columns: repeat(1, 1fr);
+                        }
+                    }
                 }
             }
         }

@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class=" content-padding">
+        <div class="content-padding">
             <!-- eslint-disable-next-line vue/no-v-html -->
             <div v-html="spell.description"/>
 

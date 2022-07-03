@@ -18,13 +18,20 @@ import lombok.Setter;
 public class ScreenApi {
 	protected NameApi name;
 	protected String url;
+	protected Integer order;
 	protected SourceApi source;
-	private Integer order;
+	private String icon;
+	private String group;
 
 	public ScreenApi(Screen screen) {
 		name = new NameApi(screen.getName(), screen.getEnglishName());
 		url = String.format("/screens/%s", screen.getUrlName());
 		order = screen.getOrdering();
-		//source = new SourceApi(screen.getBook());
+		group = screen.getCategory();
+		source = new SourceApi(screen.getBook());
+
+		if (screen.getIcon() != null) {
+			icon = screen.getIcon();
+		}
 	}
 }

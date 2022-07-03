@@ -70,6 +70,7 @@
       overflow: hidden;
       height: 56px;
       align-items: center;
+      mask-image: radial-gradient(white, black); // Не удалять, это фикс для Safari, чтобы не вылазили углы картинки
 
       &::before {
         content: "";
@@ -140,10 +141,12 @@
         height: 48px;
       }
 
-      &:hover {
-        &::before {
-          transition: transform 0.6s;
-          transform: scale(1.15);
+      @include media-min($md) {
+        &:hover {
+          &::before {
+            transition: transform 0.6s;
+            transform: scale(1.15);
+          }
         }
       }
 

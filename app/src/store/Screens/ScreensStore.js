@@ -2,54 +2,35 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import sortBy from 'lodash/sortBy';
-import groupBy from 'lodash/groupBy';
-import isArray from 'lodash/isArray';
 
-const DB_NAME = 'races';
 const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
-export const useRacesStore = defineStore('RacesStore', {
+export const useScreensStore = defineStore('ScreensStore', {
     state: () => ({
-        races: [],
+        screens: [],
         filter: undefined,
         config: {
             page: 0,
-            limit: -1,
+            limit: 70,
             end: false,
-            url: '/races',
+            url: '/screens',
         },
         controllers: {
-            racesQuery: undefined,
-            raceInfoQuery: undefined
+            screensQuery: undefined,
+            screenInfoQuery: undefined
         }
     }),
 
     getters: {
         getFilter: state => state.filter,
-        getRaces: state => state.races,
+        getScreens: state => state.screens,
     },
 
     actions: {
-        async initFilter(storeKey, url) {
+        async initFilter() {
             try {
                 this.filter = new FilterService();
-
-                const filterOptions = {
-                    dbName: DB_NAME,
-                    url: '/filters/races'
-                }
-
-                if (storeKey) {
-                    filterOptions.storeKey = storeKey;
-                }
-
-                if (url) {
-                    filterOptions.url = url
-                }
-
-                await this.filter.init(filterOptions);
             } catch (err) {
                 errorHandler(err);
             }
@@ -65,13 +46,13 @@ export const useRacesStore = defineStore('RacesStore', {
          * @param {{field: string, direction: 'asc' | 'desc'}[]} options.order
          * @returns {Promise<*[]>}
          */
-        async racesQuery(options = {}) {
+        async screensQuery(options = {}) {
             try {
-                if (this.controllers.racesQuery) {
-                    this.controllers.racesQuery.abort()
+                if (this.controllers.screensQuery) {
+                    this.controllers.screensQuery.abort()
                 }
 
-                this.controllers.racesQuery = new AbortController();
+                this.controllers.screensQuery = new AbortController();
 
                 const apiOptions = {
                     page: 0,
@@ -81,34 +62,20 @@ export const useRacesStore = defineStore('RacesStore', {
                         value: this.filter?.getSearchState || ''
                     },
                     order: [{
+                        field: 'ordering',
+                        direction: 'asc'
+                    }, {
                         field: 'name',
                         direction: 'asc'
                     }],
                     ...options
                 };
 
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.racesQuery.signal);
+                const { data } = await http.post(this.config.url, apiOptions, this.controllers.screensQuery.signal);
 
-                this.controllers.racesQuery = undefined;
+                this.controllers.screensQuery = undefined;
 
-                const getSubraces = list => sortBy(
-                    Object.values(groupBy(list, o => o.type.name))
-                        .map(value => ({
-                            name: value[0].type,
-                            list: value
-                        })),
-                    [o => o.name.order]
-                );
-
-                return data.map(value => {
-                    const res = value;
-
-                    if (isArray(value.subraces)) {
-                        res.subraces = getSubraces(value.subraces);
-                    }
-
-                    return res
-                });
+                return data;
             } catch (err) {
                 errorHandler(err);
 
@@ -116,7 +83,7 @@ export const useRacesStore = defineStore('RacesStore', {
             }
         },
 
-        async initRaces(url) {
+        async initScreens(url) {
             this.clearConfig();
 
             if (url) {
@@ -132,10 +99,10 @@ export const useRacesStore = defineStore('RacesStore', {
                 config.filter = this.filter.getQueryParams;
             }
 
-            const races = await this.racesQuery(config);
+            const screens = await this.screensQuery(config);
 
-            this.races = races;
-            this.config.end = races.length < config.limit;
+            this.screens = screens;
+            this.config.end = screens.length < config.limit;
         },
 
         async nextPage() {
@@ -152,25 +119,25 @@ export const useRacesStore = defineStore('RacesStore', {
                 config.filter = this.filter.getQueryParams;
             }
 
-            const races = await this.racesQuery(config);
+            const screens = await this.screensQuery(config);
 
             this.config.page = config.page;
-            this.config.end = races.length < config.limit;
+            this.config.end = screens.length < config.limit;
 
-            this.races.push(...races);
+            this.screens.push(...screens);
         },
 
-        async raceInfoQuery(url) {
+        async screenInfoQuery(url) {
             try {
-                if (this.controllers.raceInfoQuery) {
-                    this.controllers.raceInfoQuery.abort()
+                if (this.controllers.screenInfoQuery) {
+                    this.controllers.screenInfoQuery.abort()
                 }
 
-                this.controllers.raceInfoQuery = new AbortController();
+                this.controllers.screenInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.raceInfoQuery.signal);
+                const resp = await http.post(url, {}, this.controllers.screenInfoQuery.signal);
 
-                this.controllers.raceInfoQuery = undefined;
+                this.controllers.screenInfoQuery = undefined;
 
                 return resp.data
             } catch (err) {
@@ -180,8 +147,8 @@ export const useRacesStore = defineStore('RacesStore', {
             }
         },
 
-        clearRaces() {
-            this.races = [];
+        clearScreens() {
+            this.screens = [];
         },
 
         clearFilter() {
@@ -191,14 +158,14 @@ export const useRacesStore = defineStore('RacesStore', {
         clearConfig() {
             this.config = {
                 page: 0,
-                limit: -1,
+                limit: 70,
                 end: false,
-                url: '/races',
+                url: '/screens',
             };
         },
 
         clearStore() {
-            this.clearRaces();
+            this.clearScreens();
             this.clearFilter();
             this.clearConfig();
         }

@@ -10,3 +10,7 @@ target/
 .idea
 .vscode
 dnd5.iml
+
+# System files
+.DS_Store
+.folder-for-tests/

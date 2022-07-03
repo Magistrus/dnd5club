@@ -54,13 +54,13 @@
                             </span>
 
                             <span class="link-item-expand__body_row">
-                                <span class="link-item-expand__dice">
+                                <span class="link-item-expand__tag">
                                     {{ classItem.dice }}
                                 </span>
 
                                 <span
                                     v-tippy="{ content: classItem.source.name }"
-                                    class="link-item-expand__book"
+                                    class="link-item-expand__tag"
                                 >
                                     {{ classItem.source.shortName }}
                                 </span>
@@ -80,23 +80,22 @@
                     </button>
                 </div>
 
-                <div
-                    v-if="hasArchetypes"
-                    :class="{ 'is-active': submenu }"
-                    class="link-item-expand__arch-list"
+                <transition
+                    name="fade"
+                    mode="out-in"
                 >
                     <div
-                        v-for="(col, colKey) in classItem.archetypes"
-                        :key="colKey"
-                        class="link-item-expand__arch-list_col"
+                        v-if="hasArchetypes"
+                        v-show="submenu"
+                        class="link-item-expand__arch-list"
                     >
                         <div
-                            v-for="(group, groupKey) in col"
+                            v-for="(group, groupKey) in classItem.archetypes"
                             :key="groupKey"
                             class="link-item-expand__arch-type"
                         >
                             <div class="link-item-expand__arch-type_name">
-                                {{ group.name }}
+                                {{ group.name.name }}
                             </div>
 
                             <div class="link-item-expand__arch-type_items">
@@ -121,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </transition>
             </div>
         </div>
     </router-link>
@@ -145,7 +144,7 @@
             afterSearch: {
                 type: Boolean,
                 default: false
-            }
+            },
         },
         data() {
             return {
@@ -191,9 +190,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    @import "../../../assets/styles/link-item-expand";
-
-    .link-item-expand {
-    }
-</style>
+<style lang="scss" scoped src="../../../assets/styles/link-item-expand.scss"></style>

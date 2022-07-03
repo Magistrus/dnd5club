@@ -1,0 +1,157 @@
+<template>
+    <router-link
+        v-slot="{ href }"
+        :to="{ path: screen.url }"
+        custom
+        v-bind="$props"
+    >
+        <a
+            v-bind="$attrs"
+            :href="href"
+            class="screen-link"
+            @click.left.exact.prevent="clickHandler(screen.url)"
+        >
+            <div class="screen-link__icon">
+                <raw-content :template="screen.icon"/>
+            </div>
+
+            <div class="screen-link__body">
+                <div class="screen-link__name">
+                    {{ screen.name.rus }}
+                </div>
+
+                <div class="screen-link__desc">
+                    <span>{{ screen.source.shortName }}</span> / <span>{{ screen.name.eng }}</span>
+                </div>
+            </div>
+        </a>
+    </router-link>
+
+    <base-modal
+        v-if="modal.data"
+        v-model="modal.show"
+    >
+        <template #title>
+            {{ screen.name.rus }}
+        </template>
+
+        <template #default>
+            <screen-body :screen="modal.data"/>
+        </template>
+    </base-modal>
+</template>
+
+<script>
+    import RawContent from "@/components/content/RawContent";
+    import { RouterLink } from "vue-router";
+    import BaseModal from "@/components/UI/modals/BaseModal";
+    import ScreenBody from "@/views/Screens/ScreenBody";
+    import { mapActions } from "pinia";
+    import { useScreensStore } from "@/store/Screens/ScreensStore";
+
+    export default {
+        name: "ScreenLink",
+        components: { ScreenBody, BaseModal, RawContent },
+        inheritAttrs: false,
+        props: {
+            screen: {
+                type: Object,
+                default: () => ({}),
+                required: true
+            },
+            ...RouterLink.props
+        },
+        data: () => ({
+            modal: {
+                data: undefined,
+                show: false
+            },
+        }),
+        methods: {
+            ...mapActions(useScreensStore, ['screenInfoQuery']),
+
+            async clickHandler(url) {
+                try {
+                    this.modal = {
+                        data: await this.loadNewScreen(url),
+                        show: true
+                    };
+                } catch (err) {
+                    this.error = true;
+                }
+            },
+
+            async loadNewScreen(url) {
+                try {
+                    this.error = false;
+                    this.loading = true;
+
+                    const screen = await this.screenInfoQuery(url);
+
+                    this.loading = false;
+
+                    return screen;
+                } catch (err) {
+                    this.error = true;
+
+                    return undefined;
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .screen-link {
+        @include css_anim();
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-secondary);
+        padding: 16px;
+
+        @include media-min($md) {
+            padding: 24px;
+        }
+
+        &:hover {
+            background-color: var(--hover);
+        }
+
+        &__icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+
+            ::v-deep(svg) {
+                width: 100% !important;
+                height: 100% !important;
+
+                path {
+                    fill: var(--primary);
+                }
+            }
+        }
+
+        &__body {
+            margin-left: 12px;
+        }
+
+        &__name {
+            font-weight: 600;
+            font-size: var(--h5-font-size);
+            color: var(--text-color-title);
+        }
+
+        &__desc {
+            font-weight: 400;
+            margin-top: 12px;
+            font-size: var(--main-font-size);
+            line-height: var(--main-line-height);
+            color: var(--text-color);
+        }
+    }
+</style>

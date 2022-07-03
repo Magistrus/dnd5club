@@ -1,7 +1,8 @@
 .link-item-expand {
   width: 100%;
-  margin-bottom: 16px;
   display: block;
+  will-change: left, top;
+  overflow: hidden;
 
   &.is-green {
     .link-item-expand {
@@ -23,15 +24,19 @@
     overflow: hidden;
     width: 100%;
     position: relative;
+    mask-image: radial-gradient(white, black); // Не удалять, это фикс для Safari, чтобы не вылазили углы картинки
 
     &__img-bg {
+      @include css_anim($item: transform, $time: .6s);
+
       position: absolute;
       top: 0;
       right: 0;
       pointer-events: none;
-      transition: transform 0.6s;
       opacity: 1;
       width: 50%;
+      transform: translateZ(1px); // Не удалять, чтобы не было мерцания при ховере
+      transform-origin: top right 1px;
 
       @include media-min($lg) {
         width: 70%;
@@ -54,13 +59,15 @@
       opacity: 1;
       height: 100%;
       width: 100%;
+      transform: translateZ(2px); // Не удалять, чтобы не было мерцания при ховере
+      transform-origin: 0 0 2px;
     }
   }
 
   &__link {
     display: flex;
     flex-direction: row;
-    z-index: 1;
+    z-index: 3;
     padding: 16px 16px !important;
     height: 100%;
     width: 100%;
@@ -76,7 +83,7 @@
     min-width: 44px;
     height: 44px;
     display: block;
-    z-index: 2;
+    z-index: 3;
     background: var(--hover);
     border-radius: 8px;
     padding: 6px;
@@ -131,9 +138,7 @@
     }
   }
 
-  &__abilities,
-  &__book,
-  &__dice {
+  &__tag {
     margin: 8px 4px 0 0;
     font-size: calc(var(--h5-font-size) - 2px);
     width: fit-content;
@@ -155,7 +160,6 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    z-index: 2;
     padding: 8px 4px;
     background-color: var(--primary);
     color: var(--text-color-title);
@@ -163,6 +167,7 @@
     font-weight: 600;
     font-size: calc(var(--main-font-size) - 2px);
     border-top-left-radius: 12px;
+    z-index: 6;
 
     @include media-min($md) {
       &:hover {
@@ -180,22 +185,13 @@
 
   &__arch {
     &-list {
+      z-index: 5;
+      position: relative;
       padding: 0 16px 16px 8px;
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-
-      &_col {
-        flex: 1;
-        z-index: 11;
-      }
-
-      &.is-active {
-        display: flex;
-      }
     }
 
     &-type {
+
       &:nth-child(n+2) {
         margin-top: 16px;
       }
@@ -258,8 +254,7 @@
       .link-item-expand {
         &__content {
           &__img-bg {
-            transform: scale(1.03);
-            transition: transform 0.6s;
+            transform: scale(1.03) translateZ(1px); // Не удалять, чтобы не было мерцания при ховере
           }
         }
       }

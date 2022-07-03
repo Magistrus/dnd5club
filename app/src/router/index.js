@@ -170,6 +170,18 @@ const routes = [
         ]
     },
     {
+        name: 'screens',
+        path: '/screens',
+        component: () => import('@/views/Screens/ScreensView'),
+        children: [
+            {
+                name: 'screenDetail',
+                path: ':screenName',
+                component: () => import('@/views/Screens/ScreenDetail')
+            }
+        ]
+    },
+    {
         name: 'treasures',
         path: '/treasures',
         component: () => import('@/views/Treasures/Treasures/TreasuresView'),

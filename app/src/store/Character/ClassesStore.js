@@ -2,9 +2,9 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import uniqWith from 'lodash/uniqWith';
 import sortBy from 'lodash/sortBy';
-import isEqual from 'lodash/isEqual';
+import groupBy from 'lodash/groupBy';
+import isArray from 'lodash/isArray';
 
 const DB_NAME = 'classes';
 const http = new HTTPService();
@@ -90,38 +90,24 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.controllers.classesQuery = undefined;
 
-                const result = [];
-                const sort = list => {
-                    const types = list.map(arch => arch.type);
-                    const typesSorted = uniqWith(sortBy(types, ['order']), isEqual);
-                    const formatted = [];
+                const getArchetypes = list => sortBy(
+                    Object.values(groupBy(list, o => o.type.name))
+                        .map(value => ({
+                            name: value[0].type,
+                            list: value
+                        })),
+                    [o => o.name.order]
+                );
 
-                    let index = 0;
+                return data.map(value => {
+                    const res = value;
 
-                    for (let i = 0; i < typesSorted.length; i++) {
-                        if (i === 0 || i % 2 === 0) {
-                            formatted.push([]);
-
-                            index++;
-                        }
-
-                        formatted[index - 1].push({
-                            name: typesSorted[i].name,
-                            list: sortBy(list.filter(arch => arch.type.name === typesSorted[i].name), [o => o.name.rus])
-                        });
+                    if (isArray(value.archetypes)) {
+                        res.archetypes = getArchetypes(value.archetypes);
                     }
 
-                    return formatted
-                }
-
-                for (let i = 0; i < data.length; i++) {
-                    result.push({
-                        ...data[i],
-                        archetypes: sort(data[i].archetypes),
-                    })
-                }
-
-                return result
+                    return res
+                });
             } catch (err) {
                 errorHandler(err);
 
