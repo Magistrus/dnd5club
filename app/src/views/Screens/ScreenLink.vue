@@ -11,19 +11,17 @@
             class="screen-link"
             @click.left.exact.prevent="clickHandler(screen.url)"
         >
-            <div class="screen-link__content">
-                <div class="screen-link__icon">
-                    <raw-content :template="screen.icon"/>
+            <div class="screen-link__icon">
+                <raw-content :template="screen.icon"/>
+            </div>
+
+            <div class="screen-link__body">
+                <div class="screen-link__name">
+                    {{ screen.name.rus }}
                 </div>
 
-                <div class="screen-link__body">
-                    <div class="screen-link__name">
-                        {{ screen.name.rus }}
-                    </div>
-
-                    <div class="screen-link__desc">
-                        <span>{{ screen.source.shortName }}</span> / <span>{{ screen.name.eng }}</span>
-                    </div>
+                <div class="screen-link__desc">
+                    <span>{{ screen.source.shortName }}</span> / <span>{{ screen.name.eng }}</span>
                 </div>
             </div>
         </a>
@@ -109,11 +107,15 @@
 
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         width: 100%;
         height: 100%;
-        padding: 24px;
         background-color: var(--bg-secondary);
+        padding: 16px;
+
+        @include media-min($md) {
+            padding: 24px;
+        }
 
         &:hover {
             background-color: var(--hover);
@@ -132,13 +134,6 @@
                     fill: var(--primary);
                 }
             }
-        }
-
-        &__content {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            width: 210px;
         }
 
         &__body {

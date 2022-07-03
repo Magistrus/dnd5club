@@ -1,7 +1,7 @@
 <template>
     <div
         ref="container"
-        v-scroll-lock="showRightSide && getFullscreen"
+        v-scroll-lock="showRightSide && (getFullscreen || getIsMobile)"
         :class="{'is-showed-right-side': showRightSide}"
         class="content-layout"
     >
