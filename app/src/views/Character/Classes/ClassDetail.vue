@@ -402,7 +402,6 @@
             },
 
             showGallery() {
-                console.log(this.currentClass.images)
                 if (!this.currentClass?.images?.length) {
                     return;
                 }
