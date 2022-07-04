@@ -16,6 +16,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WeaponFilter {
+	List<String> properrty;
+	List<String> damageType;
+	List<String> dice;
+	
 	@JsonProperty("book")
 	private List<String> books;
 }
