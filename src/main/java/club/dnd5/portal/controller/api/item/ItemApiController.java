@@ -26,6 +26,7 @@ import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.item.ItemApi;
 import club.dnd5.portal.dto.api.item.ItemDetailApi;
 import club.dnd5.portal.dto.api.item.ItemRequesApi;
+import club.dnd5.portal.model.DamageType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.Equipment;
@@ -84,11 +85,17 @@ public class ItemApiController {
 			}
 		}
 		if (request.getFilter() != null) {
-
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
+				});
+			}
+			if (!request.getFilter().getCategories().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<EquipmentType, Equipment> types = root.join("types", JoinType.LEFT);
+					query.distinct(true);
+					return types.in(request.getFilter().getCategories().stream().map(EquipmentType::valueOf).collect(Collectors.toList()));
 				});
 			}
 		}
