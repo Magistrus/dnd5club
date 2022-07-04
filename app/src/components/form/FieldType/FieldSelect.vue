@@ -7,8 +7,8 @@
             @remove="onRemove"
             @select="onSelect"
             @tag="onTag"
-            @update:model-value="onUpdate"
             @search-change="onSearch"
+            @update:model-value="onUpdate"
         >
             <template #option="{option, search}">
                 <slot
@@ -40,10 +40,13 @@
             </template>
             <template #caret="{ toggle }">
                 <slot
-                    :toggle="toggle"
                     name="caret"
+                    :toggle="toggle"
                 >
-                    <div class="multiselect__select">
+                    <div
+                        class="multiselect__select"
+                        @mousedown.left.exact.prevent.stop="toggle()"
+                    >
                         <svg-icon icon-name="arrow-stroke"/>
                     </div>
                 </slot>
@@ -160,7 +163,7 @@
             },
             allowEmpty: {
                 type: Boolean,
-                default: true
+                default: false
             },
             groupValues: {
                 type: String,
@@ -204,169 +207,30 @@
             onUpdate(event) {
                 this.$emit('update:model-value', event);
             },
+
             onSelect(event) {
                 this.$emit('select', event);
             },
+
             onRemove(event) {
                 this.$emit('remove', event);
             },
+
             onSearch(event) {
                 this.$emit('search-change', event);
             },
+
             onTag(event) {
                 this.$emit('tag', event);
             },
+
             onOpen(event) {
                 this.$emit('open', event);
             },
+
             onClose(event) {
                 this.$emit('close', event);
             },
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .dnd5club-select {
-        ::v-deep(.multiselect) {
-            .multiselect {
-                box-sizing: border-box;
-                outline: none;
-                appearance: none;
-                -webkit-overflow-scrolling: touch;
-
-                &:after,
-                &:before {
-                    box-sizing: border-box;
-                    outline: none;
-                    appearance: none;
-                    -webkit-overflow-scrolling: touch;
-                }
-
-                *,
-                *:before,
-                *:after {
-                    box-sizing: border-box;
-                    outline: none;
-                    appearance: none;
-                    -webkit-overflow-scrolling: touch;
-                }
-
-                &__tags {
-                    background: var(--bg-secondary);
-                    color: var(--text-color);
-                    font-size: var(--main-font-size);
-                    line-height: var(--main-line-height);
-                    min-height: 48px;
-                    padding: 12px 48px 0 12px;
-                    border: {
-                        width: 1px 0;
-                        style: solid;
-                        color: var(--border);
-                        radius: 0;
-                    };
-                }
-
-                &__select {
-                    width: 48px;
-                    height: calc(100% - 2px);
-                    padding: 0;
-                    right: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    &:before {
-                        display: none;
-                    }
-
-                    svg {
-                        width: 28px;
-                        height: 28px;
-                        color: var(--primary);
-                    }
-                }
-
-                &__spinner {
-                    width: 48px;
-                    height: calc(100% - 2px);
-                    background: var(--bg-secondary);
-                    right: 0;
-
-                    &:before,
-                    &:after {
-                        border-color: var(--primary) transparent transparent;
-                    }
-                }
-
-                &__input {
-                    background-color: transparent;
-                    border-radius: 0;
-                    color: var(--text-color);
-                    padding: 0;
-
-                    &::placeholder {
-                        color: var(--text-color);
-                        font-size: var(--main-font-size);
-                        line-height: var(--main-line-height);
-                    }
-                }
-
-                &__single {
-                    font-size: var(--main-font-size);
-                    line-height: var(--main-line-height);
-                    border-radius: 0;
-                    background: transparent;
-                    padding: 0;
-                    margin-bottom: 0;
-                }
-
-                &__placeholder {
-                    color: var(--text-color);
-                    font-size: var(--main-font-size);
-                    line-height: var(--main-line-height);
-                    padding: 0;
-                }
-
-                &__content {
-                    &-wrapper {
-                        background: var(--bg-secondary);
-                        color: var(--text-color);
-                        font-size: var(--main-font-size);
-                        line-height: var(--main-line-height);
-                        border: {
-                            width: 0 0 1px 0;
-                            style: solid;
-                            color: var(--border);
-                            radius: 0;
-                        };
-                    }
-                }
-
-                &__option {
-                    background: var(--bg-secondary);
-                    color: var(--text-color);
-
-                    &--group {
-                        background: var(--bg-sub-menu);
-                        color: var(--text-color);
-                    }
-
-                    &--disabled {
-                        background: var(--bg-sub-menu) !important;
-                        color: var(--text-color) !important;
-                    }
-
-                    &--highlight {
-                        background-color: var(--primary-hover);
-                        color: var(--text-btn-color);
-
-                        &:after {
-                            background-color: transparent;
-                        }
-                    }
-                }
-            }
-        }
-    }
-</style>
