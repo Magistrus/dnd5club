@@ -94,6 +94,7 @@ public class Option {
 			return name.substring(0, name.indexOf(":"));
 		}
 	}
+	
 	public String getUrlName() {
 		return englishName.replace(' ', '_');
 	}
