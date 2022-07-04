@@ -24,6 +24,7 @@ public class MadnessToolController {
 		model.addAttribute("metaTitle", "Генератор безумия");
 		model.addAttribute("metaUrl", "https://dnd5.club/tools/wildmagic");
 		model.addAttribute("metaDescription", "Генерация кратковреммных, долговременных и бессрочных эффектов безумия");
+		model.addAttribute("menuTitle", "Генератор безумия");
 		return "tools/madness";
 	}
 

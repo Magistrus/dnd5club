@@ -53,6 +53,7 @@ public class BackgroundController {
 		model.addAttribute("metaTitle", "Предыстории персонажей (Backgrounds) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds");
 		model.addAttribute("metaDescription", "Предыстории персонажей по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Предыстории");
 		return "backgrounds";
 	}
 	
@@ -72,6 +73,7 @@ public class BackgroundController {
 		model.addAttribute("metaTitle", background.getName() + " | Предыстории персонажей D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/backgrounds/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - предыстория персонажа по D&D 5 редакции", background.getName(), background.getEnglishName()));
+		model.addAttribute("menuTitle", "Предыстории");
 		return "backgrounds";
 	}
 	
