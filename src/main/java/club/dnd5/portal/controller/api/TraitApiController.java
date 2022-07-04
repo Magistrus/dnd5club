@@ -103,6 +103,15 @@ public class TraitApiController {
 				return cb.and();
 			});
 		}
+		if (request.getFilter()!=null) {
+			for (String ability : request.getFilter().getAbilities()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<AbilityType, Trait> join = root.join("abilities", JoinType.LEFT);
+					query.distinct(true);
+					return cb.equal(join.get("ability"), AbilityType.valueOf(ability));
+				});
+			}
+		}
 		return traitRepository.findAll(input, specification, specification, TraitApi::new).getData();
 	}
 	
@@ -149,7 +158,7 @@ public class TraitApiController {
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
-		FilterApi schoolSpellFilter = new FilterApi("Характеристики", "ability");
+		FilterApi schoolSpellFilter = new FilterApi("Характеристики", "abilities");
 		schoolSpellFilter.setValues(
 				AbilityType.getBaseAbility().stream()
 				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name()))
