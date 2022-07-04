@@ -111,6 +111,8 @@
 }
 
 .multiselect {
+  @include css_anim();
+
   box-sizing: border-box;
   outline: none;
   appearance: none;
@@ -301,6 +303,21 @@
 
         svg {
           transform: rotate(-180deg);
+        }
+      }
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    @include css_anim();
+
+    border-color: var(--primary-active);
+
+    .multiselect {
+      &__content {
+        &-wrapper {
+          border-color: var(--primary-active);
         }
       }
     }

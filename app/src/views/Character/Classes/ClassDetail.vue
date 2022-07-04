@@ -519,6 +519,21 @@
                             }
                         }
                     }
+
+                    &:hover,
+                    &:focus-within {
+                        @include css_anim();
+
+                        border-color: var(--border);
+
+                        .multiselect {
+                            &__content {
+                                &-wrapper {
+                                    border-color: var(--border);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
