@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="option?.name?.eng || ''"
                 :title="option?.name?.rus || ''"
+                print
                 @close="close"
             />
         </template>
