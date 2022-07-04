@@ -61,6 +61,7 @@ public class GodController {
 		model.addAttribute("metaTitle", "Боги (Gods) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/gods");
 		model.addAttribute("metaDescription", "Боги, полубоги и философии D&D 5 редакции");
+		model.addAttribute("menuTitle", "Боги");
 		return "gods";
 	}
 	
@@ -88,6 +89,7 @@ public class GodController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Боги");
 		return "gods";
 	}
 	

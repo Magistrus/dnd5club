@@ -39,6 +39,7 @@ public class TraderToolController {
 		model.addAttribute("metaTitle", "Генератор лавки торговца");
 		model.addAttribute("metaUrl", "https://dnd5.club/tools/trader");
 		model.addAttribute("metaDescription", "Генерация содержимого лавки торговца");
+		model.addAttribute("menuTitle", "Генератор содержимого лавки торговца");
 		return "tools/traders";
 	}
 

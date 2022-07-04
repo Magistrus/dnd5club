@@ -60,6 +60,7 @@ public class OptionController {
 		model.addAttribute("metaTitle", "Особенности классов (Options) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/options");
 		model.addAttribute("metaDescription", "Список особенности классов и подкласов по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Особенности классов");
 		return "options";
 	}
 	
@@ -85,6 +86,7 @@ public class OptionController {
 				String.format("Описание особенности %s - %s",
 						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 
 						option.getName()));
+		model.addAttribute("menuTitle", "Особенности классов");
 		return "options";
 	}
 	

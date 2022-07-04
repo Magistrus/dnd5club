@@ -47,6 +47,7 @@ public class TraitController {
 		model.addAttribute("skills", SkillType.values());
 		model.addAttribute("prerequisites", repository.findAllPrerequisite());
 		model.addAttribute("metaTitle", "Черты (Traits) D&D 5e");
+		model.addAttribute("menuTitle", "Черты");
 		model.addAttribute("metaUrl", "https://dnd5.club/traits");
 		model.addAttribute("metaDescription", "Списко черт персонажей по D&D 5 редакции");
 		return "traits";
@@ -71,6 +72,7 @@ public class TraitController {
 		model.addAttribute("metaTitle", String.format("%s (%s)", trait.getName(), trait.getEnglishName()) + " | Черты D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/traits/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - черта персонажа по D&D 5-редакции", trait.getName(), trait.getEnglishName()));
+		model.addAttribute("menuTitle", "Черты");
 		return "traits";
 	}
 	

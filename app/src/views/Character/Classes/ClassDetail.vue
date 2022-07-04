@@ -87,28 +87,6 @@
                             label="name"
                             track-by="url"
                         >
-                            <template #option="{ option }">
-                                <div
-                                    v-if="option?.group"
-                                    class="class-detail__select_option"
-                                >
-                                    <span class="class-detail__select_option--name">{{ option.group }}</span>
-                                </div>
-
-                                <div
-                                    v-else-if="option?.name"
-                                    class="class-detail__select_option"
-                                    @click.left.prevent.exact="goToArchetype(option.url)"
-                                >
-                                    <span class="class-detail__select_option--name">{{ option.name }}</span>
-
-                                    <span
-                                        v-if="option?.source"
-                                        class="class-detail__select_option--source"
-                                    >[{{ option.source }}]</span>
-                                </div>
-                            </template>
-
                             <template #placeholder>
                                 --- Архетипы ---
                             </template>
@@ -228,30 +206,17 @@
                     }
                 }
 
-                return selected;
+                return selected || '--- Архетипы ---'; // Костыль, чтоб закрывалось при нажатии на селект
             },
 
             currentArchetypes() {
-                const getArchetypes = list => {
-                    const sorted = [];
-
-                    for (let i = 0; i < list.length; i++) {
-                        const el = list[i];
-
-                        if (Array.isArray(el) && el.length) {
-                            sorted.push(...el);
-                        }
-                    }
-
-                    return sorted.map(el => ({
-                        group: el.name,
-                        list: el.list.map(arch => ({
-                            name: arch.name.rus,
-                            source: arch.source.shortName,
-                            url: arch.url
-                        }))
-                    }));
-                }
+                const getArchetypes = list => list.map(el => ({
+                    group: el.name.name,
+                    list: el.list.map(arch => ({
+                        name: `${arch.name.rus} [${arch.source.shortName}]`,
+                        url: arch.url
+                    }))
+                }));
 
                 const classLink = this.classes.find(classItem => this.$route.path.match(classItem.url));
 
@@ -541,29 +506,19 @@
         &__select {
             ::v-deep(.dnd5club-select) {
                 .multiselect {
-                    &__tags {
-                        border-top: 0;
+                    border-width: 0 0 1px 0;
+                    border-radius: 0;
+
+                    &__content {
+                        &-wrapper {
+                            width: 100%;
+                            left: 0;
+                            border: {
+                                radius: 0;
+                                width: 0 0 1px 0;
+                            }
+                        }
                     }
-                }
-            }
-
-            &_option {
-                background-color: transparent;
-                color: inherit;
-                padding: 12px;
-                width: 100%;
-                display: block;
-                min-height: 40px;
-                text-decoration: none;
-                text-transform: none;
-                vertical-align: middle;
-                position: absolute;
-                left: 0;
-                top: 0;
-
-                &--source {
-                    margin-left: 4px;
-                    color: var(--text-g-color);
                 }
             }
         }

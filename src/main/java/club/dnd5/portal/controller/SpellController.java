@@ -59,6 +59,7 @@ public class SpellController {
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells");
 		model.addAttribute("metaDescription", "Заклинания по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Заклинания");
 		return "spells";
 	}
 	
@@ -83,6 +84,7 @@ public class SpellController {
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
 		model.addAttribute("metaDescription", String.format("%s %s, %s", (spellDto.getLevel() == 0 ? "Заговор" : spellDto.getLevel() + " уровень"), spellDto.getName(), spellDto.getSchool()));
 		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.webp", spell.getSchool().name()));
+		model.addAttribute("menuTitle", "Заклинания");
 		return "spells";
 	}
 	

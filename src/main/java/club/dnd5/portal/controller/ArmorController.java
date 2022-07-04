@@ -24,6 +24,7 @@ public class ArmorController {
 		model.addAttribute("metaTitle", "Доспехи (Armors) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/armors");
 		model.addAttribute("metaDescription", "Доспехи по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Доспехи");
 		return "armors";
 	}
 	
@@ -38,6 +39,7 @@ public class ArmorController {
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getEnglishName().replace(" ", "_"));
 		model.addAttribute("metaDescription", String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
+		model.addAttribute("menuTitle", "Доспехи");
 		return "armors";
 	}
 	

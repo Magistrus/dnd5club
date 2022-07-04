@@ -56,6 +56,7 @@ public class MagicItemController {
 		model.addAttribute("metaTitle", "Магические предметы (Magic items) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
 		model.addAttribute("metaDescription", "Магические предметы и артефакты по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Магические предметы");
 		return "items_magic";
 	}
 	
@@ -81,6 +82,7 @@ public class MagicItemController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Магические предметы");
 		return "items_magic";
 	}
 	

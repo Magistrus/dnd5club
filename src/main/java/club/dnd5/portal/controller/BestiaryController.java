@@ -65,6 +65,7 @@ public class BestiaryController {
 		model.addAttribute("metaTitle", "Бестиарий (Monster Manual) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary");
 		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
+		model.addAttribute("menuTitle", "Бестиарий");
 		return "bestiary";
 	}
 	
@@ -92,6 +93,7 @@ public class BestiaryController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Бестиарий");
 		return "bestiary";
 	}
 	

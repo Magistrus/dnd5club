@@ -62,6 +62,7 @@ public class RaceController {
 		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
 		model.addAttribute("abilities", AbilityType.values());
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
+		model.addAttribute("menuTitle", "Расы");
 		model.addAttribute("metaUrl", "https://dnd5.club/races");
 		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
 		return "races";
@@ -95,6 +96,7 @@ public class RaceController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Расы");
 		return "races";
 	}
 	
@@ -119,6 +121,7 @@ public class RaceController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Расы");
 		return "races";
 	}
 	
