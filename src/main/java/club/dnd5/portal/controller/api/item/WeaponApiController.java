@@ -2,7 +2,9 @@ package club.dnd5.portal.controller.api.item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Join;
@@ -26,9 +28,11 @@ import club.dnd5.portal.dto.api.item.WeaponApi;
 import club.dnd5.portal.dto.api.item.WeaponDetailApi;
 import club.dnd5.portal.dto.api.item.WeaponRequesApi;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.Weapon;
+import club.dnd5.portal.model.items.WeaponProperty;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
@@ -86,12 +90,45 @@ public class WeaponApiController {
 			}
 		}
 		if (request.getFilter() != null) {
-
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
+			}
+			if (!request.getFilter().getDamageType().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification,
+						(root, query, cb) -> root.get("damageType").in(request.getFilter().getDamageType().stream().map(DamageType::valueOf).collect(Collectors.toList())));
+			}
+			if (!request.getFilter().getProperrty().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<WeaponProperty, Weapon> join = root.join("properties", JoinType.LEFT);
+					query.distinct(true);
+					return cb.and(join.get("id").in(request.getFilter().getProperrty()));
+				});
+			}
+			if (!request.getFilter().getDice().isEmpty()) {
+
+				Set<Integer> damages = new HashSet<>(2);
+				List<Dice> filterDamageDices = request.getFilter().getDice().stream()
+						.filter(s -> !s.isEmpty())
+						.map(d -> {
+							if(d.startsWith("2")) {
+								damages.add(2);
+								return d.replace("2", "");
+							} 
+							return d;
+						})
+						.map(Dice::valueOf)
+						.collect(Collectors.toList());
+				if (!filterDamageDices.isEmpty()) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> root.get("damageDice").in(filterDamageDices));
+				}
+				if (damages.contains(2)) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> root.get("numberDice").in(2));
+				}
 			}
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
@@ -165,7 +202,7 @@ public class WeaponApiController {
 		FilterApi diceFilter = new FilterApi("По кости урона", "dice");
 		diceFilter.setValues(
 				Arrays.stream(new String[]{"к4", "2к4", "к6", "2к6", "к8", "к10", "к12"})
-				 .map(value -> new FilterValueApi(value, value))
+				 .map(value -> new FilterValueApi(value, value.replace('к', 'd')))
 				 .collect(Collectors.toList()));
 		otherFilters.add(diceFilter);
 		
