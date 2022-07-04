@@ -96,6 +96,9 @@
         height: 100%;
         background-color: var(--bg-secondary);
         padding: 16px;
+        border-bottom: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        border-left: 1px solid var(--border);
 
         @include media-min($md) {
             padding: 24px;
@@ -132,7 +135,7 @@
 
         &__desc {
             font-weight: 400;
-            margin-top: 12px;
+            // margin-top: 12px;
             font-size: var(--main-font-size);
             line-height: var(--main-line-height);
             color: var(--text-color);
