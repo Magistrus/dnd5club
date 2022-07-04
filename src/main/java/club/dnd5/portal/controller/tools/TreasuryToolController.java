@@ -43,6 +43,8 @@ public class TreasuryToolController {
 		model.addAttribute("metaTitle", "Генератор сокровищницы");
 		model.addAttribute("metaUrl", "https://dnd5.club/tools/treasury");
 		model.addAttribute("metaDescription", "Генерация содержимого сокровищницы");
+		model.addAttribute("menuTitle", "Генератор содержимого сокровищницы");
+
 		return "tools/treasury";
 	}
 	@GetMapping("/tools/treasury/random")

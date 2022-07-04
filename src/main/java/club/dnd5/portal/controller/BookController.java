@@ -20,6 +20,7 @@ public class BookController {
 	public String getRules(Model model) {
 		model.addAttribute("metaTitle", "Источники (Books) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/books");
+		model.addAttribute("menuTitle", "Источники");
 		return "books";
 	}
 	
@@ -29,6 +30,7 @@ public class BookController {
 		model.addAttribute("metaTitle", String.format("%s - Источники (Books) D&D 5e", book.getName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/books/%s", name));
 		model.addAttribute("selectedBook", "name");
+		model.addAttribute("menuTitle", "Источники");
 		return "books";
 	}
 	

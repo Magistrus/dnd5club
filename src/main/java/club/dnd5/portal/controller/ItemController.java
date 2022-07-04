@@ -48,6 +48,7 @@ public class ItemController {
 		model.addAttribute("metaTitle", "Снаряжение (Items) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items");
 		model.addAttribute("metaDescription", "Снаряжение и инструменты по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Снаряжение");
 		return "items";
 	}
 	
@@ -68,6 +69,7 @@ public class ItemController {
 		model.addAttribute("metaTitle", item.getName() + " | Снаряжение D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/items/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) снаряжение по D&D 5 редакции", item.getName(), item.getEnglishName()));
+		model.addAttribute("menuTitle", "Снаряжение");
 		return "items";
 	}
 	

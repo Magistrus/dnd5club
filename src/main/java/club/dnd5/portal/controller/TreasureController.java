@@ -23,6 +23,7 @@ public class TreasureController {
 		model.addAttribute("metaTitle", "Драгоценности и безделушки (Treasures) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/treasures");
 		model.addAttribute("metaDescription", "Драгоценности и безделушки по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Драгоценности и безделушки");
 		return "treasures";
 	}
 	

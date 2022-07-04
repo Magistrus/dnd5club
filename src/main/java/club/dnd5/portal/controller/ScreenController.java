@@ -27,6 +27,7 @@ public class ScreenController {
 		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/screens");
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Драконов по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Ширма Мастера");
 		return "screens";
 	}
 	
@@ -44,6 +45,7 @@ public class ScreenController {
 		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.getName(), screen.getEnglishName()));
+		model.addAttribute("menuTitle", "Ширма Мастера");
 		return "screens";
 	}
 	

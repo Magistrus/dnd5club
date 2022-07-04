@@ -85,6 +85,7 @@ public class ClassController {
 		model.addAttribute("classes", classRepository.findAllBySidekick(false));
 		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
+		model.addAttribute("menuTitle", "Классы");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes");
 		return "classes";
 	}
@@ -109,6 +110,7 @@ public class ClassController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Классы");
 		return "classes";
 	}
 	
@@ -141,6 +143,7 @@ public class ClassController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Классы");
 		return "classes";
 	}
 	
