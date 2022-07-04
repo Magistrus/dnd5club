@@ -1,8 +1,5 @@
 <template>
-    <div
-        v-scroll-lock="popover"
-        class="navbar"
-    >
+    <div class="navbar">
         <header class="navbar__header">
             <div class="navbar__header_left">
                 <div

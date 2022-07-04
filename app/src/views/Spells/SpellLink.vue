@@ -159,20 +159,22 @@
                 }
             },
 
-            clickHandler(callback) {
+            async clickHandler(callback) {
                 if (!this.inTab) {
                     callback();
 
                     return;
                 }
 
-                this.spellsStore.spellInfoQuery(this.spell.url)
-                    .then(spell => {
-                        this.spellModal = {
-                            show: true,
-                            data: spell
-                        }
-                    });
+                try {
+                    if (!this.spellModal.data) {
+                        this.spellModal.data = await this.spellsStore.spellInfoQuery(this.spell.url);
+                    }
+
+                    this.spellModal.show = true;
+                } catch (err) {
+                    console.error(err);
+                }
             }
         }
     }

@@ -110,6 +110,31 @@ public class RacesApiController {
 			specification = SpecificationUtil.getAndSpecification(specification, 
 					(root, query, cb) -> cb.isNull(root.get("parent")));	
 		}
+		if (request.getFilter()!=null) {
+			for (String ability : request.getFilter().getAbilities()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<AbilityType, Race> join = root.join("bonuses", JoinType.LEFT);
+					query.distinct(true);
+					return cb.equal(join.get("ability"), AbilityType.valueOf(ability));
+				});
+			}
+			if (request.getFilter().getSkills().contains("darkvision")) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> cb.isNotNull(root.get("darkvision")));
+			}
+			if (request.getFilter().getSkills().contains("fly")) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> cb.isNotNull(root.get("fly")));
+			}
+			if (request.getFilter().getSkills().contains("swim")) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> cb.isNotNull(root.get("swim")));
+			}
+			if (request.getFilter().getSkills().contains("climb")) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> cb.isNotNull(root.get("climb")));
+			}
+		}
 		return raceRepository.findAll(input, specification, specification, RaceApi::new).getData();
 	}
 	
