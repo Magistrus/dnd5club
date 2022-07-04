@@ -111,6 +111,8 @@
 }
 
 .multiselect {
+  @include css_anim();
+
   box-sizing: border-box;
   outline: none;
   appearance: none;
@@ -200,14 +202,17 @@
   }
 
   &__single,
-  &__input {
-    font-size: var(--main-font-size);
-    line-height: var(--main-line-height);
+  &__tags-wrap,
+  &__placeholder {
+    padding: 7px 12px 0 12px;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
     border-radius: 0;
     background: transparent;
-    padding: 0;
-    margin-bottom: 0;
     color: var(--text-color);
+    font-size: var(--main-font-size);
+    line-height: var(--main-line-height);
 
     &::placeholder {
       color: var(--text-color);
@@ -216,20 +221,9 @@
     }
   }
 
-  &__single,
-  &__tags-wrap {
-    padding: 7px 0 0 12px;
-    min-height: 100%;
-  }
-
-  &__placeholder {
-    color: var(--text-color);
-    font-size: var(--main-font-size);
-    line-height: var(--main-line-height);
-    padding: 0;
-  }
-
   &__content {
+    width: 100%;
+
     &-wrapper {
       background: var(--bg-secondary);
       color: var(--text-color);
@@ -250,6 +244,13 @@
   &__option {
     background: var(--bg-secondary);
     color: var(--text-color);
+    width: 100%;
+
+    span {
+      white-space: break-spaces;
+      width: 100%;
+      display: block;
+    }
 
     &--group {
       background: var(--bg-sub-menu);
@@ -288,6 +289,7 @@
   }
 
   &__element {
+    width: 100%;
     margin-bottom: initial;
     line-height: initial;
   }
@@ -296,11 +298,30 @@
     border-radius: 8px 8px 0 0;
 
     .multiselect {
+      &__placeholder {
+        display: inline-block;
+      }
+
       &__select {
         transform: none;
 
         svg {
           transform: rotate(-180deg);
+        }
+      }
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    @include css_anim();
+
+    border-color: var(--primary-active);
+
+    .multiselect {
+      &__content {
+        &-wrapper {
+          border-color: var(--primary-active);
         }
       }
     }

@@ -31,4 +31,10 @@ public class FilterApi {
 		this.name = name;
 		this.key = key;
 	}
+	
+	public FilterApi(String name , String key, Boolean expand) {
+		this.name = name;
+		this.key = key;
+		this.expand = expand;
+	}
 }
