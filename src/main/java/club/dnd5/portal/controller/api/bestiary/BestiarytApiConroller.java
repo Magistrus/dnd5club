@@ -44,7 +44,7 @@ import club.dnd5.portal.repository.datatable.TagBestiaryDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
-public class BeastApiConroller {
+public class BestiarytApiConroller {
 	@Autowired
 	private BestiaryDatatableRepository beastRepository;
 	
@@ -84,7 +84,6 @@ public class BeastApiConroller {
 
 		columns.add(column);
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
 			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
@@ -120,10 +119,54 @@ public class BeastApiConroller {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getTypes().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification,  (root, query, cb) -> root.get("type").in(request.getFilter().getTypes()));
+			}
+			if (!request.getFilter().getSizes().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification,  (root, query, cb) -> root.get("size").in(request.getFilter().getSizes()));
+			}
+			if (!request.getFilter().getTags().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification,  (root, query, cb) -> {
+					Join<Object, Object> join = root.join("races", JoinType.INNER);
+					query.distinct(true);
+					return cb.and(join.get("id").in(request.getFilter().getTags()));
+				});
+			}
+			if (!request.getFilter().getMoving().isEmpty()) {
+				if(request.getFilter().getMoving().contains("fly")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("flySpeed")));
+				}
+				if(request.getFilter().getMoving().contains("hover")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("hover")));
+				}
+				if(request.getFilter().getMoving().contains("climbs")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("climbingSpeed")));
+				}
+				if(request.getFilter().getMoving().contains("swim")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("swimmingSpped")));
+				}
+				if(request.getFilter().getMoving().contains("digger")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("diggingSpeed")));
+				}
+			}
+			if (!request.getFilter().getEnvironments().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification,  (root, query, cb) -> {
+					Join<Object, Object> join = root.join("habitates", JoinType.INNER);
+					query.distinct(true);
+					return join.in(request.getFilter().getEnvironments());
+				});
+			}
 		}
 		return beastRepository.findAll(input, specification, specification, BeastApi::new).getData();
 	}
-	
+
 	@PostMapping(value = "/api/v1/bestiary/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public BeastDetailApi getBeast(@PathVariable String englishName) {
 		Creature beast = beastRepository.findByEnglishName(englishName.replace('_', ' '));
@@ -134,7 +177,7 @@ public class BeastApiConroller {
 		}
 		return beastApi;
 	}
-	
+
 	@CrossOrigin
 	@GetMapping("/api/fvtt/v1/bestiary")
 	public FBeastiary getCreatures(){
@@ -215,6 +258,17 @@ public class BeastApiConroller {
 				 .map(value -> new FilterValueApi(value.getName(), value.getId()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(tagFilter);
+		
+		FilterApi moveFilter = new FilterApi("Перемещение", "moving");
+		values = new ArrayList<>(3);
+		values.add(new FilterValueApi("летает", "fly"));
+		values.add(new FilterValueApi("парит", "hover"));
+		values.add(new FilterValueApi("лазает", "climbs"));
+		values.add(new FilterValueApi("плавает", "swim"));
+		values.add(new FilterValueApi("копает", "digger"));
+
+		moveFilter.setValues(values);
+		otherFilters.add(moveFilter);
 		
 		FilterApi environmentFilter = new FilterApi("Места обитания", "environment");
 		environmentFilter.setValues(

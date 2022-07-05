@@ -17,7 +17,7 @@ import lombok.Setter;
 public class FilterApi {
 	private String name; // название блока фильтра
 	private String key; // ключ для сохранения и запроса
-	private Boolean expand;
+	private Boolean expand = Boolean.TRUE;
 	private List<FilterApi> sources;
 	private List<FilterApi> other;
 	private List<FilterApi> custom;
