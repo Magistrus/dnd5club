@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.wiki.RuleApi;
 import club.dnd5.portal.dto.api.wiki.RuleDetailApi;
 import club.dnd5.portal.dto.api.wiki.RuleRequestApi;
@@ -95,6 +97,10 @@ public class RulesApiConroller {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getCategory().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> root.get("type").in(request.getFilter().getCategory()));				
+			}
 		}
 		return ruleRepository.findAll(input, specification, specification, RuleApi::new).getData();
 	}
@@ -106,5 +112,22 @@ public class RulesApiConroller {
 			ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(new RuleDetailApi(rule));
+	}
+	
+	@PostMapping("/api/v1/filters/rules")
+	public FilterApi getFilter() {
+		FilterApi filters = new FilterApi();
+
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi categoryFilter = new FilterApi("Категория", "category");
+		categoryFilter.setValues(
+				ruleRepository.findAllCategories().stream()
+				 .map(value -> new FilterValueApi(value, value))
+				 .collect(Collectors.toList()));
+		otherFilters.add(categoryFilter);
+
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }
