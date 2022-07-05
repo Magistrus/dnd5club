@@ -100,10 +100,6 @@
         border-right: 1px solid var(--border);
         border-left: 1px solid var(--border);
 
-        @include media-min($md) {
-            padding: 24px;
-        }
-
         &:hover {
             background-color: var(--hover);
         }

@@ -446,10 +446,11 @@
 .books-group,
 .armors-group {
   &__name {
-    background-color: var(--hover);
+    background: var(--bg-liner-divider);
     padding: 8px 12px;
     margin-bottom: 12px;
-    border-radius: 6px;
+    border-radius: 8px;
+    color: var(--text-btn-color);
   }
 }
 
