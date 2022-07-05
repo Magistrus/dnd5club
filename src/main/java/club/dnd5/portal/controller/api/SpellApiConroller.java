@@ -377,9 +377,9 @@ public class SpellApiConroller {
 		values.add(new FilterValueApi("150 футов", "150 футов"));
 		values.add(new FilterValueApi("300 футов", "300 футов"));
 		values.add(new FilterValueApi("400 футов", "400 футов"));
+		values.add(new FilterValueApi("1000 футов", "1000 футов"));
 		values.add(new FilterValueApi("1 миля", "1 миля"));
 		values.add(new FilterValueApi("500 миль", "500 миль"));
-		values.add(new FilterValueApi("1000 миль", "1000 миль"));
 		distanceFilter.setValues(values);
 		otherFilters.add(distanceFilter);
 		
