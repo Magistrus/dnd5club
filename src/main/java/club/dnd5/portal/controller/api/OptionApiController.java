@@ -29,12 +29,15 @@ import club.dnd5.portal.dto.api.classes.OptionRequesApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.Option;
+import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class OptionApiController {
+	private static final String[] prerequsitlevels = { "Нет", " 5", " 6", " 7", " 9", "11", "12", "15", "17", "18" };
+
 	@Autowired
 	private OptionDatatableRepository optionRepository;
 	
@@ -83,16 +86,31 @@ public class OptionApiController {
 			}
 		}
 		if (request.getFilter() != null) {
-
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getClassOption().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<OptionType, Option> join = root.join("optionTypes", JoinType.LEFT);
+					query.distinct(true);
+					return join.in(request.getFilter().getClassOption().stream().map(OptionType::valueOf).collect(Collectors.toList()));
+				});
+			}
+			if (!request.getFilter().getLevels().isEmpty()) {
+				if(request.getFilter().getLevels().contains("Нет")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.isNull(root.get("level")));
+					request.getFilter().getLevels().remove("Нет");
+				}
+				if (!request.getFilter().getLevels().isEmpty()) {
+					specification = SpecificationUtil.getAndSpecification(
+							specification, (root, query, cb) -> root.get("level").in(request.getFilter().getLevels().stream().map(Integer::valueOf).collect(Collectors.toList())));
+				}
+			}
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
 			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
@@ -156,6 +174,13 @@ public class OptionApiController {
 				 .map(ability -> new FilterValueApi(ability.getName(), ability.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(classOptionFilter);
+		
+		FilterApi levelsFilter = new FilterApi("Требования к уровню", "levels");
+		levelsFilter.setValues(
+				Arrays.stream(prerequsitlevels)
+				 .map(value -> new FilterValueApi(value, value))
+				 .collect(Collectors.toList()));
+		otherFilters.add(levelsFilter);
 		
 		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
 		prerequisiteFilter.setValues(

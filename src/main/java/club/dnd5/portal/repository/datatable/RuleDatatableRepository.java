@@ -11,6 +11,7 @@ import club.dnd5.portal.model.rule.Rule;
 @Repository
 public interface RuleDatatableRepository extends DataTablesRepository<Rule, Integer> {
 	@Query("SELECT r.type FROM Rule r GROUP BY r.type")
-	public Set<String> findAllCategories();
+	Set<String> findAllCategories();
+	
 	Rule findByEnglishName(String name);
 }

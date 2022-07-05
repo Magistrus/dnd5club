@@ -231,6 +231,7 @@
                 z-index: 16;
                 opacity: 0;
                 background-color: var(--bg-main);
+                transition: opacity 0.2s;
                 border: {
                     top-left-radius: 20%;
                     top-right-radius: 20%;
@@ -248,7 +249,7 @@
             display: block;
             top: 56px;
             right: 0;
-            width: calc(60% - 10px);
+            width: calc(60% - 24px);
             height: calc(var(--max-vh) - 56px - 24px);
             overflow: hidden;
             border-radius: 12px;

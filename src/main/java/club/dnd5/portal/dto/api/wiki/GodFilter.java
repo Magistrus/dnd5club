@@ -15,8 +15,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RuleFilter {
-	private List<String> category;
+public class GodFilter {
+	private List<String> alignment;
+	private List<String> domain;
+	private List<String> rank;
+	private List<Integer> pantheon;
 	@JsonProperty("book")
 	private List<String> books;
 }

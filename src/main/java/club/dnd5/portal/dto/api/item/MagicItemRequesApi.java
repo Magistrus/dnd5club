@@ -1,11 +1,9 @@
-package club.dnd5.portal.dto.api.wiki;
-
-import java.util.List;
+package club.dnd5.portal.dto.api.item;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.dto.api.RequestApi;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RuleFilter {
-	private List<String> category;
-	@JsonProperty("book")
-	private List<String> books;
+public class MagicItemRequesApi extends RequestApi {
+    public MagicItemFilter filter;
 }

@@ -23,13 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
-import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.wiki.GodApi;
 import club.dnd5.portal.dto.api.wiki.GodDetailApi;
+import club.dnd5.portal.dto.api.wiki.GodRequestApi;
 import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.god.Domain;
 import club.dnd5.portal.model.god.God;
+import club.dnd5.portal.model.god.Pantheon;
 import club.dnd5.portal.model.god.Rank;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.repository.ImageRepository;
@@ -48,7 +50,7 @@ public class GodApiConroller {
 	private ImageRepository imageRepository;
 	
 	@PostMapping(value = "/api/v1/gods", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<GodApi> getGods(@RequestBody SpellRequesApi request) {
+	public List<GodApi> getGods(@RequestBody GodRequestApi request) {
 		Specification<God> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -109,6 +111,27 @@ public class GodApiConroller {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getAlignment().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification,
+						(root, query, cb) -> root.get("aligment").in(request.getFilter().getAlignment().stream().map(Alignment::valueOf).collect(Collectors.toList())));
+			}
+			if (!request.getFilter().getDomain().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<Domain, God> join = root.join("domains", JoinType.LEFT);
+					query.distinct(true);
+					return join.in(request.getFilter().getDomain().parallelStream().map(Domain::valueOf).collect(Collectors.toList()));
+				});
+			}
+			if (!request.getFilter().getRank().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> root.get("rank").in(request.getFilter().getRank().stream().map(Rank::valueOf).collect(Collectors.toList())));	
+			}
+				if (!request.getFilter().getPantheon().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<Pantheon, God> pantheon = root.join("pantheon", JoinType.LEFT);
+					return cb.and(pantheon.get("id").in(request.getFilter().getPantheon()));
+				});
+			}
 		}
 		return godRepository.findAll(input, specification, specification, GodApi::new).getData();
 	}
@@ -158,7 +181,15 @@ public class GodApiConroller {
 				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(alignmentFilter);
-	
+		
+		FilterApi domainFilter = new FilterApi("Домены", "domain");
+		domainFilter.setValues(
+				Arrays.stream(Domain.values())
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
+				 .collect(Collectors.toList()));
+		otherFilters.add(domainFilter);
+
+		
 		FilterApi rankFilter = new FilterApi("Ранг", "rank");
 		rankFilter.setValues(
 				Arrays.stream(Rank.values())

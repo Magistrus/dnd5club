@@ -1,4 +1,4 @@
-package club.dnd5.portal.dto.api.wiki;
+package club.dnd5.portal.dto.api.item;
 
 import java.util.List;
 
@@ -15,8 +15,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RuleFilter {
-	private List<String> category;
+public class MagicItemFilter {
+	List<String> rarity;
+	List<String> type;
+	List<String> customization;
+	List<String> consumable;
+	List<String> charge;
+	
 	@JsonProperty("book")
 	private List<String> books;
 }

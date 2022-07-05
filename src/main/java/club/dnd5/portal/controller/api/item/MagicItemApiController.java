@@ -25,7 +25,7 @@ import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.item.MagicItemApi;
 import club.dnd5.portal.dto.api.item.MagicItemDetailApi;
-import club.dnd5.portal.dto.api.item.WeaponRequesApi;
+import club.dnd5.portal.dto.api.item.MagicItemRequesApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.image.ImageType;
@@ -45,7 +45,7 @@ public class MagicItemApiController {
 	private ImageRepository imageRepo;
 
 	@PostMapping(value = "/api/v1/items/magic", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MagicItemApi> getItems(@RequestBody WeaponRequesApi request) {
+	public List<MagicItemApi> getItems(@RequestBody MagicItemRequesApi request) {
 		Specification<MagicItem> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -90,12 +90,43 @@ public class MagicItemApiController {
 			}
 		}
 		if (request.getFilter() != null) {
-
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
+			}
+			if (!request.getFilter().getRarity().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, 
+					(root, query, cb) -> root.get("rarity").in(request.getFilter().getRarity().stream().map(Rarity::valueOf).collect(Collectors.toList())));
+			}
+			if (!request.getFilter().getType().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, 
+					(root, query, cb) -> root.get("type").in(request.getFilter().getType().stream().map(MagicThingType::valueOf).collect(Collectors.toList())));
+			}
+			if (!request.getFilter().getCustomization().isEmpty()) {
+				if (request.getFilter().getCustomization().contains("1")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.equal(root.get("customization"), 1));
+				} 
+				if (request.getFilter().getCustomization().contains("2")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.equal(root.get("customization"), 0));
+				}
+			}
+			if (!request.getFilter().getConsumable().isEmpty()) {
+				if (request.getFilter().getConsumable().contains("1")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.equal(root.get("consumed"), 1));
+				} 
+				if (request.getFilter().getConsumable().contains("2")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.equal(root.get("consumed"), 0));
+				}
+			}
+			if (!request.getFilter().getCharge().isEmpty()) {
+				if (request.getFilter().getCharge().contains("1")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.isNotNull(root.get("charge")));
+				} 
+				if (request.getFilter().getCharge().contains("2")) {
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.isNull(root.get("charge")));
+				}
 			}
 		}
 		if (request.getOrders() != null && !request.getOrders().isEmpty()) {
@@ -171,7 +202,7 @@ public class MagicItemApiController {
 				 .collect(Collectors.toList()));
 		otherFilters.add(typeFilter);
 		
-		FilterApi attumentFilter = new FilterApi("Настройка", "type");
+		FilterApi attumentFilter = new FilterApi("Настройка", "customization");
 		List<FilterValueApi> values = new ArrayList<>(2);
 		values.add(new FilterValueApi("требуется", 1));
 		values.add(new FilterValueApi("не требуется", 2));

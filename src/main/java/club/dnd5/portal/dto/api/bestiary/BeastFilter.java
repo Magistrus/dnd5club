@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import club.dnd5.portal.model.CreatureSize;
+import club.dnd5.portal.model.CreatureType;
+import club.dnd5.portal.model.creature.HabitatType;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Getter;
@@ -18,6 +23,17 @@ import lombok.Setter;
 public class BeastFilter {
 	@JsonProperty("challengeRating")
 	private List<String> challengeRatings;
+	@JsonProperty("type")
+	private List<CreatureType> types;
+	
+	@JsonProperty("size")
+	private List<CreatureSize> sizes;
+	@JsonProperty("tag")
+	private List<Integer> tags;
+	private List<String> moving;
+	@JsonProperty("environment")
+	private List<HabitatType> environments;
+
 	
 	@JsonProperty("book")
 	private List<String> books;

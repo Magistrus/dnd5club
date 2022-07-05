@@ -28,7 +28,6 @@ import club.dnd5.portal.dto.api.classes.TraitRequesApi;
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
-import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
@@ -85,11 +84,10 @@ public class TraitApiController {
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-					Join<Book, Spell> join = root.join("book", JoinType.INNER);
+					Join<Book, Trait> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
-			
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
@@ -103,12 +101,12 @@ public class TraitApiController {
 				return cb.and();
 			});
 		}
-		if (request.getFilter()!=null) {
-			for (String ability : request.getFilter().getAbilities()) {
+		if (request.getFilter() != null) {
+			if (!request.getFilter().getAbilities().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<AbilityType, Trait> join = root.join("abilities", JoinType.LEFT);
 					query.distinct(true);
-					return cb.equal(join.get("ability"), AbilityType.valueOf(ability));
+					return cb.and(join.in(request.getFilter().getAbilities().stream().map(AbilityType::valueOf).collect(Collectors.toList())));
 				});
 			}
 		}
@@ -152,19 +150,19 @@ public class TraitApiController {
 		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
 		homebrewFilter.setValues(
 				traitRepository.findBook(TypeBook.CUSTOM).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.FALSE, book.getName()))
 				.collect(Collectors.toList()));
 		sources.add(homebrewFilter);
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
-		FilterApi schoolSpellFilter = new FilterApi("Характеристики", "abilities");
-		schoolSpellFilter.setValues(
+		FilterApi abilitiesFilter = new FilterApi("Характеристики", "abilities", Boolean.FALSE);
+		abilitiesFilter.setValues(
 				AbilityType.getBaseAbility().stream()
 				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name()))
 				 .collect(Collectors.toList()));
 		
-		otherFilters.add(schoolSpellFilter);
+		otherFilters.add(abilitiesFilter);
 		filters.setOther(otherFilters);
 		return filters;
 	}

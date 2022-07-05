@@ -27,6 +27,7 @@ import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.classes.BackgroundApi;
 import club.dnd5.portal.dto.api.classes.BackgroundDetailApi;
 import club.dnd5.portal.dto.api.classes.TraitRequesApi;
+import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.book.Book;
@@ -91,9 +92,16 @@ public class BackgroundApiController {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getSkills().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<AbilityType, Background> abilityType = root.join("skills", JoinType.LEFT);
+					query.distinct(true);
+					return cb.and(abilityType.in(
+							request.getFilter().getSkills().stream().map(SkillType::valueOf).collect(Collectors.toList())));
+				});
+			}
 		}
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
+		if (request.getOrders() != null && !request.getOrders().isEmpty()) {
 			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(

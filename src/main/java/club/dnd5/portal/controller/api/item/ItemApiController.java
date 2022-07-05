@@ -84,11 +84,17 @@ public class ItemApiController {
 			}
 		}
 		if (request.getFilter() != null) {
-
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
+				});
+			}
+			if (!request.getFilter().getCategories().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<EquipmentType, Equipment> types = root.join("types", JoinType.LEFT);
+					query.distinct(true);
+					return types.in(request.getFilter().getCategories().stream().map(EquipmentType::valueOf).collect(Collectors.toList()));
 				});
 			}
 		}

@@ -33,7 +33,6 @@ public class SpellFilter {
     private List<String> distance;
     private List<String> duration;
 
-    @JsonProperty("component") 
     private List<String> components;
     private List<String> ritual;
     private List<String> concentration;
