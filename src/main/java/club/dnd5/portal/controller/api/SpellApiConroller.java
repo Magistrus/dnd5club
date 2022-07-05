@@ -34,6 +34,7 @@ import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
 import club.dnd5.portal.dto.api.spells.SpellsFvtt;
 import club.dnd5.portal.model.DamageType;
+import club.dnd5.portal.model.TimeUnit;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
@@ -41,6 +42,7 @@ import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.model.splells.Spell;
+import club.dnd5.portal.model.splells.TimeCast;
 import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
@@ -125,6 +127,83 @@ public class SpellApiConroller {
 					query.distinct(true);
 					return cb.and(join.get("id").in(request.getFilter().getMyclass()));
 				});
+			}
+			if (!request.getFilter().getSchools().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+					specification, (root, query, cb) -> root.get("school").in(request.getFilter().getSchools().stream().map(MagicSchool::valueOf).collect(Collectors.toList())));
+			}
+			if (!request.getFilter().getDamageTypes().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<DamageType, Spell> join = root.join("damageType", JoinType.LEFT);
+					query.distinct(true);
+					return join.in(request.getFilter().getDamageTypes().stream().map(DamageType::valueOf).collect(Collectors.toList()));
+				});
+			}
+			if (!request.getFilter().getRitual().isEmpty()) {
+				if(request.getFilter().getRitual().contains("yes")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("ritual"), true));
+				}
+				if(request.getFilter().getRitual().contains("no")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("ritual"), false));
+				}
+			}
+			if (!request.getFilter().getConcentration().isEmpty()) {
+				if(request.getFilter().getConcentration().contains("yes")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("concentration"), true));
+				}
+				if(request.getFilter().getConcentration().contains("no")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("concentration"), false));
+				}
+			}
+			if (!request.getFilter().getComponents().isEmpty()) {
+				if (request.getFilter().getComponents().contains("1")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("verbalComponent"), true));
+				}
+				if (request.getFilter().getComponents().contains("2")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("somaticComponent"), true));
+				}
+				if (request.getFilter().getComponents().contains("3")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("materialComponent"), true));
+				}
+				if (request.getFilter().getComponents().contains("4")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("consumable"), true));
+				}
+				if (request.getFilter().getComponents().contains("5")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.equal(root.get("consumable"), false));
+				}
+			}
+			if (!request.getFilter().getTimecast().isEmpty()) {
+				for (String timecast : request.getFilter().getTimecast()) {
+					String[] parts = timecast.split("\\s");
+					int time = Integer.valueOf(parts[0]);
+					TimeUnit unit = TimeUnit.valueOf(parts[1]);
+					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+						Join<TimeCast, Spell> join = root.join("times", JoinType.INNER);
+						query.distinct(true);
+						return cb.and(cb.equal(join.get("number"), time), cb.equal(join.get("unit"), unit));
+					});
+				}
+			}
+			if (!request.getFilter().getDistance().isEmpty()) {
+				for (String distance : request.getFilter().getDistance()) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.like(root.get("distance"), "%" + distance + "%"));
+				}
+			}
+			if (!request.getFilter().getDuration().isEmpty()) {
+				for (String distance : request.getFilter().getDuration()) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.like(root.get("duration"), "%" + distance + "%"));
+				}
 			}
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
@@ -275,7 +354,7 @@ public class SpellApiConroller {
 		values.add(new FilterValueApi("ход", "1 ROUND"));
 		values.add(new FilterValueApi("1 минута", "1 MINUTE"));
 		values.add(new FilterValueApi("10 минут", "10 MINUTE"));
-		values.add(new FilterValueApi("1 час", "10 HOUR"));
+		values.add(new FilterValueApi("1 час", "1 HOUR"));
 		values.add(new FilterValueApi("8 час", "8 HOUR"));
 		values.add(new FilterValueApi("12 час", "12 HOUR"));
 		values.add(new FilterValueApi("24 час", "24 HOUR"));
@@ -284,40 +363,40 @@ public class SpellApiConroller {
 		
 		FilterApi distanceFilter = new FilterApi("Дистанция", "distance");
 		values = new ArrayList<>();
-		values.add(new FilterValueApi("на себя", "self"));
-		values.add(new FilterValueApi("касание", "tuch"));
-		values.add(new FilterValueApi("5 футов", "5 fit"));
-		values.add(new FilterValueApi("10 футов", "10 fit"));
-		values.add(new FilterValueApi("25 футов", "25 fit"));
-		values.add(new FilterValueApi("30 футов", "30 fit"));
-		values.add(new FilterValueApi("40 футов", "40 fit"));
-		values.add(new FilterValueApi("50 футов", "50 fit"));
-		values.add(new FilterValueApi("60 футов", "60 fit"));
-		values.add(new FilterValueApi("90 футов", "90 fit"));
-		values.add(new FilterValueApi("100 футов", "100 fit"));
-		values.add(new FilterValueApi("150 футов", "150 fit"));
-		values.add(new FilterValueApi("300 футов", "300 fit"));
-		values.add(new FilterValueApi("400 футов", "400 fit"));
-		values.add(new FilterValueApi("1 миля", "1 mile"));
-		values.add(new FilterValueApi("500 миль", "500 mile"));
-		values.add(new FilterValueApi("1000 миль", "1000 mile"));
+		values.add(new FilterValueApi("на себя", "На себя"));
+		values.add(new FilterValueApi("касание", "Касание"));
+		values.add(new FilterValueApi("5 футов", "5 футов"));
+		values.add(new FilterValueApi("10 футов", "10 футов"));
+		values.add(new FilterValueApi("25 футов", "25 футов"));
+		values.add(new FilterValueApi("30 футов", "30 футов"));
+		values.add(new FilterValueApi("40 футов", "40 футов"));
+		values.add(new FilterValueApi("50 футов", "50 футов"));
+		values.add(new FilterValueApi("60 футов", "60 футов"));
+		values.add(new FilterValueApi("90 футов", "90 футов"));
+		values.add(new FilterValueApi("100 футов", "100 футов"));
+		values.add(new FilterValueApi("150 футов", "150 футов"));
+		values.add(new FilterValueApi("300 футов", "300 футов"));
+		values.add(new FilterValueApi("400 футов", "400 футов"));
+		values.add(new FilterValueApi("1 миля", "1 миля"));
+		values.add(new FilterValueApi("500 миль", "500 миль"));
+		values.add(new FilterValueApi("1000 миль", "1000 миль"));
 		distanceFilter.setValues(values);
 		otherFilters.add(distanceFilter);
 		
 		FilterApi durationFilter = new FilterApi("Длительность", "duration");
 		values = new ArrayList<>();
-		values.add(new FilterValueApi("Мгновенная", "instant"));
-		values.add(new FilterValueApi("1 раунд", "round"));
-		values.add(new FilterValueApi("1 минута", "1 minute"));
-		values.add(new FilterValueApi("10 минут", "10 minute"));
-		values.add(new FilterValueApi("1 час", "1 hour"));
-		values.add(new FilterValueApi("8 часов", "8 hour"));
-		values.add(new FilterValueApi("12 часов", "12 hour"));
-		values.add(new FilterValueApi("24 часа", "24 hour"));
-		values.add(new FilterValueApi("1 день", "1 day"));
-		values.add(new FilterValueApi("7 дней", "7 day"));
-		values.add(new FilterValueApi("10 дней", "10 day"));
-		values.add(new FilterValueApi("1 год", "1 year"));
+		values.add(new FilterValueApi("Мгновенная", "Мгновенная"));
+		values.add(new FilterValueApi("1 раунд", "1 раунд"));
+		values.add(new FilterValueApi("1 минута", "1 минута"));
+		values.add(new FilterValueApi("10 минут", "10 минут"));
+		values.add(new FilterValueApi("1 час", "1 час"));
+		values.add(new FilterValueApi("8 часов", "8 часов"));
+		values.add(new FilterValueApi("12 часов", "12 часов"));
+		values.add(new FilterValueApi("24 часа", "24 часа"));
+		values.add(new FilterValueApi("1 день", "1 день"));
+		values.add(new FilterValueApi("7 дней", "7 дней"));
+		values.add(new FilterValueApi("10 дней", "10 дней"));
+		values.add(new FilterValueApi("1 год", "1 год"));
 		durationFilter.setValues(values);
 		otherFilters.add(durationFilter);
 		
@@ -380,7 +459,7 @@ public class SpellApiConroller {
 	private FilterApi getLevelsFilter(int maxLevel) {
 		FilterApi levelFilter = new FilterApi("Уровень", "level");
 		levelFilter.setValues(IntStream.rangeClosed(0, maxLevel)
-				 .mapToObj(level -> new FilterValueApi(level == 0 ? "заговор" : String.valueOf(level),  String.valueOf(level), Boolean.TRUE))
+				 .mapToObj(level -> new FilterValueApi(level == 0 ? "заговор" : String.valueOf(level),  String.valueOf(level)))
 				 .collect(Collectors.toList()));
 		return levelFilter;
 	}
@@ -388,11 +467,11 @@ public class SpellApiConroller {
 	private FilterApi getCompomemtsFilter() {
 		FilterApi componentsSpellFilter = new FilterApi("Компоненты", "components");
 		List<FilterValueApi> componentValues = new ArrayList<>();
-		componentValues.add(new FilterValueApi("вербальный", "1", Boolean.TRUE));
-		componentValues.add(new FilterValueApi("соматический", "2", Boolean.TRUE));
-		componentValues.add(new FilterValueApi("материальный", "3", Boolean.TRUE));
-		componentValues.add(new FilterValueApi("расходуемый", "4", Boolean.TRUE));
-		componentValues.add(new FilterValueApi("не расходуемый", "5", Boolean.TRUE));
+		componentValues.add(new FilterValueApi("вербальный", "1"));
+		componentValues.add(new FilterValueApi("соматический", "2"));
+		componentValues.add(new FilterValueApi("материальный", "3"));
+		componentValues.add(new FilterValueApi("расходуемый", "4"));
+		componentValues.add(new FilterValueApi("не расходуемый", "5"));
 		
 		componentsSpellFilter.setValues(componentValues);
 		return componentsSpellFilter;
