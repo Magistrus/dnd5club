@@ -152,7 +152,7 @@
     ::v-deep(.base-modal) {
         background-color: var(--bg-secondary);
         width: 100%;
-        max-width: $md - 1px;
+        max-width: $lg - 1px;
         max-height: calc(var(--max-vh) - 56px * 2);
         margin: auto;
         border-radius: 8px;
