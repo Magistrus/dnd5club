@@ -21,8 +21,13 @@
                 <div class="link-item__body">
                     <div class="link-item__row">
                         <div class="link-item__name">
-                            <div class="link-item__name--rus">{{ god.name.rus }}</div>
-                            <div class="link-item__name--eng">[{{ god.name.eng }}]</div>
+                            <div class="link-item__name--rus">
+                                {{ god.name.rus }}
+                            </div>
+
+                            <div class="link-item__name--eng">
+                                [{{ god.name.eng }}]
+                            </div>
                         </div>
                     </div>
                 </div>

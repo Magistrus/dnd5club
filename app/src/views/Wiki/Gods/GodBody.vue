@@ -4,7 +4,7 @@
         class="god_wrapper god-body gods"
     >
         <detail-top-bar
-            :left="god.name.eng"
+            :left="topBarLeftString"
             :source="god.source"
         />
 
@@ -92,6 +92,11 @@
                 show: false,
             }
         }),
+        computed: {
+            topBarLeftString() {
+                return ` `
+            },
+        },
         methods: {
             showGallery() {
                 if (!this.god.images?.length) {
