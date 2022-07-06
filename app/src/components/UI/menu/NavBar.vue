@@ -30,9 +30,9 @@
             </div>
 
             <div class="navbar__header_right">
-                <nav-profile/>
-
                 <menu-theme-switcher/>
+
+                <nav-profile/>
             </div>
         </header>
 
