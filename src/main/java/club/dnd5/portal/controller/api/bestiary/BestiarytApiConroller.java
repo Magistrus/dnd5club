@@ -266,10 +266,19 @@ public class BestiarytApiConroller {
 		values.add(new FilterValueApi("лазает", "climbs"));
 		values.add(new FilterValueApi("плавает", "swim"));
 		values.add(new FilterValueApi("копает", "digger"));
-
 		moveFilter.setValues(values);
 		otherFilters.add(moveFilter);
-		
+
+		FilterApi sanseFilter = new FilterApi("Чувства", "senses");
+		values = new ArrayList<>(3);
+		values.add(new FilterValueApi("тёмное зрение", "darkvision"));
+		values.add(new FilterValueApi("истинное зрение", "hover"));
+		values.add(new FilterValueApi("лазает", "climbs"));
+		values.add(new FilterValueApi("плавает", "swim"));
+		values.add(new FilterValueApi("копает", "digger"));
+		sanseFilter.setValues(values);
+		otherFilters.add(sanseFilter);
+
 		FilterApi environmentFilter = new FilterApi("Места обитания", "environment");
 		environmentFilter.setValues(
 				HabitatType.types().stream()

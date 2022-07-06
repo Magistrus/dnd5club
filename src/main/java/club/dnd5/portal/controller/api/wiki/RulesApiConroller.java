@@ -91,15 +91,9 @@ public class RulesApiConroller {
 			}
 		}
 		if (request.getFilter() != null) {
-			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-					Join<Book, Rule> join = root.join("book", JoinType.INNER);
-					return join.get("source").in(request.getFilter().getBooks());
-				});
-			}
 			if (!request.getFilter().getCategory().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(
-						specification, (root, query, cb) -> root.get("type").in(request.getFilter().getCategory()));				
+					specification, (root, query, cb) -> root.get("type").in(request.getFilter().getCategory()));
 			}
 		}
 		return ruleRepository.findAll(input, specification, specification, RuleApi::new).getData();
