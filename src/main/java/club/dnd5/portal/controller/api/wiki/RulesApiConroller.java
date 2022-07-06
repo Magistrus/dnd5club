@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.wiki.RuleApi;
 import club.dnd5.portal.dto.api.wiki.RuleDetailApi;
 import club.dnd5.portal.dto.api.wiki.RuleRequestApi;
-import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
