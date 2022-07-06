@@ -31,6 +31,7 @@ public class BeastFilter {
 	@JsonProperty("tag")
 	private List<Integer> tags;
 	private List<String> moving;
+	private List<String> senses;
 	@JsonProperty("environment")
 	private List<HabitatType> environments;
 

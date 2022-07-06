@@ -163,6 +163,24 @@ public class BestiarytApiConroller {
 					return join.in(request.getFilter().getEnvironments());
 				});
 			}
+			if (!request.getFilter().getSenses().isEmpty()) {
+				if(request.getFilter().getSenses().contains("darkvision")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("darkvision")));
+				}
+				if(request.getFilter().getSenses().contains("trysight")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("trysight")));
+				}
+				if(request.getFilter().getSenses().contains("blindsight")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("blindsight")));
+				}
+				if(request.getFilter().getSenses().contains("tremmor")) {
+					specification = SpecificationUtil.getAndSpecification(specification,
+							(root, query, cb) -> cb.isNotNull(root.get("vibration")));
+				}
+			}
 		}
 		return beastRepository.findAll(input, specification, specification, BeastApi::new).getData();
 	}
@@ -266,10 +284,18 @@ public class BestiarytApiConroller {
 		values.add(new FilterValueApi("лазает", "climbs"));
 		values.add(new FilterValueApi("плавает", "swim"));
 		values.add(new FilterValueApi("копает", "digger"));
-
 		moveFilter.setValues(values);
 		otherFilters.add(moveFilter);
-		
+
+		FilterApi sanseFilter = new FilterApi("Чувства", "senses");
+		values = new ArrayList<>(3);
+		values.add(new FilterValueApi("тёмное зрение", "darkvision"));
+		values.add(new FilterValueApi("истинное зрение", "trysight"));
+		values.add(new FilterValueApi("слепое зрение", "blindsight"));
+		values.add(new FilterValueApi("чувство вибрации", "tremmor"));
+		sanseFilter.setValues(values);
+		otherFilters.add(sanseFilter);
+
 		FilterApi environmentFilter = new FilterApi("Места обитания", "environment");
 		environmentFilter.setValues(
 				HabitatType.types().stream()
