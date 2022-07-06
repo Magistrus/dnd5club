@@ -1,7 +1,7 @@
 <template>
     <div class="background-body">
         <detail-top-bar
-            :left="background?.name?.eng"
+            :left="topBarLeftString"
             :source="background?.source"
         />
 
@@ -24,6 +24,11 @@
                 default: undefined,
                 required: true
             }
-        }
+        },
+        computed: {
+            topBarLeftString() {
+                return ` `
+            },
+        },
     }
 </script>
