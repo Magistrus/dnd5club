@@ -203,6 +203,7 @@
         &__body {
             padding: 0 16px;
             flex: 1;
+            min-width: 0;
 
             @media (min-width: 1200px) {
                 padding-left: 24px;
@@ -212,7 +213,6 @@
         &__title {
             display: flex;
             align-items: center;
-            width: fit-content;
 
             &--text {
                 font-size: calc(var(--h1-font-size) - 12px);
