@@ -151,7 +151,7 @@ function selectScreen(data) {
     $('#screen_name').html(data.name);
     $('#english_name').html(data.englishName);
 
-    document.title = data.name + ' (' + data.englishName + ')' + ' | Киниги D&D 5e';
+    document.title = data.name + ' (' + data.englishName + ')' + ' | Книги D&D 5e';
     history.pushState('data to be passed', '', '/screens/' + data.englishName.split(' ').join('_'));
     if (!data.parent) {
         var url = '/screens/fragment/' + data.id;
