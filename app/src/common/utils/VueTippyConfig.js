@@ -8,6 +8,7 @@ export default {
         sticky: 'reference',
         theme: 'dnd5club',
         strategy: 'fixed',
+        maxWidth: 450,
         hideOnClick: false,
         onClickOutside() {
             return false

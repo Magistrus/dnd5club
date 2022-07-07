@@ -495,6 +495,7 @@
       background-color: var(--bg-secondary);
       padding: 0 24px 0 24px;
       margin: auto;
+      border-radius: 12px;
 
       .header {
         padding: 24px 0 16px 0;
@@ -511,6 +512,11 @@
           margin-top: 0;
           line-height: normal;
         }
+      }
+
+      @include media-min($lg) {
+        flex: 1 1 860px;
+        max-width: 860px;
       }
     }
   }
@@ -562,6 +568,10 @@
           fill: var(--primary-hover);
         }
       }
+    }
+
+    h5 {
+      max-width: 350px;
     }
 
     @media (max-width: 600px) {

@@ -239,8 +239,7 @@
             line-height: normal;
         }
 
-        &__count,
-        &__price {
+        &__count {
             margin-left: auto;
             display: block;
         }

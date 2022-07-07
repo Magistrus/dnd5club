@@ -72,6 +72,8 @@
                     <div class="class-detail__body--inner">
                         <raw-content
                             :url="currentTab.url"
+                            @loaded="initScrollListeners"
+                            @before-unmount="removeScrollListeners"
                         />
                     </div>
                 </div>
