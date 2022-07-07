@@ -47,13 +47,24 @@
 					<tr th:each="level : ${#numbers.sequence(1, 20)}" align="center">
 						<td align="center" th:text="${level}" />
 						<td align="center" th:text="${'+' + levelDef[level]}" />
-						<td class="align_left"><a class="text-info tip_scroll archetype_feet" th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
-							th:text="${iterStat2.last and heroClass.getTraitsClear(level).empty} ? ${#strings.toLowerCase(architypeTrait.name)} : ${#strings.toLowerCase(architypeTrait.name)} + ', '"
-							th:href="|#a${architypeTrait.id}|" th:title="${architypeTrait.name}" th:data-tipped-options="@{ajax: { url: '/classes/archetype/feature/{id}'}(id=${architypeTrait.id})}"
-						></a> <a class="tip_scroll" th:each="trait, iterStat : ${heroClass.getTraits(level)}" th:unless=${trait.architype} th:href="|#c${trait.child eq null ? trait.id : trait.child}|"
-							th:utext="${iterStat.last} ? ${trait.name.toLowerCase()} : ${trait.name.toLowerCase()} + ', '" th:title="${trait.name}"
-							th:data-tipped-options="@{ajax: { url: '/classes/feature/{id}'}(id=${trait.id})}"
-						></a></td>
+						<td class="align_left">
+                            <a class="text-info tip_scroll archetype_feet"
+                               th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
+                               th:text="${iterStat2.last and heroClass.getTraitsClear(level).empty} ? ${#strings.toLowerCase(architypeTrait.name)} : ${#strings.toLowerCase(architypeTrait.name)} + ', '"
+                               th:href="|#a${architypeTrait.id}|"
+                               th:title="${architypeTrait.name}"
+                               th:data-tippy-url="|/classes/archetype/feature/${architypeTrait.id}|"
+                               v-tippy="'Думаю...'"
+                            ></a>
+                            <a class="tip_scroll"
+                               th:each="trait, iterStat : ${heroClass.getTraits(level)}"
+                               th:unless=${trait.architype}
+                               th:href="|#c${trait.child eq null ? trait.id : trait.child}|"
+                               th:utext="${iterStat.last} ? ${trait.name.toLowerCase()} : ${trait.name.toLowerCase()} + ', '" th:title="${trait.name}"
+                               th:data-tippy-url="|/classes/feature/${trait.id}|"
+                               v-tippy="'Думаю...'"
+						    ></a>
+                        </td>
 						<td th:each="featureLevel : *{featureLevelDefenitions}" th:with="byLevel = ${featureLevel.getByLevel(level)}"><th:block th:if="${featureLevel.prefix ne null and byLevel gt 0}"
 								th:text="${featureLevel.prefix}"
 							/> <th:block th:if="${byLevel gt 0}" th:text="${byLevel}" /> <th:block th:if="${byLevel eq 0}" th:text="'—'" /> <th:block th:if="${byLevel eq -1}" th:text="'Неограниченно'" /> <th:block
@@ -107,13 +118,15 @@
 							</thead>
 							<tr th:each="element : ${selectedArchetype.levelSpells}">
 								<td align="center" th:text="${element.key}"></td>
-								<td><th:block th:each="spell, iterStat : ${element.value}">
-										<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"
-											th:data-tipped-options="@{ajax: {data: { id: {spellId}}}(spellId=${spell.spell.id})}"
-										></a>
+								<td>
+                                    <th:block th:each="spell, iterStat : ${element.value}">
+                                        <spell-tooltip th:url="|/spells/${spell.spell.englishName}|">
+                                            <a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"></a>
+                                        </spell-tooltip>
 										<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
 										<span th:if="${not iterStat.last}">, </span>
-									</th:block></td>
+									</th:block>
+                                </td>
 							</tr>
 							<tbody>
 							</tbody>
