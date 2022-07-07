@@ -28,7 +28,7 @@ public class ClassInfoApiDto {
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "description", 1, true));
-		if (heroClass.getSpellcasterType() != SpellcasterType.NONE) {
+		if (heroClass.getSpellcasterType() != null && heroClass.getSpellcasterType() != SpellcasterType.NONE) {
 			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s", heroClass.getUrlName()), "spells", 2, false));
 		}
 		if (heroClass.getOptionType() != null) {
@@ -42,7 +42,7 @@ public class ClassInfoApiDto {
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "description", 1, true));
-		if (heroClass.getSpellcasterType() != SpellcasterType.NONE || archetype.getSpellcasterType() != SpellcasterType.NONE) {
+		if (archetype.getSpellcasterType() != null && archetype.getSpellcasterType() != SpellcasterType.NONE) {
 			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "spells", 2, false));
 		}
 		if (heroClass.getOptionType() != null) {
