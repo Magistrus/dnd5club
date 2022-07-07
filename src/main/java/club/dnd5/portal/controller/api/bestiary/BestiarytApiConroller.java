@@ -2,6 +2,7 @@ package club.dnd5.portal.controller.api.bestiary;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -241,6 +242,10 @@ public class BestiarytApiConroller {
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
 		
+		FilterApi npcFilter = new FilterApi("Именнованые НИП", "npc");
+		npcFilter.setValues(Collections.singletonList(new FilterValueApi("показать именованных НИП", "true")));
+		otherFilters.add(npcFilter);
+		
 		FilterApi crFilter = new FilterApi("Уровень опасности", "challengeRating");
 		crFilter.setExpand(Boolean.TRUE);
 		List<FilterValueApi> values = new ArrayList<>();
@@ -296,6 +301,17 @@ public class BestiarytApiConroller {
 		sanseFilter.setValues(values);
 		otherFilters.add(sanseFilter);
 
+		FilterApi featureFilter = new FilterApi("Умения", "features");
+		values = new ArrayList<>(3);
+		values.add(new FilterValueApi("сопротивление магии", "Сопротивление магии"));
+		values.add(new FilterValueApi("врождённое колдовство", "Врождённое колдовство"));
+		values.add(new FilterValueApi("использование заклинаний", "Использование заклинаний"));
+		values.add(new FilterValueApi("легендарное сопротивление", "Легендарное сопротивление"));
+		values.add(new FilterValueApi("легендарные действия", "legendary"));
+		values.add(new FilterValueApi("логово", "lair"));
+		featureFilter.setValues(values);
+		otherFilters.add(featureFilter);
+		
 		FilterApi environmentFilter = new FilterApi("Места обитания", "environment");
 		environmentFilter.setValues(
 				HabitatType.types().stream()
