@@ -105,7 +105,6 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
     import ClassSquare from "@/components/UI/ClassSquare";
     import DetailTopBar from "@/components/UI/DetailTopBar";
 
@@ -114,7 +113,6 @@
         components: {
             DetailTopBar,
             ClassSquare,
-            SvgIcon
         },
         props: {
             spell: {

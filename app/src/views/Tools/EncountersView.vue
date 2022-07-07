@@ -88,7 +88,6 @@
 <script>
     import ContentLayout from "@/components/content/ContentLayout";
     import errorHandler from "@/common/helpers/errorHandler";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import RawContent from "@/components/content/RawContent";
     import throttle from 'lodash/throttle';
 
@@ -100,7 +99,7 @@
         name: "EncountersView",
         components: {
             FormButton,
-            FieldSelect, RawContent, FieldCheckbox, ContentLayout
+            FieldSelect, RawContent, ContentLayout
         },
         data: () => ({
             controller: undefined,

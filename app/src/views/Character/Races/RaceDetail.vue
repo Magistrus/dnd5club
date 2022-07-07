@@ -23,7 +23,6 @@
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useRacesStore } from '@/store/Character/RacesStore';
-    import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import RaceBody from "@/views/Character/Races/RaceBody";
     import ContentDetail from "@/components/content/ContentDetail";
@@ -33,7 +32,7 @@
     export default {
         name: 'RaceDetail',
         components: {
-            ContentDetail, RaceBody, RawContent, SectionHeader
+            ContentDetail, RaceBody, SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRace(to.path);

@@ -15,7 +15,6 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
     import DetailTopBar from "@/components/UI/DetailTopBar";
     import RawContent from "@/components/content/RawContent";
 
@@ -24,7 +23,6 @@
         components: {
             RawContent,
             DetailTopBar,
-            SvgIcon
         },
         props: {
             screen: {

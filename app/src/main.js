@@ -11,8 +11,6 @@ import VueTippyConfig from '@/common/utils/VueTippyConfig';
 import App from '@/App';
 import router from './router';
 import '@/common/utils/BaseScripts';
-import 'swiper/css';
-import 'swiper/css/bundle';
 import '@/assets/styles/index.scss';
 
 const app = createApp(App);
