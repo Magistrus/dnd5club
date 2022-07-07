@@ -58,12 +58,11 @@
 
 <script>
     import RawContent from "@/components/content/RawContent";
-    import DiceRoller from "@/components/UI/DiceRoller";
     import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {
         name: "ArmorBody",
-        components: { DetailTopBar, DiceRoller, RawContent },
+        components: { DetailTopBar, RawContent },
         props: {
             armor: {
                 type: Object,

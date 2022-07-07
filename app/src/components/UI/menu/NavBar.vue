@@ -94,7 +94,6 @@
 
 <script>
     import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher.vue';
-    import SvgIcon from "@/components/UI/SvgIcon";
     import SiteLogo from "@/components/UI/SiteLogo";
     import NavProfile from "@/components/UI/menu/NavProfile";
     import { mapActions, mapState } from "pinia";
@@ -103,7 +102,7 @@
     export default {
         name: "NavBar",
         components: {
-            NavProfile, SiteLogo, MenuThemeSwitcher, SvgIcon
+            NavProfile, SiteLogo, MenuThemeSwitcher
         },
         props: {
             section: {

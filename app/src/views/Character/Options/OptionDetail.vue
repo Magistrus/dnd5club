@@ -24,7 +24,6 @@
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useOptionsStore } from '@/store/Character/OptionsStore';
-    import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionBody from "@/views/Character/Options/OptionBody";
     import ContentDetail from "@/components/content/ContentDetail";
@@ -34,7 +33,7 @@
     export default {
         name: 'OptionDetail',
         components: {
-            ContentDetail, OptionBody, RawContent, SectionHeader
+            ContentDetail, OptionBody, SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewOption(to.path);

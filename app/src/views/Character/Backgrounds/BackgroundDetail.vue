@@ -21,7 +21,6 @@
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useBackgroundsStore } from '@/store/Character/BackgroundsStore';
-    import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import BackgroundBody from "@/views/Character/Backgrounds/BackgroundBody";
     import ContentDetail from "@/components/content/ContentDetail";
@@ -31,7 +30,7 @@
     export default {
         name: 'BackgroundDetail',
         components: {
-            ContentDetail, BackgroundBody, RawContent, SectionHeader
+            ContentDetail, BackgroundBody, SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBackground(to.path);

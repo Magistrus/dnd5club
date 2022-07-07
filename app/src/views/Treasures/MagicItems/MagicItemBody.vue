@@ -54,6 +54,7 @@
         :imgs="magicItem.images"
         :index="gallery.index"
         :visible="gallery.show"
+        :teleport="'body'"
         loop
         move-disabled
         scroll-disabled
@@ -64,7 +65,6 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
 
@@ -73,7 +73,6 @@
         components: {
             DetailTopBar,
             RawContent,
-            SvgIcon
         },
         props: {
             magicItem: {
@@ -84,7 +83,7 @@
         },
         data: () => ({
             gallery: {
-                index: 0,
+                index: null,
                 show: false,
             }
         }),
