@@ -256,6 +256,7 @@
             background-color: var(--bg-secondary);
             position: sticky;
             margin-left: auto;
+            z-index: 12;
 
             @media (max-width: 1200px) {
                 width: 100%;
