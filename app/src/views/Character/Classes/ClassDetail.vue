@@ -10,17 +10,12 @@
                 @close="close"
             />
 
-            <swiper
-                v-if="tabs.list.length"
-                :free-mode="true"
-                :modules="tabs.modules"
-                :mousewheel="false"
-                :scrollbar="{ draggable: true, hide: true, snapOnRelease: true }"
-                :slides-per-view="'auto'"
+            <div
+                v-if="tabs.length"
                 class="class-detail__tabs"
             >
-                <swiper-slide
-                    v-for="(tab, tabKey) in tabs.list"
+                <div
+                    v-for="(tab, tabKey) in tabs"
                     :key="tabKey"
                     :class="{ 'is-active': currentTab?.name === tab.name, 'is-only-icon': !tab.name }"
                     class="class-detail__tab"
@@ -36,40 +31,17 @@
                     >
                         {{ tab.name }}
                     </div>
-                </swiper-slide>
-            </swiper>
+                </div>
+            </div>
         </template>
 
         <template #default>
             <div
-                v-if="loading"
-                class="class-detail__content"
-            >
-                <div class="class-detail__loader">
-                    <div class="class-detail__loader_img">
-                        <img
-                            v-lazy="'/img/loader.png'"
-                            alt=""
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <div
-                v-else-if="error"
-                class="class-detail__content"
-            >
-                <div class="class-detail__err">
-                    err
-                </div>
-            </div>
-
-            <div
-                v-else-if="currentClass"
+                v-if="currentClass"
                 class="class-detail__content"
             >
                 <div
-                    v-if="currentTab && currentTab.type !== 'spells' && currentTab.type !== 'options'"
+                    v-if="currentTab?.type !== 'spells' && currentTab?.type !== 'options'"
                     ref="classBody"
                     class="class-detail__body"
                 >
@@ -90,14 +62,16 @@
                             <template #placeholder>
                                 --- Архетипы ---
                             </template>
+
+                            <template #option="{ option }">
+                                <span @click.left.exact.prevent="goToArchetype(option.url)">{{ option.name }}</span>
+                            </template>
                         </field-select>
                     </div>
 
                     <div class="class-detail__body--inner">
                         <raw-content
                             :url="currentTab.url"
-                            @loaded="initScrollListeners"
-                            @before-unmount="removeScrollListeners"
                         />
                     </div>
                 </div>
@@ -120,6 +94,7 @@
                 :imgs="currentClass?.images"
                 :index="gallery.index"
                 :visible="gallery.show"
+                :teleport="'body'"
                 loop
                 move-disabled
                 scroll-disabled
@@ -132,10 +107,6 @@
 </template>
 
 <script>
-    import { Swiper, SwiperSlide } from 'swiper/vue';
-    import {
-        A11y, FreeMode, Mousewheel, Scrollbar
-    } from 'swiper';
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useClassesStore } from '@/store/Character/ClassesStore';
@@ -158,8 +129,6 @@
             FieldSelect,
             SvgIcon,
             SectionHeader,
-            Swiper,
-            SwiperSlide,
         },
         async beforeRouteUpdate(to, from, next) {
             this.removeScrollListeners();
@@ -174,13 +143,10 @@
             error: false,
             currentClass: undefined,
             currentTab: undefined,
-            tabs: {
-                list: [],
-                modules: [FreeMode, Scrollbar, Mousewheel, A11y]
-            },
+            tabs: [],
             gallery: {
                 show: false,
-                index: 0,
+                index: null,
             },
         }),
         computed: {
@@ -237,7 +203,7 @@
                     this.error = false;
                     this.loading = true;
                     this.currentTab = undefined;
-                    this.tabs.list = [];
+                    this.tabs = [];
                     this.images = {
                         show: false,
                         index: 0
@@ -256,13 +222,13 @@
             },
 
             async initTabs(loadedClass) {
-                this.tabs.list = loadedClass.tabs;
+                this.tabs = loadedClass.tabs;
 
                 if (loadedClass.images) {
-                    this.tabs.list.push({
+                    this.tabs.push({
                         type: 'images',
                         order: this.tabs.length,
-                        callback: () => this.showGallery
+                        callback: this.showGallery
                     });
                 }
 
@@ -273,7 +239,7 @@
                 try {
                     this.loading = true;
 
-                    this.currentTab = this.tabs.list[index];
+                    this.currentTab = this.tabs[index];
                     this.loading = false;
 
                     this.$nextTick(() => {

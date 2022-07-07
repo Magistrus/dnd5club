@@ -228,7 +228,7 @@
                 position: sticky;
                 bottom: 0;
                 margin: 0 -16px;
-                z-index: 16;
+                //z-index: 16;
                 opacity: 0;
                 background-color: var(--bg-main);
                 transition: opacity 0.2s;
@@ -256,7 +256,6 @@
             background-color: var(--bg-secondary);
             position: sticky;
             margin-left: auto;
-            z-index: 16;
 
             @media (max-width: 1200px) {
                 width: 100%;
@@ -276,6 +275,7 @@
                 top: 0;
                 left: 0;
                 margin: auto;
+                z-index: 16;
 
                 @media (max-width: 1200px) {
                     height: calc(var(--max-vh) - 56px);

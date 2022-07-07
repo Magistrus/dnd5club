@@ -21,7 +21,6 @@
 <script>
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useTraitsStore } from '@/store/Character/TraitsStore';
-    import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import TraitBody from "@/views/Character/Traits/TraitBody";
     import ContentDetail from "@/components/content/ContentDetail";
@@ -31,7 +30,7 @@
     export default {
         name: 'TraitDetail',
         components: {
-            ContentDetail, TraitBody, RawContent, SectionHeader
+            ContentDetail, TraitBody, SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewTrait(to.path);
