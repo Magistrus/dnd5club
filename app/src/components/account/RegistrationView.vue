@@ -51,12 +51,11 @@
 
 <script>
     import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import FormButton from "@/components/form/FormButton";
 
     export default {
         name: 'RegistrationView',
-        components: { FormButton, FieldCheckbox, FieldInput },
+        components: { FormButton, FieldInput },
         data: () => ({
             username: '',
             email: '',
