@@ -21,7 +21,7 @@ public class FilterApi {
 	private List<FilterApi> sources;
 	private List<FilterApi> other;
 	private List<FilterApi> custom;
-		private List<FilterValueApi> values;
+	private List<FilterValueApi> values;
 	
 	public FilterApi(String key) {
 		this.key = key;
