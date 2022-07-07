@@ -150,7 +150,7 @@ public class TraitApiController {
 		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
 		homebrewFilter.setValues(
 				traitRepository.findBook(TypeBook.CUSTOM).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.FALSE, book.getName()))
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
 				.collect(Collectors.toList()));
 		sources.add(homebrewFilter);
 		filters.setSources(sources);
