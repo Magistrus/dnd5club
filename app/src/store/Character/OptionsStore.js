@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import cloneDeep from 'lodash/cloneDeep';
+import isArray from 'lodash/isArray';
 
 const DB_NAME = 'options';
 const http = new HTTPService();
@@ -18,7 +18,6 @@ export const useOptionsStore = defineStore('OptionsStore', {
             end: false,
             url: '/options',
         },
-        customFilter: undefined,
         controllers: {
             optionsQuery: undefined,
             optionInfoQuery: undefined
@@ -31,7 +30,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
     },
 
     actions: {
-        async initFilter(storeKey, customFilter) {
+        async initFilter(storeKey, url) {
             try {
                 this.clearFilter();
                 this.clearCustomFilter();
@@ -40,16 +39,11 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
                 const filterOptions = {
                     dbName: DB_NAME,
-                    url: '/filters/options'
+                    url: url || '/filters/options'
                 }
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
-                }
-
-                if (customFilter) {
-                    filterOptions.customFilter = customFilter;
-                    this.customFilter = cloneDeep(customFilter);
                 }
 
                 await this.filter.init(filterOptions);
@@ -90,10 +84,6 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     ...options
                 };
 
-                if (this.customFilter) {
-                    apiOptions.customFilter = this.customFilter;
-                }
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.optionsQuery.signal);
 
                 this.controllers.optionsQuery = undefined;
@@ -106,20 +96,20 @@ export const useOptionsStore = defineStore('OptionsStore', {
             }
         },
 
-        async initOptions(url) {
+        async initOptions(books) {
             this.clearConfig();
-
-            if (url) {
-                this.config.url = url
-            }
 
             const config = {
                 page: this.config.page,
                 limit: this.config.limit,
             }
 
-            if (this.filter && this.filter.isCustomized) {
+            if (this.filter) {
                 config.filter = this.filter.getQueryParams;
+            }
+
+            if (isArray(books) && books.length) {
+                config.filter.book = books;
             }
 
             const options = await this.optionsQuery(config);

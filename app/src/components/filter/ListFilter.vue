@@ -76,11 +76,12 @@
                         />
 
                         <filter-item-checkboxes
-                            v-for="(block, blockKey) in otherFilters"
+                            v-for="(block, blockKey) in otherFiltered"
                             :key="blockKey"
                             :model-value="block.values"
                             :name="block.name"
-                            @update:model-value="setOtherValue($event, blockKey)"
+                            :expand="block.expand"
+                            @update:model-value="setOtherValue($event, block.key)"
                         />
                     </div>
                 </div>
@@ -162,9 +163,13 @@
                 }
             },
 
-            otherFilters: {
+            otherFilters() {
+                return this.filter?.other || this.filter || [];
+            },
+
+            otherFiltered: {
                 get() {
-                    return this.filter?.other || this.filter || [];
+                    return this.otherFilters.filter(filter => !filter.hidden);
                 },
 
                 set(value) {
@@ -185,9 +190,6 @@
                 return this.filterInstance.isCustomized;
             },
         },
-        mounted() {
-            this.isMounted = true;
-        },
         beforeUnmount() {
             this.cancelEmits();
         },
@@ -199,12 +201,15 @@
                 };
             },
 
-            setOtherValue(value, index) {
+            setOtherValue(value, key) {
                 const otherFilters = cloneDeep(this.otherFilters);
+                const index = otherFilters.findIndex(filter => filter.key === key);
 
-                otherFilters[index].values = value;
+                if (index > -1) {
+                    otherFilters[index].values = value;
 
-                this.otherFilters = otherFilters;
+                    this.otherFilters = otherFilters;
+                }
             },
 
             async resetFilter() {
