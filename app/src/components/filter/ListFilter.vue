@@ -163,13 +163,13 @@
                 }
             },
 
-            otherFilters() {
-                return this.filter?.other || this.filter || [];
+            otherFiltered() {
+                return this.otherFilters.filter(filter => !filter.hidden);
             },
 
-            otherFiltered: {
+            otherFilters: {
                 get() {
-                    return this.otherFilters.filter(filter => !filter.hidden);
+                    return this.filter?.other || this.filter || [];
                 },
 
                 set(value) {
