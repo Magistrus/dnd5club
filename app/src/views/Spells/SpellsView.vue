@@ -118,7 +118,7 @@
             },
 
             async nextPage() {
-                await this.spellsStore.nextPage();
+                await this.spellsStore.nextPage(this.books);
             }
         }
     }

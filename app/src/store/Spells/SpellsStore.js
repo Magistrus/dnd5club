@@ -121,7 +121,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
             this.config.end = spells.length < config.limit;
         },
 
-        async nextPage() {
+        async nextPage(books) {
             if (this.config.end) {
                 return
             }
@@ -131,8 +131,12 @@ export const useSpellsStore = defineStore('SpellsStore', {
                 limit: this.config.limit,
             }
 
-            if (this.filter && this.filter.isCustomized) {
+            if (this.filter) {
                 config.filter = this.filter.getQueryParams;
+            }
+
+            if (isArray(books) && books.length) {
+                config.filter.book = books;
             }
 
             const spells = await this.spellsQuery(config);
