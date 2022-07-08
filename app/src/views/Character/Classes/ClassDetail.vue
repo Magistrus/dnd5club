@@ -168,7 +168,7 @@
             },
 
             getClassesBooks() {
-                return this.classesStore.getFilter?.getQueryParams?.book || [];
+                return this.classesStore.getFilter?.getQueryParams?.book || undefined;
             },
 
             currentSelectArchetype() {
