@@ -414,12 +414,12 @@ public class SpellApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
 		otherFilters.add(getCompomemtsFilter());
-		filters.setOther(otherFilters);
 		
 		List<FilterApi> customFilters = new ArrayList<>();
 		FilterApi customFilter = new FilterApi();
 		customFilter.setName("Классы");
 		customFilter.setKey("class");
+		customFilter.setHidden(Boolean.TRUE);
 
 		FilterValueApi customValue = new FilterValueApi();
 		customValue.setLabel(heroClass.getCapitalazeName());
@@ -427,7 +427,9 @@ public class SpellApiConroller {
 		customValue.setKey(String.valueOf(heroClass.getId()));
 		customFilter.setValues(Collections.singletonList(customValue));
 		customFilters.add(customFilter);
-		filters.setCustom(customFilters);
+		otherFilters.add(customFilter);
+		
+		filters.setOther(otherFilters);
 		return filters;
 	}
 	
@@ -439,20 +441,24 @@ public class SpellApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
 		otherFilters.add(getCompomemtsFilter());
-		filters.setOther(otherFilters);
+
 		
 		List<FilterApi> customFilters = new ArrayList<>();
 		FilterApi customFilter = new FilterApi();
 		customFilter.setName("Классы");
 		customFilter.setKey("class");
-
+		customFilter.setHidden(Boolean.TRUE);
+		
 		FilterValueApi customValue = new FilterValueApi();
 		customValue.setLabel(heroClass.getCapitalazeName());
 		customValue.setDefaultValue(Boolean.TRUE);
 		customValue.setKey(String.valueOf(heroClass.getId()));
 		customFilter.setValues(Collections.singletonList(customValue));
 		customFilters.add(customFilter);
-		filters.setCustom(customFilters);
+		otherFilters.add(customFilter);
+		
+		filters.setOther(otherFilters);
+
 		return filters;
 	}
 	
