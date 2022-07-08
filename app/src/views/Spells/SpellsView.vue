@@ -43,11 +43,11 @@
                 default: ''
             },
             filterUrl: {
-                type: String,
+                type: [String, undefined],
                 default: undefined
             },
             books: {
-                type: Array,
+                type: [Array, undefined],
                 default: undefined
             }
         },

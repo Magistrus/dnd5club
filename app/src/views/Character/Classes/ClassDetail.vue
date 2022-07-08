@@ -89,6 +89,7 @@
                 <options-view
                     v-else-if="currentTab.type === 'options'"
                     :filter-url="currentTab.url"
+                    :books="getClassesBooks"
                     :store-key="getStoreKey"
                     in-tab
                 />
@@ -167,7 +168,7 @@
             },
 
             getClassesBooks() {
-                return this.classesStore.getFilter?.getQueryParams?.book
+                return this.classesStore.getFilter?.getQueryParams?.book || undefined;
             },
 
             currentSelectArchetype() {
