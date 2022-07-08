@@ -77,7 +77,7 @@ public class ClassApiController {
 			return ResponseEntity.notFound().build();
 		}
 		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace('_', ' '))).findFirst().get();
-		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, heroClass.getId());
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, archetype.getId());
 		return ResponseEntity.ok(new ClassInfoApiDto(archetype, images));
 	}
 	
