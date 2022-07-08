@@ -80,12 +80,15 @@
 
                 <spells-view
                     v-else-if="currentTab.type === 'spells'"
+                    :filter-url="currentTab.url"
+                    :books="getClassesBooks"
                     :store-key="getStoreKey"
                     in-tab
                 />
 
                 <options-view
                     v-else-if="currentTab.type === 'options'"
+                    :filter-url="currentTab.url"
                     :store-key="getStoreKey"
                     in-tab
                 />
@@ -161,6 +164,10 @@
             getStoreKey() {
                 return `${ this.currentClass.name.eng + this.currentTab.type + this.currentTab.order }`
                     .replaceAll(' ', '')
+            },
+
+            getClassesBooks() {
+                return this.classesStore.getFilter?.getQueryParams?.book
             },
 
             currentSelectArchetype() {

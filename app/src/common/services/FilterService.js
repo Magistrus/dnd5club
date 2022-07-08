@@ -156,12 +156,6 @@ export default class FilterService {
                 await this.store.setItem(this.storeKey, restored);
             }
 
-            if (opts.customFilter) {
-                await setStore(opts.customFilter);
-
-                return;
-            }
-
             const resp = await this.http.post(opts.url);
 
             if (!resp.data || resp.status !== 200) {

@@ -14,7 +14,6 @@ export const useClassesStore = defineStore('ClassesStore', {
     state: () => ({
         classes: [],
         filter: undefined,
-        tabFilters: {},
         config: {
             page: 0,
             url: '/classes',
@@ -145,23 +144,6 @@ export const useClassesStore = defineStore('ClassesStore', {
                 const { data } = await http.post(url, {}, this.controllers.classInfoQuery.signal);
 
                 this.controllers.classInfoQuery = undefined;
-
-                for (const tab of data.tabs) {
-                    if (!tab.url?.startsWith('/filters')) {
-                        continue;
-                    }
-
-                    const res = await http.post(tab.url);
-
-                    if (res.status === 200) {
-                        this.tabFilters[`${ tab.icon }${ tab.order }`] = {
-                            other: {
-                                ...res.data.other,
-                                ...res.data.custom
-                            }
-                        };
-                    }
-                }
 
                 return {
                     ...data,
