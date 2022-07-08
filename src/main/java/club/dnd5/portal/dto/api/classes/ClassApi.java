@@ -23,7 +23,7 @@ public class ClassApi {
 	private String url;
 	private SourceApi source;
 	private String dice;
-	private List<ArchetypeApiDto> archetypes;
+	private List<NamedListApi> archetypes;
 	private GroupApi group;
 	private String image;
 	private String icon;
@@ -38,11 +38,11 @@ public class ClassApi {
 			archetypes = heroClass.getArchetypes().stream()
 					.filter(a -> a.getName().toUpperCase().contains((request.getSearch().getValue().toUpperCase())) || a
 							.getEnglishName().toUpperCase().contains((request.getSearch().getValue().toUpperCase())))
-					.map(ArchetypeApiDto::new)
+					.map(NamedListApi::new)
 					.collect(Collectors.toList());
 		} else {
 			archetypes = heroClass.getArchetypes()
-					.stream().map(ArchetypeApiDto::new)
+					.stream().map(NamedListApi::new)
 					.collect(Collectors.toList());
 		}
 		if (heroClass.isSidekick()) {

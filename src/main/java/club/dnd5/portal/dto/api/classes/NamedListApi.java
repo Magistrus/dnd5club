@@ -5,13 +5,13 @@ import club.dnd5.portal.model.classes.archetype.Archetype;
 import lombok.Getter;
 
 @Getter
-public class ArchetypeApiDto {
+public class NamedListApi {
 	private NameApi name;
 	private SourceTypeApi type;
 	private SourceApi source;
 	private String url;
 
-	public ArchetypeApiDto(Archetype archetype) {
+	public NamedListApi(Archetype archetype) {
 		name = new NameApi(archetype.getCapitalizeName(), archetype.getEnglishName());
 		type = new SourceTypeApi(archetype.getBook().getType().getName(), archetype.getBook().getType().ordinal());
 		source = new SourceApi(archetype.getBook());
