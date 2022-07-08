@@ -237,7 +237,7 @@ public class SpellApiConroller {
 	@GetMapping(value = "/api/fvtt/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
 	public SpellsFvtt getSpells(String search, String exact){
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
+		List<Column> columns = new ArrayList<>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
