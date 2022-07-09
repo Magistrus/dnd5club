@@ -117,7 +117,7 @@
             },
 
             async onSearch() {
-                this.optionsQuery()
+                await this.optionsQuery()
                 if (this.options.length === 1 && !this.getIsMobile) {
                     await this.$router.push({ path: this.options[0].url })
                 }

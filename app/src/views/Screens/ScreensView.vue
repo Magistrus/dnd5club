@@ -2,7 +2,7 @@
     <content-layout
         :filter-instance="getFilter"
         :show-right-side="showRightSide"
-        @search="screensQuery"
+        @search="onSearch"
         @list-end="nextPage"
     >
         <div
@@ -56,6 +56,13 @@
 
             async screensQuery() {
                 await this.initScreens();
+            },
+
+            async onSearch() {
+                await this.screensQuery()
+                if (this.getScreens.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.getScreens[0].url })
+                }
             },
         }
     }
