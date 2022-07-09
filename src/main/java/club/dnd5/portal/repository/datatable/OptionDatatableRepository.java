@@ -17,10 +17,10 @@ import club.dnd5.portal.model.classes.Option.OptionType;
 public interface OptionDatatableRepository extends DataTablesRepository<Option, Integer> {
 	Option findByEnglishName(String name);
 
-	@Query("SELECT o.prerequisite FROM Option o WHERE o.prerequisite IS NOT NULL GROUP BY o.prerequisite")
+	@Query("SELECT o.prerequisite FROM Option o WHERE o.prerequisite IS NOT NULL GROUP BY o.prerequisite ORDER BY o.prerequisite")
 	Collection<String> findAlldPrerequisite();
 
-	@Query("SELECT o.prerequisite FROM Option o JOIN o.optionTypes t WHERE o.prerequisite IS NOT NULL AND t =:type GROUP BY o.prerequisite")
+	@Query("SELECT o.prerequisite FROM Option o JOIN o.optionTypes t WHERE o.prerequisite IS NOT NULL AND t =:type GROUP BY o.prerequisite ORDER BY o.prerequisite")
 	Collection<String> findAlldPrerequisite(@Param("type") OptionType type);
 	
 	@Query("SELECT c.book FROM Option c GROUP BY c.book HAVING c.book.type = :type ORDER BY c.book.year")

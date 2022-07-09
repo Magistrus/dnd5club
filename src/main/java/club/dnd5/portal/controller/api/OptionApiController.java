@@ -260,7 +260,6 @@ public class OptionApiController {
 	}
 	
 	private FilterApi getPrerequsitFilter(Collection<String> prerequisite) {
-
 		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
 		if (prerequisite.size() == 1) {
 			prerequisiteFilter.setHidden(Boolean.TRUE);

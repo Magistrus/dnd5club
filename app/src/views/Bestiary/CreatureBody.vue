@@ -59,7 +59,7 @@
                             v-tippy="'Сила'"
                         >СИЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.str }}</p>
+                    <p>{{ creature.ability.str }} ()</p>
                 </div>
 
                 <div class="scores__stats dexterity">
@@ -363,7 +363,7 @@
                 const speeds = [];
 
                 for (const speed of this.creature.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value }фт.`)
+                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`)
                 }
 
                 return speeds.join(', ')
