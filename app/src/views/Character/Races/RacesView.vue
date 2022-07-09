@@ -2,7 +2,7 @@
     <content-layout
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="racesQuery"
+        @search="onSearch"
         @update="racesQuery"
     >
         <div
@@ -58,6 +58,15 @@
             async racesQuery() {
                 await this.initRaces();
             },
+
+            async onSearch() {
+                await this.racesQuery();
+                this.$nextTick(async () => {
+                    if (this.getRaces.length === 1 && !this.getIsMobile) {
+                        await this.$router.push({ path: this.getRaces[0].url })
+                    }
+                });
+            }
         }
     }
 </script>

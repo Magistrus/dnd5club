@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="spellsQuery"
+        @search="onSearch"
         @update="spellsQuery"
         @list-end="nextPage"
     >
@@ -119,6 +119,15 @@
 
             async nextPage() {
                 await this.spellsStore.nextPage(this.books);
+            },
+
+            async onSearch() {
+                await this.spellsStore.initSpells(this.books);
+                this.$nextTick(async () => {
+                    if (this.spells.length === 1 && !this.getIsMobile) {
+                        await this.$router.push({ path: this.spells[0].url })
+                    }
+                });
             }
         }
     }

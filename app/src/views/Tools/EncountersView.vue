@@ -50,7 +50,8 @@
                         Очистить
                     </form-button>
 
-                    <form-button @click.left.exact.prevent="results = []">
+                    <form-button @click.left.exact.prevent="results = []"
+                                 v-if="isTableDisabled">
                         Показать таблицу
                     </form-button>
                 </div>
@@ -112,6 +113,9 @@
             }
         }),
         computed: {
+            isTableDisabled() {
+                return this.level && this.env;
+            },
             level: {
                 get() {
                     if (!this.form.level) {
