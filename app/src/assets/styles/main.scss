@@ -630,3 +630,25 @@
     z-index: -1;
   }
 }
+
+.bestiary_h5 {
+  h5 {
+    float: left;
+    margin-right: 4px;
+    position: relative;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-color-title);
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: -6px;
+      top: 5px;
+      width: 2px;
+      height: 10px;
+      background: var(--text-color-title);
+    }
+  }
+}
