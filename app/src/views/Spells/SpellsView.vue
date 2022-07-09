@@ -123,11 +123,9 @@
 
             async onSearch() {
                 await this.spellsStore.initSpells(this.books);
-                this.$nextTick(async () => {
-                    if (this.spells.length === 1 && !this.getIsMobile) {
-                        await this.$router.push({ path: this.spells[0].url })
-                    }
-                });
+                if (this.spells.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.spells[0].url })
+                }
             }
         }
     }

@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="optionsQuery"
+        @search="onSearch"
         @update="optionsQuery"
     >
         <option-link
@@ -114,6 +114,13 @@
             async init() {
                 await this.optionsStore.initFilter(this.storeKey, this.filterUrl);
                 await this.optionsStore.initOptions(this.books);
+            },
+
+            async onSearch() {
+                this.optionsQuery()
+                if (this.options.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.options[0].url })
+                }
             }
         }
     }

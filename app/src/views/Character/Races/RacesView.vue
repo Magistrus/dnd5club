@@ -61,11 +61,9 @@
 
             async onSearch() {
                 await this.racesQuery();
-                this.$nextTick(async () => {
-                    if (this.getRaces.length === 1 && !this.getIsMobile) {
-                        await this.$router.push({ path: this.getRaces[0].url })
-                    }
-                });
+                if (this.getRaces.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.getRaces[0].url })
+                }
             }
         }
     }
