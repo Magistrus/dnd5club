@@ -402,10 +402,10 @@
 
                 if (this.creature.senses?.senses?.length) {
                     for (const sense of this.creature.senses.senses) {
-                        const index = senses.push(`${ sense.name } ${ sense.value }`);
+                        const index = senses.push(`${ sense.name } ${ sense.value } фт.`);
 
                         if (sense.additional) {
-                            senses[index - 1] += `(${ sense.additional })`;
+                            senses[index - 1] += ` (${ sense.additional })`;
                         }
                     }
                 }
