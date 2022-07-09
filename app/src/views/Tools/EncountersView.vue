@@ -50,8 +50,10 @@
                         Очистить
                     </form-button>
 
-                    <form-button @click.left.exact.prevent="results = []"
-                                 v-if="isTableDisabled">
+                    <form-button
+                        v-if="isTableDisabled"
+                        @click.left.exact.prevent="results = []"
+                    >
                         Показать таблицу
                     </form-button>
                 </div>
