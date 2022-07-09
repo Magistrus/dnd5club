@@ -6,47 +6,52 @@
   display: inline;
   cursor: auto;
 
-  .tippy-box[data-theme~=dnd5club] {
-    background-color: rgb(29, 33, 36);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+  .tippy-box {
+    &[data-theme~=dnd5club] {
+      background-color: rgb(29, 33, 36);
+      border: 1px solid var(--border);
+      border-radius: 8px;
 
-    & > .tippy-backdrop {
-      background-color: rgb(29, 33, 36)
-    }
-
-    & > .tippy-content {
-      max-height: 320px;
-      overflow: auto;
-      color: var(--text-btn-color);
-      line-height: 16px;
-      font: {
-        size: 11px;
+      & > .tippy-backdrop {
+        background-color: rgb(29, 33, 36)
       }
 
-      > * {
+      & > .tippy-content {
+        max-height: 320px;
+        overflow: auto;
+        color: var(--text-btn-color);
+        line-height: 16px;
         padding: 10px;
+        font: {
+          size: 11px;
+        }
+      }
+
+      & > .tippy-svg-arrow {
+        fill: rgb(29, 33, 36)
+      }
+
+      &[data-placement^=top] > .tippy-arrow:before {
+        border-top-color: rgb(29, 33, 36)
+      }
+
+      &[data-placement^=bottom] > .tippy-arrow:before {
+        border-bottom-color: rgb(29, 33, 36)
+      }
+
+      &[data-placement^=left] > .tippy-arrow:before {
+        border-left-color: rgb(29, 33, 36)
+      }
+
+      &[data-placement^=right] > .tippy-arrow:before {
+        border-right-color: rgb(29, 33, 36)
       }
     }
 
-    & > .tippy-svg-arrow {
-      fill: rgb(29, 33, 36)
-    }
-
-    &[data-placement^=top] > .tippy-arrow:before {
-      border-top-color: rgb(29, 33, 36)
-    }
-
-    &[data-placement^=bottom] > .tippy-arrow:before {
-      border-bottom-color: rgb(29, 33, 36)
-    }
-
-    &[data-placement^=left] > .tippy-arrow:before {
-      border-left-color: rgb(29, 33, 36)
-    }
-
-    &[data-placement^=right] > .tippy-arrow:before {
-      border-right-color: rgb(29, 33, 36)
+    &[data-theme~=no-padding] {
+      & > .tippy-content {
+        padding: 0;
+      }
     }
   }
 }

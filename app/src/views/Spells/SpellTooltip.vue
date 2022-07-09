@@ -1,5 +1,8 @@
 <template>
-    <tippy v-bind="tippyConfig">
+    <tippy
+        v-bind="tippyConfig"
+        theme="dnd5club no-padding"
+    >
         <template #default>
             <slot name="default"/>
         </template>
@@ -75,7 +78,9 @@
 </script>
 
 <style lang="scss" scoped>
-    .spell-tooltip {
-        width: 100%;
+    >>> [data-theme~=dnd5club] {
+        & > .tippy-content {
+            padding: 0;
+        }
     }
 </style>
