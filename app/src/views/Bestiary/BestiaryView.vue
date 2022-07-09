@@ -114,11 +114,9 @@
 
             async onSearch() {
                 await this.bestiaryStore.initBestiary();
-                this.$nextTick(async () => {
-                    if (this.bestiary.length === 1 && !this.getIsMobile) {
-                        await this.$router.push({ path: this.bestiary[0].url })
-                    }
-                });
+                if (this.bestiary.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.bestiary[0].url })
+                }
             }
         }
     }
