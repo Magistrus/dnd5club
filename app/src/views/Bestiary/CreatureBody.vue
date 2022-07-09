@@ -39,8 +39,11 @@
                 <p>
                     <strong>Хиты </strong>
 
-                    <!-- eslint-disable-next-line max-len -->
-                    <span>{{ creature.hits.average }} ({{ creature.hits.formula }}) {{
+                    <span>{{
+                        creature.hits.average
+                    }} {{
+                        creature.hits.formula ? `(${creature.hits.formula})` : ''
+                    }} {{
                         creature.hits.text || ''
                     }}</span>
                 </p>
@@ -352,7 +355,19 @@
         computed: {
             topBarLeftString() {
                 // eslint-disable-next-line max-len
-                return `${ this.creature.size.rus } ${ this.creature.type.name }${ this.creature.type.tags?.length ? ` (${ this.creature.type.tags.join(', ') })` : '' }, ${ this.creature.alignment } / ${ this.creature.size.eng } ${ this.creature.size.cell }`
+                return `${
+                    this.creature.size.rus
+                } ${
+                    this.creature.type.name
+                }${
+                    this.creature.type.tags?.length ? ` (${ this.creature.type.tags.join(', ') })` : ''
+                }, ${
+                    this.creature.alignment
+                } / ${
+                    this.creature.size.eng
+                } ${
+                    this.creature.size.cell
+                }`
             },
 
             speed() {
@@ -430,7 +445,8 @@
             },
 
             abilityBonus(ability) {
-                const bonus = Math.floor((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2)
+                const bonus = Math.floor((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2);
+
                 return Math.sign(bonus) > -1 ? `+${ bonus }` : bonus;
             },
         }

@@ -5,11 +5,15 @@ export default {
     defaultProps: {
         allowHTML: true,
         interactive: true,
-        sticky: 'reference',
+        hideOnClick: false,
+        sticky: true,
         theme: 'dnd5club',
         strategy: 'fixed',
         maxWidth: 450,
-        hideOnClick: false,
+        delay: [700, null],
+        interactiveBorder: 7,
+        touch: ['hold', 500],
+        appendTo: () => document.body,
         onClickOutside() {
             return false
         },
