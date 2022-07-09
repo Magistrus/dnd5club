@@ -182,6 +182,16 @@ public class BestiarytApiConroller {
 							(root, query, cb) -> cb.isNotNull(root.get("vibration")));
 				}
 			}
+			if (!request.getFilter().getFeatures().isEmpty()) {
+				for (String featureName : request.getFilter().getFeatures()) {
+					specification = SpecificationUtil.getAndSpecification(specification,  (root, query, cb) -> {
+						Join<Object, Object> join = root.join("feats", JoinType.INNER);
+						query.distinct(true);
+						cb.equal(join.get("name"), featureName);
+						return query.getRestriction();
+					});	
+				}
+			}
 		}
 		return beastRepository.findAll(input, specification, specification, BeastApi::new).getData();
 	}

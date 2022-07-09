@@ -32,7 +32,7 @@ public class ClassInfoApiDto {
 			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s", heroClass.getUrlName()), "spells", 2, false));
 		}
 		if (heroClass.getOptionType() != null) {
-			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/options", heroClass.getUrlName()), "options", 3, false));
+			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/filters/options/%s", heroClass.getUrlName()), "options", 3, false));
 		}
 	}
 
@@ -46,10 +46,10 @@ public class ClassInfoApiDto {
 			tabs.add(new ClassTabApiDto("Заклинания", String.format("/filters/spells/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "spells", 2, false));
 		}
 		if (heroClass.getOptionType() != null) {
-			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "options", 3, false));
+			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/filters/options/%s", heroClass.getUrlName()), "options", 3, false));
 		}
 		if (archetype.getOptionType() != null) {
-			tabs.add(new ClassTabApiDto(archetype.getOptionType().getDisplayName(), String.format("/classes/%s/%s/options", heroClass.getUrlName(), archetype.getUrlName()), "options", 4, false));
+			tabs.add(new ClassTabApiDto(archetype.getOptionType().getDisplayName(), String.format("/filters/options/%s/%s", heroClass.getUrlName(), archetype.getUrlName()), "options", 4, false));
 		}
 	}
 }

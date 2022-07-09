@@ -22,7 +22,7 @@ public class SpellFilter {
 	private List<String> books;
 	@JsonProperty("level")
 	private List<Integer> levels;
-    
+
     @JsonProperty("class") 
     private List<String> myclass;
 

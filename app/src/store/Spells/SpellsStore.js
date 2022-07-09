@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
+import isArray from 'lodash/isArray';
 
 const DB_NAME = 'spells';
 const http = new HTTPService();
@@ -29,7 +30,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
     },
 
     actions: {
-        async initFilter(storeKey, customFilter) {
+        async initFilter(storeKey, url) {
             try {
                 this.clearFilter();
                 this.clearCustomFilter();
@@ -38,15 +39,11 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 const filterOptions = {
                     dbName: DB_NAME,
-                    url: '/filters/spells'
+                    url: url || '/filters/spells'
                 }
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
-                }
-
-                if (customFilter) {
-                    filterOptions.customFilter = customFilter;
                 }
 
                 await this.filter.init(filterOptions);
@@ -102,20 +99,20 @@ export const useSpellsStore = defineStore('SpellsStore', {
             }
         },
 
-        async initSpells(url) {
+        async initSpells(books) {
             this.clearConfig();
-
-            if (url) {
-                this.config.url = url
-            }
 
             const config = {
                 page: this.config.page,
                 limit: this.config.limit,
             }
 
-            if (this.filter && this.filter.isCustomized) {
+            if (this.filter) {
                 config.filter = this.filter.getQueryParams;
+            }
+
+            if (isArray(books) && books.length) {
+                config.filter.book = books;
             }
 
             const spells = await this.spellsQuery(config);
@@ -124,7 +121,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
             this.config.end = spells.length < config.limit;
         },
 
-        async nextPage() {
+        async nextPage(books) {
             if (this.config.end) {
                 return
             }
@@ -134,8 +131,12 @@ export const useSpellsStore = defineStore('SpellsStore', {
                 limit: this.config.limit,
             }
 
-            if (this.filter && this.filter.isCustomized) {
+            if (this.filter) {
                 config.filter = this.filter.getQueryParams;
+            }
+
+            if (isArray(books) && books.length) {
+                config.filter.book = books;
             }
 
             const spells = await this.spellsQuery(config);

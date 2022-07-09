@@ -68,6 +68,10 @@
                 default: '',
                 required: true
             },
+            expand: {
+                type: Boolean,
+                default: false,
+            },
             modelValue: {
                 type: Array,
                 default: undefined
@@ -93,7 +97,7 @@
             },
         },
         beforeMount() {
-            this.opened = this.isFilterCustomized;
+            this.opened = this.isFilterCustomized || this.expand;
         },
         methods: {
             resetValues() {

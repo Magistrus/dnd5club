@@ -128,18 +128,18 @@ public class SpellApiConroller {
 					return cb.and(join.get("id").in(request.getFilter().getMyclass()));
 				});
 			}
-			if (!request.getFilter().getSchools().isEmpty()) {
+			if (request.getFilter().getSchools()!= null && !request.getFilter().getSchools().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(
 					specification, (root, query, cb) -> root.get("school").in(request.getFilter().getSchools().stream().map(MagicSchool::valueOf).collect(Collectors.toList())));
 			}
-			if (!request.getFilter().getDamageTypes().isEmpty()) {
+			if (request.getFilter().getDamageTypes() != null && !request.getFilter().getDamageTypes().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<DamageType, Spell> join = root.join("damageType", JoinType.LEFT);
 					query.distinct(true);
 					return join.in(request.getFilter().getDamageTypes().stream().map(DamageType::valueOf).collect(Collectors.toList()));
 				});
 			}
-			if (!request.getFilter().getRitual().isEmpty()) {
+			if (request.getFilter().getRitual() != null && !request.getFilter().getRitual().isEmpty()) {
 				if(request.getFilter().getRitual().contains("yes")) {
 					specification = SpecificationUtil.getAndSpecification(specification,
 							(root, query, cb) -> cb.equal(root.get("ritual"), true));
@@ -149,7 +149,7 @@ public class SpellApiConroller {
 							(root, query, cb) -> cb.equal(root.get("ritual"), false));
 				}
 			}
-			if (!request.getFilter().getConcentration().isEmpty()) {
+			if (request.getFilter().getConcentration()!=null && !request.getFilter().getConcentration().isEmpty()) {
 				if(request.getFilter().getConcentration().contains("yes")) {
 					specification = SpecificationUtil.getAndSpecification(specification,
 							(root, query, cb) -> cb.equal(root.get("concentration"), true));
@@ -159,7 +159,7 @@ public class SpellApiConroller {
 							(root, query, cb) -> cb.equal(root.get("concentration"), false));
 				}
 			}
-			if (!request.getFilter().getComponents().isEmpty()) {
+			if (request.getFilter().getComponents() != null && !request.getFilter().getComponents().isEmpty()) {
 				if (request.getFilter().getComponents().contains("1")) {
 					specification = SpecificationUtil.getAndSpecification(specification,
 							(root, query, cb) -> cb.equal(root.get("verbalComponent"), true));
@@ -181,7 +181,7 @@ public class SpellApiConroller {
 							(root, query, cb) -> cb.equal(root.get("consumable"), false));
 				}
 			}
-			if (!request.getFilter().getTimecast().isEmpty()) {
+			if (request.getFilter().getTimecast() !=null && !request.getFilter().getTimecast().isEmpty()) {
 				for (String timecast : request.getFilter().getTimecast()) {
 					String[] parts = timecast.split("\\s");
 					int time = Integer.valueOf(parts[0]);
@@ -193,13 +193,13 @@ public class SpellApiConroller {
 					});
 				}
 			}
-			if (!request.getFilter().getDistance().isEmpty()) {
+			if (request.getFilter().getDistance()!= null && !request.getFilter().getDistance().isEmpty()) {
 				for (String distance : request.getFilter().getDistance()) {
 					specification = SpecificationUtil.getAndSpecification(specification,
 							(root, query, cb) -> cb.like(root.get("distance"), "%" + distance + "%"));
 				}
 			}
-			if (!request.getFilter().getDuration().isEmpty()) {
+			if (request.getFilter().getDuration() != null && !request.getFilter().getDuration().isEmpty()) {
 				for (String distance : request.getFilter().getDuration()) {
 					specification = SpecificationUtil.getAndSpecification(specification,
 							(root, query, cb) -> cb.like(root.get("duration"), "%" + distance + "%"));
@@ -237,7 +237,7 @@ public class SpellApiConroller {
 	@GetMapping(value = "/api/fvtt/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
 	public SpellsFvtt getSpells(String search, String exact){
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
+		List<Column> columns = new ArrayList<>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
@@ -323,7 +323,7 @@ public class SpellApiConroller {
 				Arrays.stream(MagicSchool.values())
 				 .map(school -> new FilterValueApi(school.getName(), school.name()))
 				 .collect(Collectors.toList()));
-		otherFilters.add(schoolSpellFilter);
+		otherFilters.add(getSchoolsFilter());
 
 		FilterApi ritualFilter = new FilterApi("Ритуал", "ritual");
 		List<FilterValueApi> values = new ArrayList<>(2);
@@ -414,12 +414,13 @@ public class SpellApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
 		otherFilters.add(getCompomemtsFilter());
-		filters.setOther(otherFilters);
-		
+		otherFilters.add(getSchoolsFilter());
+
 		List<FilterApi> customFilters = new ArrayList<>();
 		FilterApi customFilter = new FilterApi();
 		customFilter.setName("Классы");
 		customFilter.setKey("class");
+		customFilter.setHidden(Boolean.TRUE);
 
 		FilterValueApi customValue = new FilterValueApi();
 		customValue.setLabel(heroClass.getCapitalazeName());
@@ -427,7 +428,9 @@ public class SpellApiConroller {
 		customValue.setKey(String.valueOf(heroClass.getId()));
 		customFilter.setValues(Collections.singletonList(customValue));
 		customFilters.add(customFilter);
-		filters.setCustom(customFilters);
+		otherFilters.add(customFilter);
+		
+		filters.setOther(otherFilters);
 		return filters;
 	}
 	
@@ -439,20 +442,24 @@ public class SpellApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
 		otherFilters.add(getCompomemtsFilter());
-		filters.setOther(otherFilters);
+		otherFilters.add(getSchoolsFilter());
 		
 		List<FilterApi> customFilters = new ArrayList<>();
 		FilterApi customFilter = new FilterApi();
 		customFilter.setName("Классы");
 		customFilter.setKey("class");
-
+		customFilter.setHidden(Boolean.TRUE);
+		
 		FilterValueApi customValue = new FilterValueApi();
 		customValue.setLabel(heroClass.getCapitalazeName());
 		customValue.setDefaultValue(Boolean.TRUE);
 		customValue.setKey(String.valueOf(heroClass.getId()));
 		customFilter.setValues(Collections.singletonList(customValue));
 		customFilters.add(customFilter);
-		filters.setCustom(customFilters);
+		otherFilters.add(customFilter);
+		
+		filters.setOther(otherFilters);
+
 		return filters;
 	}
 	
@@ -462,6 +469,15 @@ public class SpellApiConroller {
 				 .mapToObj(level -> new FilterValueApi(level == 0 ? "заговор" : String.valueOf(level),  String.valueOf(level)))
 				 .collect(Collectors.toList()));
 		return levelFilter;
+	}
+	
+	private FilterApi getSchoolsFilter() {
+		FilterApi schoolSpellFilter = new FilterApi("Школа", "school");
+		schoolSpellFilter.setValues(
+				Arrays.stream(MagicSchool.values())
+				 .map(school -> new FilterValueApi(school.getName(), school.name()))
+				 .collect(Collectors.toList()));
+		return schoolSpellFilter;
 	}
 	
 	private FilterApi getCompomemtsFilter() {

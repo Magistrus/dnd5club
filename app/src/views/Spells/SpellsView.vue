@@ -42,8 +42,12 @@
                 type: String,
                 default: ''
             },
-            customFilter: {
-                type: Object,
+            filterUrl: {
+                type: [String, undefined],
+                default: undefined
+            },
+            books: {
+                type: [Array, undefined],
                 default: undefined
             }
         },
@@ -81,7 +85,12 @@
                     await this.init();
                 }
             },
-            customFilter: {
+            filterUrl: {
+                async handler() {
+                    await this.init();
+                }
+            },
+            books: {
                 deep: true,
                 async handler() {
                     await this.init();
@@ -100,16 +109,16 @@
         },
         methods: {
             async init() {
-                await this.spellsStore.initFilter(this.storeKey, this.customFilter);
-                await this.spellsStore.initSpells();
+                await this.spellsStore.initFilter(this.storeKey, this.filterUrl);
+                await this.spellsStore.initSpells(this.books);
             },
 
             async spellsQuery() {
-                await this.spellsStore.initSpells();
+                await this.spellsStore.initSpells(this.books);
             },
 
             async nextPage() {
-                await this.spellsStore.nextPage();
+                await this.spellsStore.nextPage(this.books);
             }
         }
     }

@@ -2,6 +2,7 @@ package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +17,12 @@ import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.standard.expression.OrExpression;
 
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
@@ -28,9 +31,12 @@ import club.dnd5.portal.dto.api.classes.OptionDetailApi;
 import club.dnd5.portal.dto.api.classes.OptionRequesApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.splells.Spell;
+import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
@@ -40,6 +46,9 @@ public class OptionApiController {
 
 	@Autowired
 	private OptionDatatableRepository optionRepository;
+
+	@Autowired
+	private ClassRepository classRepository;
 	
 	@PostMapping(value = "/api/v1/options", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<OptionApi> getOptions(@RequestBody OptionRequesApi request) {
@@ -86,7 +95,7 @@ public class OptionApiController {
 			}
 		}
 		if (request.getFilter() != null) {
-			if (!request.getFilter().getBooks().isEmpty()) {
+			if (!CollectionUtils.isEmpty(request.getFilter().getBooks())) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
@@ -96,7 +105,7 @@ public class OptionApiController {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<OptionType, Option> join = root.join("optionTypes", JoinType.LEFT);
 					query.distinct(true);
-					return join.in(request.getFilter().getClassOption().stream().map(OptionType::valueOf).collect(Collectors.toList()));
+					return join.in(request.getFilter().getClassOption());
 				});
 			}
 			if (!request.getFilter().getLevels().isEmpty()) {
@@ -174,22 +183,85 @@ public class OptionApiController {
 				 .map(ability -> new FilterValueApi(ability.getName(), ability.name()))
 				 .collect(Collectors.toList()));
 		otherFilters.add(classOptionFilter);
+
+		otherFilters.add(getLevelsFilter());
+		otherFilters.add(getPrerequsitFilter());
 		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/options/{englishClassName}")
+	public FilterApi getByClassFilter(@PathVariable String englishClassName) {
+		FilterApi filters = new FilterApi();
+
+		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
+		List<FilterApi> otherFilters = new ArrayList<>();
+		otherFilters.add(getLevelsFilter());
+		otherFilters.add(getPrerequsitFilter());
+
+		List<FilterApi> customFilters = new ArrayList<>();
+		FilterApi customFilter = new FilterApi();
+		customFilter.setName("Классовые особености");
+		customFilter.setKey("classOption");
+		customFilter.setHidden(Boolean.TRUE);
+
+		FilterValueApi customValue = new FilterValueApi();
+		customValue.setLabel(heroClass.getCapitalazeName());
+		customValue.setDefaultValue(Boolean.TRUE);
+		customValue.setKey(heroClass.getOptionType().name());
+		customFilter.setValues(Collections.singletonList(customValue));
+		customFilters.add(customFilter);
+		otherFilters.add(customFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+	
+	@PostMapping("/api/v1/filters/options/{englishClassName}/{englishArchetypeName}")
+	public FilterApi getByArchitypeFilter(@PathVariable String englishClassName, @PathVariable String englishArchetypeName) {
+		FilterApi filters = new FilterApi();
+
+		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
+		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(englishArchetypeName.replace('_', ' '))).findFirst().get();
+
+		List<FilterApi> otherFilters = new ArrayList<>();
+		otherFilters.add(getLevelsFilter());
+		otherFilters.add(getPrerequsitFilter());
+
+		List<FilterApi> customFilters = new ArrayList<>();
+		FilterApi customFilter = new FilterApi();
+		customFilter.setName("Классовые особености");
+		customFilter.setKey("classOption");
+		customFilter.setHidden(Boolean.TRUE);
+
+		FilterValueApi customValue = new FilterValueApi();
+		customValue.setLabel(heroClass.getCapitalazeName());
+		customValue.setDefaultValue(Boolean.TRUE);
+		customValue.setKey(archetype.getOptionType().name());
+		customFilter.setValues(Collections.singletonList(customValue));
+		customFilters.add(customFilter);
+		otherFilters.add(customFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
+	}
+
+	private FilterApi getLevelsFilter() {
 		FilterApi levelsFilter = new FilterApi("Требования к уровню", "levels");
 		levelsFilter.setValues(
 				Arrays.stream(prerequsitlevels)
 				 .map(value -> new FilterValueApi(value, value))
 				 .collect(Collectors.toList()));
-		otherFilters.add(levelsFilter);
-		
+		return levelsFilter;
+	}
+	
+	private FilterApi getPrerequsitFilter() {
 		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
 		prerequisiteFilter.setValues(
 				optionRepository.findAlldPrerequisite().stream()
 				 .map(ability -> new FilterValueApi(ability, ability))
 				 .collect(Collectors.toList()));
-		otherFilters.add(prerequisiteFilter);
-		
-		filters.setOther(otherFilters);
-		return filters;
+		return prerequisiteFilter;
 	}
 }

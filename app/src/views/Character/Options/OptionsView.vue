@@ -41,8 +41,12 @@
                 type: String,
                 default: ''
             },
-            customFilter: {
-                type: Object,
+            filterUrl: {
+                type: [String, undefined],
+                default: undefined
+            },
+            books: {
+                type: [Array, undefined],
                 default: undefined
             }
         },
@@ -80,7 +84,12 @@
                     await this.init();
                 }
             },
-            customFilter: {
+            filterUrl: {
+                async handler() {
+                    await this.init();
+                }
+            },
+            books: {
                 deep: true,
                 async handler() {
                     await this.init();
@@ -99,12 +108,12 @@
         },
         methods: {
             async optionsQuery() {
-                await this.optionsStore.initOptions();
+                await this.optionsStore.initOptions(this.books);
             },
 
             async init() {
-                await this.optionsStore.initFilter(this.storeKey, this.customFilter);
-                await this.optionsStore.initOptions();
+                await this.optionsStore.initFilter(this.storeKey, this.filterUrl);
+                await this.optionsStore.initOptions(this.books);
             }
         }
     }
