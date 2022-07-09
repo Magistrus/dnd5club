@@ -10,7 +10,7 @@ export default {
         theme: 'dnd5club',
         strategy: 'fixed',
         maxWidth: 450,
-        delay: [700, null],
+        delay: [450, null],
         interactiveBorder: 7,
         touch: ['hold', 500],
         appendTo: () => document.body,
