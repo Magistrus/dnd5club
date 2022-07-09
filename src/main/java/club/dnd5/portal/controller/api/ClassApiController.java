@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,7 @@ import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class ClassApiController {
@@ -46,14 +49,21 @@ public class ClassApiController {
 	
 	@PostMapping(value = "/api/v1/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ClassApi> getClasses(@RequestBody ClassRequestApi request) {
+		Specification<HeroClass> specification = null;
+		if (request.getFilter() != null) {
+			if (!CollectionUtils.isEmpty(request.getFilter().getHitdice())) {
+				specification = SpecificationUtil.getAndSpecification(specification,
+						(root, query, cb) -> root.get("diceHp").in(request.getFilter().getHitdice()));
+			}
+		}
 		if (request.getSearch() != null && request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
-			return classRepo.findAll()
+			return classRepo.findAll(specification)
 					.stream()
 					.map(cclass -> new ClassApi(cclass, request))
 					.filter(c -> !c.getArchetypes().isEmpty())
 					.collect(Collectors.toList());
 		}
-		return classRepo.findAll()
+		return classRepo.findAll(specification)
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
 				.collect(Collectors.toList());
@@ -115,7 +125,7 @@ public class ClassApiController {
 		FilterApi hillDiceFilter = new FilterApi("Кость хитов", "hitdice");
 		hillDiceFilter.setValues(
 				EnumSet.of(Dice.d6, Dice.d8, Dice.d10, Dice.d12).stream()
-				.map(dice -> new FilterValueApi(dice.getName(), dice.name()))
+				.map(dice -> new FilterValueApi(dice.getName(), dice.getMaxValue()))
 				.collect(Collectors.toList())
 		);
 		others.add(hillDiceFilter);
