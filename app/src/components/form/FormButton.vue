@@ -82,6 +82,13 @@
             border-color: var(--primary-active);
         }
 
+        &:disabled {
+            opacity: .6;
+            background-color: var(--primary);
+            border-color: var(--primary);
+            cursor: not-allowed;
+        }
+
         ::v-deep(svg) {
             width: 18px;
             height: 18px;
@@ -104,6 +111,14 @@
                 background-color: var(--bg-main);
                 border-color: var(--bg-main);
             }
+
+            &:disabled {
+                opacity: .6;
+                background-color: transparent;
+                border-color: transparent;
+                color: var(--primary);
+                cursor: not-allowed;
+            }
         }
 
         &.is-outline {
@@ -123,6 +138,14 @@
                 background-color: var(--primary-active);
                 border-color: var(--primary-active);
                 color: var(--text-btn-color);
+            }
+
+            &:disabled {
+                opacity: .6;
+                background-color: transparent;
+                border-color: var(--primary);
+                color: var(--primary);
+                cursor: not-allowed;
             }
         }
     }
