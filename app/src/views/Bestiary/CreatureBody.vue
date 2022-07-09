@@ -377,7 +377,8 @@
                 const saves = [];
 
                 for (const save of this.creature.savingThrows) {
-                    saves.push(`${ save.name } ${ save.value }`)
+                    const sign = Math.sign(save.value) > -1 ? '+' : '';
+                    saves.push(`${ save.name } ${ sign }${ save.value }`)
                 }
 
                 return saves.join(', ')
@@ -391,7 +392,8 @@
                 const skills = [];
 
                 for (const skill of this.creature.skills) {
-                    skills.push(`${ skill.name } ${ skill.value }`)
+                    const sign = Math.sign(skill.value) > -1 ? '+' : '';
+                    skills.push(`${ skill.name } ${ sign }${ skill.value }`);
                 }
 
                 return skills.join(', ')
