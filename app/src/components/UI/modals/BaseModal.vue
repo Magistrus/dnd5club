@@ -16,7 +16,7 @@
             <form-button
                 class="base-modal__close"
                 type-link
-                @click.left.exact.prevent="close"
+                @click.left.exact.prevent="close()"
             >
                 <svg-icon icon-name="close"/>
             </form-button>
