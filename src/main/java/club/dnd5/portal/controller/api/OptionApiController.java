@@ -2,6 +2,7 @@ package club.dnd5.portal.controller.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.thymeleaf.standard.expression.OrExpression;
 
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
@@ -101,14 +101,14 @@ public class OptionApiController {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
-			if (!request.getFilter().getClassOption().isEmpty()) {
+			if (!CollectionUtils.isEmpty(request.getFilter().getClassOption())) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<OptionType, Option> join = root.join("optionTypes", JoinType.LEFT);
 					query.distinct(true);
 					return join.in(request.getFilter().getClassOption());
 				});
 			}
-			if (!request.getFilter().getLevels().isEmpty()) {
+			if (!CollectionUtils.isEmpty(request.getFilter().getLevels())) {
 				if(request.getFilter().getLevels().contains("Нет")) {
 					specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.isNull(root.get("level")));
 					request.getFilter().getLevels().remove("Нет");
@@ -117,6 +117,9 @@ public class OptionApiController {
 					specification = SpecificationUtil.getAndSpecification(
 							specification, (root, query, cb) -> root.get("level").in(request.getFilter().getLevels().stream().map(Integer::valueOf).collect(Collectors.toList())));
 				}
+			}
+			if (!CollectionUtils.isEmpty(request.getFilter().getPrerequsite())) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> root.get("prerequisite").in(request.getFilter().getPrerequsite()));
 			}
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
@@ -185,7 +188,7 @@ public class OptionApiController {
 		otherFilters.add(classOptionFilter);
 
 		otherFilters.add(getLevelsFilter());
-		otherFilters.add(getPrerequsitFilter());
+		otherFilters.add(getPrerequsitFilter(optionRepository.findAlldPrerequisite()));
 		
 		filters.setOther(otherFilters);
 		return filters;
@@ -198,7 +201,7 @@ public class OptionApiController {
 		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
 		List<FilterApi> otherFilters = new ArrayList<>();
 		otherFilters.add(getLevelsFilter());
-		otherFilters.add(getPrerequsitFilter());
+		otherFilters.add(getPrerequsitFilter(optionRepository.findAlldPrerequisite(heroClass.getOptionType())));
 
 		List<FilterApi> customFilters = new ArrayList<>();
 		FilterApi customFilter = new FilterApi();
@@ -227,7 +230,7 @@ public class OptionApiController {
 
 		List<FilterApi> otherFilters = new ArrayList<>();
 		otherFilters.add(getLevelsFilter());
-		otherFilters.add(getPrerequsitFilter());
+		otherFilters.add(getPrerequsitFilter(optionRepository.findAlldPrerequisite(heroClass.getOptionType())));
 
 		List<FilterApi> customFilters = new ArrayList<>();
 		FilterApi customFilter = new FilterApi();
@@ -256,10 +259,14 @@ public class OptionApiController {
 		return levelsFilter;
 	}
 	
-	private FilterApi getPrerequsitFilter() {
+	private FilterApi getPrerequsitFilter(Collection<String> prerequisite) {
+
 		FilterApi prerequisiteFilter = new FilterApi("Требования", "prerequsite");
+		if (prerequisite.size() == 1) {
+			prerequisiteFilter.setHidden(Boolean.TRUE);
+		}
 		prerequisiteFilter.setValues(
-				optionRepository.findAlldPrerequisite().stream()
+				prerequisite.stream()
 				 .map(ability -> new FilterValueApi(ability, ability))
 				 .collect(Collectors.toList()));
 		return prerequisiteFilter;

@@ -20,6 +20,7 @@ import lombok.Setter;
 @Setter
 public class OptionFilter {
 	private List<String> levels;
+	private List<String> prerequsite;
 	private List<OptionType> classOption;
 	
 	@JsonProperty("book")
