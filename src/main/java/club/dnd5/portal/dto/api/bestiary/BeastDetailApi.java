@@ -48,7 +48,7 @@ public class BeastDetailApi extends BeastApi {
 	private Collection<String> damageVulnerabilities;
 	private Collection<String> conditionImmunities;
 	private SenseApi senses;
-	private Collection<String> language;
+	private Collection<String> languages;
 	
 	private Collection<NameValueApi> feats;
 	private Collection<NameValueApi> actions;
@@ -158,7 +158,7 @@ public class BeastDetailApi extends BeastApi {
 			tags = beast.getRaces().stream().map(TagApi::new).collect(Collectors.toList());
 		}
 		if (!beast.getLanguages().isEmpty()) {
-			language = 	beast.getLanguages().stream().map(Language::getName).collect(Collectors.toList());
+			languages = beast.getLanguages().stream().map(Language::getName).collect(Collectors.toList());
 		}
 	}
 }

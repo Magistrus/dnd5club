@@ -59,7 +59,7 @@
                             v-tippy="'Сила'"
                         >СИЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.str }}</p>
+                    <p>{{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})</p>
                 </div>
 
                 <div class="scores__stats dexterity">
@@ -68,7 +68,7 @@
                             v-tippy="'Ловкость'"
                         >ЛОВ</strong>
                     </h4>
-                    <p>{{ creature.ability.dex }}</p>
+                    <p>{{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})</p>
                 </div>
 
                 <div class="scores__stats constitution">
@@ -77,7 +77,7 @@
                             v-tippy="'Телосложение'"
                         >ТЕЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.con }}</p>
+                    <p>{{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})</p>
                 </div>
 
                 <div class="scores__stats intelligence">
@@ -86,7 +86,7 @@
                             v-tippy="'Интеллект'"
                         >ИНТ</strong>
                     </h4>
-                    <p>{{ creature.ability.int }}</p>
+                    <p>{{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})</p>
                 </div>
 
                 <div class="scores__stats wisdom">
@@ -95,7 +95,7 @@
                             v-tippy="'Мудрость'"
                         >МДР</strong>
                     </h4>
-                    <p>{{ creature.ability.wiz }}</p>
+                    <p>{{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})</p>
                 </div>
 
                 <div class="scores__stats charisma">
@@ -104,7 +104,7 @@
                             v-tippy="'Харизма'"
                         >ХАР</strong>
                     </h4>
-                    <p>{{ creature.ability.cha }}</p>
+                    <p>{{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})</p>
                 </div>
             </div>
 
@@ -363,7 +363,7 @@
                 const speeds = [];
 
                 for (const speed of this.creature.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value }фт.`)
+                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`)
                 }
 
                 return speeds.join(', ')
@@ -377,7 +377,8 @@
                 const saves = [];
 
                 for (const save of this.creature.savingThrows) {
-                    saves.push(`${ save.name } ${ save.value }`)
+                    const sign = Math.sign(save.value) > -1 ? '+' : '';
+                    saves.push(`${ save.name } ${ sign }${ save.value }`)
                 }
 
                 return saves.join(', ')
@@ -391,7 +392,8 @@
                 const skills = [];
 
                 for (const skill of this.creature.skills) {
-                    skills.push(`${ skill.name } ${ skill.value }`)
+                    const sign = Math.sign(skill.value) > -1 ? '+' : '';
+                    skills.push(`${ skill.name } ${ sign }${ skill.value }`);
                 }
 
                 return skills.join(', ')
@@ -402,10 +404,10 @@
 
                 if (this.creature.senses?.senses?.length) {
                     for (const sense of this.creature.senses.senses) {
-                        const index = senses.push(`${ sense.name } ${ sense.value }`);
+                        const index = senses.push(`${ sense.name } ${ sense.value } фт.`);
 
                         if (sense.additional) {
-                            senses[index - 1] += `(${ sense.additional })`;
+                            senses[index - 1] += ` (${ sense.additional })`;
                         }
                     }
                 }
@@ -425,7 +427,12 @@
 
                 this.gallery.show = true;
                 this.gallery.index = 0;
-            }
+            },
+
+            abilityBonus(ability) {
+                const bonus = Math.floor((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2)
+                return Math.sign(bonus) > -1 ? `+${ bonus }` : bonus;
+            },
         }
     }
 </script>
