@@ -1,42 +1,30 @@
 <template>
     <tippy
-        :hide-on-click="false"
-        interactive
-        sticky="reference"
-        strategy="fixed"
-        theme="dnd5club"
-        @show="getContent"
-        @click-outside="() => false"
+        v-bind="tippyConfig"
+        theme="dnd5club no-padding"
     >
         <template #default>
             <slot name="default"/>
         </template>
 
         <template #content>
-            <div
+            <spell-body
                 v-if="spell"
-                class="spell-tooltip"
-            >
-                <spell-body
-                    :spell="spell"
-                />
-            </div>
-
-            <span v-else-if="error">Боги не знают ответ на твой запрос...</span>
-
-            <span v-else>Спрашиваю богов, ожидай...</span>
+                :spell="spell"
+            />
         </template>
     </tippy>
 </template>
 
 <script>
-    import { Tippy } from "vue-tippy";
+    import vTippyConfig from '@/common/utils/VueTippyConfig';
     import SpellBody from "@/views/Spells/SpellBody";
     import errorHandler from "@/common/helpers/errorHandler";
+    import cloneDeep from "lodash/cloneDeep";
 
     export default {
         name: "SpellTooltip",
-        components: { SpellBody, Tippy },
+        components: { SpellBody },
         props: {
             url: {
                 type: String,
@@ -48,18 +36,27 @@
             error: false,
             to: document.body
         }),
+        computed: {
+            tippyConfig() {
+                const config = cloneDeep(vTippyConfig.defaultProps);
+
+                config.onShow = () => this.getContent();
+
+                return config;
+            }
+        },
         methods: {
             async getContent() {
                 this.error = false;
 
                 if (this.spell) {
-                    return;
+                    return true;
                 }
 
                 if (!this.url) {
                     this.error = true;
 
-                    return
+                    return false
                 }
 
                 const res = await this.$http.post(this.url);
@@ -69,17 +66,21 @@
 
                     this.error = true;
 
-                    return;
+                    return false;
                 }
 
                 this.spell = res.data;
+
+                return true
             }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .spell-tooltip {
-        width: 100%;
+    >>> [data-theme~=dnd5club] {
+        & > .tippy-content {
+            padding: 0;
+        }
     }
 </style>

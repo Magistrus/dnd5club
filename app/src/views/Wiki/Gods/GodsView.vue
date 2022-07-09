@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="godsQuery"
+        @search="onSearch"
         @update="godsQuery"
         @list-end="nextPage"
     >
@@ -110,7 +110,14 @@
 
             async nextPage() {
                 await this.godsStore.nextPage();
-            }
+            },
+
+            async onSearch() {
+                await this.godsQuery()
+                if (this.gods.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.gods[0].url })
+                }
+            },
         }
     }
 </script>

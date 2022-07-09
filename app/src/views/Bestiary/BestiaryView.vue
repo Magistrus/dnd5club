@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="bestiaryQuery"
+        @search="onSearch"
         @update="bestiaryQuery"
         @list-end="nextPage"
     >
@@ -110,6 +110,13 @@
 
             async nextPage() {
                 await this.bestiaryStore.nextPage();
+            },
+
+            async onSearch() {
+                await this.bestiaryStore.initBestiary();
+                if (this.bestiary.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.bestiary[0].url })
+                }
             }
         }
     }

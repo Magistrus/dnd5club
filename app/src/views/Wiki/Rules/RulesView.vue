@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="rulesQuery"
+        @search="onSearch"
         @update="rulesQuery"
         @list-end="nextPage"
     >
@@ -110,7 +110,14 @@
 
             async nextPage() {
                 await this.rulesStore.nextPage();
-            }
+            },
+
+            async onSearch() {
+                await this.rulesQuery()
+                if (this.rules.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.rules[0].url })
+                }
+            },
         }
     }
 </script>

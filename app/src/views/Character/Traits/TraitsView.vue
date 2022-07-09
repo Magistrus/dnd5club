@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="traitsQuery"
+        @search="onSearch"
         @update="traitsQuery"
     >
         <trait-link
@@ -84,6 +84,13 @@
         methods: {
             async traitsQuery() {
                 await this.traitsStore.initTraits();
+            },
+
+            async onSearch() {
+                await this.traitsQuery()
+                if (this.traits.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.traits[0].url })
+                }
             },
         }
     }

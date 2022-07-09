@@ -21,7 +21,9 @@
                 </div>
 
                 <div class="screen-link__desc">
-                    <span>{{ screen.source.shortName }}</span> / <span>{{ screen.name.eng }}</span>
+                    <span v-tippy="{ content: screen.source.name }">{{
+                        screen.source.shortName
+                    }}</span> / <span>{{ screen.name.eng }}</span>
                 </div>
             </div>
         </a>

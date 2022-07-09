@@ -52,7 +52,6 @@
                                th:each="architypeTrait, iterStat2 : ${heroClass.getArhitypeTraitNames(selectedArchetype.id, level)}"
                                th:text="${iterStat2.last and heroClass.getTraitsClear(level).empty} ? ${#strings.toLowerCase(architypeTrait.name)} : ${#strings.toLowerCase(architypeTrait.name)} + ', '"
                                th:href="|#a${architypeTrait.id}|"
-                               th:title="${architypeTrait.name}"
                                th:data-tippy-url="|/classes/archetype/feature/${architypeTrait.id}|"
                                v-tippy="'Думаю...'"
                             ></a>
@@ -60,7 +59,7 @@
                                th:each="trait, iterStat : ${heroClass.getTraits(level)}"
                                th:unless=${trait.architype}
                                th:href="|#c${trait.child eq null ? trait.id : trait.child}|"
-                               th:utext="${iterStat.last} ? ${trait.name.toLowerCase()} : ${trait.name.toLowerCase()} + ', '" th:title="${trait.name}"
+                               th:utext="${iterStat.last} ? ${trait.name.toLowerCase()} : ${trait.name.toLowerCase()} + ', '"
                                th:data-tippy-url="|/classes/feature/${trait.id}|"
                                v-tippy="'Думаю...'"
 						    ></a>

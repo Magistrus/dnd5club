@@ -453,7 +453,13 @@ public class SpellApiConroller {
 		FilterValueApi customValue = new FilterValueApi();
 		customValue.setLabel(heroClass.getCapitalazeName());
 		customValue.setDefaultValue(Boolean.TRUE);
-		customValue.setKey(String.valueOf(heroClass.getId()));
+		if ("Eldritch_Knight".equalsIgnoreCase(englishArchetypeName) ||
+			"Arcane_Trickster".equalsIgnoreCase(englishArchetypeName)) {
+			customValue.setKey(String.valueOf(2));
+		}
+		else {
+			customValue.setKey(String.valueOf(heroClass.getId()));
+		}
 		customFilter.setValues(Collections.singletonList(customValue));
 		customFilters.add(customFilter);
 		otherFilters.add(customFilter);

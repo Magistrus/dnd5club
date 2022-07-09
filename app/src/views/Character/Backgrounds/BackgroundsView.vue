@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="backgroundsQuery"
+        @search="onSearch"
         @update="backgroundsQuery"
     >
         <background-link
@@ -85,6 +85,13 @@
             async backgroundsQuery() {
                 await this.backgroundsStore.initBackgrounds();
             },
-        }
+
+            async onSearch() {
+                this.backgroundsQuery()
+                if (this.backgrounds.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.backgrounds[0].url })
+                }
+            },
+        },
     }
 </script>

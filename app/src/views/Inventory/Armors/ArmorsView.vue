@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="armorsQuery"
+        @search="onSearch"
         @update="armorsQuery"
     >
         <div
@@ -139,7 +139,14 @@
 
             async nextPage() {
                 await this.armorsStore.nextPage();
-            }
+            },
+
+            async onSearch() {
+                this.armorsQuery()
+                if (this.armors.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.armors[0].url })
+                }
+            },
         }
     }
 </script>

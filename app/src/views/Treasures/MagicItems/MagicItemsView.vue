@@ -3,7 +3,7 @@
         :is="layout"
         :filter-instance="filter"
         :show-right-side="showRightSide"
-        @search="magicItemsQuery"
+        @search="onSearch"
         @update="magicItemsQuery"
         @list-end="nextPage"
     >
@@ -112,7 +112,14 @@
 
             async nextPage() {
                 await this.magicItemsStore.nextPage();
-            }
+            },
+
+            async onSearch() {
+                await this.magicItemsQuery()
+                if (this.magicItems.length === 1 && !this.getIsMobile) {
+                    await this.$router.push({ path: this.magicItems[0].url })
+                }
+            },
         }
     }
 </script>
