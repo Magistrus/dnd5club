@@ -1,6 +1,7 @@
 <template>
     <button
         :class="`is-${type}`"
+		:disabled="disabled"
         class="form-button"
         type="button"
     >
@@ -23,7 +24,11 @@
             typePrimary: {
                 type: Boolean,
                 default: true,
-            },
+			},
+			disabled: {
+                type: Boolean,
+                default: true,
+			},
         },
         computed: {
             type() {
