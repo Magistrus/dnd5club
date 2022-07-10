@@ -28,7 +28,7 @@
 
                     <!-- eslint-disable-next-line max-len -->
                     <span>{{
-                        `${ creature.armorClass }${ creature.armorText ? ` (${ creature.armorText })` : '' }`
+                        `${ creature.armorClass }${ creature.armorText ? ` ${ creature.armorText }` : '' }`
                     }}</span>
 
                     <span v-if="creature.armors?.length">
@@ -123,22 +123,22 @@
                 <p v-if="creature.damageVulnerability">
                     <strong>Уязвимость к урону </strong>
 
-                    <span>{{ creature.damageVulnerability.join(', ') }}</span>
+                    <span>{{ getIterableStr(creature.damageVulnerability) }}</span>
                 </p>
                 <p v-if="creature.damageResistances">
                     <strong>Сопротивление к урону </strong>
 
-                    <span>{{ creature.damageResistances.join(', ') }}</span>
+                    <span>{{ getIterableStr(creature.damageResistances) }}</span>
                 </p>
                 <p v-if="creature.damageImmunities">
                     <strong>Иммунитет к урону </strong>
 
-                    <span>{{ creature.damageImmunities.join(', ') }}</span>
+                    <span>{{ getIterableStr(creature.damageImmunities) }}</span>
                 </p>
                 <p v-if="creature.conditionImmunities">
                     <strong>Иммунитет к состояниям </strong>
 
-                    <span>{{ creature.conditionImmunities.join(', ') }}</span>
+                    <span>{{ getIterableStr(creature.conditionImmunities) }}</span>
                 </p>
 
                 <p v-if="senses">
@@ -448,6 +448,23 @@
                 const bonus = Math.floor((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2);
 
                 return Math.sign(bonus) > -1 ? `+${ bonus }` : bonus;
+            },
+
+            getIterableStr(strings) {
+                let str = '';
+
+                for (let i = 0; i < strings.length; i++) {
+                    if (!i) {
+                        str += strings[i];
+
+                        continue;
+                    }
+
+                    str += strings[i].indexOf(',') > -1 ? '; ' : ', ';
+                    str += strings[i];
+                }
+
+                return str
             },
         }
     }
