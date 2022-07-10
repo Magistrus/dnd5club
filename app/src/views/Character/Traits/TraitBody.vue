@@ -27,3 +27,15 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+::v-deep(.row_info) {
+    span {
+
+        &:last-child {
+            min-width: 220px;
+            text-align: right;
+        }
+    }
+}
+</style>

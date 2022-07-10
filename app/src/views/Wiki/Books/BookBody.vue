@@ -4,10 +4,10 @@
             :left="book.type.name"
         >
             <template
-                v-if="book.shortName"
+                v-if="book.source?.shortName"
                 #default
             >
-                Аббревиатура: {{ book.shortName }}
+                Аббревиатура: {{ book.source.shortName }}
             </template>
         </detail-top-bar>
 
