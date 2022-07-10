@@ -39,7 +39,7 @@ public class ReferenceClassApi {
 	
 	public ReferenceClassApi(Race race) {
 		name = race.getCapitalazeName();
-		url = String.format("/classes/%s", race.getUrlName());
+		url = String.format("/races/%s", race.getUrlName());
 	}
 	
 	public ReferenceClassApi(OptionType optionType) {

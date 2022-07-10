@@ -39,7 +39,9 @@ public class BackgroundDetailApi extends BackgroundApi {
 			skills.add(background.getOtherSkills());
 		}
 		toolOwnership = background.getToolOwnership();
-		equipments = Arrays.asList(background.getEquipmentsText().split(", "));
+		if (background.getEquipmentsText() != null) {
+			equipments = Arrays.asList(background.getEquipmentsText().split(", "));
+		}
 		startGold = background.getStartMoney();
 		description = background.getDescription();
 		if (background.getPersonalization() != null) {
