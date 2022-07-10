@@ -41,6 +41,7 @@
   appearance: none;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
+  overscroll-behavior: contain;
 
   &::selection {
     background: var(--primary);
