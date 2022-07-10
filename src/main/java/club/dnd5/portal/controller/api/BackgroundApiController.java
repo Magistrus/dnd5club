@@ -114,7 +114,7 @@ public class BackgroundApiController {
 		}
 		return backgroundRepository.findAll(input, specification, specification, BackgroundApi::new).getData();
 	}
-	
+
 	@PostMapping(value = "/api/v1/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BackgroundDetailApi> getBackground(@PathVariable String englishName) {
 		Background background = backgroundRepository.findByEnglishName(englishName.replace('_', ' '));
@@ -123,7 +123,7 @@ public class BackgroundApiController {
 		}
 		return ResponseEntity.ok(new BackgroundDetailApi(background));
 	}
-	
+
 	@PostMapping("/api/v1/filters/backgrounds")
 	public FilterApi getBackgroundFilter() {
 		FilterApi filters = new FilterApi();
