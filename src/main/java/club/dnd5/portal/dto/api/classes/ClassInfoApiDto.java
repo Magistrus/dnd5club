@@ -17,14 +17,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClassInfoApiDto {
+public class ClassInfoApiDto extends ClassApi {
 	private NameApi name;
 	private Collection<ClassTabApiDto> tabs = new ArrayList<>(5);
 	private Collection<String> images;
 	private SpellFilter customFilter;
+	private String archetypeName;
 
-	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images) {
-		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
+	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images, ClassRequestApi request) {
+		super(heroClass, request);
+		url = null;
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "description", 1, true));
@@ -34,11 +36,14 @@ public class ClassInfoApiDto {
 		if (heroClass.getOptionType() != null) {
 			tabs.add(new ClassTabApiDto(heroClass.getOptionType().getDisplayName(), String.format("/filters/options/%s", heroClass.getUrlName()), "options", 3, false));
 		}
+		if (heroClass.getArchetypeName() != null) {
+			archetypeName = heroClass.getArchetypeName();
+		}
 	}
 
-	public ClassInfoApiDto(Archetype archetype, Collection<String> images) {
+	public ClassInfoApiDto(Archetype archetype, Collection<String> images, ClassRequestApi request) {
+		super(archetype.getHeroClass(), request);
 		HeroClass heroClass = archetype.getHeroClass();
-		name = new NameApi(archetype.getHeroClass().getCapitalazeName() + " " + archetype.getCapitalizeName(), archetype.getHeroClass().getEnglishName()+ " " + archetype.getEnglishName());
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/%s/architypes/%s", heroClass.getUrlName(), archetype.getUrlName()), "traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/archetype/%s/description", heroClass.getUrlName(), archetype.getUrlName()), "description", 1, true));
