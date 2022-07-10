@@ -100,6 +100,44 @@
                     </span>
                 </div>
             </div>
+            <div
+                v-if="spell.races?.length"
+                class="spell_stat_block_bottom"
+            >
+                <p>Расы:</p>
+
+                <div>
+                    <span
+                        v-for="(el, key) in spell.races"
+                        :key="key"
+                    >
+                        <a
+                            :href="el.url"
+                        >{{ el.name }}</a>
+
+                        <span v-if="key !== spell.races.length - 1">,&nbsp;</span>
+                    </span>
+                </div>
+            </div>
+            <div
+                v-if="spell.backgrounds?.length"
+                class="spell_stat_block_bottom"
+            >
+                <p>Предыстории:</p>
+
+                <div>
+                    <span
+                        v-for="(el, key) in spell.backgrounds"
+                        :key="key"
+                    >
+                        <a
+                            :href="el.url"
+                        >{{ el.name }}</a>
+
+                        <span v-if="key !== spell.backgrounds.length - 1">,&nbsp;</span>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </template>
