@@ -167,6 +167,12 @@
                 this.submenu = false;
             },
         },
+        mounted() {
+            this.$nextTick(() => {
+                this.submenu = this.$route.params.className === this.$router.resolve(this.classItem.url)
+                    ?.params?.className;
+            })
+        },
         methods: {
             getClassList(isActive) {
                 return {

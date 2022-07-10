@@ -33,6 +33,14 @@
             RaceLink,
             ContentLayout,
         },
+        async beforeRouteEnter(to, from, next) {
+            const store = useRacesStore();
+
+            await store.initFilter();
+            await store.initRaces();
+
+            next();
+        },
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
             ...mapState(useRacesStore, ['getRaces', 'getFilter']),
@@ -45,9 +53,21 @@
                 return this.$route.name === 'raceDetail'
             },
         },
+        watch: {
+            showRightSide(value) {
+                if (value) {
+                    this.$nextTick(() => {
+                        this.scrollToActive();
+                    })
+                }
+            }
+        },
         async mounted() {
-            await this.initFilter();
-            await this.initRaces();
+            this.$nextTick(() => {
+                if (this.showRightSide) {
+                    this.scrollToActive();
+                }
+            });
         },
         beforeUnmount() {
             this.clearStore();
@@ -57,6 +77,31 @@
 
             async racesQuery() {
                 await this.initRaces();
+            },
+
+            scrollToActive() {
+                if (!this.getIsMobile) {
+                    const ref = this.$refs.races;
+
+                    if (!ref) {
+                        return;
+                    }
+
+                    const link = ref.querySelector('.router-link-active');
+
+                    if (!link) {
+                        return;
+                    }
+
+                    setTimeout(() => {
+                        const rect = link.getBoundingClientRect();
+
+                        window.scroll({
+                            top: rect.top - 112,
+                            behavior: "smooth"
+                        });
+                    }, 350);
+                }
             },
 
             async onSearch() {

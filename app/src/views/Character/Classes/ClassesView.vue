@@ -98,9 +98,21 @@
                 return this.$route.name === 'classDetail'
             }
         },
+        watch: {
+            showRightSide(value) {
+                if (value) {
+                    this.$nextTick(() => {
+                        this.scrollToActive();
+                    })
+                }
+            }
+        },
         async mounted() {
-            await this.initFilter();
-            await this.initClasses();
+            this.$nextTick(() => {
+                if (this.showRightSide) {
+                    this.scrollToActive();
+                }
+            });
         },
         beforeUnmount() {
             this.clearStore();
@@ -110,6 +122,31 @@
 
             async classesQuery() {
                 await this.initClasses();
+            },
+
+            scrollToActive() {
+                if (!this.getIsMobile) {
+                    const ref = this.$refs.classes;
+
+                    if (!ref) {
+                        return;
+                    }
+
+                    const link = ref.querySelector('.router-link-active');
+
+                    if (!link) {
+                        return;
+                    }
+
+                    setTimeout(() => {
+                        const rect = link.getBoundingClientRect();
+
+                        window.scroll({
+                            top: rect.top - 112,
+                            behavior: "smooth"
+                        });
+                    }, 350);
+                }
             },
 
             // eslint-disable-next-line func-names
