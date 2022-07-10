@@ -84,4 +84,15 @@
             }
         }
     }
+
+    .base-modal__body {
+        .row_info {
+            span {
+                &:last-child {
+                    min-width: auto;
+                    text-align: left;
+                }
+            }
+        }
+    }
 </style>
