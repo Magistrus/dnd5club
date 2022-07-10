@@ -69,7 +69,10 @@
                         </field-select>
                     </div>
 
-                    <div class="class-detail__body--inner">
+                    <div
+                        v-if="currentTab?.url"
+                        class="class-detail__body--inner"
+                    >
                         <raw-content
                             :url="currentTab.url"
                             @loaded="initScrollListeners"
