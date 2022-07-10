@@ -141,7 +141,11 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.controllers.classInfoQuery = new AbortController();
 
-                const { data } = await http.post(url, {}, this.controllers.classInfoQuery.signal);
+                const { data } = await http.post(
+                    url,
+                    { filter: this.filter.getQueryParams },
+                    this.controllers.classInfoQuery.signal
+                );
 
                 this.controllers.classInfoQuery = undefined;
 
