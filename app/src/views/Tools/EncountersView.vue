@@ -52,7 +52,7 @@
 
                     <form-button
                         v-if="isTableDisabled"
-                        @click.left.exact.prevent="results = []"
+                        @click.left.exact.prevent="getTable"
                     >
                         Показать таблицу
                     </form-button>
@@ -109,6 +109,7 @@
             environments: [],
             levels: [],
             results: [],
+            table: undefined,
             form: {
                 level: '',
                 environment: ''
@@ -116,8 +117,9 @@
         }),
         computed: {
             isTableDisabled() {
-                return this.level && this.env;
+                return this.form.level && this.form.environment;
             },
+
             level: {
                 get() {
                     if (!this.form.level) {
@@ -201,6 +203,34 @@
                     this.controller = undefined;
                 }
             }, 300),
+
+            async getTable() {
+                if (this.controller) {
+                    this.controller.abort();
+                }
+
+                this.controller = new AbortController();
+
+                try {
+                    const resp = await this.$http.post(
+                        '/tools/encounters/table',
+                        this.form,
+                        this.controller.signal
+                    );
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        return;
+                    }
+
+                    this.table = resp.data;
+                } catch (err) {
+                    errorHandler(err);
+                } finally {
+                    this.controller = undefined;
+                }
+            }
         }
     }
 </script>
