@@ -15,11 +15,11 @@
         >
             <div class="link-item__content">
                 <div
-                    v-tippy="{ content: magicItem.rarity }"
-                    :class="getRarityClass"
+                    v-tippy="{ content: magicItem.rarity.name }"
+                    :class="`is-${magicItem.rarity.type || 'unknown'}`"
                     class="link-item__rarity"
                 >
-                    <span v-tippy="{ content: magicItem.rarity }">{{ getRarityAbbreviation }}</span>
+                    <span>{{ magicItem.rarity.short }}</span>
                 </div>
 
                 <div class="link-item__body">
@@ -50,10 +50,12 @@
                             {{ `x${ magicItem.custom.count }` }}
                         </div>
 
-                        <div class="link-item__price">
+                        <div
+                            v-if="inTools"
+                            class="link-item__price"
+                        >
                             {{ `${ magicItem.custom?.price || magicItem.price || 0 } зм` }}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -90,42 +92,6 @@
         data: () => ({
             magicItemsStore: useMagicItemsStore(),
         }),
-        computed: {
-            getRarityAbbreviation() {
-                const words = this.magicItem.rarity.split(' ');
-
-                let abbreviation = '';
-
-                for (const word of words) {
-                    if (!word) {
-                        continue;
-                    }
-
-                    abbreviation += word[0].toUpperCase();
-                }
-
-                return abbreviation;
-            },
-
-            getRarityClass() {
-                switch (this.magicItem.rarity) {
-                    case 'артефакт':
-                        return 'is-artifact'
-                    case 'легендарный':
-                        return 'is-legendary'
-                    case 'очень редкий':
-                        return 'is-very-rare'
-                    case 'редкий':
-                        return 'is-rare'
-                    case 'необычный':
-                        return 'is-uncommon'
-                    case 'обычный':
-                        return 'is-common'
-                    default:
-                        return 'is-unknown'
-                }
-            }
-        },
         methods: {
             getClassList(isActive) {
                 return {
