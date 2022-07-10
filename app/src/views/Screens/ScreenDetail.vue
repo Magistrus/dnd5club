@@ -12,27 +12,8 @@
         </template>
 
         <template #default>
-            <div
-                v-if="loading"
-                class="screen-detail__loader"
-            >
-                <div class="screen-detail__loader_img">
-                    <img
-                        v-lazy="'/img/loader.png'"
-                        alt=""
-                    >
-                </div>
-            </div>
-
-            <div
-                v-else-if="error"
-                class="screen-detail__err"
-            >
-                error...
-            </div>
-
             <screens-group
-                v-else-if="screen.chields?.length"
+                v-if="screen.chields?.length"
                 :child-list="screen.chields"
             />
 

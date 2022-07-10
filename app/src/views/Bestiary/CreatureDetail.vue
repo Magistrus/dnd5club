@@ -14,27 +14,8 @@
         </template>
 
         <template #default>
-            <div
-                v-if="loading"
-                class="creature-detail__loader"
-            >
-                <div class="creature-detail__loader_img">
-                    <img
-                        v-lazy="'/img/loader.png'"
-                        alt=""
-                    >
-                </div>
-            </div>
-
-            <div
-                v-else-if="error"
-                class="creature-detail__err"
-            >
-                error...
-            </div>
-
             <creature-body
-                v-else-if="creature"
+                v-if="creature"
                 :creature="creature"
             />
         </template>

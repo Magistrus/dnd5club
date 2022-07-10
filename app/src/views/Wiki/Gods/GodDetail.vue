@@ -12,27 +12,8 @@
         </template>
 
         <template #default>
-            <div
-                v-if="loading"
-                class="god-detail__loader"
-            >
-                <div class="god-detail__loader_img">
-                    <img
-                        v-lazy="'/img/loader.png'"
-                        alt=""
-                    >
-                </div>
-            </div>
-
-            <div
-                v-else-if="error"
-                class="god-detail__err"
-            >
-                error...
-            </div>
-
             <god-body
-                v-else-if="god"
+                v-if="god"
                 :god="god"
             />
         </template>

@@ -9,6 +9,7 @@
 
         <input
             v-model="value"
+            v-bind="attrs"
             :autocomplete="autocomplete ? 'on' : 'off'"
             :placeholder="placeholder"
             :type="type"
@@ -22,7 +23,7 @@
         name: "FieldInput",
         props: {
             modelValue: {
-                type: String,
+                type: [String, Number],
                 default: ''
             },
             label: {
@@ -37,6 +38,10 @@
                 type: Boolean,
                 default: false
             },
+            isNumber: {
+                type: Boolean,
+                default: false
+            },
             isPassword: {
                 type: Boolean,
                 default: false
@@ -48,6 +53,10 @@
             isError: {
                 type: Boolean,
                 default: false
+            },
+            min: {
+                type: Number,
+                default: undefined
             }
         },
         emits: ['update:modelValue'],
@@ -61,7 +70,12 @@
                     this.$emit('update:modelValue', e);
                 }
             },
+
             type() {
+                if (this.isNumber) {
+                    return 'number';
+                }
+
                 if (this.isPassword) {
                     return 'password';
                 }
@@ -71,6 +85,18 @@
                 }
 
                 return 'text';
+            },
+
+            attrs() {
+                const attrs = {}
+
+                if (this.isNumber) {
+                    if (this.min !== undefined) {
+                        attrs.min = this.min;
+                    }
+                }
+
+                return attrs
             }
         }
     }
