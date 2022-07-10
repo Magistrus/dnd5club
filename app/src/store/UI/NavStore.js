@@ -155,7 +155,7 @@ export const useNavStore = defineStore('NavStore', {
                             external: true,
                         },
                         {
-                            label: 'Мы на ВКонтакте',
+                            label: 'Мы в ВКонтакте',
                             url: 'https://vk.com/dnd5club',
                             icon: 'menu-races',
                             external: true,
