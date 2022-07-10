@@ -33,7 +33,7 @@ public class RandomEncounterApiController {
 
 	@GetMapping("/api/v1/tools/encounters")
 	public RandomEncounterInputApi getItems() { 
-		return new RandomEncounterInputApi(HabitatType.values());
+		return new RandomEncounterInputApi(HabitatType.types());
 	}
 
 	@PostMapping("/api/v1/tools/encounters")
