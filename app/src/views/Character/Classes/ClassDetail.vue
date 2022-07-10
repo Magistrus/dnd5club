@@ -46,7 +46,7 @@
                     class="class-detail__body"
                 >
                     <div
-                        v-if="getIsMobile && currentArchetypes.length && currentTab.type === 'traits'"
+                        v-if="getIsMobile && currentArchetypes.length && currentTab?.type === 'traits'"
                         class="class-detail__select"
                     >
                         <field-select
@@ -60,11 +60,16 @@
                             track-by="url"
                         >
                             <template #placeholder>
-                                --- Архетипы ---
+                                --- {{ currentClass?.archetypeName }} ---
                             </template>
 
                             <template #option="{ option }">
-                                <span @click.left.exact.prevent="goToArchetype(option.url)">{{ option.name }}</span>
+                                <span v-if="option?.group">{{ option.group.name }}</span>
+
+                                <span
+                                    v-else
+                                    @click.left.exact.prevent="goToArchetype(option.url)"
+                                >{{ option.name }}</span>
                             </template>
                         </field-select>
                     </div>
@@ -82,7 +87,7 @@
                 </div>
 
                 <spells-view
-                    v-else-if="currentTab.type === 'spells'"
+                    v-else-if="currentTab?.type === 'spells'"
                     :filter-url="currentTab.url"
                     :books="getClassesBooks"
                     :store-key="getStoreKey"
@@ -90,7 +95,7 @@
                 />
 
                 <options-view
-                    v-else-if="currentTab.type === 'options'"
+                    v-else-if="currentTab?.type === 'options'"
                     :filter-url="currentTab.url"
                     :books="getClassesBooks"
                     :store-key="getStoreKey"
@@ -127,6 +132,9 @@
     import ContentDetail from "@/components/content/ContentDetail";
     import { mapState } from "pinia/dist/pinia";
     import { useUIStore } from "@/store/UI/UIStore";
+    import isArray from "lodash/isArray";
+    import sortBy from "lodash/sortBy";
+    import groupBy from "lodash/groupBy";
 
     export default {
         name: 'ClassDetail',
@@ -185,23 +193,26 @@
                     }
                 }
 
-                return selected || '--- Архетипы ---'; // Костыль, чтоб закрывалось при нажатии на селект
+                // eslint-disable-next-line max-len
+                return selected || `--- ${this.currentClass?.archetypeName} ---`; // Костыль, чтоб закрывалось при нажатии на селект
             },
 
             currentArchetypes() {
-                const getArchetypes = list => list.map(el => ({
-                    group: el.name.name,
-                    list: el.list.map(arch => ({
-                        name: `${arch.name.rus} [${arch.source.shortName}]`,
-                        url: arch.url
-                    }))
-                }));
+                const getArchetypes = list => sortBy(
+                    Object.values(groupBy(list, o => o.type.name))
+                        .map(value => ({
+                            group: value[0].type,
+                            list: value.map(el => ({
+                                name: `${ el.name.rus } [${ el.source.shortName }]`,
+                                url: el.url
+                            }))
+                        })),
+                    [o => o.group.order]
+                );
 
-                const classLink = this.classes.find(classItem => this.$route.path.match(classItem.url));
-
-                return classLink
-                    ? getArchetypes(classLink.archetypes)
-                    : [];
+                return isArray(this.currentClass?.archetypes) && this.currentClass.archetypes.length
+                    ? getArchetypes(this.currentClass.archetypes)
+                    : []
             },
         },
         async mounted() {
