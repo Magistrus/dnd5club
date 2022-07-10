@@ -108,9 +108,6 @@
             }
         },
         async mounted() {
-            await this.initFilter();
-            await this.initClasses();
-
             this.$nextTick(() => {
                 if (this.showRightSide) {
                     this.scrollToActive();
@@ -128,24 +125,28 @@
             },
 
             scrollToActive() {
-                const ref = this.$refs.classes;
+                if (!this.getIsMobile) {
+                    const ref = this.$refs.classes;
 
-                if (!ref) {
-                    return;
+                    if (!ref) {
+                        return;
+                    }
+
+                    const link = ref.querySelector('.router-link-active');
+
+                    if (!link) {
+                        return;
+                    }
+
+                    setTimeout(() => {
+                        const rect = link.getBoundingClientRect();
+
+                        window.scroll({
+                            top: rect.top - 112,
+                            behavior: "smooth"
+                        });
+                    }, 350);
                 }
-
-                const link = ref.querySelector('.router-link-active');
-
-                if (!link) {
-                    return;
-                }
-
-                const rect = link.getBoundingClientRect();
-
-                window.scroll({
-                    top: rect.top - 112,
-                    behavior: "smooth"
-                });
             },
 
             // eslint-disable-next-line func-names
