@@ -76,11 +76,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    >>> [data-theme~=dnd5club] {
-        & > .tippy-content {
-            padding: 0;
-        }
-    }
-</style>
