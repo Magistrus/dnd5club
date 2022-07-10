@@ -91,7 +91,7 @@
                 <template #default>
                     <div
                         v-if="!selected.item"
-                        class="trader__empty"
+                        class="content-padding trader__empty"
                     >
                         <p>Список товаров пуст.</p>
                     </div>
@@ -114,7 +114,7 @@
         <template #default>
             <magic-item-link
                 v-for="(item, key) in groupedResults"
-                :key="item.url"
+                :key="item.url + key"
                 :is-active="selected.index === key"
                 :magic-item="item"
                 :to="{path: item.url}"

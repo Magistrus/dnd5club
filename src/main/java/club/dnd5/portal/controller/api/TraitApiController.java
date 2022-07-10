@@ -88,6 +88,13 @@ public class TraitApiController {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getAbilities().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<AbilityType, Trait> join = root.join("abilities", JoinType.LEFT);
+					query.distinct(true);
+					return cb.and(join.in(request.getFilter().getAbilities().stream().map(AbilityType::valueOf).collect(Collectors.toList())));
+				});
+			}
 		}
 		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
 			
@@ -100,15 +107,6 @@ public class TraitApiController {
 				query.orderBy(orders);
 				return cb.and();
 			});
-		}
-		if (request.getFilter() != null) {
-			if (!request.getFilter().getAbilities().isEmpty()) {
-				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-					Join<AbilityType, Trait> join = root.join("abilities", JoinType.LEFT);
-					query.distinct(true);
-					return cb.and(join.in(request.getFilter().getAbilities().stream().map(AbilityType::valueOf).collect(Collectors.toList())));
-				});
-			}
 		}
 		return traitRepository.findAll(input, specification, specification, TraitApi::new).getData();
 	}
@@ -156,7 +154,7 @@ public class TraitApiController {
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
-		FilterApi abilitiesFilter = new FilterApi("Характеристики", "abilities", Boolean.FALSE);
+		FilterApi abilitiesFilter = new FilterApi("Характеристики", "abilities");
 		abilitiesFilter.setValues(
 				AbilityType.getBaseAbility().stream()
 				 .map(ability -> new FilterValueApi(ability.getCyrilicName(), ability.name()))

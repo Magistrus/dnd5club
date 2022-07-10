@@ -470,19 +470,19 @@ public class TreasuryApiController {
 							break;
 						case 35:
 							itemApi.changeName("(кожаный)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 36:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 37:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 38:
 							itemApi.changeName("(чешуйчатый)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 60:
 							itemApi.changeName(getResistenceType());
@@ -499,31 +499,31 @@ public class TreasuryApiController {
 							break;
 						case 65:
 							itemApi.changeName("(кираса)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 66:
 							itemApi.changeName("(кираса)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 67:
 							itemApi.changeName("(проклёпанная кожа)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 68:
 							itemApi.changeName("(кожаный)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 69:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 70:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 71:
 							itemApi.changeName("(чешуйчатый)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 89:
 							String aligment = Alignment.values()[rnd.nextInt(Alignment.values().length)]
@@ -550,82 +550,82 @@ public class TreasuryApiController {
 						case 42:
 						case 43:
 							itemApi.changeName("(латы)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 44:
 						case 45:
 							itemApi.changeName("(полулаты)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							break;
 						case 46:
 						case 47:
 							itemApi.changeName("(чешуйчатый)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 48:
 						case 49:
 							itemApi.changeName("(кираса)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 50:
 						case 51:
 							itemApi.changeName("(наборной)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 52:
 						case 53:
 							itemApi.changeName("(проклёпанная кожа)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							break;
 						case 54:
 						case 55:
 							itemApi.changeName("(кожаный)");
-							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.VERY_RARE);
 							break;
 						case 56:
 						case 57:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.VERY_RARE);
 							break;
 						case 58:
 						case 59:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.VERY_RARE);
 							break;
 						case 76:
 							switch (Dice.roll(Dice.d12)) {
 							case 1:
 							case 2:
 								itemApi.changeName("(полулаты)");
-								itemApi.setRarity(Rarity.RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.RARE);
 								break;
 							case 3:
 							case 4:
 								itemApi.changeName("(латы)");
-								itemApi.setRarity(Rarity.RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.RARE);
 								break;
 							case 5:
 							case 6:
 								itemApi.changeName("(проклёпанная кожа)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								break;
 							case 7:
 							case 8:
 								itemApi.changeName("(кираса)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								break;
 							case 9:
 							case 10:
 								itemApi.changeName("(набороной)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								break;
 							case 11:
 								itemApi.changeName("(полулаты)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								break;
 							case 12:
 								itemApi.changeName("(латы)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								break;
 							}
 							break;
