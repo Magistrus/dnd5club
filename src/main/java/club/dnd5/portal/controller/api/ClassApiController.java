@@ -66,6 +66,7 @@ public class ClassApiController {
 		return classRepo.findAll(specification)
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
+				.filter(c -> !c.getArchetypes().isEmpty())
 				.collect(Collectors.toList());
 	}
 	
