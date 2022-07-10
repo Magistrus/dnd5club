@@ -65,10 +65,10 @@
   cursor: no-drop !important;
 }
 
-.hr_main {
+hr {
   height: 1px;
   border: none;
-  background-color: var(--hover);
+  background-color: var(--border);
   display: block;
   margin: 14px 0;
 }
