@@ -14,8 +14,9 @@
             @click.left.exact.prevent="navigate()"
         >
             <div class="link-item__content">
-                <div class="link-item__alignment">
-                    <span>{{ god.alignment }}</span>
+                <div class="link-item__alignment"
+                     v-tippy="{ content: god.alignment }">
+                    <span>{{ god.shortAlignment }}</span>
                 </div>
 
                 <div class="link-item__body">
