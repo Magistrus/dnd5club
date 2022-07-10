@@ -48,7 +48,7 @@
                     <span
                         v-if="property.twoHandDice"
                         v-tippy="{content: 'При атаке двумя руками'}"
-                    >({{ property.twoHandDice }})</span>
+                    > ({{ property.twoHandDice }})</span>
 
                     <span v-if="property.distance"> (дис. {{ property.distance }})</span>
 

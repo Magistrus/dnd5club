@@ -31,12 +31,12 @@ public class Book implements Serializable, Comparable<Book>{
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	
+
 	@Enumerated(EnumType.STRING) 
 	private TypeBook type;
-	
+
 	private Integer year;
-	
+
 	public Book(String source) {
 		this.source = source;
 	}
