@@ -194,16 +194,20 @@ public class SpellApiConroller {
 				}
 			}
 			if (request.getFilter().getDistance()!= null && !request.getFilter().getDistance().isEmpty()) {
+				Specification<Spell> addSpec = null;
 				for (String distance : request.getFilter().getDistance()) {
-					specification = SpecificationUtil.getAndSpecification(specification,
+					addSpec = SpecificationUtil.getOrSpecification(addSpec,
 							(root, query, cb) -> cb.like(root.get("distance"), "%" + distance + "%"));
 				}
+				specification = SpecificationUtil.getAndSpecification(specification, addSpec);
 			}
 			if (request.getFilter().getDuration() != null && !request.getFilter().getDuration().isEmpty()) {
+				Specification<Spell> addSpec = null;
 				for (String distance : request.getFilter().getDuration()) {
-					specification = SpecificationUtil.getAndSpecification(specification,
+					addSpec = SpecificationUtil.getOrSpecification(addSpec,
 							(root, query, cb) -> cb.like(root.get("duration"), "%" + distance + "%"));
 				}
+				specification = SpecificationUtil.getAndSpecification(specification, addSpec);
 			}
 			if (!request.getFilter().getBooks().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
