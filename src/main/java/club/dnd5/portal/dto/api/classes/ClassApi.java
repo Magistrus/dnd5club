@@ -27,6 +27,7 @@ public class ClassApi {
 	private GroupApi group;
 	private String image;
 	private String icon;
+	private String archetypeName;
 
 	public ClassApi(HeroClass heroClass, ClassRequestApi request) {
 		name = new NameApi(heroClass.getCapitalazeName(), heroClass.getEnglishName());
@@ -55,7 +56,9 @@ public class ClassApi {
 		if (!heroClass.isSidekick()) {
 			icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 		}
-		
+		if (heroClass.getArchetypeName() != null) {
+			archetypeName = heroClass.getArchetypeName();
+		}
 		image = String.format("https://image.dnd5.club:8089/classes/background/class-%s.webp", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }

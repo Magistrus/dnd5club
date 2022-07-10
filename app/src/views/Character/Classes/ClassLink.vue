@@ -71,7 +71,7 @@
 
                     <button
                         v-if="hasArchetypes"
-                        v-tippy="{ content: 'Архетипы', placement: 'left' }"
+                        v-tippy="{ content: classItem.archetypeName, placement: 'left' }"
                         class="link-item-expand__toggle"
                         type="button"
                         @click.left.exact.prevent="toggleArch"
