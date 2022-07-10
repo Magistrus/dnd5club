@@ -1,8 +1,8 @@
 package club.dnd5.portal.dto.api.tools;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,14 +25,13 @@ public class RandomEncounterInputApi {
 	private Collection<NameValueApi> environments; 
 	private Collection<NameValueApi> levels;
 
-	public RandomEncounterInputApi(HabitatType[] values) {
+	public RandomEncounterInputApi(Set<HabitatType> values) {
 		levels = new ArrayList<>();
 		levels.add(new NameValueApi("1-4", 1));
 		levels.add(new NameValueApi("5-10", 2));
 		levels.add(new NameValueApi("11-15", 3));
 		levels.add(new NameValueApi("17-20", 4));
-		environments = Arrays
-				.stream(values)
+		environments = values.stream()
 				.map(e -> new NameValueApi(e.getName(), e.name()))
 				.collect(Collectors.toList());
 	}

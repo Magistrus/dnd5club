@@ -86,6 +86,21 @@
             </div>
         </template>
     </content-layout>
+
+    <base-modal
+        v-if="table.data"
+        v-model="table.show"
+    >
+        <template #title>
+            {{ table.data.name }}
+        </template>
+
+        <template #default>
+            <div class="content-padding">
+                <roll-table :table="table.data"/>
+            </div>
+        </template>
+    </base-modal>
 </template>
 
 <script>
@@ -97,10 +112,14 @@
     import { reactive } from "vue";
     import FieldSelect from "@/components/form/FieldType/FieldSelect";
     import FormButton from "@/components/form/FormButton";
+    import BaseModal from "@/components/UI/modals/BaseModal";
+    import RollTable from "@/components/UI/RollTable";
 
     export default {
         name: "EncountersView",
         components: {
+            RollTable,
+            BaseModal,
             FormButton,
             FieldSelect, RawContent, ContentLayout
         },
@@ -109,7 +128,10 @@
             environments: [],
             levels: [],
             results: [],
-            table: undefined,
+            table: {
+                show: false,
+                data: undefined
+            },
             form: {
                 level: '',
                 environment: ''
@@ -224,7 +246,10 @@
                         return;
                     }
 
-                    this.table = resp.data;
+                    this.table = {
+                        show: true,
+                        data: resp.data
+                    };
                 } catch (err) {
                     errorHandler(err);
                 } finally {

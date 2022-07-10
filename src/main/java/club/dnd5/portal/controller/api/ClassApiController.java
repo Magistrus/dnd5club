@@ -66,7 +66,7 @@ public class ClassApiController {
 		return classRepo.findAll(specification)
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
-				.filter(c -> !c.getArchetypes().isEmpty())
+				.filter(c -> request.getFilter() != null ? request.getFilter().getBooks().contains(c.getSource().getShortName()) : true)
 				.collect(Collectors.toList());
 	}
 	
