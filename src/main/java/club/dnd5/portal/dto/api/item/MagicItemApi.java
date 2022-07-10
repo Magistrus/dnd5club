@@ -21,6 +21,6 @@ public class MagicItemApi extends ItemApi {
 	public MagicItemApi(MagicItem item) {
 		super(item);
 		type = new TypeApi(item.getType().getCyrilicName(), item.getType().ordinal());
-		rarity = item.getRarity().getCyrilicName();
+		rarity = item.getTextRarity();
 	}
 }
