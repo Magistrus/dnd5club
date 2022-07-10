@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.Column;
@@ -17,6 +18,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,7 @@ import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.CreatureFeat;
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.foundary.FBeastiary;
+import club.dnd5.portal.model.foundary.FCreature;
 import club.dnd5.portal.model.fvtt.plutonium.FBeast;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.splells.Spell;
@@ -225,7 +228,16 @@ public class BestiarytApiConroller {
 		}
 		return beastApi;
 	}
-
+	
+	@GetMapping("//api/fvtt/v1/bestiary/{id}")
+	public ResponseEntity<FCreature> getCreature(HttpServletResponse response, @PathVariable Integer id){
+		Creature creature = beastRepository.findById(id).get();
+		response.setContentType("application/json");
+		String file = String.format("attachment; filename=\"%s.json\"", creature.getEnglishName());
+		response.setHeader("Content-Disposition", file); 
+		return ResponseEntity.ok(new FCreature(creature));
+	}
+	
 	@CrossOrigin
 	@GetMapping("/api/fvtt/v1/bestiary")
 	public FBeastiary getCreatures(){

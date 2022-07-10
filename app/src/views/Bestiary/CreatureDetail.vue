@@ -88,7 +88,7 @@
             },
 
             exportFoundry() {
-                window.open(`/creature/json/${ this.creature.id }`, '_self');
+                window.open(`/api/fvtt/v1/bestiary/${ this.creature.id }`, '_self');
             }
         }
     }
