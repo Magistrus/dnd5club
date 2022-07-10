@@ -89,7 +89,7 @@
             async getContent() {
                 this.error = false;
 
-                if (this.spell) {
+                if (this.content) {
                     return true;
                 }
 
@@ -109,7 +109,7 @@
                     return false;
                 }
 
-                this.spell = res.data;
+                this.content = res.data;
 
                 return true
             }
