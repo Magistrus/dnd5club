@@ -84,7 +84,7 @@ export const useBooksStore = defineStore('BooksStore', {
                         value: this.filter?.getSearchState || ''
                     },
                     order: [{
-                        field: 'name',
+                        field: 'year',
                         direction: 'asc'
                     }],
                     ...options
