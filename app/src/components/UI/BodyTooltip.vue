@@ -1,6 +1,7 @@
 <template>
     <tippy
         v-bind="tippyConfig"
+        ref="tooltip"
         theme="dnd5club no-padding"
     >
         <template #default>
@@ -40,7 +41,6 @@
             type: {
                 type: String,
                 default: '',
-                required: true
             },
         },
         data: () => ({
@@ -93,13 +93,16 @@
                     return true;
                 }
 
-                if (!this.url) {
+                const link = this.$slots.default().find(node => node.props.href);
+                const url = this.url || link?.props?.href;
+
+                if (!url?.length) {
                     this.error = true;
 
                     return false
                 }
 
-                const res = await this.$http.post(this.url);
+                const res = await this.$http.post(url);
 
                 if (res.status !== 200) {
                     errorHandler(res.statusText);
