@@ -201,7 +201,7 @@
                 const speeds = [];
 
                 for (const speed of this.race.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value }фт.`)
+                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`)
                 }
 
                 return speeds.join(', ')
