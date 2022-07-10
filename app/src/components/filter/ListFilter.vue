@@ -283,8 +283,8 @@
                     flex-shrink: 0;
 
                     svg {
-                        width: 16px;
-                        height: 16px;
+                        width: 24px;
+                        height: 24px;
                         color: var(--primary);
                     }
                 }
@@ -318,8 +318,8 @@
                 }
 
                 svg {
-                    width: 24px;
-                    height: 24px;
+                    width: 16px;
+                    height: 16px;
                 }
             }
         }
