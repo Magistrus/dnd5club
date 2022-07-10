@@ -65,13 +65,13 @@
             border-bottom: 1px solid var(--border);
         }
 
-        span {
+        // span {
 
-            &:last-child {
-                min-width: 220px;
-                text-align: right;
-            }
-        }
+        //     &:last-child {
+        //         min-width: 220px;
+        //         text-align: right;
+        //     }
+        // }
 
         @media (max-width: 1200px) {
             padding: 12px 16px 12px 16px;
