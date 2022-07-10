@@ -17,6 +17,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,10 @@ import club.dnd5.portal.model.CreatureSize;
 import club.dnd5.portal.model.CreatureType;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.creature.Action;
+import club.dnd5.portal.model.creature.ActionType;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.creature.CreatureFeat;
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.model.foundary.FBeastiary;
 import club.dnd5.portal.model.fvtt.plutonium.FBeast;
@@ -60,7 +64,7 @@ public class BestiarytApiConroller {
 		Specification<Creature> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
+		List<Column> columns = new ArrayList<>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
@@ -182,15 +186,30 @@ public class BestiarytApiConroller {
 							(root, query, cb) -> cb.isNotNull(root.get("vibration")));
 				}
 			}
-			if (!request.getFilter().getFeatures().isEmpty()) {
-				for (String featureName : request.getFilter().getFeatures()) {
-					specification = SpecificationUtil.getAndSpecification(specification,  (root, query, cb) -> {
-						Join<Object, Object> join = root.join("feats", JoinType.INNER);
+			if (!CollectionUtils.isEmpty(request.getFilter().getFeatures())) {
+				Specification<Creature> addSpec = null;
+				if (request.getFilter().getFeatures().contains("lair")) {
+					addSpec = SpecificationUtil.getOrSpecification(addSpec,  (root, query, cb) ->
+						cb.isNotNull(root.get("lair"))
+					);
+					request.getFilter().getFeatures().remove("lair");
+				}
+				if (request.getFilter().getFeatures().contains("legendary")) {
+					addSpec = SpecificationUtil.getOrSpecification(addSpec,  (root, query, cb) -> {
+						Join<Action, Creature> join = root.join("actions", JoinType.INNER);
 						query.distinct(true);
-						cb.equal(join.get("name"), featureName);
-						return query.getRestriction();
+						return cb.equal(join.get("actionType"), ActionType.LEGENDARY);
+					});	
+					request.getFilter().getFeatures().remove("legendary");
+				}
+				for (String featureName : request.getFilter().getFeatures()) {
+					addSpec = SpecificationUtil.getOrSpecification(addSpec,  (root, query, cb) -> {
+						Join<CreatureFeat, Creature> join = root.join("feats", JoinType.INNER);
+						query.distinct(true);
+						return cb.like(join.get("name"), "%" + featureName + "%");
 					});	
 				}
+				specification = SpecificationUtil.getAndSpecification(specification, addSpec); 
 			}
 		}
 		return beastRepository.findAll(input, specification, specification, BeastApi::new).getData();
@@ -253,7 +272,7 @@ public class BestiarytApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		
 		FilterApi npcFilter = new FilterApi("Именнованые НИП", "npc");
-		npcFilter.setValues(Collections.singletonList(new FilterValueApi("показать именованных НИП", "true")));
+		npcFilter.setValues(Collections.singletonList(new FilterValueApi("показать именованных НИП", "true", Boolean.TRUE)));
 		otherFilters.add(npcFilter);
 		
 		FilterApi crFilter = new FilterApi("Уровень опасности", "challengeRating");

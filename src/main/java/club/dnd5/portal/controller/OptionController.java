@@ -1,11 +1,9 @@
 package club.dnd5.portal.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.naming.directory.InvalidAttributesException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -16,47 +14,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import club.dnd5.portal.dto.classes.OptionDto;
-import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.book.TypeBook;
-import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
-import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 
 @Controller
 public class OptionController {
-	private static final String[] prerequsitlevels = { "Нет", " 5", " 6", " 7", " 9", "11", "12", "15", "17", "18" };
-
 	@Autowired
 	private OptionDatatableRepository repository;
 	
-	@Autowired
-	private ClassRepository classRepository;
-	
 	private Map<String, String> classIcons = new HashMap<>();
-	
-	private Map<TypeBook, List<Book>> sources;
-
-	@PostConstruct
-	public void init() {
-		sources = new HashMap<>();
-		sources.put(TypeBook.OFFICAL, repository.findBook(TypeBook.OFFICAL));
-		sources.put(TypeBook.CUSTOM, repository.findBook(TypeBook.CUSTOM));
-		for(HeroClass heroClass : classRepository.findAll()) {
-			classIcons.put(heroClass.getEnglishName(), heroClass.getIcon());
-		}
-	}
 	
 	@GetMapping("/options")
 	public String getOptions(Model model) {
-		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
-		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
-
-		model.addAttribute("categories", Option.OptionType.values());
-		model.addAttribute("prerequsites", repository.findAlldPrerequisite());
-		model.addAttribute("levels", prerequsitlevels);
 		model.addAttribute("metaTitle", "Особенности классов (Options) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/options");
 		model.addAttribute("metaDescription", "Список особенности классов и подкласов по D&D 5 редакции");
@@ -71,15 +41,6 @@ public class OptionController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
-		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
-
-		model.addAttribute("categories", Option.OptionType.values());
-		model.addAttribute("prerequsites", repository.findAlldPrerequisite());
-		model.addAttribute("levels", prerequsitlevels);
-
-		model.addAttribute("selectedOption", new OptionDto(option));
 		model.addAttribute("metaTitle", String.format("%s (%s)", option.getName(), option.getEnglishName()) + " | Особенности классов D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/options/" + name);
 		model.addAttribute("metaDescription", 
