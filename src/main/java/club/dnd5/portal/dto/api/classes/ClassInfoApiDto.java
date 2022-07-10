@@ -26,7 +26,6 @@ public class ClassInfoApiDto extends ClassApi {
 
 	public ClassInfoApiDto(HeroClass heroClass, Collection<String> images, ClassRequestApi request) {
 		super(heroClass, request);
-		url = null;
 		this.images = images;
 		tabs.add(new ClassTabApiDto("Навыки", String.format("/classes/fragment/%s", heroClass.getUrlName()), "traits", 0, true));
 		tabs.add(new ClassTabApiDto("Описание", String.format("/classes/%s/description", heroClass.getUrlName()), "description", 1, true));
