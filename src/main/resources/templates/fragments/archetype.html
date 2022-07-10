@@ -119,9 +119,9 @@
 								<td align="center" th:text="${element.key}"></td>
 								<td>
                                     <th:block th:each="spell, iterStat : ${element.value}">
-                                        <spell-tooltip th:url="|/spells/${spell.spell.englishName}|">
+                                        <body-tooltip th:url="|/spells/${spell.spell.englishName}|" type="spell">
                                             <a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"></a>
-                                        </spell-tooltip>
+                                        </body-tooltip>
 										<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
 										<span th:if="${not iterStat.last}">, </span>
 									</th:block>

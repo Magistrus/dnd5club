@@ -8,9 +8,10 @@
         </template>
 
         <template #content>
-            <spell-body
-                v-if="spell"
-                :spell="spell"
+            <component
+                :is="bodyComponent"
+                v-if="content"
+                :[type]="content"
             />
         </template>
     </tippy>
@@ -21,18 +22,29 @@
     import SpellBody from "@/views/Spells/SpellBody";
     import errorHandler from "@/common/helpers/errorHandler";
     import cloneDeep from "lodash/cloneDeep";
+    import ScreenBody from "@/views/Screens/ScreenBody";
+    import ItemBody from "@/views/Inventory/Items/ItemBody";
+    import ArmorBody from "@/views/Inventory/Armors/ArmorBody";
+    import WeaponBody from "@/views/Inventory/Weapons/WeaponBody";
+    import CreatureBody from "@/views/Bestiary/CreatureBody";
+    import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
 
     export default {
-        name: "SpellTooltip",
+        name: "BodyTooltip",
         components: { SpellBody },
         props: {
             url: {
                 type: String,
                 default: ''
-            }
+            },
+            type: {
+                type: String,
+                default: '',
+                required: true
+            },
         },
         data: () => ({
-            spell: undefined,
+            content: undefined,
             error: false,
             to: document.body
         }),
@@ -43,7 +55,35 @@
                 config.onShow = () => this.getContent();
 
                 return config;
-            }
+            },
+
+            bodyComponent() {
+                switch (this.type) {
+                    case 'spell':
+                        return SpellBody
+
+                    case 'screen':
+                        return ScreenBody
+
+                    case 'item':
+                        return ItemBody
+
+                    case 'magic-item':
+                        return MagicItemBody
+
+                    case 'creature':
+                        return CreatureBody
+
+                    case 'weapon':
+                        return WeaponBody
+
+                    case 'armor':
+                        return ArmorBody
+
+                    default:
+                        return 'div';
+                }
+            },
         },
         methods: {
             async getContent() {
