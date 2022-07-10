@@ -171,22 +171,22 @@ public class TraderApiController {
 							break;
 						case 35:
 							itemApi.changeName("(кожаный)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 10);
 							break;
 						case 36:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 75);
 							break;
 						case 37:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 50);
 							break;
 						case 38:
 							itemApi.changeName("(чешуйчатый)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 50);
 							break;
 						case 60:
@@ -206,37 +206,37 @@ public class TraderApiController {
 							break;
 						case 65:
 							itemApi.changeName("(кираса)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 400);
 							break;
 						case 66:
 							itemApi.changeName("(кираса)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 400);
 							break;
 						case 67:
 							itemApi.changeName("(проклёпанная кожа)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 400);
 							break;
 						case 68:
 							itemApi.changeName("(кожаный)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 10);
 							break;
 						case 69:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 75);
 							break;
 						case 70:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 50);
 							break;
 						case 71:
 							itemApi.changeName("(чешуйчатый)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 50);
 							break;
 						case 89:
@@ -264,55 +264,55 @@ public class TraderApiController {
 						case 42:
 						case 43:
 							itemApi.changeName("(латы)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 1500);
 							break;
 						case 44:
 						case 45:
 							itemApi.changeName("(полулаты)");
-							itemApi.setRarity(Rarity.UNCOMMON.getCyrilicName());
+							itemApi.setRarity(Rarity.UNCOMMON);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 750);
 							break;
 						case 46:
 						case 47:
 							itemApi.changeName("(чешуйчатый)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.UNCOMMON) + 50);
 							break;
 						case 48:
 						case 49:
 							itemApi.changeName("(кираса)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 400);
 							break;
 						case 50:
 						case 51:
 							itemApi.changeName("(наборной)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 200);
 							break;
 						case 52:
 						case 53:
 							itemApi.changeName("(проклёпанная кожа)");
-							itemApi.setRarity(Rarity.RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.RARE);
 							itemApi.setPrice(getCost(Rarity.RARE) + 45);
 							break;
 						case 54:
 						case 55:
 							itemApi.changeName("(кожаный)");
-							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.VERY_RARE);
 							itemApi.setPrice(getCost(Rarity.VERY_RARE) + 10);
 							break;
 						case 56:
 						case 57:
 							itemApi.changeName("(кольчуга)");
-							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.VERY_RARE);
 							itemApi.setPrice(getCost(Rarity.VERY_RARE) + 75);
 							break;
 						case 58:
 						case 59:
 							itemApi.changeName("(кольчужная рубаха)");
-							itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+							itemApi.setRarity(Rarity.VERY_RARE);
 							itemApi.setPrice(getCost(Rarity.VERY_RARE) + 50);
 							break;
 						case 76:
@@ -320,41 +320,41 @@ public class TraderApiController {
 							case 1:
 							case 2:
 								itemApi.changeName("(полулаты)");
-								itemApi.setRarity(Rarity.RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.RARE);
 								itemApi.setPrice(getCost(Rarity.RARE) + 750);
 								break;
 							case 3:
 							case 4:
 								itemApi.changeName("(латы)");
-								itemApi.setRarity(Rarity.RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.RARE);
 								itemApi.setPrice(getCost(Rarity.RARE) + 1500);
 								break;
 							case 5:
 							case 6:
 								itemApi.changeName("(проклёпанная кожа)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								itemApi.setPrice(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 7:
 							case 8:
 								itemApi.changeName("(кираса)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								itemApi.setPrice(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 9:
 							case 10:
 								itemApi.changeName("(набороной)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								itemApi.setPrice(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 11:
 								itemApi.changeName("(полулаты)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								itemApi.setPrice(getCost(Rarity.VERY_RARE) + 750);
 								break;
 							case 12:
 								itemApi.changeName("(латы)");
-								itemApi.setRarity(Rarity.VERY_RARE.getCyrilicName());
+								itemApi.setRarity(Rarity.VERY_RARE);
 								itemApi.setPrice(getCost(Rarity.VERY_RARE) + 1550);
 								break;
 							}
