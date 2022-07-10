@@ -130,21 +130,18 @@
             scrollToActive() {
                 const ref = this.$refs.classes;
 
-                console.log(ref);
                 if (!ref) {
                     return;
                 }
 
                 const link = ref.querySelector('.router-link-active');
 
-                console.log(link);
                 if (!link) {
                     return;
                 }
 
                 const rect = link.getBoundingClientRect();
 
-                console.log(rect.top - 112);
                 window.scroll({
                     top: rect.top - 112,
                     behavior: "smooth"
