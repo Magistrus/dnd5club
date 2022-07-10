@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import club.dnd5.portal.dto.item.ArmorDto;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 
@@ -35,7 +34,6 @@ public class ArmorController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("selectedArmor", new ArmorDto(armor));
 		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getEnglishName().replace(" ", "_"));
 		model.addAttribute("metaDescription", String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
