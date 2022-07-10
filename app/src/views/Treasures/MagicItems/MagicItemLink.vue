@@ -15,8 +15,8 @@
         >
             <div class="link-item__content">
                 <div
-                    :class="getRarityClass"
                     v-tippy="{ content: magicItem.rarity }"
+                    :class="getRarityClass"
                     class="link-item__rarity"
                 >
                     <span v-tippy="{ content: magicItem.rarity }">{{ getRarityAbbreviation }}</span>
@@ -48,6 +48,10 @@
                             class="link-item__count"
                         >
                             {{ `x${ magicItem.custom.count }` }}
+                        </div>
+
+                        <div class="link-item__price">
+                            {{ `${ magicItem.custom?.price || magicItem.price || 0 } зм` }}
                         </div>
 
                     </div>
