@@ -54,7 +54,7 @@ public class Equipment {
 	
 	public String getTextCost() {
 		if (getCost() == null) {
-			return "&mdash;";
+			return null;
 		}
 		else
 		{

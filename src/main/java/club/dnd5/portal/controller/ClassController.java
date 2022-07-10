@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +11,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,10 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import club.dnd5.portal.dto.classes.ClassDto;
 import club.dnd5.portal.dto.classes.ClassFetureDto;
-import club.dnd5.portal.model.book.Book;
-import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.HeroClassTrait;
 import club.dnd5.portal.model.classes.archetype.Archetype;
@@ -37,7 +31,6 @@ import club.dnd5.portal.model.classes.archetype.ArchetypeTrait;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.splells.MagicSchool;
 import club.dnd5.portal.repository.ImageRepository;
-import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ArchetypeTraitRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.HeroClassTraitRepository;
@@ -50,8 +43,6 @@ public class ClassController {
 	@Autowired
 	private ClassRepository classRepository;
 	@Autowired
-	private ArchetypeRepository archetypeRepository;
-	@Autowired
 	private HeroClassTraitRepository traitRepository;
 	@Autowired
 	private ArchetypeTraitRepository archetypeTraitRepository;
@@ -60,48 +51,21 @@ public class ClassController {
 	@Autowired
 	private OptionDatatableRepository optionRepository;
 	
-	private Map<TypeBook, Set<Book>> sources;
-
-	@PostConstruct
-	public void init() {
-		sources = new HashMap<>();
-		sources.put(TypeBook.OFFICAL, new LinkedHashSet<>(classRepository.findBook(TypeBook.OFFICAL)));
-		sources.put(TypeBook.SETTING, new LinkedHashSet<>(classRepository.findBook(TypeBook.SETTING)));
-		sources.put(TypeBook.CUSTOM, new LinkedHashSet<>(classRepository.findBook(TypeBook.CUSTOM)));
-		
-		sources.computeIfAbsent(TypeBook.OFFICAL, k -> new LinkedHashSet<>()).addAll(archetypeRepository.findBook(TypeBook.OFFICAL));
-		sources.computeIfAbsent(TypeBook.SETTING, k -> new LinkedHashSet<>()).addAll(archetypeRepository.findBook(TypeBook.SETTING));
-		sources.computeIfAbsent(TypeBook.CUSTOM, k -> new LinkedHashSet<>()).addAll(archetypeRepository.findBook(TypeBook.CUSTOM));
-	}
-	
 	@GetMapping("/classes")
 	public String getClasses(Model model) {
-		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
-		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-		model.addAttribute("moduleBooks", sources.get(TypeBook.MODULE));
-		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
-		model.addAttribute("selectedClass", null);
-
-		model.addAttribute("classes", classRepository.findAllBySidekick(false));
-		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
+		model.addAttribute("menuTitle", "Классы");
 		model.addAttribute("metaUrl", "https://dnd5.club/classes");
 		return "classes";
 	}
 	
 	@GetMapping("/classes/{name}")
 	public String getClass(Model model, @PathVariable String name, HttpServletRequest request) {
-		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
-		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
-		model.addAttribute("classes", classRepository.findAllBySidekick(false));
-		model.addAttribute("sidekick", classRepository.findAllBySidekick(true));
 		HeroClass heroClass = classRepository.findByEnglishName(name.replace("_", " "));
 		if (heroClass == null) {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("selectedClass", new ClassDto(heroClass));
 		model.addAttribute("metaTitle", String.format("%s (%s) | Классы D&D 5e", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
@@ -109,6 +73,7 @@ public class ClassController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Классы");
 		return "classes";
 	}
 	
@@ -127,11 +92,6 @@ public class ClassController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("books", sources.get(TypeBook.OFFICAL));
-		model.addAttribute("settingBooks", sources.get(TypeBook.SETTING));
-		model.addAttribute("hombrewBooks", sources.get(TypeBook.CUSTOM));
-		model.addAttribute("selectedClass", new ClassDto(heroClass));
-		model.addAttribute("selectedArchetype", archetype);
 		model.addAttribute("metaTitle", String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
 				StringUtils.capitalize(selectedArchetype.get().getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
@@ -141,6 +101,7 @@ public class ClassController {
 		if (!images.isEmpty()) {
 			model.addAttribute("metaImage", images.iterator().next());
 		}
+		model.addAttribute("menuTitle", "Классы");
 		return "classes";
 	}
 	

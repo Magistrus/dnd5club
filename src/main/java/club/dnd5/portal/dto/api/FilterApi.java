@@ -17,10 +17,11 @@ import lombok.Setter;
 public class FilterApi {
 	private String name; // название блока фильтра
 	private String key; // ключ для сохранения и запроса
-	private Boolean colapse;
+	private Boolean expand = Boolean.TRUE;
+	private Boolean hidden;
 	private List<FilterApi> sources;
 	private List<FilterApi> other;
-		private List<FilterValueApi> values;
+	private List<FilterValueApi> values;
 	
 	public FilterApi(String key) {
 		this.key = key;
@@ -29,5 +30,11 @@ public class FilterApi {
 	public FilterApi(String name , String key) {
 		this.name = name;
 		this.key = key;
+	}
+	
+	public FilterApi(String name , String key, Boolean expand) {
+		this.name = name;
+		this.key = key;
+		this.expand = expand;
 	}
 }

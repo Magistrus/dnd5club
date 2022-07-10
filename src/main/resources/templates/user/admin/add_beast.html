@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <head>
-    <link th:href="@{/resources/css/trumbowyg.min.css}" rel="stylesheet">
-    <script th:src="@{/resources/js/trumbowyg/trumbowyg.min.js}"></script>
-    <script th:src="@{/resources/js/trumbowyg/langs/ru.min.js}"></script>
+    <link th:href="@{/css/trumbowyg.min.css}" rel="stylesheet">
+    <script th:src="@{/js/trumbowyg/trumbowyg.min.js}"></script>
+    <script th:src="@{/js/trumbowyg/langs/ru.min.js}"></script>
 </head>
 <body id="body">
 	<div layout:fragment="content">
@@ -15,7 +15,7 @@
 					<button class="btn btn_additional_features tip" title="Отмена">Отмена</button>
 				</div>
 			</div>
-			<div class="add_beast_container" data-simplebar>
+			<div class="add_beast_container" >
 				<div class="wrapper">
 					<div class="row_input">
 						<input type="text" class="copy_best tip" name="copy_best" placeholder="Выбрать монстра для копирования" title="Выбрать монстра для копирования"> <input type="text" class="name tip"
@@ -30,7 +30,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current size">Размер</span>
-							<ul data-simplebar>
+							<ul >
 								<li th:each="size : ${sizes}" th:data-dropdown-value="${size}" th:text="${size.cyrilicName}"></li>
 							</ul>
 						</div>
@@ -39,7 +39,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current tipe">Тип</span>
-							<ul data-simplebar>
+							<ul >
 								<li th:each="type : ${types}" th:data-dropdown-value="${type}" th:text="${type.cyrilicName}"></li>
 							</ul>
 						</div>
@@ -50,7 +50,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current alignment">Мировоззрение</span>
-							<ul data-simplebar>
+							<ul >
 								<li th:each="aligment : ${aligments}" th:data-dropdown-value="${aligment}" th:text="${aligment.cyrilicName}"></li>
 							</ul>
 						</div>
@@ -62,7 +62,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current armor">Броня</span>
-							<ul data-simplebar>
+							<ul >
 								<li data-dropdown-value="TEXT">Текстовое описание</li>
 								<li th:each="armor : ${armorTypes}" th:data-dropdown-value="${armor}" th:text="${armor.cyrillicName}"></li>
 							</ul>
@@ -107,7 +107,7 @@
 											<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 										</svg>
 									</i> <span id="hp_dice_text" class="placeholder js-dropdown__current dice_hp">к4</span>
-									<ul data-simplebar>
+									<ul >
 										<li th:each="dice : ${hitDices}" th:data-dropdown-value="${dice}" th:text="${dice.name}"></li>
 									</ul>
 								</div>
@@ -174,7 +174,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								</i> <span class="placeholder js-dropdown__current resistance_damage" title="Сопротивл. урону">Сопротивл. урону</span>
-								<ul data-simplebar>
+								<ul >
 									<li th:each="resistanc : ${resistancs}" th:data-dropdown-value="${resistanc}" th:text="${resistanc.cyrilicName}"></li>
 								</ul>
 							</div>
@@ -185,7 +185,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								</i> <span class="placeholder js-dropdown__current damage_immunity" title="Иммун. к урону">Иммун. к урону</span>
-								<ul data-simplebar>
+								<ul >
 									<li th:each="immunity : ${immunities}" th:data-dropdown-value="${immunity}" th:text="${immunity.cyrilicName}"></li>
 								</ul>
 							</div>
@@ -196,7 +196,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								</i> <span class="placeholder js-dropdown__current damage_vulnerability" title="Иммун. к урону">Уязвим. к урону</span>
-								<ul data-simplebar>
+								<ul >
 									<li th:each="vulnerability : ${vulnerabilities}" th:data-dropdown-value="${vulnerability}" th:text="${vulnerability.cyrilicName}"></li>
 								</ul>
 							</div>
@@ -207,7 +207,7 @@
 										<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								</i> <span class="placeholder js-dropdown__current condition_immunity" title="Иммун. к состоянию">Иммун. к состоянию</span>
-								<ul data-simplebar>
+								<ul >
 									<li th:each="ci : ${conditionImmunity}" th:data-dropdown-value="${ci}" th:text="${ci.cyrilicName}"></li>
 								</ul>
 							</div>
@@ -221,7 +221,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current languages" title="Языки">Языки</span>
-							<ul data-simplebar>
+							<ul >
 									<li data-dropdown-value="8">Общий</li>
 									<li data-dropdown-value="9">Эльфийский</li>
 									<li data-dropdown-value="32">Дворфийский</li>
@@ -246,7 +246,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current danger">Опасность</span>
-							<ul data-simplebar>
+							<ul >
 								<li data-dropdown-value="0">0</li>
 								<li data-dropdown-value="1/2">1/8</li>
 								<li data-dropdown-value="1/4">1/4</li>
@@ -259,7 +259,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current source" title="Места обитания">Места обитания</span>
-							<ul data-simplebar>
+							<ul >
 								<li th:each="habitate : ${habitates}" th:data-dropdown-value="${habitate}" th:text="${habitate.name}"></li>
 							</ul>
 						</div>
@@ -268,7 +268,7 @@
 									<path d="M6 9L11.2929 14.2929C11.6834 14.6834 12.3166 14.6834 12.7071 14.2929L18 9" stroke="#4D4DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 								</svg>
 							</i> <span class="placeholder js-dropdown__current source">Источник</span>
-							<ul data-simplebar>
+							<ul >
 								<li data-dropdown-value="1">1</li>
 								<li data-dropdown-value="2">2</li>
 								<li data-dropdown-value="3">3</li>
@@ -389,5 +389,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{|/resources/js/add/add_beast.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/js/add/add_beast.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>

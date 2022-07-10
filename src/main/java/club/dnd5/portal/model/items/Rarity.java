@@ -22,17 +22,19 @@ public enum Rarity {
 	}
 	// базовая цена в золотых монетах
 	private int baseCost;
-	
+
 	public static Rarity parse(String value) {
 		return Arrays.stream(values()).filter(f -> f.getCyrilicName().equals(value)).findFirst().orElseThrow(IllegalArgumentException::new);
 	}
-	
+
 	public String getCyrilicName() {
 		return names[0];
 	}
+
 	public String getFemaleName() {
 		return names[1];
 	}
+
 	public String getMiddleName() {
 		return names[2];
 	}
@@ -51,6 +53,23 @@ public enum Rarity {
 			return Dice.roll(2, Dice.d6) * 25000;
 		default:
 			return 0;
+		}
+	}
+
+	public String getShort() {
+		switch (this) {
+		case COMMON:
+			return "O";
+		case UNCOMMON:
+			return "Н";
+		case RARE:
+			return "Р";
+		case VERY_RARE:
+			return "OР";
+		case LEGENDARY:
+			return "Л";
+		default:
+			return "~";
 		}
 	}
 }

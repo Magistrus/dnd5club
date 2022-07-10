@@ -2,34 +2,10 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorate="~{layouts/layout}">
 <div class="navbar" th:fragment="menu">
-	<div class="nav_head">
-		<a sec:authorize="isAnonymous()" th:href="@{/login}" class="user_account ajax-popup-link hide_block" >
-			<i class="icon_menu">
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-			</i>
-		</a>
-		<a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="user_account ajax-popup-link hide_block" >
-			<i class="icon_menu">
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-			</i>
-		</a>
-		<a class="logo" href="/"></a>
-		<button class="close_menu icon_menu">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M12 7L7 12M7 12L12 17M7 12L17 12" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>
-		</button>
-		<button id="roll_menu" class="roll_menu">
-			<i class="icon_menu">
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M21 18H3M21 12H3M21 6H3" stroke="#7B61FF" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-			</i>
-		</button>
+	<div class="navbar__head">
+        <a href="/" class="navbar__head__logo">
+            <site-logo :size="52"/>
+        </a>
 	</div>
 	<nav>
 		<ul class="nav_links sidebar-menu">
@@ -184,14 +160,14 @@
 						<i class="icon_menu">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M20 19V3.5C20 2.67157 19.3284 2 18.5 2H7M20 19V21.5C20 22.3284 19.3284 23 18.5 23H5.5C4.67157 23 4 22.3284 4 21.5V20M20 19H7M7 2H5.5C4.67157 2 4 2.67157 4 3.5V15V17.5C4 18.3284 4.67157 19 5.5 19H7M7 2V9.5V14M7 19V16M12 16H15M10 6V7C10 7.55228 10.4477 8 11 8H16C16.5523 8 17 7.55228 17 7V6C17 5.44772 16.5523 5 16 5H11C10.4477 5 10 5.44772 10 6Z" stroke="#4D4DAA" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>									
+							</svg>
 						</i>
 						<span class="link_name">База знаний</span>
 					</a>
 					<i class="arrow icon_menu">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8 10L12 14L16 10" stroke="#e4e4e4" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>						
+						</svg>
 					</i>
 				</div>
 				<ul class="sub_menu">
@@ -254,15 +230,8 @@
 					<li><a href="https://old.dnd5.club/" target="_blank">Старый сайт</a></li>
 				</ul>
 			</li>
-			<li class="mt-auto" onclick="switchTheme()">
-				<a href="#">
-					<i id="icon_dark_mod" class="icon_menu"></i>
-					<span id="theme_mode" class="link_name">Dark Mod</span>
-				</a>
-				<ul class="sub_menu blank">
-					<li class="link_name"><span id="theme_mode_link">Dark Mod</span></li>
-				</ul>
-			</li>
+
+            <menu-theme-switcher/>
 		</ul>
 	</nav>
 </div>

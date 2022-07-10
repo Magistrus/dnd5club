@@ -37,10 +37,10 @@ public class MagicItemDetailApi extends MagicItemApi {
 			customization = item.getCustomization(); 
 		}
 		if (!item.getArmors().isEmpty()) {
-			detailType = item.getArmors().stream().map(Armor::getName).collect(Collectors.toList());
+			detailType = item.getArmors().stream().map(Armor::getName).map(String::toLowerCase).collect(Collectors.toList());
 		}
 		if (!item.getWeapons().isEmpty()) {
-			detailType = item.getWeapons().stream().map(Weapon::getName).collect(Collectors.toList());
+			detailType = item.getWeapons().stream().map(Weapon::getName).map(String::toLowerCase).collect(Collectors.toList());
 		}
 		if (item.getSpecial() !=null) {
 			if (detailType == null) {
@@ -50,7 +50,7 @@ public class MagicItemDetailApi extends MagicItemApi {
 		}
 		source = new SourceApi(item.getBook());
 		if (!item.getCustClasses().isEmpty()) {
-			detailCustamization = item.getCustClasses().stream().map(HeroClass::getCapitalazeName).collect(Collectors.toList());
+			detailCustamization = item.getCustClasses().stream().map(HeroClass::getAblativeName).collect(Collectors.toList());
 		}
 		cost = new CostApi(item);
 	}

@@ -1,0 +1,275 @@
+.link-item-expand {
+  width: 100%;
+  display: block;
+  will-change: left, top;
+  overflow: hidden;
+
+  &.is-green {
+    .link-item-expand {
+      &__content {
+        background: var(--bg-homebrew-gradient-left);
+
+        &__gradient {
+          background: var(--bg-homebrew-gradient-left);
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+
+  &__content {
+    background-color: var(--bg-table-list);
+    border: 1px solid var(--bg-secondary);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    mask-image: radial-gradient(white, black); // Не удалять, это фикс для Safari, чтобы не вылазили углы картинки
+
+    &__img-bg {
+      @include css_anim($item: transform, $time: .6s);
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      pointer-events: none;
+      opacity: 1;
+      width: 50%;
+      transform: translateZ(1px); // Не удалять, чтобы не было мерцания при ховере
+      transform-origin: top right 1px;
+
+      @include media-min($lg) {
+        width: 70%;
+      }
+
+      @include media-min($xxl) {
+        width: 100%;
+      }
+    }
+
+    &__gradient {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      background: var(--bg-liner-list);
+      opacity: 1;
+      height: 100%;
+      width: 100%;
+      transform: translateZ(2px); // Не удалять, чтобы не было мерцания при ховере
+      transform-origin: 0 0 2px;
+    }
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
+    padding: 16px 16px !important;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__main {
+    width: 100%;
+    display: flex;
+  }
+
+  &__icon {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    display: block;
+    z-index: 3;
+    background: var(--hover);
+    border-radius: 8px;
+    padding: 6px;
+    margin: -2px 8px 0 0;
+
+    ::v-deep(> svg) {
+      width: 32px;
+      height: 32px;
+      color: var(--primary);
+    }
+
+    & + .link-item-expand {
+      &__body {
+        padding-left: 16px;
+      }
+    }
+  }
+
+  &__body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+
+    &_row {
+      &:first-child {
+        margin-bottom: 18px;
+      }
+
+      display: flex;
+    }
+  }
+
+  &__name {
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+
+    &--rus,
+    &--eng {
+      display: inline;
+      font-size: calc(var(--h5-font-size) + 2px);
+      font-weight: 500;
+      color: var(--text-color-title);
+      line-height: normal;
+    }
+
+    &--eng {
+      color: var(--text-g-color);
+      font-size: calc(var(--h5-font-size) - 1px);
+    }
+  }
+
+  &__tag {
+    margin: 8px 4px 0 0;
+    font-size: calc(var(--h5-font-size) - 2px);
+    width: fit-content;
+    background-color: var(--primary-active);
+    color: var(--text-btn-color);
+    border-radius: 20px;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+
+  &__toggle {
+    margin: 0;
+    width: 24px;
+    height: 32px;
+    min-width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 8px 4px;
+    background-color: var(--primary);
+    color: var(--text-color-title);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: calc(var(--main-font-size) - 2px);
+    border-top-left-radius: 12px;
+    z-index: 6;
+
+    @include media-min($md) {
+      &:hover {
+        background-color: var(--primary-hover);
+      }
+    }
+
+    svg {
+      @include css_anim();
+
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__arch {
+    &-list {
+      z-index: 5;
+      position: relative;
+      padding: 0 16px 16px 8px;
+    }
+
+    &-type {
+
+      &:nth-child(n+2) {
+        margin-top: 16px;
+      }
+
+      &_items {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        @include media-min($sm) {
+          min-width: 216px;
+          max-width: 100%;
+        }
+      }
+
+      &_name {
+        font: {
+          size: calc(var(--h5-font-size) + 2px);
+          family: "Lora", serif;
+          weight: 300;
+        };
+        color: var(--text-color-title);
+        padding: 0 8px;
+      }
+    }
+
+    &-item {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+      color: var(--text-color);
+      font-size: var(--main-font-size);
+      margin-top: 4px;
+
+      &_book {
+        margin-left: 4px;
+        color: var(--text-g-color);
+        font-size: calc(var(--main-font-size) - 2px);
+      }
+
+      &:hover {
+        background-color: var(--hover);
+      }
+
+      &.router-link-active {
+        background-color: var(--primary-active);
+
+        .link-item-expand__arch-item {
+          &_name,
+          &_book {
+            color: var(--text-btn-color);
+          }
+        }
+      }
+    }
+  }
+
+  @include media-min($md) {
+    &:hover {
+      .link-item-expand {
+        &__content {
+          &__img-bg {
+            transform: scale(1.03) translateZ(1px); // Не удалять, чтобы не было мерцания при ховере
+          }
+        }
+      }
+    }
+  }
+
+  &.router-link-active {
+    .link-item-expand {
+      &__content {
+        border-color: var(--primary);
+
+        &__img-bg {
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+}

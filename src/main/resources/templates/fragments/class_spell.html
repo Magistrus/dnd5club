@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/datatable-layout}">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <head>
 </head>
 <body>
@@ -33,7 +33,7 @@
 				</span>
 			</div>
 		</div>
-		<div id="searchPanesSpell" class="search_panes hide_block" data-simplebar>
+		<div id="searchPanesSpell" class="search_panes hide_block" >
 			<div class="filter_container">
 				<div class="filter_block hide_block">
 					<div class="header">
@@ -125,7 +125,7 @@
 			</thead>
 		</table>
 		<script>var classId = [[${heroClass.id}]]</script>
-		<script th:src="@{|/resources/js/datatables/class_spells.js?v=${version}|}" layout:fragment="js-script"></script>
+		<script th:src="@{|/js/datatables/class_spells.js?v=${version}|}" layout:fragment="js-script"></script>
 	</th:block>
 </body>
 </html>

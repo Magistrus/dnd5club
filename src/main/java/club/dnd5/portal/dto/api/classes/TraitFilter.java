@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Getter
 @Setter
 public class TraitFilter {
+	List<String> skills;
+	List<String> abilities;
 	@JsonProperty("book")
 	private List<String> books;
 }

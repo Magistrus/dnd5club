@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +12,17 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.Search;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.spell.SpellRequesApi;
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.wiki.RuleApi;
 import club.dnd5.portal.dto.api.wiki.RuleDetailApi;
-import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.dto.api.wiki.RuleRequestApi;
 import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
@@ -30,10 +30,10 @@ import club.dnd5.portal.util.SpecificationUtil;
 @RestController
 public class RulesApiConroller {
 	@Autowired
-	private RuleDatatableRepository repo;
+	private RuleDatatableRepository ruleRepository;
 	
 	@PostMapping(value = "/api/v1/rules", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<RuleApi> getRules(@RequestBody SpellRequesApi request) {
+	public List<RuleApi> getRules(@RequestBody RuleRequestApi request) {
 		Specification<Rule> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -88,19 +88,37 @@ public class RulesApiConroller {
 			}
 		}
 		if (request.getFilter() != null) {
-			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-					Join<Book, Rule> join = root.join("book", JoinType.INNER);
-					return join.get("source").in(request.getFilter().getBooks());
-				});
+			if (!request.getFilter().getCategory().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+					specification, (root, query, cb) -> root.get("type").in(request.getFilter().getCategory()));
 			}
 		}
-		return repo.findAll(input, specification, specification, RuleApi::new).getData();
+		return ruleRepository.findAll(input, specification, specification, RuleApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/rules/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RuleDetailApi getRule(@PathVariable String englishName) {
-		Rule god = repo.findByEnglishName(englishName.replace('_', ' '));
-		return new RuleDetailApi(god);
+	public ResponseEntity<RuleDetailApi> getRule(@PathVariable String englishName) {
+		Rule rule = ruleRepository.findByEnglishName(englishName.replace('_', ' '));
+		if (rule == null) {
+			ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(new RuleDetailApi(rule));
+	}
+	
+	@PostMapping("/api/v1/filters/rules")
+	public FilterApi getFilter() {
+		FilterApi filters = new FilterApi();
+
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi categoryFilter = new FilterApi("Категория", "category");
+		categoryFilter.setValues(
+				ruleRepository.findAllCategories().stream()
+				 .map(value -> new FilterValueApi(value, value))
+				 .collect(Collectors.toList()));
+		otherFilters.add(categoryFilter);
+
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }

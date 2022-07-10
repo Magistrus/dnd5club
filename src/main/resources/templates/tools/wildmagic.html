@@ -1,30 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <body id="body">
-	<div id="list_page_two_block" layout:fragment="content">
-		<div id="left_block" class="tools_block wildmagic">
-			<div class="header_block">
-				<div class="header_row">
-					<div class="title">
-						<h1>Дикая магия</h1>
-						<h2>Wild magic</h2>
-					</div>
-				</div>
-			</div>
-			<div class="tools_settings">
-				<label for="additional" class="check_block"><input id="additional" class="toggle" type="checkbox" name="toggle"><span>Использовать дополнительные таблицы</span></label>
-				<div class="btn-wrapper">
-					<button id="generate" class="btn btn_primary">Сгенерировать</button>
-					<button id="clear" class="btn btn_primary">Очистить</button>
-				</div>
-			</div>
-			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
-				<div class="content_block">
-					<div id="content_block"></div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div layout:fragment="content">
+    <wild-magic-view></wild-magic-view>
+</div>
 </body>
-<script th:src="@{|/resources/js/wildmagic.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>

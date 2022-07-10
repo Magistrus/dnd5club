@@ -34,7 +34,6 @@ public class GodDetailApi extends GodApi {
 		super(god);
 		url = null;
 		description = god.getDescription();
-		alignment = god.getAligment().getCyrilicName();
 		rank = String.format("%s %s", god.getRank(), god.getSex().getCyrilicName());
 		if (god.getNicknames() != null) {
 			titles = Arrays.asList(god.getNicknames().split(","));

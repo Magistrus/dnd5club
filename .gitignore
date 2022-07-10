@@ -1,8 +1,16 @@
-
 target/
-
-src/main/resources/application-dev.properties
-
-src/main/resources/robot.txt
-
+/src/main/resources/application-dev.properties
+/src/main/resources/robot.txt
 .factorypath
+
+# Frontend Build
+/src/main/resources/static/
+
+# IDE Settings
+.idea
+.vscode
+dnd5.iml
+
+# System files
+.DS_Store
+.folder-for-tests/

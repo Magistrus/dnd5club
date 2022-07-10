@@ -1,0 +1,179 @@
+<template>
+    <content-layout>
+        <template #fixed>
+            <form
+                class="tools_settings"
+                @submit.prevent="sendForm"
+            >
+                <div class="tools_settings__row">
+                    <span class="label">Виды безумия:</span>
+
+                    <div>
+                        <field-checkbox
+                            v-for="(type, key) in types"
+                            :key="key"
+                            :model-value="type.toggled"
+                            type="crumb"
+                            @update:model-value="toggleType($event, type)"
+                        >
+                            {{ type.name }}
+                        </field-checkbox>
+                    </div>
+                </div>
+
+                <div class="tools_settings__row">
+                    <span class="label">Количеств:</span>
+
+                    <field-input
+                        v-model="count"
+                        class="form-control select"
+                        min="1"
+                        placeholder="Количеств"
+                        type="number"
+                    />
+                </div>
+
+                <div class="tools_settings__row btn-wrapper">
+                    <form-button @click.left.exact.prevent="sendForm">
+                        Сгенерировать
+                    </form-button>
+
+                    <form-button @click.left.exact.prevent="results = []">
+                        Очистить
+                    </form-button>
+                </div>
+            </form>
+        </template>
+
+        <template #default>
+            <div
+                v-for="(item, key) in results"
+                :key="key"
+                class="madness-item"
+            >
+                <div>
+                    <b>Тип:</b> {{ item.type.name }}
+                </div>
+
+                <div>
+                    <b>Длительность:</b> {{ item.type.additional }}
+                </div>
+
+                <br>
+
+                <div>
+                    <raw-content :template="item.description"/>
+                </div>
+            </div>
+        </template>
+    </content-layout>
+</template>
+
+<script>
+    import ContentLayout from "@/components/content/ContentLayout";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
+    import RawContent from "@/components/content/RawContent";
+    import throttle from 'lodash/throttle';
+    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import FormButton from "@/components/form/FormButton";
+
+    import { reactive } from "vue";
+
+    export default {
+        name: "MadnessView",
+        components: {
+            RawContent, FieldCheckbox, ContentLayout, FormButton, FieldInput
+        },
+        data: () => ({
+            count: 1,
+            types: [],
+            results: [],
+            controller: undefined
+        }),
+        async beforeMount() {
+            await this.getTables();
+        },
+        methods: {
+            async getTables() {
+                try {
+                    const resp = await this.$http.get('/tools/madness');
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        return;
+                    }
+
+                    this.types = resp.data.map(type => ({
+                        ...type,
+                        toggled: false
+                    }));
+                } catch (err) {
+                    errorHandler(err);
+                }
+            },
+
+            // eslint-disable-next-line func-names
+            sendForm: throttle(async function() {
+                if (this.controller) {
+                    this.controller.abort();
+                }
+
+                this.controller = new AbortController();
+
+                try {
+                    const options = {
+                        count: this.count || 1
+                    }
+
+                    const type = this.types.find(el => el.toggled);
+
+                    if (type) {
+                        options.type = type.value;
+                    }
+
+                    const resp = await this.$http.post('/tools/madness', options, this.controller.signal)
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        return;
+                    }
+
+                    for (const el of resp.data) {
+                        this.results.unshift(reactive(el));
+                    }
+                } catch (err) {
+                    errorHandler(err);
+                } finally {
+                    this.controller = undefined;
+                }
+            }, 300),
+
+            toggleType(e, type) {
+                for (let i = 0; i < this.types.length; i++) {
+                    if (this.types[i].value !== type.value) {
+                        this.types[i].toggled = false;
+
+                        continue;
+                    }
+
+                    this.types[i].toggled = e;
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .madness-item {
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: var(--bg-table-list);
+        width: 100%;
+        display: block;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+</style>

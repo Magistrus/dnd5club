@@ -23,7 +23,7 @@
 									</svg>
 								</i>
 							<span class="placeholder js-dropdown__current size">Уровень</span>
-							<ul data-simplebar>
+							<ul >
 								<li th:data-dropdown-value="1">1-4</li>
 								<li th:data-dropdown-value="2">5-10</li>
 								<li th:data-dropdown-value="3">11-15</li>
@@ -42,7 +42,7 @@
 									</svg>
 								</i>
 							<span class="placeholder js-dropdown__current size">Окружающая среда</span>
-							<ul data-simplebar>
+							<ul >
 								<li th:each="type : ${types}" th:text="${type.name}" th:data-dropdown-value="${type}">1</li>
 							</ul>
 						</div>
@@ -55,7 +55,7 @@
 					<a id="random_encounter_table" class="btn btn_primary ajax-popup-link" th:href="@{/tools/encounters/table?level=1&type=CITY}">Показать таблицу</a>
 				</div>
 			</div>
-			<div id="scroll_load_simplebar" class="container_left" data-simplebar>
+			<div id="scroll_load_simplebar" class="container_left" >
 				<div class="content_block">
 					<div id="content_block"></div>
 				</div>
@@ -73,7 +73,7 @@
 				</i>
 			</a>
 		</div>
-		<div class="wrapper" data-simplebar>
+		<div class="wrapper" >
 			<table class="table">
 				<thead>
 					<tr>
@@ -91,5 +91,5 @@
 		</div>
 	</div>
 </body>
-<script th:src="@{|/resources/js/tools/random_encounters.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/js/tools/random_encounters.js?v=${#dates.format(#dates.createNow(), 'yyyyMMddHHmmssSSS')}|}" layout:fragment="js-script"></script>
 </html>

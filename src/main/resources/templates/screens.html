@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout-datatables}">
 <head>
-<script th:src="@{/resources/js/datatables/rowGroup/dataTables.rowGroup.js}"></script>
+<script th:src="@{/js/datatables/rowGroup/dataTables.rowGroup.js}"></script>
 </head>
 <body id="body">
 	<div id="list_page_two_block" class="table_list_block" layout:fragment="content">
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="info_wrapper" class="info_wrapper" data-simplebar>
+			<div id="info_wrapper" class="info_wrapper" >
 				<div class="content_block">
 					<div id="content_block"></div>
 				</div>
@@ -102,5 +102,5 @@
 		</script>
 	</div>
 </body>
-<script th:src="@{|/resources/js/datatables/screens.js?v=${version}|}" layout:fragment="js-script"></script>
+<script th:src="@{|/js/datatables/screens.js?v=${version}|}" layout:fragment="js-script"></script>
 </html>

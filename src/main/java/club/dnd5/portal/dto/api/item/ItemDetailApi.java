@@ -32,6 +32,6 @@ public class ItemDetailApi extends ItemApi {
 			description = item.getDescription();
 		}
 		categories = item.getTypes().stream().map(category -> category.getCyrilicName()).collect(Collectors.toList());
-		price = item.getTextCost();
+		setPrice(item.getTextCost());
 	}
 }

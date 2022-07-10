@@ -25,6 +25,7 @@ public enum HabitatType {
 	SWAMP("болото", "swamp"),
 	DESERT("пустыня", "desert"),
 	TROPICS("тропики", null);
+	
 	private String name;
 	private String xmlName;
 	

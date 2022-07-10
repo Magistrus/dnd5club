@@ -16,6 +16,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemFilter {
+	@JsonProperty("category")
+	List<String> categories;
+	
 	@JsonProperty("book")
 	private List<String> books;
 }

@@ -23,7 +23,7 @@ public class ItemApi {
 	protected String url;
 	private Boolean homebrew;
 	protected TypeApi type;
-	protected Object price;
+	private Object price;
 	protected SourceApi source;
 	
 	public ItemApi(Equipment item) {

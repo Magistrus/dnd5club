@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import club.dnd5.portal.dto.ScreenDto;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
 
@@ -27,6 +26,7 @@ public class ScreenController {
 		model.addAttribute("metaTitle", "Ширма Мастера (Screens) D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/screens");
 		model.addAttribute("metaDescription", "Ширма Мастера Подземелий и Драконов по D&D 5 редакции");
+		model.addAttribute("menuTitle", "Ширма Мастера");
 		return "screens";
 	}
 	
@@ -39,11 +39,10 @@ public class ScreenController {
 		}
 		
 		model.addAttribute("metaImage", screen.getIcon());
-
-		model.addAttribute("selectedScreen", new ScreenDto(screen));
 		model.addAttribute("metaTitle", String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.getName(), screen.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/screens/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.getName(), screen.getEnglishName()));
+		model.addAttribute("menuTitle", "Ширма Мастера");
 		return "screens";
 	}
 	

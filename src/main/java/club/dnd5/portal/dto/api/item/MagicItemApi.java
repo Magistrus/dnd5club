@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.dto.api.spell.SpellApi;
 import club.dnd5.portal.model.items.MagicItem;
+import club.dnd5.portal.model.items.Rarity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,13 +16,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MagicItemApi extends ItemApi {
-	private String rarity;
-	private Integer costDmg;
+	private RarityApi rarity;
 	private SpellApi spell;
 	
 	public MagicItemApi(MagicItem item) {
 		super(item);
 		type = new TypeApi(item.getType().getCyrilicName(), item.getType().ordinal());
-		rarity = item.getRarity().getCyrilicName();
+		rarity = new RarityApi(item.getRarity().name().toLowerCase().replace('_', '-'), item.getRarity().getShort(), item.getTextRarity());
+	}
+	
+	public void setRarity(Rarity rarity) {
+		this.rarity = new RarityApi(rarity);
 	}
 }

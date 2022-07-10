@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.wiki;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,26 +21,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.spell.SpellRequesApi;
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.wiki.GodApi;
 import club.dnd5.portal.dto.api.wiki.GodDetailApi;
+import club.dnd5.portal.dto.api.wiki.GodRequestApi;
+import club.dnd5.portal.model.Alignment;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
+import club.dnd5.portal.model.god.Domain;
 import club.dnd5.portal.model.god.God;
+import club.dnd5.portal.model.god.Pantheon;
+import club.dnd5.portal.model.god.Rank;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.GodDatatableRepository;
+import club.dnd5.portal.repository.datatable.PantheonGodRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class GodApiConroller {
 	@Autowired
-	private GodDatatableRepository repo;
+	private GodDatatableRepository godRepository;
+	@Autowired
+	private PantheonGodRepository pantheonReposotory;
 	
 	@Autowired
-	private ImageRepository imageRepo;
+	private ImageRepository imageRepository;
 	
 	@PostMapping(value = "/api/v1/gods", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<GodApi> getGods(@RequestBody SpellRequesApi request) {
+	public List<GodApi> getGods(@RequestBody GodRequestApi request) {
 		Specification<God> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
@@ -100,18 +111,100 @@ public class GodApiConroller {
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getAlignment().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification,
+						(root, query, cb) -> root.get("aligment").in(request.getFilter().getAlignment().stream().map(Alignment::valueOf).collect(Collectors.toList())));
+			}
+			if (!request.getFilter().getDomain().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<Domain, God> join = root.join("domains", JoinType.LEFT);
+					query.distinct(true);
+					return join.in(request.getFilter().getDomain().parallelStream().map(Domain::valueOf).collect(Collectors.toList()));
+				});
+			}
+			if (!request.getFilter().getRank().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(
+						specification, (root, query, cb) -> root.get("rank").in(request.getFilter().getRank().stream().map(Rank::valueOf).collect(Collectors.toList())));	
+			}
+				if (!request.getFilter().getPantheon().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+					Join<Pantheon, God> pantheon = root.join("pantheon", JoinType.LEFT);
+					return cb.and(pantheon.get("id").in(request.getFilter().getPantheon()));
+				});
+			}
 		}
-		return repo.findAll(input, specification, specification, GodApi::new).getData();
+		return godRepository.findAll(input, specification, specification, GodApi::new).getData();
 	}
 	
 	@PostMapping(value = "/api/v1/gods/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GodDetailApi getGod(@PathVariable String englishName) {
-		God god = repo.findByEnglishName(englishName.replace('_', ' '));
+		God god = godRepository.findByEnglishName(englishName.replace('_', ' '));
 		GodDetailApi godApi = new GodDetailApi(god);
-		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, god.getId());
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.GOD, god.getId());
 		if (!images.isEmpty()) {
 			godApi.setImages(images);
 		}
 		return godApi;
+	}
+	
+	@PostMapping("/api/v1/filters/gods")
+	public FilterApi getFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi mainFilter = new FilterApi("main");
+		mainFilter.setValues(
+				godRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(mainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				godRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				godRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi alignmentFilter = new FilterApi("Мировоззрение", "alignment");
+		alignmentFilter.setValues(
+				Alignment.getGods().stream()
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
+				 .collect(Collectors.toList()));
+		otherFilters.add(alignmentFilter);
+		
+		FilterApi domainFilter = new FilterApi("Домены", "domain");
+		domainFilter.setValues(
+				Arrays.stream(Domain.values())
+				 .map(value -> new FilterValueApi(value.getCyrilicName(), value.name()))
+				 .collect(Collectors.toList()));
+		otherFilters.add(domainFilter);
+
+		
+		FilterApi rankFilter = new FilterApi("Ранг", "rank");
+		rankFilter.setValues(
+				Arrays.stream(Rank.values())
+				 .map(value -> new FilterValueApi(value.getName(), value.name()))
+				 .collect(Collectors.toList()));
+		otherFilters.add(rankFilter);
+		
+		FilterApi pantheonFilter = new FilterApi("Пантеоны", "pantheon");
+		pantheonFilter.setValues(
+				pantheonReposotory.findAll().stream()
+				 .map(value -> new FilterValueApi(value.getName(), value.getId()))
+				 .collect(Collectors.toList()));
+		otherFilters.add(pantheonFilter);
+		
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }

@@ -55,6 +55,9 @@ public class FDetails {
 		case "1/8":
 			cr = 1f/8;
 			break;
+		case "—":
+			cr = 0;
+			break;
 		default:
 			cr = Integer.valueOf(creature.getChallengeRating());
 		}

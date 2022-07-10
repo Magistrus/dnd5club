@@ -1,0 +1,71 @@
+<template>
+    <form
+        class="registration form"
+        @submit.prevent="submit()"
+    >
+        <div class="form__row">
+            <field-input
+                v-model="username"
+                placeholder="Имя пользователя"
+            />
+        </div>
+
+        <div class="form__row">
+            <field-input
+                v-model="email"
+                is-email
+                placeholder="Электронный адрес"
+            />
+        </div>
+
+        <div class="form__row">
+            <field-input
+                v-model="password"
+                is-password
+                placeholder="Пароль"
+            />
+        </div>
+
+        <div class="form__row">
+            <field-input
+                v-model="repeat"
+                is-password
+                placeholder="Повторите пароль"
+            />
+        </div>
+
+        <div class="form__row">
+            <form-button @click.left.exact.prevent="submit">
+                Регистрация
+            </form-button>
+
+            <form-button
+                type-link
+                @click.left.exact.prevent="$emit('change-type')"
+            >
+                Авторизация
+            </form-button>
+        </div>
+    </form>
+</template>
+
+<script>
+    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import FormButton from "@/components/form/FormButton";
+
+    export default {
+        name: 'RegistrationView',
+        components: { FormButton, FieldInput },
+        data: () => ({
+            username: '',
+            email: '',
+            password: '',
+            repeat: ''
+        }),
+        methods: {
+            submit() {
+                // console.log('login')
+            }
+        }
+    }
+</script>
