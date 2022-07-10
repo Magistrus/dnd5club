@@ -56,11 +56,14 @@
 
         <div class="content-padding">
             <!-- eslint-disable-next-line vue/no-v-html -->
-            <div v-html="spell.description"/>
+            <raw-content :template="spell.description"/>
 
             <p v-if="spell.upper">
                 <!-- eslint-disable-next-line vue/no-v-html -->
-                <strong>На более высоких уровнях: </strong> <span v-html="spell.upper"/>
+                <strong>На более высоких уровнях: </strong> <raw-content
+                    tag="span"
+                    :template="spell.upper"
+                />
             </p>
 
             <div
@@ -145,10 +148,12 @@
 <script>
     import ClassSquare from "@/components/UI/ClassSquare";
     import DetailTopBar from "@/components/UI/DetailTopBar";
+    import RawContent from "@/components/content/RawContent";
 
     export default {
         name: "SpellBody",
         components: {
+            RawContent,
             DetailTopBar,
             ClassSquare,
         },
