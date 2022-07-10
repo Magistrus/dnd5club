@@ -39,11 +39,16 @@
   &__type,
   &__damage,
   &__ac,
+  &__count,
   &__price {
     display: flex;
     flex: 1 0 auto;
     color: var(--text-g-color);
     font-size: calc(var(--main-font-size) - 1px);
+
+    &:first-child {
+      flex: 1 1 auto;
+    }
   }
 
   &__type {
@@ -54,8 +59,6 @@
   }
 
   &__ac {
-    flex: 1 0 auto;
-    max-width: 300px;
     justify-content: flex-start;
   }
 

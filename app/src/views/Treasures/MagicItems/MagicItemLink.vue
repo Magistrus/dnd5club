@@ -19,7 +19,7 @@
                     v-tippy="{ content: magicItem.rarity }"
                     class="link-item__rarity"
                 >
-                    <span>{{ getRarityAbbreviation }}</span>
+                    <span v-tippy="{ content: magicItem.rarity }">{{ getRarityAbbreviation }}</span>
                 </div>
 
                 <div class="link-item__body">

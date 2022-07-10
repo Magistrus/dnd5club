@@ -150,27 +150,8 @@
 
                 <template #default>
                     <div
-                        v-if="loading && !error"
-                        class="treasury__loader"
-                    >
-                        <div class="treasury__loader_img">
-                            <img
-                                v-lazy="'/img/loader.png'"
-                                alt=""
-                            >
-                        </div>
-                    </div>
-
-                    <div
-                        v-else-if="error"
-                        class="treasury__err"
-                    >
-                        error...
-                    </div>
-
-                    <div
                         v-if="!selected.item"
-                        class="treasury__empty"
+                        class="content-padding treasury__empty"
                     >
                         <p>Список товаров пуст.</p>
                     </div>
@@ -430,7 +411,7 @@
 
                 const options = {
                     ...this.form,
-                    cr: this.cr || 1
+                    cr: this.form.cr || 1
                 }
 
                 this.$http.post('/tools/treasury', options, this.controllers.list.signal)

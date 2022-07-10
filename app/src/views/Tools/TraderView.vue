@@ -28,6 +28,7 @@
                         v-model="form.persuasion"
                         class="form-control select"
                         placeholder="Харизма (Убеждение)"
+                        is-number
                     />
                 </div>
 
@@ -88,25 +89,6 @@
                 </template>
 
                 <template #default>
-                    <div
-                        v-if="loading && !error"
-                        class="trader__loader"
-                    >
-                        <div class="trader__loader_img">
-                            <img
-                                v-lazy="'/img/loader.png'"
-                                alt=""
-                            >
-                        </div>
-                    </div>
-
-                    <div
-                        v-else-if="error"
-                        class="trader__err"
-                    >
-                        error...
-                    </div>
-
                     <div
                         v-if="!selected.item"
                         class="trader__empty"
