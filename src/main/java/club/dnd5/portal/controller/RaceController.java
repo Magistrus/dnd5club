@@ -72,6 +72,11 @@ public class RaceController {
 		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
 		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа по D&D 5 редакции", race.get().getName()));
 		model.addAttribute("menuTitle", "Расы");
+		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
+		if (!images.isEmpty()) {
+			model.addAttribute("metaImage", images.iterator().next());
+		}
+		model.addAttribute("menuTitle", "Расы");
 		return "races";
 	}
 	
