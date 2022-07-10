@@ -30,7 +30,7 @@
             </div>
 
             <div class="navbar__header_right">
-                <nav-profile/>
+                <!-- <nav-profile/> -->
 
                 <menu-theme-switcher/>
             </div>
@@ -95,14 +95,15 @@
 <script>
     import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher.vue';
     import SiteLogo from "@/components/UI/SiteLogo";
-    import NavProfile from "@/components/UI/menu/NavProfile";
+    // import NavProfile from "@/components/UI/menu/NavProfile";
     import { mapActions, mapState } from "pinia";
     import { useNavStore } from "@/store/UI/NavStore";
 
     export default {
         name: "NavBar",
         components: {
-            NavProfile, SiteLogo, MenuThemeSwitcher
+            // NavProfile,
+            SiteLogo, MenuThemeSwitcher
         },
         props: {
             section: {
