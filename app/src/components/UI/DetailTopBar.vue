@@ -65,13 +65,13 @@
             border-bottom: 1px solid var(--border);
         }
 
-        span {
+        // span {
 
-            &:last-child {
-                min-width: 220px;
-                text-align: right;
-            }
-        }
+        //     &:last-child {
+        //         min-width: 220px;
+        //         text-align: right;
+        //     }
+        // }
 
         @media (max-width: 1200px) {
             padding: 12px 16px 12px 16px;
@@ -80,17 +80,6 @@
             span {
                 &:nth-child(n + 2) {
                     margin-top: 12px;
-                }
-            }
-        }
-    }
-
-    .base-modal__body {
-        .row_info {
-            span {
-                &:last-child {
-                    min-width: auto;
-                    text-align: left;
                 }
             }
         }
