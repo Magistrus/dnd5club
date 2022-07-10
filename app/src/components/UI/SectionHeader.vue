@@ -236,7 +236,7 @@
                 justify-content: center;
                 width: 32px;
                 height: 32px;
-                margin-left: 16px;
+                margin-left: 6px;
                 padding: 4px;
                 border-radius: 8px;
                 color: var(--primary);
