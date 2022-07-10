@@ -71,17 +71,17 @@ public class ClassApiController {
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClassInfoApiDto> getClassInfo(@PathVariable String englishName) {
+	public ResponseEntity<ClassInfoApiDto> getClassInfo(@RequestBody ClassRequestApi request, @PathVariable String englishName) {
 		HeroClass heroClass = classRepo.findByEnglishName(englishName.replace('_', ' '));
 		if (heroClass == null) {
 			return ResponseEntity.notFound().build();
 		}
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
-		return ResponseEntity.ok(new ClassInfoApiDto(heroClass, images));
+		return ResponseEntity.ok(new ClassInfoApiDto(heroClass, images, request));
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClassInfoApiDto> getArchetypeInfo(@PathVariable String className,
+	public ResponseEntity<ClassInfoApiDto> getArchetypeInfo(@RequestBody ClassRequestApi request, @PathVariable String className,
 			@PathVariable String archetypeName) {
 		HeroClass heroClass = classRepo.findByEnglishName(className.replace('_', ' '));
 		if (heroClass == null) {
@@ -89,7 +89,7 @@ public class ClassApiController {
 		}
 		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace('_', ' '))).findFirst().get();
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, archetype.getId());
-		return ResponseEntity.ok(new ClassInfoApiDto(archetype, images));
+		return ResponseEntity.ok(new ClassInfoApiDto(archetype, images, request));
 	}
 	
 	private FilterApi getClassFilters() {

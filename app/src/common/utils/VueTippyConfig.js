@@ -7,12 +7,12 @@ export default {
         interactive: true,
         hideOnClick: false,
         sticky: true,
+        touch: false,
         theme: 'dnd5club',
         strategy: 'fixed',
         maxWidth: 450,
         delay: [450, null],
         interactiveBorder: 7,
-        touch: ['hold', 500],
         appendTo: () => document.body,
         onClickOutside() {
             return false
