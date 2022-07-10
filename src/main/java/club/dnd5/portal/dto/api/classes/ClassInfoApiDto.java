@@ -18,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassInfoApiDto extends ClassApi {
-	private NameApi name;
 	private Collection<ClassTabApiDto> tabs = new ArrayList<>(5);
 	private Collection<String> images;
 	private SpellFilter customFilter;
