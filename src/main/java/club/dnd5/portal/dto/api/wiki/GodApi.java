@@ -20,6 +20,7 @@ public class GodApi {
 	protected String url;
 	private Boolean homebrew;
 	protected String alignment;
+	protected String shortAlignment;
 	
 	public GodApi(God god) {
 		name = new NameApi(god.getName(), god.getEnglishName());
@@ -27,6 +28,7 @@ public class GodApi {
 		if (god.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;
 		}
-		alignment = god.getAligment().getShortName();
+		alignment = god.getAligment().getCyrilicName();
+		shortAlignment = god.getAligment().getShortName();
 	}
 }
