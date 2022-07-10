@@ -12,27 +12,8 @@
         </template>
 
         <template #default>
-            <div
-                v-if="loading"
-                class="magic-item-detail__loader"
-            >
-                <div class="magic-item-detail__loader_img">
-                    <img
-                        v-lazy="'/img/loader.png'"
-                        alt=""
-                    >
-                </div>
-            </div>
-
-            <div
-                v-else-if="error"
-                class="magic-item-detail__err"
-            >
-                error...
-            </div>
-
             <magic-item-body
-                v-else-if="magicItem"
+                v-if="magicItem"
                 :magic-item="magicItem"
             />
         </template>

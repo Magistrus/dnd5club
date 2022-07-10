@@ -13,27 +13,8 @@
         </template>
 
         <template #default>
-            <div
-                v-if="loading"
-                class="spell-detail__loader"
-            >
-                <div class="spell-detail__loader_img">
-                    <img
-                        v-lazy="'/img/loader.png'"
-                        alt=""
-                    >
-                </div>
-            </div>
-
-            <div
-                v-else-if="error"
-                class="spell-detail__err"
-            >
-                error...
-            </div>
-
             <spell-body
-                v-else-if="spell"
+                v-if="spell"
                 :spell="spell"
             />
         </template>

@@ -25,9 +25,9 @@
                     <field-input
                         v-model="count"
                         class="form-control select"
-                        min="1"
                         placeholder="Количеств"
-                        type="number"
+                        is-number
+                        :min="1"
                     />
                 </div>
 
