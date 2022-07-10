@@ -9,5 +9,4 @@ import club.dnd5.portal.model.encounters.RandomEncounterеTable;
 
 public interface RandomEncounterTableRepository extends JpaRepository<RandomEncounterеTable, Integer> {
 	Optional<RandomEncounterеTable> findByLevelAndType(int level, HabitatType type);
-	
 }
