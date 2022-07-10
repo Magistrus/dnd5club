@@ -21,10 +21,12 @@ public class BookApi {
 	private TypeApi type;
 	private String description;
 	private Integer year;
+	private SourceApi source;
 	public BookApi(Book book) {
 		name = new NameApi(book.getName(), book.getEnglishName());
 		url = String.format("/books/%s", book.getUrlName());
 		type = new TypeApi(book.getType().getName(), book.getType().ordinal());
 		year = book.getYear();
+		source = new SourceApi(book);
 	}
 }
