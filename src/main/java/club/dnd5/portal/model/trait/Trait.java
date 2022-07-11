@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.util.StringUtils;
+
 import club.dnd5.portal.model.AbilityType;
 import club.dnd5.portal.model.SkillType;
 import club.dnd5.portal.model.book.Book;
@@ -57,5 +59,8 @@ public class Trait {
 
 	public String getUrlName() {
 		return englishName.replace(' ', '_');
+	}
+	public String getCapitalazeName() {
+		return StringUtils.capitalize(name.toLowerCase());
 	}
 }
