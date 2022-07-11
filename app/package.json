@@ -1,6 +1,6 @@
 {
   "name": "dnd5club",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "cross-env VUE_SERVE=true vue-cli-service serve",
