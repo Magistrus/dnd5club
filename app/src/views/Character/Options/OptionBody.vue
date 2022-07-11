@@ -7,6 +7,23 @@
 
         <div class="option-body__desc content-padding">
             <raw-content :template="option?.description"/>
+
+            <div
+                v-if="option?.classes?.length"
+                class="spell_stat_block_bottom"
+            >
+                <p>Классы:</p>
+
+                <div class="classes_icon">
+                    <class-square
+                        v-for="(el, key) in option.classes"
+                        :key="key"
+                        :icon="el.icon"
+                        :name="el.name"
+                        :url="el.url"
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -14,10 +31,11 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
+    import ClassSquare from "@/components/UI/ClassSquare";
 
     export default {
         name: "OptionBody",
-        components: { DetailTopBar, RawContent },
+        components: { ClassSquare, DetailTopBar, RawContent },
         props: {
             option: {
                 type: Object,
