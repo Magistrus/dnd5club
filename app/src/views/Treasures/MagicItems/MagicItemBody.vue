@@ -67,6 +67,7 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
+    import upperFirst from "lodash/upperFirst";
 
     export default {
         name: "MagicItemBody",
@@ -89,7 +90,7 @@
         }),
         computed: {
             topBarLeftString() {
-                let str = `${ this.magicItem.rarity } ${ this.magicItem.type.name }`;
+                let str = `${ upperFirst(this.magicItem.type.name) }, ${ this.magicItem.rarity.name }`;
 
                 if (this.magicItem.detailType?.length) {
                     str += ` (${ this.magicItem.detailType.join(', ') })`
