@@ -45,6 +45,7 @@
     import debounce from "lodash/debounce";
     import { useUIStore } from "@/store/UI/UIStore";
     import { mapActions, mapState } from "pinia";
+    import isArray from "lodash/isArray";
 
     export default {
         name: 'ClassesView',
@@ -89,9 +90,17 @@
                     [o => o.group.order]
                 );
 
-                return [{
+                const sorted = [{
                     list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])
-                }, ...groups];
+                }];
+
+                if (isArray(groups) && groups.length) {
+                    for (let i = 0; i < groups.length; i++) {
+                        sorted.push(groups[i]);
+                    }
+                }
+
+                return sorted;
             },
 
             showRightSide() {
