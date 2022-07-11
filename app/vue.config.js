@@ -4,8 +4,14 @@ module.exports = {
     outputDir: path.resolve(__dirname, '../src/main/resources/static/'),
     filenameHashing: false,
     runtimeCompiler: true,
-    productionSourceMap: false,
+    productionSourceMap: true,
     transpileDependencies: false,
+    configureWebpack: {
+        output: {
+            filename: '[name].js',
+            chunkFilename: '[name].[fullhash].js'
+        }
+    },
     chainWebpack: config => {
         if (process.env.VUE_SERVE !== 'true') {
             config.plugins.delete('html');
@@ -47,9 +53,13 @@ module.exports = {
             .end();
     },
     css: {
+        extract: {
+            filename: '[name].css',
+            chunkFilename: '[name].[fullhash].css'
+        },
         loaderOptions: {
             css: {
-                url: false
+                url: false,
             },
             sass: {
                 additionalData: '@import "@/assets/styles/_variables.scss";',
