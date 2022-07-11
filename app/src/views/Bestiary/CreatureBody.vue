@@ -2,6 +2,7 @@
     <div
         v-if="creature"
         class="creature_wrapper creature-body bestiary"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :left="topBarLeftString"
@@ -344,6 +345,10 @@
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false,
             }
         },
         data: () => ({

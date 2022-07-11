@@ -13,6 +13,7 @@
                 :is="bodyComponent"
                 v-if="content"
                 :[type]="content"
+                in-tooltip
             />
         </template>
     </tippy>

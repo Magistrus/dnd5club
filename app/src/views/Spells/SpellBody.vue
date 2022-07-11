@@ -2,6 +2,7 @@
     <div
         v-if="spell"
         class="spell_wrapper spell-body"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :bg-grey="false"
@@ -162,6 +163,10 @@
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false,
             }
         },
         data: () => ({

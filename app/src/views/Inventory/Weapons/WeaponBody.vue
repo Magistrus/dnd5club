@@ -2,6 +2,7 @@
     <div
         v-if="weapon"
         class="weapon-body"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :bg-grey="false"
@@ -85,6 +86,10 @@
                 required: true,
                 default: undefined
             },
+            inTooltip: {
+                type: Boolean,
+                default: false,
+            }
         }
     }
 </script>
