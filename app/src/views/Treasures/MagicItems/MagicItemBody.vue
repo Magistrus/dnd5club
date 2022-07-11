@@ -2,6 +2,7 @@
     <div
         v-if="magicItem"
         class="magic-item_wrapper magic-item-body bestiary"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :left="topBarLeftString"
@@ -80,6 +81,10 @@
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false,
             }
         },
         data: () => ({

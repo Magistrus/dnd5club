@@ -1,5 +1,8 @@
 <template>
-    <div class="item-body">
+    <div
+        class="item-body"
+        :class="{ 'in-tooltip': inTooltip }"
+    >
         <detail-top-bar
             :left="categoriesString"
             :source="item.source"
@@ -38,6 +41,10 @@
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false,
             }
         },
         computed: {

@@ -8,40 +8,40 @@
 
   .tippy-box {
     &[data-theme~=dnd5club] {
-      background-color: rgb(29, 33, 36);
+      background-color: var(--bg-main);
       border: 1px solid var(--border);
       border-radius: 8px;
 
       & > .tippy-backdrop {
-        background-color: rgb(29, 33, 36)
+        background-color: var(--bg-main);
       }
 
       & > .tippy-content {
         max-height: 320px;
         overflow: auto;
-        color: var(--text-btn-color);
+        color: var(--text-color);
         line-height: 16px;
         padding: 10px;
       }
 
       & > .tippy-svg-arrow {
-        fill: rgb(29, 33, 36)
+        fill: var(--bg-main);
       }
 
       &[data-placement^=top] > .tippy-arrow:before {
-        border-top-color: rgb(29, 33, 36)
+        border-top-color: var(--bg-main);
       }
 
       &[data-placement^=bottom] > .tippy-arrow:before {
-        border-bottom-color: rgb(29, 33, 36)
+        border-bottom-color: var(--bg-main);
       }
 
       &[data-placement^=left] > .tippy-arrow:before {
-        border-left-color: rgb(29, 33, 36)
+        border-left-color: var(--bg-main);
       }
 
       &[data-placement^=right] > .tippy-arrow:before {
-        border-right-color: rgb(29, 33, 36)
+        border-right-color: var(--bg-main);
       }
     }
 
