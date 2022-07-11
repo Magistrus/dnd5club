@@ -20,7 +20,7 @@ public class TraitApi {
 	private String requirements ;
 	private Boolean homebrew;
 	public TraitApi(Trait trait) {
-		name = new NameApi(trait.getName(), trait.getEnglishName());
+		name = new NameApi(trait.getCapitalazeName(), trait.getEnglishName());
 		url = String.format("/traits/%s", trait.getUrlName());
 		if (trait.getRequirement()!=null) {
 			requirements  = trait.getRequirement();
