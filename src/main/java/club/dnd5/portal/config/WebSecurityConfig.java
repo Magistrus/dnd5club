@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 	@Override
 	public final void configure(final WebSecurity web) throws Exception {
 		super.configure(web);
-		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/css/**", "/js/**", "/fonts/**", "/img/**");
 		web.httpFirewall(new AnnotatingHttpFirewall());
 		return;
 	}
