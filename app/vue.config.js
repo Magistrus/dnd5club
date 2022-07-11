@@ -8,8 +8,8 @@ module.exports = {
     transpileDependencies: false,
     configureWebpack: {
         output: {
-            filename: '[name].js',
-            chunkFilename: '[name].[fullhash].js'
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name].[fullhash].js'
         }
     },
     chainWebpack: config => {
@@ -54,8 +54,8 @@ module.exports = {
     },
     css: {
         extract: {
-            filename: '[name].css',
-            chunkFilename: '[name].[fullhash].css'
+            filename: 'css/[name].css',
+            chunkFilename: 'css/[name].[fullhash].css'
         },
         loaderOptions: {
             css: {
