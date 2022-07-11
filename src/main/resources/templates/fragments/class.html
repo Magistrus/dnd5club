@@ -148,9 +148,9 @@
 						<tr th:each="element : ${archetype.levelSpells}">
 							<td align="center" th:text="${element.key}"></td>
 							<td><th:block th:each="spell, iterStat : ${element.value}">
-                                <body-tooltip th:url="|/spells/${spell.spell.englishName}|" type="spell">
+                                <detail-tooltip th:url="|/spells/${spell.spell.englishName}|" type="spell">
 									<a class="tip_spell" th:href="@{'/spells/' + ${spell.spell.englishName}}" th:title="${spell.spell.name}" th:text="${spell.spell.fullName}"></a>
-                                </body-tooltip>
+                                </detail-tooltip>
 									<span th:if="${spell.advenced}" th:text="| (${spell.advenced})|"></span>
 									<span th:if="${not iterStat.last}">, </span>
 								</th:block></td>
