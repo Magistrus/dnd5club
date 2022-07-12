@@ -13,6 +13,7 @@
                 :is="bodyComponent"
                 v-if="content"
                 :[type]="content"
+                in-tooltip
             />
         </template>
     </tippy>
@@ -31,7 +32,7 @@
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
 
     export default {
-        name: "BodyTooltip",
+        name: "DetailTooltip",
         components: { SpellBody },
         props: {
             url: {

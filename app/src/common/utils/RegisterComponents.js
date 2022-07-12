@@ -4,7 +4,7 @@ import SvgIcon from '@/components/UI/SvgIcon';
 import DiceRoller from '@/components/UI/DiceRoller';
 import NavBar from '@/components/UI/menu/NavBar';
 import RawContent from '@/components/content/RawContent';
-import BodyTooltip from '@/components/UI/BodyTooltip';
+import DetailTooltip from '@/components/UI/DetailTooltip';
 
 /* eslint-disable vue/match-component-file-name */
 export default function registerComponents(app) {
@@ -15,6 +15,6 @@ export default function registerComponents(app) {
     app.component('DiceRoller', DiceRoller);
     app.component('NavBar', NavBar);
     app.component('RawContent', RawContent);
-    app.component('BodyTooltip', BodyTooltip);
+    app.component('DetailTooltip', DetailTooltip);
 }
 /* eslint-enable vue/match-component-file-name */
