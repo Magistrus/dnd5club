@@ -9,6 +9,12 @@
         >
             {{ left }}
         </span>
+        <span
+            v-else
+            class="left_info"
+        >
+            <slot name="left"/>
+        </span>
 
         <span v-if="source">
             Источник:
