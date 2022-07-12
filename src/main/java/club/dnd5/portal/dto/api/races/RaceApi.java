@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.dto.api.GroupApi;
 import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
@@ -25,6 +26,7 @@ public class RaceApi {
 	protected String url;
 	private Collection<NameValueApi> abilities;
 	protected Object type;
+	private GroupApi group;
 	private SourceApi source;
 
 	protected List<RaceApi> subraces;

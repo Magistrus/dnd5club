@@ -35,12 +35,16 @@ import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Background", description = "The BackgroundApi API")
 @RestController
 public class BackgroundApiController {
 	@Autowired
 	private BackgroundDatatableRepository backgroundRepository;
 	
+	@Operation(summary = "Gets all backgrounds", tags = "user")
 	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
 		Specification<Background> specification = null;

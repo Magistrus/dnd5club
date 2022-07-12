@@ -98,7 +98,7 @@ public class WeaponApiController {
 			}
 			if (!request.getFilter().getDamageType().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification,
-						(root, query, cb) -> root.get("damageType").in(request.getFilter().getDamageType().stream().map(DamageType::valueOf).collect(Collectors.toList())));
+						(root, query, cb) -> root.get("damageType").in(request.getFilter().getDamageType()));
 			}
 			if (!request.getFilter().getProperrty().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {

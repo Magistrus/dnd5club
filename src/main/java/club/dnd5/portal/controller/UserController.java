@@ -111,12 +111,12 @@ public class UserController {
         model.addAttribute("message", message);
 		return "user/confirm";
 	}
-	
+
 	@GetMapping("/confirm/bad")
 	public String getConfirmBad() {
 		return "user/confirm";
 	}
-	
+
 	@GetMapping("/login")
 	public String login(Model model, String error, String logout) {
 		if (error != null) {
