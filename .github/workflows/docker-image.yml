@@ -10,14 +10,16 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install & Build Vue app
+    - name: Install Node
       uses: actions/setup-node@v3
       with:
         node-version: 16
+
+    - name: Install & Build Vue app
       run: |
-        cp .env.dev.example .env
+        cp .env.example .env
         npm ci
-        npm run build:dev
+        npm run build:prod
       working-directory: ./app
 
     - name: set up JDK 1.8
