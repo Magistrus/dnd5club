@@ -61,7 +61,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto){
 
-        if(userRepository.existsByUsername(signUpDto.getName())){
+        if(userRepository.existsByUsername(signUpDto.getUsername())){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
 
@@ -70,8 +70,8 @@ public class AuthController {
         }
 
         User user = new User();
-        user.setName(signUpDto.getName());
-        user.setUsername(signUpDto.getName());
+        user.setName(signUpDto.getUsername());
+        user.setUsername(signUpDto.getUsername());
         user.setEmail(signUpDto.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 
@@ -90,8 +90,8 @@ public class AuthController {
 
     @PostMapping("/exist")
     public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user){
-    	if (user.getName() !=null) {
-    		if(userRepository.existsByName(user.getName())) {
+    	if (user.getUsername() !=null) {
+    		if(userRepository.existsByUsername(user.getUsername())) {
     			return ResponseEntity.status(HttpStatus.CONFLICT).build();
     		}
     	}
