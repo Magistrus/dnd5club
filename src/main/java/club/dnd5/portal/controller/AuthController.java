@@ -26,7 +26,7 @@ import club.dnd5.portal.security.JwtTokenProvider;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 	@Autowired
     private AuthenticationManager authenticationManager;
