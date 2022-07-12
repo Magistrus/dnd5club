@@ -16,6 +16,7 @@ jobs:
         node-version: 16
         script: |
           cd ./app
+          cp .env.example .env
           npm ci
           npm run build:prod
           cd ../
