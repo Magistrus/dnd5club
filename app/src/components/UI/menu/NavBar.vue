@@ -30,7 +30,7 @@
             </div>
 
             <div class="navbar__header_right">
-                <nav-profile v-if="isDev"/>
+                <nav-profile v-if="$isDev"/>
 
                 <menu-theme-switcher/>
             </div>
@@ -100,7 +100,6 @@
     } from "pinia";
     import { useNavStore } from "@/store/UI/NavStore";
     import NavProfile from "@/components/UI/menu/NavProfile";
-    import isDevMixin from "@/common/mixins/isDevMixin";
 
     export default {
         name: "NavBar",
@@ -109,9 +108,6 @@
             SiteLogo,
             MenuThemeSwitcher
         },
-        mixins: [
-            isDevMixin
-        ],
         props: {
             section: {
                 type: String,
