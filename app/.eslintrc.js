@@ -187,6 +187,28 @@ module.exports = {
                 minItems: 2
             }
         ],
+        'object-curly-newline': [
+            'error',
+            {
+                multiline: true,
+                minProperties: 2,
+                consistent: true
+            }
+        ],
+        'object-curly-spacing': [
+            'error',
+            'always',
+            {
+                arraysInObjects: false,
+                objectsInObjects: false
+            }
+        ],
+        'object-property-newline': [
+            'error',
+            {
+                allowAllPropertiesOnSameLine: false
+            }
+        ],
         'arrow-spacing': [
             'error'
         ],
@@ -320,23 +342,6 @@ module.exports = {
         'no-whitespace-before-property': [
             'error'
         ],
-        'object-curly-newline': [
-            'error',
-            {
-                multiline: true,
-                minProperties: 2,
-                consistent: true
-            }
-        ],
-        'object-curly-spacing': [
-            'error',
-            'always',
-            {
-                arraysInObjects: false,
-                objectsInObjects: false
-            }
-        ],
-        'object-property-newline': 'error',
         'operator-linebreak': [
             'error',
             'before'

@@ -54,7 +54,9 @@
     export default {
         name: "ScreenLink",
         components: {
-            ScreenBody, BaseModal, RawContent
+            ScreenBody,
+            BaseModal,
+            RawContent
         },
         inheritAttrs: false,
         props: {

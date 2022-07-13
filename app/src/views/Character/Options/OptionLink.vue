@@ -55,7 +55,8 @@
     export default {
         name: 'OptionLink',
         components: {
-            OptionBody, BaseModal
+            OptionBody,
+            BaseModal
         },
         directives: {
             CapitalizeFirst

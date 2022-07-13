@@ -104,7 +104,8 @@
     export default {
         name: "BaseModal",
         components: {
-            FormButton, SvgIcon
+            FormButton,
+            SvgIcon
         },
         inheritAttrs: true,
         props: {

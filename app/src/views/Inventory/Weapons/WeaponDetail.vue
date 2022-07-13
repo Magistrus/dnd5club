@@ -28,7 +28,9 @@
     export default {
         name: "WeaponDetail",
         components: {
-            ContentDetail, WeaponBody, SectionHeader
+            ContentDetail,
+            WeaponBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewWeapon(to.path);

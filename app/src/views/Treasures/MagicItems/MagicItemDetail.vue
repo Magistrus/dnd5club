@@ -31,7 +31,9 @@
     export default {
         name: 'MagicItemDetail',
         components: {
-            ContentDetail, MagicItemBody, SectionHeader
+            ContentDetail,
+            MagicItemBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewMagicItem(to.path);

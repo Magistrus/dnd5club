@@ -32,7 +32,9 @@
     export default {
         name: 'RaceDetail',
         components: {
-            ContentDetail, RaceBody, SectionHeader
+            ContentDetail,
+            RaceBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRace(to.path);

@@ -80,7 +80,9 @@
     export default {
         name: "WeaponBody",
         components: {
-            DetailTopBar, DiceRoller, RawContent
+            DetailTopBar,
+            DiceRoller,
+            RawContent
         },
         props: {
             weapon: {

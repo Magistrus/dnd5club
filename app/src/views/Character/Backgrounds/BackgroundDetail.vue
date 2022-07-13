@@ -30,7 +30,9 @@
     export default {
         name: 'BackgroundDetail',
         components: {
-            ContentDetail, BackgroundBody, SectionHeader
+            ContentDetail,
+            BackgroundBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBackground(to.path);

@@ -64,7 +64,8 @@
     export default {
         name: "ArmorBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             armor: {

@@ -37,7 +37,10 @@
     export default {
         name: 'ScreenDetail',
         components: {
-            ScreensGroup, ScreenBody, ContentDetail, SectionHeader
+            ScreensGroup,
+            ScreenBody,
+            ContentDetail,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewScreen(to.path);

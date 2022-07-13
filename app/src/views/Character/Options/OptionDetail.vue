@@ -33,7 +33,9 @@
     export default {
         name: 'OptionDetail',
         components: {
-            ContentDetail, OptionBody, SectionHeader
+            ContentDetail,
+            OptionBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewOption(to.path);

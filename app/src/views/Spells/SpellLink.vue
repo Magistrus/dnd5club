@@ -121,7 +121,8 @@
     export default {
         name: 'SpellLink',
         components: {
-            BaseModal, SpellBody
+            BaseModal,
+            SpellBody
         },
         directives: {
             CapitalizeFirst

@@ -62,10 +62,12 @@
             title() {
                 return this.isAuth
                     ? {
-                        rus: 'Авторизация', eng: 'auth'
+                        rus: 'Авторизация',
+                        eng: 'auth'
                     }
                     : {
-                        rus: 'Регистрация', eng: 'reg'
+                        rus: 'Регистрация',
+                        eng: 'reg'
                     };
             },
 

@@ -18,7 +18,8 @@
     export default {
         name: "BackgroundBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             background: {

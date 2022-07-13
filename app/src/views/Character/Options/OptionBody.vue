@@ -36,7 +36,9 @@
     export default {
         name: "OptionBody",
         components: {
-            ClassSquare, DetailTopBar, RawContent
+            ClassSquare,
+            DetailTopBar,
+            RawContent
         },
         props: {
             option: {

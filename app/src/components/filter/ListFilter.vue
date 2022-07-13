@@ -109,7 +109,10 @@
     export default {
         name: 'ListFilter',
         components: {
-            BaseModal, FilterItemCheckboxes, FilterItemSources, SvgIcon
+            BaseModal,
+            FilterItemCheckboxes,
+            FilterItemSources,
+            SvgIcon
         },
         props: {
             filterInstance: {
