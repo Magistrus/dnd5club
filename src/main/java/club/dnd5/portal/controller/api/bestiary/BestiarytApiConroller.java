@@ -284,6 +284,7 @@ public class BestiarytApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		
 		FilterApi npcFilter = new FilterApi("Именнованые НИП", "npc");
+		npcFilter.setType("toggle");
 		npcFilter.setValues(Collections.singletonList(new FilterValueApi("показать именованных НИП", "true", Boolean.TRUE)));
 		otherFilters.add(npcFilter);
 		
