@@ -2,6 +2,8 @@ package club.dnd5.portal.controller;
 
 import java.util.Collections;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.user.LoginDto;
 import club.dnd5.portal.dto.user.SignUpDto;
+import club.dnd5.portal.dto.user.UserDto;
 import club.dnd5.portal.model.user.Role;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.RoleRepository;
@@ -53,12 +56,12 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return ResponseEntity.ok(new JWTAuthResponse(token));
     }
-    
+
     @ApiOperation(value = "REST API to Register user")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto){
 
-        if(userRepository.existsByUsername(signUpDto.getName())){
+        if(userRepository.existsByUsername(signUpDto.getUsername())){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
 
@@ -67,8 +70,8 @@ public class AuthController {
         }
 
         User user = new User();
-        user.setName(signUpDto.getName());
-        user.setUsername(signUpDto.getName());
+        user.setName(signUpDto.getUsername());
+        user.setUsername(signUpDto.getUsername());
         user.setEmail(signUpDto.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 
@@ -77,5 +80,26 @@ public class AuthController {
 
         userRepository.save(user);
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> signout(HttpSession session){
+    	session.invalidate();
+    	return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/exist")
+    public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user){
+    	if (user.getUsername() !=null) {
+    		if(userRepository.existsByUsername(user.getUsername())) {
+    			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    		}
+    	}
+    	if (user.getEmail() != null) {
+    		if(userRepository.existsByEmail(user.getEmail())) {
+    			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    		}
+    	}
+    	return ResponseEntity.ok().build();
     }
 }
