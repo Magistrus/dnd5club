@@ -37,29 +37,14 @@
         <div
             v-if="opened"
             class="filter-item__body"
+            :class="{ 'is-toggle': type === 'toggle' }"
         >
             <field-checkbox
                 v-for="(checkbox, checkboxKey) in modelValue"
                 :key="checkboxKey"
                 :model-value="checkbox.value"
                 :tooltip="checkbox.tooltip"
-                type="crumb"
-                @update:model-value="setValue($event, checkboxKey)"
-            >
-                {{ checkbox.label }}
-            </field-checkbox>
-        </div>
-
-        <div
-            v-if="opened"
-            class="filter-item__body is-toggle"
-        >
-            <field-checkbox
-                v-for="(checkbox, checkboxKey) in modelValue"
-                :key="checkboxKey"
-                :model-value="checkbox.value"
-                :tooltip="checkbox.tooltip"
-                type="toggle"
+                :type="type"
                 @update:model-value="setValue($event, checkboxKey)"
             >
                 {{ checkbox.label }}
