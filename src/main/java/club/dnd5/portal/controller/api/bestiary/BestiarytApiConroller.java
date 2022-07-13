@@ -119,7 +119,7 @@ public class BestiarytApiConroller {
 		}
 		if (request.getFilter() != null) {
 			if (request.getFilter().getNpc().isEmpty()) {
-				specification = (root, query, cb) -> cb.notEqual(root.get("raceId"), 102);
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.notEqual(root.get("raceId"), 102));
 			}
 			if (!request.getFilter().getChallengeRatings().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> root.get("challengeRating").in(request.getFilter().getChallengeRatings()));
