@@ -35,7 +35,9 @@
 
     export default {
         name: "ItemBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar, RawContent
+        },
         props: {
             item: {
                 type: Object,
@@ -44,23 +46,23 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         computed: {
             categoriesString() {
                 if (!this.item.categories?.length) {
-                    return ''
+                    return '';
                 }
 
                 let str = '';
 
                 if (this.item.categories.length === 1) {
-                    str += 'Категория: '
+                    str += 'Категория: ';
                 }
 
                 if (this.item.categories.length > 1) {
-                    str += 'Категории: '
+                    str += 'Категории: ';
                 }
 
                 str += this.item.categories.join(', ');
@@ -68,5 +70,5 @@
                 return str;
             }
         }
-    }
+    };
 </script>

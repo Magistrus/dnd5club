@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import localforage from 'localforage';
-import { DB_NAME, FULLSCREEN_DB_KEY, THEME_DB_KEY } from '@/common/const/UI';
+import {
+    DB_NAME, FULLSCREEN_DB_KEY, THEME_DB_KEY
+} from '@/common/const/UI';
 import errorHandler from '@/common/helpers/errorHandler';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -20,7 +22,7 @@ export const useUIStore = defineStore('UIStore', {
         getTheme: state => state.theme,
         getIsMobile: state => state.isMobile,
         getMaxHeight: state => state.maxHeight,
-        getFullscreen: state => state.fullscreen,
+        getFullscreen: state => state.fullscreen
     },
 
     actions: {
@@ -78,7 +80,7 @@ export const useUIStore = defineStore('UIStore', {
                 document.documentElement.style.setProperty('--max-vh', `${ window.innerHeight }px`);
 
                 this.maxHeight = window.innerHeight;
-            }
+            };
 
             updateCallback();
 
@@ -92,7 +94,7 @@ export const useUIStore = defineStore('UIStore', {
                 if (this.isMobile !== isMobile) {
                     this.isMobile = isMobile;
                 }
-            }
+            };
 
             updateCallback();
 

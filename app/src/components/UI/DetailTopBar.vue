@@ -50,9 +50,9 @@
             bgGrey: {
                 type: Boolean,
                 default: true
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

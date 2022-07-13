@@ -156,7 +156,7 @@
         components: {
             RawContent,
             DetailTopBar,
-            ClassSquare,
+            ClassSquare
         },
         props: {
             spell: {
@@ -166,7 +166,7 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         data: () => ({
@@ -186,5 +186,5 @@
                     + ' заклинания должен быть именно такой компонент.'
             }
         })
-    }
+    };
 </script>

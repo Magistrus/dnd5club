@@ -34,7 +34,6 @@
     import TabLayout from "@/components/content/TabLayout";
     import { useBooksStore } from "@/store/Wiki/BooksStore";
     import BookLink from "@/views/Wiki/Books/BookLink";
-
     import { shallowRef } from "vue";
     import sortBy from "lodash/sortBy";
     import { mapState } from "pinia/dist/pinia";
@@ -45,7 +44,7 @@
         components: {
             BookLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -69,18 +68,22 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             filter() {
                 return this.booksStore.getFilter || undefined;
             },
 
             books() {
-                const books = [];
-                const types = [];
+                const books = [
+                ];
+                const types = [
+                ];
 
                 if (!this.booksStore.getBooks) {
-                    return books
+                    return books;
                 }
 
                 for (const book of this.booksStore.getBooks) {
@@ -91,7 +94,9 @@
                     types.push(book.type);
                 }
 
-                for (const type of sortBy(types, [o => o.order])) {
+                for (const type of sortBy(types, [
+                    o => o.order
+                ])) {
                     books.push({
                         name: type.name,
                         list: this.booksStore.getBooks.filter(book => book.type.name === type.name)
@@ -102,7 +107,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'bookDetail'
+                return this.$route.name === 'bookDetail';
             },
 
             layout() {
@@ -122,13 +127,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.books.length && this.$route.name === 'books') {
-                await this.$router.push({ path: this.books[0]?.list[0]?.url })
+                await this.$router.push({ path: this.books[0]?.list[0]?.url });
             }
         },
         beforeUnmount() {
@@ -148,5 +153,5 @@
                 await this.booksStore.nextPage();
             }
         }
-    }
+    };
 </script>

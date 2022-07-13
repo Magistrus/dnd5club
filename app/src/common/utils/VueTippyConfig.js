@@ -11,11 +11,14 @@ export default {
         theme: 'dnd5club',
         strategy: 'fixed',
         maxWidth: 450,
-        delay: [450, null],
+        delay: [
+            450,
+            null
+        ],
         interactiveBorder: 7,
         appendTo: () => document.body,
         onClickOutside() {
-            return false
+            return false;
         },
         onShow(instance) {
             const ref = instance.reference;
@@ -59,4 +62,4 @@ export default {
             return canShow;
         }
     }
-}
+};

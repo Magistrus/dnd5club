@@ -10,13 +10,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useGodsStore = defineStore('GodsStore', {
     state: () => ({
-        gods: [],
+        gods: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: 70,
             end: false,
-            url: '/gods',
+            url: '/gods'
         },
         customFilter: undefined,
         controllers: {
@@ -27,7 +28,7 @@ export const useGodsStore = defineStore('GodsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getGods: state => state.gods,
+        getGods: state => state.gods
     },
 
     actions: {
@@ -41,7 +42,7 @@ export const useGodsStore = defineStore('GodsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/gods'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -71,7 +72,7 @@ export const useGodsStore = defineStore('GodsStore', {
         async godsQuery(options = {}) {
             try {
                 if (this.controllers.godsQuery) {
-                    this.controllers.godsQuery.abort()
+                    this.controllers.godsQuery.abort();
                 }
 
                 this.controllers.godsQuery = new AbortController();
@@ -83,10 +84,12 @@ export const useGodsStore = defineStore('GodsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
@@ -98,11 +101,12 @@ export const useGodsStore = defineStore('GodsStore', {
 
                 this.controllers.godsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -110,13 +114,13 @@ export const useGodsStore = defineStore('GodsStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -130,13 +134,13 @@ export const useGodsStore = defineStore('GodsStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -153,7 +157,7 @@ export const useGodsStore = defineStore('GodsStore', {
         async godInfoQuery(url) {
             try {
                 if (this.controllers.godInfoQuery) {
-                    this.controllers.godInfoQuery.abort()
+                    this.controllers.godInfoQuery.abort();
                 }
 
                 this.controllers.godInfoQuery = new AbortController();
@@ -162,7 +166,7 @@ export const useGodsStore = defineStore('GodsStore', {
 
                 this.controllers.godInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -171,7 +175,8 @@ export const useGodsStore = defineStore('GodsStore', {
         },
 
         clearGods() {
-            this.gods = [];
+            this.gods = [
+            ];
         },
 
         clearFilter() {
@@ -187,7 +192,7 @@ export const useGodsStore = defineStore('GodsStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/gods',
+                url: '/gods'
             };
         },
 
@@ -197,4 +202,4 @@ export const useGodsStore = defineStore('GodsStore', {
             this.clearConfig();
         }
     }
-})
+});

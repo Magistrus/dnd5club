@@ -79,7 +79,9 @@
 
     export default {
         name: "WeaponBody",
-        components: { DetailTopBar, DiceRoller, RawContent },
+        components: {
+            DetailTopBar, DiceRoller, RawContent
+        },
         props: {
             weapon: {
                 type: Object,
@@ -88,8 +90,8 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         }
-    }
+    };
 </script>

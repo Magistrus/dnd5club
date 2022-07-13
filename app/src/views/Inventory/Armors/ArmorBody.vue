@@ -63,7 +63,9 @@
 
     export default {
         name: "ArmorBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar, RawContent
+        },
         props: {
             armor: {
                 type: Object,
@@ -72,8 +74,8 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         }
-    }
+    };
 </script>

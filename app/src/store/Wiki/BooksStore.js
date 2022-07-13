@@ -10,13 +10,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useBooksStore = defineStore('BooksStore', {
     state: () => ({
-        books: [],
+        books: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: 70,
             end: false,
-            url: '/books',
+            url: '/books'
         },
         customFilter: undefined,
         controllers: {
@@ -27,7 +28,7 @@ export const useBooksStore = defineStore('BooksStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getBooks: state => state.books,
+        getBooks: state => state.books
     },
 
     actions: {
@@ -41,7 +42,7 @@ export const useBooksStore = defineStore('BooksStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/books'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -71,7 +72,7 @@ export const useBooksStore = defineStore('BooksStore', {
         async booksQuery(options = {}) {
             try {
                 if (this.controllers.booksQuery) {
-                    this.controllers.booksQuery.abort()
+                    this.controllers.booksQuery.abort();
                 }
 
                 this.controllers.booksQuery = new AbortController();
@@ -83,10 +84,12 @@ export const useBooksStore = defineStore('BooksStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'year',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'year',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
@@ -98,11 +101,12 @@ export const useBooksStore = defineStore('BooksStore', {
 
                 this.controllers.booksQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -110,13 +114,13 @@ export const useBooksStore = defineStore('BooksStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -130,13 +134,13 @@ export const useBooksStore = defineStore('BooksStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -153,7 +157,7 @@ export const useBooksStore = defineStore('BooksStore', {
         async bookInfoQuery(url) {
             try {
                 if (this.controllers.bookInfoQuery) {
-                    this.controllers.bookInfoQuery.abort()
+                    this.controllers.bookInfoQuery.abort();
                 }
 
                 this.controllers.bookInfoQuery = new AbortController();
@@ -162,7 +166,7 @@ export const useBooksStore = defineStore('BooksStore', {
 
                 this.controllers.bookInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -171,7 +175,8 @@ export const useBooksStore = defineStore('BooksStore', {
         },
 
         clearBooks() {
-            this.books = [];
+            this.books = [
+            ];
         },
 
         clearFilter() {
@@ -187,7 +192,7 @@ export const useBooksStore = defineStore('BooksStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/books',
+                url: '/books'
             };
         },
 
@@ -197,4 +202,4 @@ export const useBooksStore = defineStore('BooksStore', {
             this.clearConfig();
         }
     }
-})
+});

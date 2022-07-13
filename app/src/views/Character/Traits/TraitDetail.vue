@@ -41,10 +41,13 @@
             traitStore: useTraitsStore(),
             trait: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewTrait(this.$route.path);
@@ -67,10 +70,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'traits' })
+                this.$router.push({ name: 'traits' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -26,27 +26,34 @@
             type: {
                 type: String,
                 default: 'dice',
-                validator: val => ['dice', 'advantage', 'disadvantage', 'saving-throw'].includes(val)
+                validator: val => [
+                    'dice',
+                    'advantage',
+                    'disadvantage',
+                    'saving-throw'
+                ].includes(val)
             }
         },
         data: () => ({
             roll: undefined,
             error: false,
-            rpgDiceRoller: undefined,
+            rpgDiceRoller: undefined
         }),
         computed: {
             result() {
-                return this.roll ? `Результат: <b>${ this.roll }</b>` : ''
+                return this.roll ? `Результат: <b>${ this.roll }</b>` : '';
             },
 
             classes() {
-                const classes = [`is-${ this.type }`];
+                const classes = [
+                    `is-${ this.type }`
+                ];
 
                 if (this.error) {
                     classes.push('is-error');
                 }
 
-                return classes
+                return classes;
             },
 
             computedFormula() {
@@ -60,14 +67,14 @@
                     default:
                         return this.formula.replace('к', 'd');
                 }
-            },
+            }
         },
         async beforeMount() {
             this.rpgDiceRoller = await import('@dice-roller/rpg-dice-roller');
         },
         methods: {
             // eslint-disable-next-line func-names
-            async tryRoll() {
+            tryRoll() {
                 try {
                     this.error = false;
 
@@ -87,10 +94,10 @@
 
             // eslint-disable-next-line func-names
             clearRoll: debounce(function() {
-                this.roll = undefined
-            }, 5000),
+                this.roll = undefined;
+            }, 5000)
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -76,7 +76,7 @@
         name: "GodBody",
         components: {
             DetailTopBar,
-            RawContent,
+            RawContent
         },
         props: {
             god: {
@@ -88,13 +88,13 @@
         data: () => ({
             gallery: {
                 index: 0,
-                show: false,
+                show: false
             }
         }),
         computed: {
             topBarLeftString() {
-                return ` `
-            },
+                return ` `;
+            }
         },
         methods: {
             showGallery() {
@@ -106,5 +106,5 @@
                 this.gallery.index = 0;
             }
         }
-    }
+    };
 </script>

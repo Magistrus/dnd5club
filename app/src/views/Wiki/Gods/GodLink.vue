@@ -62,7 +62,7 @@
             }
         },
         data: () => ({
-            godsStore: useGodsStore(),
+            godsStore: useGodsStore()
         }),
         methods: {
             getClassList(isActive) {
@@ -70,10 +70,10 @@
                     'router-link-active': isActive,
                     'is-green': this.god?.source?.homebrew,
                     'in-tab': this.inTab
-                }
-            },
+                };
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

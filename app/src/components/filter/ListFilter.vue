@@ -126,14 +126,18 @@
                 default: false
             }
         },
-        emits: ['clear-filter', 'search', 'update'],
+        emits: [
+            'clear-filter',
+            'search',
+            'update'
+        ],
         data: () => ({
             showed: false
         }),
         computed: {
             search: {
                 get() {
-                    return this.filterInstance?.getSearchState || ''
+                    return this.filterInstance?.getSearchState || '';
                 },
 
                 async set(value) {
@@ -142,7 +146,7 @@
 
                         this.emitSearch(value);
                     } catch (err) {
-                        errorHandler(err)
+                        errorHandler(err);
                     }
                 }
             },
@@ -158,7 +162,7 @@
 
                         this.emitFilter();
                     } catch (err) {
-                        errorHandler(err)
+                        errorHandler(err);
                     }
                 }
             },
@@ -169,7 +173,8 @@
 
             otherFilters: {
                 get() {
-                    return this.filter?.other || this.filter || [];
+                    return this.filter?.other || this.filter || [
+                    ];
                 },
 
                 set(value) {
@@ -179,7 +184,7 @@
                             other: value
                         };
 
-                        return
+                        return;
                     }
 
                     this.filter = value;
@@ -188,7 +193,7 @@
 
             isFilterCustomized() {
                 return this.filterInstance.isCustomized;
-            },
+            }
         },
         beforeUnmount() {
             this.cancelEmits();
@@ -238,7 +243,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -10,13 +10,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useItemsStore = defineStore('ItemsStore', {
     state: () => ({
-        items: [],
+        items: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: 70,
             end: false,
-            url: '/items',
+            url: '/items'
         },
         customFilter: undefined,
         controllers: {
@@ -27,7 +28,7 @@ export const useItemsStore = defineStore('ItemsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getItems: state => state.items,
+        getItems: state => state.items
     },
 
     actions: {
@@ -41,7 +42,7 @@ export const useItemsStore = defineStore('ItemsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/items'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -71,7 +72,7 @@ export const useItemsStore = defineStore('ItemsStore', {
         async itemsQuery(options = {}) {
             try {
                 if (this.controllers.itemsQuery) {
-                    this.controllers.itemsQuery.abort()
+                    this.controllers.itemsQuery.abort();
                 }
 
                 this.controllers.itemsQuery = new AbortController();
@@ -83,10 +84,12 @@ export const useItemsStore = defineStore('ItemsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
@@ -98,11 +101,12 @@ export const useItemsStore = defineStore('ItemsStore', {
 
                 this.controllers.itemsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -110,13 +114,13 @@ export const useItemsStore = defineStore('ItemsStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -130,13 +134,13 @@ export const useItemsStore = defineStore('ItemsStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -153,7 +157,7 @@ export const useItemsStore = defineStore('ItemsStore', {
         async itemInfoQuery(url) {
             try {
                 if (this.controllers.itemInfoQuery) {
-                    this.controllers.itemInfoQuery.abort()
+                    this.controllers.itemInfoQuery.abort();
                 }
 
                 this.controllers.itemInfoQuery = new AbortController();
@@ -162,7 +166,7 @@ export const useItemsStore = defineStore('ItemsStore', {
 
                 this.controllers.itemInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -171,7 +175,8 @@ export const useItemsStore = defineStore('ItemsStore', {
         },
 
         clearItems() {
-            this.items = [];
+            this.items = [
+            ];
         },
 
         clearFilter() {
@@ -187,7 +192,7 @@ export const useItemsStore = defineStore('ItemsStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/items',
+                url: '/items'
             };
         },
 
@@ -197,4 +202,4 @@ export const useItemsStore = defineStore('ItemsStore', {
             this.clearConfig();
         }
     }
-})
+});

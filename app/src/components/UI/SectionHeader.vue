@@ -117,7 +117,7 @@
             },
             closeOnDesktop: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             onClose: {
                 type: Function,
@@ -126,7 +126,7 @@
             onExportFoundry: {
                 type: Function,
                 default: null
-            },
+            }
         },
         data: () => ({
             uiStore: useUIStore()
@@ -141,7 +141,7 @@
             },
 
             hasControls() {
-                return !!this.hasOptionalControls || !!this.hasMainControls
+                return !!this.hasOptionalControls || !!this.hasMainControls;
             },
 
             urlForCopy() {
@@ -164,7 +164,7 @@
 
                         return;
                     } catch (err) {
-                        errorHandler(err)
+                        errorHandler(err);
                     }
                 }
 
@@ -181,10 +181,10 @@
             },
 
             openPrintWindow() {
-                window.print()
-            },
+                window.print();
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

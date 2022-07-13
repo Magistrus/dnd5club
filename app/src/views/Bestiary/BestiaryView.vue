@@ -31,7 +31,7 @@
         components: {
             CreatureLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -55,18 +55,21 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             filter() {
                 return this.bestiaryStore.getFilter || undefined;
             },
 
             bestiary() {
-                return this.bestiaryStore.getBestiary || [];
+                return this.bestiaryStore.getBestiary || [
+                ];
             },
 
             showRightSide() {
-                return this.$route.name === 'creatureDetail'
+                return this.$route.name === 'creatureDetail';
             },
 
             layout() {
@@ -86,13 +89,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.bestiary.length && this.$route.name === 'bestiary') {
-                await this.$router.push({ path: this.bestiary[0].url })
+                await this.$router.push({ path: this.bestiary[0].url });
             }
         },
         beforeUnmount() {
@@ -114,10 +117,11 @@
 
             async onSearch() {
                 await this.bestiaryStore.initBestiary();
+
                 if (this.bestiary.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.bestiary[0].url })
+                    await this.$router.push({ path: this.bestiary[0].url });
                 }
             }
         }
-    }
+    };
 </script>

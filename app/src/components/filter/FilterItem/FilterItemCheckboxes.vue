@@ -70,14 +70,16 @@
             },
             expand: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             modelValue: {
                 type: Array,
                 default: undefined
             }
         },
-        emits: ['update:model-value'],
+        emits: [
+            'update:model-value'
+        ],
         data: () => ({
             opened: false
         }),
@@ -89,12 +91,12 @@
 
                 for (const value of this.modelValue) {
                     if (value.value !== value.default) {
-                        return true
+                        return true;
                     }
                 }
 
-                return false
-            },
+                return false;
+            }
         },
         beforeMount() {
             this.opened = this.isFilterCustomized || this.expand;
@@ -128,10 +130,10 @@
                 this.$refs.filterItem.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest"
-                })
+                });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

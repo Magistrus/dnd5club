@@ -10,13 +10,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useBestiaryStore = defineStore('BestiaryStore', {
     state: () => ({
-        bestiary: [],
+        bestiary: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: 70,
             end: false,
-            url: '/bestiary',
+            url: '/bestiary'
         },
         customFilter: undefined,
         controllers: {
@@ -27,7 +28,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getBestiary: state => state.bestiary,
+        getBestiary: state => state.bestiary
     },
 
     actions: {
@@ -41,7 +42,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/bestiary'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -71,7 +72,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
         async bestiaryQuery(options = {}) {
             try {
                 if (this.controllers.bestiaryQuery) {
-                    this.controllers.bestiaryQuery.abort()
+                    this.controllers.bestiaryQuery.abort();
                 }
 
                 this.controllers.bestiaryQuery = new AbortController();
@@ -83,13 +84,16 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'exp',
-                        direction: 'asc'
-                    }, {
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'exp',
+                            direction: 'asc'
+                        },
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
@@ -101,11 +105,12 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
 
                 this.controllers.bestiaryQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -113,13 +118,13 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -133,13 +138,13 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -156,7 +161,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
         async creatureInfoQuery(url) {
             try {
                 if (this.controllers.creatureInfoQuery) {
-                    this.controllers.creatureInfoQuery.abort()
+                    this.controllers.creatureInfoQuery.abort();
                 }
 
                 this.controllers.creatureInfoQuery = new AbortController();
@@ -165,7 +170,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
 
                 this.controllers.creatureInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -174,7 +179,8 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
         },
 
         clearBestiary() {
-            this.bestiary = [];
+            this.bestiary = [
+            ];
         },
 
         clearFilter() {
@@ -190,7 +196,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/bestiary',
+                url: '/bestiary'
             };
         },
 
@@ -200,4 +206,4 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
             this.clearConfig();
         }
     }
-})
+});

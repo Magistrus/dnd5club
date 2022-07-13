@@ -77,7 +77,6 @@
     import throttle from 'lodash/throttle';
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";
-
     import { reactive } from "vue";
 
     export default {
@@ -87,8 +86,10 @@
         },
         data: () => ({
             count: 1,
-            types: [],
-            results: [],
+            types: [
+            ],
+            results: [
+            ],
             controller: undefined
         }),
         async beforeMount() {
@@ -125,15 +126,14 @@
                 try {
                     const options = {
                         count: this.count || 1
-                    }
-
+                    };
                     const type = this.types.find(el => el.toggled);
 
                     if (type) {
                         options.type = type.value;
                     }
 
-                    const resp = await this.$http.post('/tools/madness', options, this.controller.signal)
+                    const resp = await this.$http.post('/tools/madness', options, this.controller.signal);
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -163,7 +163,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

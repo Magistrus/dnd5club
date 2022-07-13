@@ -37,7 +37,9 @@
 
 <script>
 
-    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import {
+        useInfiniteScroll, useResizeObserver
+    } from "@vueuse/core/index";
     import FilterService from "@/common/services/FilterService";
     import ListFilter from "@/components/filter/ListFilter";
 
@@ -50,10 +52,14 @@
                 default: undefined
             }
         },
-        emits: ['list-end', 'search', 'update'],
+        emits: [
+            'list-end',
+            'search',
+            'update'
+        ],
         data: () => ({
             dropdownHeight: 0,
-            filterInstalled: false,
+            filterInstalled: false
         }),
         mounted() {
             useInfiniteScroll(
@@ -68,13 +74,13 @@
         },
         methods: {
             calcDropdownHeight(entries) {
-                const entry = entries[0]
+                const entry = entries[0];
                 const { height } = entry.contentRect;
 
                 this.dropdownHeight = height || 0;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

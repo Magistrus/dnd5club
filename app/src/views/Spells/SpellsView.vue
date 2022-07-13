@@ -31,7 +31,7 @@
         components: {
             SpellLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -43,11 +43,17 @@
                 default: ''
             },
             filterUrl: {
-                type: [String, undefined],
+                type: [
+                    String,
+                    undefined
+                ],
                 default: undefined
             },
             books: {
-                type: [Array, undefined],
+                type: [
+                    Array,
+                    undefined
+                ],
                 default: undefined
             }
         },
@@ -59,18 +65,21 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             filter() {
                 return this.spellsStore.getFilter || undefined;
             },
 
             spells() {
-                return this.spellsStore.getSpells || [];
+                return this.spellsStore.getSpells || [
+                ];
             },
 
             showRightSide() {
-                return this.$route.name === 'spellDetail'
+                return this.$route.name === 'spellDetail';
             },
 
             layout() {
@@ -95,13 +104,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.spells.length && this.$route.name === 'spells') {
-                await this.$router.push({ path: this.spells[0].url })
+                await this.$router.push({ path: this.spells[0].url });
             }
         },
         beforeUnmount() {
@@ -123,10 +132,11 @@
 
             async onSearch() {
                 await this.spellsStore.initSpells(this.books);
+
                 if (this.spells.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.spells[0].url })
+                    await this.$router.push({ path: this.spells[0].url });
                 }
             }
         }
-    }
+    };
 </script>

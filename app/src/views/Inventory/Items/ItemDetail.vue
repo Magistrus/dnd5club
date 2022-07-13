@@ -31,7 +31,9 @@
 
     export default {
         name: 'ItemDetail',
-        components: { ContentDetail, ItemBody, SectionHeader },
+        components: {
+            ContentDetail, ItemBody, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewItem(to.path);
 
@@ -41,10 +43,13 @@
             itemStore: useItemsStore(),
             item: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewItem(this.$route.path);
@@ -67,10 +72,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'items' })
+                this.$router.push({ name: 'items' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

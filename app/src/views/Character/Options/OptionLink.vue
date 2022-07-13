@@ -54,7 +54,9 @@
 
     export default {
         name: 'OptionLink',
-        components: { OptionBody, BaseModal },
+        components: {
+            OptionBody, BaseModal
+        },
         directives: {
             CapitalizeFirst
         },
@@ -83,7 +85,7 @@
                     'router-link-active': isActive,
                     'is-option-selected': this.$route.name === 'optionDetail',
                     'is-green': this.optionItem?.homebrew
-                }
+                };
             },
 
             async clickHandler(callback) {
@@ -95,7 +97,7 @@
 
                 try {
                     if (!this.modal.data) {
-                        this.modal.data = await this.optionsStore.optionInfoQuery(this.optionItem.url)
+                        this.modal.data = await this.optionsStore.optionInfoQuery(this.optionItem.url);
                     }
 
                     this.modal.show = true;
@@ -104,7 +106,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

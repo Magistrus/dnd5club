@@ -289,26 +289,30 @@
             TreasureItem,
             SpellBody,
             MagicItemBody,
-            FieldCheckbox, SectionHeader, FieldSelect, ContentLayout, FormButton
+            FieldCheckbox,
+            SectionHeader,
+            FieldSelect,
+            ContentLayout,
+            FormButton
         },
         data: () => ({
             crList: [
                 {
                     name: '0-4',
-                    value: 1,
+                    value: 1
                 },
                 {
                     name: '5-10',
-                    value: 2,
+                    value: 2
                 },
                 {
                     name: '11-15',
-                    value: 3,
+                    value: 3
                 },
                 {
                     name: '17+',
-                    value: 4,
-                },
+                    value: 4
+                }
             ],
             form: {
                 cr: 1,
@@ -322,7 +326,7 @@
             },
             settings: {
                 grouping: true,
-                max: false,
+                max: false
             },
             result: {},
             detailCard: {
@@ -339,18 +343,21 @@
                 list: undefined,
                 detail: undefined
             },
-            showRightSide: false,
+            showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ]),
 
             crValue: {
                 get() {
-                    return this.crList.find(el => el.value === this.form.cr)
+                    return this.crList.find(el => el.value === this.form.cr);
                 },
 
                 set(e) {
-                    this.form.cr = e.value
+                    this.form.cr = e.value;
                 }
             },
 
@@ -361,7 +368,10 @@
 
                 const result = {};
 
-                for (const [key, value] of Object.entries(this.result)) {
+                for (const [
+                    key,
+                    value
+                ] of Object.entries(this.result)) {
                     if (!value || !Array.isArray(value)) {
                         result[key] = value;
 
@@ -369,7 +379,8 @@
                     }
 
                     const groups = Object.values(groupBy(value, o => o.name.rus));
-                    const res = [];
+                    const res = [
+                    ];
 
                     for (const group of groups) {
                         const el = group[0];
@@ -380,7 +391,7 @@
                             continue;
                         }
 
-                        const prices = sortedUniq(group.map(o => o.price))
+                        const prices = sortedUniq(group.map(o => o.price));
 
                         res.push(reactive({
                             ...el,
@@ -388,17 +399,17 @@
                                 count: group.length,
                                 price: this.settings.max ? max(prices) : Math.round(mean(prices))
                             }
-                        }))
+                        }));
                     }
 
                     result[key] = res;
                 }
 
-                return result
+                return result;
             }
         },
         mounted() {
-            this.showRightSide = !this.getIsMobile
+            this.showRightSide = !this.getIsMobile;
         },
         methods: {
             // eslint-disable-next-line func-names
@@ -412,7 +423,7 @@
                 const options = {
                     ...this.form,
                     cr: this.form.cr || 1
-                }
+                };
 
                 this.$http.post('/tools/treasury', options, this.controllers.list.signal)
                     .then(res => {
@@ -422,13 +433,14 @@
                             return;
                         }
 
-                        this.result = [];
+                        this.result = [
+                        ];
 
                         this.clearSelected();
 
                         this.$nextTick(() => {
                             this.result = res.data;
-                        })
+                        });
                     })
                     .catch(err => {
                         errorHandler(err);
@@ -498,7 +510,7 @@
                     this.detailCard = {
                         item: undefined,
                         spell: undefined
-                    }
+                    };
 
                     errorHandler(err);
                 } finally {
@@ -511,7 +523,7 @@
                 this.showRightSide = false;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

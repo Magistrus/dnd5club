@@ -1,6 +1,8 @@
 <script>
     import defineRawComponent from "@/common/utils/DefineRawComponent";
-    import { h, shallowRef } from "vue";
+    import {
+        h, shallowRef
+    } from "vue";
 
     export default {
         name: "RawContent",
@@ -51,7 +53,7 @@
 
                     this.$nextTick(() => {
                         this.$emit('loaded');
-                    })
+                    });
                 } catch (err) {
                     this.error = true;
                     this.loading = false;
@@ -75,7 +77,7 @@
 
             return (
                 h(this.tag, { class: 'raw-content' }, inner)
-            )
+            );
         }
-    }
+    };
 </script>

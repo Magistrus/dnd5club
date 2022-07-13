@@ -12,13 +12,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useRacesStore = defineStore('RacesStore', {
     state: () => ({
-        races: [],
+        races: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: -1,
             end: false,
-            url: '/races',
+            url: '/races'
         },
         controllers: {
             racesQuery: undefined,
@@ -28,7 +29,7 @@ export const useRacesStore = defineStore('RacesStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getRaces: state => state.races,
+        getRaces: state => state.races
     },
 
     actions: {
@@ -39,14 +40,14 @@ export const useRacesStore = defineStore('RacesStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/races'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
                 if (url) {
-                    filterOptions.url = url
+                    filterOptions.url = url;
                 }
 
                 await this.filter.init(filterOptions);
@@ -68,7 +69,7 @@ export const useRacesStore = defineStore('RacesStore', {
         async racesQuery(options = {}) {
             try {
                 if (this.controllers.racesQuery) {
-                    this.controllers.racesQuery.abort()
+                    this.controllers.racesQuery.abort();
                 }
 
                 this.controllers.racesQuery = new AbortController();
@@ -80,13 +81,14 @@ export const useRacesStore = defineStore('RacesStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.racesQuery.signal);
 
                 this.controllers.racesQuery = undefined;
@@ -97,7 +99,9 @@ export const useRacesStore = defineStore('RacesStore', {
                             name: value[0].type,
                             list: value
                         })),
-                    [o => o.name.order]
+                    [
+                        o => o.name.order
+                    ]
                 );
 
                 return data.map(value => {
@@ -107,12 +111,13 @@ export const useRacesStore = defineStore('RacesStore', {
                         res.subraces = getSubraces(value.subraces);
                     }
 
-                    return res
+                    return res;
                 });
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -120,13 +125,13 @@ export const useRacesStore = defineStore('RacesStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -145,8 +150,8 @@ export const useRacesStore = defineStore('RacesStore', {
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -163,7 +168,7 @@ export const useRacesStore = defineStore('RacesStore', {
         async raceInfoQuery(url) {
             try {
                 if (this.controllers.raceInfoQuery) {
-                    this.controllers.raceInfoQuery.abort()
+                    this.controllers.raceInfoQuery.abort();
                 }
 
                 this.controllers.raceInfoQuery = new AbortController();
@@ -172,7 +177,7 @@ export const useRacesStore = defineStore('RacesStore', {
 
                 this.controllers.raceInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -181,7 +186,8 @@ export const useRacesStore = defineStore('RacesStore', {
         },
 
         clearRaces() {
-            this.races = [];
+            this.races = [
+            ];
         },
 
         clearFilter() {
@@ -193,7 +199,7 @@ export const useRacesStore = defineStore('RacesStore', {
                 page: 0,
                 limit: -1,
                 end: false,
-                url: '/races',
+                url: '/races'
             };
         },
 
@@ -203,4 +209,4 @@ export const useRacesStore = defineStore('RacesStore', {
             this.clearConfig();
         }
     }
-})
+});

@@ -44,10 +44,13 @@
             optionStore: useOptionsStore(),
             option: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewOption(this.$route.path);
@@ -70,10 +73,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'options' })
+                this.$router.push({ name: 'options' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

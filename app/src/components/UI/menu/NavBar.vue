@@ -95,7 +95,9 @@
 <script>
     import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher.vue';
     import SiteLogo from "@/components/UI/SiteLogo";
-    import { mapActions, mapState } from "pinia";
+    import {
+        mapActions, mapState
+    } from "pinia";
     import { useNavStore } from "@/store/UI/NavStore";
     import NavProfile from "@/components/UI/menu/NavProfile";
     import isDevMixin from "@/common/mixins/isDevMixin";
@@ -107,7 +109,9 @@
             SiteLogo,
             MenuThemeSwitcher
         },
-        mixins: [isDevMixin],
+        mixins: [
+            isDevMixin
+        ],
         props: {
             section: {
                 type: String,
@@ -118,20 +122,26 @@
             popover: false
         }),
         computed: {
-            ...mapState(useNavStore, ['getNavItems', 'getMenuState'])
+            ...mapState(useNavStore, [
+                'getNavItems',
+                'getMenuState'
+            ])
         },
         created() {
             this.setNavItems();
         },
         methods: {
-            ...mapActions(useNavStore, ['setNavItems', 'setMenuState']),
+            ...mapActions(useNavStore, [
+                'setNavItems',
+                'setMenuState'
+            ]),
 
             openMenu() {
                 this.popover = true;
 
                 this.$nextTick(() => {
                     this.setMenuState(true);
-                })
+                });
             },
 
             closeMenu() {
@@ -152,5 +162,5 @@
                 this.openMenu();
             }
         }
-    }
+    };
 </script>

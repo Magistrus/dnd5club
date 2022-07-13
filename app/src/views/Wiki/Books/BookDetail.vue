@@ -31,7 +31,9 @@
 
     export default {
         name: 'BookDetail',
-        components: { ContentDetail, BookBody, SectionHeader },
+        components: {
+            ContentDetail, BookBody, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBook(to.path);
 
@@ -41,10 +43,13 @@
             bookStore: useBooksStore(),
             book: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewBook(this.$route.path);
@@ -67,10 +72,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'books' })
+                this.$router.push({ name: 'books' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

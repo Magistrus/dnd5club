@@ -17,7 +17,9 @@
 
     export default {
         name: "BackgroundBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar, RawContent
+        },
         props: {
             background: {
                 type: Object,
@@ -27,8 +29,8 @@
         },
         computed: {
             topBarLeftString() {
-                return ` `
-            },
-        },
-    }
+                return ` `;
+            }
+        }
+    };
 </script>

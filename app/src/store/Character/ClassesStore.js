@@ -12,11 +12,12 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useClassesStore = defineStore('ClassesStore', {
     state: () => ({
-        classes: [],
+        classes: [
+        ],
         filter: undefined,
         config: {
             page: 0,
-            url: '/classes',
+            url: '/classes'
         },
         controllers: {
             classesQuery: undefined,
@@ -26,7 +27,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getClasses: state => state.classes,
+        getClasses: state => state.classes
     },
 
     actions: {
@@ -37,14 +38,14 @@ export const useClassesStore = defineStore('ClassesStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/classes'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
                 if (url) {
-                    filterOptions.url = url
+                    filterOptions.url = url;
                 }
 
                 await this.filter.init(filterOptions);
@@ -66,7 +67,7 @@ export const useClassesStore = defineStore('ClassesStore', {
         async classesQuery(options = {}) {
             try {
                 if (this.controllers.classesQuery) {
-                    this.controllers.classesQuery.abort()
+                    this.controllers.classesQuery.abort();
                 }
 
                 this.controllers.classesQuery = new AbortController();
@@ -78,13 +79,14 @@ export const useClassesStore = defineStore('ClassesStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.classesQuery.signal);
 
                 this.controllers.classesQuery = undefined;
@@ -95,7 +97,9 @@ export const useClassesStore = defineStore('ClassesStore', {
                             name: value[0].type,
                             list: value
                         })),
-                    [o => o.name.order]
+                    [
+                        o => o.name.order
+                    ]
                 );
 
                 return data.map(value => {
@@ -105,12 +109,13 @@ export const useClassesStore = defineStore('ClassesStore', {
                         res.archetypes = getArchetypes(value.archetypes);
                     }
 
-                    return res
+                    return res;
                 });
             } catch (err) {
                 errorHandler(err);
 
-                return []
+                return [
+                ];
             }
         },
 
@@ -118,13 +123,13 @@ export const useClassesStore = defineStore('ClassesStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -136,7 +141,7 @@ export const useClassesStore = defineStore('ClassesStore', {
         async classInfoQuery(url) {
             try {
                 if (this.controllers.classInfoQuery) {
-                    this.controllers.classInfoQuery.abort()
+                    this.controllers.classInfoQuery.abort();
                 }
 
                 this.controllers.classInfoQuery = new AbortController();
@@ -151,17 +156,20 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 return {
                     ...data,
-                    tabs: sortBy(data.tabs, ['order'])
+                    tabs: sortBy(data.tabs, [
+                        'order'
+                    ])
                 };
             } catch (err) {
                 errorHandler(err);
 
-                return undefined
+                return undefined;
             }
         },
 
         clearClasses() {
-            this.classes = [];
+            this.classes = [
+            ];
         },
 
         clearFilter() {
@@ -171,7 +179,7 @@ export const useClassesStore = defineStore('ClassesStore', {
         clearConfig() {
             this.config = {
                 page: 0,
-                url: '/classes',
+                url: '/classes'
             };
         },
 

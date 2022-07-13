@@ -21,5 +21,5 @@
                 await this.uiStore.setFullscreenState();
             }
         }
-    }
+    };
 </script>

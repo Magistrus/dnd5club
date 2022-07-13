@@ -18,8 +18,11 @@
         name: 'SvgIcon',
         props: {
             iconName: {
-                type: [String, Function],
-                required: true,
+                type: [
+                    String,
+                    Function
+                ],
+                required: true
             },
             strokeEnable: {
                 type: Boolean,
@@ -28,7 +31,7 @@
             fillEnable: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
         computed: {
             svg() {
@@ -40,7 +43,7 @@
                     'svg-color--stroke': !this.fillEnable,
                     'svg-color--fill': this.fillEnable && !this.strokeEnable,
                     'svg-color': this.fillEnable && this.strokeEnable
-                }
+                };
             }
         }
     };

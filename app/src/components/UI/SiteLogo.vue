@@ -31,7 +31,10 @@
         name: 'SiteLogo',
         props: {
             size: {
-                type: [String, Number],
+                type: [
+                    String,
+                    Number
+                ],
                 default: undefined
             }
         },
@@ -41,7 +44,7 @@
         computed: {
             computedSize() {
                 if (!this.size) {
-                    return "100%"
+                    return "100%";
                 }
 
                 switch (typeof this.size) {
@@ -66,7 +69,7 @@
         beforeMount() {
             this.actualSize = this.computedSize;
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

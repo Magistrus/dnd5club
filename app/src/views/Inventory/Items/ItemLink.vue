@@ -67,7 +67,7 @@
                     'router-link-active': isActive,
                     'is-item-selected': this.$route.name === 'itemDetail',
                     'is-green': this.itemItem?.homebrew
-                }
+                };
             },
 
             clickHandler(callback) {
@@ -82,11 +82,11 @@
                         this.item = {
                             show: true,
                             data: spell
-                        }
+                        };
                     });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>
