@@ -33,7 +33,9 @@
     export default {
         name: 'CreatureDetail',
         components: {
-            ContentDetail, CreatureBody, SectionHeader
+            ContentDetail,
+            CreatureBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewCreature(to.path);

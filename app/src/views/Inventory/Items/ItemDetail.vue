@@ -32,7 +32,9 @@
     export default {
         name: 'ItemDetail',
         components: {
-            ContentDetail, ItemBody, SectionHeader
+            ContentDetail,
+            ItemBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewItem(to.path);

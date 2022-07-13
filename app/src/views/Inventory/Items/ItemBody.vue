@@ -36,7 +36,8 @@
     export default {
         name: "ItemBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             item: {

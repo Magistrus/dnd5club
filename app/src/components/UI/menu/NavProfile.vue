@@ -23,7 +23,8 @@
     export default {
         name: "NavProfile",
         components: {
-            AuthRegModal, SvgIcon
+            AuthRegModal,
+            SvgIcon
         },
         data: () => ({
             modal: false

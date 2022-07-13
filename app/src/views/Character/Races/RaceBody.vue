@@ -161,7 +161,8 @@
     export default {
         name: "RaceBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             race: {

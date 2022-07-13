@@ -2,7 +2,6 @@ package club.dnd5.portal.controller.api.tools;
 
 import java.util.Optional;
 import java.util.Random;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +42,19 @@ public class RandomEncounterApiController {
 		}
 		HabitatType enviroment;
 		if (reques.getEnvironment() == null) {
-			Set<HabitatType> enviroments = HabitatType.types();
-			enviroment = enviroments.stream().filter(e -> e.ordinal() == rnd.nextInt(enviroments.size())).findFirst()
-					.get();
+			HabitatType[] enviroments = HabitatType.types().toArray(new HabitatType[HabitatType.types().size()]);
+			enviroment = enviroments[rnd.nextInt(enviroments.length)];
 		} else {
 			enviroment = HabitatType.valueOf(reques.getEnvironment());
 		}
-		RandomEncounterRow encounter = repo.findOne(Dice.d100.roll(), reques.getLevel(), enviroment);
-		return ResponseEntity.ok(new RandomEncounterApi(encounter));
+		Optional<RandomEncounterRow> encounter = repo.findOne(Dice.d100.roll(), reques.getLevel(), enviroment);
+		if (encounter.isPresent()) {
+			return ResponseEntity.ok(new RandomEncounterApi(encounter.get()));	
+		} else {
+			RandomEncounterApi randomEncounter = new RandomEncounterApi();
+			randomEncounter.setDescription("Нет случайных столкновений");
+			return ResponseEntity.ok(randomEncounter);
+		}
 	}
 
 	@PostMapping("/api/v1/tools/encounters/table")

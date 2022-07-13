@@ -32,7 +32,9 @@
     export default {
         name: 'SpellDetail',
         components: {
-            ContentDetail, SpellBody, SectionHeader
+            ContentDetail,
+            SpellBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewSpell(to.path);

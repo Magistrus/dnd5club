@@ -82,7 +82,11 @@
     export default {
         name: "MadnessView",
         components: {
-            RawContent, FieldCheckbox, ContentLayout, FormButton, FieldInput
+            RawContent,
+            FieldCheckbox,
+            ContentLayout,
+            FormButton,
+            FieldInput
         },
         data: () => ({
             count: 1,

@@ -21,7 +21,8 @@
     export default {
         name: "RuleBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             rule: {

@@ -49,7 +49,9 @@
     export default {
         name: 'LoginView',
         components: {
-            FormButton, FieldCheckbox, FieldInput
+            FormButton,
+            FieldCheckbox,
+            FieldInput
         },
         data: () => ({
             username: '',

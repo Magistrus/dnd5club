@@ -32,7 +32,9 @@
     export default {
         name: 'BookDetail',
         components: {
-            ContentDetail, BookBody, SectionHeader
+            ContentDetail,
+            BookBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBook(to.path);

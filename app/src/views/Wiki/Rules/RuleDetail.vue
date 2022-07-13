@@ -32,7 +32,9 @@
     export default {
         name: 'RuleDetail',
         components: {
-            ContentDetail, RuleBody, SectionHeader
+            ContentDetail,
+            RuleBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRule(to.path);

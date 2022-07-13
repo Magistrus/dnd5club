@@ -31,7 +31,9 @@
     export default {
         name: 'GodDetail',
         components: {
-            ContentDetail, GodBody, SectionHeader
+            ContentDetail,
+            GodBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewGod(to.path);

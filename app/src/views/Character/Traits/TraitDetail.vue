@@ -30,7 +30,9 @@
     export default {
         name: 'TraitDetail',
         components: {
-            ContentDetail, TraitBody, SectionHeader
+            ContentDetail,
+            TraitBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewTrait(to.path);

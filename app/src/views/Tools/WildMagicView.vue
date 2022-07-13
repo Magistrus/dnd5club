@@ -77,7 +77,11 @@
     export default {
         name: "WildMagicView",
         components: {
-            RawContent, FieldCheckbox, ContentLayout, FieldInput, FormButton
+            RawContent,
+            FieldCheckbox,
+            ContentLayout,
+            FieldInput,
+            FormButton
         },
         data: () => ({
             count: 1,

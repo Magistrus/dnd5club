@@ -27,7 +27,8 @@
     export default {
         name: "BookBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             book: {

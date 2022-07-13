@@ -28,7 +28,9 @@
     export default {
         name: "ArmorDetail",
         components: {
-            ContentDetail, ArmorBody, SectionHeader
+            ContentDetail,
+            ArmorBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewArmor(to.path);

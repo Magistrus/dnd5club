@@ -18,7 +18,8 @@
     export default {
         name: "TraitBody",
         components: {
-            DetailTopBar, RawContent
+            DetailTopBar,
+            RawContent
         },
         props: {
             trait: {
