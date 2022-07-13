@@ -470,7 +470,8 @@ module.exports = {
             'error',
             'always'
         ],
-        'wrap-regex': 'error'
+        'wrap-regex': 'error',
+        'no-extra-semi': 'error'
     },
     overrides: [
         {
