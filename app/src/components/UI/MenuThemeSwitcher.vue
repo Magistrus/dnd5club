@@ -12,7 +12,9 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from 'pinia/dist/pinia';
+    import {
+        mapActions, mapState
+    } from 'pinia/dist/pinia';
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
 
@@ -21,19 +23,19 @@
         components: { SvgIcon },
         computed: {
             ...mapState(useUIStore, {
-                theme: 'getTheme',
+                theme: 'getTheme'
             }),
 
             currentIcon() {
                 return this.theme === 'dark'
                     ? 'light'
-                    : 'dark'
+                    : 'dark';
             },
 
             currentLabel() {
                 return this.theme === 'dark'
                     ? 'Светлая тема'
-                    : 'Темная тема'
+                    : 'Темная тема';
             }
         },
         methods: {
@@ -45,5 +47,5 @@
                 await this.setTheme(this.currentIcon);
             }
         }
-    }
+    };
 </script>

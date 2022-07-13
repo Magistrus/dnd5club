@@ -94,26 +94,28 @@
                 default: undefined
             }
         },
-        emits: ['update:model-value'],
+        emits: [
+            'update:model-value'
+        ],
         data: () => ({
-            opened: true,
+            opened: true
         }),
         computed: {
             isFilterCustomized() {
                 if (!this.modelValue) {
-                    return false
+                    return false;
                 }
 
                 for (const group of this.modelValue) {
                     for (const value of group.values) {
                         if (value.value !== value.default) {
-                            return true
+                            return true;
                         }
                     }
                 }
 
-                return false
-            },
+                return false;
+            }
         },
         methods: {
             setGroupStatus(e, index) {
@@ -141,7 +143,7 @@
                     }
                 }
 
-                return false
+                return false;
             },
 
             resetSources() {
@@ -169,7 +171,7 @@
                 this.$emit('update:model-value', sources);
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

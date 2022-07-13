@@ -23,7 +23,10 @@
         name: "FieldInput",
         props: {
             modelValue: {
-                type: [String, Number],
+                type: [
+                    String,
+                    Number
+                ],
                 default: ''
             },
             label: {
@@ -59,11 +62,13 @@
                 default: undefined
             }
         },
-        emits: ['update:modelValue'],
+        emits: [
+            'update:modelValue'
+        ],
         computed: {
             value: {
                 get() {
-                    return this.modelValue
+                    return this.modelValue;
                 },
 
                 set(e) {
@@ -88,7 +93,7 @@
             },
 
             attrs() {
-                const attrs = {}
+                const attrs = {};
 
                 if (this.isNumber) {
                     if (this.min !== undefined) {
@@ -96,10 +101,10 @@
                     }
                 }
 
-                return attrs
+                return attrs;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

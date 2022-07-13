@@ -22,7 +22,9 @@
 
     export default {
         name: "NavProfile",
-        components: { AuthRegModal, SvgIcon },
+        components: {
+            AuthRegModal, SvgIcon
+        },
         data: () => ({
             modal: false
         }),
@@ -35,7 +37,7 @@
                 this.modal = false;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

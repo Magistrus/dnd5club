@@ -338,7 +338,7 @@
         name: "CreatureBody",
         components: {
             DetailTopBar,
-            RawContent,
+            RawContent
         },
         props: {
             creature: {
@@ -348,13 +348,13 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         data: () => ({
             gallery: {
                 index: null,
-                show: false,
+                show: false
             }
         }),
         computed: {
@@ -372,7 +372,7 @@
                     this.creature.size.eng
                 } ${
                     this.creature.size.cell
-                }`
+                }`;
             },
 
             speed() {
@@ -380,13 +380,14 @@
                     return '';
                 }
 
-                const speeds = [];
+                const speeds = [
+                ];
 
                 for (const speed of this.creature.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`)
+                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`);
                 }
 
-                return speeds.join(', ')
+                return speeds.join(', ');
             },
 
             savingThrows() {
@@ -394,14 +395,16 @@
                     return '';
                 }
 
-                const saves = [];
+                const saves = [
+                ];
 
                 for (const save of this.creature.savingThrows) {
                     const sign = Math.sign(save.value) > -1 ? '+' : '';
-                    saves.push(`${ save.name } ${ sign }${ save.value }`)
+
+                    saves.push(`${ save.name } ${ sign }${ save.value }`);
                 }
 
-                return saves.join(', ')
+                return saves.join(', ');
             },
 
             skills() {
@@ -409,18 +412,21 @@
                     return '';
                 }
 
-                const skills = [];
+                const skills = [
+                ];
 
                 for (const skill of this.creature.skills) {
                     const sign = Math.sign(skill.value) > -1 ? '+' : '';
+
                     skills.push(`${ skill.name } ${ sign }${ skill.value }`);
                 }
 
-                return skills.join(', ')
+                return skills.join(', ');
             },
 
             senses() {
-                const senses = [];
+                const senses = [
+                ];
 
                 if (this.creature.senses?.senses?.length) {
                     for (const sense of this.creature.senses.senses) {
@@ -436,8 +442,8 @@
                     senses.push(`пассивная Внимательность ${ this.creature.senses.passivePerception }`);
                 }
 
-                return senses.join(', ')
-            },
+                return senses.join(', ');
+            }
         },
         methods: {
             showGallery() {
@@ -469,8 +475,8 @@
                     str += strings[i];
                 }
 
-                return str
-            },
+                return str;
+            }
         }
-    }
+    };
 </script>

@@ -13,7 +13,7 @@
 <script>
     export default {
         name: "ContentDetail"
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

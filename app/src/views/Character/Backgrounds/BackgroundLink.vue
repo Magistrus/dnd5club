@@ -66,7 +66,7 @@
                 return {
                     'router-link-active': isActive,
                     'is-green': this.backgroundItem?.homebrew
-                }
+                };
             },
 
             clickHandler(callback) {
@@ -81,11 +81,11 @@
                         this.background = {
                             show: true,
                             data: spell
-                        }
+                        };
                     });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

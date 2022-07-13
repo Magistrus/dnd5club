@@ -69,7 +69,7 @@
                     'router-link-active': isActive,
                     'is-trait-selected': this.$route.name === 'traitDetail',
                     'is-green': this.traitItem?.homebrew
-                }
+                };
             },
 
             clickHandler(callback) {
@@ -84,11 +84,11 @@
                         this.trait = {
                             show: true,
                             data: spell
-                        }
+                        };
                     });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -144,17 +144,17 @@
             afterSearch: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
         data() {
             return {
-                submenu: false,
-            }
+                submenu: false
+            };
         },
         computed: {
             hasArchetypes() {
-                return !!this.classItem?.archetypes?.length
-            },
+                return !!this.classItem?.archetypes?.length;
+            }
         },
         watch: {
             afterSearch(value) {
@@ -165,13 +165,13 @@
                 }
 
                 this.submenu = false;
-            },
+            }
         },
         mounted() {
             this.$nextTick(() => {
                 this.submenu = this.$route.params.className === this.$router.resolve(this.classItem.url)
                     ?.params?.className;
-            })
+            });
         },
         methods: {
             getClassList(isActive) {
@@ -180,7 +180,7 @@
                         || this.$route.params.className === this.$router.resolve(this.classItem.url)?.params?.className,
                     'is-selected': this.$route.name === 'classDetail',
                     'is-green': this.classItem?.source?.homebrew
-                }
+                };
             },
 
             toggleArch() {
@@ -191,9 +191,9 @@
                 this.submenu = true;
 
                 callback();
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item-expand.scss"></style>

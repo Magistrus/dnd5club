@@ -3,8 +3,9 @@ import { defineStore } from 'pinia';
 // eslint-disable-next-line import/prefer-default-export
 export const useNavStore = defineStore('NavStore', {
     state: () => ({
-        items: [],
-        opened: false,
+        items: [
+        ],
+        opened: false
     }),
 
     getters: {
@@ -152,51 +153,51 @@ export const useNavStore = defineStore('NavStore', {
                             label: 'Мы в Discord',
                             url: 'https://discord.gg/zqBnMJVf3z',
                             icon: 'menu-classes',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Мы в ВКонтакте',
                             url: 'https://vk.com/dnd5club',
                             icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Мы на Boosty',
                             url: 'https://boosty.to/dnd5club',
                             icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Наш бот для Telegram',
                             url: 'https://t.me/dnd5club_bot',
                             icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Мастер на Boosty',
                             url: 'https://boosty.to/dnd5eclub',
                             icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Старый сайт',
                             url: 'https://old.dnd5.club/',
                             icon: 'menu-races',
-                            external: true,
+                            external: true
                         }
                     ]
-                },
-            ]
+                }
+            ];
         },
 
         setMenuState(payload) {
             if (typeof payload !== 'boolean') {
                 this.opened = false;
 
-                return
+                return;
             }
 
-            this.opened = payload
+            this.opened = payload;
         }
     }
-})
+});

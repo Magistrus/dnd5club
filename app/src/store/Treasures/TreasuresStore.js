@@ -10,13 +10,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useTreasuresStore = defineStore('TreasuresStore', {
     state: () => ({
-        treasures: [],
+        treasures: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: 70,
             end: false,
-            url: '/treasures',
+            url: '/treasures'
         },
         customFilter: undefined,
         controllers: {
@@ -27,7 +28,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getTreasures: state => state.treasures,
+        getTreasures: state => state.treasures
     },
 
     actions: {
@@ -41,7 +42,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/treasures'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -71,7 +72,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
         async treasuresQuery(options = {}) {
             try {
                 if (this.controllers.treasuresQuery) {
-                    this.controllers.treasuresQuery.abort()
+                    this.controllers.treasuresQuery.abort();
                 }
 
                 this.controllers.treasuresQuery = new AbortController();
@@ -83,6 +84,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
+
                     // order: [{ // TODO: Revert comment
                     //     field: 'name',
                     //     direction: 'asc'
@@ -98,11 +100,12 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
 
                 this.controllers.treasuresQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -110,13 +113,13 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -130,13 +133,13 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -151,7 +154,8 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
         },
 
         clearTreasures() {
-            this.treasures = [];
+            this.treasures = [
+            ];
         },
 
         clearFilter() {
@@ -167,7 +171,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/treasures',
+                url: '/treasures'
             };
         },
 
@@ -177,4 +181,4 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
             this.clearConfig();
         }
     }
-})
+});

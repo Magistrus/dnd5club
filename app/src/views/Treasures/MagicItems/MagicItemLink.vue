@@ -90,7 +90,7 @@
             }
         },
         data: () => ({
-            magicItemsStore: useMagicItemsStore(),
+            magicItemsStore: useMagicItemsStore()
         }),
         methods: {
             getClassList(isActive) {
@@ -98,7 +98,7 @@
                     'router-link-active': isActive,
                     'is-green': this.magicItem?.source?.homebrew,
                     'in-tab': this.inTab
-                }
+                };
             },
 
             clickHandler(callback) {
@@ -111,7 +111,7 @@
                 callback();
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

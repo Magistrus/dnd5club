@@ -145,7 +145,7 @@
             SpellsView,
             FieldSelect,
             SvgIcon,
-            SectionHeader,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             this.removeScrollListeners();
@@ -160,22 +160,26 @@
             error: false,
             currentClass: undefined,
             currentTab: undefined,
-            tabs: [],
+            tabs: [
+            ],
             gallery: {
                 show: false,
-                index: null,
-            },
+                index: null
+            }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             classes() {
-                return this.classesStore.getClasses || []
+                return this.classesStore.getClasses || [
+                ];
             },
 
             getStoreKey() {
                 return `${ this.currentClass.name.eng + this.currentTab.type + this.currentTab.order }`
-                    .replaceAll(' ', '')
+                    .replaceAll(' ', '');
             },
 
             getClassesBooks() {
@@ -193,8 +197,8 @@
                     }
                 }
 
-                // eslint-disable-next-line max-len
-                return selected || `--- ${this.currentClass?.archetypeName} ---`; // Костыль, чтоб закрывалось при нажатии на селект
+                // Костыль, чтоб закрывалось при нажатии на селект
+                return selected || `--- ${ this.currentClass?.archetypeName } ---`;
             },
 
             currentArchetypes() {
@@ -207,13 +211,16 @@
                                 url: el.url
                             }))
                         })),
-                    [o => o.group.order]
+                    [
+                        o => o.group.order
+                    ]
                 );
 
                 return isArray(this.currentClass?.archetypes) && this.currentClass.archetypes.length
                     ? getArchetypes(this.currentClass.archetypes)
-                    : []
-            },
+                    : [
+                    ];
+            }
         },
         async mounted() {
             await this.loadNewClass(this.$route.path);
@@ -227,7 +234,8 @@
                     this.error = false;
                     this.loading = true;
                     this.currentTab = undefined;
-                    this.tabs = [];
+                    this.tabs = [
+                    ];
                     this.images = {
                         show: false,
                         index: 0
@@ -259,7 +267,7 @@
                 await this.setTab(0);
             },
 
-            async setTab(index) {
+            setTab(index) {
                 try {
                     this.loading = true;
 
@@ -272,16 +280,18 @@
                                 top: 0
                             });
                         }
-                    })
+                    });
                 } catch (err) {
                     this.loading = false;
                     this.error = true;
 
-                    errorHandler(err)
+                    errorHandler(err);
                 }
             },
 
-            async clickTabHandler({ index, callback }) {
+            async clickTabHandler({
+                index, callback
+            }) {
                 if (typeof callback === 'function') {
                     callback();
 
@@ -292,7 +302,7 @@
             },
 
             goToArchetype(path) {
-                this.$router.push({ path })
+                this.$router.push({ path });
             },
 
             initScrollListeners() {
@@ -367,9 +377,9 @@
 
             close() {
                 this.$router.push({ name: 'classes' });
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

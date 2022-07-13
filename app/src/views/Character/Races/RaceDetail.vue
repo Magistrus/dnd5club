@@ -43,10 +43,12 @@
             raceStore: useRacesStore(),
             race: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewRace(this.$route.path);
@@ -69,10 +71,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'races' })
+                this.$router.push({ name: 'races' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

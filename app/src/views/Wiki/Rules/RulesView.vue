@@ -31,7 +31,7 @@
         components: {
             RuleLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -55,18 +55,21 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             filter() {
                 return this.rulesStore.getFilter || undefined;
             },
 
             rules() {
-                return this.rulesStore.getRules || [];
+                return this.rulesStore.getRules || [
+                ];
             },
 
             showRightSide() {
-                return this.$route.name === 'ruleDetail'
+                return this.$route.name === 'ruleDetail';
             },
 
             layout() {
@@ -86,13 +89,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.rules.length && this.$route.name === 'rules') {
-                await this.$router.push({ path: this.rules[0].url })
+                await this.$router.push({ path: this.rules[0].url });
             }
         },
         beforeUnmount() {
@@ -113,11 +116,12 @@
             },
 
             async onSearch() {
-                await this.rulesQuery()
+                await this.rulesQuery();
+
                 if (this.rules.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.rules[0].url })
+                    await this.$router.push({ path: this.rules[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>

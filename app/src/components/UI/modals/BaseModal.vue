@@ -103,7 +103,9 @@
 
     export default {
         name: "BaseModal",
-        components: { FormButton, SvgIcon },
+        components: {
+            FormButton, SvgIcon
+        },
         inheritAttrs: true,
         props: {
             typeConfirm: {
@@ -121,31 +123,33 @@
             typeError: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
-        emits: ['confirm'],
+        emits: [
+            'confirm'
+        ],
         computed: {
             type() {
                 if (this.typeConfirm) {
-                    return 'confirm'
+                    return 'confirm';
                 }
 
                 if (this.typeRemove) {
-                    return 'remove'
+                    return 'remove';
                 }
 
                 if (this.typeNotify) {
-                    return 'notify'
+                    return 'notify';
                 }
 
                 if (this.typeError) {
-                    return 'error'
+                    return 'error';
                 }
 
-                return ''
+                return '';
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

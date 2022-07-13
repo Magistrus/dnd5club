@@ -59,21 +59,25 @@
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
-            },
+            }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             filter() {
                 return this.weaponsStore.getFilter || undefined;
             },
 
             weapons() {
-                const weapons = [];
-                const types = [];
+                const weapons = [
+                ];
+                const types = [
+                ];
 
                 if (!this.weaponsStore.getWeapons) {
-                    return weapons
+                    return weapons;
                 }
 
                 for (const weapon of this.weaponsStore.getWeapons) {
@@ -84,7 +88,9 @@
                     types.push(weapon.type);
                 }
 
-                for (const type of sortBy(types, [o => o.order])) {
+                for (const type of sortBy(types, [
+                    o => o.order
+                ])) {
                     weapons.push({
                         name: type.name,
                         list: this.weaponsStore.getWeapons.filter(weapon => weapon.type.name === type.name)
@@ -95,7 +101,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'weaponDetail'
+                return this.$route.name === 'weaponDetail';
             },
 
             layout() {
@@ -115,13 +121,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.weapons[0]?.list[0]?.length && this.$route.name === 'weapons') {
-                await this.$router.push({ path: this.weapons[0].list[0].url })
+                await this.$router.push({ path: this.weapons[0].list[0].url });
             }
         },
         beforeUnmount() {
@@ -141,7 +147,7 @@
                 await this.weaponsStore.nextPage();
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

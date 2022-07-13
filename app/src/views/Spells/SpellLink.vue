@@ -120,7 +120,9 @@
 
     export default {
         name: 'SpellLink',
-        components: { BaseModal, SpellBody },
+        components: {
+            BaseModal, SpellBody
+        },
         directives: {
             CapitalizeFirst
         },
@@ -147,8 +149,8 @@
             hasComponents() {
                 const { spell } = this;
 
-                return spell?.components?.v || spell?.components?.s || !!spell?.components?.m
-            },
+                return spell?.components?.v || spell?.components?.s || !!spell?.components?.m;
+            }
         },
         methods: {
             getClassList(isActive) {
@@ -156,7 +158,7 @@
                     'router-link-active': isActive,
                     'is-green': this.spell?.source?.homebrew,
                     'in-tab': this.inTab
-                }
+                };
             },
 
             async clickHandler(callback) {
@@ -177,7 +179,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

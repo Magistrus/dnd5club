@@ -10,13 +10,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useOptionsStore = defineStore('OptionsStore', {
     state: () => ({
-        options: [],
+        options: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: -1,
             end: false,
-            url: '/options',
+            url: '/options'
         },
         controllers: {
             optionsQuery: undefined,
@@ -26,7 +27,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getOptions: state => state.options,
+        getOptions: state => state.options
     },
 
     actions: {
@@ -40,7 +41,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: url || '/filters/options'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -65,7 +66,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
         async optionsQuery(options = {}) {
             try {
                 if (this.controllers.optionsQuery) {
-                    this.controllers.optionsQuery.abort()
+                    this.controllers.optionsQuery.abort();
                 }
 
                 this.controllers.optionsQuery = new AbortController();
@@ -77,22 +78,24 @@ export const useOptionsStore = defineStore('OptionsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.optionsQuery.signal);
 
                 this.controllers.optionsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -101,8 +104,8 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter) {
                 config.filter = this.filter.getQueryParams;
@@ -120,13 +123,13 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -143,7 +146,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
         async optionInfoQuery(url) {
             try {
                 if (this.controllers.optionInfoQuery) {
-                    this.controllers.optionInfoQuery.abort()
+                    this.controllers.optionInfoQuery.abort();
                 }
 
                 this.controllers.optionInfoQuery = new AbortController();
@@ -152,7 +155,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
                 this.controllers.optionInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -161,7 +164,8 @@ export const useOptionsStore = defineStore('OptionsStore', {
         },
 
         clearOptions() {
-            this.options = [];
+            this.options = [
+            ];
         },
 
         clearFilter() {
@@ -177,7 +181,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
                 page: 0,
                 limit: -1,
                 end: false,
-                url: '/options',
+                url: '/options'
             };
         },
 
@@ -187,4 +191,4 @@ export const useOptionsStore = defineStore('OptionsStore', {
             this.clearConfig();
         }
     }
-})
+});

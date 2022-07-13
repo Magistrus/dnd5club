@@ -53,7 +53,9 @@
 
     export default {
         name: "ScreenLink",
-        components: { ScreenBody, BaseModal, RawContent },
+        components: {
+            ScreenBody, BaseModal, RawContent
+        },
         inheritAttrs: false,
         props: {
             screen: {
@@ -67,10 +69,12 @@
             modal: {
                 data: undefined,
                 show: false
-            },
+            }
         }),
         methods: {
-            ...mapActions(useScreensStore, ['screenInfoQuery']),
+            ...mapActions(useScreensStore, [
+                'screenInfoQuery'
+            ]),
 
             async clickHandler(url) {
                 try {
@@ -82,9 +86,9 @@
                 } catch (err) {
                     console.error(err);
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

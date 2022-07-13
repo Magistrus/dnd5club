@@ -48,7 +48,9 @@
 
     export default {
         name: 'LoginView',
-        components: { FormButton, FieldCheckbox, FieldInput },
+        components: {
+            FormButton, FieldCheckbox, FieldInput
+        },
         data: () => ({
             username: '',
             password: '',
@@ -59,5 +61,5 @@
                 // console.log('login')
             }
         }
-    }
+    };
 </script>

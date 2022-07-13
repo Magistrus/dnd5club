@@ -59,21 +59,25 @@
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
-            },
+            }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, [
+                'getIsMobile'
+            ]),
 
             filter() {
                 return this.armorsStore.getFilter || undefined;
             },
 
             armors() {
-                const armors = [];
-                const types = [];
+                const armors = [
+                ];
+                const types = [
+                ];
 
                 if (!this.armorsStore.getArmors) {
-                    return armors
+                    return armors;
                 }
 
                 for (const armor of this.armorsStore.getArmors) {
@@ -84,7 +88,9 @@
                     types.push(armor.type);
                 }
 
-                for (const type of sortBy(types, [o => o.order])) {
+                for (const type of sortBy(types, [
+                    o => o.order
+                ])) {
                     armors.push({
                         name: type.name,
                         list: this.armorsStore.getArmors.filter(armor => armor.type.name === type.name)
@@ -95,7 +101,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'armorDetail'
+                return this.$route.name === 'armorDetail';
             },
 
             layout() {
@@ -115,13 +121,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.armors[0]?.list[0]?.length && this.$route.name === 'armors') {
-                await this.$router.push({ path: this.armors[0].list[0].url })
+                await this.$router.push({ path: this.armors[0].list[0].url });
             }
         },
         beforeUnmount() {
@@ -142,13 +148,14 @@
             },
 
             async onSearch() {
-                this.armorsQuery()
+                this.armorsQuery();
+
                 if (this.armors.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.armors[0].url })
+                    await this.$router.push({ path: this.armors[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

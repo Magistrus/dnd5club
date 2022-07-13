@@ -11,28 +11,28 @@ export default class HTTPService {
         });
     }
 
-    async post(url, data, signal) {
+    post(url, data, signal) {
         return this.instance({
             url,
             data,
             signal,
-            method: 'post',
-        })
+            method: 'post'
+        });
     }
 
-    async get(url, params) {
+    get(url, params) {
         return this.instance({
             url,
             params: new URLSearchParams(params).toString(),
-            method: 'get',
-        })
+            method: 'get'
+        });
     }
 
-    async rawGet(url, params) {
+    rawGet(url, params) {
         return this.instanceRaw({
             url,
             params: new URLSearchParams(params).toString(),
-            method: 'get',
-        })
+            method: 'get'
+        });
     }
 }

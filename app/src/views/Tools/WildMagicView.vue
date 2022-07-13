@@ -71,7 +71,6 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";
-
     import { reactive } from "vue";
     import throttle from "lodash/throttle";
 
@@ -82,8 +81,10 @@
         },
         data: () => ({
             count: 1,
-            tables: [],
-            results: [],
+            tables: [
+            ],
+            results: [
+            ],
             controller: undefined
         }),
         async beforeMount() {
@@ -123,9 +124,8 @@
                         sources: this.tables
                             .filter(source => source.value)
                             .map(source => source.shortName)
-                    }
-
-                    const resp = await this.$http.post('/tools/wildmagic', options, this.controller.signal)
+                    };
+                    const resp = await this.$http.post('/tools/wildmagic', options, this.controller.signal);
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -141,9 +141,9 @@
                 } finally {
                     this.controller = undefined;
                 }
-            }, 300),
+            }, 300)
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

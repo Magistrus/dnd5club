@@ -30,7 +30,9 @@
 
     export default {
         name: 'MagicItemDetail',
-        components: { ContentDetail, MagicItemBody, SectionHeader },
+        components: {
+            ContentDetail, MagicItemBody, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewMagicItem(to.path);
 
@@ -40,10 +42,13 @@
             magicItemsStore: useMagicItemsStore(),
             magicItem: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewMagicItem(this.$route.path);
@@ -64,9 +69,9 @@
                 } catch (err) {
                     this.error = true;
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

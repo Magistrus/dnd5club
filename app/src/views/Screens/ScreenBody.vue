@@ -30,7 +30,7 @@
         name: "ScreenBody",
         components: {
             RawContent,
-            DetailTopBar,
+            DetailTopBar
         },
         props: {
             screen: {
@@ -40,9 +40,9 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         data: () => ({})
-    }
+    };
 </script>

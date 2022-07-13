@@ -44,14 +44,16 @@
     import groupBy from "lodash/groupBy";
     import debounce from "lodash/debounce";
     import { useUIStore } from "@/store/UI/UIStore";
-    import { mapActions, mapState } from "pinia";
+    import {
+        mapActions, mapState
+    } from "pinia";
     import isArray from "lodash/isArray";
 
     export default {
         name: 'ClassesView',
         components: {
             ClassLink,
-            ContentLayout,
+            ContentLayout
         },
         async beforeRouteEnter(to, from, next) {
             const store = useClassesStore();
@@ -62,21 +64,29 @@
             next();
         },
         data: () => ({
-            search: '',
+            search: ''
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
-            ...mapState(useClassesStore, ['getClasses', 'getFilter']),
+            ...mapState(useUIStore, [
+                'getIsMobile',
+                'getFullscreen'
+            ]),
+            ...mapState(useClassesStore, [
+                'getClasses',
+                'getFilter'
+            ]),
 
             filter() {
                 return this.getFilter || undefined;
             },
 
             classes() {
-                const classes = this.getClasses || [];
+                const classes = this.getClasses || [
+                ];
 
                 if (!classes?.length) {
-                    return [];
+                    return [
+                    ];
                 }
 
                 const groups = sortBy(
@@ -85,14 +95,21 @@
                         o => o.group.name
                     )).map(list => ({
                         group: list[0].group,
-                        list: sortBy(list, [o => o.name.rus])
+                        list: sortBy(list, [
+                            o => o.name.rus
+                        ])
                     })),
-                    [o => o.group.order]
+                    [
+                        o => o.group.order
+                    ]
                 );
-
-                const sorted = [{
-                    list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])
-                }];
+                const sorted = [
+                    {
+                        list: sortBy(classes.filter(item => !('group' in item)), [
+                            o => o.name.rus
+                        ])
+                    }
+                ];
 
                 if (isArray(groups) && groups.length) {
                     for (let i = 0; i < groups.length; i++) {
@@ -104,7 +121,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'classDetail'
+                return this.$route.name === 'classDetail';
             }
         },
         watch: {
@@ -112,11 +129,11 @@
                 if (value) {
                     this.$nextTick(() => {
                         this.scrollToActive();
-                    })
+                    });
                 }
             }
         },
-        async mounted() {
+        mounted() {
             this.$nextTick(() => {
                 if (this.showRightSide) {
                     this.scrollToActive();
@@ -127,7 +144,12 @@
             this.clearStore();
         },
         methods: {
-            ...mapActions(useClassesStore, ['initFilter', 'initClasses', 'nextPage', 'clearStore']),
+            ...mapActions(useClassesStore, [
+                'initFilter',
+                'initClasses',
+                'nextPage',
+                'clearStore'
+            ]),
 
             async classesQuery() {
                 await this.initClasses();
@@ -165,7 +187,7 @@
                 this.search = e;
             }, 300)
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

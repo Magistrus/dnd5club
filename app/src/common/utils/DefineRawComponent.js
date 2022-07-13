@@ -5,7 +5,7 @@ const http = new HTTPService();
 
 async function defineRawComponent(template, url) {
     if (!template && !url) {
-        throw new Error('URL and template is not defined')
+        throw new Error('URL and template is not defined');
     }
 
     try {
@@ -23,8 +23,8 @@ async function defineRawComponent(template, url) {
             template: html
         });
     } catch (err) {
-        return err
+        return err;
     }
 }
 
-export default defineRawComponent
+export default defineRawComponent;

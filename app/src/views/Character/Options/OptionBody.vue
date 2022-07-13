@@ -35,7 +35,9 @@
 
     export default {
         name: "OptionBody",
-        components: { ClassSquare, DetailTopBar, RawContent },
+        components: {
+            ClassSquare, DetailTopBar, RawContent
+        },
         props: {
             option: {
                 type: Object,
@@ -43,5 +45,5 @@
                 required: true
             }
         }
-    }
+    };
 </script>

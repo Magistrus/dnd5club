@@ -48,10 +48,13 @@
             screensStore: useScreensStore(),
             screen: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewScreen(this.$route.path);
@@ -74,7 +77,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

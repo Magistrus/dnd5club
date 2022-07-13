@@ -20,13 +20,15 @@
 
     export default {
         name: "RuleBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar, RawContent
+        },
         props: {
             rule: {
                 type: Object,
                 default: undefined,
                 required: true
             }
-        },
-    }
+        }
+    };
 </script>

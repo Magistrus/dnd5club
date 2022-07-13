@@ -41,8 +41,8 @@
             },
             type: {
                 type: String,
-                default: '',
-            },
+                default: ''
+            }
         },
         data: () => ({
             content: undefined,
@@ -61,30 +61,30 @@
             bodyComponent() {
                 switch (this.type) {
                     case 'spell':
-                        return SpellBody
+                        return SpellBody;
 
                     case 'screen':
-                        return ScreenBody
+                        return ScreenBody;
 
                     case 'item':
-                        return ItemBody
+                        return ItemBody;
 
                     case 'magic-item':
-                        return MagicItemBody
+                        return MagicItemBody;
 
                     case 'creature':
-                        return CreatureBody
+                        return CreatureBody;
 
                     case 'weapon':
-                        return WeaponBody
+                        return WeaponBody;
 
                     case 'armor':
-                        return ArmorBody
+                        return ArmorBody;
 
                     default:
                         return 'div';
                 }
-            },
+            }
         },
         methods: {
             async getContent() {
@@ -100,7 +100,7 @@
                 if (!url?.length) {
                     this.error = true;
 
-                    return false
+                    return false;
                 }
 
                 const res = await this.$http.post(url);
@@ -115,8 +115,8 @@
 
                 this.content = res.data;
 
-                return true
+                return true;
             }
         }
-    }
+    };
 </script>

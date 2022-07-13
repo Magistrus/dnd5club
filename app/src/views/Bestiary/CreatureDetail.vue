@@ -32,7 +32,9 @@
 
     export default {
         name: 'CreatureDetail',
-        components: { ContentDetail, CreatureBody, SectionHeader },
+        components: {
+            ContentDetail, CreatureBody, SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewCreature(to.path);
 
@@ -42,10 +44,13 @@
             bestiaryStore: useBestiaryStore(),
             creature: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, [
+                'getFullscreen',
+                'getIsMobile'
+            ])
         },
         async mounted() {
             await this.loadNewCreature(this.$route.path);
@@ -72,7 +77,7 @@
                 window.open(`/api/fvtt/v1/bestiary/${ this.creature.id }`, '_self');
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

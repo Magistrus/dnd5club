@@ -15,35 +15,35 @@
         props: {
             typeLink: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             typeOutline: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             typePrimary: {
                 type: Boolean,
-                default: true,
+                default: true
             },
             disabled: {
                 type: Boolean,
-                default: false,
-            },
+                default: false
+            }
         },
         computed: {
             type() {
                 if (this.typeLink) {
-                    return 'link'
+                    return 'link';
                 }
 
                 if (this.typeOutline) {
-                    return 'outline'
+                    return 'outline';
                 }
 
-                return 'primary'
+                return 'primary';
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

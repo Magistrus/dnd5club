@@ -74,7 +74,7 @@
         name: "MagicItemBody",
         components: {
             DetailTopBar,
-            RawContent,
+            RawContent
         },
         props: {
             magicItem: {
@@ -84,13 +84,13 @@
             },
             inTooltip: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         data: () => ({
             gallery: {
                 index: null,
-                show: false,
+                show: false
             }
         }),
         computed: {
@@ -98,11 +98,11 @@
                 let str = `${ upperFirst(this.magicItem.type.name) }, ${ this.magicItem.rarity.name }`;
 
                 if (this.magicItem.detailType?.length) {
-                    str += ` (${ this.magicItem.detailType.join(', ') })`
+                    str += ` (${ this.magicItem.detailType.join(', ') })`;
                 }
 
-                return str
-            },
+                return str;
+            }
         },
         methods: {
             showGallery() {
@@ -114,5 +114,5 @@
                 this.gallery.index = 0;
             }
         }
-    }
+    };
 </script>

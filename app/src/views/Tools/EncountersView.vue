@@ -108,7 +108,6 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import RawContent from "@/components/content/RawContent";
     import throttle from 'lodash/throttle';
-
     import { reactive } from "vue";
     import FieldSelect from "@/components/form/FieldType/FieldSelect";
     import FormButton from "@/components/form/FormButton";
@@ -121,13 +120,18 @@
             RollTable,
             BaseModal,
             FormButton,
-            FieldSelect, RawContent, ContentLayout
+            FieldSelect,
+            RawContent,
+            ContentLayout
         },
         data: () => ({
             controller: undefined,
-            environments: [],
-            levels: [],
-            results: [],
+            environments: [
+            ],
+            levels: [
+            ],
+            results: [
+            ],
             table: {
                 show: false,
                 data: undefined
@@ -145,30 +149,30 @@
             level: {
                 get() {
                     if (!this.form.level) {
-                        return ''
+                        return '';
                     }
 
                     return this.levels.find(level => level.value === this.form.level);
                 },
 
                 set(e) {
-                    this.form.level = e.value
+                    this.form.level = e.value;
                 }
             },
 
             env: {
                 get() {
                     if (!this.form.environment) {
-                        return ''
+                        return '';
                     }
 
                     return this.environments.find(env => env.value === this.form.environment);
                 },
 
                 set(e) {
-                    this.form.environment = e.value
+                    this.form.environment = e.value;
                 }
-            },
+            }
         },
         async beforeMount() {
             await this.getOptions();
@@ -202,7 +206,10 @@
                 try {
                     const options = {};
 
-                    for (const [key, value] of Object.entries(this.form)) {
+                    for (const [
+                        key,
+                        value
+                    ] of Object.entries(this.form)) {
                         if (!value) {
                             continue;
                         }
@@ -210,7 +217,7 @@
                         options[key] = value;
                     }
 
-                    const resp = await this.$http.post('/tools/encounters', options, this.controller.signal)
+                    const resp = await this.$http.post('/tools/encounters', options, this.controller.signal);
 
                     if (resp.status !== 200) {
                         errorHandler(resp.statusText);
@@ -257,7 +264,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

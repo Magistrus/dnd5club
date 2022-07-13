@@ -9,13 +9,14 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useTraitsStore = defineStore('TraitsStore', {
     state: () => ({
-        traits: [],
+        traits: [
+        ],
         filter: undefined,
         config: {
             page: 0,
             limit: -1,
             end: false,
-            url: '/traits',
+            url: '/traits'
         },
         controllers: {
             traitsQuery: undefined,
@@ -25,7 +26,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getTraits: state => state.traits,
+        getTraits: state => state.traits
     },
 
     actions: {
@@ -36,14 +37,14 @@ export const useTraitsStore = defineStore('TraitsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/traits'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
                 if (url) {
-                    filterOptions.url = url
+                    filterOptions.url = url;
                 }
 
                 await this.filter.init(filterOptions);
@@ -65,7 +66,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
         async traitsQuery(options = {}) {
             try {
                 if (this.controllers.traitsQuery) {
-                    this.controllers.traitsQuery.abort()
+                    this.controllers.traitsQuery.abort();
                 }
 
                 this.controllers.traitsQuery = new AbortController();
@@ -77,22 +78,24 @@ export const useTraitsStore = defineStore('TraitsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.traitsQuery.signal);
 
                 this.controllers.traitsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
-                return [];
+                return [
+                ];
             }
         },
 
@@ -100,13 +103,13 @@ export const useTraitsStore = defineStore('TraitsStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -120,13 +123,13 @@ export const useTraitsStore = defineStore('TraitsStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -143,7 +146,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
         async traitInfoQuery(url) {
             try {
                 if (this.controllers.traitInfoQuery) {
-                    this.controllers.traitInfoQuery.abort()
+                    this.controllers.traitInfoQuery.abort();
                 }
 
                 this.controllers.traitInfoQuery = new AbortController();
@@ -152,7 +155,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
 
                 this.controllers.traitInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -161,7 +164,8 @@ export const useTraitsStore = defineStore('TraitsStore', {
         },
 
         clearTraits() {
-            this.traits = [];
+            this.traits = [
+            ];
         },
 
         clearFilter() {
@@ -173,7 +177,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
                 page: 0,
                 limit: -1,
                 end: false,
-                url: '/traits',
+                url: '/traits'
             };
         },
 
@@ -183,4 +187,4 @@ export const useTraitsStore = defineStore('TraitsStore', {
             this.clearConfig();
         }
     }
-})
+});
