@@ -81,6 +81,7 @@
                             :model-value="block.values"
                             :name="block.name"
                             :expand="block.expand"
+                            :type="block.type"
                             @update:model-value="setOtherValue($event, block.key)"
                         />
                     </div>

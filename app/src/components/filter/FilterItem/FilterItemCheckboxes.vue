@@ -43,6 +43,23 @@
                 :key="checkboxKey"
                 :model-value="checkbox.value"
                 :tooltip="checkbox.tooltip"
+                type="crumb"
+                @update:model-value="setValue($event, checkboxKey)"
+            >
+                {{ checkbox.label }}
+            </field-checkbox>
+        </div>
+
+        <div
+            v-if="opened"
+            class="filter-item__body is-toggle"
+        >
+            <field-checkbox
+                v-for="(checkbox, checkboxKey) in modelValue"
+                :key="checkboxKey"
+                :model-value="checkbox.value"
+                :tooltip="checkbox.tooltip"
+                type="toggle"
                 @update:model-value="setValue($event, checkboxKey)"
             >
                 {{ checkbox.label }}
@@ -71,6 +88,14 @@
             expand: {
                 type: Boolean,
                 default: false
+            },
+            type: {
+                type: String,
+                default: 'crumb',
+                validator: value => [
+                    'crumb',
+                    'toggle'
+                ].includes(value)
             },
             modelValue: {
                 type: Array,
