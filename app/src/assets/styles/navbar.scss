@@ -209,6 +209,7 @@
     padding: 8px;
     display: flex;
     flex-wrap: wrap;
+    gap: 8px;
 
     &_group {
       display: flex;
@@ -230,20 +231,60 @@
         letter-spacing: 0.75px;
       }
 
-      &_link {
+      &_icon {
+        width: 32px;
+        height: 32px;
+        padding: 4px;
+        flex-shrink: 0;
+      }
+    }
+
+    &_link {
+      @include css_anim();
+
+      display: flex;
+      border-radius: 6px;
+
+      &_label {
         @include css_anim();
 
         color: var(--text-color);
         font-weight: 400;
-        padding: 8px 20px;
+        padding: 8px;
         width: 100%;
         display: flex;
-        border-radius: 6px;
+      }
 
-        &:hover {
-          background-color: var(--primary-hover);
-          cursor: pointer;
-          color: var(--text-btn-color);
+      &_icon,
+      &_bookmark {
+        @include css_anim();
+
+        width: 32px;
+        height: 32px;
+        padding: 4px;
+        flex-shrink: 0;
+      }
+
+      &_bookmark {
+        opacity: 0;
+      }
+
+      &:hover {
+        background-color: var(--primary-hover);
+
+        .nav-popover__menu {
+          &_link {
+            &_bookmark {
+              opacity: 1;
+            }
+
+            &_label,
+            &_icon,
+            &_bookmark {
+              cursor: pointer;
+              color: var(--text-btn-color);
+            }
+          }
         }
       }
     }
