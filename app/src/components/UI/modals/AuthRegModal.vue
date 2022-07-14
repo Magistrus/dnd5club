@@ -109,7 +109,6 @@
     .auth-reg-modal {
         &__bg {
             width: 240px;
-            height: 400px;
             object-fit: cover;
             display: none;
 
@@ -120,12 +119,13 @@
 
         &__content {
             flex: 1 1 100%;
-            height: 400px;
+            max-height: var(--max-vh);
             padding: 16px;
             position: relative;
+            overflow: auto;
 
             @include media-min($md) {
-                padding: 24px 48px 24px 48px;
+                padding: 48px;
             }
         }
 

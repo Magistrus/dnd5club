@@ -2,48 +2,73 @@
     <form
         class="registration form"
         @submit.prevent="onSubmit"
+        @keyup.enter.exact.prevent="onSubmit"
+        @keyup.enter.ctrl.exact.prevent="onSubmit"
     >
+        <transition>
+            <div
+                v-if="error.status"
+                class="form__row is-error"
+            >
+                {{ error.text }}
+            </div>
+
+            <div
+                v-else-if="success"
+                class="form__row is-success"
+            >
+                Вы зарегистрированы. Теперь нужно авторизоваться
+            </div>
+        </transition>
+
         <div class="form__row">
             <field-input
-                v-model="username.value"
+                v-model="username"
                 placeholder="Имя пользователя"
+                :validator="isUsernameError"
                 required
-                @blur="username.showCheck = true"
+                @validated="isValid.username = $event"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="email.value"
+                v-model="email"
                 placeholder="Электронный адрес"
+                :validator="isEmailError"
                 is-email
                 required
-                @blur="email.showCheck = true"
+                @validated="isValid.email = $event"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="password.value"
+                v-model="password"
                 placeholder="Пароль"
+                :validator="isPwdError"
                 is-password
                 required
-                @blur="password.showCheck = true"
+                @validated="isValid.password = $event"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="repeat.value"
+                v-model="repeat"
                 placeholder="Повторите пароль"
+                :validator="isRepeatError"
                 is-password
                 required
-                @blur="repeat.showCheck = true"
+                @validated="isValid.repeat = $event"
             />
         </div>
 
         <div class="form__row">
-            <form-button @click.left.exact.prevent="onSubmit">
+            <form-button
+                :disabled="success"
+                @click.left.exact.prevent="onSubmit"
+            >
                 Регистрация
             </form-button>
 
@@ -67,6 +92,7 @@
         validatePwdUpperCase,
         validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
+    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         name: 'RegistrationView',
@@ -75,29 +101,29 @@
             FormButton
         },
         data: () => ({
-            username: {
-                showCheck: false,
-                value: ''
+            username: '',
+            email: '',
+            password: '',
+            repeat: '',
+            controllers: {
+                username: undefined,
+                email: undefined,
+                form: undefined
             },
-            email: {
-                showCheck: false,
-                value: ''
+            error: {
+                status: false,
+                text: ''
             },
-            password: {
-                showCheck: false,
-                value: ''
-            },
-            repeat: {
-                showCheck: false,
-                value: ''
+            success: false,
+            isValid: {
+                username: false,
+                email: false,
+                password: false,
+                repeat: false
             }
         }),
-        computed: {
-            usernameError() {
-                if (!this.username.length) {
-                    return 'Имя пользователя должно быть заполнено';
-                }
-
+        methods: {
+            async isUsernameError() {
                 if (this.username.length < 5) {
                     return 'Имя пользователя не может быть менее 5 символов';
                 }
@@ -107,13 +133,85 @@
                 }
 
                 if (!validateUsernameSpecialChars(this.username)) {
-                    return 'В имени пользователя разрешены: латинские буквы, цифры, дефис (-), точка';
+                    return 'Допустимые символы: латинские буквы, цифры, дефис (-), подчеркивание (_), точка';
+                }
+
+                try {
+                    if (this.controllers.username) {
+                        this.controllers.username.abort();
+                    }
+
+                    this.controllers.username = new AbortController();
+
+                    const resp = await this.$http.post(
+                        '/auth/exist',
+                        {
+                            username: this.username
+                        },
+                        this.controllers.username.signal
+                    );
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        return 'Неизвестная ошибка';
+                    }
+                } catch (err) {
+                    const resp = err.response;
+
+                    if (resp.status === 409) {
+                        return 'Это имя пользователя уже занято';
+                    }
+
+                    errorHandler(err);
+
+                    return 'Неизвестная ошибка';
+                } finally {
+                    this.controllers.username = undefined;
                 }
 
                 return null;
             },
 
-            pwdError() {
+            async isEmailError() {
+                try {
+                    if (this.controllers.email) {
+                        this.controllers.email.abort();
+                    }
+
+                    this.controllers.email = new AbortController();
+
+                    const resp = await this.$http.post(
+                        '/auth/exist',
+                        {
+                            email: this.email
+                        },
+                        this.controllers.email.signal
+                    );
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        return 'Неизвестная ошибка';
+                    }
+                } catch (err) {
+                    const resp = err.response;
+
+                    if (resp.status === 409) {
+                        return 'Этот адрес уже занят';
+                    }
+
+                    errorHandler(err);
+
+                    return 'Неизвестная ошибка';
+                } finally {
+                    this.controllers.email = undefined;
+                }
+
+                return null;
+            },
+
+            isPwdError() {
                 if (!validatePwdLowerCase(this.password)) {
                     return 'Должна быть хотя бы одна латинская буква в нижнем регистре';
                 }
@@ -127,13 +225,13 @@
                 }
 
                 if (!validatePwdSpecial(this.password)) {
-                    return 'Должен быть хотя бы один символ из этого списка: ! @ # $ % ^ & *';
+                    return 'Допустимые спец. символы: ! @ # $ % ^ & * _';
                 }
 
                 return null;
             },
 
-            repeatError() {
+            isRepeatError() {
                 if (this.repeat !== this.password) {
                     return 'Пароли не совпадают';
                 }
@@ -141,18 +239,70 @@
                 return null;
             },
 
-            formSuccess() {
-                return !this.usernameError || !this.pwdError || !this.repeatError;
-            }
-        },
-        methods: {
-            onSubmit() {
-                if (!this.formSuccess) {
+            clearError() {
+                this.error = {
+                    status: false,
+                    text: ''
+                };
+            },
+
+            successHandler() {
+                this.clearError();
+
+                this.success = true;
+
+                setTimeout(() => {
+                    this.$emit('change-type');
+                }, 3000);
+            },
+
+            onError(status, text) {
+                this.error = {
+                    status,
+                    text
+                };
+            },
+
+            async onSubmit() {
+                console.log('try');
+
+                if (this.success || Object.values(this.isValid).includes(false)) {
                     return;
                 }
 
-                // eslint-disable-next-line no-console
-                console.log('Form success');
+                this.clearError();
+
+                try {
+                    if (this.controllers.form) {
+                        this.controllers.form.abort();
+                    }
+
+                    this.controllers.form = new AbortController();
+
+                    const resp = await this.$http.post(
+                        '/auth/signup',
+                        {
+                            username: this.username,
+                            password: this.password,
+                            email: this.email
+                        },
+                        this.controllers.form.signal
+                    );
+
+                    if (resp.status !== 200) {
+                        errorHandler(resp.statusText);
+
+                        this.onError(resp.status, resp.statusText);
+
+                        return;
+                    }
+
+                    this.successHandler();
+                } catch (err) {
+                    errorHandler(err);
+                } finally {
+                    this.controllers.form = undefined;
+                }
             }
         }
     };

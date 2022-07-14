@@ -6,7 +6,7 @@ export const validatePwdUpperCase = pwd => (/[A-Z]+/g).test(pwd);
 
 export const validatePwdNumber = pwd => (/\d+/g).test(pwd);
 
-export const validatePwdSpecial = pwd => (/[!@#$%^&*]+/g).test(pwd);
+export const validatePwdSpecial = pwd => !(/[^\w!@#$%^&*]+/g).test(pwd);
 
 export default {
     validateUsernameSpecialChars,
