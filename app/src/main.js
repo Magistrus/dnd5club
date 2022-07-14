@@ -14,9 +14,6 @@ import router from './router';
 import '@/common/utils/BaseScripts';
 import '@/assets/styles/index.scss';
 
-// eslint-disable-next-line no-console
-console.log(isDev);
-
 const app = createApp(App);
 
 app.config.globalProperties.$http = new HTTPService();

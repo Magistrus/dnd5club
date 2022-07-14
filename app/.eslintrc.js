@@ -12,12 +12,19 @@ module.exports = {
     },
     ignorePatterns: ['./public_html/*', './dist/*'],
     rules: {
-        'no-console': [
-            'error',
-            {
-                allow: ['warn', 'error']
-            }
-        ],
+        'no-console': process.env.NODE_ENV === 'production'
+            ? [
+                'error',
+                {
+                    allow: ['warn', 'error']
+                }
+            ]
+            : [
+                'warn',
+                {
+                    allow: ['warn', 'error']
+                }
+            ],
         'no-debugger': 'error',
         'no-alert': ['error'],
         'max-len': [1, 120],
