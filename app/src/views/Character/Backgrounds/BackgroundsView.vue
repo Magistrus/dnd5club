@@ -50,17 +50,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.backgroundsStore.getFilter || undefined;
             },
 
             backgrounds() {
-                return this.backgroundsStore.getBackgrounds || [
-                ];
+                return this.backgroundsStore.getBackgrounds || [];
             },
 
             showRightSide() {

@@ -9,8 +9,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useWeaponsStore = defineStore('WeaponsStore', {
     state: () => ({
-        weapons: [
-        ],
+        weapons: [],
         filter: undefined,
         config: {
             page: 0,
@@ -92,8 +91,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -136,8 +134,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
         },
 
         clearWeapons() {
-            this.weapons = [
-            ];
+            this.weapons = [];
         },
 
         clearFilter() {

@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useItemsStore = defineStore('ItemsStore', {
     state: () => ({
-        items: [
-        ],
+        items: [],
         filter: undefined,
         config: {
             page: 0,
@@ -105,8 +104,7 @@ export const useItemsStore = defineStore('ItemsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -175,8 +173,7 @@ export const useItemsStore = defineStore('ItemsStore', {
         },
 
         clearItems() {
-            this.items = [
-            ];
+            this.items = [];
         },
 
         clearFilter() {

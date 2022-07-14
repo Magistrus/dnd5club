@@ -68,19 +68,15 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.booksStore.getFilter || undefined;
             },
 
             books() {
-                const books = [
-                ];
-                const types = [
-                ];
+                const books = [];
+                const types = [];
 
                 if (!this.booksStore.getBooks) {
                     return books;
@@ -94,9 +90,7 @@
                     types.push(book.type);
                 }
 
-                for (const type of sortBy(types, [
-                    o => o.order
-                ])) {
+                for (const type of sortBy(types, [o => o.order])) {
                     books.push({
                         name: type.name,
                         list: this.booksStore.getBooks.filter(book => book.type.name === type.name)

@@ -380,8 +380,7 @@
                     return '';
                 }
 
-                const speeds = [
-                ];
+                const speeds = [];
 
                 for (const speed of this.creature.speed) {
                     speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`);
@@ -395,8 +394,7 @@
                     return '';
                 }
 
-                const saves = [
-                ];
+                const saves = [];
 
                 for (const save of this.creature.savingThrows) {
                     const sign = Math.sign(save.value) > -1 ? '+' : '';
@@ -412,8 +410,7 @@
                     return '';
                 }
 
-                const skills = [
-                ];
+                const skills = [];
 
                 for (const skill of this.creature.skills) {
                     const sign = Math.sign(skill.value) > -1 ? '+' : '';
@@ -425,8 +422,7 @@
             },
 
             senses() {
-                const senses = [
-                ];
+                const senses = [];
 
                 if (this.creature.senses?.senses?.length) {
                     for (const sense of this.creature.senses.senses) {

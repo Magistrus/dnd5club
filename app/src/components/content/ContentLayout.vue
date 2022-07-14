@@ -89,10 +89,7 @@
             shadow: false
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile',
-                'getFullscreen'
-            ])
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
         },
         watch: {
             showRightSide: {

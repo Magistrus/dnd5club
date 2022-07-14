@@ -43,17 +43,11 @@
                 default: ''
             },
             filterUrl: {
-                type: [
-                    String,
-                    undefined
-                ],
+                type: [String, undefined],
                 default: undefined
             },
             books: {
-                type: [
-                    Array,
-                    undefined
-                ],
+                type: [Array, undefined],
                 default: undefined
             }
         },
@@ -65,17 +59,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.spellsStore.getFilter || undefined;
             },
 
             spells() {
-                return this.spellsStore.getSpells || [
-                ];
+                return this.spellsStore.getSpells || [];
             },
 
             showRightSide() {

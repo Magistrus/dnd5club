@@ -135,9 +135,7 @@
             };
         },
         computed: {
-            ...mapState(useUIStore, [
-                'getFullscreen'
-            ]),
+            ...mapState(useUIStore, ['getFullscreen']),
 
             hasSubraces() {
                 return !!this.raceItem?.subraces?.length;
@@ -148,8 +146,7 @@
                     return '';
                 }
 
-                const abilities = [
-                ];
+                const abilities = [];
 
                 for (const ability of this.raceItem.abilities) {
                     abilities.push(ability.value

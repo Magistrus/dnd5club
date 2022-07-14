@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useSpellsStore = defineStore('SpellsStore', {
     state: () => ({
-        spells: [
-        ],
+        spells: [],
         filter: undefined,
         config: {
             page: 0,
@@ -98,8 +97,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -172,8 +170,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
         },
 
         clearSpells() {
-            this.spells = [
-            ];
+            this.spells = [];
         },
 
         clearFilter() {

@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useOptionsStore = defineStore('OptionsStore', {
     state: () => ({
-        options: [
-        ],
+        options: [],
         filter: undefined,
         config: {
             page: 0,
@@ -94,8 +93,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -164,8 +162,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
         },
 
         clearOptions() {
-            this.options = [
-            ];
+            this.options = [];
         },
 
         clearFilter() {

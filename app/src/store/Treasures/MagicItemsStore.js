@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useMagicItemsStore = defineStore('MagicItemsStore', {
     state: () => ({
-        items: [
-        ],
+        items: [],
         filter: undefined,
         config: {
             page: 0,
@@ -109,8 +108,7 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -179,8 +177,7 @@ export const useMagicItemsStore = defineStore('MagicItemsStore', {
         },
 
         clearItems() {
-            this.items = [
-            ];
+            this.items = [];
         },
 
         clearFilter() {

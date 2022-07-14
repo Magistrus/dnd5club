@@ -62,19 +62,15 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.weaponsStore.getFilter || undefined;
             },
 
             weapons() {
-                const weapons = [
-                ];
-                const types = [
-                ];
+                const weapons = [];
+                const types = [];
 
                 if (!this.weaponsStore.getWeapons) {
                     return weapons;
@@ -88,9 +84,7 @@
                     types.push(weapon.type);
                 }
 
-                for (const type of sortBy(types, [
-                    o => o.order
-                ])) {
+                for (const type of sortBy(types, [o => o.order])) {
                     weapons.push({
                         name: type.name,
                         list: this.weaponsStore.getWeapons.filter(weapon => weapon.type.name === type.name)

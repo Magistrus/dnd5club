@@ -50,17 +50,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.traitsStore.getFilter || undefined;
             },
 
             traits() {
-                return this.traitsStore.getTraits || [
-                ];
+                return this.traitsStore.getTraits || [];
             },
 
             showRightSide() {

@@ -67,26 +67,18 @@
             search: ''
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile',
-                'getFullscreen'
-            ]),
-            ...mapState(useClassesStore, [
-                'getClasses',
-                'getFilter'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useClassesStore, ['getClasses', 'getFilter']),
 
             filter() {
                 return this.getFilter || undefined;
             },
 
             classes() {
-                const classes = this.getClasses || [
-                ];
+                const classes = this.getClasses || [];
 
                 if (!classes?.length) {
-                    return [
-                    ];
+                    return [];
                 }
 
                 const groups = sortBy(
@@ -95,19 +87,13 @@
                         o => o.group.name
                     )).map(list => ({
                         group: list[0].group,
-                        list: sortBy(list, [
-                            o => o.name.rus
-                        ])
+                        list: sortBy(list, [o => o.name.rus])
                     })),
-                    [
-                        o => o.group.order
-                    ]
+                    [o => o.group.order]
                 );
                 const sorted = [
                     {
-                        list: sortBy(classes.filter(item => !('group' in item)), [
-                            o => o.name.rus
-                        ])
+                        list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])
                     }
                 ];
 

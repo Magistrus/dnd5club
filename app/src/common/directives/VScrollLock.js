@@ -10,10 +10,7 @@ const bslOptions = {
 export default {
     install: (app, options) => {
         if (options) {
-            for (const [
-                key,
-                value
-            ] of Object.entries(options)) {
+            for (const [key, value] of Object.entries(options)) {
                 if (key in bslOptions) {
                     bslOptions[key] = value;
                 }

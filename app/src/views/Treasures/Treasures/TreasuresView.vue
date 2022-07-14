@@ -56,8 +56,7 @@
             },
 
             treasures() {
-                return this.treasuresStore.getTreasures || [
-                ];
+                return this.treasuresStore.getTreasures || [];
             },
 
             layout() {
