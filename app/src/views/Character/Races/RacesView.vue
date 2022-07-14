@@ -44,14 +44,8 @@
             next();
         },
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile',
-                'getFullscreen'
-            ]),
-            ...mapState(useRacesStore, [
-                'getRaces',
-                'getFilter'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useRacesStore, ['getRaces', 'getFilter']),
 
             filter() {
                 return this.getFilter || undefined;

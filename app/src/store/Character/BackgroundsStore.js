@@ -9,8 +9,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useBackgroundsStore = defineStore('BackgroundsStore', {
     state: () => ({
-        backgrounds: [
-        ],
+        backgrounds: [],
         filter: undefined,
         config: {
             page: 0,
@@ -94,8 +93,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -164,8 +162,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
         },
 
         clearBackgrounds() {
-            this.backgrounds = [
-            ];
+            this.backgrounds = [];
         },
 
         clearFilter() {

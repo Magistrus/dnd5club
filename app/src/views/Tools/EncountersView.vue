@@ -126,12 +126,9 @@
         },
         data: () => ({
             controller: undefined,
-            environments: [
-            ],
-            levels: [
-            ],
-            results: [
-            ],
+            environments: [],
+            levels: [],
+            results: [],
             table: {
                 show: false,
                 data: undefined
@@ -206,10 +203,7 @@
                 try {
                     const options = {};
 
-                    for (const [
-                        key,
-                        value
-                    ] of Object.entries(this.form)) {
+                    for (const [key, value] of Object.entries(this.form)) {
                         if (!value) {
                             continue;
                         }

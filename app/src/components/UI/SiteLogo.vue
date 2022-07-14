@@ -31,10 +31,7 @@
         name: 'SiteLogo',
         props: {
             size: {
-                type: [
-                    String,
-                    Number
-                ],
+                type: [String, Number],
                 default: undefined
             }
         },

@@ -51,10 +51,7 @@
             SvgIcon
         },
         inheritAttrs: true,
-        emits: [
-            'confirm',
-            'cancel'
-        ],
+        emits: ['confirm', 'cancel'],
         data: () => ({
             isAuth: true
         }),

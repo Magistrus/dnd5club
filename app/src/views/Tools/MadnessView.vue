@@ -90,10 +90,8 @@
         },
         data: () => ({
             count: 1,
-            types: [
-            ],
-            results: [
-            ],
+            types: [],
+            results: [],
             controller: undefined
         }),
         async beforeMount() {

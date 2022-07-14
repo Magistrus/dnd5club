@@ -8,8 +8,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useScreensStore = defineStore('ScreensStore', {
     state: () => ({
-        screens: [
-        ],
+        screens: [],
         filter: undefined,
         config: {
             page: 0,
@@ -78,8 +77,7 @@ export const useScreensStore = defineStore('ScreensStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -148,8 +146,7 @@ export const useScreensStore = defineStore('ScreensStore', {
         },
 
         clearScreens() {
-            this.screens = [
-            ];
+            this.screens = [];
         },
 
         clearFilter() {

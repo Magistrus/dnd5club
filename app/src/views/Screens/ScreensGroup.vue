@@ -33,8 +33,7 @@
         props: {
             childList: {
                 type: Array,
-                default: () => ([
-                ]),
+                default: () => ([]),
                 required: true
             }
         },
@@ -46,22 +45,14 @@
                         o => o.group
                     )).map(list => ({
                         name: list[0].group,
-                        list: sortBy(list, [
-                            o => o.order,
-                            o => o.name.rus
-                        ])
+                        list: sortBy(list, [o => o.order, o => o.name.rus])
                     })),
-                    [
-                        o => o.group
-                    ]
+                    [o => o.group]
                 );
 
                 return [
                     {
-                        list: sortBy(this.childList.filter(item => !item.group), [
-                            o => o.order,
-                            o => o.name.rus
-                        ])
+                        list: sortBy(this.childList.filter(item => !item.group), [o => o.order, o => o.name.rus])
                     },
                     ...groups
                 ];

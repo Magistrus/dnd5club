@@ -23,10 +23,7 @@
         name: "FieldInput",
         props: {
             modelValue: {
-                type: [
-                    String,
-                    Number
-                ],
+                type: [String, Number],
                 default: ''
             },
             label: {
@@ -62,9 +59,7 @@
                 default: undefined
             }
         },
-        emits: [
-            'update:modelValue'
-        ],
+        emits: ['update:modelValue'],
         computed: {
             value: {
                 get() {

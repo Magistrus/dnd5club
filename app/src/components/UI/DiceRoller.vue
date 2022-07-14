@@ -45,9 +45,7 @@
             },
 
             classes() {
-                const classes = [
-                    `is-${ this.type }`
-                ];
+                const classes = [`is-${ this.type }`];
 
                 if (this.error) {
                     classes.push('is-error');

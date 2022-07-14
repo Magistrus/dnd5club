@@ -94,9 +94,7 @@
                 default: undefined
             }
         },
-        emits: [
-            'update:model-value'
-        ],
+        emits: ['update:model-value'],
         data: () => ({
             opened: true
         }),

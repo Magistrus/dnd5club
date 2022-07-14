@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useBestiaryStore = defineStore('BestiaryStore', {
     state: () => ({
-        bestiary: [
-        ],
+        bestiary: [],
         filter: undefined,
         config: {
             page: 0,
@@ -109,8 +108,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -179,8 +177,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
         },
 
         clearBestiary() {
-            this.bestiary = [
-            ];
+            this.bestiary = [];
         },
 
         clearFilter() {

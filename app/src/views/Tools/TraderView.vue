@@ -161,8 +161,7 @@
             ContentLayout
         },
         data: () => ({
-            magicLevels: [
-            ],
+            magicLevels: [],
             form: {
                 magicLevel: 1,
                 persuasion: 1,
@@ -172,8 +171,7 @@
                 grouping: true,
                 max: false
             },
-            results: [
-            ],
+            results: [],
             detailCard: {
                 item: undefined,
                 spell: undefined
@@ -191,10 +189,7 @@
             showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getFullscreen',
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
 
             magicLevelsValue: {
                 get() {
@@ -212,8 +207,7 @@
                 }
 
                 const groups = Object.values(groupBy(this.results, o => o.name.rus));
-                const res = [
-                ];
+                const res = [];
 
                 for (const group of groups) {
                     const el = group[0];
@@ -282,8 +276,7 @@
                             return;
                         }
 
-                        this.results = [
-                        ];
+                        this.results = [];
 
                         this.clearSelected();
 

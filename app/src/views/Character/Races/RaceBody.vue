@@ -183,8 +183,7 @@
                     return '';
                 }
 
-                const abilities = [
-                ];
+                const abilities = [];
 
                 for (const ability of this.race.abilities) {
                     abilities.push(ability.value
@@ -200,8 +199,7 @@
                     return '';
                 }
 
-                const speeds = [
-                ];
+                const speeds = [];
 
                 for (const speed of this.race.speed) {
                     speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`);
@@ -211,10 +209,7 @@
             },
 
             skills() {
-                return sortBy(this.race.skills, [
-                    o => o.opened,
-                    o => !o.subrace
-                ]);
+                return sortBy(this.race.skills, [o => o.opened, o => !o.subrace]);
             }
         },
         methods: {

@@ -84,13 +84,9 @@ export default class FilterService {
             }
         }
 
-        for (const [
-            key,
-            block
-        ] of Object.entries(this.filter)) {
+        for (const [key, block] of Object.entries(this.filter)) {
             if (key === 'sources') {
-                params.book = [
-                ];
+                params.book = [];
 
                 for (const group of block) {
                     for (const book of group.values) {
@@ -211,8 +207,7 @@ export default class FilterService {
             return savedValue.value;
         };
         const getRestoredValues = (values, key) => {
-            const restored = [
-            ];
+            const restored = [];
 
             for (let i = 0; i < values.length; i++) {
                 restored.push({
@@ -238,8 +233,7 @@ export default class FilterService {
         };
 
         if (Array.isArray(copy)) {
-            restoredFilter = [
-            ];
+            restoredFilter = [];
 
             for (let i = 0; i < copy.length; i++) {
                 restoredFilter.push(getRestoredBlock(copy[i]));
@@ -253,14 +247,10 @@ export default class FilterService {
         const entries = Object.entries(copy);
 
         for (let i = 0; i < entries.length; i++) {
-            const [
-                key,
-                blocks
-            ] = entries[i];
+            const [key, blocks] = entries[i];
 
             filterKey = key;
-            restoredFilter[key] = [
-            ];
+            restoredFilter[key] = [];
 
             for (let j = 0; j < blocks.length; j++) {
                 restoredFilter[key].push(getRestoredBlock(blocks[j]));
@@ -285,8 +275,7 @@ export default class FilterService {
                 };
             }
 
-            const values = [
-            ];
+            const values = [];
 
             for (let i = 0; i < val.values.length; i++) {
                 values.push(getWithDefaults(val.values[i]));
@@ -299,8 +288,7 @@ export default class FilterService {
         };
 
         if (Array.isArray(copy)) {
-            initialFilter = [
-            ];
+            initialFilter = [];
 
             for (let i = 0; i < copy.length; i++) {
                 initialFilter.push(getWithDefaults(copy[i]));
@@ -316,8 +304,7 @@ export default class FilterService {
         const keys = Object.keys(copy);
 
         for (let i = 0; i < keys.length; i++) {
-            initialFilter[keys[i]] = [
-            ];
+            initialFilter[keys[i]] = [];
 
             for (let j = 0; j < copy[keys[i]].length; j++) {
                 initialFilter[keys[i]].push(getWithDefaults(copy[keys[i]][j]));

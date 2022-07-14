@@ -177,8 +177,7 @@
 
             otherFilters: {
                 get() {
-                    return this.filter?.other || this.filter || [
-                    ];
+                    return this.filter?.other || this.filter || [];
                 },
 
                 set(value) {

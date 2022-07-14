@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useRulesStore = defineStore('RulesStore', {
     state: () => ({
-        rules: [
-        ],
+        rules: [],
         filter: undefined,
         config: {
             page: 0,
@@ -105,8 +104,7 @@ export const useRulesStore = defineStore('RulesStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -175,8 +173,7 @@ export const useRulesStore = defineStore('RulesStore', {
         },
 
         clearRules() {
-            this.rules = [
-            ];
+            this.rules = [];
         },
 
         clearFilter() {

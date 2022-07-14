@@ -42,17 +42,11 @@
                 default: ''
             },
             filterUrl: {
-                type: [
-                    String,
-                    undefined
-                ],
+                type: [String, undefined],
                 default: undefined
             },
             books: {
-                type: [
-                    Array,
-                    undefined
-                ],
+                type: [Array, undefined],
                 default: undefined
             }
         },
@@ -64,17 +58,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.optionsStore.getFilter || undefined;
             },
 
             options() {
-                return this.optionsStore.getOptions || [
-                ];
+                return this.optionsStore.getOptions || [];
             },
 
             showRightSide() {
