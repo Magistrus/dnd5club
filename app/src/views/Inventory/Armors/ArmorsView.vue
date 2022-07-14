@@ -62,19 +62,15 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.armorsStore.getFilter || undefined;
             },
 
             armors() {
-                const armors = [
-                ];
-                const types = [
-                ];
+                const armors = [];
+                const types = [];
 
                 if (!this.armorsStore.getArmors) {
                     return armors;
@@ -88,9 +84,7 @@
                     types.push(armor.type);
                 }
 
-                for (const type of sortBy(types, [
-                    o => o.order
-                ])) {
+                for (const type of sortBy(types, [o => o.order])) {
                     armors.push({
                         name: type.name,
                         list: this.armorsStore.getArmors.filter(armor => armor.type.name === type.name)

@@ -55,17 +55,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.rulesStore.getFilter || undefined;
             },
 
             rules() {
-                return this.rulesStore.getRules || [
-                ];
+                return this.rulesStore.getRules || [];
             },
 
             showRightSide() {

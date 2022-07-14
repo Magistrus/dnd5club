@@ -118,19 +118,13 @@
             popover: false
         }),
         computed: {
-            ...mapState(useNavStore, [
-                'getNavItems',
-                'getMenuState'
-            ])
+            ...mapState(useNavStore, ['getNavItems', 'getMenuState'])
         },
         created() {
             this.setNavItems();
         },
         methods: {
-            ...mapActions(useNavStore, [
-                'setNavItems',
-                'setMenuState'
-            ]),
+            ...mapActions(useNavStore, ['setNavItems', 'setMenuState']),
 
             openMenu() {
                 this.popover = true;

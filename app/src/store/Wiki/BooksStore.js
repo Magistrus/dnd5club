@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useBooksStore = defineStore('BooksStore', {
     state: () => ({
-        books: [
-        ],
+        books: [],
         filter: undefined,
         config: {
             page: 0,
@@ -105,8 +104,7 @@ export const useBooksStore = defineStore('BooksStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -175,8 +173,7 @@ export const useBooksStore = defineStore('BooksStore', {
         },
 
         clearBooks() {
-            this.books = [
-            ];
+            this.books = [];
         },
 
         clearFilter() {

@@ -85,10 +85,8 @@
         },
         data: () => ({
             count: 1,
-            tables: [
-            ],
-            results: [
-            ],
+            tables: [],
+            results: [],
             controller: undefined
         }),
         async beforeMount() {

@@ -39,19 +39,14 @@
             type: {
                 type: String,
                 default: 'crumb',
-                validator: value => [
-                    'crumb',
-                    'toggle'
-                ].includes(value)
+                validator: value => ['crumb', 'toggle'].includes(value)
             },
             tooltip: {
                 type: String,
                 default: ''
             }
         },
-        emits: [
-            'update:model-value'
-        ],
+        emits: ['update:model-value'],
         computed: {
             value: {
                 get() {

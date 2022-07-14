@@ -39,14 +39,8 @@
         name: "ScreensView",
         components: { ContentLayout },
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile',
-                'getFullscreen'
-            ]),
-            ...mapState(useScreensStore, [
-                'getScreens',
-                'getFilter'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useScreensStore, ['getScreens', 'getFilter']),
 
             showRightSide() {
                 return this.$route.name === 'screenDetail';

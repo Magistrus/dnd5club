@@ -77,19 +77,14 @@
             type: {
                 type: String,
                 default: 'crumb',
-                validator: value => [
-                    'crumb',
-                    'toggle'
-                ].includes(value)
+                validator: value => ['crumb', 'toggle'].includes(value)
             },
             modelValue: {
                 type: Array,
                 default: undefined
             }
         },
-        emits: [
-            'update:model-value'
-        ],
+        emits: ['update:model-value'],
         data: () => ({
             opened: false
         }),

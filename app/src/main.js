@@ -17,7 +17,7 @@ import '@/assets/styles/index.scss';
 const app = createApp(App);
 
 app.config.globalProperties.$http = new HTTPService();
-app.config.globalProperties.$isDev = isDev();
+app.config.globalProperties.$isDev = isDev;
 
 app.use(createPinia())
     .use(router)

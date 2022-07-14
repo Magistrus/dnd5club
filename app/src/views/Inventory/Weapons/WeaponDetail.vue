@@ -44,10 +44,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getFullscreen',
-                'getIsMobile'
-            ])
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewWeapon(this.$route.path);

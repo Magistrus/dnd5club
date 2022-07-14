@@ -74,9 +74,7 @@
             }
         }),
         methods: {
-            ...mapActions(useScreensStore, [
-                'screenInfoQuery'
-            ]),
+            ...mapActions(useScreensStore, ['screenInfoQuery']),
 
             async clickHandler(url) {
                 try {

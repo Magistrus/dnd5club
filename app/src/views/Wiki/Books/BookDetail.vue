@@ -48,10 +48,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getFullscreen',
-                'getIsMobile'
-            ])
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewBook(this.$route.path);

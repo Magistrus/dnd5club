@@ -55,17 +55,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.godsStore.getFilter || undefined;
             },
 
             gods() {
-                return this.godsStore.getGods || [
-                ];
+                return this.godsStore.getGods || [];
             },
 
             showRightSide() {

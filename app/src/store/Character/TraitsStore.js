@@ -9,8 +9,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useTraitsStore = defineStore('TraitsStore', {
     state: () => ({
-        traits: [
-        ],
+        traits: [],
         filter: undefined,
         config: {
             page: 0,
@@ -94,8 +93,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -164,8 +162,7 @@ export const useTraitsStore = defineStore('TraitsStore', {
         },
 
         clearTraits() {
-            this.traits = [
-            ];
+            this.traits = [];
         },
 
         clearFilter() {

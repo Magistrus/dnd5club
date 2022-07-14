@@ -3,95 +3,54 @@ module.exports = {
     env: {
         node: true
     },
-    extends: [
-        'plugin:vue/vue3-recommended',
-        '@vue/airbnb'
-    ],
+    extends: ['plugin:vue/vue3-recommended', '@vue/airbnb'],
     parserOptions: {
         ecmaVersion: 2020,
         ecmaFeatures: {
             jsx: true
         }
     },
-    ignorePatterns: [
-        './public_html/*',
-        './dist/*'
-    ],
+    ignorePatterns: ['./public_html/*', './dist/*'],
     rules: {
-        'no-console': [
-            'error',
-            {
-                allow: [
-                    'warn',
-                    'error'
-                ]
-            }
-        ],
+        'no-console': process.env.NODE_ENV === 'production'
+            ? [
+                'error',
+                {
+                    allow: ['warn', 'error']
+                }
+            ]
+            : [
+                'warn',
+                {
+                    allow: ['warn', 'error']
+                }
+            ],
         'no-debugger': 'error',
-        'no-alert': [
-            'error'
-        ],
-        'max-len': [
-            1,
-            120
-        ],
-        'consistent-return': [
-            1
-        ],
-        'arrow-parens': [
-            2,
-            'as-needed'
-        ],
-        'quote-props': [
-            'error',
-            'consistent-as-needed'
-        ],
-        'import/extensions': [
-            0
-        ],
-        'import/no-extraneous-dependencies': [
-            0
-        ],
-        'import/no-unresolved': [
-            0
-        ],
-        'import/no-webpack-loader-syntax': [
-            0
-        ],
+        'no-alert': ['error'],
+        'max-len': [1, 120],
+        'consistent-return': [1],
+        'arrow-parens': [2, 'as-needed'],
+        'quote-props': ['error', 'consistent-as-needed'],
+        'import/extensions': [0],
+        'import/no-extraneous-dependencies': [0],
+        'import/no-unresolved': [0],
+        'import/no-webpack-loader-syntax': [0],
         'indent': [
             2,
             4,
             {
                 SwitchCase: 1,
-                ignoredNodes: [
-                    'TemplateLiteral'
-                ]
+                ignoredNodes: ['TemplateLiteral']
             }
         ],
-        'generator-star-spacing': [
-            0
-        ],
-        'no-continue': [
-            0
-        ],
-        'no-await-in-loop': [
-            0
-        ],
-        'no-nested-ternary': [
-            1
-        ],
-        'no-return-assign': [
-            1
-        ],
-        'no-mixed-operators': [
-            0
-        ],
-        'no-bitwise': [
-            0
-        ],
-        'no-plusplus': [
-            0
-        ],
+        'generator-star-spacing': [0],
+        'no-continue': [0],
+        'no-await-in-loop': [0],
+        'no-nested-ternary': [1],
+        'no-return-assign': [1],
+        'no-mixed-operators': [0],
+        'no-bitwise': [0],
+        'no-plusplus': [0],
         'no-restricted-syntax': [
             2,
             'ForInStatement',
@@ -102,9 +61,7 @@ module.exports = {
             'error',
             {
                 props: true,
-                ignorePropertyModificationsFor: [
-                    'state'
-                ]
+                ignorePropertyModificationsFor: ['state']
             }
         ],
         'vue/match-component-file-name': [
@@ -120,17 +77,13 @@ module.exports = {
                 shouldMatchCase: true
             }
         ],
-        'vue/component-options-name-casing': [
-            'error',
-            'PascalCase'
-        ],
+        'vue/component-options-name-casing': ['error', 'PascalCase'],
         'vue/component-name-in-template-casing': [
             'error',
             'kebab-case',
             {
                 registeredComponentsOnly: true,
-                ignores: [
-                ]
+                ignores: []
             }
         ],
         'vue/component-api-style': [
@@ -154,26 +107,20 @@ module.exports = {
         'vuejs-accessibility/mouse-events-have-key-events': 'off',
         'vuejs-accessibility/label-has-for': 'off',
         'vue/require-explicit-emits': 'off',
-        'dot-notation': [
-            'error'
-        ],
-        'require-await': [
-            'error'
-        ],
-        'spaced-comment': [
-            'error',
-            'always'
-        ],
-        'camelcase': [
-            'error'
-        ],
+        'dot-notation': ['error'],
+        'require-await': ['error'],
+        'spaced-comment': ['error', 'always'],
+        'camelcase': ['error'],
         'array-bracket-newline': [
             'error',
-            'always'
+            {
+                multiline: true,
+                minItems: 3
+            }
         ],
         'array-bracket-spacing': [
             'error',
-            'always',
+            'never',
             {
                 singleValue: false,
                 objectsInArrays: false,
@@ -184,14 +131,14 @@ module.exports = {
             'error',
             {
                 multiline: true,
-                minItems: 2
+                minItems: 3
             }
         ],
         'object-curly-newline': [
             'error',
             {
                 multiline: true,
-                minProperties: 2,
+                minProperties: 3,
                 consistent: true
             }
         ],
@@ -209,12 +156,8 @@ module.exports = {
                 allowAllPropertiesOnSameLine: false
             }
         ],
-        'arrow-spacing': [
-            'error'
-        ],
-        'block-spacing': [
-            'error'
-        ],
+        'arrow-spacing': ['error'],
+        'block-spacing': ['error'],
         'brace-style': [
             'error',
             '1tbs',
@@ -222,10 +165,7 @@ module.exports = {
                 allowSingleLine: false
             }
         ],
-        'comma-dangle': [
-            'error',
-            'never'
-        ],
+        'comma-dangle': ['error', 'never'],
         'comma-spacing': [
             'error',
             {
@@ -233,38 +173,14 @@ module.exports = {
                 after: true
             }
         ],
-        'comma-style': [
-            'error',
-            'last'
-        ],
-        'computed-property-spacing': [
-            'error',
-            'never'
-        ],
-        'dot-location': [
-            'error',
-            'property'
-        ],
-        'eol-last': [
-            'error',
-            'always'
-        ],
-        'func-call-spacing': [
-            'error',
-            'never'
-        ],
-        'function-call-argument-newline': [
-            'error',
-            'consistent'
-        ],
-        'function-paren-newline': [
-            'error',
-            'multiline'
-        ],
-        'implicit-arrow-linebreak': [
-            'error',
-            'beside'
-        ],
+        'comma-style': ['error', 'last'],
+        'computed-property-spacing': ['error', 'never'],
+        'dot-location': ['error', 'property'],
+        'eol-last': ['error', 'always'],
+        'func-call-spacing': ['error', 'never'],
+        'function-call-argument-newline': ['error', 'consistent'],
+        'function-paren-newline': ['error', 'multiline'],
+        'implicit-arrow-linebreak': ['error', 'beside'],
         'key-spacing': [
             'error',
             {
@@ -311,13 +227,8 @@ module.exports = {
                 exceptAfterSingleLine: false
             }
         ],
-        'max-statements-per-line': [
-            'error'
-        ],
-        'multiline-ternary': [
-            'error',
-            'always-multiline'
-        ],
+        'max-statements-per-line': ['error'],
+        'multiline-ternary': ['error', 'always-multiline'],
         'new-parens': 'error',
         'newline-per-chained-call': [
             'error',
@@ -327,22 +238,11 @@ module.exports = {
         ],
         'no-mixed-spaces-and-tabs': 'error',
         'no-multi-spaces': 'error',
-        'no-multiple-empty-lines': [
-            'error'
-        ],
-        'no-tabs': [
-            'error'
-        ],
-        'no-trailing-spaces': [
-            'error'
-        ],
-        'no-whitespace-before-property': [
-            'error'
-        ],
-        'operator-linebreak': [
-            'error',
-            'before'
-        ],
+        'no-multiple-empty-lines': ['error'],
+        'no-tabs': ['error'],
+        'no-trailing-spaces': ['error'],
+        'no-whitespace-before-property': ['error'],
+        'operator-linebreak': ['error', 'before'],
         'padded-blocks': [
             'error',
             'never',
@@ -414,14 +314,8 @@ module.exports = {
                 next: 'import'
             }
         ],
-        'rest-spread-spacing': [
-            'error',
-            'never'
-        ],
-        'semi': [
-            'error',
-            'always'
-        ],
+        'rest-spread-spacing': ['error', 'never'],
+        'semi': ['error', 'always'],
         'semi-spacing': [
             'error',
             {
@@ -429,10 +323,7 @@ module.exports = {
                 after: true
             }
         ],
-        'semi-style': [
-            'error',
-            'last'
-        ],
+        'semi-style': ['error', 'last'],
         'space-before-blocks': 'error',
         'space-before-function-paren': [
             'error',
@@ -442,13 +333,8 @@ module.exports = {
                 asyncArrow: 'always'
             }
         ],
-        'space-in-parens': [
-            'error',
-            'never'
-        ],
-        'space-infix-ops': [
-            'error'
-        ],
+        'space-in-parens': ['error', 'never'],
+        'space-infix-ops': ['error'],
         'space-unary-ops': [
             'error',
             {
@@ -463,24 +349,16 @@ module.exports = {
                 before: false
             }
         ],
-        'template-curly-spacing': [
-            'error',
-            'always'
-        ],
+        'template-curly-spacing': ['error', 'always'],
         'wrap-regex': 'error',
         'no-extra-semi': 'error'
     },
     overrides: [
         {
-            files: [
-                '*.vue'
-            ],
+            files: ['*.vue'],
             rules: {
                 'indent': 'off',
-                'vue/html-indent': [
-                    'error',
-                    4
-                ],
+                'vue/html-indent': ['error', 4],
                 'quotes': [
                     0,
                     'double',

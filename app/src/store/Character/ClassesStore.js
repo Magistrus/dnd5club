@@ -12,8 +12,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useClassesStore = defineStore('ClassesStore', {
     state: () => ({
-        classes: [
-        ],
+        classes: [],
         filter: undefined,
         config: {
             page: 0,
@@ -97,9 +96,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                             name: value[0].type,
                             list: value
                         })),
-                    [
-                        o => o.name.order
-                    ]
+                    [o => o.name.order]
                 );
 
                 return data.map(value => {
@@ -114,8 +111,7 @@ export const useClassesStore = defineStore('ClassesStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -156,9 +152,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 return {
                     ...data,
-                    tabs: sortBy(data.tabs, [
-                        'order'
-                    ])
+                    tabs: sortBy(data.tabs, ['order'])
                 };
             } catch (err) {
                 errorHandler(err);
@@ -168,8 +162,7 @@ export const useClassesStore = defineStore('ClassesStore', {
         },
 
         clearClasses() {
-            this.classes = [
-            ];
+            this.classes = [];
         },
 
         clearFilter() {

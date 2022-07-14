@@ -12,8 +12,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useRacesStore = defineStore('RacesStore', {
     state: () => ({
-        races: [
-        ],
+        races: [],
         filter: undefined,
         config: {
             page: 0,
@@ -99,9 +98,7 @@ export const useRacesStore = defineStore('RacesStore', {
                             name: value[0].type,
                             list: value
                         })),
-                    [
-                        o => o.name.order
-                    ]
+                    [o => o.name.order]
                 );
 
                 return data.map(value => {
@@ -116,8 +113,7 @@ export const useRacesStore = defineStore('RacesStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -186,8 +182,7 @@ export const useRacesStore = defineStore('RacesStore', {
         },
 
         clearRaces() {
-            this.races = [
-            ];
+            this.races = [];
         },
 
         clearFilter() {

@@ -160,21 +160,17 @@
             error: false,
             currentClass: undefined,
             currentTab: undefined,
-            tabs: [
-            ],
+            tabs: [],
             gallery: {
                 show: false,
                 index: null
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             classes() {
-                return this.classesStore.getClasses || [
-                ];
+                return this.classesStore.getClasses || [];
             },
 
             getStoreKey() {
@@ -211,15 +207,12 @@
                                 url: el.url
                             }))
                         })),
-                    [
-                        o => o.group.order
-                    ]
+                    [o => o.group.order]
                 );
 
                 return isArray(this.currentClass?.archetypes) && this.currentClass.archetypes.length
                     ? getArchetypes(this.currentClass.archetypes)
-                    : [
-                    ];
+                    : [];
             }
         },
         async mounted() {
@@ -234,8 +227,7 @@
                     this.error = false;
                     this.loading = true;
                     this.currentTab = undefined;
-                    this.tabs = [
-                    ];
+                    this.tabs = [];
                     this.images = {
                         show: false,
                         index: 0

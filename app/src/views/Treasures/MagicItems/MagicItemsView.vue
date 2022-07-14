@@ -57,17 +57,14 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getIsMobile']),
 
             filter() {
                 return this.magicItemsStore.getFilter || undefined;
             },
 
             magicItems() {
-                return this.magicItemsStore.getItems || [
-                ];
+                return this.magicItemsStore.getItems || [];
             },
 
             showRightSide() {

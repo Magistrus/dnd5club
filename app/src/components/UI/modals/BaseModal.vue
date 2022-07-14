@@ -126,9 +126,7 @@
                 default: false
             }
         },
-        emits: [
-            'confirm'
-        ],
+        emits: ['confirm'],
         computed: {
             type() {
                 if (this.typeConfirm) {

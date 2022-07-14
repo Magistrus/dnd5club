@@ -10,8 +10,7 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useTreasuresStore = defineStore('TreasuresStore', {
     state: () => ({
-        treasures: [
-        ],
+        treasures: [],
         filter: undefined,
         config: {
             page: 0,
@@ -104,8 +103,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
             } catch (err) {
                 errorHandler(err);
 
-                return [
-                ];
+                return [];
             }
         },
 
@@ -154,8 +152,7 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
         },
 
         clearTreasures() {
-            this.treasures = [
-            ];
+            this.treasures = [];
         },
 
         clearFilter() {

@@ -346,10 +346,7 @@
             showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, [
-                'getFullscreen',
-                'getIsMobile'
-            ]),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
 
             crValue: {
                 get() {
@@ -368,10 +365,7 @@
 
                 const result = {};
 
-                for (const [
-                    key,
-                    value
-                ] of Object.entries(this.result)) {
+                for (const [key, value] of Object.entries(this.result)) {
                     if (!value || !Array.isArray(value)) {
                         result[key] = value;
 
@@ -379,8 +373,7 @@
                     }
 
                     const groups = Object.values(groupBy(value, o => o.name.rus));
-                    const res = [
-                    ];
+                    const res = [];
 
                     for (const group of groups) {
                         const el = group[0];
@@ -433,8 +426,7 @@
                             return;
                         }
 
-                        this.result = [
-                        ];
+                        this.result = [];
 
                         this.clearSelected();
 
