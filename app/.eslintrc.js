@@ -286,10 +286,7 @@ module.exports = {
                 position: 'above'
             }
         ],
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
+        'linebreak-style': 'off',
         'lines-around-comment': [
             'error',
             {

@@ -19,6 +19,7 @@ public class FilterApi {
 	private String key; // ключ для сохранения и запроса
 	private Boolean expand = Boolean.TRUE;
 	private Boolean hidden;
+	private String type;
 	private List<FilterApi> sources;
 	private List<FilterApi> other;
 	private List<FilterValueApi> values;
