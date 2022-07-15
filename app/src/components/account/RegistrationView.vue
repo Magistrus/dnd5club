@@ -125,15 +125,15 @@
         methods: {
             async isUsernameError() {
                 if (this.username.length < 5) {
-                    return 'Имя пользователя не может быть менее 5 символов';
+                    return 'Не менее 5 символов';
                 }
 
                 if (this.username.length > 24) {
-                    return 'Имя пользователя не может быть более 24 символов';
+                    return 'Не быть более 24 символов';
                 }
 
                 if (!validateUsernameSpecialChars(this.username)) {
-                    return 'Допустимые символы: латинские буквы, цифры, дефис (-), подчеркивание (_), точка';
+                    return 'Разрешено: латинские буквы, 0-9 - _ .';
                 }
 
                 try {
