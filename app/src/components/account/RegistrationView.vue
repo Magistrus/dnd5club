@@ -129,7 +129,7 @@
                 }
 
                 if (this.username.length > 24) {
-                    return 'Не быть более 24 символов';
+                    return 'Не более 24 символов';
                 }
 
                 if (!validateUsernameSpecialChars(this.username)) {
