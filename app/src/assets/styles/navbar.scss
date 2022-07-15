@@ -211,6 +211,10 @@
     flex-wrap: wrap;
     gap: 8px;
 
+    &_links {
+      padding: 0px 8px;
+    }
+
     &_group {
       display: flex;
       flex-direction: column;
@@ -222,7 +226,7 @@
       }
 
       &_label {
-        padding: 8px 20px;
+        padding: 8px 20px 4px 8px;
         display: flex;
         opacity: 0.8;
         color: var(--text-g-color);
@@ -253,6 +257,7 @@
         padding: 8px;
         width: 100%;
         display: flex;
+        border-radius: 6px;
       }
 
       &_icon,
@@ -270,11 +275,10 @@
       }
 
       &:hover {
-        background-color: var(--primary-hover);
 
         .nav-popover__menu {
           &_link {
-            &_bookmark {
+                        &_bookmark {
               opacity: 1;
             }
 
@@ -283,6 +287,10 @@
             &_bookmark {
               cursor: pointer;
               color: var(--text-btn-color);
+            }
+
+            &_label {
+              background-color: var(--primary-hover);
             }
           }
         }
