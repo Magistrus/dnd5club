@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@dice-roller/rpg-dice-roller": "^5.1.0",
-    "@vuelidate/core": "^2.0.0-alpha.41",
-    "@vuelidate/validators": "^2.0.0-alpha.29",
     "@vueuse/core": "^8.5.0",
     "axios": "^0.27.2",
     "body-scroll-lock": "^4.0.0-beta.0",
@@ -25,6 +23,7 @@
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.14",
     "tippy.js": "^6.3.7",
+    "vee-validate": "^4.6.1",
     "vue": "^3.2.37",
     "vue-easy-lightbox": "^1.5.0",
     "vue-final-modal": "^3.4.4",

@@ -469,6 +469,22 @@
     & + & {
       margin-top: 12px;
     }
+
+    &.is-error {
+      background-color: var(--bg-error);
+      border: 1px solid var(--error);
+      color: var(--error);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    &.is-success {
+      background-color: var(--bg-success);
+      border: 1px solid var(--success);
+      color: var(--success);
+      padding: 12px;
+      border-radius: 8px;
+    }
   }
 }
 
