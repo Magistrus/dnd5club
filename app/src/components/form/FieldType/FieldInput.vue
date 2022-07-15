@@ -235,7 +235,7 @@
         }
 
         &__error {
-            color: var(--error);
+            color: var(--text-color);
             font-size: 12px;
             padding: 8px 12px 0;
             display: block;
