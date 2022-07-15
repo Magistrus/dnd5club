@@ -72,15 +72,15 @@
                             class="nav-popover__menu_group"
                         >
                             <div class="nav-popover__menu_group_label">
-                                <div class="nav-popover__menu_group_label">
-                                    {{ group.label }}
-                                </div>
-
                                 <div
                                     v-if="group.icon"
                                     class="nav-popover__menu_group_icon"
                                 >
                                     <svg-icon :icon-name="group.icon"/>
+                                </div>
+
+                                <div class="nav-popover__menu_group_label">
+                                    {{ group.label }}
                                 </div>
                             </div>
 
@@ -99,13 +99,6 @@
                                         :target="link.external ? '_blank' : '_self'"
                                         class="nav-popover__menu_link_label"
                                     >{{ link.label }}</a>
-
-                                    <div
-                                        v-if="link.icon"
-                                        class="nav-popover__menu_link_icon"
-                                    >
-                                        <svg-icon :icon-name="link.icon"/>
-                                    </div>
                                 </div>
                             </div>
                         </div>
