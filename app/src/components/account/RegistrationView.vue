@@ -133,7 +133,7 @@
                 }
 
                 if (!validateUsernameSpecialChars(this.username)) {
-                    return 'Разрешено: латинские буквы, 0-9 - _ .';
+                    return 'Допустимые символы: латинские буквы, 0-9 - _ .';
                 }
 
                 try {
