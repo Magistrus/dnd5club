@@ -72,17 +72,34 @@
                             class="nav-popover__menu_group"
                         >
                             <div class="nav-popover__menu_group_label">
-                                {{ group.label }}
+                                <div
+                                    v-if="group.icon"
+                                    class="nav-popover__menu_group_icon"
+                                >
+                                    <svg-icon :icon-name="group.icon"/>
+                                </div>
+
+                                <div class="nav-popover__menu_group_label">
+                                    {{ group.label }}
+                                </div>
                             </div>
 
-                            <div class="nav-popover__menu_group_links">
-                                <a
+                            <div class="nav-popover__menu_links">
+                                <div
                                     v-for="link in group.links"
                                     :key="link.url"
-                                    :href="link.url"
-                                    :target="link.external ? '_blank' : '_self'"
-                                    class="nav-popover__menu_group_link"
-                                >{{ link.label }}</a>
+                                    class="nav-popover__menu_link"
+                                >
+                                    <div class="nav-popover__menu_link_bookmark">
+                                        <svg-icon icon-name="bookmark"/>
+                                    </div>
+
+                                    <a
+                                        :href="link.url"
+                                        :target="link.external ? '_blank' : '_self'"
+                                        class="nav-popover__menu_link_label"
+                                    >{{ link.label }}</a>
+                                </div>
                             </div>
                         </div>
                     </div>

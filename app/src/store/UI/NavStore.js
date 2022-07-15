@@ -17,66 +17,58 @@ export const useNavStore = defineStore('NavStore', {
             this.items = [
                 {
                     label: 'Персонаж',
+                    icon: 'left-menu-character',
                     links: [
                         {
                             label: 'Классы',
-                            url: '/classes',
-                            icon: 'menu-classes'
+                            url: '/classes'
                         },
                         {
                             label: 'Расы',
-                            url: '/races',
-                            icon: 'menu-races'
+                            url: '/races'
                         },
                         {
                             label: 'Черты',
-                            url: '/traits',
-                            icon: 'menu-traits'
+                            url: '/traits'
                         },
                         {
                             label: 'Особенности классов',
-                            url: '/options',
-                            icon: 'menu-traits'
+                            url: '/options'
                         },
                         {
                             label: 'Предыстории',
-                            url: '/backgrounds',
-                            icon: 'menu-traits'
+                            url: '/backgrounds'
                         },
                         {
                             label: 'Заклинания',
                             url: '/spells',
-                            icon: 'menu-traits'
+                            icon: 'left-menu-spells'
                         }
                     ]
                 },
                 {
                     label: 'Предметы',
+                    icon: 'left-menu-inventory',
                     links: [
                         {
                             label: 'Оружие',
-                            url: '/weapons',
-                            icon: 'menu-classes'
+                            url: '/weapons'
                         },
                         {
                             label: 'Доспехи',
-                            url: '/armors',
-                            icon: 'menu-races'
+                            url: '/armors'
                         },
                         {
                             label: 'Снаряжение',
-                            url: '/items',
-                            icon: 'menu-traits'
+                            url: '/items'
                         },
                         {
                             label: 'Драгоценности',
-                            url: '/treasures',
-                            icon: 'menu-traits'
+                            url: '/treasures'
                         },
                         {
                             label: 'Магические предметы',
-                            url: '/items/magic',
-                            icon: 'menu-traits'
+                            url: '/items/magic'
                         }
                     ]
                 },
@@ -86,62 +78,57 @@ export const useNavStore = defineStore('NavStore', {
                         {
                             label: 'Бестиарий',
                             url: '/bestiary',
-                            icon: 'menu-classes'
+                            icon: 'left-menu-creatures'
                         },
                         {
                             label: 'Ширма',
                             url: '/screens',
-                            icon: 'menu-races'
+                            icon: 'left-menu-screens'
                         }
                     ]
                 },
                 {
                     label: 'Инструменты',
+                    icon: 'left-menu-tools',
                     links: [
                         {
                             label: 'Торговец',
-                            url: '/tools/trader',
-                            icon: 'menu-classes'
+                            url: '/tools/trader'
                         },
                         {
                             label: 'Случайные столкновения',
-                            url: '/tools/encounters',
-                            icon: 'menu-races'
+                            url: '/tools/encounters'
                         },
                         {
                             label: 'Сокровищница',
-                            url: '/tools/treasury',
-                            icon: 'menu-races'
+                            url: '/tools/treasury'
                         },
                         {
                             label: 'Дикая магия',
-                            url: '/tools/wildmagic',
-                            icon: 'menu-races'
+                            url: '/tools/wildmagic'
                         },
                         {
                             label: 'Безумие',
-                            url: '/tools/madness',
-                            icon: 'menu-races'
+                            url: '/tools/madness'
                         }
                     ]
                 },
                 {
                     label: 'База знаний',
+                    icon: 'left-menu-wiki',
                     links: [
                         {
                             label: 'Боги',
                             url: '/gods',
-                            icon: 'menu-classes'
+                            icon: 'left-menu-gods'
                         },
                         {
                             label: 'Правила и термины',
-                            url: '/rules',
-                            icon: 'menu-races'
+                            url: '/rules'
                         },
                         {
                             label: 'Источники',
-                            url: '/books',
-                            icon: 'menu-races'
+                            url: '/books'
                         }
                     ]
                 },
