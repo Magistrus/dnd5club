@@ -138,7 +138,7 @@
             },
 
             isEmailValid() {
-                return (/^[a-zA-Z\d.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/).test(this.value);
+                return (/^[a-zA-Z\d.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z\d-]+\.[a-zA-Z\d-]+$/).test(this.value);
             },
 
             async checkField() {
