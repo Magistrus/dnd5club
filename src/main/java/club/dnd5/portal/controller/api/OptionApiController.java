@@ -42,8 +42,6 @@ import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class OptionApiController {
-	private static final String[] prerequsitlevels = { "Нет", " 5", " 6", " 7", " 9", "11", "12", "15", "17", "18" };
-
 	@Autowired
 	private OptionDatatableRepository optionRepository;
 
@@ -200,7 +198,7 @@ public class OptionApiController {
 
 		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
 		List<FilterApi> otherFilters = new ArrayList<>();
-		otherFilters.add(getLevelsFilter());
+		otherFilters.add(getLevelsFilter(heroClass.getOptionType()));
 		otherFilters.add(getPrerequsitFilter(optionRepository.findAlldPrerequisite(heroClass.getOptionType())));
 
 		List<FilterApi> customFilters = new ArrayList<>();
@@ -229,7 +227,7 @@ public class OptionApiController {
 		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(englishArchetypeName.replace('_', ' '))).findFirst().get();
 
 		List<FilterApi> otherFilters = new ArrayList<>();
-		otherFilters.add(getLevelsFilter());
+		otherFilters.add(getLevelsFilter(heroClass.getOptionType()));
 		otherFilters.add(getPrerequsitFilter(optionRepository.findAlldPrerequisite(heroClass.getOptionType())));
 
 		List<FilterApi> customFilters = new ArrayList<>();
@@ -252,10 +250,26 @@ public class OptionApiController {
 
 	private FilterApi getLevelsFilter() {
 		FilterApi levelsFilter = new FilterApi("Требования к уровню", "levels");
+		List<String> levels =  optionRepository.findAllLevels();
 		levelsFilter.setValues(
-				Arrays.stream(prerequsitlevels)
-				 .map(value -> new FilterValueApi(value, value))
-				 .collect(Collectors.toList()));
+				levels.stream()
+				.map(v -> v == null ? "Нет" : v)
+				.map(value -> new FilterValueApi(value, value))
+				.collect(Collectors.toList()));
+		return levelsFilter;
+	}
+	
+	private FilterApi getLevelsFilter(OptionType optionType) {
+		FilterApi levelsFilter = new FilterApi("Требования к уровню", "levels");
+		List<String> levels =  optionRepository.findAllLevel(optionType);
+		if (levels.isEmpty()) {
+			return null;
+		}
+		levelsFilter.setValues(
+				levels.stream()
+				.map(v -> v == null ? "Нет" : v)
+				.map(value -> new FilterValueApi(value, value))
+				.collect(Collectors.toList()));
 		return levelsFilter;
 	}
 	
