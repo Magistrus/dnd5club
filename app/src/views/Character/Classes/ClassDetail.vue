@@ -3,7 +3,6 @@
         <template #fixed>
             <section-header
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
                 :subtitle="currentClass?.name?.eng || ''"
                 :title="currentClass?.name?.rus || ''"
                 print
