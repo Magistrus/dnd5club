@@ -50,6 +50,7 @@ public class Spell {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private MagicSchool school;
+	private String additionalType;
 	
 	private int timeCast;
 	
