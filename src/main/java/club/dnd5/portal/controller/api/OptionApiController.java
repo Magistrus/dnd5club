@@ -262,9 +262,6 @@ public class OptionApiController {
 	private FilterApi getLevelsFilter(OptionType optionType) {
 		FilterApi levelsFilter = new FilterApi("Требования к уровню", "levels");
 		List<String> levels =  optionRepository.findAllLevel(optionType);
-		if (levels.isEmpty()) {
-			return null;
-		}
 		levelsFilter.setValues(
 				levels.stream()
 				.map(v -> v == null ? "Нет" : v)
