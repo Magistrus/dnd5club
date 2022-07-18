@@ -74,6 +74,7 @@ export const useNavStore = defineStore('NavStore', {
                 },
                 {
                     label: 'Мастерская',
+                    icon: 'workshop',
                     links: [
                         {
                             label: 'Бестиарий',
@@ -134,6 +135,7 @@ export const useNavStore = defineStore('NavStore', {
                 },
                 {
                     label: 'Информация',
+                    icon: 'info',
                     links: [
                         {
                             label: 'Мы в Discord',
