@@ -6,6 +6,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="currentClass?.name?.eng || ''"
                 :title="currentClass?.name?.rus || ''"
+                print
                 close-on-desktop
                 @close="close"
             />

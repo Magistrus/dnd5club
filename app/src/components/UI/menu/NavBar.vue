@@ -91,7 +91,7 @@
                                     class="nav-popover__menu_link"
                                 >
                                     <div class="nav-popover__menu_link_bookmark">
-                                        <svg-icon icon-name="bookmark"/>
+                                        <svg-icon icon-name="bookmark-dot"/>
                                     </div>
 
                                     <a

@@ -6,6 +6,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="race?.name?.eng || ''"
                 :title="race?.name?.rus || ''"
+                print
                 close-on-desktop
                 @close="close"
             />
