@@ -31,6 +31,7 @@
                     <component
                         :is="component"
                         @change-type="changeType"
+                        @close="closeHandler(close)"
                     />
                 </transition>
             </div>

@@ -5,7 +5,10 @@
         @keyup.enter.exact.prevent="onSubmit"
         @keyup.enter.ctrl.exact.prevent="onSubmit"
     >
-        <transition>
+        <transition
+            name="fade"
+            mode="out-in"
+        >
             <div
                 v-if="error.status"
                 class="form__row is-error"
@@ -23,7 +26,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="username"
+                v-model="form.username"
                 placeholder="Имя пользователя"
                 :validator="isUsernameError"
                 required
@@ -33,7 +36,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="email"
+                v-model="form.email"
                 placeholder="Электронный адрес"
                 :validator="isEmailError"
                 is-email
@@ -44,7 +47,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="password"
+                v-model="form.password"
                 placeholder="Пароль"
                 :validator="isPwdError"
                 is-password
@@ -66,7 +69,7 @@
 
         <div class="form__row">
             <form-button
-                :disabled="success"
+                :disabled="success || inProgress"
                 @click.left.exact.prevent="onSubmit"
             >
                 Регистрация
@@ -93,6 +96,8 @@
         validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
     import errorHandler from "@/common/helpers/errorHandler";
+    import { mapActions } from "pinia";
+    import { useUserStore } from "@/store/UI/UserStore";
 
     export default {
         name: 'RegistrationView',
@@ -101,14 +106,15 @@
             FormButton
         },
         data: () => ({
-            username: '',
-            email: '',
-            password: '',
+            form: {
+                username: '',
+                email: '',
+                password: ''
+            },
             repeat: '',
             controllers: {
                 username: undefined,
-                email: undefined,
-                form: undefined
+                email: undefined
             },
             error: {
                 status: false,
@@ -120,20 +126,23 @@
                 email: false,
                 password: false,
                 repeat: false
-            }
+            },
+            inProgress: false
         }),
         methods: {
+            ...mapActions(useUserStore, ['registration']),
+
             async isUsernameError() {
-                if (this.username.length < 5) {
+                if (this.form.username.length < 5) {
                     return 'Не менее 5 символов';
                 }
 
-                if (this.username.length > 24) {
+                if (this.form.username.length > 24) {
                     return 'Не более 24 символов';
                 }
 
-                if (!validateUsernameSpecialChars(this.username)) {
-                    return 'Допустимые символы: латинские буквы, 0-9 - _ .';
+                if (!validateUsernameSpecialChars(this.form.username)) {
+                    return 'Допустимы латинские буквы, 0-9 - _ .';
                 }
 
                 try {
@@ -146,7 +155,7 @@
                     const resp = await this.$http.post(
                         '/auth/exist',
                         {
-                            username: this.username
+                            username: this.form.username
                         },
                         this.controllers.username.signal
                     );
@@ -184,7 +193,7 @@
                     const resp = await this.$http.post(
                         '/auth/exist',
                         {
-                            email: this.email
+                            email: this.form.email
                         },
                         this.controllers.email.signal
                     );
@@ -212,19 +221,19 @@
             },
 
             isPwdError() {
-                if (!validatePwdLowerCase(this.password)) {
+                if (!validatePwdLowerCase(this.form.password)) {
                     return 'Должна быть хотя бы одна латинская буква в нижнем регистре';
                 }
 
-                if (!validatePwdUpperCase(this.password)) {
+                if (!validatePwdUpperCase(this.form.password)) {
                     return 'Должна быть хотя бы одна латинская буква в верхнем регистре';
                 }
 
-                if (!validatePwdNumber(this.password)) {
+                if (!validatePwdNumber(this.form.password)) {
                     return 'Должна быть хотя бы одна цифра';
                 }
 
-                if (!validatePwdSpecial(this.password)) {
+                if (!validatePwdSpecial(this.form.password)) {
                     return 'Допустимые спец. символы: ! @ # $ % ^ & * _';
                 }
 
@@ -232,7 +241,7 @@
             },
 
             isRepeatError() {
-                if (this.repeat !== this.password) {
+                if (this.repeat !== this.form.password) {
                     return 'Пароли не совпадают';
                 }
 
@@ -256,52 +265,36 @@
                 }, 3000);
             },
 
-            onError(status, text) {
+            onError(text) {
                 this.error = {
-                    status,
+                    status: true,
                     text
                 };
             },
 
             async onSubmit() {
-                console.log('try');
+                this.inProgress = true;
 
                 if (this.success || Object.values(this.isValid).includes(false)) {
+                    this.inProgress = false;
+
+                    this.onError('Необходимо заполнить все поля');
+
                     return;
                 }
 
                 this.clearError();
 
                 try {
-                    if (this.controllers.form) {
-                        this.controllers.form.abort();
-                    }
-
-                    this.controllers.form = new AbortController();
-
-                    const resp = await this.$http.post(
-                        '/auth/signup',
-                        {
-                            username: this.username,
-                            password: this.password,
-                            email: this.email
-                        },
-                        this.controllers.form.signal
-                    );
-
-                    if (resp.status !== 200) {
-                        errorHandler(resp.statusText);
-
-                        this.onError(resp.status, resp.statusText);
-
-                        return;
-                    }
+                    await this.registration(this.form);
 
                     this.successHandler();
                 } catch (err) {
+                    this.onError('Неизвестная ошибка');
+
                     errorHandler(err);
                 } finally {
-                    this.controllers.form = undefined;
+                    this.inProgress = false;
                 }
             }
         }

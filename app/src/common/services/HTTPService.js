@@ -11,7 +11,7 @@ export default class HTTPService {
         });
     }
 
-    post(url, data, signal) {
+    post(url, data, signal = new AbortController().signal) {
         return this.instance({
             url,
             data,
