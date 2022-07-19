@@ -2,6 +2,8 @@ package club.dnd5.portal.controller;
 
 import java.util.Collections;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +50,28 @@ public class AuthController {
 
 	@ApiOperation(value = "REST API to Register or Signup user")
 	@PostMapping("/signin")
-	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto) {
+	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletResponse response) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		String token = tokenProvider.generateToken(authentication);
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+	    Cookie cookie = new Cookie("dnd5_token","token");
+	    if (loginDto.getRemember()) {
+		    cookie.setMaxAge(356 * 24 * 60 * 60);
+	    }
+	    else {
+	    	cookie.setMaxAge(1 * 24 * 60 * 60);
+	    }
+	    cookie.setSecure(true);
+	    cookie.setHttpOnly(true);
+	    cookie.setPath("/");
+	    response.addCookie(cookie);
+
 		return ResponseEntity.ok(new JWTAuthResponse(token));
 	}
 
