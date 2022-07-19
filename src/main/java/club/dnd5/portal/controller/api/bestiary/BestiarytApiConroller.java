@@ -294,7 +294,7 @@ public class BestiarytApiConroller {
 		FilterApi crFilter = new FilterApi("Уровень опасности", "challengeRating");
 		crFilter.setExpand(Boolean.TRUE);
 		List<FilterValueApi> values = new ArrayList<>();
-		values.add(new FilterValueApi("не определена", "undefined"));
+		values.add(new FilterValueApi("не определен", "—"));
 		values.add(new FilterValueApi("0", "0"));
 		values.add(new FilterValueApi("1/8", "1/8"));
 		values.add(new FilterValueApi("1/4", "1/4"));

@@ -15,7 +15,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,8 +105,7 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classes/fragment/{englishName}")
-	public String getFragmentClasses(Model model, Device device, @PathVariable String englishName) {
-		model.addAttribute("device", device);
+	public String getFragmentClasses(Model model, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		List<ClassFetureDto> features = new ArrayList<>();
 		heroClass.getTraits().stream()
@@ -134,8 +132,7 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classes/fragment_id/{id}")
-	public String getFragmentClassesById(Model model, Device device, @PathVariable Integer id) {
-		model.addAttribute("device", device);
+	public String getFragmentClassesById(Model model, @PathVariable Integer id) {
 		HeroClass heroClass = classRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 		List<ClassFetureDto> features = new ArrayList<>();
 		heroClass.getTraits().stream()
@@ -162,14 +159,14 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classes/images/{englishName}")
-	public String getClassImages(Model model, Device device, @PathVariable String englishName) {
+	public String getClassImages(Model model, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("images", imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId()));
 		return "fragments/class :: images";
 	}
 	
 	@GetMapping("/classes/spells/{englishName}")
-	public String getClassSpells(Model model, Device device, @PathVariable String englishName) {
+	public String getClassSpells(Model model, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("heroClass", heroClass);
 		model.addAttribute("schools", MagicSchool.values());
@@ -177,7 +174,7 @@ public class ClassController {
 	}
 
 	@GetMapping("/classes/options/{englishName}")
-	public String getClassOption(Model model, Device device, @PathVariable String englishName) {
+	public String getClassOption(Model model, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("heroClass", heroClass);
 		model.addAttribute("requirements", optionRepository.findAlldPrerequisite());
@@ -193,8 +190,7 @@ public class ClassController {
 	}
 
 	@GetMapping("/classes/{englishName}/architypes/list")
-	public String getArchitypeList(Model model, Device device, @PathVariable String englishName) {
-		model.addAttribute("device", device);
+	public String getArchitypeList(Model model, @PathVariable String englishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace("_", " "));
 		model.addAttribute("archetypeName", heroClass.getArchetypeName());
 		model.addAttribute("archetypes", heroClass.getArchetypes().stream().sorted(Comparator.comparing(Archetype::getBook)).collect(Collectors.toList()));
@@ -203,8 +199,7 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classes/{className}/architypes/{archetypeName}")
-	public String getByClassIdAndByArchetypeId(Model model, Device device, @PathVariable String className, @PathVariable String archetypeName) {
-		model.addAttribute("device", device);
+	public String getByClassIdAndByArchetypeId(Model model, @PathVariable String className, @PathVariable String archetypeName) {
 		HeroClass heroClass = classRepository.findByEnglishName(className.replace("_", " "));
 		List<ClassFetureDto> features = new ArrayList<>();
 		heroClass.getTraits().stream()

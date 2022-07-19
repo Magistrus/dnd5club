@@ -17,70 +17,60 @@ export const useUserStore = defineStore('UserStore', {
     },
 
     actions: {
-        registration(body = {
+        async registration(body = {
             username: '',
             password: '',
             email: ''
         }) {
-            return new Promise((resolve, reject) => {
+            try {
                 if (Object.values(body).find(item => !item)) {
-                    reject(new Error('All fields are required to fill'));
-
-                    return;
+                    return Promise.reject(new Error('All fields are required to fill'));
                 }
 
-                http.post('/auth/signup', body)
-                    .then(resp => {
-                        if (resp.status !== 200) {
-                            reject(resp.statusText);
+                const resp = await http.post('/auth/signup', body);
 
-                            return;
-                        }
-
-                        this.loginForm = {
-                            usernameOrEmail: body.username,
-                            password: body.password
-                        };
-
-                        resolve();
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            });
+                switch (resp.status) {
+                    case 200:
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
         },
 
-        authorization(body = {
-            username: '',
+        async authorization(body = {
+            usernameOrEmail: '',
             password: '',
             remember: false
         }) {
-            this.loginForm = {
-                username: '',
-                password: ''
-            };
+            try {
+                const config = {
+                    usernameOrEmail: '',
+                    password: '',
+                    remember: false,
+                    ...body
+                };
 
-            return new Promise((resolve, reject) => {
                 if (Object.values(body).find(item => !item)) {
-                    reject(new Error('All fields are required to fill'));
-
-                    return;
+                    return Promise.reject(new Error('All fields are required to fill'));
                 }
 
-                http.post('/auth/signin', body)
-                    .then(resp => {
-                        if (resp.status !== 200) {
-                            reject(resp.statusText);
+                const resp = await http.post('/auth/signin', config);
 
-                            return;
-                        }
-
-                        resolve();
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            });
+                switch (resp.status) {
+                    case 200:
+                        return Promise.resolve();
+                    case 401:
+                        // eslint-disable-next-line prefer-promise-reject-errors
+                        return Promise.reject('Неверный логин или пароль');
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
         }
     }
 });

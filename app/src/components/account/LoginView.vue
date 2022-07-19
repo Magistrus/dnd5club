@@ -74,7 +74,6 @@
     import FormButton from "@/components/form/FormButton";
     import { mapState, mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
-    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         name: 'LoginView',
@@ -158,9 +157,7 @@
 
                     this.successHandler();
                 } catch (err) {
-                    this.onError('Неизвестная ошибка');
-
-                    errorHandler(err);
+                    this.onError(err || 'Неизвестная ошибка');
                 } finally {
                     this.inProgress = false;
                 }
