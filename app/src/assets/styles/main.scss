@@ -482,9 +482,9 @@
     }
 
     &.is-error {
-      background-color: var(--bg-error);
-      border: 1px solid var(--error);
-      color: var(--error);
+      background-color: var(--hover);
+      border: 1px solid var(--border);
+      color: var(--text-color);
       padding: 12px;
       border-radius: 8px;
     }
