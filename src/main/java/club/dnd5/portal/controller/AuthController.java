@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,28 +52,33 @@ public class AuthController {
 	@ApiOperation(value = "REST API to Register or Signup user")
 	@PostMapping("/signin")
 	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletResponse response) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		String token = tokenProvider.generateToken(authentication);
+			String token = tokenProvider.generateToken(authentication);
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-	    Cookie cookie = new Cookie("dnd5_token","token");
-	    if (loginDto.getRemember()) {
-		    cookie.setMaxAge(356 * 24 * 60 * 60);
-	    }
-	    else {
-	    	cookie.setMaxAge(1 * 24 * 60 * 60);
-	    }
-	    cookie.setSecure(true);
-	    cookie.setHttpOnly(true);
-	    cookie.setPath("/");
-	    response.addCookie(cookie);
+		    Cookie cookie = new Cookie("dnd5_token","token");
+		    if (loginDto.getRemember()) {
+			    cookie.setMaxAge(356 * 24 * 60 * 60);
+		    }
+		    else {
+		    	cookie.setMaxAge(1 * 24 * 60 * 60);
+		    }
+		    cookie.setSecure(true);
+		    cookie.setHttpOnly(true);
+		    cookie.setPath("/");
+		    response.addCookie(cookie);
 
-		return ResponseEntity.ok(new JWTAuthResponse(token));
+			return ResponseEntity.ok(new JWTAuthResponse(token));
+		}
+		catch (BadCredentialsException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 	}
 
 	@ApiOperation(value = "REST API to Register user")
