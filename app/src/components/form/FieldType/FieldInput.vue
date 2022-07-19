@@ -7,7 +7,10 @@
             {{ label }}
         </span>
 
-        <span class="field-input__control">
+        <span
+            class="field-input__control"
+            :class="{ 'is-error': error.status }"
+        >
             <input
                 v-model="value"
                 v-bind="attrs"
@@ -15,7 +18,6 @@
                 :placeholder="placeholder"
                 :type="type"
                 class="field-input__input"
-                :class="{ 'is-error': error.status }"
                 @blur="checkField"
                 @input="clearError"
             >

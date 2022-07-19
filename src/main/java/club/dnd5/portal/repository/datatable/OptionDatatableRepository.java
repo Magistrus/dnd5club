@@ -25,4 +25,10 @@ public interface OptionDatatableRepository extends DataTablesRepository<Option, 
 	
 	@Query("SELECT c.book FROM Option c GROUP BY c.book HAVING c.book.type = :type ORDER BY c.book.year")
 	List<Book> findBook(@Param("type") TypeBook type);
+
+	@Query("SELECT o.level FROM Option o JOIN o.optionTypes t WHERE o.prerequisite IS NOT NULL AND t =:type GROUP BY o.level ORDER BY o.level")
+	List<String> findAllLevel(@Param("type") OptionType type);
+
+	@Query("SELECT o.level FROM Option o GROUP BY o.level ORDER BY o.level")
+	List<String> findAllLevels();
 }
