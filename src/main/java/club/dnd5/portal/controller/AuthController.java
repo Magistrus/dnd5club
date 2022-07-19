@@ -32,74 +32,77 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 	@Autowired
-    private AuthenticationManager authenticationManager;
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+	@Autowired
+	private JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @ApiOperation(value = "REST API to Register or Signup user")
-    @PostMapping("/signin")
-    public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-        		loginDto.getUsernameOrEmail(), loginDto.getPassword()));
-        String token = tokenProvider.generateToken(authentication);
+	@ApiOperation(value = "REST API to Register or Signup user")
+	@PostMapping("/signin")
+	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto) {
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return ResponseEntity.ok(new JWTAuthResponse(token));
-    }
+		String token = tokenProvider.generateToken(authentication);
 
-    @ApiOperation(value = "REST API to Register user")
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto){
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return ResponseEntity.ok(new JWTAuthResponse(token));
+	}
 
-        if(userRepository.existsByUsername(signUpDto.getUsername())){
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-        }
+	@ApiOperation(value = "REST API to Register user")
+	@PostMapping("/signup")
+	public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
 
-        if(userRepository.existsByEmail(signUpDto.getEmail())){
-            return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
-        }
+		if (userRepository.existsByUsername(signUpDto.getUsername())) {
+			return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+		}
 
-        User user = new User();
-        user.setName(signUpDto.getUsername());
-        user.setUsername(signUpDto.getUsername());
-        user.setEmail(signUpDto.getEmail());
-        user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+		if (userRepository.existsByEmail(signUpDto.getEmail())) {
+			return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
+		}
 
-        Role roles = roleRepository.findByName("USER").get();
-        user.setRoles(Collections.singletonList(roles));
+		User user = new User();
+		user.setName(signUpDto.getUsername());
+		user.setUsername(signUpDto.getUsername());
+		user.setEmail(signUpDto.getEmail());
+		user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+		user.setEnabled(Boolean.TRUE);
+		
+		Role roles = roleRepository.findByName("USER").get();
+		user.setRoles(Collections.singletonList(roles));
 
-        userRepository.save(user);
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-    }
+		userRepository.save(user);
+		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+	}
 
-    @PostMapping("/signout")
-    public ResponseEntity<?> signout(HttpSession session){
-    	session.invalidate();
-    	return ResponseEntity.ok().build();
-    }
+	@PostMapping("/signout")
+	public ResponseEntity<?> signout(HttpSession session) {
+		session.invalidate();
+		return ResponseEntity.ok().build();
+	}
 
-    @PostMapping("/exist")
-    public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user){
-    	if (user.getUsername() !=null) {
-    		if(userRepository.existsByUsername(user.getUsername())) {
-    			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-    		}
-    	}
-    	if (user.getEmail() != null) {
-    		if(userRepository.existsByEmail(user.getEmail())) {
-    			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-    		}
-    	}
-    	return ResponseEntity.ok().build();
-    }
+	@PostMapping("/exist")
+	public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user) {
+		if (user.getUsername() != null) {
+			if (userRepository.existsByUsername(user.getUsername())) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			}
+		}
+		if (user.getEmail() != null) {
+			if (userRepository.existsByEmail(user.getEmail())) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			}
+		}
+		return ResponseEntity.ok().build();
+	}
 }
