@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.classes.ClassApi;
-import club.dnd5.portal.dto.api.classes.ClassInfoApiDto;
+import club.dnd5.portal.dto.api.classes.ClassDetailApi;
 import club.dnd5.portal.dto.api.classes.ClassRequestApi;
 import club.dnd5.portal.model.Dice;
 import club.dnd5.portal.model.book.TypeBook;
@@ -66,22 +66,22 @@ public class ClassApiController {
 		return classRepo.findAll(specification)
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
-				.filter(c -> request.getFilter() != null ? request.getFilter().getBooks().contains(c.getSource().getShortName()) : true)
+				.filter(c -> request.getFilter() != null ? request.getFilter().getBooks().contains(c.getSource().getShortName()) || c.getArchetypes().isEmpty() : true)
 				.collect(Collectors.toList());
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClassInfoApiDto> getClassInfo(@RequestBody ClassRequestApi request, @PathVariable String englishName) {
+	public ResponseEntity<ClassDetailApi> getClassInfo(@RequestBody ClassRequestApi request, @PathVariable String englishName) {
 		HeroClass heroClass = classRepo.findByEnglishName(englishName.replace('_', ' '));
 		if (heroClass == null) {
 			return ResponseEntity.notFound().build();
 		}
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
-		return ResponseEntity.ok(new ClassInfoApiDto(heroClass, images, request));
+		return ResponseEntity.ok(new ClassDetailApi(heroClass, images, request));
 	}
 	
 	@PostMapping(value = "/api/v1/classes/{className}/{archetypeName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClassInfoApiDto> getArchetypeInfo(@RequestBody ClassRequestApi request, @PathVariable String className,
+	public ResponseEntity<ClassDetailApi> getArchetypeInfo(@RequestBody ClassRequestApi request, @PathVariable String className,
 			@PathVariable String archetypeName) {
 		HeroClass heroClass = classRepo.findByEnglishName(className.replace('_', ' '));
 		if (heroClass == null) {
@@ -89,7 +89,7 @@ public class ClassApiController {
 		}
 		Archetype archetype = heroClass.getArchetypes().stream().filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeName.replace('_', ' '))).findFirst().get();
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, archetype.getId());
-		return ResponseEntity.ok(new ClassInfoApiDto(archetype, images, request));
+		return ResponseEntity.ok(new ClassDetailApi(archetype, images, request));
 	}
 	
 	private FilterApi getClassFilters() {

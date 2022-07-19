@@ -51,7 +51,7 @@ public class ClassApi {
 		}
 		if (request.getFilter() != null && request.getFilter().getBooks() != null && !request.getFilter().getBooks().isEmpty()) {
 			Set<String> books = new HashSet<>(request.getFilter().getBooks());
-			archetypes = archetypes.stream().filter(a -> books.contains(a.getSource().getShortName())).collect(Collectors.toList());
+ 			archetypes = archetypes.stream().filter(a -> books.contains(a.getSource().getShortName())).collect(Collectors.toList());
 		}
 		if (!heroClass.isSidekick()) {
 			icon = String.format("class-%s", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
