@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default class HTTPService {
     constructor() {
@@ -12,20 +13,32 @@ export default class HTTPService {
     }
 
     post(url, data, signal = new AbortController().signal) {
-        return this.instance({
+        const config = {
             url,
             data,
             signal,
             method: 'post'
-        });
+        };
+
+        if (Cookies.get('dnd5_token')) {
+            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_token') }`;
+        }
+
+        return this.instance(config);
     }
 
     get(url, params) {
-        return this.instance({
+        const config = {
             url,
             params: new URLSearchParams(params).toString(),
             method: 'get'
-        });
+        };
+
+        if (Cookies.get('dnd5_token')) {
+            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_token') }`;
+        }
+
+        return this.instance(config);
     }
 
     rawGet(url, params) {
