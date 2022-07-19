@@ -49,8 +49,11 @@ public class AuthController {
     @ApiOperation(value = "REST API to Register or Signup user")
     @PostMapping("/signin")
     public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-        		loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+    	Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+    	
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String token = tokenProvider.generateToken(authentication);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

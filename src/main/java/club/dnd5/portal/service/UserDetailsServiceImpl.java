@@ -23,14 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserRepository usersRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userNameOrEmail) throws UsernameNotFoundException {
 	    boolean accountNonExpired = true;
 	    boolean credentialsNonExpired = true;
 	    boolean accountNonLocked = true;
-		Optional<User> user = usersRepository.findByEmail(email);
+		Optional<User> user = usersRepository.findByEmailOrUsername(userNameOrEmail, userNameOrEmail);
 		if (!user.isPresent()) {
             throw new UsernameNotFoundException(
-              "Не найден пользователь с электронным адресом: " + email);
+              "Не найден пользователь: " + userNameOrEmail);
         }
 		User foundUser = user.get();
         return new org.springframework.security.core.userdetails.User(
