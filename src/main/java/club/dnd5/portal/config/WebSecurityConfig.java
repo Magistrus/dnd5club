@@ -58,8 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 		 */
 
 		http.httpBasic();
-        //http.cors().and()
-        http.csrf().disable()
+        http.cors().and()
+        .csrf().disable()
         .exceptionHandling()
         .authenticationEntryPoint(authenticationEntryPoint)
         .and()
