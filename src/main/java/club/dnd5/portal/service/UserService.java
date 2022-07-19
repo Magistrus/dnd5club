@@ -27,11 +27,4 @@ public interface UserService {
 	void createVerificationToken(User user, String token);
 	
 	VerificationToken getVerificationToken(String token);
-	
-	@Transactional
-	User saveRegisteredUser(User user) throws UserAlreadyExistException;
-	@Transactional
-	void saveUser(User user);
-	@Transactional
-	void remove(User user);
 }
