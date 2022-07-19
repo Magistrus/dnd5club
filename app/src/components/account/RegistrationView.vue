@@ -53,6 +53,7 @@
                 is-password
                 required
                 @validated="isValid.password = $event"
+                @input="isValid.repeat = !!isRepeatError"
             />
         </div>
 
@@ -130,7 +131,7 @@
             inProgress: false
         }),
         methods: {
-            ...mapActions(useUserStore, ['registration']),
+            ...mapActions(useUserStore, ['registration', 'authorization']),
 
             async isUsernameError() {
                 if (this.form.username.length < 5) {
@@ -221,6 +222,10 @@
             },
 
             isPwdError() {
+                if (this.form.password.length < 8) {
+                    return 'Не менее 8 символов';
+                }
+
                 if (!validatePwdLowerCase(this.form.password)) {
                     return 'Должна быть хотя бы одна латинская буква в нижнем регистре';
                 }
@@ -261,8 +266,8 @@
                 this.success = true;
 
                 setTimeout(() => {
-                    this.$emit('change-type');
-                }, 3000);
+                    this.$emit('close');
+                }, 2000);
             },
 
             onError(text) {
@@ -287,12 +292,15 @@
 
                 try {
                     await this.registration(this.form);
+                    await this.authorization({
+                        usernameOrEmail: this.form.username,
+                        password: this.form.password,
+                        remember: false
+                    });
 
                     this.successHandler();
                 } catch (err) {
                     this.onError('Неизвестная ошибка');
-
-                    errorHandler(err);
                 } finally {
                     this.inProgress = false;
                 }
