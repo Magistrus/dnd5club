@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 
 @Getter
-public class ClassTabApiDto {
+public class ClassTabAp {
 	private String name;
 	private String url;
 	private String type;

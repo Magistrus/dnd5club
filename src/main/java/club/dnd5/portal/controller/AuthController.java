@@ -62,7 +62,7 @@ public class AuthController {
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		    Cookie cookie = new Cookie("dnd5_token","token");
+		    Cookie cookie = new Cookie("dnd5_token", token);
 		    if (loginDto.getRemember()) {
 			    cookie.setMaxAge(356 * 24 * 60 * 60);
 		    }
