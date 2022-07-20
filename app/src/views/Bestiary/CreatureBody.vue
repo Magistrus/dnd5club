@@ -449,7 +449,7 @@
                     return `${ this.creature.challengeRating } (0 или 10 опыта)`;
                 }
 
-                return `${ this.creature.challengeRating } (${ this.creature.experience } опыта)`;
+                return `${ this.creature.challengeRating } (${ this.creature.experience.toLocaleString() } опыта)`;
             }
         },
         methods: {
