@@ -62,7 +62,6 @@ public class BeastDetailApi extends BeastApi {
 	
 	private Collection<String> environment;
 	private Collection<String> images;
-	private SourceApi source;
 	private LairApi lair;
 	
 	public BeastDetailApi(Creature beast) {
