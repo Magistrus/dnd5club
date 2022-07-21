@@ -69,7 +69,9 @@ public class BeastDetailApi extends BeastApi {
 		super(beast);
 		id = beast.getId();
 		size = new SizeApi(beast.getSizeName(), beast.getSize().name().toLowerCase(), beast.getSize().getCell());
-		experience = beast.getExp();
+		if (!"—".equals(beast.getChallengeRating())){
+			experience = beast.getExp();
+		}
 		alignment = beast.getAligment();
 		armorClass = beast.getAC();
 		setType(new TypeDetailApi(beast));

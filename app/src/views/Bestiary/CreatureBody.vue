@@ -155,7 +155,7 @@
                 <p>
                     <strong>Уровень опасности </strong>
 
-                    <span>{{ creature.challengeRating }} ({{ creature.experience }} опыта)</span>
+                    <span>{{ challengeRating }}</span>
                 </p>
             </div>
             <div v-if="creature.feats?.length">
@@ -439,6 +439,17 @@
                 }
 
                 return senses.join(', ');
+            },
+            challengeRating() {
+                if (this.creature.challengeRating === '—') {
+                    return this.creature.challengeRating;
+                }
+
+                if (this.creature.experience === 0) {
+                    return `${ this.creature.challengeRating } (0 или 10 опыта)`;
+                }
+
+                return `${ this.creature.challengeRating } (${ this.creature.experience.toLocaleString() } опыта)`;
             }
         },
         methods: {
