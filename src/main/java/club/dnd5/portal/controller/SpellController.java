@@ -43,7 +43,7 @@ public class SpellController {
 		}
 		model.addAttribute("metaTitle", String.format("%s (%s)", spell.getName(), spell.getEnglishName()) + " | Заклинания D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
-		model.addAttribute("metaDescription", String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool()));
+		model.addAttribute("metaDescription", String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool().getName()));
 		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.png", StringUtils.capitalize(spell.getSchool().name().toLowerCase())));
 		model.addAttribute("menuTitle", "Заклинания");
 		return "spells";
