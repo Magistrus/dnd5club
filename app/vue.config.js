@@ -6,6 +6,15 @@ module.exports = {
     runtimeCompiler: true,
     productionSourceMap: true,
     transpileDependencies: false,
+    devServer: {
+        proxy: {
+            '^/': {
+                target: process.env.VUE_APP_API_URL || 'http://localhost:8080',
+                ws: false,
+                changeOrigin: true
+            }
+        }
+    },
     configureWebpack: {
         output: {
             filename: 'js/[name].js',

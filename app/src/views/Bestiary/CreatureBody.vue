@@ -383,7 +383,13 @@
                 const speeds = [];
 
                 for (const speed of this.creature.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`);
+                    speeds.push(`${
+                        speed.name ? `${ speed.name } ` : ''
+                    }${
+                        speed.value
+                    } фт.${
+                        speed.additional ? ` (${ speed.additional })` : ''
+                    }`);
                 }
 
                 return speeds.join(', ');
