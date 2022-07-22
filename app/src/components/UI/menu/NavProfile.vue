@@ -6,7 +6,7 @@
         <svg-icon
             :stroke-enable="false"
             fill-enable
-            icon-name="profile"
+            :icon-name="getUser ? 'profile' : 'login'"
         />
     </div>
 
@@ -19,6 +19,9 @@
 <script>
     import AuthRegModal from "@/components/UI/modals/AuthRegModal";
     import SvgIcon from "@/components/UI/SvgIcon";
+    import { mapState, mapActions } from "pinia";
+    import { useUserStore } from "@/store/UI/UserStore";
+    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         name: "NavProfile",
@@ -29,7 +32,19 @@
         data: () => ({
             modal: false
         }),
+        computed: {
+            ...mapState(useUserStore, ['getUser'])
+        },
+        async beforeMount() {
+            try {
+                await this.getUserFromSession();
+            } catch (err) {
+                errorHandler(err);
+            }
+        },
         methods: {
+            ...mapActions(useUserStore, ['getUserFromSession']),
+
             openModal() {
                 this.modal = true;
             },

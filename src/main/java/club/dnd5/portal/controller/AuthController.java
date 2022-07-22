@@ -62,16 +62,14 @@ public class AuthController {
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		    Cookie cookie = new Cookie("dnd5_token", token);
+		    Cookie cookie = new Cookie("dnd5_user_token", token);
 		    if (loginDto.getRemember()) {
 			    cookie.setMaxAge(356 * 24 * 60 * 60);
 		    }
 		    else {
 		    	cookie.setMaxAge(1 * 24 * 60 * 60);
 		    }
-		    cookie.setSecure(true);
-		    cookie.setHttpOnly(true);
-		    cookie.setPath("/");
+			cookie.setPath("/");
 		    response.addCookie(cookie);
 
 			return ResponseEntity.ok(new JWTAuthResponse(token));
@@ -99,7 +97,7 @@ public class AuthController {
 		user.setEmail(signUpDto.getEmail());
 		user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 		user.setEnabled(Boolean.TRUE);
-		
+
 		Role roles = roleRepository.findByName("USER").get();
 		user.setRoles(Collections.singletonList(roles));
 

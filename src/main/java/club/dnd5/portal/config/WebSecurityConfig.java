@@ -28,7 +28,7 @@ import club.dnd5.portal.security.JwtAuthenticationFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 	@Autowired
 	private UserDetailsService userDetailsService;
-    
+
 	@Autowired
     private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     public JwtAuthenticationFilter jwtAuthenticationFilter(){
         return  new JwtAuthenticationFilter();
     }
-    
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -48,14 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 		 * http.authorizeRequests().antMatchers("/profile/**").hasRole("USER");
 		 * http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		 * http.authorizeRequests().antMatchers("/webjars/**").permitAll();
-		 * 
+		 *
 		 * http.authorizeRequests().antMatchers("/robots.txt").permitAll();
-		 * 
+		 *
 		 * http.authorizeRequests().and().logout().logoutSuccessUrl("/").permitAll();
-		 * 
+		 *
 		 * http.authorizeRequests().and().exceptionHandling().accessDeniedPage(
 		 * "/error.html");
-		 * 
+		 *
 		 * http.cors().and().csrf().disable();
 		 */
 
@@ -100,7 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 			"https://svifty7.stoplight.io/",
 			"https://dev.dnd5.club/",
 			"https://dnd5.club/"
-			) .allowedMethods("*");
+			) .allowedMethods("*").allowCredentials(true);
 	}
 
 	@Override
