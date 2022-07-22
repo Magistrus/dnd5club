@@ -4,11 +4,13 @@ import Cookies from 'js-cookie';
 export default class HTTPService {
     constructor() {
         this.instance = axios.create({
-            baseURL: `${ process.env.VUE_APP_API_URL || '' }/api/v1`
+            baseURL: `${ process.env.VUE_APP_API_URL || '' }/api/v1`,
+            withCredentials: true
         });
 
         this.instanceRaw = axios.create({
-            baseURL: process.env.VUE_APP_API_URL || ''
+            baseURL: process.env.VUE_APP_API_URL || '',
+            withCredentials: true
         });
     }
 
@@ -20,8 +22,8 @@ export default class HTTPService {
             method: 'post'
         };
 
-        if (Cookies.get('dnd5_token')) {
-            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_token') }`;
+        if (Cookies.get('dnd5_user_token')) {
+            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_user_token') }`;
         }
 
         return this.instance(config);
@@ -34,8 +36,8 @@ export default class HTTPService {
             method: 'get'
         };
 
-        if (Cookies.get('dnd5_token')) {
-            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_token') }`;
+        if (Cookies.get('dnd5_user_token')) {
+            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_user_token') }`;
         }
 
         return this.instance(config);

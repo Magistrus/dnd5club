@@ -6,14 +6,11 @@ const http = new HTTPService();
 // eslint-disable-next-line import/prefer-default-export
 export const useUserStore = defineStore('UserStore', {
     state: () => ({
-        loginForm: {
-            usernameOrEmail: '',
-            password: ''
-        }
+        user: undefined
     }),
 
     getters: {
-        getLoginForm: state => state.loginForm
+        getUser: state => state.user
     },
 
     actions: {
@@ -61,10 +58,46 @@ export const useUserStore = defineStore('UserStore', {
 
                 switch (resp.status) {
                     case 200:
+                        await this.getUserFromSession();
+
                         return Promise.resolve();
                     case 401:
                         // eslint-disable-next-line prefer-promise-reject-errors
                         return Promise.reject('Неверный логин или пароль');
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getUserInfo(username) {
+            try {
+                const resp = await http.post(`/profile/${ username }`);
+
+                switch (resp.status) {
+                    case 200:
+                        this.user = resp.data;
+
+                        return Promise.resolve(resp.data);
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getUserFromSession() {
+            try {
+                const resp = await http.post('/auth/get-user');
+
+                switch (resp.status) {
+                    case 200:
+                        this.user = resp.data;
+
+                        return Promise.resolve(resp.data);
                     default:
                         return Promise.reject(resp.statusText);
                 }
