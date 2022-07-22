@@ -72,7 +72,7 @@
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
     import FormButton from "@/components/form/FormButton";
-    import { mapState, mapActions } from "pinia";
+    import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
 
     export default {
@@ -99,19 +99,6 @@
             success: false,
             inProgress: false
         }),
-        computed: {
-            ...mapState(useUserStore, ['getLoginForm'])
-        },
-        beforeMount() {
-            this.form = {
-                ...this.form,
-                ...this.getLoginForm
-            };
-
-            for (const [key, value] of Object.entries(this.getLoginForm)) {
-                this.isValid[key] = !!value;
-            }
-        },
         methods: {
             ...mapActions(useUserStore, ['authorization']),
 
@@ -122,14 +109,24 @@
                 };
             },
 
+            clearForm() {
+                this.form = {
+                    usernameOrEmail: '',
+                    password: '',
+                    remember: true
+                };
+            },
+
             successHandler() {
                 this.clearError();
 
                 this.success = true;
 
                 setTimeout(() => {
+                    this.clearForm();
+
                     this.$emit('close');
-                }, 3000);
+                }, 2000);
             },
 
             onError(text) {
