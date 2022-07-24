@@ -41,7 +41,7 @@ public class ClassDetailApi extends ClassApi {
 
 	public ClassDetailApi(Archetype archetype, Collection<String> images, ClassRequestApi request) {
 		super(archetype.getHeroClass(), request);
-		name.setRus(name.getRus() + " " + archetype.getGenitiveName());
+		name.setRus(name.getRus() + " " + archetype.getCapitalizeName());
 		name.setEng(name.getEng() + " " + archetype.getEnglishName());
 		HeroClass heroClass = archetype.getHeroClass();
 		this.images = images;
