@@ -6,6 +6,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="weapon?.name?.eng"
                 :title="weapon?.name?.rus"
+                bookmark
                 copy
                 @close="close"
             />

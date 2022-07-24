@@ -5,6 +5,7 @@
                 :copy="!error && !loading"
                 :subtitle="currentClass?.name?.eng || ''"
                 :title="currentClass?.name?.rus || ''"
+                bookmark
                 print
                 close-on-desktop
                 @close="close"
