@@ -110,7 +110,7 @@
             </div>
 
             <div class="navbar__header_right">
-                <nav-bookmarks v-if="$isDev"/>
+                <nav-bookmarks/>
 
                 <nav-profile v-if="$isDev"/>
 
