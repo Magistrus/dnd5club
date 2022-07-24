@@ -152,6 +152,8 @@
             &--desc {
                 font-size: var(--h5-font-size);
                 margin-bottom: 4px;
+                width: 200px;
+                padding: 16px 16px;
             }
 
             &--title {
