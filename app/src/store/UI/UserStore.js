@@ -91,7 +91,7 @@ export const useUserStore = defineStore('UserStore', {
 
         async getUserFromSession() {
             try {
-                const resp = await http.post('/auth/get-user');
+                const resp = await http.post('/user');
 
                 switch (resp.status) {
                     case 200:

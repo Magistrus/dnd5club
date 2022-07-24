@@ -24,26 +24,30 @@
 
         <div class="form__row">
             <field-input
-                v-model="form.usernameOrEmail"
+                v-model="v$.usernameOrEmail.$model"
                 placeholder="Логин или электронная почта"
                 required
-                @validated="isValid.usernameOrEmail = $event"
+                :error-text="v$.usernameOrEmail.$dirty ? v$.usernameOrEmail.$errors?.[0]?.$message : ''"
+                @input="v$.usernameOrEmail.$reset()"
+                @blur="v$.usernameOrEmail.$touch()"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="form.password"
+                v-model="v$.password.$model"
                 placeholder="Пароль"
                 is-password
                 required
-                @validated="isValid.password = $event"
+                :error-text="v$.password.$dirty ? v$.password.$errors?.[0]?.$message : ''"
+                @input="v$.password.$reset()"
+                @blur="v$.password.$touch()"
             />
         </div>
 
         <div class="form__row">
             <field-checkbox
-                v-model="form.remember"
+                v-model="remember"
                 type="toggle"
             >
                 Запомнить меня
@@ -74,6 +78,14 @@
     import FormButton from "@/components/form/FormButton";
     import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
+    import {
+        validateEmailFormat,
+        validatePwdSpecial,
+        validateRequired,
+        validateUsernameSpecialChars
+    } from "@/common/helpers/authChecks";
+    import useVuelidate from "@vuelidate/core/dist/index.esm";
+    import { helpers, or } from "@vuelidate/validators";
 
     export default {
         name: 'LoginView',
@@ -82,22 +94,19 @@
             FieldCheckbox,
             FieldInput
         },
+        setup: () => ({
+            v$: useVuelidate()
+        }),
         data: () => ({
-            form: {
-                usernameOrEmail: '',
-                password: '',
-                remember: true
-            },
-            isValid: {
-                usernameOrEmail: false,
-                password: false
-            },
+            usernameOrEmail: '',
+            password: '',
+            remember: true,
             error: {
                 status: false,
                 text: ''
             },
-            success: false,
-            inProgress: false
+            inProgress: false,
+            success: false
         }),
         methods: {
             ...mapActions(useUserStore, ['authorization']),
@@ -110,11 +119,9 @@
             },
 
             clearForm() {
-                this.form = {
-                    usernameOrEmail: '',
-                    password: '',
-                    remember: true
-                };
+                this.usernameOrEmail = '';
+                this.password = '';
+                this.remember = true;
             },
 
             successHandler() {
@@ -139,10 +146,12 @@
             async onSubmit() {
                 this.inProgress = true;
 
-                if (this.success || Object.values(this.isValid).includes(false)) {
-                    this.inProgress = false;
+                await this.v$.$reset();
 
-                    this.onError('Необходимо заполнить все поля');
+                const result = await this.v$.$validate();
+
+                if (this.success || !result) {
+                    this.inProgress = false;
 
                     return;
                 }
@@ -150,15 +159,48 @@
                 this.clearError();
 
                 try {
-                    await this.authorization(this.form);
+                    await this.authorization({
+                        usernameOrEmail: this.usernameOrEmail,
+                        password: this.password,
+                        remember: this.remember
+                    });
 
                     this.successHandler();
                 } catch (err) {
-                    this.onError(err || 'Неизвестная ошибка');
+                    const { response } = err;
+
+                    switch (response.status) {
+                        case 401:
+                            this.onError('Неверный логин или пароль');
+
+                            break;
+                        default:
+                            this.onError('Неизвестная ошибка');
+
+                            break;
+                    }
                 } finally {
                     this.inProgress = false;
                 }
             }
+        },
+        validations() {
+            return {
+                usernameOrEmail: {
+                    required: validateRequired(),
+                    format: helpers.withMessage(
+                        'Поле заполнено неверно',
+                        or(
+                            validateUsernameSpecialChars(),
+                            validateEmailFormat()
+                        )
+                    )
+                },
+                password: {
+                    required: validateRequired(),
+                    format: validatePwdSpecial()
+                }
+            };
         }
     };
 </script>
