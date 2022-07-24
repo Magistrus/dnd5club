@@ -32,7 +32,7 @@
                             v-if="isEdit"
                             class="navbar__menu_group_icon is-left"
                         >
-                            <svg-icon icon-name="close"/>
+                            <svg-icon icon-name="sandwich"/>
                         </div>
 
                         <div class="navbar__menu_group_label">
@@ -43,11 +43,7 @@
                             v-if="isEdit"
                             class="navbar__menu_group_icon is-right"
                         >
-                            <svg-icon
-                                icon-name="sandwich"
-                                :stroke-enable="false"
-                                fill-enable
-                            />
+                            <svg-icon icon-name="close"/>
                         </div>
                     </div>
 
@@ -58,10 +54,10 @@
                             class="navbar__menu_link"
                         >
                             <div
-                                class="navbar__menu_link_icon is-left"
-                                @click.left.exact.stop.prevent="removeBookmark(link.url)"
+                                v-if="isEdit"
+                                class="navbar__menu_link_icon only-hover is-left"
                             >
-                                <svg-icon icon-name="close"/>
+                                <svg-icon icon-name="sandwich"/>
                             </div>
 
                             <a
@@ -71,14 +67,10 @@
                             >{{ link.label }}</a>
 
                             <div
-                                v-if="isEdit"
-                                class="navbar__menu_link_icon is-right"
+                                class="navbar__menu_link_icon only-hover is-right"
+                                @click.left.exact.stop.prevent="removeBookmark(link.url)"
                             >
-                                <svg-icon
-                                    icon-name="sandwich"
-                                    :stroke-enable="false"
-                                    fill-enable
-                                />
+                                <svg-icon icon-name="close"/>
                             </div>
                         </div>
                     </div>

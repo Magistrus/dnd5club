@@ -146,6 +146,7 @@
             max-width: 790px;
             z-index: 111;
             position: relative;
+            display: inline-block;
 
             @media (max-width: 800px) {
                 max-width: 550px;
@@ -162,6 +163,7 @@
         }
 
         &__body {
+            display: inline-block;
             cursor: auto;
             background-color: var(--bg-secondary);
             overflow: auto;
