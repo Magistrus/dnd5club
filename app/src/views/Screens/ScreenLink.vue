@@ -32,6 +32,7 @@
     <base-modal
         v-if="modal.data"
         v-model="modal.show"
+        :bookmark="bookmarkObj"
     >
         <template #title>
             {{ screen.name.rus }}
@@ -73,6 +74,15 @@
                 show: false
             }
         }),
+        computed: {
+            bookmarkObj() {
+                return {
+                    link: this.screen.url,
+                    label: this.screen.name.rus,
+                    section: `Ширма Мастера`
+                };
+            }
+        },
         methods: {
             ...mapActions(useScreensStore, ['screenInfoQuery']),
 

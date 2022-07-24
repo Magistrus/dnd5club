@@ -34,6 +34,7 @@
     <base-modal
         v-if="modal.data"
         v-model="modal.show"
+        :bookmark="bookmarkObj"
     >
         <template #title>
             {{ modal.data.name.rus }}
@@ -80,6 +81,15 @@
                 data: undefined
             }
         }),
+        computed: {
+            bookmarkObj() {
+                return {
+                    link: this.optionItem.url,
+                    label: this.optionItem.name.rus,
+                    section: "Особенности классов"
+                };
+            }
+        },
         methods: {
             getClassList(isActive) {
                 return {

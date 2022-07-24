@@ -100,6 +100,7 @@
     <base-modal
         v-if="spellModal.data"
         v-model="spellModal.show"
+        :bookmark="bookmarkObj"
     >
         <template #title>
             {{ spellModal.data.name.rus }}
@@ -155,6 +156,14 @@
                 const { spell } = this;
 
                 return spell?.components?.v || spell?.components?.s || !!spell?.components?.m;
+            },
+
+            bookmarkObj() {
+                return {
+                    link: this.spell.url,
+                    label: this.spell.name.rus,
+                    section: "Заклинания"
+                };
             }
         },
         methods: {

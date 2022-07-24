@@ -148,6 +148,7 @@
             z-index: 111;
             position: relative;
             display: inline-block;
+            pointer-events: none;
 
             @media (max-width: 800px) {
                 max-width: 550px;
@@ -164,6 +165,7 @@
         }
 
         &__body {
+            pointer-events: auto;
             display: inline-block;
             cursor: auto;
             background-color: var(--bg-secondary);
