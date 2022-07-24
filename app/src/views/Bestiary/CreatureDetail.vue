@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="creature?.name?.eng || ''"
                 :title="creature?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
                 @export-foundry="exportFoundry"

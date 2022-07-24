@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="god?.name?.eng || ''"
                 :title="god?.name?.rus || ''"
+                bookmark
                 @close="close"
             />
         </template>

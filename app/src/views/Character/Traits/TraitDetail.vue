@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="trait?.name?.eng || ''"
                 :title="trait?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
             />

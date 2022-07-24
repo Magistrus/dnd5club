@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="magicItem?.name?.eng || ''"
                 :title="magicItem?.name?.rus || ''"
+                bookmark
                 @close="close"
             />
         </template>

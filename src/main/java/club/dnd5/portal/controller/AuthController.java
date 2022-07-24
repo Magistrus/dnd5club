@@ -107,7 +107,13 @@ public class AuthController {
 	}
 
 	@PostMapping("/signout")
-	public ResponseEntity<?> signout(HttpSession session) {
+	public ResponseEntity<?> signout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	    Cookie cookie = new Cookie("dnd5_user_token", "");
+	    cookie.setMaxAge(-1);
+		String domain = request.getServerName().replaceAll(".*\\.(?=.*\\.)", "");
+		cookie.setDomain(domain);
+		cookie.setPath("/");
+	    response.addCookie(cookie);
 		session.invalidate();
 		return ResponseEntity.ok().build();
 	}

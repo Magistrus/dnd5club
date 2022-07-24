@@ -34,6 +34,20 @@
                 class="section-header__controls--optional"
             >
                 <button
+                    v-if="bookmark"
+                    v-tippy="{ content: 'Добавить в закладки' }"
+                    class="section-header__control--optional"
+                    type="button"
+                    @click.left.exact.prevent.stop="updateBookmark($route.path, title)"
+                >
+                    <svg-icon
+                        :icon-name="isBookmarkSaved($route.path) ? 'bookmark-filled' : 'bookmark'"
+                        :stroke-enable="false"
+                        fill-enable
+                    />
+                </button>
+
+                <button
                     v-if="print"
                     v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
@@ -90,6 +104,8 @@
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/common/helpers/errorHandler";
+    import { mapActions, mapState } from "pinia";
+    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
 
     export default {
         name: 'SectionHeader',
@@ -104,6 +120,10 @@
                 default: ''
             },
             copy: {
+                type: Boolean,
+                default: false
+            },
+            bookmark: {
                 type: Boolean,
                 default: false
             },
@@ -132,8 +152,10 @@
             uiStore: useUIStore()
         }),
         computed: {
+            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+
             hasOptionalControls() {
-                return !!this.print || !!this.onExportFoundry;
+                return !!this.bookmark || !!this.print || !!this.onExportFoundry;
             },
 
             hasMainControls() {
@@ -157,6 +179,8 @@
             }
         },
         methods: {
+            ...mapActions(useBookmarkStore, ['updateBookmark']),
+
             async copyText() {
                 if (navigator.clipboard) {
                     try {
