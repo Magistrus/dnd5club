@@ -6,11 +6,21 @@
                 class="navbar__btn"
                 @click.left.exact.prevent="opened = !opened"
             >
-                <svg-icon icon-name="bookmark"/>
+                <svg-icon
+                    :icon-name="getItems?.length ? 'bookmark-filled' : 'bookmark'"
+                    :stroke-enable="false"
+                    fill-enable
+                />
             </div>
         </template>
 
         <template #default>
+            <div class="navbar__menu_header">
+                <div class="navbar__menu_info">
+                    <span class="navbar__menu_info--title">Закладки</span>
+                </div>
+            </div>
+
             <div class="navbar__menu">
                 <div
                     v-for="(group, groupKey) in getItems"
@@ -22,7 +32,7 @@
                             v-if="isEdit"
                             class="navbar__menu_group_icon is-left"
                         >
-                            <svg-icon icon-name="close"/>
+                            <svg-icon icon-name="sandwich"/>
                         </div>
 
                         <div class="navbar__menu_group_label">
@@ -33,7 +43,7 @@
                             v-if="isEdit"
                             class="navbar__menu_group_icon is-right"
                         >
-                            <svg-icon icon-name="sandwich"/>
+                            <svg-icon icon-name="close"/>
                         </div>
                     </div>
 
@@ -45,9 +55,9 @@
                         >
                             <div
                                 v-if="isEdit"
-                                class="navbar__menu_link_icon is-left"
+                                class="navbar__menu_link_icon only-hover is-left"
                             >
-                                <svg-icon icon-name="close"/>
+                                <svg-icon icon-name="sandwich"/>
                             </div>
 
                             <a
@@ -57,13 +67,20 @@
                             >{{ link.label }}</a>
 
                             <div
-                                v-if="isEdit"
-                                class="navbar__menu_link_icon is-right"
+                                class="navbar__menu_link_icon only-hover is-right"
+                                @click.left.exact.stop.prevent="removeBookmark(link.url)"
                             >
-                                <svg-icon icon-name="sandwich"/>
+                                <svg-icon icon-name="close"/>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div
+                    v-if="!getItems?.length"
+                    class="navbar__menu_info"
+                >
+                    <span class="navbar__menu_info--desc">Здесь пока пусто</span>
                 </div>
             </div>
         </template>
@@ -89,11 +106,15 @@
         computed: {
             ...mapState(useBookmarkStore, ['getItems'])
         },
-        mounted() {
-            this.setItems();
+        async beforeMount() {
+            await this.restoreItems();
         },
         methods: {
-            ...mapActions(useBookmarkStore, ['setItems']),
+            ...mapActions(useBookmarkStore, [
+                'setItems',
+                'removeBookmark',
+                'restoreItems'
+            ]),
 
             isExternal(url) {
                 return url.startsWith('http');

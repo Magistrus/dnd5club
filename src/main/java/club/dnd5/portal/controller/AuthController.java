@@ -70,8 +70,6 @@ public class AuthController {
 		    else {
 		    	cookie.setMaxAge(1 * 24 * 60 * 60);
 		    }
-			String domain = request.getServerName().replaceAll(".*\\.(?=.*\\.)", "");
-			cookie.setDomain(domain);
 			cookie.setPath("/");
 		    response.addCookie(cookie);
 
