@@ -152,6 +152,8 @@
             &--desc {
                 font-size: var(--h5-font-size);
                 margin-bottom: 4px;
+                width: 200px;
+                padding: 16px 16px;
             }
 
             &--title {
@@ -221,11 +223,14 @@
                 height: 32px;
                 padding: 8px;
                 flex-shrink: 0;
-
                 &.only-hover {
                     &:not(.is-active) {
                         opacity: 0;
                     }
+                }
+
+                svg {
+                  stroke: var(--text-color);
                 }
             }
 
