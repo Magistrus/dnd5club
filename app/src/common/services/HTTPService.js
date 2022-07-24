@@ -3,6 +3,8 @@ import Cookies from 'js-cookie';
 
 export default class HTTPService {
     constructor() {
+        axios.defaults.withCredentials = true;
+
         this.instance = axios.create({
             baseURL: `${ process.env.VUE_APP_API_URL || '' }/api/v1`,
             withCredentials: true
@@ -19,7 +21,8 @@ export default class HTTPService {
             url,
             data,
             signal,
-            method: 'post'
+            method: 'post',
+            headers: {}
         };
 
         if (Cookies.get('dnd5_user_token')) {
@@ -33,7 +36,8 @@ export default class HTTPService {
         const config = {
             url,
             params: new URLSearchParams(params).toString(),
-            method: 'get'
+            method: 'get',
+            headers: {}
         };
 
         if (Cookies.get('dnd5_user_token')) {

@@ -3,6 +3,7 @@ package club.dnd5.portal.controller;
 import java.util.Collections;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -51,7 +52,7 @@ public class AuthController {
 
 	@ApiOperation(value = "REST API to Register or Signup user")
 	@PostMapping("/signin")
-	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
@@ -64,11 +65,13 @@ public class AuthController {
 
 		    Cookie cookie = new Cookie("dnd5_user_token", token);
 		    if (loginDto.getRemember()) {
-			    cookie.setMaxAge(356 * 24 * 60 * 60);
+			    cookie.setMaxAge(365 * 24 * 60 * 60);
 		    }
 		    else {
 		    	cookie.setMaxAge(1 * 24 * 60 * 60);
 		    }
+			String domain = request.getServerName().replaceAll(".*\\.(?=.*\\.)", "");
+			cookie.setDomain(domain);
 			cookie.setPath("/");
 		    response.addCookie(cookie);
 
