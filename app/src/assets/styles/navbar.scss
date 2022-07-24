@@ -228,6 +228,10 @@
             opacity: 0;
           }
         }
+
+        svg {
+          stroke: var(--text-color) !important;
+        }
       }
 
       &:hover {
