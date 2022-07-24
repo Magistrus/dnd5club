@@ -157,7 +157,7 @@
             }
 
             &--title {
-                font-size: var(--h3-font-size);
+                // font-size: var(--h3-font-size);
                 font-weight: 600;
             }
 
