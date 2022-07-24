@@ -19,7 +19,8 @@ export default class HTTPService {
             url,
             data,
             signal,
-            method: 'post'
+            method: 'post',
+            headers: {}
         };
 
         if (Cookies.get('dnd5_user_token')) {
@@ -33,7 +34,8 @@ export default class HTTPService {
         const config = {
             url,
             params: new URLSearchParams(params).toString(),
-            method: 'get'
+            method: 'get',
+            headers: {}
         };
 
         if (Cookies.get('dnd5_user_token')) {
