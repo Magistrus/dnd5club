@@ -9,32 +9,49 @@
 
         <span
             class="field-input__control"
-            :class="{ 'is-error': error.status }"
+            :class="{ 'is-error': errorText }"
         >
             <input
-                v-model="value"
                 v-bind="attrs"
+                ref="input"
+                v-model="value"
                 :autocomplete="autocomplete ? 'on' : 'off'"
                 :placeholder="placeholder"
                 :type="type"
                 class="field-input__input"
-                @blur="checkField"
-                @input="clearError"
+                @blur="$emit('blur')"
             >
+
+            <span
+                v-if="isPassword"
+                class="field-input__control_icon"
+                @click.left.exact.prevent="togglePass"
+            >
+                <svg-icon
+                    :icon-name="showedPass ? 'hide-pass' : 'show-pass'"
+                    :stroke-enable="false"
+                    fill-enable
+                />
+            </span>
         </span>
 
         <span
-            v-if="error.status && !!error.text"
+            v-if="!!errorText"
             class="field-input__error"
         >
-            {{ error.text }}
+            {{ errorText }}
         </span>
     </label>
 </template>
 
 <script>
+    import SvgIcon from "@/components/UI/SvgIcon";
+
     export default {
         name: "FieldInput",
+        components: {
+            SvgIcon
+        },
         props: {
             modelValue: {
                 type: [String, Number],
@@ -79,14 +96,11 @@
             errorText: {
                 type: String,
                 default: ''
-            },
-            validator: {
-                type: Function,
-                default: undefined
             }
         },
-        emits: ['update:modelValue', 'validated'],
+        emits: ['update:modelValue', 'blur'],
         data: () => ({
+            showedPass: false,
             error: {
                 status: false,
                 text: ''
@@ -109,7 +123,7 @@
                 }
 
                 if (this.isPassword) {
-                    return 'password';
+                    return this.showedPass ? 'text' : 'password';
                 }
 
                 if (this.isEmail) {
@@ -132,71 +146,10 @@
             }
         },
         methods: {
-            clearError() {
-                this.error = {
-                    status: false,
-                    text: ''
-                };
-            },
+            togglePass() {
+                this.showedPass = !this.showedPass;
 
-            isEmailValid() {
-                return (/^[a-zA-Z\d.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z\d-]+\.[a-zA-Z\d-]+$/).test(this.value);
-            },
-
-            async checkField() {
-                const emitCheck = success => this.$emit('validated', success);
-
-                let status = {
-                    error: false,
-                    text: ''
-                };
-
-                if (this.required && !this.value.length) {
-                    status = {
-                        error: true,
-                        text: 'Поле не заполнено'
-                    };
-                }
-
-                if (!status.error && this.isEmail && !this.isEmailValid()) {
-                    status = {
-                        error: true,
-                        text: 'Неверный электронный адрес'
-                    };
-                }
-
-                if (!status.error && this.validator) {
-                    const result = await this.validator();
-
-                    if (result) {
-                        status = {
-                            error: true,
-                            text: result
-                        };
-                    }
-                }
-
-                if (!status.error && this.isError) {
-                    status = {
-                        error: true,
-                        text: this.errorText || ''
-                    };
-                }
-
-                if (!status.error) {
-                    this.clearError();
-
-                    emitCheck(!status.error);
-
-                    return;
-                }
-
-                this.error = {
-                    status: status.error,
-                    text: status.text
-                };
-
-                emitCheck(!status.error);
+                this.$refs.input.focus();
             }
         }
     };
@@ -213,12 +166,23 @@
             border: 1px solid var(--border);
             background: var(--bg-sub-menu);
             border-radius: 8px;
-            display: block;
+            display: flex;
             overflow: hidden;
             width: 100%;
 
             &.is-error {
                 border-color: var(--error);
+            }
+
+            &_icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 38px;
+                width: 38px;
+                cursor: pointer;
+                padding: 12px;
+                color: var(--text-btn-color);
             }
         }
 
@@ -228,12 +192,12 @@
             font-size: var(--main-font-size);
             height: 38px;
             font-family: 'Open Sans', serif;
-            width: 100%;
             padding: 4px 12px;
             margin: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             border: 0;
+            flex: 1 1 auto;
         }
 
         &__error {

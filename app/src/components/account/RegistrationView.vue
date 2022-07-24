@@ -26,45 +26,47 @@
 
         <div class="form__row">
             <field-input
-                v-model="form.username"
+                v-model="v$.username.$model"
                 placeholder="Имя пользователя"
-                :validator="isUsernameError"
                 required
-                @validated="isValid.username = $event"
+                :error-text="v$.username.$dirty ? v$.username.$errors?.[0]?.$message : ''"
+                @input="v$.username.$reset()"
+                @blur="v$.username.$touch()"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="form.email"
+                v-model="v$.email.$model"
                 placeholder="Электронный адрес"
-                :validator="isEmailError"
-                is-email
                 required
-                @validated="isValid.email = $event"
+                :error-text="v$.email.$dirty ? v$.email.$errors?.[0]?.$message : ''"
+                @input="v$.email.$reset()"
+                @blur="v$.email.$touch()"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="form.password"
+                v-model="v$.password.$model"
                 placeholder="Пароль"
-                :validator="isPwdError"
                 is-password
                 required
-                @validated="isValid.password = $event"
-                @input="isValid.repeat = !!isRepeatError"
+                :error-text="v$.password.$dirty ? v$.password.$errors?.[0]?.$message : ''"
+                @input="v$.password.$reset()"
+                @blur="v$.password.$touch()"
             />
         </div>
 
         <div class="form__row">
             <field-input
-                v-model="repeat"
+                v-model="v$.repeat.$model"
                 placeholder="Повторите пароль"
-                :validator="isRepeatError"
                 is-password
                 required
-                @validated="isValid.repeat = $event"
+                :error-text="v$.repeat.$dirty ? v$.repeat.$errors?.[0]?.$message : ''"
+                @input="v$.repeat.$reset()"
+                @blur="v$.repeat.$touch()"
             />
         </div>
 
@@ -90,15 +92,21 @@
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";
     import {
+        validateEmailExist,
+        validateEmailFormat,
+        validateMinLength,
         validatePwdLowerCase,
         validatePwdNumber,
         validatePwdSpecial,
         validatePwdUpperCase,
+        validateRequired,
+        validateUsernameExist,
         validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
-    import errorHandler from "@/common/helpers/errorHandler";
     import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
+    import useVuelidate from "@vuelidate/core";
+    import { helpers, sameAs } from "@vuelidate/validators";
 
     export default {
         name: 'RegistrationView',
@@ -106,152 +114,23 @@
             FieldInput,
             FormButton
         },
+        setup: () => ({
+            v$: useVuelidate()
+        }),
         data: () => ({
-            form: {
-                username: '',
-                email: '',
-                password: ''
-            },
+            username: '',
+            email: '',
+            password: '',
             repeat: '',
-            controllers: {
-                username: undefined,
-                email: undefined
-            },
             error: {
                 status: false,
                 text: ''
             },
             success: false,
-            isValid: {
-                username: false,
-                email: false,
-                password: false,
-                repeat: false
-            },
             inProgress: false
         }),
         methods: {
             ...mapActions(useUserStore, ['registration', 'authorization']),
-
-            async isUsernameError() {
-                if (this.form.username.length < 5) {
-                    return 'Не менее 5 символов';
-                }
-
-                if (this.form.username.length > 24) {
-                    return 'Не более 24 символов';
-                }
-
-                if (!validateUsernameSpecialChars(this.form.username)) {
-                    return 'Допустимы латинские буквы, 0-9 - _ .';
-                }
-
-                try {
-                    if (this.controllers.username) {
-                        this.controllers.username.abort();
-                    }
-
-                    this.controllers.username = new AbortController();
-
-                    const resp = await this.$http.post(
-                        '/auth/exist',
-                        {
-                            username: this.form.username
-                        },
-                        this.controllers.username.signal
-                    );
-
-                    if (resp.status !== 200) {
-                        errorHandler(resp.statusText);
-
-                        return 'Неизвестная ошибка';
-                    }
-                } catch (err) {
-                    const resp = err.response;
-
-                    if (resp.status === 409) {
-                        return 'Это имя пользователя уже занято';
-                    }
-
-                    errorHandler(err);
-
-                    return 'Неизвестная ошибка';
-                } finally {
-                    this.controllers.username = undefined;
-                }
-
-                return null;
-            },
-
-            async isEmailError() {
-                try {
-                    if (this.controllers.email) {
-                        this.controllers.email.abort();
-                    }
-
-                    this.controllers.email = new AbortController();
-
-                    const resp = await this.$http.post(
-                        '/auth/exist',
-                        {
-                            email: this.form.email
-                        },
-                        this.controllers.email.signal
-                    );
-
-                    if (resp.status !== 200) {
-                        errorHandler(resp.statusText);
-
-                        return 'Неизвестная ошибка';
-                    }
-                } catch (err) {
-                    const resp = err.response;
-
-                    if (resp.status === 409) {
-                        return 'Этот адрес уже занят';
-                    }
-
-                    errorHandler(err);
-
-                    return 'Неизвестная ошибка';
-                } finally {
-                    this.controllers.email = undefined;
-                }
-
-                return null;
-            },
-
-            isPwdError() {
-                if (this.form.password.length < 8) {
-                    return 'Не менее 8 символов';
-                }
-
-                if (!validatePwdLowerCase(this.form.password)) {
-                    return 'Должна быть хотя бы одна латинская буква в нижнем регистре';
-                }
-
-                if (!validatePwdUpperCase(this.form.password)) {
-                    return 'Должна быть хотя бы одна латинская буква в верхнем регистре';
-                }
-
-                if (!validatePwdNumber(this.form.password)) {
-                    return 'Должна быть хотя бы одна цифра';
-                }
-
-                if (!validatePwdSpecial(this.form.password)) {
-                    return 'Допустимые спец. символы: ! @ # $ % ^ & * _';
-                }
-
-                return null;
-            },
-
-            isRepeatError() {
-                if (this.repeat !== this.form.password) {
-                    return 'Пароли не совпадают';
-                }
-
-                return null;
-            },
 
             clearError() {
                 this.error = {
@@ -280,10 +159,12 @@
             async onSubmit() {
                 this.inProgress = true;
 
-                if (this.success || Object.values(this.isValid).includes(false)) {
-                    this.inProgress = false;
+                await this.v$.$reset();
 
-                    this.onError('Необходимо заполнить все поля');
+                const result = await this.v$.$validate();
+
+                if (!result) {
+                    this.inProgress = false;
 
                     return;
                 }
@@ -291,10 +172,14 @@
                 this.clearError();
 
                 try {
-                    await this.registration(this.form);
+                    await this.registration({
+                        username: this.username,
+                        email: this.email,
+                        password: this.password
+                    });
                     await this.authorization({
-                        usernameOrEmail: this.form.username,
-                        password: this.form.password,
+                        usernameOrEmail: this.username,
+                        password: this.password,
                         remember: false
                     });
 
@@ -305,6 +190,33 @@
                     this.inProgress = false;
                 }
             }
+        },
+        validations() {
+            return {
+                username: {
+                    required: validateRequired(),
+                    minLength: validateMinLength(5),
+                    specialChars: validateUsernameSpecialChars(),
+                    exist: validateUsernameExist()
+                },
+                email: {
+                    required: validateRequired(),
+                    format: validateEmailFormat(),
+                    exist: validateEmailExist()
+                },
+                password: {
+                    required: validateRequired(),
+                    minLength: validateMinLength(8),
+                    lowerCase: validatePwdLowerCase(),
+                    upperCase: validatePwdUpperCase(),
+                    numbers: validatePwdNumber(),
+                    specialChars: validatePwdSpecial()
+                },
+                repeat: {
+                    required: validateRequired(),
+                    sameAs: helpers.withMessage('Пароли не совпадают', sameAs(this.password))
+                }
+            };
         }
     };
 </script>
