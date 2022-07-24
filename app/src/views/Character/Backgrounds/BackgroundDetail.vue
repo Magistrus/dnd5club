@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="background?.name?.eng || ''"
                 :title="background?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
             />

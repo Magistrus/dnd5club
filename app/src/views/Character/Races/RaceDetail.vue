@@ -5,6 +5,7 @@
                 :copy="!error && !loading"
                 :subtitle="race?.name?.eng || ''"
                 :title="race?.name?.rus || ''"
+                bookmark
                 print
                 close-on-desktop
                 @close="close"

@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="book?.name?.eng || ''"
                 :title="book?.name?.rus || ''"
+                bookmark
                 @close="close"
             />
         </template>

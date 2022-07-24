@@ -6,6 +6,7 @@
                 :subtitle="screen?.name?.eng || ''"
                 :copy="!error && !loading"
                 :fullscreen="!getIsMobile"
+                bookmark
                 close-on-desktop
                 @close="close"
             />
