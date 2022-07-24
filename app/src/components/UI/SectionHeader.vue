@@ -178,6 +178,11 @@
                 return this.onClose;
             }
         },
+        watch: {
+            title(value) {
+                document.title = `${ value } | DnD5 Club`;
+            }
+        },
         methods: {
             ...mapActions(useBookmarkStore, ['updateBookmark']),
 
