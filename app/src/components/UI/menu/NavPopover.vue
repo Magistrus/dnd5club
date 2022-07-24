@@ -142,7 +142,8 @@
         }
 
         &__wrapper {
-            max-height: 90%;
+            max-height: calc(var(--max-vh) / 100 * 90);
+            height: calc(var(--max-vh) / 100 * 90);
             max-width: 790px;
             z-index: 111;
             position: relative;
@@ -169,7 +170,7 @@
             overflow: auto;
             border-radius: 8px;
             box-shadow: 0 0 27px #0006;
-            padding: 48px 16px 8px;
+            padding: 16px 16px 8px;
             transform-origin: top right;
             max-width: 100%;
             max-height: 100%;
