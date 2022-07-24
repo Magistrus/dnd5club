@@ -3,13 +3,11 @@ import { defineStore } from 'pinia';
 // eslint-disable-next-line import/prefer-default-export
 export const useNavStore = defineStore('NavStore', {
     state: () => ({
-        items: [],
-        opened: false
+        items: []
     }),
 
     getters: {
-        getNavItems: state => state.items,
-        getMenuState: state => state.opened
+        getNavItems: state => state.items
     },
 
     actions: {
@@ -17,7 +15,7 @@ export const useNavStore = defineStore('NavStore', {
             this.items = [
                 {
                     label: 'Персонаж',
-                    icon: 'left-menu-character',
+                    icon: 'menu-character',
                     links: [
                         {
                             label: 'Классы',
@@ -41,14 +39,13 @@ export const useNavStore = defineStore('NavStore', {
                         },
                         {
                             label: 'Заклинания',
-                            url: '/spells',
-                            icon: 'left-menu-spells'
+                            url: '/spells'
                         }
                     ]
                 },
                 {
                     label: 'Предметы',
-                    icon: 'left-menu-inventory',
+                    icon: 'menu-inventory',
                     links: [
                         {
                             label: 'Оружие',
@@ -74,23 +71,21 @@ export const useNavStore = defineStore('NavStore', {
                 },
                 {
                     label: 'Мастерская',
-                    icon: 'workshop',
+                    icon: 'menu-workshop',
                     links: [
                         {
                             label: 'Бестиарий',
-                            url: '/bestiary',
-                            icon: 'left-menu-creatures'
+                            url: '/bestiary'
                         },
                         {
                             label: 'Ширма',
-                            url: '/screens',
-                            icon: 'left-menu-screens'
+                            url: '/screens'
                         }
                     ]
                 },
                 {
                     label: 'Инструменты',
-                    icon: 'left-menu-tools',
+                    icon: 'menu-tools',
                     links: [
                         {
                             label: 'Торговец',
@@ -116,12 +111,11 @@ export const useNavStore = defineStore('NavStore', {
                 },
                 {
                     label: 'База знаний',
-                    icon: 'left-menu-wiki',
+                    icon: 'menu-wiki',
                     links: [
                         {
                             label: 'Боги',
-                            url: '/gods',
-                            icon: 'left-menu-gods'
+                            url: '/gods'
                         },
                         {
                             label: 'Правила и термины',
@@ -135,57 +129,41 @@ export const useNavStore = defineStore('NavStore', {
                 },
                 {
                     label: 'Информация',
-                    icon: 'info',
+                    icon: 'menu-information',
                     links: [
                         {
                             label: 'Мы в Discord',
                             url: 'https://discord.gg/zqBnMJVf3z',
-                            icon: 'menu-classes',
                             external: true
                         },
                         {
                             label: 'Мы в ВКонтакте',
                             url: 'https://vk.com/dnd5club',
-                            icon: 'menu-races',
                             external: true
                         },
                         {
                             label: 'Мы на Boosty',
                             url: 'https://boosty.to/dnd5club',
-                            icon: 'menu-races',
                             external: true
                         },
                         {
                             label: 'Наш бот для Telegram',
                             url: 'https://t.me/dnd5club_bot',
-                            icon: 'menu-races',
                             external: true
                         },
                         {
                             label: 'Мастер на Boosty',
                             url: 'https://boosty.to/dnd5eclub',
-                            icon: 'menu-races',
                             external: true
                         },
                         {
                             label: 'Старый сайт',
                             url: 'https://old.dnd5.club/',
-                            icon: 'menu-races',
                             external: true
                         }
                     ]
                 }
             ];
-        },
-
-        setMenuState(payload) {
-            if (typeof payload !== 'boolean') {
-                this.opened = false;
-
-                return;
-            }
-
-            this.opened = payload;
         }
     }
 });

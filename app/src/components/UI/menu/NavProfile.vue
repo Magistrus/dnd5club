@@ -22,6 +22,7 @@
     import { mapState, mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
     import errorHandler from "@/common/helpers/errorHandler";
+    import Cookies from "js-cookie";
 
     export default {
         name: "NavProfile",
@@ -36,14 +37,22 @@
             ...mapState(useUserStore, ['getUser'])
         },
         async beforeMount() {
-            try {
-                await this.getUserFromSession();
-            } catch (err) {
-                errorHandler(err);
-            }
+            await this.updateUserInfo();
         },
         methods: {
             ...mapActions(useUserStore, ['getUserFromSession']),
+
+            async updateUserInfo() {
+                if (!Cookies.get('dnd5_user_token')) {
+                    return;
+                }
+
+                try {
+                    await this.getUserFromSession();
+                } catch (err) {
+                    errorHandler(err);
+                }
+            },
 
             openModal() {
                 this.modal = true;
