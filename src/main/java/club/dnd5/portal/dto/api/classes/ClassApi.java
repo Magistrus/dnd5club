@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassApi {
-	private NameApi name;
+	protected NameApi name;
 	protected String url;
 	private SourceApi source;
 	private String dice;
