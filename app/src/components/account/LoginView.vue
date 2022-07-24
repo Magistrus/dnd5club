@@ -169,6 +169,12 @@
                 } catch (err) {
                     const { response } = err;
 
+                    if (!response?.status) {
+                        this.onError('Неизвестная ошибка');
+
+                        return;
+                    }
+
                     switch (response.status) {
                         case 401:
                             this.onError('Неверный логин или пароль');

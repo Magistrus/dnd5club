@@ -60,7 +60,7 @@ export const useUserStore = defineStore('UserStore', {
 
                 switch (resp.status) {
                     case 200:
-                        await this.getUserFromSession();
+                        await this.updateUserFromSession();
 
                         return Promise.resolve();
                     case 401:
