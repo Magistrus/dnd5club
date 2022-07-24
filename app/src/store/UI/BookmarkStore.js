@@ -1,11 +1,20 @@
 import { defineStore } from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
+import localforage from 'localforage';
+import { DB_NAME } from '@/common/const/UI';
+import errorHandler from '@/common/helpers/errorHandler';
+import { useUserStore } from '@/store/UI/UserStore';
+import isArray from 'lodash/isArray';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useBookmarkStore = defineStore('BookmarkStore', {
     state: () => ({
         section: 'Без группы',
-        items: []
+        items: [],
+        store: localforage.createInstance({
+            name: DB_NAME,
+            storeName: 'bookmarks'
+        })
     }),
 
     getters: {
@@ -44,7 +53,49 @@ export const useBookmarkStore = defineStore('BookmarkStore', {
     },
 
     actions: {
-        setItems() {
+        async restoreItems() {
+            try {
+                await this.store.ready();
+
+                const restored = await this.store.getItem('saved');
+                const userStore = useUserStore();
+
+                await userStore.updateUserFromSession();
+
+                if (userStore.isAuthorized) {
+                    console.log('Aiuthorized');
+
+                    // const resp = await this.getProfileBookmark();
+                    //
+                    // if (resp.status === 200 && resp.data?.length) {
+                    //     restored = resp.data;
+                    // }
+                }
+
+                this.items = isArray(restored) && restored?.length
+                    ? restored
+                    : [];
+            } catch (err) {
+                errorHandler(err);
+            }
+        },
+
+        async getProfileBookmark() {
+            try {
+                await console.log('success');
+            } catch (err) {
+                errorHandler(err);
+            }
+        },
+
+        async saveBookmarks() {
+            try {
+                await this.store.ready();
+
+                await this.store.setItem('saved', cloneDeep(this.items));
+            } catch (err) {
+                errorHandler(err);
+            }
         },
 
         setSection(name) {
@@ -55,7 +106,7 @@ export const useBookmarkStore = defineStore('BookmarkStore', {
             this.section = name;
         },
 
-        addBookmark(url, label, section = this.section) {
+        async addBookmark(url, label, section = this.section) {
             if (!url || !label) {
                 return;
             }
@@ -81,9 +132,11 @@ export const useBookmarkStore = defineStore('BookmarkStore', {
 
                 state.items = items;
             });
+
+            await this.saveBookmarks();
         },
 
-        removeBookmark(url) {
+        async removeBookmark(url) {
             if (!url) {
                 return;
             }
@@ -101,16 +154,18 @@ export const useBookmarkStore = defineStore('BookmarkStore', {
             if (!this.items[group].links.length) {
                 this.items.splice(group, 1);
             }
+
+            await this.saveBookmarks();
         },
 
-        updateBookmark(url, label, section = this.section) {
+        async updateBookmark(url, label, section = this.section) {
             if (this.isBookmarkSaved(url)) {
-                this.removeBookmark(url);
+                await this.removeBookmark(url);
 
                 return;
             }
 
-            this.addBookmark(url, label, section);
+            await this.addBookmark(url, label, section);
         }
     }
 });

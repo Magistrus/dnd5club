@@ -30,9 +30,9 @@
                             </a>
 
                             <div class="navbar__menu_info">
-                                <span>Онлайн справочник по D&D 5e</span>
+                                <span class="navbar__menu_info--desc">Онлайн справочник по D&D 5e</span>
 
-                                <span>DnD5 Club</span>
+                                <span class="navbar__menu_info--title">DnD5 Club</span>
                             </div>
                         </div>
 
