@@ -124,5 +124,14 @@
 </script>
 
 <style lang="scss" scoped>
+.navbar {
 
+  &__menu {
+    padding: 0px 0px 0px 0px;
+
+    &_header {
+      padding: 0 16px 16px 16px;
+    }
+  }
+}
 </style>
