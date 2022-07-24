@@ -64,7 +64,7 @@ public class AuthController {
 
 		    Cookie cookie = new Cookie("dnd5_user_token", token);
 		    if (loginDto.getRemember()) {
-			    cookie.setMaxAge(356 * 24 * 60 * 60);
+			    cookie.setMaxAge(365 * 24 * 60 * 60);
 		    }
 		    else {
 		    	cookie.setMaxAge(1 * 24 * 60 * 60);
