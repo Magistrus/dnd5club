@@ -19,10 +19,8 @@
 <script>
     import AuthRegModal from "@/components/UI/modals/AuthRegModal";
     import SvgIcon from "@/components/UI/SvgIcon";
-    import { mapState, mapActions } from "pinia";
+    import { mapState } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
-    import errorHandler from "@/common/helpers/errorHandler";
-    import Cookies from "js-cookie";
 
     export default {
         name: "NavProfile",
@@ -36,24 +34,7 @@
         computed: {
             ...mapState(useUserStore, ['getUser'])
         },
-        async beforeMount() {
-            await this.updateUserInfo();
-        },
         methods: {
-            ...mapActions(useUserStore, ['getUserFromSession']),
-
-            async updateUserInfo() {
-                if (!Cookies.get('dnd5_user_token')) {
-                    return;
-                }
-
-                try {
-                    await this.getUserFromSession();
-                } catch (err) {
-                    errorHandler(err);
-                }
-            },
-
             openModal() {
                 this.modal = true;
             },

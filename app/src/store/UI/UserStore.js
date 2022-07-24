@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import HTTPService from '@/common/services/HTTPService';
+import Cookies from 'js-cookie';
 
 const http = new HTTPService();
 
@@ -10,7 +11,8 @@ export const useUserStore = defineStore('UserStore', {
     }),
 
     getters: {
-        getUser: state => state.user
+        getUser: state => state.user,
+        isAuthorized: state => !!state.user
     },
 
     actions: {
@@ -58,7 +60,7 @@ export const useUserStore = defineStore('UserStore', {
 
                 switch (resp.status) {
                     case 200:
-                        await this.getUserFromSession();
+                        await this.updateUserFromSession();
 
                         return Promise.resolve();
                     case 401:
@@ -89,8 +91,12 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
-        async getUserFromSession() {
+        async updateUserFromSession() {
             try {
+                if (!Cookies.get('dnd5_user_token')) {
+                    return Promise.resolve();
+                }
+
                 const resp = await http.post('/user');
 
                 switch (resp.status) {
