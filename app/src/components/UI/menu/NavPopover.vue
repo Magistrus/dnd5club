@@ -58,6 +58,10 @@
             type: Boolean,
             default: false
         },
+        isMenu: {
+            type: Boolean,
+            default: false
+        },
         isLeft: {
             type: Boolean,
             default: false
@@ -78,7 +82,11 @@
             return;
         }
 
-        position.top = `${ rectTrigger.top.value }px`;
+        position.top = `${ props.isMenu ? rectTrigger.top.value : rectTrigger.bottom.value + 4 }px`;
+
+        if (!props.isMenu) {
+            position.height = `calc(var(--max-vh) - ${ rectTrigger.bottom.value + 4 }px - 8px)`;
+        }
 
         if (props.isLeft) {
             position.left = `${ rectTrigger.left.value }px`;
@@ -160,7 +168,6 @@
                 width: calc(100% - 16px);
                 height: calc(100% - 16px);
                 left: 8px !important;
-                top: 8px !important;
             }
         }
 
