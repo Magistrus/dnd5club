@@ -8,6 +8,7 @@
                 :subtitle="item?.name?.eng || ''"
                 :title="item?.name?.rus || ''"
                 bookmark
+                print
                 @close="close"
             />
         </template>

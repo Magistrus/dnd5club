@@ -7,6 +7,7 @@
                 :subtitle="armor?.name?.eng"
                 :title="armor?.name?.rus"
                 bookmark
+                print
                 copy
                 @close="close"
             />
