@@ -7,6 +7,7 @@
                 :subtitle="weapon?.name?.eng"
                 :title="weapon?.name?.rus"
                 bookmark
+                print
                 copy
                 @close="close"
             />
