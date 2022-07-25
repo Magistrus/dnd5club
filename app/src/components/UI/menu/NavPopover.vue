@@ -192,6 +192,7 @@
             @media (max-width: 550px) {
                 overflow: scroll;
                 width: 100%;
+                padding: 16px 8px 0px;
             }
         }
     }
