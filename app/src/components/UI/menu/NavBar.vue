@@ -4,6 +4,7 @@
             <div class="navbar__header_left">
                 <nav-popover
                     :model-value="menu"
+                    is-menu
                     is-left
                     @close="menu = false"
                 >

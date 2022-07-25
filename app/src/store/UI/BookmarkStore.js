@@ -63,8 +63,6 @@ export const useBookmarkStore = defineStore('BookmarkStore', {
                 await userStore.updateUserFromSession();
 
                 if (userStore.isAuthorized) {
-                    console.log('Aiuthorized');
-
                     // const resp = await this.getProfileBookmark();
                     //
                     // if (resp.status === 200 && resp.data?.length) {
@@ -82,6 +80,7 @@ export const useBookmarkStore = defineStore('BookmarkStore', {
 
         async getProfileBookmark() {
             try {
+                // eslint-disable-next-line no-console
                 await console.log('success');
             } catch (err) {
                 errorHandler(err);
