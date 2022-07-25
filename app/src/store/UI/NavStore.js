@@ -147,6 +147,11 @@ export const useNavStore = defineStore('NavStore', {
                             external: true
                         },
                         {
+                            label: 'Мы на Youtube',
+                            url: 'https://www.youtube.com/channel/UCpFse6-P2IBXYfkesAxZbfA',
+                            external: true
+                        },
+                        {
                             label: 'Наш бот для Telegram',
                             url: 'https://t.me/dnd5club_bot',
                             external: true
