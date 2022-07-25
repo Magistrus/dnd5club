@@ -8,10 +8,10 @@
                     is-left
                     @close="menu = false"
                 >
-                    <template #trigger="{ setRef }">
+                    <template #trigger="{ setRef, isActive }">
                         <div
                             :ref="el => setRef(el)"
-                            :class="{ 'is-active': menu }"
+                            :class="{ 'is-active': isActive }"
                             class="navbar__btn hamburger"
                             @click.left.exact.prevent="menu = !menu"
                         >

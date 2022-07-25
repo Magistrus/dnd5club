@@ -37,6 +37,10 @@
       color: var(--text-b-color);
       background-color: var(--hover);
     }
+
+    &.is-active {
+      background-color: var(--hover);
+    }
   }
 
   &__link {

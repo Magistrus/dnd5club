@@ -5,6 +5,7 @@
     >
         <slot
             :set-ref="setTrigger"
+            :is-active="show.layer"
             name="trigger"
         />
     </div>
@@ -190,6 +191,7 @@
 
             @media (max-width: 550px) {
                 overflow: scroll;
+                width: 100%;
             }
         }
     }
