@@ -1,9 +1,10 @@
 <template>
     <nav-popover v-model="opened">
-        <template #trigger="{ setRef }">
+        <template #trigger="{ setRef, isActive }">
             <div
                 :ref="el => setRef(el)"
                 class="navbar__btn"
+                :class="{ 'is-active': isActive }"
                 @click.left.exact.prevent="opened = !opened"
             >
                 <svg-icon
