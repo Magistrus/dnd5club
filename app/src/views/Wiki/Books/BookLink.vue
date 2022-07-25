@@ -67,7 +67,7 @@
                     'router-link-active': isActive,
                     'is-book-selected': this.$route.name === 'bookDetail',
                     'is-green': this.book?.homebrew
-                }
+                };
             },
 
             clickHandler(callback) {
@@ -82,11 +82,11 @@
                         this.modal = {
                             show: true,
                             data: spell
-                        }
+                        };
                     });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

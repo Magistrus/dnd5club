@@ -348,7 +348,7 @@
   width: 200px;
   min-height: 100px;
   float: right;
-  padding: 0 0 32px 32px;
+  margin: 0 0 32px 32px;
 
   .image-container {
     background: var(--bg-sub-menu);
@@ -375,6 +375,14 @@
         -o-object-fit: cover;
         object-fit: cover;
       }
+
+      @media (max-width: 500px) {
+        align-content: center;
+      }
+    }
+
+    @media (max-width: 500px) {
+      height: 100%;
     }
   }
 
@@ -383,8 +391,11 @@
   }
 
   @media (max-width: 500px) {
-    width: 160px;
-    height: 160px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 0 16px 16px;
   }
 }
 
@@ -468,6 +479,22 @@
 
     & + & {
       margin-top: 12px;
+    }
+
+    &.is-error {
+      background-color: var(--hover);
+      border: 1px solid var(--border);
+      color: var(--text-color);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    &.is-success {
+      background-color: var(--bg-success);
+      border: 1px solid var(--success);
+      color: var(--success);
+      padding: 12px;
+      border-radius: 8px;
     }
   }
 }

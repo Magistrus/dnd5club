@@ -6,6 +6,8 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="weapon?.name?.eng"
                 :title="weapon?.name?.rus"
+                bookmark
+                print
                 copy
                 @close="close"
             />
@@ -27,7 +29,11 @@
 
     export default {
         name: "WeaponDetail",
-        components: { ContentDetail, WeaponBody, SectionHeader },
+        components: {
+            ContentDetail,
+            WeaponBody,
+            SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewWeapon(to.path);
 
@@ -37,10 +43,10 @@
             weaponsStore: useWeaponsStore(),
             weapon: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewWeapon(this.$route.path);
@@ -63,7 +69,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+    createRouter, createWebHistory
+} from 'vue-router';
 
 const routes = [
     {
@@ -9,7 +11,7 @@ const routes = [
             {
                 name: 'classDetail',
                 path: ':className/:classArchetype?',
-                component: () => import('@/views/Character/Classes/ClassDetail'),
+                component: () => import('@/views/Character/Classes/ClassDetail')
             }
         ]
     },
@@ -21,7 +23,7 @@ const routes = [
             {
                 name: 'raceDetail',
                 path: ':raceName/:subrace?',
-                component: () => import('@/views/Character/Races/RaceDetail'),
+                component: () => import('@/views/Character/Races/RaceDetail')
             }
         ]
     },
@@ -33,7 +35,7 @@ const routes = [
             {
                 name: 'traitDetail',
                 path: ':traitName',
-                component: () => import('@/views/Character/Traits/TraitDetail'),
+                component: () => import('@/views/Character/Traits/TraitDetail')
             }
         ]
     },
@@ -45,7 +47,7 @@ const routes = [
             {
                 name: 'backgroundDetail',
                 path: ':backgroundName',
-                component: () => import('@/views/Character/Backgrounds/BackgroundDetail'),
+                component: () => import('@/views/Character/Backgrounds/BackgroundDetail')
             }
         ]
     },
@@ -57,7 +59,7 @@ const routes = [
             {
                 name: 'optionDetail',
                 path: ':optionName',
-                component: () => import('@/views/Character/Options/OptionDetail'),
+                component: () => import('@/views/Character/Options/OptionDetail')
             }
         ]
     },
@@ -69,7 +71,7 @@ const routes = [
             {
                 name: 'spellDetail',
                 path: ':spellName',
-                component: () => import('@/views/Spells/SpellDetail'),
+                component: () => import('@/views/Spells/SpellDetail')
             }
         ]
     },
@@ -81,7 +83,7 @@ const routes = [
             {
                 name: 'weaponDetail',
                 path: ':weaponName',
-                component: () => import('@/views/Inventory/Weapons/WeaponDetail'),
+                component: () => import('@/views/Inventory/Weapons/WeaponDetail')
             }
         ]
     },
@@ -93,7 +95,7 @@ const routes = [
             {
                 name: 'armorDetail',
                 path: ':armorName',
-                component: () => import('@/views/Inventory/Armors/ArmorDetail'),
+                component: () => import('@/views/Inventory/Armors/ArmorDetail')
             }
         ]
     },
@@ -105,7 +107,7 @@ const routes = [
             {
                 name: 'magicItemDetail',
                 path: ':magicItemName',
-                component: () => import('@/views/Treasures/MagicItems/MagicItemDetail'),
+                component: () => import('@/views/Treasures/MagicItems/MagicItemDetail')
             }
         ]
     },
@@ -117,7 +119,7 @@ const routes = [
             {
                 name: 'itemDetail',
                 path: ':itemName',
-                component: () => import('@/views/Inventory/Items/ItemDetail'),
+                component: () => import('@/views/Inventory/Items/ItemDetail')
             }
         ]
     },
@@ -129,7 +131,7 @@ const routes = [
             {
                 name: 'creatureDetail',
                 path: ':creatureName',
-                component: () => import('@/views/Bestiary/CreatureDetail'),
+                component: () => import('@/views/Bestiary/CreatureDetail')
             }
         ]
     },
@@ -141,7 +143,7 @@ const routes = [
             {
                 name: 'godDetail',
                 path: ':godName',
-                component: () => import('@/views/Wiki/Gods/GodDetail'),
+                component: () => import('@/views/Wiki/Gods/GodDetail')
             }
         ]
     },
@@ -153,7 +155,7 @@ const routes = [
             {
                 name: 'ruleDetail',
                 path: ':ruleName',
-                component: () => import('@/views/Wiki/Rules/RuleDetail'),
+                component: () => import('@/views/Wiki/Rules/RuleDetail')
             }
         ]
     },
@@ -165,7 +167,7 @@ const routes = [
             {
                 name: 'bookDetail',
                 path: ':bookName',
-                component: () => import('@/views/Wiki/Books/BookDetail'),
+                component: () => import('@/views/Wiki/Books/BookDetail')
             }
         ]
     },
@@ -184,38 +186,37 @@ const routes = [
     {
         name: 'treasures',
         path: '/treasures',
-        component: () => import('@/views/Treasures/Treasures/TreasuresView'),
+        component: () => import('@/views/Treasures/Treasures/TreasuresView')
     },
     {
         name: 'trader',
         path: '/tools/trader',
-        component: () => import('@/views/Tools/TraderView'),
+        component: () => import('@/views/Tools/TraderView')
     },
     {
         name: 'treasury',
         path: '/tools/treasury',
-        component: () => import('@/views/Tools/TreasuryView'),
+        component: () => import('@/views/Tools/TreasuryView')
     },
     {
         name: 'wild-magic',
         path: '/tools/wildmagic',
-        component: () => import('@/views/Tools/WildMagicView'),
+        component: () => import('@/views/Tools/WildMagicView')
     },
     {
         name: 'madness',
         path: '/tools/madness',
-        component: () => import('@/views/Tools/MadnessView'),
+        component: () => import('@/views/Tools/MadnessView')
     },
     {
         name: 'encounters',
         path: '/tools/encounters',
-        component: () => import('@/views/Tools/EncountersView'),
-    },
+        component: () => import('@/views/Tools/EncountersView')
+    }
 ];
-
 const router = createRouter({
     history: createWebHistory('/'),
-    routes,
+    routes
 });
 
 router.beforeEach((to, from, next) => {

@@ -1,7 +1,6 @@
 package club.dnd5.portal.service;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,24 +22,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserRepository usersRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userNameOrEmail) throws UsernameNotFoundException {
 	    boolean accountNonExpired = true;
 	    boolean credentialsNonExpired = true;
 	    boolean accountNonLocked = true;
-		Optional<User> user = usersRepository.findByEmail(email);
-		if (!user.isPresent()) {
-            throw new UsernameNotFoundException(
-              "Не найден пользователь с электронным адресом: " + email);
-        }
-		User foundUser = user.get();
+		User user = usersRepository.findByEmailOrUsername(userNameOrEmail, userNameOrEmail).orElseThrow(() ->
+        	new UsernameNotFoundException("Не найден пользователь с таким именем или email: " + userNameOrEmail));
+		
         return new org.springframework.security.core.userdetails.User(
-        		foundUser.getEmail(), 
-        		foundUser.getPassword(), 
-        		foundUser.isEnabled(), 
+        		user.getEmail(), 
+        		user.getPassword(), 
+        		user.isEnabled(), 
                 accountNonExpired, 
                 credentialsNonExpired, 
                 accountNonLocked, 
-                getAuthorities(foundUser));
+                getAuthorities(user));
 	}
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {

@@ -29,7 +29,9 @@
 
 <script>
     import ContentLayout from "@/components/content/ContentLayout";
-    import { mapActions, mapState } from "pinia";
+    import {
+        mapActions, mapState
+    } from "pinia";
     import { useScreensStore } from "@/store/Screens/ScreensStore";
     import { useUIStore } from "@/store/UI/UIStore";
 
@@ -41,8 +43,8 @@
             ...mapState(useScreensStore, ['getScreens', 'getFilter']),
 
             showRightSide() {
-                return this.$route.name === 'screenDetail'
-            },
+                return this.$route.name === 'screenDetail';
+            }
         },
         async mounted() {
             await this.initFilter();
@@ -52,20 +54,26 @@
             this.clearStore();
         },
         methods: {
-            ...mapActions(useScreensStore, ['initFilter', 'initScreens', 'nextPage', 'clearStore']),
+            ...mapActions(useScreensStore, [
+                'initFilter',
+                'initScreens',
+                'nextPage',
+                'clearStore'
+            ]),
 
             async screensQuery() {
                 await this.initScreens();
             },
 
             async onSearch() {
-                await this.screensQuery()
+                await this.screensQuery();
+
                 if (this.getScreens.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.getScreens[0].url })
+                    await this.$router.push({ path: this.getScreens[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -4,6 +4,6 @@ import upperFirst from 'lodash/upperFirst';
 export const CapitalizeFirst = {
     created(el) {
         // eslint-disable-next-line no-param-reassign
-        el.innerText = upperFirst(el.innerText)
+        el.innerText = upperFirst(el.innerText);
     }
-}
+};

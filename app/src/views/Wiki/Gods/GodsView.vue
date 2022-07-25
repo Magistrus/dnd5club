@@ -31,7 +31,7 @@
         components: {
             GodLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -66,7 +66,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'godDetail'
+                return this.$route.name === 'godDetail';
             },
 
             layout() {
@@ -86,13 +86,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.gods.length && this.$route.name === 'gods') {
-                await this.$router.push({ path: this.gods[0].url })
+                await this.$router.push({ path: this.gods[0].url });
             }
         },
         beforeUnmount() {
@@ -113,11 +113,12 @@
             },
 
             async onSearch() {
-                await this.godsQuery()
+                await this.godsQuery();
+
                 if (this.gods.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.gods[0].url })
+                    await this.$router.push({ path: this.gods[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>

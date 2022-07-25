@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="god?.name?.eng || ''"
                 :title="god?.name?.rus || ''"
+                bookmark
                 @close="close"
             />
         </template>
@@ -30,7 +31,11 @@
 
     export default {
         name: 'GodDetail',
-        components: { ContentDetail, GodBody, SectionHeader },
+        components: {
+            ContentDetail,
+            GodBody,
+            SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewGod(to.path);
 
@@ -40,10 +45,10 @@
             godsStore: useGodsStore(),
             god: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewGod(this.$route.path);
@@ -64,9 +69,9 @@
                 } catch (err) {
                     this.error = true;
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

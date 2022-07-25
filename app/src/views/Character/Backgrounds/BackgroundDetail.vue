@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="background?.name?.eng || ''"
                 :title="background?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
             />
@@ -30,7 +31,9 @@
     export default {
         name: 'BackgroundDetail',
         components: {
-            ContentDetail, BackgroundBody, SectionHeader
+            ContentDetail,
+            BackgroundBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewBackground(to.path);
@@ -41,10 +44,10 @@
             backgroundStore: useBackgroundsStore(),
             background: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewBackground(this.$route.path);
@@ -67,10 +70,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'backgrounds' })
+                this.$router.push({ name: 'backgrounds' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

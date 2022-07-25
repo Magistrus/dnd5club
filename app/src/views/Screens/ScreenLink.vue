@@ -32,6 +32,7 @@
     <base-modal
         v-if="modal.data"
         v-model="modal.show"
+        :bookmark="bookmarkObj"
     >
         <template #title>
             {{ screen.name.rus }}
@@ -53,7 +54,11 @@
 
     export default {
         name: "ScreenLink",
-        components: { ScreenBody, BaseModal, RawContent },
+        components: {
+            ScreenBody,
+            BaseModal,
+            RawContent
+        },
         inheritAttrs: false,
         props: {
             screen: {
@@ -67,8 +72,17 @@
             modal: {
                 data: undefined,
                 show: false
-            },
+            }
         }),
+        computed: {
+            bookmarkObj() {
+                return {
+                    link: this.screen.url,
+                    label: this.screen.name.rus,
+                    section: `Ширма Мастера`
+                };
+            }
+        },
         methods: {
             ...mapActions(useScreensStore, ['screenInfoQuery']),
 
@@ -82,9 +96,9 @@
                 } catch (err) {
                     console.error(err);
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

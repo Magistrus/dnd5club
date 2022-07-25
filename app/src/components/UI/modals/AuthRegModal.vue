@@ -7,7 +7,7 @@
         v-bind="$attrs"
     >
         <img
-            :alt="type + '_background'"
+            :alt="title.eng + '_background'"
             class="auth-reg-modal__bg"
             src="/img/bg_login.png"
         >
@@ -22,15 +22,16 @@
             </form-button>
 
             <div class="auth-reg-modal__body">
-                <h4>{{ type === 'reg' ? 'Регистрация' : 'Авторизация' }}</h4>
+                <h4>{{ title.rus }}</h4>
 
                 <transition
                     mode="out-in"
                     name="fade"
                 >
                     <component
-                        :is="formType"
-                        @change-type="type = type === 'auth' ? 'reg' : 'auth'"
+                        :is="component"
+                        @change-type="changeType"
+                        @close="closeHandler(close)"
                     />
                 </transition>
             </div>
@@ -40,8 +41,9 @@
 
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
-    import { defineAsyncComponent } from "vue";
     import FormButton from "@/components/form/FormButton";
+    import LoginView from "@/components/account/LoginView";
+    import RegistrationView from "@/components/account/RegistrationView";
 
     export default {
         name: "AuthRegModal",
@@ -52,27 +54,41 @@
         inheritAttrs: true,
         emits: ['confirm', 'cancel'],
         data: () => ({
-            type: 'auth'
+            isAuth: true
         }),
         computed: {
-            formType() {
-                switch (this.type) {
-                    case 'reg':
-                        return defineAsyncComponent(() => import('@/components/account/RegistrationView'));
+            title() {
+                return this.isAuth
+                    ? {
+                        rus: 'Авторизация',
+                        eng: 'auth'
+                    }
+                    : {
+                        rus: 'Регистрация',
+                        eng: 'reg'
+                    };
+            },
 
-                    default:
-                        return defineAsyncComponent(() => import('@/components/account/LoginView'));
+            component() {
+                if (this.isAuth) {
+                    return LoginView;
                 }
+
+                return RegistrationView;
             }
         },
         methods: {
+            changeType() {
+                this.isAuth = !this.isAuth;
+            },
+
             closeHandler(callback) {
                 callback();
 
-                this.type = 'auth';
+                this.isAuth = true;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>
@@ -94,7 +110,6 @@
     .auth-reg-modal {
         &__bg {
             width: 240px;
-            height: 400px;
             object-fit: cover;
             display: none;
 
@@ -105,12 +120,13 @@
 
         &__content {
             flex: 1 1 100%;
-            height: 400px;
+            max-height: var(--max-vh);
             padding: 16px;
             position: relative;
+            overflow: auto;
 
             @include media-min($md) {
-                padding: 24px 48px 24px 48px;
+                padding: 48px;
             }
         }
 

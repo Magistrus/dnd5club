@@ -92,7 +92,7 @@
                 type: Boolean,
                 default: false
             },
-            ...RouterLink.props,
+            ...RouterLink.props
         },
         methods: {
             getClassList(isActive) {
@@ -100,14 +100,14 @@
                     'router-link-active': isActive,
                     'is-green': this.weapon.homebrew,
                     'in-tab': this.inTab
-                }
+                };
             },
 
             clickHandler(callback) {
                 callback();
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

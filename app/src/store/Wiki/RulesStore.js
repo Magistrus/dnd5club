@@ -16,7 +16,7 @@ export const useRulesStore = defineStore('RulesStore', {
             page: 0,
             limit: 70,
             end: false,
-            url: '/rules',
+            url: '/rules'
         },
         customFilter: undefined,
         controllers: {
@@ -27,7 +27,7 @@ export const useRulesStore = defineStore('RulesStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getRules: state => state.rules,
+        getRules: state => state.rules
     },
 
     actions: {
@@ -41,7 +41,7 @@ export const useRulesStore = defineStore('RulesStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/rules'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -71,7 +71,7 @@ export const useRulesStore = defineStore('RulesStore', {
         async rulesQuery(options = {}) {
             try {
                 if (this.controllers.rulesQuery) {
-                    this.controllers.rulesQuery.abort()
+                    this.controllers.rulesQuery.abort();
                 }
 
                 this.controllers.rulesQuery = new AbortController();
@@ -83,10 +83,12 @@ export const useRulesStore = defineStore('RulesStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
@@ -98,7 +100,7 @@ export const useRulesStore = defineStore('RulesStore', {
 
                 this.controllers.rulesQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
@@ -110,13 +112,13 @@ export const useRulesStore = defineStore('RulesStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -130,13 +132,13 @@ export const useRulesStore = defineStore('RulesStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -153,7 +155,7 @@ export const useRulesStore = defineStore('RulesStore', {
         async ruleInfoQuery(url) {
             try {
                 if (this.controllers.ruleInfoQuery) {
-                    this.controllers.ruleInfoQuery.abort()
+                    this.controllers.ruleInfoQuery.abort();
                 }
 
                 this.controllers.ruleInfoQuery = new AbortController();
@@ -162,7 +164,7 @@ export const useRulesStore = defineStore('RulesStore', {
 
                 this.controllers.ruleInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -187,7 +189,7 @@ export const useRulesStore = defineStore('RulesStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/rules',
+                url: '/rules'
             };
         },
 
@@ -197,4 +199,4 @@ export const useRulesStore = defineStore('RulesStore', {
             this.clearConfig();
         }
     }
-})
+});

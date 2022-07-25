@@ -17,12 +17,10 @@ import javax.persistence.Table;
 
 import club.dnd5.portal.dto.UserRegForm;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 
 @Entity
 @Table(name = "users")
@@ -32,6 +30,7 @@ public class User {
 	private Long id;
 
 	private String name;
+	private String username;
 	private String password;
 	private String email;
 	private LocalDateTime createDate;
@@ -42,6 +41,10 @@ public class User {
 
     @Column(name = "enabled")
     private boolean enabled;
+
+    public User() {
+    	this.createDate = LocalDateTime.now();
+    }
 
 	public User(UserRegForm userForm) {
 		this.name = userForm.getName();

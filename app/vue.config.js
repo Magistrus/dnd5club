@@ -6,6 +6,15 @@ module.exports = {
     runtimeCompiler: true,
     productionSourceMap: true,
     transpileDependencies: false,
+    devServer: {
+        proxy: {
+            '^/': {
+                target: process.env.VUE_APP_API_URL || 'http://localhost:8080',
+                ws: false,
+                changeOrigin: true
+            }
+        }
+    },
     configureWebpack: {
         output: {
             filename: 'js/[name].js',
@@ -38,17 +47,20 @@ module.exports = {
             .use('svgo-loader')
             .loader('svgo-loader')
             .options({
-                plugins: [{
-                    name: 'preset-default',
-                    params: {
-                        overrides: { removeViewBox: false },
+                plugins: [
+                    {
+                        name: 'preset-default',
+                        params: {
+                            overrides: { removeViewBox: false }
+                        }
                     },
-                }, {
-                    name: 'removeAttrs',
-                    params: {
-                        attrs: '(width|height|style|color|fill|stroke)',
-                    },
-                }]
+                    {
+                        name: 'removeAttrs',
+                        params: {
+                            attrs: '(width|height|style|color|fill|stroke)'
+                        }
+                    }
+                ]
             })
             .end();
     },
@@ -59,15 +71,15 @@ module.exports = {
         },
         loaderOptions: {
             css: {
-                url: false,
+                url: false
             },
             sass: {
                 additionalData: '@import "@/assets/styles/_variables.scss";',
                 sassOptions: {
                     includePaths: ['./node_modules']
                 }
-            },
+            }
         },
-        sourceMap: true,
-    },
+        sourceMap: true
+    }
 };

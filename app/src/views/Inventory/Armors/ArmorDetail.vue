@@ -6,6 +6,8 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="armor?.name?.eng"
                 :title="armor?.name?.rus"
+                bookmark
+                print
                 copy
                 @close="close"
             />
@@ -27,7 +29,11 @@
 
     export default {
         name: "ArmorDetail",
-        components: { ContentDetail, ArmorBody, SectionHeader },
+        components: {
+            ContentDetail,
+            ArmorBody,
+            SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewArmor(to.path);
 
@@ -37,10 +43,10 @@
             armorsStore: useArmorsStore(),
             armor: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewArmor(this.$route.path);
@@ -63,7 +69,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

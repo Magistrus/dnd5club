@@ -2,6 +2,7 @@
     <div
         v-if="magicItem"
         class="magic-item_wrapper magic-item-body bestiary"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :left="topBarLeftString"
@@ -73,19 +74,23 @@
         name: "MagicItemBody",
         components: {
             DetailTopBar,
-            RawContent,
+            RawContent
         },
         props: {
             magicItem: {
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false
             }
         },
         data: () => ({
             gallery: {
                 index: null,
-                show: false,
+                show: false
             }
         }),
         computed: {
@@ -93,11 +98,11 @@
                 let str = `${ upperFirst(this.magicItem.type.name) }, ${ this.magicItem.rarity.name }`;
 
                 if (this.magicItem.detailType?.length) {
-                    str += ` (${ this.magicItem.detailType.join(', ') })`
+                    str += ` (${ this.magicItem.detailType.join(', ') })`;
                 }
 
-                return str
-            },
+                return str;
+            }
         },
         methods: {
             showGallery() {
@@ -109,5 +114,5 @@
                 this.gallery.index = 0;
             }
         }
-    }
+    };
 </script>

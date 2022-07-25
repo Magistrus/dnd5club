@@ -59,7 +59,7 @@
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
-            },
+            }
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile']),
@@ -73,7 +73,7 @@
                 const types = [];
 
                 if (!this.armorsStore.getArmors) {
-                    return armors
+                    return armors;
                 }
 
                 for (const armor of this.armorsStore.getArmors) {
@@ -95,7 +95,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'armorDetail'
+                return this.$route.name === 'armorDetail';
             },
 
             layout() {
@@ -115,13 +115,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.armors[0]?.list[0]?.length && this.$route.name === 'armors') {
-                await this.$router.push({ path: this.armors[0].list[0].url })
+                await this.$router.push({ path: this.armors[0].list[0].url });
             }
         },
         beforeUnmount() {
@@ -142,13 +142,14 @@
             },
 
             async onSearch() {
-                this.armorsQuery()
+                this.armorsQuery();
+
                 if (this.armors.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.armors[0].url })
+                    await this.$router.push({ path: this.armors[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="spell?.name?.eng || ''"
                 :title="spell?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
             />
@@ -31,7 +32,11 @@
 
     export default {
         name: 'SpellDetail',
-        components: { ContentDetail, SpellBody, SectionHeader },
+        components: {
+            ContentDetail,
+            SpellBody,
+            SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewSpell(to.path);
 
@@ -41,10 +46,10 @@
             spellsStore: useSpellsStore(),
             spell: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewSpell(this.$route.path);
@@ -67,7 +72,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

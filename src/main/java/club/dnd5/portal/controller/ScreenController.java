@@ -7,7 +7,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,15 +68,14 @@ public class ScreenController {
 	}
 	
 	@GetMapping("/screens/{englishName}/subscreens/list")
-	public String getSubscreenList(Model model, Device device, @PathVariable String englishName) {
-		model.addAttribute("device", device);
+	public String getSubscreenList(Model model, @PathVariable String englishName) {
 		Screen screen = repository.findByEnglishName(englishName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("subscreens", screen.getChields().stream().filter(s -> s.getCategory() != null).collect(Collectors.groupingBy(Screen::getCategory)));
 		return "fragments/subscreens_list :: sub_menu"; 
 	}
 	
 	@GetMapping("/screens/{screenName}/subscreen/{subscreenName}")
-	public String getFragmentSubraces(Model model, Device device, @PathVariable String screenName, @PathVariable String subscreenName) {
+	public String getFragmentSubraces(Model model, @PathVariable String screenName, @PathVariable String subscreenName) {
 		Screen screen = repository.findByEnglishName(subscreenName.replace("_", " ")).orElseThrow(IllegalArgumentException::new);
 		model.addAttribute("screen", screen);
 		return "fragments/screen :: view";

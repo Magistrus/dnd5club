@@ -20,6 +20,7 @@ public class SpellApi {
 	protected NameApi name;
 	protected byte level;
 	protected String school;
+	protected String additionalType;
 	protected ComponentsApi components = new ComponentsApi();
 	protected Boolean ritual;
 	protected Boolean concentration;
@@ -44,6 +45,9 @@ public class SpellApi {
 		}
 		if (spell.getConcentration()) {
 			concentration = Boolean.TRUE;
+		}
+		if (spell.getAdditionalType() != null) {
+			additionalType = spell.getAdditionalType();
 		}
 		url = String.format("/spells/%s", spell.getUrlName());
 		source = new SourceApi(spell.getBook());

@@ -13,7 +13,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
         filter: undefined,
         config: {
             page: 0,
-            url: '/armors',
+            url: '/armors'
         },
         controllers: {
             armorsQuery: undefined,
@@ -23,7 +23,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getArmors: state => state.armors,
+        getArmors: state => state.armors
     },
 
     actions: {
@@ -34,14 +34,14 @@ export const useArmorsStore = defineStore('ArmorsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/armors'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
                 if (url) {
-                    filterOptions.url = url
+                    filterOptions.url = url;
                 }
 
                 await this.filter.init(filterOptions);
@@ -63,7 +63,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
         async armorsQuery(options = {}) {
             try {
                 if (this.controllers.armorsQuery) {
-                    this.controllers.armorsQuery.abort()
+                    this.controllers.armorsQuery.abort();
                 }
 
                 this.controllers.armorsQuery = new AbortController();
@@ -75,18 +75,19 @@ export const useArmorsStore = defineStore('ArmorsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.armorsQuery.signal);
 
                 this.controllers.armorsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
@@ -98,12 +99,12 @@ export const useArmorsStore = defineStore('ArmorsStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
-                page: this.config.page,
-            }
+                page: this.config.page
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -115,7 +116,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
         async armorInfoQuery(url) {
             try {
                 if (this.controllers.armorInfoQuery) {
-                    this.controllers.armorInfoQuery.abort()
+                    this.controllers.armorInfoQuery.abort();
                 }
 
                 this.controllers.armorInfoQuery = new AbortController();
@@ -124,7 +125,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
 
                 this.controllers.armorInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -143,7 +144,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
         clearConfig() {
             this.config = {
                 page: 0,
-                url: '/armors',
+                url: '/armors'
             };
         },
 
@@ -153,4 +154,4 @@ export const useArmorsStore = defineStore('ArmorsStore', {
             this.clearConfig();
         }
     }
-})
+});

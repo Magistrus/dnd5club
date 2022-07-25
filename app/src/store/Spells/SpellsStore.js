@@ -16,7 +16,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
             page: 0,
             limit: 70,
             end: false,
-            url: '/spells',
+            url: '/spells'
         },
         controllers: {
             spellsQuery: undefined,
@@ -26,7 +26,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getSpells: state => state.spells,
+        getSpells: state => state.spells
     },
 
     actions: {
@@ -40,7 +40,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: url || '/filters/spells'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
@@ -65,7 +65,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
         async spellsQuery(options = {}) {
             try {
                 if (this.controllers.spellsQuery) {
-                    this.controllers.spellsQuery.abort()
+                    this.controllers.spellsQuery.abort();
                 }
 
                 this.controllers.spellsQuery = new AbortController();
@@ -77,21 +77,23 @@ export const useSpellsStore = defineStore('SpellsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'level',
-                        direction: 'asc'
-                    }, {
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'level',
+                            direction: 'asc'
+                        },
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.spellsQuery.signal);
 
                 this.controllers.spellsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
@@ -104,8 +106,8 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter) {
                 config.filter = this.filter.getQueryParams;
@@ -123,13 +125,13 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
         async nextPage(books) {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter) {
                 config.filter = this.filter.getQueryParams;
@@ -150,7 +152,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
         async spellInfoQuery(url) {
             try {
                 if (this.controllers.spellInfoQuery) {
-                    this.controllers.spellInfoQuery.abort()
+                    this.controllers.spellInfoQuery.abort();
                 }
 
                 this.controllers.spellInfoQuery = new AbortController();
@@ -159,7 +161,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 this.controllers.spellInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -184,7 +186,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/spells',
+                url: '/spells'
             };
         },
 
@@ -194,4 +196,4 @@ export const useSpellsStore = defineStore('SpellsStore', {
             this.clearConfig();
         }
     }
-})
+});

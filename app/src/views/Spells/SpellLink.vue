@@ -100,6 +100,7 @@
     <base-modal
         v-if="spellModal.data"
         v-model="spellModal.show"
+        :bookmark="bookmarkObj"
     >
         <template #title>
             {{ spellModal.data.name.rus }}
@@ -117,10 +118,15 @@
     import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
     import BaseModal from "@/components/UI/modals/BaseModal";
+    import { mapActions, mapState } from "pinia";
+    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
 
     export default {
         name: 'SpellLink',
-        components: { BaseModal, SpellBody },
+        components: {
+            BaseModal,
+            SpellBody
+        },
         directives: {
             CapitalizeFirst
         },
@@ -144,19 +150,31 @@
             }
         }),
         computed: {
+            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+
             hasComponents() {
                 const { spell } = this;
 
-                return spell?.components?.v || spell?.components?.s || !!spell?.components?.m
+                return spell?.components?.v || spell?.components?.s || !!spell?.components?.m;
             },
+
+            bookmarkObj() {
+                return {
+                    link: this.spell.url,
+                    label: this.spell.name.rus,
+                    section: "Заклинания"
+                };
+            }
         },
         methods: {
+            ...mapActions(useBookmarkStore, ['updateBookmark']),
+
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
                     'is-green': this.spell?.source?.homebrew,
                     'in-tab': this.inTab
-                }
+                };
             },
 
             async clickHandler(callback) {
@@ -177,7 +195,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

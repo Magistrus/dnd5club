@@ -27,7 +27,7 @@
         components: {
             TreasureItem,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -76,7 +76,7 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
@@ -98,5 +98,5 @@
                 await this.treasuresStore.nextPage();
             }
         }
-    }
+    };
 </script>

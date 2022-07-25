@@ -2,6 +2,7 @@
     <div
         v-if="creature"
         class="creature_wrapper creature-body bestiary"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :left="topBarLeftString"
@@ -154,7 +155,7 @@
                 <p>
                     <strong>Уровень опасности </strong>
 
-                    <span>{{ creature.challengeRating }} ({{ creature.experience }} опыта)</span>
+                    <span>{{ challengeRating }}</span>
                 </p>
             </div>
             <div v-if="creature.feats?.length">
@@ -337,19 +338,23 @@
         name: "CreatureBody",
         components: {
             DetailTopBar,
-            RawContent,
+            RawContent
         },
         props: {
             creature: {
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false
             }
         },
         data: () => ({
             gallery: {
                 index: null,
-                show: false,
+                show: false
             }
         }),
         computed: {
@@ -367,7 +372,7 @@
                     this.creature.size.eng
                 } ${
                     this.creature.size.cell
-                }`
+                }`;
             },
 
             speed() {
@@ -378,10 +383,16 @@
                 const speeds = [];
 
                 for (const speed of this.creature.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`)
+                    speeds.push(`${
+                        speed.name ? `${ speed.name } ` : ''
+                    }${
+                        speed.value
+                    } фт.${
+                        speed.additional ? ` (${ speed.additional })` : ''
+                    }`);
                 }
 
-                return speeds.join(', ')
+                return speeds.join(', ');
             },
 
             savingThrows() {
@@ -393,10 +404,11 @@
 
                 for (const save of this.creature.savingThrows) {
                     const sign = Math.sign(save.value) > -1 ? '+' : '';
-                    saves.push(`${ save.name } ${ sign }${ save.value }`)
+
+                    saves.push(`${ save.name } ${ sign }${ save.value }`);
                 }
 
-                return saves.join(', ')
+                return saves.join(', ');
             },
 
             skills() {
@@ -408,10 +420,11 @@
 
                 for (const skill of this.creature.skills) {
                     const sign = Math.sign(skill.value) > -1 ? '+' : '';
+
                     skills.push(`${ skill.name } ${ sign }${ skill.value }`);
                 }
 
-                return skills.join(', ')
+                return skills.join(', ');
             },
 
             senses() {
@@ -431,8 +444,19 @@
                     senses.push(`пассивная Внимательность ${ this.creature.senses.passivePerception }`);
                 }
 
-                return senses.join(', ')
+                return senses.join(', ');
             },
+            challengeRating() {
+                if (this.creature.challengeRating === '—') {
+                    return this.creature.challengeRating;
+                }
+
+                if (this.creature.experience === 0) {
+                    return `${ this.creature.challengeRating } (0 или 10 опыта)`;
+                }
+
+                return `${ this.creature.challengeRating } (${ this.creature.experience.toLocaleString() } опыта)`;
+            }
         },
         methods: {
             showGallery() {
@@ -464,8 +488,8 @@
                     str += strings[i];
                 }
 
-                return str
-            },
+                return str;
+            }
         }
-    }
+    };
 </script>

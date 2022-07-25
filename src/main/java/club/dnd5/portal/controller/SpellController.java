@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -42,8 +43,8 @@ public class SpellController {
 		}
 		model.addAttribute("metaTitle", String.format("%s (%s)", spell.getName(), spell.getEnglishName()) + " | Заклинания D&D 5e");
 		model.addAttribute("metaUrl", "https://dnd5.club/spells/" + name);
-		model.addAttribute("metaDescription", String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool()));
-		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.webp", spell.getSchool().name()));
+		model.addAttribute("metaDescription", String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool().getName()));
+		model.addAttribute("metaImage", String.format("https://image.dnd5.club:8089/magic/%s.png", StringUtils.capitalize(spell.getSchool().name().toLowerCase())));
 		model.addAttribute("menuTitle", "Заклинания");
 		return "spells";
 	}

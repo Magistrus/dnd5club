@@ -29,7 +29,16 @@ public class OptionDetailApi extends OptionApi {
 		url = null;
 		description = option.getDescription();
 		source = new SourceApi(option.getBook());
-		requirements = option.getPrerequisite();
+
+		if (option.getLevel() != null)
+		{
+			requirements = String.format("%d уровень", option.getLevel());
+			if (!"Нет".equals(option.getPrerequisite())){
+				requirements += " и " + option.getPrerequisite();
+			} 
+		} else {
+			requirements = option.getPrerequisite();
+		}
 		classes = option.getOptionTypes().stream().map(ReferenceClassApi::new).collect(Collectors.toList());
 	}
 }

@@ -81,6 +81,7 @@
                             :model-value="block.values"
                             :name="block.name"
                             :expand="block.expand"
+                            :type="block.type || 'crumb'"
                             @update:model-value="setOtherValue($event, block.key)"
                         />
                     </div>
@@ -109,7 +110,10 @@
     export default {
         name: 'ListFilter',
         components: {
-            BaseModal, FilterItemCheckboxes, FilterItemSources, SvgIcon
+            BaseModal,
+            FilterItemCheckboxes,
+            FilterItemSources,
+            SvgIcon
         },
         props: {
             filterInstance: {
@@ -126,14 +130,18 @@
                 default: false
             }
         },
-        emits: ['clear-filter', 'search', 'update'],
+        emits: [
+            'clear-filter',
+            'search',
+            'update'
+        ],
         data: () => ({
             showed: false
         }),
         computed: {
             search: {
                 get() {
-                    return this.filterInstance?.getSearchState || ''
+                    return this.filterInstance?.getSearchState || '';
                 },
 
                 async set(value) {
@@ -142,7 +150,7 @@
 
                         this.emitSearch(value);
                     } catch (err) {
-                        errorHandler(err)
+                        errorHandler(err);
                     }
                 }
             },
@@ -158,7 +166,7 @@
 
                         this.emitFilter();
                     } catch (err) {
-                        errorHandler(err)
+                        errorHandler(err);
                     }
                 }
             },
@@ -179,7 +187,7 @@
                             other: value
                         };
 
-                        return
+                        return;
                     }
 
                     this.filter = value;
@@ -188,7 +196,7 @@
 
             isFilterCustomized() {
                 return this.filterInstance.isCustomized;
-            },
+            }
         },
         beforeUnmount() {
             this.cancelEmits();
@@ -238,7 +246,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

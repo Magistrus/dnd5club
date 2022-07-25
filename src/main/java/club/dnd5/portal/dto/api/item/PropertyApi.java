@@ -29,6 +29,6 @@ public class PropertyApi {
 			distance = String.format("%d/%d",weapon.getMinDistance(), weapon.getMaxDistance());
 		}
 		description = property.getDescription();
-		url = String.format("/screens/Equipment#%s", property.getEnglishName());
+		url = String.format("/screens/%s", property.getEnglishName());
 	}
 }

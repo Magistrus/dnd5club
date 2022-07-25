@@ -31,7 +31,7 @@
         components: {
             ItemLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -66,7 +66,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'itemDetail'
+                return this.$route.name === 'itemDetail';
             },
 
             layout() {
@@ -86,13 +86,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.items.length && this.$route.name === 'items') {
-                await this.$router.push({ path: this.items[0].url })
+                await this.$router.push({ path: this.items[0].url });
             }
         },
         beforeUnmount() {
@@ -113,11 +113,12 @@
             },
 
             async onSearch() {
-                await this.itemsQuery()
+                await this.itemsQuery();
+
                 if (this.items.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.items[0].url })
+                    await this.$router.push({ path: this.items[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>

@@ -58,7 +58,9 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
+    import {
+        useInfiniteScroll, useResizeObserver
+    } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia";
@@ -75,14 +77,19 @@
             filterInstance: {
                 type: FilterService,
                 default: undefined
-            },
+            }
         },
-        emits: ['list-end', 'update', 'search', 'resize'],
+        emits: [
+            'list-end',
+            'update',
+            'search',
+            'resize'
+        ],
         data: () => ({
-            shadow: false,
+            shadow: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
         },
         watch: {
             showRightSide: {
@@ -127,10 +134,10 @@
             },
 
             toggleShadow() {
-                this.shadow = window.scrollY + window.innerHeight < document.body.offsetHeight - 24
+                this.shadow = window.scrollY + window.innerHeight < document.body.offsetHeight - 24;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

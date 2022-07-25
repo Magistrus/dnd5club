@@ -26,13 +26,16 @@
 
     export default {
         name: "BookBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar,
+            RawContent
+        },
         props: {
             book: {
                 type: Object,
                 default: undefined,
                 required: true
             }
-        },
-    }
+        }
+    };
 </script>

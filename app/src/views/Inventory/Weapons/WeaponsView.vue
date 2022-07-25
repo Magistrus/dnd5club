@@ -59,7 +59,7 @@
             layoutComponents: {
                 tab: shallowRef(TabLayout),
                 content: shallowRef(ContentLayout)
-            },
+            }
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile']),
@@ -73,7 +73,7 @@
                 const types = [];
 
                 if (!this.weaponsStore.getWeapons) {
-                    return weapons
+                    return weapons;
                 }
 
                 for (const weapon of this.weaponsStore.getWeapons) {
@@ -95,7 +95,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'weaponDetail'
+                return this.$route.name === 'weaponDetail';
             },
 
             layout() {
@@ -115,13 +115,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.weapons[0]?.list[0]?.length && this.$route.name === 'weapons') {
-                await this.$router.push({ path: this.weapons[0].list[0].url })
+                await this.$router.push({ path: this.weapons[0].list[0].url });
             }
         },
         beforeUnmount() {
@@ -141,7 +141,7 @@
                 await this.weaponsStore.nextPage();
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

@@ -2,6 +2,7 @@
     <div
         v-if="armor"
         class="armor-body"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :bg-grey="false"
@@ -62,13 +63,20 @@
 
     export default {
         name: "ArmorBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar,
+            RawContent
+        },
         props: {
             armor: {
                 type: Object,
                 required: true,
                 default: undefined
             },
+            inTooltip: {
+                type: Boolean,
+                default: false
+            }
         }
-    }
+    };
 </script>

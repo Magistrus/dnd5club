@@ -131,33 +131,31 @@
         },
         data() {
             return {
-                submenu: false,
-            }
+                submenu: false
+            };
         },
         computed: {
             ...mapState(useUIStore, ['getFullscreen']),
 
             hasSubraces() {
-                return !!this.raceItem?.subraces?.length
+                return !!this.raceItem?.subraces?.length;
             },
 
             abilities() {
                 if (!this.raceItem.abilities?.length) {
-                    return ''
+                    return '';
                 }
 
                 const abilities = [];
 
                 for (const ability of this.raceItem.abilities) {
-                    abilities.push(
-                        ability.value
-                            ? `${ ability.shortName } ${ ability.value > 0 ? `+${ ability.value }` : ability.value }`
-                            : ability.name
-                    )
+                    abilities.push(ability.value
+                        ? `${ ability.shortName } ${ ability.value > 0 ? `+${ ability.value }` : ability.value }`
+                        : ability.name);
                 }
 
-                return abilities.join(', ')
-            },
+                return abilities.join(', ');
+            }
         },
         methods: {
             getParentClasses(isActive) {
@@ -167,7 +165,7 @@
                     'is-selected': this.$route.name === 'raceDetail',
                     'is-green': this.raceItem.type?.name.toLowerCase() === 'homebrew',
                     'is-fullscreen': this.getFullscreen
-                }
+                };
             },
 
             toggleSubrace() {
@@ -178,9 +176,9 @@
                 this.submenu = true;
 
                 callback();
-            },
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

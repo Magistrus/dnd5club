@@ -34,6 +34,7 @@
     <base-modal
         v-if="modal.data"
         v-model="modal.show"
+        :bookmark="bookmarkObj"
     >
         <template #title>
             {{ modal.data.name.rus }}
@@ -54,7 +55,10 @@
 
     export default {
         name: 'OptionLink',
-        components: { OptionBody, BaseModal },
+        components: {
+            OptionBody,
+            BaseModal
+        },
         directives: {
             CapitalizeFirst
         },
@@ -77,13 +81,22 @@
                 data: undefined
             }
         }),
+        computed: {
+            bookmarkObj() {
+                return {
+                    link: this.optionItem.url,
+                    label: this.optionItem.name.rus,
+                    section: "Особенности классов"
+                };
+            }
+        },
         methods: {
             getClassList(isActive) {
                 return {
                     'router-link-active': isActive,
                     'is-option-selected': this.$route.name === 'optionDetail',
                     'is-green': this.optionItem?.homebrew
-                }
+                };
             },
 
             async clickHandler(callback) {
@@ -95,7 +108,7 @@
 
                 try {
                     if (!this.modal.data) {
-                        this.modal.data = await this.optionsStore.optionInfoQuery(this.optionItem.url)
+                        this.modal.data = await this.optionsStore.optionInfoQuery(this.optionItem.url);
                     }
 
                     this.modal.show = true;
@@ -104,7 +117,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>

@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="option?.name?.eng || ''"
                 :title="option?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
             />
@@ -33,7 +34,9 @@
     export default {
         name: 'OptionDetail',
         components: {
-            ContentDetail, OptionBody, SectionHeader
+            ContentDetail,
+            OptionBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewOption(to.path);
@@ -44,10 +47,10 @@
             optionStore: useOptionsStore(),
             option: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewOption(this.$route.path);
@@ -70,10 +73,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'options' })
+                this.$router.push({ name: 'options' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

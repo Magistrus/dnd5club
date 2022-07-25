@@ -155,7 +155,10 @@
             MagicItemLink,
             SpellBody,
             MagicItemBody,
-            FieldCheckbox, SectionHeader, FieldSelect, ContentLayout
+            FieldCheckbox,
+            SectionHeader,
+            FieldSelect,
+            ContentLayout
         },
         data: () => ({
             magicLevels: [],
@@ -166,7 +169,7 @@
             },
             settings: {
                 grouping: true,
-                max: false,
+                max: false
             },
             results: [],
             detailCard: {
@@ -183,18 +186,18 @@
                 list: undefined,
                 detail: undefined
             },
-            showRightSide: false,
+            showRightSide: false
         }),
         computed: {
             ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
 
             magicLevelsValue: {
                 get() {
-                    return this.magicLevels.find(el => el.value === this.form.magicLevel)
+                    return this.magicLevels.find(el => el.value === this.form.magicLevel);
                 },
 
                 set(e) {
-                    this.form.magicLevel = e.value
+                    this.form.magicLevel = e.value;
                 }
             },
 
@@ -215,7 +218,7 @@
                         continue;
                     }
 
-                    const prices = sortedUniq(group.map(o => o.price))
+                    const prices = sortedUniq(group.map(o => o.price));
 
                     res.push(reactive({
                         ...el,
@@ -223,17 +226,17 @@
                             count: group.length,
                             price: this.settings.max ? max(prices) : Math.round(mean(prices))
                         }
-                    }))
+                    }));
                 }
 
-                return res
+                return res;
             }
         },
         async beforeMount() {
             await this.getLevels();
         },
         mounted() {
-            this.showRightSide = !this.getIsMobile
+            this.showRightSide = !this.getIsMobile;
         },
         methods: {
             async getLevels() {
@@ -263,7 +266,7 @@
                 const options = {
                     ...this.form,
                     persuasion: this.form.persuasion || 1
-                }
+                };
 
                 this.$http.post('/tools/trader', options, this.controllers.list.signal)
                     .then(res => {
@@ -279,7 +282,7 @@
 
                         this.$nextTick(() => {
                             this.results = res.data;
-                        })
+                        });
                     })
                     .catch(err => {
                         errorHandler(err);
@@ -342,7 +345,7 @@
                     this.selected = {
                         index,
                         item
-                    }
+                    };
 
                     this.showRightSide = true;
                 } catch (err) {
@@ -351,7 +354,7 @@
                     this.detailCard = {
                         item: undefined,
                         spell: undefined
-                    }
+                    };
 
                     errorHandler(err);
                 } finally {
@@ -364,7 +367,7 @@
                 this.showRightSide = false;
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

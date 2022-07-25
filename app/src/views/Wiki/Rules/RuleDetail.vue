@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="rule?.name?.eng || ''"
                 :title="rule?.name?.rus || ''"
+                bookmark
                 @close="close"
             />
         </template>
@@ -31,7 +32,11 @@
 
     export default {
         name: 'RuleDetail',
-        components: { ContentDetail, RuleBody, SectionHeader },
+        components: {
+            ContentDetail,
+            RuleBody,
+            SectionHeader
+        },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewRule(to.path);
 
@@ -41,10 +46,10 @@
             ruleStore: useRulesStore(),
             rule: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewRule(this.$route.path);
@@ -67,10 +72,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'rules' })
+                this.$router.push({ name: 'rules' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

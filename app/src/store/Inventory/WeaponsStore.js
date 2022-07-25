@@ -13,7 +13,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
         filter: undefined,
         config: {
             page: 0,
-            url: '/weapons',
+            url: '/weapons'
         },
         controllers: {
             weaponsQuery: undefined,
@@ -23,7 +23,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getWeapons: state => state.weapons,
+        getWeapons: state => state.weapons
     },
 
     actions: {
@@ -34,14 +34,14 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/weapons'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
                 if (url) {
-                    filterOptions.url = url
+                    filterOptions.url = url;
                 }
 
                 await this.filter.init(filterOptions);
@@ -63,7 +63,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
         async weaponsQuery(options = {}) {
             try {
                 if (this.controllers.weaponsQuery) {
-                    this.controllers.weaponsQuery.abort()
+                    this.controllers.weaponsQuery.abort();
                 }
 
                 this.controllers.weaponsQuery = new AbortController();
@@ -75,18 +75,19 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.weaponsQuery.signal);
 
                 this.controllers.weaponsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
@@ -98,12 +99,12 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
-                page: this.config.page,
-            }
+                page: this.config.page
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -115,7 +116,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
         async weaponInfoQuery(url) {
             try {
                 if (this.controllers.weaponInfoQuery) {
-                    this.controllers.weaponInfoQuery.abort()
+                    this.controllers.weaponInfoQuery.abort();
                 }
 
                 this.controllers.weaponInfoQuery = new AbortController();
@@ -124,7 +125,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
 
                 this.controllers.weaponInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -143,7 +144,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
         clearConfig() {
             this.config = {
                 page: 0,
-                url: '/weapons',
+                url: '/weapons'
             };
         },
 
@@ -153,4 +154,4 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
             this.clearConfig();
         }
     }
-})
+});

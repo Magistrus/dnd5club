@@ -118,6 +118,9 @@ public class BestiarytApiConroller {
 			}
 		}
 		if (request.getFilter() != null) {
+			if (request.getFilter().getNpc().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> cb.notEqual(root.get("raceId"), 102));
+			}
 			if (!request.getFilter().getChallengeRatings().isEmpty()) {
 				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> root.get("challengeRating").in(request.getFilter().getChallengeRatings()));
 			}
@@ -284,13 +287,14 @@ public class BestiarytApiConroller {
 		List<FilterApi> otherFilters = new ArrayList<>();
 		
 		FilterApi npcFilter = new FilterApi("Именнованые НИП", "npc");
-		npcFilter.setValues(Collections.singletonList(new FilterValueApi("показать именованных НИП", "true", Boolean.TRUE)));
+		npcFilter.setType("toggle");
+		npcFilter.setValues(Collections.singletonList(new FilterValueApi("показать именованных НИП", "showNpc", Boolean.TRUE)));
 		otherFilters.add(npcFilter);
 		
 		FilterApi crFilter = new FilterApi("Уровень опасности", "challengeRating");
 		crFilter.setExpand(Boolean.TRUE);
 		List<FilterValueApi> values = new ArrayList<>();
-		values.add(new FilterValueApi("не определена", "undefined"));
+		values.add(new FilterValueApi("не определен", "—"));
 		values.add(new FilterValueApi("0", "0"));
 		values.add(new FilterValueApi("1/8", "1/8"));
 		values.add(new FilterValueApi("1/4", "1/4"));

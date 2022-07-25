@@ -1,5 +1,6 @@
 package club.dnd5.portal.dto.api.wiki;
 
+import club.dnd5.portal.dto.api.NameValueApi;
 import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.dto.api.classes.NameApi;
 import club.dnd5.portal.model.screen.Screen;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @Setter
 public class ScreenDetailApi extends ScreenApi {
     private String description;
+    private ScreenDetailApi parent;
     private List<ScreenApi> chields;
 
     public ScreenDetailApi(Screen screen) {
@@ -29,6 +31,9 @@ public class ScreenDetailApi extends ScreenApi {
         if (screen.getParent() != null) {
             source = new SourceApi(screen.getBook());
             description = screen.getDescription();
+            parent = new ScreenDetailApi(screen.getParent());
+            parent.setDescription(null);
+            parent.setChields(null);
         } else {
             chields = screen.getChields()
                     .stream()

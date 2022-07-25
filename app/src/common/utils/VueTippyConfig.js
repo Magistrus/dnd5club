@@ -15,7 +15,7 @@ export default {
         interactiveBorder: 7,
         appendTo: () => document.body,
         onClickOutside() {
-            return false
+            return false;
         },
         onShow(instance) {
             const ref = instance.reference;
@@ -59,4 +59,4 @@ export default {
             return canShow;
         }
     }
-}
+};

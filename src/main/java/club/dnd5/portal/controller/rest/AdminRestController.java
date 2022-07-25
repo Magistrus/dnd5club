@@ -13,7 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.user.UserDto;
+import club.dnd5.portal.dto.user.OldUserDto;
 import club.dnd5.portal.service.UserService;
 
 @RestController
@@ -23,7 +23,7 @@ public class AdminRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/admin/data/users")
-	public DataTablesOutput<UserDto> getData(@Valid DataTablesInput input) {
+	public DataTablesOutput<OldUserDto> getData(@Valid DataTablesInput input) {
 		if (!input.getColumns().get(2).getSearch().getValue().isEmpty()) {
 			 Set<String> roles= Arrays.stream(input.getColumns().get(2).getSearch().getValue().split("\\|"))
 				.filter(s -> !s.isEmpty()).collect(Collectors.toSet());

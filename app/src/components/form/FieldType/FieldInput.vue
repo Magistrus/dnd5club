@@ -7,20 +7,51 @@
             {{ label }}
         </span>
 
-        <input
-            v-model="value"
-            v-bind="attrs"
-            :autocomplete="autocomplete ? 'on' : 'off'"
-            :placeholder="placeholder"
-            :type="type"
-            class="field-input__input"
+        <span
+            class="field-input__control"
+            :class="{ 'is-error': errorText }"
         >
+            <input
+                v-bind="attrs"
+                ref="input"
+                v-model="value"
+                :autocomplete="autocomplete ? 'on' : 'off'"
+                :placeholder="placeholder"
+                :type="type"
+                class="field-input__input"
+                @blur="$emit('blur')"
+            >
+
+            <span
+                v-if="isPassword"
+                class="field-input__control_icon"
+                @click.left.exact.prevent="togglePass"
+            >
+                <svg-icon
+                    :icon-name="showedPass ? 'hide-pass' : 'show-pass'"
+                    :stroke-enable="false"
+                    fill-enable
+                />
+            </span>
+        </span>
+
+        <span
+            v-if="!!errorText"
+            class="field-input__error"
+        >
+            {{ errorText }}
+        </span>
     </label>
 </template>
 
 <script>
+    import SvgIcon from "@/components/UI/SvgIcon";
+
     export default {
         name: "FieldInput",
+        components: {
+            SvgIcon
+        },
         props: {
             modelValue: {
                 type: [String, Number],
@@ -57,13 +88,28 @@
             min: {
                 type: Number,
                 default: undefined
+            },
+            required: {
+                type: Boolean,
+                default: false
+            },
+            errorText: {
+                type: String,
+                default: ''
             }
         },
-        emits: ['update:modelValue'],
+        emits: ['update:modelValue', 'blur'],
+        data: () => ({
+            showedPass: false,
+            error: {
+                status: false,
+                text: ''
+            }
+        }),
         computed: {
             value: {
                 get() {
-                    return this.modelValue
+                    return this.modelValue;
                 },
 
                 set(e) {
@@ -77,7 +123,7 @@
                 }
 
                 if (this.isPassword) {
-                    return 'password';
+                    return this.showedPass ? 'text' : 'password';
                 }
 
                 if (this.isEmail) {
@@ -88,7 +134,7 @@
             },
 
             attrs() {
-                const attrs = {}
+                const attrs = {};
 
                 if (this.isNumber) {
                     if (this.min !== undefined) {
@@ -96,22 +142,49 @@
                     }
                 }
 
-                return attrs
+                return attrs;
+            }
+        },
+        methods: {
+            togglePass() {
+                this.showedPass = !this.showedPass;
+
+                this.$refs.input.focus();
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>
     .field-input {
-        @include css_anim();
-
-        border: 1px solid var(--border);
-        background: var(--bg-sub-menu);
         display: block;
-        border-radius: 8px;
-        overflow: hidden;
         width: 100%;
+
+        &__control {
+            @include css_anim();
+
+            border: 1px solid var(--border);
+            background: var(--bg-sub-menu);
+            border-radius: 8px;
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+
+            &.is-error {
+                border-color: var(--error);
+            }
+
+            &_icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 38px;
+                width: 38px;
+                cursor: pointer;
+                padding: 12px;
+                color: var(--text-btn-color);
+            }
+        }
 
         &__input {
             background-color: transparent;
@@ -119,20 +192,29 @@
             font-size: var(--main-font-size);
             height: 38px;
             font-family: 'Open Sans', serif;
-            width: 100%;
             padding: 4px 12px;
             margin: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             border: 0;
+            flex: 1 1 auto;
+        }
+
+        &__error {
+            color: var(--text-color);
+            font-size: 12px;
+            padding: 8px 12px 0;
+            display: block;
         }
 
         &:focus-within {
-            @include css_anim();
-
-            border-color: var(--primary-active);
-
             .field-input {
+                &__control {
+                    @include css_anim();
+
+                    border-color: var(--primary-active);
+                }
+
                 &__input {
                     background-color: transparent;
                 }
@@ -140,17 +222,15 @@
         }
 
         &:hover {
-            border-color: var(--primary-hover);
-
             .field-input {
+                &__control {
+                    border-color: var(--primary-hover);
+                }
+
                 &__input {
                     background-color: transparent;
                 }
             }
-        }
-
-        &.is-error {
-            border-color: var(--error);
         }
     }
 </style>

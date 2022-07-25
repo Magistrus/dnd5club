@@ -34,7 +34,7 @@
         props: {
             modelValue: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             type: {
                 type: String,
@@ -50,14 +50,14 @@
         computed: {
             value: {
                 get() {
-                    return this.modelValue
+                    return this.modelValue;
                 },
                 set(value) {
-                    this.$emit('update:model-value', value)
+                    this.$emit('update:model-value', value);
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

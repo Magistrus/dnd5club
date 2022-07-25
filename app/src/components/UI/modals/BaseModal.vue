@@ -14,6 +14,19 @@
             </div>
 
             <form-button
+                v-if="bookmark?.link && bookmark?.label && bookmark?.section"
+                class="base-modal__bookmark"
+                type-link
+                @click.left.exact.prevent="updateBookmark(bookmark.link, bookmark.label, bookmark.section)"
+            >
+                <svg-icon
+                    :icon-name="isBookmarkSaved(bookmark.link) ? 'bookmark-filled' : 'bookmark'"
+                    :stroke-enable="false"
+                    fill-enable
+                />
+            </form-button>
+
+            <form-button
                 class="base-modal__close"
                 type-link
                 @click.left.exact.prevent="close"
@@ -100,10 +113,15 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
+    import { mapActions, mapState } from "pinia/dist/pinia";
+    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
 
     export default {
         name: "BaseModal",
-        components: { FormButton, SvgIcon },
+        components: {
+            FormButton,
+            SvgIcon
+        },
         inheritAttrs: true,
         props: {
             typeConfirm: {
@@ -122,30 +140,39 @@
                 type: Boolean,
                 default: false
             },
+            bookmark: {
+                type: Object,
+                default: undefined
+            }
         },
         emits: ['confirm'],
         computed: {
+            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+
             type() {
                 if (this.typeConfirm) {
-                    return 'confirm'
+                    return 'confirm';
                 }
 
                 if (this.typeRemove) {
-                    return 'remove'
+                    return 'remove';
                 }
 
                 if (this.typeNotify) {
-                    return 'notify'
+                    return 'notify';
                 }
 
                 if (this.typeError) {
-                    return 'error'
+                    return 'error';
                 }
 
-                return ''
+                return '';
             }
+        },
+        methods: {
+            ...mapActions(useBookmarkStore, ['updateBookmark'])
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>
@@ -171,7 +198,7 @@
         &__header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             padding: 16px 16px 16px 24px;
             flex-shrink: 0;
             background-color: var(--hover);
@@ -185,6 +212,16 @@
             color: var(--text-color-title);
             font-size: 22px;
             line-height: 28px;
+            margin-right: auto;
+        }
+
+        &__bookmark {
+            margin: {
+                left: 16px;
+                top: -6px;
+                right: -6px;
+                bottom: -6px;
+            }
         }
 
         &__close {

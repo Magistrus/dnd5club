@@ -68,7 +68,7 @@
             }
         },
         data: () => ({
-            bestiaryStore: useBestiaryStore(),
+            bestiaryStore: useBestiaryStore()
         }),
         methods: {
             getClassList(isActive) {
@@ -76,10 +76,10 @@
                     'router-link-active': isActive,
                     'is-green': this.creature?.source?.homebrew,
                     'in-tab': this.inTab
-                }
-            },
+                };
+            }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

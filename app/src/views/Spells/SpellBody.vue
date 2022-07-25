@@ -2,6 +2,7 @@
     <div
         v-if="spell"
         class="spell_wrapper spell-body"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :bg-grey="false"
@@ -155,13 +156,17 @@
         components: {
             RawContent,
             DetailTopBar,
-            ClassSquare,
+            ClassSquare
         },
         props: {
             spell: {
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false
             }
         },
         data: () => ({
@@ -181,5 +186,5 @@
                     + ' заклинания должен быть именно такой компонент.'
             }
         })
-    }
+    };
 </script>

@@ -33,7 +33,7 @@
             MagicItemLink,
             CreatureLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -68,7 +68,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'magicItemDetail'
+                return this.$route.name === 'magicItemDetail';
             },
 
             layout() {
@@ -88,13 +88,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.magicItems.length && this.$route.name === 'magicItems') {
-                await this.$router.push({ path: this.magicItems[0].url })
+                await this.$router.push({ path: this.magicItems[0].url });
             }
         },
         beforeUnmount() {
@@ -115,11 +115,12 @@
             },
 
             async onSearch() {
-                await this.magicItemsQuery()
+                await this.magicItemsQuery();
+
                 if (this.magicItems.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.magicItems[0].url })
+                    await this.$router.push({ path: this.magicItems[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>

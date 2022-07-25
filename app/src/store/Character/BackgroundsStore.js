@@ -15,7 +15,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
             page: 0,
             limit: -1,
             end: false,
-            url: '/backgrounds',
+            url: '/backgrounds'
         },
         controllers: {
             backgroundsQuery: undefined,
@@ -25,7 +25,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getBackgrounds: state => state.backgrounds,
+        getBackgrounds: state => state.backgrounds
     },
 
     actions: {
@@ -36,14 +36,14 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                 const filterOptions = {
                     dbName: DB_NAME,
                     url: '/filters/backgrounds'
-                }
+                };
 
                 if (storeKey) {
                     filterOptions.storeKey = storeKey;
                 }
 
                 if (url) {
-                    filterOptions.url = url
+                    filterOptions.url = url;
                 }
 
                 await this.filter.init(filterOptions);
@@ -65,7 +65,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
         async backgroundsQuery(options = {}) {
             try {
                 if (this.controllers.backgroundsQuery) {
-                    this.controllers.backgroundsQuery.abort()
+                    this.controllers.backgroundsQuery.abort();
                 }
 
                 this.controllers.backgroundsQuery = new AbortController();
@@ -77,18 +77,19 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.backgroundsQuery.signal);
 
                 this.controllers.backgroundsQuery = undefined;
 
-                return data
+                return data;
             } catch (err) {
                 errorHandler(err);
 
@@ -100,13 +101,13 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -120,13 +121,13 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
 
         async nextPage() {
             if (this.config.end) {
-                return
+                return;
             }
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -143,7 +144,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
         async backgroundInfoQuery(url) {
             try {
                 if (this.controllers.backgroundInfoQuery) {
-                    this.controllers.backgroundInfoQuery.abort()
+                    this.controllers.backgroundInfoQuery.abort();
                 }
 
                 this.controllers.backgroundInfoQuery = new AbortController();
@@ -152,7 +153,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
 
                 this.controllers.backgroundInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -173,7 +174,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                 page: 0,
                 limit: -1,
                 end: false,
-                url: '/backgrounds',
+                url: '/backgrounds'
             };
         },
 
@@ -183,4 +184,4 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
             this.clearConfig();
         }
     }
-})
+});

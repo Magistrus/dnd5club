@@ -15,7 +15,7 @@ export default class FilterService {
     }
 
     get getSearchState() {
-        return this.search
+        return this.search;
     }
 
     get isCustomized() {
@@ -25,8 +25,7 @@ export default class FilterService {
             return status;
         }
 
-        const isValueCustomized = value => value.default !== value.value
-
+        const isValueCustomized = value => value.default !== value.value;
         const isValuesCustomized = values => {
             let customized = false;
 
@@ -35,15 +34,14 @@ export default class FilterService {
             }
 
             return customized;
-        }
-
+        };
         const isBlockCustomized = block => {
             if ('value' in block) {
                 return isValueCustomized(block.value);
             }
 
             return isValuesCustomized(block.values);
-        }
+        };
 
         if (Array.isArray(this.filter)) {
             for (let i = 0; i < this.filter.length && !status; i++) {
@@ -57,7 +55,7 @@ export default class FilterService {
             const blocks = values[i];
 
             for (let j = 0; j < blocks.length && !status; j++) {
-                status = isBlockCustomized(blocks[j])
+                status = isBlockCustomized(blocks[j]);
             }
         }
 
@@ -66,7 +64,6 @@ export default class FilterService {
 
     get getQueryParams() {
         const params = {};
-
         const setBlockToParams = block => {
             for (const group of block) {
                 if (group.value) {
@@ -79,7 +76,7 @@ export default class FilterService {
                     .filter(val => val.value)
                     .map(val => val.key);
             }
-        }
+        };
 
         if (Array.isArray(this.filter)) {
             for (const block of this.filter) {
@@ -119,7 +116,7 @@ export default class FilterService {
             storeName: 'filters',
             storeKey: 'core',
             ...options
-        }
+        };
 
         if (!opts.url) {
             throw new Error('URL is not defined');
@@ -154,15 +151,14 @@ export default class FilterService {
                 this.filter = restored;
 
                 await this.store.setItem(this.storeKey, restored);
-            }
-
+            };
             const resp = await this.http.post(opts.url);
 
             if (!resp.data || resp.status !== 200) {
                 return;
             }
 
-            await setStore(resp.data)
+            await setStore(resp.data);
         } catch (err) {
             errorHandler(err);
         }
@@ -176,10 +172,8 @@ export default class FilterService {
 
         const copy = cloneDeep(filter);
         const saved = await this.store.getItem(this.storeKey);
-
         const copyIsNewType = (Array.isArray(copy) && !Array.isArray(saved))
             || (!Array.isArray(copy) && Array.isArray(saved));
-
         const getRestoredValue = (value, key) => {
             if (!saved || copyIsNewType) {
                 return value.default;
@@ -188,7 +182,7 @@ export default class FilterService {
             let savedBlock;
 
             if (!filterKey) {
-                savedBlock = saved.find(block => block.key === key)
+                savedBlock = saved.find(block => block.key === key);
             }
 
             if (filterKey) {
@@ -200,7 +194,7 @@ export default class FilterService {
             }
 
             if ('value' in savedBlock) {
-                return savedBlock.value
+                return savedBlock.value;
             }
 
             const savedValue = savedBlock.values
@@ -211,8 +205,7 @@ export default class FilterService {
             }
 
             return savedValue.value;
-        }
-
+        };
         const getRestoredValues = (values, key) => {
             const restored = [];
 
@@ -220,34 +213,33 @@ export default class FilterService {
                 restored.push({
                     ...values[i],
                     value: getRestoredValue(values[i], key)
-                })
+                });
             }
 
             return restored;
-        }
-
+        };
         const getRestoredBlock = block => {
             if ('value' in block) {
                 return {
                     ...block,
                     value: getRestoredValue(block.value, block.key)
-                }
+                };
             }
 
             return {
                 ...block,
                 values: getRestoredValues(block.values, block.key)
-            }
-        }
+            };
+        };
 
         if (Array.isArray(copy)) {
             restoredFilter = [];
 
             for (let i = 0; i < copy.length; i++) {
-                restoredFilter.push(getRestoredBlock(copy[i]))
+                restoredFilter.push(getRestoredBlock(copy[i]));
             }
 
-            return restoredFilter
+            return restoredFilter;
         }
 
         restoredFilter = {};
@@ -265,7 +257,7 @@ export default class FilterService {
             }
         }
 
-        return restoredFilter
+        return restoredFilter;
     }
 
     async reset() {
@@ -286,14 +278,14 @@ export default class FilterService {
             const values = [];
 
             for (let i = 0; i < val.values.length; i++) {
-                values.push(getWithDefaults(val.values[i]))
+                values.push(getWithDefaults(val.values[i]));
             }
 
             return {
                 ...val,
                 values
             };
-        }
+        };
 
         if (Array.isArray(copy)) {
             initialFilter = [];
@@ -315,13 +307,13 @@ export default class FilterService {
             initialFilter[keys[i]] = [];
 
             for (let j = 0; j < copy[keys[i]].length; j++) {
-                initialFilter[keys[i]].push(getWithDefaults(copy[keys[i]][j]))
+                initialFilter[keys[i]].push(getWithDefaults(copy[keys[i]][j]));
             }
         }
 
         await this.save(initialFilter);
 
-        return initialFilter
+        return initialFilter;
     }
 
     async save(filter) {
@@ -334,7 +326,7 @@ export default class FilterService {
         if (!this.isCustomized) {
             await this.store.removeItem(this.storeKey);
 
-            return
+            return;
         }
 
         await this.store.setItem(this.storeKey, clone);
@@ -351,6 +343,6 @@ export default class FilterService {
             this.search = searchStr;
 
             resolve();
-        })
+        });
     }
 }

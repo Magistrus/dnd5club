@@ -14,7 +14,7 @@ export const useScreensStore = defineStore('ScreensStore', {
             page: 0,
             limit: 70,
             end: false,
-            url: '/screens',
+            url: '/screens'
         },
         controllers: {
             screensQuery: undefined,
@@ -24,16 +24,12 @@ export const useScreensStore = defineStore('ScreensStore', {
 
     getters: {
         getFilter: state => state.filter,
-        getScreens: state => state.screens,
+        getScreens: state => state.screens
     },
 
     actions: {
-        async initFilter() {
-            try {
-                this.filter = new FilterService();
-            } catch (err) {
-                errorHandler(err);
-            }
+        initFilter() {
+            this.filter = new FilterService();
         },
 
         /**
@@ -49,7 +45,7 @@ export const useScreensStore = defineStore('ScreensStore', {
         async screensQuery(options = {}) {
             try {
                 if (this.controllers.screensQuery) {
-                    this.controllers.screensQuery.abort()
+                    this.controllers.screensQuery.abort();
                 }
 
                 this.controllers.screensQuery = new AbortController();
@@ -61,16 +57,18 @@ export const useScreensStore = defineStore('ScreensStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-                    order: [{
-                        field: 'ordering',
-                        direction: 'asc'
-                    }, {
-                        field: 'name',
-                        direction: 'asc'
-                    }],
+                    order: [
+                        {
+                            field: 'ordering',
+                            direction: 'asc'
+                        },
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
-
                 const { data } = await http.post(this.config.url, apiOptions, this.controllers.screensQuery.signal);
 
                 this.controllers.screensQuery = undefined;
@@ -87,13 +85,13 @@ export const useScreensStore = defineStore('ScreensStore', {
             this.clearConfig();
 
             if (url) {
-                this.config.url = url
+                this.config.url = url;
             }
 
             const config = {
                 page: this.config.page,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -112,8 +110,8 @@ export const useScreensStore = defineStore('ScreensStore', {
 
             const config = {
                 page: this.config.page + 1,
-                limit: this.config.limit,
-            }
+                limit: this.config.limit
+            };
 
             if (this.filter && this.filter.isCustomized) {
                 config.filter = this.filter.getQueryParams;
@@ -130,7 +128,7 @@ export const useScreensStore = defineStore('ScreensStore', {
         async screenInfoQuery(url) {
             try {
                 if (this.controllers.screenInfoQuery) {
-                    this.controllers.screenInfoQuery.abort()
+                    this.controllers.screenInfoQuery.abort();
                 }
 
                 this.controllers.screenInfoQuery = new AbortController();
@@ -139,7 +137,7 @@ export const useScreensStore = defineStore('ScreensStore', {
 
                 this.controllers.screenInfoQuery = undefined;
 
-                return resp.data
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -160,7 +158,7 @@ export const useScreensStore = defineStore('ScreensStore', {
                 page: 0,
                 limit: 70,
                 end: false,
-                url: '/screens',
+                url: '/screens'
             };
         },
 
@@ -170,4 +168,4 @@ export const useScreensStore = defineStore('ScreensStore', {
             this.clearConfig();
         }
     }
-})
+});

@@ -160,7 +160,10 @@
 
     export default {
         name: "RaceBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar,
+            RawContent
+        },
         props: {
             race: {
                 type: Object,
@@ -171,26 +174,24 @@
         data: () => ({
             gallery: {
                 index: 0,
-                show: false,
+                show: false
             }
         }),
         computed: {
             abilities() {
                 if (!this.race.abilities?.length) {
-                    return ''
+                    return '';
                 }
 
                 const abilities = [];
 
                 for (const ability of this.race.abilities) {
-                    abilities.push(
-                        ability.value
-                            ? `${ ability.shortName } ${ ability.value > 0 ? `+${ ability.value }` : ability.value }`
-                            : ability.name
-                    )
+                    abilities.push(ability.value
+                        ? `${ ability.shortName } ${ ability.value > 0 ? `+${ ability.value }` : ability.value }`
+                        : ability.name);
                 }
 
-                return abilities.join(', ')
+                return abilities.join(', ');
             },
 
             speed() {
@@ -201,14 +202,14 @@
                 const speeds = [];
 
                 for (const speed of this.race.speed) {
-                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`)
+                    speeds.push(`${ speed.name ? `${ speed.name } ` : '' }${ speed.value } фт.`);
                 }
 
-                return speeds.join(', ')
+                return speeds.join(', ');
             },
 
             skills() {
-                return sortBy(this.race.skills, [o => o.opened, o => !o.subrace])
+                return sortBy(this.race.skills, [o => o.opened, o => !o.subrace]);
             }
         },
         methods: {
@@ -221,5 +222,5 @@
                 this.gallery.index = 0;
             }
         }
-    }
+    };
 </script>

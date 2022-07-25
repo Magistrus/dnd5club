@@ -24,14 +24,16 @@
     import ContentLayout from '@/components/content/ContentLayout';
     import { useRacesStore } from "@/store/Character/RacesStore";
     import RaceLink from "@/views/Character/Races/RaceLink";
-    import { mapActions, mapState } from "pinia";
+    import {
+        mapActions, mapState
+    } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
         name: 'RacesView',
         components: {
             RaceLink,
-            ContentLayout,
+            ContentLayout
         },
         async beforeRouteEnter(to, from, next) {
             const store = useRacesStore();
@@ -46,23 +48,23 @@
             ...mapState(useRacesStore, ['getRaces', 'getFilter']),
 
             filter() {
-                return this.getFilter || undefined
+                return this.getFilter || undefined;
             },
 
             showRightSide() {
-                return this.$route.name === 'raceDetail'
-            },
+                return this.$route.name === 'raceDetail';
+            }
         },
         watch: {
             showRightSide(value) {
                 if (value) {
                     this.$nextTick(() => {
                         this.scrollToActive();
-                    })
+                    });
                 }
             }
         },
-        async mounted() {
+        mounted() {
             this.$nextTick(() => {
                 if (this.showRightSide) {
                     this.scrollToActive();
@@ -73,7 +75,11 @@
             this.clearStore();
         },
         methods: {
-            ...mapActions(useRacesStore, ['initFilter', 'initRaces', 'clearStore']),
+            ...mapActions(useRacesStore, [
+                'initFilter',
+                'initRaces',
+                'clearStore'
+            ]),
 
             async racesQuery() {
                 await this.initRaces();
@@ -106,12 +112,13 @@
 
             async onSearch() {
                 await this.racesQuery();
+
                 if (this.getRaces.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.getRaces[0].url })
+                    await this.$router.push({ path: this.getRaces[0].url });
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

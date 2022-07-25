@@ -7,6 +7,7 @@
                 :fullscreen="!getIsMobile"
                 :subtitle="trait?.name?.eng || ''"
                 :title="trait?.name?.rus || ''"
+                bookmark
                 print
                 @close="close"
             />
@@ -30,7 +31,9 @@
     export default {
         name: 'TraitDetail',
         components: {
-            ContentDetail, TraitBody, SectionHeader
+            ContentDetail,
+            TraitBody,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewTrait(to.path);
@@ -41,10 +44,10 @@
             traitStore: useTraitsStore(),
             trait: undefined,
             loading: false,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewTrait(this.$route.path);
@@ -67,10 +70,10 @@
             },
 
             close() {
-                this.$router.push({ name: 'traits' })
+                this.$router.push({ name: 'traits' });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

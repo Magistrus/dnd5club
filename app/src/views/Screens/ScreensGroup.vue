@@ -35,29 +35,30 @@
                 type: Array,
                 default: () => ([]),
                 required: true
-            },
+            }
         },
         computed: {
             groups() {
                 const groups = sortBy(
-                    Object.values(
-                        groupBy(
-                            this.childList.filter(item => item.group),
-                            o => o.group
-                        )
-                    ).map(list => ({
+                    Object.values(groupBy(
+                        this.childList.filter(item => item.group),
+                        o => o.group
+                    )).map(list => ({
                         name: list[0].group,
                         list: sortBy(list, [o => o.order, o => o.name.rus])
                     })),
                     [o => o.group]
                 );
 
-                return [{
-                    list: sortBy(this.childList.filter(item => !item.group), [o => o.order, o => o.name.rus])
-                }, ...groups];
+                return [
+                    {
+                        list: sortBy(this.childList.filter(item => !item.group), [o => o.order, o => o.name.rus])
+                    },
+                    ...groups
+                ];
             }
-        },
-    }
+        }
+    };
 </script>
 
 <style lang="scss" scoped>

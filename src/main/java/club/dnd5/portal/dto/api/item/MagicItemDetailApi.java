@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.dto.api.SourceApi;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.model.items.MagicItem;
@@ -48,9 +47,15 @@ public class MagicItemDetailApi extends MagicItemApi {
 			}
 			detailType.add(item.getSpecial());
 		}
-		source = new SourceApi(item.getBook());
+
 		if (!item.getCustClasses().isEmpty()) {
 			detailCustamization = item.getCustClasses().stream().map(HeroClass::getAblativeName).collect(Collectors.toList());
+		}
+		if (item.getCustSpecial() != null) {
+			if (detailCustamization == null) {
+				detailCustamization = new ArrayList<>(1);
+			}
+			detailCustamization.add(item.getCustSpecial()); 
 		}
 		cost = new CostApi(item);
 	}

@@ -30,7 +30,7 @@
         components: {
             TraitLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -40,7 +40,7 @@
             storeKey: {
                 type: String,
                 default: ''
-            },
+            }
         },
         data: () => ({
             traitsStore: useTraitsStore(),
@@ -61,7 +61,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'traitDetail'
+                return this.$route.name === 'traitDetail';
             },
 
             layout() {
@@ -75,7 +75,7 @@
             await this.traitsStore.initTraits();
 
             if (!this.getIsMobile && this.traits.length && this.$route.name === 'traits') {
-                await this.$router.push({ path: this.traits[0].url })
+                await this.$router.push({ path: this.traits[0].url });
             }
         },
         beforeUnmount() {
@@ -87,11 +87,12 @@
             },
 
             async onSearch() {
-                await this.traitsQuery()
+                await this.traitsQuery();
+
                 if (this.traits.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.traits[0].url })
+                    await this.$router.push({ path: this.traits[0].url });
                 }
-            },
+            }
         }
-    }
+    };
 </script>

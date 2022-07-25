@@ -10,7 +10,7 @@
                 type: Object,
                 default: undefined,
                 required: true
-            },
+            }
         },
         render() {
             return h(
@@ -58,9 +58,9 @@
                         ))
                     )
                 ]
-            )
+            );
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

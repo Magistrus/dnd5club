@@ -2,8 +2,16 @@
     <div
         v-if="screen"
         class="screen-body"
+        :class="{ 'in-tooltip': inTooltip }"
     >
-        <detail-top-bar :source="screen.source"/>
+        <detail-top-bar :source="screen.source">
+            <template
+                v-if="screen.parent?.url"
+                #left
+            >
+                Раздел: <a :href="screen.parent.url">{{ screen.parent.name.rus }}</a>
+            </template>
+        </detail-top-bar>
 
         <div class="content-padding">
             <raw-content
@@ -22,15 +30,19 @@
         name: "ScreenBody",
         components: {
             RawContent,
-            DetailTopBar,
+            DetailTopBar
         },
         props: {
             screen: {
                 type: Object,
                 default: undefined,
                 required: true
+            },
+            inTooltip: {
+                type: Boolean,
+                default: false
             }
         },
         data: () => ({})
-    }
+    };
 </script>

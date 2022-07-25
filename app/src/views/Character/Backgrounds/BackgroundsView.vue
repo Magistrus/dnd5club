@@ -30,7 +30,7 @@
         components: {
             BackgroundLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -40,7 +40,7 @@
             storeKey: {
                 type: String,
                 default: ''
-            },
+            }
         },
         data: () => ({
             backgroundsStore: useBackgroundsStore(),
@@ -61,7 +61,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'backgroundDetail'
+                return this.$route.name === 'backgroundDetail';
             },
 
             layout() {
@@ -75,7 +75,7 @@
             await this.backgroundsStore.initBackgrounds();
 
             if (!this.getIsMobile && this.backgrounds.length && this.$route.name === 'backgrounds') {
-                await this.$router.push({ path: this.backgrounds[0].url })
+                await this.$router.push({ path: this.backgrounds[0].url });
             }
         },
         beforeUnmount() {
@@ -87,11 +87,12 @@
             },
 
             async onSearch() {
-                this.backgroundsQuery()
+                this.backgroundsQuery();
+
                 if (this.backgrounds.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.backgrounds[0].url })
+                    await this.$router.push({ path: this.backgrounds[0].url });
                 }
-            },
-        },
-    }
+            }
+        }
+    };
 </script>

@@ -17,7 +17,10 @@
 
     export default {
         name: "TraitBody",
-        components: { DetailTopBar, RawContent },
+        components: {
+            DetailTopBar,
+            RawContent
+        },
         props: {
             trait: {
                 type: Object,
@@ -25,7 +28,7 @@
                 required: true
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

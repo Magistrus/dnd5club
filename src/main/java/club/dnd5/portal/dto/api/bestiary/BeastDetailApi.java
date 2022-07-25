@@ -62,14 +62,15 @@ public class BeastDetailApi extends BeastApi {
 	
 	private Collection<String> environment;
 	private Collection<String> images;
-	private SourceApi source;
 	private LairApi lair;
 	
 	public BeastDetailApi(Creature beast) {
 		super(beast);
 		id = beast.getId();
 		size = new SizeApi(beast.getSizeName(), beast.getSize().name().toLowerCase(), beast.getSize().getCell());
-		experience = beast.getExp();
+		if (!"—".equals(beast.getChallengeRating())){
+			experience = beast.getExp();
+		}
 		alignment = beast.getAligment();
 		armorClass = beast.getAC();
 		setType(new TypeDetailApi(beast));
@@ -101,7 +102,7 @@ public class BeastDetailApi extends BeastApi {
 		ability = new AbilityApi(beast);
 		
 		if (!beast.getSavingThrows().isEmpty()) {
-			savingThrows = beast.getSavingThrows().stream().map(st -> new NameValueApi(st.getAbility().getCyrilicName(), st.getBonus())).collect(Collectors.toList());
+			savingThrows = beast.getSavingThrows().stream().map(st -> new NameValueApi(st.getAbility().getShortName(), st.getBonus())).collect(Collectors.toList());
 		}
 		if (!beast.getSkills().isEmpty()) {
 			skills = beast.getSkills().stream().map(skill -> new NameValueApi(skill.getType().getCyrilicName(), skill.getBonus())).collect(Collectors.toList());

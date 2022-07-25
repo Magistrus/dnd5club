@@ -37,12 +37,14 @@
         <div
             v-if="opened"
             class="filter-item__body"
+            :class="{ 'is-toggle': type === 'toggle' }"
         >
             <field-checkbox
                 v-for="(checkbox, checkboxKey) in modelValue"
                 :key="checkboxKey"
                 :model-value="checkbox.value"
                 :tooltip="checkbox.tooltip"
+                :type="type"
                 @update:model-value="setValue($event, checkboxKey)"
             >
                 {{ checkbox.label }}
@@ -70,7 +72,12 @@
             },
             expand: {
                 type: Boolean,
-                default: false,
+                default: false
+            },
+            type: {
+                type: String,
+                default: 'crumb',
+                validator: value => ['crumb', 'toggle'].includes(value)
             },
             modelValue: {
                 type: Array,
@@ -89,12 +96,12 @@
 
                 for (const value of this.modelValue) {
                     if (value.value !== value.default) {
-                        return true
+                        return true;
                     }
                 }
 
-                return false
-            },
+                return false;
+            }
         },
         beforeMount() {
             this.opened = this.isFilterCustomized || this.expand;
@@ -128,10 +135,10 @@
                 this.$refs.filterItem.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest"
-                })
+                });
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>

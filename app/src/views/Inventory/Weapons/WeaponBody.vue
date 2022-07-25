@@ -2,6 +2,7 @@
     <div
         v-if="weapon"
         class="weapon-body"
+        :class="{ 'in-tooltip': inTooltip }"
     >
         <detail-top-bar
             :bg-grey="false"
@@ -78,13 +79,21 @@
 
     export default {
         name: "WeaponBody",
-        components: { DetailTopBar, DiceRoller, RawContent },
+        components: {
+            DetailTopBar,
+            DiceRoller,
+            RawContent
+        },
         props: {
             weapon: {
                 type: Object,
                 required: true,
                 default: undefined
             },
+            inTooltip: {
+                type: Boolean,
+                default: false
+            }
         }
-    }
+    };
 </script>

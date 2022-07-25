@@ -94,7 +94,12 @@
         },
         props: {
             modelValue: {
-                type: [Number, String, Object, Array],
+                type: [
+                    Number,
+                    String,
+                    Object,
+                    Array
+                ],
                 default: ''
             },
             name: {
@@ -202,7 +207,15 @@
                 default: false
             }
         },
-        emits: ['open', 'search-change', 'close', 'select', 'update:model-value', 'remove', 'tag'],
+        emits: [
+            'open',
+            'search-change',
+            'close',
+            'select',
+            'update:model-value',
+            'remove',
+            'tag'
+        ],
         methods: {
             onUpdate(event) {
                 this.$emit('update:model-value', event);
@@ -230,7 +243,7 @@
 
             onClose(event) {
                 this.$emit('close', event);
-            },
+            }
         }
-    }
+    };
 </script>

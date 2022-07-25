@@ -3,13 +3,11 @@ import { defineStore } from 'pinia';
 // eslint-disable-next-line import/prefer-default-export
 export const useNavStore = defineStore('NavStore', {
     state: () => ({
-        items: [],
-        opened: false,
+        items: []
     }),
 
     getters: {
-        getNavItems: state => state.items,
-        getMenuState: state => state.opened
+        getNavItems: state => state.items
     },
 
     actions: {
@@ -17,186 +15,160 @@ export const useNavStore = defineStore('NavStore', {
             this.items = [
                 {
                     label: 'Персонаж',
+                    icon: 'menu-character',
                     links: [
                         {
                             label: 'Классы',
-                            url: '/classes',
-                            icon: 'menu-classes'
+                            url: '/classes'
                         },
                         {
                             label: 'Расы',
-                            url: '/races',
-                            icon: 'menu-races'
+                            url: '/races'
                         },
                         {
                             label: 'Черты',
-                            url: '/traits',
-                            icon: 'menu-traits'
+                            url: '/traits'
                         },
                         {
                             label: 'Особенности классов',
-                            url: '/options',
-                            icon: 'menu-traits'
+                            url: '/options'
                         },
                         {
                             label: 'Предыстории',
-                            url: '/backgrounds',
-                            icon: 'menu-traits'
+                            url: '/backgrounds'
                         },
                         {
                             label: 'Заклинания',
-                            url: '/spells',
-                            icon: 'menu-traits'
+                            url: '/spells'
                         }
                     ]
                 },
                 {
                     label: 'Предметы',
+                    icon: 'menu-inventory',
                     links: [
                         {
                             label: 'Оружие',
-                            url: '/weapons',
-                            icon: 'menu-classes'
+                            url: '/weapons'
                         },
                         {
                             label: 'Доспехи',
-                            url: '/armors',
-                            icon: 'menu-races'
+                            url: '/armors'
                         },
                         {
                             label: 'Снаряжение',
-                            url: '/items',
-                            icon: 'menu-traits'
+                            url: '/items'
                         },
                         {
                             label: 'Драгоценности',
-                            url: '/treasures',
-                            icon: 'menu-traits'
+                            url: '/treasures'
                         },
                         {
                             label: 'Магические предметы',
-                            url: '/items/magic',
-                            icon: 'menu-traits'
+                            url: '/items/magic'
                         }
                     ]
                 },
                 {
                     label: 'Мастерская',
+                    icon: 'menu-workshop',
                     links: [
                         {
                             label: 'Бестиарий',
-                            url: '/bestiary',
-                            icon: 'menu-classes'
+                            url: '/bestiary'
                         },
                         {
                             label: 'Ширма',
-                            url: '/screens',
-                            icon: 'menu-races'
+                            url: '/screens'
                         }
                     ]
                 },
                 {
                     label: 'Инструменты',
+                    icon: 'menu-tools',
                     links: [
                         {
                             label: 'Торговец',
-                            url: '/tools/trader',
-                            icon: 'menu-classes'
+                            url: '/tools/trader'
                         },
                         {
                             label: 'Случайные столкновения',
-                            url: '/tools/encounters',
-                            icon: 'menu-races'
+                            url: '/tools/encounters'
                         },
                         {
                             label: 'Сокровищница',
-                            url: '/tools/treasury',
-                            icon: 'menu-races'
+                            url: '/tools/treasury'
                         },
                         {
                             label: 'Дикая магия',
-                            url: '/tools/wildmagic',
-                            icon: 'menu-races'
+                            url: '/tools/wildmagic'
                         },
                         {
                             label: 'Безумие',
-                            url: '/tools/madness',
-                            icon: 'menu-races'
+                            url: '/tools/madness'
                         }
                     ]
                 },
                 {
                     label: 'База знаний',
+                    icon: 'menu-wiki',
                     links: [
                         {
                             label: 'Боги',
-                            url: '/gods',
-                            icon: 'menu-classes'
+                            url: '/gods'
                         },
                         {
                             label: 'Правила и термины',
-                            url: '/rules',
-                            icon: 'menu-races'
+                            url: '/rules'
                         },
                         {
                             label: 'Источники',
-                            url: '/books',
-                            icon: 'menu-races'
+                            url: '/books'
                         }
                     ]
                 },
                 {
                     label: 'Информация',
+                    icon: 'menu-information',
                     links: [
                         {
                             label: 'Мы в Discord',
                             url: 'https://discord.gg/zqBnMJVf3z',
-                            icon: 'menu-classes',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Мы в ВКонтакте',
                             url: 'https://vk.com/dnd5club',
-                            icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Мы на Boosty',
                             url: 'https://boosty.to/dnd5club',
-                            icon: 'menu-races',
-                            external: true,
+                            external: true
+                        },
+                        {
+                            label: 'Мы на Youtube',
+                            url: 'https://www.youtube.com/channel/UCpFse6-P2IBXYfkesAxZbfA',
+                            external: true
                         },
                         {
                             label: 'Наш бот для Telegram',
                             url: 'https://t.me/dnd5club_bot',
-                            icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Мастер на Boosty',
                             url: 'https://boosty.to/dnd5eclub',
-                            icon: 'menu-races',
-                            external: true,
+                            external: true
                         },
                         {
                             label: 'Старый сайт',
                             url: 'https://old.dnd5.club/',
-                            icon: 'menu-races',
-                            external: true,
+                            external: true
                         }
                     ]
-                },
-            ]
-        },
-
-        setMenuState(payload) {
-            if (typeof payload !== 'boolean') {
-                this.opened = false;
-
-                return
-            }
-
-            this.opened = payload
+                }
+            ];
         }
     }
-})
+});

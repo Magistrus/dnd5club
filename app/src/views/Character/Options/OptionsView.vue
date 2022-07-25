@@ -30,7 +30,7 @@
         components: {
             OptionLink,
             TabLayout,
-            ContentLayout,
+            ContentLayout
         },
         props: {
             inTab: {
@@ -69,7 +69,7 @@
             },
 
             showRightSide() {
-                return this.$route.name === 'optionDetail'
+                return this.$route.name === 'optionDetail';
             },
 
             layout() {
@@ -94,13 +94,13 @@
                 async handler() {
                     await this.init();
                 }
-            },
+            }
         },
         async mounted() {
             await this.init();
 
             if (!this.getIsMobile && this.options.length && this.$route.name === 'options') {
-                await this.$router.push({ path: this.options[0].url })
+                await this.$router.push({ path: this.options[0].url });
             }
         },
         beforeUnmount() {
@@ -117,11 +117,12 @@
             },
 
             async onSearch() {
-                await this.optionsQuery()
+                await this.optionsQuery();
+
                 if (this.options.length === 1 && !this.getIsMobile) {
-                    await this.$router.push({ path: this.options[0].url })
+                    await this.$router.push({ path: this.options[0].url });
                 }
             }
         }
-    }
+    };
 </script>

@@ -6,6 +6,7 @@
                 :subtitle="screen?.name?.eng || ''"
                 :copy="!error && !loading"
                 :fullscreen="!getIsMobile"
+                bookmark
                 close-on-desktop
                 @close="close"
             />
@@ -37,7 +38,10 @@
     export default {
         name: 'ScreenDetail',
         components: {
-            ScreensGroup, ScreenBody, ContentDetail, SectionHeader
+            ScreensGroup,
+            ScreenBody,
+            ContentDetail,
+            SectionHeader
         },
         async beforeRouteUpdate(to, from, next) {
             await this.loadNewScreen(to.path);
@@ -48,10 +52,10 @@
             screensStore: useScreensStore(),
             screen: undefined,
             loading: true,
-            error: false,
+            error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
         },
         async mounted() {
             await this.loadNewScreen(this.$route.path);
@@ -74,7 +78,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>
