@@ -464,6 +464,10 @@
                 @include media-max(800px) {
                     display: none;
                 }
+
+                @include media-max(380px) {
+                    margin-left: 8px;
+                }
             }
 
             @include media-min($md) {
@@ -491,7 +495,7 @@
                 padding: 0 16px;
             }
 
-            @include media-max(360px) {
+            @include media-max(380px) {
                 padding: 0 8px;
             }
         }
