@@ -22,7 +22,7 @@
     import { shallowRef } from "vue";
     import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
     import BackgroundLink from "@/views/Character/Backgrounds/BackgroundLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

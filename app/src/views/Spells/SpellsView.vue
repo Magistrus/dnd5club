@@ -23,7 +23,7 @@
     import TabLayout from "@/components/content/TabLayout";
     import { shallowRef } from "vue";
     import SpellLink from "@/views/Spells/SpellLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

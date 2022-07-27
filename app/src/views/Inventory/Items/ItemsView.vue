@@ -23,7 +23,7 @@
     import { shallowRef } from "vue";
     import ItemLink from "@/views/Inventory/Items/ItemLink";
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

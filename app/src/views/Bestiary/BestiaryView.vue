@@ -23,7 +23,7 @@
     import { shallowRef } from "vue";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureLink from "@/views/Bestiary/CreatureLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

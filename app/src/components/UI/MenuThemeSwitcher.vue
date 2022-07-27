@@ -14,7 +14,7 @@
 <script>
     import {
         mapActions, mapState
-    } from 'pinia/dist/pinia';
+    } from 'pinia';
     import SvgIcon from '@/components/UI/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
 

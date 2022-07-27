@@ -34,7 +34,7 @@
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import WeaponLink from "@/views/Inventory/Weapons/WeaponLink";
     import sortBy from "lodash/sortBy";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

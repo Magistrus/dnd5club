@@ -131,7 +131,7 @@
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import isArray from "lodash/isArray";
     import sortBy from "lodash/sortBy";

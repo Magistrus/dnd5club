@@ -26,7 +26,7 @@
     import { useGodsStore } from "@/store/Wiki/GodsStore";
     import GodBody from "@/views/Wiki/Gods/GodBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

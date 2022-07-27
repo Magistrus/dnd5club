@@ -113,7 +113,7 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
-    import { mapActions, mapState } from "pinia/dist/pinia";
+    import { mapActions, mapState } from "pinia";
     import { useBookmarkStore } from "@/store/UI/BookmarkStore";
 
     export default {

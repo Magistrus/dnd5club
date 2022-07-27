@@ -27,7 +27,7 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import RaceBody from "@/views/Character/Races/RaceBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

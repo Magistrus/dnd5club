@@ -27,7 +27,7 @@
     import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

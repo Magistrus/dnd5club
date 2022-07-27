@@ -180,7 +180,6 @@
             overflow: auto;
             border-radius: 8px;
             box-shadow: 0 0 27px #0006;
-            padding: 16px 16px 8px;
             transform-origin: top right;
             max-width: 100%;
             max-height: 100%;
@@ -192,7 +191,6 @@
             @media (max-width: 550px) {
                 overflow: scroll;
                 width: 100%;
-                padding: 16px 8px 0px;
             }
         }
     }

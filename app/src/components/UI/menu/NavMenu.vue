@@ -1,88 +1,91 @@
 <template>
-    <nav-popover v-model="opened">
+    <nav-popover
+        :model-value="menu"
+        is-menu
+        is-left
+        @close="menu = false"
+    >
         <template #trigger="{ setRef, isActive }">
             <div
                 :ref="el => setRef(el)"
-                class="navbar__btn"
                 :class="{ 'is-active': isActive }"
-                @click.left.exact.prevent="opened = !opened"
+                class="navbar__btn hamburger"
+                @click.left.exact.prevent="menu = !menu"
             >
-                <svg-icon
-                    :icon-name="getItems?.length ? 'bookmark-filled' : 'bookmark'"
-                    :stroke-enable="false"
-                    fill-enable
-                />
+                <span class="line"/>
+                <span class="line"/>
+                <span class="line"/>
             </div>
         </template>
 
         <template #default>
-            <div class="nav-bookmarks">
-                <div class="nav-bookmarks__header">
-                    <div class="nav-bookmarks__info">
-                        <span class="nav-bookmarks__info--title">Закладки</span>
+            <div class="nav-menu">
+                <div class="nav-menu__header">
+                    <a
+                        class="nav-menu__logo"
+                        href="/"
+                    >
+                        <site-logo/>
+                    </a>
+
+                    <div class="nav-menu__info">
+                        <span class="nav-menu__info--desc">Онлайн справочник по D&D 5e</span>
+
+                        <span class="nav-menu__info--title">DnD5 Club</span>
                     </div>
                 </div>
 
-                <div class="nav-bookmarks__body">
+                <div class="nav-menu__body">
                     <div
-                        v-for="(group, groupKey) in getItems"
+                        v-for="(group, groupKey) in getNavItems"
                         :key="group.label + groupKey"
-                        class="nav-bookmarks__group"
+                        class="nav-menu__group"
                     >
-                        <div class="nav-bookmarks__group_label">
+                        <div class="nav-menu__group_label">
                             <div
-                                v-if="isEdit"
-                                class="nav-bookmarks__group_icon is-left"
+                                v-if="group.icon"
+                                class="nav-menu__group_icon"
                             >
-                                <svg-icon icon-name="sandwich"/>
+                                <svg-icon :icon-name="group.icon"/>
                             </div>
 
-                            <div class="nav-bookmarks__group_label">
+                            <div class="nav-menu__group_label">
                                 {{ group.label }}
-                            </div>
-
-                            <div
-                                v-if="isEdit"
-                                class="nav-bookmarks__group_icon is-right"
-                            >
-                                <svg-icon icon-name="close"/>
                             </div>
                         </div>
 
-                        <div class="nav-bookmarks__links">
+                        <div class="nav-menu__links">
                             <div
                                 v-for="link in group.links"
                                 :key="link.url"
-                                class="nav-bookmarks__link"
+                                class="nav-menu__link"
                             >
                                 <div
-                                    v-if="isEdit"
-                                    class="nav-bookmarks__link_icon only-hover is-left"
+                                    class="nav-menu__link_icon only-hover"
+                                    :class="{'is-active': isBookmarkSaved(link.url)}"
+                                    @click.left.exact.stop.prevent="updateBookmark(
+                                        link.url,
+                                        link.label,
+                                        'Разделы'
+                                    )"
                                 >
-                                    <svg-icon icon-name="sandwich"/>
+                                    <svg-icon
+                                        :icon-name="isBookmarkSaved(link.url)
+                                            ? 'bookmark-dot-filled'
+                                            : 'bookmark-dot'
+                                        "
+                                        :stroke-enable="false"
+                                        fill-enable
+                                    />
                                 </div>
 
                                 <a
                                     :href="link.url"
-                                    :target="isExternal(link.url) ? '_blank' : '_self'"
-                                    class="nav-bookmarks__link_label"
+                                    :target="link.external ? '_blank' : '_self'"
+                                    class="nav-menu__link_label"
                                 >{{ link.label }}</a>
-
-                                <div
-                                    class="nav-bookmarks__link_icon only-hover is-right"
-                                    @click.left.exact.stop.prevent="removeBookmark(link.url)"
-                                >
-                                    <svg-icon icon-name="close"/>
-                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div
-                        v-if="!getItems?.length"
-                        class="nav-bookmarks__info"
-                    >
-                        <span class="nav-bookmarks__info--desc">Здесь пока пусто</span>
                     </div>
                 </div>
             </div>
@@ -91,43 +94,39 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
-    import NavPopover from "@/components/UI/menu/NavPopover";
     import { mapActions, mapState } from "pinia";
+    import { useNavStore } from "@/store/UI/NavStore";
     import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import NavPopover from "@/components/UI/menu/NavPopover";
+    import SvgIcon from "@/components/UI/SvgIcon";
+    import SiteLogo from "@/components/UI/SiteLogo";
 
     export default {
-        name: "NavBookmarks",
+        name: "NavMenu",
         components: {
             NavPopover,
-            SvgIcon
+            SvgIcon,
+            SiteLogo
         },
         data: () => ({
-            opened: false,
-            isEdit: false
+            menu: false
         }),
         computed: {
-            ...mapState(useBookmarkStore, ['getItems'])
+            ...mapState(useNavStore, ['getNavItems']),
+            ...mapState(useBookmarkStore, ['isBookmarkSaved'])
         },
-        async beforeMount() {
-            await this.restoreItems();
+        created() {
+            this.setNavItems();
         },
         methods: {
-            ...mapActions(useBookmarkStore, [
-                'setItems',
-                'removeBookmark',
-                'restoreItems'
-            ]),
-
-            isExternal(url) {
-                return url.startsWith('http');
-            }
+            ...mapActions(useNavStore, ['setNavItems']),
+            ...mapActions(useBookmarkStore, ['updateBookmark'])
         }
     };
 </script>
 
 <style lang="scss" scoped>
-    .nav-bookmarks {
+    .nav-menu {
         padding: 16px 16px 8px;
 
         @media (max-width: 550px) {
@@ -135,17 +134,17 @@
         }
 
         &__header {
-            padding: 0 16px 16px 16px;
+            padding: 32px 16px 16px 16px;
             border-bottom: 1px solid var(--hover);
             display: flex;
             align-items: center;
         }
 
-        &__body {
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+        &__logo {
+            margin-right: 12px;
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
         }
 
         &__info {
@@ -156,12 +155,10 @@
             &--desc {
                 font-size: var(--h5-font-size);
                 margin-bottom: 4px;
-                width: 200px;
-                padding: 16px 16px;
             }
 
             &--title {
-                // font-size: var(--h3-font-size);
+                font-size: var(--h3-font-size);
                 font-weight: 600;
             }
 
@@ -169,6 +166,13 @@
             &--title {
                 color: var(--text-b-color);
             }
+        }
+
+        &__body {
+            padding: 8px 8px 0 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         &__links {
@@ -227,6 +231,7 @@
                 height: 32px;
                 padding: 8px;
                 flex-shrink: 0;
+
                 &.only-hover {
                     &:not(.is-active) {
                         opacity: 0;
@@ -234,12 +239,12 @@
                 }
 
                 svg {
-                  stroke: var(--text-color);
+                    stroke: var(--text-color) !important;
                 }
             }
 
             &:hover {
-                .nav-bookmarks {
+                .nav-menu {
                     &__link {
                         &_icon {
                             &.only-hover {
