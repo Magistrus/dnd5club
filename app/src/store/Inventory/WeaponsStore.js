@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 
 const DB_NAME = 'weapons';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useWeaponsStore = defineStore('WeaponsStore', {
@@ -83,7 +81,11 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.weaponsQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.weaponsQuery.signal
+                );
 
                 this.controllers.weaponsQuery = undefined;
 
@@ -121,7 +123,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
 
                 this.controllers.weaponInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.weaponInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.weaponInfoQuery.signal);
 
                 this.controllers.weaponInfoQuery = undefined;
 

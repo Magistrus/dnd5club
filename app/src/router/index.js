@@ -220,12 +220,12 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach(async (to, from, next) => {
+router.afterEach(async () => {
     const userStore = useUserStore();
 
-    await userStore.updateUserFromSession();
-
-    next();
+    if (userStore.isAuthorized) {
+        await userStore.updateUserFromSession();
+    }
 });
 
 export default router;

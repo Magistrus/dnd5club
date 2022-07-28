@@ -19,7 +19,13 @@ const app = createApp(App);
 app.config.globalProperties.$http = new HTTPService();
 app.config.globalProperties.$isDev = isDev;
 
-app.use(createPinia())
+const pinia = createPinia();
+
+pinia.use(() => ({
+    $http: new HTTPService()
+}));
+
+app.use(pinia)
     .use(router)
     .use(VueEasyLightbox)
     .use(VueTippy, VueTippyConfig)
