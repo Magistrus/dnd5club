@@ -48,6 +48,7 @@
     </nav-popover>
 
     <auth-reg-modal
+        v-if="!getUser"
         v-model="modal"
         @close="closeModal"
     />

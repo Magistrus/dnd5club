@@ -118,10 +118,13 @@
                 };
             },
 
-            clearForm() {
+            async clearForm() {
                 this.usernameOrEmail = '';
                 this.password = '';
                 this.remember = true;
+                this.success = false;
+
+                await this.v$.$reset();
             },
 
             successHandler() {
