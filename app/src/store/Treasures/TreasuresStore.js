@@ -81,11 +81,16 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-
-                    // order: [{ // TODO: Revert comment
-                    //     field: 'name',
-                    //     direction: 'asc'
-                    // }],
+                    order: [
+                        {
+                            field: 'cost',
+                            direction: 'asc'
+                        },
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
