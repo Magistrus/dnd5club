@@ -74,6 +74,27 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
+        async logout() {
+            try {
+                const resp = await http.post('/auth/signout');
+
+                switch (resp.status) {
+                    case 200:
+                        this.clearUser();
+
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject();
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        clearUser() {
+            this.user = undefined;
+        },
+
         async getUserInfo(username) {
             try {
                 const resp = await http.post(`/profile/${ username }`);
