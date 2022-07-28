@@ -19,6 +19,6 @@ public interface TreasureDatatableRepository extends DataTablesRepository<Treasu
 	List<Treasure> findAllByCostAndType(int cost, TreasureType type);
 	List<Treasure> findAllByTypeIn(Set<TreasureType> types);
 	
-	@Query("SELECT c.book FROM Treasury c GROUP BY c.book HAVING c.book.type = :type ORDER BY c.book.year")
+	@Query("SELECT c.book FROM Treasure c GROUP BY c.book HAVING c.book.type = :type ORDER BY c.book.year")
 	List<Book> findBook(@Param("type") TypeBook type);
 }
