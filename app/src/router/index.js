@@ -1,6 +1,7 @@
 import {
     createRouter, createWebHistory
 } from 'vue-router';
+import { useUserStore } from '@/store/UI/UserStore';
 
 const routes = [
     {
@@ -219,7 +220,11 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+    const userStore = useUserStore();
+
+    await userStore.updateUserFromSession();
+
     next();
 });
 

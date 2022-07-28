@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 export default class HTTPService {
     constructor() {
@@ -25,10 +24,6 @@ export default class HTTPService {
             headers: {}
         };
 
-        if (Cookies.get('dnd5_user_token')) {
-            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_user_token') }`;
-        }
-
         return this.instance(config);
     }
 
@@ -39,10 +34,6 @@ export default class HTTPService {
             method: 'get',
             headers: {}
         };
-
-        if (Cookies.get('dnd5_user_token')) {
-            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_user_token') }`;
-        }
 
         return this.instance(config);
     }
