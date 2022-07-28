@@ -35,6 +35,7 @@ public class Treasure {
 	
 	@Enumerated(EnumType.STRING)
 	private TreasureType type;
+
 	@ManyToOne
 	@JoinColumn(name = "source")
 	private Book book;

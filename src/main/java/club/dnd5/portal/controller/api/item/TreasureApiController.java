@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,17 +19,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.FilterApi;
+import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.item.ItemApi;
 import club.dnd5.portal.dto.api.item.ItemRequesApi;
 import club.dnd5.portal.model.book.Book;
+import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.items.Treasure;
+import club.dnd5.portal.model.items.TreasureType;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
+import club.dnd5.portal.util.SpecificationUtil;
 
 @RestController
 public class TreasureApiController {
 	@Autowired
-	private TreasureDatatableRepository repo;
+	private TreasureDatatableRepository treasuryRepository;
 
 	@PostMapping(value = "/api/v1/treasures", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ItemApi> getItem(@RequestBody ItemRequesApi request) {
@@ -76,14 +82,20 @@ public class TreasureApiController {
 		}
 		if (request.getFilter() != null) {
 			if (!request.getFilter().getBooks().isEmpty()) {
-				specification = addSpecification(specification, (root, query, cb) -> {
+				specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 					Join<Book, Spell> join = root.join("book", JoinType.INNER);
 					return join.get("source").in(request.getFilter().getBooks());
 				});
 			}
+			if (!request.getFilter().getCategories().isEmpty()) {
+				specification = SpecificationUtil.getAndSpecification(specification,
+						(root, query, cb) -> root.get("type").in(
+								request.getFilter().getCategories().stream().map(TreasureType::valueOf).collect(Collectors.toList()))
+						);
+			}
 		}
 		if (request.getOrders() !=null && !request.getOrders().isEmpty()) {
-			specification = addSpecification(specification, (root, query, cb) -> {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
 							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
@@ -93,13 +105,52 @@ public class TreasureApiController {
 				return cb.and();
 			});
 		}
-		return repo.findAll(input, specification, specification, ItemApi::new).getData();
+		return treasuryRepository.findAll(input, specification, specification, ItemApi::new).getData();
 	}
 
-	private <T> Specification<T> addSpecification(Specification<T> specification, Specification<T> addSpecification) {
-		if (specification == null) {
-			return Specification.where(addSpecification);
-		}
-		return specification.and(addSpecification);
+	@PostMapping("/api/v1/filters/treasures")
+	public FilterApi getWeaponsFilter() {
+		FilterApi filters = new FilterApi();
+		List<FilterApi> sources = new ArrayList<>();
+		FilterApi spellMainFilter = new FilterApi("main");
+		spellMainFilter.setValues(
+				treasuryRepository.findBook(TypeBook.OFFICAL).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(spellMainFilter);
+		
+		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
+		settingFilter.setValues(
+				treasuryRepository.findBook(TypeBook.SETTING).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(settingFilter);
+		
+		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
+		adventureFilter.setValues(
+				treasuryRepository.findBook(TypeBook.MODULE).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(adventureFilter);
+		
+		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
+		homebrewFilter.setValues(
+				treasuryRepository.findBook(TypeBook.CUSTOM).stream()
+				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+				.collect(Collectors.toList()));
+		sources.add(homebrewFilter);
+		filters.setSources(sources);
+		
+		List<FilterApi> otherFilters = new ArrayList<>();
+		
+		FilterApi damageTypeFilter = new FilterApi("Тип", "category");
+		damageTypeFilter.setValues(
+				Arrays.stream(TreasureType.values())
+				 .map(value -> new FilterValueApi(value.getName(), value.name()))
+				 .collect(Collectors.toList()));
+		otherFilters.add(damageTypeFilter);
+
+		filters.setOther(otherFilters);
+		return filters;
 	}
 }
