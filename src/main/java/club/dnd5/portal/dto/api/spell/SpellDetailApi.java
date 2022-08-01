@@ -3,6 +3,8 @@ package club.dnd5.portal.dto.api.spell;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -17,14 +19,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SpellDetailApi extends SpellApi {
+	@NotNull
 	private String range;
+	@NotNull
 	private String duration;
+	@NotNull
 	private String time;
 	private List<ReferenceClassApi> classes;
 	private List<ReferenceClassApi> subclasses;
 	private List<ReferenceClassApi> races;
 	private List<ReferenceClassApi> backgrounds;
-	
+
+	@NotNull
 	private String description;
 	private String upper;
 	public SpellDetailApi(Spell spell) {

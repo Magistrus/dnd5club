@@ -2,6 +2,7 @@ package club.dnd5.portal.service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ public class BookmarkServiceImpl implements BookmarkService {
 	
 	@Override
 	public Collection<BookmarkApi> getBookmarks(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookmarkRepository.findByUser(user)
+				.stream()
+				.map(BookmarkApi::new)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -27,10 +30,15 @@ public class BookmarkServiceImpl implements BookmarkService {
 		Bookmark entityBookmark = new Bookmark();
 		entityBookmark.setUser(user);
 		entityBookmark.setUuid(bookmark.getUuid());
+		entityBookmark.setName(bookmark.getName());
+		entityBookmark.setUrl(bookmark.getUrl());
 		if (bookmark.getParentUuid() != null) {
 			Optional<Bookmark> parent = bookmarkRepository.findById(bookmark.getParentUuid());
-			
+			if (parent.isPresent()) {
+				entityBookmark.setParent(parent.get());
+			}
 		}
+		bookmarkRepository.save(entityBookmark);
 	}
 
 	@Override
