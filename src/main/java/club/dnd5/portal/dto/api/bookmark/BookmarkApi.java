@@ -21,6 +21,7 @@ public class BookmarkApi {
 	private String name; // пустой для главного набора закладок
 	private String url; // пустой для категорий и имени набора закладок
 	private String bodyType; // пустой для категорий и имени набора закладок
+	private Integer order;
 
 	private String parentUuid;
 	private List<BookmarkApi> childs;
