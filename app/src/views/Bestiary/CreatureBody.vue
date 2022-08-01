@@ -469,7 +469,7 @@
             },
 
             abilityBonus(ability) {
-                const bonus = Math.floor((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2);
+                const bonus = Math.floor((ability - 10) / 2);
 
                 return Math.sign(bonus) > -1 ? `+${ bonus }` : bonus;
             },
