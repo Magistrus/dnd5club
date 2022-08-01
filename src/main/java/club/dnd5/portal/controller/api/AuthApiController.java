@@ -30,6 +30,7 @@ import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.security.JWTAuthResponse;
 import club.dnd5.portal.security.JwtTokenProvider;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "User", description = "The User API")
@@ -115,6 +116,7 @@ public class AuthApiController {
 		return ResponseEntity.ok().build();
 	}
 
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PostMapping("/exist")
 	public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user) {
 		if (user.getUsername() != null) {

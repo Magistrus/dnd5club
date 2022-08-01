@@ -23,6 +23,7 @@ import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.BookmarkService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Bookmark", description = "The Bookmark API")
@@ -36,6 +37,7 @@ public class BookmarkApiContoller {
 	private UserRepository userRepository;
 	
 	@Operation(summary = "Gets all user bookmarks")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<BookmarkApi> getBookmarks() {
@@ -46,6 +48,7 @@ public class BookmarkApiContoller {
 	}
 	
 	@Operation(summary = "Checks if the uuid exists")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@GetMapping("/{uuid}")
 	public ResponseEntity<?> existUiidBookmark(@PathVariable String uuid) {
 		if (service.existUuid(uuid)) {
@@ -55,6 +58,7 @@ public class BookmarkApiContoller {
 	}
 
 	@Operation(summary = "Add new bookmark")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PostMapping
 	public ResponseEntity<?> createBookamrk(@RequestBody BookmarkApi bookmarkApi){
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -64,7 +68,9 @@ public class BookmarkApiContoller {
 		return ResponseEntity.ok().build();
 	}
 
+	
 	@Operation(summary = "Update bookmark")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping
 	public ResponseEntity<?> updateBookamrk(@RequestBody BookmarkApi bookmarkApi){
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -75,6 +81,7 @@ public class BookmarkApiContoller {
 	}
 	
 	@Operation(summary = "Delete bookmark")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@DeleteMapping("/{uuid}")
 	public ResponseEntity<?> deleteBookamrk(@PathVariable String uuid){
 		service.deleteBookmark(uuid);

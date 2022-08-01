@@ -26,7 +26,7 @@ public class BookmarkApi {
 	private List<BookmarkApi> childs;
 	
 	public BookmarkApi(Bookmark bookmark) {
-		uuid = bookmark.getUuid();
+		uuid = bookmark.getUuid().toString();
 		if (bookmark.getName() != null) {
 			name = bookmark.getName();
 		}
@@ -55,7 +55,7 @@ public class BookmarkApi {
 			bodyType = "god";
 		}
 		if (bookmark.getParent() != null) {
-			parentUuid = bookmark.getParent().getUuid();
+			parentUuid = bookmark.getParent().getUuid().toString();
 		}
 		if (bookmark.getChields().isEmpty()) {
 			childs = bookmark.getChields()

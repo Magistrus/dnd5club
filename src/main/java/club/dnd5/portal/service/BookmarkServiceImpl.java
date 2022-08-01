@@ -2,6 +2,7 @@ package club.dnd5.portal.service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 	public void addBookmark(User user, BookmarkApi bookmark) {
 		Bookmark entityBookmark = new Bookmark();
 		entityBookmark.setUser(user);
-		entityBookmark.setUuid(bookmark.getUuid());
+		entityBookmark.setUuid(UUID.fromString(bookmark.getUuid()));
 		entityBookmark.setName(bookmark.getName());
 		entityBookmark.setUrl(bookmark.getUrl());
 		if (bookmark.getParentUuid() != null) {
