@@ -19,7 +19,9 @@ import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.background.Personalization;
 import club.dnd5.portal.model.background.PersonalizationType;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class BackgroundController {
 	@Autowired

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.UserApi;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "User", description = "The User API")
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserApiController {

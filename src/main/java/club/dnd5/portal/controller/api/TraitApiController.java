@@ -31,7 +31,9 @@ import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Trait", description = "The Trait API")
 @RestController
 public class TraitApiController {
 	@Autowired

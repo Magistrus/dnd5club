@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponPropertyDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
-
+@Hidden
 @Controller
 public class WeaponController {
 	@Autowired

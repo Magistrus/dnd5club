@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.SearchApi;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @RestController
 @RequestMapping("/api/v1/search")
 public class FulltextSearchController {

@@ -32,7 +32,9 @@ import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Tools", description = "The tools Treasury API")
 @RestController
 public class TreasuryApiController {
 	public static final Random rnd = new Random();

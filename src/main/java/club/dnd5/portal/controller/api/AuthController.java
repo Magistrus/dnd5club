@@ -1,4 +1,4 @@
-package club.dnd5.portal.controller;
+package club.dnd5.portal.controller.api;
 
 import java.util.Collections;
 
@@ -30,8 +30,9 @@ import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.security.JWTAuthResponse;
 import club.dnd5.portal.security.JwtTokenProvider;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "User", description = "The User API")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -50,7 +51,6 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@ApiOperation(value = "REST API to Register or Signup user")
 	@PostMapping("/signin")
 	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -80,7 +80,6 @@ public class AuthController {
 		}
 	}
 
-	@ApiOperation(value = "REST API to Register user")
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
 

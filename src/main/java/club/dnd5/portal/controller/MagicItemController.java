@@ -16,8 +16,9 @@ import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
-
+@Hidden
 @Controller
 public class MagicItemController {
 	@Autowired
