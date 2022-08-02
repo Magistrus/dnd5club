@@ -33,33 +33,33 @@ public class BookmarkApi {
 		}
 		if (bookmark.getUrl() != null) {
 			url = bookmark.getUrl();
-		}
-		if (url.startsWith("/options")) {
-			bodyType = "option";
-		} else if (url.startsWith("/traits")) {
-			bodyType = "trait";
-		} else if (url.startsWith("/armors")) {
-			bodyType = "armor";
-		} else if (url.startsWith("/weapons")) {
-			bodyType = "weapon";
-		} else if (url.startsWith("/items/magic")) {
-			bodyType = "item-magic";
-		} else if (url.startsWith("/items")) {
-			bodyType = "item";
-		} else if (url.startsWith("/screens")) {
-			bodyType = "screen";
-		} else if (url.startsWith("/bestiary")) {
-			bodyType = "creature";
-		} else if (url.startsWith("/spells")) {
-			bodyType = "spell";
-		} else if (url.startsWith("/gods")) {
-			bodyType = "god";
+			if (url.startsWith("/options")) {
+				bodyType = "option";
+			} else if (url.startsWith("/traits")) {
+				bodyType = "trait";
+			} else if (url.startsWith("/armors")) {
+				bodyType = "armor";
+			} else if (url.startsWith("/weapons")) {
+				bodyType = "weapon";
+			} else if (url.startsWith("/items/magic")) {
+				bodyType = "item-magic";
+			} else if (url.startsWith("/items")) {
+				bodyType = "item";
+			} else if (url.startsWith("/screens")) {
+				bodyType = "screen";
+			} else if (url.startsWith("/bestiary")) {
+				bodyType = "creature";
+			} else if (url.startsWith("/spells")) {
+				bodyType = "spell";
+			} else if (url.startsWith("/gods")) {
+				bodyType = "god";
+			}
 		}
 		if (bookmark.getParent() != null) {
 			parentUuid = bookmark.getParent().getUuid().toString();
 		}
 		order = bookmark.getOrder();
-		if (bookmark.getChields().isEmpty()) {
+		if (!bookmark.getChields().isEmpty()) {
 			childs = bookmark.getChields()
 					.stream()
 					.map(BookmarkApi::new)
