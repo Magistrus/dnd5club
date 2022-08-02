@@ -33,8 +33,9 @@ public class BookmarkServiceImpl implements BookmarkService {
 		entityBookmark.setUuid(UUID.fromString(bookmark.getUuid()));
 		entityBookmark.setName(bookmark.getName());
 		entityBookmark.setUrl(bookmark.getUrl());
+		entityBookmark.setOrder(bookmark.getOrder());
 		if (bookmark.getParentUuid() != null) {
-			Optional<Bookmark> parent = bookmarkRepository.findById(bookmark.getParentUuid());
+			Optional<Bookmark> parent = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUuid()));
 			if (parent.isPresent()) {
 				entityBookmark.setParent(parent.get());
 			}
@@ -50,11 +51,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public void deleteBookmark(String uuid) {
-		bookmarkRepository.deleteById(uuid);
+		bookmarkRepository.deleteById(UUID.fromString(uuid));
 	}
 
 	@Override
 	public boolean existUuid(String uuid) {
-		return bookmarkRepository.existsById(uuid);
+		return bookmarkRepository.existsById(UUID.fromString(uuid));
 	}
 }

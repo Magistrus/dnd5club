@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,9 +26,11 @@ public class Bookmark {
 	@Id
 	@Type(type = "uuid-char")
 	private UUID uuid;
+	
 	private String name;
 	private String url;
-	private int order;
+	@Column(name = "bookmark_order")
+	private Integer order;
 	
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "parent_id")

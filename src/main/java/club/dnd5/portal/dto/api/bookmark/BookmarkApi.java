@@ -58,6 +58,7 @@ public class BookmarkApi {
 		if (bookmark.getParent() != null) {
 			parentUuid = bookmark.getParent().getUuid().toString();
 		}
+		order = bookmark.getOrder();
 		if (bookmark.getChields().isEmpty()) {
 			childs = bookmark.getChields()
 					.stream()
