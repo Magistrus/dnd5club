@@ -16,6 +16,6 @@ import lombok.Setter;
 public class Order {
 	@Schema(description = "The name field for order", defaultValue = "name")
     private String field;
-	@Schema(description = "The order direction", defaultValue = "asc")
+	@Schema(description = "The order direction: ASC or DESC", defaultValue = "asc")
     private String direction;
 }

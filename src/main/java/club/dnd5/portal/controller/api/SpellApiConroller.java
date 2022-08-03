@@ -48,6 +48,11 @@ import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Spell", description = "The Spell API")
@@ -224,6 +229,14 @@ public class SpellApiConroller {
 	}
 	
 	@Operation(summary = "Gets spell by english name")
+	@ApiResponses(value = { 
+		  @ApiResponse(responseCode = "200", description = "Found the spell", 
+		    content = { @Content(mediaType = "application/json", 
+		      schema = @Schema(implementation = SpellDetailApi.class)) }),
+		  @ApiResponse(responseCode = "400", description = "Invalid id supplied", 
+		    content = @Content), 
+		  @ApiResponse(responseCode = "404", description = "Spell not found", 
+		    content = @Content) })
 	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpellDetailApi> getSpell(@PathVariable String englishName) {
 		Spell spell = spellRepo.findByEnglishName(englishName.replace('_', ' '));

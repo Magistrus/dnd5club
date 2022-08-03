@@ -44,9 +44,20 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public void updateBookmark(User user, BookmarkApi bookmark) {
-		// TODO Auto-generated method stub
-		
+	public void updateBookmark(User user, BookmarkApi bookmarkApi) {
+		Optional<Bookmark> bookmark = bookmarkRepository.findById(UUID.fromString(bookmarkApi.getParentUuid()));
+		if (bookmark.isPresent()) {
+			Bookmark updateBookmark = bookmark.get();
+			updateBookmark.setName(bookmarkApi.getName());
+			updateBookmark.setOrder(bookmarkApi.getOrder());
+			if (bookmarkApi.getParentUuid() != null) {
+				Optional<Bookmark> parent = bookmarkRepository.findById(UUID.fromString(bookmarkApi.getParentUuid()));
+				if (parent.isPresent()) {
+					updateBookmark.setParent(parent.get());
+				}
+			}
+			bookmarkRepository.save(updateBookmark);
+		}
 	}
 
 	@Override

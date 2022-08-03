@@ -46,5 +46,4 @@ public class SpellDetailApi extends SpellApi {
 		}
 		source.setPage(spell.getPage());
 	}
-
 }
