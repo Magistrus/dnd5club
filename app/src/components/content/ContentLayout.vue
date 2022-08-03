@@ -47,7 +47,11 @@
                 :class="{ 'is-fullscreen': getFullscreen }"
                 class="content-layout__selected"
             >
-                <router-view v-if="!$slots['right-side']"/>
+                <router-view
+                    v-if="!$slots['right-side']"
+                    @scroll-to-active="scrollToActive"
+                    @scroll-to-last-active="scrollToLastActive"
+                />
 
                 <slot name="right-side"/>
             </div>
@@ -57,9 +61,7 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import {
-        useInfiniteScroll, useResizeObserver
-    } from "@vueuse/core/index";
+    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
     import ListFilter from "@/components/filter/ListFilter";
     import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia";
@@ -85,7 +87,8 @@
             'resize'
         ],
         data: () => ({
-            shadow: false
+            shadow: false,
+            counter: 0
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
@@ -107,6 +110,68 @@
             window.removeEventListener('scroll', this.scrollHandler);
         },
         methods: {
+            scrollToLastActive(url) {
+                if (this.getIsMobile) {
+                    return;
+                }
+
+                const { items } = this.$refs;
+
+                if (!items) {
+                    return;
+                }
+
+                const link = items.querySelector(`[href="${ url }"]`)?.closest('.link-item-expand');
+
+                if (!link) {
+                    return;
+                }
+
+                setTimeout(() => {
+                    this.$nextTick(() => {
+                        this.scrollToActive(link);
+                    });
+                }, 350);
+            },
+
+            scrollToActive(oldLink) {
+                if (this.getIsMobile) {
+                    return;
+                }
+
+                if (document.readyState !== "complete") {
+                    this.scrollToActive(oldLink);
+
+                    return;
+                }
+
+                const { items } = this.$refs;
+
+                if (!items) {
+                    return;
+                }
+
+                const link = oldLink || items.querySelector('.router-link-active');
+
+                if (!link) {
+                    return;
+                }
+
+                this.$nextTick(() => {
+                    const scrollBody = document.getElementById('dnd5club');
+                    const rect = link.getBoundingClientRect();
+
+                    if (!rect?.top && rect?.top !== 0) {
+                        return;
+                    }
+
+                    scrollBody.scroll({
+                        top: rect.top - 112 + scrollBody.scrollTop,
+                        behavior: "smooth"
+                    });
+                });
+            },
+
             scrollHandler() {
                 this.toggleShadow();
             },

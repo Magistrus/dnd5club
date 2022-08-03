@@ -156,6 +156,13 @@
 
             next();
         },
+        beforeRouteLeave(to, from) {
+            if (to.name !== 'classes') {
+                return;
+            }
+
+            this.$emit('scroll-to-last-active', from.path);
+        },
         data: () => ({
             classesStore: useClassesStore(),
             loading: true,
@@ -219,6 +226,8 @@
         },
         async mounted() {
             await this.loadNewClass(this.$route.path);
+
+            this.$emit('scroll-to-active');
         },
         beforeUnmount() {
             this.removeScrollListeners();

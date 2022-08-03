@@ -7,6 +7,7 @@
                 :title="race?.name?.rus || ''"
                 bookmark
                 print
+                fullscreen
                 close-on-desktop
                 @close="close"
             />
@@ -42,6 +43,13 @@
 
             next();
         },
+        beforeRouteLeave(to, from) {
+            if (to.name !== 'races') {
+                return;
+            }
+
+            this.$emit('scroll-to-last-active', from.path);
+        },
         data: () => ({
             raceStore: useRacesStore(),
             race: undefined,
@@ -53,6 +61,8 @@
         },
         async mounted() {
             await this.loadNewRace(this.$route.path);
+
+            this.$emit('scroll-to-active');
         },
         methods: {
             async loadNewRace(url) {
