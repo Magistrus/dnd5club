@@ -7,6 +7,7 @@
                 :title="currentClass?.name?.rus || ''"
                 bookmark
                 print
+                fullscreen
                 close-on-desktop
                 @close="close"
             />

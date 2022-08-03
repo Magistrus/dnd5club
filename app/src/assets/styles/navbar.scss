@@ -6,8 +6,9 @@
   height: 56px;
   width: 100%;
   background: var(--bg-liner-menu);
-  position: sticky;
+  position: fixed;
   z-index: 100;
+  pointer-events: none;
 
   &::before {
     position: absolute;
@@ -88,6 +89,10 @@
       display: flex;
       align-items: center;
       height: 100%;
+
+      * {
+        pointer-events: auto;
+      }
     }
 
     &_left {

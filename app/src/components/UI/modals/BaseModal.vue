@@ -5,7 +5,6 @@
         content-class="base-modal"
         esc-to-close
         focus-trap
-        lock-scroll
         v-bind="$attrs"
     >
         <div class="base-modal__header">

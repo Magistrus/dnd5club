@@ -1,7 +1,6 @@
 <template>
     <div
         ref="container"
-        v-scroll-lock="showRightSide && (getFullscreen || getIsMobile)"
         :class="{'is-showed-right-side': showRightSide}"
         class="content-layout"
     >
@@ -90,27 +89,6 @@
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
-        },
-        watch: {
-            showRightSide: {
-                flush: 'post',
-                handler(value) {
-                    if (value && this.getFullscreen) {
-                        this.$refs.detail.style.top = `${ window.scrollY }px`;
-                    }
-                }
-            },
-            getFullscreen: {
-                handler(value) {
-                    if (value) {
-                        this.$refs.detail.style.top = `${ window.scrollY }px`;
-                    }
-
-                    if (!value) {
-                        this.$refs.detail.style.top = '';
-                    }
-                }
-            }
         },
         mounted() {
             useInfiniteScroll(
@@ -276,13 +254,10 @@
             }
 
             &.is-fullscreen {
-                width: 100%;
-                max-width: 100%;
+                width: var(--max-content);
+                max-width: var(--max-content);
                 height: calc(var(--max-vh) - 56px - 24px);
-                position: absolute;
-                top: 0;
-                left: 0;
-                margin: auto;
+                margin-left: -40%;
                 z-index: 16;
 
                 @media (max-width: 1200px) {
@@ -293,7 +268,7 @@
 
         &__fixed {
             position: sticky;
-            top: 56px;
+            top: 0;
             z-index: 3;
         }
     }
