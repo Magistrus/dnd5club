@@ -152,8 +152,19 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.controllers.classInfoQuery = undefined;
 
+                let images = [];
+
+                if (isArray(data.images) && data.images.length) {
+                    images = [...data.images];
+                }
+
+                if ((!isArray(data.images) || !data.images?.length) && data.image) {
+                    images.push(data.image);
+                }
+
                 return {
                     ...data,
+                    images,
                     tabs: sortBy(data.tabs, ['order'])
                 };
             } catch (err) {

@@ -259,7 +259,7 @@
             async initTabs(loadedClass) {
                 this.tabs = loadedClass.tabs;
 
-                if (loadedClass.images) {
+                if (isArray(loadedClass.images) && loadedClass.images?.length) {
                     this.tabs.push({
                         type: 'images',
                         order: this.tabs.length,
