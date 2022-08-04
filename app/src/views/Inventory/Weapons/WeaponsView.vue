@@ -120,7 +120,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.weapons[0]?.list[0]?.length && this.$route.name === 'weapons') {
+            if (!this.getIsMobile && this.weapons[0]?.list?.length && this.$route.name === 'weapons') {
                 await this.$router.push({ path: this.weapons[0].list[0].url });
             }
         },
