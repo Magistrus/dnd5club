@@ -121,7 +121,7 @@
                     <strong>Навыки </strong> <span>{{ skills }}</span>
                 </p>
 
-                <p v-if="creature.damageVulnerability">
+                <p v-if="creature.damageVulnerabilities">
                     <strong>Уязвимость к урону </strong>
 
                     <span>{{ getIterableStr(creature.damageVulnerability) }}</span>
