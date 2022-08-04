@@ -119,7 +119,7 @@
     import SpellBody from "@/views/Spells/SpellBody";
     import BaseModal from "@/components/UI/modals/BaseModal";
     import { mapActions, mapState } from "pinia";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
     export default {
         name: 'SpellLink',
@@ -150,7 +150,7 @@
             }
         }),
         computed: {
-            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved']),
 
             hasComponents() {
                 const { spell } = this;
@@ -167,7 +167,7 @@
             }
         },
         methods: {
-            ...mapActions(useBookmarkStore, ['updateBookmark']),
+            ...mapActions(useDefaultBookmarkStore, ['updateBookmark']),
 
             getClassList(isActive) {
                 return {

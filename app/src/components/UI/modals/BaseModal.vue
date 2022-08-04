@@ -113,7 +113,7 @@
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
     import { mapActions, mapState } from "pinia";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
     export default {
         name: "BaseModal",
@@ -146,7 +146,7 @@
         },
         emits: ['confirm'],
         computed: {
-            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved']),
 
             type() {
                 if (this.typeConfirm) {
@@ -169,7 +169,7 @@
             }
         },
         methods: {
-            ...mapActions(useBookmarkStore, ['updateBookmark'])
+            ...mapActions(useDefaultBookmarkStore, ['updateBookmark'])
         }
     };
 </script>

@@ -35,10 +35,8 @@
 <script>
     import MenuThemeSwitcher from '@/components/UI/MenuThemeSwitcher.vue';
     import NavProfile from "@/components/UI/menu/NavProfile";
-    import NavBookmarks from "@/components/UI/menu/NavBookmarks";
+    import NavBookmarks from "@/components/UI/menu/bookmarks/NavBookmarks";
     import NavMenu from "@/components/UI/menu/NavMenu";
-    import { mapActions } from "pinia";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
 
     export default {
         name: "NavBar",
@@ -53,12 +51,6 @@
                 type: String,
                 default: ''
             }
-        },
-        created() {
-            this.setSection(this.section);
-        },
-        methods: {
-            ...mapActions(useBookmarkStore, ['setSection'])
         }
     };
 </script>
