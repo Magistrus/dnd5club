@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { USER_TOKEN_COOKIE } from '@/common/const/UI';
+import { useUserStore } from '@/store/UI/UserStore';
 
 export default class HTTPService {
     constructor() {
@@ -7,7 +9,27 @@ export default class HTTPService {
 
         this.instance = axios.create({
             baseURL: `${ process.env.VUE_APP_API_URL || '' }/api/v1`,
-            withCredentials: true
+            withCredentials: true,
+            headers: {}
+        });
+
+        this.instance.interceptors.request.use(req => {
+            if (Cookies.get(USER_TOKEN_COOKIE)) {
+                // eslint-disable-next-line no-param-reassign
+                req.headers.Authorization = `Bearer ${ Cookies.get(USER_TOKEN_COOKIE) }`;
+            }
+
+            return req;
+        });
+
+        this.instance.interceptors.response.use(resp => {
+            if (resp.status === 401) {
+                const userStore = useUserStore();
+
+                userStore.clearUser();
+            }
+
+            return resp;
         });
 
         this.instanceRaw = axios.create({
@@ -21,13 +43,8 @@ export default class HTTPService {
             url,
             data,
             signal,
-            method: 'post',
-            headers: {}
+            method: 'post'
         };
-
-        if (Cookies.get('dnd5_user_token')) {
-            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_user_token') }`;
-        }
 
         return this.instance(config);
     }
@@ -36,13 +53,8 @@ export default class HTTPService {
         const config = {
             url,
             params: new URLSearchParams(params).toString(),
-            method: 'get',
-            headers: {}
+            method: 'get'
         };
-
-        if (Cookies.get('dnd5_user_token')) {
-            config.headers.Authorization = `Bearer ${ Cookies.get('dnd5_user_token') }`;
-        }
 
         return this.instance(config);
     }

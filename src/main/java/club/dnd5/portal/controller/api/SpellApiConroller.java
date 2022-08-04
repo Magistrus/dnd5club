@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.dnd5.portal.dto.api.spell.SpellApi;
 import club.dnd5.portal.dto.api.FilterApi;
 import club.dnd5.portal.dto.api.FilterValueApi;
 import club.dnd5.portal.dto.api.spell.ReferenceClassApi;
+import club.dnd5.portal.dto.api.spell.SpellApi;
 import club.dnd5.portal.dto.api.spell.SpellDetailApi;
 import club.dnd5.portal.dto.api.spell.SpellRequesApi;
 import club.dnd5.portal.dto.api.spells.SpellFvtt;
@@ -47,7 +47,15 @@ import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Spell", description = "The Spell API")
 @RestController
 public class SpellApiConroller {
 	private static final String[][] classesMap = { { "1", "Бард" }, { "2", "Волшебник" }, { "3", "Друид" },
@@ -61,6 +69,7 @@ public class SpellApiConroller {
 	@Autowired
 	private ArchetypeSpellRepository archetypeSpellRepository;
 	
+	@Operation(summary = "Gets all spells")
 	@PostMapping(value = "/api/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<SpellApi> getSpells(@RequestBody SpellRequesApi request) {
 		Specification<Spell> specification = null;
@@ -219,6 +228,15 @@ public class SpellApiConroller {
 		return spellRepo.findAll(input, specification, specification, SpellApi::new).getData();
 	}
 	
+	@Operation(summary = "Gets spell by english name")
+	@ApiResponses(value = { 
+		  @ApiResponse(responseCode = "200", description = "Found the spell", 
+		    content = { @Content(mediaType = "application/json", 
+		      schema = @Schema(implementation = SpellDetailApi.class)) }),
+		  @ApiResponse(responseCode = "400", description = "Invalid id supplied", 
+		    content = @Content), 
+		  @ApiResponse(responseCode = "404", description = "Spell not found", 
+		    content = @Content) })
 	@PostMapping(value = "/api/v1/spells/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpellDetailApi> getSpell(@PathVariable String englishName) {
 		Spell spell = spellRepo.findByEnglishName(englishName.replace('_', ' '));
@@ -237,6 +255,7 @@ public class SpellApiConroller {
 		return ResponseEntity.ok(spellApi);
 	}
 	
+	@Operation(summary = "Gets filters for spells")
 	@CrossOrigin
 	@GetMapping(value = "/api/fvtt/v1/spells", produces = MediaType.APPLICATION_JSON_VALUE)
 	public SpellsFvtt getSpells(String search, String exact){
@@ -279,6 +298,7 @@ public class SpellApiConroller {
 		return new SpellsFvtt(spellRepo.findAll(input, specification, specification, SpellFvtt::new).getData());
 	}
 	
+	@Operation(summary = "Gets spells filter", tags = "spells")
 	@PostMapping("/api/v1/filters/spells")
 	public FilterApi getFilter() {
 		FilterApi filters = new FilterApi();

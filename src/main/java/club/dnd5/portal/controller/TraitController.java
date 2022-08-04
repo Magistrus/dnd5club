@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class TraitController {
 	@Autowired

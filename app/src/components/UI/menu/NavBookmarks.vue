@@ -16,72 +16,74 @@
         </template>
 
         <template #default>
-            <div class="bookmarks__header">
-                <div class="bookmarks__info">
-                    <span class="bookmarks__info--title">Закладки</span>
-                </div>
-            </div>
-
-            <div class="bookmarks">
-                <div
-                    v-for="(group, groupKey) in getItems"
-                    :key="group.label + groupKey"
-                    class="bookmarks__group"
-                >
-                    <div class="bookmarks__group_label">
-                        <div
-                            v-if="isEdit"
-                            class="bookmarks__group_icon is-left"
-                        >
-                            <svg-icon icon-name="sandwich"/>
-                        </div>
-
-                        <div class="bookmarks__group_label">
-                            {{ group.label }}
-                        </div>
-
-                        <div
-                            v-if="isEdit"
-                            class="bookmarks__group_icon is-right"
-                        >
-                            <svg-icon icon-name="close"/>
-                        </div>
+            <div class="nav-bookmarks">
+                <div class="nav-bookmarks__header">
+                    <div class="nav-bookmarks__info">
+                        <span class="nav-bookmarks__info--title">Закладки</span>
                     </div>
+                </div>
 
-                    <div class="bookmarks__links">
-                        <div
-                            v-for="link in group.links"
-                            :key="link.url"
-                            class="bookmarks__link"
-                        >
+                <div class="nav-bookmarks__body">
+                    <div
+                        v-for="(group, groupKey) in getItems"
+                        :key="group.label + groupKey"
+                        class="nav-bookmarks__group"
+                    >
+                        <div class="nav-bookmarks__group_label">
                             <div
                                 v-if="isEdit"
-                                class="bookmarks__link_icon only-hover is-left"
+                                class="nav-bookmarks__group_icon is-left"
                             >
                                 <svg-icon icon-name="sandwich"/>
                             </div>
 
-                            <a
-                                :href="link.url"
-                                :target="isExternal(link.url) ? '_blank' : '_self'"
-                                class="bookmarks__link_label"
-                            >{{ link.label }}</a>
+                            <div class="nav-bookmarks__group_label">
+                                {{ group.label }}
+                            </div>
 
                             <div
-                                class="bookmarks__link_icon only-hover is-right"
-                                @click.left.exact.stop.prevent="removeBookmark(link.url)"
+                                v-if="isEdit"
+                                class="nav-bookmarks__group_icon is-right"
                             >
                                 <svg-icon icon-name="close"/>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div
-                    v-if="!getItems?.length"
-                    class="bookmarks__info"
-                >
-                    <span class="bookmarks__info--desc">Здесь пока пусто</span>
+                        <div class="nav-bookmarks__links">
+                            <div
+                                v-for="link in group.links"
+                                :key="link.url"
+                                class="nav-bookmarks__link"
+                            >
+                                <div
+                                    v-if="isEdit"
+                                    class="nav-bookmarks__link_icon only-hover is-left"
+                                >
+                                    <svg-icon icon-name="sandwich"/>
+                                </div>
+
+                                <a
+                                    :href="link.url"
+                                    :target="isExternal(link.url) ? '_blank' : '_self'"
+                                    class="nav-bookmarks__link_label"
+                                >{{ link.label }}</a>
+
+                                <div
+                                    class="nav-bookmarks__link_icon only-hover is-right"
+                                    @click.left.exact.stop.prevent="removeBookmark(link.url)"
+                                >
+                                    <svg-icon icon-name="close"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        v-if="!getItems?.length"
+                        class="nav-bookmarks__info"
+                    >
+                        <span class="nav-bookmarks__info--desc">Здесь пока пусто</span>
+                    </div>
                 </div>
             </div>
         </template>
@@ -125,11 +127,12 @@
 </script>
 
 <style lang="scss" scoped>
-    .bookmarks {
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+    .nav-bookmarks {
+        padding: 16px 16px 8px;
+
+        @media (max-width: 550px) {
+            padding: 16px 8px 0;
+        }
 
         &__header {
             padding: 0 16px 16px 16px;
@@ -138,11 +141,11 @@
             align-items: center;
         }
 
-        &__logo {
-            margin-right: 12px;
-            width: 70px;
-            height: 70px;
-            flex-shrink: 0;
+        &__body {
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         &__info {
@@ -236,7 +239,7 @@
             }
 
             &:hover {
-                .bookmarks {
+                .nav-bookmarks {
                     &__link {
                         &_icon {
                             &.only-hover {

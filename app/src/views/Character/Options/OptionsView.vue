@@ -22,7 +22,7 @@
     import { shallowRef } from "vue";
     import { useOptionsStore } from "@/store/Character/OptionsStore";
     import OptionLink from "@/views/Character/Options/OptionLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

@@ -36,7 +36,7 @@
     import BookLink from "@/views/Wiki/Books/BookLink";
     import { shallowRef } from "vue";
     import sortBy from "lodash/sortBy";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

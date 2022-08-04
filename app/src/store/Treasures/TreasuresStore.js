@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'treasures';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useTreasuresStore = defineStore('TreasuresStore', {
@@ -83,11 +81,16 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
                         exact: false,
                         value: this.filter?.getSearchState || ''
                     },
-
-                    // order: [{ // TODO: Revert comment
-                    //     field: 'name',
-                    //     direction: 'asc'
-                    // }],
+                    order: [
+                        {
+                            field: 'cost',
+                            direction: 'asc'
+                        },
+                        {
+                            field: 'name',
+                            direction: 'asc'
+                        }
+                    ],
                     ...options
                 };
 
@@ -95,7 +98,11 @@ export const useTreasuresStore = defineStore('TreasuresStore', {
                     apiOptions.customFilter = this.customFilter;
                 }
 
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.treasuresQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.treasuresQuery.signal
+                );
 
                 this.controllers.treasuresQuery = undefined;
 

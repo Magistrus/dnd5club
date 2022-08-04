@@ -38,7 +38,9 @@ import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 import club.dnd5.portal.repository.datatable.PantheonGodRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "God", description = "The God API")
 @RestController
 public class GodApiConroller {
 	@Autowired

@@ -1,4 +1,4 @@
-package club.dnd5.portal.controller;
+package club.dnd5.portal.controller.api;
 
 import java.util.Collections;
 
@@ -30,11 +30,13 @@ import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.security.JWTAuthResponse;
 import club.dnd5.portal.security.JwtTokenProvider;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "User", description = "The User API")
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class AuthApiController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -50,7 +52,6 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@ApiOperation(value = "REST API to Register or Signup user")
 	@PostMapping("/signin")
 	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -80,7 +81,6 @@ public class AuthController {
 		}
 	}
 
-	@ApiOperation(value = "REST API to Register user")
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
 
@@ -107,17 +107,16 @@ public class AuthController {
 	}
 
 	@PostMapping("/signout")
-	public ResponseEntity<?> signout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<?> signout(HttpSession session, HttpServletResponse response) {
 	    Cookie cookie = new Cookie("dnd5_user_token", "");
 	    cookie.setMaxAge(-1);
-		String domain = request.getServerName().replaceAll(".*\\.(?=.*\\.)", "");
-		cookie.setDomain(domain);
 		cookie.setPath("/");
 	    response.addCookie(cookie);
 		session.invalidate();
 		return ResponseEntity.ok().build();
 	}
 
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PostMapping("/exist")
 	public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user) {
 		if (user.getUsername() != null) {

@@ -7,6 +7,7 @@
                 :title="currentClass?.name?.rus || ''"
                 bookmark
                 print
+                fullscreen
                 close-on-desktop
                 @close="close"
             />
@@ -131,7 +132,7 @@
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import isArray from "lodash/isArray";
     import sortBy from "lodash/sortBy";
@@ -154,6 +155,13 @@
             await this.loadNewClass(to.path);
 
             next();
+        },
+        beforeRouteLeave(to, from) {
+            if (to.name !== 'classes') {
+                return;
+            }
+
+            this.$emit('scroll-to-last-active', from.path);
         },
         data: () => ({
             classesStore: useClassesStore(),
@@ -218,6 +226,8 @@
         },
         async mounted() {
             await this.loadNewClass(this.$route.path);
+
+            this.$emit('scroll-to-active');
         },
         beforeUnmount() {
             this.removeScrollListeners();
@@ -249,7 +259,7 @@
             async initTabs(loadedClass) {
                 this.tabs = loadedClass.tabs;
 
-                if (loadedClass.images) {
+                if (isArray(loadedClass.images) && loadedClass.images?.length) {
                     this.tabs.push({
                         type: 'images',
                         order: this.tabs.length,

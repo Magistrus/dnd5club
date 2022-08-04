@@ -17,7 +17,9 @@ import club.dnd5.portal.dto.api.tools.RequestWildMagicApi;
 import club.dnd5.portal.dto.api.tools.WildMagicApi;
 import club.dnd5.portal.model.splells.WildMagic;
 import club.dnd5.portal.repository.datatable.WildMagicRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Tools", description = "The tools Wild Magic API")
 @RestController
 public class WildMagicApiController {
 	public static final Random rnd = new Random();

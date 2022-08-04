@@ -3,8 +3,7 @@ import { createPinia } from 'pinia';
 import VueEasyLightbox from 'vue-easy-lightbox';
 import VueTippy from 'vue-tippy/dist/vue-tippy';
 import VueLazyload from 'vue-lazyload';
-import VScrollLock from '@/common/directives/VScrollLock';
-import { vfmPlugin } from 'vue-final-modal';
+import vfmPlugin from 'vue-final-modal';
 import isDev from '@/common/helpers/isDev';
 import registerComponents from '@/common/utils/RegisterComponents';
 import HTTPService from '@/common/services/HTTPService';
@@ -19,21 +18,25 @@ const app = createApp(App);
 app.config.globalProperties.$http = new HTTPService();
 app.config.globalProperties.$isDev = isDev;
 
-app.use(createPinia())
+const pinia = createPinia();
+
+pinia.use(({ store }) => {
+    // eslint-disable-next-line no-param-reassign
+    store.$http = new HTTPService();
+});
+
+app.use(pinia)
     .use(router)
     .use(VueEasyLightbox)
     .use(VueTippy, VueTippyConfig)
     .use(VueLazyload, {
         preLoad: 1.7
     })
-    .use(VScrollLock, {
-        reserveScrollBarGap: true
-    })
-    .use(vfmPlugin({
+    .use(vfmPlugin, {
         key: '$vfm',
         componentName: 'VueFinalModal',
         dynamicContainerName: 'ModalsContainer'
-    }));
+    });
 
 registerComponents(app);
 

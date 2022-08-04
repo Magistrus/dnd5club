@@ -22,7 +22,9 @@ import club.dnd5.portal.model.articles.ArtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.ArticleService;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class ArticleController {
 	@Autowired

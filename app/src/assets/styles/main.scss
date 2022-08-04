@@ -17,14 +17,14 @@
   max-width: var(--max-content);
   position: relative;
   margin: auto;
-  padding: 0 0 24px 0;
+  padding: 56px 0 24px 0;
 
   @media (max-width: 1400px) {
-    padding: 0 24px 24px 24px;
+    padding: 56px 24px 24px 24px;
   }
 
   @media (max-width: 1200px) {
-    padding: 0 16px 16px 16px;
+    padding: 56px 16px 16px 16px;
   }
 }
 

@@ -5,6 +5,8 @@ import club.dnd5.portal.model.articles.ArtricleStatus;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.ArticleService;
+import io.swagger.v3.oas.annotations.Hidden;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+@Hidden
 @Controller
 public class ProfileController {
 	@Autowired

@@ -1,6 +1,6 @@
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import { mapActions } from "pinia/dist/pinia";
+    import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
 
     export default {

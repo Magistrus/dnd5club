@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import sortBy from 'lodash/sortBy';
@@ -7,7 +6,6 @@ import groupBy from 'lodash/groupBy';
 import isArray from 'lodash/isArray';
 
 const DB_NAME = 'classes';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useClassesStore = defineStore('ClassesStore', {
@@ -86,7 +84,11 @@ export const useClassesStore = defineStore('ClassesStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.classesQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.classesQuery.signal
+                );
 
                 this.controllers.classesQuery = undefined;
 
@@ -142,7 +144,7 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.controllers.classInfoQuery = new AbortController();
 
-                const { data } = await http.post(
+                const { data } = await this.$http.post(
                     url,
                     { filter: this.filter.getQueryParams },
                     this.controllers.classInfoQuery.signal
@@ -150,8 +152,19 @@ export const useClassesStore = defineStore('ClassesStore', {
 
                 this.controllers.classInfoQuery = undefined;
 
+                let images = [];
+
+                if (isArray(data.images) && data.images.length) {
+                    images = [...data.images];
+                }
+
+                if ((!isArray(data.images) || !data.images?.length) && data.image) {
+                    images.push(data.image);
+                }
+
                 return {
                     ...data,
+                    images,
                     tabs: sortBy(data.tabs, ['order'])
                 };
             } catch (err) {

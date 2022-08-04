@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import sortBy from 'lodash/sortBy';
@@ -7,7 +6,6 @@ import groupBy from 'lodash/groupBy';
 import isArray from 'lodash/isArray';
 
 const DB_NAME = 'races';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useRacesStore = defineStore('RacesStore', {
@@ -88,7 +86,7 @@ export const useRacesStore = defineStore('RacesStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.racesQuery.signal);
+                const { data } = await this.$http.post(this.config.url, apiOptions, this.controllers.racesQuery.signal);
 
                 this.controllers.racesQuery = undefined;
 
@@ -169,7 +167,7 @@ export const useRacesStore = defineStore('RacesStore', {
 
                 this.controllers.raceInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.raceInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.raceInfoQuery.signal);
 
                 this.controllers.raceInfoQuery = undefined;
 

@@ -139,12 +139,24 @@
                 };
             },
 
+            async clearForm() {
+                this.username = '';
+                this.email = '';
+                this.password = '';
+                this.repeat = '';
+                this.success = false;
+
+                await this.v$.$reset();
+            },
+
             successHandler() {
                 this.clearError();
 
                 this.success = true;
 
                 setTimeout(() => {
+                    this.clearForm();
+
                     this.$emit('close');
                 }, 2000);
             },

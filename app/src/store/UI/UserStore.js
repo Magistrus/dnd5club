@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import Cookies from 'js-cookie';
-
-const http = new HTTPService();
+import { USER_TOKEN_COOKIE } from '@/common/const/UI';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useUserStore = defineStore('UserStore', {
@@ -26,7 +24,7 @@ export const useUserStore = defineStore('UserStore', {
                     return Promise.reject(new Error('All fields are required to fill'));
                 }
 
-                const resp = await http.post('/auth/signup', body);
+                const resp = await this.$http.post('/auth/signup', body);
 
                 switch (resp.status) {
                     case 200:
@@ -56,7 +54,7 @@ export const useUserStore = defineStore('UserStore', {
                     return Promise.reject(new Error('All fields are required to fill'));
                 }
 
-                const resp = await http.post('/auth/signin', config);
+                const resp = await this.$http.post('/auth/signin', config);
 
                 switch (resp.status) {
                     case 200:
@@ -74,9 +72,32 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
+        async logout() {
+            try {
+                const resp = await this.$http.post('/auth/signout');
+
+                switch (resp.status) {
+                    case 200:
+                        this.clearUser();
+
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject();
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        clearUser() {
+            this.user = undefined;
+
+            Cookies.remove(USER_TOKEN_COOKIE);
+        },
+
         async getUserInfo(username) {
             try {
-                const resp = await http.post(`/profile/${ username }`);
+                const resp = await this.$http.post(`/profile/${ username }`);
 
                 switch (resp.status) {
                     case 200:
@@ -93,11 +114,7 @@ export const useUserStore = defineStore('UserStore', {
 
         async updateUserFromSession() {
             try {
-                if (!Cookies.get('dnd5_user_token')) {
-                    return Promise.resolve();
-                }
-
-                const resp = await http.post('/user');
+                const resp = await this.$http.post('/user');
 
                 switch (resp.status) {
                     case 200:
@@ -105,10 +122,14 @@ export const useUserStore = defineStore('UserStore', {
 
                         return Promise.resolve(resp.data);
                     default:
-                        return Promise.reject(resp.statusText);
+                        this.clearUser();
+
+                        return Promise.resolve();
                 }
             } catch (err) {
-                return Promise.reject(err);
+                this.clearUser();
+
+                return Promise.resolve();
             }
         }
     }

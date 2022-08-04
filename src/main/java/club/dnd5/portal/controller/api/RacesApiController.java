@@ -36,7 +36,9 @@ import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.RaceDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Race", description = "The Race API")
 @RestController
 public class RacesApiController {
 	@Autowired

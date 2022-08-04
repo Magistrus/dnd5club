@@ -30,7 +30,7 @@
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useScreensStore } from "@/store/Screens/ScreensStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import ScreenBody from "@/views/Screens/ScreenBody";
     import ScreensGroup from "@/views/Screens/ScreensGroup";

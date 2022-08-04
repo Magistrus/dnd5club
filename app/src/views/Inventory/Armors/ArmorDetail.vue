@@ -24,7 +24,7 @@
     import ArmorBody from "@/views/Inventory/Armors/ArmorBody";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

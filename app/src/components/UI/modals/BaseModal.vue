@@ -5,7 +5,6 @@
         content-class="base-modal"
         esc-to-close
         focus-trap
-        lock-scroll
         v-bind="$attrs"
     >
         <div class="base-modal__header">
@@ -113,7 +112,7 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
-    import { mapActions, mapState } from "pinia/dist/pinia";
+    import { mapActions, mapState } from "pinia";
     import { useBookmarkStore } from "@/store/UI/BookmarkStore";
 
     export default {

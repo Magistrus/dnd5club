@@ -34,7 +34,7 @@
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import WeaponLink from "@/views/Inventory/Weapons/WeaponLink";
     import sortBy from "lodash/sortBy";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -120,7 +120,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.weapons[0]?.list[0]?.length && this.$route.name === 'weapons') {
+            if (!this.getIsMobile && this.weapons[0]?.list?.length && this.$route.name === 'weapons') {
                 await this.$router.push({ path: this.weapons[0].list[0].url });
             }
         },

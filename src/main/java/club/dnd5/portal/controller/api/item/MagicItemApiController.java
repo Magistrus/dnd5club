@@ -36,7 +36,9 @@ import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Magic Item", description = "The Magic Item API")
 @RestController
 public class MagicItemApiController {
 	@Autowired

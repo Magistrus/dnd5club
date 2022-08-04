@@ -1,6 +1,7 @@
 import {
     createRouter, createWebHistory
 } from 'vue-router';
+import { useUserStore } from '@/store/UI/UserStore';
 
 const routes = [
     {
@@ -219,8 +220,12 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
-    next();
+router.afterEach(async () => {
+    const userStore = useUserStore();
+
+    if (userStore.isAuthorized) {
+        await userStore.updateUserFromSession();
+    }
 });
 
 export default router;

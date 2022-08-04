@@ -121,10 +121,10 @@
                     <strong>Навыки </strong> <span>{{ skills }}</span>
                 </p>
 
-                <p v-if="creature.damageVulnerability">
+                <p v-if="creature.damageVulnerabilities">
                     <strong>Уязвимость к урону </strong>
 
-                    <span>{{ getIterableStr(creature.damageVulnerability) }}</span>
+                    <span>{{ getIterableStr(creature.damageVulnerabilities) }}</span>
                 </p>
                 <p v-if="creature.damageResistances">
                     <strong>Сопротивление к урону </strong>
@@ -326,19 +326,37 @@
         scroll-disabled
         @hide="gallery.show = false"
     >
-        <template #toolbar/>
+        <template #toolbar>
+            <div class="vel-toolbar">
+                <button
+                    type="button"
+                    aria-label="hide-bg button"
+                    class="toolbar-btn"
+                    @click.left.exact.prevent="setGalleryBgMode(!gallery.hideBg)"
+                >
+                    <svg-icon
+                        class="vel-icon icon"
+                        :icon-name="gallery.hideBg ? 'light-theme' : 'dark-theme'"
+                        :stroke-enable="false"
+                        fill-enable
+                    />
+                </button>
+            </div>
+        </template>
     </vue-easy-lightbox>
 </template>
 
 <script>
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
+    import SvgIcon from "@/components/UI/SvgIcon";
 
     export default {
         name: "CreatureBody",
         components: {
             DetailTopBar,
-            RawContent
+            RawContent,
+            SvgIcon
         },
         props: {
             creature: {
@@ -354,7 +372,8 @@
         data: () => ({
             gallery: {
                 index: null,
-                show: false
+                show: false,
+                hideBg: false
             }
         }),
         computed: {
@@ -468,8 +487,23 @@
                 this.gallery.index = 0;
             },
 
+            setGalleryBgMode(isActive) {
+                const modal = document.body.querySelector('.vel-modal');
+                const className = 'is-bg-hide';
+
+                this.gallery.hideBg = isActive;
+
+                if (isActive) {
+                    modal.classList.add(className);
+
+                    return;
+                }
+
+                modal.classList.remove(className);
+            },
+
             abilityBonus(ability) {
-                const bonus = Math.floor((ability - 10) < 0 ? (ability - 11) / 2 : (ability - 10) / 2);
+                const bonus = Math.floor((ability - 10) / 2);
 
                 return Math.sign(bonus) > -1 ? `+${ bonus }` : bonus;
             },

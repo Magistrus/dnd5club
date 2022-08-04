@@ -44,7 +44,7 @@ public class BackgroundApiController {
 	@Autowired
 	private BackgroundDatatableRepository backgroundRepository;
 	
-	@Operation(summary = "Gets all backgrounds", tags = "user")
+	@Operation(summary = "Gets all backgrounds", tags = "background")
 	@PostMapping(value = "/api/v1/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BackgroundApi> getBackgrainds(@RequestBody TraitRequesApi request) {
 		Specification<Background> specification = null;

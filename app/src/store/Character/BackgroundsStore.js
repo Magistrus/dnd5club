@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 
 const DB_NAME = 'backgrounds';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useBackgroundsStore = defineStore('BackgroundsStore', {
@@ -85,7 +83,11 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.backgroundsQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.backgroundsQuery.signal
+                );
 
                 this.controllers.backgroundsQuery = undefined;
 
@@ -149,7 +151,7 @@ export const useBackgroundsStore = defineStore('BackgroundsStore', {
 
                 this.controllers.backgroundInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.backgroundInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.backgroundInfoQuery.signal);
 
                 this.controllers.backgroundInfoQuery = undefined;
 
