@@ -96,7 +96,7 @@
 <script>
     import { mapActions, mapState } from "pinia";
     import { useNavStore } from "@/store/UI/NavStore";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
     import SvgIcon from "@/components/UI/SvgIcon";
     import SiteLogo from "@/components/UI/SiteLogo";
@@ -113,14 +113,14 @@
         }),
         computed: {
             ...mapState(useNavStore, ['getNavItems']),
-            ...mapState(useBookmarkStore, ['isBookmarkSaved'])
+            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved'])
         },
         created() {
             this.setNavItems();
         },
         methods: {
             ...mapActions(useNavStore, ['setNavItems']),
-            ...mapActions(useBookmarkStore, ['updateBookmark'])
+            ...mapActions(useDefaultBookmarkStore, ['updateBookmark'])
         }
     };
 </script>
