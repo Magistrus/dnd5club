@@ -177,7 +177,7 @@
                 class="treasury-group"
             >
                 <h4 class="header_separator">
-                    <span>Магические предметы</span>
+                    <span>Монеты</span>
                 </h4>
 
                 <table class="table">
