@@ -105,7 +105,7 @@
     import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/common/helpers/errorHandler";
     import { mapActions, mapState } from "pinia";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
     export default {
         name: 'SectionHeader',
@@ -152,7 +152,7 @@
             uiStore: useUIStore()
         }),
         computed: {
-            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved']),
 
             hasOptionalControls() {
                 return !!this.bookmark || !!this.print || !!this.onExportFoundry;
@@ -184,7 +184,7 @@
             }
         },
         methods: {
-            ...mapActions(useBookmarkStore, ['updateBookmark']),
+            ...mapActions(useDefaultBookmarkStore, ['updateBookmark']),
 
             async copyText() {
                 if (navigator.clipboard) {

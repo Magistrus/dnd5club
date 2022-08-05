@@ -87,27 +87,30 @@
             'resize'
         ],
         data: () => ({
-            shadow: false,
-            counter: 0
+            shadow: false
         }),
         computed: {
             ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
         },
         mounted() {
+            const scrollEl = document.getElementById('dnd5club');
+
             useInfiniteScroll(
-                ref(window),
+                ref(scrollEl),
                 () => {
                     this.$emit('list-end');
                 },
                 { distance: 1080 }
             );
 
-            window.addEventListener('scroll', this.scrollHandler);
+            scrollEl.addEventListener('scroll', this.scrollHandler);
 
-            useResizeObserver(this.$refs.items, this.scrollHandler);
+            useResizeObserver(scrollEl, this.scrollHandler);
         },
         beforeUnmount() {
-            window.removeEventListener('scroll', this.scrollHandler);
+            const scrollEl = document.getElementById('dnd5club');
+
+            scrollEl.removeEventListener('scroll', this.scrollHandler);
         },
         methods: {
             scrollToLastActive(url) {
@@ -177,7 +180,10 @@
             },
 
             toggleShadow() {
-                this.shadow = window.scrollY + window.innerHeight < document.body.offsetHeight - 24;
+                const scrollEl = document.getElementById('dnd5club');
+                const container = document.getElementById('container');
+
+                this.shadow = scrollEl.scrollTop + scrollEl.offsetHeight < container.offsetHeight - 24;
             }
         }
     };
