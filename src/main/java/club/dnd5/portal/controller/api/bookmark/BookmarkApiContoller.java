@@ -68,7 +68,6 @@ public class BookmarkApiContoller {
 		return ResponseEntity.ok().build();
 	}
 
-	
 	@Operation(summary = "Update bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping

@@ -33,6 +33,7 @@ public class SpellDetailApi extends SpellApi {
 	@NotNull
 	private String description;
 	private String upper;
+
 	public SpellDetailApi(Spell spell) {
 		super(spell);
 		range = spell.getDistance();
