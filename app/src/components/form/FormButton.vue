@@ -1,6 +1,6 @@
 <template>
     <button
-        :class="`is-${type}`"
+        :class="classList"
         :disabled="disabled"
         class="form-button"
         type="button"
@@ -28,6 +28,10 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            isSmall: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -41,6 +45,16 @@
                 }
 
                 return 'primary';
+            },
+
+            classList() {
+                const list = [`is-${ this.type }`];
+
+                if (this.isSmall) {
+                    list.push('is-small');
+                }
+
+                return list;
             }
         }
     };
@@ -146,6 +160,19 @@
                 border-color: var(--primary);
                 color: var(--primary);
                 cursor: not-allowed;
+            }
+        }
+
+        &.is-small {
+            padding: 8px;
+
+            & + & {
+                margin-left: 8px;
+            }
+
+            ::v-deep(svg) {
+                width: 18px;
+                height: 18px;
             }
         }
     }

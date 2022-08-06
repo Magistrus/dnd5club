@@ -1,37 +1,55 @@
 <template>
-    <div class="default-bookmarks">
-        <div class="default-bookmarks__header">
-            <div class="default-bookmarks__info">
-                <span class="default-bookmarks__info--title">Закладки</span>
+    <div class="custom-bookmarks">
+        <div class="custom-bookmarks__header">
+            <div class="custom-bookmarks__info">
+                <span class="custom-bookmarks__info--title">Группы</span>
             </div>
+
+            <form-button
+                class="custom-bookmarks__new"
+                type-link
+                is-small
+            >
+                <div class="custom-bookmarks__new--icon">
+                    <svg-icon icon-name="plus"/>
+                </div>
+
+                <span>Группа</span>
+            </form-button>
+
+            <label class="custom-bookmarks__search">
+                <span class="custom-bookmarks__search--icon">
+                    <svg-icon icon-name="search"/>
+                </span>
+            </label>
         </div>
 
-        <div class="default-bookmarks__body">
+        <div class="custom-bookmarks__body">
             <div
                 v-for="(group, groupKey) in getBookmarks"
                 :key="group.name + group.order + groupKey"
-                class="default-bookmarks__group"
+                class="custom-bookmarks__group"
             >
-                <div class="default-bookmarks__group_label">
-                    <div class="default-bookmarks__group_label">
+                <div class="custom-bookmarks__group_label">
+                    <div class="custom-bookmarks__group_label">
                         {{ group.name }}
                     </div>
                 </div>
 
-                <div class="default-bookmarks__links">
+                <div class="custom-bookmarks__links">
                     <div
                         v-for="link in group.childList"
                         :key="link.url + group.order"
-                        class="default-bookmarks__link"
+                        class="custom-bookmarks__link"
                     >
                         <a
                             :href="link.url"
                             :target="isExternal(link.url) ? '_blank' : '_self'"
-                            class="default-bookmarks__link_label"
+                            class="custom-bookmarks__link_label"
                         >{{ link.name }}</a>
 
                         <div
-                            class="default-bookmarks__link_icon only-hover is-right"
+                            class="custom-bookmarks__link_icon only-hover is-right"
                             @click.left.exact.stop.prevent="removeBookmark(link.url)"
                         >
                             <svg-icon icon-name="close"/>
@@ -42,9 +60,9 @@
 
             <div
                 v-if="!getBookmarks?.length"
-                class="default-bookmarks__info"
+                class="custom-bookmarks__info"
             >
-                <span class="default-bookmarks__info--desc">Здесь пока пусто</span>
+                <span class="custom-bookmarks__info--desc">Здесь пока пусто</span>
             </div>
         </div>
     </div>
@@ -53,9 +71,15 @@
 <script>
     import { mapActions, mapState } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
+    import SvgIcon from "@/components/UI/SvgIcon";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
-        name: "DefaultBookmarks",
+        name: "CustomBookmarks",
+        components: {
+            SvgIcon,
+            FormButton
+        },
         computed: {
             ...mapState(useDefaultBookmarkStore, ['getBookmarks'])
         },
@@ -70,7 +94,9 @@
 </script>
 
 <style lang="scss" scoped>
-    .default-bookmarks {
+    .custom-bookmarks {
+        background-color: var(--bg-sub-menu);
+
         &__header {
             padding: 16px;
             border-bottom: 1px solid var(--hover);
@@ -91,8 +117,8 @@
 
         &__info {
             display: flex;
-            flex-direction: column;
             justify-content: center;
+            align-items: center;
 
             &--desc {
                 font-size: var(--h5-font-size);
@@ -108,6 +134,19 @@
             &--desc,
             &--title {
                 color: var(--text-b-color);
+            }
+        }
+
+        &__new {
+            margin-left: auto;
+        }
+
+        &__search {
+            &--icon {
+                width: 32px;
+                height: 32px;
+                padding: 4px;
+                display: block;
             }
         }
 
@@ -178,7 +217,7 @@
             }
 
             &:hover {
-                .default-bookmarks {
+                .custom-bookmarks {
                     &__link {
                         &_icon {
                             &.only-hover {

@@ -18,6 +18,8 @@
         <template #default>
             <div class="nav-bookmarks">
                 <default-bookmarks/>
+
+                <custom-bookmarks/>
             </div>
         </template>
     </nav-popover>
@@ -29,10 +31,12 @@
     import { mapState, mapActions } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
+    import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
 
     export default {
         name: "NavBookmarks",
         components: {
+            CustomBookmarks,
             DefaultBookmarks,
             NavPopover,
             SvgIcon
