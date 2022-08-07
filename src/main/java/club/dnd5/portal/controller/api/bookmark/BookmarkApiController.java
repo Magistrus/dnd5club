@@ -3,6 +3,7 @@ package club.dnd5.portal.controller.api.bookmark;
 import java.util.Collection;
 import java.util.List;
 
+import club.dnd5.portal.model.BookmarkSection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,5 +77,11 @@ public class BookmarkApiController {
 	public ResponseEntity<?> deleteBookmark(@PathVariable String uuid){
 		service.deleteBookmark(uuid);
 		return ResponseEntity.ok().build();
+	}
+
+	@Operation(summary = "Get site sections")
+	@GetMapping("/sections")
+	public ResponseEntity<List<BookmarkSection>> getBookmarkSections() {
+		return ResponseEntity.ok(BookmarkSection.getSections());
 	}
 }

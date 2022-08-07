@@ -8,10 +8,12 @@ import club.dnd5.portal.repository.user.BookmarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BookmarkServiceImpl implements BookmarkService {
@@ -119,8 +121,32 @@ public class BookmarkServiceImpl implements BookmarkService {
 		bookmarkRepository.saveAll(updatedBookmarks);
 	}
 
+	private List<Bookmark> getChildrenBookmarks(Bookmark parent) {
+		List<Bookmark> bookmarks = new ArrayList<>();
+
+		if (!parent.getChildren().isEmpty()) {
+			bookmarks.addAll(parent.getChildren());
+			bookmarks.addAll(
+				bookmarks
+					.stream()
+					.filter(item -> !item.getChildren().isEmpty())
+					.flatMap(item -> item.getChildren().stream())
+					.collect(Collectors.toList())
+			);
+		}
+
+		return bookmarks;
+	}
+
 	@Override
 	public void deleteBookmark(String uuid) {
-		bookmarkRepository.deleteById(UUID.fromString(uuid));
+		Bookmark bookmark = bookmarkRepository.findById(UUID.fromString(uuid))
+			.orElseThrow(() -> new RuntimeException("Bookmark not found"));
+
+		Collection<Bookmark> deleteList = Stream.of(bookmark).collect(Collectors.toList());
+
+		deleteList.addAll(getChildrenBookmarks(bookmark));
+
+		bookmarkRepository.deleteAllById(deleteList.stream().map(Bookmark::getUuid).collect(Collectors.toList()));
 	}
 }

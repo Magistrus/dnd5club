@@ -9,31 +9,33 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum BookmarkSection {
-	MENU ("Разделы", "menu"),
-	CLASSES ("Классы", "classes"),
-	RACES ("Расы", "races"),
-	TRAITS ("Черты", "traits"),
-	OPTIONS ("Особенности классов", "options"),
-	BACKGROUNDS ("Предыстории", "backgrounds"),
-	SPELLS ("Заклинания", "spells"),
-	WEAPONS ("Оружие", "weapons"),
-	ARMORS ("Доспехи", "armors"),
-	ITEMS ("Снаряжение", "items"),
-	MAGIC_ITEMS ("Магические предметы", "magicItems"),
-	BESTIARY ("Бестиарий", "bestiary"),
-	SCREENS ("Ширма Мастера", "screens"),
-	GODS ("Боги", "gods"),
-	RULES ("Правила и термины", "rules"),
-	BOOKS ("Источники", "books"),
-	NONE ("Без группы", "none");
+	MENU ("Разделы", "menu", null),
+	CLASSES ("Классы", "classes", "class"),
+	RACES ("Расы", "races", "race"),
+	TRAITS ("Черты", "traits", "trait"),
+	OPTIONS ("Особенности классов", "options", "option"),
+	BACKGROUNDS ("Предыстории", "backgrounds", "background"),
+	SPELLS ("Заклинания", "spells", "spell"),
+	WEAPONS ("Оружие", "weapons", "weapon"),
+	ARMORS ("Доспехи", "armors", "armor"),
+	ITEMS ("Снаряжение", "items", null),
+	MAGIC_ITEMS ("Магические предметы", "magicItems", "magic-item"),
+	BESTIARY ("Бестиарий", "bestiary", "creature"),
+	SCREENS ("Ширма Мастера", "screens", "screen"),
+	GODS ("Боги", "gods", "god"),
+	RULES ("Правила и термины", "rules", "rule"),
+	BOOKS ("Источники", "books", "book"),
+	NONE ("Без группы", "none", null);
 
 	@Getter() private final String name;
 	@Getter() private final String code;
+	@Getter() private final String itemType;
 	@Getter() private final Integer order;
 
-	BookmarkSection(String name, String code) {
+	BookmarkSection(String name, String code, String itemType) {
 		this.name = name;
 		this.code = code;
+		this.itemType = itemType;
 		this.order = ordinal();
 	}
 
