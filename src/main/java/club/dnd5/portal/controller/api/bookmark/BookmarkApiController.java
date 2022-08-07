@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api.bookmark;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,40 +30,30 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Bookmark", description = "The Bookmark API")
 @RestController
 @RequestMapping("/api/v1/bookmarks")
-public class BookmarkApiContoller {
+public class BookmarkApiController {
 	@Autowired
 	private BookmarkService service;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Operation(summary = "Gets all user bookmarks")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<BookmarkApi> getBookmarks() {
 		SecurityContext context = SecurityContextHolder.getContext();
-		String userName = context.getAuthentication().getName(); 
+		String userName = context.getAuthentication().getName();
 		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
 		return service.getBookmarks(user);
-	}
-	
-	@Operation(summary = "Checks if the uuid exists")
-	@SecurityRequirement(name = "Bearer Authentication")
-	@GetMapping("/{uuid}")
-	public ResponseEntity<?> existUiidBookmark(@PathVariable String uuid) {
-		if (service.existUuid(uuid)) {
-			 return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
-		return ResponseEntity.ok().build();
 	}
 
 	@Operation(summary = "Add new bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PostMapping
-	public ResponseEntity<?> createBookamrk(@RequestBody BookmarkApi bookmarkApi){
+	public ResponseEntity<?> createBookmark(@RequestBody BookmarkApi bookmarkApi){
 		SecurityContext context = SecurityContextHolder.getContext();
-		String userName = context.getAuthentication().getName(); 
+		String userName = context.getAuthentication().getName();
 		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
 		service.addBookmark(user, bookmarkApi);
 		return ResponseEntity.ok().build();
@@ -71,18 +62,18 @@ public class BookmarkApiContoller {
 	@Operation(summary = "Update bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping
-	public ResponseEntity<?> updateBookamrk(@RequestBody BookmarkApi bookmarkApi){
+	public ResponseEntity<?> updateBookmark(@RequestBody List<BookmarkApi> bookmarkApi){
 		SecurityContext context = SecurityContextHolder.getContext();
-		String userName = context.getAuthentication().getName(); 
+		String userName = context.getAuthentication().getName();
 		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
-		service.updateBookmark(user, bookmarkApi);
+		service.updateBookmarks(user, bookmarkApi);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@Operation(summary = "Delete bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@DeleteMapping("/{uuid}")
-	public ResponseEntity<?> deleteBookamrk(@PathVariable String uuid){
+	public ResponseEntity<?> deleteBookmark(@PathVariable String uuid){
 		service.deleteBookmark(uuid);
 		return ResponseEntity.ok().build();
 	}

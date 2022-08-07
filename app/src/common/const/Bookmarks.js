@@ -1,10 +1,5 @@
 export const BOOKMARK_SECTIONS = [
     {
-        code: 'none',
-        name: 'Без группы',
-        order: 0
-    },
-    {
         code: 'menu',
         name: 'Разделы',
         order: 0

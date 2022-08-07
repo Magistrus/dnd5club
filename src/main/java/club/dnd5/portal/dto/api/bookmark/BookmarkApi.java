@@ -18,49 +18,46 @@ import lombok.Setter;
 @Setter
 public class BookmarkApi {
 	private String uuid;
-	private String name; // пустой для главного набора закладок
-	private String url; // пустой для категорий и имени набора закладок
-	private String bodyType; // пустой для категорий и имени набора закладок
+	private String name;
+	private String url; // пустой для категорий и групп
+	private String type; // пустой для категорий и групп
 	private Integer order;
-
 	private String parentUuid;
-	private List<BookmarkApi> childs;
-	
+	private List<BookmarkApi> children;
+
 	public BookmarkApi(Bookmark bookmark) {
 		uuid = bookmark.getUuid().toString();
-		if (bookmark.getName() != null) {
-			name = bookmark.getName();
-		}
+		order = bookmark.getOrder();
+		name = bookmark.getName();
 		if (bookmark.getUrl() != null) {
 			url = bookmark.getUrl();
 			if (url.startsWith("/options")) {
-				bodyType = "option";
+				type = "option";
 			} else if (url.startsWith("/traits")) {
-				bodyType = "trait";
+				type = "trait";
 			} else if (url.startsWith("/armors")) {
-				bodyType = "armor";
+				type = "armor";
 			} else if (url.startsWith("/weapons")) {
-				bodyType = "weapon";
+				type = "weapon";
 			} else if (url.startsWith("/items/magic")) {
-				bodyType = "item-magic";
+				type = "magic-item";
 			} else if (url.startsWith("/items")) {
-				bodyType = "item";
+				type = "item";
 			} else if (url.startsWith("/screens")) {
-				bodyType = "screen";
+				type = "screen";
 			} else if (url.startsWith("/bestiary")) {
-				bodyType = "creature";
+				type = "creature";
 			} else if (url.startsWith("/spells")) {
-				bodyType = "spell";
+				type = "spell";
 			} else if (url.startsWith("/gods")) {
-				bodyType = "god";
+				type = "god";
 			}
 		}
 		if (bookmark.getParent() != null) {
 			parentUuid = bookmark.getParent().getUuid().toString();
 		}
-		order = bookmark.getOrder();
-		if (!bookmark.getChields().isEmpty()) {
-			childs = bookmark.getChields()
+		if (!bookmark.getChildren().isEmpty()) {
+			children = bookmark.getChildren()
 					.stream()
 					.map(BookmarkApi::new)
 					.collect(Collectors.toList());

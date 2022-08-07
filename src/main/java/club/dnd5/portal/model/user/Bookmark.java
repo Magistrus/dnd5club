@@ -26,19 +26,19 @@ public class Bookmark {
 	@Id
 	@Type(type = "uuid-char")
 	private UUID uuid;
-	
+
 	private String name;
 	private String url;
 	@Column(name = "bookmark_order")
 	private Integer order;
-	
+
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "parent_id")
 	private Bookmark parent;
-	
+
 	@OneToMany(mappedBy = "parent", orphanRemoval = true)
-	private List<Bookmark> chields;
-	
+	private List<Bookmark> children;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
