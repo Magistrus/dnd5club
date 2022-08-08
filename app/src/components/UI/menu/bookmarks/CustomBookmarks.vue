@@ -8,20 +8,19 @@
             <form-button
                 class="custom-bookmarks__new"
                 type-link
-                is-small
             >
                 <div class="custom-bookmarks__new--icon">
                     <svg-icon icon-name="plus"/>
                 </div>
 
-                <span>Группа</span>
+                <!-- <span>Добавить</span> -->
             </form-button>
 
-            <label class="custom-bookmarks__search">
+            <!-- <label class="custom-bookmarks__search">
                 <span class="custom-bookmarks__search--icon">
                     <svg-icon icon-name="search"/>
                 </span>
-            </label>
+            </label> -->
         </div>
 
         <div class="custom-bookmarks__body">
@@ -131,22 +130,26 @@
 <style lang="scss" scoped>
     .custom-bookmarks {
         background-color: var(--bg-sub-menu);
+        width: 260px;
 
         &__header {
-            padding: 16px;
+            padding: 8px 16px;
             border-bottom: 1px solid var(--hover);
             display: flex;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: inherit;
         }
 
         &__body {
-            padding: 16px 16px 8px;
+            padding: 16px 8px 8px;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
 
             @media (max-width: 550px) {
-                padding: 16px 8px 0;
+                padding: 16px 8px 8px;
             }
         }
 
@@ -174,25 +177,31 @@
 
         &__new {
             margin-left: auto;
-        }
+            height: 32px;
+            width: 32px;
 
-        &__search {
-            &--icon {
-                width: 32px;
-                height: 32px;
-                padding: 4px;
-                display: block;
+            svg {
+                color: var(--text-color);
+            }
+
+            &:hover {
+                background-color: var(--hover) !important;
             }
         }
+
+        // &__search {
+        //     &--icon {
+        //         width: 32px;
+        //         height: 32px;
+        //         padding: 4px;
+        //         display: block;
+        //     }
+        // }
 
         &__group {
             display: flex;
             flex-direction: column;
-            width: 240px;
-
-            @media (max-width: 550px) {
-                width: 100%;
-            }
+            width: 100%;
 
             &_label {
                 padding: 0 20px 0 8px;
@@ -212,6 +221,17 @@
             }
         }
 
+        &__cat {
+            margin-bottom: 6px;
+
+            &_label {
+                padding: 8px 8px 0px 8px;
+                text-transform: uppercase;
+                font-size: calc(var(--main-font-size) - 4px);
+                color: var(--text-color-title);
+            }
+        }
+
         &__bookmark {
             @include css_anim();
 
@@ -223,7 +243,7 @@
 
                 color: var(--text-color);
                 font-weight: 400;
-                padding: 8px;
+                padding: 6px 8px;
                 width: 100%;
                 display: flex;
                 border-radius: 6px;
@@ -232,9 +252,9 @@
             &_icon {
                 @include css_anim();
 
-                width: 32px;
-                height: 32px;
-                padding: 8px;
+                width: 28px;
+                height: 28px;
+                padding: 4px;
                 flex-shrink: 0;
 
                 &.only-hover {
