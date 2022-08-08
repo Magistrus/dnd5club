@@ -1,5 +1,5 @@
 .bookmarks {
-  width: 260px;
+  width: 290px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   }
 
   &__body {
-    padding: 16px 8px 8px;
+    padding: 8px 8px 16px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -26,16 +26,16 @@
   }
 
   &__info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 32px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // line-height: 32px;
 
     &--desc {
       font-size: var(--h5-font-size);
       margin-bottom: 4px;
       width: 200px;
-      padding: 16px 16px;
+      padding: 16px 8px;
     }
 
     &--title {
@@ -91,6 +91,7 @@
       overflow: hidden;
       width: 100%;
       text-overflow: ellipsis;
+      padding: 8px 8px 0px 8px;
     }
 
     &_icon {
@@ -117,19 +118,33 @@
     }
 
     &_body {
-      padding: 0 8px 0 16px;
+      padding: 0 8px 0 0;
     }
   }
 
   &__cat {
     border-left: 1px solid var(--primary-active);
+    margin-bottom: 8px;
 
     &_label {
-      padding: 12px 8px 0 8px;
+      padding: 12px 8px 0 20px;
       text-transform: uppercase;
       font-size: calc(var(--main-font-size) - 4px);
       color: var(--text-color-title);
       letter-spacing: 0.75px;
+      position: relative;
+
+      &::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        position: absolute;
+        top: 14px;
+        left: 8px;
+        display: block;
+        background-color: var(--primary);
+        border-radius: 50%;
+      }
     }
 
     &_body {
@@ -200,6 +215,21 @@
     .bookmarks {
       &__cat {
         border: 0;
+
+        &_body {
+          padding: 0px;
+        }
+      }
+
+      &__header {
+        padding: 16px 16px;
+      }
+
+      &__groip {
+
+        &_body {
+          padding: 0 8px 0 0px;
+        }
       }
     }
   }
