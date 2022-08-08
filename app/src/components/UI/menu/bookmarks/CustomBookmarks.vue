@@ -1,5 +1,5 @@
 <template>
-    <div class="bookmarks">
+    <div class="bookmarks is-custom">
         <div class="bookmarks__header">
             <div class="bookmarks__info">
                 <span class="bookmarks__info--title">Группы</span>

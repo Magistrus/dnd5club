@@ -195,4 +195,12 @@
       }
     }
   }
+
+  &.is-default {
+    .bookmarks {
+      &__cat {
+        border: 0;
+      }
+    }
+  }
 }
