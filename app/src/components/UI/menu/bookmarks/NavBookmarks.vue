@@ -8,18 +8,26 @@
                 @click.left.exact.prevent="opened = !opened"
             >
                 <svg-icon
-                    :icon-name="getDefaultBookmarks?.length ? 'bookmark-filled' : 'bookmark'"
+                    :icon-name="isBookmarksExist"
                     :stroke-enable="false"
                     fill-enable
                 />
             </div>
         </template>
 
-        <template #default>
-            <div class="nav-bookmarks">
-                <default-bookmarks/>
+        <template #default="{maxHeight}">
+            <div
+                class="nav-bookmarks"
+                :style="{ maxHeight }"
+            >
+                <default-bookmarks
+                    :style="{ maxHeight }"
+                />
 
-                <custom-bookmarks v-if="isAuthorized"/>
+                <custom-bookmarks
+                    v-if="isAuthorized"
+                    :style="{ maxHeight }"
+                />
             </div>
         </template>
     </nav-popover>
@@ -33,6 +41,7 @@
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
     import { useUserStore } from "@/store/UI/UserStore";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
 
     export default {
         name: "NavBookmarks",
@@ -49,16 +58,38 @@
             ...mapState(useUserStore, ['isAuthorized']),
             ...mapState(useDefaultBookmarkStore, {
                 getDefaultBookmarks: 'getBookmarks'
-            })
+            }),
+            ...mapState(useCustomBookmarkStore, {
+                getCustomBookmarks: 'getBookmarks'
+            }),
+
+            isBookmarksExist() {
+                let status = this.getDefaultBookmarks?.length;
+
+                if (!status && this.isAuthorized) {
+                    status = this.getCustomBookmarks?.length;
+                }
+
+                return status
+                    ? 'bookmark-filled'
+                    : 'bookmark';
+            }
         },
         async beforeMount() {
             await this.updateUserFromSession();
             await this.restoreDefaultBookmarks();
+
+            if (this.isAuthorized) {
+                await this.queryGetCustomBookmarks();
+            }
         },
         methods: {
             ...mapActions(useUserStore, ['updateUserFromSession']),
             ...mapActions(useDefaultBookmarkStore, {
                 restoreDefaultBookmarks: 'restoreBookmarks'
+            }),
+            ...mapActions(useCustomBookmarkStore, {
+                queryGetCustomBookmarks: 'queryGetBookmarks'
             })
         }
     };
@@ -67,5 +98,7 @@
 <style lang="scss" scoped>
     .nav-bookmarks {
         display: flex;
+        height: 100%;
+        overflow: hidden;
     }
 </style>

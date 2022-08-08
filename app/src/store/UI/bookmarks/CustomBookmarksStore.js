@@ -27,7 +27,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     return Promise.reject();
                 }
 
-                const resp = this.$http.get('/bookmarks');
+                const resp = await this.$http.get('/bookmarks');
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -49,7 +49,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     return Promise.reject();
                 }
 
-                const resp = this.$http.put('/bookmarks/', cloneDeep(this.bookmarks));
+                const resp = await this.$http.put('/bookmarks', cloneDeep(this.bookmarks));
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -75,7 +75,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.add.abort();
                 }
 
-                const resp = this.$http.post('/bookmarks/', bookmark);
+                const resp = await this.$http.post('/bookmarks', bookmark);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -103,7 +103,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.delete.abort();
                 }
 
-                const resp = this.$http.delete(`/bookmarks/${ uuid }`);
+                const resp = await this.$http.delete(`/bookmarks/${ uuid }`);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
