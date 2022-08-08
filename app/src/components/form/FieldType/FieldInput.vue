@@ -181,7 +181,7 @@
                 height: 38px;
                 width: 38px;
                 cursor: pointer;
-                padding: 12px;
+                padding: 10px;
                 color: var(--text-btn-color);
             }
         }
