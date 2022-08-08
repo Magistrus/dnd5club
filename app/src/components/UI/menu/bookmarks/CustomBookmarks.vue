@@ -26,33 +26,41 @@
 
         <div class="custom-bookmarks__body">
             <div
-                v-for="(group, groupKey) in getBookmarks"
+                v-for="(group, groupKey) in groupBookmarks"
                 :key="group.name + group.order + groupKey"
                 class="custom-bookmarks__group"
             >
                 <div class="custom-bookmarks__group_label">
-                    <div class="custom-bookmarks__group_label">
-                        {{ group.name }}
-                    </div>
+                    {{ group.name }}
                 </div>
 
-                <div class="custom-bookmarks__links">
+                <div class="custom-bookmarks__group_body">
                     <div
-                        v-for="link in group.childList"
-                        :key="link.url + group.order"
-                        class="custom-bookmarks__link"
+                        v-for="(category, catKey) in group.children"
+                        :key="category.name + category.order + catKey"
+                        class="custom-bookmarks__cat"
                     >
-                        <a
-                            :href="link.url"
-                            :target="isExternal(link.url) ? '_blank' : '_self'"
-                            class="custom-bookmarks__link_label"
-                        >{{ link.name }}</a>
+                        <div class="custom-bookmarks__cat_label">
+                            {{ category.name }}
+                        </div>
 
-                        <div
-                            class="custom-bookmarks__link_icon only-hover is-right"
-                            @click.left.exact.stop.prevent="removeBookmark(link.url)"
-                        >
-                            <svg-icon icon-name="close"/>
+                        <div class="custom-bookmarks__cat_body">
+                            <div
+                                v-for="(bookmark, bookmarkKey) in category.children"
+                                :key="bookmark.url + bookmark.order + bookmarkKey"
+                                class="custom-bookmarks__bookmark"
+                            >
+                                <a
+                                    :href="bookmark.url"
+                                    class="custom-bookmarks__bookmark_label"
+                                >{{ bookmark.name }}</a>
+
+                                <div
+                                    class="custom-bookmarks__bookmark_icon only-hover is-right"
+                                >
+                                    <svg-icon icon-name="close"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,9 +78,10 @@
 
 <script>
     import { mapActions, mapState } from "pinia";
-    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import sortBy from "lodash/sortBy";
 
     export default {
         name: "CustomBookmarks",
@@ -81,14 +90,40 @@
             FormButton
         },
         computed: {
-            ...mapState(useDefaultBookmarkStore, ['getBookmarks'])
+            ...mapState(useCustomBookmarkStore, ['getBookmarks']),
+
+            groupBookmarks() {
+                const list = this.getBookmarks;
+                const groups = list.filter(group => !group.parentUUID);
+
+                return sortBy(
+                    groups.map(group => ({
+                        ...group,
+                        children: sortBy(
+                            list
+                                .filter(category => category.parentUUID && category.parentUUID === group.uuid)
+                                .map(category => ({
+                                    ...category,
+                                    children: sortBy(
+                                        list.filter(bookmark => (
+                                            bookmark.parentUUID
+                                            && bookmark.parentUUID === category.uuid
+                                        )),
+                                        [o => o.order]
+                                    )
+                                })),
+                            [o => o.order]
+                        )
+                    })),
+                    [o => o.order]
+                );
+            }
+        },
+        mounted() {
+            this.generateBookmarks();
         },
         methods: {
-            ...mapActions(useDefaultBookmarkStore, ['removeBookmark']),
-
-            isExternal(url) {
-                return url.startsWith('http');
-            }
+            ...mapActions(useCustomBookmarkStore, ['generateBookmarks'])
         }
     };
 </script>
@@ -150,10 +185,6 @@
             }
         }
 
-        &__links {
-            padding: 8px 8px 0;
-        }
-
         &__group {
             display: flex;
             flex-direction: column;
@@ -181,7 +212,7 @@
             }
         }
 
-        &__link {
+        &__bookmark {
             @include css_anim();
 
             display: flex;
@@ -205,6 +236,7 @@
                 height: 32px;
                 padding: 8px;
                 flex-shrink: 0;
+
                 &.only-hover {
                     &:not(.is-active) {
                         opacity: 0;
@@ -218,7 +250,7 @@
 
             &:hover {
                 .custom-bookmarks {
-                    &__link {
+                    &__bookmark {
                         &_icon {
                             &.only-hover {
                                 opacity: 1;
