@@ -37,11 +37,5 @@ public class BookmarkApi {
 		if (bookmark.getParent() != null) {
 			parentUuid = bookmark.getParent().getUuid().toString();
 		}
-		if (!bookmark.getChildren().isEmpty()) {
-			children = bookmark.getChildren()
-					.stream()
-					.map(BookmarkApi::new)
-					.collect(Collectors.toList());
-		}
 	}
 }
