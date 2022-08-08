@@ -223,13 +223,13 @@
         }
 
         &__cat {
-            margin-bottom: 6px;
 
             &_label {
-                padding: 8px 8px 0px 8px;
+                padding: 12px 8px 0px 8px;
                 text-transform: uppercase;
                 font-size: calc(var(--main-font-size) - 4px);
                 color: var(--text-color-title);
+                letter-spacing: 0.75px;
             }
         }
 
