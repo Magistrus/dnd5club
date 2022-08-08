@@ -179,7 +179,7 @@
                 flex-shrink: 0;
                 width: 40px;
                 height: 40px;
-                padding: 12px;
+                padding: 8px;
             }
 
             &:hover {
