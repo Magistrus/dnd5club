@@ -19,7 +19,7 @@
             <div class="nav-bookmarks">
                 <default-bookmarks/>
 
-                <custom-bookmarks/>
+                <custom-bookmarks v-if="isAuthorized"/>
             </div>
         </template>
     </nav-popover>
@@ -32,6 +32,7 @@
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
+    import { useUserStore } from "@/store/UI/UserStore";
 
     export default {
         name: "NavBookmarks",
@@ -45,14 +46,17 @@
             opened: false
         }),
         computed: {
+            ...mapState(useUserStore, ['isAuthorized']),
             ...mapState(useDefaultBookmarkStore, {
                 getDefaultBookmarks: 'getBookmarks'
             })
         },
         async beforeMount() {
+            await this.updateUserFromSession();
             await this.restoreDefaultBookmarks();
         },
         methods: {
+            ...mapActions(useUserStore, ['updateUserFromSession']),
             ...mapActions(useDefaultBookmarkStore, {
                 restoreDefaultBookmarks: 'restoreBookmarks'
             })

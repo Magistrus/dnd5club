@@ -60,14 +60,14 @@ public class BookmarkApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Update bookmark")
+	@Operation(summary = "Update bookmarks")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping
-	public ResponseEntity<?> updateBookmark(@RequestBody List<BookmarkApi> bookmarkApi){
+	public ResponseEntity<?> updateBookmarks(@RequestBody List<BookmarkApi> bookmarks){
 		SecurityContext context = SecurityContextHolder.getContext();
 		String userName = context.getAuthentication().getName();
 		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
-		service.updateBookmarks(user, bookmarkApi);
+		service.updateBookmarks(user, bookmarks);
 		return ResponseEntity.ok().build();
 	}
 

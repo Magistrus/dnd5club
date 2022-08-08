@@ -3,11 +3,15 @@ package club.dnd5.portal.model;
 import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 public enum BookmarkSection {
 	MENU ("Разделы", "menu", null),
 	CLASSES ("Классы", "classes", "class"),
@@ -27,10 +31,10 @@ public enum BookmarkSection {
 	BOOKS ("Источники", "books", "book"),
 	NONE ("Без группы", "none", null);
 
-	@Getter() private final String name;
-	@Getter() private final String code;
-	@Getter() private final String itemType;
-	@Getter() private final Integer order;
+	private final String name;
+	private final String code;
+	private final String itemType;
+	private final Integer order;
 
 	BookmarkSection(String name, String code, String itemType) {
 		this.name = name;
@@ -40,8 +44,7 @@ public enum BookmarkSection {
 	}
 
 	public static List<BookmarkSection> getSections() {
-		return Stream.of(BookmarkSection.values())
-			.collect(Collectors.toList());
+		return Arrays.asList(values());
 	}
 
 	public static BookmarkSection getDefaultSection() {
@@ -65,6 +68,5 @@ public enum BookmarkSection {
 			.findFirst();
 
 		return bookmark.orElse(getDefaultSection());
-
 	}
 }

@@ -38,6 +38,16 @@ export default class HTTPService {
         });
     }
 
+    get(url, params) {
+        const config = {
+            url,
+            params: new URLSearchParams(params).toString(),
+            method: 'get'
+        };
+
+        return this.instance(config);
+    }
+
     post(url, data, signal = new AbortController().signal) {
         const config = {
             url,
@@ -49,11 +59,23 @@ export default class HTTPService {
         return this.instance(config);
     }
 
-    get(url, params) {
+    put(url, data, signal = new AbortController().signal) {
         const config = {
             url,
-            params: new URLSearchParams(params).toString(),
-            method: 'get'
+            data,
+            signal,
+            method: 'put'
+        };
+
+        return this.instance(config);
+    }
+
+    delete(url, data, signal = new AbortController().signal) {
+        const config = {
+            url,
+            data,
+            signal,
+            method: 'delete'
         };
 
         return this.instance(config);

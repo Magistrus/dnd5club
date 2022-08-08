@@ -118,11 +118,16 @@
                 );
             }
         },
-        mounted() {
-            this.generateBookmarks();
+        async beforeMount() {
+            await this.queryGetBookmarks();
         },
         methods: {
-            ...mapActions(useCustomBookmarkStore, ['generateBookmarks'])
+            ...mapActions(useCustomBookmarkStore, [
+                'queryGetBookmarks',
+                'querySaveBookmarks',
+                'queryAddBookmark',
+                'queryDeleteBookmark'
+            ])
         }
     };
 </script>

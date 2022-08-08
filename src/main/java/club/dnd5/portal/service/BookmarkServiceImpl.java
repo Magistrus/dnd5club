@@ -61,8 +61,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 		entityBookmark.setName(bookmark.getName());
 		entityBookmark.setOrder(bookmark.getOrder());
 
-		if (bookmark.getParentUuid() != null) {
-			group = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUuid()))
+		if (bookmark.getParentUUID() != null) {
+			group = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
 				.orElseThrow(() -> new RuntimeException("Bookmark's group not found"));
 
 			entityBookmark.setParent(group);
@@ -87,8 +87,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 		updatedBookmark.setOrder(bookmark.getOrder());
 		updatedBookmark.setUser(user);
 
-		if (bookmark.getParentUuid() != null) {
-			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUuid()));
+		if (bookmark.getParentUUID() != null) {
+			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
 
 			updatedBookmark.setParent(parent);
 		}
