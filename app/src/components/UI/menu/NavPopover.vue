@@ -33,9 +33,11 @@
                     <div
                         v-if="show.body"
                         class="nav-popover__body"
+                        :style="{ maxHeight }"
                     >
                         <slot
                             name="default"
+                            :max-height="maxHeight"
                             :close="emitClose"
                         />
                     </div>
@@ -75,6 +77,7 @@
     });
     const rectBody = useElementBounding(body);
     const position = reactive({});
+    const maxHeight = ref('calc(var(--max-vh) / 100 * 90)');
 
     function setPosition() {
         rectBody.update();
@@ -83,11 +86,13 @@
             return;
         }
 
-        position.top = `${ props.isMenu ? rectTrigger.top.value : rectTrigger.bottom.value + 4 }px`;
-
         if (!props.isMenu) {
-            position.height = `calc(var(--max-vh) - ${ rectTrigger.bottom.value + 4 }px - 8px)`;
+            maxHeight.value = `calc(var(--max-vh) - ${ rectTrigger.bottom.value + 4 }px - 8px)`;
         }
+
+        position.top = `${ props.isMenu ? rectTrigger.top.value : rectTrigger.bottom.value + 4 }px`;
+        position.height = maxHeight.value;
+        position.maxHeight = maxHeight.value;
 
         if (props.isLeft) {
             position.left = `${ rectTrigger.left.value }px`;
@@ -151,8 +156,6 @@
         }
 
         &__wrapper {
-            max-height: calc(var(--max-vh) / 100 * 90);
-            height: calc(var(--max-vh) / 100 * 90);
             max-width: 790px;
             z-index: 111;
             position: relative;
@@ -182,14 +185,12 @@
             box-shadow: 0 0 27px #0006;
             transform-origin: top right;
             max-width: 100%;
-            max-height: 100%;
 
             &.is-left {
                 transform-origin: top left;
             }
 
             @media (max-width: 550px) {
-                overflow: scroll;
                 width: 100%;
             }
         }

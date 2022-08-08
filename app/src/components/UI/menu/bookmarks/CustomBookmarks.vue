@@ -1,61 +1,79 @@
 <template>
-    <div class="custom-bookmarks">
-        <div class="custom-bookmarks__header">
-            <div class="custom-bookmarks__info">
-                <span class="custom-bookmarks__info--title">Группы</span>
+    <div class="bookmarks">
+        <div class="bookmarks__header">
+            <div class="bookmarks__info">
+                <span class="bookmarks__info--title">Группы</span>
             </div>
 
             <form-button
-                class="custom-bookmarks__new"
+                class="bookmarks__new"
                 type-link
             >
-                <div class="custom-bookmarks__new--icon">
+                <div class="bookmarks__new--icon">
                     <svg-icon icon-name="plus"/>
                 </div>
 
-                <!-- <span>Добавить</span> -->
+                <span v-if="false">Добавить</span>
             </form-button>
 
-            <!-- <label class="custom-bookmarks__search">
-                <span class="custom-bookmarks__search--icon">
+            <label
+                v-if="false"
+                class="bookmarks__search"
+            >
+                <span class="bookmarks__search--icon">
                     <svg-icon icon-name="search"/>
                 </span>
-            </label> -->
+            </label>
         </div>
 
-        <div class="custom-bookmarks__body">
+        <div class="bookmarks__body">
             <div
                 v-for="(group, groupKey) in groupBookmarks"
-                :key="group.name + group.order + groupKey"
-                class="custom-bookmarks__group"
+                :key="group.uuid + groupKey"
+                class="bookmarks__group"
             >
-                <div class="custom-bookmarks__group_label">
-                    {{ group.name }}
+                <div
+                    class="bookmarks__group_head"
+                    @click.left.exact.prevent="opened = group.uuid"
+                >
+                    <div
+                        class="bookmarks__group_icon"
+                        :class="{ 'is-active': group.uuid === opened }"
+                    >
+                        <svg-icon icon-name="arrow-stroke"/>
+                    </div>
+
+                    <div class="bookmarks__group_label">
+                        {{ group.name || 'Без группы' }}
+                    </div>
                 </div>
 
-                <div class="custom-bookmarks__group_body">
+                <div
+                    v-if="group.uuid === opened"
+                    class="bookmarks__group_body"
+                >
                     <div
                         v-for="(category, catKey) in group.children"
-                        :key="category.name + category.order + catKey"
-                        class="custom-bookmarks__cat"
+                        :key="category.uuid + catKey"
+                        class="bookmarks__cat"
                     >
-                        <div class="custom-bookmarks__cat_label">
+                        <div class="bookmarks__cat_label">
                             {{ category.name }}
                         </div>
 
-                        <div class="custom-bookmarks__cat_body">
+                        <div class="bookmarks__cat_body">
                             <div
                                 v-for="(bookmark, bookmarkKey) in category.children"
-                                :key="bookmark.url + bookmark.order + bookmarkKey"
-                                class="custom-bookmarks__bookmark"
+                                :key="bookmark.uuid + bookmarkKey"
+                                class="bookmarks__item"
                             >
                                 <a
                                     :href="bookmark.url"
-                                    class="custom-bookmarks__bookmark_label"
+                                    class="bookmarks__item_label"
                                 >{{ bookmark.name }}</a>
 
                                 <div
-                                    class="custom-bookmarks__bookmark_icon only-hover is-right"
+                                    class="bookmarks__item_icon only-hover is-right"
                                 >
                                     <svg-icon icon-name="close"/>
                                 </div>
@@ -67,9 +85,9 @@
 
             <div
                 v-if="!getBookmarks?.length"
-                class="custom-bookmarks__info"
+                class="bookmarks__info"
             >
-                <span class="custom-bookmarks__info--desc">Здесь пока пусто</span>
+                <span class="bookmarks__info--desc">Здесь пока пусто</span>
             </div>
         </div>
     </div>
@@ -88,6 +106,9 @@
             SvgIcon,
             FormButton
         },
+        data: () => ({
+            opened: ''
+        }),
         computed: {
             ...mapState(useCustomBookmarkStore, ['getBookmarks']),
 
@@ -118,8 +139,13 @@
                 );
             }
         },
-        async beforeMount() {
-            await this.queryGetBookmarks();
+        watch: {
+            groupBookmarks: {
+                immediate: true,
+                handler(value) {
+                    this.opened = value[0]?.uuid;
+                }
+            }
         },
         methods: {
             ...mapActions(useCustomBookmarkStore, [
@@ -133,168 +159,9 @@
 </script>
 
 <style lang="scss" scoped>
-    .custom-bookmarks {
+    @import "bookmarks.module";
+
+    .bookmarks {
         background-color: var(--bg-sub-menu);
-        width: 260px;
-
-        &__header {
-            padding: 8px 16px;
-            border-bottom: 1px solid var(--hover);
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background-color: var(--bg-sub-menu);
-            z-index: 1;
-        }
-
-        &__body {
-            padding: 16px 8px 8px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-
-            @media (max-width: 550px) {
-                padding: 16px 8px 8px;
-            }
-        }
-
-        &__info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &--desc {
-                font-size: var(--h5-font-size);
-                margin-bottom: 4px;
-                width: 200px;
-                padding: 16px 16px;
-            }
-
-            &--title {
-                font-weight: 600;
-            }
-
-            &--desc,
-            &--title {
-                color: var(--text-b-color);
-            }
-        }
-
-        &__new {
-            margin-left: auto;
-            height: 32px;
-            width: 32px;
-
-            svg {
-                color: var(--text-color);
-            }
-
-            &:hover {
-                background-color: var(--hover) !important;
-            }
-        }
-
-        // &__search {
-        //     &--icon {
-        //         width: 32px;
-        //         height: 32px;
-        //         padding: 4px;
-        //         display: block;
-        //     }
-        // }
-
-        &__group {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-
-            &_label {
-                padding: 0 20px 0 8px;
-                display: flex;
-                opacity: 0.8;
-                color: var(--text-g-color);
-                font-size: inherit;
-                font-weight: normal;
-                letter-spacing: 0.75px;
-            }
-
-            &_icon {
-                width: 32px;
-                height: 32px;
-                padding: 4px;
-                flex-shrink: 0;
-            }
-        }
-
-        &__cat {
-
-            &_label {
-                padding: 12px 8px 0px 8px;
-                text-transform: uppercase;
-                font-size: calc(var(--main-font-size) - 4px);
-                color: var(--text-color-title);
-                letter-spacing: 0.75px;
-            }
-        }
-
-        &__bookmark {
-            @include css_anim();
-
-            display: flex;
-            border-radius: 6px;
-
-            &_label {
-                @include css_anim();
-
-                color: var(--text-color);
-                font-weight: 400;
-                padding: 6px 8px;
-                width: 100%;
-                display: flex;
-                border-radius: 6px;
-            }
-
-            &_icon {
-                @include css_anim();
-
-                width: 28px;
-                height: 28px;
-                padding: 4px;
-                flex-shrink: 0;
-
-                &.only-hover {
-                    &:not(.is-active) {
-                        opacity: 0;
-                    }
-                }
-
-                svg {
-                    stroke: var(--text-color);
-                }
-            }
-
-            &:hover {
-                .custom-bookmarks {
-                    &__bookmark {
-                        &_icon {
-                            &.only-hover {
-                                opacity: 1;
-                            }
-                        }
-
-                        &_label,
-                        &_icon {
-                            cursor: pointer;
-                            color: var(--text-btn-color);
-                        }
-
-                        &_label {
-                            background-color: var(--primary-hover);
-                        }
-                    }
-                }
-            }
-        }
     }
 </style>
