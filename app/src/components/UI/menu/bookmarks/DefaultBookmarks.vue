@@ -71,24 +71,22 @@
 
 <style lang="scss" scoped>
     .default-bookmarks {
-        padding: 16px 16px 8px;
-
-        @media (max-width: 550px) {
-            padding: 16px 8px 0;
-        }
-
         &__header {
-            padding: 0 16px 16px 16px;
+            padding: 16px;
             border-bottom: 1px solid var(--hover);
             display: flex;
             align-items: center;
         }
 
         &__body {
-            padding: 0;
+            padding: 16px 16px 8px;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 12px;
+
+            @media (max-width: 550px) {
+                padding: 16px 8px 0;
+            }
         }
 
         &__info {
@@ -104,7 +102,6 @@
             }
 
             &--title {
-                // font-size: var(--h3-font-size);
                 font-weight: 600;
             }
 
@@ -115,21 +112,20 @@
         }
 
         &__links {
-            padding: 0 8px;
+            padding: 8px 8px 0;
         }
 
         &__group {
             display: flex;
             flex-direction: column;
             width: 240px;
-            margin: 8px 0;
 
             @media (max-width: 550px) {
                 width: 100%;
             }
 
             &_label {
-                padding: 8px 20px 4px 8px;
+                padding: 0 20px 0 8px;
                 display: flex;
                 opacity: 0.8;
                 color: var(--text-g-color);

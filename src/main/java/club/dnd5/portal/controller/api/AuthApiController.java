@@ -30,7 +30,7 @@ import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.security.JWTAuthResponse;
 import club.dnd5.portal.security.JwtTokenProvider;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "User", description = "The User API")
@@ -52,6 +52,7 @@ public class AuthApiController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Operation(summary = "User authorization by nickname or email address")
 	@PostMapping("/signin")
 	public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -81,6 +82,7 @@ public class AuthApiController {
 		}
 	}
 
+	@Operation(summary = "New user registration")
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
 
@@ -106,6 +108,7 @@ public class AuthApiController {
 		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 	}
 
+	@Operation(summary = "Log out user current session")
 	@PostMapping("/signout")
 	public ResponseEntity<?> signout(HttpSession session, HttpServletResponse response) {
 	    Cookie cookie = new Cookie("dnd5_user_token", "");
@@ -116,7 +119,7 @@ public class AuthApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@SecurityRequirement(name = "Bearer Authentication")
+	@Operation(summary = "Nickname and mailing address check")
 	@PostMapping("/exist")
 	public ResponseEntity<?> isUserNotExist(@RequestBody UserDto user) {
 		if (user.getUsername() != null) {
