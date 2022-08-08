@@ -111,7 +111,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 		for (Bookmark bookmark : savedBookmarks) {
 			boolean bookmarkInUpdated = updatedBookmarks
 				.stream()
-				.anyMatch(item -> item.getUuid() == bookmark.getUuid());
+				.anyMatch(item -> item.getUuid().equals(bookmark.getUuid()));
 
 			if (!bookmarkInUpdated) {
 				deleteBookmark(bookmark.getUuid().toString());
