@@ -76,16 +76,19 @@
             border-bottom: 1px solid var(--hover);
             display: flex;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: inherit;
         }
 
         &__body {
-            padding: 16px 16px 8px;
+            padding: 16px 0px 8px;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
 
             @media (max-width: 550px) {
-                padding: 16px 8px 0;
+                padding: 16px 0px 8px;
             }
         }
 
@@ -153,7 +156,7 @@
 
                 color: var(--text-color);
                 font-weight: 400;
-                padding: 8px;
+                padding: 6px 8px;
                 width: 100%;
                 display: flex;
                 border-radius: 6px;
@@ -162,9 +165,9 @@
             &_icon {
                 @include css_anim();
 
-                width: 32px;
-                height: 32px;
-                padding: 8px;
+                width: 28px;
+                height: 28px;
+                padding: 4px;
                 flex-shrink: 0;
                 &.only-hover {
                     &:not(.is-active) {
