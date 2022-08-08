@@ -32,7 +32,7 @@ public class BookApiController {
 	@Autowired
 	private BookDatatableRepository repo;
 
-	@Operation(summary = "Gets all books", tags = "book")
+	@Operation(summary = "Gets all books")
 	@PostMapping(value = "/api/v1/books", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BookApi> getBooks(@RequestBody BookRequestApi request) {
 		Specification<Book> specification = null;
@@ -92,6 +92,7 @@ public class BookApiController {
 		return repo.findAll(input, specification, specification, BookApi::new).getData();
 	}
 
+	@Operation(summary = "Get book by english name")
 	@PostMapping(value = "/api/v1/books/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BookApi> getBook(@PathVariable String englishName) {
 		Book book = repo.findByEnglishName(englishName.replace('_', ' '));
