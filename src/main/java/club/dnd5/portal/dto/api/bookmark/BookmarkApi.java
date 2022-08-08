@@ -22,8 +22,7 @@ public class BookmarkApi {
 	private String url; // пустой для категорий и групп
 	private String type; // пустой для категорий и групп
 	private Integer order;
-	private String parentUuid; // пустой для группы
-	private List<BookmarkApi> children;
+	private String parentUUID; // пустой для группы
 
 	public BookmarkApi(Bookmark bookmark) {
 		uuid = bookmark.getUuid().toString();
@@ -34,7 +33,7 @@ public class BookmarkApi {
 			type = BookmarkSection.getSectionByURL(bookmark.getUrl()).getItemType();
 		}
 		if (bookmark.getParent() != null) {
-			parentUuid = bookmark.getParent().getUuid().toString();
+			parentUUID = bookmark.getParent().getUuid().toString();
 		}
 	}
 }

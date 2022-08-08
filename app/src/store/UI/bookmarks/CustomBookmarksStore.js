@@ -1,11 +1,17 @@
 import { defineStore } from 'pinia';
-import { v4 as uuid } from 'uuid';
-import { random } from 'lodash';
+import { useUserStore } from '@/store/UI/UserStore';
+import cloneDeep from 'lodash/cloneDeep';
+
+const signals = {
+    add: undefined,
+    delete: undefined
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     state: () => ({
-        bookmarks: []
+        bookmarks: [],
+        userStore: useUserStore()
     }),
 
     getters: {
@@ -13,41 +19,103 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     },
 
     actions: {
-        generateBookmarks() {
-            if (this.bookmarks.length) {
-                this.bookmarks = [];
-            }
+        async queryGetBookmarks() {
+            try {
+                await this.userStore.updateUserFromSession();
 
-            for (let i = 0; i < 4; i++) {
-                const groupUUID = uuid();
-
-                this.bookmarks.push({
-                    uuid: groupUUID,
-                    name: `Группа №${ random(1, 100) }`,
-                    order: i
-                });
-
-                for (let k = 0; k < 5; k++) {
-                    const catUUID = uuid();
-
-                    this.bookmarks.push({
-                        uuid: catUUID,
-                        name: `Категория №${ random(1, 100) }`,
-                        order: k,
-                        parentUUID: groupUUID
-                    });
-
-                    for (let j = 0; j < 4; j++) {
-                        this.bookmarks.push({
-                            uuid: uuid(),
-                            name: `Закладка №${ random(1, 100) }`,
-                            order: j,
-                            parentUUID: catUUID,
-                            type: 'spell',
-                            url: '/spells/Analyze_device'
-                        });
-                    }
+                if (!this.userStore.isAuthorized) {
+                    return Promise.reject();
                 }
+
+                const resp = this.$http.get('/bookmarks');
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                this.bookmarks = resp.data;
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async querySaveBookmarks() {
+            try {
+                await this.userStore.updateUserFromSession();
+
+                if (!this.userStore.isAuthorized) {
+                    return Promise.reject();
+                }
+
+                const resp = this.$http.put('/bookmarks/', cloneDeep(this.bookmarks));
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async queryAddBookmark(bookmark) {
+            try {
+                await this.userStore.updateUserFromSession();
+
+                if (!this.userStore.isAuthorized) {
+                    return Promise.reject();
+                }
+
+                if (signals.add) {
+                    signals.add.abort();
+                }
+
+                const resp = this.$http.post('/bookmarks/', bookmark);
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            } finally {
+                signals.add = undefined;
+            }
+        },
+
+        async queryDeleteBookmark(uuid) {
+            try {
+                await this.userStore.updateUserFromSession();
+
+                if (!this.userStore.isAuthorized) {
+                    return Promise.reject();
+                }
+
+                if (signals.delete) {
+                    signals.delete.abort();
+                }
+
+                const resp = this.$http.delete(`/bookmarks/${ uuid }`);
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            } finally {
+                signals.delete = undefined;
             }
         }
     }
