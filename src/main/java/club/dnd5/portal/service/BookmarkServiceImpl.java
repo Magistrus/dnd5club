@@ -22,7 +22,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public Collection<BookmarkApi> getBookmarks(User user) {
-		return bookmarkRepository.findByUserAndParentIsNull(user)
+		return bookmarkRepository.findByUser(user)
 			.stream()
 			.map(BookmarkApi::new)
 			.collect(Collectors.toList());
