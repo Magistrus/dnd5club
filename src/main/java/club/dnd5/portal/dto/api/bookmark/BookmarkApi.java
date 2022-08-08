@@ -1,12 +1,11 @@
 package club.dnd5.portal.dto.api.bookmark;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import club.dnd5.portal.model.BookmarkSection;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import club.dnd5.portal.model.BookmarkSection;
 import club.dnd5.portal.model.user.Bookmark;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
