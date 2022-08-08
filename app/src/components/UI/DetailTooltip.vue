@@ -30,6 +30,9 @@
     import WeaponBody from "@/views/Inventory/Weapons/WeaponBody";
     import CreatureBody from "@/views/Bestiary/CreatureBody";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
+    import OptionBody from "@/views/Character/Options/OptionBody";
+    import TraitBody from "@/views/Character/Traits/TraitBody";
+    import GodBody from "@/views/Wiki/Gods/GodBody";
 
     export default {
         name: "DetailTooltip",
@@ -60,26 +63,35 @@
 
             bodyComponent() {
                 switch (this.type) {
-                    case 'spell':
-                        return SpellBody;
+                    case 'option':
+                        return OptionBody;
 
-                    case 'screen':
-                        return ScreenBody;
+                    case 'trait':
+                        return TraitBody;
 
-                    case 'item':
-                        return ItemBody;
-
-                    case 'magic-item':
-                        return MagicItemBody;
-
-                    case 'creature':
-                        return CreatureBody;
+                    case 'armor':
+                        return ArmorBody;
 
                     case 'weapon':
                         return WeaponBody;
 
-                    case 'armor':
-                        return ArmorBody;
+                    case 'magic-item':
+                        return MagicItemBody;
+
+                    case 'item':
+                        return ItemBody;
+
+                    case 'screen':
+                        return ScreenBody;
+
+                    case 'creature':
+                        return CreatureBody;
+
+                    case 'spell':
+                        return SpellBody;
+
+                    case 'god':
+                        return GodBody;
 
                     default:
                         return 'div';
