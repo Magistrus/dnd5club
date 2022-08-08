@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 public enum BookmarkSection {
 	MENU ("Разделы", "menu", null),
 	CLASSES ("Классы", "classes", "class"),
@@ -27,10 +28,10 @@ public enum BookmarkSection {
 	BOOKS ("Источники", "books", "book"),
 	NONE ("Без группы", "none", null);
 
-	@Getter() private final String name;
-	@Getter() private final String code;
-	@Getter() private final String itemType;
-	@Getter() private final Integer order;
+	private final String name;
+	private final String code;
+	private final String itemType;
+	private final Integer order;
 
 	BookmarkSection(String name, String code, String itemType) {
 		this.name = name;
