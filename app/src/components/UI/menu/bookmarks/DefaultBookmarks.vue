@@ -78,7 +78,8 @@
             align-items: center;
             position: sticky;
             top: 0;
-            background-color: inherit;
+            background-color: var(--bg-secondary);
+            z-index: 1;
         }
 
         &__body {
