@@ -296,6 +296,10 @@
                 align-items: center;
                 flex-shrink: 0;
             }
+
+            &--optional {
+                padding-right: 8px;
+            }
         }
 
         &__control {
@@ -343,10 +347,6 @@
             &--optional {
                 & + & {
                     margin-left: 8px;
-                }
-
-                &:last-child {
-                    margin-right: 8px;
                 }
             }
         }
