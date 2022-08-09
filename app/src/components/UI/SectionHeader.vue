@@ -299,6 +299,19 @@
         }
 
         &__control {
+            &--main,
+            &--optional {
+                &.is-only-desktop {
+                    display: none;
+                }
+
+                @include media-min($lg) {
+                    &.is-only-desktop {
+                        display: flex;
+                    }
+                }
+            }
+
             &--main {
                 @include css_anim();
 
@@ -311,20 +324,10 @@
                 width: 73px;
                 height: 72px;
 
-                &.is-only-desktop {
-                    display: none;
-                }
-
                 @include media-min($md) {
                     &:hover {
                         background-color: var(--primary-hover);
                         color: var(--text-btn-color);
-                    }
-                }
-
-                @include media-min($lg) {
-                    &.is-only-desktop {
-                        display: flex;
                     }
                 }
             }
