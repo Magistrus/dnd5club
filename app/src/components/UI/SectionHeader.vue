@@ -232,7 +232,7 @@
             align-items: center;
 
             &--text {
-                font-size: calc(var(--h1-font-size) - 12px);
+                font-size: calc(var(--h1-font-size) - 16px);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
