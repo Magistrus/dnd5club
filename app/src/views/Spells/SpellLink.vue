@@ -84,7 +84,7 @@
                                 v-tippy="{ content: 'Материальный', onShow() { return !!spell?.components?.m } }"
                                 class="link-item__component"
                             >
-                                {{!!spell?.components?.m ? 'М : '·'}}
+                                {{!!spell?.components?.m ? 'М' : '·'}}
                             </div>
                         </div>
                     </div>
