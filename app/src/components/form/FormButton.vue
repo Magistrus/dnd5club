@@ -17,6 +17,10 @@
                 type: Boolean,
                 default: false
             },
+            typeLinkFilled: {
+                type: Boolean,
+                default: false
+            },
             typeOutline: {
                 type: Boolean,
                 default: false
@@ -38,6 +42,10 @@
             type() {
                 if (this.typeLink) {
                     return 'link';
+                }
+
+                if (this.typeLinkFilled) {
+                    return 'link-filled';
                 }
 
                 if (this.typeOutline) {
@@ -135,6 +143,34 @@
             }
         }
 
+        &.is-link-filled {
+            background-color: transparent;
+            border-color: transparent;
+            color: var(--primary);
+
+            &:focus-within,
+            &:focus,
+            &:hover {
+                background-color: var(--primary-hover);
+                border-color: var(--primary-hover);
+                color: var(--text-btn-color);
+            }
+
+            &:active {
+                background-color: var(--primary-active);
+                border-color: var(--primary-active);
+                color: var(--text-btn-color);
+            }
+
+            &:disabled {
+                opacity: .6;
+                background-color: transparent;
+                border-color: transparent;
+                color: var(--primary);
+                cursor: not-allowed;
+            }
+        }
+
         &.is-outline {
             background-color: transparent;
             border-color: var(--primary);
@@ -173,6 +209,16 @@
             ::v-deep(svg) {
                 width: 18px;
                 height: 18px;
+            }
+        }
+
+        &.is-submenu {
+            padding: 16px 4px;
+            border-left: 1px solid var(--text-btn-color);
+
+            ::v-deep(svg) {
+                width: 16px;
+                height: 16px;
             }
         }
     }

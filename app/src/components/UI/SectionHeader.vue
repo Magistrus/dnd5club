@@ -33,39 +33,29 @@
                 v-if="hasOptionalControls"
                 class="section-header__controls--optional"
             >
-                <button
+                <bookmark-save-button
                     v-if="bookmark"
-                    v-tippy="{ content: 'Добавить в закладки' }"
-                    class="section-header__control--optional"
-                    type="button"
-                    @click.left.exact.prevent.stop="updateBookmark($route.path, title)"
-                >
-                    <svg-icon
-                        :icon-name="isBookmarkSaved($route.path) ? 'bookmark-filled' : 'bookmark'"
-                        :stroke-enable="false"
-                        fill-enable
-                    />
-                </button>
+                />
 
-                <button
+                <form-button
                     v-if="print"
                     v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
-                    type="button"
+                    type-link-filled
                     @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
-                </button>
+                </form-button>
 
-                <button
+                <form-button
                     v-if="onExportFoundry"
                     v-tippy="{ content: 'Экспорт в Foundry VTT' }"
                     class="section-header__control--optional is-only-desktop"
-                    type="button"
+                    type-link-filled
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>
-                </button>
+                </form-button>
             </div>
 
             <div
@@ -101,15 +91,17 @@
 </template>
 
 <script>
-    import SvgIcon from '@/components/UI/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/common/helpers/errorHandler";
-    import { mapActions, mapState } from "pinia";
-    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
+    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/BookmarkSaveButton";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
         name: 'SectionHeader',
-        components: { SvgIcon },
+        components: {
+            FormButton,
+            BookmarkSaveButton
+        },
         props: {
             title: {
                 type: String,
@@ -152,8 +144,6 @@
             uiStore: useUIStore()
         }),
         computed: {
-            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved']),
-
             hasOptionalControls() {
                 return !!this.bookmark || !!this.print || !!this.onExportFoundry;
             },
@@ -184,8 +174,6 @@
             }
         },
         methods: {
-            ...mapActions(useDefaultBookmarkStore, ['updateBookmark']),
-
             async copyText() {
                 if (navigator.clipboard) {
                     try {
@@ -311,8 +299,7 @@
         }
 
         &__control {
-            &--main,
-            &--optional {
+            &--main {
                 @include css_anim();
 
                 display: flex;
@@ -351,13 +338,13 @@
             }
 
             &--optional {
-                width: 48px;
-                height: 48px;
-                padding: 12px;
-                border-radius: 8px;
-                background-color: transparent;
-                flex: 1 0 48px;
-                margin-right: 8px;
+                & + & {
+                    margin-left: 8px;
+                }
+
+                &:last-child {
+                    margin-right: 8px;
+                }
             }
         }
     }

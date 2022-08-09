@@ -21,8 +21,10 @@ app.config.globalProperties.$isDev = isDev;
 const pinia = createPinia();
 
 pinia.use(({ store }) => {
-    // eslint-disable-next-line no-param-reassign
+    /* eslint-disable no-param-reassign */
     store.$http = new HTTPService();
+    store.$isDev = isDev;
+    /* eslint-enable no-param-reassign */
 });
 
 app.use(pinia)

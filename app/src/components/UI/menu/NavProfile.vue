@@ -97,6 +97,8 @@
             ...mapActions(useUserStore, ['logout']),
 
             async userLogout() {
+                this.closeModal();
+
                 await this.logout();
 
                 this.closePopover();
