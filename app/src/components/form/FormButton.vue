@@ -73,9 +73,9 @@
         @include css_anim();
 
         background-color: var(--primary);
-        border: 1px solid var(--primary);
+        border: 1px solid var(--bg-transparent);
         color: var(--text-btn-color);
-        border-radius: 8px;
+        border-radius: 6px;
         padding: 12px;
         cursor: pointer;
         display: inline-flex;
@@ -151,8 +151,8 @@
             &:focus-within,
             &:focus,
             &:hover {
-                background-color: var(--primary-hover);
-                border-color: var(--primary-hover);
+                background-color: var(--hover);
+                border-color: var(--hover);
                 color: var(--text-btn-color);
             }
 
