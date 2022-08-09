@@ -21,10 +21,6 @@
                 type: Boolean,
                 default: false
             },
-            typeOutline: {
-                type: Boolean,
-                default: false
-            },
             typePrimary: {
                 type: Boolean,
                 default: true
@@ -48,10 +44,6 @@
                     return 'link-filled';
                 }
 
-                if (this.typeOutline) {
-                    return 'outline';
-                }
-
                 return 'primary';
             },
 
@@ -73,7 +65,6 @@
         @include css_anim();
 
         background-color: var(--primary);
-        border: 1px solid var(--bg-transparent);
         color: var(--text-btn-color);
         border-radius: 6px;
         padding: 12px;
@@ -94,20 +85,17 @@
             @include css_anim();
 
             background-color: var(--primary-hover);
-            border-color: var(--primary-hover);
         }
 
         &:active {
             @include css_anim();
 
             background-color: var(--primary-active);
-            border-color: var(--primary-active);
         }
 
         &:disabled {
             opacity: .6;
             background-color: var(--primary);
-            border-color: var(--primary);
             cursor: not-allowed;
         }
 
@@ -118,26 +106,22 @@
 
         &.is-link {
             background-color: transparent;
-            border-color: transparent;
             color: var(--primary);
 
             &:focus-within,
             &:focus,
             &:hover {
                 background-color: var(--bg-sub-menu);
-                border-color: var(--bg-sub-menu);
                 color: var(--primary-hover);
             }
 
             &:active {
                 background-color: var(--bg-main);
-                border-color: var(--bg-main);
             }
 
             &:disabled {
                 opacity: .6;
                 background-color: transparent;
-                border-color: transparent;
                 color: var(--primary);
                 cursor: not-allowed;
             }
@@ -145,55 +129,23 @@
 
         &.is-link-filled {
             background-color: transparent;
-            border-color: transparent;
             color: var(--primary);
 
             &:focus-within,
             &:focus,
             &:hover {
                 background-color: var(--hover);
-                border-color: var(--hover);
                 color: var(--text-btn-color);
             }
 
             &:active {
                 background-color: var(--primary-active);
-                border-color: var(--primary-active);
                 color: var(--text-btn-color);
             }
 
             &:disabled {
                 opacity: .6;
                 background-color: transparent;
-                border-color: transparent;
-                color: var(--primary);
-                cursor: not-allowed;
-            }
-        }
-
-        &.is-outline {
-            background-color: transparent;
-            border-color: var(--primary);
-            color: var(--primary);
-
-            &:focus-within,
-            &:focus,
-            &:hover {
-                background-color: var(--bg-sub-menu);
-                border-color: var(--primary-hover);
-                color: var(--primary-hover);
-            }
-
-            &:active {
-                background-color: var(--primary-active);
-                border-color: var(--primary-active);
-                color: var(--text-btn-color);
-            }
-
-            &:disabled {
-                opacity: .6;
-                background-color: transparent;
-                border-color: var(--primary);
                 color: var(--primary);
                 cursor: not-allowed;
             }
@@ -209,16 +161,6 @@
             ::v-deep(svg) {
                 width: 18px;
                 height: 18px;
-            }
-        }
-
-        &.is-submenu {
-            padding: 16px 4px;
-            border-left: 1px solid var(--text-btn-color);
-
-            ::v-deep(svg) {
-                width: 16px;
-                height: 16px;
             }
         }
     }
