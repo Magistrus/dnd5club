@@ -5,6 +5,7 @@ import { DB_NAME } from '@/common/const/UI';
 import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
 import sortBy from 'lodash/sortBy';
+import { v4 as uuidV4 } from 'uuid';
 import { getSectionObj } from '@/common/helpers/bookmarkSections';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -62,15 +63,41 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 const restored = await this.store.getItem('default');
 
                 if (isArray(oldFormat) && oldFormat.length) {
-                    this.bookmarks = oldFormat.map(group => ({
-                        ...getSectionObj(group.label),
-                        childList: group.links.map(link => ({
-                            name: link.label,
-                            url: link.url
-                        }))
-                    }));
+                    const parent = cloneDeep({
+                        uuid: uuidV4(),
+                        order: 0,
+                        name: 'Общие'
+                    });
+                    const list = [parent];
+
+                    for (let i = 0; i < oldFormat.length; i++) {
+                        const category = oldFormat[i];
+                        const updatedCat = cloneDeep({
+                            uuid: uuidV4(),
+                            order: i,
+                            name: category.label,
+                            parentUUID: parent.uuid
+                        });
+
+                        list.push(updatedCat);
+
+                        for (let j = 0; j < category.links.length; j++) {
+                            const bookmark = category.links[j];
+
+                            list.push({
+                                uuid: uuidV4(),
+                                order: j,
+                                name: bookmark.label,
+                                url: bookmark.url,
+                                parentUUID: updatedCat.uuid
+                            });
+                        }
+                    }
+
+                    this.bookmarks = list;
 
                     await this.saveBookmarks();
+
                     await this.store.removeItem('saved');
 
                     return;
