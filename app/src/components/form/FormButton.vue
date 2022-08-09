@@ -66,7 +66,7 @@
 
         background-color: var(--primary);
         color: var(--text-btn-color);
-        border-radius: 8px;
+        border-radius: 6px;
         padding: 12px;
         cursor: pointer;
         display: inline-flex;
@@ -134,7 +134,7 @@
             &:focus-within,
             &:focus,
             &:hover {
-                background-color: var(--primary-hover);
+                background-color: var(--hover);
                 color: var(--text-btn-color);
             }
 

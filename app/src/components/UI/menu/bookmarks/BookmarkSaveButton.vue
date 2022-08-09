@@ -19,7 +19,9 @@
         @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, title)"
     >
         <svg-icon
-            icon-name="arrow-stroke"
+            icon-name="arrow-2"
+            :stroke-enable="false"
+            fill-enable
         />
     </form-button>
 </template>
@@ -71,7 +73,13 @@
         }
     }
 
+    .bookmark-save-button {
+        width: 28px;
+    }
+
     .bookmark-submenu-button {
-        margin-left: -16px !important;
+        margin-left: -4px !important;
+        width: 18px;
+        padding: 12px 0;
     }
 </style>
