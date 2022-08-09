@@ -150,6 +150,7 @@
 
             hasComponents() {
                 const { spell } = this;
+
                 return spell?.components?.v || spell?.components?.s || !!spell?.components?.m;
             },
 
