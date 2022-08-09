@@ -15,7 +15,32 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     }),
 
     getters: {
-        getBookmarks: state => state.bookmarks
+        getBookmarks: state => state.bookmarks,
+        isBookmarkSaved(state) {
+            return url => {
+                const bookmarks = cloneDeep(state.bookmarks);
+                const index = bookmarks.findIndex(bookmark => bookmark.url === url);
+
+                return index >= 0;
+            };
+        },
+        getBookmarkParentUUIDs(state) {
+            return url => {
+                if (!this.isBookmarkSaved(url)) {
+                    return undefined;
+                }
+
+                const bookmarks = cloneDeep(state.bookmarks);
+                const index = bookmarks.findIndex(bookmark => bookmark.url === url);
+                const categoryIndex = bookmarks.findIndex(category => category.uuid === bookmarks[index].parentUUID);
+
+                if (categoryIndex < 0) {
+                    return undefined;
+                }
+
+                return bookmarks.find(group => group.uuid === bookmarks[categoryIndex].parentUUID);
+            };
+        }
     },
 
     actions: {

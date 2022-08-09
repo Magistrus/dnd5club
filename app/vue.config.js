@@ -65,10 +65,12 @@ module.exports = {
             .end();
     },
     css: {
-        extract: {
-            filename: 'css/[name].css',
-            chunkFilename: 'css/[name].[fullhash].css'
-        },
+        extract: process.env.NODE_ENV === 'production'
+            ? {
+                filename: 'css/[name].css',
+                chunkFilename: 'css/[name].[fullhash].css'
+            }
+            : undefined,
         loaderOptions: {
             css: {
                 url: false

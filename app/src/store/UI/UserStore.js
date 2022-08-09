@@ -58,6 +58,16 @@ export const useUserStore = defineStore('UserStore', {
 
                 switch (resp.status) {
                     case 200:
+                        if (this.$isDev) {
+                            Cookies.set(
+                                USER_TOKEN_COOKIE,
+                                resp.data.accessToken,
+                                {
+                                    expires: 365
+                                }
+                            );
+                        }
+
                         await this.updateUserFromSession();
 
                         return Promise.resolve();
@@ -78,6 +88,10 @@ export const useUserStore = defineStore('UserStore', {
 
                 switch (resp.status) {
                     case 200:
+                        if (this.$isDev) {
+                            Cookies.remove(USER_TOKEN_COOKIE, { path: '' });
+                        }
+
                         this.clearUser();
 
                         return Promise.resolve();
