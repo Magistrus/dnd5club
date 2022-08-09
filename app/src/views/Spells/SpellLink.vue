@@ -67,21 +67,21 @@
                             class="link-item__components"
                         >
                             <div
-                                v-tippy="{ content: 'Вербальный' }"
+                                v-tippy="{ content: 'Вербальный', onShow() { return !!spell?.components?.v } }"
                                 class="link-item__component"
                             >
                                 {{spell?.components?.v ? 'В' : '&bull;'}}
                             </div>
 
                             <div
-                                v-tippy="{ content: 'Соматический' }"
+                                v-tippy="{ content: 'Соматический', onShow() { return !!spell?.components?.s } }"
                                 class="link-item__component"
                             >
                                 {{spell?.components?.s ? 'С'  : '&bull;'}}
                             </div>
 
                             <div
-                                v-tippy="{ content: 'Материальный' }"
+                                v-tippy="{ content: 'Материальный', onShow() { return !!spell?.components?.m } }"
                                 class="link-item__component"
                             >
                                 {{!!spell?.components?.m ? 'М : '&bull;'}}
