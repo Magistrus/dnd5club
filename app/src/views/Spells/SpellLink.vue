@@ -64,31 +64,27 @@
                         </div>
 
                         <div
-                            v-if="hasComponents"
                             class="link-item__components"
                         >
                             <div
-                                v-if="spell.components.v"
-                                v-tippy="{ content: 'Вербальный' }"
+                                v-tippy="{ content: 'Вербальный', onShow() { return !!spell?.components?.v } }"
                                 class="link-item__component"
                             >
-                                В
+                                {{spell?.components?.v ? 'В' : '·'}}
                             </div>
 
                             <div
-                                v-if="spell.components.s"
-                                v-tippy="{ content: 'Соматический' }"
+                                v-tippy="{ content: 'Соматический', onShow() { return !!spell?.components?.s } }"
                                 class="link-item__component"
                             >
-                                С
+                                {{spell?.components?.s ? 'С'  : '·'}}
                             </div>
 
                             <div
-                                v-if="!!spell.components.m"
-                                v-tippy="{ content: 'Материальный' }"
+                                v-tippy="{ content: 'Материальный', onShow() { return !!spell?.components?.m } }"
                                 class="link-item__component"
                             >
-                                М
+                                {{!!spell?.components?.m ? 'М' : '·'}}
                             </div>
                         </div>
                     </div>
