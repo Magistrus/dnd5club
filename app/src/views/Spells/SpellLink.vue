@@ -70,21 +70,21 @@
                                 v-tippy="{ content: 'Вербальный', onShow() { return !!spell?.components?.v } }"
                                 class="link-item__component"
                             >
-                                {{spell?.components?.v ? 'В' : '&bull;'}}
+                                {{spell?.components?.v ? 'В' : '·'}}
                             </div>
 
                             <div
                                 v-tippy="{ content: 'Соматический', onShow() { return !!spell?.components?.s } }"
                                 class="link-item__component"
                             >
-                                {{spell?.components?.s ? 'С'  : '&bull;'}}
+                                {{spell?.components?.s ? 'С'  : '·'}}
                             </div>
 
                             <div
                                 v-tippy="{ content: 'Материальный', onShow() { return !!spell?.components?.m } }"
                                 class="link-item__component"
                             >
-                                {{!!spell?.components?.m ? 'М : '&bull;'}}
+                                {{!!spell?.components?.m ? 'М : '·'}}
                             </div>
                         </div>
                     </div>
