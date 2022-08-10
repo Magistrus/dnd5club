@@ -1,9 +1,12 @@
 package club.dnd5.portal.controller.api.bookmark;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 
-import club.dnd5.portal.model.BookmarkSection;
+import club.dnd5.portal.model.BookmarkCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,8 @@ import club.dnd5.portal.service.BookmarkService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Tag(name = "Bookmark", description = "The Bookmark API")
 @RestController
@@ -79,9 +84,25 @@ public class BookmarkApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Get site sections")
-	@GetMapping("/sections")
-	public ResponseEntity<List<BookmarkSection>> getBookmarkSections() {
-		return ResponseEntity.ok(BookmarkSection.getSections());
+	@Operation(summary = "Get categories")
+	@GetMapping("/categories")
+	public ResponseEntity<List<BookmarkCategory>> getBookmarkCategories() {
+		return ResponseEntity.ok(BookmarkCategory.getCategories());
+	}
+
+	@Operation(summary = "Get category from URL")
+	@GetMapping("/category")
+	public ResponseEntity<BookmarkCategory> getBookmarkCategory(HttpServletRequest request) throws UnsupportedEncodingException {
+		if (!request.getParameter("url").isEmpty()) {
+			String url = URLDecoder.decode(request.getParameter("url"), StandardCharsets.UTF_8.toString());
+
+			return ResponseEntity.ok(BookmarkCategory.getCategoryByURL(url));
+		}
+
+		if (!request.getParameter("code").isEmpty()) {
+			return ResponseEntity.ok(BookmarkCategory.getCategoryByCode(request.getParameter("code")));
+		}
+
+		return ResponseEntity.ok(BookmarkCategory.getDefaultCategory());
 	}
 }

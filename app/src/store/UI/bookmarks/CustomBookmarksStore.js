@@ -17,12 +17,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     getters: {
         getBookmarks: state => state.bookmarks,
         isBookmarkSaved(state) {
-            return url => {
-                const bookmarks = cloneDeep(state.bookmarks);
-                const index = bookmarks.findIndex(bookmark => bookmark.url === url);
-
-                return index >= 0;
-            };
+            return url => cloneDeep(state.bookmarks).findIndex(bookmark => bookmark.url === url) >= 0;
         },
         getBookmarkParentUUIDs(state) {
             return url => {

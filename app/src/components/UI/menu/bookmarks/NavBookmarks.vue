@@ -15,19 +15,11 @@
             </div>
         </template>
 
-        <template #default="{maxHeight}">
-            <div
-                class="nav-bookmarks"
-                :style="{ maxHeight }"
-            >
-                <default-bookmarks
-                    :style="{ maxHeight }"
-                />
+        <template #default>
+            <div class="nav-bookmarks">
+                <default-bookmarks v-if="!isAuthorized"/>
 
-                <custom-bookmarks
-                    v-if="isAuthorized"
-                    :style="{ maxHeight }"
-                />
+                <custom-bookmarks v-else/>
             </div>
         </template>
     </nav-popover>

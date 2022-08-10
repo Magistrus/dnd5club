@@ -26,68 +26,72 @@
             </label>
         </div>
 
-        <div class="bookmarks__body">
-            <div
-                v-for="(group, groupKey) in groupBookmarks"
-                :key="group.uuid + groupKey"
-                class="bookmarks__group"
-            >
+        <div class="bookmarks__wrapper">
+            <div class="bookmarks__body">
                 <div
-                    class="bookmarks__group_head"
-                    @click.left.exact.prevent="opened = group.uuid"
+                    v-for="(group, groupKey) in groupBookmarks"
+                    :key="group.uuid + groupKey"
+                    class="bookmarks__group"
                 >
                     <div
-                        class="bookmarks__group_icon"
-                        :class="{ 'is-active': group.uuid === opened }"
+                        class="bookmarks__group_head"
+                        @click.left.exact.prevent="opened = group.uuid"
                     >
-                        <svg-icon icon-name="arrow-stroke"/>
-                    </div>
-
-                    <div class="bookmarks__group_label">
-                        {{ group.name || 'Без группы' }}
-                    </div>
-                </div>
-
-                <div
-                    v-if="group.uuid === opened"
-                    class="bookmarks__group_body"
-                >
-                    <div
-                        v-for="(category, catKey) in group.children"
-                        :key="category.uuid + catKey"
-                        class="bookmarks__cat"
-                    >
-                        <div class="bookmarks__cat_label">
-                            {{ category.name }}
+                        <div
+                            class="bookmarks__group_icon"
+                            :class="{ 'is-active': group.uuid === opened }"
+                        >
+                            <svg-icon icon-name="arrow-stroke"/>
                         </div>
 
-                        <div class="bookmarks__cat_body">
-                            <div
-                                v-for="(bookmark, bookmarkKey) in category.children"
-                                :key="bookmark.uuid + bookmarkKey"
-                                class="bookmarks__item"
-                            >
-                                <a
-                                    :href="bookmark.url"
-                                    class="bookmarks__item_label"
-                                >{{ bookmark.name }}</a>
+                        <div class="bookmarks__group_label">
+                            {{ group.name || 'Без группы' }}
+                        </div>
+                    </div>
 
+                    <div
+                        v-if="group.uuid === opened"
+                        class="bookmarks__group_body"
+                    >
+                        <div
+                            v-for="(category, catKey) in group.children"
+                            :key="category.uuid + catKey"
+                            class="bookmarks__cat"
+                        >
+                            <div class="bookmarks__cat_label">
+                                {{ category.name }}
+                            </div>
+
+                            <div class="bookmarks__cat_body">
                                 <div
-                                    class="bookmarks__item_icon only-hover is-right"
+                                    v-for="(bookmark, bookmarkKey) in category.children"
+                                    :key="bookmark.uuid + bookmarkKey"
+                                    class="bookmarks__item"
                                 >
-                                    <svg-icon icon-name="close"/>
+                                    <a
+                                        :href="bookmark.url"
+                                        class="bookmarks__item_label"
+                                    >{{ bookmark.name }}</a>
+
+                                    <div
+                                        class="bookmarks__item_icon only-hover is-right"
+                                    >
+                                        <svg-icon icon-name="close"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div
-                v-if="!getBookmarks?.length"
-                class="bookmarks__info"
-            >
-                <span class="bookmarks__info--desc">Здесь пока пусто</span>
+                <div
+                    v-if="!getBookmarks?.length"
+                    class="bookmarks__info"
+                >
+                    <div class="bookmarks__info--desc">
+                        Здесь пока пусто
+                    </div>
+                </div>
             </div>
         </div>
     </div>

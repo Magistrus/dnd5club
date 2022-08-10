@@ -33,11 +33,9 @@
                     <div
                         v-if="show.body"
                         class="nav-popover__body"
-                        :style="{ maxHeight }"
                     >
                         <slot
                             name="default"
-                            :max-height="maxHeight"
                             :close="emitClose"
                         />
                     </div>

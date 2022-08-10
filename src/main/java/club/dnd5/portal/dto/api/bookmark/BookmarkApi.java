@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import club.dnd5.portal.model.BookmarkSection;
+import club.dnd5.portal.model.BookmarkCategory;
 import club.dnd5.portal.model.user.Bookmark;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class BookmarkApi {
 		name = bookmark.getName();
 		if (bookmark.getUrl() != null) {
 			url = bookmark.getUrl();
-			type = BookmarkSection.getSectionByURL(bookmark.getUrl()).getItemType();
+			type = BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getItemType();
 		}
 		if (bookmark.getParent() != null) {
 			parentUUID = bookmark.getParent().getUuid().toString();
