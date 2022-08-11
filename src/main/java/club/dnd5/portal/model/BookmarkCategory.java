@@ -1,15 +1,12 @@
 package club.dnd5.portal.model;
 
-import lombok.Getter;
-
-import javax.validation.constraints.NotNull;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
 
 @Getter
 public enum BookmarkCategory {
