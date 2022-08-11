@@ -242,8 +242,8 @@
     }
     
     .right {
-      flex: 32.5%;
-      min-width: 32.5%;
+      flex: calc(30% + 32px);
+      min-width: calc(30% + 32px);
       margin-bottom: 16px;
 
       @media (max-width: 600px) {
