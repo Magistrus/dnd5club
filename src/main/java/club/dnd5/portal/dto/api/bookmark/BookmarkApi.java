@@ -27,6 +27,9 @@ public class BookmarkApi {
 		uuid = bookmark.getUuid().toString();
 		order = bookmark.getOrder();
 		name = bookmark.getName();
+		if (bookmark.getPrefix() != null) {
+			prefix = bookmark.getPrefix();
+		}
 		if (bookmark.getUrl() != null) {
 			url = bookmark.getUrl();
 			type = BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getItemType();

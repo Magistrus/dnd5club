@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 
-import club.dnd5.portal.model.BookmarkCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.bookmark.BookmarkApi;
 import club.dnd5.portal.dto.api.bookmark.CategoryApi;
+import club.dnd5.portal.model.BookmarkCategory;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.service.BookmarkService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Tag(name = "Bookmark", description = "The Bookmark API")
 @RestController
@@ -49,7 +47,10 @@ public class BookmarkApiController {
 	@SecurityRequirement(name = "Bearer Authentication")
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
-	public Collection<BookmarkApi> getBookmarks() {
+	public Collection<BookmarkApi> getBookmarks(@RequestParam(required = false) Boolean parent) {
+		if (parent != null) {
+			return service.getParentBookmarks(getCurrentUser());
+		}
 		return service.getBookmarks(getCurrentUser());
 	}
 
@@ -93,7 +94,8 @@ public class BookmarkApiController {
 
 	@Operation(summary = "Get category from URL")
 	@GetMapping("/category")
-	public ResponseEntity<?> getBookmarkCategory(@RequestParam(required = false) String url, @RequestParam(required = false) String code) {
+	public ResponseEntity<?> getBookmarkCategory(@RequestParam(required = false) String url,
+			@RequestParam(required = false) String code) {
 		if (url != null) {
 			try {
 				url = URLDecoder.decode(url, StandardCharsets.UTF_8.toString());

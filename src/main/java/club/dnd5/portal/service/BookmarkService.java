@@ -17,4 +17,5 @@ public interface BookmarkService {
 	@Transactional
 	void deleteBookmark(String uuid);
 	void mergeBookmarks(List<BookmarkApi> bookmarks);
+	Collection<BookmarkApi> getParentBookmarks(User currentUser);
 }

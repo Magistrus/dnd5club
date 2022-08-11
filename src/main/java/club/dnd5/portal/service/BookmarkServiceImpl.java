@@ -29,28 +29,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 			.collect(Collectors.toList());
 	}
 
-	private UUID getNewUUID() {
-		UUID uuid = UUID.randomUUID();
-
-		if (bookmarkRepository.existsById(uuid)) {
-			uuid = getNewUUID();
-		}
-
-		return uuid;
-	}
-
-	private Bookmark getNewCategory(User user, Bookmark group, Bookmark bookmark) {
-		Bookmark category = new Bookmark();
-
-		category.setUuid(getNewUUID());
-		category.setName(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getName());
-		category.setOrder(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getOrder());
-		category.setParent(group);
-		category.setUser(user);
-
-		return bookmarkRepository.saveAndFlush(category);
-	}
-
 	@Override
 	public void addBookmark(User user, BookmarkApi bookmark) {
 		Bookmark group;
@@ -80,27 +58,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 		bookmarkRepository.save(entityBookmark);
 	}
 
-	private Bookmark getUpdatedBookmark(User user, BookmarkApi bookmark) {
-		Bookmark updatedBookmark = new Bookmark();
-
-		updatedBookmark.setUuid(UUID.fromString(bookmark.getUuid()));
-		updatedBookmark.setName(bookmark.getName());
-		updatedBookmark.setOrder(bookmark.getOrder());
-		updatedBookmark.setUser(user);
-
-		if (bookmark.getParentUUID() != null) {
-			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
-
-			updatedBookmark.setParent(parent);
-		}
-
-		if (bookmark.getUrl() != null) {
-			updatedBookmark.setUrl(bookmark.getUrl());
-		}
-
-		return updatedBookmark;
-	}
-
 	@Override
 	public void updateBookmarks(User user, List<BookmarkApi> bookmarks) {
 		Collection<Bookmark> savedBookmarks = bookmarkRepository.findByUser(user);
@@ -122,23 +79,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 		bookmarkRepository.saveAll(updatedBookmarks);
 	}
 
-	private List<Bookmark> getChildrenBookmarks(Bookmark parent) {
-		List<Bookmark> bookmarks = new ArrayList<>();
-
-		if (!parent.getChildren().isEmpty()) {
-			bookmarks.addAll(parent.getChildren());
-			bookmarks.addAll(
-				bookmarks
-					.stream()
-					.filter(item -> !item.getChildren().isEmpty())
-					.flatMap(item -> item.getChildren().stream())
-					.collect(Collectors.toList())
-			);
-		}
-
-		return bookmarks;
-	}
-
 	@Override
 	public void deleteBookmark(String uuid) {
 		Bookmark bookmark = bookmarkRepository.findById(UUID.fromString(uuid))
@@ -157,5 +97,72 @@ public class BookmarkServiceImpl implements BookmarkService {
 			Optional<Bookmark> bookmark = bookmarkRepository.findByUrl(bookmarkApi.getUrl());
 			
 		}
+	}
+
+	@Override
+	public Collection<BookmarkApi> getParentBookmarks(User user) {
+		return bookmarkRepository.findByUserAndParentIsNull(user)
+				.stream()
+				.map(BookmarkApi::new)
+				.collect(Collectors.toList());
+	}
+
+	private UUID getNewUUID() {
+		UUID uuid = UUID.randomUUID();
+
+		if (bookmarkRepository.existsById(uuid)) {
+			uuid = getNewUUID();
+		}
+
+		return uuid;
+	}
+
+	private Bookmark getNewCategory(User user, Bookmark group, Bookmark bookmark) {
+		Bookmark category = new Bookmark();
+
+		category.setUuid(getNewUUID());
+		category.setName(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getName());
+		category.setOrder(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getOrder());
+		category.setParent(group);
+		category.setUser(user);
+
+		return bookmarkRepository.saveAndFlush(category);
+	}
+
+	private Bookmark getUpdatedBookmark(User user, BookmarkApi bookmark) {
+		Bookmark updatedBookmark = new Bookmark();
+
+		updatedBookmark.setUuid(UUID.fromString(bookmark.getUuid()));
+		updatedBookmark.setName(bookmark.getName());
+		updatedBookmark.setOrder(bookmark.getOrder());
+		updatedBookmark.setUser(user);
+
+		if (bookmark.getParentUUID() != null) {
+			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
+
+			updatedBookmark.setParent(parent);
+		}
+
+		if (bookmark.getUrl() != null) {
+			updatedBookmark.setUrl(bookmark.getUrl());
+		}
+
+		return updatedBookmark;
+	}
+
+	private List<Bookmark> getChildrenBookmarks(Bookmark parent) {
+		List<Bookmark> bookmarks = new ArrayList<>();
+
+		if (!parent.getChildren().isEmpty()) {
+			bookmarks.addAll(parent.getChildren());
+			bookmarks.addAll(
+				bookmarks
+					.stream()
+					.filter(item -> !item.getChildren().isEmpty())
+					.flatMap(item -> item.getChildren().stream())
+					.collect(Collectors.toList())
+			);
+		}
+		return bookmarks;
 	}
 }
