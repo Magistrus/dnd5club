@@ -1,18 +1,15 @@
 package club.dnd5.portal.model;
 
-import lombok.Getter;
-
-import javax.validation.constraints.NotNull;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
 
 @Getter
-public enum BookmarkSection {
+public enum BookmarkCategory {
 	MENU ("Разделы", "menu", null),
 	CLASSES ("Классы", "classes", "class"),
 	RACES ("Расы", "races", "race"),
@@ -36,37 +33,46 @@ public enum BookmarkSection {
 	private final String itemType;
 	private final Integer order;
 
-	BookmarkSection(String name, String code, String itemType) {
+	BookmarkCategory(String name, String code, String itemType) {
 		this.name = name;
 		this.code = code;
 		this.itemType = itemType;
 		this.order = ordinal();
 	}
 
-	public static List<BookmarkSection> getSections() {
+	public static List<BookmarkCategory> getCategories() {
 		return Arrays.asList(values());
 	}
 
-	public static BookmarkSection getDefaultSection() {
+	public static BookmarkCategory getDefaultCategory() {
 		return NONE;
 	}
 
-	public static BookmarkSection getSectionByURL(@NotNull String url) {
+	public static BookmarkCategory getCategoryByURL(@NotNull String url) {
 		String[] paths = url.split("/");
 
 		if (paths[0].isEmpty()) {
-			return getDefaultSection();
+			return getDefaultCategory();
 		}
 
 		if (paths[0].equals("items") && paths[1].equals("magic")) {
 			return MAGIC_ITEMS;
 		}
 
-		Optional<BookmarkSection> bookmark = getSections()
+		Optional<BookmarkCategory> bookmark = getCategories()
 			.stream()
 			.filter(section -> section.getCode().equals(paths[0]))
 			.findFirst();
 
-		return bookmark.orElse(getDefaultSection());
+		return bookmark.orElse(getDefaultCategory());
+	}
+
+	public static BookmarkCategory getCategoryByCode(@NotNull String code) {
+		Optional<BookmarkCategory> bookmark = getCategories()
+			.stream()
+			.filter(section -> section.getCode().equals(code))
+			.findFirst();
+
+		return bookmark.orElse(getDefaultCategory());
 	}
 }

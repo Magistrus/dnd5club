@@ -12,17 +12,17 @@
     flex-shrink: 0;
   }
 
+  &__wrapper {
+    padding: 16px 8px;
+    display: block;
+  }
+
   &__body {
-    padding: 8px 8px 16px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     overflow: auto;
     flex: 1 1 auto;
-
-    @media (max-width: 550px) {
-      padding: 16px 8px 8px;
-    }
   }
 
   &__info {
@@ -35,7 +35,7 @@
       font-size: var(--h5-font-size);
       margin-bottom: 4px;
       width: 200px;
-      padding: 16px 8px;
+      padding: 0 8px;
     }
 
     &--title {

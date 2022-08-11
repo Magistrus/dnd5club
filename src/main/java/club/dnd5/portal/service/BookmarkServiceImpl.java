@@ -1,7 +1,7 @@
 package club.dnd5.portal.service;
 
 import club.dnd5.portal.dto.api.bookmark.BookmarkApi;
-import club.dnd5.portal.model.BookmarkSection;
+import club.dnd5.portal.model.BookmarkCategory;
 import club.dnd5.portal.model.user.Bookmark;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.BookmarkRepository;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,8 +43,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 		Bookmark category = new Bookmark();
 
 		category.setUuid(getNewUUID());
-		category.setName(BookmarkSection.getSectionByURL(bookmark.getUrl()).getName());
-		category.setOrder(BookmarkSection.getSectionByURL(bookmark.getUrl()).getOrder());
+		category.setName(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getName());
+		category.setOrder(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getOrder());
 		category.setParent(group);
 		category.setUser(user);
 
@@ -102,7 +103,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public void updateBookmarks(User user, List<BookmarkApi> bookmarks) {
-		Collection<Bookmark> savedBookmarks = bookmarkRepository.findByUserAndParentIsNull(user);
+		Collection<Bookmark> savedBookmarks = bookmarkRepository.findByUser(user);
 		Collection<Bookmark> updatedBookmarks = bookmarks
 			.stream()
 			.map(bookmark -> getUpdatedBookmark(user, bookmark))
@@ -148,5 +149,13 @@ public class BookmarkServiceImpl implements BookmarkService {
 		deleteList.addAll(getChildrenBookmarks(bookmark));
 
 		bookmarkRepository.deleteAllById(deleteList.stream().map(Bookmark::getUuid).collect(Collectors.toList()));
+	}
+
+	@Override
+	public void mergeBookmarks(List<BookmarkApi> bookmarks) {
+		for (BookmarkApi bookmarkApi : bookmarks) {
+			Optional<Bookmark> bookmark = bookmarkRepository.findByUrl(bookmarkApi.getUrl());
+			
+		}
 	}
 }

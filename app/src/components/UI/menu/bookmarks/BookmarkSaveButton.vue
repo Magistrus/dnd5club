@@ -3,7 +3,7 @@
         v-tippy="{ content: 'Добавить в закладки' }"
         class="bookmark-save-button"
         type-link-filled
-        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, title)"
+        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, name)"
     >
         <svg-icon
             :icon-name="isDefaultBookmarkSaved($route.path) ? 'bookmark-filled' : 'bookmark'"
@@ -16,7 +16,7 @@
         v-if="isAuthorized"
         class="bookmark-submenu-button"
         type-link-filled
-        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, title)"
+        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, name)"
     >
         <svg-icon
             icon-name="arrow-2"
@@ -37,6 +37,12 @@
         name: "BookmarkSaveButton",
         components: {
             FormButton
+        },
+        props: {
+            name: {
+                type: String,
+                default: ''
+            }
         },
         computed: {
             ...mapState(useUserStore, ['isAuthorized']),

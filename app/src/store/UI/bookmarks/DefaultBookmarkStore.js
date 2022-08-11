@@ -4,14 +4,11 @@ import localforage from 'localforage';
 import { DB_NAME } from '@/common/const/UI';
 import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
-import sortBy from 'lodash/sortBy';
 import { v4 as uuidV4 } from 'uuid';
-import { getSectionObj } from '@/common/helpers/bookmarkSections';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
     state: () => ({
-        section: getSectionObj('none'),
         bookmarks: [],
         store: localforage.createInstance({
             name: DB_NAME,
@@ -20,53 +17,25 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
     }),
 
     getters: {
-        getBookmarks: state => sortBy(state.bookmarks, [o => o.order]),
+        getBookmarks: state => state.bookmarks,
         isBookmarkSaved(state) {
-            return (url, returnIndexes) => {
-                const bookmarks = cloneDeep(state.bookmarks);
-                const indexes = {
-                    group: -1,
-                    link: -1
-                };
-
-                let found = false;
-
-                for (let groupIndex = 0; groupIndex < bookmarks.length && !found; groupIndex++) {
-                    if (!bookmarks[groupIndex]?.childList?.length) {
-                        continue;
-                    }
-
-                    for (let linkIndex = 0; linkIndex < bookmarks[groupIndex].childList.length && !found; linkIndex++) {
-                        if (bookmarks[groupIndex]?.childList[linkIndex]?.url === url) {
-                            found = true;
-                            indexes.group = groupIndex;
-                            indexes.link = linkIndex;
-                        }
-                    }
-                }
-
-                const result = returnIndexes ? indexes : true;
-
-                return indexes.group > -1 && indexes.link > -1
-                    ? result
-                    : null;
-            };
+            return url => cloneDeep(state.bookmarks).findIndex(bookmark => bookmark.url === url) >= 0;
         }
     },
 
     actions: {
-        async restoreBookmarks() {
+        async convertOldBookmarks() {
             try {
                 await this.store.ready();
 
                 const oldFormat = await this.store.getItem('saved');
-                const restored = await this.store.getItem('default');
 
                 if (isArray(oldFormat) && oldFormat.length) {
                     const parent = cloneDeep({
                         uuid: uuidV4(),
                         order: 0,
-                        name: 'Общие'
+                        name: 'Общие',
+                        default: true
                     });
                     const list = [parent];
 
@@ -99,9 +68,19 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     await this.saveBookmarks();
 
                     await this.store.removeItem('saved');
-
-                    return;
                 }
+            } catch (err) {
+                errorHandler(err);
+            }
+        },
+
+        async restoreBookmarks() {
+            try {
+                await this.store.ready();
+
+                await this.convertOldBookmarks();
+
+                const restored = await this.store.getItem('default');
 
                 this.bookmarks = isArray(restored) && restored.length
                     ? cloneDeep(restored)
@@ -121,39 +100,100 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             }
         },
 
-        setSection(code) {
-            const section = getSectionObj(code);
+        async getCategories() {
+            try {
+                const resp = await this.$http.get('/bookmarks/categories');
 
-            this.section = section.name;
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
         },
 
-        async addBookmark(url, name, section = this.section) {
-            if (!url || !name) {
-                return;
-            }
-
-            const bookmarks = cloneDeep(this.bookmarks);
-            const getIndex = () => bookmarks.findIndex(group => group.name === section);
-
-            let groupIndex = getIndex();
-
-            if (groupIndex === -1) {
-                bookmarks.push({
-                    ...getSectionObj(section),
-                    childList: []
+        async getCategoryByURL(url) {
+            try {
+                const resp = await this.$http.get('/bookmarks/category', {
+                    url: encodeURI(url)
                 });
 
-                groupIndex = getIndex();
-            }
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
 
-            bookmarks[groupIndex].childList.push({
-                name,
-                url
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getCategoryByCode(code) {
+            try {
+                const resp = await this.$http.get('/bookmarks/category', { code });
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        createCategory(category) {
+            const parent = this.bookmarks.find(bookmarks => bookmarks.default);
+            const newCategory = cloneDeep({
+                uuid: uuidV4(),
+                name: category.name,
+                order: category.order,
+                parentUUID: parent.uuid
             });
 
-            this.bookmarks = bookmarks;
+            this.bookmarks.push(newCategory);
 
-            await this.saveBookmarks();
+            return newCategory;
+        },
+
+        async addBookmark(url, name, category) {
+            try {
+                if (!url || !name) {
+                    return Promise.reject();
+                }
+
+                let cat;
+
+                if (typeof category === 'string') {
+                    cat = await this.getCategoryByCode(category);
+                }
+
+                if (!cat) {
+                    cat = await this.getCategoryByURL(url);
+                }
+
+                const savedCat = this.bookmarks.find(bookmark => bookmark.name === cat.name);
+
+                if (!savedCat) {
+                    cat = await this.createCategory(cat);
+                }
+
+                this.bookmarks.push(cloneDeep({
+                    uuid: uuidV4(),
+                    name,
+                    url,
+                    order: this.bookmarks.filter(bookmark => bookmark.parentUUID === cat.uuid).length,
+                    parentUUID: cat.uuid
+                }));
+
+                await this.saveBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
         },
 
         async removeBookmark(url) {
@@ -178,14 +218,14 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             await this.saveBookmarks();
         },
 
-        async updateBookmark(url, name, section = this.section) {
+        async updateBookmark(url, name, category) {
             if (this.isBookmarkSaved(url)) {
                 await this.removeBookmark(url);
 
                 return;
             }
 
-            await this.addBookmark(url, name, section);
+            await this.addBookmark(url, name, category);
         }
     }
 });
