@@ -41,7 +41,7 @@ export default class HTTPService {
     get(url, params) {
         const config = {
             url,
-            params: new URLSearchParams(params).toString(),
+            params,
             method: 'get'
         };
 
@@ -84,7 +84,7 @@ export default class HTTPService {
     rawGet(url, params) {
         return this.instanceRaw({
             url,
-            params: new URLSearchParams(params).toString(),
+            params,
             method: 'get'
         });
     }
