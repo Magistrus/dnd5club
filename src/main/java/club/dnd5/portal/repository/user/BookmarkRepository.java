@@ -15,4 +15,8 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, UUID> {
 
 	Collection<Bookmark> findByUserAndParentIsNull(User user);
 	Collection<Bookmark> findByParent(Bookmark parent);
+
+	Collection<Bookmark> findByUrl(String url);
+
+	Collection<Bookmark> findByUserAndOrder(User user, int order);
 }
