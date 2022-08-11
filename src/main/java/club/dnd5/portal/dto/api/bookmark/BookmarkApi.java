@@ -1,7 +1,5 @@
 package club.dnd5.portal.dto.api.bookmark;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -19,6 +17,7 @@ import lombok.Setter;
 public class BookmarkApi {
 	private String uuid;
 	private String name;
+	private String prefix;
 	private String url; // пустой для категорий и групп
 	private String type; // пустой для категорий и групп
 	private Integer order;

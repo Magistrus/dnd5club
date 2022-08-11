@@ -28,6 +28,7 @@ public class Bookmark {
 	private UUID uuid;
 
 	private String name;
+	private String prefix;
 	private String url;
 	@Column(name = "bookmark_order")
 	private Integer order;
