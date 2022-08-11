@@ -285,6 +285,7 @@
       display: inline-flex;
       margin: 4px 4px;
       align-items: center;
+      transition: all 0.5s;
 
       img {
         width: 20px;
@@ -294,6 +295,10 @@
         border-radius: 50%;
         margin-right: 4px;
         border: 1px solid var(--border);
+      }
+
+      &:hover {
+        background-color: var(--bg-main);
       }
     }
   }
