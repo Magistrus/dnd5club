@@ -155,8 +155,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     const parent = cloneDeep({
                         uuid: uuidV4(),
                         order: -1,
-                        name: 'Общие',
-                        default: true
+                        name: 'Общие'
                     });
                     const list = [parent];
 
