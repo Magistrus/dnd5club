@@ -244,7 +244,7 @@
     .right {
       flex: calc(30% + 32px);
       min-width: calc(30% + 32px);
-      margin-bottom: 16px;
+      // margin-bottom: 16px;
 
       @media (max-width: 600px) {
         flex: 100%;
@@ -259,25 +259,26 @@
   }
 }
 
-.friends_block {
+.links_block {
   background: var(--bg-secondary);
   padding: 8px 16px 16px 16px;
   border-radius: 12px;
+  margin-bottom: 16px;
 
   h3 {
-    font-size: calc(var(--h3-font-size) - 10px);
+    font-size: calc(var(--h3-font-size) - 12px);
     margin-top: 0px;
     font-family: "Open Sans", sans-serif;
-    font-weight: 600;
+    font-weight: 400;
     opacity: 0.6;
   }
 
-  .friends_list {
+  .list {
     display: flex;
     flex-wrap: wrap;
     margin: -4px -4px;
 
-    .friend_block {
+    .block {
       padding: 8px 8px;
       background-color: var(--hover);
       color: var(--text-color);
@@ -286,6 +287,13 @@
       margin: 4px 4px;
       align-items: center;
       transition: all 0.5s;
+
+      &.w-100 {
+        width: 100%;
+        flex: 100%;
+        display: flex;
+        justify-content: center;
+      }
 
       img {
         width: 20px;
