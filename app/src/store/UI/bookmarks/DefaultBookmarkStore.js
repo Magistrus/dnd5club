@@ -28,14 +28,134 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             try {
                 await this.store.ready();
 
+                if (this.$isDev) {
+                    await this.store.setItem(
+                        'saved',
+                        [
+                            {
+                                label: 'Расы',
+                                links: [
+                                    {
+                                        label: 'Полуэльф (лесной)',
+                                        url: '/races/Half-Elf/Forest'
+                                    },
+                                    {
+                                        label: 'Полуэльф (водный)',
+                                        url: '/races/Half-Elf/Water'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'Классы',
+                                links: [
+                                    {
+                                        label: 'Варвар',
+                                        url: '/classes/Barbarian'
+                                    },
+                                    {
+                                        label: 'Варвар Путь Священного Рода',
+                                        url: '/classes/Barbarian/Sacred_Family'
+                                    },
+                                    {
+                                        label: 'Варвар Путь Титана',
+                                        url: '/classes/Barbarian/Titanium'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'Разделы',
+                                links: [
+                                    {
+                                        label: 'Классы',
+                                        url: '/classes'
+                                    },
+                                    {
+                                        label: 'Расы',
+                                        url: '/races'
+                                    },
+                                    {
+                                        label: 'Черты',
+                                        url: '/traits'
+                                    },
+                                    {
+                                        label: 'Особенности классов',
+                                        url: '/options'
+                                    },
+                                    {
+                                        label: 'Оружие',
+                                        url: '/weapons'
+                                    },
+                                    {
+                                        label: 'Доспехи',
+                                        url: '/armors'
+                                    },
+                                    {
+                                        label: 'Снаряжение',
+                                        url: '/items'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'Заклинания',
+                                links: [
+                                    {
+                                        label: 'Анализ устройства',
+                                        url: '/spells/Analyze_device'
+                                    },
+                                    {
+                                        label: 'Брызги кислоты',
+                                        url: '/spells/Acid_splash'
+                                    },
+                                    {
+                                        label: 'Власть над огнём',
+                                        url: '/spells/Control_Flames'
+                                    },
+                                    {
+                                        label: 'Волшебная рука',
+                                        url: '/spells/Mage_hand'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'Ширма Мастера',
+                                links: [
+                                    {
+                                        label: 'Урон и атака',
+                                        url: '/screens/Damage_and_Attack'
+                                    },
+                                    {
+                                        label: 'Реакция',
+                                        url: '/screens/Reaction'
+                                    },
+                                    {
+                                        label: 'Окружающая среда',
+                                        url: '/screens/Environment'
+                                    },
+                                    {
+                                        label: 'Падение',
+                                        url: '/screens/Falling'
+                                    },
+                                    {
+                                        label: 'Истинное зрение',
+                                        url: '/screens/True_sight'
+                                    },
+                                    {
+                                        label: 'Тусклый свет',
+                                        url: '/screens/Dim_Light'
+                                    }
+                                ]
+                            }
+                        ]
+                    );
+                }
+
                 const oldFormat = await this.store.getItem('saved');
 
                 if (isArray(oldFormat) && oldFormat.length) {
                     const parent = cloneDeep({
                         uuid: uuidV4(),
-                        order: 0,
-                        name: 'Общие',
-                        default: true
+                        order: -1,
+                        name: 'Общие'
                     });
                     const list = [parent];
 
@@ -117,7 +237,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
         async getCategoryByURL(url) {
             try {
                 const resp = await this.$http.get('/bookmarks/category', {
-                    url: encodeURI(url)
+                    url: encodeURIComponent(url)
                 });
 
                 if (resp.status !== 200) {
