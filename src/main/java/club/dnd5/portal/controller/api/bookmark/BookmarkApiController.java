@@ -74,7 +74,7 @@ public class BookmarkApiController {
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PatchMapping
 	public ResponseEntity<?> mergeBookmarks(@RequestBody List<BookmarkApi> bookmarks){
-		service.mergeBookmarks(bookmarks);
+		service.mergeBookmarks(getCurrentUser(), bookmarks);
 		return ResponseEntity.ok().build();
 	}
 	

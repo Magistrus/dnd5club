@@ -92,10 +92,13 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public void mergeBookmarks(List<BookmarkApi> bookmarks) {
-		for (BookmarkApi bookmarkApi : bookmarks) {
-			Optional<Bookmark> bookmark = bookmarkRepository.findByUrl(bookmarkApi.getUrl());
+	public void mergeBookmarks(User user, List<BookmarkApi> bookmarksApi) {
+		Collection<Bookmark> superBookmarks = bookmarkRepository.findByUserAndOrder(user , -1);
+		if (superBookmarks.iterator().hasNext()) {
 			
+		}
+
+		for (BookmarkApi bookmarkApi : bookmarksApi) {
 		}
 	}
 
