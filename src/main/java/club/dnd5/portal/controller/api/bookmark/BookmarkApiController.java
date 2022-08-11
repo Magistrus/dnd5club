@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,7 +40,6 @@ import javax.servlet.http.HttpServletRequest;
 public class BookmarkApiController {
 	@Autowired
 	private BookmarkService service;
-
 	@Autowired
 	private UserRepository userRepository;
 
@@ -48,20 +48,14 @@ public class BookmarkApiController {
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<BookmarkApi> getBookmarks() {
-		SecurityContext context = SecurityContextHolder.getContext();
-		String userName = context.getAuthentication().getName();
-		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
-		return service.getBookmarks(user);
+		return service.getBookmarks(getCurrentUser());
 	}
 
 	@Operation(summary = "Add new bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PostMapping
 	public ResponseEntity<?> createBookmark(@RequestBody BookmarkApi bookmarkApi){
-		SecurityContext context = SecurityContextHolder.getContext();
-		String userName = context.getAuthentication().getName();
-		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
-		service.addBookmark(user, bookmarkApi);
+		service.addBookmark(getCurrentUser(), bookmarkApi);
 		return ResponseEntity.ok().build();
 	}
 
@@ -69,13 +63,18 @@ public class BookmarkApiController {
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping
 	public ResponseEntity<?> updateBookmarks(@RequestBody List<BookmarkApi> bookmarks){
-		SecurityContext context = SecurityContextHolder.getContext();
-		String userName = context.getAuthentication().getName();
-		User user = userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
-		service.updateBookmarks(user, bookmarks);
+		service.updateBookmarks(getCurrentUser(), bookmarks);
 		return ResponseEntity.ok().build();
 	}
 
+	@Operation(summary = "Merge bookmark")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PatchMapping
+	public ResponseEntity<?> mergeBookmarks(@RequestBody List<BookmarkApi> bookmarks){
+		service.mergeBookmarks(bookmarks);
+		return ResponseEntity.ok().build();
+	}
+	
 	@Operation(summary = "Delete bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@DeleteMapping("/{uuid}")
@@ -84,7 +83,7 @@ public class BookmarkApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Get categories")
+	@Operation(summary = "Get all categories")
 	@GetMapping("/categories")
 	public ResponseEntity<List<BookmarkCategory>> getBookmarkCategories() {
 		return ResponseEntity.ok(BookmarkCategory.getCategories());
@@ -95,14 +94,17 @@ public class BookmarkApiController {
 	public ResponseEntity<BookmarkCategory> getBookmarkCategory(HttpServletRequest request) throws UnsupportedEncodingException {
 		if (!request.getParameter("url").isEmpty()) {
 			String url = URLDecoder.decode(request.getParameter("url"), StandardCharsets.UTF_8.toString());
-
 			return ResponseEntity.ok(BookmarkCategory.getCategoryByURL(url));
 		}
-
 		if (!request.getParameter("code").isEmpty()) {
 			return ResponseEntity.ok(BookmarkCategory.getCategoryByCode(request.getParameter("code")));
 		}
-
 		return ResponseEntity.ok(BookmarkCategory.getDefaultCategory());
+	}
+	
+	private User getCurrentUser() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		String userName = context.getAuthentication().getName();
+		return userRepository.findByEmailOrUsername(userName, userName).orElseThrow(() -> new UsernameNotFoundException(userName));
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -148,5 +149,13 @@ public class BookmarkServiceImpl implements BookmarkService {
 		deleteList.addAll(getChildrenBookmarks(bookmark));
 
 		bookmarkRepository.deleteAllById(deleteList.stream().map(Bookmark::getUuid).collect(Collectors.toList()));
+	}
+
+	@Override
+	public void mergeBookmarks(List<BookmarkApi> bookmarks) {
+		for (BookmarkApi bookmarkApi : bookmarks) {
+			Optional<Bookmark> bookmark = bookmarkRepository.findByUrl(bookmarkApi.getUrl());
+			
+		}
 	}
 }
