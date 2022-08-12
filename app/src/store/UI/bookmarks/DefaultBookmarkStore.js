@@ -18,12 +18,22 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
     getters: {
         getBookmarks: state => state.bookmarks,
-        isBookmarkSaved(state) {
-            return url => cloneDeep(state.bookmarks).findIndex(bookmark => bookmark.url === url) >= 0;
+        isBookmarkSaved() {
+            return url => !!this.getBookmarkByURL(url);
         }
     },
 
     actions: {
+        getNewUUID() {
+            let uuid = uuidV4();
+
+            if (this.bookmarks.find(item => item.uuid === uuid)) {
+                uuid = this.getNewUUID();
+            }
+
+            return uuid;
+        },
+
         async convertOldBookmarks() {
             try {
                 await this.store.ready();
@@ -153,7 +163,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
                 if (isArray(oldFormat) && oldFormat.length) {
                     const parent = cloneDeep({
-                        uuid: uuidV4(),
+                        uuid: this.getNewUUID(),
                         order: -1,
                         name: 'Общие'
                     });
@@ -162,7 +172,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     for (let i = 0; i < oldFormat.length; i++) {
                         const category = oldFormat[i];
                         const updatedCat = cloneDeep({
-                            uuid: uuidV4(),
+                            uuid: this.getNewUUID(),
                             order: i,
                             name: category.label,
                             parentUUID: parent.uuid
@@ -174,7 +184,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                             const bookmark = category.links[j];
 
                             list.push({
-                                uuid: uuidV4(),
+                                uuid: this.getNewUUID(),
                                 order: j,
                                 name: bookmark.label,
                                 url: bookmark.url,
@@ -264,10 +274,32 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             }
         },
 
+        createDefaultGroup() {
+            const defaultGroup = cloneDeep({
+                uuid: this.getNewUUID(),
+                name: 'Общие',
+                order: -1
+            });
+
+            this.bookmarks.push(defaultGroup);
+
+            return defaultGroup;
+        },
+
+        getDefaultGroup() {
+            let group = this.bookmarks.find(bookmark => bookmark.order === -1);
+
+            if (!group) {
+                group = this.createDefaultGroup();
+            }
+
+            return group;
+        },
+
         createCategory(category) {
-            const parent = this.bookmarks.find(bookmarks => bookmarks.default);
+            const parent = this.getDefaultGroup();
             const newCategory = cloneDeep({
-                uuid: uuidV4(),
+                uuid: this.getNewUUID(),
                 name: category.name,
                 order: category.order,
                 parentUUID: parent.uuid
@@ -294,18 +326,18 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     cat = await this.getCategoryByURL(url);
                 }
 
-                const savedCat = this.bookmarks.find(bookmark => bookmark.name === cat.name);
+                let savedCat = this.bookmarks.find(bookmark => bookmark.name === cat.name);
 
                 if (!savedCat) {
-                    cat = await this.createCategory(cat);
+                    savedCat = await this.createCategory(cat);
                 }
 
                 this.bookmarks.push(cloneDeep({
-                    uuid: uuidV4(),
+                    uuid: this.getNewUUID(),
                     name,
                     url,
-                    order: this.bookmarks.filter(bookmark => bookmark.parentUUID === cat.uuid).length,
-                    parentUUID: cat.uuid
+                    order: this.bookmarks.filter(bookmark => bookmark.parentUUID === savedCat.uuid).length,
+                    parentUUID: savedCat.uuid
                 }));
 
                 await this.saveBookmarks();
@@ -316,24 +348,51 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             }
         },
 
+        getBookmarkByURL(url) {
+            const defaultGroup = this.bookmarks.find(bookmark => bookmark.order === -1);
+            const categoriesUUIDs = this.bookmarks
+                .filter(bookmark => bookmark.parentUUID === defaultGroup?.uuid)
+                .map(category => category.uuid);
+
+            return this.bookmarks
+                .filter(bookmark => categoriesUUIDs.includes(bookmark.parentUUID))
+                .find(bookmark => bookmark.url === url);
+        },
+
         async removeBookmark(url) {
-            if (!url) {
+            if (!url || !this.isBookmarkSaved(url)) {
                 return;
             }
 
-            const indexes = this.isBookmarkSaved(url, true);
+            const deleteUUIDs = [];
+            const addEmptyParents = bookmark => {
+                const parent = this.bookmarks.find(item => item.uuid === bookmark?.parentUUID);
 
-            if (!indexes) {
-                return;
+                if (!parent) {
+                    return;
+                }
+
+                const siblings = this.bookmarks.filter(item => item.parentUUID === parent.uuid);
+
+                if (siblings?.length !== 1) {
+                    return;
+                }
+
+                deleteUUIDs.push(parent.uuid);
+
+                if (parent.parentUUID) {
+                    addEmptyParents(parent);
+                }
+            };
+            const bookmark = this.getBookmarkByURL(url);
+
+            deleteUUIDs.push(bookmark.uuid);
+
+            if (bookmark.parentUUID) {
+                addEmptyParents(bookmark);
             }
 
-            const { group, link } = indexes;
-
-            this.bookmarks[group].childList.splice(link, 1);
-
-            if (!this.bookmarks[group].childList.length) {
-                this.bookmarks.splice(group, 1);
-            }
+            this.bookmarks = this.bookmarks.filter(item => !deleteUUIDs.includes(item.uuid));
 
             await this.saveBookmarks();
         },
