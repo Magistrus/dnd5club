@@ -1,6 +1,7 @@
 package club.dnd5.portal.repository.user;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,5 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, UUID> {
 
 	Collection<Bookmark> findByUrl(String url);
 
-	Collection<Bookmark> findByUserAndOrder(User user, int order);
+	Optional<Bookmark> findByUserAndOrder(User user, int order);
 }

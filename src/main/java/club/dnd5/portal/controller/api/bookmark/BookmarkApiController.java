@@ -49,7 +49,7 @@ public class BookmarkApiController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<BookmarkApi> getBookmarks(@RequestParam(required = false) Boolean parent) {
 		if (parent != null) {
-			return service.getParentBookmarks(getCurrentUser());
+			return service.getRootBookmarks(getCurrentUser());
 		}
 		return service.getBookmarks(getCurrentUser());
 	}
