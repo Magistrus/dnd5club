@@ -35,6 +35,7 @@
             >
                 <bookmark-save-button
                     v-if="bookmark"
+                    :name="title"
                 />
 
                 <form-button

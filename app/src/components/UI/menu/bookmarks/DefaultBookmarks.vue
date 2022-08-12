@@ -37,11 +37,13 @@
                                 >
                                     <a
                                         :href="bookmark.url"
+                                        :target="isExternal(bookmark.url) ? '_blank' : '_self'"
                                         class="bookmarks__item_label"
                                     >{{ bookmark.name }}</a>
 
                                     <div
                                         class="bookmarks__item_icon only-hover is-right"
+                                        @click.left.exact.prevent="removeBookmark(bookmark.url)"
                                     >
                                         <svg-icon icon-name="close"/>
                                     </div>

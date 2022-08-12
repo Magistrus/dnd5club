@@ -165,11 +165,11 @@
   .dnd5club_tel_bot {
     display: flex;
     flex-direction: row;
-    margin: 32px 0 -16px 0;
+    margin: 0px 0 16px 0;
     padding: 16px 16px 0 16px;
     background-color: var(--bg-table-list);
     border-radius: 12px;
-    width: 33%;
+    width: 100%;
     position: relative;
     overflow: hidden;
 
@@ -220,34 +220,93 @@
   }
 
   .info_main_block {
+    margin-top: -32px;
+
     h3 {
       margin-top: 32px;
       margin-bottom: 8px;
     }
+  }
 
-    .friends_list {
+  .column {
+    display: flex;
+    flex-direction: row;
+    padding-top: 32px;
+
+    .left {
+      margin-right: 32px;
+
+      @media (max-width: 600px) {
+        margin-right: 0px;
+      }
+    }
+    
+    .right {
+      flex: calc(30% + 32px);
+      min-width: calc(30% + 32px);
+      // margin-bottom: 16px;
+
+      @media (max-width: 600px) {
+        flex: 100%;
+        min-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
       display: flex;
-      flex-wrap: wrap;
-      margin: -4px -4px;
+      flex-direction: column-reverse;
+    }
+  }
+}
 
-      .friend_block {
-        padding: 8px 8px;
-        background-color: var(--bg-secondary);
-        color: var(--text-color);
-        border-radius: 8px;
-        display: inline-flex;
-        margin: 4px 4px;
-        align-items: center;
+.links_block {
+  background: var(--bg-secondary);
+  padding: 8px 16px 16px 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
 
-        img {
-          width: 20px;
-          height: 20px;
-          overflow: hidden;
-          display: inline-block;
-          border-radius: 50%;
-          margin-right: 4px;
-          border: 1px solid var(--border);
-        }
+  h3 {
+    font-size: calc(var(--h3-font-size) - 12px);
+    margin-top: 0px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    opacity: 0.6;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -4px -4px;
+
+    .block {
+      padding: 8px 8px;
+      background-color: var(--hover);
+      color: var(--text-color);
+      border-radius: 8px;
+      display: inline-flex;
+      margin: 4px 4px;
+      align-items: center;
+      transition: all 0.5s;
+
+      &.w-100 {
+        width: 100%;
+        flex: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+        overflow: hidden;
+        display: inline-block;
+        border-radius: 50%;
+        margin-right: 4px;
+        border: 1px solid var(--border);
+      }
+
+      &:hover {
+        background-color: var(--bg-main);
       }
     }
   }

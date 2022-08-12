@@ -49,7 +49,9 @@ public enum BookmarkCategory {
 	}
 
 	public static BookmarkCategory getCategoryByURL(@NotNull String url) {
-		String[] paths = url.split("/");
+		String[] paths = Arrays.stream(url.split("/"))
+			.filter(str -> !str.isEmpty())
+			.toArray(String[]::new);
 
 		if (paths[0].isEmpty()) {
 			return getDefaultCategory();
