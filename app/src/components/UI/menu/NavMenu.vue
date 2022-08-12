@@ -66,7 +66,7 @@
                                     @click.left.exact.stop.prevent="updateBookmark(
                                         link.url,
                                         link.label,
-                                        'Разделы'
+                                        'menu'
                                     )"
                                 >
                                     <svg-icon
