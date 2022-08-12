@@ -39,7 +39,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 		entityBookmark.setUuid(getNewUUID());
 		entityBookmark.setName(bookmark.getName());
 		entityBookmark.setOrder(bookmark.getOrder());
-
+		entityBookmark.setPrefix(bookmark.getPrefix());
+		
 		if (bookmark.getParentUUID() != null) {
 			group = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
 				.orElseThrow(() -> new RuntimeException("Bookmark's group not found"));
@@ -93,17 +94,39 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public void mergeBookmarks(User user, List<BookmarkApi> bookmarksApi) {
-		Collection<Bookmark> superBookmarks = bookmarkRepository.findByUserAndOrder(user , -1);
-		if (superBookmarks.iterator().hasNext()) {
-			
-		}
+		Optional<Bookmark> superBookmarks = bookmarkRepository.findByUserAndOrder(user , -1);
+		if (superBookmarks.isPresent()) {
+			List<Bookmark> bookmarks = superBookmarks.get().getChildren()
+					.stream()
+					.flatMap(b -> b.getChildren().stream())
+					.collect(Collectors.toList());
+			for (BookmarkApi bookmarkApi : bookmarksApi) {
+				if (bookmarks.stream().anyMatch(b -> b.getName().equals(bookmarkApi.getName()))) {
+					continue;
+				}
+				Bookmark bookmark = new Bookmark();
+				if (bookmarkRepository.existsById(UUID.fromString(bookmarkApi.getUuid()))) {
+					bookmark.setUuid(getNewUUID());
+				}
+				else {
+					bookmark.setUuid(UUID.fromString(bookmarkApi.getUuid()));
+				}
+				if (bookmarkApi.getParentUUID() != null) {
+					Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmarkApi.getParentUUID()));
 
-		for (BookmarkApi bookmarkApi : bookmarksApi) {
-		}
+					bookmark.setParent(parent);
+				}
+				bookmark.setName(bookmarkApi.getName());
+				bookmark.setOrder(bookmarkApi.getOrder());
+				bookmark.setUrl(bookmarkApi.getUrl());
+				bookmark.setPrefix(bookmarkApi.getPrefix());
+				bookmarkRepository.save(bookmark);
+			}
+		} 
 	}
 
 	@Override
-	public Collection<BookmarkApi> getParentBookmarks(User user) {
+	public Collection<BookmarkApi> getRootBookmarks(User user) {
 		return bookmarkRepository.findByUserAndParentIsNull(user)
 				.stream()
 				.map(BookmarkApi::new)
@@ -112,11 +135,9 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	private UUID getNewUUID() {
 		UUID uuid = UUID.randomUUID();
-
 		if (bookmarkRepository.existsById(uuid)) {
 			uuid = getNewUUID();
 		}
-
 		return uuid;
 	}
 
@@ -139,6 +160,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 		updatedBookmark.setName(bookmark.getName());
 		updatedBookmark.setOrder(bookmark.getOrder());
 		updatedBookmark.setUser(user);
+		updatedBookmark.setPrefix(bookmark.getPrefix());
 
 		if (bookmark.getParentUUID() != null) {
 			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
