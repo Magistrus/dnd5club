@@ -233,17 +233,14 @@
             align-items: center;
 
             &--text {
-                font-size: calc(var(--h1-font-size) - 16px);
+                font-size: var(--h4-font-size);
+                line-height: var(--h4-line-height);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 position: relative;
                 color: var(--text-color-title);
                 font-weight: 400;
-
-                @media (max-width: 800px) {
-                    font-size: calc(var(--h1-font-size) - 16px);
-                }
             }
 
             &--copy {

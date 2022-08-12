@@ -35,6 +35,35 @@
                     </div>
                 </div>
             </div>
+
+            <div
+                v-if="getIsMobile && currentTab?.type === 'traits' && currentArchetypes.length"
+                class="class-detail__select"
+            >
+                <field-select
+                    :group-select="false"
+                    :model-value="currentSelectArchetype"
+                    :options="currentArchetypes"
+                    :searchable="false"
+                    group-label="group"
+                    group-values="list"
+                    label="name"
+                    track-by="url"
+                >
+                    <template #placeholder>
+                        --- {{ currentClass?.archetypeName }} ---
+                    </template>
+
+                    <template #option="{ option }">
+                        <span v-if="option?.group">{{ option.group.name }}</span>
+
+                        <span
+                            v-else
+                            @click.left.exact.prevent="goToArchetype(option.url)"
+                        >{{ option.name }}</span>
+                    </template>
+                </field-select>
+            </div>
         </template>
 
         <template #default>
@@ -47,35 +76,6 @@
                     ref="classBody"
                     class="class-detail__body"
                 >
-                    <div
-                        v-if="getIsMobile && currentArchetypes.length && currentTab?.type === 'traits'"
-                        class="class-detail__select"
-                    >
-                        <field-select
-                            :group-select="false"
-                            :model-value="currentSelectArchetype"
-                            :options="currentArchetypes"
-                            :searchable="false"
-                            group-label="group"
-                            group-values="list"
-                            label="name"
-                            track-by="url"
-                        >
-                            <template #placeholder>
-                                --- {{ currentClass?.archetypeName }} ---
-                            </template>
-
-                            <template #option="{ option }">
-                                <span v-if="option?.group">{{ option.group.name }}</span>
-
-                                <span
-                                    v-else
-                                    @click.left.exact.prevent="goToArchetype(option.url)"
-                                >{{ option.name }}</span>
-                            </template>
-                        </field-select>
-                    </div>
-
                     <div
                         v-if="currentTab?.url"
                         class="class-detail__body--inner"
