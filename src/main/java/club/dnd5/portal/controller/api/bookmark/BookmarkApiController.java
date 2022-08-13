@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -77,7 +78,7 @@ public class BookmarkApiController {
 		service.mergeBookmarks(getCurrentUser(), bookmarks);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@Operation(summary = "Delete bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@DeleteMapping("/{uuid}")
@@ -88,8 +89,13 @@ public class BookmarkApiController {
 
 	@Operation(summary = "Get all categories")
 	@GetMapping("/categories")
-	public ResponseEntity<List<BookmarkCategory>> getBookmarkCategories() {
-		return ResponseEntity.ok(BookmarkCategory.getCategories());
+	public ResponseEntity<List<CategoryApi>> getBookmarkCategories() {
+		return ResponseEntity.ok(
+			BookmarkCategory.getCategories()
+				.stream()
+				.map(CategoryApi::new)
+				.collect(Collectors.toList())
+		);
 	}
 
 	@Operation(summary = "Get category from URL")
@@ -110,7 +116,7 @@ public class BookmarkApiController {
 		}
 		return ResponseEntity.ok(new CategoryApi(BookmarkCategory.getDefaultCategory()));
 	}
-	
+
 	private User getCurrentUser() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		String userName = context.getAuthentication().getName();

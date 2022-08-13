@@ -15,9 +15,10 @@
                 v-bind="attrs"
                 ref="input"
                 v-model="value"
-                :autocomplete="autocomplete ? 'on' : 'off'"
+                :autocomplete="inputAutocomplete"
                 :placeholder="placeholder"
-                :type="type"
+                :type="inputType"
+                :spellcheck="false"
                 class="field-input__input"
                 @blur="$emit('blur')"
             >
@@ -52,6 +53,7 @@
         components: {
             SvgIcon
         },
+        inheritAttrs: false,
         props: {
             modelValue: {
                 type: [String, Number],
@@ -66,8 +68,12 @@
                 default: ''
             },
             autocomplete: {
-                type: Boolean,
+                type: [Boolean, String],
                 default: false
+            },
+            type: {
+                type: String,
+                default: 'text'
             },
             isNumber: {
                 type: Boolean,
@@ -117,7 +123,7 @@
                 }
             },
 
-            type() {
+            inputType() {
                 if (this.isNumber) {
                     return 'number';
                 }
@@ -130,11 +136,23 @@
                     return 'email';
                 }
 
-                return 'text';
+                return this.type;
+            },
+
+            inputAutocomplete() {
+                switch (typeof this.autocomplete) {
+                    case 'boolean':
+                        return this.autocomplete ? 'on' : 'off';
+                    case "string":
+                        return this.autocomplete;
+
+                    default:
+                        return 'off';
+                }
             },
 
             attrs() {
-                const attrs = {};
+                const attrs = { ...this.$attrs };
 
                 if (this.isNumber) {
                     if (this.min !== undefined) {

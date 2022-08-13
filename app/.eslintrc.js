@@ -106,6 +106,7 @@ module.exports = {
         'vuejs-accessibility/click-events-have-key-events': 'off',
         'vuejs-accessibility/mouse-events-have-key-events': 'off',
         'vuejs-accessibility/label-has-for': 'off',
+        'vuejs-accessibility/no-autofocus': 'off',
         'vue/require-explicit-emits': 'off',
         'dot-notation': ['error'],
         'require-await': ['error'],

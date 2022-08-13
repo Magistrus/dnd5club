@@ -1,6 +1,7 @@
 <template>
     <form
         class="login form"
+        @keyup.enter.exact.prevent="onSubmit"
         @submit.prevent="onSubmit"
     >
         <transition
@@ -26,6 +27,9 @@
             <field-input
                 v-model="v$.usernameOrEmail.$model"
                 placeholder="Логин или электронная почта"
+                autocomplete="username"
+                autocapitalize="off"
+                autocorrect="off"
                 required
                 :error-text="v$.usernameOrEmail.$dirty ? v$.usernameOrEmail.$errors?.[0]?.$message : ''"
                 @input="v$.usernameOrEmail.$reset()"
@@ -39,6 +43,9 @@
                 placeholder="Пароль"
                 is-password
                 required
+                autocomplete="current-password"
+                autocapitalize="off"
+                autocorrect="off"
                 :error-text="v$.password.$dirty ? v$.password.$errors?.[0]?.$message : ''"
                 @input="v$.password.$reset()"
                 @blur="v$.password.$touch()"
