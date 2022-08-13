@@ -57,7 +57,6 @@
 <script>
     import AuthRegModal from "@/components/UI/modals/AuthRegModal";
     import SvgIcon from "@/components/UI/SvgIcon";
-    import { mapActions, mapState } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
 
@@ -70,10 +69,13 @@
         },
         data: () => ({
             modal: false,
-            popover: false
+            popover: false,
+            userStore: useUserStore()
         }),
         computed: {
-            ...mapState(useUserStore, ['getUser']),
+            getUser() {
+                return this.userStore.getUser;
+            },
 
             greeting() {
                 const hours = new Date().getHours();
@@ -93,8 +95,13 @@
                 return 'Добрый вечер';
             }
         },
+        async beforeMount() {
+            await this.userStore.getUserInfo();
+        },
         methods: {
-            ...mapActions(useUserStore, ['logout']),
+            async logout() {
+                await this.userStore.logout();
+            },
 
             async userLogout() {
                 this.closeModal();

@@ -3,7 +3,7 @@
         v-tippy="{ content: 'Добавить в закладки' }"
         class="bookmark-save-button"
         type-link-filled
-        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, name)"
+        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, bookmarkName)"
     >
         <svg-icon
             :icon-name="isDefaultBookmarkSaved($route.path) ? 'bookmark-filled' : 'bookmark'"
@@ -37,7 +37,7 @@
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useUserStore } from "@/store/UI/UserStore";
     import {
-        defineComponent, onBeforeMount, ref
+        defineComponent, onBeforeMount, ref, toRefs
     } from "vue";
     import errorHandler from "@/common/helpers/errorHandler";
 
@@ -52,6 +52,7 @@
             }
         },
         setup(props) {
+            const { name: bookmarkName } = toRefs(props);
             const {
                 isAuthorized,
                 getUserStatus,
@@ -94,7 +95,7 @@
             });
 
             return {
-                ...props,
+                bookmarkName,
                 isOpen,
                 isAuthorized,
                 isDefaultBookmarkSaved,

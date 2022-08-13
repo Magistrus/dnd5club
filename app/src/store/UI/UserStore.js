@@ -5,12 +5,13 @@ import { USER_TOKEN_COOKIE } from '@/common/const/UI';
 // eslint-disable-next-line import/prefer-default-export
 export const useUserStore = defineStore('UserStore', {
     state: () => ({
-        user: undefined
+        user: undefined,
+        status: false
     }),
 
     getters: {
         getUser: state => state.user,
-        isAuthorized: state => !!state.user
+        isAuthorized: state => state.status
     },
 
     actions: {
@@ -104,6 +105,7 @@ export const useUserStore = defineStore('UserStore', {
         },
 
         clearUser() {
+            this.status = false;
             this.user = undefined;
 
             Cookies.remove(USER_TOKEN_COOKIE);
@@ -134,6 +136,8 @@ export const useUserStore = defineStore('UserStore', {
 
                 switch (resp.status) {
                     case 200:
+                        this.status = true;
+
                         return Promise.resolve(true);
                     default:
                         this.clearUser();
