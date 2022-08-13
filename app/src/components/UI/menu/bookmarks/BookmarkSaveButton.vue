@@ -13,7 +13,7 @@
     </form-button>
 
     <div
-        v-if="isAuthorized"
+        v-if="isAuthenticated"
         class="bookmark-submenu-button__wrapper"
     >
         <form-button
@@ -54,7 +54,7 @@
         setup(props) {
             const { name: bookmarkName } = toRefs(props);
             const {
-                isAuthorized,
+                isAuthenticated,
                 getUserStatus,
                 $onAction: $onUserStoreAction
             } = useUserStore();
@@ -97,7 +97,7 @@
             return {
                 bookmarkName,
                 isOpen,
-                isAuthorized,
+                isAuthenticated,
                 isDefaultBookmarkSaved,
                 updateDefaultBookmark
             };

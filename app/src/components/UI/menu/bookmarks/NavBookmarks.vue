@@ -17,7 +17,7 @@
 
         <template #default>
             <div class="nav-bookmarks">
-                <default-bookmarks v-if="!isAuthorized"/>
+                <default-bookmarks v-if="!isAuthenticated"/>
 
                 <custom-bookmarks v-else/>
             </div>
@@ -47,7 +47,7 @@
             opened: false
         }),
         computed: {
-            ...mapState(useUserStore, ['isAuthorized']),
+            ...mapState(useUserStore, ['isAuthenticated']),
             ...mapState(useDefaultBookmarkStore, {
                 getDefaultBookmarks: 'getBookmarks'
             }),
@@ -58,7 +58,7 @@
             isBookmarksExist() {
                 let status = this.getDefaultBookmarks?.length;
 
-                if (!status && this.isAuthorized) {
+                if (!status && this.isAuthenticated) {
                     status = this.getCustomBookmarks?.length;
                 }
 
@@ -71,7 +71,7 @@
             await this.getUserStatus();
             await this.restoreDefaultBookmarks();
 
-            if (this.isAuthorized) {
+            if (this.isAuthenticated) {
                 await this.queryGetCustomBookmarks();
             }
         },
