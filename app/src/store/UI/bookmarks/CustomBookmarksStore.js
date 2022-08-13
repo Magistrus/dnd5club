@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/UI/UserStore';
 import cloneDeep from 'lodash/cloneDeep';
+import { useDefaultBookmarkStore } from '@/store/UI/bookmarks/DefaultBookmarkStore';
 
 const signals = {
     add: undefined,
@@ -128,6 +129,27 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 return Promise.reject(err);
             } finally {
                 signals.delete = undefined;
+            }
+        },
+
+        async queryMergeDefaultBookmark() {
+            try {
+                if (!await this.userStore.getUserStatus()) {
+                    return Promise.reject();
+                }
+
+                const defaultBookmarkStore = useDefaultBookmarkStore();
+                const resp = await this.$http.patch('/bookmarks', cloneDeep(defaultBookmarkStore.getBookmarks));
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
             }
         }
     }

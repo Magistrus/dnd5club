@@ -111,6 +111,8 @@ export const useUserStore = defineStore('UserStore', {
 
         async getUserInfo() {
             try {
+                await this.getUserStatus();
+
                 const resp = await this.$http.get('/user/info');
 
                 switch (resp.status) {
