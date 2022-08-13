@@ -142,8 +142,8 @@
 
         &__logo {
             margin-right: 12px;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             flex-shrink: 0;
         }
 
