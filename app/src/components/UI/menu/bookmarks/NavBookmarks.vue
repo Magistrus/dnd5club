@@ -68,7 +68,7 @@
             }
         },
         async beforeMount() {
-            await this.updateUserFromSession();
+            await this.getUserStatus();
             await this.restoreDefaultBookmarks();
 
             if (this.isAuthorized) {
@@ -76,7 +76,7 @@
             }
         },
         methods: {
-            ...mapActions(useUserStore, ['updateUserFromSession']),
+            ...mapActions(useUserStore, ['getUserStatus']),
             ...mapActions(useDefaultBookmarkStore, {
                 restoreDefaultBookmarks: 'restoreBookmarks'
             }),

@@ -41,9 +41,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     actions: {
         async queryGetBookmarks() {
             try {
-                await this.userStore.updateUserFromSession();
-
-                if (!this.userStore.isAuthorized) {
+                if (!await this.userStore.getUserStatus()) {
                     return Promise.reject();
                 }
 
@@ -63,9 +61,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
         async querySaveBookmarks() {
             try {
-                await this.userStore.updateUserFromSession();
-
-                if (!this.userStore.isAuthorized) {
+                if (!await this.userStore.getUserStatus()) {
                     return Promise.reject();
                 }
 
@@ -85,9 +81,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
         async queryAddBookmark(bookmark) {
             try {
-                await this.userStore.updateUserFromSession();
-
-                if (!this.userStore.isAuthorized) {
+                if (!await this.userStore.getUserStatus()) {
                     return Promise.reject();
                 }
 
@@ -113,9 +107,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
         async queryDeleteBookmark(uuid) {
             try {
-                await this.userStore.updateUserFromSession();
-
-                if (!this.userStore.isAuthorized) {
+                if (!await this.userStore.getUserStatus()) {
                     return Promise.reject();
                 }
 

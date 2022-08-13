@@ -15,17 +15,17 @@
             await this.initFullscreen();
         },
         async beforeMount() {
-            await this.updateUserFromSession();
+            await this.getUserStatus();
         },
         methods: {
-            ...mapActions(useUserStore, ['updateUserFromSession']),
+            ...mapActions(useUserStore, ['getUserStatus']),
 
             async initTheme() {
                 await this.uiStore.setTheme();
             },
 
             async initFullscreen() {
-                await this.uiStore.setFullscreenState();
+                await this.uiStore.setFullscreenState(false);
             }
         }
     };

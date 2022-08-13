@@ -224,7 +224,7 @@ router.afterEach(async () => {
     const userStore = useUserStore();
 
     if (userStore.isAuthorized) {
-        await userStore.updateUserFromSession();
+        await userStore.getUserStatus();
     }
 });
 

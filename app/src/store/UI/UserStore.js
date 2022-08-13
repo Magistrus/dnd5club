@@ -68,7 +68,7 @@ export const useUserStore = defineStore('UserStore', {
                             );
                         }
 
-                        await this.updateUserFromSession();
+                        await this.getUserInfo();
 
                         return Promise.resolve();
                     case 401:
@@ -109,9 +109,9 @@ export const useUserStore = defineStore('UserStore', {
             Cookies.remove(USER_TOKEN_COOKIE);
         },
 
-        async getUserInfo(username) {
+        async getUserInfo() {
             try {
-                const resp = await this.$http.post(`/profile/${ username }`);
+                const resp = await this.$http.get('/user/info');
 
                 switch (resp.status) {
                     case 200:
@@ -126,24 +126,22 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
-        async updateUserFromSession() {
+        async getUserStatus() {
             try {
-                const resp = await this.$http.post('/user');
+                const resp = await this.$http.get('/user/status');
 
                 switch (resp.status) {
                     case 200:
-                        this.user = resp.data;
-
-                        return Promise.resolve(resp.data);
+                        return Promise.resolve(true);
                     default:
                         this.clearUser();
 
-                        return Promise.resolve();
+                        return Promise.resolve(false);
                 }
             } catch (err) {
                 this.clearUser();
 
-                return Promise.resolve();
+                return Promise.resolve(false);
             }
         }
     }
