@@ -3,7 +3,7 @@
         v-tippy="{ content: 'Добавить в закладки' }"
         class="bookmark-save-button"
         type-link-filled
-        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, name)"
+        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, bookmarkName)"
     >
         <svg-icon
             :icon-name="isDefaultBookmarkSaved($route.path) ? 'bookmark-filled' : 'bookmark'"
@@ -12,29 +12,36 @@
         />
     </form-button>
 
-    <form-button
-        v-if="isAuthorized"
-        class="bookmark-submenu-button"
-        type-link-filled
-        @click.left.exact.prevent.stop="updateDefaultBookmark($route.path, name)"
+    <div
+        v-if="isAuthenticated"
+        class="bookmark-submenu-button__wrapper"
     >
-        <svg-icon
-            icon-name="arrow-2"
-            :stroke-enable="false"
-            fill-enable
-        />
-    </form-button>
+        <form-button
+            v-tippy="{ content: 'Добавить в закладки' }"
+            class="bookmark-submenu-button"
+            type-link-filled
+            @click.left.exact.prevent.stop="isOpen = !isOpen"
+        >
+            <svg-icon
+                icon-name="arrow-2"
+                :stroke-enable="false"
+                fill-enable
+            />
+        </form-button>
+    </div>
 </template>
 
 <script>
-    import { mapActions, mapState } from "pinia/dist/pinia";
+    import FormButton from "@/components/form/FormButton";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import FormButton from "@/components/form/FormButton";
     import { useUserStore } from "@/store/UI/UserStore";
+    import {
+        defineComponent, onBeforeMount, ref, toRefs
+    } from "vue";
+    import errorHandler from "@/common/helpers/errorHandler";
 
-    export default {
-        name: "BookmarkSaveButton",
+    export default defineComponent({
         components: {
             FormButton
         },
@@ -44,28 +51,58 @@
                 default: ''
             }
         },
-        computed: {
-            ...mapState(useUserStore, ['isAuthorized']),
-            ...mapState(useDefaultBookmarkStore, {
-                isDefaultBookmarkSaved: 'isBookmarkSaved'
-            })
-        },
-        async beforeMount() {
-            await this.updateUserFromSession();
-        },
-        methods: {
-            ...mapActions(useUserStore, ['updateUserFromSession']),
-            ...mapActions(useDefaultBookmarkStore, {
-                updateDefaultBookmark: 'updateBookmark'
-            }),
-            ...mapActions(useCustomBookmarkStore, [
-                'queryGetBookmarks',
-                'querySaveBookmarks',
-                'queryAddBookmark',
-                'queryDeleteBookmark'
-            ])
+        setup(props) {
+            const { name: bookmarkName } = toRefs(props);
+            const {
+                isAuthenticated,
+                getUserStatus,
+                $onAction: $onUserStoreAction
+            } = useUserStore();
+            const {
+                isBookmarkSaved: isDefaultBookmarkSaved,
+                updateBookmark: updateDefaultBookmark
+
+            } = useDefaultBookmarkStore();
+            const {
+                // queryGetBookmarks,
+                // querySaveBookmarks,
+                // queryAddBookmark,
+                // queryDeleteBookmark,
+                queryMergeDefaultBookmark
+            } = useCustomBookmarkStore();
+            const isOpen = ref(false);
+            const unsubscribeAuthAction = $onUserStoreAction(({ name, after }) => {
+                after(async () => {
+                    try {
+                        switch (name) {
+                            case 'authorization':
+                                await queryMergeDefaultBookmark();
+
+                                unsubscribeAuthAction();
+
+                                break;
+                            default:
+                                break;
+                        }
+                    } catch (err) {
+                        errorHandler(err);
+                    }
+                });
+            });
+
+            onBeforeMount(async () => {
+                await getUserStatus();
+            });
+
+            return {
+                bookmarkName,
+                isOpen,
+                isAuthenticated,
+                isDefaultBookmarkSaved,
+                updateDefaultBookmark
+            };
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -84,8 +121,13 @@
     }
 
     .bookmark-submenu-button {
-        margin-left: -4px !important;
+        margin: 0 !important;
         width: 18px;
         padding: 12px 0;
+
+        &__wrapper {
+            margin-left: -4px;
+            position: relative;
+        }
     }
 </style>

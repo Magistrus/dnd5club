@@ -332,6 +332,9 @@
                 z-index: 16;
 
                 @media (max-width: 1200px) {
+                    width: 100%;
+                    max-width: 100%;
+                    margin-left: initial;
                     height: calc(var(--max-vh) - 56px);
                 }
             }

@@ -41,6 +41,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 const oldFormat = await this.store.getItem('saved');
 
                 if (isArray(oldFormat) && oldFormat.length) {
+                    const categories = await this.getCategories();
                     const parent = cloneDeep({
                         uuid: this.getNewUUID(),
                         order: -1,
@@ -50,10 +51,11 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
                     for (let i = 0; i < oldFormat.length; i++) {
                         const category = oldFormat[i];
+                        const newCategory = categories.find(item => item.name === category.label);
                         const updatedCat = cloneDeep({
                             uuid: this.getNewUUID(),
-                            order: i,
-                            name: category.label,
+                            order: newCategory.order,
+                            name: newCategory.name,
                             parentUUID: parent.uuid
                         });
 

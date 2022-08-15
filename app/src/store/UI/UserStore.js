@@ -5,12 +5,13 @@ import { USER_TOKEN_COOKIE } from '@/common/const/UI';
 // eslint-disable-next-line import/prefer-default-export
 export const useUserStore = defineStore('UserStore', {
     state: () => ({
-        user: undefined
+        user: undefined,
+        status: false
     }),
 
     getters: {
         getUser: state => state.user,
-        isAuthorized: state => !!state.user
+        isAuthenticated: state => state.status
     },
 
     actions: {
@@ -68,7 +69,7 @@ export const useUserStore = defineStore('UserStore', {
                             );
                         }
 
-                        await this.updateUserFromSession();
+                        await this.getUserInfo();
 
                         return Promise.resolve();
                     case 401:
@@ -104,14 +105,17 @@ export const useUserStore = defineStore('UserStore', {
         },
 
         clearUser() {
+            this.status = false;
             this.user = undefined;
 
             Cookies.remove(USER_TOKEN_COOKIE);
         },
 
-        async getUserInfo(username) {
+        async getUserInfo() {
             try {
-                const resp = await this.$http.post(`/profile/${ username }`);
+                await this.getUserStatus();
+
+                const resp = await this.$http.get('/user/info');
 
                 switch (resp.status) {
                     case 200:
@@ -126,24 +130,24 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
-        async updateUserFromSession() {
+        async getUserStatus() {
             try {
-                const resp = await this.$http.post('/user');
+                const resp = await this.$http.get('/user/status');
 
                 switch (resp.status) {
                     case 200:
-                        this.user = resp.data;
+                        this.status = true;
 
-                        return Promise.resolve(resp.data);
+                        return Promise.resolve(true);
                     default:
                         this.clearUser();
 
-                        return Promise.resolve();
+                        return Promise.resolve(false);
                 }
             } catch (err) {
                 this.clearUser();
 
-                return Promise.resolve();
+                return Promise.resolve(false);
             }
         }
     }

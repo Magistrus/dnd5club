@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +25,19 @@ public class UserApiController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@PostMapping
+	@GetMapping("/status")
+	public ResponseEntity<?> getStatus() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			Optional<User> user = userRepository.findByEmailOrUsername(authentication.getName(), authentication.getName());
+			if (user.isPresent()) {
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}
+		}
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
+
+	@GetMapping("/info")
 	public ResponseEntity<UserApi> getUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {

@@ -3,7 +3,6 @@
         class="registration form"
         @submit.prevent="onSubmit"
         @keyup.enter.exact.prevent="onSubmit"
-        @keyup.enter.ctrl.exact.prevent="onSubmit"
     >
         <transition
             name="fade"
@@ -28,6 +27,9 @@
             <field-input
                 v-model="v$.username.$model"
                 placeholder="Имя пользователя"
+                autocomplete="username"
+                autocapitalize="off"
+                autocorrect="off"
                 required
                 :error-text="v$.username.$dirty ? v$.username.$errors?.[0]?.$message : ''"
                 @input="v$.username.$reset()"
@@ -40,6 +42,9 @@
                 v-model="v$.email.$model"
                 placeholder="Электронный адрес"
                 required
+                autocomplete="email"
+                autocapitalize="off"
+                autocorrect="off"
                 :error-text="v$.email.$dirty ? v$.email.$errors?.[0]?.$message : ''"
                 @input="v$.email.$reset()"
                 @blur="v$.email.$touch()"
@@ -52,6 +57,9 @@
                 placeholder="Пароль"
                 is-password
                 required
+                autocomplete="new-password"
+                autocapitalize="off"
+                autocorrect="off"
                 :error-text="v$.password.$dirty ? v$.password.$errors?.[0]?.$message : ''"
                 @input="v$.password.$reset()"
                 @blur="v$.password.$touch()"
@@ -64,6 +72,9 @@
                 placeholder="Повторите пароль"
                 is-password
                 required
+                autocomplete="new-password"
+                autocapitalize="off"
+                autocorrect="off"
                 :error-text="v$.repeat.$dirty ? v$.repeat.$errors?.[0]?.$message : ''"
                 @input="v$.repeat.$reset()"
                 @blur="v$.repeat.$touch()"

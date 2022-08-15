@@ -70,6 +70,17 @@ export default class HTTPService {
         return this.instance(config);
     }
 
+    patch(url, data, signal = new AbortController().signal) {
+        const config = {
+            url,
+            data,
+            signal,
+            method: 'patch'
+        };
+
+        return this.instance(config);
+    }
+
     delete(url, data, signal = new AbortController().signal) {
         const config = {
             url,

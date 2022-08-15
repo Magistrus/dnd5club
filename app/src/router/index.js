@@ -223,8 +223,8 @@ const router = createRouter({
 router.afterEach(async () => {
     const userStore = useUserStore();
 
-    if (userStore.isAuthorized) {
-        await userStore.updateUserFromSession();
+    if (userStore.isAuthenticated) {
+        await userStore.getUserStatus();
     }
 });
 
