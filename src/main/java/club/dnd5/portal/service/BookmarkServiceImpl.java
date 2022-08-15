@@ -122,7 +122,26 @@ public class BookmarkServiceImpl implements BookmarkService {
 				bookmark.setPrefix(bookmarkApi.getPrefix());
 				bookmarkRepository.save(bookmark);
 			}
-		} 
+		} else {
+			for (BookmarkApi bookmarkApi : bookmarksApi) {
+				Bookmark bookmark = new Bookmark();
+				if (bookmarkRepository.existsById(UUID.fromString(bookmarkApi.getUuid()))) {
+					bookmark.setUuid(getNewUUID());
+				}
+				else {
+					bookmark.setUuid(UUID.fromString(bookmarkApi.getUuid()));
+				}
+				if (bookmarkApi.getParentUUID() != null) {
+					Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmarkApi.getParentUUID()));
+					bookmark.setParent(parent);
+				}
+				bookmark.setName(bookmarkApi.getName());
+				bookmark.setOrder(bookmarkApi.getOrder());
+				bookmark.setUrl(bookmarkApi.getUrl());
+				bookmark.setPrefix(bookmarkApi.getPrefix());
+				bookmarkRepository.save(bookmark);
+			}
+		}
 	}
 
 	@Override
