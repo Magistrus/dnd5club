@@ -120,6 +120,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 				bookmark.setOrder(bookmarkApi.getOrder());
 				bookmark.setUrl(bookmarkApi.getUrl());
 				bookmark.setPrefix(bookmarkApi.getPrefix());
+				bookmark.setUser(user);
 				bookmarkRepository.save(bookmark);
 			}
 		} else {
@@ -139,6 +140,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 				bookmark.setOrder(bookmarkApi.getOrder());
 				bookmark.setUrl(bookmarkApi.getUrl());
 				bookmark.setPrefix(bookmarkApi.getPrefix());
+				bookmark.setUser(user);
 				bookmarkRepository.save(bookmark);
 			}
 		}

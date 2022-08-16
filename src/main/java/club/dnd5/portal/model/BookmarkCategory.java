@@ -57,7 +57,7 @@ public enum BookmarkCategory {
 			return getDefaultCategory();
 		}
 
-		if (paths[0].equals("items") && paths[1].equals("magic")) {
+		if (paths.length > 1 && paths[0].equals("items") && paths[1].equals("magic")) {
 			return MAGIC_ITEMS;
 		}
 
