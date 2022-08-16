@@ -97,12 +97,12 @@ public class BookmarkServiceImpl implements BookmarkService {
 		Optional<Bookmark> rootBookmark = bookmarkRepository.findByUserAndOrder(user , -1);
 		if (rootBookmark.isPresent()) {
 			List<Bookmark> bookmarks = rootBookmark.get().getChildren()
-					.stream()
-					.flatMap(b -> b.getChildren().stream())
+					.parallelStream()
+					.flatMap(b -> Stream.concat(Stream.of(b), b.getChildren().stream()))
 					.collect(Collectors.toList());
 			bookmarks.add(rootBookmark.get());
 			for (BookmarkApi bookmarkApi : bookmarksApi) {
-				if (bookmarks.stream().anyMatch(b -> b.getName().equals(bookmarkApi.getName()))) {
+ 				if (bookmarks.parallelStream().anyMatch(b -> b.getName().equals(bookmarkApi.getName()))) {
 					continue;
 				}
 				Bookmark bookmark = new Bookmark();
@@ -114,7 +114,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 				}
 				if (bookmarkApi.getParentUUID() != null) {
 					Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmarkApi.getParentUUID()));
-
 					bookmark.setParent(parent);
 				}
 				bookmark.setName(bookmarkApi.getName());
