@@ -94,12 +94,13 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public void mergeBookmarks(User user, List<BookmarkApi> bookmarksApi) {
-		Optional<Bookmark> superBookmarks = bookmarkRepository.findByUserAndOrder(user , -1);
-		if (superBookmarks.isPresent()) {
-			List<Bookmark> bookmarks = superBookmarks.get().getChildren()
+		Optional<Bookmark> rootBookmark = bookmarkRepository.findByUserAndOrder(user , -1);
+		if (rootBookmark.isPresent()) {
+			List<Bookmark> bookmarks = rootBookmark.get().getChildren()
 					.stream()
 					.flatMap(b -> b.getChildren().stream())
 					.collect(Collectors.toList());
+			bookmarks.add(rootBookmark.get());
 			for (BookmarkApi bookmarkApi : bookmarksApi) {
 				if (bookmarks.stream().anyMatch(b -> b.getName().equals(bookmarkApi.getName()))) {
 					continue;
