@@ -436,8 +436,12 @@ public class SpellApiConroller {
 
 		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
 		List<FilterApi> otherFilters = new ArrayList<>();
-		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
-		otherFilters.add(getCompomemtsFilter());
+		if (heroClass.getEnglishName().equals("Warlock")) {
+			otherFilters.add(getLevelsFilter(Spell.MAX_LEVEL));
+		}
+		else {
+			otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
+		}		otherFilters.add(getCompomemtsFilter());
 		otherFilters.add(getSchoolsFilter());
 
 		List<FilterApi> customFilters = new ArrayList<>();
@@ -464,7 +468,12 @@ public class SpellApiConroller {
 
 		HeroClass heroClass = classRepository.findByEnglishName(englishClassName.replace('_', ' '));
 		List<FilterApi> otherFilters = new ArrayList<>();
-		otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
+		if (heroClass.getEnglishName().equals("Warlock")) {
+			otherFilters.add(getLevelsFilter(Spell.MAX_LEVEL));
+		}
+		else {
+			otherFilters.add(getLevelsFilter(heroClass.getSpellcasterType().getMaxSpellLevel()));
+		}
 		otherFilters.add(getCompomemtsFilter());
 		otherFilters.add(getSchoolsFilter());
 		
