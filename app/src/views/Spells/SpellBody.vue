@@ -11,6 +11,8 @@
             }, ${
                 spell.school
             }${
+                spell.additionalType ? ` [${ spell.additionalType }]` : ''
+            }${
                 spell.ritual ? ' (ритуал)' : ''
             }`"
             :source="spell.source"
