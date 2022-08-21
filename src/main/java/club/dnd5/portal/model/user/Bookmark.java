@@ -37,7 +37,7 @@ public class Bookmark {
 	@JoinColumn(name = "parent_id")
 	private Bookmark parent;
 
-	@OneToMany(mappedBy = "parent", orphanRemoval = true)
+	@OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = CascadeType.REMOVE)
 	private List<Bookmark> children;
 
 	@ManyToOne
