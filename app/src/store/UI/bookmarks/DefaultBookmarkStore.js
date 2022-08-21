@@ -5,6 +5,7 @@ import { DB_NAME } from '@/common/const/UI';
 import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
 import { v4 as uuidV4 } from 'uuid';
+import sortBy from 'lodash/sortBy';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
@@ -18,6 +19,31 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
     getters: {
         getBookmarks: state => state.bookmarks,
+        getGroups: state => {
+            const groups = state.bookmarks.filter(group => !group.parentUUID);
+
+            return sortBy(
+                groups.map(group => ({
+                    ...group,
+                    children: sortBy(
+                        state.bookmarks
+                            .filter(category => category.parentUUID && category.parentUUID === group.uuid)
+                            .map(category => ({
+                                ...category,
+                                children: sortBy(
+                                    state.bookmarks.filter(bookmark => (
+                                        bookmark.parentUUID
+                                        && bookmark.parentUUID === category.uuid
+                                    )),
+                                    [o => o.order]
+                                )
+                            })),
+                        [o => o.order]
+                    )
+                })),
+                [o => o.order]
+            );
+        },
         isBookmarkSaved() {
             return url => !!this.getBookmarkByURL(url);
         }
@@ -93,19 +119,21 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
                 const restored = await this.store.getItem('default');
 
-                this.bookmarks = isArray(restored) && restored.length
-                    ? cloneDeep(restored)
-                    : [];
+                if (!isArray(restored) || !restored.length) {
+                    this.createDefaultGroup();
+                }
+
+                this.bookmarks = cloneDeep(restored);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
-        async saveBookmarks() {
+        async saveBookmarks(payload) {
             try {
                 await this.store.ready();
 
-                await this.store.setItem('default', cloneDeep(this.bookmarks));
+                await this.store.setItem('default', cloneDeep(payload || this.bookmarks));
             } catch (err) {
                 errorHandler(err);
             }
@@ -278,7 +306,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             await this.saveBookmarks();
         },
 
-        async updateBookmark(url, name, category) {
+        async updateBookmark(url, name, category = undefined) {
             if (this.isBookmarkSaved(url)) {
                 await this.removeBookmark(url);
 

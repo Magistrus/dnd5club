@@ -17,7 +17,7 @@
 
         <template #default>
             <div class="nav-bookmarks">
-                <default-bookmarks v-if="!isAuthenticated"/>
+                <default-bookmarks v-if="!userStore.isAuthenticated"/>
 
                 <custom-bookmarks v-else/>
             </div>
@@ -28,12 +28,12 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import NavPopover from "@/components/UI/menu/NavPopover";
-    import { mapState, mapActions } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import cloneDeep from "lodash/cloneDeep";
 
     export default {
         name: "NavBookmarks",
@@ -44,22 +44,17 @@
             SvgIcon
         },
         data: () => ({
-            opened: false
+            opened: false,
+            userStore: useUserStore(),
+            defaultBookmarkStore: useDefaultBookmarkStore(),
+            customBookmarkStore: useCustomBookmarkStore()
         }),
         computed: {
-            ...mapState(useUserStore, ['isAuthenticated']),
-            ...mapState(useDefaultBookmarkStore, {
-                getDefaultBookmarks: 'getBookmarks'
-            }),
-            ...mapState(useCustomBookmarkStore, {
-                getCustomBookmarks: 'getBookmarks'
-            }),
-
             isBookmarksExist() {
-                let status = this.getDefaultBookmarks?.length;
+                let status = this.defaultBookmarkStore.getBookmarks?.length;
 
-                if (!status && this.isAuthenticated) {
-                    status = this.getCustomBookmarks?.length;
+                if (!status && this.userStore.isAuthenticated) {
+                    status = this.customBookmarkStore.getBookmarks?.length;
                 }
 
                 return status
@@ -67,22 +62,32 @@
                     : 'bookmark';
             }
         },
-        async beforeMount() {
-            await this.getUserStatus();
-            await this.restoreDefaultBookmarks();
-
-            if (this.isAuthenticated) {
-                await this.queryGetCustomBookmarks();
+        watch: {
+            'customBookmarkStore.getDefaultBookmarks': {
+                immediate: true,
+                async handler(value) {
+                    await this.defaultBookmarkStore.saveBookmarks(cloneDeep(value));
+                    await this.defaultBookmarkStore.restoreBookmarks();
+                }
             }
         },
-        methods: {
-            ...mapActions(useUserStore, ['getUserStatus']),
-            ...mapActions(useDefaultBookmarkStore, {
-                restoreDefaultBookmarks: 'restoreBookmarks'
-            }),
-            ...mapActions(useCustomBookmarkStore, {
-                queryGetCustomBookmarks: 'queryGetBookmarks'
-            })
+        async beforeMount() {
+            await this.userStore.getUserStatus();
+            await this.defaultBookmarkStore.restoreBookmarks();
+
+            const unsubscribeLoginListener = this.userStore.$onAction(({ name, after }) => {
+                if (name === 'authorization') {
+                    after(async () => {
+                        await this.customBookmarkStore.queryMergeDefaultBookmark();
+
+                        unsubscribeLoginListener();
+                    });
+                }
+            });
+
+            if (this.userStore.isAuthenticated) {
+                await this.customBookmarkStore.queryGetBookmarks();
+            }
         }
     };
 </script>

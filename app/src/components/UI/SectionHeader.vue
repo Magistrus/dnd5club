@@ -94,7 +94,7 @@
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/common/helpers/errorHandler";
-    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/BookmarkSaveButton";
+    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
     import FormButton from "@/components/form/FormButton";
 
     export default {

@@ -29,13 +29,13 @@
         <div class="bookmarks__wrapper">
             <div class="bookmarks__body">
                 <div
-                    v-for="(group, groupKey) in groupBookmarks"
+                    v-for="(group, groupKey) in customBookmarkStore.getGroups"
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
                     <div
                         class="bookmarks__group_head"
-                        @click.left.exact.prevent="opened = group.uuid"
+                        @click.left.exact.prevent="toggleGroup(group.uuid)"
                     >
                         <div
                             class="bookmarks__group_icon"
@@ -79,13 +79,31 @@
                                         <svg-icon icon-name="close"/>
                                     </div>
                                 </div>
+
+                                <div
+                                    v-if="!category.children?.length"
+                                    class="bookmarks__info"
+                                >
+                                    <div class="bookmarks__info--desc">
+                                        Здесь пока пусто
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            v-if="!group.children?.length"
+                            class="bookmarks__info"
+                        >
+                            <div class="bookmarks__info--desc">
+                                Здесь пока пусто
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    v-if="!getBookmarks?.length"
+                    v-if="!customBookmarkStore.getGroups?.length"
                     class="bookmarks__info"
                 >
                     <div class="bookmarks__info--desc">
@@ -98,11 +116,9 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from "pinia";
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import sortBy from "lodash/sortBy";
 
     export default {
         name: "CustomBookmarks",
@@ -111,40 +127,11 @@
             FormButton
         },
         data: () => ({
-            opened: ''
+            opened: '',
+            customBookmarkStore: useCustomBookmarkStore()
         }),
-        computed: {
-            ...mapState(useCustomBookmarkStore, ['getBookmarks']),
-
-            groupBookmarks() {
-                const list = this.getBookmarks;
-                const groups = list.filter(group => !group.parentUUID);
-
-                return sortBy(
-                    groups.map(group => ({
-                        ...group,
-                        children: sortBy(
-                            list
-                                .filter(category => category.parentUUID && category.parentUUID === group.uuid)
-                                .map(category => ({
-                                    ...category,
-                                    children: sortBy(
-                                        list.filter(bookmark => (
-                                            bookmark.parentUUID
-                                            && bookmark.parentUUID === category.uuid
-                                        )),
-                                        [o => o.order]
-                                    )
-                                })),
-                            [o => o.order]
-                        )
-                    })),
-                    [o => o.order]
-                );
-            }
-        },
         watch: {
-            groupBookmarks: {
+            'customBookmarkStore.getGroups': {
                 immediate: true,
                 handler(value) {
                     this.opened = value[0]?.uuid;
@@ -152,12 +139,15 @@
             }
         },
         methods: {
-            ...mapActions(useCustomBookmarkStore, [
-                'queryGetBookmarks',
-                'querySaveBookmarks',
-                'queryAddBookmark',
-                'queryDeleteBookmark'
-            ])
+            toggleGroup(uuid) {
+                if (this.opened) {
+                    this.opened = '';
+
+                    return;
+                }
+
+                this.opened = uuid;
+            }
         }
     };
 </script>

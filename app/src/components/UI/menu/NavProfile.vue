@@ -59,6 +59,7 @@
     import SvgIcon from "@/components/UI/SvgIcon";
     import { useUserStore } from "@/store/UI/UserStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
+    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         name: "NavProfile",
@@ -96,7 +97,11 @@
             }
         },
         async beforeMount() {
-            await this.userStore.getUserInfo();
+            try {
+                await this.userStore.getUserInfo();
+            } catch (err) {
+                errorHandler(err);
+            }
         },
         methods: {
             async logout() {

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/UI/UserStore';
 import cloneDeep from 'lodash/cloneDeep';
 import { useDefaultBookmarkStore } from '@/store/UI/bookmarks/DefaultBookmarkStore';
+import sortBy from 'lodash/sortBy';
 
 const signals = {
     add: undefined,
@@ -17,8 +18,73 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
     getters: {
         getBookmarks: state => state.bookmarks,
+        getGroups: state => {
+            const groups = state.bookmarks.filter(group => !group.parentUUID);
+
+            return sortBy(
+                groups.map(group => ({
+                    ...group,
+                    children: sortBy(
+                        state.bookmarks
+                            .filter(category => category.parentUUID && category.parentUUID === group.uuid)
+                            .map(category => ({
+                                ...category,
+                                children: sortBy(
+                                    state.bookmarks.filter(bookmark => (
+                                        bookmark.parentUUID
+                                        && bookmark.parentUUID === category.uuid
+                                    )),
+                                    [o => o.order]
+                                )
+                            })),
+                        [o => o.order]
+                    )
+                })),
+                [o => o.order]
+            );
+        },
+        getDefaultBookmarks: state => {
+            const parent = state.bookmarks.find(item => item.order === -1);
+
+            if (!parent) {
+                return [];
+            }
+
+            const categories = [];
+            const bookmarks = [];
+
+            categories.push(...state.bookmarks.filter(item => item.parentUUID === parent.uuid));
+
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+
+                bookmarks.push(...state.bookmarks.filter(item => item.parentUUID === category.uuid));
+            }
+
+            return [
+                parent,
+                ...categories,
+                ...bookmarks
+            ];
+        },
+        getCustomBookmarks: state => {
+            const parents = state.bookmarks.filter(item => item.order !== -1 && !item.parentUUID);
+            const categories = state.bookmarks
+                .filter(item => parents.map(parent => parent.uuid).includes(item.parentUUID));
+            const bookmarks = state.bookmarks
+                .filter(item => categories.map(category => category.uuid).includes(item.parentUUID));
+
+            return [
+                ...parents,
+                ...categories,
+                ...bookmarks
+            ];
+        },
         isBookmarkSaved(state) {
-            return url => cloneDeep(state.bookmarks).findIndex(bookmark => bookmark.url === url) >= 0;
+            return url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0;
+        },
+        isDefaultBookmarkSaved() {
+            return url => this.getDefaultBookmarks().findIndex(bookmark => bookmark.url === url) >= 0;
         },
         getBookmarkParentUUIDs(state) {
             return url => {
@@ -54,19 +120,24 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
                 this.bookmarks = resp.data;
 
-                return Promise.resolve();
+                const defaultBookmarks = useDefaultBookmarkStore();
+
+                await defaultBookmarks.saveBookmarks(this.getDefaultBookmarks);
+                await defaultBookmarks.restoreBookmarks();
+
+                return Promise.resolve(resp.data);
             } catch (err) {
                 return Promise.reject(err);
             }
         },
 
-        async querySaveBookmarks() {
+        async querySaveBookmarks(payload) {
             try {
                 if (!await this.userStore.getUserStatus()) {
                     return Promise.reject();
                 }
 
-                const resp = await this.$http.put('/bookmarks', cloneDeep(this.bookmarks));
+                const resp = await this.$http.post('/bookmarks', payload);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -90,7 +161,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.add.abort();
                 }
 
-                const resp = await this.$http.post('/bookmarks', bookmark);
+                const resp = await this.$http.put('/bookmarks', bookmark);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
