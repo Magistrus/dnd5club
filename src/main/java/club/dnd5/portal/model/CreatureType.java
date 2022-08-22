@@ -24,7 +24,8 @@ public enum CreatureType {
 	UNDEAD("нежить"), // 15
 	VERMIN("паразит"), // 16
 	SLIME("слизь"), // 17
-	SMALL_BEAST("стая крошечных зверей", "крохотных зверей", "рой крошечных зверей");
+	SMALL_BEAST("стая крошечных зверей", "крохотных зверей", "рой крошечных зверей"),
+	SWARM("рой", "стая");
 
 	private final String displayCyrilicName;
 	private Set<String> cyrilicNames;

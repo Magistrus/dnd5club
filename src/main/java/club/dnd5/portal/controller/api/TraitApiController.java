@@ -31,6 +31,7 @@ import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Trait", description = "The Trait API")
@@ -39,6 +40,7 @@ public class TraitApiController {
 	@Autowired
 	private TraitDatatableRepository traitRepository;
 	
+	@Operation(summary = "Gets all traits")
 	@PostMapping(value = "/api/v1/traits", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<TraitApi> getTraits(@RequestBody TraitRequesApi request) {
 		Specification<Trait> specification = null;

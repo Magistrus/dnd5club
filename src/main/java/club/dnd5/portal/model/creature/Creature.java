@@ -143,12 +143,12 @@ public class Creature {
 
 	// спаброски
 	@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "creature_id")
+	@JoinColumn(name = "creature_id")
 	private List<SavingThrow> savingThrows;
 
 	// навыки
 	@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "creature_id")
+	@JoinColumn(name = "creature_id")
 	private List<Skill> skills;
 
 	@ManyToMany
