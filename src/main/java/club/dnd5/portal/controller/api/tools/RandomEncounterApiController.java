@@ -22,7 +22,7 @@ import club.dnd5.portal.repository.datatable.RandomEncounterRepository;
 import club.dnd5.portal.repository.datatable.RandomEncounterTableRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Tools", description = "The Random Encounter API")
+@Tag(name = "Tools", description = "The Tools API")
 @RestController
 public class RandomEncounterApiController {
 	public static final Random rnd = new Random();
