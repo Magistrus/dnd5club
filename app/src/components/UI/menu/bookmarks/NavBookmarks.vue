@@ -62,18 +62,9 @@
                     : 'bookmark';
             }
         },
-        watch: {
-            'customBookmarkStore.getDefaultBookmarks': {
-                immediate: true,
-                async handler(value) {
-                    await this.defaultBookmarkStore.saveBookmarks(cloneDeep(value));
-                    await this.defaultBookmarkStore.restoreBookmarks();
-                }
-            }
-        },
         async beforeMount() {
-            await this.userStore.getUserStatus();
             await this.defaultBookmarkStore.restoreBookmarks();
+            await this.userStore.getUserStatus();
 
             const unsubscribeLoginListener = this.userStore.$onAction(({ name, after }) => {
                 if (name === 'authorization') {

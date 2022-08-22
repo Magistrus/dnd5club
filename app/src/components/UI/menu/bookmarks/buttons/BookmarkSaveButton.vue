@@ -1,9 +1,9 @@
 <template>
-    <default-bookmark-button :bookmark-name="name"/>
+    <default-bookmark-button v-bind="$props"/>
 
     <custom-bookmark-button
         v-if="isAuthenticated"
-        :name="name"
+        v-bind="$props"
     />
 </template>
 
@@ -21,6 +21,10 @@
         },
         props: {
             name: {
+                type: String,
+                default: ''
+            },
+            url: {
                 type: String,
                 default: ''
             }

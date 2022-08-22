@@ -44,9 +44,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 [o => o.order]
             );
         },
-        isBookmarkSaved() {
-            return url => !!this.getBookmarkByURL(url);
-        }
+        isBookmarkSaved: state => url => !!state.bookmarks.find(item => item.url === url)
     },
 
     actions: {
@@ -60,54 +58,48 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             return uuid;
         },
 
-        async convertOldBookmarks() {
+        async getConvertedBookmarks(oldFormat) {
             try {
-                await this.store.ready();
+                const categories = await this.getCategories();
+                const parent = cloneDeep({
+                    uuid: this.getNewUUID(),
+                    order: -1,
+                    name: 'Общие'
+                });
+                const list = [parent];
 
-                const oldFormat = await this.store.getItem('saved');
-
-                if (isArray(oldFormat) && oldFormat.length) {
-                    const categories = await this.getCategories();
-                    const parent = cloneDeep({
+                for (let i = 0; i < oldFormat.length; i++) {
+                    const category = oldFormat[i];
+                    const newCategory = categories.find(item => item.name === category.label);
+                    const updatedCat = cloneDeep({
                         uuid: this.getNewUUID(),
-                        order: -1,
-                        name: 'Общие'
+                        order: newCategory.order,
+                        name: newCategory.name,
+                        parentUUID: parent.uuid
                     });
-                    const list = [parent];
 
-                    for (let i = 0; i < oldFormat.length; i++) {
-                        const category = oldFormat[i];
-                        const newCategory = categories.find(item => item.name === category.label);
-                        const updatedCat = cloneDeep({
+                    list.push(updatedCat);
+
+                    for (let j = 0; j < category.links.length; j++) {
+                        const bookmark = category.links[j];
+
+                        list.push({
                             uuid: this.getNewUUID(),
-                            order: newCategory.order,
-                            name: newCategory.name,
-                            parentUUID: parent.uuid
+                            order: j,
+                            name: bookmark.label,
+                            url: bookmark.url,
+                            parentUUID: updatedCat.uuid
                         });
-
-                        list.push(updatedCat);
-
-                        for (let j = 0; j < category.links.length; j++) {
-                            const bookmark = category.links[j];
-
-                            list.push({
-                                uuid: this.getNewUUID(),
-                                order: j,
-                                name: bookmark.label,
-                                url: bookmark.url,
-                                parentUUID: updatedCat.uuid
-                            });
-                        }
                     }
-
-                    this.bookmarks = list;
-
-                    await this.saveBookmarks();
-
-                    await this.store.removeItem('saved');
                 }
+
+                await this.store.removeItem('saved');
+
+                return list;
             } catch (err) {
                 errorHandler(err);
+
+                return [];
             }
         },
 
@@ -115,11 +107,13 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             try {
                 await this.store.ready();
 
-                await this.convertOldBookmarks();
-
-                const restored = await this.store.getItem('default');
+                const oldFormat = await this.store.getItem('saved');
+                const restored = isArray(oldFormat) && oldFormat.length
+                    ? await this.getConvertedBookmarks(oldFormat)
+                    : await this.store.getItem('default');
 
                 if (!isArray(restored) || !restored.length) {
+                    console.log(restored);
                     this.createDefaultGroup();
                 }
 

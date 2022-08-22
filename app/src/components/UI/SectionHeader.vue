@@ -36,6 +36,7 @@
                 <bookmark-save-button
                     v-if="bookmark"
                     :name="title"
+                    :url="url"
                 />
 
                 <form-button
@@ -119,6 +120,10 @@
             bookmark: {
                 type: Boolean,
                 default: false
+            },
+            url: {
+                type: String,
+                default: ''
             },
             print: {
                 type: Boolean,

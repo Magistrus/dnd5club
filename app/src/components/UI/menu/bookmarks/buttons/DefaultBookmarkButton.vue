@@ -20,7 +20,7 @@
     import {
         computed,
         defineComponent,
-        toRefs
+        unref
     } from "vue";
 
     export default defineComponent({
@@ -28,24 +28,29 @@
             FormButton
         },
         props: {
-            bookmarkName: {
+            name: {
+                type: String,
+                default: ''
+            },
+            url: {
                 type: String,
                 default: ''
             }
         },
         setup(props) {
-            const { bookmarkName } = toRefs(props);
             const route = useRoute();
             const defaultBookmarkStore = useDefaultBookmarkStore();
-            const isSaved = computed(() => defaultBookmarkStore.isBookmarkSaved(route.path));
+            const path = computed(() => (typeof props.url === "string" && props.url !== '' ? props.url : route.path));
+            const isSaved = computed(() => defaultBookmarkStore.isBookmarkSaved(unref(path)));
 
             async function updateBookmark() {
-                await defaultBookmarkStore.updateBookmark(route.path, bookmarkName);
+                await defaultBookmarkStore.updateBookmark(unref(path), unref(props.name));
             }
 
             return {
                 isSaved,
-                updateBookmark
+                updateBookmark,
+                path
             };
         }
     });

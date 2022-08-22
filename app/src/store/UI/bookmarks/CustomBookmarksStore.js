@@ -120,11 +120,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
                 this.bookmarks = resp.data;
 
-                const defaultBookmarks = useDefaultBookmarkStore();
-
-                await defaultBookmarks.saveBookmarks(this.getDefaultBookmarks);
-                await defaultBookmarks.restoreBookmarks();
-
                 return Promise.resolve(resp.data);
             } catch (err) {
                 return Promise.reject(err);

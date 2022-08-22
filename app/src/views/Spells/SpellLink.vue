@@ -156,9 +156,8 @@
 
             bookmarkObj() {
                 return {
-                    link: this.spell.url,
-                    label: this.spell.name.rus,
-                    section: "Заклинания"
+                    url: this.spell.url,
+                    name: this.spell.name.rus
                 };
             }
         },

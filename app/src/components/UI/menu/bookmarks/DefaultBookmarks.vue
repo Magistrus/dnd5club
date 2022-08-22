@@ -15,7 +15,7 @@
                 >
                     <div class="bookmarks__group_head">
                         <div class="bookmarks__group_label">
-                            {{ group.name || 'Без группы' }}
+                            {{ group.name || 'Без категории' }}
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                 </div>
 
                 <div
-                    v-if="!getBookmarks?.length"
+                    v-if="!defaultBookmarkStore.getGroups?.length"
                     class="bookmarks__info"
                 >
                     <div class="bookmarks__info--desc">

@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="bookmarks__group_label">
-                            {{ group.name || 'Без группы' }}
+                            {{ group.name || 'Без категории' }}
                         </div>
                     </div>
 

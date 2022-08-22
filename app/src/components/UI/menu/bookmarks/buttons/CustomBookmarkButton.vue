@@ -43,6 +43,10 @@
             name: {
                 type: String,
                 default: ''
+            },
+            url: {
+                type: String,
+                default: ''
             }
         },
         setup(props) {

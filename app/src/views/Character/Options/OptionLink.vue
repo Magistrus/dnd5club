@@ -84,9 +84,8 @@
         computed: {
             bookmarkObj() {
                 return {
-                    link: this.optionItem.url,
-                    label: this.optionItem.name.rus,
-                    section: "Особенности классов"
+                    url: this.optionItem.url,
+                    name: this.optionItem.name.rus
                 };
             }
         },
