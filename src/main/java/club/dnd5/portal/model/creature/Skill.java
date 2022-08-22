@@ -20,13 +20,13 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "skills")
+@Table(name = "creature_skills")
 public class Skill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private SkillType type;
 	
 	private byte bonus;
