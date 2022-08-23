@@ -142,6 +142,7 @@
                 immediate: true
             });
 
+            // eslint-disable-next-line max-len
             const bookmarks = computed(() => [...defaultBookmarkStore.getGroupBookmarks, ...customBookmarkStore.getGroupBookmarks]);
 
             function toggleGroup(uuid) {
