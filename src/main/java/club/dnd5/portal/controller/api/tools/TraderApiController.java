@@ -29,7 +29,7 @@ import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Tools", description = "The tools Trader API")
+@Tag(name = "Tools", description = "The tools API")
 @RestController
 public class TraderApiController {
 	private static final Random rnd = new Random();
