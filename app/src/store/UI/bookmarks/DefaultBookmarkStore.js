@@ -190,11 +190,11 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             return defaultGroup;
         },
 
-        async getDefaultGroup() {
+        getDefaultGroup() {
             let group = this.bookmarks.find(bookmark => bookmark.order === -1);
 
             if (!group) {
-                group = await this.createDefaultGroup();
+                group = this.createDefaultGroup();
             }
 
             return group;
@@ -230,10 +230,13 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     cat = await this.getCategoryByURL(url);
                 }
 
+                // eslint-disable-next-line no-debugger
+                debugger;
+
                 let savedCat = this.bookmarks.find(bookmark => bookmark.name === cat.name);
 
                 if (!savedCat) {
-                    savedCat = await this.createCategory(cat);
+                    savedCat = this.createCategory(cat);
                 }
 
                 this.bookmarks.push(cloneDeep({
