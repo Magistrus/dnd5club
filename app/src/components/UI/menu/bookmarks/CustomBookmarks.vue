@@ -29,7 +29,7 @@
         <div class="bookmarks__wrapper">
             <div class="bookmarks__body">
                 <div
-                    v-for="(group, groupKey) in customBookmarkStore.getGroups"
+                    v-for="(group, groupKey) in bookmarks"
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
@@ -103,7 +103,7 @@
                 </div>
 
                 <div
-                    v-if="!customBookmarkStore.getGroups?.length"
+                    v-if="!bookmarks?.length"
                     class="bookmarks__info"
                 >
                     <div class="bookmarks__info--desc">
@@ -119,27 +119,32 @@
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import {
+        computed,
+        defineComponent, ref, watch
+    } from "vue";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
-    export default {
+    export default defineComponent({
         name: "CustomBookmarks",
         components: {
             SvgIcon,
             FormButton
         },
-        data: () => ({
-            opened: '',
-            customBookmarkStore: useCustomBookmarkStore()
-        }),
-        watch: {
-            'customBookmarkStore.getGroups': {
-                immediate: true,
-                handler(value) {
-                    this.opened = value[0]?.uuid;
-                }
-            }
-        },
-        methods: {
-            toggleGroup(uuid) {
+        setup() {
+            const opened = ref('');
+            const defaultBookmarkStore = useDefaultBookmarkStore();
+            const customBookmarkStore = useCustomBookmarkStore();
+
+            watch(customBookmarkStore.getGroupBookmarks, value => {
+                opened.value = value[0]?.uuid;
+            }, {
+                immediate: true
+            });
+
+            const bookmarks = computed(() => [...defaultBookmarkStore.getGroupBookmarks, ...customBookmarkStore.getGroupBookmarks]);
+
+            function toggleGroup(uuid) {
                 if (this.opened) {
                     this.opened = '';
 
@@ -148,8 +153,14 @@
 
                 this.opened = uuid;
             }
+
+            return {
+                bookmarks,
+                opened,
+                toggleGroup
+            };
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>

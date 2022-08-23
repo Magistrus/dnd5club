@@ -69,7 +69,9 @@
 
             async function openSubmenu() {
                 try {
-                    bookmarks.value = await bookmarksStore.queryGetBookmarks();
+                    await bookmarksStore.queryGetBookmarks();
+
+                    bookmarks.value = bookmarksStore.getBookmarks;
                     groups.value = bookmarks.value.filter(item => !item.parentUUID);
                     isOpen.value = true;
                 } catch (err) {

@@ -33,7 +33,6 @@
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import cloneDeep from "lodash/cloneDeep";
 
     export default {
         name: "NavBookmarks",
@@ -64,7 +63,6 @@
         },
         async beforeMount() {
             await this.defaultBookmarkStore.restoreBookmarks();
-            await this.userStore.getUserStatus();
 
             const unsubscribeLoginListener = this.userStore.$onAction(({ name, after }) => {
                 if (name === 'authorization') {
@@ -76,7 +74,7 @@
                 }
             });
 
-            if (this.userStore.isAuthenticated) {
+            if (await this.userStore.getUserStatus()) {
                 await this.customBookmarkStore.queryGetBookmarks();
             }
         }

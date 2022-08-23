@@ -18,7 +18,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
     getters: {
         getBookmarks: state => state.bookmarks,
-        getGroups: state => {
+        getGroupBookmarks: state => {
             const groups = state.bookmarks.filter(group => !group.parentUUID);
 
             return sortBy(
@@ -43,49 +43,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 [o => o.order]
             );
         },
-        getDefaultBookmarks: state => {
-            const parent = state.bookmarks.find(item => item.order === -1);
-
-            if (!parent) {
-                return [];
-            }
-
-            const categories = [];
-            const bookmarks = [];
-
-            categories.push(...state.bookmarks.filter(item => item.parentUUID === parent.uuid));
-
-            for (let i = 0; i < categories.length; i++) {
-                const category = categories[i];
-
-                bookmarks.push(...state.bookmarks.filter(item => item.parentUUID === category.uuid));
-            }
-
-            return [
-                parent,
-                ...categories,
-                ...bookmarks
-            ];
-        },
-        getCustomBookmarks: state => {
-            const parents = state.bookmarks.filter(item => item.order !== -1 && !item.parentUUID);
-            const categories = state.bookmarks
-                .filter(item => parents.map(parent => parent.uuid).includes(item.parentUUID));
-            const bookmarks = state.bookmarks
-                .filter(item => categories.map(category => category.uuid).includes(item.parentUUID));
-
-            return [
-                ...parents,
-                ...categories,
-                ...bookmarks
-            ];
-        },
-        isBookmarkSaved(state) {
-            return url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0;
-        },
-        isDefaultBookmarkSaved() {
-            return url => this.getDefaultBookmarks().findIndex(bookmark => bookmark.url === url) >= 0;
-        },
+        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
         getBookmarkParentUUIDs(state) {
             return url => {
                 if (!this.isBookmarkSaved(url)) {
@@ -106,6 +64,51 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     },
 
     actions: {
+        getDefaultBookmarks(list) {
+            const parent = list.find(item => item.order === -1);
+
+            if (!parent) {
+                return [];
+            }
+
+            const categories = [];
+            const bookmarks = [];
+
+            categories.push(...list.filter(item => item.parentUUID === parent.uuid));
+
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+
+                bookmarks.push(...list.filter(item => item.parentUUID === category.uuid));
+            }
+
+            return cloneDeep([
+                parent,
+                ...categories,
+                ...bookmarks
+            ]);
+        },
+
+        getCustomBookmarks(list) {
+            const parents = list.filter(item => item.order !== -1 && !item.parentUUID);
+            const categories = list
+                .filter(item => parents.map(parent => parent.uuid).includes(item.parentUUID));
+            const bookmarks = list
+                .filter(item => categories.map(category => category.uuid).includes(item.parentUUID));
+
+            return cloneDeep([
+                ...parents,
+                ...categories,
+                ...bookmarks
+            ]);
+        },
+
+        getBookmarksForSave() {
+            const defaultBookmarks = useDefaultBookmarkStore();
+
+            return cloneDeep([...defaultBookmarks.getBookmarks, ...this.bookmarks]);
+        },
+
         async queryGetBookmarks() {
             try {
                 if (!await this.userStore.getUserStatus()) {
@@ -118,7 +121,11 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     return Promise.reject(resp.statusText);
                 }
 
-                this.bookmarks = resp.data;
+                const defaultBookmarks = useDefaultBookmarkStore();
+
+                await defaultBookmarks.saveBookmarks(this.getDefaultBookmarks(resp.data));
+
+                this.bookmarks = this.getCustomBookmarks(resp.data);
 
                 return Promise.resolve(resp.data);
             } catch (err) {
@@ -217,6 +224,14 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             } catch (err) {
                 return Promise.reject(err);
             }
+        },
+
+        async updateDefaultBookmark(url, name) {
+            const defaultBookmarks = useDefaultBookmarkStore();
+
+            await defaultBookmarks.updateBookmark(url, name);
+
+            await this.querySaveBookmarks(this.getBookmarksForSave());
         }
     }
 });

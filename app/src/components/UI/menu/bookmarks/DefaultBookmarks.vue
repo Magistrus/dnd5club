@@ -9,7 +9,7 @@
         <div class="bookmarks__wrapper">
             <div class="bookmarks__body">
                 <div
-                    v-for="(group, groupKey) in defaultBookmarkStore.getGroups"
+                    v-for="(group, groupKey) in defaultBookmarkStore.getGroupBookmarks"
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
@@ -72,7 +72,7 @@
                 </div>
 
                 <div
-                    v-if="!defaultBookmarkStore.getGroups?.length"
+                    v-if="!defaultBookmarkStore.getGroupBookmarks?.length"
                     class="bookmarks__info"
                 >
                     <div class="bookmarks__info--desc">

@@ -17,11 +17,9 @@
     import FormButton from "@/components/form/FormButton";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useRoute } from "vue-router";
-    import {
-        computed,
-        defineComponent,
-        unref
-    } from "vue";
+    import { computed, defineComponent } from "vue";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import { useUserStore } from "@/store/UI/UserStore";
 
     export default defineComponent({
         components: {
@@ -39,18 +37,25 @@
         },
         setup(props) {
             const route = useRoute();
+            const userStore = useUserStore();
             const defaultBookmarkStore = useDefaultBookmarkStore();
-            const path = computed(() => (typeof props.url === "string" && props.url !== '' ? props.url : route.path));
-            const isSaved = computed(() => defaultBookmarkStore.isBookmarkSaved(unref(path)));
+            const customBookmarkStore = useCustomBookmarkStore();
+            const getPath = () => (typeof props.url === "string" && props.url !== '' ? props.url : route.path);
+            const isSaved = computed(() => defaultBookmarkStore.isBookmarkSaved(getPath()));
 
             async function updateBookmark() {
-                await defaultBookmarkStore.updateBookmark(unref(path), unref(props.name));
+                if (await userStore.getUserStatus()) {
+                    await customBookmarkStore.updateDefaultBookmark(getPath(), props.name);
+
+                    return;
+                }
+
+                await defaultBookmarkStore.updateBookmark(getPath(), props.name);
             }
 
             return {
                 isSaved,
-                updateBookmark,
-                path
+                updateBookmark
             };
         }
     });

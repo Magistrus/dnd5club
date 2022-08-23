@@ -19,7 +19,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
     getters: {
         getBookmarks: state => state.bookmarks,
-        getGroups: state => {
+        getGroupBookmarks: state => {
             const groups = state.bookmarks.filter(group => !group.parentUUID);
 
             return sortBy(
@@ -44,7 +44,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 [o => o.order]
             );
         },
-        isBookmarkSaved: state => url => !!state.bookmarks.find(item => item.url === url)
+        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0
     },
 
     actions: {
@@ -113,8 +113,9 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     : await this.store.getItem('default');
 
                 if (!isArray(restored) || !restored.length) {
-                    console.log(restored);
-                    this.createDefaultGroup();
+                    await this.createDefaultGroup();
+
+                    return;
                 }
 
                 this.bookmarks = cloneDeep(restored);
@@ -189,11 +190,11 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             return defaultGroup;
         },
 
-        getDefaultGroup() {
+        async getDefaultGroup() {
             let group = this.bookmarks.find(bookmark => bookmark.order === -1);
 
             if (!group) {
-                group = this.createDefaultGroup();
+                group = await this.createDefaultGroup();
             }
 
             return group;
