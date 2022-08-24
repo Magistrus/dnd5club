@@ -200,7 +200,12 @@ public class BookmarkServiceImpl implements BookmarkService {
 	
 	private void saveNewBookmark(User user, BookmarkApi bookmark) {
 		Bookmark newBookmark = new Bookmark();
-		newBookmark.setUuid(getNewUUID());
+		if (bookmarkRepository.existsById(UUID.fromString(bookmark.getUuid()))) {
+			newBookmark.setUuid(getNewUUID());	
+		}
+		else {
+			newBookmark.setUuid(UUID.fromString(bookmark.getUuid()));
+		}
 		newBookmark.setName(bookmark.getName());
 		newBookmark.setOrder(bookmark.getOrder());
 		newBookmark.setUser(user);
