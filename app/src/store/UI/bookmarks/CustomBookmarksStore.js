@@ -43,6 +43,11 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 [o => o.order]
             );
         },
+        getMergedBookmarks() {
+            const defaultBookmarks = useDefaultBookmarkStore();
+
+            return cloneDeep([...defaultBookmarks.getBookmarks, ...this.bookmarks]);
+        },
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
         getBookmarkParentUUIDs(state) {
             return url => {
@@ -101,12 +106,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 ...categories,
                 ...bookmarks
             ]);
-        },
-
-        getBookmarksForSave() {
-            const defaultBookmarks = useDefaultBookmarkStore();
-
-            return cloneDeep([...defaultBookmarks.getBookmarks, ...this.bookmarks]);
         },
 
         async queryGetBookmarks() {
@@ -231,7 +230,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
             await defaultBookmarks.updateBookmark(url, name);
 
-            await this.querySaveBookmarks(this.getBookmarksForSave());
+            await this.querySaveBookmarks(this.getMergedBookmarks);
         }
     }
 });

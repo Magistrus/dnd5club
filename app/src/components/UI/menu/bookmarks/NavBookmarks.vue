@@ -50,10 +50,10 @@
         }),
         computed: {
             isBookmarksExist() {
-                let status = this.defaultBookmarkStore.getBookmarks?.length;
+                let status = this.defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
 
                 if (!status && this.userStore.isAuthenticated) {
-                    status = this.customBookmarkStore.getBookmarks?.length;
+                    status = this.customBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
                 }
 
                 return status

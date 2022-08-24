@@ -112,13 +112,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     ? await this.getConvertedBookmarks(oldFormat)
                     : await this.store.getItem('default');
 
-                if (!isArray(restored) || !restored.length) {
-                    await this.createDefaultGroup();
-
-                    return;
-                }
-
-                this.bookmarks = cloneDeep(restored);
+                this.bookmarks = cloneDeep(!isArray(restored) || !restored.length ? [] : restored);
             } catch (err) {
                 errorHandler(err);
             }
@@ -229,9 +223,6 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 if (!cat) {
                     cat = await this.getCategoryByURL(url);
                 }
-
-                // eslint-disable-next-line no-debugger
-                debugger;
 
                 let savedCat = this.bookmarks.find(bookmark => bookmark.name === cat.name);
 
