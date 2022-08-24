@@ -1,20 +1,21 @@
 package club.dnd5.portal.service;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import club.dnd5.portal.dto.api.bookmark.BookmarkApi;
 import club.dnd5.portal.model.BookmarkCategory;
 import club.dnd5.portal.model.user.Bookmark;
 import club.dnd5.portal.model.user.User;
 import club.dnd5.portal.repository.user.BookmarkRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class BookmarkServiceImpl implements BookmarkService {
@@ -55,41 +56,50 @@ public class BookmarkServiceImpl implements BookmarkService {
 				entityBookmark.setUrl(bookmark.getUrl());
 			}
 		}
-
 		bookmarkRepository.save(entityBookmark);
 	}
 
 	@Override
 	public void updateBookmarks(User user, List<BookmarkApi> bookmarks) {
 		Collection<Bookmark> savedBookmarks = bookmarkRepository.findByUser(user);
+		Set<String> savedIds = savedBookmarks
+				.parallelStream()
+				.map(Bookmark::getUuid)
+				.map(UUID::toString)
+				.collect(Collectors.toSet());
+		
 		Collection<Bookmark> updatedBookmarks = bookmarks
-			.stream()
+			.parallelStream()
+			.filter(b -> savedIds.contains(b.getUuid()))
 			.map(bookmark -> getUpdatedBookmark(user, bookmark))
 			.collect(Collectors.toList());
-
-		for (Bookmark bookmark : savedBookmarks) {
-			boolean bookmarkInUpdated = updatedBookmarks
-				.stream()
-				.anyMatch(item -> item.getUuid().equals(bookmark.getUuid()));
-
-			if (!bookmarkInUpdated) {
-				deleteBookmark(bookmark.getUuid().toString());
-			}
-		}
-
+		
 		bookmarkRepository.saveAll(updatedBookmarks);
+		
+		Collection<Bookmark> addBookmarks = bookmarks
+				.stream()
+				.filter(b -> !savedIds.contains(b.getUuid()))
+				.map(bookmark -> getNewBookmark(user, bookmark))
+				.collect(Collectors.toList());
+		bookmarkRepository.saveAll(addBookmarks);
+
+		Set<String> bookmarksIds = bookmarks
+				.parallelStream()
+				.map(BookmarkApi::getUuid)
+				.collect(Collectors.toSet());
+	
+		Set<UUID> deleteBookmarksIds = bookmarks
+				.parallelStream()
+				.filter(b -> !bookmarksIds.contains(b.getUuid().toString()))
+				.map(BookmarkApi::getUuid)
+				.map(UUID::fromString)
+				.collect(Collectors.toSet());
+		bookmarkRepository.deleteAllById(deleteBookmarksIds);
 	}
 
 	@Override
 	public void deleteBookmark(String uuid) {
-		Bookmark bookmark = bookmarkRepository.findById(UUID.fromString(uuid))
-			.orElseThrow(() -> new RuntimeException("Bookmark not found"));
-
-		Collection<Bookmark> deleteList = Stream.of(bookmark).collect(Collectors.toList());
-
-		deleteList.addAll(getChildrenBookmarks(bookmark));
-
-		bookmarkRepository.deleteAllById(deleteList.stream().map(Bookmark::getUuid).collect(Collectors.toList()));
+		bookmarkRepository.deleteById(UUID.fromString(uuid));
 	}
 
 	@Override
@@ -182,33 +192,27 @@ public class BookmarkServiceImpl implements BookmarkService {
 		updatedBookmark.setOrder(bookmark.getOrder());
 		updatedBookmark.setUser(user);
 		updatedBookmark.setPrefix(bookmark.getPrefix());
-
+		updatedBookmark.setUrl(bookmark.getUrl());
 		if (bookmark.getParentUUID() != null) {
 			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
 
 			updatedBookmark.setParent(parent);
 		}
-
-		if (bookmark.getUrl() != null) {
-			updatedBookmark.setUrl(bookmark.getUrl());
-		}
-
 		return updatedBookmark;
 	}
-
-	private List<Bookmark> getChildrenBookmarks(Bookmark parent) {
-		List<Bookmark> bookmarks = new ArrayList<>();
-
-		if (!parent.getChildren().isEmpty()) {
-			bookmarks.addAll(parent.getChildren());
-			bookmarks.addAll(
-				bookmarks
-					.stream()
-					.filter(item -> !item.getChildren().isEmpty())
-					.flatMap(item -> item.getChildren().stream())
-					.collect(Collectors.toList())
-			);
+	
+	private Bookmark getNewBookmark(User user, BookmarkApi bookmark) {
+		Bookmark newBookmark = new Bookmark();
+		newBookmark.setUuid(getNewUUID());
+		newBookmark.setName(bookmark.getName());
+		newBookmark.setOrder(bookmark.getOrder());
+		newBookmark.setUser(user);
+		newBookmark.setPrefix(bookmark.getPrefix());
+		newBookmark.setUrl(bookmark.getUrl());
+		if (bookmark.getParentUUID() != null) {
+			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
+			newBookmark.setParent(parent);
 		}
-		return bookmarks;
+		return newBookmark;
 	}
 }
