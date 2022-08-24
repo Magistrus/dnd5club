@@ -132,26 +132,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
-        async querySaveBookmarks(payload) {
-            try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
-                const resp = await this.$http.post('/bookmarks', payload);
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                await this.queryGetBookmarks();
-
-                return Promise.resolve();
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
         async queryAddBookmark(bookmark) {
             try {
                 if (!await this.userStore.getUserStatus()) {
@@ -162,7 +142,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.add.abort();
                 }
 
-                const resp = await this.$http.put('/bookmarks', bookmark);
+                const resp = await this.$http.post('/bookmarks', bookmark);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -201,6 +181,26 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 return Promise.reject(err);
             } finally {
                 signals.delete = undefined;
+            }
+        },
+
+        async querySaveBookmarks(payload) {
+            try {
+                if (!await this.userStore.getUserStatus()) {
+                    return Promise.reject();
+                }
+
+                const resp = await this.$http.put('/bookmarks', payload);
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
             }
         },
 
