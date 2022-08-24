@@ -77,9 +77,8 @@
         computed: {
             bookmarkObj() {
                 return {
-                    link: this.screen.url,
-                    label: this.screen.name.rus,
-                    section: `Ширма Мастера`
+                    url: this.screen.url,
+                    name: this.screen.name.rus
                 };
             }
         },

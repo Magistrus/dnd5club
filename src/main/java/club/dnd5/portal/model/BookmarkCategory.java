@@ -26,7 +26,7 @@ public enum BookmarkCategory {
 	GODS ("Боги", "gods", "god"),
 	RULES ("Правила и термины", "rules", "rule"),
 	BOOKS ("Источники", "books", "book"),
-	NONE ("Без группы", "none", null);
+	NONE ("Без категории", "none", null);
 
 	private final String name;
 	private final String code;

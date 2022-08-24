@@ -36,6 +36,7 @@
                 <bookmark-save-button
                     v-if="bookmark"
                     :name="title"
+                    :url="url"
                 />
 
                 <form-button
@@ -94,7 +95,7 @@
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/common/helpers/errorHandler";
-    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/BookmarkSaveButton";
+    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
     import FormButton from "@/components/form/FormButton";
 
     export default {
@@ -119,6 +120,10 @@
             bookmark: {
                 type: Boolean,
                 default: false
+            },
+            url: {
+                type: String,
+                default: ''
             },
             print: {
                 type: Boolean,

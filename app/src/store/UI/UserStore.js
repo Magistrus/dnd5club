@@ -113,7 +113,9 @@ export const useUserStore = defineStore('UserStore', {
 
         async getUserInfo() {
             try {
-                await this.getUserStatus();
+                if (!await this.getUserStatus()) {
+                    return Promise.reject(new Error('User is not authenticated'));
+                }
 
                 const resp = await this.$http.get('/user/info');
 

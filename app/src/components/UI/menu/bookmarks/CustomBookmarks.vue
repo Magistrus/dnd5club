@@ -29,13 +29,13 @@
         <div class="bookmarks__wrapper">
             <div class="bookmarks__body">
                 <div
-                    v-for="(group, groupKey) in groupBookmarks"
+                    v-for="(group, groupKey) in bookmarks"
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
                     <div
                         class="bookmarks__group_head"
-                        @click.left.exact.prevent="opened = group.uuid"
+                        @click.left.exact.prevent="toggleGroup(group.uuid)"
                     >
                         <div
                             class="bookmarks__group_icon"
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="bookmarks__group_label">
-                            {{ group.name || 'Без группы' }}
+                            {{ group.name || 'Без категории' }}
                         </div>
                     </div>
 
@@ -79,13 +79,31 @@
                                         <svg-icon icon-name="close"/>
                                     </div>
                                 </div>
+
+                                <div
+                                    v-if="!category.children?.length"
+                                    class="bookmarks__info"
+                                >
+                                    <div class="bookmarks__info--desc">
+                                        Здесь пока пусто
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            v-if="!group.children?.length"
+                            class="bookmarks__info"
+                        >
+                            <div class="bookmarks__info--desc">
+                                Здесь пока пусто
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    v-if="!getBookmarks?.length"
+                    v-if="!bookmarks?.length"
                     class="bookmarks__info"
                 >
                     <div class="bookmarks__info--desc">
@@ -98,68 +116,52 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from "pinia";
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import sortBy from "lodash/sortBy";
+    import {
+        computed,
+        defineComponent, ref, watch
+    } from "vue";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
-    export default {
+    export default defineComponent({
         name: "CustomBookmarks",
         components: {
             SvgIcon,
             FormButton
         },
-        data: () => ({
-            opened: ''
-        }),
-        computed: {
-            ...mapState(useCustomBookmarkStore, ['getBookmarks']),
+        setup() {
+            const opened = ref('');
+            const defaultBookmarkStore = useDefaultBookmarkStore();
+            const customBookmarkStore = useCustomBookmarkStore();
 
-            groupBookmarks() {
-                const list = this.getBookmarks;
-                const groups = list.filter(group => !group.parentUUID);
+            watch(customBookmarkStore.getGroupBookmarks, value => {
+                opened.value = value[0]?.uuid;
+            }, {
+                immediate: true
+            });
 
-                return sortBy(
-                    groups.map(group => ({
-                        ...group,
-                        children: sortBy(
-                            list
-                                .filter(category => category.parentUUID && category.parentUUID === group.uuid)
-                                .map(category => ({
-                                    ...category,
-                                    children: sortBy(
-                                        list.filter(bookmark => (
-                                            bookmark.parentUUID
-                                            && bookmark.parentUUID === category.uuid
-                                        )),
-                                        [o => o.order]
-                                    )
-                                })),
-                            [o => o.order]
-                        )
-                    })),
-                    [o => o.order]
-                );
-            }
-        },
-        watch: {
-            groupBookmarks: {
-                immediate: true,
-                handler(value) {
-                    this.opened = value[0]?.uuid;
+            // eslint-disable-next-line max-len
+            const bookmarks = computed(() => [...defaultBookmarkStore.getGroupBookmarks, ...customBookmarkStore.getGroupBookmarks]);
+
+            function toggleGroup(uuid) {
+                if (this.opened) {
+                    this.opened = '';
+
+                    return;
                 }
+
+                this.opened = uuid;
             }
-        },
-        methods: {
-            ...mapActions(useCustomBookmarkStore, [
-                'queryGetBookmarks',
-                'querySaveBookmarks',
-                'queryAddBookmark',
-                'queryDeleteBookmark'
-            ])
+
+            return {
+                bookmarks,
+                opened,
+                toggleGroup
+            };
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>

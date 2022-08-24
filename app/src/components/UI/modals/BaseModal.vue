@@ -12,18 +12,11 @@
                 <slot name="title"/>
             </div>
 
-            <form-button
-                v-if="bookmark?.link && bookmark?.label && bookmark?.section"
-                class="base-modal__bookmark"
-                type-link
-                @click.left.exact.prevent="updateBookmark(bookmark.link, bookmark.label, bookmark.section)"
-            >
-                <svg-icon
-                    :icon-name="isBookmarkSaved(bookmark.link) ? 'bookmark-filled' : 'bookmark'"
-                    :stroke-enable="false"
-                    fill-enable
-                />
-            </form-button>
+            <bookmark-save-button
+                v-if="bookmark?.name"
+                :name="bookmark.name"
+                :url="bookmark?.url"
+            />
 
             <form-button
                 class="base-modal__close"
@@ -114,10 +107,12 @@
     import FormButton from "@/components/form/FormButton";
     import { mapActions, mapState } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
+    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
 
     export default {
         name: "BaseModal",
         components: {
+            BookmarkSaveButton,
             FormButton,
             SvgIcon
         },

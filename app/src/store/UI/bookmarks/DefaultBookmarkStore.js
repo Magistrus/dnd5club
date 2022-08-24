@@ -5,6 +5,7 @@ import { DB_NAME } from '@/common/const/UI';
 import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
 import { v4 as uuidV4 } from 'uuid';
+import sortBy from 'lodash/sortBy';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
@@ -18,9 +19,32 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
     getters: {
         getBookmarks: state => state.bookmarks,
-        isBookmarkSaved() {
-            return url => !!this.getBookmarkByURL(url);
-        }
+        getGroupBookmarks: state => {
+            const groups = state.bookmarks.filter(group => !group.parentUUID);
+
+            return sortBy(
+                groups.map(group => ({
+                    ...group,
+                    children: sortBy(
+                        state.bookmarks
+                            .filter(category => category.parentUUID && category.parentUUID === group.uuid)
+                            .map(category => ({
+                                ...category,
+                                children: sortBy(
+                                    state.bookmarks.filter(bookmark => (
+                                        bookmark.parentUUID
+                                        && bookmark.parentUUID === category.uuid
+                                    )),
+                                    [o => o.order]
+                                )
+                            })),
+                        [o => o.order]
+                    )
+                })),
+                [o => o.order]
+            );
+        },
+        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0
     },
 
     actions: {
@@ -34,54 +58,48 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             return uuid;
         },
 
-        async convertOldBookmarks() {
+        async getConvertedBookmarks(oldFormat) {
             try {
-                await this.store.ready();
+                const categories = await this.getCategories();
+                const parent = cloneDeep({
+                    uuid: this.getNewUUID(),
+                    order: -1,
+                    name: 'Общие'
+                });
+                const list = [parent];
 
-                const oldFormat = await this.store.getItem('saved');
-
-                if (isArray(oldFormat) && oldFormat.length) {
-                    const categories = await this.getCategories();
-                    const parent = cloneDeep({
+                for (let i = 0; i < oldFormat.length; i++) {
+                    const category = oldFormat[i];
+                    const newCategory = categories.find(item => item.name === category.label);
+                    const updatedCat = cloneDeep({
                         uuid: this.getNewUUID(),
-                        order: -1,
-                        name: 'Общие'
+                        order: newCategory.order,
+                        name: newCategory.name,
+                        parentUUID: parent.uuid
                     });
-                    const list = [parent];
 
-                    for (let i = 0; i < oldFormat.length; i++) {
-                        const category = oldFormat[i];
-                        const newCategory = categories.find(item => item.name === category.label);
-                        const updatedCat = cloneDeep({
+                    list.push(updatedCat);
+
+                    for (let j = 0; j < category.links.length; j++) {
+                        const bookmark = category.links[j];
+
+                        list.push({
                             uuid: this.getNewUUID(),
-                            order: newCategory.order,
-                            name: newCategory.name,
-                            parentUUID: parent.uuid
+                            order: j,
+                            name: bookmark.label,
+                            url: bookmark.url,
+                            parentUUID: updatedCat.uuid
                         });
-
-                        list.push(updatedCat);
-
-                        for (let j = 0; j < category.links.length; j++) {
-                            const bookmark = category.links[j];
-
-                            list.push({
-                                uuid: this.getNewUUID(),
-                                order: j,
-                                name: bookmark.label,
-                                url: bookmark.url,
-                                parentUUID: updatedCat.uuid
-                            });
-                        }
                     }
-
-                    this.bookmarks = list;
-
-                    await this.saveBookmarks();
-
-                    await this.store.removeItem('saved');
                 }
+
+                await this.store.removeItem('saved');
+
+                return list;
             } catch (err) {
                 errorHandler(err);
+
+                return [];
             }
         },
 
@@ -89,23 +107,22 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             try {
                 await this.store.ready();
 
-                await this.convertOldBookmarks();
+                const oldFormat = await this.store.getItem('saved');
+                const restored = isArray(oldFormat) && oldFormat.length
+                    ? await this.getConvertedBookmarks(oldFormat)
+                    : await this.store.getItem('default');
 
-                const restored = await this.store.getItem('default');
-
-                this.bookmarks = isArray(restored) && restored.length
-                    ? cloneDeep(restored)
-                    : [];
+                this.bookmarks = cloneDeep(!isArray(restored) || !restored.length ? [] : restored);
             } catch (err) {
                 errorHandler(err);
             }
         },
 
-        async saveBookmarks() {
+        async saveBookmarks(payload) {
             try {
                 await this.store.ready();
 
-                await this.store.setItem('default', cloneDeep(this.bookmarks));
+                await this.store.setItem('default', cloneDeep(payload || this.bookmarks));
             } catch (err) {
                 errorHandler(err);
             }
@@ -210,7 +227,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 let savedCat = this.bookmarks.find(bookmark => bookmark.name === cat.name);
 
                 if (!savedCat) {
-                    savedCat = await this.createCategory(cat);
+                    savedCat = this.createCategory(cat);
                 }
 
                 this.bookmarks.push(cloneDeep({
@@ -278,7 +295,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             await this.saveBookmarks();
         },
 
-        async updateBookmark(url, name, category) {
+        async updateBookmark(url, name, category = undefined) {
             if (this.isBookmarkSaved(url)) {
                 await this.removeBookmark(url);
 

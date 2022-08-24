@@ -9,13 +9,13 @@
         <div class="bookmarks__wrapper">
             <div class="bookmarks__body">
                 <div
-                    v-for="(group, groupKey) in groupBookmarks"
+                    v-for="(group, groupKey) in defaultBookmarkStore.getGroupBookmarks"
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
                     <div class="bookmarks__group_head">
                         <div class="bookmarks__group_label">
-                            {{ group.name || 'Без группы' }}
+                            {{ group.name || 'Без категории' }}
                         </div>
                     </div>
 
@@ -43,18 +43,36 @@
 
                                     <div
                                         class="bookmarks__item_icon only-hover is-right"
-                                        @click.left.exact.prevent="removeBookmark(bookmark.url)"
+                                        @click.left.exact.prevent="defaultBookmarkStore.removeBookmark(bookmark.url)"
                                     >
                                         <svg-icon icon-name="close"/>
                                     </div>
                                 </div>
+
+                                <div
+                                    v-if="!category.children?.length"
+                                    class="bookmarks__info"
+                                >
+                                    <div class="bookmarks__info--desc">
+                                        Здесь пока пусто
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            v-if="!group.children?.length"
+                            class="bookmarks__info"
+                        >
+                            <div class="bookmarks__info--desc">
+                                Здесь пока пусто
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    v-if="!getBookmarks?.length"
+                    v-if="!defaultBookmarkStore.getGroupBookmarks?.length"
                     class="bookmarks__info"
                 >
                     <div class="bookmarks__info--desc">
@@ -67,45 +85,14 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
-    import sortBy from "lodash/sortBy";
 
     export default {
         name: "DefaultBookmarks",
-        computed: {
-            ...mapState(useDefaultBookmarkStore, ['getBookmarks']),
-
-            groupBookmarks() {
-                const list = this.getBookmarks;
-                const groups = list.filter(group => !group.parentUUID);
-
-                return sortBy(
-                    groups.map(group => ({
-                        ...group,
-                        children: sortBy(
-                            list
-                                .filter(category => category.parentUUID && category.parentUUID === group.uuid)
-                                .map(category => ({
-                                    ...category,
-                                    children: sortBy(
-                                        list.filter(bookmark => (
-                                            bookmark.parentUUID
-                                            && bookmark.parentUUID === category.uuid
-                                        )),
-                                        [o => o.order]
-                                    )
-                                })),
-                            [o => o.order]
-                        )
-                    })),
-                    [o => o.order]
-                );
-            }
-        },
+        data: () => ({
+            defaultBookmarkStore: useDefaultBookmarkStore()
+        }),
         methods: {
-            ...mapActions(useDefaultBookmarkStore, ['removeBookmark']),
-
             isExternal(url) {
                 return url.startsWith('http');
             }

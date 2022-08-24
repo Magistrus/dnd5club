@@ -17,7 +17,7 @@
 
         <template #default>
             <div class="nav-bookmarks">
-                <default-bookmarks v-if="!isAuthenticated"/>
+                <default-bookmarks v-if="!userStore.isAuthenticated"/>
 
                 <custom-bookmarks v-else/>
             </div>
@@ -28,7 +28,6 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import NavPopover from "@/components/UI/menu/NavPopover";
-    import { mapState, mapActions } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
@@ -44,22 +43,17 @@
             SvgIcon
         },
         data: () => ({
-            opened: false
+            opened: false,
+            userStore: useUserStore(),
+            defaultBookmarkStore: useDefaultBookmarkStore(),
+            customBookmarkStore: useCustomBookmarkStore()
         }),
         computed: {
-            ...mapState(useUserStore, ['isAuthenticated']),
-            ...mapState(useDefaultBookmarkStore, {
-                getDefaultBookmarks: 'getBookmarks'
-            }),
-            ...mapState(useCustomBookmarkStore, {
-                getCustomBookmarks: 'getBookmarks'
-            }),
-
             isBookmarksExist() {
-                let status = this.getDefaultBookmarks?.length;
+                let status = this.defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
 
-                if (!status && this.isAuthenticated) {
-                    status = this.getCustomBookmarks?.length;
+                if (!status && this.userStore.isAuthenticated) {
+                    status = this.customBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
                 }
 
                 return status
@@ -68,21 +62,21 @@
             }
         },
         async beforeMount() {
-            await this.getUserStatus();
-            await this.restoreDefaultBookmarks();
+            await this.defaultBookmarkStore.restoreBookmarks();
 
-            if (this.isAuthenticated) {
-                await this.queryGetCustomBookmarks();
+            const unsubscribeLoginListener = this.userStore.$onAction(({ name, after }) => {
+                if (name === 'authorization') {
+                    after(async () => {
+                        await this.customBookmarkStore.queryMergeDefaultBookmark();
+
+                        unsubscribeLoginListener();
+                    });
+                }
+            });
+
+            if (await this.userStore.getUserStatus()) {
+                await this.customBookmarkStore.queryGetBookmarks();
             }
-        },
-        methods: {
-            ...mapActions(useUserStore, ['getUserStatus']),
-            ...mapActions(useDefaultBookmarkStore, {
-                restoreDefaultBookmarks: 'restoreBookmarks'
-            }),
-            ...mapActions(useCustomBookmarkStore, {
-                queryGetCustomBookmarks: 'queryGetBookmarks'
-            })
         }
     };
 </script>
