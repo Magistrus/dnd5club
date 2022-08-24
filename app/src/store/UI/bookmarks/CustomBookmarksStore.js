@@ -43,6 +43,11 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 [o => o.order]
             );
         },
+        getMergedBookmarks() {
+            const defaultBookmarks = useDefaultBookmarkStore();
+
+            return cloneDeep([...defaultBookmarks.getBookmarks, ...this.bookmarks]);
+        },
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
         getBookmarkParentUUIDs(state) {
             return url => {
@@ -103,12 +108,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             ]);
         },
 
-        getBookmarksForSave() {
-            const defaultBookmarks = useDefaultBookmarkStore();
-
-            return cloneDeep([...defaultBookmarks.getBookmarks, ...this.bookmarks]);
-        },
-
         async queryGetBookmarks() {
             try {
                 if (!await this.userStore.getUserStatus()) {
@@ -133,26 +132,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
-        async querySaveBookmarks(payload) {
-            try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
-                const resp = await this.$http.post('/bookmarks', payload);
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                await this.queryGetBookmarks();
-
-                return Promise.resolve();
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
         async queryAddBookmark(bookmark) {
             try {
                 if (!await this.userStore.getUserStatus()) {
@@ -163,7 +142,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.add.abort();
                 }
 
-                const resp = await this.$http.put('/bookmarks', bookmark);
+                const resp = await this.$http.post('/bookmarks', bookmark);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -205,6 +184,26 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
+        async querySaveBookmarks(payload) {
+            try {
+                if (!await this.userStore.getUserStatus()) {
+                    return Promise.reject();
+                }
+
+                const resp = await this.$http.put('/bookmarks', payload);
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
         async queryMergeDefaultBookmark() {
             try {
                 if (!await this.userStore.getUserStatus()) {
@@ -231,7 +230,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
             await defaultBookmarks.updateBookmark(url, name);
 
-            await this.querySaveBookmarks(this.getBookmarksForSave());
+            await this.querySaveBookmarks(this.getMergedBookmarks);
         }
     }
 });
