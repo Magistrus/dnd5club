@@ -37,7 +37,7 @@
 
                 <div class="nav-menu__body">
                     <div
-                        v-for="(group, groupKey) in getNavItems"
+                        v-for="(group, groupKey) in navItems"
                         :key="group.label + groupKey"
                         class="nav-menu__group"
                     >
@@ -62,15 +62,11 @@
                             >
                                 <div
                                     class="nav-menu__link_icon only-hover"
-                                    :class="{'is-active': isBookmarkSaved(link.url)}"
-                                    @click.left.exact.stop.prevent="updateBookmark(
-                                        link.url,
-                                        link.label,
-                                        'menu'
-                                    )"
+                                    :class="{'is-active': isSaved(link.url)}"
+                                    @click.left.exact.stop.prevent="updateBookmark(link.url, link.label )"
                                 >
                                     <svg-icon
-                                        :icon-name="isBookmarkSaved(link.url)
+                                        :icon-name="isSaved(link.url)
                                             ? 'bookmark-dot-filled'
                                             : 'bookmark-dot'
                                         "
@@ -94,35 +90,49 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from "pinia";
     import { useNavStore } from "@/store/UI/NavStore";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
     import SvgIcon from "@/components/UI/SvgIcon";
     import SiteLogo from "@/components/UI/SiteLogo";
+    import { defineComponent, ref } from "vue";
+    import { useUserStore } from "@/store/UI/UserStore";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
 
-    export default {
+    export default defineComponent({
         name: "NavMenu",
         components: {
             NavPopover,
             SvgIcon,
             SiteLogo
         },
-        data: () => ({
-            menu: false
-        }),
-        computed: {
-            ...mapState(useNavStore, ['getNavItems']),
-            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved'])
-        },
-        created() {
-            this.setNavItems();
-        },
-        methods: {
-            ...mapActions(useNavStore, ['setNavItems']),
-            ...mapActions(useDefaultBookmarkStore, ['updateBookmark'])
+        setup() {
+            const menu = ref(false);
+            const navStore = useNavStore();
+            const userStore = useUserStore();
+            const defaultBookmarkStore = useDefaultBookmarkStore();
+            const customBookmarkStore = useCustomBookmarkStore();
+
+            navStore.setNavItems();
+
+            async function updateBookmark(url, name) {
+                if (await userStore.getUserStatus()) {
+                    await customBookmarkStore.updateDefaultBookmark(url, name, 'menu');
+
+                    return;
+                }
+
+                await defaultBookmarkStore.updateBookmark(url, name, 'menu');
+            }
+
+            return {
+                menu,
+                updateBookmark,
+                navItems: navStore.getNavItems,
+                isSaved: defaultBookmarkStore.isBookmarkSaved
+            };
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>

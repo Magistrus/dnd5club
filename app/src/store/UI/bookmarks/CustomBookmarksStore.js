@@ -225,10 +225,10 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
-        async updateDefaultBookmark(url, name) {
+        async updateDefaultBookmark(url, name, category = undefined) {
             const defaultBookmarks = useDefaultBookmarkStore();
 
-            await defaultBookmarks.updateBookmark(url, name);
+            await defaultBookmarks.updateBookmark(url, name, category);
 
             await this.querySaveBookmarks(this.getMergedBookmarks);
         }
