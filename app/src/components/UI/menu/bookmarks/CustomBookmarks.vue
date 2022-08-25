@@ -132,7 +132,6 @@
     } from "vue";
     import { v4 as uuidV4 } from 'uuid';
     import FieldInput from "@/components/form/FieldType/FieldInput";
-    import orderBy from 'lodash/orderBy';
 
     export default defineComponent({
         name: "CustomBookmarks",
@@ -144,29 +143,7 @@
         setup() {
             const opened = ref('');
             const customBookmarkStore = useCustomBookmarkStore();
-            const bookmarks = computed(() => {
-                const list = [];
-
-                if (opened.value) {
-                    const selected = customBookmarkStore.getMergedBookmarkGroups
-                        .find(item => item.uuid === opened.value);
-
-                    if (!selected) {
-                        return customBookmarkStore.getMergedBookmarkGroups;
-                    }
-
-                    list.push(selected);
-
-                    list.push(...orderBy(
-                        customBookmarkStore.getMergedBookmarkGroups.filter(item => item.uuid !== opened.value),
-                        [o => o.order]
-                    ));
-
-                    return list;
-                }
-
-                return customBookmarkStore.getMergedBookmarkGroups;
-            });
+            const bookmarks = computed(() => customBookmarkStore.getGroupBookmarks);
 
             function toggleGroup(uuid) {
                 if (opened.value && opened.value === uuid) {
@@ -178,7 +155,7 @@
                 opened.value = uuid;
             }
 
-            const firstGroup = customBookmarkStore.getMergedBookmarkGroups[0];
+            const firstGroup = customBookmarkStore.getGroupBookmarks[0];
 
             if (firstGroup) {
                 toggleGroup(firstGroup.uuid);

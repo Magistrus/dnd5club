@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/UI/UserStore';
 import cloneDeep from 'lodash/cloneDeep';
-import { useDefaultBookmarkStore } from '@/store/UI/bookmarks/DefaultBookmarkStore';
 import sortBy from 'lodash/sortBy';
 
 const signals = {
@@ -43,16 +42,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 [o => o.order]
             );
         },
-        getMergedBookmarks() {
-            const defaultBookmarks = useDefaultBookmarkStore();
-
-            return [...defaultBookmarks.getBookmarks, ...this.bookmarks];
-        },
-        getMergedBookmarkGroups() {
-            const defaultBookmarks = useDefaultBookmarkStore();
-
-            return [...defaultBookmarks.getGroupBookmarks, ...this.getGroupBookmarks];
-        },
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
         getBookmarkParentUUIDs(state) {
             return url => {
@@ -74,45 +63,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     },
 
     actions: {
-        getDefaultBookmarks(list) {
-            const parent = list.find(item => item.order === -1);
-
-            if (!parent) {
-                return [];
-            }
-
-            const categories = [];
-            const bookmarks = [];
-
-            categories.push(...list.filter(item => item.parentUUID === parent.uuid));
-
-            for (let i = 0; i < categories.length; i++) {
-                const category = categories[i];
-
-                bookmarks.push(...list.filter(item => item.parentUUID === category.uuid));
-            }
-
-            return cloneDeep([
-                parent,
-                ...categories,
-                ...bookmarks
-            ]);
-        },
-
-        getCustomBookmarks(list) {
-            const parents = list.filter(item => item.order !== -1 && !item.parentUUID);
-            const categories = list
-                .filter(item => parents.map(parent => parent.uuid).includes(item.parentUUID));
-            const bookmarks = list
-                .filter(item => categories.map(category => category.uuid).includes(item.parentUUID));
-
-            return cloneDeep([
-                ...parents,
-                ...categories,
-                ...bookmarks
-            ]);
-        },
-
         async queryGetBookmarks() {
             try {
                 if (!await this.userStore.getUserStatus()) {
@@ -125,11 +75,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     return Promise.reject(resp.statusText);
                 }
 
-                const defaultBookmarks = useDefaultBookmarkStore();
-
-                await defaultBookmarks.saveBookmarks(this.getDefaultBookmarks(resp.data));
-
-                this.bookmarks = this.getCustomBookmarks(resp.data);
+                this.bookmarks = resp.data;
 
                 return Promise.resolve(resp.data);
             } catch (err) {
@@ -209,33 +155,8 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
-        async queryMergeDefaultBookmark() {
-            try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
-                const defaultBookmarkStore = useDefaultBookmarkStore();
-                const resp = await this.$http.patch('/bookmarks', cloneDeep(defaultBookmarkStore.getBookmarks));
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                await this.queryGetBookmarks();
-
-                return Promise.resolve();
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
-        async updateDefaultBookmark(url, name, category = undefined) {
-            const defaultBookmarks = useDefaultBookmarkStore();
-
-            await defaultBookmarks.updateBookmark(url, name, category);
-
-            await this.querySaveBookmarks(this.getMergedBookmarks);
+        updateDefaultBookmark(url, name, category = undefined) {
+            console.log(url, name, category);
         }
     }
 });
