@@ -33,11 +33,11 @@ public class Bookmark {
 	@Column(name = "bookmark_order")
 	private Integer order;
 
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "parent_id")
 	private Bookmark parent;
 
-	@OneToMany(mappedBy = "parent", orphanRemoval = true)
+	@OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = CascadeType.REMOVE)
 	private List<Bookmark> children;
 
 	@ManyToOne

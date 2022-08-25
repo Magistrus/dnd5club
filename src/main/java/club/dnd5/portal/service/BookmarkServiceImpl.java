@@ -76,12 +76,10 @@ public class BookmarkServiceImpl implements BookmarkService {
 		
 		bookmarkRepository.saveAll(updatedBookmarks);
 		
-		Collection<Bookmark> addBookmarks = bookmarks
+		bookmarks
 				.stream()
 				.filter(b -> !savedIds.contains(b.getUuid()))
-				.map(bookmark -> getNewBookmark(user, bookmark))
-				.collect(Collectors.toList());
-		bookmarkRepository.saveAll(addBookmarks);
+				.forEach(bookmark -> saveNewBookmark(user, bookmark));
 
 		Set<String> bookmarksIds = bookmarks
 				.parallelStream()
@@ -174,7 +172,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	private Bookmark getNewCategory(User user, Bookmark group, Bookmark bookmark) {
 		Bookmark category = new Bookmark();
-
 		category.setUuid(getNewUUID());
 		category.setName(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getName());
 		category.setOrder(BookmarkCategory.getCategoryByURL(bookmark.getUrl()).getOrder());
@@ -201,9 +198,14 @@ public class BookmarkServiceImpl implements BookmarkService {
 		return updatedBookmark;
 	}
 	
-	private Bookmark getNewBookmark(User user, BookmarkApi bookmark) {
+	private void saveNewBookmark(User user, BookmarkApi bookmark) {
 		Bookmark newBookmark = new Bookmark();
-		newBookmark.setUuid(getNewUUID());
+		if (bookmarkRepository.existsById(UUID.fromString(bookmark.getUuid()))) {
+			newBookmark.setUuid(getNewUUID());	
+		}
+		else {
+			newBookmark.setUuid(UUID.fromString(bookmark.getUuid()));
+		}
 		newBookmark.setName(bookmark.getName());
 		newBookmark.setOrder(bookmark.getOrder());
 		newBookmark.setUser(user);
@@ -211,8 +213,10 @@ public class BookmarkServiceImpl implements BookmarkService {
 		newBookmark.setUrl(bookmark.getUrl());
 		if (bookmark.getParentUUID() != null) {
 			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
-			newBookmark.setParent(parent);
+			if (parent != null) {
+				newBookmark.setParent(parent);	
+			}
 		}
-		return newBookmark;
+		bookmarkRepository.saveAndFlush(newBookmark);
 	}
 }
