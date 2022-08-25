@@ -103,11 +103,11 @@
 <style lang="scss" scoped>
     @import "bookmarks.module";
 
-.bookmarks {
-    &__group {
-        &_label {
-            padding: 0px 8px 0px 0px;
+    .bookmarks {
+        &__group {
+            &_label {
+                padding: 0px 8px 0px 0px;
+            }
         }
     }
-}
 </style>
