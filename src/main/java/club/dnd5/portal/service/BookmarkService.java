@@ -13,7 +13,7 @@ public interface BookmarkService {
 	@Transactional
 	void addBookmark(User user, BookmarkApi bookmark);
 	@Transactional
-	void updateBookmarks(User user, List<BookmarkApi> bookmarks);
+	void updateBookmark(User user, BookmarkApi bookmark);
 	@Transactional
 	void deleteBookmark(String uuid);
 	void mergeBookmarks(User user, List<BookmarkApi> bookmarks);

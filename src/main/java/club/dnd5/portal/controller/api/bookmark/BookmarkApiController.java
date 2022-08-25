@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,19 +62,11 @@ public class BookmarkApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Update bookmarks")
+	@Operation(summary = "Update bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping
-	public ResponseEntity<?> updateBookmarks(@RequestBody List<BookmarkApi> bookmarks){
-		service.updateBookmarks(getCurrentUser(), bookmarks);
-		return ResponseEntity.ok().build();
-	}
-
-	@Operation(summary = "Merge bookmark")
-	@SecurityRequirement(name = "Bearer Authentication")
-	@PatchMapping
-	public ResponseEntity<?> mergeBookmarks(@RequestBody List<BookmarkApi> bookmarks){
-		service.mergeBookmarks(getCurrentUser(), bookmarks);
+	public ResponseEntity<?> updateBookmarks(@RequestBody BookmarkApi bookmark){
+		service.updateBookmark(getCurrentUser(), bookmark);
 		return ResponseEntity.ok().build();
 	}
 
