@@ -118,9 +118,9 @@ public class HeroClass {
 
 	public String getAblativeName() {
 		switch (name) {
-		case "ЧАРОДЕЙ":
+		case "Чародей":
 			return "чародеем";
-		case "ИЗОБРЕТАТЕЛЬ":
+		case "Изобретатель":
 			return "изобретателем";
 		default:
 			return name + "ом";
@@ -129,11 +129,11 @@ public class HeroClass {
 	
 	public String getGenitiveName() {
 		switch (name) {
-		case "ЧАРОДЕЙ":
+		case "Чародей":
 			return "чародея";
-		case "ИЗОБРЕТАТЕЛЬ":
+		case "Изобретатель":
 			return "изобретателя";
-		case "Напарник БОЕЦ":
+		case "Напарник боец":
 			return "Напарника бойца";
 		default:
 			return name.toLowerCase() + "а";
