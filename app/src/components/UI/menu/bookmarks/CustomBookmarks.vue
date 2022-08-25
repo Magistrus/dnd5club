@@ -223,5 +223,13 @@
 
     .bookmarks {
         background-color: var(--bg-sub-menu);
+
+          &__group {
+            &_body {
+                padding: 0 8px 0 10px;
+                margin-left: 16px;
+                border-left: 1px solid var(--primary-active);
+            }
+        }
     }
 </style>

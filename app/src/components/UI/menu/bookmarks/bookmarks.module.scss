@@ -1,5 +1,5 @@
 .bookmarks {
-  width: 290px;
+  width: 360px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -76,9 +76,10 @@
     width: 100%;
 
     &_head {
-      padding: 0 8px 0 8px;
+      padding: 0 8px 8px 8px;
       display: flex;
       cursor: pointer;
+      align-items: center;
     }
 
     &_label {
@@ -92,7 +93,7 @@
       overflow: hidden;
       width: 100%;
       text-overflow: ellipsis;
-      padding: 8px 8px 0px 8px;
+      padding: 0 0 0 8px;
     }
 
     &_icon {
@@ -103,7 +104,6 @@
       color: var(--text-color-title);
       background-color: var(--bg-light-main);
       border-radius: 4px;
-      margin-right: 8px;
 
       svg {
         @include css_anim();
@@ -119,12 +119,11 @@
     }
 
     &_body {
-      padding: 0 8px 0 0;
+      padding: 0 8px 0 0px;
     }
   }
 
   &__cat {
-    border-left: 1px solid var(--primary-active);
     margin-bottom: 8px;
 
     &_label {
@@ -135,7 +134,7 @@
       letter-spacing: 0.75px;
       position: relative;
       font-weight: 600;
-      background-color: var(--bg-secondary);
+      // background-color: var(--bg-secondary);
 
       // &::before {
       //   content: '';
@@ -149,7 +148,7 @@
     }
 
     &_body {
-      padding: 4px 0 0 4px;
+      padding: 4px 0 0 0px;
     }
   }
 
