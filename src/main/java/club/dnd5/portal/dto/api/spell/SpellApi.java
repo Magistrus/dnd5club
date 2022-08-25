@@ -35,7 +35,7 @@ public class SpellApi {
 	protected SourceApi source;
 
 	public SpellApi(Spell spell) {
-		name = new NameApi(spell.getCapitalazeName(), spell.getEnglishName());
+		name = new NameApi(spell.getName(), spell.getEnglishName());
 		level = spell.getLevel();
 		school = spell.getSchool().getName();
 		if (spell.getVerbalComponent()) {
