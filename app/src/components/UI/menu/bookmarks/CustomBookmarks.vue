@@ -8,9 +8,10 @@
             <form-button
                 class="bookmarks__new"
                 type-link
+                @click.left.exact.prevent="toggleGroupCreating"
             >
                 <div class="bookmarks__new--icon">
-                    <svg-icon icon-name="plus"/>
+                    <svg-icon :icon-name="groupCreating ? 'close' : 'plus'"/>
                 </div>
 
                 <span v-if="false">Добавить</span>
@@ -102,6 +103,12 @@
                     </div>
                 </div>
 
+                <field-input
+                    v-if="groupCreating"
+                    v-model="newGroupName"
+                    @keyup.enter.exact.prevent="createGroup"
+                />
+
                 <div
                     v-if="!bookmarks?.length"
                     class="bookmarks__info"
@@ -121,44 +128,91 @@
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import {
         computed,
-        defineComponent, ref, watch
+        defineComponent, ref
     } from "vue";
-    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
+    import { v4 as uuidV4 } from 'uuid';
+    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import orderBy from 'lodash/orderBy';
 
     export default defineComponent({
         name: "CustomBookmarks",
         components: {
+            FieldInput,
             SvgIcon,
             FormButton
         },
         setup() {
             const opened = ref('');
-            const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
+            const bookmarks = computed(() => {
+                const list = [];
 
-            watch(customBookmarkStore.getGroupBookmarks, value => {
-                opened.value = value[0]?.uuid;
-            }, {
-                immediate: true
+                if (opened.value) {
+                    const selected = customBookmarkStore.getMergedBookmarkGroups
+                        .find(item => item.uuid === opened.value);
+
+                    if (!selected) {
+                        return customBookmarkStore.getMergedBookmarkGroups;
+                    }
+
+                    list.push(selected);
+
+                    list.push(...orderBy(
+                        customBookmarkStore.getMergedBookmarkGroups.filter(item => item.uuid !== opened.value),
+                        [o => o.order]
+                    ));
+
+                    return list;
+                }
+
+                return customBookmarkStore.getMergedBookmarkGroups;
             });
 
-            // eslint-disable-next-line max-len
-            const bookmarks = computed(() => [...defaultBookmarkStore.getGroupBookmarks, ...customBookmarkStore.getGroupBookmarks]);
-
             function toggleGroup(uuid) {
-                if (this.opened) {
-                    this.opened = '';
+                if (opened.value && opened.value === uuid) {
+                    opened.value = '';
 
                     return;
                 }
 
-                this.opened = uuid;
+                opened.value = uuid;
+            }
+
+            const firstGroup = customBookmarkStore.getMergedBookmarkGroups[0];
+
+            if (firstGroup) {
+                toggleGroup(firstGroup.uuid);
+            }
+
+            const newGroupName = ref('');
+            const groupCreating = ref(false);
+
+            function toggleGroupCreating() {
+                groupCreating.value = !groupCreating.value;
+
+                if (!groupCreating.value) {
+                    newGroupName.value = '';
+                }
+            }
+
+            async function createGroup() {
+                await customBookmarkStore.queryAddBookmark({
+                    name: newGroupName.value,
+                    order: customBookmarkStore.getGroupBookmarks.length,
+                    uuid: uuidV4()
+                });
+
+                toggleGroupCreating();
             }
 
             return {
                 bookmarks,
                 opened,
-                toggleGroup
+                toggleGroup,
+                newGroupName,
+                groupCreating,
+                toggleGroupCreating,
+                createGroup
             };
         }
     });

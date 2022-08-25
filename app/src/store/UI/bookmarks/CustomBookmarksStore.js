@@ -46,7 +46,12 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
         getMergedBookmarks() {
             const defaultBookmarks = useDefaultBookmarkStore();
 
-            return cloneDeep([...defaultBookmarks.getBookmarks, ...this.bookmarks]);
+            return [...defaultBookmarks.getBookmarks, ...this.bookmarks];
+        },
+        getMergedBookmarkGroups() {
+            const defaultBookmarks = useDefaultBookmarkStore();
+
+            return [...defaultBookmarks.getGroupBookmarks, ...this.getGroupBookmarks];
         },
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
         getBookmarkParentUUIDs(state) {
