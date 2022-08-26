@@ -134,5 +134,25 @@
             position: relative;
             z-index: 2;
         }
+
+        &__submenu {
+            position: absolute;
+            background-color: var(--bg-sub-menu);
+            padding: 8px;
+            border-radius: 6px;
+            box-shadow: 0px 5px 30px #00000038;
+            right: 0;
+        }
+
+        &__group {
+            padding: 8px 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            min-width: 100px;
+
+            &:hover {
+                background: var(--hover);
+            }
+        }
     }
 </style>
