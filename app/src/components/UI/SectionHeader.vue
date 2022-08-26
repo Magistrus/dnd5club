@@ -218,7 +218,6 @@
         align-items: center;
         justify-content: flex-end;
         flex-wrap: nowrap;
-        overflow: visible;
         flex-shrink: 0;
         background-color: var(--bg-sub-menu);
         border-bottom: 1px solid var(--border);
