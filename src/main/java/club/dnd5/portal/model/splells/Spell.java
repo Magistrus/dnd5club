@@ -107,7 +107,7 @@ public class Spell {
 	}
 	
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 	
 	public String getCapitalazeName() {

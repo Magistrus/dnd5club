@@ -28,11 +28,11 @@
 <script>
     import SvgIcon from "@/components/UI/SvgIcon";
     import NavPopover from "@/components/UI/menu/NavPopover";
-    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
     export default {
         name: "NavBookmarks",
@@ -63,16 +63,6 @@
         },
         async beforeMount() {
             await this.defaultBookmarkStore.restoreBookmarks();
-
-            const unsubscribeLoginListener = this.userStore.$onAction(({ name, after }) => {
-                if (name === 'authorization') {
-                    after(async () => {
-                        await this.customBookmarkStore.queryMergeDefaultBookmark();
-
-                        unsubscribeLoginListener();
-                    });
-                }
-            });
 
             if (await this.userStore.getUserStatus()) {
                 await this.customBookmarkStore.queryGetBookmarks();
