@@ -47,8 +47,6 @@
                 if (await userStore.getUserStatus()) {
                     const defaultGroup = await customBookmarkStore.getDefaultGroup();
 
-                    console.log(defaultGroup);
-
                     await customBookmarkStore.updateBookmarkInGroup({
                         url: getPath(),
                         name: props.name,
