@@ -11,9 +11,9 @@ import club.dnd5.portal.model.user.User;
 public interface BookmarkService {
 	Collection<BookmarkApi> getBookmarks(User user);
 	@Transactional
-	void addBookmark(User user, BookmarkApi bookmark);
+	BookmarkApi addBookmark(User user, BookmarkApi bookmark);
 	@Transactional
-	void updateBookmark(User user, BookmarkApi bookmark);
+	BookmarkApi updateBookmark(User user, BookmarkApi bookmark);
 	@Transactional
 	void deleteBookmark(String uuid);
 	void mergeBookmarks(User user, List<BookmarkApi> bookmarks);

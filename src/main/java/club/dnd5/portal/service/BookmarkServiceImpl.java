@@ -30,7 +30,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public void addBookmark(User user, BookmarkApi bookmark) {
+	public BookmarkApi addBookmark(User user, BookmarkApi bookmark) {
 		Bookmark group;
 		Bookmark category;
 		Bookmark entityBookmark = new Bookmark();
@@ -38,9 +38,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 		entityBookmark.setUser(user);
 		entityBookmark.setUuid(getNewUUID());
 		entityBookmark.setName(bookmark.getName());
-		entityBookmark.setOrder(bookmark.getOrder());
-		entityBookmark.setPrefix(bookmark.getPrefix());
-		
+
+		if (bookmark.getPrefix() != null) {
+			entityBookmark.setPrefix(bookmark.getPrefix());
+		}
+
 		if (bookmark.getParentUUID() != null) {
 			group = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
 				.orElseThrow(() -> new RuntimeException("Bookmark's group not found"));
@@ -54,13 +56,26 @@ public class BookmarkServiceImpl implements BookmarkService {
 				entityBookmark.setParent(category);
 				entityBookmark.setUrl(bookmark.getUrl());
 			}
+
+			entityBookmark.setOrder(
+				bookmarkRepository
+					.findByParentUuid(UUID.fromString(bookmark.getParentUUID()))
+					.size()
+			);
+		} else {
+			entityBookmark.setOrder(
+				bookmarkRepository
+					.findByUserAndParentIsNull(user)
+					.size()
+			);
 		}
-		bookmarkRepository.save(entityBookmark);
+
+		return new BookmarkApi(bookmarkRepository.saveAndFlush(entityBookmark));
 	}
 
 	@Override
-	public void updateBookmark(User user, BookmarkApi bookmark) {
-		bookmarkRepository.save(getUpdatedBookmark(user, bookmark));
+	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
+		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
 
 	@Override

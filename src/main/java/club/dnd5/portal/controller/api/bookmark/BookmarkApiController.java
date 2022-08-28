@@ -57,17 +57,15 @@ public class BookmarkApiController {
 	@Operation(summary = "Add new bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PostMapping
-	public ResponseEntity<?> createBookmark(@RequestBody BookmarkApi bookmarkApi){
-		service.addBookmark(getCurrentUser(), bookmarkApi);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<BookmarkApi> createBookmark(@RequestBody BookmarkApi bookmarkApi){
+		return ResponseEntity.ok(service.addBookmark(getCurrentUser(), bookmarkApi));
 	}
 
 	@Operation(summary = "Update bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PutMapping
-	public ResponseEntity<?> updateBookmarks(@RequestBody BookmarkApi bookmark){
-		service.updateBookmark(getCurrentUser(), bookmark);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<BookmarkApi> updateBookmarks(@RequestBody BookmarkApi bookmark){
+		return ResponseEntity.ok(service.updateBookmark(getCurrentUser(), bookmark));
 	}
 
 	@Operation(summary = "Delete bookmark")
@@ -91,7 +89,7 @@ public class BookmarkApiController {
 
 	@Operation(summary = "Get category from URL")
 	@GetMapping("/category")
-	public ResponseEntity<?> getBookmarkCategory(@RequestParam(required = false) String url,
+	public ResponseEntity<CategoryApi> getBookmarkCategory(@RequestParam(required = false) String url,
 			@RequestParam(required = false) String code) {
 		if (url != null) {
 			try {
