@@ -13,7 +13,10 @@
             />
         </form-button>
 
-        <div class="custom-bookmark-button__submenu">
+        <div
+            v-if="isOpen"
+            class="custom-bookmark-button__submenu"
+        >
             <div
                 v-for="(group, key) in groups"
                 :key="key"

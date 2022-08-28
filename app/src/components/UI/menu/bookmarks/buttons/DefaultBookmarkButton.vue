@@ -45,7 +45,15 @@
 
             async function updateBookmark() {
                 if (await userStore.getUserStatus()) {
-                    await customBookmarkStore.updateDefaultBookmark(getPath(), props.name);
+                    const defaultGroup = await customBookmarkStore.getDefaultGroup();
+
+                    console.log(defaultGroup);
+
+                    await customBookmarkStore.updateBookmarkInGroup({
+                        url: getPath(),
+                        name: props.name,
+                        groupUUID: defaultGroup.uuid
+                    });
 
                     return;
                 }
