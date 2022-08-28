@@ -43,7 +43,16 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 [o => o.order]
             );
         },
+        getGroups: state => sortBy(state.bookmarks.filter(bookmark => !bookmark.parentUUID), [o => o.order]),
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
+        isBookmarkSavedInGroup: state => (url, groupUUID) => {
+            const categoriesUUIDs = state.bookmarks
+                .filter(item => item.parentUUID === groupUUID)
+                .map(item => item.uuid);
+
+            return state.bookmarks
+                .findIndex(item => categoriesUUIDs.includes(item.parentUUID) && item.url === url) > -1;
+        },
         getBookmarkParentUUIDs: state => url => {
             if (!this.isBookmarkSaved(url)) {
                 return undefined;
