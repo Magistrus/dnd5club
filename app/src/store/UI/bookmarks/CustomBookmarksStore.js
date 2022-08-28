@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/UI/UserStore';
-import cloneDeep from 'lodash/cloneDeep';
 import sortBy from 'lodash/sortBy';
+import cloneDeep from 'lodash/cloneDeep';
+import { v4 as uuidV4 } from 'uuid';
 
 const signals = {
     add: undefined,
@@ -42,23 +43,30 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 [o => o.order]
             );
         },
+        getGroups: state => sortBy(state.bookmarks.filter(bookmark => !bookmark.parentUUID), [o => o.order]),
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
-        getBookmarkParentUUIDs(state) {
-            return url => {
-                if (!this.isBookmarkSaved(url)) {
-                    return undefined;
-                }
+        isBookmarkSavedInGroup: state => (url, groupUUID) => {
+            const categoriesUUIDs = state.bookmarks
+                .filter(item => item.parentUUID === groupUUID)
+                .map(item => item.uuid);
 
-                const bookmarks = cloneDeep(state.bookmarks);
-                const index = bookmarks.findIndex(bookmark => bookmark.url === url);
-                const categoryIndex = bookmarks.findIndex(category => category.uuid === bookmarks[index].parentUUID);
+            return state.bookmarks
+                .findIndex(item => categoriesUUIDs.includes(item.parentUUID) && item.url === url) > -1;
+        },
+        getBookmarkParentUUIDs: state => url => {
+            if (!this.isBookmarkSaved(url)) {
+                return undefined;
+            }
 
-                if (categoryIndex < 0) {
-                    return undefined;
-                }
+            const bookmarks = cloneDeep(state.bookmarks);
+            const index = bookmarks.findIndex(bookmark => bookmark.url === url);
+            const categoryIndex = bookmarks.findIndex(category => category.uuid === bookmarks[index].parentUUID);
 
-                return bookmarks.find(group => group.uuid === bookmarks[categoryIndex].parentUUID);
-            };
+            if (categoryIndex < 0) {
+                return undefined;
+            }
+
+            return bookmarks.find(group => group.uuid === bookmarks[categoryIndex].parentUUID);
         }
     },
 
@@ -93,7 +101,9 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.add.abort();
                 }
 
-                const resp = await this.$http.post('/bookmarks', bookmark);
+                signals.add = new AbortController();
+
+                const resp = await this.$http.post('/bookmarks', cloneDeep(bookmark), signals.add.signal);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -119,7 +129,9 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     signals.delete.abort();
                 }
 
-                const resp = await this.$http.delete(`/bookmarks/${ uuid }`);
+                signals.delete = new AbortController();
+
+                const resp = await this.$http.delete(`/bookmarks/${ uuid }`, {}, signals.delete.signal);
 
                 if (resp.status !== 200) {
                     return Promise.reject(resp.statusText);
@@ -155,8 +167,197 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
-        updateDefaultBookmark(url, name, category = undefined) {
-            console.log(url, name, category);
+        getNewUUID() {
+            let uuid = uuidV4();
+
+            if (this.bookmarks.find(item => item.uuid === uuid)) {
+                uuid = this.getNewUUID();
+            }
+
+            return uuid;
+        },
+
+        async createDefaultGroup() {
+            try {
+                const defaultGroup = await this.queryAddBookmark(cloneDeep({
+                    uuid: this.getNewUUID(),
+                    name: 'Общие',
+                    order: -1
+                }));
+
+                return Promise.resolve(defaultGroup);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getDefaultGroup() {
+            try {
+                const bookmarks = await this.queryGetBookmarks();
+
+                let group = bookmarks.find(bookmark => bookmark.order === -1);
+
+                if (!group) {
+                    group = await this.createDefaultGroup();
+                }
+
+                return Promise.resolve(group);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async createCategory(category, groupUUID) {
+            try {
+                const newCategory = await this.queryAddBookmark(cloneDeep({
+                    uuid: this.getNewUUID(),
+                    name: category.name,
+                    order: category.order,
+                    parentUUID: groupUUID
+                }));
+
+                return Promise.resolve(newCategory);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getCategoryByURL(url) {
+            try {
+                const resp = await this.$http.get('/bookmarks/category', {
+                    url: encodeURIComponent(url)
+                });
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getCategoryByCode(code) {
+            try {
+                const resp = await this.$http.get('/bookmarks/category', { code });
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getCategoryInGroup({
+            url, category, groupUUID
+        }) {
+            try {
+                let cat;
+
+                if (typeof category === 'string') {
+                    cat = await this.getCategoryByCode(category);
+                }
+
+                if (!cat) {
+                    cat = await this.getCategoryByURL(url);
+                }
+
+                const categories = this.bookmarks.filter(item => item.parentUUID === groupUUID);
+
+                let savedCat = categories.find(bookmark => bookmark.name === cat.name);
+
+                if (!savedCat) {
+                    savedCat = await this.createCategory(cat, groupUUID);
+                }
+
+                return Promise.resolve(savedCat);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async addBookmarkInGroup({
+            url,
+            name,
+            category,
+            groupUUID
+        }) {
+            try {
+                if (!url || !name) {
+                    return Promise.reject();
+                }
+
+                const savedCat = await this.getCategoryInGroup({
+                    url,
+                    category,
+                    groupUUID
+                });
+
+                await this.queryAddBookmark(cloneDeep({
+                    url,
+                    name,
+                    parentUUID: savedCat.uuid,
+                    uuid: this.getNewUUID()
+                }));
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getSavedBookmarkInGroup({ url, groupUUID }) {
+            try {
+                const bookmarks = await this.queryGetBookmarks();
+                const categoriesUUIDs = bookmarks
+                    .filter(item => item.parentUUID === groupUUID)
+                    .map(item => item.uuid);
+                const bookmark = bookmarks
+                    .find(item => item.url === url && categoriesUUIDs.includes(item.parentUUID));
+
+                if (bookmark) {
+                    return Promise.resolve(bookmark);
+                }
+
+                return Promise.reject();
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async updateBookmarkInGroup({
+            url,
+            name,
+            category,
+            groupUUID
+        }) {
+            try {
+                const bookmark = await this.getSavedBookmarkInGroup({
+                    url,
+                    groupUUID
+                });
+
+                if (bookmark) {
+                    await this.queryDeleteBookmark(bookmark.uuid);
+
+                    return Promise.resolve();
+                }
+
+                await this.addBookmarkInGroup({
+                    url,
+                    name,
+                    category,
+                    groupUUID
+                });
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
         }
     }
 });

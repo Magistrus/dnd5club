@@ -50,9 +50,13 @@
         }),
         computed: {
             isBookmarksExist() {
-                let status = this.defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
+                let status = false;
 
-                if (!status && this.userStore.isAuthenticated) {
+                if (!this.userStore.isAuthenticated) {
+                    status = this.defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
+                }
+
+                if (this.userStore.isAuthenticated) {
                     status = this.customBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
                 }
 

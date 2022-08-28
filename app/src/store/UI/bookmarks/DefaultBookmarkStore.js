@@ -44,65 +44,20 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 [o => o.order]
             );
         },
-        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0
+        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
+        getBookmarkByURL: state => url => {
+            const defaultGroup = state.bookmarks.find(bookmark => bookmark.order === -1);
+            const categoriesUUIDs = state.bookmarks
+                .filter(bookmark => bookmark.parentUUID === defaultGroup?.uuid)
+                .map(category => category.uuid);
+
+            return state.bookmarks
+                .filter(bookmark => categoriesUUIDs.includes(bookmark.parentUUID))
+                .find(bookmark => bookmark.url === url);
+        }
     },
 
     actions: {
-        getNewUUID() {
-            let uuid = uuidV4();
-
-            if (this.bookmarks.find(item => item.uuid === uuid)) {
-                uuid = this.getNewUUID();
-            }
-
-            return uuid;
-        },
-
-        async getConvertedBookmarks(oldFormat) {
-            try {
-                const categories = await this.getCategories();
-                const parent = cloneDeep({
-                    uuid: this.getNewUUID(),
-                    order: -1,
-                    name: 'Общие'
-                });
-                const list = [parent];
-
-                for (let i = 0; i < oldFormat.length; i++) {
-                    const category = oldFormat[i];
-                    const newCategory = categories.find(item => item.name === category.label);
-                    const updatedCat = cloneDeep({
-                        uuid: this.getNewUUID(),
-                        order: newCategory.order,
-                        name: newCategory.name,
-                        parentUUID: parent.uuid
-                    });
-
-                    list.push(updatedCat);
-
-                    for (let j = 0; j < category.links.length; j++) {
-                        const bookmark = category.links[j];
-
-                        list.push({
-                            uuid: this.getNewUUID(),
-                            order: j,
-                            name: bookmark.label,
-                            url: bookmark.url,
-                            parentUUID: updatedCat.uuid
-                        });
-                    }
-                }
-
-                await this.store.removeItem('saved');
-
-                return list;
-            } catch (err) {
-                errorHandler(err);
-
-                return [];
-            }
-        },
-
         async restoreBookmarks() {
             try {
                 await this.store.ready();
@@ -126,86 +81,6 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             } catch (err) {
                 errorHandler(err);
             }
-        },
-
-        async getCategories() {
-            try {
-                const resp = await this.$http.get('/bookmarks/categories');
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                return Promise.resolve(resp.data);
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
-        async getCategoryByURL(url) {
-            try {
-                const resp = await this.$http.get('/bookmarks/category', {
-                    url: encodeURIComponent(url)
-                });
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                return Promise.resolve(resp.data);
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
-        async getCategoryByCode(code) {
-            try {
-                const resp = await this.$http.get('/bookmarks/category', { code });
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                return Promise.resolve(resp.data);
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
-        createDefaultGroup() {
-            const defaultGroup = cloneDeep({
-                uuid: this.getNewUUID(),
-                name: 'Общие',
-                order: -1
-            });
-
-            this.bookmarks.push(defaultGroup);
-
-            return defaultGroup;
-        },
-
-        getDefaultGroup() {
-            let group = this.bookmarks.find(bookmark => bookmark.order === -1);
-
-            if (!group) {
-                group = this.createDefaultGroup();
-            }
-
-            return group;
-        },
-
-        createCategory(category) {
-            const parent = this.getDefaultGroup();
-            const newCategory = cloneDeep({
-                uuid: this.getNewUUID(),
-                name: category.name,
-                order: category.order,
-                parentUUID: parent.uuid
-            });
-
-            this.bookmarks.push(newCategory);
-
-            return newCategory;
         },
 
         async addBookmark(url, name, category) {
@@ -244,17 +119,6 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             } catch (err) {
                 return Promise.reject(err);
             }
-        },
-
-        getBookmarkByURL(url) {
-            const defaultGroup = this.bookmarks.find(bookmark => bookmark.order === -1);
-            const categoriesUUIDs = this.bookmarks
-                .filter(bookmark => bookmark.parentUUID === defaultGroup?.uuid)
-                .map(category => category.uuid);
-
-            return this.bookmarks
-                .filter(bookmark => categoriesUUIDs.includes(bookmark.parentUUID))
-                .find(bookmark => bookmark.url === url);
         },
 
         async removeBookmark(url) {
@@ -303,6 +167,141 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             }
 
             await this.addBookmark(url, name, category);
+        },
+
+        async getConvertedBookmarks(oldFormat) {
+            try {
+                const categories = await this.getCategories();
+                const parent = cloneDeep({
+                    uuid: this.getNewUUID(),
+                    order: -1,
+                    name: 'Общие'
+                });
+                const list = [parent];
+
+                for (let i = 0; i < oldFormat.length; i++) {
+                    const category = oldFormat[i];
+                    const newCategory = categories.find(item => item.name === category.label);
+                    const updatedCat = cloneDeep({
+                        uuid: this.getNewUUID(),
+                        order: newCategory.order,
+                        name: newCategory.name,
+                        parentUUID: parent.uuid
+                    });
+
+                    list.push(updatedCat);
+
+                    for (let j = 0; j < category.links.length; j++) {
+                        const bookmark = category.links[j];
+
+                        list.push({
+                            uuid: this.getNewUUID(),
+                            order: j,
+                            name: bookmark.label,
+                            url: bookmark.url,
+                            parentUUID: updatedCat.uuid
+                        });
+                    }
+                }
+
+                await this.store.removeItem('saved');
+
+                return list;
+            } catch (err) {
+                errorHandler(err);
+
+                return [];
+            }
+        },
+
+        getNewUUID() {
+            let uuid = uuidV4();
+
+            if (this.bookmarks.find(item => item.uuid === uuid)) {
+                uuid = this.getNewUUID();
+            }
+
+            return uuid;
+        },
+
+        createDefaultGroup() {
+            const defaultGroup = cloneDeep({
+                uuid: this.getNewUUID(),
+                name: 'Общие',
+                order: -1
+            });
+
+            this.bookmarks.push(defaultGroup);
+
+            return defaultGroup;
+        },
+
+        getDefaultGroup() {
+            let group = this.bookmarks.find(bookmark => bookmark.order === -1);
+
+            if (!group) {
+                group = this.createDefaultGroup();
+            }
+
+            return group;
+        },
+
+        async getCategories() {
+            try {
+                const resp = await this.$http.get('/bookmarks/categories');
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        createCategory(category) {
+            const parent = this.getDefaultGroup();
+            const newCategory = cloneDeep({
+                uuid: this.getNewUUID(),
+                name: category.name,
+                order: category.order,
+                parentUUID: parent.uuid
+            });
+
+            this.bookmarks.push(newCategory);
+
+            return newCategory;
+        },
+
+        async getCategoryByURL(url) {
+            try {
+                const resp = await this.$http.get('/bookmarks/category', {
+                    url: encodeURIComponent(url)
+                });
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async getCategoryByCode(code) {
+            try {
+                const resp = await this.$http.get('/bookmarks/category', { code });
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            }
         }
     }
 });

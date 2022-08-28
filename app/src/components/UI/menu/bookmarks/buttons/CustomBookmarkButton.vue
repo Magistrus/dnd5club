@@ -13,11 +13,16 @@
             />
         </form-button>
 
-        <div class="custom-bookmark-button__submenu">
+        <div
+            v-if="isOpen"
+            class="custom-bookmark-button__submenu"
+        >
             <div
                 v-for="(group, key) in groups"
                 :key="key"
                 class="custom-bookmark-button__group"
+                :class="{ 'is-saved': isSaved(group.uuid) }"
+                @click.left.exact.prevent="updateBookmark(group.uuid)"
             >
                 {{ group.name }}
             </div>
@@ -53,9 +58,10 @@
             const { name: bookmarkName } = toRefs(props);
             const bookmarksStore = useCustomBookmarkStore();
             const route = useRoute();
+            const getPath = () => (typeof props.url === "string" && props.url !== '' ? props.url : route.path);
             const isOpen = ref(false);
             const bookmarks = ref([]);
-            const groups = ref([]);
+            const groups = computed(() => bookmarksStore.getGroups);
             const savedGroups = computed(() => {
                 const url = route.path;
                 const saved = bookmarks.value.filter(item => item.url === url);
@@ -66,13 +72,12 @@
                     .map(item => bookmarks.value.find(bookmark => bookmark.uuid === item.parentUUID))
                     .filter(item => !!item);
             });
+            const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(getPath(), uuid);
 
             async function openSubmenu() {
                 try {
                     await bookmarksStore.queryGetBookmarks();
 
-                    bookmarks.value = bookmarksStore.getBookmarks;
-                    groups.value = bookmarks.value.filter(item => !item.parentUUID);
                     isOpen.value = true;
                 } catch (err) {
                     errorHandler(err);
@@ -81,7 +86,6 @@
 
             function closeSubmenu() {
                 isOpen.value = false;
-                groups.value = [];
             }
 
             async function toggleSubmenu() {
@@ -94,25 +98,22 @@
                 await openSubmenu();
             }
 
-            // async function updateBookmark(uuid) {
-            //     if (savedGroups.value.find(item => item.uuid === uuid)) {
-            //         const url = route.path;
-            //         const categories = bookmarks.value
-            //             .filter(category => category.parentUUID === uuid)
-            //             .map(category => category.uuid);
-            //         const bookmark = bookmarks.value
-            //             .find(item => categories.includes(item.parentUUID) && item.url === url);
-            //
-            //         await bookmarksStore.queryDeleteBookmark(bookmark.uuid);
-            //     }
-            // }
+            async function updateBookmark(groupUUID) {
+                await bookmarksStore.updateBookmarkInGroup({
+                    url: getPath(),
+                    name: props.name,
+                    groupUUID
+                });
+            }
 
             return {
                 bookmarkName,
                 isOpen,
+                isSaved,
                 groups,
                 savedGroups,
-                toggleSubmenu
+                toggleSubmenu,
+                updateBookmark
             };
         }
     });
@@ -150,8 +151,12 @@
             cursor: pointer;
             min-width: 100px;
 
+            &.is-saved {
+                background-color: var(--primary);
+            }
+
             &:hover {
-                background: var(--hover);
+                background-color: var(--hover);
             }
         }
     }

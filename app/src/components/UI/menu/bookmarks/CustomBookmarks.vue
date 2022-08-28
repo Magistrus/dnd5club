@@ -5,18 +5,6 @@
                 <span class="bookmarks__info--title">Группы</span>
             </div>
 
-            <form-button
-                class="bookmarks__new"
-                type-link
-                @click.left.exact.prevent="toggleGroupCreating"
-            >
-                <div class="bookmarks__new--icon">
-                    <svg-icon :icon-name="groupCreating ? 'close' : 'plus'"/>
-                </div>
-
-                <span v-if="false">Добавить</span>
-            </form-button>
-
             <label
                 v-if="false"
                 class="bookmarks__search"
@@ -40,7 +28,7 @@
                     >
                         <div
                             class="bookmarks__group_icon"
-                            :class="{ 'is-active': group.uuid === opened }"
+                            :class="{ 'is-active': isOpened(group.uuid) }"
                         >
                             <svg-icon icon-name="arrow-stroke"/>
                         </div>
@@ -51,7 +39,7 @@
                     </div>
 
                     <div
-                        v-if="group.uuid === opened"
+                        v-if="isOpened(group.uuid)"
                         class="bookmarks__group_body"
                     >
                         <div
@@ -80,43 +68,32 @@
                                         <svg-icon icon-name="close"/>
                                     </div>
                                 </div>
-
-                                <div
-                                    v-if="!category.children?.length"
-                                    class="bookmarks__info"
-                                >
-                                    <div class="bookmarks__info--desc">
-                                        Здесь пока пусто
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
-                        <div
-                            v-if="!group.children?.length"
-                            class="bookmarks__info"
+                        <form-button
+                            type-link-filled
+                            is-small
                         >
-                            <div class="bookmarks__info--desc">
-                                Здесь пока пусто
-                            </div>
-                        </div>
+                            Добавить категорию
+                        </form-button>
                     </div>
                 </div>
 
+                <form-button
+                    v-if="!groupCreating"
+                    type-link-filled
+                    is-small
+                    @click.left.exact.prevent="toggleGroupCreating"
+                >
+                    Добавить группу
+                </form-button>
+
                 <field-input
-                    v-if="groupCreating"
+                    v-else
                     v-model="newGroupName"
                     @keyup.enter.exact.prevent="createGroup"
                 />
-
-                <div
-                    v-if="!bookmarks?.length"
-                    class="bookmarks__info"
-                >
-                    <div class="bookmarks__info--desc">
-                        Здесь пока пусто
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -141,18 +118,19 @@
             FormButton
         },
         setup() {
-            const opened = ref('');
             const customBookmarkStore = useCustomBookmarkStore();
             const bookmarks = computed(() => customBookmarkStore.getGroupBookmarks);
+            const opened = ref([]);
+            const isOpened = uuid => opened.value.findIndex(item => item === uuid) > -1;
 
             function toggleGroup(uuid) {
-                if (opened.value && opened.value === uuid) {
-                    opened.value = '';
+                if (opened.value.findIndex(item => item === uuid) > -1) {
+                    opened.value = opened.value.filter(item => item !== uuid);
 
                     return;
                 }
 
-                opened.value = uuid;
+                opened.value.push(uuid);
             }
 
             const firstGroup = customBookmarkStore.getGroupBookmarks[0];
@@ -184,7 +162,7 @@
 
             return {
                 bookmarks,
-                opened,
+                isOpened,
                 toggleGroup,
                 newGroupName,
                 groupCreating,
@@ -207,6 +185,10 @@
                 margin-left: 16px;
                 border-left: 1px solid var(--primary-active);
             }
+        }
+
+        .form-button {
+            width: 100%;
         }
     }
 </style>
