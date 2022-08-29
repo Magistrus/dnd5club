@@ -13,7 +13,7 @@
   }
 
   &__wrapper {
-    padding: 16px 8px;
+    padding: 8px 8px;
     display: block;
   }
 
@@ -29,20 +29,19 @@
       color: var(--text-color);
       cursor: pointer;
 
-      label {
-        opacity: 0.6;
-        cursor: pointer;
-      }
-
       svg {
         flex-shrink: 0;
         width: 16px;
         height: 16px;
         cursor: pointer;
-        background: var(--bg-secondary);
+        background: var(--bg-sub-menu);
         border-radius: 4px;
         color: var(--text-color);
         margin-right: 8px;
+      }
+
+      &:hover {
+        color: var(--text-color);
       }
     }
   }
@@ -106,8 +105,7 @@
     }
 
     &_label {
-      opacity: 0.8;
-      color: var(--text-g-color);
+      color: var(--text-color-title);
       font-size: inherit;
       font-weight: normal;
       letter-spacing: 0.75px;
@@ -124,9 +122,10 @@
       width: 16px;
       height: 16px;
       cursor: pointer;
-      background: var(--bg-secondary);
       padding: 2px;
       border-radius: 4px;
+      background: var(--bg-sub-menu);
+      color: var(--text-color-title);
 
       svg {
         @include css_anim();
@@ -157,7 +156,7 @@
       padding: 4px 8px 4px 8px;
       text-transform: uppercase;
       font-size: calc(var(--main-font-size) - 4px);
-      color: var(--text-color-title);
+      color: var(--text-g-color);
       letter-spacing: 0.75px;
       position: relative;
       font-weight: 600;
@@ -166,6 +165,7 @@
 
       &_name {
         line-height: 16px;
+        opacity: 0.8;
       }
 
       &_icon {
@@ -174,9 +174,10 @@
         height: 16px;
         cursor: pointer;
         margin-left: 8px;
-        background: var(--bg-secondary);
         padding: 2px;
         border-radius: 4px;
+        background: var(--bg-sub-menu);
+        color: var(--text-color-title);
 
         &:hover {
           background: var(--hover);

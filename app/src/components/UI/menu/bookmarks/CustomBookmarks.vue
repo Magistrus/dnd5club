@@ -112,9 +112,7 @@
                     @click.left.exact.prevent="toggleGroupCreating"
                 >
                     <svg-icon :icon-name="'plus'"/>
-                    <label>
-                        Группу
-                    </label>
+                    Группу
                 </form-button>
 
                 <field-input
@@ -251,13 +249,13 @@
     @import "bookmarks.module";
 
     .bookmarks {
-        background-color: var(--bg-sub-menu);
+        background-color: var(--bg-secondary);
 
           &__group {
             &_body {
                 padding: 0 8px 0 10px;
                 margin-left: 16px;
-                border-left: 1px solid var(--primary-active);
+                border-left: 1px solid var(--border);
             }
         }
 
