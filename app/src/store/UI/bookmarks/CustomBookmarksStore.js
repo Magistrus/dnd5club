@@ -306,8 +306,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 await this.queryAddBookmark(cloneDeep({
                     url,
                     name,
-                    parentUUID: savedCat.uuid,
-                    uuid: this.getNewUUID()
+                    parentUUID: savedCat.uuid
                 }));
 
                 return Promise.resolve();

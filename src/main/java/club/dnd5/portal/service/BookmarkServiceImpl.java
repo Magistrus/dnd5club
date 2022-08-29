@@ -37,6 +37,22 @@ public class BookmarkServiceImpl implements BookmarkService {
 		entityBookmark.setUuid(getNewUUID());
 		entityBookmark.setName(bookmark.getName());
 
+		if (bookmark.getOrder() != null) {
+			entityBookmark.setOrder(bookmark.getOrder());
+		} else if (bookmark.getParentUUID() != null) {
+			entityBookmark.setOrder(
+				bookmarkRepository
+					.findByParentUuid(UUID.fromString(bookmark.getParentUUID()))
+					.size()
+			);
+		} else {
+			entityBookmark.setOrder(
+				bookmarkRepository
+					.findByUserAndParentIsNull(user)
+					.size()
+			);
+		}
+
 		if (bookmark.getPrefix() != null) {
 			entityBookmark.setPrefix(bookmark.getPrefix());
 		}
@@ -50,18 +66,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 			if (bookmark.getUrl() != null) {
 				entityBookmark.setUrl(bookmark.getUrl());
 			}
-
-			entityBookmark.setOrder(
-				bookmarkRepository
-					.findByParentUuid(UUID.fromString(bookmark.getParentUUID()))
-					.size()
-			);
-		} else {
-			entityBookmark.setOrder(
-				bookmarkRepository
-					.findByUserAndParentIsNull(user)
-					.size()
-			);
 		}
 
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(entityBookmark));
