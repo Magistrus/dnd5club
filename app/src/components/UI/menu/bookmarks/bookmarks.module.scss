@@ -26,22 +26,23 @@
 
     .form-button {
       justify-content: left;
-      color: var(--text-color);
+      color: var(--text-color-title);
       cursor: pointer;
 
       svg {
         flex-shrink: 0;
-        width: 16px;
-        height: 16px;
+        width: 24px;
+        height: 24px;
         cursor: pointer;
         background: var(--bg-sub-menu);
         border-radius: 4px;
-        color: var(--text-color);
+        color: var(--text-color-title);
         margin-right: 8px;
+        padding: 2px;
       }
 
       &:hover {
-        color: var(--text-color);
+        color: var(--text-color-title);
       }
     }
   }
@@ -95,6 +96,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    border-radius: 8px;
 
     &_head {
       padding: 8px 8px 8px 8px;
@@ -119,8 +121,8 @@
 
     &_icon {
       flex-shrink: 0;
-      width: 16px;
-      height: 16px;
+      width: 24px;
+      height: 24px;
       cursor: pointer;
       padding: 2px;
       border-radius: 4px;
@@ -139,8 +141,40 @@
         }
       }
 
+      &.only-hover {
+        &:not(.is-active) {
+          opacity: 0;
+        }
+      }
+
       &:hover {
         background: var(--hover);
+      }
+
+      & + & {
+        margin-left: 4px;  
+      }
+    }
+
+    &.is-active {
+      background: var(--bg-sub-menu);
+    }
+
+    &:hover {
+      background: var(--hover);
+
+      .bookmarks {
+        &__group {
+          &_icon {
+            &.only-hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      &.is-active {
+        background: var(--bg-sub-menu);
       }
     }
 
@@ -164,14 +198,16 @@
       width: 100%;
 
       &_name {
-        line-height: 16px;
+        line-height: 18px;
         opacity: 0.8;
       }
 
       &_icon {
+        @include css_anim();
+
         flex-shrink: 0;
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         cursor: pointer;
         margin-left: 8px;
         padding: 2px;
@@ -179,9 +215,29 @@
         background: var(--bg-sub-menu);
         color: var(--text-color-title);
 
+        &.only-hover {
+          &:not(.is-active) {
+            opacity: 0;
+          }
+        }
+
         &:hover {
           background: var(--hover);
         }        
+      }
+
+      &:hover {
+        .bookmarks {
+          &__cat {
+            &_label {
+              &_icon {
+                &.only-hover {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
       }
     }
 

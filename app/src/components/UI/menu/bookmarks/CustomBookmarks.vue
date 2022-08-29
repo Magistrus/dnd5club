@@ -20,6 +20,7 @@
                 <div
                     v-for="(group, groupKey) in bookmarks"
                     :key="group.uuid + groupKey"
+                    :class="{ 'is-active': isOpened(group.uuid) }"
                     class="bookmarks__group"
                 >
                     <div
@@ -35,6 +36,13 @@
 
                         <div class="bookmarks__group_label">
                             {{ group.name || 'Без категории' }}
+                        </div>
+
+                        <div
+                            class="bookmarks__group_icon only-hover is-right"
+                            @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
+                        >
+                            <svg-icon icon-name="plus"/>
                         </div>
 
                         <div
@@ -111,7 +119,7 @@
                     is-small
                     @click.left.exact.prevent="toggleGroupCreating"
                 >
-                    <svg-icon :icon-name="'plus'"/>
+                    <svg-icon icon-name="plus"/>
                     Группу
                 </form-button>
 
@@ -255,7 +263,6 @@
             &_body {
                 padding: 0 8px 0 10px;
                 margin-left: 16px;
-                border-left: 1px solid var(--border);
             }
         }
 
