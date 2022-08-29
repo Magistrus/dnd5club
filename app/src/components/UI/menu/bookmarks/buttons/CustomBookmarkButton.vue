@@ -149,7 +149,7 @@
             background-color: var(--bg-sub-menu);
             padding: 8px;
             border-radius: 6px;
-            box-shadow: 0px 5px 30px #00000038;
+            box-shadow: 0 5px 30px #00000038;
             right: 0;
         }
 

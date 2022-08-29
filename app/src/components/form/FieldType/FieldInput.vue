@@ -67,6 +67,10 @@
                 type: String,
                 default: ''
             },
+            autofocus: {
+                type: Boolean,
+                default: false
+            },
             autocomplete: {
                 type: [Boolean, String],
                 default: false
@@ -163,7 +167,18 @@
                 return attrs;
             }
         },
+        mounted() {
+            if (this.autofocus) {
+                this.focusInput();
+            }
+        },
         methods: {
+            focusInput() {
+                if (this.$refs.input) {
+                    this.$refs.input.focus();
+                }
+            },
+
             togglePass() {
                 this.showedPass = !this.showedPass;
 
