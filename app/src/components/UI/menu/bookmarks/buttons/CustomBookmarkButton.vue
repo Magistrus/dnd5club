@@ -62,7 +62,11 @@
             const { name: bookmarkName } = toRefs(props);
             const bookmarksStore = useCustomBookmarkStore();
             const route = useRoute();
-            const getPath = () => (typeof props.url === "string" && props.url !== '' ? props.url : route.path);
+            const bookmarkUrl = computed(() => (
+                typeof props.url === "string" && props.url !== ''
+                    ? props.url
+                    : route.path
+            ));
             const isOpen = ref(false);
             const bookmarks = ref([]);
             const groups = computed(() => bookmarksStore.getGroups);
@@ -76,7 +80,7 @@
                     .map(item => bookmarks.value.find(bookmark => bookmark.uuid === item.parentUUID))
                     .filter(item => !!item);
             });
-            const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(getPath(), uuid);
+            const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(bookmarkUrl.value, uuid);
 
             async function openSubmenu() {
                 try {
@@ -104,7 +108,7 @@
 
             async function updateBookmark(groupUUID) {
                 await bookmarksStore.updateBookmarkInGroup({
-                    url: getPath(),
+                    url: bookmarkUrl.value,
                     name: props.name,
                     groupUUID
                 });
