@@ -261,8 +261,7 @@
 
           &__group {
             &_body {
-                padding: 0 8px 0 10px;
-                margin-left: 16px;
+                padding: 0 8px 0 8px;
             }
         }
 
