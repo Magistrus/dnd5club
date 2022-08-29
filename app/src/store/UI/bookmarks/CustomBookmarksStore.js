@@ -303,8 +303,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     groupUUID
                 });
 
-                console.log(savedCat);
-
                 await this.queryAddBookmark(cloneDeep({
                     url,
                     name,
