@@ -1,7 +1,6 @@
 package club.dnd5.portal.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +15,6 @@ public interface BookmarkService {
 	BookmarkApi updateBookmark(User user, BookmarkApi bookmark);
 	@Transactional
 	void deleteBookmark(String uuid);
-	void mergeBookmarks(User user, List<BookmarkApi> bookmarks);
+
 	Collection<BookmarkApi> getRootBookmarks(User currentUser);
 }
