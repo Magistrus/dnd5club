@@ -121,7 +121,7 @@
 
     &_icon {
       @include css_anim();
-      
+
       flex-shrink: 0;
       width: 24px;
       height: 24px;
@@ -252,6 +252,7 @@
     @include css_anim();
 
     display: flex;
+    align-items: center;
     border-radius: 6px;
     margin-bottom: 4px;
 
@@ -260,7 +261,7 @@
 
       color: var(--text-color);
       font-weight: 400;
-      padding: 4px 8px;
+      padding: 6px 8px;
       line-height: 16px;
       width: 100%;
       display: flex;
