@@ -165,7 +165,7 @@
   .dnd5club_tel_bot {
     display: flex;
     flex-direction: row;
-    margin: 0px 0 16px 0;
+    margin: 0 0 16px 0;
     padding: 16px 16px 0 16px;
     background-color: var(--bg-table-list);
     border-radius: 12px;
@@ -238,10 +238,10 @@
       margin-right: 32px;
 
       @media (max-width: 600px) {
-        margin-right: 0px;
+        margin-right: 0;
       }
     }
-    
+
     .right {
       flex: calc(30% + 32px);
       min-width: calc(30% + 32px);
@@ -268,7 +268,7 @@
 
   h3 {
     font-size: calc(var(--h3-font-size) - 12px);
-    margin-top: 0px;
+    margin-top: 0;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     opacity: 0.6;

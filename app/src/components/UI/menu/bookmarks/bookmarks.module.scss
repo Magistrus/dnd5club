@@ -3,6 +3,11 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-secondary);
+
+  @media (max-width: 550px) {
+    width: 100%;
+  }
 
   &__header {
     padding: 16px 16px;
@@ -25,7 +30,6 @@
     flex: 1 1 auto;
 
     .form-button {
-      justify-content: left;
       color: var(--text-color-title);
       cursor: pointer;
 
@@ -37,22 +41,18 @@
         background: var(--bg-sub-menu);
         border-radius: 4px;
         color: var(--text-color-title);
-        margin-right: 8px;
         padding: 2px;
       }
 
-      &:hover {
-        color: var(--text-color-title);
+      @include media-min($md) {
+        &:hover {
+          color: var(--text-color-title);
+        }
       }
     }
   }
 
   &__info {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // line-height: 32px;
-
     &--desc {
       font-size: var(--h5-font-size);
       margin-bottom: 4px;
@@ -71,26 +71,13 @@
   }
 
   &__new {
-    margin-left: auto;
-    padding: 3px;
+    justify-content: left;
+    width: 100%;
 
-    svg {
-      color: var(--text-color);
-    }
-
-    &:hover {
-      background-color: var(--hover) !important;
+    span {
+      margin-left: 8px;
     }
   }
-
-  // &__search {
-  //     &--icon {
-  //         width: 32px;
-  //         height: 32px;
-  //         padding: 4px;
-  //         display: block;
-  //     }
-  // }
 
   &__group {
     display: flex;
@@ -146,15 +133,21 @@
       &.only-hover {
         &:not(.is-active) {
           opacity: 0;
+
+          @media (max-width: 550px) {
+            opacity: 1;
+          }
         }
       }
 
-      &:hover {
-        background: var(--hover);
+      @include media-min($md) {
+        &:hover {
+          background: var(--hover);
+        }
       }
 
       & + & {
-        margin-left: 4px;  
+        margin-left: 4px;
       }
     }
 
@@ -162,31 +155,33 @@
       background: var(--bg-sub-menu);
     }
 
-    &:hover {
-      background: var(--hover);
+    @include media-min($md) {
+      &:hover {
+        background: var(--hover);
 
-      .bookmarks {
-        &__group {
-          &_icon {
-            &.only-hover {
-              opacity: 1;
+        .bookmarks {
+          &__group {
+            &_icon {
+              &.only-hover {
+                opacity: 1;
+              }
             }
           }
         }
-      }
 
-      &.is-active {
-        background: var(--bg-sub-menu);
+        &.is-active {
+          background: var(--bg-sub-menu);
+        }
       }
     }
 
     &_body {
-      padding: 0 8px 0 0px;
+      padding: 0 8px;
     }
   }
 
   &__cat {
-    margin-bottom: 8px;
+    padding: 8px 0;
 
     &_label {
       padding: 4px 8px 4px 8px;
@@ -220,21 +215,29 @@
         &.only-hover {
           &:not(.is-active) {
             opacity: 0;
+
+            @media (max-width: 550px) {
+              opacity: 1;
+            }
           }
         }
 
-        &:hover {
-          background: var(--hover);
-        }        
+        @include media-min($md) {
+          &:hover {
+            background: var(--hover);
+          }
+        }
       }
 
-      &:hover {
-        .bookmarks {
-          &__cat {
-            &_label {
-              &_icon {
-                &.only-hover {
-                  opacity: 1;
+      @include media-min($md) {
+        &:hover {
+          .bookmarks {
+            &__cat {
+              &_label {
+                &_icon {
+                  &.only-hover {
+                    opacity: 1;
+                  }
                 }
               }
             }
@@ -244,7 +247,7 @@
     }
 
     &_body {
-      padding: 0px 0 0 0px;
+      padding: 0;
     }
   }
 
@@ -281,6 +284,10 @@
       &.only-hover {
         &:not(.is-active) {
           opacity: 0;
+
+          @media (max-width: 550px) {
+            opacity: 1;
+          }
         }
       }
 
@@ -288,41 +295,65 @@
         stroke: var(--text-color);
       }
 
-      &:hover {
-        background: var(--hover);
+      @include media-min($md) {
+        &:hover {
+          background: var(--hover);
+        }
       }
     }
 
-    &:hover {
-      .bookmarks {
-        &__item {
-          &_icon {
-            &.only-hover {
-              opacity: 1;
+    @include media-min($md) {
+      &:hover {
+        .bookmarks {
+          &__item {
+            &_icon {
+              &.only-hover {
+                opacity: 1;
+              }
             }
-          }
 
-          &_label,
-          &_icon {
-            cursor: pointer;
-            color: var(--text-btn-color);
-          }
+            &_label,
+            &_icon {
+              cursor: pointer;
+              color: var(--text-btn-color);
+            }
 
-          &_label {
-            background-color: var(--primary-hover);
+            &_label {
+              background-color: var(--primary-hover);
+            }
           }
         }
       }
     }
   }
 
+  &__input {
+    display: flex;
+    width: 100%;
+    padding: 8px 0;
+
+    .field-input {
+      width: initial;
+      flex: 1 1 100%;
+    }
+
+    .form-button {
+      display: block;
+      width: initial;
+      flex: 1 1 auto;
+      margin-left: 8px;
+    }
+  }
+
   &.is-default {
+    background-color: transparent;
+
     .bookmarks {
       &__cat {
         border: 0;
 
         &_body {
-          padding: 0px;
+          padding: 0;
         }
       }
 
@@ -330,46 +361,17 @@
         padding: 16px 16px;
       }
 
-      &__groip {
-
+      &__group {
         &_body {
-          padding: 0 8px 0 0px;
+          padding: 0;
         }
-      }
-    }
-  }
 
-  @media (max-width: 550px) {
-    width: 100%;
-  }
-}
-
-@media (max-width: 550px) {
-  .bookmarks {
-    &__item {
-      &_icon {
-        &.only-hover {
-          opacity: 1 !important;
-        }
-      }
-    }
-    
-    &__cat {
-      &_label {
-        &_icon {
-          &.only-hover {
-            opacity: 1 !important;
+        @include media-min($md) {
+          &:hover {
+            background: none;
           }
         }
       }
     }
-
-    &__group {
-      &_icon {
-        &.only-hover {
-          opacity: 1 !important;
-        }
-      }
-    }
-  }    
+  }
 }
