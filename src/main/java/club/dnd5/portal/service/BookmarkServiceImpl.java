@@ -31,8 +31,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public BookmarkApi addBookmark(User user, BookmarkApi bookmark) {
-		Bookmark group;
-		Bookmark category;
 		Bookmark entityBookmark = new Bookmark();
 
 		entityBookmark.setUser(user);
@@ -44,16 +42,12 @@ public class BookmarkServiceImpl implements BookmarkService {
 		}
 
 		if (bookmark.getParentUUID() != null) {
-			group = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
+			Bookmark parent = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
 				.orElseThrow(() -> new RuntimeException("Bookmark's group not found"));
 
-			entityBookmark.setParent(group);
+			entityBookmark.setParent(parent);
 
 			if (bookmark.getUrl() != null) {
-				category = bookmarkRepository.findById(group.getUuid())
-					.orElseGet(() -> getNewCategory(user, group, entityBookmark));
-
-				entityBookmark.setParent(category);
 				entityBookmark.setUrl(bookmark.getUrl());
 			}
 

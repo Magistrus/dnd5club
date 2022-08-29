@@ -36,6 +36,13 @@
                         <div class="bookmarks__group_label">
                             {{ group.name || 'Без категории' }}
                         </div>
+
+                        <div
+                            class="bookmarks__group_icon is-right only-hover"
+                            @click.left.exact.prevent.stop="removeBookmark(group.uuid)"
+                        >
+                            <svg-icon icon-name="close"/>
+                        </div>
                     </div>
 
                     <div
@@ -48,7 +55,16 @@
                             class="bookmarks__cat"
                         >
                             <div class="bookmarks__cat_label">
-                                {{ category.name }}
+                                <div class="bookmarks__cat_label_name">
+                                    {{ category.name }}
+                                </div>
+
+                                <div
+                                    class="bookmarks__cat_label_icon only-hover is-right"
+                                    @click.left.exact.prevent="removeBookmark(category.uuid)"
+                                >
+                                    <svg-icon icon-name="close"/>
+                                </div>
                             </div>
 
                             <div class="bookmarks__cat_body">
@@ -64,6 +80,7 @@
 
                                     <div
                                         class="bookmarks__item_icon only-hover is-right"
+                                        @click.left.exact.prevent="removeBookmark(bookmark.uuid)"
                                     >
                                         <svg-icon icon-name="close"/>
                                     </div>
@@ -72,11 +89,19 @@
                         </div>
 
                         <form-button
+                            v-if="categoryCreatingGroupUUID !== group.uuid"
                             type-link-filled
                             is-small
+                            @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
                         >
                             Добавить категорию
                         </form-button>
+
+                        <field-input
+                            v-else-if="categoryCreatingGroupUUID === group.uuid"
+                            v-model="newCategoryName"
+                            @keyup.enter.exact.prevent="createCategory(group.uuid)"
+                        />
                     </div>
                 </div>
 
@@ -93,6 +118,7 @@
                     v-else
                     v-model="newGroupName"
                     @keyup.enter.exact.prevent="createGroup"
+                    @blur="toggleGroupCreating"
                 />
             </div>
         </div>
@@ -107,7 +133,6 @@
         computed,
         defineComponent, ref
     } from "vue";
-    import { v4 as uuidV4 } from 'uuid';
     import FieldInput from "@/components/form/FieldType/FieldInput";
 
     export default defineComponent({
@@ -151,23 +176,69 @@
             }
 
             async function createGroup() {
-                await customBookmarkStore.queryAddBookmark({
+                const group = await customBookmarkStore.queryAddBookmark({
                     name: newGroupName.value,
-                    order: customBookmarkStore.getGroupBookmarks.length,
-                    uuid: uuidV4()
+                    order: customBookmarkStore.getGroupBookmarks.length
                 });
 
+                opened.value.push(group.uuid);
+
                 toggleGroupCreating();
+            }
+
+            const newCategoryName = ref('');
+            const categoryCreatingGroupUUID = ref('');
+
+            function toggleCategoryCreating(groupUUID) {
+                newCategoryName.value = '';
+
+                if (!groupUUID) {
+                    categoryCreatingGroupUUID.value = '';
+                }
+
+                if (
+                    !categoryCreatingGroupUUID.value
+                    || (categoryCreatingGroupUUID.value && categoryCreatingGroupUUID.value !== groupUUID)
+                ) {
+                    categoryCreatingGroupUUID.value = groupUUID;
+
+                    return;
+                }
+
+                categoryCreatingGroupUUID.value = '';
+            }
+
+            async function createCategory(groupUUID) {
+                const order = customBookmarkStore.getBookmarks
+                    .filter(item => item.parentUUID === groupUUID)
+                    .length;
+
+                await customBookmarkStore.queryAddBookmark({
+                    name: newCategoryName.value,
+                    parentUUID: groupUUID,
+                    order
+                });
+
+                toggleCategoryCreating(groupUUID);
             }
 
             return {
                 bookmarks,
                 isOpened,
                 toggleGroup,
+                removeBookmark: customBookmarkStore.queryDeleteBookmark,
+
+                // Group creating
                 newGroupName,
                 groupCreating,
                 toggleGroupCreating,
-                createGroup
+                createGroup,
+
+                // Category creating
+                newCategoryName,
+                categoryCreatingGroupUUID,
+                toggleCategoryCreating,
+                createCategory
             };
         }
     });

@@ -13,20 +13,22 @@
             />
         </form-button>
 
-        <div
-            v-if="isOpen"
-            class="custom-bookmark-button__submenu"
-        >
+        <on-click-outside @trigger="isOpen = false">
             <div
-                v-for="(group, key) in groups"
-                :key="key"
-                class="custom-bookmark-button__group"
-                :class="{ 'is-saved': isSaved(group.uuid) }"
-                @click.left.exact.prevent="updateBookmark(group.uuid)"
+                v-if="isOpen"
+                class="custom-bookmark-button__submenu"
             >
-                {{ group.name }}
+                <div
+                    v-for="(group, key) in groups"
+                    :key="key"
+                    class="custom-bookmark-button__group"
+                    :class="{ 'is-saved': isSaved(group.uuid) }"
+                    @click.left.exact.prevent="updateBookmark(group.uuid)"
+                >
+                    {{ group.name }}
+                </div>
             </div>
-        </div>
+        </on-click-outside>
     </div>
 </template>
 
@@ -39,10 +41,12 @@
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import errorHandler from "@/common/helpers/errorHandler";
     import { useRoute } from "vue-router";
+    import { OnClickOutside } from "@vueuse/components";
 
     export default defineComponent({
         components: {
-            FormButton
+            FormButton,
+            OnClickOutside
         },
         props: {
             name: {
