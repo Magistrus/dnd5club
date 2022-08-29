@@ -115,6 +115,14 @@
                             <form-button
                                 type-link-filled
                                 is-small
+                                @click.left.exact.prevent="createCategory(group.uuid)"
+                            >
+                                <svg-icon icon-name="check"/>
+                            </form-button>
+
+                            <form-button
+                                type-link-filled
+                                is-small
                                 @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
                             >
                                 <svg-icon icon-name="close"/>
@@ -133,6 +141,14 @@
                         autofocus
                         @keyup.enter.exact.prevent="createGroup"
                     />
+
+                    <form-button
+                        type-link-filled
+                        is-small
+                        @click.left.exact.prevent="createGroup"
+                    >
+                        <svg-icon icon-name="check"/>
+                    </form-button>
 
                     <form-button
                         type-link-filled
