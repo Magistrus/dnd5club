@@ -94,7 +94,7 @@
                             is-small
                             @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
                         >
-                            Добавить категорию
+                            + категорию
                         </form-button>
 
                         <field-input
@@ -111,7 +111,10 @@
                     is-small
                     @click.left.exact.prevent="toggleGroupCreating"
                 >
-                    Добавить группу
+                    <svg-icon :icon-name="'plus'"/>
+                    <label>
+                        Группу
+                    </label>
                 </form-button>
 
                 <field-input
