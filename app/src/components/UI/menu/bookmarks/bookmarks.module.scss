@@ -242,7 +242,7 @@
     }
 
     &_body {
-      padding: 4px 0 0 0px;
+      padding: 0px 0 0 0px;
     }
   }
 
@@ -251,13 +251,15 @@
 
     display: flex;
     border-radius: 6px;
+    margin-bottom: 4px;
 
     &_label {
       @include css_anim();
 
       color: var(--text-color);
       font-weight: 400;
-      padding: 6px 8px;
+      padding: 4px 8px;
+      line-height: 16px;
       width: 100%;
       display: flex;
       border-radius: 6px;
@@ -266,10 +268,12 @@
     &_icon {
       @include css_anim();
 
-      width: 28px;
-      height: 28px;
-      padding: 4px;
+      width: 24px;
+      height: 24px;
+      padding: 2px;
       flex-shrink: 0;
+      margin-left: 4px;
+      border-radius: 6px;
 
       &.only-hover {
         &:not(.is-active) {
@@ -279,6 +283,10 @@
 
       svg {
         stroke: var(--text-color);
+      }
+
+      &:hover {
+        background: var(--hover);
       }
     }
 

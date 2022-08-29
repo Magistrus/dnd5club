@@ -13,11 +13,11 @@
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
-                    <div class="bookmarks__group_head">
+                    <!-- <div class="bookmarks__group_head">
                         <div class="bookmarks__group_label">
                             {{ group.name || 'Без категории' }}
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="bookmarks__group_body">
                         <div
@@ -107,6 +107,10 @@
         &__group {
             &_label {
                 padding: 0px 8px 0px 0px;
+            }
+
+            &:hover {
+                background: none;
             }
         }
     }
