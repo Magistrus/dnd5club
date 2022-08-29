@@ -13,20 +13,22 @@
             />
         </form-button>
 
-        <div
-            v-if="isOpen"
-            class="custom-bookmark-button__submenu"
-        >
+        <on-click-outside @trigger="isOpen = false">
             <div
-                v-for="(group, key) in groups"
-                :key="key"
-                class="custom-bookmark-button__group"
-                :class="{ 'is-saved': isSaved(group.uuid) }"
-                @click.left.exact.prevent="updateBookmark(group.uuid)"
+                v-if="isOpen"
+                class="custom-bookmark-button__submenu"
             >
-                {{ group.name }}
+                <div
+                    v-for="(group, key) in groups"
+                    :key="key"
+                    class="custom-bookmark-button__group"
+                    :class="{ 'is-saved': isSaved(group.uuid) }"
+                    @click.left.exact.prevent="updateBookmark(group.uuid)"
+                >
+                    {{ group.name }}
+                </div>
             </div>
-        </div>
+        </on-click-outside>
     </div>
 </template>
 
@@ -39,10 +41,12 @@
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import errorHandler from "@/common/helpers/errorHandler";
     import { useRoute } from "vue-router";
+    import { OnClickOutside } from "@vueuse/components";
 
     export default defineComponent({
         components: {
-            FormButton
+            FormButton,
+            OnClickOutside
         },
         props: {
             name: {
@@ -58,7 +62,11 @@
             const { name: bookmarkName } = toRefs(props);
             const bookmarksStore = useCustomBookmarkStore();
             const route = useRoute();
-            const getPath = () => (typeof props.url === "string" && props.url !== '' ? props.url : route.path);
+            const bookmarkUrl = computed(() => (
+                typeof props.url === "string" && props.url !== ''
+                    ? props.url
+                    : route.path
+            ));
             const isOpen = ref(false);
             const bookmarks = ref([]);
             const groups = computed(() => bookmarksStore.getGroups);
@@ -72,7 +80,7 @@
                     .map(item => bookmarks.value.find(bookmark => bookmark.uuid === item.parentUUID))
                     .filter(item => !!item);
             });
-            const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(getPath(), uuid);
+            const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(bookmarkUrl.value, uuid);
 
             async function openSubmenu() {
                 try {
@@ -100,7 +108,7 @@
 
             async function updateBookmark(groupUUID) {
                 await bookmarksStore.updateBookmarkInGroup({
-                    url: getPath(),
+                    url: bookmarkUrl.value,
                     name: props.name,
                     groupUUID
                 });

@@ -30,37 +30,50 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public void addBookmark(User user, BookmarkApi bookmark) {
-		Bookmark group;
-		Bookmark category;
+	public BookmarkApi addBookmark(User user, BookmarkApi bookmark) {
 		Bookmark entityBookmark = new Bookmark();
 
 		entityBookmark.setUser(user);
 		entityBookmark.setUuid(getNewUUID());
 		entityBookmark.setName(bookmark.getName());
-		entityBookmark.setOrder(bookmark.getOrder());
-		entityBookmark.setPrefix(bookmark.getPrefix());
-		
+
+		if (bookmark.getOrder() != null) {
+			entityBookmark.setOrder(bookmark.getOrder());
+		} else if (bookmark.getParentUUID() != null) {
+			entityBookmark.setOrder(
+				bookmarkRepository
+					.findByParentUuid(UUID.fromString(bookmark.getParentUUID()))
+					.size()
+			);
+		} else {
+			entityBookmark.setOrder(
+				bookmarkRepository
+					.findByUserAndParentIsNull(user)
+					.size()
+			);
+		}
+
+		if (bookmark.getPrefix() != null) {
+			entityBookmark.setPrefix(bookmark.getPrefix());
+		}
+
 		if (bookmark.getParentUUID() != null) {
-			group = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
+			Bookmark parent = bookmarkRepository.findById(UUID.fromString(bookmark.getParentUUID()))
 				.orElseThrow(() -> new RuntimeException("Bookmark's group not found"));
 
-			entityBookmark.setParent(group);
+			entityBookmark.setParent(parent);
 
 			if (bookmark.getUrl() != null) {
-				category = bookmarkRepository.findById(group.getUuid())
-					.orElseGet(() -> getNewCategory(user, group, entityBookmark));
-
-				entityBookmark.setParent(category);
 				entityBookmark.setUrl(bookmark.getUrl());
 			}
 		}
-		bookmarkRepository.save(entityBookmark);
+
+		return new BookmarkApi(bookmarkRepository.saveAndFlush(entityBookmark));
 	}
 
 	@Override
-	public void updateBookmark(User user, BookmarkApi bookmark) {
-		bookmarkRepository.save(getUpdatedBookmark(user, bookmark));
+	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
+		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
 
 	@Override

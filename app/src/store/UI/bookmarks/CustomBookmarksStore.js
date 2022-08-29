@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/UI/UserStore';
 import sortBy from 'lodash/sortBy';
 import cloneDeep from 'lodash/cloneDeep';
-import { v4 as uuidV4 } from 'uuid';
 
 const signals = {
     add: undefined,
@@ -44,7 +43,21 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             );
         },
         getGroups: state => sortBy(state.bookmarks.filter(bookmark => !bookmark.parentUUID), [o => o.order]),
-        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
+        isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) > -1,
+        isBookmarkSavedInDefault: state => url => {
+            const defaultGroup = state.bookmarks.find(item => !item.parentUUID && item.order === -1);
+
+            if (!defaultGroup) {
+                return undefined;
+            }
+
+            const categoriesUUIDs = state.bookmarks
+                .filter(item => item.parentUUID === defaultGroup.uuid)
+                .map(item => item.uuid);
+
+            return state.bookmarks
+                .findIndex(item => categoriesUUIDs.includes(item.parentUUID) && item.url === url) > -1;
+        },
         isBookmarkSavedInGroup: state => (url, groupUUID) => {
             const categoriesUUIDs = state.bookmarks
                 .filter(item => item.parentUUID === groupUUID)
@@ -97,6 +110,10 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                     return Promise.reject();
                 }
 
+                if (!bookmark?.name) {
+                    return Promise.reject(new Error('Name is undefined'));
+                }
+
                 if (signals.add) {
                     signals.add.abort();
                 }
@@ -111,7 +128,39 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
                 await this.queryGetBookmarks();
 
-                return Promise.resolve();
+                return Promise.resolve(resp.data);
+            } catch (err) {
+                return Promise.reject(err);
+            } finally {
+                signals.add = undefined;
+            }
+        },
+
+        async queryUpdateBookmark(bookmark) {
+            try {
+                if (!await this.userStore.getUserStatus()) {
+                    return Promise.reject();
+                }
+
+                if (!bookmark?.name) {
+                    return Promise.reject(new Error('Name is undefined'));
+                }
+
+                if (signals.add) {
+                    signals.add.abort();
+                }
+
+                signals.add = new AbortController();
+
+                const resp = await this.$http.put('/bookmarks', cloneDeep(bookmark), signals.add.signal);
+
+                if (resp.status !== 200) {
+                    return Promise.reject(resp.statusText);
+                }
+
+                await this.queryGetBookmarks();
+
+                return Promise.resolve(resp.data);
             } catch (err) {
                 return Promise.reject(err);
             } finally {
@@ -123,6 +172,10 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             try {
                 if (!await this.userStore.getUserStatus()) {
                     return Promise.reject();
+                }
+
+                if (!uuid) {
+                    return Promise.reject(new Error('UUID is undefined'));
                 }
 
                 if (signals.delete) {
@@ -147,40 +200,9 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
         },
 
-        async querySaveBookmarks(payload) {
-            try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
-                const resp = await this.$http.put('/bookmarks', payload);
-
-                if (resp.status !== 200) {
-                    return Promise.reject(resp.statusText);
-                }
-
-                await this.queryGetBookmarks();
-
-                return Promise.resolve();
-            } catch (err) {
-                return Promise.reject(err);
-            }
-        },
-
-        getNewUUID() {
-            let uuid = uuidV4();
-
-            if (this.bookmarks.find(item => item.uuid === uuid)) {
-                uuid = this.getNewUUID();
-            }
-
-            return uuid;
-        },
-
         async createDefaultGroup() {
             try {
                 const defaultGroup = await this.queryAddBookmark(cloneDeep({
-                    uuid: this.getNewUUID(),
                     name: 'Общие',
                     order: -1
                 }));
@@ -210,9 +232,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
         async createCategory(category, groupUUID) {
             try {
                 const newCategory = await this.queryAddBookmark(cloneDeep({
-                    uuid: this.getNewUUID(),
                     name: category.name,
-                    order: category.order,
                     parentUUID: groupUUID
                 }));
 
@@ -300,8 +320,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 await this.queryAddBookmark(cloneDeep({
                     url,
                     name,
-                    parentUUID: savedCat.uuid,
-                    uuid: this.getNewUUID()
+                    parentUUID: savedCat.uuid
                 }));
 
                 return Promise.resolve();
@@ -311,22 +330,20 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
         },
 
         async getSavedBookmarkInGroup({ url, groupUUID }) {
+            let bookmarks;
+
             try {
-                const bookmarks = await this.queryGetBookmarks();
-                const categoriesUUIDs = bookmarks
-                    .filter(item => item.parentUUID === groupUUID)
-                    .map(item => item.uuid);
-                const bookmark = bookmarks
-                    .find(item => item.url === url && categoriesUUIDs.includes(item.parentUUID));
-
-                if (bookmark) {
-                    return Promise.resolve(bookmark);
-                }
-
-                return Promise.reject();
+                bookmarks = await this.queryGetBookmarks();
             } catch (err) {
                 return Promise.reject(err);
             }
+
+            const categoriesUUIDs = bookmarks
+                .filter(item => item.parentUUID === groupUUID)
+                .map(item => item.uuid);
+
+            return bookmarks
+                .find(item => item.url === url && categoriesUUIDs.includes(item.parentUUID));
         },
 
         async updateBookmarkInGroup({
@@ -335,18 +352,22 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             category,
             groupUUID
         }) {
-            try {
-                const bookmark = await this.getSavedBookmarkInGroup({
-                    url,
-                    groupUUID
-                });
+            const bookmark = await this.getSavedBookmarkInGroup({
+                url,
+                groupUUID
+            });
 
-                if (bookmark) {
+            if (bookmark) {
+                try {
                     await this.queryDeleteBookmark(bookmark.uuid);
 
                     return Promise.resolve();
+                } catch (err) {
+                    return Promise.reject(err);
                 }
+            }
 
+            try {
                 await this.addBookmarkInGroup({
                     url,
                     name,

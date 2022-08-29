@@ -40,15 +40,25 @@
             const userStore = useUserStore();
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
-            const getPath = () => (typeof props.url === "string" && props.url !== '' ? props.url : route.path);
-            const isSaved = computed(() => defaultBookmarkStore.isBookmarkSaved(getPath()));
+            const bookmarkUrl = computed(() => (
+                typeof props.url === "string" && props.url !== ''
+                    ? props.url
+                    : route.path
+            ));
+            const isSaved = computed(() => {
+                if (userStore.isAuthenticated) {
+                    return customBookmarkStore.isBookmarkSavedInDefault(bookmarkUrl.value);
+                }
+
+                return defaultBookmarkStore.isBookmarkSaved(bookmarkUrl.value);
+            });
 
             async function updateBookmark() {
                 if (await userStore.getUserStatus()) {
                     const defaultGroup = await customBookmarkStore.getDefaultGroup();
 
                     await customBookmarkStore.updateBookmarkInGroup({
-                        url: getPath(),
+                        url: bookmarkUrl.value,
                         name: props.name,
                         groupUUID: defaultGroup.uuid
                     });
@@ -56,7 +66,7 @@
                     return;
                 }
 
-                await defaultBookmarkStore.updateBookmark(getPath(), props.name);
+                await defaultBookmarkStore.updateBookmark(bookmarkUrl.value, props.name);
             }
 
             return {
