@@ -335,4 +335,38 @@
       }
     }
   }
+
+  @media (max-width: 550px) {
+    width: 100%;
+  }
+}
+
+@media (max-width: 550px) {
+  .bookmarks {
+    &__item {
+      &_icon {
+        &.only-hover {
+          opacity: 1 !important;
+        }
+      }
+    }
+    
+    &__cat {
+      &_label {
+        &_icon {
+          &.only-hover {
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+
+    &__group {
+      &_icon {
+        &.only-hover {
+          opacity: 1 !important;
+        }
+      }
+    }
+  }    
 }
