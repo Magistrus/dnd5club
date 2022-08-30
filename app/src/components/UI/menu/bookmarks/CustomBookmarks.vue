@@ -65,7 +65,7 @@
                         fill-enable
                     />
 
-                    <span>Группу</span>
+                    <span>Добавить группу</span>
                 </form-button>
             </div>
         </div>
