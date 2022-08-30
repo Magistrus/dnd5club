@@ -155,7 +155,7 @@
         }
 
         &__wrapper {
-            max-width: 790px;
+            max-width: 800px;
             z-index: 111;
             position: relative;
             display: inline-block;
