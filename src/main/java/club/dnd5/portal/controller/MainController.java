@@ -34,9 +34,9 @@ public class MainController {
 
 	@GetMapping("/fvtt_import")
 	public String getPageFvttExport(Model model) {
-		model.addAttribute("metaTitle", "DnD5Club экспорт монстров в FVTT");
+		model.addAttribute("metaTitle", "DnD5Club ипорт монстров в FVTT");
 		model.addAttribute("metaUrl", "https://dnd5.club/fvtt_import");
-		model.addAttribute("metaDescription", "Инструкция по экспорту существ из Бестиария в FVTT.");
+		model.addAttribute("metaDescription", "Инструкция по ипорту существ из Бестиария в FVTT.");
 		return "fvtt_import";
 	}
 	
