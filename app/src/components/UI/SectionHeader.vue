@@ -51,7 +51,7 @@
 
                 <form-button
                     v-if="onExportFoundry"
-                    v-tippy="{ content: 'Экспорт в Foundry VTT. <a href=&quot;/fvtt_export&quot;>Инструкция</a>' }"
+                    v-tippy="{ content: 'Импорт в Foundry VTT. <a href=&quot;/fvtt_import&quot;>Инструкция</a>' }"
                     class="section-header__control--optional is-only-desktop"
                     type-link-filled
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"

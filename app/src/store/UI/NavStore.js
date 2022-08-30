@@ -136,12 +136,12 @@ export const useNavStore = defineStore('NavStore', {
                             url: '/telegram_bot'
                         },
                         {
-                            label: 'Экспортировать в FvTT',
-                            url: '/fvtt_export'
+                            label: 'Импорт существ в FvTT',
+                            url: '/fvtt_import'
                         },
                         {
                             label: 'Инструкция по вкладкам',
-                            url: '/bookmarks_instructions'
+                            url: '/bookmarks_info'
                         }
                     ]
                 },
