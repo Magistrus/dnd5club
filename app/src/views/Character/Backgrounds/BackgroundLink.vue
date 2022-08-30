@@ -88,4 +88,4 @@
     };
 </script>
 
-<style lang="scss" scoped src="../../../assets/styles/link-item.scss"/>
+<style lang="scss" scoped src="../../../assets/styles/modules/link-item.scss"/>

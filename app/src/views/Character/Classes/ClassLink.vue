@@ -196,4 +196,4 @@
     };
 </script>
 
-<style lang="scss" scoped src="../../../assets/styles/link-item-expand.scss"></style>
+<style lang="scss" scoped src="../../../assets/styles/modules/link-item-expand.scss"></style>

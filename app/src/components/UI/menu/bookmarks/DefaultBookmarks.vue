@@ -99,7 +99,3 @@
         }
     };
 </script>
-
-<style lang="scss" scoped>
-    @import "bookmarks.module";
-</style>
