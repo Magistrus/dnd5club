@@ -53,6 +53,8 @@
   }
 
   &__info {
+    height: 16px;
+
     &--desc {
       font-size: var(--h5-font-size);
       margin-bottom: 4px;
@@ -335,13 +337,14 @@
     .field-input {
       width: initial;
       flex: 1 1 100%;
+      margin-right: 8px;
     }
 
     .form-button {
       display: block;
       width: initial;
       flex: 1 1 auto;
-      margin-left: 8px;
+      margin-left: 0 !important;
     }
   }
 

@@ -3,6 +3,17 @@
         <div class="bookmarks__header">
             <div class="bookmarks__info">
                 <span class="bookmarks__info--title">Закладки</span>
+
+                <a
+                    v-tippy="{
+                        content: 'Больше возможностей. <a href=`/bookmarks_instructions`>Инструкция</a>'
+                    }"
+                    href="/bookmarks_instructions"
+                    target="_blank"
+                    class="bookmarks__info--info"
+                >
+                    <svg-icon icon-name="menu-question"/>
+                </a>
             </div>
         </div>
 
@@ -13,12 +24,6 @@
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
-                    <!-- <div class="bookmarks__group_head">
-                        <div class="bookmarks__group_label">
-                            {{ group.name || 'Без категории' }}
-                        </div>
-                    </div> -->
-
                     <div class="bookmarks__group_body">
                         <div
                             v-for="(category, catKey) in group.children"
@@ -99,3 +104,27 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+    .bookmarks {
+        &__header {
+            padding: 12px 16px;
+        }
+
+        &__info {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            &--title {
+                width: 100%;
+            }
+
+            &--info {
+                width: 24px;
+                height: 24px;
+                display: block;
+            }
+        }
+    }
+</style>
