@@ -3,6 +3,15 @@
         <div class="bookmarks__header">
             <div class="bookmarks__info">
                 <span class="bookmarks__info--title">Закладки</span>
+
+                <a
+                    v-tippy="{ content: 'Больше возможностей. <a href=&quot;/bookmarks_instructions&quot;>Инструкция</a>' }"
+                    href="/bookmarks_instructions"
+                    target="_blank"
+                    class="bookmarks__info--info"
+                >
+                    <svg-icon icon-name="menu-question"/>
+                </a>
             </div>
         </div>
 
@@ -102,4 +111,26 @@
 
 <style lang="scss" scoped>
     @import "bookmarks.module";
+
+    .bookmarks {
+        &__header {
+            padding: 12px 16px;
+        }
+
+        &__info {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            &--title {
+                width: 100%;
+            }
+
+            &--info {
+                width: 24px;
+                height: 24px;
+                display: block;
+            }
+        }
+    }
 </style>

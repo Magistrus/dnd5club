@@ -128,6 +128,24 @@ export const useNavStore = defineStore('NavStore', {
                     ]
                 },
                 {
+                    label: 'Инструкции',
+                    icon: 'menu-question',
+                    links: [
+                        {
+                            label: 'Как использовать бота',
+                            url: '/telegram_bot'
+                        },
+                        {
+                            label: 'Экспортировать в FvTT',
+                            url: '/fvtt_export'
+                        },
+                        {
+                            label: 'Инструкция по вкладкам',
+                            url: '/bookmarks_instructions'
+                        }
+                    ]
+                },
+                {
                     label: 'Информация',
                     icon: 'menu-information',
                     links: [
@@ -168,21 +186,6 @@ export const useNavStore = defineStore('NavStore', {
                         }
                     ]
                 }
-
-                // {
-                //     label: 'ЧаВо',
-                //     icon: 'menu-information',
-                //     links: [
-                //         {
-                //             label: 'Как пользоваться ботом?',
-                //             url: '/telegram_bot'
-                //         },
-                //         {
-                //             label: 'Как загрузить монстра в FvTT',
-                //             url: '/telegram_bot'
-                //         }
-                //     ]
-                // }
             ];
         }
     }
