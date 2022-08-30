@@ -25,18 +25,20 @@
   &__body {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
     overflow: auto;
     flex: 1 1 auto;
 
-    .form-button {
-      color: var(--text-color-title);
+    .bookmarks__new {
+      color: var(--text-color-title) !important;
       cursor: pointer;
+      padding: 6px !important;
+      justify-content: flex-start !important;
 
       svg {
         flex-shrink: 0;
-        width: 24px;
-        height: 24px;
+        width: 24px !important;
+        height: 24px !important;
         cursor: pointer;
         background: var(--bg-sub-menu);
         border-radius: 4px;
@@ -88,7 +90,7 @@
     border-radius: 8px;
 
     &_head {
-      padding: 8px 8px 8px 8px;
+      padding: 6px;
       display: flex;
       cursor: pointer;
       align-items: center;
@@ -178,12 +180,12 @@
     }
 
     &_body {
-      padding: 0 8px;
+      padding: 0 6px;
     }
   }
 
   &__cat {
-    padding: 8px 0;
+    margin-bottom: 8px;
 
     &_label {
       padding: 4px 8px 4px 8px;
