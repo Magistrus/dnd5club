@@ -739,3 +739,24 @@
     }
   }
 }
+
+.img-title {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+
+  h5 {
+    padding: 8px;
+  }
+}
+
+.responsive {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+img.responsive {
+  padding: 8px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}

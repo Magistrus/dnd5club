@@ -5,8 +5,8 @@
                 <span class="bookmarks__info--title">Закладки</span>
 
                 <a
-                    v-tippy="{ content: 'Больше возможностей. <a href=&quot;/bookmarks_instructions&quot;>Инструкция</a>' }"
-                    href="/bookmarks_instructions"
+                    v-tippy="{ content: 'Больше возможностей. <a href=&quot;/bookmarks_info&quot;>Инструкция</a>' }"
+                    href="/bookmarks_info"
                     target="_blank"
                     class="bookmarks__info--info"
                 >

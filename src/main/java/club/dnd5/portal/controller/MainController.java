@@ -32,20 +32,20 @@ public class MainController {
 		return "telegram_bot";
 	}
 
-	@GetMapping("/fvtt_export")
+	@GetMapping("/fvtt_import")
 	public String getPageFvttExport(Model model) {
 		model.addAttribute("metaTitle", "DnD5Club экспорт монстров в FVTT");
-		model.addAttribute("metaUrl", "https://dnd5.club/fvtt_export");
+		model.addAttribute("metaUrl", "https://dnd5.club/fvtt_import");
 		model.addAttribute("metaDescription", "Инструкция по экспорту существ из Бестиария в FVTT.");
-		return "fvtt_export";
+		return "fvtt_import";
 	}
 	
-	@GetMapping("/bookmarks_instructions")
+	@GetMapping("/bookmarks_info")
 	public String getBookmarkInstruction(Model model) {
 		model.addAttribute("metaTitle", "DnD5Club инструкция по закладкам");
-		model.addAttribute("metaUrl", "https://dnd5.club/bookmarks_instructions");
+		model.addAttribute("metaUrl", "https://dnd5.club/bookmarks_info");
 		model.addAttribute("metaDescription", "Инструкция по использованию закладок.");
-		return "bookmarks_instructions";
+		return "bookmarks_info";
 	}
 	
 }
