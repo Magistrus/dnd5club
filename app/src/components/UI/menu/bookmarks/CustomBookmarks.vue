@@ -39,10 +39,15 @@
                         </div>
 
                         <div
+                            v-if="isOpened(group.uuid)"
                             class="bookmarks__group_icon only-hover is-right"
-                            @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
+                            @click.left.exact.prevent.stop="toggleCategoryCreating(group.uuid)"
                         >
-                            <svg-icon icon-name="plus"/>
+                            <svg-icon
+                                icon-name="plus"
+                                :stroke-enable="false"
+                                fill-enable
+                            />
                         </div>
 
                         <div
@@ -96,39 +101,79 @@
                             </div>
                         </div>
 
-                        <form-button
-                            v-if="categoryCreatingGroupUUID !== group.uuid"
-                            type-link-filled
-                            is-small
-                            @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
+                        <div
+                            v-if="categoryCreatingGroupUUID === group.uuid"
+                            class="bookmarks__input"
                         >
-                            + категорию
-                        </form-button>
+                            <field-input
+                                v-model="newCategoryName"
+                                placeholder="Название категории"
+                                autofocus
+                                @keyup.enter.exact.prevent="createCategory(group.uuid)"
+                            />
 
-                        <field-input
-                            v-else-if="categoryCreatingGroupUUID === group.uuid"
-                            v-model="newCategoryName"
-                            @keyup.enter.exact.prevent="createCategory(group.uuid)"
-                        />
+                            <form-button
+                                type-link-filled
+                                is-small
+                                @click.left.exact.prevent="createCategory(group.uuid)"
+                            >
+                                <svg-icon icon-name="check"/>
+                            </form-button>
+
+                            <form-button
+                                type-link-filled
+                                is-small
+                                @click.left.exact.prevent="toggleCategoryCreating(group.uuid)"
+                            >
+                                <svg-icon icon-name="close"/>
+                            </form-button>
+                        </div>
                     </div>
                 </div>
 
+                <div
+                    v-if="groupCreating"
+                    class="bookmarks__input"
+                >
+                    <field-input
+                        v-model="newGroupName"
+                        placeholder="Название группы"
+                        autofocus
+                        @keyup.enter.exact.prevent="createGroup"
+                    />
+
+                    <form-button
+                        type-link-filled
+                        is-small
+                        @click.left.exact.prevent="createGroup"
+                    >
+                        <svg-icon icon-name="check"/>
+                    </form-button>
+
+                    <form-button
+                        type-link-filled
+                        is-small
+                        @click.left.exact.prevent="toggleGroupCreating"
+                    >
+                        <svg-icon icon-name="close"/>
+                    </form-button>
+                </div>
+
                 <form-button
-                    v-if="!groupCreating"
+                    v-else
+                    class="bookmarks__new"
                     type-link-filled
                     is-small
                     @click.left.exact.prevent="toggleGroupCreating"
                 >
-                    <svg-icon icon-name="plus"/>
-                    Группу
-                </form-button>
+                    <svg-icon
+                        icon-name="plus"
+                        :stroke-enable="false"
+                        fill-enable
+                    />
 
-                <field-input
-                    v-else
-                    v-model="newGroupName"
-                    @keyup.enter.exact.prevent="createGroup"
-                    @blur="toggleGroupCreating"
-                />
+                    <span>Группа</span>
+                </form-button>
             </div>
         </div>
     </div>
@@ -139,8 +184,7 @@
     import FormButton from "@/components/form/FormButton";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import {
-        computed,
-        defineComponent, ref
+        computed, defineComponent, ref
     } from "vue";
     import FieldInput from "@/components/form/FieldType/FieldInput";
 
@@ -255,18 +299,4 @@
 
 <style lang="scss" scoped>
     @import "bookmarks.module";
-
-    .bookmarks {
-        background-color: var(--bg-secondary);
-
-          &__group {
-            &_body {
-                padding: 0 8px 0 8px;
-            }
-        }
-
-        .form-button {
-            width: 100%;
-        }
-    }
 </style>

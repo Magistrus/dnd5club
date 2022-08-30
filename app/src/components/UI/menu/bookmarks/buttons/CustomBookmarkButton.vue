@@ -149,15 +149,22 @@
             background-color: var(--bg-sub-menu);
             padding: 8px;
             border-radius: 6px;
-            box-shadow: 0px 5px 30px #00000038;
+            box-shadow: 0 5px 30px #00000038;
             right: 0;
+            z-index: 1;
         }
 
         &__group {
-            padding: 8px 6px;
+            padding: 6px 6px;
             border-radius: 6px;
             cursor: pointer;
             min-width: 100px;
+            max-width: 260px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
 
             &.is-saved {
                 background-color: var(--primary);
@@ -165,6 +172,10 @@
 
             &:hover {
                 background-color: var(--hover);
+            }
+
+            & + & {
+                margin-top: 4px;
             }
         }
     }
