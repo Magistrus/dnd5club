@@ -5,7 +5,9 @@
                 <span class="bookmarks__info--title">Закладки</span>
 
                 <a
-                    v-tippy="{ content: 'Больше возможностей. <a href=&quot;/bookmarks_info&quot;>Инструкция</a>' }"
+                    v-tippy="{
+                        content: 'Больше возможностей. <a href=`/bookmarks_info`>Инструкция</a>'
+                    }"
                     href="/bookmarks_info"
                     target="_blank"
                     class="bookmarks__info--info"
@@ -22,12 +24,6 @@
                     :key="group.uuid + groupKey"
                     class="bookmarks__group"
                 >
-                    <!-- <div class="bookmarks__group_head">
-                        <div class="bookmarks__group_label">
-                            {{ group.name || 'Без категории' }}
-                        </div>
-                    </div> -->
-
                     <div class="bookmarks__group_body">
                         <div
                             v-for="(category, catKey) in group.children"
@@ -110,8 +106,6 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "bookmarks.module";
-
     .bookmarks {
         &__header {
             padding: 12px 16px;

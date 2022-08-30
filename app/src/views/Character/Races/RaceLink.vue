@@ -182,7 +182,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../../assets/styles/link-item-expand";
+    @import "../../../assets/styles/modules/link-item-expand";
 
     .link-item-expand {
         &__body {
