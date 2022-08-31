@@ -185,10 +185,10 @@
   }
 
   &__cat {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 
     &_label {
-      padding: 4px 8px 4px 8px;
+      padding: 2px 8px 2px 8px;
       text-transform: uppercase;
       font-size: calc(var(--main-font-size) - 4px);
       color: var(--text-g-color);
@@ -252,6 +252,10 @@
 
     &_body {
       padding: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 8px;
     }
   }
 
