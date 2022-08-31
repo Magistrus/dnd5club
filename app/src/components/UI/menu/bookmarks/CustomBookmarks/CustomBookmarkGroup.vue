@@ -1,7 +1,7 @@
 <template>
     <div
-        :class="{ 'is-active': isOpened }"
         class="bookmarks__group"
+        :class="{ 'is-active': isOpened }"
     >
         <div
             class="bookmarks__group_head"
@@ -42,12 +42,22 @@
             v-if="isOpened"
             class="bookmarks__group_body"
         >
-            <custom-bookmark-category
-                v-for="(category, catKey) in group.children"
-                :key="category.uuid + catKey"
-                :category="category"
-                :group-uuid="group.uuid"
-            />
+            <draggable
+                tag="div"
+                :model-value="group.children"
+                item-key="uuid"
+                handle=".bookmarks__cat_label"
+                group="category"
+                @change="onChangeHandler"
+            >
+                <template #item="{ element: category }">
+                    <custom-bookmark-category
+                        :key="category.uuid + category.order"
+                        :category="category"
+                        :group-uuid="group.uuid"
+                    />
+                </template>
+            </draggable>
 
             <div
                 v-if="isCategoryCreating"
@@ -86,12 +96,14 @@
     import FormButton from "@/components/form/FormButton";
     import CustomBookmarkCategory from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkCategory";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import draggableComponent from 'vuedraggable';
 
     export default defineComponent({
         components: {
             CustomBookmarkCategory,
             FieldInput,
-            FormButton
+            FormButton,
+            Draggable: draggableComponent
         },
         props: {
             group: {
@@ -128,6 +140,28 @@
                 disableCategoryCreating();
             }
 
+            async function onChangeHandler(e) {
+                const {
+                    added
+
+                    // moved
+                } = e;
+
+                if (added) {
+                    const {
+                        element: { uuid, name },
+                        newIndex: order
+                    } = added;
+
+                    await customBookmarkStore.queryUpdateBookmark({
+                        uuid,
+                        name,
+                        order,
+                        parentUUID: props.group.uuid
+                    });
+                }
+            }
+
             return {
                 isOpened,
                 isCategoryCreating,
@@ -135,7 +169,8 @@
                 enableCategoryCreating,
                 disableCategoryCreating,
                 createCategory,
-                removeBookmark: customBookmarkStore.queryDeleteBookmark
+                removeBookmark: customBookmarkStore.queryDeleteBookmark,
+                onChangeHandler
             };
         }
     });
