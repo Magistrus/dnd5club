@@ -343,11 +343,12 @@
             &_label,
             &_icon {
               cursor: pointer;
-              color: var(--text-btn-color);
+              color: var(--text-color-title);
             }
 
             &_label {
-              background-color: var(--primary-hover);
+              background-color: var(--hover);
+              color: var(--text-color-title);
             }
           }
         }

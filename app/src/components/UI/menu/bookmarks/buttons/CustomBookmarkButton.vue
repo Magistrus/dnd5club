@@ -167,7 +167,7 @@
             text-overflow: ellipsis;
 
             &.is-saved {
-                background-color: var(--primary);
+                background-color: var(--primary-select);
             }
 
             &:hover {
