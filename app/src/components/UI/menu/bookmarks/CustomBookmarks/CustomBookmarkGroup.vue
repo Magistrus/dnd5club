@@ -134,7 +134,8 @@
             async function createCategory() {
                 await customBookmarkStore.queryAddBookmark({
                     name: newCategoryName.value,
-                    order: customBookmarkStore.getGroupBookmarks.length
+                    order: customBookmarkStore.getGroupBookmarks.length,
+                    parentUUID: props.group.uuid
                 });
 
                 disableCategoryCreating();
