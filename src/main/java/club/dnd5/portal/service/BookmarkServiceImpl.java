@@ -69,7 +69,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
-		bookmarkRepository.deleteById(UUID.fromString(bookmark.getUuid()));
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
 
