@@ -4,6 +4,13 @@
   display: flex;
   flex-direction: column;
   background-color: var(--bg-secondary);
+  user-select: none;
+
+  *, *:before, *:after {
+    &:not(input) {
+      user-select: none;
+    }
+  }
 
   @media (max-width: 550px) {
     width: 100%;
@@ -83,11 +90,24 @@
     }
   }
 
+  &__drop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 100%;
+    background-color: var(--primary);
+  }
+
   &__group {
     display: flex;
     flex-direction: column;
     width: 100%;
     border-radius: 8px;
+
+    &.is-drag-over {
+      background-color: var(--primary-hover);
+    }
 
     &_head {
       padding: 6px;
