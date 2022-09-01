@@ -69,6 +69,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
+		bookmarkRepository.deleteById(UUID.fromString(bookmark.getUuid()));
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
 
@@ -104,6 +105,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 		updatedBookmark.setUrl(bookmark.getUrl());
 		if (bookmark.getParentUUID() != null) {
 			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
+			parent.addChild(updatedBookmark);
 			updatedBookmark.setParent(parent);
 		}
 		return updatedBookmark;

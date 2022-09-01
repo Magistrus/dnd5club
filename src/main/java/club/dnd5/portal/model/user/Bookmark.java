@@ -43,4 +43,8 @@ public class Bookmark {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	public void addChild(Bookmark bookmark) {
+		children.add(bookmark);
+	}
 }
