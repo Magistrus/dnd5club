@@ -104,6 +104,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 		updatedBookmark.setUrl(bookmark.getUrl());
 		if (bookmark.getParentUUID() != null) {
 			Bookmark parent = bookmarkRepository.getById(UUID.fromString(bookmark.getParentUUID()));
+			parent.addChild(updatedBookmark);
 			updatedBookmark.setParent(parent);
 		}
 		return updatedBookmark;
