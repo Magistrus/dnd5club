@@ -221,6 +221,11 @@
       &_name {
         line-height: 18px;
         opacity: 0.8;
+        cursor: grab;
+
+        &:active {
+          cursor: grabbing;
+        }
       }
 
       &_icon {
