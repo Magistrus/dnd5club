@@ -168,6 +168,19 @@
 
             &.is-saved {
                 background-color: var(--primary-select);
+                position: relative;
+                padding-left: 12px;
+
+                &::before {
+                    content: '';
+                    width: 4px;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                    background-color: var(--primary);
+                    display: block;
+                }
             }
 
             &:hover {
