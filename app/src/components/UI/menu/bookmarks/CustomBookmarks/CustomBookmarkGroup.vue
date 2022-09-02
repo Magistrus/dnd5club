@@ -31,6 +31,7 @@
             </div>
 
             <div
+                v-if="isEdit"
                 class="bookmarks__group_icon is-right only-hover"
                 @click.left.exact.prevent.stop="removeBookmark(group.uuid)"
             >
@@ -55,6 +56,7 @@
                         :key="category.uuid + category.order"
                         :category="category"
                         :group-uuid="group.uuid"
+                        :is-edit="isEdit"
                     />
                 </template>
             </draggable>
@@ -111,6 +113,10 @@
                 default: () => ({})
             },
             isFirst: {
+                type: Boolean,
+                default: false
+            },
+            isEdit: {
                 type: Boolean,
                 default: false
             }
