@@ -25,7 +25,7 @@ public class WeaponApi {
 	
 	public WeaponApi(Weapon weapon) {
 		name = new NameApi(weapon.getName(), weapon.getEnglishName());
-		url = String.format("/weapons/%s", weapon.getEnglishName().replace(' ', '_'));
+		url = String.format("/weapons/%s", weapon.getEnglishName().toLowerCase().replace(' ', '_'));
 		if (weapon.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;	
 		}

@@ -232,6 +232,6 @@ public class Race implements Serializable {
 	}
 
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 }

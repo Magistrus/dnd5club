@@ -141,7 +141,7 @@ public class HeroClass {
 	}
 	
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 	
 	public String getCapitalazeName() {

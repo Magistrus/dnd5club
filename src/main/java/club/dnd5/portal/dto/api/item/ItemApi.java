@@ -28,7 +28,7 @@ public class ItemApi {
 	
 	public ItemApi(Equipment item) {
 		name = new NameApi(item.getName(), item.getEnglishName());
-		url = String.format("/items/%s", item.getEnglishName().replace(' ', '_'));
+		url = String.format("/items/%s", item.getEnglishName().toLowerCase().replace(' ', '_'));
 		if (item.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;	
 		}
@@ -36,7 +36,7 @@ public class ItemApi {
 
 	public ItemApi(MagicItem item) {
 		name = new NameApi(item.getCapitalazeName(), item.getEnglishName());
-		url = String.format("/items/magic/%s", item.getEnglishName().replace(' ', '_'));
+		url = String.format("/items/magic/%s", item.getEnglishName().toLowerCase().replace(' ', '_'));
 		if (item.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;	
 		}
