@@ -2,8 +2,18 @@
     <div class="bookmarks is-custom">
         <div class="bookmarks__header">
             <div class="bookmarks__info">
-                <span class="bookmarks__info--title">Группы</span>
+                <span
+                    class="bookmarks__info--title"
+                >Группы</span>
             </div>
+
+            <form-button
+                is-small
+                :type-link-filled="!isEdit"
+                @click.left.exact.prevent="isEdit = !isEdit"
+            >
+                <svg-icon icon-name="check"/>
+            </form-button>
 
             <label
                 v-if="false"
@@ -15,13 +25,16 @@
             </label>
         </div>
 
-        <div class="bookmarks__wrapper">
+        <div
+            class="bookmarks__wrapper"
+        >
             <div class="bookmarks__body">
                 <custom-bookmark-group
                     v-for="(group, groupKey) in bookmarks"
                     :key="group.uuid + groupKey"
                     :group="group"
                     :is-first="!groupKey"
+                    :is-edit="isEdit"
                 />
 
                 <div
@@ -93,6 +106,7 @@
         setup() {
             const customBookmarkStore = useCustomBookmarkStore();
             const bookmarks = computed(() => customBookmarkStore.getGroupBookmarks);
+            const isEdit = ref(true);
             const isGroupCreating = ref(false);
             const newGroupName = ref('');
 
@@ -117,6 +131,7 @@
 
             return {
                 bookmarks,
+                isEdit,
                 isGroupCreating,
                 newGroupName,
                 enableGroupCreating,

@@ -10,6 +10,7 @@
             </div>
 
             <div
+                v-if="isEdit"
                 class="bookmarks__cat_label_icon only-hover is-right"
                 @click.left.exact.prevent="removeBookmark(category.uuid)"
             >
@@ -37,6 +38,7 @@
                     >{{ bookmark.name }}</a>
 
                     <div
+                        v-if="isEdit"
                         class="bookmarks__item_icon only-hover is-right"
                         @click.left.exact.prevent="removeBookmark(bookmark.uuid)"
                     >
@@ -67,6 +69,10 @@
                 default: () => ({})
             },
             creating: {
+                type: Boolean,
+                default: false
+            },
+            isEdit: {
                 type: Boolean,
                 default: false
             }
