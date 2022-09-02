@@ -17,9 +17,11 @@
   }
 
   &__header {
-    padding: 16px 16px;
+    padding: 0px 16px;
+    height: 50px;
     border-bottom: 1px solid var(--hover);
     display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
   }

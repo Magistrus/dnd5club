@@ -12,7 +12,7 @@
                 :type-link-filled="!isEdit"
                 @click.left.exact.prevent="isEdit = !isEdit"
             >
-                <svg-icon icon-name="check"/>
+                <svg-icon icon-name="edit"/>
             </form-button>
 
             <label
