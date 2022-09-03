@@ -60,19 +60,25 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
+	public BookmarkApi updateBookmark(final User user, final BookmarkApi bookmark) {
 		if (bookmark.getParentUUID() != null) {
-			Optional<Bookmark> saved = bookmarkRepository.findById(UUID.fromString(bookmark.getUuid()));
+			final Optional<Bookmark> saved = bookmarkRepository.findById(UUID.fromString(bookmark.getUuid()));
 			if (saved.isPresent() && saved.get().getParent().getUuid().toString().equals(bookmark.getParentUUID())) {
 				Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(bookmark.getParentUUID()));
-				chields.stream().forEach(b -> {
-					if (b.getOrder() > bookmark.getOrder()) {
-						b.incrementOrder();
-					} 
-					if (b.getOrder() >= saved.get().getOrder()) {
-						b.decrimentOrder();
-					}
-				});
+				if (saved.get().getOrder() > bookmark.getOrder()) {
+					chields.forEach(b -> {
+						if (b.getOrder() >= bookmark.getOrder() && b.getOrder() < saved.get().getOrder()) {
+							b.incrementOrder();
+						} 
+					});
+				}
+				else {
+					chields.forEach(b -> {
+						if (b.getOrder() <= bookmark.getOrder()) {
+							b.decrimentOrder();
+						} 
+					});
+				}
 				bookmarkRepository.saveAll(chields);
 			} else {
 				List<Bookmark> olds = saved.get().getParent().getChildren();
