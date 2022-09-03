@@ -63,6 +63,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 		if (bookmark.getParentUUID() != null) {
 			Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(bookmark.getParentUUID()));
 			chields.stream().filter(b -> b.getOrder() >= bookmark.getOrder()).forEach(b -> b.incrementOrder());
+			bookmarkRepository.saveAll(chields);
 		}
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
