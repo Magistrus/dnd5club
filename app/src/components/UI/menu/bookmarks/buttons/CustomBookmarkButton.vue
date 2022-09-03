@@ -106,12 +106,18 @@
                 await openSubmenu();
             }
 
+            const inProgress = ref(false);
+
             async function updateBookmark(groupUUID) {
+                inProgress.value = true;
+
                 await bookmarksStore.updateBookmarkInGroup({
                     url: bookmarkUrl.value,
                     name: props.name,
                     groupUUID
                 });
+
+                inProgress.value = false;
             }
 
             return {

@@ -196,6 +196,10 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
                 await this.queryGetBookmarks();
 
+                if (this.openedGroups.includes(uuid)) {
+                    this.openedGroups = this.openedGroups.filter(item => item !== uuid);
+                }
+
                 return Promise.resolve();
             } catch (err) {
                 return Promise.reject(err);
