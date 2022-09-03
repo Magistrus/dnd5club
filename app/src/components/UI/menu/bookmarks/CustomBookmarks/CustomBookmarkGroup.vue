@@ -19,7 +19,7 @@
             </div>
 
             <div
-                v-if="isOpened"
+                v-if="isOpened && group.order > -1"
                 class="bookmarks__group_icon only-hover is-right"
                 @click.left.exact.prevent.stop="enableCategoryCreating"
             >
@@ -55,7 +55,7 @@
                     <custom-bookmark-category
                         :key="category.uuid + category.order"
                         :category="category"
-                        :group-uuid="group.uuid"
+                        :group="group"
                         :is-edit="isEdit"
                     />
                 </template>
@@ -128,8 +128,10 @@
             const newCategoryName = ref('');
 
             function enableCategoryCreating() {
-                isCategoryCreating.value = true;
-                newCategoryName.value = '';
+                if (props.group.order > -1) {
+                    isCategoryCreating.value = true;
+                    newCategoryName.value = '';
+                }
             }
 
             function disableCategoryCreating() {
@@ -140,25 +142,23 @@
             async function createCategory() {
                 await customBookmarkStore.queryAddBookmark({
                     name: newCategoryName.value,
-                    order: customBookmarkStore.getGroupBookmarks.length,
+                    order: props.group.children.length,
                     parentUUID: props.group.uuid
                 });
 
                 disableCategoryCreating();
             }
 
-            async function onChangeHandler(e) {
-                const {
-                    added
+            async function updateBookmark(change) {
+                try {
+                    if (!change) {
+                        return Promise.reject();
+                    }
 
-                    // moved
-                } = e;
-
-                if (added) {
                     const {
                         element: { uuid, name },
                         newIndex: order
-                    } = added;
+                    } = change;
 
                     await customBookmarkStore.queryUpdateBookmark({
                         uuid,
@@ -166,7 +166,17 @@
                         order,
                         parentUUID: props.group.uuid
                     });
+
+                    return Promise.resolve();
+                } catch (err) {
+                    return Promise.reject(err);
                 }
+            }
+
+            async function onChangeHandler(e) {
+                const { added, moved } = e;
+
+                await updateBookmark(added || moved);
             }
 
             return {

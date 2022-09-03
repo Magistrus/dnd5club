@@ -60,9 +60,9 @@
             Draggable: draggableComponent
         },
         props: {
-            groupUuid: {
-                type: String,
-                default: ''
+            group: {
+                type: Object,
+                default: () => ({})
             },
             category: {
                 type: Object,
@@ -80,12 +80,12 @@
         setup(props) {
             const customBookmarkStore = useCustomBookmarkStore();
 
-            async function onChangeHandler(e) {
-                const {
-                    added
-                } = e;
+            async function updateBookmark(change) {
+                try {
+                    if (!change) {
+                        return Promise.reject();
+                    }
 
-                if (added) {
                     const {
                         element: {
                             uuid,
@@ -93,7 +93,7 @@
                             url
                         },
                         newIndex: order
-                    } = added;
+                    } = change;
 
                     await customBookmarkStore.queryUpdateBookmark({
                         uuid,
@@ -102,7 +102,17 @@
                         url,
                         parentUUID: props.category.uuid
                     });
+
+                    return Promise.resolve();
+                } catch (err) {
+                    return Promise.reject(err);
                 }
+            }
+
+            async function onChangeHandler(e) {
+                const { added, moved } = e;
+
+                await updateBookmark(added || moved);
             }
 
             return {
