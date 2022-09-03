@@ -105,7 +105,7 @@
             async function updateBookmark(change) {
                 try {
                     if (!change) {
-                        return Promise.reject();
+                        return;
                     }
 
                     const {
