@@ -89,7 +89,7 @@
     import SvgIcon from "@/components/UI/SvgIcon";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import {
-        computed, defineComponent, ref
+        computed, defineComponent, onBeforeMount, ref
     } from "vue";
     import CustomBookmarkGroup from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkGroup";
     import FieldInput from "@/components/form/FieldType/FieldInput";
@@ -128,6 +128,10 @@
 
                 disableGroupCreating();
             }
+
+            onBeforeMount(() => {
+                customBookmarkStore.restoreOpenedGroupsFromSession();
+            });
 
             return {
                 bookmarks,

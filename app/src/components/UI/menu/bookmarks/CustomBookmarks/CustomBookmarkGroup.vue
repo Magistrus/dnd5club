@@ -1,15 +1,15 @@
 <template>
     <div
         class="bookmarks__group"
-        :class="{ 'is-active': isOpened }"
+        :class="{ 'is-active': isOpened(group.uuid) }"
     >
         <div
             class="bookmarks__group_head"
-            @click.left.exact.prevent="isOpened = !isOpened"
+            @click.left.exact.prevent="toggleGroup(group.uuid)"
         >
             <div
                 class="bookmarks__group_icon"
-                :class="{ 'is-active': isOpened }"
+                :class="{ 'is-active': isOpened(group.uuid) }"
             >
                 <svg-icon icon-name="arrow-stroke"/>
             </div>
@@ -19,7 +19,7 @@
             </div>
 
             <div
-                v-if="isOpened && group.order > -1"
+                v-if="isOpened(group.uuid) && group.order > -1"
                 class="bookmarks__group_icon only-hover is-right"
                 @click.left.exact.prevent.stop="enableCategoryCreating"
             >
@@ -40,7 +40,7 @@
         </div>
 
         <div
-            v-if="isOpened"
+            v-if="isOpened(group.uuid)"
             class="bookmarks__group_body"
         >
             <draggable
@@ -93,7 +93,9 @@
 </template>
 
 <script>
-    import { defineComponent, ref } from "vue";
+    import {
+        defineComponent, onBeforeMount, ref
+    } from "vue";
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";
     import CustomBookmarkCategory from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkCategory";
@@ -123,7 +125,6 @@
         },
         setup(props) {
             const customBookmarkStore = useCustomBookmarkStore();
-            const isOpened = ref(props.isFirst);
             const isCategoryCreating = ref(false);
             const newCategoryName = ref('');
 
@@ -179,15 +180,30 @@
                 await updateBookmark(added || moved);
             }
 
+            function openFirstGroup() {
+                if (!props.isFirst) {
+                    return;
+                }
+
+                if (customBookmarkStore.getOpenedGroups.length > 0) {
+                    return;
+                }
+
+                customBookmarkStore.toggleGroup(props.group.uuid);
+            }
+
+            onBeforeMount(() => openFirstGroup());
+
             return {
-                isOpened,
                 isCategoryCreating,
                 newCategoryName,
                 enableCategoryCreating,
                 disableCategoryCreating,
                 createCategory,
                 removeBookmark: customBookmarkStore.queryDeleteBookmark,
-                onChangeHandler
+                onChangeHandler,
+                isOpened: customBookmarkStore.isGroupOpened,
+                toggleGroup: customBookmarkStore.toggleGroup
             };
         }
     });
