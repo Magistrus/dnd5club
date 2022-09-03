@@ -33,6 +33,11 @@
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
+    import {
+        computed,
+        onBeforeMount,
+        ref
+    } from "vue";
 
     export default {
         name: "NavBookmarks",
@@ -42,35 +47,53 @@
             NavPopover,
             SvgIcon
         },
-        data: () => ({
-            opened: false,
-            userStore: useUserStore(),
-            defaultBookmarkStore: useDefaultBookmarkStore(),
-            customBookmarkStore: useCustomBookmarkStore()
-        }),
-        computed: {
-            isBookmarksExist() {
+        setup() {
+            const opened = ref(false);
+            const userStore = useUserStore();
+            const defaultBookmarkStore = useDefaultBookmarkStore();
+            const customBookmarkStore = useCustomBookmarkStore();
+            const isBookmarksExist = computed(() => {
                 let status = false;
 
-                if (!this.userStore.isAuthenticated) {
-                    status = this.defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
+                if (!userStore.isAuthenticated) {
+                    status = defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
                 }
 
-                if (this.userStore.isAuthenticated) {
-                    status = this.customBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
+                if (userStore.isAuthenticated) {
+                    status = customBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
                 }
 
                 return status
                     ? 'bookmark-filled'
                     : 'bookmark';
-            }
-        },
-        async beforeMount() {
-            await this.defaultBookmarkStore.restoreBookmarks();
+            });
 
-            if (await this.userStore.getUserStatus()) {
-                await this.customBookmarkStore.queryGetBookmarks();
-            }
+            userStore.$onAction(({ name, after }) => {
+                switch (name) {
+                    case 'authorization':
+                        after(async () => {
+                            await customBookmarkStore.queryGetBookmarks();
+                        });
+
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            onBeforeMount(async () => {
+                await defaultBookmarkStore.restoreBookmarks();
+
+                if (await userStore.getUserStatus()) {
+                    await customBookmarkStore.queryGetBookmarks();
+                }
+            });
+
+            return {
+                opened,
+                isBookmarksExist,
+                userStore
+            };
         }
     };
 </script>
