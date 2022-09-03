@@ -69,7 +69,7 @@
             ));
             const isOpen = ref(false);
             const bookmarks = ref([]);
-            const groups = computed(() => bookmarksStore.getGroups);
+            const groups = computed(() => bookmarksStore.getGroups.filter(group => group.order > -1));
             const savedGroups = computed(() => {
                 const url = route.path;
                 const saved = bookmarks.value.filter(item => item.url === url);
