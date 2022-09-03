@@ -52,4 +52,9 @@ public class Bookmark {
 			order++;
 		}
 	}
+	public void decrimentOrder() {
+		if (order != null) {
+			order--;
+		}
+	}
 }

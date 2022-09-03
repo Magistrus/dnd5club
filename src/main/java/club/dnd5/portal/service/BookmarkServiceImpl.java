@@ -1,6 +1,8 @@
 package club.dnd5.portal.service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -54,16 +56,38 @@ public class BookmarkServiceImpl implements BookmarkService {
 				entityBookmark.setUrl(bookmark.getUrl());
 			}
 		}
-
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(entityBookmark));
 	}
 
 	@Override
-	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
+	public BookmarkApi updateBookmark(final User user, final BookmarkApi bookmark) {
 		if (bookmark.getParentUUID() != null) {
-			Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(bookmark.getParentUUID()));
-			chields.stream().filter(b -> b.getOrder() >= bookmark.getOrder()).forEach(b -> b.incrementOrder());
-			bookmarkRepository.saveAll(chields);
+			final Optional<Bookmark> saved = bookmarkRepository.findById(UUID.fromString(bookmark.getUuid()));
+			if (saved.isPresent() && saved.get().getParent().getUuid().toString().equals(bookmark.getParentUUID())) {
+				Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(bookmark.getParentUUID()));
+				if (saved.get().getOrder() > bookmark.getOrder()) {
+					chields.forEach(b -> {
+						if (b.getOrder() >= bookmark.getOrder() && b.getOrder() < saved.get().getOrder()) {
+							b.incrementOrder();
+						} 
+					});
+				}
+				else {
+					chields.forEach(b -> {
+						if (b.getOrder() <= bookmark.getOrder()) {
+							b.decrimentOrder();
+						} 
+					});
+				}
+				bookmarkRepository.saveAll(chields);
+			} else {
+				List<Bookmark> olds = saved.get().getParent().getChildren();
+				olds.stream().filter( b-> b.getOrder() > saved.get().getOrder()).forEach(b -> b.decrimentOrder());
+				bookmarkRepository.saveAll(olds);
+				Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(bookmark.getParentUUID()));
+				chields.stream().filter(b -> b.getOrder() >= bookmark.getOrder()).forEach(b -> b.incrementOrder());
+				bookmarkRepository.saveAll(chields);
+			}
 		}
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
