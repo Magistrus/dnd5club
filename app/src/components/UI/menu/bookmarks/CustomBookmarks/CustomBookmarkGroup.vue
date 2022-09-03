@@ -20,7 +20,9 @@
 
             <div
                 v-if="isOpened(group.uuid) && group.order > -1"
-                class="bookmarks__group_icon only-hover is-right"
+                v-tippy="{ content: 'Добавить категорию' }"
+                class="bookmarks__group_icon is-right"
+                :class="{ 'only-hover': !isMobile }"
                 @click.left.exact.prevent.stop="enableCategoryCreating"
             >
                 <svg-icon
@@ -31,8 +33,9 @@
             </div>
 
             <div
-                v-if="isEdit"
-                class="bookmarks__group_icon is-right only-hover"
+                v-if="!isMobile || (isMobile && isEdit)"
+                class="bookmarks__group_icon is-right"
+                :class="{ 'only-hover': !isMobile }"
                 @click.left.exact.prevent.stop="removeBookmark(group.uuid)"
             >
                 <svg-icon icon-name="close"/>
@@ -47,7 +50,7 @@
                 tag="div"
                 :model-value="group.children"
                 item-key="uuid"
-                handle=".bookmarks__cat_label"
+                handle=".js-drag-category"
                 group="category"
                 @change="onChangeHandler"
             >
@@ -94,20 +97,23 @@
 
 <script>
     import {
-        defineComponent, onBeforeMount, ref
+        computed, defineComponent, onBeforeMount, ref
     } from "vue";
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";
     import CustomBookmarkCategory from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkCategory";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import draggableComponent from 'vuedraggable';
+    import { useUIStore } from "@/store/UI/UIStore";
+    import SvgIcon from "@/components/UI/SvgIcon";
 
     export default defineComponent({
         components: {
             CustomBookmarkCategory,
             FieldInput,
             FormButton,
-            Draggable: draggableComponent
+            Draggable: draggableComponent,
+            SvgIcon
         },
         props: {
             group: {
@@ -124,6 +130,7 @@
             }
         },
         setup(props) {
+            const uiStore = useUIStore();
             const customBookmarkStore = useCustomBookmarkStore();
             const isCategoryCreating = ref(false);
             const newCategoryName = ref('');
@@ -203,7 +210,8 @@
                 removeBookmark: customBookmarkStore.queryDeleteBookmark,
                 onChangeHandler,
                 isOpened: customBookmarkStore.isGroupOpened,
-                toggleGroup: customBookmarkStore.toggleGroup
+                toggleGroup: customBookmarkStore.toggleGroup,
+                isMobile: computed(() => uiStore.getIsMobile)
             };
         }
     });

@@ -8,6 +8,8 @@
             </div>
 
             <form-button
+                v-if="isMobile"
+                v-tippy="{ content: 'Перейти в режим редактирования' }"
                 is-small
                 :type-link-filled="!isEdit"
                 @click.left.exact.prevent="isEdit = !isEdit"
@@ -94,6 +96,7 @@
     import CustomBookmarkGroup from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkGroup";
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default defineComponent({
         name: "CustomBookmarks",
@@ -104,9 +107,10 @@
             SvgIcon
         },
         setup() {
+            const uiStore = useUIStore();
             const customBookmarkStore = useCustomBookmarkStore();
             const bookmarks = computed(() => customBookmarkStore.getGroupBookmarks);
-            const isEdit = ref(true);
+            const isEdit = ref(false);
             const isGroupCreating = ref(false);
             const newGroupName = ref('');
 
@@ -140,7 +144,8 @@
                 newGroupName,
                 enableGroupCreating,
                 disableGroupCreating,
-                createGroup
+                createGroup,
+                isMobile: computed(() => uiStore.getIsMobile)
             };
         }
     });
