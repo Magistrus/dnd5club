@@ -32,7 +32,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 		entityBookmark.setUser(user);
 		entityBookmark.setUuid(getNewUUID());
 		entityBookmark.setName(bookmark.getName());
-
+		entityBookmark.setPrefix(bookmark.getPrefix());
+		
 		if (bookmark.getOrder() != null) {
 			entityBookmark.setOrder(bookmark.getOrder());
 		} else if (bookmark.getParentUUID() != null) {
@@ -41,16 +42,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 					.findByParentUuid(UUID.fromString(bookmark.getParentUUID()))
 					.size()
 			);
-		} else {
-			entityBookmark.setOrder(
-				bookmarkRepository
-					.findByUserAndParentIsNull(user)
-					.size()
-			);
-		}
-
-		if (bookmark.getPrefix() != null) {
-			entityBookmark.setPrefix(bookmark.getPrefix());
 		}
 
 		if (bookmark.getParentUUID() != null) {
@@ -69,6 +60,10 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public BookmarkApi updateBookmark(User user, BookmarkApi bookmark) {
+		if (bookmark.getParentUUID() != null) {
+			Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(bookmark.getParentUUID()));
+			chields.stream().filter(b -> b.getOrder() >= bookmark.getOrder()).forEach(b -> b.incrementOrder());
+		}
 		return new BookmarkApi(bookmarkRepository.saveAndFlush(getUpdatedBookmark(user, bookmark)));
 	}
 
