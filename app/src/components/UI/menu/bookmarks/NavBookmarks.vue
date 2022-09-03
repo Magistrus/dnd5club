@@ -76,6 +76,13 @@
                         });
 
                         break;
+
+                    case 'logout':
+                        after(() => {
+                            customBookmarkStore.clearBookmarks();
+                        });
+
+                        break;
                     default:
                         break;
                 }

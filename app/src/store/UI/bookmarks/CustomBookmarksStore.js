@@ -379,6 +379,10 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             } catch (err) {
                 return Promise.reject(err);
             }
+        },
+
+        clearBookmarks() {
+            this.bookmarks = [];
         }
     }
 });
