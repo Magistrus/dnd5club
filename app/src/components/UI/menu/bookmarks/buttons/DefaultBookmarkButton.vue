@@ -17,7 +17,9 @@
     import FormButton from "@/components/form/FormButton";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useRoute } from "vue-router";
-    import { computed, defineComponent } from "vue";
+    import {
+        computed, defineComponent, ref
+    } from "vue";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useUserStore } from "@/store/UI/UserStore";
 
@@ -52,9 +54,16 @@
 
                 return defaultBookmarkStore.isBookmarkSaved(bookmarkUrl.value);
             });
+            const inProgress = ref(false);
 
             async function updateBookmark() {
+                if (inProgress.value) {
+                    return;
+                }
+
                 if (await userStore.getUserStatus()) {
+                    inProgress.value = true;
+
                     const defaultGroup = await customBookmarkStore.getDefaultGroup();
 
                     await customBookmarkStore.updateBookmarkInGroup({
@@ -62,6 +71,8 @@
                         name: props.name,
                         groupUUID: defaultGroup.uuid
                     });
+
+                    inProgress.value = false;
 
                     return;
                 }
