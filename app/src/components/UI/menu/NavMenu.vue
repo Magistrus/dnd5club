@@ -64,6 +64,7 @@
                                     class="nav-menu__link_icon only-hover"
                                     :class="{'is-active': isSaved(link.url)}"
                                     @click.left.exact.stop.prevent="updateBookmark(link.url, link.label )"
+                                    @dblclick.prevent.stop
                                 >
                                     <svg-icon
                                         :icon-name="isSaved(link.url)

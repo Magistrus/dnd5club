@@ -24,6 +24,7 @@
                     class="custom-bookmark-button__group"
                     :class="{ 'is-saved': isSaved(group.uuid) }"
                     @click.left.exact.prevent="updateBookmark(group.uuid)"
+                    @dblclick.prevent.stop
                 >
                     {{ group.name }}
                 </div>
