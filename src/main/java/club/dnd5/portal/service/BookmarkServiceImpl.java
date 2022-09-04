@@ -94,7 +94,13 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public void deleteBookmark(String uuid) {
-		bookmarkRepository.deleteById(UUID.fromString(uuid));
+		final Optional<Bookmark> saved = bookmarkRepository.findById(UUID.fromString(uuid));
+		if (saved.isPresent()) {
+			Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(uuid));
+			chields.stream().filter(b -> b.getOrder() > saved.get().getOrder()).forEach(b -> b.decrimentOrder());
+			bookmarkRepository.saveAll(chields);
+			bookmarkRepository.deleteById(UUID.fromString(uuid));
+		}
 	}
 
 	@Override
