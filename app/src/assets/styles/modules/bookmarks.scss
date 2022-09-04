@@ -218,24 +218,21 @@
       position: relative;
       font-weight: 600;
       display: flex;
+      align-items: center;
+      height: 20px;
       width: 100%;
 
       &_name {
         line-height: 18px;
         opacity: 0.8;
-        cursor: grab;
-
-        &:active {
-          cursor: grabbing;
-        }
       }
 
       &_icon {
         @include css_anim();
 
         flex-shrink: 0;
-        width: 18px;
-        height: 18px;
+        width: 24px;
+        height: 24px;
         cursor: pointer;
         padding: 2px;
         border-radius: 4px;
@@ -243,7 +240,15 @@
         color: var(--text-color-title);
 
         &.is-left {
-          margin-right: 8px;
+          // margin-right: 8px;
+
+          &:hover {
+            cursor: grab;
+          }
+
+          &:active {
+            cursor: grabbing;
+          }
         }
 
         &.is-right {
@@ -265,6 +270,13 @@
             background: var(--hover);
           }
         }
+      }
+
+      .is-left {
+        margin-left: -6px;
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
       }
 
       @include media-min($md) {
@@ -340,6 +352,18 @@
       @include media-min($md) {
         &:hover {
           background: var(--hover);
+        }
+      }
+    }
+
+    &:hover {
+      .bookmarks {
+        &__cat {
+          &_label {
+            &_icon {
+              opacity: 1;
+            }
+          }
         }
       }
     }
