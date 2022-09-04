@@ -140,7 +140,7 @@ export const useNavStore = defineStore('NavStore', {
                             url: '/fvtt_import'
                         },
                         {
-                            label: 'Инструкция по вкладкам',
+                            label: 'Инструкция по закладкам',
                             url: '/bookmarks_info'
                         }
                     ]

@@ -4,7 +4,7 @@
             <div class="bookmarks__info">
                 <span
                     class="bookmarks__info--title"
-                >Группы</span>
+                >Закладки</span>
             </div>
 
             <form-button
