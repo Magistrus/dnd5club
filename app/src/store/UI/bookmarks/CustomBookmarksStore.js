@@ -3,6 +3,7 @@ import { useUserStore } from '@/store/UI/UserStore';
 import sortBy from 'lodash/sortBy';
 import cloneDeep from 'lodash/cloneDeep';
 
+const SESSION_OPENED_GROUPS_KEY = 'dnd5club_opened_bookmark_groups';
 const signals = {
     add: undefined,
     delete: undefined
@@ -12,7 +13,8 @@ const signals = {
 export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     state: () => ({
         bookmarks: [],
-        userStore: useUserStore()
+        userStore: useUserStore(),
+        openedGroups: []
     }),
 
     getters: {
@@ -43,6 +45,7 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             );
         },
         getGroups: state => sortBy(state.bookmarks.filter(bookmark => !bookmark.parentUUID), [o => o.order]),
+        getOpenedGroups: state => state.openedGroups,
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) > -1,
         isBookmarkSavedInDefault: state => url => {
             const defaultGroup = state.bookmarks.find(item => !item.parentUUID && item.order === -1);
@@ -80,7 +83,8 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             }
 
             return bookmarks.find(group => group.uuid === bookmarks[categoryIndex].parentUUID);
-        }
+        },
+        isGroupOpened: state => uuid => state.openedGroups.includes(uuid)
     },
 
     actions: {
@@ -191,6 +195,10 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
                 }
 
                 await this.queryGetBookmarks();
+
+                if (this.openedGroups.includes(uuid)) {
+                    this.openedGroups = this.openedGroups.filter(item => item !== uuid);
+                }
 
                 return Promise.resolve();
             } catch (err) {
@@ -379,6 +387,38 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
             } catch (err) {
                 return Promise.reject(err);
             }
+        },
+
+        clearBookmarks() {
+            this.bookmarks = [];
+        },
+
+        restoreOpenedGroupsFromSession() {
+            const sessionState = sessionStorage.getItem(SESSION_OPENED_GROUPS_KEY);
+
+            let parsed = [];
+
+            if (sessionState) {
+                parsed = JSON.parse(sessionState);
+            }
+
+            this.openedGroups = parsed;
+        },
+
+        toggleGroup(uuid) {
+            const openedGroups = this.openedGroups.includes(uuid)
+                ? this.openedGroups.filter(item => item !== uuid)
+                : [...this.openedGroups, uuid];
+
+            this.openedGroups = openedGroups;
+
+            if (openedGroups.length) {
+                sessionStorage.setItem(SESSION_OPENED_GROUPS_KEY, JSON.stringify(openedGroups));
+
+                return;
+            }
+
+            sessionStorage.removeItem(SESSION_OPENED_GROUPS_KEY);
         }
     }
 });

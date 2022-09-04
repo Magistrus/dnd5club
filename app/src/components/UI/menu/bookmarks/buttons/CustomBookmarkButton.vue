@@ -24,6 +24,7 @@
                     class="custom-bookmark-button__group"
                     :class="{ 'is-saved': isSaved(group.uuid) }"
                     @click.left.exact.prevent="updateBookmark(group.uuid)"
+                    @dblclick.prevent.stop
                 >
                     {{ group.name }}
                 </div>
@@ -69,7 +70,7 @@
             ));
             const isOpen = ref(false);
             const bookmarks = ref([]);
-            const groups = computed(() => bookmarksStore.getGroups);
+            const groups = computed(() => bookmarksStore.getGroups.filter(group => group.order > -1));
             const savedGroups = computed(() => {
                 const url = route.path;
                 const saved = bookmarks.value.filter(item => item.url === url);
@@ -106,12 +107,18 @@
                 await openSubmenu();
             }
 
+            const inProgress = ref(false);
+
             async function updateBookmark(groupUUID) {
+                inProgress.value = true;
+
                 await bookmarksStore.updateBookmarkInGroup({
                     url: bookmarkUrl.value,
                     name: props.name,
                     groupUUID
                 });
+
+                inProgress.value = false;
             }
 
             return {

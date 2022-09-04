@@ -58,7 +58,7 @@ public class Trait {
 	private Book book;
 
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 	public String getCapitalazeName() {
 		return StringUtils.capitalize(name.toLowerCase());

@@ -5,13 +5,22 @@
         <div
             class="bookmarks__cat_label"
         >
+            <div
+                v-if="!isMobile || (isMobile && isEdit)"
+                class="bookmarks__cat_label_icon is-left js-drag-category"
+                :class="{ 'only-hover': !isMobile }"
+            >
+                <svg-icon icon-name="sandwich"/>
+            </div>
+
             <div class="bookmarks__cat_label_name">
                 {{ category.name }}
             </div>
 
             <div
-                v-if="isEdit"
-                class="bookmarks__cat_label_icon only-hover is-right"
+                v-if="!isMobile || (isMobile && isEdit)"
+                class="bookmarks__cat_label_icon is-right"
+                :class="{ 'only-hover': !isMobile }"
                 @click.left.exact.prevent="removeBookmark(category.uuid)"
             >
                 <svg-icon icon-name="close"/>
@@ -23,7 +32,7 @@
             class="bookmarks__cat_body"
             :model-value="category.children"
             item-key="uuid"
-            handle=".bookmarks__item_label"
+            handle=".js-drag-bookmark"
             group="bookmarks"
             @change="onChangeHandler"
         >
@@ -32,14 +41,23 @@
                     :key="bookmark.uuid + bookmark.order"
                     class="bookmarks__item"
                 >
+                    <div
+                        v-if="!isMobile || (isMobile && isEdit)"
+                        class="bookmarks__cat_label_icon is-left js-drag-bookmark"
+                        :class="{ 'only-hover': !isMobile }"
+                    >
+                        <svg-icon icon-name="sandwich"/>
+                    </div>
+
                     <a
                         :href="bookmark.url"
                         class="bookmarks__item_label"
                     >{{ bookmark.name }}</a>
 
                     <div
-                        v-if="isEdit"
-                        class="bookmarks__item_icon only-hover is-right"
+                        v-if="!isMobile || (isMobile && isEdit)"
+                        class="bookmarks__item_icon is-right"
+                        :class="{ 'only-hover': !isMobile }"
                         @click.left.exact.prevent="removeBookmark(bookmark.uuid)"
                     >
                         <svg-icon icon-name="close"/>
@@ -51,18 +69,21 @@
 </template>
 
 <script>
-    import { defineComponent } from "vue";
+    import { computed, defineComponent } from "vue";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import draggableComponent from "vuedraggable";
+    import { useUIStore } from "@/store/UI/UIStore";
+    import SvgIcon from "@/components/UI/SvgIcon";
 
     export default defineComponent({
         components: {
-            Draggable: draggableComponent
+            Draggable: draggableComponent,
+            SvgIcon
         },
         props: {
-            groupUuid: {
-                type: String,
-                default: ''
+            group: {
+                type: Object,
+                default: () => ({})
             },
             category: {
                 type: Object,
@@ -78,36 +99,42 @@
             }
         },
         setup(props) {
+            const uiStore = useUIStore();
             const customBookmarkStore = useCustomBookmarkStore();
 
-            async function onChangeHandler(e) {
+            async function updateBookmark(change) {
+                if (!change) {
+                    return;
+                }
+
                 const {
-                    added
-                } = e;
-
-                if (added) {
-                    const {
-                        element: {
-                            uuid,
-                            name,
-                            url
-                        },
-                        newIndex: order
-                    } = added;
-
-                    await customBookmarkStore.queryUpdateBookmark({
+                    element: {
                         uuid,
                         name,
-                        order,
-                        url,
-                        parentUUID: props.category.uuid
-                    });
-                }
+                        url
+                    },
+                    newIndex: order
+                } = change;
+
+                await customBookmarkStore.queryUpdateBookmark({
+                    uuid,
+                    name,
+                    order,
+                    url,
+                    parentUUID: props.category.uuid
+                });
+            }
+
+            async function onChangeHandler(e) {
+                const { added, moved } = e;
+
+                await updateBookmark(added || moved);
             }
 
             return {
                 removeBookmark: customBookmarkStore.queryDeleteBookmark,
-                onChangeHandler
+                onChangeHandler,
+                isMobile: computed(() => uiStore.getIsMobile)
             };
         }
     });

@@ -47,4 +47,14 @@ public class Bookmark {
 	public void addChild(Bookmark bookmark) {
 		children.add(bookmark);
 	}
+	public void incrementOrder() {
+		if (order != null) {
+			order++;
+		}
+	}
+	public void decrimentOrder() {
+		if (order != null) {
+			order--;
+		}
+	}
 }

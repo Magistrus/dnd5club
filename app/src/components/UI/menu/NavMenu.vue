@@ -64,6 +64,7 @@
                                     class="nav-menu__link_icon only-hover"
                                     :class="{'is-active': isSaved(link.url)}"
                                     @click.left.exact.stop.prevent="updateBookmark(link.url, link.label )"
+                                    @dblclick.prevent.stop
                                 >
                                     <svg-icon
                                         :icon-name="isSaved(link.url)
@@ -112,12 +113,36 @@
             const userStore = useUserStore();
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
+            const inProgressURLs = ref([]);
 
             navStore.setNavItems();
 
+            const isSaved = url => {
+                if (userStore.isAuthenticated) {
+                    return customBookmarkStore.isBookmarkSavedInDefault(url);
+                }
+
+                return defaultBookmarkStore.isBookmarkSaved(url);
+            };
+
             async function updateBookmark(url, name) {
+                if (inProgressURLs.value.includes(url)) {
+                    return;
+                }
+
                 if (await userStore.getUserStatus()) {
-                    await customBookmarkStore.updateDefaultBookmark(url, name, 'menu');
+                    inProgressURLs.value.push(url);
+
+                    const defaultGroup = await customBookmarkStore.getDefaultGroup();
+
+                    await customBookmarkStore.updateBookmarkInGroup({
+                        url,
+                        name,
+                        category: 'menu',
+                        groupUUID: defaultGroup.uuid
+                    });
+
+                    inProgressURLs.value = inProgressURLs.value.filter(item => item !== url);
 
                     return;
                 }
@@ -127,9 +152,9 @@
 
             return {
                 menu,
+                isSaved,
                 updateBookmark,
-                navItems: navStore.getNavItems,
-                isSaved: defaultBookmarkStore.isBookmarkSaved
+                navItems: navStore.getNavItems
             };
         }
     });

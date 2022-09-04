@@ -92,6 +92,6 @@ public class Background {
 	}
 
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 }
