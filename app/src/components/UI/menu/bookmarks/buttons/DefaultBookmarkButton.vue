@@ -4,6 +4,7 @@
         class="default-bookmark-button"
         type-link-filled
         @click.left.exact.prevent.stop="updateBookmark"
+        @dblclick.prevent.stop
     >
         <svg-icon
             :icon-name="isSaved ? 'bookmark-filled' : 'bookmark'"

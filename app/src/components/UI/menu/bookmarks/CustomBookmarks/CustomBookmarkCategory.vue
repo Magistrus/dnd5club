@@ -103,32 +103,26 @@
             const customBookmarkStore = useCustomBookmarkStore();
 
             async function updateBookmark(change) {
-                try {
-                    if (!change) {
-                        return;
-                    }
+                if (!change) {
+                    return;
+                }
 
-                    const {
-                        element: {
-                            uuid,
-                            name,
-                            url
-                        },
-                        newIndex: order
-                    } = change;
-
-                    await customBookmarkStore.queryUpdateBookmark({
+                const {
+                    element: {
                         uuid,
                         name,
-                        order,
-                        url,
-                        parentUUID: props.category.uuid
-                    });
+                        url
+                    },
+                    newIndex: order
+                } = change;
 
-                    return Promise.resolve();
-                } catch (err) {
-                    return Promise.reject(err);
-                }
+                await customBookmarkStore.queryUpdateBookmark({
+                    uuid,
+                    name,
+                    order,
+                    url,
+                    parentUUID: props.category.uuid
+                });
             }
 
             async function onChangeHandler(e) {

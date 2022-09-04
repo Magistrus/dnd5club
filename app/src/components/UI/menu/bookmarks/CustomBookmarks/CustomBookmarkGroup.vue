@@ -158,27 +158,21 @@
             }
 
             async function updateBookmark(change) {
-                try {
-                    if (!change) {
-                        return;
-                    }
-
-                    const {
-                        element: { uuid, name },
-                        newIndex: order
-                    } = change;
-
-                    await customBookmarkStore.queryUpdateBookmark({
-                        uuid,
-                        name,
-                        order,
-                        parentUUID: props.group.uuid
-                    });
-
-                    return Promise.resolve();
-                } catch (err) {
-                    return Promise.reject(err);
+                if (!change) {
+                    return;
                 }
+
+                const {
+                    element: { uuid, name },
+                    newIndex: order
+                } = change;
+
+                await customBookmarkStore.queryUpdateBookmark({
+                    uuid,
+                    name,
+                    order,
+                    parentUUID: props.group.uuid
+                });
             }
 
             async function onChangeHandler(e) {
