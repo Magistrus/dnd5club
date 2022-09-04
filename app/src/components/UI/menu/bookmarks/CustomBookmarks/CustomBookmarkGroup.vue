@@ -52,6 +52,9 @@
                 item-key="uuid"
                 handle=".js-drag-category"
                 group="category"
+                ghost-class="bookmarks__cat_ghost"
+                chosen-class="bookmarks__cat_chosen"
+                drag-class="bookmarks__cat_drag"
                 @change="onChangeHandler"
             >
                 <template #item="{ element: category }">
