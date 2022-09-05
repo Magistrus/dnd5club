@@ -34,6 +34,9 @@
             item-key="uuid"
             handle=".js-drag-bookmark"
             group="bookmarks"
+            ghost-class="bookmarks__item_ghost"
+            chosen-class="bookmarks__item_chosen"
+            drag-class="bookmarks__item_drag"
             @change="onChangeHandler"
         >
             <template #item="{ element: bookmark }">

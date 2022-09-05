@@ -300,6 +300,22 @@
       padding: 0;
     }
 
+    &_ghost {
+      cursor: grabbing;
+      background: var(--hover);
+      border-radius: 6px;
+    }
+
+    &_chosen {
+      cursor: grabbing;
+    }
+
+    &_drag {
+      cursor: grabbing;
+      background: var(--primary);
+      border-radius: 6px;
+    }
+
     &:last-child {
       margin-bottom: 8px;
     }
@@ -354,6 +370,22 @@
           background: var(--hover);
         }
       }
+    }
+
+    &_ghost {
+      cursor: grabbing;
+      background: var(--hover);
+      border-radius: 6px;
+    }
+
+    &_chosen {
+      cursor: grabbing;
+    }
+
+    &_drag {
+      cursor: grabbing;
+      background: var(--primary);
+      border-radius: 6px;
     }
 
     &:hover {

@@ -79,18 +79,18 @@
             margin-left: 16px;
         }
 
-        &:focus-within,
-        &:focus,
-        &:hover {
-            @include css_anim();
+        @include media-min($xl) {
+            &:hover {
+                @include css_anim();
 
-            background-color: var(--primary-hover);
-        }
+                background-color: var(--primary-hover);
+            }
 
-        &:active {
-            @include css_anim();
+            &:active {
+                @include css_anim();
 
-            background-color: var(--primary-active);
+                background-color: var(--primary-active);
+            }
         }
 
         &:disabled {
@@ -108,15 +108,15 @@
             background-color: transparent;
             color: var(--primary);
 
-            &:focus-within,
-            &:focus,
-            &:hover {
-                background-color: var(--bg-sub-menu);
-                color: var(--primary-hover);
-            }
+            @include media-min($xl) {
+                &:hover {
+                    background-color: var(--bg-sub-menu);
+                    color: var(--primary-hover);
+                }
 
-            &:active {
-                background-color: var(--bg-main);
+                &:active {
+                    background-color: var(--bg-main);
+                }
             }
 
             &:disabled {
@@ -131,16 +131,16 @@
             background-color: transparent;
             color: var(--primary);
 
-            &:focus-within,
-            &:focus,
-            &:hover {
-                background-color: var(--hover);
-                color: var(--text-btn-color);
-            }
+            @include media-min($xl) {
+                &:hover {
+                    background-color: var(--hover);
+                    color: var(--text-btn-color);
+                }
 
-            &:active {
-                background-color: var(--primary-active);
-                color: var(--text-btn-color);
+                &:active {
+                    background-color: var(--primary-active);
+                    color: var(--text-btn-color);
+                }
             }
 
             &:disabled {
