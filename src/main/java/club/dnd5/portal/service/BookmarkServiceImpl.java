@@ -96,9 +96,12 @@ public class BookmarkServiceImpl implements BookmarkService {
 	public void deleteBookmark(String uuid) {
 		final Optional<Bookmark> saved = bookmarkRepository.findById(UUID.fromString(uuid));
 		if (saved.isPresent()) {
-			Collection<Bookmark> chields = bookmarkRepository.findByParentUuid(UUID.fromString(uuid));
-			chields.stream().filter(b -> b.getOrder() > saved.get().getOrder()).forEach(b -> b.decrimentOrder());
-			bookmarkRepository.saveAll(chields);
+			Bookmark parent = saved.get().getParent();
+			if (parent != null) {
+				Collection<Bookmark> chields = saved.get().getParent().getChildren();
+				chields.stream().filter(b -> b.getOrder() > saved.get().getOrder()).forEach(b -> b.decrimentOrder());
+				bookmarkRepository.saveAll(chields);
+			}
 			bookmarkRepository.deleteById(UUID.fromString(uuid));
 		}
 	}
