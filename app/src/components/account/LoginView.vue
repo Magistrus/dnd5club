@@ -25,7 +25,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="v$.usernameOrEmail.$model"
+                v-model.trim="v$.usernameOrEmail.$model"
                 placeholder="Логин или электронная почта"
                 autocomplete="username"
                 autocapitalize="off"
@@ -39,7 +39,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="v$.password.$model"
+                v-model.trim="v$.password.$model"
                 placeholder="Пароль"
                 is-password
                 required
@@ -170,8 +170,8 @@
 
                 try {
                     await this.authorization({
-                        usernameOrEmail: this.usernameOrEmail,
-                        password: this.password,
+                        usernameOrEmail: this.usernameOrEmail.trim(),
+                        password: this.password.trim(),
                         remember: this.remember
                     });
 
