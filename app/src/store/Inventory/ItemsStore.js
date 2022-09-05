@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'items';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useItemsStore = defineStore('ItemsStore', {
@@ -96,7 +94,7 @@ export const useItemsStore = defineStore('ItemsStore', {
                     apiOptions.customFilter = this.customFilter;
                 }
 
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.itemsQuery.signal);
+                const { data } = await this.$http.post(this.config.url, apiOptions, this.controllers.itemsQuery.signal);
 
                 this.controllers.itemsQuery = undefined;
 
@@ -160,7 +158,7 @@ export const useItemsStore = defineStore('ItemsStore', {
 
                 this.controllers.itemInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.itemInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.itemInfoQuery.signal);
 
                 this.controllers.itemInfoQuery = undefined;
 

@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 
 const DB_NAME = 'armors';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useArmorsStore = defineStore('ArmorsStore', {
@@ -83,7 +81,11 @@ export const useArmorsStore = defineStore('ArmorsStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.armorsQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.armorsQuery.signal
+                );
 
                 this.controllers.armorsQuery = undefined;
 
@@ -121,7 +123,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
 
                 this.controllers.armorInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.armorInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.armorInfoQuery.signal);
 
                 this.controllers.armorInfoQuery = undefined;
 

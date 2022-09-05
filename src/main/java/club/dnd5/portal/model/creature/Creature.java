@@ -143,12 +143,12 @@ public class Creature {
 
 	// спаброски
 	@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "creature_id")
+	@JoinColumn(name = "creature_id")
 	private List<SavingThrow> savingThrows;
 
 	// навыки
 	@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "creature_id")
+	@JoinColumn(name = "creature_id")
 	private List<Skill> skills;
 
 	@ManyToMany
@@ -343,7 +343,8 @@ public class Creature {
 	public int getBonusHpAbs() {
 		return bonusHP == null ? 0 : Math.abs(bonusHP);
 	}
+
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 }

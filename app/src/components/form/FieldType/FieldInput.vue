@@ -15,9 +15,10 @@
                 v-bind="attrs"
                 ref="input"
                 v-model="value"
-                :autocomplete="autocomplete ? 'on' : 'off'"
+                :autocomplete="inputAutocomplete"
                 :placeholder="placeholder"
-                :type="type"
+                :type="inputType"
+                :spellcheck="false"
                 class="field-input__input"
                 @blur="$emit('blur')"
             >
@@ -52,6 +53,7 @@
         components: {
             SvgIcon
         },
+        inheritAttrs: false,
         props: {
             modelValue: {
                 type: [String, Number],
@@ -65,9 +67,17 @@
                 type: String,
                 default: ''
             },
-            autocomplete: {
+            autofocus: {
                 type: Boolean,
                 default: false
+            },
+            autocomplete: {
+                type: [Boolean, String],
+                default: false
+            },
+            type: {
+                type: String,
+                default: 'text'
             },
             isNumber: {
                 type: Boolean,
@@ -117,7 +127,7 @@
                 }
             },
 
-            type() {
+            inputType() {
                 if (this.isNumber) {
                     return 'number';
                 }
@@ -130,11 +140,23 @@
                     return 'email';
                 }
 
-                return 'text';
+                return this.type;
+            },
+
+            inputAutocomplete() {
+                switch (typeof this.autocomplete) {
+                    case 'boolean':
+                        return this.autocomplete ? 'on' : 'off';
+                    case "string":
+                        return this.autocomplete;
+
+                    default:
+                        return 'off';
+                }
             },
 
             attrs() {
-                const attrs = {};
+                const attrs = { ...this.$attrs };
 
                 if (this.isNumber) {
                     if (this.min !== undefined) {
@@ -145,7 +167,18 @@
                 return attrs;
             }
         },
+        mounted() {
+            if (this.autofocus) {
+                this.focusInput();
+            }
+        },
         methods: {
+            focusInput() {
+                if (this.$refs.input) {
+                    this.$refs.input.focus();
+                }
+            },
+
             togglePass() {
                 this.showedPass = !this.showedPass;
 
@@ -181,7 +214,7 @@
                 height: 38px;
                 width: 38px;
                 cursor: pointer;
-                padding: 12px;
+                padding: 10px;
                 color: var(--text-btn-color);
             }
         }

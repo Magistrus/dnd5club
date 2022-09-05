@@ -23,7 +23,7 @@
     import { shallowRef } from "vue";
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleLink from "@/views/Wiki/Rules/RuleLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

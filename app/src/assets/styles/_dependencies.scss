@@ -87,10 +87,24 @@
 }
 
 .vel-modal {
+  @include css_anim($item: background-color);
+
+  &.is-bg-hide {
+    background-color: var(--bg-main) !important;
+  }
+
   .vel-img-wrapper {
     .vel-img {
       background-color: transparent;
       box-shadow: none;
+    }
+  }
+
+  .vel-toolbar {
+    .vel-icon {
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: -0.15em;
     }
   }
 }

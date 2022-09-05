@@ -31,7 +31,9 @@ import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ArchetypeRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Class", description = "The Class API")
 @RestController
 public class ClassApiController {
 	@Autowired

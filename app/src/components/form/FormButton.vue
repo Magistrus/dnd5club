@@ -1,6 +1,6 @@
 <template>
     <button
-        :class="`is-${type}`"
+        :class="classList"
         :disabled="disabled"
         class="form-button"
         type="button"
@@ -17,7 +17,7 @@
                 type: Boolean,
                 default: false
             },
-            typeOutline: {
+            typeLinkFilled: {
                 type: Boolean,
                 default: false
             },
@@ -28,6 +28,10 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            isSmall: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -36,11 +40,21 @@
                     return 'link';
                 }
 
-                if (this.typeOutline) {
-                    return 'outline';
+                if (this.typeLinkFilled) {
+                    return 'link-filled';
                 }
 
                 return 'primary';
+            },
+
+            classList() {
+                const list = [`is-${ this.type }`];
+
+                if (this.isSmall) {
+                    list.push('is-small');
+                }
+
+                return list;
             }
         }
     };
@@ -51,9 +65,8 @@
         @include css_anim();
 
         background-color: var(--primary);
-        border: 1px solid var(--primary);
         color: var(--text-btn-color);
-        border-radius: 8px;
+        border-radius: 6px;
         padding: 12px;
         cursor: pointer;
         display: inline-flex;
@@ -66,26 +79,23 @@
             margin-left: 16px;
         }
 
-        &:focus-within,
-        &:focus,
-        &:hover {
-            @include css_anim();
+        @include media-min($xl) {
+            &:hover {
+                @include css_anim();
 
-            background-color: var(--primary-hover);
-            border-color: var(--primary-hover);
-        }
+                background-color: var(--primary-hover);
+            }
 
-        &:active {
-            @include css_anim();
+            &:active {
+                @include css_anim();
 
-            background-color: var(--primary-active);
-            border-color: var(--primary-active);
+                background-color: var(--primary-active);
+            }
         }
 
         &:disabled {
             opacity: .6;
             background-color: var(--primary);
-            border-color: var(--primary);
             cursor: not-allowed;
         }
 
@@ -96,56 +106,61 @@
 
         &.is-link {
             background-color: transparent;
-            border-color: transparent;
             color: var(--primary);
 
-            &:focus-within,
-            &:focus,
-            &:hover {
-                background-color: var(--bg-sub-menu);
-                border-color: var(--bg-sub-menu);
-                color: var(--primary-hover);
-            }
+            @include media-min($xl) {
+                &:hover {
+                    background-color: var(--bg-sub-menu);
+                    color: var(--primary-hover);
+                }
 
-            &:active {
-                background-color: var(--bg-main);
-                border-color: var(--bg-main);
+                &:active {
+                    background-color: var(--bg-main);
+                }
             }
 
             &:disabled {
                 opacity: .6;
                 background-color: transparent;
-                border-color: transparent;
                 color: var(--primary);
                 cursor: not-allowed;
             }
         }
 
-        &.is-outline {
+        &.is-link-filled {
             background-color: transparent;
-            border-color: var(--primary);
             color: var(--primary);
 
-            &:focus-within,
-            &:focus,
-            &:hover {
-                background-color: var(--bg-sub-menu);
-                border-color: var(--primary-hover);
-                color: var(--primary-hover);
-            }
+            @include media-min($xl) {
+                &:hover {
+                    background-color: var(--hover);
+                    color: var(--text-btn-color);
+                }
 
-            &:active {
-                background-color: var(--primary-active);
-                border-color: var(--primary-active);
-                color: var(--text-btn-color);
+                &:active {
+                    background-color: var(--primary-active);
+                    color: var(--text-btn-color);
+                }
             }
 
             &:disabled {
                 opacity: .6;
                 background-color: transparent;
-                border-color: var(--primary);
                 color: var(--primary);
                 cursor: not-allowed;
+            }
+        }
+
+        &.is-small {
+            padding: 8px;
+
+            & + & {
+                margin-left: 8px;
+            }
+
+            ::v-deep(svg) {
+                width: 18px;
+                height: 18px;
             }
         }
     }

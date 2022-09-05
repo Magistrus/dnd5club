@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import club.dnd5.portal.dto.api.spells.Order;
 import club.dnd5.portal.dto.api.spells.SearchRequest;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +19,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RequestApi {
+	@Schema(description = "page number", defaultValue = "0")
     public Integer page;
+	@Schema(description = "limit on one page", defaultValue = "10")
     public Integer limit = -1;
+	@Schema(description = "the serach object", defaultValue = "null")
     public SearchRequest search;
-
+	
+	@Schema(description = "the array of sorts", defaultValue = "null")
     @JsonProperty("order")
     public List<Order> orders;
 }

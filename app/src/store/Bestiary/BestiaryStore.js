@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'bestiary';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useBestiaryStore = defineStore('BestiaryStore', {
@@ -100,11 +98,15 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
                     apiOptions.customFilter = this.customFilter;
                 }
 
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.bestiaryQuery.signal);
+                const resp = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.bestiaryQuery.signal
+                );
 
                 this.controllers.bestiaryQuery = undefined;
 
-                return data;
+                return resp.data;
             } catch (err) {
                 errorHandler(err);
 
@@ -164,7 +166,7 @@ export const useBestiaryStore = defineStore('BestiaryStore', {
 
                 this.controllers.creatureInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.creatureInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.creatureInfoQuery.signal);
 
                 this.controllers.creatureInfoQuery = undefined;
 

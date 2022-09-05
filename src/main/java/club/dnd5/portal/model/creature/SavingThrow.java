@@ -16,14 +16,14 @@ import lombok.Setter;
 @Getter @Setter
 
 @Entity
-@Table(name = "bonus_saving_throws")
+@Table(name = "creature_saving_throws")
 @NoArgsConstructor
 public class SavingThrow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private AbilityType ability;
 	private byte bonus;
 

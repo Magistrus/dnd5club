@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.classes.ArchetypeSpellRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class SpellController {
 	@Autowired
@@ -24,7 +26,6 @@ public class SpellController {
 	@Autowired
 	private ArchetypeSpellRepository archetypeSpellRepository;
 
-	
 	@GetMapping("/spells")
 	public String getSpells(Model model) {
 		model.addAttribute("metaTitle", "Заклинания (Spells) D&D 5e");

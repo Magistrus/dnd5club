@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useScreensStore = defineStore('ScreensStore', {
@@ -69,7 +66,11 @@ export const useScreensStore = defineStore('ScreensStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.screensQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.screensQuery.signal
+                );
 
                 this.controllers.screensQuery = undefined;
 
@@ -133,7 +134,7 @@ export const useScreensStore = defineStore('ScreensStore', {
 
                 this.controllers.screenInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.screenInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.screenInfoQuery.signal);
 
                 this.controllers.screenInfoQuery = undefined;
 

@@ -22,7 +22,7 @@
     import { shallowRef } from "vue";
     import { useTraitsStore } from "@/store/Character/TraitsStore";
     import TraitLink from "@/views/Character/Traits/TraitLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

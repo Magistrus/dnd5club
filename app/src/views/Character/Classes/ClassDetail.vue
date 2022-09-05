@@ -7,6 +7,7 @@
                 :title="currentClass?.name?.rus || ''"
                 bookmark
                 print
+                fullscreen
                 close-on-desktop
                 @close="close"
             />
@@ -34,6 +35,35 @@
                     </div>
                 </div>
             </div>
+
+            <div
+                v-if="getIsMobile && currentTab?.type === 'traits' && currentArchetypes.length"
+                class="class-detail__select"
+            >
+                <field-select
+                    :group-select="false"
+                    :model-value="currentSelectArchetype"
+                    :options="currentArchetypes"
+                    :searchable="false"
+                    group-label="group"
+                    group-values="list"
+                    label="name"
+                    track-by="url"
+                >
+                    <template #placeholder>
+                        --- {{ currentClass?.archetypeName }} ---
+                    </template>
+
+                    <template #option="{ option }">
+                        <span v-if="option?.group">{{ option.group.name }}</span>
+
+                        <span
+                            v-else
+                            @click.left.exact.prevent="goToArchetype(option.url)"
+                        >{{ option.name }}</span>
+                    </template>
+                </field-select>
+            </div>
         </template>
 
         <template #default>
@@ -46,35 +76,6 @@
                     ref="classBody"
                     class="class-detail__body"
                 >
-                    <div
-                        v-if="getIsMobile && currentArchetypes.length && currentTab?.type === 'traits'"
-                        class="class-detail__select"
-                    >
-                        <field-select
-                            :group-select="false"
-                            :model-value="currentSelectArchetype"
-                            :options="currentArchetypes"
-                            :searchable="false"
-                            group-label="group"
-                            group-values="list"
-                            label="name"
-                            track-by="url"
-                        >
-                            <template #placeholder>
-                                --- {{ currentClass?.archetypeName }} ---
-                            </template>
-
-                            <template #option="{ option }">
-                                <span v-if="option?.group">{{ option.group.name }}</span>
-
-                                <span
-                                    v-else
-                                    @click.left.exact.prevent="goToArchetype(option.url)"
-                                >{{ option.name }}</span>
-                            </template>
-                        </field-select>
-                    </div>
-
                     <div
                         v-if="currentTab?.url"
                         class="class-detail__body--inner"
@@ -131,7 +132,7 @@
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import isArray from "lodash/isArray";
     import sortBy from "lodash/sortBy";
@@ -154,6 +155,13 @@
             await this.loadNewClass(to.path);
 
             next();
+        },
+        beforeRouteLeave(to, from) {
+            if (to.name !== 'classes') {
+                return;
+            }
+
+            this.$emit('scroll-to-last-active', from.path);
         },
         data: () => ({
             classesStore: useClassesStore(),
@@ -218,6 +226,8 @@
         },
         async mounted() {
             await this.loadNewClass(this.$route.path);
+
+            this.$emit('scroll-to-active');
         },
         beforeUnmount() {
             this.removeScrollListeners();
@@ -249,7 +259,7 @@
             async initTabs(loadedClass) {
                 this.tabs = loadedClass.tabs;
 
-                if (loadedClass.images) {
+                if (isArray(loadedClass.images) && loadedClass.images?.length) {
                     this.tabs.push({
                         type: 'images',
                         order: this.tabs.length,
@@ -464,6 +474,10 @@
                 @include media-max(800px) {
                     display: none;
                 }
+
+                @include media-max(380px) {
+                    margin-left: 8px;
+                }
             }
 
             @include media-min($md) {
@@ -491,7 +505,7 @@
                 padding: 0 16px;
             }
 
-            @include media-max(360px) {
+            @include media-max(380px) {
                 padding: 0 8px;
             }
         }

@@ -141,7 +141,7 @@
     import throttle from 'lodash/throttle';
     import groupBy from "lodash/groupBy";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import FieldInput from "@/components/form/FieldType/FieldInput";
     import FormButton from "@/components/form/FormButton";

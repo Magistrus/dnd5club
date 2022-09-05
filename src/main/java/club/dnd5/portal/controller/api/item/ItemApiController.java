@@ -33,7 +33,9 @@ import club.dnd5.portal.model.items.EquipmentType;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Item", description = "The Item API")
 @RestController
 public class ItemApiController {
 	@Autowired

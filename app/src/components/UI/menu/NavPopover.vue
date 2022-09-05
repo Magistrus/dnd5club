@@ -33,6 +33,7 @@
                     <div
                         v-if="show.body"
                         class="nav-popover__body"
+                        :style="{ maxHeight }"
                     >
                         <slot
                             name="default"
@@ -75,6 +76,7 @@
     });
     const rectBody = useElementBounding(body);
     const position = reactive({});
+    const maxHeight = ref('calc(var(--max-vh) / 100 * 90)');
 
     function setPosition() {
         rectBody.update();
@@ -83,11 +85,13 @@
             return;
         }
 
-        position.top = `${ props.isMenu ? rectTrigger.top.value : rectTrigger.bottom.value + 4 }px`;
-
         if (!props.isMenu) {
-            position.height = `calc(var(--max-vh) - ${ rectTrigger.bottom.value + 4 }px - 8px)`;
+            maxHeight.value = `calc(var(--max-vh) - ${ rectTrigger.bottom.value + 4 }px - 8px)`;
         }
+
+        position.top = `${ props.isMenu ? rectTrigger.top.value : rectTrigger.bottom.value + 4 }px`;
+        position.height = maxHeight.value;
+        position.maxHeight = maxHeight.value;
 
         if (props.isLeft) {
             position.left = `${ rectTrigger.left.value }px`;
@@ -151,9 +155,7 @@
         }
 
         &__wrapper {
-            max-height: calc(var(--max-vh) / 100 * 90);
-            height: calc(var(--max-vh) / 100 * 90);
-            max-width: 790px;
+            max-width: 800px;
             z-index: 111;
             position: relative;
             display: inline-block;
@@ -180,19 +182,15 @@
             overflow: auto;
             border-radius: 8px;
             box-shadow: 0 0 27px #0006;
-            padding: 16px 16px 8px;
             transform-origin: top right;
             max-width: 100%;
-            max-height: 100%;
 
             &.is-left {
                 transform-origin: top left;
             }
 
             @media (max-width: 550px) {
-                overflow: scroll;
                 width: 100%;
-                padding: 16px 8px 0px;
             }
         }
     }

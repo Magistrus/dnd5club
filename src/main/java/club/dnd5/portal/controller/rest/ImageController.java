@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.repository.ImageRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @RestController
 public class ImageController {
 	@Autowired

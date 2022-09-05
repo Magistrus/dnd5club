@@ -64,31 +64,27 @@
                         </div>
 
                         <div
-                            v-if="hasComponents"
                             class="link-item__components"
                         >
                             <div
-                                v-if="spell.components.v"
-                                v-tippy="{ content: 'Вербальный' }"
+                                v-tippy="{ content: 'Вербальный', onShow() { return !!spell?.components?.v } }"
                                 class="link-item__component"
                             >
-                                В
+                                {{ spell?.components?.v ? 'В' : '·' }}
                             </div>
 
                             <div
-                                v-if="spell.components.s"
-                                v-tippy="{ content: 'Соматический' }"
+                                v-tippy="{ content: 'Соматический', onShow() { return !!spell?.components?.s } }"
                                 class="link-item__component"
                             >
-                                С
+                                {{ spell?.components?.s ? 'С' : '·' }}
                             </div>
 
                             <div
-                                v-if="!!spell.components.m"
-                                v-tippy="{ content: 'Материальный' }"
+                                v-tippy="{ content: 'Материальный', onShow() { return !!spell?.components?.m } }"
                                 class="link-item__component"
                             >
-                                М
+                                {{ !!spell?.components?.m ? 'М' : '·' }}
                             </div>
                         </div>
                     </div>
@@ -119,7 +115,7 @@
     import SpellBody from "@/views/Spells/SpellBody";
     import BaseModal from "@/components/UI/modals/BaseModal";
     import { mapActions, mapState } from "pinia";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
     export default {
         name: 'SpellLink',
@@ -150,7 +146,7 @@
             }
         }),
         computed: {
-            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
+            ...mapState(useDefaultBookmarkStore, ['isBookmarkSaved']),
 
             hasComponents() {
                 const { spell } = this;
@@ -160,14 +156,13 @@
 
             bookmarkObj() {
                 return {
-                    link: this.spell.url,
-                    label: this.spell.name.rus,
-                    section: "Заклинания"
+                    url: this.spell.url,
+                    name: this.spell.name.rus
                 };
             }
         },
         methods: {
-            ...mapActions(useBookmarkStore, ['updateBookmark']),
+            ...mapActions(useDefaultBookmarkStore, ['updateBookmark']),
 
             getClassList(isActive) {
                 return {
@@ -199,7 +194,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../assets/styles/link-item";
+    @import "../../assets/styles/modules/link-item";
 
     .link-item {
         &__lvl {
@@ -244,6 +239,8 @@
             font-size: calc(var(--main-font-size) - 1px);
             line-height: normal;
             color: var(--text-color);
+            width: 10px;
+            text-align: center;
 
             & + & {
                 margin-left: 4px;

@@ -24,7 +24,7 @@
     import WeaponBody from "@/views/Inventory/Weapons/WeaponBody";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

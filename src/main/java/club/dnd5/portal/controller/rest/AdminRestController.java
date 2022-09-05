@@ -11,12 +11,11 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.user.OldUserDto;
 import club.dnd5.portal.service.UserService;
 
-@RestController
+//@RestController
 public class AdminRestController {
 	@Autowired
 	private UserService service;

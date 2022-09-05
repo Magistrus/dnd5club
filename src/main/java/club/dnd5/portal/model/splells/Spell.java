@@ -35,6 +35,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "spells")
 public class Spell {
+	public static final int MAX_LEVEL = 9;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -105,7 +107,7 @@ public class Spell {
 	}
 	
 	public String getUrlName() {
-		return englishName.replace(' ', '_');
+		return englishName.toLowerCase().replace(' ', '_');
 	}
 	
 	public String getCapitalazeName() {

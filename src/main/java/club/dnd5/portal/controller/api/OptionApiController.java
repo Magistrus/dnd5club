@@ -39,7 +39,9 @@ import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Class Option", description = "The Class Option API")
 @RestController
 public class OptionApiController {
 	@Autowired

@@ -26,7 +26,7 @@ public class ArmorApi {
 	
 	public ArmorApi(Armor armor) {
 		name = new NameApi(armor.getName(), armor.getEnglishName());
-		url = String.format("/armors/%s", armor.getEnglishName().replace(' ', '_'));
+		url = String.format("/armors/%s", armor.getEnglishName().toLowerCase().replace(' ', '_'));
 		if (armor.getBook().getType() == TypeBook.CUSTOM) {
 			homebrew = Boolean.TRUE;	
 		}

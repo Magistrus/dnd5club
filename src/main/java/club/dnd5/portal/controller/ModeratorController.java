@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,6 @@ import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.creature.HabitatType;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 
-@Controller
 public class ModeratorController {
 	@Autowired
 	private BestiaryDatatableRepository repo;

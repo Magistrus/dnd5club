@@ -23,7 +23,7 @@
     import { shallowRef } from "vue";
     import GodLink from "@/views/Wiki/Gods/GodLink";
     import { useGodsStore } from "@/store/Wiki/GodsStore";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

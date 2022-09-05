@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.dto.ConditionDto;
 import club.dnd5.portal.model.Condition;
 import club.dnd5.portal.repository.ConditionRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class ConditionController {
 	@Autowired

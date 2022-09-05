@@ -33,39 +33,31 @@
                 v-if="hasOptionalControls"
                 class="section-header__controls--optional"
             >
-                <button
+                <bookmark-save-button
                     v-if="bookmark"
-                    v-tippy="{ content: 'Добавить в закладки' }"
-                    class="section-header__control--optional"
-                    type="button"
-                    @click.left.exact.prevent.stop="updateBookmark($route.path, title)"
-                >
-                    <svg-icon
-                        :icon-name="isBookmarkSaved($route.path) ? 'bookmark-filled' : 'bookmark'"
-                        :stroke-enable="false"
-                        fill-enable
-                    />
-                </button>
+                    :name="title"
+                    :url="url"
+                />
 
-                <button
+                <form-button
                     v-if="print"
                     v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
-                    type="button"
+                    type-link-filled
                     @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
-                </button>
+                </form-button>
 
-                <button
+                <form-button
                     v-if="onExportFoundry"
-                    v-tippy="{ content: 'Экспорт в Foundry VTT' }"
+                    v-tippy="{ content: 'Импорт в Foundry VTT. <a href=&quot;/fvtt_import&quot;>Инструкция</a>' }"
                     class="section-header__control--optional is-only-desktop"
-                    type="button"
+                    type-link-filled
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>
-                </button>
+                </form-button>
             </div>
 
             <div
@@ -101,15 +93,17 @@
 </template>
 
 <script>
-    import SvgIcon from '@/components/UI/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
     import errorHandler from "@/common/helpers/errorHandler";
-    import { mapActions, mapState } from "pinia";
-    import { useBookmarkStore } from "@/store/UI/BookmarkStore";
+    import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
+    import FormButton from "@/components/form/FormButton";
 
     export default {
         name: 'SectionHeader',
-        components: { SvgIcon },
+        components: {
+            FormButton,
+            BookmarkSaveButton
+        },
         props: {
             title: {
                 type: String,
@@ -126,6 +120,10 @@
             bookmark: {
                 type: Boolean,
                 default: false
+            },
+            url: {
+                type: String,
+                default: ''
             },
             print: {
                 type: Boolean,
@@ -152,8 +150,6 @@
             uiStore: useUIStore()
         }),
         computed: {
-            ...mapState(useBookmarkStore, ['isBookmarkSaved']),
-
             hasOptionalControls() {
                 return !!this.bookmark || !!this.print || !!this.onExportFoundry;
             },
@@ -184,8 +180,6 @@
             }
         },
         methods: {
-            ...mapActions(useBookmarkStore, ['updateBookmark']),
-
             async copyText() {
                 if (navigator.clipboard) {
                     try {
@@ -224,7 +218,6 @@
         align-items: center;
         justify-content: flex-end;
         flex-wrap: nowrap;
-        overflow: hidden;
         flex-shrink: 0;
         background-color: var(--bg-sub-menu);
         border-bottom: 1px solid var(--border);
@@ -244,17 +237,14 @@
             align-items: center;
 
             &--text {
-                font-size: calc(var(--h1-font-size) - 12px);
+                font-size: var(--h4-font-size);
+                line-height: var(--h4-line-height);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 position: relative;
                 color: var(--text-color-title);
                 font-weight: 400;
-
-                @media (max-width: 800px) {
-                    font-size: calc(var(--h1-font-size) - 16px);
-                }
             }
 
             &--copy {
@@ -308,11 +298,27 @@
                 align-items: center;
                 flex-shrink: 0;
             }
+
+            &--optional {
+                padding-right: 8px;
+            }
         }
 
         &__control {
             &--main,
             &--optional {
+                &.is-only-desktop {
+                    display: none;
+                }
+
+                @include media-min($lg) {
+                    &.is-only-desktop {
+                        display: flex;
+                    }
+                }
+            }
+
+            &--main {
                 @include css_anim();
 
                 display: flex;
@@ -324,20 +330,10 @@
                 width: 73px;
                 height: 72px;
 
-                &.is-only-desktop {
-                    display: none;
-                }
-
                 @include media-min($md) {
                     &:hover {
                         background-color: var(--primary-hover);
                         color: var(--text-btn-color);
-                    }
-                }
-
-                @include media-min($lg) {
-                    &.is-only-desktop {
-                        display: flex;
                     }
                 }
             }
@@ -351,13 +347,9 @@
             }
 
             &--optional {
-                width: 48px;
-                height: 48px;
-                padding: 12px;
-                border-radius: 8px;
-                background-color: transparent;
-                flex: 1 0 48px;
-                margin-right: 8px;
+                & + & {
+                    margin-left: 8px;
+                }
             }
         }
     }

@@ -78,7 +78,7 @@ export const useNavStore = defineStore('NavStore', {
                             url: '/bestiary'
                         },
                         {
-                            label: 'Ширма',
+                            label: 'Ширма (Справочник)',
                             url: '/screens'
                         }
                     ]
@@ -124,6 +124,24 @@ export const useNavStore = defineStore('NavStore', {
                         {
                             label: 'Источники',
                             url: '/books'
+                        }
+                    ]
+                },
+                {
+                    label: 'Инструкции',
+                    icon: 'menu-question',
+                    links: [
+                        {
+                            label: 'Как использовать бота',
+                            url: '/telegram_bot'
+                        },
+                        {
+                            label: 'Импорт существ в FvTT',
+                            url: '/fvtt_import'
+                        },
+                        {
+                            label: 'Управление закладками',
+                            url: '/bookmarks_info'
                         }
                     ]
                 },

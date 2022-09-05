@@ -1,18 +1,17 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import Cookies from 'js-cookie';
-
-const http = new HTTPService();
+import { USER_TOKEN_COOKIE } from '@/common/const/UI';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useUserStore = defineStore('UserStore', {
     state: () => ({
-        user: undefined
+        user: undefined,
+        status: false
     }),
 
     getters: {
         getUser: state => state.user,
-        isAuthorized: state => !!state.user
+        isAuthenticated: state => state.status
     },
 
     actions: {
@@ -26,7 +25,7 @@ export const useUserStore = defineStore('UserStore', {
                     return Promise.reject(new Error('All fields are required to fill'));
                 }
 
-                const resp = await http.post('/auth/signup', body);
+                const resp = await this.$http.post('/auth/signup', body);
 
                 switch (resp.status) {
                     case 200:
@@ -56,11 +55,21 @@ export const useUserStore = defineStore('UserStore', {
                     return Promise.reject(new Error('All fields are required to fill'));
                 }
 
-                const resp = await http.post('/auth/signin', config);
+                const resp = await this.$http.post('/auth/signin', config);
 
                 switch (resp.status) {
                     case 200:
-                        await this.updateUserFromSession();
+                        if (this.$isDev) {
+                            Cookies.set(
+                                USER_TOKEN_COOKIE,
+                                resp.data.accessToken,
+                                {
+                                    expires: 365
+                                }
+                            );
+                        }
+
+                        await this.getUserInfo();
 
                         return Promise.resolve();
                     case 401:
@@ -74,9 +83,41 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
-        async getUserInfo(username) {
+        async logout() {
             try {
-                const resp = await http.post(`/profile/${ username }`);
+                const resp = await this.$http.post('/auth/signout');
+
+                switch (resp.status) {
+                    case 200:
+                        if (this.$isDev) {
+                            Cookies.remove(USER_TOKEN_COOKIE, { path: '' });
+                        }
+
+                        this.clearUser();
+
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject();
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        clearUser() {
+            this.status = false;
+            this.user = undefined;
+
+            Cookies.remove(USER_TOKEN_COOKIE);
+        },
+
+        async getUserInfo() {
+            try {
+                if (!await this.getUserStatus()) {
+                    return Promise.reject(new Error('User is not authenticated'));
+                }
+
+                const resp = await this.$http.get('/user/info');
 
                 switch (resp.status) {
                     case 200:
@@ -91,24 +132,24 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
-        async updateUserFromSession() {
+        async getUserStatus() {
             try {
-                if (!Cookies.get('dnd5_user_token')) {
-                    return Promise.resolve();
-                }
-
-                const resp = await http.post('/user');
+                const resp = await this.$http.get('/user/status');
 
                 switch (resp.status) {
                     case 200:
-                        this.user = resp.data;
+                        this.status = true;
 
-                        return Promise.resolve(resp.data);
+                        return Promise.resolve(true);
                     default:
-                        return Promise.reject(resp.statusText);
+                        this.clearUser();
+
+                        return Promise.resolve(false);
                 }
             } catch (err) {
-                return Promise.reject(err);
+                this.clearUser();
+
+                return Promise.resolve(false);
             }
         }
     }

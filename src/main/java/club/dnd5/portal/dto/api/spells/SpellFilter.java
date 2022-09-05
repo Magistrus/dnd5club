@@ -20,10 +20,11 @@ import lombok.Setter;
 public class SpellFilter {
 	@JsonProperty("book")
 	private List<String> books;
+	
 	@JsonProperty("level")
 	private List<Integer> levels;
 
-    @JsonProperty("class") 
+	@JsonProperty("class") 
     private List<String> myclass;
 
     @JsonProperty("school") 

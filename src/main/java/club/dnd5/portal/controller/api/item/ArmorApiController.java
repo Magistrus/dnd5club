@@ -26,7 +26,9 @@ import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Armor", description = "The Armor API")
 @RestController
 public class ArmorApiController {
 	@Autowired

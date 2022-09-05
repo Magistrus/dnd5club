@@ -30,7 +30,9 @@ import club.dnd5.portal.repository.tavern.TavernaNameRepository;
 import club.dnd5.portal.repository.tavern.TavernaPrefixNameRepository;
 import club.dnd5.portal.repository.tavern.TopicDiscussedRepository;
 import club.dnd5.portal.repository.tavern.VisitorRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class TavernToolController {
 	private static final Random rnd = new Random();

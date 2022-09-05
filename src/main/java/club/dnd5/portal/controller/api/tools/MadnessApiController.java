@@ -19,8 +19,9 @@ import club.dnd5.portal.dto.api.tools.RequestMadnessApi;
 import club.dnd5.portal.model.Madness;
 import club.dnd5.portal.model.MadnessType;
 import club.dnd5.portal.repository.MadnessRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-
+@Tag(name = "Tools", description = "The Madness API")
 @RestController
 public class MadnessApiController {
 	public static final Random rnd = new Random();

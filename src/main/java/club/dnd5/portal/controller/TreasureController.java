@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.repository.datatable.TreasureDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class TreasureController {
 	@Autowired

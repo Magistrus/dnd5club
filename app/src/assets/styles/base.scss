@@ -91,6 +91,13 @@ body,
 #dnd5club {
   width: 100%;
   min-height: var(--max-vh);
+  max-height: var(--max-vh);
+  height: var(--max-vh);
+  overflow: hidden;
+}
+
+#dnd5club {
+  overflow: auto;
 }
 
 button {

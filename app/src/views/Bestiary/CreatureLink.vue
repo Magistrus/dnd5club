@@ -83,7 +83,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../assets/styles/link-item.scss";
+    @import "../../assets/styles/modules/link-item";
 
     .link-item {
         &__rating {

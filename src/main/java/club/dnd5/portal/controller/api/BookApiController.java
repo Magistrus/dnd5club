@@ -23,12 +23,16 @@ import club.dnd5.portal.dto.api.BookRequestApi;
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.repository.datatable.BookDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Book", description = "The Book API")
 @RestController
 public class BookApiController {
 	@Autowired
 	private BookDatatableRepository repo;
 
+	@Operation(summary = "Gets all books")
 	@PostMapping(value = "/api/v1/books", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BookApi> getBooks(@RequestBody BookRequestApi request) {
 		Specification<Book> specification = null;
@@ -88,6 +92,7 @@ public class BookApiController {
 		return repo.findAll(input, specification, specification, BookApi::new).getData();
 	}
 
+	@Operation(summary = "Get book by english name")
 	@PostMapping(value = "/api/v1/books/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BookApi> getBook(@PathVariable String englishName) {
 		Book book = repo.findByEnglishName(englishName.replace('_', ' '));

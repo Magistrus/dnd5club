@@ -27,7 +27,7 @@
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleBody from "@/views/Wiki/Rules/RuleBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

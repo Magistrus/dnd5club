@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'rules';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useRulesStore = defineStore('RulesStore', {
@@ -96,7 +94,7 @@ export const useRulesStore = defineStore('RulesStore', {
                     apiOptions.customFilter = this.customFilter;
                 }
 
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.rulesQuery.signal);
+                const { data } = await this.$http.post(this.config.url, apiOptions, this.controllers.rulesQuery.signal);
 
                 this.controllers.rulesQuery = undefined;
 
@@ -160,7 +158,7 @@ export const useRulesStore = defineStore('RulesStore', {
 
                 this.controllers.ruleInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.ruleInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.ruleInfoQuery.signal);
 
                 this.controllers.ruleInfoQuery = undefined;
 

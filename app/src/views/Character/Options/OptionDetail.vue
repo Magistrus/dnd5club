@@ -28,7 +28,7 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionBody from "@/views/Character/Options/OptionBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

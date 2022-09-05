@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import club.dnd5.portal.repository.datatable.NameRepository;
 //import club.dnd5.portal.repository.datatable.NicknameRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class NameToolController {
 	public static final Random rnd = new Random();

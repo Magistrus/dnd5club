@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.dto.RuleDto;
 import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
-
+@Hidden
 @Controller
 public class RuleController {
 	@Autowired

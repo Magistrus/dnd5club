@@ -1,5 +1,7 @@
 package club.dnd5.portal.dto.api.spell;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -17,18 +19,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SpellApi {
+	@NotNull
 	protected NameApi name;
+	@NotNull
 	protected byte level;
+	@NotNull
 	protected String school;
 	protected String additionalType;
 	protected ComponentsApi components = new ComponentsApi();
 	protected Boolean ritual;
 	protected Boolean concentration;
+	@NotNull
 	protected String url;
+	@NotNull
 	protected SourceApi source;
 
 	public SpellApi(Spell spell) {
-		name = new NameApi(spell.getCapitalazeName(), spell.getEnglishName());
+		name = new NameApi(spell.getName(), spell.getEnglishName());
 		level = spell.getLevel();
 		school = spell.getSchool().getName();
 		if (spell.getVerbalComponent()) {

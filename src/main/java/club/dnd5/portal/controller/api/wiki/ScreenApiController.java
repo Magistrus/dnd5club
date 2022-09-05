@@ -29,7 +29,9 @@ import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Screen", description = "The Screen API")
 @RestController
 public class ScreenApiController {
 	@Autowired

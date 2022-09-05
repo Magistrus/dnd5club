@@ -277,7 +277,7 @@
     import mean from "lodash/mean";
     import throttle from "lodash/throttle";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import FormButton from "@/components/form/FormButton";
 

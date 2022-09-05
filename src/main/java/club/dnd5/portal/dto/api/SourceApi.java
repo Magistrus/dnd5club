@@ -1,5 +1,7 @@
 package club.dnd5.portal.dto.api;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -15,7 +17,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SourceApi {
+	@NotNull
 	private String shortName;
+	@NotNull
 	private String name;
 	private Boolean homebrew;
 	private Short page;

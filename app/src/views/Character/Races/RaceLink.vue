@@ -114,7 +114,7 @@
 <script>
     import { RouterLink } from 'vue-router';
     import SvgIcon from '@/components/UI/SvgIcon';
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -182,7 +182,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../../assets/styles/link-item-expand";
+    @import "../../../assets/styles/modules/link-item-expand";
 
     .link-item-expand {
         &__body {

@@ -26,7 +26,9 @@ import club.dnd5.portal.dto.api.wiki.RuleRequestApi;
 import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 import club.dnd5.portal.util.SpecificationUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Rule", description = "The Rule API")
 @RestController
 public class RulesApiConroller {
 	@Autowired

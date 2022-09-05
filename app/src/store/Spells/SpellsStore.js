@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
 
 const DB_NAME = 'spells';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useSpellsStore = defineStore('SpellsStore', {
@@ -89,7 +87,11 @@ export const useSpellsStore = defineStore('SpellsStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.spellsQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.spellsQuery.signal
+                );
 
                 this.controllers.spellsQuery = undefined;
 
@@ -157,7 +159,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
 
                 this.controllers.spellInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.spellInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.spellInfoQuery.signal);
 
                 this.controllers.spellInfoQuery = undefined;
 

@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import HTTPService from '@/common/services/HTTPService';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
 
 const DB_NAME = 'options';
-const http = new HTTPService();
 
 // eslint-disable-next-line import/prefer-default-export
 export const useOptionsStore = defineStore('OptionsStore', {
@@ -85,7 +83,11 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     ],
                     ...options
                 };
-                const { data } = await http.post(this.config.url, apiOptions, this.controllers.optionsQuery.signal);
+                const { data } = await this.$http.post(
+                    this.config.url,
+                    apiOptions,
+                    this.controllers.optionsQuery.signal
+                );
 
                 this.controllers.optionsQuery = undefined;
 
@@ -149,7 +151,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
 
                 this.controllers.optionInfoQuery = new AbortController();
 
-                const resp = await http.post(url, {}, this.controllers.optionInfoQuery.signal);
+                const resp = await this.$http.post(url, {}, this.controllers.optionInfoQuery.signal);
 
                 this.controllers.optionInfoQuery = undefined;
 

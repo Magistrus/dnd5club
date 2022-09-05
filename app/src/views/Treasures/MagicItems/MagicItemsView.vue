@@ -24,7 +24,7 @@
     import CreatureLink from "@/views/Bestiary/CreatureLink";
     import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
-    import { mapState } from "pinia/dist/pinia";
+    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

@@ -5,14 +5,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.book.TypeBook;
-import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
-
-@ApiModel(description = "Post model information")
 
 @NoArgsConstructor
 @Getter

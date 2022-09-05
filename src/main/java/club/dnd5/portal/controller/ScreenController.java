@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class ScreenController {
 	@Autowired

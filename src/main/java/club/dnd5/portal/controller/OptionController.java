@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class OptionController {
 	@Autowired

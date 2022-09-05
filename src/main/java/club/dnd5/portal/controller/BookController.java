@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.repository.datatable.BookDatatableRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @Controller
 public class BookController {
 	@Autowired

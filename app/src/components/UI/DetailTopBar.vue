@@ -61,9 +61,9 @@
         padding: 12px 24px 12px 24px;
         justify-content: space-between;
 
-        &.left_info {
+        .left_info {
             font-style: italic;
-            margin-right: auto;
+            margin-right: 8px;
         }
 
         &.bg_grey {
