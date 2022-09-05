@@ -25,7 +25,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="v$.username.$model"
+                v-model.trim="v$.username.$model"
                 placeholder="Имя пользователя"
                 autocomplete="username"
                 autocapitalize="off"
@@ -39,7 +39,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="v$.email.$model"
+                v-model.trim="v$.email.$model"
                 placeholder="Электронный адрес"
                 required
                 autocomplete="email"
@@ -53,7 +53,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="v$.password.$model"
+                v-model.trim="v$.password.$model"
                 placeholder="Пароль"
                 is-password
                 required
@@ -68,7 +68,7 @@
 
         <div class="form__row">
             <field-input
-                v-model="v$.repeat.$model"
+                v-model.trim="v$.repeat.$model"
                 placeholder="Повторите пароль"
                 is-password
                 required
@@ -196,13 +196,13 @@
 
                 try {
                     await this.registration({
-                        username: this.username,
-                        email: this.email,
-                        password: this.password
+                        username: this.username.trim(),
+                        email: this.email.trim(),
+                        password: this.password.trim()
                     });
                     await this.authorization({
-                        usernameOrEmail: this.username,
-                        password: this.password,
+                        usernameOrEmail: this.username.trim(),
+                        password: this.password.trim(),
                         remember: false
                     });
 
