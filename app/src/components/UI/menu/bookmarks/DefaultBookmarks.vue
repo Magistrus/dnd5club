@@ -31,7 +31,9 @@
                             class="bookmarks__cat"
                         >
                             <div class="bookmarks__cat_label">
-                                {{ category.name }}
+                                <div class="bookmarks__cat_label_name">
+                                    {{ category.name }}
+                                </div>
                             </div>
 
                             <div class="bookmarks__cat_body">
