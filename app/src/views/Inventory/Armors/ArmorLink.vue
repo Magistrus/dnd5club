@@ -33,12 +33,12 @@
                     </div>
 
                     <div class="link-item__row">
-                        <div
+                        <!-- <div
                             v-if="armor.type?.name"
                             class="link-item__type"
                         >
                             {{ armor.type.name }}
-                        </div>
+                        </div> -->
 
                         <div
                             v-if="armor.armorClass"
