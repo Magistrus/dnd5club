@@ -216,12 +216,16 @@
         }
 
         &__modification {
-            padding: 0 3px;
-            border-radius: 4px;
+            padding: 0 6px;
+            border-radius: 6px;
             background-color: var(--primary);
             color: var(--text-btn-color);
             font-size: calc(var(--main-font-size) - 1px);
             line-height: normal;
+
+            & + & {
+                margin-left: 4px;
+            }
         }
 
         &__school {

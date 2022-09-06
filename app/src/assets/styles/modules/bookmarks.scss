@@ -224,7 +224,6 @@
 
       &_name {
         line-height: 18px;
-        // opacity: 0.8;
         color: var(--text-color-title)
       }
 
@@ -241,7 +240,6 @@
         color: var(--text-color-title);
 
         &.is-left {
-          // margin-right: 8px;
 
           &:hover {
             cursor: grab;
@@ -381,6 +379,8 @@
 
     &_chosen {
       cursor: grabbing;
+      opacity: 0.5;
+      background: var(--primary);
     }
 
     &_drag {

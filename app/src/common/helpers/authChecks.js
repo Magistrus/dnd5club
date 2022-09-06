@@ -78,17 +78,17 @@ export const validateEmailExist = () => helpers.withMessage(
 );
 
 export const validatePwdLowerCase = () => helpers.withMessage(
-    'Должна быть хотя бы одна латинская буква в нижнем регистре',
+    'Хотя бы одна буква в нижнем регистре',
     value => (/[a-z]+/g).test(value)
 );
 
 export const validatePwdUpperCase = () => helpers.withMessage(
-    'Должна быть хотя бы одна латинская буква в верхнем регистре',
+    'Хотя бы одна буква в верхнем регистре',
     value => (/[A-Z]+/g).test(value)
 );
 
 export const validatePwdNumber = () => helpers.withMessage(
-    'Должна быть хотя бы одна цифра',
+    'Хотя бы одна цифра',
     value => (/\d+/g).test(value)
 );
 
