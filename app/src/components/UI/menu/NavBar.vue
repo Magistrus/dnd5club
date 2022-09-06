@@ -24,7 +24,7 @@
             <div class="navbar__header_right">
                 <nav-bookmarks/>
 
-                <nav-profile v-if="$isDev"/>
+                <nav-profile/>
 
                 <menu-theme-switcher/>
             </div>
