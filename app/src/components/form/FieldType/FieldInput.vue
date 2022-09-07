@@ -215,7 +215,7 @@
                 width: 38px;
                 cursor: pointer;
                 padding: 10px;
-                color: var(--text-btn-color);
+                color: var(--text-color-title);
             }
         }
 
@@ -234,10 +234,16 @@
         }
 
         &__error {
-            color: var(--text-color);
-            font-size: 12px;
-            padding: 8px 12px 0;
+            color: var(--text-btn-color);
+            font-size: calc(var(--main-font-size) - 2px);
+            z-index: 1;
+            padding: 0px 6px;
             display: block;
+            position: absolute;
+            background-color: var(--error);
+            border-radius: 4px;
+            top: 32px;
+            left: 8px;
         }
 
         &:focus-within {

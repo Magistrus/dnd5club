@@ -4,6 +4,11 @@
 		<th:block th:replace="layouts/layout :: mainLayout"/>
 	</head>
 	<body id="body">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript th:if="${profile eq 'prod'}"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3ZFWDQ"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
     <div id="dnd5club" class="dnd5club">
 		<nav-bar th:section="${menuTitle}"></nav-bar>
 

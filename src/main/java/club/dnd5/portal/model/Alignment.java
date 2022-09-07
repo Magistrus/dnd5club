@@ -92,12 +92,12 @@ public enum Alignment {
 				LAWFUL_GOOD,
 				LAWFUL_NEUTRAL,
 				LAWFUL_EVIL,
-				TRUE_NEUTRAL,
+				NEUTRAL,
 				NEUTRAL_GOOD,
 				NEUTRAL_EVIL,
 				CHAOTIC_GOOD,
 				CHAOTIC_NEUTRAL,
-				CHAOTIC_EVIL,
-				NEUTRAL);
+				CHAOTIC_EVIL
+				);
 	}
 }

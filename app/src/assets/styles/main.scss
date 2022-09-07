@@ -560,9 +560,10 @@
 .form {
   &__row {
     display: flex;
+    position: relative;
 
     & + & {
-      margin-top: 12px;
+      margin-top: 16px;
     }
 
     &.is-error {
