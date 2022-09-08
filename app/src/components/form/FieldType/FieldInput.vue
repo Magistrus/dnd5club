@@ -220,6 +220,7 @@
         }
 
         &__input {
+            width: 100%;
             background-color: transparent;
             color: var(--text-color);
             font-size: var(--main-font-size);

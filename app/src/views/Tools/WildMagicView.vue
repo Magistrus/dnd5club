@@ -6,29 +6,35 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <span class="label">Источники:</span>
-                    <field-checkbox
-                        v-for="(source, key) in tables"
-                        :key="key"
-                        v-tippy="{ content: source.name }"
-                        :model-value="source.value"
-                        type="crumb"
-                        @update:model-value="source.value = $event"
-                    >
-                        {{ source.shortName }}
-                    </field-checkbox>
-                </div>
+                    <div class="tools_settings__colum">
+                        <div class="row">
+                            <span class="label">Количество:</span>
 
-                <div class="tools_settings__row">
-                    <span class="label">Количество:</span>
+                            <field-input
+                                v-model="count"
+                                class="form-control select"
+                                placeholder="Количеств"
+                                is-number
+                                :min="1"
+                            />
+                        </div>
 
-                    <field-input
-                        v-model="count"
-                        class="form-control select"
-                        placeholder="Количеств"
-                        is-number
-                        :min="1"
-                    />
+                        <div class="row">
+                            <span class="label">Источники:</span>
+                            <div class="checkbox-group">
+                                <field-checkbox
+                                    v-for="(source, key) in tables"
+                                    :key="key"
+                                    v-tippy="{ content: source.name }"
+                                    :model-value="source.value"
+                                    type="crumb"
+                                    @update:model-value="source.value = $event"
+                                >
+                                    {{ source.shortName }}
+                                </field-checkbox>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">

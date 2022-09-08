@@ -8,7 +8,7 @@
                 <div class="tools_settings__row">
                     <div class="tools_settings__colum">
                         <div class="row">
-                            <span class="label">Средний уровень группы</span>
+                            <span class="label">Средний уровень Группы</span>
 
                             <field-select
                                 v-model="level"
