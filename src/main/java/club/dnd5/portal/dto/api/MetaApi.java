@@ -11,7 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MetaApi {
-	private String name;
 	private String title;
 	private String description;
 	private String image;
