@@ -1,6 +1,7 @@
 package club.dnd5.portal.controller.api;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.MetaApi;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
@@ -52,10 +54,14 @@ public class MetaApiController {
 	}
 	
 	@GetMapping(value = "/api/v1/meta/classes/{classEnglishName}/{archetypeEnglishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MetaApi getArchetypeMeta(String englishName, String archetypeEnglishName) {
+	public MetaApi getArchetypeMeta(@PathVariable String englishName, @PathVariable String archetypeEnglishName) {
 		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s (%s) | Классы D&D 5e", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
+		Optional<Archetype> archetype = heroClass.getArchetypes().stream()
+				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeEnglishName.replace('_', ' ')))
+				.findFirst();
+		meta.setTitle(String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
+				StringUtils.capitalize(archetype.get().getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		meta.setDescription(String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		meta.setMenu("Классы");
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
