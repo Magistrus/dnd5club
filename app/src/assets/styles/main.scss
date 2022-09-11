@@ -560,9 +560,10 @@
 .form {
   &__row {
     display: flex;
+    position: relative;
 
     & + & {
-      margin-top: 12px;
+      margin-top: 16px;
     }
 
     &.is-error {
@@ -707,15 +708,14 @@
 
     .field-checkbox {
       margin-right: 16px;
+      margin-top: 8px;
     }
   }
 
   &__colum {
     display: flex;
-
-    .row {
-      margin-right: 16px;
-    }
+    flex-wrap: wrap;
+    gap: 16px 16px;
   }
 
   // &__colum {

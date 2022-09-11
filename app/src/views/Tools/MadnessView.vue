@@ -6,31 +6,34 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <span class="label">Виды безумия:</span>
+                    <div class="tools_settings__colum">
+                        <div class="row">
+                            <span class="label">Количеств:</span>
 
-                    <div>
-                        <field-checkbox
-                            v-for="(type, key) in types"
-                            :key="key"
-                            :model-value="type.toggled"
-                            type="crumb"
-                            @update:model-value="toggleType($event, type)"
-                        >
-                            {{ type.name }}
-                        </field-checkbox>
+                            <field-input
+                                v-model="count"
+                                class="form-control select"
+                                min="1"
+                                placeholder="Количеств"
+                                type="number"
+                            />
+                        </div>
+
+                        <div class="row">
+                            <span class="label">Виды безумия:</span>
+                            <div>
+                                <field-checkbox
+                                    v-for="(type, key) in types"
+                                    :key="key"
+                                    :model-value="type.toggled"
+                                    type="crumb"
+                                    @update:model-value="toggleType($event, type)"
+                                >
+                                    {{ type.name }}
+                                </field-checkbox>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="tools_settings__row">
-                    <span class="label">Количеств:</span>
-
-                    <field-input
-                        v-model="count"
-                        class="form-control select"
-                        min="1"
-                        placeholder="Количеств"
-                        type="number"
-                    />
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">

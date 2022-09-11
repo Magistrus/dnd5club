@@ -6,30 +6,34 @@
                 @submit.prevent="sendForm"
             >
                 <div class="tools_settings__row">
-                    <span class="label">Количество магии в мире:</span>
+                    <div class="tools_settings__colum">
+                        <div class="row">
+                            <span class="label">Количество магии в мире:</span>
 
-                    <field-select
-                        v-model="magicLevelsValue"
-                        :options="magicLevels"
-                        :searchable="false"
-                        label="name"
-                        track-by="value"
-                    >
-                        <template #placeholder>
-                            Количество
-                        </template>
-                    </field-select>
-                </div>
+                            <field-select
+                                v-model="magicLevelsValue"
+                                :options="magicLevels"
+                                :searchable="false"
+                                label="name"
+                                track-by="value"
+                            >
+                                <template #placeholder>
+                                    Количество
+                                </template>
+                            </field-select>
+                        </div>
 
-                <div class="tools_settings__row">
-                    <span class="label">Результат проверки Харизмы (Убеждение):</span>
+                        <div class="row">
+                            <span class="label">Результат проверки Харизмы (Убеждение):</span>
 
-                    <field-input
-                        v-model="form.persuasion"
-                        class="form-control select"
-                        placeholder="Харизма (Убеждение)"
-                        is-number
-                    />
+                            <field-input
+                                v-model="form.persuasion"
+                                class="form-control select"
+                                placeholder="Харизма (Убеждение)"
+                                is-number
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <div class="tools_settings__row">

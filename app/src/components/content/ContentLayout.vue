@@ -342,7 +342,7 @@
 
         &__fixed {
             position: sticky;
-            top: 0;
+            top: 56px;
             z-index: 3;
         }
     }
