@@ -14,9 +14,11 @@ import club.dnd5.portal.dto.api.MetaApi;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
+import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
+import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -28,6 +30,9 @@ public class MetaApiController {
 	
 	@Autowired
 	private ClassRepository classRepository;
+
+	@Autowired
+	private RaceRepository raceRepository;
 	
 	@Autowired
 	private SpellDatatableRepository spellRepository;
@@ -54,17 +59,54 @@ public class MetaApiController {
 	}
 	
 	@GetMapping(value = "/api/v1/meta/classes/{classEnglishName}/{archetypeEnglishName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MetaApi getArchetypeMeta(@PathVariable String englishName, @PathVariable String archetypeEnglishName) {
-		HeroClass heroClass = classRepository.findByEnglishName(englishName.replace('_', ' '));
+	public MetaApi getArchetypeMeta(@PathVariable String classEnglishName, @PathVariable String archetypeEnglishName) {
+		HeroClass heroClass = classRepository.findByEnglishName(classEnglishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
 		Optional<Archetype> archetype = heroClass.getArchetypes().stream()
 				.filter(a -> a.getEnglishName().equalsIgnoreCase(archetypeEnglishName.replace('_', ' ')))
 				.findFirst();
 		meta.setTitle(String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
 				StringUtils.capitalize(archetype.get().getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
-		meta.setDescription(String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
+		meta.setDescription(String.format("%s - описание %s класса %s из D&D 5 редакции", 
+				archetype.get().getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
 		meta.setMenu("Классы");
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
+		if (!images.isEmpty()) {
+			meta.setImage(images.iterator().next());
+		}
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/races", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getRacesMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Расы (Races) D&D 5e");
+		meta.setMenu("Расы");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/races/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getRaceMeta(@PathVariable String englishName) {
+		Optional<Race> race = raceRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(race.get().getName() + " | Расы D&D 5e");
+		meta.setDescription(String.format("%s - раса персонажа по D&D 5 редакции", race.get().getCapitalazeName()));
+		meta.setMenu("Расы");
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
+		if (!images.isEmpty()) {
+			meta.setImage(images.iterator().next());
+		}
+		return meta;
+	}
+	
+	@GetMapping(value = "/api/v1/meta/races/{englishName}/{subrace}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getSubraceMeta(@PathVariable String englishName, @PathVariable String subrace) {
+		Optional<Race> race = raceRepository.findByEnglishName(subrace.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s | Расы | Разновидности D&D 5e", race.get().getCapitalazeName()));
+		meta.setDescription(String.format("%s - разновидность расы персонажа по D&D 5 редакции", race.get().getName()));
+		meta.setMenu("Расы");
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
 		if (!images.isEmpty()) {
 			meta.setImage(images.iterator().next());
 		}
@@ -88,7 +130,7 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool().getName()));
 		meta.setMenu("Заклинания");
 		meta.setImage(String.format("https://image.dnd5.club:8089/magic/%s.png", StringUtils.capitalize(spell.getSchool().name().toLowerCase())));
-		meta.setKeywords(spell.getAltName());
+		meta.setKeywords(spell.getAltName() + " " + spell.getEnglishName());
 		return meta;	
 	}
 }
