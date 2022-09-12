@@ -2,6 +2,7 @@ package club.dnd5.portal.controller.api;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import club.dnd5.portal.dto.api.MetaApi;
 import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.classes.HeroClass;
+import club.dnd5.portal.model.classes.Option;
+import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Race;
@@ -22,6 +25,7 @@ import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,6 +50,9 @@ public class MetaApiController {
 	
 	@Autowired
 	private SpellDatatableRepository spellRepository;
+	
+	@Autowired
+	private OptionDatatableRepository optionRepository;
 	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
@@ -161,6 +168,29 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s (%s) - предыстория персонажа по D&D 5 редакции", background.getName(), background.getEnglishName()));
 		meta.setMenu("Предыстории");
 		meta.setKeywords(background.getAltName() + " " + background.getEnglishName());
+		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/options", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getOptionsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Особенности классов (Options) D&D 5e");
+		meta.setDescription("Особенности классов по D&D 5 редакции");
+		meta.setMenu("Особенности классов");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/options/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getOptiondMeta(@PathVariable String englishName) {
+		Option option = optionRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s (%s)", option.getName(), option.getEnglishName()) + " | Особенности классов D&D 5e");
+		meta.setDescription( 
+				String.format("Описание особенности %s - %s",
+						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 
+						option.getName()));
+		meta.setMenu("Особенности классов");
+		meta.setKeywords(option.getAltName() + " " + option.getEnglishName());
 		return meta;	
 	}
 	
