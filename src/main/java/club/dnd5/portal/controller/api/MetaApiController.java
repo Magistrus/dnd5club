@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.MetaApi;
+import club.dnd5.portal.model.background.Background;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
+import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
+import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
+import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Meta", description = "The meta API")
@@ -35,7 +39,14 @@ public class MetaApiController {
 	private RaceRepository raceRepository;
 	
 	@Autowired
+	private TraitDatatableRepository traitRepository;
+	
+	@Autowired
+	private BackgroundDatatableRepository backgroundRepository;
+	
+	@Autowired
 	private SpellDatatableRepository spellRepository;
+	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
 		MetaApi meta = new MetaApi();
@@ -111,6 +122,46 @@ public class MetaApiController {
 			meta.setImage(images.iterator().next());
 		}
 		return meta;
+	}
+	
+	@GetMapping(value = "/api/v1/meta/traits", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getTraitsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Черты (Traits) D&D 5e");
+		meta.setDescription("Черты по D&D 5 редакции");
+		meta.setMenu("Черты");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/traits/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getTraitMeta(@PathVariable String englishName) {
+		Trait trait = traitRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle( String.format("%s (%s)", trait.getName(), trait.getEnglishName()) + " | Черты D&D 5e");
+		meta.setDescription(String.format("%s (%s) - черта персонажа по D&D 5-редакции", trait.getName(), trait.getEnglishName()));
+		meta.setMenu("Черты");
+		meta.setKeywords(trait.getAltName() + " " + trait.getEnglishName());
+		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/backgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getBackgroundsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Предыстории персонажей (Backgrounds) D&D 5e");
+		meta.setDescription("Предыстории по D&D 5 редакции");
+		meta.setMenu("Предыстории");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/backgrounds/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getBackgroundMeta(@PathVariable String englishName) {
+		Background background = backgroundRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(background.getName() + " | Предыстории персонажей D&D 5e");
+		meta.setDescription(String.format("%s (%s) - предыстория персонажа по D&D 5 редакции", background.getName(), background.getEnglishName()));
+		meta.setMenu("Предыстории");
+		meta.setKeywords(background.getAltName() + " " + background.getEnglishName());
+		return meta;	
 	}
 	
 	@GetMapping(value = "/api/v1/meta/spells", produces = MediaType.APPLICATION_JSON_VALUE)
