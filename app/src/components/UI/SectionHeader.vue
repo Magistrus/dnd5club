@@ -174,11 +174,6 @@
                 return this.onClose;
             }
         },
-        watch: {
-            title(value) {
-                document.title = `${ value } | DnD5 Club`;
-            }
-        },
         methods: {
             async copyText() {
                 if (navigator.clipboard) {

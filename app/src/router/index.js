@@ -2,6 +2,7 @@ import {
     createRouter, createWebHistory
 } from 'vue-router';
 import { useUserStore } from '@/store/UI/UserStore';
+import { useNavStore } from '@/store/UI/NavStore';
 
 const routes = [
     {
@@ -218,6 +219,12 @@ const routes = [
 const router = createRouter({
     history: createWebHistory('/'),
     routes
+});
+
+router.beforeEach(async to => {
+    const navStore = useNavStore();
+
+    await navStore.updateMetaByURL(to.path);
 });
 
 router.afterEach(async () => {
