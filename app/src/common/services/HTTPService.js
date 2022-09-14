@@ -8,7 +8,7 @@ export default class HTTPService {
         axios.defaults.withCredentials = true;
 
         this.instance = axios.create({
-            baseURL: `${ process.env.VUE_APP_API_URL || '' }/api/v1`,
+            baseURL: '/api/v1',
             withCredentials: true,
             headers: {}
         });
@@ -33,7 +33,7 @@ export default class HTTPService {
         });
 
         this.instanceRaw = axios.create({
-            baseURL: process.env.VUE_APP_API_URL || '',
+            baseURL: '',
             withCredentials: true
         });
     }
