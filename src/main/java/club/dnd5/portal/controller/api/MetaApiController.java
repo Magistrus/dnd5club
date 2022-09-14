@@ -18,12 +18,14 @@ import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.creature.Creature;
+import club.dnd5.portal.model.god.God;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.model.items.Equipment;
 import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.races.Race;
+import club.dnd5.portal.model.rule.Rule;
 import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.model.trait.Trait;
@@ -33,9 +35,11 @@ import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
+import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
+import club.dnd5.portal.repository.datatable.RuleDatatableRepository;
 import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
@@ -83,6 +87,12 @@ public class MetaApiController {
 
 	@Autowired
 	private ScreenDatatableRepository screenRepository;
+
+	@Autowired
+	private GodDatatableRepository godRepository;
+
+	@Autowired
+	private RuleDatatableRepository ruleRepository;
 	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
@@ -370,6 +380,50 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s (%s). Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.get().getName(), screen.get().getEnglishName()));
 		meta.setMenu("Ширма");
 		meta.setKeywords(screen.get().getAltName() + " " + screen.get().getEnglishName());
+		return meta;
+	}
+	
+	@GetMapping(value = "/api/v1/meta/gods", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getGodsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Боги (Gods) D&D 5e");
+		meta.setDescription("Боги, полубоги и философии D&D 5 редакции");
+		meta.setMenu("Боги");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/gods/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getGodMeta(@PathVariable String englishName) {
+		God god = godRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s (%s) | Боги D&D 5e", god.getName(), god.getEnglishName()));
+		meta.setDescription(String.format("%s (%s) - %s %s, %s", god.getName(), god.getEnglishName(), god.getAligment().getCyrilicName(), god.getSex().getCyrilicName(), god.getCommitment()));
+		meta.setMenu("Боги");
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.GOD, god.getId());
+		if (!images.isEmpty()) {
+			meta.setImage(images.iterator().next());
+		}
+		meta.setKeywords(god.getAltName() + " " + god.getEnglishName());
+		return meta;
+	}
+	
+	@GetMapping(value = "/api/v1/meta/rules", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getRulesMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Правила и термины [Rules] D&D 5e");
+		meta.setDescription("Правила и термины [Rules] D&D 5e");
+		meta.setMenu("Правила и термины");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/rules/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getReleMeta(@PathVariable String englishName) {
+		Rule rule = ruleRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s | %s | Правила и термины [Rules] D&D 5e", rule.getName(), rule.getType()));
+		meta.setDescription(String.format("%s (%s) Правила и термины по D&D 5 редакции", rule.getName(), rule.getEnglishName()));
+		meta.setMenu("Правила и термины");
+		meta.setKeywords(rule.getAltName() + " " + rule.getEnglishName());
 		return meta;
 	}
 }
