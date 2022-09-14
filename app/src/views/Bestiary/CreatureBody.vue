@@ -188,21 +188,6 @@
                     </span>
                 </div>
             </div>
-            <div v-if="creature.reactions?.length">
-                <h4 class="header_separator">
-                    <span>Реакции</span>
-                </h4>
-                <div
-                    v-for="(reaction, key) in creature.reactions"
-                    :key="key"
-                >
-                    <span class="bestiary_h5">
-                        <h5>{{ reaction.name }}</h5>
-
-                        <raw-content :template="reaction.value"/>
-                    </span>
-                </div>
-            </div>
             <div v-if="creature.bonusActions?.length">
                 <h4 class="header_separator">
                     <span>Бонусные действия</span>
@@ -215,6 +200,21 @@
                         <h5>{{ bonus.name }}</h5>
 
                         <raw-content :template="bonus.value"/>
+                    </span>
+                </div>
+            </div>
+            <div v-if="creature.reactions?.length">
+                <h4 class="header_separator">
+                    <span>Реакции</span>
+                </h4>
+                <div
+                    v-for="(reaction, key) in creature.reactions"
+                    :key="key"
+                >
+                    <span class="bestiary_h5">
+                        <h5>{{ reaction.name }}</h5>
+
+                        <raw-content :template="reaction.value"/>
                     </span>
                 </div>
             </div>
