@@ -45,7 +45,7 @@ public class BestiaryController {
 			return "forward: /error";
 		}
 		CreatureDto creature = new CreatureDto(beast);
-		model.addAttribute("metaTitle", String.format("%s (%s)", creature.getName(), creature.getEnglishName()) + " | Бестиарий D&D 5e");
+		model.addAttribute("metaTitle", String.format("%s (%s) | Бестиарий D&D 5e", creature.getName(), creature.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s с уровнем опасности %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment(), beast.getChallengeRating()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
