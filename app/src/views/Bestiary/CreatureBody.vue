@@ -440,7 +440,7 @@
                 for (const skill of this.creature.skills) {
                     const sign = Math.sign(skill.value) > -1 ? '+' : '';
 
-                    skills.push(`${ skill.name } ${ sign }${ skill.value }`);
+                    skills.push(`${ skill.name }&nbsp;${ sign }${ skill.value }`);
                 }
 
                 return skills.join(', ');
