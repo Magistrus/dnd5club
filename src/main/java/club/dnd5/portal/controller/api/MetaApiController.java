@@ -337,7 +337,7 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getTextRarity(), item.getType().getCyrilicName()));
 		meta.setMenu("Магические предметы");
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
-		if (images.isEmpty()) {
+		if (!images.isEmpty()) {
 			meta.setImage(images.iterator().next());
 		}
 		meta.setKeywords(item.getAltName() + " " + item.getEnglishName());
@@ -381,8 +381,8 @@ public class MetaApiController {
 	public MetaApi getScreenMeta(@PathVariable String englishName) {
 		Optional<Screen> screen = screenRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.get().getName(), screen.get().getEnglishName()));
-		meta.setDescription(String.format("%s (%s). Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.get().getName(), screen.get().getEnglishName()));
+		meta.setTitle(String.format("%s (%s) | Ширма Мастера (Screens) D&D 5e", screen.get().getName(), screen.get().getEnglishName()));
+		meta.setDescription(String.format("%s (%s) Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.get().getName(), screen.get().getEnglishName()));
 		meta.setMenu("Ширма");
 		meta.setKeywords(screen.get().getAltName() + " " + screen.get().getEnglishName());
 		return meta;
@@ -445,7 +445,7 @@ public class MetaApiController {
 	public MetaApi getBooksMeta(@PathVariable String englishName) {
 		Book book = bookRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s - Источники (Books) D&D 5e", book.getName()));
+		meta.setTitle(String.format("%s (%s) | Источники (Books) D&D 5e", book.getName(), book.getEnglishName()));
 		meta.setDescription(String.format("%s (%s) Источник [Source] по D&D 5 редакции", book.getName(), book.getEnglishName()));
 		meta.setMenu("Источники");
 		meta.setKeywords(book.getAltName() + " " + book.getEnglishName());
