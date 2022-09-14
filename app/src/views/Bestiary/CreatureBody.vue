@@ -114,11 +114,11 @@
 
             <div class="beast_info">
                 <p v-if="savingThrows">
-                    <strong>Спасброски </strong> <span>{{ savingThrows }}</span>
+                    <strong>Спасброски </strong> <span v-html="savingThrows"/>
                 </p>
 
                 <p v-if="skills">
-                    <strong>Навыки </strong> <span>{{ skills }}</span>
+                    <strong>Навыки </strong> <span v-html="skills"/>
                 </p>
 
                 <p v-if="creature.damageVulnerabilities">
@@ -424,7 +424,7 @@
                 for (const save of this.creature.savingThrows) {
                     const sign = Math.sign(save.value) > -1 ? '+' : '';
 
-                    saves.push(`${ save.name } ${ sign }${ save.value }`);
+                    saves.push(`${ save.name }&nbsp;${ sign }${ save.value }`);
                 }
 
                 return saves.join(', ');
@@ -440,7 +440,7 @@
                 for (const skill of this.creature.skills) {
                     const sign = Math.sign(skill.value) > -1 ? '+' : '';
 
-                    skills.push(`${ skill.name } ${ sign }${ skill.value }`);
+                    skills.push(`${ skill.name }&nbsp;${ sign }${ skill.value }`);
                 }
 
                 return skills.join(', ');
