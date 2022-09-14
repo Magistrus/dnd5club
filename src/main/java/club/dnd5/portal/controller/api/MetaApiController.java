@@ -273,7 +273,7 @@ public class MetaApiController {
 	public MetaApi getWeaponMeta(@PathVariable String englishName) {
 		Weapon weapon = weaponRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s (%s) | D&D 5e", weapon.getName(), weapon.getEnglishName()));
+		meta.setTitle(String.format("%s (%s) | Оружие D&D 5e", weapon.getName(), weapon.getEnglishName()));
 		meta.setDescription(String.format("%s (%s) - %s D&D 5 редакции", weapon.getName(), weapon.getEnglishName(), weapon.getType().getName()));
 		meta.setMenu("Оружие");
 		meta.setKeywords(weapon.getAltName() + " " + weapon.getEnglishName());
@@ -293,7 +293,7 @@ public class MetaApiController {
 	public MetaApi getArmorMeta(@PathVariable String englishName) {
 		Armor armor = armorRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
+		meta.setTitle(String.format("%s (%s) | Доспехи D&D 5e", armor.getName(), armor.getEnglishName()));
 		meta.setDescription(String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
 		meta.setMenu("Доспехи");
 		meta.setKeywords(armor.getAltName() + " " + armor.getEnglishName());
