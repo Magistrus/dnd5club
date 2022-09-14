@@ -19,6 +19,8 @@ import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.Armor;
+import club.dnd5.portal.model.items.Equipment;
+import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
@@ -28,6 +30,8 @@ import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
+import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
@@ -63,6 +67,12 @@ public class MetaApiController {
 	
 	@Autowired
 	private ArmorDatatableRepository armorRepository;
+	
+	@Autowired
+	private ItemDatatableRepository itemRepository;
+	
+	@Autowired
+	private MagicItemDatatableRepository magicItemRepository;
 	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
@@ -262,6 +272,50 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
 		meta.setMenu("Доспехи");
 		meta.setKeywords(armor.getAltName() + " " + armor.getEnglishName());
+		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/items", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getItemsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Снаряжение (Items) D&D 5e");
+		meta.setDescription("Снаряжение, инструменты и транспорт по D&D 5 редакции");
+		meta.setMenu("Снаряжение");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/items/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getItemMeta(@PathVariable String englishName) {
+		Equipment item = itemRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s | Снаряжение D&D 5e",item.getName()));
+		meta.setDescription(String.format("%s (%s) снаряжение по D&D 5 редакции", item.getName(), item.getEnglishName()));
+		meta.setMenu("Снаряжение");
+		meta.setKeywords(item.getAltName() + " " + item.getEnglishName());
+		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/items/magic", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getMagicItemsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Магические предметы (Magic items) D&D 5e\"");
+		meta.setDescription("Магические предметы и артефакты по D&D 5 редакции");
+		meta.setMenu("Магические предметы");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/items/magic/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getMagicItemMeta(@PathVariable String englishName) {
+		MagicItem item = magicItemRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s | Магические предметы D&D 5e",item.getName()));
+		meta.setDescription(String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
+		meta.setMenu("Магические предметы");
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
+		if (images.isEmpty()) {
+			meta.setImage(images.iterator().next());
+		}
+		meta.setKeywords(item.getAltName() + " " + item.getEnglishName());
 		return meta;	
 	}
 }
