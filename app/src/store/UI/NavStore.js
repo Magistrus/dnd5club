@@ -3,11 +3,13 @@ import { defineStore } from 'pinia';
 // eslint-disable-next-line import/prefer-default-export
 export const useNavStore = defineStore('NavStore', {
     state: () => ({
-        items: []
+        items: [],
+        meta: undefined
     }),
 
     getters: {
-        getNavItems: state => state.items
+        getNavItems: state => state.items,
+        getMeta: state => state.meta
     },
 
     actions: {
@@ -187,6 +189,58 @@ export const useNavStore = defineStore('NavStore', {
                     ]
                 }
             ];
+        },
+
+        async getMetaByURL(url) {
+            try {
+                const resp = await this.$http.get(`/meta${ url }`);
+
+                if (resp.status === 200) {
+                    this.meta = resp.data;
+
+                    return Promise.resolve(resp.data);
+                }
+
+                return Promise.reject(resp.statusText);
+            } catch (err) {
+                return Promise.resolve(err);
+            }
+        },
+
+        getMetaTag(name) {
+            if (!document.querySelector(`meta[name="${ name }"]`)) {
+                const meta = document.createElement('meta');
+
+                meta.name = name;
+
+                document.getElementsByTagName('head')[0].appendChild(meta);
+            }
+
+            return document.querySelector(`meta[name="${ name }"]`);
+        },
+
+        setMeta(meta) {
+            if (meta?.title) {
+                document.title = meta.title;
+            }
+
+            if (meta?.description) {
+                const description = this.getMetaTag('description');
+
+                description.setAttribute('content', meta.description);
+            }
+        },
+
+        async updateMetaByURL(url) {
+            try {
+                const meta = await this.getMetaByURL(url);
+
+                this.setMeta(meta);
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.resolve();
+            }
         }
     }
 });

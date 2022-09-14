@@ -42,7 +42,7 @@ public class MagicItemController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("metaTitle", item.getName() + " | Магические предметы D&D 5e");
+		model.addAttribute("metaTitle", String.format("%s (%s) | Магические предметы D&D 5e", item.getName(), item.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());

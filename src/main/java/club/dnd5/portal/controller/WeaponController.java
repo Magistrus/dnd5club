@@ -40,7 +40,7 @@ public class WeaponController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", weapon.getName(), weapon.getEnglishName()));
+		model.addAttribute("metaTitle", String.format("%s (%s) | Оружие D&D 5e", weapon.getName(), weapon.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/weapons/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s D&D 5 редакции", weapon.getName(), weapon.getEnglishName(), weapon.getType().getName()));
 		model.addAttribute("menuTitle", "Оружие");

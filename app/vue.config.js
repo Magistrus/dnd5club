@@ -10,8 +10,14 @@ module.exports = {
         proxy: {
             '^/': {
                 target: process.env.VUE_APP_API_URL || 'http://localhost:8080',
+                changeOrigin: true,
                 ws: false,
-                changeOrigin: true
+                secure: false,
+                bypass: function (req) {
+                    if (req.headers.accept.indexOf('html') !== -1) {
+                        return '/index.html';
+                    }
+                },
             }
         }
     },

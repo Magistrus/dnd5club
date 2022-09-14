@@ -46,6 +46,7 @@ public enum EquipmentType {
 	VEHICLE_WATER("Транспорт (водный)"),
 	VEHICLE_LAND("Транспорт (наземный)"),
 	VEHICLE_AIR("Транспорт (воздушный)"),
+	VEHICLE_SPELLJAMMER("Транспорт (космический)"),
 	SIEGE_EQUIPMENT("Осадное снаряжение"),
 	;
 	
