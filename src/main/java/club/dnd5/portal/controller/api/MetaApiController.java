@@ -361,7 +361,7 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s (%s) - %s %s, %s с уровнем опасности %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment(), beast.getChallengeRating()));
 		meta.setMenu("Бестиарий");
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CREATURE, beast.getId());
-		if (images.isEmpty()) {
+		if (!images.isEmpty()) {
 			meta.setImage(images.iterator().next());
 		}
 		meta.setKeywords(beast.getAltName() + " " + beast.getEnglishName());
