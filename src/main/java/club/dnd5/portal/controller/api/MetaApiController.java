@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import club.dnd5.portal.dto.api.MetaApi;
 import club.dnd5.portal.model.background.Background;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
@@ -35,6 +36,7 @@ import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
+import club.dnd5.portal.repository.datatable.BookDatatableRepository;
 import club.dnd5.portal.repository.datatable.GodDatatableRepository;
 import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
@@ -93,6 +95,9 @@ public class MetaApiController {
 
 	@Autowired
 	private RuleDatatableRepository ruleRepository;
+	
+	@Autowired
+	private BookDatatableRepository bookRepository;
 	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
@@ -424,6 +429,26 @@ public class MetaApiController {
 		meta.setDescription(String.format("%s (%s) Правила и термины по D&D 5 редакции", rule.getName(), rule.getEnglishName()));
 		meta.setMenu("Правила и термины");
 		meta.setKeywords(rule.getAltName() + " " + rule.getEnglishName());
+		return meta;
+	}
+	
+	@GetMapping(value = "/api/v1/meta/books", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getBooksMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Источники (Sources) D&D 5e");
+		meta.setDescription("Источники [Sources] D&D 5e");
+		meta.setMenu("Источники");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/books/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getBooksMeta(@PathVariable String englishName) {
+		Book book = bookRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s - Источники (Books) D&D 5e", book.getName()));
+		meta.setDescription(String.format("%s (%s) Источник [Source] по D&D 5 редакции", book.getName(), book.getEnglishName()));
+		meta.setMenu("Источники");
+		meta.setKeywords(book.getAltName() + " " + book.getEnglishName());
 		return meta;
 	}
 }
