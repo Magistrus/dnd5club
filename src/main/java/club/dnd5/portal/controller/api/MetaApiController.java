@@ -17,12 +17,14 @@ import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
+import club.dnd5.portal.model.creature.Creature;
 import club.dnd5.portal.model.image.ImageType;
 import club.dnd5.portal.model.items.Armor;
 import club.dnd5.portal.model.items.Equipment;
 import club.dnd5.portal.model.items.MagicItem;
 import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.races.Race;
+import club.dnd5.portal.model.screen.Screen;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.ImageRepository;
@@ -30,9 +32,11 @@ import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
 import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
+import club.dnd5.portal.repository.datatable.BestiaryDatatableRepository;
 import club.dnd5.portal.repository.datatable.ItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.MagicItemDatatableRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
+import club.dnd5.portal.repository.datatable.ScreenDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
 import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
@@ -73,6 +77,12 @@ public class MetaApiController {
 	
 	@Autowired
 	private MagicItemDatatableRepository magicItemRepository;
+
+	@Autowired
+	private BestiaryDatatableRepository bestiaryItemRepository;
+
+	@Autowired
+	private ScreenDatatableRepository screenRepository;
 	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
@@ -288,7 +298,7 @@ public class MetaApiController {
 	public MetaApi getItemMeta(@PathVariable String englishName) {
 		Equipment item = itemRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s | Снаряжение D&D 5e",item.getName()));
+		meta.setTitle(String.format("%s (%s) | Снаряжение D&D 5e",item.getName(), item.getEnglishName()));
 		meta.setDescription(String.format("%s (%s) снаряжение по D&D 5 редакции", item.getName(), item.getEnglishName()));
 		meta.setMenu("Снаряжение");
 		meta.setKeywords(item.getAltName() + " " + item.getEnglishName());
@@ -298,7 +308,7 @@ public class MetaApiController {
 	@GetMapping(value = "/api/v1/meta/items/magic", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getMagicItemsMeta() {
 		MetaApi meta = new MetaApi();
-		meta.setTitle("Магические предметы (Magic items) D&D 5e\"");
+		meta.setTitle("Магические предметы (Magic items) D&D 5e");
 		meta.setDescription("Магические предметы и артефакты по D&D 5 редакции");
 		meta.setMenu("Магические предметы");
 		return meta;
@@ -308,8 +318,8 @@ public class MetaApiController {
 	public MetaApi getMagicItemMeta(@PathVariable String englishName) {
 		MagicItem item = magicItemRepository.findByEnglishName(englishName.replace('_', ' '));
 		MetaApi meta = new MetaApi();
-		meta.setTitle(String.format("%s | Магические предметы D&D 5e",item.getName()));
-		meta.setDescription(String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
+		meta.setTitle(String.format("%s (%s) | Магические предметы D&D 5e", item.getName(), item.getEnglishName()));
+		meta.setDescription(String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getTextRarity(), item.getType().getCyrilicName()));
 		meta.setMenu("Магические предметы");
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
 		if (images.isEmpty()) {
@@ -317,5 +327,49 @@ public class MetaApiController {
 		}
 		meta.setKeywords(item.getAltName() + " " + item.getEnglishName());
 		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/bestiary", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getBeastsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Бестиарий (Monster Manual) D&D 5e");
+		meta.setDescription("Бестиарий - существа для D&D 5 редакции");
+		meta.setMenu("Бестиарий");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/bestiary/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getBeastMeta(@PathVariable String englishName) {
+		Creature beast = bestiaryItemRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s (%s) | Бестиарий D&D 5e", beast.getName(), beast.getEnglishName()));
+		meta.setDescription(String.format("%s (%s) - %s %s, %s с уровнем опасности %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment(), beast.getChallengeRating()));
+		meta.setMenu("Бестиарий");
+		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CREATURE, beast.getId());
+		if (images.isEmpty()) {
+			meta.setImage(images.iterator().next());
+		}
+		meta.setKeywords(beast.getAltName() + " " + beast.getEnglishName());
+		return meta;
+	}
+	
+	@GetMapping(value = "/api/v1/meta/screens", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getScreensMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Ширма Мастера (Screens) D&D 5e");
+		meta.setDescription("Ширма Мастера Подземелий и Драконов по D&D 5 редакции");
+		meta.setMenu("Ширма");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/screens/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getScreenMeta(@PathVariable String englishName) {
+		Optional<Screen> screen = screenRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s (%s) - Ширма Мастера (Screens) D&D 5e", screen.get().getName(), screen.get().getEnglishName()));
+		meta.setDescription(String.format("%s (%s). Ширма Мастера Подземелий и Драконов по D&D 5 редакции", screen.get().getName(), screen.get().getEnglishName()));
+		meta.setMenu("Ширма");
+		meta.setKeywords(screen.get().getAltName() + " " + screen.get().getEnglishName());
+		return meta;
 	}
 }
