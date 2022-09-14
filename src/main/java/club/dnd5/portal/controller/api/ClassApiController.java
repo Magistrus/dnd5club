@@ -68,7 +68,9 @@ public class ClassApiController {
 		return classRepo.findAll(specification)
 				.stream()
 				.map(cclass -> new ClassApi(cclass, request))
-				.filter(c -> request.getFilter() != null ? request.getFilter().getBooks().contains(c.getSource().getShortName()) || c.isSidekick() : true)
+				.filter(c -> request.getFilter() != null ? 
+						request.getFilter().getBooks().contains(c.getSource().getShortName()) || (c.isSidekick() && request.getFilter().getBooks().contains("TCE"))
+						: true)
 				.collect(Collectors.toList());
 	}
 	
