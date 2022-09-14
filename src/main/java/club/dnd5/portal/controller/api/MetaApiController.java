@@ -18,16 +18,20 @@ import club.dnd5.portal.model.classes.Option;
 import club.dnd5.portal.model.classes.Option.OptionType;
 import club.dnd5.portal.model.classes.archetype.Archetype;
 import club.dnd5.portal.model.image.ImageType;
+import club.dnd5.portal.model.items.Armor;
+import club.dnd5.portal.model.items.Weapon;
 import club.dnd5.portal.model.races.Race;
 import club.dnd5.portal.model.splells.Spell;
 import club.dnd5.portal.model.trait.Trait;
 import club.dnd5.portal.repository.ImageRepository;
 import club.dnd5.portal.repository.classes.ClassRepository;
 import club.dnd5.portal.repository.classes.RaceRepository;
+import club.dnd5.portal.repository.datatable.ArmorDatatableRepository;
 import club.dnd5.portal.repository.datatable.BackgroundDatatableRepository;
 import club.dnd5.portal.repository.datatable.OptionDatatableRepository;
 import club.dnd5.portal.repository.datatable.SpellDatatableRepository;
 import club.dnd5.portal.repository.datatable.TraitDatatableRepository;
+import club.dnd5.portal.repository.datatable.WeaponDatatableRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Meta", description = "The meta API")
@@ -53,6 +57,12 @@ public class MetaApiController {
 	
 	@Autowired
 	private OptionDatatableRepository optionRepository;
+	
+	@Autowired
+	private WeaponDatatableRepository weaponRepository;
+	
+	@Autowired
+	private ArmorDatatableRepository armorRepository;
 	
 	@GetMapping(value = "/api/v1/meta/classes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getClassesMeta() {
@@ -212,6 +222,46 @@ public class MetaApiController {
 		meta.setMenu("Заклинания");
 		meta.setImage(String.format("https://image.dnd5.club:8089/magic/%s.png", StringUtils.capitalize(spell.getSchool().name().toLowerCase())));
 		meta.setKeywords(spell.getAltName() + " " + spell.getEnglishName());
+		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/weapons", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getWeaponsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Оружие (Weapons) D&D 5e");
+		meta.setDescription("Оружие по D&D 5 редакции");
+		meta.setMenu("Оружие");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/weapons/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getWeaponMeta(@PathVariable String englishName) {
+		Weapon weapon = weaponRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s (%s) | D&D 5e", weapon.getName(), weapon.getEnglishName()));
+		meta.setDescription(String.format("%s (%s) - %s D&D 5 редакции", weapon.getName(), weapon.getEnglishName(), weapon.getType().getName()));
+		meta.setMenu("Оружие");
+		meta.setKeywords(weapon.getAltName() + " " + weapon.getEnglishName());
+		return meta;	
+	}
+	
+	@GetMapping(value = "/api/v1/meta/armors", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getArmorsMeta() {
+		MetaApi meta = new MetaApi();
+		meta.setTitle("Доспехи (Armors) D&D 5e");
+		meta.setDescription("Доспехи по D&D 5 редакции");
+		meta.setMenu("Доспехи");
+		return meta;
+	}
+
+	@GetMapping(value = "/api/v1/meta/armors/{englishName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public MetaApi getArmorMeta(@PathVariable String englishName) {
+		Armor armor = armorRepository.findByEnglishName(englishName.replace('_', ' '));
+		MetaApi meta = new MetaApi();
+		meta.setTitle(String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
+		meta.setDescription(String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
+		meta.setMenu("Доспехи");
+		meta.setKeywords(armor.getAltName() + " " + armor.getEnglishName());
 		return meta;	
 	}
 }
