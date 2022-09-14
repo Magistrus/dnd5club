@@ -36,7 +36,7 @@ public class ArmorController {
 			request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, "404");
 			return "forward: /error";
 		}
-		model.addAttribute("metaTitle", String.format("%s (%s) | D&D 5e", armor.getName(), armor.getEnglishName()));
+		model.addAttribute("metaTitle", String.format("%s (%s) | Доспехи D&D 5e", armor.getName(), armor.getEnglishName()));
 		model.addAttribute("metaUrl", "https://dnd5.club/armors/" + armor.getEnglishName().replace(" ", "_"));
 		model.addAttribute("metaDescription", String.format("%s (%s) - доспехи по D&D 5 редакции", armor.getName(), armor.getEnglishName()));
 		model.addAttribute("menuTitle", "Доспехи");
