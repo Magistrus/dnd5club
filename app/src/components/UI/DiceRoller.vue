@@ -21,7 +21,8 @@
         props: {
             formula: {
                 type: String,
-                default: ''
+                default: '',
+                required: true
             },
             isAdvantage: {
                 type: Boolean,
@@ -62,17 +63,10 @@
                 return 'is-dice';
             },
 
-            isFormulaError() {
-                return !this.isAdvantage
-                    && !this.isDisadvantage
-                    && !this.isSavingThrow
-                    && !this.formula;
-            },
-
             classes() {
                 const classes = [this.classByType];
 
-                if (this.error || this.isFormulaError) {
+                if (this.error) {
                     classes.push('is-error');
                 }
 
@@ -80,18 +74,6 @@
             },
 
             computedFormula() {
-                if (this.isAdvantage) {
-                    return '2d20kh1';
-                }
-
-                if (this.isAdvantage) {
-                    return '2d20kl1';
-                }
-
-                if (this.isAdvantage) {
-                    return 'd20';
-                }
-
                 return this.formula.replace(/к/gim, 'd');
             }
         },
