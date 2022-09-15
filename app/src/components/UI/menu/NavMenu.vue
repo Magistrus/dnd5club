@@ -162,10 +162,10 @@
 
 <style lang="scss" scoped>
     .nav-menu {
-        padding: 16px 16px 8px;
+        padding: 16px 16px 8px 16px;
 
         @media (max-width: 550px) {
-            padding: 16px 8px 0;
+            padding: 16px 8px 0px 40px;
         }
 
         &__header {
@@ -257,6 +257,11 @@
                 width: 100%;
                 display: flex;
                 border-radius: 6px;
+                font-size: calc(var(--main-font-size) + 0px);
+
+                @media (max-width: 550px) {
+                    font-size: calc(var(--main-font-size) + 2px);
+                }
             }
 
             &_icon {
