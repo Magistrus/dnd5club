@@ -257,6 +257,11 @@
                 width: 100%;
                 display: flex;
                 border-radius: 6px;
+                font-size: calc(var(--main-font-size) + 0px);
+
+                @media (max-width: 550px) {
+                    font-size: calc(var(--main-font-size) + 2px);
+                }
             }
 
             &_icon {
