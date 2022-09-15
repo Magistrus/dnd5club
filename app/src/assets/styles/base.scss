@@ -1,38 +1,40 @@
 // Variables
 @import "variables";
 
-::-webkit-scrollbar {
-  width: 14px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-  transition: background 100ms ease;
-
-  &:hover {
-    background: var(--hover);
+@media screen and (hover: hover) {
+  ::-webkit-scrollbar {
+    width: 14px;
   }
-}
 
-::-webkit-scrollbar-thumb {
-  border: 5px solid transparent;
-  background-clip: content-box;
-  border-radius: 10px;
-  box-shadow: inset 0 0 0 10px var(--background-color-thumb);
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    transition: background 100ms ease;
 
-  &:hover {
-    box-shadow: inset 0 0 0 10px var(--background-color-thumb-hover);
+    &:hover {
+      background: var(--hover);
+    }
   }
-}
 
-::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
-}
+  ::-webkit-scrollbar-thumb {
+    border: 5px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 10px var(--background-color-thumb);
 
-::-webkit-scrollbar-corner {
-  background-color: transparent;
+    &:hover {
+      box-shadow: inset 0 0 0 10px var(--background-color-thumb-hover);
+    }
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
 }
 
 *, *:before, *:after {
