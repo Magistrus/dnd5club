@@ -1,7 +1,7 @@
 <template>
     <span
         v-tippy="{
-            content: result || 'Нажмите для броска',
+            content: result || `Нажмите для броска: <b>${$slots.default || formula}</b>`,
             hideOnClick: false,
         }"
         :class="classes"
