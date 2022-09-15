@@ -41,7 +41,7 @@
                     <strong>Хиты </strong>
                     <span>{{ creature.hits.average }}&nbsp;</span>
                     <dice-roller v-if="creature.hits?.formula"
-                                 :formula="this.creature.hits.bonus ? this.creature.hits.formula + this.creature.hits.sign.trim() + Math.abs(this.creature.hits.bonus) : this.creature.hits.formula">
+                                 :formula="hitDiceFormula">
                         {{ creature.hits.formula }}
                     </dice-roller>
                     <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
@@ -476,6 +476,12 @@
                 }
 
                 return `${ this.creature.challengeRating } (${ this.creature.experience.toLocaleString() } опыта)`;
+            },
+            hitDiceFormula() {
+                const sign = Math.sign(this.creature.hits.bonus) > -1 ? '+' : '-';
+                const bonus = Math.abs(this.creature.hits.bonus);
+
+                return this.creature.hits.bonus ? `${ this.creature.hits.formula } ${ sign } ${ bonus }` : this.creature.hits.formula;
             }
         },
         methods: {
