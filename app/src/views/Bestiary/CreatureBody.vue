@@ -41,7 +41,7 @@
                     <strong>Хиты </strong>
                     <span>{{ creature.hits.average }}&nbsp;</span>
                     <dice-roller v-if="creature.hits?.formula"
-                                 v-formula="hitFormula">
+                                 formula="1d6">
                         {{ creature.hits.formula }}
                     </dice-roller>
                     <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
@@ -395,10 +395,6 @@
                 }`;
             },
 
-            hitFormula() {
-                return this.creature.hits.formula + this.creature.sign + this.creature.hits.bonus;
-            },
-
             speed() {
                 if (!this.creature.speed?.length) {
                     return '';
@@ -528,7 +524,12 @@
                 }
 
                 return str;
+            },
+
+            hitFormula() {
+                return this.creature.hits.formula + this.creature.sign + this.creature.hits.bonus;
             }
+
         }
     };
 </script>
