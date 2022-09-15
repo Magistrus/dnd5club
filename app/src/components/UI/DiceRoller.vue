@@ -52,11 +52,11 @@
                     return 'is-advantage';
                 }
 
-                if (this.isAdvantage) {
+                if (this.isDisadvantage) {
                     return 'is-disadvantage';
                 }
 
-                if (this.isAdvantage) {
+                if (this.isSavingThrow) {
                     return 'is-saving-throw';
                 }
 
