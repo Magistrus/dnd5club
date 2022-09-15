@@ -73,8 +73,8 @@
                     @include css_anim();
 
                     display: inline-block;
-                    padding: 4px 8px;
-                    border-radius: 4px;
+                    padding: 6px 10px;
+                    border-radius: 16px;
                     background-color: var(--hover);
                     color: var(--text-color);
                 }

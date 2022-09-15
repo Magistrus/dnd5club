@@ -221,7 +221,7 @@
 
             &_body {
                 display: flex;
-                gap: 4px;
+                gap: 8px;
                 flex-wrap: wrap;
             }
         }
