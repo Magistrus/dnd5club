@@ -162,10 +162,10 @@
 
 <style lang="scss" scoped>
     .nav-menu {
-        padding: 16px 16px 8px;
+        padding: 16px 16px 8px 16px;
 
         @media (max-width: 550px) {
-            padding: 16px 8px 0;
+            padding: 16px 8px 0px 40px;
         }
 
         &__header {
