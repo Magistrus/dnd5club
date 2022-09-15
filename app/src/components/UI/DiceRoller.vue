@@ -23,15 +23,17 @@
                 type: String,
                 default: ''
             },
-            type: {
-                type: String,
-                default: 'dice',
-                validator: val => [
-                    'dice',
-                    'advantage',
-                    'disadvantage',
-                    'saving-throw'
-                ].includes(val)
+            isAdvantage: {
+                type: Boolean,
+                default: false
+            },
+            isDisadvantage: {
+                type: Boolean,
+                default: false
+            },
+            isSavingThrow: {
+                type: Boolean,
+                default: false
             }
         },
         data: () => ({
@@ -44,10 +46,33 @@
                 return this.roll ? `Результат: <b>${ this.roll }</b>` : '';
             },
 
-            classes() {
-                const classes = [`is-${ this.type }`];
+            classByType() {
+                if (this.isAdvantage) {
+                    return 'is-advantage';
+                }
 
-                if (this.error) {
+                if (this.isAdvantage) {
+                    return 'is-disadvantage';
+                }
+
+                if (this.isAdvantage) {
+                    return 'is-saving-throw';
+                }
+
+                return 'is-dice';
+            },
+
+            isFormulaError() {
+                return !this.isAdvantage
+                    && !this.isDisadvantage
+                    && !this.isSavingThrow
+                    && !this.formula;
+            },
+
+            classes() {
+                const classes = [this.classByType];
+
+                if (this.error || this.isFormulaError) {
                     classes.push('is-error');
                 }
 
@@ -55,16 +80,19 @@
             },
 
             computedFormula() {
-                switch (this.type) {
-                    case 'advantage':
-                        return '2d20kh1';
-                    case 'disadvantage':
-                        return '2d20kl1';
-                    case 'saving-throw':
-                        return 'd20';
-                    default:
-                        return this.formula.replace('к', 'd');
+                if (this.isAdvantage) {
+                    return '2d20kh1';
                 }
+
+                if (this.isAdvantage) {
+                    return '2d20kl1';
+                }
+
+                if (this.isAdvantage) {
+                    return 'd20';
+                }
+
+                return this.formula.replace(/к/gim, 'd');
             }
         },
         async beforeMount() {
@@ -107,20 +135,22 @@
         color: var(--text-btn-color);
         cursor: pointer;
 
-        &.is-dice {
-            background-color: var(--bg-dice);
-        }
+        &:not(.is-error) {
+            &.is-dice {
+                background-color: var(--bg-dice);
+            }
 
-        &.is-advantage {
-            background-color: var(--bg-advantage);
-        }
+            &.is-advantage {
+                background-color: var(--bg-advantage);
+            }
 
-        &.is-disadvantage {
-            background-color: var(--bg-disadvantage);
-        }
+            &.is-disadvantage {
+                background-color: var(--bg-disadvantage);
+            }
 
-        &.is-saving-throw {
-            background-color: var(--bg-saving_throw);
+            &.is-saving-throw {
+                background-color: var(--bg-saving_throw);
+            }
         }
 
         &.is-error {
