@@ -41,7 +41,7 @@
                     <strong>Хиты </strong>
                     <span>{{ creature.hits.average }}&nbsp;</span>
                     <dice-roller v-if="creature.hits?.formula"
-                                 formula="1d6">
+                                 :formula="this.creature.hits.formula + this.creature.sign + this.creature.hits.bonus">
                         {{ creature.hits.formula }}
                     </dice-roller>
                     <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
@@ -524,10 +524,6 @@
                 }
 
                 return str;
-            },
-
-            hitFormula() {
-                return this.creature.hits.formula + this.creature.sign + this.creature.hits.bonus;
             }
 
         }
