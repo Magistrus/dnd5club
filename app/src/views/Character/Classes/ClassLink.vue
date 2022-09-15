@@ -76,7 +76,11 @@
                         type="button"
                         @click.left.exact.prevent="toggleArch"
                     >
-                        <svg-icon :icon-name="submenu ? 'minus' : 'plus'"/>
+                        <svg-icon
+                            :icon-name="submenu ? 'minus' : 'plus'"
+                            fill-enable
+                            :stroke-enable="false"
+                        />
                     </button>
                 </div>
 
