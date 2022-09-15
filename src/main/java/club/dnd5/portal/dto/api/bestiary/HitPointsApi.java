@@ -18,14 +18,20 @@ import lombok.Setter;
 public class HitPointsApi {
 	private Short average;
 	private String formula;
+	private String sign;
+	private Short bonus;
 	private String text;
 	public HitPointsApi(Creature beast) {
 		average = beast.getAverageHp();
 		if (beast.getDiceHp() != null && beast.getCountDiceHp() != null && beast.getBonusHP() != null) {
-			formula = String.format("%d%s%s%d", beast.getCountDiceHp(), beast.getDiceHp().getName(),  beast.getBonusHP() >=0 ? " + " : " - ", Math.abs(beast.getBonusHP()));
+			formula = String.format("%d%s", beast.getCountDiceHp(), beast.getDiceHp().getName());
 		} else if (beast.getDiceHp() != null && beast.getCountDiceHp() != null) {
 			formula = String.format("%d%s", beast.getCountDiceHp(), beast.getDiceHp().getName());
-		} 
+		}
+		if (beast.getBonusHP()!=null) {
+			sign = beast.getBonusHP() >=0 ? " + " : " − ";
+			bonus = beast.getBonusHP();
+		}
 		if (beast.getSuffixHP() != null) {
 			text = beast.getSuffixHP();
 		}
