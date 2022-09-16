@@ -112,31 +112,29 @@
     .dice-roller {
         @include css_anim();
 
-        padding: 0 6px;
-        border-radius: 6px;
-        color: var(--text-btn-color);
+        font-weight: 600;
         cursor: pointer;
 
         &:not(.is-error) {
             &.is-dice {
-                background-color: var(--bg-dice);
+                color: var(--bg-dice);
             }
 
             &.is-advantage {
-                background-color: var(--bg-advantage);
+                color: var(--bg-advantage);
             }
 
             &.is-disadvantage {
-                background-color: var(--bg-disadvantage);
+                color: var(--bg-disadvantage);
             }
 
             &.is-saving-throw {
-                background-color: var(--bg-saving_throw);
+                color: var(--bg-saving_throw);
             }
         }
 
         &.is-error {
-            background-color: var(--error);
+            color: var(--error);
         }
     }
 </style>
