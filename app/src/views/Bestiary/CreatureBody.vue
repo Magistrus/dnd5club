@@ -43,8 +43,8 @@
                     <dice-roller v-if="creature.hits?.formula"
                                  :formula="hitDiceFormula">
                         {{ creature.hits.formula }}
+                        <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
                     </dice-roller>
-                    <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
                     <span v-if="creature.hits?.text">{{ creature.hits.text }}</span>
                 </p>
 
@@ -62,7 +62,7 @@
                             v-tippy="'Сила'"
                         >СИЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})</p>
+                    <p><dice-roller :formula="abilityFormula(creature.ability.str)">{{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})</dice-roller></p>
                 </div>
 
                 <div class="scores__stats dexterity">
@@ -71,7 +71,7 @@
                             v-tippy="'Ловкость'"
                         >ЛОВ</strong>
                     </h4>
-                    <p>{{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})</p>
+                    <p><dice-roller :formula="abilityFormula(creature.ability.dex)">{{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})</dice-roller></p>
                 </div>
 
                 <div class="scores__stats constitution">
@@ -80,7 +80,7 @@
                             v-tippy="'Телосложение'"
                         >ТЕЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})</p>
+                    <p><dice-roller :formula="abilityFormula(creature.ability.con)">{{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})</dice-roller></p>
                 </div>
 
                 <div class="scores__stats intelligence">
@@ -89,7 +89,7 @@
                             v-tippy="'Интеллект'"
                         >ИНТ</strong>
                     </h4>
-                    <p>{{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})</p>
+                    <p><dice-roller :formula="abilityFormula(creature.ability.int)">{{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})</dice-roller></p>
                 </div>
 
                 <div class="scores__stats wisdom">
@@ -98,7 +98,7 @@
                             v-tippy="'Мудрость'"
                         >МДР</strong>
                     </h4>
-                    <p>{{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})</p>
+                    <p><dice-roller :formula="abilityFormula(creature.ability.wiz)">{{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})</dice-roller></p>
                 </div>
 
                 <div class="scores__stats charisma">
@@ -107,7 +107,7 @@
                             v-tippy="'Харизма'"
                         >ХАР</strong>
                     </h4>
-                    <p>{{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})</p>
+                    <p><dice-roller :formula="abilityFormula(creature.ability.cha)">{{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})</dice-roller></p>
                 </div>
             </div>
 
@@ -513,6 +513,13 @@
                 const bonus = Math.floor((ability - 10) / 2);
 
                 return (Math.sign(bonus) > -1 ? '+' : '−') + Math.abs(bonus);
+            },
+
+            abilityFormula(ability) {
+                const bonus = Math.floor((ability - 10) / 2);
+                const sign = Math.sign(bonus) > -1 ? '+' : '-';
+
+                return `d20${ sign }${ bonus }`;
             },
 
             getIterableStr(strings) {
