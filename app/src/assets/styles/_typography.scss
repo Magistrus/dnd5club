@@ -82,9 +82,13 @@ a {
   color: var(--link-color);
   text-decoration: none;
   font-weight: 400;
+}
 
-  &:hover {
-    border-bottom: 1px solid var(--link-color);
+p {
+  a {
+    &:hover {
+      border-bottom: 1px solid var(--link-color);
+    }
   }
 }
 
