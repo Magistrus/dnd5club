@@ -39,12 +39,21 @@
 
                 <p>
                     <strong>Хиты </strong>
-                    <span>{{ creature.hits.average }}&nbsp;</span>
-                    (<dice-roller v-if="creature.hits?.formula"
-                                 :formula="hitDiceFormula">
-                        {{ creature.hits.formula }}
-                        <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
-                    </dice-roller>)
+                    <span>{{ creature.hits.average }}</span>
+                    <span>
+                        (<dice-roller
+                            v-if="creature.hits?.formula"
+                            :formula="hitDiceFormula"
+                        >
+                            {{
+                                `${ creature.hits.formula }${
+                                    creature.hits?.bonus
+                                        ? `${ creature.hits.sign }${ Math.abs(creature.hits.bonus) }`
+                                        : ''
+                                }`
+                            }}
+                        </dice-roller>)
+                    </span>
                     <span v-if="creature.hits?.text">{{ creature.hits.text }}</span>
                 </p>
 
@@ -62,7 +71,11 @@
                             v-tippy="'Сила'"
                         >СИЛ</strong>
                     </h4>
-                    <p><dice-roller :formula="abilityFormula(creature.ability.str)">{{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})</dice-roller></p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.str)">
+                            {{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats dexterity">
@@ -71,7 +84,11 @@
                             v-tippy="'Ловкость'"
                         >ЛОВ</strong>
                     </h4>
-                    <p><dice-roller :formula="abilityFormula(creature.ability.dex)">{{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})</dice-roller></p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.dex)">
+                            {{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats constitution">
@@ -80,7 +97,11 @@
                             v-tippy="'Телосложение'"
                         >ТЕЛ</strong>
                     </h4>
-                    <p><dice-roller :formula="abilityFormula(creature.ability.con)">{{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})</dice-roller></p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.con)">
+                            {{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats intelligence">
@@ -89,7 +110,11 @@
                             v-tippy="'Интеллект'"
                         >ИНТ</strong>
                     </h4>
-                    <p><dice-roller :formula="abilityFormula(creature.ability.int)">{{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})</dice-roller></p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.int)">
+                            {{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats wisdom">
@@ -98,7 +123,11 @@
                             v-tippy="'Мудрость'"
                         >МДР</strong>
                     </h4>
-                    <p><dice-roller :formula="abilityFormula(creature.ability.wiz)">{{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})</dice-roller></p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.wiz)">
+                            {{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats charisma">
@@ -107,32 +136,40 @@
                             v-tippy="'Харизма'"
                         >ХАР</strong>
                     </h4>
-                    <p><dice-roller :formula="abilityFormula(creature.ability.cha)">{{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})</dice-roller></p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.cha)">
+                            {{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})
+                        </dice-roller>
+                    </p>
                 </div>
             </div>
 
             <div class="beast_info">
                 <p v-if="savingThrows">
                     <strong>Спасброски </strong>
-                    <span v-for="(savingThrow, key) in savingThrows"
-                          :key="key">
-                        <span>{{ savingThrow.label }}</span>&nbsp;
-                        <dice-roller :formula="savingThrow.formula">
+                    <span
+                        v-for="(savingThrow, key) in savingThrows"
+                        :key="key"
+                    >
+                        <span>
+                            {{ savingThrow.label }}
+                        </span>&nbsp;<dice-roller :formula="savingThrow.formula">
                             {{ savingThrow.value }}
-                        </dice-roller>
-                        <span v-if="key < savingThrows.length - 1">, </span>
+                        </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
                     </span>
                 </p>
 
                 <p v-if="skills">
                     <strong>Навыки </strong>
-                    <span v-for="(skill, key) in skills"
-                          :key="key">
-                        <span>{{ skill.label }}</span>&nbsp;
-                        <dice-roller :formula="skill.formula">
+                    <span
+                        v-for="(skill, key) in skills"
+                        :key="key"
+                    >
+                        <span>
+                            {{ skill.label }}
+                        </span>&nbsp;<dice-roller :formula="skill.formula">
                             {{ skill.value }}
-                        </dice-roller>
-                        <span v-if="key < skills.length - 1">, </span>
+                        </dice-roller><span v-if="key < skills.length - 1">, </span>
                     </span>
                 </p>
 
@@ -505,7 +542,9 @@
                 const sign = Math.sign(this.creature.hits.bonus) > -1 ? '+' : '-';
                 const bonus = Math.abs(this.creature.hits.bonus);
 
-                return this.creature.hits.bonus ? `${ this.creature.hits.formula } ${ sign } ${ bonus }` : this.creature.hits.formula;
+                return this.creature.hits.bonus
+                    ? `${ this.creature.hits.formula } ${ sign } ${ bonus }`
+                    : this.creature.hits.formula;
             }
         },
         methods: {
