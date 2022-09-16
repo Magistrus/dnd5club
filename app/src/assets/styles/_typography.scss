@@ -10,12 +10,12 @@
 }
 
 :root {
-  --main-line-height: calc(var(--main-font-size) + 8px);
+  --main-line-height: calc(var(--main-font-size) + 7px);
   --h1-line-height: calc(var(--h1-font-size) + 10px);
   --h2-line-height: calc(var(--h2-font-size) + 10px);
   --h3-line-height: calc(var(--h3-font-size) + 6px);
   --h4-line-height: calc(var(--h4-font-size) + 10px);
-  --h5-line-height: calc(var(--h5-font-size) + 8px);
+  --h5-line-height: calc(var(--h5-font-size) + 7px);
 }
 
 @media (max-width: 800px) {
@@ -84,8 +84,12 @@ a {
   font-weight: 400;
 }
 
-a:hover {
-  color: var(--link-color-hover);
+p {
+  a {
+    &:hover {
+      border-bottom: 1px solid var(--link-color);
+    }
+  }
 }
 
 ol,
@@ -351,37 +355,33 @@ span.homebrew_text,
 span.advantage,
 span.disadvantage,
 span.saving_throw {
-  padding: 0 6px;
-  border-radius: 6px;
   color: var(--text-btn-color);
-  font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 dnd5club-dice-text,
 span.dice_text {
-  background-color: var(--bg-dice);
-  color: var(--text-btn-color) !important;
+  color: var(--bg-dice) !important;
 }
 
 span.homebrew_text {
-  background-color: var(--bg-homebrew);
+  color: var(--bg-homebrew);
   text-transform: none;
 }
 
 dnd5club-advantage,
 span.advantage {
-  background-color: var(--bg-advantage);
+  color: var(--bg-advantage);
 }
 
 dnd5club-disadvantage,
 span.disadvantage {
-  background-color: var(--bg-disadvantage);
+  color: var(--bg-disadvantage);
 }
 
 dnd5club-saving-throw,
 span.saving_throw {
-  background-color: var(--bg-saving_throw);
+  color: var(--bg-saving_throw);
 }
 
 

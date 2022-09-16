@@ -231,7 +231,6 @@
                 color: var(--text-g-color);
                 font-size: inherit;
                 font-weight: normal;
-                letter-spacing: 0.75px;
             }
 
             &_icon {
