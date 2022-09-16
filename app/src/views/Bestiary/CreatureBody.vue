@@ -113,7 +113,13 @@
 
             <div class="beast_info">
                 <p v-if="savingThrows">
-                    <strong>Спасброски </strong> <span v-html="savingThrows"/>
+                    <strong>Спасброски </strong>
+                    <span v-for="(savingThrow, key) in creature.savingThrows"
+                          :key="key">
+                        <dice-roller :formula="savingThrow.formula">
+                            <span v-html="savingThrow.value"/>
+                        </dice-roller>
+                    </span>
                 </p>
 
                 <p v-if="skills">
@@ -417,18 +423,21 @@
 
             savingThrows() {
                 if (!this.creature.savingThrows?.length) {
-                    return '';
+                    return [];
                 }
 
                 const saves = [];
 
                 for (const save of this.creature.savingThrows) {
-                    const sign = Math.sign(save.value) > -1 ? '+' : '';
+                    const sign = Math.sign(save.value) > -1 ? '+' : '-';
 
-                    saves.push(`${ save.name }&nbsp;${ sign }${ save.value }`);
+                    saves.push({
+                        formula: `d20${ sign }${ save.value }`,
+                        value: `${ save.name }&nbsp;${ sign }${ save.value }`
+                    });
                 }
 
-                return saves.join(', ');
+                return saves;
             },
 
             skills() {
@@ -518,8 +527,9 @@
             abilityFormula(ability) {
                 const bonus = Math.floor((ability - 10) / 2);
                 const sign = Math.sign(bonus) > -1 ? '+' : '-';
+                const absBonus = Math.abs(bonus);
 
-                return `d20${ sign }${ bonus }`;
+                return `к20${ sign }${ absBonus }`;
             },
 
             getIterableStr(strings) {
