@@ -82,10 +82,10 @@ a {
   color: var(--link-color);
   text-decoration: none;
   font-weight: 400;
-}
 
-a:hover {
-  color: var(--link-color-hover);
+  &:hover {
+    border-bottom: 1px solid var(--link-color);
+  }
 }
 
 ol,
@@ -351,37 +351,33 @@ span.homebrew_text,
 span.advantage,
 span.disadvantage,
 span.saving_throw {
-  padding: 0 6px;
-  border-radius: 6px;
   color: var(--text-btn-color);
-  font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 dnd5club-dice-text,
 span.dice_text {
-  background-color: var(--bg-dice);
-  color: var(--text-btn-color) !important;
+  color: var(--bg-dice) !important;
 }
 
 span.homebrew_text {
-  background-color: var(--bg-homebrew);
+  color: var(--bg-homebrew);
   text-transform: none;
 }
 
 dnd5club-advantage,
 span.advantage {
-  background-color: var(--bg-advantage);
+  color: var(--bg-advantage);
 }
 
 dnd5club-disadvantage,
 span.disadvantage {
-  background-color: var(--bg-disadvantage);
+  color: var(--bg-disadvantage);
 }
 
 dnd5club-saving-throw,
 span.saving_throw {
-  background-color: var(--bg-saving_throw);
+  color: var(--bg-saving_throw);
 }
 
 

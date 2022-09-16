@@ -39,14 +39,13 @@
 
                 <p>
                     <strong>Хиты </strong>
-
-                    <span>{{
-                        creature.hits.average
-                    }} {{
-                        creature.hits.formula ? `(${creature.hits.formula})` : ''
-                    }} {{
-                        creature.hits.text || ''
-                    }}</span>
+                    <span>{{ creature.hits.average }}&nbsp;</span>
+                    <dice-roller v-if="creature.hits?.formula"
+                                 :formula="hitDiceFormula">
+                        {{ creature.hits.formula }}
+                    </dice-roller>
+                    <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
+                    <span v-if="creature.hits?.text">{{ creature.hits.text }}</span>
                 </p>
 
                 <p>
@@ -350,13 +349,15 @@
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
     import SvgIcon from "@/components/UI/SvgIcon";
+    import DiceRoller from "@/components/UI/DiceRoller";
 
     export default {
         name: "CreatureBody",
         components: {
             DetailTopBar,
             RawContent,
-            SvgIcon
+            SvgIcon,
+            DiceRoller
         },
         props: {
             creature: {
@@ -475,6 +476,12 @@
                 }
 
                 return `${ this.creature.challengeRating } (${ this.creature.experience.toLocaleString() } опыта)`;
+            },
+            hitDiceFormula() {
+                const sign = Math.sign(this.creature.hits.bonus) > -1 ? '+' : '-';
+                const bonus = Math.abs(this.creature.hits.bonus);
+
+                return this.creature.hits.bonus ? `${ this.creature.hits.formula } ${ sign } ${ bonus }` : this.creature.hits.formula;
             }
         },
         methods: {
@@ -505,7 +512,7 @@
             abilityBonus(ability) {
                 const bonus = Math.floor((ability - 10) / 2);
 
-                return Math.sign(bonus) > -1 ? `+${ bonus }` : bonus;
+                return (Math.sign(bonus) > -1 ? '+' : '−') + Math.abs(bonus);
             },
 
             getIterableStr(strings) {
@@ -524,6 +531,7 @@
 
                 return str;
             }
+
         }
     };
 </script>

@@ -1,7 +1,7 @@
 <template>
     <span
         v-tippy="{
-            content: result || 'Нажмите для броска',
+            content: result || `Нажмите для броска: <b>${computedFormula}</b>`,
             hideOnClick: false,
         }"
         :class="classes"
@@ -21,17 +21,20 @@
         props: {
             formula: {
                 type: String,
-                default: ''
+                default: '',
+                required: true
             },
-            type: {
-                type: String,
-                default: 'dice',
-                validator: val => [
-                    'dice',
-                    'advantage',
-                    'disadvantage',
-                    'saving-throw'
-                ].includes(val)
+            isAdvantage: {
+                type: Boolean,
+                default: false
+            },
+            isDisadvantage: {
+                type: Boolean,
+                default: false
+            },
+            isSavingThrow: {
+                type: Boolean,
+                default: false
             }
         },
         data: () => ({
@@ -44,8 +47,24 @@
                 return this.roll ? `Результат: <b>${ this.roll }</b>` : '';
             },
 
+            classByType() {
+                if (this.isAdvantage) {
+                    return 'is-advantage';
+                }
+
+                if (this.isDisadvantage) {
+                    return 'is-disadvantage';
+                }
+
+                if (this.isSavingThrow) {
+                    return 'is-saving-throw';
+                }
+
+                return 'is-dice';
+            },
+
             classes() {
-                const classes = [`is-${ this.type }`];
+                const classes = [this.classByType];
 
                 if (this.error) {
                     classes.push('is-error');
@@ -55,16 +74,7 @@
             },
 
             computedFormula() {
-                switch (this.type) {
-                    case 'advantage':
-                        return '2d20kh1';
-                    case 'disadvantage':
-                        return '2d20kl1';
-                    case 'saving-throw':
-                        return 'd20';
-                    default:
-                        return this.formula.replace('к', 'd');
-                }
+                return this.formula.replace(/к/gim, 'd');
             }
         },
         async beforeMount() {
@@ -102,29 +112,29 @@
     .dice-roller {
         @include css_anim();
 
-        padding: 0 6px;
-        border-radius: 6px;
-        color: var(--text-btn-color);
+        font-weight: 600;
         cursor: pointer;
 
-        &.is-dice {
-            background-color: var(--bg-dice);
-        }
+        &:not(.is-error) {
+            &.is-dice {
+                color: var(--bg-dice);
+            }
 
-        &.is-advantage {
-            background-color: var(--bg-advantage);
-        }
+            &.is-advantage {
+                color: var(--bg-advantage);
+            }
 
-        &.is-disadvantage {
-            background-color: var(--bg-disadvantage);
-        }
+            &.is-disadvantage {
+                color: var(--bg-disadvantage);
+            }
 
-        &.is-saving-throw {
-            background-color: var(--bg-saving_throw);
+            &.is-saving-throw {
+                color: var(--bg-saving_throw);
+            }
         }
 
         &.is-error {
-            background-color: var(--error);
+            color: var(--error);
         }
     }
 </style>
