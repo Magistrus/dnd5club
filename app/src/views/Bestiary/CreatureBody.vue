@@ -40,9 +40,8 @@
                 <p>
                     <strong>Хиты </strong>
                     <span>{{ creature.hits.average }}</span>
-                    <span>
+                    <span v-if="creature.hits?.formula">
                         (<dice-roller
-                            v-if="creature.hits?.formula"
                             :formula="hitDiceFormula"
                         >
                             {{
@@ -145,7 +144,7 @@
             </div>
 
             <div class="beast_info">
-                <p v-if="savingThrows">
+                <p v-if="savingThrows.length">
                     <strong>Спасброски </strong>
                     <span
                         v-for="(savingThrow, key) in savingThrows"
@@ -159,7 +158,7 @@
                     </span>
                 </p>
 
-                <p v-if="skills">
+                <p v-if="skills.length">
                     <strong>Навыки </strong>
                     <span
                         v-for="(skill, key) in skills"
