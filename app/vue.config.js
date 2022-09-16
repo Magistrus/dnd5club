@@ -13,11 +13,13 @@ module.exports = {
                 changeOrigin: true,
                 ws: false,
                 secure: false,
-                bypass: function (req) {
+                /* eslint-disable consistent-return */
+                bypass(req) {
                     if (req.headers.accept.indexOf('html') !== -1) {
                         return '/index.html';
                     }
-                },
+                }
+                /* eslint-enable consistent-return */
             }
         }
     },

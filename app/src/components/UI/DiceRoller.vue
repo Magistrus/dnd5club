@@ -1,7 +1,7 @@
 <template>
     <span
         v-tippy="{
-            content: result || `Нажмите для броска: <b>${computedFormula}</b>`,
+            content: result || `Нажмите для броска: <b>${formula}</b>`,
             hideOnClick: false,
         }"
         :class="classes"
@@ -112,7 +112,7 @@
     .dice-roller {
         @include css_anim();
 
-        font-weight: 600;
+        font-weight: 500;
         cursor: pointer;
 
         &:not(.is-error) {

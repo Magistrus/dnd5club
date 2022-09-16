@@ -39,12 +39,21 @@
 
                 <p>
                     <strong>Хиты </strong>
+
                     <span>{{ creature.hits.average }}&nbsp;</span>
-                    <dice-roller v-if="creature.hits?.formula"
-                                 :formula="hitDiceFormula">
-                        {{ creature.hits.formula }}
-                    </dice-roller>
-                    <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
+
+                    <span v-if="creature.hits?.formula">(<dice-roller
+                        :formula="hitDiceFormula"
+                    >
+                        {{
+                            `${ creature.hits.formula }${
+                                creature.hits?.bonus
+                                    ? `${ creature.hits.sign }${ Math.abs(creature.hits.bonus) }`
+                                    : ''
+                            }`
+                        }}
+                    </dice-roller>)</span>
+
                     <span v-if="creature.hits?.text">{{ creature.hits.text }}</span>
                 </p>
 
@@ -62,7 +71,11 @@
                             v-tippy="'Сила'"
                         >СИЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})</p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.str)">
+                            {{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats dexterity">
@@ -71,7 +84,11 @@
                             v-tippy="'Ловкость'"
                         >ЛОВ</strong>
                     </h4>
-                    <p>{{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})</p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.dex)">
+                            {{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats constitution">
@@ -80,7 +97,11 @@
                             v-tippy="'Телосложение'"
                         >ТЕЛ</strong>
                     </h4>
-                    <p>{{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})</p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.con)">
+                            {{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats intelligence">
@@ -89,7 +110,11 @@
                             v-tippy="'Интеллект'"
                         >ИНТ</strong>
                     </h4>
-                    <p>{{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})</p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.int)">
+                            {{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats wisdom">
@@ -98,7 +123,11 @@
                             v-tippy="'Мудрость'"
                         >МДР</strong>
                     </h4>
-                    <p>{{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})</p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.wiz)">
+                            {{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})
+                        </dice-roller>
+                    </p>
                 </div>
 
                 <div class="scores__stats charisma">
@@ -107,17 +136,37 @@
                             v-tippy="'Харизма'"
                         >ХАР</strong>
                     </h4>
-                    <p>{{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})</p>
+                    <p>
+                        <dice-roller :formula="abilityFormula(creature.ability.cha)">
+                            {{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})
+                        </dice-roller>
+                    </p>
                 </div>
             </div>
 
             <div class="beast_info">
-                <p v-if="savingThrows">
-                    <strong>Спасброски </strong> <span v-html="savingThrows"/>
+                <p v-if="savingThrows.length">
+                    <strong>Спасброски </strong>
+                    <span
+                        v-for="(savingThrow, key) in savingThrows"
+                        :key="key"
+                    >
+                        <span>{{ savingThrow.label }}&nbsp;</span><dice-roller :formula="savingThrow.formula">
+                            {{ savingThrow.value }}
+                        </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
+                    </span>
                 </p>
 
-                <p v-if="skills">
-                    <strong>Навыки </strong> <span v-html="skills"/>
+                <p v-if="skills.length">
+                    <strong>Навыки </strong>
+                    <span
+                        v-for="(skill, key) in skills"
+                        :key="key"
+                    >
+                        <span>{{ skill.label }}&nbsp;</span><dice-roller :formula="skill.formula">
+                            {{ skill.value }}
+                        </dice-roller><span v-if="key < skills.length - 1">, </span>
+                    </span>
                 </p>
 
                 <p v-if="creature.damageVulnerabilities">
@@ -417,34 +466,42 @@
 
             savingThrows() {
                 if (!this.creature.savingThrows?.length) {
-                    return '';
+                    return [];
                 }
 
                 const saves = [];
 
                 for (const save of this.creature.savingThrows) {
-                    const sign = Math.sign(save.value) > -1 ? '+' : '';
+                    const sign = Math.sign(save.value) > -1 ? '+' : '-';
 
-                    saves.push(`${ save.name }&nbsp;${ sign }${ save.value }`);
+                    saves.push({
+                        formula: `к20${ sign }${ Math.abs(save.value) }`,
+                        label: save.name,
+                        value: `${ sign }${ save.value }`
+                    });
                 }
 
-                return saves.join(', ');
+                return saves;
             },
 
             skills() {
                 if (!this.creature.skills?.length) {
-                    return '';
+                    return [];
                 }
 
                 const skills = [];
 
                 for (const skill of this.creature.skills) {
-                    const sign = Math.sign(skill.value) > -1 ? '+' : '';
+                    const sign = Math.sign(skill.value) > -1 ? '+' : '-';
 
-                    skills.push(`${ skill.name }&nbsp;${ sign }${ skill.value }`);
+                    skills.push({
+                        formula: `к20${ sign }${ Math.abs(skill.value) }`,
+                        label: skill.name,
+                        value: `${ sign }${ skill.value }`
+                    });
                 }
 
-                return skills.join(', ');
+                return skills;
             },
 
             senses() {
@@ -481,7 +538,9 @@
                 const sign = Math.sign(this.creature.hits.bonus) > -1 ? '+' : '-';
                 const bonus = Math.abs(this.creature.hits.bonus);
 
-                return this.creature.hits.bonus ? `${ this.creature.hits.formula } ${ sign } ${ bonus }` : this.creature.hits.formula;
+                return this.creature.hits.bonus
+                    ? `${ this.creature.hits.formula } ${ sign } ${ bonus }`
+                    : this.creature.hits.formula;
             }
         },
         methods: {
@@ -513,6 +572,14 @@
                 const bonus = Math.floor((ability - 10) / 2);
 
                 return (Math.sign(bonus) > -1 ? '+' : '−') + Math.abs(bonus);
+            },
+
+            abilityFormula(ability) {
+                const bonus = Math.floor((ability - 10) / 2);
+                const sign = Math.sign(bonus) > -1 ? '+' : '-';
+                const absBonus = Math.abs(bonus);
+
+                return `к20${ sign }${ absBonus }`;
             },
 
             getIterableStr(strings) {
