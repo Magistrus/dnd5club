@@ -40,11 +40,11 @@
                 <p>
                     <strong>Хиты </strong>
                     <span>{{ creature.hits.average }}&nbsp;</span>
-                    <dice-roller v-if="creature.hits?.formula"
+                    (<dice-roller v-if="creature.hits?.formula"
                                  :formula="hitDiceFormula">
-                        ({{ creature.hits.formula }}
-                        <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>)
-                    </dice-roller>
+                        {{ creature.hits.formula }}
+                        <span v-if="creature.hits?.bonus">{{ creature.hits.sign }}{{ Math.abs(creature.hits.bonus) }}</span>
+                    </dice-roller>)
                     <span v-if="creature.hits?.text">{{ creature.hits.text }}</span>
                 </p>
 
@@ -114,16 +114,26 @@
             <div class="beast_info">
                 <p v-if="savingThrows">
                     <strong>Спасброски </strong>
-                    <span v-for="(savingThrow, key) in creature.savingThrows"
+                    <span v-for="(savingThrow, key) in savingThrows"
                           :key="key">
+                        <span>{{ savingThrow.label }}</span>&nbsp;
                         <dice-roller :formula="savingThrow.formula">
-                            <span v-html="savingThrow.value"/>
+                            {{ savingThrow.value }}
                         </dice-roller>
+                        <span v-if="key < savingThrows.length - 1">, </span>
                     </span>
                 </p>
 
                 <p v-if="skills">
-                    <strong>Навыки </strong> <span v-html="skills"/>
+                    <strong>Навыки </strong>
+                    <span v-for="(skill, key) in skills"
+                          :key="key">
+                        <span>{{ skill.label }}</span>&nbsp;
+                        <dice-roller :formula="skill.formula">
+                            {{ skill.value }}
+                        </dice-roller>
+                        <span v-if="key < skills.length - 1">, </span>
+                    </span>
                 </p>
 
                 <p v-if="creature.damageVulnerabilities">
@@ -432,8 +442,9 @@
                     const sign = Math.sign(save.value) > -1 ? '+' : '-';
 
                     saves.push({
-                        formula: `d20${ sign }${ save.value }`,
-                        value: `${ save.name }&nbsp;${ sign }${ save.value }`
+                        formula: `к20${ sign }${ Math.abs(save.value) }`,
+                        label: save.name,
+                        value: `${ sign }${ save.value }`
                     });
                 }
 
@@ -442,18 +453,22 @@
 
             skills() {
                 if (!this.creature.skills?.length) {
-                    return '';
+                    return [];
                 }
 
                 const skills = [];
 
                 for (const skill of this.creature.skills) {
-                    const sign = Math.sign(skill.value) > -1 ? '+' : '';
+                    const sign = Math.sign(skill.value) > -1 ? '+' : '-';
 
-                    skills.push(`${ skill.name }&nbsp;${ sign }${ skill.value }`);
+                    skills.push({
+                        formula: `к20${ sign }${ Math.abs(skill.value) }`,
+                        label: skill.name,
+                        value: `${ sign }${ skill.value }`
+                    });
                 }
 
-                return skills.join(', ');
+                return skills;
             },
 
             senses() {
