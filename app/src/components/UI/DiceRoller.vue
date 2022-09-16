@@ -112,7 +112,7 @@
     .dice-roller {
         @include css_anim();
 
-        font-weight: 600;
+        font-weight: 500;
         cursor: pointer;
 
         &:not(.is-error) {
