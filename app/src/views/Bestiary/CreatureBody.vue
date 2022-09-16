@@ -39,20 +39,21 @@
 
                 <p>
                     <strong>Хиты </strong>
-                    <span>{{ creature.hits.average }}</span>
-                    <span v-if="creature.hits?.formula">
-                        (<dice-roller
-                            :formula="hitDiceFormula"
-                        >
-                            {{
-                                `${ creature.hits.formula }${
-                                    creature.hits?.bonus
-                                        ? `${ creature.hits.sign }${ Math.abs(creature.hits.bonus) }`
-                                        : ''
-                                }`
-                            }}
-                        </dice-roller>)
-                    </span>
+
+                    <span>{{ creature.hits.average }}&nbsp;</span>
+
+                    <span v-if="creature.hits?.formula">(<dice-roller
+                        :formula="hitDiceFormula"
+                    >
+                        {{
+                            `${ creature.hits.formula }${
+                                creature.hits?.bonus
+                                    ? `${ creature.hits.sign }${ Math.abs(creature.hits.bonus) }`
+                                    : ''
+                            }`
+                        }}
+                    </dice-roller>)</span>
+
                     <span v-if="creature.hits?.text">{{ creature.hits.text }}</span>
                 </p>
 
@@ -150,9 +151,7 @@
                         v-for="(savingThrow, key) in savingThrows"
                         :key="key"
                     >
-                        <span>
-                            {{ savingThrow.label }}
-                        </span>&nbsp;<dice-roller :formula="savingThrow.formula">
+                        <span>{{ savingThrow.label }}&nbsp;</span><dice-roller :formula="savingThrow.formula">
                             {{ savingThrow.value }}
                         </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
                     </span>
@@ -164,9 +163,7 @@
                         v-for="(skill, key) in skills"
                         :key="key"
                     >
-                        <span>
-                            {{ skill.label }}
-                        </span>&nbsp;<dice-roller :formula="skill.formula">
+                        <span>{{ skill.label }}&nbsp;</span><dice-roller :formula="skill.formula">
                             {{ skill.value }}
                         </dice-roller><span v-if="key < skills.length - 1">, </span>
                     </span>
