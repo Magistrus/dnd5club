@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import club.dnd5.portal.model.ArmorType;
 import club.dnd5.portal.model.creature.Action;
+import club.dnd5.portal.model.creature.ActionDataType;
 import club.dnd5.portal.model.creature.CreatureFeat;
 import lombok.Getter;
 import lombok.Setter;
@@ -81,9 +82,13 @@ public class FItemData {
 		uses = new FUses();
 		consume = new FConsume();
 		if (action.getDescription().contains("Рукопашная атака оружием:")) {
-			actionType = "mwak"; 
+			actionType = ActionDataType.MELE_WEAPON.getShortName(); 
 		} else if (action.getDescription().contains("Дальнобойная атака оружием:")) {
-			actionType = "rwak";	
+			actionType = ActionDataType.RANGE_WEAPON.getShortName();
+		} else if (action.getDescription().contains("Рукопашная атака заклинанием")){
+			actionType = ActionDataType.MELE_SPELL.getShortName();
+		} else if (action.getDescription().contains("Дальнобойная атака заклинанием")){
+			actionType = ActionDataType.RANGE_SPELL.getShortName();
 		} else if (action.getDescription().contains("спасброс")) {
 			actionType = "save";
 			save = new FSave();
@@ -116,33 +121,39 @@ public class FItemData {
 		
 		Queue<String> damageTypes = new LinkedList<>();
 		Pattern patternDamageTypes = 
-				Pattern.compile("колющий урон|рубящий урон|дробящий урон|урон ядом|урон электричеством|урон кислотой|урон огнём");
+				Pattern.compile("колющий урон|колющего урона|рубящий урон|дробящий урон|урон ядом|урона электричеством|урон электричеством|урон кислотой|урон огнём");
 		Matcher matcher = patternDamageTypes.matcher(action.getDescription().toLowerCase());
 		while (matcher.find()) {
 			String damageType = matcher.group();
 			switch (damageType) {
+			case "колющего урона":
 			case "колющий урон":
 				damageTypes.add("piercing");
 				break;
+			case "рубящего урона":
 			case "рубящий урон":
 				damageTypes.add("slashing");
 				break;
+			case "дробящего урона":
 			case "дробящий урон":
 				damageTypes.add("bludgeoning");
 				break;
+			case "урона ядом":
 			case "урон ядом":
 				damageTypes.add("poison");
 				break;
+			case "урона электричеством":
 			case "урон электричеством":
 				damageTypes.add("lightning");
 				break;
+			case "урона кислотой":
 			case "урон кислотой":
 				damageTypes.add("acid");
 				break;
+			case "урона огнём":
 			case "урон огнём":
 				damageTypes.add("fire");
 				break;
-				
 			default:
 				break;
 			}
