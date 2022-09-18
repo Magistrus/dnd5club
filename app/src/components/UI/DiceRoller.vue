@@ -114,6 +114,7 @@
 
         font-weight: 500;
         cursor: pointer;
+        white-space: nowrap;
 
         &:not(.is-error) {
             &.is-dice {
