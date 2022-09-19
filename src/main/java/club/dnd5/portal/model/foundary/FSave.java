@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class FSave {
     private String ability = "";
-    private FDC dc;
-    private String  scaling = "spell";
+    private Object dc; // new FDC
+    private String scaling = "spell"; //str
 }
