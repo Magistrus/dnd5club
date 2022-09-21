@@ -99,6 +99,9 @@ public class BeastDetailApi extends BeastApi {
 		if (beast.getClimbingSpeed() != null) {
 			speed.add(new NameValueApi("лазая", beast.getClimbingSpeed()));
 		}
+		if (beast.getSpeedText() != null) {
+			speed.add(new NameValueApi(beast.getSpeedText(), ""));
+		}
 		ability = new AbilityApi(beast);
 		
 		if (!beast.getSavingThrows().isEmpty()) {
