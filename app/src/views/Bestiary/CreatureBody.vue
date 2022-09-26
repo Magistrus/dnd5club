@@ -296,6 +296,22 @@
                 </div>
             </div>
 
+            <div v-if="creature.mysticalActions?.length">
+                <h4 class="header_separator">
+                    <span>Мифические действия</span>
+                </h4>
+                <div
+                    v-for="(mystical, key) in creature.mysticalActions"
+                    :key="key"
+                >
+                    <span class="bestiary_h5">
+                        <h5>{{ mystical.name }}</h5>
+
+                        <raw-content :template="mystical.value"/>
+                    </span>
+                </div>
+            </div>
+
             <div v-if="creature.lair?.description">
                 <h4 class="header_separator">
                     <span>Логово</span>
