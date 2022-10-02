@@ -16,7 +16,7 @@
 						<b>Хиты на 1 уровне:</b> <span th:text="*{diceHp}"></span> + ваш модификатор <strong>Телосложения</strong>
 					</p>
 					<p class="class_stats">
-						<b>Хиты на следующих уровнях:</b> <dice-roller th:formula="|1к*{diceHp}|"></dice-roller> (или [[*{diceHp/2 + 1}]]) + модификатор <strong>Телосложения</strong> за каждый уровень этого класса, после
+						<b>Хиты на следующих уровнях:</b> <dice-roller th:formula="|1к*{diceHp}|"></dice-roller> (или [[*{diceHp/2 + 1}]]) + модификатор <strong>Телосложения</strong>  (минимум 1) за каждый уровень этого класса, после
 						первого
 					</p>
 				</div>
