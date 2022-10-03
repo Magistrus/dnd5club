@@ -158,7 +158,7 @@ public class AuthApiController {
 			VerificationToken token = verificationTokenRepository.findByToken(passwordDto.getResetToken());
 			if (token != null) {
 				User user = token.getUser();
-				user.setPassword(passwordDto.getPassword());
+				user.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
 				userRepository.save(user);
 				token.setExpiryDate(VerificationToken.calculateExpiryDate(0));
 				verificationTokenRepository.save(token);
@@ -170,7 +170,7 @@ public class AuthApiController {
 			Optional<User> user = userRepository.findByEmailOrUsername(userName, userName);
 			if (user.isPresent()) {
 				User changeUser = user.get();
-				changeUser.setPassword(passwordDto.getPassword());
+				changeUser.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
 				userRepository.save(changeUser);
 				return ResponseEntity.status(HttpStatus.OK).build();
 			}
