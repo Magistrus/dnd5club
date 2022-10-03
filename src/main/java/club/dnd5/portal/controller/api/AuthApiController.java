@@ -1,11 +1,13 @@
 package club.dnd5.portal.controller.api;
 
+import java.sql.Date;
 import java.util.Collections;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +23,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.user.ChangePassword;
 import club.dnd5.portal.dto.user.LoginDto;
 import club.dnd5.portal.dto.user.SignUpDto;
 import club.dnd5.portal.dto.user.UserDto;
 import club.dnd5.portal.model.user.Role;
 import club.dnd5.portal.model.user.User;
+import club.dnd5.portal.repository.VerificationToken;
 import club.dnd5.portal.repository.user.RoleRepository;
 import club.dnd5.portal.repository.user.UserRepository;
+import club.dnd5.portal.repository.user.VerificationTokenRepository;
 import club.dnd5.portal.security.JWTAuthResponse;
 import club.dnd5.portal.security.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,6 +56,9 @@ public class AuthApiController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private VerificationTokenRepository verificationTokenRepository;
 
 	@Operation(summary = "User authorization by nickname or email address")
 	@PostMapping("/signin")
@@ -133,5 +141,20 @@ public class AuthApiController {
 			}
 		}
 		return ResponseEntity.ok().build();
+	}
+	
+	@Operation(summary = "Change password by token")
+	@PostMapping("/change/password")
+	public ResponseEntity<?> changePassword(@RequestBody ChangePassword passwordDto) {
+		VerificationToken token = verificationTokenRepository.findByToken(passwordDto.getToken());
+		if (token != null) {
+			User user = token.getUser();
+			user.setPassword(passwordDto.getPassword());
+			userRepository.save(user);
+			token.setExpiryDate(VerificationToken.calculateExpiryDate(0));
+			verificationTokenRepository.save(token);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 }
