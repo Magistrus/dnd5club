@@ -69,6 +69,8 @@ export const useUserStore = defineStore('UserStore', {
                             );
                         }
 
+                        this.jwtToken = resp.data.accessToken;
+
                         await this.getUserInfo();
 
                         return Promise.resolve();
@@ -143,6 +145,10 @@ export const useUserStore = defineStore('UserStore', {
             this.user = undefined;
 
             Cookies.remove(USER_TOKEN_COOKIE);
+        },
+
+        getUserToken() {
+            return Cookies.get(USER_TOKEN_COOKIE);
         },
 
         async getUserInfo() {

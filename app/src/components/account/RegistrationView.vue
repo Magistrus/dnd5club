@@ -91,7 +91,7 @@
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('auth')"
+                @click.left.exact.prevent="$emit('switch:auth')"
             >
                 Авторизация
             </form-button>

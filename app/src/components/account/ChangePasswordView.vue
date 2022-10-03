@@ -24,14 +24,14 @@
         </transition>
 
         <div
-            v-if="!isOnlyPassword"
+            v-show="!isOnlyPassword"
             class="form__row"
         >
             <field-input
                 v-model.trim="v$.email.$model"
                 placeholder="Электронный адрес"
                 required
-                autocomplete="email"
+                autocomplete="username"
                 autocapitalize="off"
                 autocorrect="off"
                 :error-text="v$.email.$dirty ? v$.email.$errors?.[0]?.$message : ''"
@@ -81,12 +81,13 @@
                 :disabled="success || inProgress"
                 @click.left.exact.prevent="onSubmit"
             >
-                {{ isOnlyPassword ? 'Сменить пароль' : 'Восстановить пароль' }}
+                {{ isOnlyPassword ? 'Изменить пароль' : 'Восстановить пароль' }}
             </form-button>
 
             <form-button
+                v-if="!isAuthenticated"
                 type-link
-                @click.left.exact.prevent="$emit('auth')"
+                @click.left.exact.prevent="$emit('switch:auth')"
             >
                 Авторизация
             </form-button>
@@ -106,11 +107,13 @@
         validatePwdNumber,
         validatePwdSpecial,
         validatePwdUpperCase,
-        validateRequired
+        validateRequired, validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
-    import { helpers, sameAs } from "@vuelidate/validators";
     import {
-        computed, defineComponent, onMounted, reactive, ref
+        helpers, or, sameAs
+    } from "@vuelidate/validators";
+    import {
+        computed, defineComponent, reactive, ref
     } from "vue";
     import { useRoute } from "vue-router";
 
@@ -125,12 +128,10 @@
                 default: false
             }
         },
-        emits: ['close', 'auth'],
+        emits: ['close', 'switch:auth'],
         setup(props, { emit }) {
             const route = useRoute();
-            const {
-                getUser, resetPassword, changePassword, getUserInfo, getUserStatus, isAuthenticated
-            } = useUserStore();
+            const userStore = useUserStore();
             const success = ref(false);
             const inProgress = ref(false);
             const error = ref({});
@@ -140,10 +141,16 @@
                 repeat: ''
             });
             const isOnlyPassword = computed(() => (route.name === 'recovery-password' && !props.inModal)
-                || isAuthenticated);
+                || userStore.isAuthenticated);
             const validations = computed(() => {
                 if (isOnlyPassword.value) {
                     return {
+                        email: {
+                            format: or(
+                                validateUsernameSpecialChars(),
+                                validateEmailFormat()
+                            )
+                        },
                         password: {
                             required: validateRequired(),
                             minLength: validateMinLength(8),
@@ -167,13 +174,6 @@
                 };
             });
             const v$ = useVuelidate(validations.value, state, { $lazy: true });
-
-            onMounted(() => {
-                getUserInfo()
-                    .then(user => {
-                        state.email = user.email;
-                    });
-            });
 
             function clearError() {
                 error.value = {
@@ -219,12 +219,12 @@
                     try {
                         const payload = {
                             password: state.password,
-                            [await getUserStatus() ? 'userToken' : 'resetToken']: isAuthenticated
-                                ? getUser.token
+                            [userStore.isAuthenticated ? 'userToken' : 'resetToken']: userStore.isAuthenticated
+                                ? userStore.getUserToken()
                                 : route.query.token
                         };
 
-                        await changePassword(payload);
+                        await userStore.changePassword(payload);
 
                         return Promise.resolve();
                     } catch (err) {
@@ -233,7 +233,7 @@
                 }
 
                 try {
-                    await resetPassword(state.email);
+                    await userStore.resetPassword(state.email);
 
                     return Promise.resolve();
                 } catch (err) {
@@ -268,6 +268,7 @@
             }
 
             return {
+                isAuthenticated: computed(() => userStore.isAuthenticated),
                 inProgress,
                 isOnlyPassword,
                 v$,

@@ -71,14 +71,14 @@
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('reg')"
+                @click.left.exact.prevent="$emit('switch:reg')"
             >
                 Регистрация
             </form-button>
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('forgot-password')"
+                @click.left.exact.prevent="$emit('switch:change-password')"
             >
                 Забыли пароль?
             </form-button>

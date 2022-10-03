@@ -1,11 +1,18 @@
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
+    import { useUserStore } from "@/store/UI/UserStore";
 
     export default {
         data: () => ({
-            uiStore: useUIStore()
+            uiStore: useUIStore(),
+            userStore: useUserStore()
         }),
+        async beforeMount() {
+            // User
+            await this.userStore.getUserInfo();
+        },
         async mounted() {
+            // UI
             this.uiStore.watchMaxHeight();
             this.uiStore.watchIsMobile();
 

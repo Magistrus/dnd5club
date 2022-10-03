@@ -7,7 +7,7 @@
         v-bind="$attrs"
     >
         <img
-            :alt="currentModal.eng + '_background'"
+            :alt="title"
             class="auth-reg-modal__bg"
             src="/img/bg_login.png"
         >
@@ -16,76 +16,38 @@
             <form-button
                 class="auth-reg-modal__close"
                 type-link
-                @click.left.exact.prevent="closeHandler(close)"
+                @click.left.exact.prevent="$emit('close')"
             >
                 <svg-icon icon-name="close"/>
             </form-button>
 
             <div class="auth-reg-modal__body">
-                <h4>{{ currentModal.rus }}</h4>
+                <h4>{{ title }}</h4>
 
-                <transition
-                    mode="out-in"
-                    name="fade"
-                >
-                    <component
-                        :is="currentView"
-                        in-modal
-                        @auth="onAuthorization"
-                        @reg="onRegistration"
-                        @forgot-password="onForgotPassword"
-                        @close="closeHandler(close)"
+                <div class="auth-reg-modal__form">
+                    <slot
+                        name="default"
+                        :close="close"
                     />
-                </transition>
+                </div>
             </div>
         </div>
     </vue-final-modal>
 </template>
 
-<script setup>
-    import SvgIcon from "@/components/UI/SvgIcon";
+<script>
+    import { defineComponent } from "vue";
     import FormButton from "@/components/form/FormButton";
-    import LoginView from "@/components/account/LoginView";
-    import RegistrationView from "@/components/account/RegistrationView";
-    import ChangePasswordView from "@/components/account/ChangePasswordView";
-    import { computed, ref } from "vue";
 
-    const currentModal = ref({
-        rus: 'Авторизация',
-        eng: 'login',
-        component: () => LoginView
+    export default defineComponent({
+        components: { FormButton },
+        props: {
+            title: {
+                type: String,
+                default: ''
+            }
+        }
     });
-    const currentView = computed(() => currentModal.value.component());
-
-    function onAuthorization() {
-        currentModal.value = {
-            rus: 'Авторизация',
-            eng: 'login',
-            component: () => LoginView
-        };
-    }
-
-    function onRegistration() {
-        currentModal.value = {
-            rus: 'Регистрация',
-            eng: 'reg',
-            component: () => RegistrationView
-        };
-    }
-
-    function onForgotPassword() {
-        currentModal.value = {
-            rus: 'Восстановление пароля',
-            eng: 'forgot',
-            component: () => ChangePasswordView
-        };
-    }
-
-    function closeHandler(callback) {
-        callback();
-
-        onAuthorization();
-    }
 </script>
 
 <style lang="scss" scoped>
@@ -153,10 +115,10 @@
             h4 {
                 margin: 0;
             }
+        }
 
-            .form {
-                margin-top: 24px;
-            }
+        &__form {
+            margin-top: 24px;
         }
     }
 </style>
