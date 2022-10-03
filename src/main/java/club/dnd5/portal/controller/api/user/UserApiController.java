@@ -27,9 +27,6 @@ public class UserApiController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private EmailService emailService;
-
 	@GetMapping("/status")
 	public ResponseEntity<?> getStatus() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,13 +50,5 @@ public class UserApiController {
 		    return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-	}
-
-	@PostMapping("/reset/password")
-	public ResponseEntity<UserApi> resetUserPassword(String email) {
-		Optional<User> user = userRepository.findByEmail(email);
-		emailService.changePassword(user.get());
-
-		return ResponseEntity.ok().build();
 	}
 }
