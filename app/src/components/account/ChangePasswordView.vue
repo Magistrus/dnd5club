@@ -1,6 +1,6 @@
 <template>
     <form
-        class="login form"
+        class="change-password form"
         @keyup.enter.exact.prevent="onSubmit"
         @submit.prevent="onSubmit"
     >
@@ -24,14 +24,14 @@
         </transition>
 
         <div
-            v-show="!isOnlyPassword"
             class="form__row"
+            :class="{ 'is-hidden': isOnlyPassword }"
         >
             <field-input
                 v-model.trim="v$.email.$model"
                 placeholder="Электронный адрес"
                 required
-                autocomplete="username"
+                :autocomplete="isOnlyPassword ? 'username' : 'email'"
                 autocapitalize="off"
                 autocorrect="off"
                 :error-text="v$.email.$dirty ? v$.email.$errors?.[0]?.$message : ''"
@@ -203,7 +203,11 @@
 
                     if (route.name === 'recovery-password') {
                         window.location.replace('/');
+
+                        return;
                     }
+
+                    window.location.reload();
                 }, 2000);
             }
 
