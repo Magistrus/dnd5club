@@ -7,7 +7,7 @@
         v-bind="$attrs"
     >
         <img
-            :alt="title.eng + '_background'"
+            :alt="currentModal.eng + '_background'"
             class="auth-reg-modal__bg"
             src="/img/bg_login.png"
         >
@@ -22,15 +22,18 @@
             </form-button>
 
             <div class="auth-reg-modal__body">
-                <h4>{{ title.rus }}</h4>
+                <h4>{{ currentModal.rus }}</h4>
 
                 <transition
                     mode="out-in"
                     name="fade"
                 >
                     <component
-                        :is="component"
-                        @change-type="changeType"
+                        :is="currentView"
+                        in-modal
+                        @auth="onAuthorization"
+                        @reg="onRegistration"
+                        @forgot-password="onForgotPassword"
                         @close="closeHandler(close)"
                     />
                 </transition>
@@ -39,56 +42,50 @@
     </vue-final-modal>
 </template>
 
-<script>
+<script setup>
     import SvgIcon from "@/components/UI/SvgIcon";
     import FormButton from "@/components/form/FormButton";
     import LoginView from "@/components/account/LoginView";
     import RegistrationView from "@/components/account/RegistrationView";
+    import ChangePasswordView from "@/components/account/ChangePasswordView";
+    import { computed, ref } from "vue";
 
-    export default {
-        name: "AuthRegModal",
-        components: {
-            FormButton,
-            SvgIcon
-        },
-        inheritAttrs: true,
-        emits: ['confirm', 'cancel'],
-        data: () => ({
-            isAuth: true
-        }),
-        computed: {
-            title() {
-                return this.isAuth
-                    ? {
-                        rus: 'Авторизация',
-                        eng: 'auth'
-                    }
-                    : {
-                        rus: 'Регистрация',
-                        eng: 'reg'
-                    };
-            },
+    const currentModal = ref({
+        rus: 'Авторизация',
+        eng: 'login',
+        component: () => LoginView
+    });
+    const currentView = computed(() => currentModal.value.component());
 
-            component() {
-                if (this.isAuth) {
-                    return LoginView;
-                }
+    function onAuthorization() {
+        currentModal.value = {
+            rus: 'Авторизация',
+            eng: 'login',
+            component: () => LoginView
+        };
+    }
 
-                return RegistrationView;
-            }
-        },
-        methods: {
-            changeType() {
-                this.isAuth = !this.isAuth;
-            },
+    function onRegistration() {
+        currentModal.value = {
+            rus: 'Регистрация',
+            eng: 'reg',
+            component: () => RegistrationView
+        };
+    }
 
-            closeHandler(callback) {
-                callback();
+    function onForgotPassword() {
+        currentModal.value = {
+            rus: 'Восстановление пароля',
+            eng: 'forgot',
+            component: () => ChangePasswordView
+        };
+    }
 
-                this.isAuth = true;
-            }
-        }
-    };
+    function closeHandler(callback) {
+        callback();
+
+        onAuthorization();
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +97,7 @@
         box-shadow: 0 0 12px -8px var(--bg-transparent);
         display: flex;
         width: 100%;
-        max-width: 600px;
+        max-width: 700px;
 
         @include media-min($sm) {
             border-radius: 8px;

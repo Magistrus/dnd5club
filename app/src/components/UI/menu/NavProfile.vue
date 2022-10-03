@@ -47,7 +47,7 @@
         </template>
     </nav-popover>
 
-    <auth-reg-modal
+    <auth-modal
         v-if="!getUser"
         v-model="modal"
         @close="closeModal"
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-    import AuthRegModal from "@/components/UI/modals/AuthRegModal";
+    import AuthModal from "@/components/UI/modals/AuthModal";
     import SvgIcon from "@/components/UI/SvgIcon";
     import { useUserStore } from "@/store/UI/UserStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
@@ -65,7 +65,7 @@
         name: "NavProfile",
         components: {
             NavPopover,
-            AuthRegModal,
+            AuthModal,
             SvgIcon
         },
         data: () => ({

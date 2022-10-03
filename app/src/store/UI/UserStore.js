@@ -83,6 +83,19 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
+        async changePassword(payload = {
+            email: '',
+            password: ''
+        }) {
+            try {
+                await console.log(payload);
+
+                return Promise.resolve();
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
         async logout() {
             try {
                 const resp = await this.$http.post('/auth/signout');

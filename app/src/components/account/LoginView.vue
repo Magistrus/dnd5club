@@ -71,9 +71,16 @@
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('change-type')"
+                @click.left.exact.prevent="$emit('reg')"
             >
                 Регистрация
+            </form-button>
+
+            <form-button
+                type-link
+                @click.left.exact.prevent="$emit('forgot-password')"
+            >
+                Забыли пароль?
             </form-button>
         </div>
     </form>
