@@ -91,7 +91,7 @@
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('change-type')"
+                @click.left.exact.prevent="$emit('switch:auth')"
             >
                 Авторизация
             </form-button>
@@ -169,6 +169,8 @@
                     this.clearForm();
 
                     this.$emit('close');
+
+                    window.location.reload();
                 }, 2000);
             },
 

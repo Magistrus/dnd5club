@@ -71,9 +71,16 @@
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('change-type')"
+                @click.left.exact.prevent="$emit('switch:reg')"
             >
                 Регистрация
+            </form-button>
+
+            <form-button
+                type-link
+                @click.left.exact.prevent="$emit('switch:change-password')"
+            >
+                Забыли пароль?
             </form-button>
         </div>
     </form>
@@ -143,6 +150,8 @@
                     this.clearForm();
 
                     this.$emit('close');
+
+                    window.location.reload();
                 }, 2000);
             },
 

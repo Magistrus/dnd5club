@@ -10,14 +10,14 @@
                 <svg-icon
                     :stroke-enable="false"
                     fill-enable
-                    :icon-name="!!getUser ? 'profile' : 'profile-outline'"
+                    :icon-name="isAuthenticated ? 'profile' : 'profile-outline'"
                 />
             </div>
         </template>
 
         <template #default>
             <div
-                v-if="!!getUser"
+                v-if="isAuthenticated"
                 class="nav-profile"
             >
                 <div class="nav-profile__line is-main">
@@ -25,6 +25,16 @@
                         {{ greeting }}, <b>{{ getUser.username }}</b>
                     </span>
                 </div>
+
+                <a
+                    href="#"
+                    class="nav-profile__line"
+                    @click.left.exact.prevent="modal = 'change-password'"
+                >
+                    <span class="nav-profile__line_body">
+                        Сменить пароль
+                    </span>
+                </a>
 
                 <a
                     href="#"
@@ -47,38 +57,79 @@
         </template>
     </nav-popover>
 
-    <auth-reg-modal
-        v-if="!getUser"
-        v-model="modal"
+    <auth-modal
+        v-if="modalComponent"
+        v-model="isModalOpened"
+        :title="modalInfo?.rus"
         @close="closeModal"
-    />
+    >
+        <template #default>
+            <transition
+                mode="out-in"
+                name="fade"
+            >
+                <component
+                    :is="modalComponent"
+                    in-modal
+                    @switch:auth="modal = 'login'"
+                    @switch:reg="modal = 'reg'"
+                    @switch:change-password="modal = 'change-password'"
+                    @close="closeModal"
+                />
+            </transition>
+        </template>
+    </auth-modal>
 </template>
 
 <script>
-    import AuthRegModal from "@/components/UI/modals/AuthRegModal";
+    import AuthModal from "@/components/UI/modals/AuthModal";
     import SvgIcon from "@/components/UI/SvgIcon";
     import { useUserStore } from "@/store/UI/UserStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
-    import errorHandler from "@/common/helpers/errorHandler";
+    import { computed, ref } from "vue";
+    import LoginView from "@/components/account/LoginView";
+    import RegistrationView from "@/components/account/RegistrationView";
+    import ChangePasswordView from "@/components/account/ChangePasswordView";
 
     export default {
         name: "NavProfile",
         components: {
             NavPopover,
-            AuthRegModal,
+            AuthModal,
             SvgIcon
         },
-        data: () => ({
-            modal: false,
-            popover: false,
-            userStore: useUserStore()
-        }),
-        computed: {
-            getUser() {
-                return this.userStore.getUser;
-            },
-
-            greeting() {
+        setup() {
+            const userStore = useUserStore();
+            const popover = ref(false);
+            const modal = ref('');
+            const modals = ref([
+                {
+                    rus: 'Авторизация',
+                    eng: 'login',
+                    component: () => LoginView
+                },
+                {
+                    rus: 'Регистрация',
+                    eng: 'reg',
+                    component: () => RegistrationView
+                },
+                {
+                    rus: `${ userStore.isAuthenticated ? 'Изменение' : 'Восстановление' } пароля`,
+                    eng: 'change-password',
+                    component: () => ChangePasswordView
+                }
+            ]);
+            const modalInfo = computed(() => modals.value.find(item => item.eng === modal.value));
+            const modalComponent = computed(() => modalInfo.value?.component());
+            const isModalOpened = computed({
+                get: () => !!modal.value,
+                set: e => {
+                    modal.value = typeof e === 'string'
+                        ? e
+                        : false;
+                }
+            });
+            const greeting = computed(() => {
                 const hours = new Date().getHours();
 
                 if (hours < 6) {
@@ -94,73 +145,73 @@
                 }
 
                 return 'Добрый вечер';
+            });
+
+            function openPopover() {
+                popover.value = true;
             }
-        },
-        async beforeMount() {
-            try {
-                await this.userStore.getUserInfo();
-            } catch (err) {
-                errorHandler(err);
+
+            function closePopover() {
+                popover.value = false;
             }
-        },
-        methods: {
-            async logout() {
-                await this.userStore.logout();
-            },
 
-            async userLogout() {
-                this.closeModal();
-
-                await this.logout();
-
-                this.closePopover();
-            },
-
-            clickHandler() {
-                if (!this.getUser) {
-                    this.toggleModal();
+            function togglePopover() {
+                if (!popover.value) {
+                    openPopover();
 
                     return;
                 }
 
-                this.togglePopover();
-            },
-
-            togglePopover() {
-                if (!this.popover) {
-                    this.openPopover();
-
-                    return;
-                }
-
-                this.closePopover();
-            },
-
-            openPopover() {
-                this.popover = true;
-            },
-
-            closePopover() {
-                this.popover = false;
-            },
-
-            toggleModal() {
-                if (!this.modal) {
-                    this.openModal();
-
-                    return;
-                }
-
-                this.closeModal();
-            },
-
-            openModal() {
-                this.modal = true;
-            },
-
-            closeModal() {
-                this.modal = false;
+                closePopover();
             }
+
+            function openModal(name = 'login') {
+                modal.value = name;
+            }
+
+            function closeModal() {
+                modal.value = '';
+            }
+
+            function toggleModal() {
+                if (!modal.value) {
+                    openModal();
+
+                    return;
+                }
+
+                closeModal();
+            }
+
+            function clickHandler() {
+                if (!userStore.getUser) {
+                    toggleModal();
+
+                    return;
+                }
+
+                togglePopover();
+            }
+
+            async function userLogout() {
+                await userStore.logout();
+
+                window.location.reload();
+            }
+
+            return {
+                isAuthenticated: computed(() => userStore.isAuthenticated),
+                isModalOpened,
+                greeting,
+                getUser: computed(() => userStore.getUser),
+                popover,
+                userLogout,
+                clickHandler,
+                closeModal,
+                modal,
+                modalInfo,
+                modalComponent
+            };
         }
     };
 </script>

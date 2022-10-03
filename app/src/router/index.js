@@ -214,6 +214,23 @@ const routes = [
         name: 'encounters',
         path: '/tools/encounters',
         component: () => import('@/views/Tools/EncountersView')
+    },
+    {
+        name: 'recovery-password',
+        path: '/reset/password',
+        component: () => import('@/components/account/ChangePasswordView'),
+        beforeEnter: async (to, from, next) => {
+            const userStore = useUserStore();
+            const status = await userStore.getUserStatus();
+
+            if (status || (!status && !to.query.token)) {
+                window.location.replace('/');
+
+                return;
+            }
+
+            next();
+        }
     }
 ];
 const router = createRouter({
