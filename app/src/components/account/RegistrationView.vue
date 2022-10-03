@@ -169,6 +169,8 @@
                     this.clearForm();
 
                     this.$emit('close');
+
+                    window.location.reload();
                 }, 2000);
             },
 

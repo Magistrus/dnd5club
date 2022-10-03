@@ -217,14 +217,14 @@ const routes = [
     },
     {
         name: 'recovery-password',
-        path: '/recovery-password',
+        path: '/reset/password',
         component: () => import('@/components/account/ChangePasswordView'),
         beforeEnter: async (to, from, next) => {
             const userStore = useUserStore();
             const status = await userStore.getUserStatus();
 
             if (status || (!status && !to.query.token)) {
-                next('/');
+                window.location.replace('/');
 
                 return;
             }

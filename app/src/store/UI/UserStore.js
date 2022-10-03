@@ -83,14 +83,35 @@ export const useUserStore = defineStore('UserStore', {
             }
         },
 
+        async resetPassword(email) {
+            try {
+                const resp = await this.$http.get('/auth/change/password', { email });
+
+                switch (resp.status) {
+                    case 200:
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
         async changePassword(payload = {
-            email: '',
+            userToken: '',
+            resetToken: '',
             password: ''
         }) {
             try {
-                await console.log(payload);
+                const resp = await this.$http.post('/auth/change/password', payload);
 
-                return Promise.resolve();
+                switch (resp.status) {
+                    case 200:
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
             } catch (err) {
                 return Promise.reject(err);
             }

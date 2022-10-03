@@ -32,6 +32,16 @@
                     @click.left.exact.prevent="userLogout"
                 >
                     <span class="nav-profile__line_body">
+                        Сменить пароль
+                    </span>
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-profile__line"
+                    @click.left.exact.prevent="userLogout"
+                >
+                    <span class="nav-profile__line_body">
                         Выйти
                     </span>
 
