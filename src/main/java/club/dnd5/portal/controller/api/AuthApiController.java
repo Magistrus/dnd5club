@@ -2,6 +2,7 @@ package club.dnd5.portal.controller.api;
 
 import java.sql.Date;
 import java.util.Collections;
+import java.util.Optional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,17 +13,20 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import club.dnd5.portal.dto.api.UserApi;
 import club.dnd5.portal.dto.user.ChangePassword;
 import club.dnd5.portal.dto.user.LoginDto;
 import club.dnd5.portal.dto.user.SignUpDto;
@@ -35,6 +39,7 @@ import club.dnd5.portal.repository.user.UserRepository;
 import club.dnd5.portal.repository.user.VerificationTokenRepository;
 import club.dnd5.portal.security.JWTAuthResponse;
 import club.dnd5.portal.security.JwtTokenProvider;
+import club.dnd5.portal.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -59,6 +64,9 @@ public class AuthApiController {
 	
 	@Autowired
 	private VerificationTokenRepository verificationTokenRepository;
+
+	@Autowired
+	private EmailService emailService;
 
 	@Operation(summary = "User authorization by nickname or email address")
 	@PostMapping("/signin")
@@ -146,15 +154,35 @@ public class AuthApiController {
 	@Operation(summary = "Change password by token")
 	@PostMapping("/change/password")
 	public ResponseEntity<?> changePassword(@RequestBody ChangePassword passwordDto) {
-		VerificationToken token = verificationTokenRepository.findByToken(passwordDto.getToken());
-		if (token != null) {
-			User user = token.getUser();
-			user.setPassword(passwordDto.getPassword());
-			userRepository.save(user);
-			token.setExpiryDate(VerificationToken.calculateExpiryDate(0));
-			verificationTokenRepository.save(token);
-			return ResponseEntity.ok().build();
+		if (passwordDto.getResetToken() != null) {
+			VerificationToken token = verificationTokenRepository.findByToken(passwordDto.getResetToken());
+			if (token != null) {
+				User user = token.getUser();
+				user.setPassword(passwordDto.getPassword());
+				userRepository.save(user);
+				token.setExpiryDate(VerificationToken.calculateExpiryDate(0));
+				verificationTokenRepository.save(token);
+				return ResponseEntity.ok().build();
+			}
+		}
+		else if (passwordDto.getUserToken() != null) {
+			String userName = tokenProvider.getUsernameFromJWT(passwordDto.getUserToken());
+			Optional<User> user = userRepository.findByEmailOrUsername(userName, userName);
+			if (user.isPresent()) {
+				User changeUser = user.get();
+				changeUser.setPassword(passwordDto.getPassword());
+				userRepository.save(changeUser);
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	@Operation(summary = "Send token for reset password by email")
+	@GetMapping("/change/password")
+	public ResponseEntity<UserApi> resetUserPassword(String email) {
+		Optional<User> user = userRepository.findByEmail(email);
+		emailService.changePassword(user.get());
+		return ResponseEntity.ok().build();
 	}
 }
