@@ -30,7 +30,7 @@ public class UserController {
 			model.addAttribute("message", "Время использование токена истекло!");
 			return "user/invalid_token";
 		}
-		model.addAttribute("token", vereficationToken);
+		model.addAttribute("token", vereficationToken.getToken());
 		return "user/reset_password";
 	}
 }
