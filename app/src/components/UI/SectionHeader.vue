@@ -97,7 +97,6 @@
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
     import FormButton from "@/components/form/FormButton";
     import { useClipboard } from "@vueuse/core";
-    import { TYPE } from "vue-toastification";
 
     export default {
         name: 'SectionHeader',
@@ -175,63 +174,6 @@
 
                 return this.onClose;
             }
-        },
-        mounted() {
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.DEFAULT,
-                timeout: 100000
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.INFO,
-                timeout: 100000
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.SUCCESS,
-                timeout: 100000
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.WARNING,
-                timeout: 100000
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.ERROR,
-                timeout: 100000
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.DEFAULT,
-                timeout: 100000,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.INFO,
-                timeout: 100000,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.SUCCESS,
-                timeout: 100000,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.WARNING,
-                timeout: 100000,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.ERROR,
-                timeout: 100000,
-                position: 'top-left'
-            });
         },
         methods: {
             copyText() {
