@@ -345,6 +345,7 @@
 
 .Vue-Toastification {
   &__toast {
+    &--default,
     &--info,
     &--success,
     &--warning,
@@ -359,6 +360,41 @@
                 &:hover {
                   border-bottom: 1px solid currentColor;
                 }
+              }
+            }
+          }
+        }
+
+        &__close {
+          &-button {
+            color: currentColor;
+          }
+        }
+
+        &__progress {
+          &-bar {
+            background-color: transparent;
+
+            &:before {
+              content: '';
+              display: block;
+              height: 100%;
+              width: 100%;
+              opacity: .7;
+              background-color: currentColor;
+            }
+          }
+        }
+      }
+    }
+
+    &--default {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-default;
               }
             }
           }
