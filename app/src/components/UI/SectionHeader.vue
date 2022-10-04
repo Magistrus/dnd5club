@@ -176,63 +176,6 @@
                 return this.onClose;
             }
         },
-        mounted() {
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.DEFAULT,
-                timeout: false
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.INFO,
-                timeout: false
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.SUCCESS,
-                timeout: false
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.WARNING,
-                timeout: false
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.ERROR,
-                timeout: false
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.DEFAULT,
-                timeout: false,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.INFO,
-                timeout: false,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.SUCCESS,
-                timeout: false,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.WARNING,
-                timeout: false,
-                position: 'top-left'
-            });
-            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
-                type: TYPE.ERROR,
-                timeout: false,
-                position: 'top-left'
-            });
-        },
         methods: {
             copyText() {
                 if (!this.clipboard.isSupported) {
