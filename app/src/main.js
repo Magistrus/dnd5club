@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import VueEasyLightbox from 'vue-easy-lightbox';
 import VueTippy from 'vue-tippy/dist/vue-tippy';
 import VueLazyload from 'vue-lazyload';
-import Toast, { TYPE, useToast } from 'vue-toastification';
+import Toast, { useToast } from 'vue-toastification';
 import vfmPlugin from 'vue-final-modal';
 import isDev from '@/common/helpers/isDev';
 import registerComponents from '@/common/utils/RegisterComponents';
@@ -37,26 +37,7 @@ app.use(pinia)
         preLoad: 1.7
     })
     .use(Toast, {
-        toastClassName: 'toastification',
-        bodyClassName: 'toastification__body',
-        timeout: 3500,
-        toastDefaults: {
-            [TYPE.DEFAULT]: {
-                toastClassName: 'toastification is-default'
-            },
-            [TYPE.INFO]: {
-                toastClassName: 'toastification is-info'
-            },
-            [TYPE.SUCCESS]: {
-                toastClassName: 'toastification is-success'
-            },
-            [TYPE.WARNING]: {
-                toastClassName: 'toastification is-warning'
-            },
-            [TYPE.ERROR]: {
-                toastClassName: 'toastification is-error'
-            }
-        }
+        timeout: 3500
     })
     .use(vfmPlugin, {
         key: '$vfm',

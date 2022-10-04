@@ -343,64 +343,81 @@
   }
 }
 
-.toastification {
-  &__body {
-    a {
-    }
-  }
+.Vue-Toastification {
+  &__toast {
+    &--info,
+    &--success,
+    &--warning,
+    &--error {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                font-weight: bold;
 
-  &.is-info,
-  &.is-success,
-  &.is-warning,
-  &.is-error {
-    .toastification {
-      &__body {
-        a {
-          font-weight: bold;
-
-          &:hover {
-            border-bottom: 1px solid currentColor;
+                &:hover {
+                  border-bottom: 1px solid currentColor;
+                }
+              }
+            }
           }
         }
       }
     }
-  }
 
-  &.is-info {
-    .toastification {
-      &__body {
-        a {
-          color: $vt-text-color-info;
+    &--info {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-info;
+              }
+            }
+          }
         }
       }
     }
-  }
 
-  &.is-success {
-    .toastification {
-      &__body {
-        a {
-          color: $vt-text-color-success;
+    &--success {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-success;
+              }
+            }
+          }
         }
       }
     }
-  }
 
-  &.is-warning {
-    .toastification {
-      &__body {
-        a {
-          color: $vt-text-color-warning;
+    &--warning {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-warning;
+              }
+            }
+          }
         }
       }
     }
-  }
 
-  &.is-error {
-    .toastification {
-      &__body {
-        a {
-          color: $vt-text-color-error;
+    &--error {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-error;
+              }
+            }
+          }
         }
       }
     }
