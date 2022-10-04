@@ -96,7 +96,7 @@
     import {
         computed, defineComponent, reactive, ref
     } from "vue";
-    import { TYPE, useToast } from "vue-toastification";
+    import { useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {
@@ -158,8 +158,7 @@
             function successHandler() {
                 success.value = true;
 
-                toast("Пароль успешно изменен!", {
-                    type: TYPE.SUCCESS,
+                toast.success("Пароль успешно изменен!", {
                     timeout: 3500,
                     onClose: () => {
                         emit('close');
@@ -176,9 +175,7 @@
             }
 
             function onError(text) {
-                toast(text, {
-                    type: TYPE.ERROR
-                });
+                toast.error(text);
             }
 
             async function sendQuery() {

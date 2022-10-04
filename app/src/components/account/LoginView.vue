@@ -81,7 +81,6 @@
     } from "@/common/helpers/authChecks";
     import useVuelidate from "@vuelidate/core/dist/index.esm";
     import { helpers, or } from "@vuelidate/validators";
-    import { TYPE } from "vue-toastification";
 
     export default {
         name: 'LoginView',
@@ -106,8 +105,7 @@
             successHandler() {
                 this.success = true;
 
-                this.$toast("Вы успешно авторизовались!", {
-                    type: TYPE.SUCCESS,
+                this.$toast.success("Вы успешно авторизовались!", {
                     timeout: 3500,
                     onClose: () => {
                         window.location.reload();
@@ -116,9 +114,7 @@
             },
 
             onError(text) {
-                this.$toast(text, {
-                    type: TYPE.ERROR
-                });
+                this.$toast.error(text);
             },
 
             async onSubmit() {

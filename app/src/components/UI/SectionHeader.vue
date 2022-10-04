@@ -97,7 +97,6 @@
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
     import FormButton from "@/components/form/FormButton";
     import { useClipboard } from "@vueuse/core";
-    import { TYPE } from "vue-toastification";
 
     export default {
         name: 'SectionHeader',
@@ -179,20 +178,15 @@
         methods: {
             copyText() {
                 if (!this.clipboard.isSupported) {
-                    this.$toast('Ваш браузер не поддерживает копирование', {
-                        type: TYPE.ERROR
-                    });
+                    this.$toast.error('Ваш браузер не поддерживает копирование');
                 }
 
                 this.clipboard.copy(this.urlForCopy)
                     .then(() => this.$toast('Ссылка успешно скопирована'))
-                    .catch(() => this.$toast(
-                        (<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                            target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>),
-                        {
-                            type: TYPE.ERROR
-                        }
-                    ));
+                    .catch(() => this.$toast.error((
+                        <span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                            target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>
+                    )));
             },
 
             openPrintWindow() {

@@ -99,7 +99,6 @@
     import { useUserStore } from "@/store/UI/UserStore";
     import useVuelidate from "@vuelidate/core";
     import { helpers, sameAs } from "@vuelidate/validators";
-    import { TYPE } from "vue-toastification";
 
     export default {
         name: 'RegistrationView',
@@ -122,8 +121,7 @@
             ...mapActions(useUserStore, ['registration', 'authorization']),
 
             successHandler() {
-                this.$toast("Вы успешно зарегистрировались!", {
-                    type: TYPE.SUCCESS,
+                this.$toast.success("Вы успешно зарегистрировались!", {
                     timeout: 3500,
                     onClose: () => {
                         window.location.reload();
@@ -134,9 +132,7 @@
             },
 
             onError(text) {
-                this.$toast(text, {
-                    type: TYPE.ERROR
-                });
+                this.$toast.error(text);
             },
 
             async onSubmit() {
