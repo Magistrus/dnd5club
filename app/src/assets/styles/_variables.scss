@@ -95,6 +95,21 @@ $ultra_hd: 3840px;
   }
 }
 
-:root {
+// Toast
+$vt-color-default: var(--bg-sub-menu);
+$vt-text-color-default: var(--text-color);
+$vt-color-info: var(--primary-hover);
+$vt-color-success: var(--success);
+$vt-color-warning: var(--warning);
+$vt-color-error: var(--error);
 
-}
+$vt-color-progress-default: linear-gradient(
+    to right,
+    #4cd964,
+    #5ac8fa,
+    #007aff,
+    #34aadc,
+    #5856d6,
+    #ff2d55
+);
+$vt-font-family: "Open Sans", sans-serif;

@@ -4,25 +4,6 @@
         @keyup.enter.exact.prevent="onSubmit"
         @submit.prevent="onSubmit"
     >
-        <transition
-            name="fade"
-            mode="out-in"
-        >
-            <div
-                v-if="error.status"
-                class="form__row is-error"
-            >
-                {{ error.text }}
-            </div>
-
-            <div
-                v-else-if="success"
-                class="form__row is-success"
-            >
-                {{ isOnlyPassword ? 'Пароль изменен' : 'Проверьте почту' }}
-            </div>
-        </transition>
-
         <div
             class="form__row"
             :class="{ 'is-hidden': isOnlyPassword }"
@@ -115,6 +96,7 @@
     import {
         computed, defineComponent, reactive, ref
     } from "vue";
+    import { TYPE, useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {
@@ -129,6 +111,7 @@
         },
         emits: ['close', 'switch:auth'],
         setup(props, { emit }) {
+            const toast = useToast();
             const userStore = useUserStore();
             const success = ref(false);
             const inProgress = ref(false);
@@ -172,47 +155,30 @@
             });
             const v$ = useVuelidate(validations.value, state, { $lazy: true });
 
-            function clearError() {
-                error.value = {
-                    status: false,
-                    text: ''
-                };
-            }
-
-            async function clearForm() {
-                state.email = '';
-                state.password = '';
-                state.repeat = '';
-                success.value = false;
-
-                await v$.value.$reset();
-            }
-
             function successHandler() {
-                clearError();
-
                 success.value = true;
 
-                setTimeout(() => {
-                    clearForm();
+                toast("Пароль успешно изменен!", {
+                    type: TYPE.SUCCESS,
+                    timeout: 3500,
+                    onClose: () => {
+                        emit('close');
 
-                    emit('close');
+                        if (props.token) {
+                            window.location.replace('/');
 
-                    if (props.token) {
-                        window.location.replace('/');
+                            return;
+                        }
 
-                        return;
+                        window.location.reload();
                     }
-
-                    window.location.reload();
-                }, 2000);
+                });
             }
 
             function onError(text) {
-                error.value = {
-                    status: true,
-                    text
-                };
+                toast(text, {
+                    type: TYPE.ERROR
+                });
             }
 
             async function sendQuery() {
@@ -243,8 +209,6 @@
             }
 
             async function onSubmit() {
-                clearError();
-
                 inProgress.value = true;
 
                 await v$.value.$reset();
@@ -252,6 +216,8 @@
                 const result = await v$.value.$validate();
 
                 if (!result) {
+                    onError("Проверьте правильность заполнения полей");
+
                     inProgress.value = false;
 
                     return;
