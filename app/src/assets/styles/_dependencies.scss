@@ -1,6 +1,13 @@
 @import "normalize.css";
 @import "vue-multiselect/dist/vue-multiselect.css";
 @import "tippy.js/dist/tippy.css";
+@import "vue-toastification/src/scss/_variables";
+@import "vue-toastification/src/scss/_toastContainer";
+@import "vue-toastification/src/scss/_toast";
+@import "vue-toastification/src/scss/_closeButton";
+@import "vue-toastification/src/scss/_progressBar";
+@import "vue-toastification/src/scss/_icon";
+@import "vue-toastification/src/scss/animations/_bounce";
 
 [data-tippy-root] {
   display: inline;
@@ -330,6 +337,70 @@
       &__content {
         &-wrapper {
           border-color: var(--primary-active);
+        }
+      }
+    }
+  }
+}
+
+.toastification {
+  &__body {
+    a {
+    }
+  }
+
+  &.is-info,
+  &.is-success,
+  &.is-warning,
+  &.is-error {
+    .toastification {
+      &__body {
+        a {
+          font-weight: bold;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &.is-info {
+    .toastification {
+      &__body {
+        a {
+          color: $vt-text-color-info;
+        }
+      }
+    }
+  }
+
+  &.is-success {
+    .toastification {
+      &__body {
+        a {
+          color: $vt-text-color-success;
+        }
+      }
+    }
+  }
+
+  &.is-warning {
+    .toastification {
+      &__body {
+        a {
+          color: $vt-text-color-warning;
+        }
+      }
+    }
+  }
+
+  &.is-error {
+    .toastification {
+      &__body {
+        a {
+          color: $vt-text-color-error;
         }
       }
     }

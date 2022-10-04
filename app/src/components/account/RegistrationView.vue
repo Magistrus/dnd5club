@@ -4,25 +4,6 @@
         @submit.prevent="onSubmit"
         @keyup.enter.exact.prevent="onSubmit"
     >
-        <transition
-            name="fade"
-            mode="out-in"
-        >
-            <div
-                v-if="error.status"
-                class="form__row is-error"
-            >
-                {{ error.text }}
-            </div>
-
-            <div
-                v-else-if="success"
-                class="form__row is-success"
-            >
-                Вы зарегистрированы. Теперь нужно авторизоваться
-            </div>
-        </transition>
-
         <div class="form__row">
             <field-input
                 v-model.trim="v$.username.$model"
@@ -118,6 +99,7 @@
     import { useUserStore } from "@/store/UI/UserStore";
     import useVuelidate from "@vuelidate/core";
     import { helpers, sameAs } from "@vuelidate/validators";
+    import { TYPE } from "vue-toastification";
 
     export default {
         name: 'RegistrationView',
@@ -133,52 +115,28 @@
             email: '',
             password: '',
             repeat: '',
-            error: {
-                status: false,
-                text: ''
-            },
             success: false,
             inProgress: false
         }),
         methods: {
             ...mapActions(useUserStore, ['registration', 'authorization']),
 
-            clearError() {
-                this.error = {
-                    status: false,
-                    text: ''
-                };
-            },
-
-            async clearForm() {
-                this.username = '';
-                this.email = '';
-                this.password = '';
-                this.repeat = '';
-                this.success = false;
-
-                await this.v$.$reset();
-            },
-
             successHandler() {
-                this.clearError();
+                this.$toast("Вы успешно зарегистрировались!", {
+                    type: TYPE.SUCCESS,
+                    timeout: 3500,
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
 
                 this.success = true;
-
-                setTimeout(() => {
-                    this.clearForm();
-
-                    this.$emit('close');
-
-                    window.location.reload();
-                }, 2000);
             },
 
             onError(text) {
-                this.error = {
-                    status: true,
-                    text
-                };
+                this.$toast(text, {
+                    type: TYPE.ERROR
+                });
             },
 
             async onSubmit() {
@@ -189,12 +147,12 @@
                 const result = await this.v$.$validate();
 
                 if (!result) {
+                    this.onError("Проверьте правильность заполнения полей");
+
                     this.inProgress = false;
 
                     return;
                 }
-
-                this.clearError();
 
                 try {
                     await this.registration({
