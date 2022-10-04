@@ -115,7 +115,6 @@
     import {
         computed, defineComponent, reactive, ref
     } from "vue";
-    import { useRoute } from "vue-router";
 
     export default defineComponent({
         components: {
@@ -126,11 +125,14 @@
             inModal: {
                 type: Boolean,
                 default: false
+            },
+            token: {
+                type: String,
+                default: ""
             }
         },
         emits: ['close', 'switch:auth'],
         setup(props, { emit }) {
-            const route = useRoute();
             const userStore = useUserStore();
             const success = ref(false);
             const inProgress = ref(false);
@@ -140,7 +142,7 @@
                 password: '',
                 repeat: ''
             });
-            const isOnlyPassword = computed(() => (route.name === 'recovery-password' && !props.inModal)
+            const isOnlyPassword = computed(() => (props.token && !props.inModal)
                 || userStore.isAuthenticated);
             const validations = computed(() => {
                 if (isOnlyPassword.value) {
@@ -201,7 +203,7 @@
 
                     emit('close');
 
-                    if (route.name === 'recovery-password') {
+                    if (props.token) {
                         window.location.replace('/');
 
                         return;
@@ -225,7 +227,7 @@
                             password: state.password,
                             [userStore.isAuthenticated ? 'userToken' : 'resetToken']: userStore.isAuthenticated
                                 ? userStore.getUserToken()
-                                : route.query.token
+                                : props.token
                         };
 
                         await userStore.changePassword(payload);
