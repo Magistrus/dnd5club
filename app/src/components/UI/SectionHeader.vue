@@ -185,9 +185,7 @@
                 }
 
                 this.clipboard.copy(this.urlForCopy)
-                    .then(() => this.$toast('Ссылка успешно скопирована', {
-                        type: TYPE.SUCCESS
-                    }))
+                    .then(() => this.$toast('Ссылка успешно скопирована'))
                     .catch(() => this.$toast(
                         (<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
                             target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>),
