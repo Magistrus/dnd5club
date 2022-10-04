@@ -214,11 +214,6 @@ const routes = [
         name: 'encounters',
         path: '/tools/encounters',
         component: () => import('@/views/Tools/EncountersView')
-    },
-    {
-        name: 'recovery-password',
-        path: '/reset/password',
-        component: () => import('@/components/account/ChangePasswordView')
     }
 ];
 const router = createRouter({

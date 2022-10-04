@@ -70,7 +70,6 @@
             >
                 <component
                     :is="modalComponent"
-                    in-modal
                     @switch:auth="modal = 'login'"
                     @switch:reg="modal = 'reg'"
                     @switch:change-password="modal = 'change-password'"

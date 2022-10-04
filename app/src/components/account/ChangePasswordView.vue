@@ -122,10 +122,6 @@
             FieldInput
         },
         props: {
-            inModal: {
-                type: Boolean,
-                default: false
-            },
             token: {
                 type: String,
                 default: ""
@@ -142,8 +138,7 @@
                 password: '',
                 repeat: ''
             });
-            const isOnlyPassword = computed(() => (props.token && !props.inModal)
-                || userStore.isAuthenticated);
+            const isOnlyPassword = computed(() => props.token || userStore.isAuthenticated);
             const validations = computed(() => {
                 if (isOnlyPassword.value) {
                     return {
