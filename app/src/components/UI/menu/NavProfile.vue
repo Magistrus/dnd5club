@@ -101,7 +101,7 @@
             const userStore = useUserStore();
             const popover = ref(false);
             const modal = ref('');
-            const modals = ref([
+            const modals = computed(() => ([
                 {
                     rus: 'Авторизация',
                     eng: 'login',
@@ -117,7 +117,7 @@
                     eng: 'change-password',
                     component: () => ChangePasswordView
                 }
-            ]);
+            ]));
             const modalInfo = computed(() => modals.value.find(item => item.eng === modal.value));
             const modalComponent = computed(() => modalInfo.value?.component());
             const isModalOpened = computed({
