@@ -153,26 +153,16 @@ public class GodApiConroller {
 	public FilterApi getFilter() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> sources = new ArrayList<>();
-		FilterApi mainFilter = new FilterApi("main");
-		mainFilter.setValues(
-				godRepository.findBook(TypeBook.OFFICAL).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(mainFilter);
-		
-		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
-		settingFilter.setValues(
-				godRepository.findBook(TypeBook.SETTING).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(settingFilter);
-		
-		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
-		homebrewFilter.setValues(
-				godRepository.findBook(TypeBook.CUSTOM).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(homebrewFilter);
+		for (TypeBook typeBook : TypeBook.values()) {
+			List<Book> books = godRepository.findBook(typeBook);
+			if (!books.isEmpty()) {
+				FilterApi filter = new FilterApi(typeBook.getName(), typeBook.name());
+				filter.setValues(books.stream()
+						.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+						.collect(Collectors.toList()));
+				sources.add(filter);
+			}
+		}
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
