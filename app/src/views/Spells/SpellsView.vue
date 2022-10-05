@@ -77,6 +77,10 @@
                 return this.inTab
                     ? this.layoutComponents.tab
                     : this.layoutComponents.content;
+            },
+
+            useAutoOpenFirst() {
+                return !this.getIsMobile && !!this.spells.length && this.$route.name === 'spells' && !this.inTab;
             }
         },
         watch: {
@@ -100,7 +104,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.spells.length && this.$route.name === 'spells') {
+            if (this.useAutoOpenFirst) {
                 await this.$router.push({ path: this.spells[0].url });
             }
         },
@@ -124,7 +128,7 @@
             async onSearch() {
                 await this.spellsStore.initSpells(this.books);
 
-                if (this.spells.length === 1 && !this.getIsMobile) {
+                if (this.spells.length === 1 && this.useAutoOpenFirst) {
                     await this.$router.push({ path: this.spells[0].url });
                 }
             }
