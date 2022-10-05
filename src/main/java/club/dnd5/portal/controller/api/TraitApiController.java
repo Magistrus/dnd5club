@@ -46,7 +46,7 @@ public class TraitApiController {
 		Specification<Trait> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
+		List<Column> columns = new ArrayList<>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
@@ -75,6 +75,17 @@ public class TraitApiController {
 		if (request.getPage() != null && request.getLimit()!=null) {
 			input.setStart(request.getPage() * request.getLimit());	
 		}
+		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+				List<Order> orders = request.getOrders().stream()
+						.map(
+							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
+						)
+						.collect(Collectors.toList());
+				query.orderBy(orders);
+				return cb.and();
+			});
+		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -99,18 +110,6 @@ public class TraitApiController {
 					return cb.and(join.in(request.getFilter().getAbilities().stream().map(AbilityType::valueOf).collect(Collectors.toList())));
 				});
 			}
-		}
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
-			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-				List<Order> orders = request.getOrders().stream()
-						.map(
-							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
-						)
-						.collect(Collectors.toList());
-				query.orderBy(orders);
-				return cb.and();
-			});
 		}
 		return traitRepository.findAll(input, specification, specification, TraitApi::new).getData();
 	}
