@@ -169,33 +169,16 @@ public class RacesApiController {
 	public FilterApi getRacesFilter() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> sources = new ArrayList<>();
-		FilterApi mainFilter = new FilterApi("main");
-		mainFilter.setValues(
-				raceRepository.findBook(TypeBook.OFFICAL).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(mainFilter);
-		
-		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
-		settingFilter.setValues(
-				raceRepository.findBook(TypeBook.SETTING).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(settingFilter);
-		
-		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
-		adventureFilter.setValues(
-				raceRepository.findBook(TypeBook.MODULE).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(adventureFilter);
-		
-		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
-		homebrewFilter.setValues(
-				raceRepository.findBook(TypeBook.CUSTOM).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(homebrewFilter);
+		for (TypeBook typeBook : TypeBook.values()) {
+			List<Book> books = raceRepository.findBook(typeBook);
+			if (!books.isEmpty()) {
+				FilterApi filter = new FilterApi(typeBook.getName(), typeBook.name());
+				filter.setValues(books.stream()
+						.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+						.collect(Collectors.toList()));
+				sources.add(filter);
+			}
+		}
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();
