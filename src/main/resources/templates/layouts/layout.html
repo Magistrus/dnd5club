@@ -6,7 +6,8 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
             <meta name="author" content="Peterko - https://www.behance.net/peterko, Magistrus" />
 
-            <meta name="robots" th:content="${profile eq 'dev' ? 'noindex' : 'all'}" />
+            <meta name="test" th:content="${profile}">
+            <meta name="robots" th:content="${profile eq 'prod' ? 'all' : 'noindex'}" />
 
             <title th:text="${metaTitle eq null ? 'DnD5 Club Oнлайн-справочник' : metaTitle}">DnD5.club Oнлайн-справочник</title>
 
@@ -45,7 +46,7 @@
             <link rel="stylesheet" th:href="@{|/css/app.css?v=${version}|}" />
                 <!-- End Core CSS -->
 
-            <th:block th:unless="${profile eq 'dev'}">
+            <th:block th:if="${profile eq 'prod'}">
                 <meta name="yandex-verification" content="fcb3cea757dfffdd" />
                 <!-- Google Tag Manager -->
                 <script	script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -68,7 +69,7 @@
 		</th:block>
 	</head>
 	<body id="body">
-    <th:block th:unless="${profile eq 'dev'}">
+    <th:block th:if="${profile eq 'prod'}">
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3ZFWDQ"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -90,7 +91,7 @@
 
 	<script layout:fragment="js-script"></script>
 
-    <th:block th:unless="${profile eq 'dev'}">
+    <th:block th:if="${profile eq 'prod'}">
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript" >
             (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(86582536, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true });
