@@ -75,7 +75,7 @@ public class TraitApiController {
 		if (request.getPage() != null && request.getLimit()!=null) {
 			input.setStart(request.getPage() * request.getLimit());	
 		}
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
+		if (request.getOrders() != null && !request.getOrders().isEmpty()) {
 			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
 				List<Order> orders = request.getOrders().stream()
 						.map(
