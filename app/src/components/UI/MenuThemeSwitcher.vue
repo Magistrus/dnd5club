@@ -15,7 +15,7 @@
     import {
         mapActions, mapState
     } from 'pinia';
-    import SvgIcon from '@/components/UI/SvgIcon';
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
 
     export default {

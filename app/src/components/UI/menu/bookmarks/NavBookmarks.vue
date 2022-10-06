@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
     import NavPopover from "@/components/UI/menu/NavPopover";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
     import CustomBookmarks from "@/components/UI/menu/bookmarks/CustomBookmarks";
