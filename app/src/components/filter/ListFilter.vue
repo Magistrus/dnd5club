@@ -98,7 +98,7 @@
 </template>
 
 <script>
-    import SvgIcon from '@/components/UI/SvgIcon';
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import FilterItemSources from '@/components/filter/FilterItem/FilterItemSources';
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
     import FilterService from "@/common/services/FilterService";

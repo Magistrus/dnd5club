@@ -84,7 +84,7 @@
 
 <script>
     import Multiselect from 'vue-multiselect';
-    import SvgIcon from '@/components/UI/SvgIcon';
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
 
     export default {
         name: 'FieldSelect',

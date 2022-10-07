@@ -76,7 +76,7 @@
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import draggableComponent from "vuedraggable";
     import { useUIStore } from "@/store/UI/UIStore";
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
 
     export default defineComponent({
         components: {

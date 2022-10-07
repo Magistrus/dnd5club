@@ -89,7 +89,7 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import {
         computed, defineComponent, onBeforeMount, ref

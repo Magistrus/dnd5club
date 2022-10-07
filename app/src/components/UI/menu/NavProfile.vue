@@ -82,7 +82,7 @@
 
 <script>
     import AuthModal from "@/components/UI/modals/AuthModal";
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
     import { useUserStore } from "@/store/UI/UserStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
     import { computed, ref } from "vue";

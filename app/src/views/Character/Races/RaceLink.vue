@@ -113,7 +113,7 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import SvgIcon from '@/components/UI/SvgIcon';
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
