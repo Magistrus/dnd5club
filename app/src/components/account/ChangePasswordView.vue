@@ -155,10 +155,6 @@
             });
             const v$ = useVuelidate(validations.value, state, { $lazy: true });
 
-            function onError(text) {
-                toast.error(text);
-            }
-
             async function sendQuery() {
                 if (isOnlyPassword.value) {
                     try {
@@ -172,10 +168,7 @@
                         await userStore.changePassword(payload);
 
                         toast.success("Пароль успешно изменен!", {
-                            timeout: 3500,
                             onClose: () => {
-                                emit('close');
-
                                 if (props.token) {
                                     window.location.replace('/');
 
@@ -195,12 +188,9 @@
                 try {
                     await userStore.resetPassword(state.email);
 
-                    toast.success("Ссылка для изменения пароля отправлена на указанный e-mail", {
-                        timeout: 3500,
-                        onClose: () => {
-                            emit('close');
-                        }
-                    });
+                    toast.success("Ссылка для изменения пароля отправлена на указанный e-mail");
+
+                    emit('close');
 
                     return Promise.resolve();
                 } catch (err) {
@@ -216,7 +206,7 @@
                 const result = await v$.value.$validate();
 
                 if (!result) {
-                    onError("Проверьте правильность заполнения полей");
+                    toast.error('Проверьте правильность заполнения полей');
 
                     inProgress.value = false;
 
@@ -228,7 +218,7 @@
 
                     success.value = true;
                 } catch (err) {
-                    onError('Неизвестная ошибка');
+                    toast.error('Неизвестная ошибка');
                 } finally {
                     inProgress.value = false;
                 }
