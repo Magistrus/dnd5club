@@ -581,6 +581,13 @@
       padding: 12px;
       border-radius: 8px;
     }
+
+    &.is-hidden {
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+      visibility: hidden !important;
+    }
   }
 }
 

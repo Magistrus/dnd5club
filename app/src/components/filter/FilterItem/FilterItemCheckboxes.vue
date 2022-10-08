@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import SvgIcon from '@/components/UI/SvgIcon';
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
     import cloneDeep from 'lodash/cloneDeep';
 

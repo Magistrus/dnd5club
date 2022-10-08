@@ -23,6 +23,7 @@ import club.dnd5.portal.dto.api.classes.ClassApi;
 import club.dnd5.portal.dto.api.classes.ClassDetailApi;
 import club.dnd5.portal.dto.api.classes.ClassRequestApi;
 import club.dnd5.portal.model.Dice;
+import club.dnd5.portal.model.book.Book;
 import club.dnd5.portal.model.book.TypeBook;
 import club.dnd5.portal.model.classes.HeroClass;
 import club.dnd5.portal.model.classes.archetype.Archetype;
@@ -99,31 +100,16 @@ public class ClassApiController {
 	private FilterApi getClassFilters() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> classSources = new ArrayList<>();
-
-		FilterApi mainFilter = new FilterApi("main");
-		mainFilter.setValues(
-				Stream.concat(classRepo.findBook(TypeBook.OFFICAL).stream(), archetypeRepository.findBook(TypeBook.OFFICAL).stream())
-				.distinct()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		classSources.add(mainFilter);
-		
-		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
-		settingFilter.setValues(
-				Stream.concat(classRepo.findBook(TypeBook.SETTING).stream(), archetypeRepository.findBook(TypeBook.SETTING).stream())
-				.distinct()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		classSources.add(settingFilter);
-
-		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
-		homebrewFilter.setValues(
-				Stream.concat(classRepo.findBook(TypeBook.CUSTOM).stream(), archetypeRepository.findBook(TypeBook.CUSTOM).stream())
-				.distinct()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		classSources.add(homebrewFilter);
-		
+		for (TypeBook typeBook : TypeBook.values()) {
+			List<Book> books = Stream.concat(classRepo.findBook(typeBook).stream(), archetypeRepository.findBook(typeBook).stream()).distinct().collect(Collectors.toList());
+			if (!books.isEmpty()) {
+				FilterApi filter = new FilterApi(typeBook.getName(), typeBook.name());
+				filter.setValues(books.stream()
+						.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+						.collect(Collectors.toList()));
+				classSources.add(filter);
+			}
+		}
 		filters.setSources(classSources);
 		
 		List<FilterApi> others = new ArrayList<>();

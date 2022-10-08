@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/reset/password")
 	public String getResetPasswordForm(Model model, @RequestParam String token) {
 		VerificationToken vereficationToken = userService.getVerificationToken(token);
@@ -30,6 +30,7 @@ public class UserController {
 			model.addAttribute("message", "Время использование токена истекло!");
 			return "user/invalid_token";
 		}
+		model.addAttribute("token", vereficationToken.getToken());
 		return "user/reset_password";
 	}
 }

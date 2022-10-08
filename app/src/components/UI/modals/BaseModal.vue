@@ -103,7 +103,7 @@
     </vue-final-modal>
 </template>
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
     import FormButton from "@/components/form/FormButton";
     import { mapActions, mapState } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";

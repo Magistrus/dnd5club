@@ -46,7 +46,7 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
 
     export default {
         name: "FieldInput",

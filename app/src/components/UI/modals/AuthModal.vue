@@ -7,7 +7,7 @@
         v-bind="$attrs"
     >
         <img
-            :alt="title.eng + '_background'"
+            :alt="title"
             class="auth-reg-modal__bg"
             src="/img/bg_login.png"
         >
@@ -16,79 +16,38 @@
             <form-button
                 class="auth-reg-modal__close"
                 type-link
-                @click.left.exact.prevent="closeHandler(close)"
+                @click.left.exact.prevent="$emit('close')"
             >
                 <svg-icon icon-name="close"/>
             </form-button>
 
             <div class="auth-reg-modal__body">
-                <h4>{{ title.rus }}</h4>
+                <h4>{{ title }}</h4>
 
-                <transition
-                    mode="out-in"
-                    name="fade"
-                >
-                    <component
-                        :is="component"
-                        @change-type="changeType"
-                        @close="closeHandler(close)"
+                <div class="auth-reg-modal__form">
+                    <slot
+                        name="default"
+                        :close="close"
                     />
-                </transition>
+                </div>
             </div>
         </div>
     </vue-final-modal>
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import { defineComponent } from "vue";
     import FormButton from "@/components/form/FormButton";
-    import LoginView from "@/components/account/LoginView";
-    import RegistrationView from "@/components/account/RegistrationView";
 
-    export default {
-        name: "AuthRegModal",
-        components: {
-            FormButton,
-            SvgIcon
-        },
-        inheritAttrs: true,
-        emits: ['confirm', 'cancel'],
-        data: () => ({
-            isAuth: true
-        }),
-        computed: {
-            title() {
-                return this.isAuth
-                    ? {
-                        rus: 'Авторизация',
-                        eng: 'auth'
-                    }
-                    : {
-                        rus: 'Регистрация',
-                        eng: 'reg'
-                    };
-            },
-
-            component() {
-                if (this.isAuth) {
-                    return LoginView;
-                }
-
-                return RegistrationView;
-            }
-        },
-        methods: {
-            changeType() {
-                this.isAuth = !this.isAuth;
-            },
-
-            closeHandler(callback) {
-                callback();
-
-                this.isAuth = true;
+    export default defineComponent({
+        components: { FormButton },
+        props: {
+            title: {
+                type: String,
+                default: ''
             }
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +59,7 @@
         box-shadow: 0 0 12px -8px var(--bg-transparent);
         display: flex;
         width: 100%;
-        max-width: 600px;
+        max-width: 700px;
 
         @include media-min($sm) {
             border-radius: 8px;
@@ -156,10 +115,10 @@
             h4 {
                 margin: 0;
             }
+        }
 
-            .form {
-                margin-top: 24px;
-            }
+        &__form {
+            margin-top: 24px;
         }
     }
 </style>

@@ -94,8 +94,8 @@
     import { useNavStore } from "@/store/UI/NavStore";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
-    import SvgIcon from "@/components/UI/SvgIcon";
-    import SiteLogo from "@/components/UI/SiteLogo";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import SiteLogo from "@/components/UI/icons/SiteLogo";
     import { defineComponent, ref } from "vue";
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";

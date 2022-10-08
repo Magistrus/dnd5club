@@ -74,7 +74,7 @@
             },
 
             computedFormula() {
-                return this.formula.replace(/к/gim, 'd');
+                return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
             }
         },
         async beforeMount() {

@@ -1,6 +1,13 @@
 @import "normalize.css";
 @import "vue-multiselect/dist/vue-multiselect.css";
 @import "tippy.js/dist/tippy.css";
+@import "vue-toastification/src/scss/_variables";
+@import "vue-toastification/src/scss/_toastContainer";
+@import "vue-toastification/src/scss/_toast";
+@import "vue-toastification/src/scss/_closeButton";
+@import "vue-toastification/src/scss/_progressBar";
+@import "vue-toastification/src/scss/_icon";
+@import "vue-toastification/src/scss/animations/_bounce";
 
 [data-tippy-root] {
   display: inline;
@@ -330,6 +337,155 @@
       &__content {
         &-wrapper {
           border-color: var(--primary-active);
+        }
+      }
+    }
+  }
+}
+
+.Vue-Toastification {
+  &__icon {
+    margin: 6px 16px 0 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__close-button {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 4px 0 0 16px;
+  }
+
+  &__toast {
+    padding: 16px 16px;
+    border-radius: 12px;
+
+    @media only screen and (max-width: 600px) {
+      border-radius: 0;
+    }
+
+    .Vue-Toastification {
+      &__toast {
+        &-component-body,
+        &-body {
+          display: inline-flex;
+          align-items: center;
+          font-size: var(--main-font-size);
+          line-height: var(--main-line-height);
+        }
+      }
+    }
+
+    &--default,
+    &--info,
+    &--success,
+    &--warning,
+    &--error {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                font-weight: bold;
+
+                &:hover {
+                  border-bottom: 1px solid currentColor;
+                }
+              }
+            }
+          }
+        }
+
+        &__close {
+          &-button {
+            color: currentColor;
+          }
+        }
+
+        &__progress {
+          &-bar {
+            background-color: transparent;
+
+            &:before {
+              content: '';
+              display: block;
+              height: 100%;
+              width: 100%;
+              opacity: .7;
+              background-color: currentColor;
+            }
+          }
+        }
+      }
+    }
+
+    &--default {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-default;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &--info {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-info;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &--success {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-success;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &--warning {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-warning;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &--error {
+      .Vue-Toastification {
+        &__toast {
+          &-component {
+            &-body {
+              a {
+                color: $vt-text-color-error;
+              }
+            }
+          }
         }
       }
     }
