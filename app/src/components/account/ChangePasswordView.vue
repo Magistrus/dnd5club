@@ -155,10 +155,6 @@
             });
             const v$ = useVuelidate(validations.value, state, { $lazy: true });
 
-            function successHandler() {
-                success.value = true;
-            }
-
             function onError(text) {
                 toast.error(text);
             }
@@ -230,7 +226,7 @@
                 try {
                     await sendQuery();
 
-                    successHandler();
+                    success.value = true;
                 } catch (err) {
                     onError('Неизвестная ошибка');
                 } finally {
