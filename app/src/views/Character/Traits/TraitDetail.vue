@@ -14,7 +14,10 @@
         </template>
 
         <template #default>
-            <trait-body :trait="trait"/>
+            <trait-body
+                v-if="trait"
+                :trait="trait"
+            />
         </template>
     </content-detail>
 </template>
