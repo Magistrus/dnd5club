@@ -157,21 +157,6 @@
 
             function successHandler() {
                 success.value = true;
-
-                toast.success("Пароль успешно изменен!", {
-                    timeout: 3500,
-                    onClose: () => {
-                        emit('close');
-
-                        if (props.token) {
-                            window.location.replace('/');
-
-                            return;
-                        }
-
-                        window.location.reload();
-                    }
-                });
             }
 
             function onError(text) {
@@ -190,6 +175,21 @@
 
                         await userStore.changePassword(payload);
 
+                        toast.success("Пароль успешно изменен!", {
+                            timeout: 3500,
+                            onClose: () => {
+                                emit('close');
+
+                                if (props.token) {
+                                    window.location.replace('/');
+
+                                    return;
+                                }
+
+                                window.location.reload();
+                            }
+                        });
+
                         return Promise.resolve();
                     } catch (err) {
                         return Promise.reject(err);
@@ -198,6 +198,13 @@
 
                 try {
                     await userStore.resetPassword(state.email);
+
+                    toast.success("Ссылка для изменения пароля отправлена на указанный e-mail", {
+                        timeout: 3500,
+                        onClose: () => {
+                            emit('close');
+                        }
+                    });
 
                     return Promise.resolve();
                 } catch (err) {

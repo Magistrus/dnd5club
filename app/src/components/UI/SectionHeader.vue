@@ -175,6 +175,61 @@
                 return this.onClose;
             }
         },
+        mounted() {
+            this.$toast('Ссылка успешно скопирована', {
+                timeout: false
+            });
+
+            this.$toast.info((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false
+            });
+
+            this.$toast.success((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span><span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span></span>), {
+                timeout: false
+            });
+
+            this.$toast.warning((<span>Произошла какая-то ошибка...  <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false
+            });
+            this.$toast.error((<span>Произошла какая-то ошибка...</span>), {
+                timeout: false
+            });
+            this.$toast((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false,
+                position: 'top-left'
+            });
+            this.$toast.info((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false,
+                position: 'top-left'
+            });
+            this.$toast.success((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false,
+                position: 'top-left'
+            });
+            this.$toast.warning((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false,
+                position: 'top-left'
+            });
+            this.$toast.error((<span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                    target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>), {
+                timeout: false,
+                position: 'top-left'
+            });
+        },
         methods: {
             copyText() {
                 if (!this.clipboard.isSupported) {
