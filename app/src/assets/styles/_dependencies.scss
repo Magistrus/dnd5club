@@ -345,7 +345,7 @@
 
 .Vue-Toastification {
   &__icon {
-    margin: 6px 16px 0 0;
+    margin: 2px 16px 0 0;
     width: 20px;
     height: 20px;
   }
@@ -354,12 +354,13 @@
     width: 24px;
     height: 24px;
     padding: 0;
-    margin: 4px 0 0 16px;
+    margin: 0 0 0 16px;
   }
 
   &__toast {
-    padding: 16px 16px;
+    padding: 12px 16px;
     border-radius: 12px;
+    min-height: 48px;
 
     @media only screen and (max-width: 600px) {
       border-radius: 0;
