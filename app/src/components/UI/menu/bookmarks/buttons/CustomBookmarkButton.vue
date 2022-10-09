@@ -43,6 +43,7 @@
     import errorHandler from "@/common/helpers/errorHandler";
     import { useRoute } from "vue-router";
     import { OnClickOutside } from "@vueuse/components";
+    import { useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {
@@ -61,6 +62,7 @@
         },
         setup(props) {
             const { name: bookmarkName } = toRefs(props);
+            const toast = useToast();
             const bookmarksStore = useCustomBookmarkStore();
             const route = useRoute();
             const bookmarkUrl = computed(() => (
@@ -110,15 +112,23 @@
             const inProgress = ref(false);
 
             async function updateBookmark(groupUUID) {
-                inProgress.value = true;
+                if (inProgress.value) {
+                    return;
+                }
 
-                await bookmarksStore.updateBookmarkInGroup({
-                    url: bookmarkUrl.value,
-                    name: props.name,
-                    groupUUID
-                });
+                try {
+                    inProgress.value = true;
 
-                inProgress.value = false;
+                    await bookmarksStore.updateBookmarkInGroup({
+                        url: bookmarkUrl.value,
+                        name: props.name,
+                        groupUUID
+                    });
+                } catch (err) {
+                    toast.error('Произошла какая-то ошибка...');
+                } finally {
+                    inProgress.value = false;
+                }
             }
 
             return {

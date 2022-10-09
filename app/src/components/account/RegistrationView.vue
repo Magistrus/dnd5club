@@ -121,14 +121,10 @@
             ...mapActions(useUserStore, ['registration', 'authorization']),
 
             successHandler() {
-                this.$toast.success("Вы успешно зарегистрировались!", {
-                    timeout: 3500,
-                    onClose: () => {
-                        window.location.reload();
-                    }
-                });
-
                 this.success = true;
+
+                this.$toast.success("Вы успешно зарегистрировались!");
+                this.$emit('close');
             },
 
             onError(text) {

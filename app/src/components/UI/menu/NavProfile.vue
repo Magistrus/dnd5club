@@ -182,8 +182,8 @@
                 closeModal();
             }
 
-            function clickHandler() {
-                if (!userStore.getUser) {
+            async function clickHandler() {
+                if (!await userStore.getUserStatus()) {
                     toggleModal();
 
                     return;
@@ -193,9 +193,10 @@
             }
 
             async function userLogout() {
-                await userStore.logout();
+                closeModal();
+                closePopover();
 
-                window.location.reload();
+                await userStore.logout();
             }
 
             return {

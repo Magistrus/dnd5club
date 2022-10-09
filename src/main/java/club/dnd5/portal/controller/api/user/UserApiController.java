@@ -26,17 +26,17 @@ public class UserApiController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@GetMapping("/status")
-	public ResponseEntity<?> getStatus() {
+	public ResponseEntity<Boolean> getStatus() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			Optional<User> user = userRepository.findByEmailOrUsername(authentication.getName(), authentication.getName());
 			if (user.isPresent()) {
-				return ResponseEntity.status(HttpStatus.OK).build();
+				return ResponseEntity.ok(true);
 			}
 		}
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		return ResponseEntity.ok(false);
 	}
 
 	@GetMapping("/info")

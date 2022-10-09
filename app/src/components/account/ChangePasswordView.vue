@@ -169,15 +169,15 @@
 
                         toast.success("Пароль успешно изменен!", {
                             onClose: () => {
-                                if (props.token) {
-                                    window.location.replace('/');
-
+                                if (!props.token) {
                                     return;
                                 }
 
-                                window.location.reload();
+                                window.location.replace('/');
                             }
                         });
+
+                        emit('close');
 
                         return Promise.resolve();
                     } catch (err) {

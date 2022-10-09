@@ -105,12 +105,8 @@
             successHandler() {
                 this.success = true;
 
-                this.$toast.success("Вы успешно авторизовались!", {
-                    timeout: 3500,
-                    onClose: () => {
-                        window.location.reload();
-                    }
-                });
+                this.$toast.success("Вы успешно авторизовались!");
+                this.$emit('close');
             },
 
             onError(text) {

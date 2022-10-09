@@ -1,7 +1,6 @@
 import {
     createRouter, createWebHistory
 } from 'vue-router';
-import { useUserStore } from '@/store/UI/UserStore';
 import { useNavStore } from '@/store/UI/NavStore';
 
 const routes = [
@@ -225,14 +224,6 @@ router.beforeEach(async to => {
     const navStore = useNavStore();
 
     await navStore.updateMetaByURL(to.path);
-});
-
-router.afterEach(async () => {
-    const userStore = useUserStore();
-
-    if (userStore.isAuthenticated) {
-        await userStore.getUserStatus();
-    }
 });
 
 export default router;
