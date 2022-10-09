@@ -71,11 +71,7 @@
                 </div>
 
                 <div>
-                    <b>Уровень:</b> {{ item.level }}
-                </div>
-
-                <div>
-                    <b>Окружение:</b> {{ item.environment }}
+                    <b>Таблица:</b> {{ item.tableName }}
                 </div>
 
                 <br>
