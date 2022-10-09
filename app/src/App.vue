@@ -1,6 +1,7 @@
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
     import { useUserStore } from "@/store/UI/UserStore";
+    import errorHandler from "@/common/helpers/errorHandler";
 
     export default {
         data: () => ({
@@ -8,8 +9,12 @@
             userStore: useUserStore()
         }),
         async beforeMount() {
-            // User
-            await this.userStore.getUserInfo();
+            try {
+                // User
+                await this.userStore.getUserInfo();
+            } catch (err) {
+                errorHandler(err);
+            }
         },
         async mounted() {
             // UI

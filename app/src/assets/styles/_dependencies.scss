@@ -344,7 +344,40 @@
 }
 
 .Vue-Toastification {
+  &__icon {
+    margin: 2px 16px 0 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__close-button {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0 0 0 16px;
+  }
+
   &__toast {
+    padding: 12px 16px;
+    border-radius: 12px;
+    min-height: 48px;
+
+    @media only screen and (max-width: 600px) {
+      border-radius: 0;
+    }
+
+    .Vue-Toastification {
+      &__toast {
+        &-component-body,
+        &-body {
+          display: inline-flex;
+          align-items: center;
+          font-size: var(--main-font-size);
+          line-height: var(--main-line-height);
+        }
+      }
+    }
+
     &--default,
     &--info,
     &--success,

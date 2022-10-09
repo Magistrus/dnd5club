@@ -14,7 +14,10 @@
         </template>
 
         <template #default>
-            <armor-body :armor="armor"/>
+            <armor-body
+                v-if="armor"
+                :armor="armor"
+            />
         </template>
     </content-detail>
 </template>

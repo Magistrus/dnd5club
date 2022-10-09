@@ -10,6 +10,7 @@ import registerComponents from '@/common/utils/RegisterComponents';
 import HTTPService from '@/common/services/HTTPService';
 import VueTippyConfig from '@/common/utils/VueTippyConfig';
 import App from '@/App';
+import IconToastClose from '@/components/UI/icons/IconToastClose';
 import router from './router';
 import '@/common/utils/BaseScripts';
 import '@/assets/styles/index.scss';
@@ -37,7 +38,9 @@ app.use(pinia)
         preLoad: 1.7
     })
     .use(Toast, {
-        timeout: 3500
+        timeout: 3500,
+        closeButton: IconToastClose,
+        showCloseButtonOnHover: true
     })
     .use(vfmPlugin, {
         key: '$vfm',
