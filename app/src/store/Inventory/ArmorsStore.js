@@ -75,7 +75,7 @@ export const useArmorsStore = defineStore('ArmorsStore', {
                     },
                     order: [
                         {
-                            field: 'name',
+                            field: 'AC',
                             direction: 'asc'
                         }
                     ],

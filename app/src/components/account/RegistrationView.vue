@@ -4,25 +4,6 @@
         @submit.prevent="onSubmit"
         @keyup.enter.exact.prevent="onSubmit"
     >
-        <transition
-            name="fade"
-            mode="out-in"
-        >
-            <div
-                v-if="error.status"
-                class="form__row is-error"
-            >
-                {{ error.text }}
-            </div>
-
-            <div
-                v-else-if="success"
-                class="form__row is-success"
-            >
-                Вы зарегистрированы. Теперь нужно авторизоваться
-            </div>
-        </transition>
-
         <div class="form__row">
             <field-input
                 v-model.trim="v$.username.$model"
@@ -91,7 +72,7 @@
 
             <form-button
                 type-link
-                @click.left.exact.prevent="$emit('change-type')"
+                @click.left.exact.prevent="$emit('switch:auth')"
             >
                 Авторизация
             </form-button>
@@ -133,50 +114,25 @@
             email: '',
             password: '',
             repeat: '',
-            error: {
-                status: false,
-                text: ''
-            },
             success: false,
             inProgress: false
         }),
         methods: {
             ...mapActions(useUserStore, ['registration', 'authorization']),
 
-            clearError() {
-                this.error = {
-                    status: false,
-                    text: ''
-                };
-            },
-
-            async clearForm() {
-                this.username = '';
-                this.email = '';
-                this.password = '';
-                this.repeat = '';
-                this.success = false;
-
-                await this.v$.$reset();
-            },
-
             successHandler() {
-                this.clearError();
+                this.$toast.success("Вы успешно зарегистрировались!", {
+                    timeout: 3500,
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
 
                 this.success = true;
-
-                setTimeout(() => {
-                    this.clearForm();
-
-                    this.$emit('close');
-                }, 2000);
             },
 
             onError(text) {
-                this.error = {
-                    status: true,
-                    text
-                };
+                this.$toast.error(text);
             },
 
             async onSubmit() {
@@ -187,12 +143,12 @@
                 const result = await this.v$.$validate();
 
                 if (!result) {
+                    this.onError("Проверьте правильность заполнения полей");
+
                     this.inProgress = false;
 
                     return;
                 }
-
-                this.clearError();
 
                 try {
                     await this.registration({

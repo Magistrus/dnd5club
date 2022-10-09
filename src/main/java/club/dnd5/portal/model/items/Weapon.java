@@ -66,6 +66,8 @@ public class Weapon {
 	@ManyToMany
 	List<WeaponProperty> properties;
 	
+	private Byte ammo;
+	
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	

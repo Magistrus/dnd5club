@@ -76,6 +76,10 @@
                 return this.inTab
                     ? this.layoutComponents.tab
                     : this.layoutComponents.content;
+            },
+
+            useAutoOpenFirst() {
+                return !this.getIsMobile && !!this.options.length && this.$route.name === 'options' && !this.inTab;
             }
         },
         watch: {
@@ -99,7 +103,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.options.length && this.$route.name === 'options') {
+            if (!this.getIsMobile && this.options.length && this.$route.name === 'options' && !this.inTab) {
                 await this.$router.push({ path: this.options[0].url });
             }
         },
@@ -119,7 +123,7 @@
             async onSearch() {
                 await this.optionsQuery();
 
-                if (this.options.length === 1 && !this.getIsMobile) {
+                if (this.options.length === 1 && this.useAutoOpenFirst) {
                     await this.$router.push({ path: this.options[0].url });
                 }
             }

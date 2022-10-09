@@ -3,12 +3,14 @@ import { createPinia } from 'pinia';
 import VueEasyLightbox from 'vue-easy-lightbox';
 import VueTippy from 'vue-tippy/dist/vue-tippy';
 import VueLazyload from 'vue-lazyload';
+import Toast, { useToast } from 'vue-toastification';
 import vfmPlugin from 'vue-final-modal';
 import isDev from '@/common/helpers/isDev';
 import registerComponents from '@/common/utils/RegisterComponents';
 import HTTPService from '@/common/services/HTTPService';
 import VueTippyConfig from '@/common/utils/VueTippyConfig';
 import App from '@/App';
+import IconToastClose from '@/components/UI/icons/IconToastClose';
 import router from './router';
 import '@/common/utils/BaseScripts';
 import '@/assets/styles/index.scss';
@@ -17,6 +19,7 @@ const app = createApp(App);
 
 app.config.globalProperties.$http = new HTTPService();
 app.config.globalProperties.$isDev = isDev;
+app.config.globalProperties.$toast = useToast();
 
 const pinia = createPinia();
 
@@ -33,6 +36,11 @@ app.use(pinia)
     .use(VueTippy, VueTippyConfig)
     .use(VueLazyload, {
         preLoad: 1.7
+    })
+    .use(Toast, {
+        timeout: 3500,
+        closeButton: IconToastClose,
+        showCloseButtonOnHover: true
     })
     .use(vfmPlugin, {
         key: '$vfm',

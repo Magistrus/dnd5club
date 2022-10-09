@@ -14,7 +14,10 @@
         </template>
 
         <template #default>
-            <weapon-body :weapon="weapon"/>
+            <weapon-body
+                v-if="weapon"
+                :weapon="weapon"
+            />
         </template>
     </content-detail>
 </template>

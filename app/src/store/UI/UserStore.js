@@ -69,12 +69,48 @@ export const useUserStore = defineStore('UserStore', {
                             );
                         }
 
+                        this.jwtToken = resp.data.accessToken;
+
                         await this.getUserInfo();
 
                         return Promise.resolve();
                     case 401:
                         // eslint-disable-next-line prefer-promise-reject-errors
                         return Promise.reject('Неверный логин или пароль');
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async resetPassword(email) {
+            try {
+                const resp = await this.$http.get('/auth/change/password', { email });
+
+                switch (resp.status) {
+                    case 200:
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject(resp.statusText);
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        },
+
+        async changePassword(payload = {
+            userToken: '',
+            resetToken: '',
+            password: ''
+        }) {
+            try {
+                const resp = await this.$http.post('/auth/change/password', payload);
+
+                switch (resp.status) {
+                    case 200:
+                        return Promise.resolve();
                     default:
                         return Promise.reject(resp.statusText);
                 }
@@ -109,6 +145,10 @@ export const useUserStore = defineStore('UserStore', {
             this.user = undefined;
 
             Cookies.remove(USER_TOKEN_COOKIE);
+        },
+
+        getUserToken() {
+            return Cookies.get(USER_TOKEN_COOKIE);
         },
 
         async getUserInfo() {

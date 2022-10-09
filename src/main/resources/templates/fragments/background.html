@@ -15,22 +15,22 @@
 		<div th:utext="*{skillDescription}"></div>
 		<h4 th:unless="${tables.empty}" class="header_separator"><span>Персонализация</span></h4>
 		<div th:if="*{personalization}" th:utext="*{personalization}"></div>
+		<th:block th:each="type : ${tables}">
 		<table th:unless="${tables.empty}" class="table">
-			<th:block th:each="type : ${tables}">
 				<thead>
 					<tr>
 						<th th:text="|к${type.value.size}|"></th>
-						<th class="text-center"><strong th:text="${type.key.name}"></strong></th>
+						<th th:text="${type.key.name}" style="text-align: left;"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="value, status : ${type.value}">
-						<td th:text="${status.index + 1}"></td>
+						<td th:text="${status.index + 1}" style="text-align: center;"></td>
 						<td th:utext="${value.text}"></td>
 					</tr>
 				</tbody>
-			</th:block>
 		</table>
+		</th:block>
 	</th:block>
 </body>
 </html>

@@ -413,7 +413,7 @@
 <script>
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
-    import SvgIcon from "@/components/UI/SvgIcon";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
     import DiceRoller from "@/components/UI/DiceRoller";
 
     export default {

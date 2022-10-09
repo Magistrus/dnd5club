@@ -14,7 +14,10 @@
         </template>
 
         <template #default>
-            <background-body :background="background"/>
+            <background-body
+                v-if="background"
+                :background="background"
+            />
         </template>
     </content-detail>
 </template>

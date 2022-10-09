@@ -46,7 +46,7 @@ public class TraitApiController {
 		Specification<Trait> specification = null;
 
 		DataTablesInput input = new DataTablesInput();
-		List<Column> columns = new ArrayList<Column>(3);
+		List<Column> columns = new ArrayList<>(3);
 		Column column = new Column();
 		column.setData("name");
 		column.setName("name");
@@ -75,6 +75,17 @@ public class TraitApiController {
 		if (request.getPage() != null && request.getLimit()!=null) {
 			input.setStart(request.getPage() * request.getLimit());	
 		}
+		if (request.getOrders() != null && !request.getOrders().isEmpty()) {
+			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
+				List<Order> orders = request.getOrders().stream()
+						.map(
+							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
+						)
+						.collect(Collectors.toList());
+				query.orderBy(orders);
+				return cb.and();
+			});
+		}
 		if (request.getSearch() != null) {
 			if (request.getSearch().getValue() != null && !request.getSearch().getValue().isEmpty()) {
 				if (request.getSearch().getExact() != null && request.getSearch().getExact()) {
@@ -100,18 +111,6 @@ public class TraitApiController {
 				});
 			}
 		}
-		if (request.getOrders()!=null && !request.getOrders().isEmpty()) {
-			
-			specification = SpecificationUtil.getAndSpecification(specification, (root, query, cb) -> {
-				List<Order> orders = request.getOrders().stream()
-						.map(
-							order -> "asc".equals(order.getDirection()) ? cb.asc(root.get(order.getField())) : cb.desc(root.get(order.getField()))
-						)
-						.collect(Collectors.toList());
-				query.orderBy(orders);
-				return cb.and();
-			});
-		}
 		return traitRepository.findAll(input, specification, specification, TraitApi::new).getData();
 	}
 	
@@ -128,33 +127,16 @@ public class TraitApiController {
 	public FilterApi getTraitFilter() {
 		FilterApi filters = new FilterApi();
 		List<FilterApi> sources = new ArrayList<>();
-		FilterApi spellMainFilter = new FilterApi("main");
-		spellMainFilter.setValues(
-				traitRepository.findBook(TypeBook.OFFICAL).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(spellMainFilter);
-		
-		FilterApi settingFilter = new FilterApi("Сеттинги", "settings");
-		settingFilter.setValues(
-				traitRepository.findBook(TypeBook.SETTING).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(settingFilter);
-		
-		FilterApi adventureFilter = new FilterApi("Приключения", "adventures");
-		adventureFilter.setValues(
-				traitRepository.findBook(TypeBook.MODULE).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(adventureFilter);
-		
-		FilterApi homebrewFilter = new FilterApi("Homebrew", "homebrew");
-		homebrewFilter.setValues(
-				traitRepository.findBook(TypeBook.CUSTOM).stream()
-				.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
-				.collect(Collectors.toList()));
-		sources.add(homebrewFilter);
+		for (TypeBook typeBook : TypeBook.values()) {
+			List<Book> books = traitRepository.findBook(typeBook);
+			if (!books.isEmpty()) {
+				FilterApi filter = new FilterApi(typeBook.getName(), typeBook.name());
+				filter.setValues(books.stream()
+						.map(book -> new FilterValueApi(book.getSource(), book.getSource(),	Boolean.TRUE, book.getName()))
+						.collect(Collectors.toList()));
+				sources.add(filter);
+			}
+		}
 		filters.setSources(sources);
 		
 		List<FilterApi> otherFilters = new ArrayList<>();

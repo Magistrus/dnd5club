@@ -94,9 +94,9 @@
 
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
-    import errorHandler from "@/common/helpers/errorHandler";
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
     import FormButton from "@/components/form/FormButton";
+    import { useClipboard } from "@vueuse/core";
 
     export default {
         name: 'SectionHeader',
@@ -147,7 +147,8 @@
             }
         },
         data: () => ({
-            uiStore: useUIStore()
+            uiStore: useUIStore(),
+            clipboard: useClipboard()
         }),
         computed: {
             hasOptionalControls() {
@@ -175,27 +176,17 @@
             }
         },
         methods: {
-            async copyText() {
-                if (navigator.clipboard) {
-                    try {
-                        await navigator.clipboard.writeText(this.urlForCopy);
-
-                        return;
-                    } catch (err) {
-                        errorHandler(err);
-                    }
+            copyText() {
+                if (!this.clipboard.isSupported) {
+                    this.$toast.error('Ваш браузер не поддерживает копирование');
                 }
 
-                const field = document.body.appendChild(document.createElement('input'));
-
-                field.value = this.urlForCopy;
-
-                field.focus();
-                field.select();
-
-                document.execCommand('copy');
-
-                field.parentNode.removeChild(field);
+                this.clipboard.copy(this.urlForCopy)
+                    .then(() => this.$toast('Ссылка успешно скопирована'))
+                    .catch(() => this.$toast.error((
+                        <span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
+                            target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>
+                    )));
             },
 
             openPrintWindow() {
