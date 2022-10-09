@@ -69,8 +69,6 @@ export const useUserStore = defineStore('UserStore', {
                             );
                         }
 
-                        this.jwtToken = resp.data.accessToken;
-
                         await this.getUserInfo();
 
                         return Promise.resolve();
@@ -129,20 +127,20 @@ export const useUserStore = defineStore('UserStore', {
                             Cookies.remove(USER_TOKEN_COOKIE, { path: '' });
                         }
 
-                        this.clearUser();
-
                         return Promise.resolve();
                     default:
                         return Promise.reject();
                 }
             } catch (err) {
                 return Promise.reject(err);
+            } finally {
+                this.clearUser();
             }
         },
 
         clearUser() {
-            this.status = false;
             this.user = undefined;
+            this.status = false;
 
             Cookies.remove(USER_TOKEN_COOKIE);
         },
@@ -153,15 +151,12 @@ export const useUserStore = defineStore('UserStore', {
 
         async getUserInfo() {
             try {
-                if (!await this.getUserStatus()) {
-                    return Promise.reject(new Error('User is not authenticated'));
-                }
-
                 const resp = await this.$http.get('/user/info');
 
                 switch (resp.status) {
                     case 200:
                         this.user = resp.data;
+                        this.status = true;
 
                         return Promise.resolve(resp.data);
                     default:
@@ -176,16 +171,15 @@ export const useUserStore = defineStore('UserStore', {
             try {
                 const resp = await this.$http.get('/user/status');
 
-                switch (resp.status) {
-                    case 200:
-                        this.status = true;
+                if (resp.status !== 200 || !resp.data) {
+                    this.clearUser();
 
-                        return Promise.resolve(true);
-                    default:
-                        this.clearUser();
-
-                        return Promise.resolve(false);
+                    return Promise.resolve(false);
                 }
+
+                this.status = true;
+
+                return Promise.resolve(resp.data);
             } catch (err) {
                 this.clearUser();
 

@@ -23,6 +23,7 @@
     } from "vue";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useUserStore } from "@/store/UI/UserStore";
+    import { useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {
@@ -40,9 +41,11 @@
         },
         setup(props) {
             const route = useRoute();
+            const toast = useToast();
             const userStore = useUserStore();
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
+            const inProgress = ref(false);
             const bookmarkUrl = computed(() => (
                 typeof props.url === "string" && props.url !== ''
                     ? props.url
@@ -55,30 +58,33 @@
 
                 return defaultBookmarkStore.isBookmarkSaved(bookmarkUrl.value);
             });
-            const inProgress = ref(false);
 
             async function updateBookmark() {
                 if (inProgress.value) {
                     return;
                 }
 
-                if (await userStore.getUserStatus()) {
+                try {
                     inProgress.value = true;
 
-                    const defaultGroup = await customBookmarkStore.getDefaultGroup();
+                    if (userStore.isAuthenticated) {
+                        const defaultGroup = await customBookmarkStore.getDefaultGroup();
 
-                    await customBookmarkStore.updateBookmarkInGroup({
-                        url: bookmarkUrl.value,
-                        name: props.name,
-                        groupUUID: defaultGroup.uuid
-                    });
+                        await customBookmarkStore.updateBookmarkInGroup({
+                            url: bookmarkUrl.value,
+                            name: props.name,
+                            groupUUID: defaultGroup.uuid
+                        });
 
+                        return;
+                    }
+
+                    await defaultBookmarkStore.updateBookmark(bookmarkUrl.value, props.name);
+                } catch (err) {
+                    toast.error('Произошла какая-то ошибка...');
+                } finally {
                     inProgress.value = false;
-
-                    return;
                 }
-
-                await defaultBookmarkStore.updateBookmark(bookmarkUrl.value, props.name);
             }
 
             return {
