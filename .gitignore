@@ -14,3 +14,7 @@ dnd5.iml
 # System files
 .DS_Store
 .folder-for-tests/
+
+.project
+
+.settings/org.eclipse.jdt.core.prefs

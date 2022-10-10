@@ -20,13 +20,20 @@ public class PropertyApi {
 	private String twoHandDice;
 	private String distance;
 	private String description;
+
 	public PropertyApi(Weapon weapon, WeaponProperty property) {
 		name = property.getName();
-		if ("Versatile".equals(property.getEnglishName())){
-			twoHandDice = String.format("1к%d",weapon.getTwoHandDamageDice().getMaxValue());
+		if ("Versatile".equals(property.getEnglishName())) {
+			twoHandDice = String.format("1к%d", weapon.getTwoHandDamageDice().getMaxValue());
 		}
-		if ("Thrown".equals(property.getEnglishName()) || "Ammunition".equals(property.getEnglishName())){
-			distance = String.format("%d/%d",weapon.getMinDistance(), weapon.getMaxDistance());
+		if ("Thrown".equals(property.getEnglishName()) || "Ammunition".equals(property.getEnglishName())) {
+			distance = String.format("%d/%d", weapon.getMinDistance(), weapon.getMaxDistance());
+		}
+		if ("Dual weapons".equals(property.getEnglishName())) {
+			twoHandDice = String.format("1к%d", weapon.getTwoHandDamageDice().getMaxValue());
+		}
+		if ("Magazine".equals(property.getEnglishName()) || "Ammo".equals(property.getEnglishName())) {
+			twoHandDice = String.format("%d", weapon.getAmmo());
 		}
 		description = property.getDescription();
 		url = String.format("/screens/%s", property.getEnglishName());
