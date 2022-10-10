@@ -5,10 +5,10 @@
                 :ref="el => setRef(el)"
                 class="navbar__btn"
                 :class="{ 'is-active': isActive }"
-                @click.left.exact.prevent="opened = !opened"
+                @click.left.exact.prevent="clickHandler"
             >
                 <svg-icon
-                    :icon-name="isBookmarksExist"
+                    :icon-name="bookmarkIcon"
                     :stroke-enable="false"
                     fill-enable
                 />
@@ -17,7 +17,7 @@
 
         <template #default>
             <div class="nav-bookmarks">
-                <default-bookmarks v-if="!userStore.isAuthenticated"/>
+                <default-bookmarks v-if="!isAuthenticated"/>
 
                 <custom-bookmarks v-else/>
             </div>
@@ -36,8 +36,9 @@
     import {
         computed,
         onBeforeMount,
-        ref
+        ref, watch
     } from "vue";
+    import { storeToRefs } from "pinia";
 
     export default {
         name: "NavBookmarks",
@@ -50,56 +51,48 @@
         setup() {
             const opened = ref(false);
             const userStore = useUserStore();
+            const { isAuthenticated } = storeToRefs(userStore);
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
-            const isBookmarksExist = computed(() => {
-                let status = false;
+            const bookmarkIcon = computed(() => {
+                const getIcon = value => (value ? 'bookmark-filled' : 'bookmark');
 
-                if (!userStore.isAuthenticated) {
-                    status = defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
+                if (isAuthenticated.value) {
+                    return getIcon(customBookmarkStore.getBookmarks.filter(item => item.url).length > 0);
                 }
 
-                if (userStore.isAuthenticated) {
-                    status = customBookmarkStore.getBookmarks.filter(item => item.url).length > 0;
-                }
-
-                return status
-                    ? 'bookmark-filled'
-                    : 'bookmark';
+                return getIcon(defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0);
             });
-
-            userStore.$onAction(({ name, after }) => {
-                switch (name) {
-                    case 'authorization':
-                        after(async () => {
-                            await customBookmarkStore.queryGetBookmarks();
-                        });
-
-                        break;
-
-                    case 'logout':
-                        after(() => {
-                            customBookmarkStore.clearBookmarks();
-                        });
-
-                        break;
-                    default:
-                        break;
+            const clickHandler = async () => {
+                if (!opened.value) {
+                    await userStore.getUserStatus();
                 }
-            });
+
+                opened.value = !opened.value;
+            };
+            const restoreBookmarks = async () => {
+                if (isAuthenticated.value) {
+                    await customBookmarkStore.queryGetBookmarks();
+
+                    return;
+                }
+
+                await defaultBookmarkStore.restoreBookmarks();
+            };
 
             onBeforeMount(async () => {
-                await defaultBookmarkStore.restoreBookmarks();
+                await restoreBookmarks();
+            });
 
-                if (await userStore.getUserStatus()) {
-                    await customBookmarkStore.queryGetBookmarks();
-                }
+            watch(isAuthenticated, async () => {
+                await restoreBookmarks();
             });
 
             return {
                 opened,
-                isBookmarksExist,
-                userStore
+                clickHandler,
+                bookmarkIcon,
+                isAuthenticated
             };
         }
     };
