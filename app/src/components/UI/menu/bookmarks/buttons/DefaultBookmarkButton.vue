@@ -1,5 +1,5 @@
 <template>
-    <form-button
+    <ui-button
         v-tippy="{ content: 'Добавить в закладки' }"
         class="default-bookmark-button"
         type-link-filled
@@ -11,11 +11,11 @@
             :stroke-enable="false"
             fill-enable
         />
-    </form-button>
+    </ui-button>
 </template>
 
 <script>
-    import FormButton from "@/components/form/FormButton";
+    import UiButton from "@/components/form/UiButton";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useRoute } from "vue-router";
     import {
@@ -27,7 +27,7 @@
 
     export default defineComponent({
         components: {
-            FormButton
+            UiButton
         },
         props: {
             name: {

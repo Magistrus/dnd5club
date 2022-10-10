@@ -39,7 +39,7 @@
             class="filter-item__body"
             :class="{ 'is-toggle': type === 'toggle' }"
         >
-            <field-checkbox
+            <ui-checkbox
                 v-for="(checkbox, checkboxKey) in modelValue"
                 :key="checkboxKey"
                 :model-value="checkbox.value"
@@ -48,20 +48,20 @@
                 @update:model-value="setValue($event, checkboxKey)"
             >
                 {{ checkbox.label }}
-            </field-checkbox>
+            </ui-checkbox>
         </div>
     </div>
 </template>
 
 <script>
     import SvgIcon from '@/components/UI/icons/SvgIcon';
-    import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
+    import UiCheckbox from '@/components/form/UiCheckbox';
     import cloneDeep from 'lodash/cloneDeep';
 
     export default {
         name: 'FilterItemCheckboxes',
         components: {
-            FieldCheckbox,
+            UiCheckbox,
             SvgIcon
         },
         props: {

@@ -213,6 +213,11 @@ const routes = [
         name: 'encounters',
         path: '/tools/encounters',
         component: () => import('@/views/Tools/EncountersView')
+    },
+    {
+        name: 'ability-calc',
+        path: '/tools/ability-calc',
+        component: () => import('@/views/Tools/AbilityCalc/AbilityCalcView')
     }
 ];
 const router = createRouter({
