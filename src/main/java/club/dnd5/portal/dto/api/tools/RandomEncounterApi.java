@@ -15,31 +15,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RandomEncounterApi {
-	private String level;
-	private String environment;
+
+	private String tableName;
 	
 	private String description;
 	private SourceApi source;
 
 	public RandomEncounterApi(RandomEncounterRow encounter) {
+		tableName = encounter.getEncounter().getName();
 		description = encounter.getDescription();
 		source = new  SourceApi(encounter.getEncounter().getBook());
-		switch (encounter.getEncounter().getLevel()) {
-		case 1:
-			level = "1-4";
-			break;
-		case 2:
-			level = "5-7";
-			break;
-		case 3:
-			level = "11-15";
-			break;
-		case 4:
-			level = "17-20";
-			break;
-		}
-		if (encounter.getEncounter().getType() != null) {
-			environment = encounter.getEncounter().getType().getName();
-		}
 	}
 }

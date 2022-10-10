@@ -90,10 +90,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
     actions: {
         async queryGetBookmarks() {
             try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
                 const resp = await this.$http.get('/bookmarks');
 
                 if (resp.status !== 200) {
@@ -110,10 +106,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
         async queryAddBookmark(bookmark) {
             try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
                 if (!bookmark?.name) {
                     return Promise.reject(new Error('Name is undefined'));
                 }
@@ -142,10 +134,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
         async queryUpdateBookmark(bookmark) {
             try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
                 if (!bookmark?.name) {
                     return Promise.reject(new Error('Name is undefined'));
                 }
@@ -174,10 +162,6 @@ export const useCustomBookmarkStore = defineStore('CustomBookmarkStore', {
 
         async queryDeleteBookmark(uuid) {
             try {
-                if (!await this.userStore.getUserStatus()) {
-                    return Promise.reject();
-                }
-
                 if (!uuid) {
                     return Promise.reject(new Error('UUID is undefined'));
                 }
