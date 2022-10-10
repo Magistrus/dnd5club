@@ -71,28 +71,28 @@
                 v-if="isCategoryCreating"
                 class="bookmarks__input"
             >
-                <field-input
+                <ui-input
                     v-model="newCategoryName"
                     placeholder="Название категории"
                     autofocus
                     @keyup.enter.exact.prevent="createCategory"
                 />
 
-                <form-button
+                <ui-button
                     type-link-filled
                     is-small
                     @click.left.exact.prevent="createCategory"
                 >
                     <svg-icon icon-name="check"/>
-                </form-button>
+                </ui-button>
 
-                <form-button
+                <ui-button
                     type-link-filled
                     is-small
                     @click.left.exact.prevent="disableCategoryCreating"
                 >
                     <svg-icon icon-name="close"/>
-                </form-button>
+                </ui-button>
             </div>
         </div>
     </div>
@@ -102,8 +102,8 @@
     import {
         computed, defineComponent, onBeforeMount, ref
     } from "vue";
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FormButton from "@/components/form/FormButton";
+    import UiInput from "@/components/form/UiInput";
+    import UiButton from "@/components/form/UiButton";
     import CustomBookmarkCategory from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkCategory";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import draggableComponent from 'vuedraggable';
@@ -113,8 +113,8 @@
     export default defineComponent({
         components: {
             CustomBookmarkCategory,
-            FieldInput,
-            FormButton,
+            UiInput,
+            UiButton,
             Draggable: draggableComponent,
             SvgIcon
         },

@@ -8,7 +8,7 @@
             class="form__row"
             :class="{ 'is-hidden': isOnlyPassword }"
         >
-            <field-input
+            <ui-input
                 v-model.trim="v$.email.$model"
                 placeholder="Электронный адрес"
                 required
@@ -25,7 +25,7 @@
             v-if="isOnlyPassword"
             class="form__row"
         >
-            <field-input
+            <ui-input
                 v-model.trim="v$.password.$model"
                 placeholder="Новый пароль"
                 is-password
@@ -43,7 +43,7 @@
             v-if="isOnlyPassword"
             class="form__row"
         >
-            <field-input
+            <ui-input
                 v-model.trim="v$.repeat.$model"
                 placeholder="Повторите пароль"
                 is-password
@@ -58,27 +58,27 @@
         </div>
 
         <div class="form__row">
-            <form-button
+            <ui-button
                 :disabled="success || inProgress"
                 @click.left.exact.prevent="onSubmit"
             >
                 {{ isOnlyPassword ? 'Изменить пароль' : 'Восстановить пароль' }}
-            </form-button>
+            </ui-button>
 
-            <form-button
+            <ui-button
                 v-if="!isAuthenticated"
                 type-link
                 @click.left.exact.prevent="$emit('switch:auth')"
             >
                 Авторизация
-            </form-button>
+            </ui-button>
         </div>
     </form>
 </template>
 
 <script>
-    import FormButton from "@/components/form/FormButton";
-    import FieldInput from "@/components/form/FieldType/FieldInput";
+    import UiButton from "@/components/form/UiButton";
+    import UiInput from "@/components/form/UiInput";
     import { useUserStore } from "@/store/UI/UserStore";
     import useVuelidate from "@vuelidate/core";
     import {
@@ -100,8 +100,8 @@
 
     export default defineComponent({
         components: {
-            FormButton,
-            FieldInput
+            UiButton,
+            UiInput
         },
         props: {
             token: {

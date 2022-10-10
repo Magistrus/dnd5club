@@ -1,6 +1,6 @@
 <template>
     <div class="custom-bookmark-button__wrapper">
-        <form-button
+        <ui-button
             v-tippy="{ content: 'Добавить в закладки' }"
             class="custom-bookmark-button"
             type-link-filled
@@ -11,7 +11,7 @@
                 :stroke-enable="false"
                 fill-enable
             />
-        </form-button>
+        </ui-button>
 
         <on-click-outside @trigger="isOpen = false">
             <div
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import FormButton from "@/components/form/FormButton";
+    import UiButton from "@/components/form/UiButton";
     import {
         computed,
         defineComponent, ref, toRefs
@@ -47,7 +47,7 @@
 
     export default defineComponent({
         components: {
-            FormButton,
+            UiButton,
             OnClickOutside
         },
         props: {

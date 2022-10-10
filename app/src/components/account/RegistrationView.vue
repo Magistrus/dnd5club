@@ -5,7 +5,7 @@
         @keyup.enter.exact.prevent="onSubmit"
     >
         <div class="form__row">
-            <field-input
+            <ui-input
                 v-model.trim="v$.username.$model"
                 placeholder="Имя пользователя"
                 autocomplete="username"
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form__row">
-            <field-input
+            <ui-input
                 v-model.trim="v$.email.$model"
                 placeholder="Электронный адрес"
                 required
@@ -33,7 +33,7 @@
         </div>
 
         <div class="form__row">
-            <field-input
+            <ui-input
                 v-model.trim="v$.password.$model"
                 placeholder="Пароль"
                 is-password
@@ -48,7 +48,7 @@
         </div>
 
         <div class="form__row">
-            <field-input
+            <ui-input
                 v-model.trim="v$.repeat.$model"
                 placeholder="Повторите пароль"
                 is-password
@@ -63,26 +63,26 @@
         </div>
 
         <div class="form__row">
-            <form-button
+            <ui-button
                 :disabled="success || inProgress"
                 @click.left.exact.prevent="onSubmit"
             >
                 Регистрация
-            </form-button>
+            </ui-button>
 
-            <form-button
+            <ui-button
                 type-link
                 @click.left.exact.prevent="$emit('switch:auth')"
             >
                 Авторизация
-            </form-button>
+            </ui-button>
         </div>
     </form>
 </template>
 
 <script>
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FormButton from "@/components/form/FormButton";
+    import UiInput from "@/components/form/UiInput";
+    import UiButton from "@/components/form/UiButton";
     import {
         validateEmailExist,
         validateEmailFormat,
@@ -103,8 +103,8 @@
     export default {
         name: 'RegistrationView',
         components: {
-            FieldInput,
-            FormButton
+            UiInput,
+            UiButton
         },
         setup: () => ({
             v$: useVuelidate()

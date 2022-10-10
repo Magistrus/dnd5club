@@ -5,7 +5,7 @@
         @submit.prevent="onSubmit"
     >
         <div class="form__row">
-            <field-input
+            <ui-input
                 v-model.trim="v$.usernameOrEmail.$model"
                 placeholder="Логин или электронная почта"
                 autocomplete="username"
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form__row">
-            <field-input
+            <ui-input
                 v-model.trim="v$.password.$model"
                 placeholder="Пароль"
                 is-password
@@ -34,43 +34,43 @@
         </div>
 
         <div class="form__row">
-            <field-checkbox
+            <ui-checkbox
                 v-model="remember"
                 type="toggle"
             >
                 Запомнить меня
-            </field-checkbox>
+            </ui-checkbox>
         </div>
 
         <div class="form__row">
-            <form-button
+            <ui-button
                 :disabled="success || inProgress"
                 @click.left.exact.prevent="onSubmit"
             >
                 Вход
-            </form-button>
+            </ui-button>
 
-            <form-button
+            <ui-button
                 type-link
                 @click.left.exact.prevent="$emit('switch:reg')"
             >
                 Регистрация
-            </form-button>
+            </ui-button>
 
-            <form-button
+            <ui-button
                 type-link
                 @click.left.exact.prevent="$emit('switch:change-password')"
             >
                 Забыли пароль?
-            </form-button>
+            </ui-button>
         </div>
     </form>
 </template>
 
 <script>
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import FormButton from "@/components/form/FormButton";
+    import UiInput from "@/components/form/UiInput";
+    import UiCheckbox from "@/components/form/UiCheckbox";
+    import UiButton from "@/components/form/UiButton";
     import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
     import {
@@ -85,9 +85,9 @@
     export default {
         name: 'LoginView',
         components: {
-            FormButton,
-            FieldCheckbox,
-            FieldInput
+            UiButton,
+            UiCheckbox,
+            UiInput
         },
         setup: () => ({
             v$: useVuelidate()
