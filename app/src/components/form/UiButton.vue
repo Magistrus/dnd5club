@@ -2,66 +2,62 @@
     <button
         :class="classList"
         :disabled="disabled"
-        class="form-button"
+        class="ui-button"
         type="button"
     >
         <slot/>
     </button>
 </template>
 
-<script>
-    export default {
-        name: "FormButton",
-        props: {
-            typeLink: {
-                type: Boolean,
-                default: false
-            },
-            typeLinkFilled: {
-                type: Boolean,
-                default: false
-            },
-            typePrimary: {
-                type: Boolean,
-                default: true
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            isSmall: {
-                type: Boolean,
-                default: false
-            }
+<script setup>
+    import { computed } from "vue";
+
+    const props = defineProps({
+        typeLink: {
+            type: Boolean,
+            default: false
         },
-        computed: {
-            type() {
-                if (this.typeLink) {
-                    return 'link';
-                }
-
-                if (this.typeLinkFilled) {
-                    return 'link-filled';
-                }
-
-                return 'primary';
-            },
-
-            classList() {
-                const list = [`is-${ this.type }`];
-
-                if (this.isSmall) {
-                    list.push('is-small');
-                }
-
-                return list;
-            }
+        typeLinkFilled: {
+            type: Boolean,
+            default: false
+        },
+        typePrimary: {
+            type: Boolean,
+            default: true
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        isSmall: {
+            type: Boolean,
+            default: false
         }
-    };
+    });
+    const type = computed(() => {
+        if (props.typeLink) {
+            return 'link';
+        }
+
+        if (props.typeLinkFilled) {
+            return 'link-filled';
+        }
+
+        return 'primary';
+    });
+    const classList = computed(() => {
+        const list = [`is-${ type.value }`];
+
+        if (props.isSmall) {
+            list.push('is-small');
+        }
+
+        return list;
+    });
 </script>
 
 <style lang="scss" scoped>
-    .form-button {
+    .ui-button {
         @include css_anim();
 
         background-color: var(--primary);

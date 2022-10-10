@@ -40,7 +40,7 @@
                 v-if="getIsMobile && currentTab?.type === 'traits' && currentArchetypes.length"
                 class="class-detail__select"
             >
-                <field-select
+                <ui-select
                     :group-select="false"
                     :model-value="currentSelectArchetype"
                     :options="currentArchetypes"
@@ -62,7 +62,7 @@
                             @click.left.exact.prevent="goToArchetype(option.url)"
                         >{{ option.name }}</span>
                     </template>
-                </field-select>
+                </ui-select>
             </div>
         </template>
 
@@ -126,7 +126,7 @@
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useClassesStore } from '@/store/Character/ClassesStore';
-    import FieldSelect from '@/components/form/FieldType/FieldSelect';
+    import UiSelect from '@/components/form/UiSelect';
     import SpellsView from "@/views/Spells/SpellsView";
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionsView from "@/views/Character/Options/OptionsView";
@@ -145,7 +145,7 @@
             RawContent,
             OptionsView,
             SpellsView,
-            FieldSelect,
+            UiSelect,
             SvgIcon,
             SectionHeader
         },

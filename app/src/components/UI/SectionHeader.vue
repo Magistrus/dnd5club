@@ -39,7 +39,7 @@
                     :url="url"
                 />
 
-                <form-button
+                <ui-button
                     v-if="print"
                     v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
@@ -47,9 +47,9 @@
                     @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
-                </form-button>
+                </ui-button>
 
-                <form-button
+                <ui-button
                     v-if="onExportFoundry"
                     v-tippy="{ content: 'Импорт в Foundry VTT. <a href=&quot;/fvtt_import&quot;>Инструкция</a>' }"
                     class="section-header__control--optional is-only-desktop"
@@ -57,7 +57,7 @@
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>
-                </form-button>
+                </ui-button>
             </div>
 
             <div
@@ -95,13 +95,13 @@
 <script>
     import { useUIStore } from '@/store/UI/UIStore';
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
-    import FormButton from "@/components/form/FormButton";
+    import UiButton from "@/components/form/UiButton";
     import { useClipboard } from "@vueuse/core";
 
     export default {
         name: 'SectionHeader',
         components: {
-            FormButton,
+            UiButton,
             BookmarkSaveButton
         },
         props: {

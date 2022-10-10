@@ -1,14 +1,14 @@
 <template>
-    <label class="field-input">
+    <label class="ui-input">
         <span
             v-if="label"
-            class="field-input__label"
+            class="ui-input__label"
         >
             {{ label }}
         </span>
 
         <span
-            class="field-input__control"
+            class="ui-input__control"
             :class="{ 'is-error': errorText }"
         >
             <input
@@ -19,13 +19,13 @@
                 :placeholder="placeholder"
                 :type="inputType"
                 :spellcheck="false"
-                class="field-input__input"
+                class="ui-input__input"
                 @blur="$emit('blur')"
             >
 
             <span
                 v-if="isPassword"
-                class="field-input__control_icon"
+                class="ui-input__control_icon"
                 @click.left.exact.prevent="togglePass"
             >
                 <svg-icon
@@ -38,7 +38,7 @@
 
         <span
             v-if="!!errorText"
-            class="field-input__error"
+            class="ui-input__error"
         >
             {{ errorText }}
         </span>
@@ -47,9 +47,9 @@
 
 <script>
     import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import { defineComponent } from "vue";
 
-    export default {
-        name: "FieldInput",
+    export default defineComponent({
         components: {
             SvgIcon
         },
@@ -185,11 +185,11 @@
                 this.$refs.input.focus();
             }
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>
-    .field-input {
+    .ui-input {
         display: block;
         width: 100%;
 
@@ -248,7 +248,7 @@
         }
 
         &:focus-within {
-            .field-input {
+            .ui-input {
                 &__control {
                     @include css_anim();
 
@@ -262,7 +262,7 @@
         }
 
         &:hover {
-            .field-input {
+            .ui-input {
                 &__control {
                     border-color: var(--primary-hover);
                 }
