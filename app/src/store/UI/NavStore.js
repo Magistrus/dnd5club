@@ -180,11 +180,6 @@ export const useNavStore = defineStore('NavStore', {
                             label: 'Мастер на Boosty',
                             url: 'https://boosty.to/dnd5eclub',
                             external: true
-                        },
-                        {
-                            label: 'Старый сайт',
-                            url: 'https://old.dnd5.club/',
-                            external: true
                         }
                     ]
                 }
