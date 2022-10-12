@@ -6,7 +6,7 @@
 
                 <a
                     v-tippy="{
-                        content: 'Больше возможностей. <a href=`/bookmarks_info`>Инструкция</a>'
+                        content: 'Больше возможностей.'
                     }"
                     href="/bookmarks_info"
                     target="_blank"

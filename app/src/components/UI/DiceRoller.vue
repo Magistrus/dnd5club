@@ -92,6 +92,14 @@
 
                     this.roll = result.total;
 
+                    if (this.roll === roller.maxTotal) {
+                        this.$toast.success(roller.output);
+                    } else if (this.roll === roller.minTotal) {
+                        this.$toast.error(roller.output);
+                    } else {
+                        this.$toast(roller.output);
+                    }
+
                     this.clearRoll();
                 } catch (err) {
                     this.error = true;
