@@ -9,50 +9,68 @@
     </button>
 </template>
 
-<script setup>
-    import { computed } from "vue";
+<script>
+    import { computed, defineComponent } from "vue";
 
-    const props = defineProps({
-        typeLink: {
-            type: Boolean,
-            default: false
+    export default defineComponent({
+        props: {
+            typeLink: {
+                type: Boolean,
+                default: false
+            },
+            typeLinkFilled: {
+                type: Boolean,
+                default: false
+            },
+            typePrimary: {
+                type: Boolean,
+                default: true
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            isSmall: {
+                type: Boolean,
+                default: false
+            },
+            useFullWidth: {
+                type: Boolean,
+                default: false
+            }
         },
-        typeLinkFilled: {
-            type: Boolean,
-            default: false
-        },
-        typePrimary: {
-            type: Boolean,
-            default: true
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        isSmall: {
-            type: Boolean,
-            default: false
-        }
-    });
-    const type = computed(() => {
-        if (props.typeLink) {
-            return 'link';
-        }
 
-        if (props.typeLinkFilled) {
-            return 'link-filled';
+        setup(props) {
+            const type = computed(() => {
+                if (props.typeLink) {
+                    return 'link';
+                }
+
+                if (props.typeLinkFilled) {
+                    return 'link-filled';
+                }
+
+                return 'primary';
+            });
+            const classList = computed(() => {
+                const list = [`is-${ type.value }`];
+
+                if (props.isSmall) {
+                    list.push('is-small');
+                }
+
+                if (props.useFullWidth) {
+                    list.push('is-full-width');
+                }
+
+                return list;
+            });
+
+            return {
+                type,
+                classList
+            };
         }
-
-        return 'primary';
-    });
-    const classList = computed(() => {
-        const list = [`is-${ type.value }`];
-
-        if (props.isSmall) {
-            list.push('is-small');
-        }
-
-        return list;
     });
 </script>
 
@@ -71,6 +89,11 @@
         margin: 0;
         line-height: 16px;
 
+        &.is-full-width {
+            display: flex;
+            width: 100%;
+        }
+
         & + & {
             margin-left: 16px;
         }
@@ -82,7 +105,8 @@
                 background-color: var(--primary-hover);
             }
 
-            &:active {
+            &:active,
+            &.is-active {
                 @include css_anim();
 
                 background-color: var(--primary-active);
@@ -110,7 +134,8 @@
                     color: var(--primary-hover);
                 }
 
-                &:active {
+                &:active,
+                &.is-active {
                     background-color: var(--bg-main);
                 }
             }
@@ -133,7 +158,8 @@
                     color: var(--text-btn-color);
                 }
 
-                &:active {
+                &:active,
+                &.is-active {
                     background-color: var(--primary-active);
                     color: var(--text-btn-color);
                 }

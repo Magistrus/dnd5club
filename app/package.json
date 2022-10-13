@@ -13,13 +13,13 @@
     "analyze": "webpack-bundle-analyzer ../src/main/resources/static/report.json ../src/main/resources/static --mode server"
   },
   "dependencies": {
-    "@dice-roller/rpg-dice-roller": "^5.1.0",
     "@vuelidate/core": "^2.0.0-alpha.43",
     "@vuelidate/validators": "^2.0.0-alpha.31",
     "@vueuse/components": "^9.1.0",
     "@vueuse/core": "^8.9.4",
     "axios": "^0.27.2",
     "core-js": "^3.22.7",
+    "dice-roller-parser": "^0.1.8",
     "js-cookie": "^3.0.1",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",

@@ -1,9 +1,6 @@
 <template>
     <span
-        v-tippy="{
-            content: result || `Нажмите для броска: <b>${formula}</b>`,
-            hideOnClick: false,
-        }"
+        v-tippy="{ content: `Нажмите для броска: <b>${formula}</b>` }"
         :class="classes"
         class="dice-roller"
         @click.left.exact.prevent="tryRoll"
@@ -13,8 +10,7 @@
 </template>
 
 <script>
-    import errorHandler from "@/common/helpers/errorHandler";
-    import debounce from "lodash/debounce";
+    import { DiceRoller, DiscordRollRenderer } from 'dice-roller-parser';
 
     export default {
         name: "DiceRoller",
@@ -38,15 +34,9 @@
             }
         },
         data: () => ({
-            roll: undefined,
-            error: false,
-            rpgDiceRoller: undefined
+            error: false
         }),
         computed: {
-            result() {
-                return this.roll ? `Результат: <b>${ this.roll }</b>` : '';
-            },
-
             classByType() {
                 if (this.isAdvantage) {
                     return 'is-advantage';
@@ -77,33 +67,22 @@
                 return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
             }
         },
-        async beforeMount() {
-            this.rpgDiceRoller = await import('@dice-roller/rpg-dice-roller');
-        },
         methods: {
-            // eslint-disable-next-line func-names
             tryRoll() {
                 try {
                     this.error = false;
 
-                    const { DiceRoll } = this.rpgDiceRoller;
-                    const roller = new DiceRoll(this.computedFormula);
-                    const result = roller.toJSON();
+                    const roller = new DiceRoller();
+                    const rollerRenderer = new DiscordRollRenderer();
+                    const result = roller.roll(this.computedFormula);
 
-                    this.roll = result.total;
-
-                    this.clearRoll();
+                    this.$toast(rollerRenderer.render(result));
                 } catch (err) {
                     this.error = true;
 
-                    errorHandler(err);
+                    this.$toast.error('Произошла ошибка, попробуйте еще раз...');
                 }
-            },
-
-            // eslint-disable-next-line func-names
-            clearRoll: debounce(function() {
-                this.roll = undefined;
-            }, 5000)
+            }
         }
     };
 </script>

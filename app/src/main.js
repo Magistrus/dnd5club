@@ -38,7 +38,7 @@ app.use(pinia)
         preLoad: 1.7
     })
     .use(Toast, {
-        timeout: 3500,
+        timeout: 1700,
         closeButton: IconToastClose,
         showCloseButtonOnHover: true
     })

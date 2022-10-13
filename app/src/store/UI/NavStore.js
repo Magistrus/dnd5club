@@ -108,6 +108,10 @@ export const useNavStore = defineStore('NavStore', {
                         {
                             label: 'Безумие',
                             url: '/tools/madness'
+                        },
+                        {
+                            label: 'Калькулятор характеристик',
+                            url: '/tools/ability-calc'
                         }
                     ]
                 },
