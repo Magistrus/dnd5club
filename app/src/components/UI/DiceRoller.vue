@@ -1,9 +1,6 @@
 <template>
     <span
-        v-tippy="{
-            content: result || `Нажмите для броска: <b>${formula}</b>`,
-            hideOnClick: false,
-        }"
+        v-tippy="{ content: `Нажмите для броска: <b>${formula}</b>` }"
         :class="classes"
         class="dice-roller"
         @click.left.exact.prevent="tryRoll"
@@ -13,9 +10,6 @@
 </template>
 
 <script>
-    import errorHandler from "@/common/helpers/errorHandler";
-    import debounce from "lodash/debounce";
-
     export default {
         name: "DiceRoller",
         props: {
@@ -38,15 +32,10 @@
             }
         },
         data: () => ({
-            roll: undefined,
             error: false,
             rpgDiceRoller: undefined
         }),
         computed: {
-            result() {
-                return this.roll ? `Результат: <b>${ this.roll }</b>` : '';
-            },
-
             classByType() {
                 if (this.isAdvantage) {
                     return 'is-advantage';
@@ -81,7 +70,6 @@
             this.rpgDiceRoller = await import('@dice-roller/rpg-dice-roller');
         },
         methods: {
-            // eslint-disable-next-line func-names
             tryRoll() {
                 try {
                     this.error = false;
@@ -90,28 +78,31 @@
                     const roller = new DiceRoll(this.computedFormula);
                     const result = roller.toJSON();
 
-                    this.roll = result.total;
+                    if (result.total === result.maxTotal) {
+                        this.$toast.success(result.output, {
+                            timeout: 2000
+                        });
 
-                    if (this.roll === roller.maxTotal) {
-                        this.$toast.success(roller.output);
-                    } else if (this.roll === roller.minTotal) {
-                        this.$toast.error(roller.output);
-                    } else {
-                        this.$toast(roller.output);
+                        return;
                     }
 
-                    this.clearRoll();
+                    if (result.total === result.minTotal) {
+                        this.$toast.error(result.output, {
+                            timeout: 2000
+                        });
+
+                        return;
+                    }
+
+                    this.$toast(result.output, {
+                        timeout: false
+                    });
                 } catch (err) {
                     this.error = true;
 
-                    errorHandler(err);
+                    this.$toast.error('Произошла ошибка, попробуйте еще раз...');
                 }
-            },
-
-            // eslint-disable-next-line func-names
-            clearRoll: debounce(function() {
-                this.roll = undefined;
-            }, 5000)
+            }
         }
     };
 </script>
