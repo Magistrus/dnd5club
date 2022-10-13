@@ -10,6 +10,8 @@
 </template>
 
 <script>
+    import { DiceRoller, DiscordRollRenderer } from 'dice-roller-parser';
+
     export default {
         name: "DiceRoller",
         props: {
@@ -32,8 +34,7 @@
             }
         },
         data: () => ({
-            error: false,
-            rpgDiceRoller: undefined
+            error: false
         }),
         computed: {
             classByType() {
@@ -66,37 +67,16 @@
                 return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
             }
         },
-        async beforeMount() {
-            this.rpgDiceRoller = await import('@dice-roller/rpg-dice-roller');
-        },
         methods: {
             tryRoll() {
                 try {
                     this.error = false;
 
-                    const { DiceRoll } = this.rpgDiceRoller;
-                    const roller = new DiceRoll(this.computedFormula);
-                    const result = roller.toJSON();
+                    const roller = new DiceRoller();
+                    const rollerRenderer = new DiscordRollRenderer();
+                    const result = roller.roll(this.computedFormula);
 
-                    if (result.total === result.maxTotal) {
-                        this.$toast.success(result.output, {
-                            timeout: 2000
-                        });
-
-                        return;
-                    }
-
-                    if (result.total === result.minTotal) {
-                        this.$toast.error(result.output, {
-                            timeout: 2000
-                        });
-
-                        return;
-                    }
-
-                    this.$toast(result.output, {
-                        timeout: false
-                    });
+                    this.$toast(rollerRenderer.render(result));
                 } catch (err) {
                     this.error = true;
 
