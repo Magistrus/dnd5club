@@ -140,8 +140,8 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        :close-on-desktop="getFullscreen"
-                        :fullscreen="!getIsMobile"
+                        :close-on-desktop="fullscreen"
+                        :fullscreen="!isMobile"
                         :subtitle="selected.item?.name.eng || 'In treasury'"
                         :title="selected.item?.name.rus || 'В сокровищнице'"
                         @close="close"
@@ -346,7 +346,7 @@
             showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['fullscreen', 'isMobile']),
 
             crValue: {
                 get() {
@@ -402,7 +402,7 @@
             }
         },
         mounted() {
-            this.showRightSide = !this.getIsMobile;
+            this.showRightSide = !this.isMobile;
         },
         methods: {
             // eslint-disable-next-line func-names

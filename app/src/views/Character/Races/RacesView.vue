@@ -8,7 +8,7 @@
         <div
             ref="races"
             class="race-items"
-            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': fullscreen }"
         >
             <race-link
                 v-for="race in getRaces"
@@ -44,7 +44,7 @@
             next();
         },
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useUIStore, ['isMobile', 'fullscreen']),
             ...mapState(useRacesStore, ['getRaces', 'getFilter']),
 
             filter() {
@@ -72,7 +72,7 @@
             async onSearch() {
                 await this.racesQuery();
 
-                if (this.getRaces.length === 1 && !this.getIsMobile) {
+                if (this.getRaces.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.getRaces[0].url });
                 }
             }

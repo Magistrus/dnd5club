@@ -57,7 +57,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile'])
+            ...mapState(useUIStore, ['isMobile'])
         },
         async mounted() {
             await this.loadNewRace(this.$route.path);

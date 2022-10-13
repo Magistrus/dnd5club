@@ -55,7 +55,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.bestiaryStore.getFilter || undefined;
@@ -91,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.bestiary.length && this.$route.name === 'bestiary') {
+            if (!this.isMobile && this.bestiary.length && this.$route.name === 'bestiary') {
                 await this.$router.push({ path: this.bestiary[0].url });
             }
         },
@@ -115,7 +115,7 @@
             async onSearch() {
                 await this.bestiaryStore.initBestiary();
 
-                if (this.bestiary.length === 1 && !this.getIsMobile) {
+                if (this.bestiary.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.bestiary[0].url });
                 }
             }

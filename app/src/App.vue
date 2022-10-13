@@ -19,8 +19,7 @@
         },
         async mounted() {
             // UI
-            this.uiStore.watchMaxHeight();
-            this.uiStore.watchIsMobile();
+            this.uiStore.watchWindowSize();
 
             await this.uiStore.setTheme();
             await this.uiStore.setFullscreenState(false);

@@ -9,9 +9,11 @@ import errorHandler from '@/common/helpers/errorHandler';
 export const useUIStore = defineStore('UIStore', {
     state: () => ({
         theme: '',
-        isMobile: false,
         fullscreen: false,
-        maxHeight: 0,
+        windowSize: {
+            height: 0,
+            width: 0
+        },
         store: localforage.createInstance({
             name: DB_NAME,
             storeName: 'UI'
@@ -19,10 +21,7 @@ export const useUIStore = defineStore('UIStore', {
     }),
 
     getters: {
-        getTheme: state => state.theme,
-        getIsMobile: state => state.isMobile,
-        getMaxHeight: state => state.maxHeight,
-        getFullscreen: state => state.fullscreen
+        isMobile: state => state.windowSize.width < 1200
     },
 
     actions: {
@@ -75,25 +74,16 @@ export const useUIStore = defineStore('UIStore', {
             }
         },
 
-        watchMaxHeight() {
+        watchWindowSize() {
             const updateCallback = () => {
-                document.documentElement.style.setProperty('--max-vh', `${ window.innerHeight }px`);
+                const size = {
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                };
 
-                this.maxHeight = window.innerHeight;
-            };
+                document.documentElement.style.setProperty('--max-vh', `${ size.height }px`);
 
-            updateCallback();
-
-            window.addEventListener('resize', updateCallback);
-        },
-
-        watchIsMobile() {
-            const updateCallback = () => {
-                const isMobile = window.innerWidth < 1200;
-
-                if (this.isMobile !== isMobile) {
-                    this.isMobile = isMobile;
-                }
+                this.windowSize = size;
             };
 
             updateCallback();

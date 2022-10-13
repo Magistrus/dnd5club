@@ -4,7 +4,7 @@
         @click.left.exact.prevent="switchTheme"
     >
         <svg-icon
-            :icon-name="`${currentIcon}-theme`"
+            :icon-name="`${icon}-theme`"
             :stroke-enable="false"
             fill-enable
         />
@@ -12,40 +12,26 @@
 </template>
 
 <script>
-    import {
-        mapActions, mapState
-    } from 'pinia';
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
+    import { computed } from "vue";
 
     export default {
         name: 'MenuThemeSwitcher',
         components: { SvgIcon },
-        computed: {
-            ...mapState(useUIStore, {
-                theme: 'getTheme'
-            }),
+        setup() {
+            const uiStore = useUIStore();
+            const icon = computed(() => (uiStore.theme === 'dark'
+                ? 'light'
+                : 'dark'));
+            const switchTheme = async () => {
+                await uiStore.setTheme(icon.value);
+            };
 
-            currentIcon() {
-                return this.theme === 'dark'
-                    ? 'light'
-                    : 'dark';
-            },
-
-            currentLabel() {
-                return this.theme === 'dark'
-                    ? 'Светлая тема'
-                    : 'Темная тема';
-            }
-        },
-        methods: {
-            ...mapActions(useUIStore, {
-                setTheme: 'setTheme'
-            }),
-
-            async switchTheme() {
-                await this.setTheme(this.currentIcon);
-            }
+            return {
+                icon,
+                switchTheme
+            };
         }
     };
 </script>

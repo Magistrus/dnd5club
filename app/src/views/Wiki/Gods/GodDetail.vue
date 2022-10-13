@@ -2,9 +2,9 @@
     <content-detail class="god-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="god?.name?.eng || ''"
                 :title="god?.name?.rus || ''"
                 bookmark
@@ -48,7 +48,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewGod(this.$route.path);

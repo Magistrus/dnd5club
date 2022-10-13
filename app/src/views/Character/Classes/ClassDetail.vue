@@ -37,7 +37,7 @@
             </div>
 
             <div
-                v-if="getIsMobile && currentTab?.type === 'traits' && currentArchetypes.length"
+                v-if="isMobile && currentTab?.type === 'traits' && currentArchetypes.length"
                 class="class-detail__select"
             >
                 <ui-select
@@ -176,7 +176,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             classes() {
                 return this.classesStore.getClasses || [];

@@ -2,8 +2,8 @@
     <content-detail>
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
-                :fullscreen="!getIsMobile"
+                :close-on-desktop="fullscreen"
+                :fullscreen="!isMobile"
                 :subtitle="armor?.name?.eng"
                 :title="armor?.name?.rus"
                 bookmark
@@ -49,7 +49,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewArmor(this.$route.path);

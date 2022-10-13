@@ -137,7 +137,7 @@
             return {
                 removeBookmark: customBookmarkStore.queryDeleteBookmark,
                 onChangeHandler,
-                isMobile: computed(() => uiStore.getIsMobile)
+                isMobile: computed(() => uiStore.isMobile)
             };
         }
     });

@@ -67,15 +67,15 @@
                 <button
                     v-if="fullscreen"
                     v-tippy="{
-                        content: uiStore.getFullscreen
+                        content: uiStore.fullscreen
                             ? 'Свернуть окно'
                             : 'Развернуть окно'
                     }"
                     class="section-header__control--main is-only-desktop"
                     type="button"
-                    @click.left.exact.prevent.stop="uiStore.setFullscreenState(!uiStore.getFullscreen)"
+                    @click.left.exact.prevent.stop="uiStore.setFullscreenState(!uiStore.fullscreen)"
                 >
-                    <svg-icon :icon-name="uiStore.getFullscreen ? 'exit-fullscreen' : 'fullscreen'"/>
+                    <svg-icon :icon-name="uiStore.fullscreen ? 'exit-fullscreen' : 'fullscreen'"/>
                 </button>
 
                 <button
@@ -168,7 +168,7 @@
             },
 
             closeAvailable() {
-                if (!this.uiStore.getIsMobile) {
+                if (!this.uiStore.isMobile) {
                     return this.closeOnDesktop;
                 }
 

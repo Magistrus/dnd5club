@@ -55,7 +55,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.itemsStore.getFilter || undefined;
@@ -91,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.items.length && this.$route.name === 'items') {
+            if (!this.isMobile && this.items.length && this.$route.name === 'items') {
                 await this.$router.push({ path: this.items[0].url });
             }
         },
@@ -115,7 +115,7 @@
             async onSearch() {
                 await this.itemsQuery();
 
-                if (this.items.length === 1 && !this.getIsMobile) {
+                if (this.items.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.items[0].url });
                 }
             }

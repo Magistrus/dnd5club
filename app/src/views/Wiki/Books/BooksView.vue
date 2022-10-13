@@ -68,7 +68,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.booksStore.getFilter || undefined;
@@ -126,7 +126,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.books.length && this.$route.name === 'books') {
+            if (!this.isMobile && this.books.length && this.$route.name === 'books') {
                 await this.$router.push({ path: this.books[0]?.list[0]?.url });
             }
         },

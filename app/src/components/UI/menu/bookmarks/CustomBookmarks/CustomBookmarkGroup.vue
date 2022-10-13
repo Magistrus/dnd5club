@@ -208,7 +208,7 @@
                 onChangeHandler,
                 isOpened: customBookmarkStore.isGroupOpened,
                 toggleGroup: customBookmarkStore.toggleGroup,
-                isMobile: computed(() => uiStore.getIsMobile)
+                isMobile: computed(() => uiStore.isMobile)
             };
         }
     });
