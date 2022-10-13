@@ -1,26 +1,28 @@
 <template>
-    <content-layout class="ability-calc">
-        <ui-switch
-            v-model="currentTab"
-            :options="tabs"
-            class="ability-calc__tabs"
-            pre-select-first
-            use-full-width
-        />
-    </content-layout>
+    <page-layout class="ability-calc">
+        <template #default>
+            <ui-switch
+                v-model="currentTab"
+                :options="tabs"
+                class="ability-calc__tabs"
+                pre-select-first
+                use-full-width
+            />
+        </template>
+    </page-layout>
 </template>
 
 <script>
     import {
         defineComponent, ref
     } from "vue";
-    import ContentLayout from "@/components/content/ContentLayout";
     import UiSwitch from "@/components/form/UiSwitch";
+    import PageLayout from "@/components/content/PageLayout";
 
     export default defineComponent({
         components: {
-            UiSwitch,
-            ContentLayout
+            PageLayout,
+            UiSwitch
         },
         setup() {
             const tabs = ref([
