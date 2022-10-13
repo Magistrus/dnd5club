@@ -1,5 +1,8 @@
 <template>
-    <page-layout class="ability-calc">
+    <page-layout
+        class="ability-calc"
+        :use-social-links="false"
+    >
         <template #default>
             <ui-switch
                 v-model="currentTab"

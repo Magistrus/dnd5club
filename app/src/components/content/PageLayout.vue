@@ -1,6 +1,9 @@
 <template>
     <div class="page-layout">
-        <div class="page-layout__side--left">
+        <div
+            v-if="$slots.left && !isMobile"
+            class="page-layout__side--left"
+        >
             <slot name="left"/>
         </div>
 
@@ -36,7 +39,10 @@
             </div>
         </div>
 
-        <div class="page-layout__side--right">
+        <div
+            v-if="$slots.right && !isMobile"
+            class="page-layout__side--right"
+        >
             <slot name="right"/>
         </div>
     </div>
@@ -46,6 +52,7 @@
     import { computed, defineComponent } from "vue";
     import SocialLinks from "@/components/content/SocialLinks";
     import { useDayjs } from "@/common/composition/useDayjs";
+    import { useUIStore } from "@/store/UI/UIStore";
 
     export default defineComponent({
         components: { SocialLinks },
@@ -60,6 +67,7 @@
             }
         },
         setup(props) {
+            const uiStore = useUIStore();
             const dayjs = useDayjs();
             const dateTimeFormatted = computed(() => {
                 const datetime = dayjs(props.dateTime);
@@ -72,7 +80,8 @@
             });
 
             return {
-                dateTimeFormatted
+                dateTimeFormatted,
+                isMobile: computed(() => uiStore.isMobile)
             };
         }
     });
