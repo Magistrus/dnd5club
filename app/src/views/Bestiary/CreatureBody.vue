@@ -595,7 +595,7 @@
                 const sign = Math.sign(bonus) > -1 ? '+' : '-';
                 const absBonus = Math.abs(bonus);
 
-                return `к20${ sign }${ absBonus }`;
+                return `1к20${ sign }${ absBonus }`;
             },
 
             getIterableStr(strings) {
