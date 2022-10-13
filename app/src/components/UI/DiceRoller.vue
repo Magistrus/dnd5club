@@ -78,8 +78,7 @@
 
                     this.$toast(rollerRenderer.render(result), {
                         position: "bottom-right",
-                        timeout: 3000,
-                        rtl: true
+                        timeout: 5000
                     });
                 } catch (err) {
                     this.error = true;
