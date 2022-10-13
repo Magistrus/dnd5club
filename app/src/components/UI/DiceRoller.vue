@@ -76,7 +76,11 @@
                     const rollerRenderer = new DiscordRollRenderer();
                     const result = roller.roll(this.computedFormula);
 
-                    this.$toast(rollerRenderer.render(result));
+                    this.$toast(rollerRenderer.render(result), {
+                        position: "bottom-right",
+                        timeout: 3000,
+                        rtl: true
+                    });
                 } catch (err) {
                     this.error = true;
 
