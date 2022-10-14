@@ -60,12 +60,12 @@ function renderGroup(group) {
     }
 
     if (replies.length > 1) {
-        return `{ ${ replies.join(' + ') } } = ${ group.value }`;
+        return `{ ${ replies.join(' + ') } }`;
     }
 
     const reply = stripBrackets(replies[0]);
 
-    return `{ ${ reply } } = ${ group.value }`;
+    return `{ ${ reply } }`;
 }
 
 function renderGroupExpr(group) {
@@ -75,7 +75,7 @@ function renderGroupExpr(group) {
         replies.push(doRender(die));
     }
 
-    return replies.length > 1 ? `(${ replies.join(' + ') } = ${ group.value })` : replies[0];
+    return replies.length > 1 ? `${ replies.join(' + ') }` : replies[0];
 }
 
 function renderDie(die) {
@@ -85,24 +85,26 @@ function renderDie(die) {
         replies.push(doRender(roll));
     }
 
-    let reply = `${ replies.join(', ') }`;
+    let reply = '';
+
+    if (die.length === 1) {
+        reply += `<strong>${ die.value }</strong>`;
+    }
+
+    reply += ` ${ replies.join('+') }`;
 
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
         reply += `[*Rolling: ${ doRender(die.count) }d${ doRender(die.die) }*]`;
     }
 
-    const matches = die.matched
-        ? ` Match${ die.value === 1 ? '' : 'es' }`
-        : '';
-
-    reply += ` = ${ die.value }${ matches }`;
-
-    return `(${ reply })`;
+    return `${ reply }`;
 }
 
 function renderExpression(expr) {
     if (expr.dice.length > 1) {
         const expressions = [];
+
+        expressions.push(`<strong>${ expr.value }</strong> `);
 
         for (let i = 0; i < expr.dice.length - 1; i++) {
             expressions.push(doRender(expr.dice[i]));
@@ -110,10 +112,8 @@ function renderExpression(expr) {
         }
 
         expressions.push(doRender(expr.dice.slice(-1)[0]));
-        expressions.push('=');
-        expressions.push(`${ expr.value }`);
 
-        return `(${ expressions.join(' ') })`;
+        return `${ expressions.join(' ') }`;
     }
 
     if (expr.dice[0].type === 'number') {
@@ -126,7 +126,7 @@ function renderExpression(expr) {
 function renderFunction(roll) {
     const render = doRender(roll.expr);
 
-    return `(${ roll.op }${ addBrackets(render) } = ${ roll.value })`;
+    return `${ roll.op }${ addBrackets(render) }`;
 }
 
 function addBrackets(render) {
@@ -158,18 +158,18 @@ function stripBrackets(render) {
 }
 
 function renderRoll(roll) {
-    let rollDisplay = `${ roll.roll }`;
+    let rollDisplay = `<span>[${ roll.roll }]</span>`;
 
     if (!roll.valid) {
-        rollDisplay = `<del>${ roll.roll }</del>`;
+        rollDisplay = `<span><del>[${ roll.roll }]</del></span>`;
     } else if (roll.success && roll.value === 1) {
-        rollDisplay = `<span class="advantage">${ roll.roll }</span>`;
+        rollDisplay = `<span class="advantage">[${ roll.roll }]</span>`;
     } else if (roll.success && roll.value === -1) {
-        rollDisplay = `<span class="disadvantage">${ roll.roll }</span>`;
+        rollDisplay = `<span class="disadvantage">[${ roll.roll }]</span>`;
     } else if (!roll.success && roll.critical === 'success') {
-        rollDisplay = `<span class="advantage">${ roll.roll }</span>`;
+        rollDisplay = `<span class="advantage">[${ roll.roll }]</span>`;
     } else if (!roll.success && roll.critical === 'failure') {
-        rollDisplay = `<span class="disadvantage">${ roll.roll }</span>`;
+        rollDisplay = `<span class="disadvantage">[${ roll.roll }]</span>`;
     }
 
     if (roll.matched) {
@@ -189,11 +189,11 @@ function renderFateRoll(roll) {
     let rollDisplay = `${ roll.roll }`;
 
     if (!roll.valid) {
-        rollDisplay = `<del>${ rollValue }</del>`;
+        rollDisplay = `<span><del>[${ rollValue }]</del></span>`;
     } else if (roll.success && roll.value === 1) {
-        rollDisplay = `<span class="advantage">${ rollValue }</span>`;
+        rollDisplay = `<span class="advantage">[${ rollValue }]</span>`;
     } else if (roll.success && roll.value === -1) {
-        rollDisplay = `<span class="disadvantage">${ rollValue }</span>`;
+        rollDisplay = `<span class="disadvantage">[${ rollValue }]</span>`;
     }
 
     if (roll.matched) {
