@@ -12,7 +12,6 @@
 <script>
     import { DiceRoller } from 'dice-roller-parser';
     import { getRendered } from "@/common/utils/DiceRollRenderer";
-    import { defineComponent } from "vue";
 
     export default {
         name: "DiceRoller",
@@ -79,9 +78,7 @@
 
                     console.log(result);
 
-                    this.$toast(defineComponent({
-                        template: getRendered(result)
-                    }), {
+                    this.$toast(getRendered(result), {
                         position: "bottom-right",
                         timeout: 15000,
                         icon: 'dice-d20'

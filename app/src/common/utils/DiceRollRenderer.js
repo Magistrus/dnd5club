@@ -1,4 +1,6 @@
 /* eslint-disable no-use-before-define */
+import { h } from 'vue';
+
 function doRender(roll, root = false) {
     let render = '';
 
@@ -203,9 +205,9 @@ function renderFateRoll(roll) {
 /* eslint-enable no-use-before-define */
 
 export const getRendered = roll => {
-    console.log(`<span>${ doRender(roll, true) }</span>`);
+    console.log(h('span', { innerHTML: doRender(roll, true) }));
 
-    return `<span>${ doRender(roll, true) }</span>`;
+    return h('span', { innerHTML: doRender(roll, true) });
 };
 
 export default {
