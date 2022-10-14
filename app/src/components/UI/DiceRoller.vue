@@ -10,7 +10,8 @@
 </template>
 
 <script>
-    import { DiceRoller, DiscordRollRenderer } from 'dice-roller-parser';
+    import { DiceRoller } from 'dice-roller-parser';
+    import { getRenderedRoll } from '@/common/utils/DiceRollerRenderer';
 
     export default {
         name: "DiceRoller",
@@ -73,10 +74,9 @@
                     this.error = false;
 
                     const roller = new DiceRoller();
-                    const rollerRenderer = new DiscordRollRenderer();
                     const result = roller.roll(this.computedFormula);
 
-                    this.$toast(rollerRenderer.render(result), {
+                    this.$toast(getRenderedRoll(result), {
                         position: "bottom-right",
                         timeout: 5000
                     });
