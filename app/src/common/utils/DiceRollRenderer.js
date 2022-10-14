@@ -6,6 +6,8 @@ function doRender(roll, root = false) {
 
     const { type } = roll;
 
+    console.log(type);
+
     switch (type) {
         case 'diceexpressionroll':
             render = renderGroupExpr(roll);
@@ -42,7 +44,7 @@ function doRender(roll, root = false) {
     }
 
     if (!roll.valid) {
-        render = `~~${ render.replace(/~~/g, '') }~~`;
+        render = `<u>${ render.replace(/~~/g, '') }</u>`;
     }
 
     if (root) {
@@ -87,7 +89,7 @@ function renderDie(die) {
 
     let reply = '';
 
-    if (die.length > 1) {
+    if (die.rolls.length > 1) {
         reply += `<strong>${ die.value }</strong> = `;
     }
 
