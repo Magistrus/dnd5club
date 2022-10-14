@@ -77,11 +77,14 @@
                     const roller = new DiceRoller();
                     const result = roller.roll(this.computedFormula);
 
+                    console.log(result);
+
                     this.$toast(h(DiceRollRenderer, {
                         roll: result
                     }), {
                         position: "bottom-right",
-                        timeout: 5000
+                        timeout: 15000,
+                        icon: 'dice-d20'
                     });
                 } catch (err) {
                     this.error = true;

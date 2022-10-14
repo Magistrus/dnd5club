@@ -1,5 +1,12 @@
 <template>
-    <div>{{ string }}</div>
+    <div>
+        <strong>{{ value }}</strong>&nbsp;
+        <span
+            v-for="(item, index) in dices"
+            :key="index"
+            :class="getAdditionalClass(item)"
+        >[{{ item.value }}]<span v-if="index !== dices.length - 1">+</span></span>
+    </div>
 </template>
 
 <script>
@@ -13,10 +20,24 @@
             }
         },
         setup(props) {
-            const string = computed(() => JSON.stringify(props.roll));
+            const value = computed(() => props.roll.value);
+            const dices = computed(() => props.roll.dice || props.roll.rolls);
+            const getAdditionalClass = roll => {
+                if (roll.critical === 'failure') {
+                    return 'disadvantage';
+                }
+
+                if (roll.critical === 'success') {
+                    return 'advantage';
+                }
+
+                return '';
+            };
 
             return {
-                string
+                value,
+                dices,
+                getAdditionalClass
             };
         }
     });
