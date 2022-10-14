@@ -11,7 +11,8 @@
 
 <script>
     import { DiceRoller } from 'dice-roller-parser';
-    import { getRenderedRoll } from '@/common/utils/DiceRollerRenderer';
+    import { h } from "vue";
+    import DiceRollRenderer from "@/components/UI/DiceRollRenderer";
 
     export default {
         name: "DiceRoller",
@@ -76,7 +77,9 @@
                     const roller = new DiceRoller();
                     const result = roller.roll(this.computedFormula);
 
-                    this.$toast(getRenderedRoll(result), {
+                    this.$toast(h(DiceRollRenderer, {
+                        roll: result
+                    }), {
                         position: "bottom-right",
                         timeout: 5000
                     });
