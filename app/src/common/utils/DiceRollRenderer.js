@@ -85,7 +85,13 @@ function renderDie(die) {
         replies.push(doRender(roll));
     }
 
-    let reply = `<strong>${ die.value }</strong> = ${ replies.join(' + ') }`;
+    let reply = '';
+
+    if (die.length > 1) {
+        reply += `<strong>${ die.value }</strong> = `;
+    }
+
+    reply += ` ${ replies.join(' + ') }`;
 
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
         reply += `[*Rolling: ${ doRender(die.count) }d${ doRender(die.die) }*]`;
@@ -97,6 +103,8 @@ function renderDie(die) {
 function renderExpression(expr) {
     if (expr.dice.length > 1) {
         const expressions = [];
+
+        expressions.push(`<strong>${ expr.value }</strong> = `);
 
         for (let i = 0; i < expr.dice.length - 1; i++) {
             expressions.push(doRender(expr.dice[i]));
