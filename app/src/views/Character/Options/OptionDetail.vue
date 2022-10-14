@@ -2,9 +2,9 @@
     <content-detail class="option-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="option?.name?.eng || ''"
                 :title="option?.name?.rus || ''"
                 bookmark
@@ -50,7 +50,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewOption(this.$route.path);

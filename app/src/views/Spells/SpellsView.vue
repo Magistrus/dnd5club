@@ -59,7 +59,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.spellsStore.getFilter || undefined;
@@ -80,7 +80,7 @@
             },
 
             useAutoOpenFirst() {
-                return !this.getIsMobile && !!this.spells.length && this.$route.name === 'spells' && !this.inTab;
+                return !this.isMobile && !!this.spells.length && this.$route.name === 'spells' && !this.inTab;
             }
         },
         watch: {

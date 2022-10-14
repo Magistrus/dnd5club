@@ -55,7 +55,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.godsStore.getFilter || undefined;
@@ -91,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.gods.length && this.$route.name === 'gods') {
+            if (!this.isMobile && this.gods.length && this.$route.name === 'gods') {
                 await this.$router.push({ path: this.gods[0].url });
             }
         },
@@ -115,7 +115,7 @@
             async onSearch() {
                 await this.godsQuery();
 
-                if (this.gods.length === 1 && !this.getIsMobile) {
+                if (this.gods.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.gods[0].url });
                 }
             }

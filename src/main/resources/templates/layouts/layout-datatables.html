@@ -18,7 +18,7 @@
             <router-view></router-view>
         </div>
 
-        <img v-if="uiStore.getTheme" :src="`/img/${uiStore.getTheme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.theme" :src="`/img/${uiStore.theme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 	<th:block th:replace="layouts/layout :: mainJS"/>

@@ -50,7 +50,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.traitsStore.getFilter || undefined;
@@ -74,7 +74,7 @@
             await this.traitsStore.initFilter(this.storeKey);
             await this.traitsStore.initTraits();
 
-            if (!this.getIsMobile && this.traits.length && this.$route.name === 'traits') {
+            if (!this.isMobile && this.traits.length && this.$route.name === 'traits') {
                 await this.$router.push({ path: this.traits[0].url });
             }
         },
@@ -89,7 +89,7 @@
             async onSearch() {
                 await this.traitsQuery();
 
-                if (this.traits.length === 1 && !this.getIsMobile) {
+                if (this.traits.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.traits[0].url });
                 }
             }

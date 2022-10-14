@@ -62,7 +62,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.armorsStore.getFilter || undefined;
@@ -120,7 +120,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.armors[0]?.list?.length && this.$route.name === 'armors') {
+            if (!this.isMobile && this.armors[0]?.list?.length && this.$route.name === 'armors') {
                 await this.$router.push({ path: this.armors[0].list[0].url });
             }
         },
@@ -144,7 +144,7 @@
             async onSearch() {
                 this.armorsQuery();
 
-                if (this.armors.length === 1 && !this.getIsMobile) {
+                if (this.armors.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.armors[0].url });
                 }
             }

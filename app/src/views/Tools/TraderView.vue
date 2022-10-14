@@ -84,8 +84,8 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        :close-on-desktop="getFullscreen"
-                        :fullscreen="!getIsMobile"
+                        :close-on-desktop="fullscreen"
+                        :fullscreen="!isMobile"
                         :subtitle="selected.item?.name.eng || 'On sale'"
                         :title="selected.item?.name.rus || 'В продаже'"
                         @close="close"
@@ -193,7 +193,7 @@
             showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['fullscreen', 'isMobile']),
 
             magicLevelsValue: {
                 get() {
@@ -240,7 +240,7 @@
             await this.getLevels();
         },
         mounted() {
-            this.showRightSide = !this.getIsMobile;
+            this.showRightSide = !this.isMobile;
         },
         methods: {
             async getLevels() {

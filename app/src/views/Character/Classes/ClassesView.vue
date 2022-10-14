@@ -8,7 +8,7 @@
         <div
             ref="classes"
             class="class-items"
-            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': fullscreen }"
         >
             <div
                 v-for="(group, groupKey) in classes"
@@ -67,7 +67,7 @@
             search: ''
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useUIStore, ['isMobile', 'fullscreen']),
             ...mapState(useClassesStore, ['getClasses', 'getFilter']),
 
             filter() {

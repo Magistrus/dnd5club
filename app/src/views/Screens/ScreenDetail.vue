@@ -5,7 +5,7 @@
                 :title="screen?.name?.rus || ''"
                 :subtitle="screen?.name?.eng || ''"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 bookmark
                 close-on-desktop
                 @close="close"
@@ -55,7 +55,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewScreen(this.$route.path);

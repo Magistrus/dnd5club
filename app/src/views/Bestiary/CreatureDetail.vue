@@ -2,9 +2,9 @@
     <content-detail class="creature-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="creature?.name?.eng || ''"
                 :title="creature?.name?.rus || ''"
                 bookmark
@@ -50,7 +50,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewCreature(this.$route.path);

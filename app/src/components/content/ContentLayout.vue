@@ -5,11 +5,11 @@
         class="content-layout"
     >
         <div
-            :class="{ 'is-fullscreen': getFullscreen }"
+            :class="{ 'is-fullscreen': fullscreen }"
             class="content-layout__body"
         >
             <div
-                :class="{ 'is-fullscreen': getFullscreen, 'is-showed-right-side': showRightSide }"
+                :class="{ 'is-fullscreen': fullscreen, 'is-showed-right-side': showRightSide }"
                 class="content-layout__side--left"
             >
                 <div
@@ -34,7 +34,7 @@
 
                 <div
                     ref="items"
-                    :class="{ 'is-shadow': shadow || (showRightSide && getFullscreen) }"
+                    :class="{ 'is-shadow': shadow || (showRightSide && fullscreen) }"
                     class="content-layout__side--left_body"
                 >
                     <slot name="default"/>
@@ -44,7 +44,7 @@
             <div
                 v-if="showRightSide"
                 ref="detail"
-                :class="{ 'is-fullscreen': getFullscreen }"
+                :class="{ 'is-fullscreen': fullscreen }"
                 class="content-layout__side--right"
             >
                 <router-view
@@ -90,7 +90,7 @@
             shadow: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
+            ...mapState(useUIStore, ['isMobile', 'fullscreen'])
         },
         mounted() {
             const scrollEl = document.getElementById('dnd5club');
@@ -114,7 +114,7 @@
         },
         methods: {
             scrollToLastActive(url) {
-                if (this.getIsMobile) {
+                if (this.isMobile) {
                     return;
                 }
 
@@ -138,7 +138,7 @@
             },
 
             scrollToActive(oldLink) {
-                if (this.getIsMobile) {
+                if (this.isMobile) {
                     return;
                 }
 

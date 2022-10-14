@@ -135,7 +135,7 @@
             };
         },
         computed: {
-            ...mapState(useUIStore, ['getFullscreen']),
+            ...mapState(useUIStore, ['fullscreen']),
 
             hasSubraces() {
                 return !!this.raceItem?.subraces?.length;
@@ -164,7 +164,7 @@
                         || this.$route.params.raceName === this.$router.resolve(this.raceItem.url)?.params?.raceName,
                     'is-selected': this.$route.name === 'raceDetail',
                     'is-green': this.raceItem.type?.name.toLowerCase() === 'homebrew',
-                    'is-fullscreen': this.getFullscreen
+                    'is-fullscreen': this.fullscreen
                 };
             },
 

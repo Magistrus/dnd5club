@@ -55,7 +55,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.rulesStore.getFilter || undefined;
@@ -91,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.rules.length && this.$route.name === 'rules') {
+            if (!this.isMobile && this.rules.length && this.$route.name === 'rules') {
                 await this.$router.push({ path: this.rules[0].url });
             }
         },
@@ -115,7 +115,7 @@
             async onSearch() {
                 await this.rulesQuery();
 
-                if (this.rules.length === 1 && !this.getIsMobile) {
+                if (this.rules.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.rules[0].url });
                 }
             }

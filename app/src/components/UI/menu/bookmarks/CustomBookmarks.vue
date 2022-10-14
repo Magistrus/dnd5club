@@ -146,7 +146,7 @@
                 enableGroupCreating,
                 disableGroupCreating,
                 createGroup,
-                isMobile: computed(() => uiStore.getIsMobile)
+                isMobile: computed(() => uiStore.isMobile)
             };
         }
     });
