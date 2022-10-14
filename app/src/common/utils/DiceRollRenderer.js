@@ -88,10 +88,10 @@ function renderDie(die) {
     let reply = '';
 
     if (die.length === 1) {
-        reply += `<strong>${ die.value }</strong>`;
+        reply += `<strong>${ die.value }</strong> = `;
     }
 
-    reply += ` ${ replies.join('+') }`;
+    reply += ` ${ replies.join(' + ') }`;
 
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
         reply += `[*Rolling: ${ doRender(die.count) }d${ doRender(die.die) }*]`;
@@ -104,7 +104,7 @@ function renderExpression(expr) {
     if (expr.dice.length > 1) {
         const expressions = [];
 
-        expressions.push(`<strong>${ expr.value }</strong> `);
+        expressions.push(`<strong>${ expr.value }</strong> = `);
 
         for (let i = 0; i < expr.dice.length - 1; i++) {
             expressions.push(doRender(expr.dice[i]));
@@ -163,13 +163,13 @@ function renderRoll(roll) {
     if (!roll.valid) {
         rollDisplay = `<span><del>[${ roll.roll }]</del></span>`;
     } else if (roll.success && roll.value === 1) {
-        rollDisplay = `<span class="advantage">[${ roll.roll }]</span>`;
+        rollDisplay = `[<span class="advantage">${ roll.roll }</span>]`;
     } else if (roll.success && roll.value === -1) {
-        rollDisplay = `<span class="disadvantage">[${ roll.roll }]</span>`;
+        rollDisplay = `[<span class="disadvantage">${ roll.roll }</span>]`;
     } else if (!roll.success && roll.critical === 'success') {
-        rollDisplay = `<span class="advantage">[${ roll.roll }]</span>`;
+        rollDisplay = `[<span class="advantage">${ roll.roll }</span>]`;
     } else if (!roll.success && roll.critical === 'failure') {
-        rollDisplay = `<span class="disadvantage">[${ roll.roll }]</span>`;
+        rollDisplay = `[<span class="disadvantage">${ roll.roll }</span>]`;
     }
 
     if (roll.matched) {
