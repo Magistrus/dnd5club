@@ -6,8 +6,6 @@ function doRender(roll, root = false) {
 
     const { type } = roll;
 
-    console.log(type);
-
     switch (type) {
         case 'diceexpressionroll':
             render = renderGroupExpr(roll);
@@ -89,10 +87,6 @@ function renderDie(die) {
 
     let reply = '';
 
-    if (die.rolls.length > 1) {
-        reply += `<strong>${ die.value }</strong> = `;
-    }
-
     reply += ` ${ replies.join(' + ') }`;
 
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
@@ -105,8 +99,6 @@ function renderDie(die) {
 function renderExpression(expr) {
     if (expr.dice.length > 1) {
         const expressions = [];
-
-        expressions.push(`<strong>${ expr.value }</strong> = `);
 
         for (let i = 0; i < expr.dice.length - 1; i++) {
             expressions.push(doRender(expr.dice[i]));
@@ -207,9 +199,9 @@ function renderFateRoll(roll) {
 /* eslint-enable no-use-before-define */
 
 export const getRendered = roll => {
-    console.log(h('span', { innerHTML: doRender(roll, true) }));
+    const value = `<strong>${ roll.value }</strong> = `;
 
-    return h('span', { innerHTML: doRender(roll, true) });
+    return h('span', { innerHTML: value + doRender(roll, true) });
 };
 
 export default {
