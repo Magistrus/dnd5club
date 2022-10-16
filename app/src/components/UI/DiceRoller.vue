@@ -113,9 +113,15 @@
                     const roller = new DiceRoller();
                     const roll = roller.roll(getComputedFormula(type));
 
+                    let labelPrefix = '';
+
+                    if (type) {
+                        labelPrefix = type === 'disadvantage' ? ' (помеха)' : ' (преимущество)';
+                    }
+
                     toast(getRendered({
                         roll,
-                        label: props.label,
+                        label: `${ props.label }${ labelPrefix }`,
                         advantage: type === 'advantage' || props.isAdvantage,
                         disadvantage: type === 'disadvantage' || props.isDisadvantage
                     }), {
