@@ -4,6 +4,8 @@
         :class="classes"
         class="dice-roller"
         @click.left.exact.prevent="tryRoll"
+        @click.ctrl="disadvantageRoll"
+        @click.alt="advantageRoll"
     >
         <slot>{{ formula }}</slot>
     </span>
@@ -37,7 +39,9 @@
             }
         },
         data: () => ({
-            error: false
+            error: false,
+            advantage: false,
+            disadvantage: false
         }),
         computed: {
             classByType() {
@@ -67,6 +71,20 @@
             },
 
             computedFormula() {
+                if (this.advantage) {
+                    return this.formula
+                        .replace(/к/gim, 'd')
+                        .replace(/1{0,1}d20/gim, '2d20kh1')
+                        .replace(/–/gim, '-');
+                }
+
+                if (this.disadvantage) {
+                    return this.formula
+                        .replace(/к/gim, 'd')
+                        .replace(/1{0,1}d20/gim, '2d20kl1')
+                        .replace(/–/gim, '-');
+                }
+
                 return this.formula
                     .replace(/к/gim, 'd')
                     .replace(/–/gim, '-');
@@ -95,6 +113,16 @@
 
                     this.$toast.error('Произошла ошибка, попробуйте еще раз...');
                 }
+            },
+            disadvantageRoll() {
+                this.disadvantage = true;
+                this.tryRoll();
+                this.disadvantage = false;
+            },
+            advantageRoll() {
+                this.advantage = true;
+                this.tryRoll();
+                this.advantage = false;
             }
         }
     };
