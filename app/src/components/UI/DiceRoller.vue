@@ -80,7 +80,7 @@
 
                     this.$toast(getRendered(result), {
                         position: "bottom-right",
-                        timeout: false,
+                        timeout: 5000,
                         icon: 'dice-d20'
                     });
                 } catch (err) {
