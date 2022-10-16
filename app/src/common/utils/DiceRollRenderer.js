@@ -125,7 +125,7 @@ function renderFunction(roll) {
 
 function renderRoll(roll) {
     let rollDisplay = h(
-        !roll.valid ? 'del' : 'span',
+        'span',
         {
             class: {
                 advantage: (roll.success && roll.value === 1) || (!roll.success && roll.critical === 'success'),
@@ -139,7 +139,7 @@ function renderRoll(roll) {
         rollDisplay = h('u', rollDisplay);
     }
 
-    return h('span', [
+    return h(!roll.valid ? 'del' : 'span', [
         '[',
         rollDisplay,
         ']'
@@ -158,7 +158,7 @@ function renderFateRoll(roll) {
     }
 
     rollDisplay = h(
-        !roll.valid ? 'del' : 'span',
+        'span',
         {
             class: {
                 advantage: roll.success && roll.value === 1,
@@ -172,7 +172,7 @@ function renderFateRoll(roll) {
         rollDisplay = h('u', rollDisplay);
     }
 
-    return h('span', [
+    return h(!roll.valid ? 'del' : 'span', [
         '[',
         rollDisplay,
         ']'
@@ -180,11 +180,29 @@ function renderFateRoll(roll) {
 }
 /* eslint-enable no-use-before-define */
 
-export const getRendered = roll => h('span', [
-    h('strong', roll.value),
-    ' = ',
-    doRender(roll)
-]);
+export const getRendered = ({
+    roll = undefined
+
+    // advantage = false,
+    // disadvantage = false
+}) => {
+    if (!roll) {
+        throw new Error('roll is not defined');
+    }
+
+    return h('span', [
+        h(
+            'strong',
+            h(
+                'span',
+                {},
+                roll.value
+            )
+        ),
+        ' = ',
+        doRender(roll)
+    ]);
+};
 
 export default {
     getRendered

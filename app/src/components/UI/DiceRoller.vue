@@ -3,9 +3,10 @@
         v-tippy="{ content: `Нажмите для броска: <b>${formula}</b>` }"
         :class="classes"
         class="dice-roller"
-        @click.left.exact.prevent="tryRoll"
-        @click.ctrl="disadvantageRoll"
-        @click.alt="advantageRoll"
+        @click.left.exact.prevent="tryRoll()"
+        @click.left.shift.exact.prevent="tryRoll('advantage')"
+        @click.left.ctrl.exact.prevent="tryRoll('disadvantage')"
+        @click.left.meta.exact.prevent="tryRoll('disadvantage')"
     >
         <slot>{{ formula }}</slot>
     </span>
@@ -14,8 +15,8 @@
 <script>
     import { DiceRoller } from 'dice-roller-parser';
     import { getRendered } from "@/common/utils/DiceRollRenderer";
-    import { h } from "vue";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import { h } from "vue";
 
     export default {
         name: "DiceRoller",
@@ -39,9 +40,7 @@
             }
         },
         data: () => ({
-            error: false,
-            advantage: false,
-            disadvantage: false
+            error: false
         }),
         computed: {
             classByType() {
@@ -68,37 +67,26 @@
                 }
 
                 return classes;
-            },
-
-            computedFormula() {
-                if (this.advantage) {
-                    return this.formula
-                        .replace(/к/gim, 'd')
-                        .replace(/1{0,1}d20/gim, '2d20kh1')
-                        .replace(/–/gim, '-');
-                }
-
-                if (this.disadvantage) {
-                    return this.formula
-                        .replace(/к/gim, 'd')
-                        .replace(/1{0,1}d20/gim, '2d20kl1')
-                        .replace(/–/gim, '-');
-                }
-
-                return this.formula
-                    .replace(/к/gim, 'd')
-                    .replace(/–/gim, '-');
             }
         },
         methods: {
-            tryRoll() {
+            /**
+             * Выполнение броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             */
+            tryRoll(type = undefined) {
                 try {
                     this.error = false;
 
                     const roller = new DiceRoller();
-                    const result = roller.roll(this.computedFormula);
+                    const roll = roller.roll(this.getComputedFormula(type));
 
-                    this.$toast(getRendered(result), {
+                    this.$toast(getRendered({
+                        roll,
+                        advantage: type === 'advantage' || this.isAdvantage,
+                        disadvantage: type === 'disadvantage' || this.isDisadvantage
+                    }), {
                         position: "bottom-right",
                         timeout: 5000,
                         icon: h(
@@ -114,15 +102,31 @@
                     this.$toast.error('Произошла ошибка, попробуйте еще раз...');
                 }
             },
-            disadvantageRoll() {
-                this.disadvantage = true;
-                this.tryRoll();
-                this.disadvantage = false;
-            },
-            advantageRoll() {
-                this.advantage = true;
-                this.tryRoll();
-                this.advantage = false;
+
+            /**
+             * Получение формулы броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             * @return { string }
+             */
+            getComputedFormula(type = undefined) {
+                if (this.isAdvantage || type === 'advantage') {
+                    return this.formula
+                        .replace(/к/gim, 'd')
+                        .replace(/1?d20/gim, '2d20kh1')
+                        .replace(/–/gim, '-');
+                }
+
+                if (this.isDisadvantage || type === 'disadvantage') {
+                    return this.formula
+                        .replace(/к/gim, 'd')
+                        .replace(/1?d20/gim, '2d20kl1')
+                        .replace(/–/gim, '-');
+                }
+
+                return this.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/–/gim, '-');
             }
         }
     };
