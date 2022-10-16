@@ -10,7 +10,10 @@
 </template>
 
 <script>
-    import { DiceRoller, DiscordRollRenderer } from 'dice-roller-parser';
+    import { DiceRoller } from 'dice-roller-parser';
+    import { getRendered } from "@/common/utils/DiceRollRenderer";
+    import { h } from "vue";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
 
     export default {
         name: "DiceRoller",
@@ -64,7 +67,9 @@
             },
 
             computedFormula() {
-                return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
+                return this.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/–/gim, '-');
             }
         },
         methods: {
@@ -73,12 +78,17 @@
                     this.error = false;
 
                     const roller = new DiceRoller();
-                    const rollerRenderer = new DiscordRollRenderer();
                     const result = roller.roll(this.computedFormula);
 
-                    this.$toast(rollerRenderer.render(result), {
+                    this.$toast(getRendered(result), {
                         position: "bottom-right",
-                        timeout: 5000
+                        timeout: 5000,
+                        icon: h(
+                            SvgIcon,
+                            {
+                                iconName: 'dice-d20'
+                            }
+                        )
                     });
                 } catch (err) {
                     this.error = true;
