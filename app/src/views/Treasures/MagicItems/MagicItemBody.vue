@@ -40,7 +40,7 @@
 
                 <b>Стоимость по <span
                     v-tippy="'Руководство Зантара обо всем'"
-                >XGE</span>:</b> <span>{{ magicItem.cost.xge }}</span>
+                >XGE</span>:</b> <span><dice-roller :formula="magicItem.cost.xge"/></span> зм.
             </p>
 
             <raw-content
