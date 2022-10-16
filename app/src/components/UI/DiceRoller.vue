@@ -65,7 +65,9 @@
             },
 
             computedFormula() {
-                return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
+                return this.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/–/gim, '-');
             }
         },
         methods: {

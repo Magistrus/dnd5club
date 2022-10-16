@@ -1,14 +1,14 @@
 /* eslint-disable no-use-before-define */
 import { h } from 'vue';
 
-function doRender(roll, root = false) {
-    let render = '';
+function doRender(roll) {
+    let render;
 
     const { type } = roll;
 
     switch (type) {
         case 'diceexpressionroll':
-            render = renderGroupExpr(roll);
+            render = renderGroup(roll);
 
             break;
         case 'grouproll':
@@ -32,68 +32,70 @@ function doRender(roll, root = false) {
         case 'fateroll':
             return renderFateRoll(roll);
         case 'number':
-            return `${ roll.value }${ roll.label
-                ? ` (${ roll.label })`
-                : '' }`;
+            return h(
+                'span',
+                `${ roll.value }${ roll.label
+                    ? ` (${ roll.label })`
+                    : '' }`
+            );
         case 'fate':
-            return 'F';
+            return h('span', 'F');
         default:
             throw new Error('Unable to render');
     }
 
     if (!roll.valid) {
-        render = `<u>${ render.replace(/~~/g, '') }</u>`;
+        render = h('u', render);
     }
 
-    if (root) {
-        return stripBrackets(render);
-    }
-
-    return roll.label ? `(${ roll.label }: ${ render })` : render;
+    return roll.label
+        ? h('span', [h('span', `${ roll.label }: `), render])
+        : h('span', render);
 }
 
 function renderGroup(group) {
     const replies = [];
 
-    for (const die of group.dice) {
+    for (let i = 0; i < group.dice.length; i++) {
+        const die = group.dice[0];
+
         replies.push(doRender(die));
+
+        if (i < group.dice.length - 1) {
+            replies.push(h('span', ' + '));
+        }
     }
 
-    if (replies.length > 1) {
-        return `{ ${ replies.join(' + ') } }`;
-    }
-
-    const reply = stripBrackets(replies[0]);
-
-    return `{ ${ reply } }`;
-}
-
-function renderGroupExpr(group) {
-    const replies = [];
-
-    for (const die of group.dice) {
-        replies.push(doRender(die));
-    }
-
-    return replies.length > 1 ? `${ replies.join(' + ') }` : replies[0];
+    return h('span', replies);
 }
 
 function renderDie(die) {
     const replies = [];
 
-    for (const roll of die.rolls) {
+    for (let i = 0; i < die.rolls.length; i++) {
+        const roll = die.rolls[i];
+
         replies.push(doRender(roll));
+
+        if (i < die.rolls.length - 1) {
+            replies.push(h('span', ' + '));
+        }
     }
-
-    let reply = '';
-
-    reply += ` ${ replies.join(' + ') }`;
 
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
-        reply += `[*Rolling: ${ doRender(die.count) }d${ doRender(die.die) }*]`;
+        replies.push(h('span', [
+            h('span', '['),
+            h('i', [
+                h('span', 'Rolling: '),
+                doRender(die.count),
+                h('span', 'd'),
+                doRender(die.die)
+            ]),
+            h('span', ']')
+        ]));
     }
 
-    return `${ reply }`;
+    return h('span', replies);
 }
 
 function renderExpression(expr) {
@@ -102,106 +104,86 @@ function renderExpression(expr) {
 
         for (let i = 0; i < expr.dice.length - 1; i++) {
             expressions.push(doRender(expr.dice[i]));
-            expressions.push(expr.ops[i]);
+            expressions.push(h('span', ` ${ expr.ops[i] } `));
         }
 
         expressions.push(doRender(expr.dice.slice(-1)[0]));
 
-        return `${ expressions.join(' ') }`;
+        return h('span', expressions);
     }
 
     if (expr.dice[0].type === 'number') {
-        return `${ expr.value }`;
+        return h('span', expr.value);
     }
 
     return doRender(expr.dice[0]);
 }
 
 function renderFunction(roll) {
-    const render = doRender(roll.expr);
-
-    return `${ roll.op }${ addBrackets(render) }`;
-}
-
-function addBrackets(render) {
-    let res = render;
-
-    if (!render.startsWith('(')) {
-        res = `(${ res }`;
-    }
-
-    if (!render.endsWith(')')) {
-        res = `${ res })`;
-    }
-
-    return res;
-}
-
-function stripBrackets(render) {
-    let res = render;
-
-    if (render.startsWith('(')) {
-        res = res.substring(1);
-    }
-
-    if (render.endsWith(')')) {
-        res = res.substring(0, res.length - 1);
-    }
-
-    return res;
+    return h('span', [roll.op, doRender(roll.expr)]);
 }
 
 function renderRoll(roll) {
-    let rollDisplay = `<span>[${ roll.roll }]</span>`;
+    let rollDisplay = h('span', roll.roll);
 
     if (!roll.valid) {
-        rollDisplay = `<span><del>[${ roll.roll }]</del></span>`;
+        rollDisplay = h('del', roll.roll);
     } else if (roll.success && roll.value === 1) {
-        rollDisplay = `[<span class="advantage">${ roll.roll }</span>]`;
+        rollDisplay = h('span', { class: 'advantage' }, roll.roll);
     } else if (roll.success && roll.value === -1) {
-        rollDisplay = `[<span class="disadvantage">${ roll.roll }</span>]`;
+        rollDisplay = h('span', { class: 'disadvantage' }, roll.roll);
     } else if (!roll.success && roll.critical === 'success') {
-        rollDisplay = `[<span class="advantage">${ roll.roll }</span>]`;
+        rollDisplay = h('span', { class: 'advantage' }, roll.roll);
     } else if (!roll.success && roll.critical === 'failure') {
-        rollDisplay = `[<span class="disadvantage">${ roll.roll }</span>]`;
+        rollDisplay = h('span', { class: 'disadvantage' }, roll.roll);
     }
 
     if (roll.matched) {
-        rollDisplay = `__${ rollDisplay }__`;
+        rollDisplay = h('u', rollDisplay);
     }
 
-    return rollDisplay;
+    return h('span', [
+        h('span', '['),
+        h('span', [rollDisplay]),
+        h('span', ']')
+    ]);
 }
 
 function renderFateRoll(roll) {
-    const rollValue = roll.roll === 0
-        ? '0'
-        : roll.roll > 0
-            ? '+'
-            : '-';
-
     let rollDisplay = `${ roll.roll }`;
 
+    if (roll.roll > 0) {
+        rollDisplay = `+${ roll.roll }`;
+    }
+
+    if (roll.roll < 0) {
+        rollDisplay = `-${ roll.roll }`;
+    }
+
     if (!roll.valid) {
-        rollDisplay = `<span><del>[${ rollValue }]</del></span>`;
+        rollDisplay = h('del', rollDisplay);
     } else if (roll.success && roll.value === 1) {
-        rollDisplay = `<span class="advantage">[${ rollValue }]</span>`;
+        rollDisplay = h('span', { class: 'advantage' }, rollDisplay);
     } else if (roll.success && roll.value === -1) {
-        rollDisplay = `<span class="disadvantage">[${ rollValue }]</span>`;
+        rollDisplay = h('span', { class: 'disadvantage' }, rollDisplay);
     }
 
     if (roll.matched) {
-        rollDisplay = `__${ rollDisplay }__`;
+        rollDisplay = h('u', rollDisplay);
     }
 
-    return rollDisplay;
+    return h('span', `[${ rollDisplay }]`);
 }
 /* eslint-enable no-use-before-define */
 
 export const getRendered = roll => {
-    const value = `<strong>${ roll.value }</strong> = `;
+    const result = h('strong', roll.value);
 
-    return h('span', { innerHTML: value + doRender(roll, true) });
+    return h('span', [
+        result,
+        h('span', ' = '),
+        h('span', doRender(roll))
+    ]);
 };
 
 export default {
