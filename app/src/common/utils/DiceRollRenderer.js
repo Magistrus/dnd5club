@@ -39,7 +39,7 @@ function doRender(roll) {
                     : '' }`
             );
         case 'fate':
-            return h('span', 'F');
+            return 'F';
         default:
             throw new Error('Unable to render');
     }
@@ -120,23 +120,20 @@ function renderExpression(expr) {
 }
 
 function renderFunction(roll) {
-    return h('span', [h('span', roll.op), doRender(roll.expr)]);
+    return h('span', [roll.op, doRender(roll.expr)]);
 }
 
 function renderRoll(roll) {
-    let rollDisplay = roll.roll;
-
-    if (!roll.valid) {
-        rollDisplay = h('del', roll.roll);
-    } else if (roll.success && roll.value === 1) {
-        rollDisplay = h('span', { class: 'advantage' }, roll.roll);
-    } else if (roll.success && roll.value === -1) {
-        rollDisplay = h('span', { class: 'disadvantage' }, roll.roll);
-    } else if (!roll.success && roll.critical === 'success') {
-        rollDisplay = h('span', { class: 'advantage' }, roll.roll);
-    } else if (!roll.success && roll.critical === 'failure') {
-        rollDisplay = h('span', { class: 'disadvantage' }, roll.roll);
-    }
+    let rollDisplay = h(
+        !roll.valid ? 'del' : 'span',
+        {
+            class: {
+                advantage: (roll.success && roll.value === 1) || (!roll.success && roll.critical === 'success'),
+                disadvantage: (roll.success && roll.value === -1) || (!roll.success && roll.critical === 'failure')
+            }
+        },
+        roll.roll
+    );
 
     if (roll.matched) {
         rollDisplay = h('u', rollDisplay);
@@ -153,20 +150,23 @@ function renderFateRoll(roll) {
     let rollDisplay = roll.roll;
 
     if (roll.roll > 0) {
-        rollDisplay = h('span', ['+', rollDisplay]);
+        rollDisplay = `+${ rollDisplay }`;
     }
 
     if (roll.roll < 0) {
-        rollDisplay = h('span', ['-', rollDisplay]);
+        rollDisplay = `-${ rollDisplay }`;
     }
 
-    if (!roll.valid) {
-        rollDisplay = h('del', rollDisplay);
-    } else if (roll.success && roll.value === 1) {
-        rollDisplay = h('span', { class: 'advantage' }, rollDisplay);
-    } else if (roll.success && roll.value === -1) {
-        rollDisplay = h('span', { class: 'disadvantage' }, rollDisplay);
-    }
+    rollDisplay = h(
+        !roll.valid ? 'del' : 'span',
+        {
+            class: {
+                advantage: roll.success && roll.value === 1,
+                disadvantage: roll.success && roll.value === -1
+            }
+        },
+        rollDisplay
+    );
 
     if (roll.matched) {
         rollDisplay = h('u', rollDisplay);
