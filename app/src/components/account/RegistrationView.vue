@@ -152,6 +152,7 @@
                         email: this.email.trim(),
                         password: this.password.trim()
                     });
+
                     await this.authorization({
                         usernameOrEmail: this.username.trim(),
                         password: this.password.trim(),

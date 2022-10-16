@@ -132,6 +132,7 @@
                     const options = {
                         count: this.count || 1
                     };
+
                     const type = this.types.find(el => el.toggled);
 
                     if (type) {

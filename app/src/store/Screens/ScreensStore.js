@@ -66,6 +66,7 @@ export const useScreensStore = defineStore('ScreensStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(
                     this.config.url,
                     apiOptions,

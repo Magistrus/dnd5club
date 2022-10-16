@@ -239,6 +239,7 @@
                     this.loading = true;
                     this.currentTab = undefined;
                     this.tabs = [];
+
                     this.images = {
                         show: false,
                         index: 0

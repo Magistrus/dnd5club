@@ -55,6 +55,7 @@
     let rectTrigger;
 
     const emit = defineEmits(['update:model-value', 'close']);
+
     const props = defineProps({
         modelValue: {
             type: Boolean,
@@ -69,11 +70,14 @@
             default: false
         }
     });
+
     const body = ref(null);
+
     const show = reactive({
         layer: false,
         body: false
     });
+
     const rectBody = useElementBounding(body);
     const position = reactive({});
     const maxHeight = ref('calc(var(--max-vh) / 100 * 90)');

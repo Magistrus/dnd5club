@@ -9,6 +9,7 @@ import errorHandler from '@/common/helpers/errorHandler';
 import HTTPService from '@/common/services/HTTPService';
 
 const http = new HTTPService();
+
 const checkExist = async (value, type) => {
     try {
         const resp = await http.post(

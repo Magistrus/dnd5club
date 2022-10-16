@@ -11,11 +11,13 @@ dayjs.extend(localizedFormat);
 dayjs.extend(customParseFormat);
 
 const dayjsInjectionKey = Symbol('dayjs');
+
 const provideDayjs = () => {
     if (getCurrentInstance()) {
         provide(dayjsInjectionKey, dayjs);
     }
 };
+
 const useDayjs = () => {
     const dayjsInstance = getCurrentInstance()
         ? inject(dayjsInjectionKey, undefined)

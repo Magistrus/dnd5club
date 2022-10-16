@@ -84,6 +84,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(
                     this.config.url,
                     apiOptions,

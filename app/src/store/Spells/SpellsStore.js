@@ -87,6 +87,7 @@ export const useSpellsStore = defineStore('SpellsStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(
                     this.config.url,
                     apiOptions,

@@ -116,12 +116,15 @@
             const success = ref(false);
             const inProgress = ref(false);
             const error = ref({});
+
             const state = reactive({
                 email: '',
                 password: '',
                 repeat: ''
             });
+
             const isOnlyPassword = computed(() => props.token || userStore.isAuthenticated);
+
             const validations = computed(() => {
                 if (isOnlyPassword.value) {
                     return {
@@ -153,6 +156,7 @@
                     }
                 };
             });
+
             const v$ = useVuelidate(validations.value, state, { $lazy: true });
 
             async function sendQuery() {

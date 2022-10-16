@@ -44,13 +44,10 @@ function doRender(roll) {
             throw new Error('Unable to render');
     }
 
-    if (!roll.valid) {
-        render = h('u', render);
-    }
-
-    return roll.label
-        ? h('span', [`${ roll.label }: `, render])
-        : h('span', render);
+    return h(
+        !roll.valid ? 'u' : 'span',
+        render
+    );
 }
 
 function renderGroup(group) {
@@ -66,7 +63,10 @@ function renderGroup(group) {
         }
     }
 
-    return h('span', replies);
+    return h(
+        'span',
+        replies
+    );
 }
 
 function renderDie(die) {
@@ -85,12 +85,15 @@ function renderDie(die) {
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
         replies.push(h('span', [
             '[',
-            h('i', [
-                'Rolling: ',
-                doRender(die.count),
-                'd',
-                doRender(die.die)
-            ]),
+            h(
+                'i',
+                [
+                    'Rolling: ',
+                    doRender(die.count),
+                    'd',
+                    doRender(die.die)
+                ]
+            ),
             ']'
         ]));
     }
@@ -109,7 +112,10 @@ function renderExpression(expr) {
 
         expressions.push(doRender(expr.dice.slice(-1)[0]));
 
-        return h('span', expressions);
+        return h(
+            'span',
+            expressions
+        );
     }
 
     if (expr.dice[0].type === 'number') {
@@ -120,7 +126,10 @@ function renderExpression(expr) {
 }
 
 function renderFunction(roll) {
-    return h('span', [roll.op, doRender(roll.expr)]);
+    return h(
+        'span',
+        [roll.op, doRender(roll.expr)]
+    );
 }
 
 function renderRoll(roll) {
@@ -139,11 +148,14 @@ function renderRoll(roll) {
         rollDisplay = h('u', rollDisplay);
     }
 
-    return h(!roll.valid ? 'del' : 'span', [
-        '[',
-        rollDisplay,
-        ']'
-    ]);
+    return h(
+        !roll.valid ? 'del' : 'span',
+        [
+            '[',
+            rollDisplay,
+            ']'
+        ]
+    );
 }
 
 function renderFateRoll(roll) {
@@ -172,16 +184,20 @@ function renderFateRoll(roll) {
         rollDisplay = h('u', rollDisplay);
     }
 
-    return h(!roll.valid ? 'del' : 'span', [
-        '[',
-        rollDisplay,
-        ']'
-    ]);
+    return h(
+        !roll.valid ? 'del' : 'span',
+        [
+            '[',
+            rollDisplay,
+            ']'
+        ]
+    );
 }
 /* eslint-enable no-use-before-define */
 
 export const getRendered = ({
-    roll = undefined
+    roll = undefined,
+    label = ''
 
     // advantage = false,
     // disadvantage = false
@@ -190,18 +206,51 @@ export const getRendered = ({
         throw new Error('roll is not defined');
     }
 
-    return h('span', [
-        h(
-            'strong',
+    const rendered = h(
+        'span',
+        {
+            class: 'dice-roll__rendered'
+        },
+        doRender(roll)
+    );
+
+    return h(
+        'span',
+        {
+            class: 'dice-roll'
+        },
+        [
+            h(
+                'strong',
+                {
+                    class: {
+                        'dice-roll__result': true,
+                        'is-critical': false,
+                        'is-failure': false
+                    }
+                },
+                roll.value
+            ),
             h(
                 'span',
-                {},
-                roll.value
+                {
+                    class: 'dice-roll__body'
+                },
+                label
+                    ? [
+                        h(
+                            'span',
+                            {
+                                class: 'dice-roll__label'
+                            },
+                            label
+                        ),
+                        rendered
+                    ]
+                    : rendered
             )
-        ),
-        ' = ',
-        doRender(roll)
-    ]);
+        ]
+    );
 };
 
 export default {

@@ -91,6 +91,7 @@
                     })),
                     [o => o.group.order]
                 );
+
                 const sorted = [
                     {
                         list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])

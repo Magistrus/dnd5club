@@ -101,6 +101,7 @@
             const userStore = useUserStore();
             const popover = ref(false);
             const modal = ref('');
+
             const modals = computed(() => ([
                 {
                     rus: 'Авторизация',
@@ -118,8 +119,10 @@
                     component: () => ChangePasswordView
                 }
             ]));
+
             const modalInfo = computed(() => modals.value.find(item => item.eng === modal.value));
             const modalComponent = computed(() => modalInfo.value?.component());
+
             const isModalOpened = computed({
                 get: () => !!modal.value,
                 set: e => {
@@ -128,6 +131,7 @@
                         : false;
                 }
             });
+
             const greeting = computed(() => {
                 const hours = new Date().getHours();
 

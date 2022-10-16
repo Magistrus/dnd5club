@@ -133,6 +133,7 @@
                             .filter(source => source.value)
                             .map(source => source.shortName)
                     };
+
                     const resp = await this.$http.post('/tools/wildmagic', options, this.controller.signal);
 
                     if (resp.status !== 200) {
