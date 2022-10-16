@@ -12,6 +12,8 @@
 <script>
     import { DiceRoller } from 'dice-roller-parser';
     import { getRendered } from "@/common/utils/DiceRollRenderer";
+    import { h } from "vue";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
 
     export default {
         name: "DiceRoller",
@@ -81,7 +83,12 @@
                     this.$toast(getRendered(result), {
                         position: "bottom-right",
                         timeout: 5000,
-                        icon: 'dice-d20'
+                        icon: h(
+                            SvgIcon,
+                            {
+                                iconName: 'dice-d20'
+                            }
+                        )
                     });
                 } catch (err) {
                     this.error = true;
