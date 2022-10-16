@@ -49,7 +49,7 @@ function doRender(roll) {
     }
 
     return roll.label
-        ? h('span', [h('span', `${ roll.label }: `), render])
+        ? h('span', [`${ roll.label }: `, render])
         : h('span', render);
 }
 
@@ -62,7 +62,7 @@ function renderGroup(group) {
         replies.push(doRender(die));
 
         if (i < group.dice.length - 1) {
-            replies.push(h('span', ' + '));
+            replies.push(' + ');
         }
     }
 
@@ -78,20 +78,20 @@ function renderDie(die) {
         replies.push(doRender(roll));
 
         if (i < die.rolls.length - 1) {
-            replies.push(h('span', ' + '));
+            replies.push(' + ');
         }
     }
 
     if (!['number', 'fate'].includes(die.die.type) || die.count.type !== 'number') {
         replies.push(h('span', [
-            h('span', '['),
+            '[',
             h('i', [
-                h('span', 'Rolling: '),
+                'Rolling: ',
                 doRender(die.count),
-                h('span', 'd'),
+                'd',
                 doRender(die.die)
             ]),
-            h('span', ']')
+            ']'
         ]));
     }
 
@@ -104,7 +104,7 @@ function renderExpression(expr) {
 
         for (let i = 0; i < expr.dice.length - 1; i++) {
             expressions.push(doRender(expr.dice[i]));
-            expressions.push(h('span', ` ${ expr.ops[i] } `));
+            expressions.push(` ${ expr.ops[i] } `);
         }
 
         expressions.push(doRender(expr.dice.slice(-1)[0]));
@@ -113,18 +113,18 @@ function renderExpression(expr) {
     }
 
     if (expr.dice[0].type === 'number') {
-        return h('span', expr.value);
+        return expr.value;
     }
 
     return doRender(expr.dice[0]);
 }
 
 function renderFunction(roll) {
-    return h('span', [roll.op, doRender(roll.expr)]);
+    return h('span', [h('span', roll.op), doRender(roll.expr)]);
 }
 
 function renderRoll(roll) {
-    let rollDisplay = h('span', roll.roll);
+    let rollDisplay = roll.roll;
 
     if (!roll.valid) {
         rollDisplay = h('del', roll.roll);
@@ -143,21 +143,21 @@ function renderRoll(roll) {
     }
 
     return h('span', [
-        h('span', '['),
-        h('span', [rollDisplay]),
-        h('span', ']')
+        '[',
+        rollDisplay,
+        ']'
     ]);
 }
 
 function renderFateRoll(roll) {
-    let rollDisplay = `${ roll.roll }`;
+    let rollDisplay = roll.roll;
 
     if (roll.roll > 0) {
-        rollDisplay = `+${ roll.roll }`;
+        rollDisplay = h('span', ['+', rollDisplay]);
     }
 
     if (roll.roll < 0) {
-        rollDisplay = `-${ roll.roll }`;
+        rollDisplay = h('span', ['-', rollDisplay]);
     }
 
     if (!roll.valid) {
@@ -172,19 +172,19 @@ function renderFateRoll(roll) {
         rollDisplay = h('u', rollDisplay);
     }
 
-    return h('span', `[${ rollDisplay }]`);
+    return h('span', [
+        '[',
+        rollDisplay,
+        ']'
+    ]);
 }
 /* eslint-enable no-use-before-define */
 
-export const getRendered = roll => {
-    const result = h('strong', roll.value);
-
-    return h('span', [
-        result,
-        h('span', ' = '),
-        h('span', doRender(roll))
-    ]);
-};
+export const getRendered = roll => h('span', [
+    h('strong', roll.value),
+    ' = ',
+    doRender(roll)
+]);
 
 export default {
     getRendered
