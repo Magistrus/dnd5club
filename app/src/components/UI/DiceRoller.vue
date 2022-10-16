@@ -29,7 +29,7 @@
             },
             label: {
                 type: String,
-                default: ''
+                default: 'Бросок'
             },
             isAdvantage: {
                 type: Boolean,
