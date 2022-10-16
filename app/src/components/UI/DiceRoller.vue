@@ -3,14 +3,20 @@
         v-tippy="{ content: `Нажмите для броска: <b>${formula}</b>` }"
         :class="classes"
         class="dice-roller"
-        @click.left.exact.prevent="tryRoll"
+        @click.left.exact.prevent="tryRoll()"
+        @click.left.shift.exact.prevent="tryRoll('advantage')"
+        @click.left.ctrl.exact.prevent="tryRoll('disadvantage')"
+        @click.left.meta.exact.prevent="tryRoll('disadvantage')"
     >
         <slot>{{ formula }}</slot>
     </span>
 </template>
 
 <script>
-    import { DiceRoller, DiscordRollRenderer } from 'dice-roller-parser';
+    import { DiceRoller } from 'dice-roller-parser';
+    import { getRendered } from "@/common/utils/DiceRollRenderer";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import { h } from "vue";
 
     export default {
         name: "DiceRoller",
@@ -61,30 +67,66 @@
                 }
 
                 return classes;
-            },
-
-            computedFormula() {
-                return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
             }
         },
         methods: {
-            tryRoll() {
+            /**
+             * Выполнение броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             */
+            tryRoll(type = undefined) {
                 try {
                     this.error = false;
 
                     const roller = new DiceRoller();
-                    const rollerRenderer = new DiscordRollRenderer();
-                    const result = roller.roll(this.computedFormula);
+                    const roll = roller.roll(this.getComputedFormula(type));
 
-                    this.$toast(rollerRenderer.render(result), {
+                    this.$toast(getRendered({
+                        roll,
+                        advantage: type === 'advantage' || this.isAdvantage,
+                        disadvantage: type === 'disadvantage' || this.isDisadvantage
+                    }), {
                         position: "bottom-right",
-                        timeout: 5000
+                        timeout: 5000,
+                        icon: h(
+                            SvgIcon,
+                            {
+                                iconName: 'dice-d20'
+                            }
+                        )
                     });
                 } catch (err) {
                     this.error = true;
 
                     this.$toast.error('Произошла ошибка, попробуйте еще раз...');
                 }
+            },
+
+            /**
+             * Получение формулы броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             * @return { string }
+             */
+            getComputedFormula(type = undefined) {
+                if (this.isAdvantage || type === 'advantage') {
+                    return this.formula
+                        .replace(/к/gim, 'd')
+                        .replace(/1?d20/gim, '2d20kh1')
+                        .replace(/–/gim, '-');
+                }
+
+                if (this.isDisadvantage || type === 'disadvantage') {
+                    return this.formula
+                        .replace(/к/gim, 'd')
+                        .replace(/1?d20/gim, '2d20kl1')
+                        .replace(/–/gim, '-');
+                }
+
+                return this.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/–/gim, '-');
             }
         }
     };
