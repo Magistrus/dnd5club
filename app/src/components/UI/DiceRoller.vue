@@ -201,7 +201,7 @@
             text-transform: uppercase;
             font-size: calc(var(--main-font-size) - 2px);
             line-height: calc(var(--main-font-size) + 2px);
-            padding-top: 2px;
+            padding-top: 4px;
         }
 
         &__rendered {
