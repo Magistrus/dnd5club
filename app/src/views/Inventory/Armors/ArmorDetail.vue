@@ -23,11 +23,11 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from "@/components/UI/SectionHeader";
     import ArmorBody from "@/views/Inventory/Armors/ArmorBody";
     import { useArmorsStore } from "@/store/Inventory/ArmorsStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

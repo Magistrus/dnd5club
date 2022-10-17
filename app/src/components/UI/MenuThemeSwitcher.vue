@@ -12,9 +12,9 @@
 </template>
 
 <script>
+    import { computed } from "vue";
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useUIStore } from '@/store/UI/UIStore';
-    import { computed } from "vue";
 
     export default {
         name: 'MenuThemeSwitcher',

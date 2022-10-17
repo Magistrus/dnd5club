@@ -1,8 +1,8 @@
 <script>
-    import defineRawComponent from "@/common/utils/DefineRawComponent";
     import {
         h, shallowRef
     } from "vue";
+    import defineRawComponent from "@/common/utils/DefineRawComponent";
 
     export default {
         name: "RawContent",

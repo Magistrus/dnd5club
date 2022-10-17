@@ -103,9 +103,9 @@
     </vue-final-modal>
 </template>
 <script>
+    import { mapActions, mapState } from "pinia";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
     import UiButton from "@/components/form/UiButton";
-    import { mapActions, mapState } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
 

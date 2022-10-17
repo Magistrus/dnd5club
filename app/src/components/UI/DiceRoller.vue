@@ -14,9 +14,9 @@
 
 <script>
     import { DiceRoller } from 'dice-roller-parser';
-    import { getRendered } from "@/common/utils/DiceRollRenderer";
     import { POSITION, useToast } from "vue-toastification";
     import { computed, ref } from "vue";
+    import { getRendered } from "@/common/utils/DiceRollRenderer";
     import { useIsDev } from "@/common/helpers/isDev";
 
     export default {

@@ -29,12 +29,12 @@
 
 <script>
     import { shallowRef } from "vue";
+    import sortBy from "lodash/sortBy";
+    import { mapState } from "pinia";
     import TabLayout from "@/components/content/TabLayout";
     import ContentLayout from "@/components/content/ContentLayout";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import WeaponLink from "@/views/Inventory/Weapons/WeaponLink";
-    import sortBy from "lodash/sortBy";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

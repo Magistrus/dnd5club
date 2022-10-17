@@ -1,6 +1,6 @@
 <template>
     <router-link
-        v-slot="{href, navigate, isActive}"
+        v-slot="{ href, navigate, isActive }"
         v-bind="$props"
         :to="{ path: raceItem.url }"
         custom
@@ -113,8 +113,8 @@
 
 <script>
     import { RouterLink } from 'vue-router';
-    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { mapState } from "pinia";
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

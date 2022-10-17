@@ -45,11 +45,11 @@
 </template>
 
 <script>
-    import RawContent from "@/components/content/RawContent";
     import { RouterLink } from "vue-router";
+    import { mapActions } from "pinia";
+    import RawContent from "@/components/content/RawContent";
     import BaseModal from "@/components/UI/modals/BaseModal";
     import ScreenBody from "@/views/Screens/ScreenBody";
-    import { mapActions } from "pinia";
     import { useScreensStore } from "@/store/Screens/ScreensStore";
 
     export default {

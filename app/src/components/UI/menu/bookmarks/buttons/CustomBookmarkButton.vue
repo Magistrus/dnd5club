@@ -34,16 +34,16 @@
 </template>
 
 <script>
-    import UiButton from "@/components/form/UiButton";
     import {
         computed,
         defineComponent, ref, toRefs
     } from "vue";
-    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import errorHandler from "@/common/helpers/errorHandler";
     import { useRoute } from "vue-router";
     import { OnClickOutside } from "@vueuse/components";
     import { useToast } from "vue-toastification";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import UiButton from "@/components/form/UiButton";
 
     export default defineComponent({
         components: {

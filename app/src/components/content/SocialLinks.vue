@@ -13,6 +13,7 @@
                 :href="link.url"
                 class="social-links__link"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 <svg-icon
                     :icon-name="link.icon"

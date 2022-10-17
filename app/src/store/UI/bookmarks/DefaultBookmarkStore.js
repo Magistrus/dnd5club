@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
 import localforage from 'localforage';
-import { DB_NAME } from '@/common/const/UI';
-import errorHandler from '@/common/helpers/errorHandler';
 import isArray from 'lodash/isArray';
 import { v4 as uuidV4 } from 'uuid';
 import sortBy from 'lodash/sortBy';
+import errorHandler from '@/common/helpers/errorHandler';
+import { DB_NAME } from '@/common/const/UI';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {

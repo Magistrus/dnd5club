@@ -11,18 +11,18 @@
             :key="option.url"
             :in-tab="inTab"
             :option-item="option"
-            :to="{path: option.url}"
+            :to="{ path: option.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useOptionsStore } from "@/store/Character/OptionsStore";
     import OptionLink from "@/views/Character/Options/OptionLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

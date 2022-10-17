@@ -69,7 +69,7 @@
                     v-tippy="{
                         content: uiStore.fullscreen
                             ? 'Свернуть окно'
-                            : 'Развернуть окно'
+                            : 'Развернуть окно',
                     }"
                     class="section-header__control--main is-only-desktop"
                     type="button"
@@ -93,10 +93,10 @@
 </template>
 
 <script>
+    import { useClipboard } from "@vueuse/core";
     import { useUIStore } from '@/store/UI/UIStore';
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
     import UiButton from "@/components/form/UiButton";
-    import { useClipboard } from "@vueuse/core";
 
     export default {
         name: 'SectionHeader',
@@ -184,8 +184,16 @@
                 this.clipboard.copy(this.urlForCopy)
                     .then(() => this.$toast('Ссылка успешно скопирована'))
                     .catch(() => this.$toast.error((
-                        <span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                            target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>
+                      <span>
+                        Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем
+                        <a
+                          target="_blank"
+                          href="https://discord.gg/zqBnMJVf3z"
+                          rel="noopener"
+                        >
+                          Discord-канале
+                        </a>
+                      </span>
                     )));
             },
 

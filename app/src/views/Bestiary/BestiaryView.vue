@@ -12,18 +12,18 @@
             :key="creature.url"
             :creature="creature"
             :in-tab="inTab"
-            :to="{path: creature.url}"
+            :to="{ path: creature.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureLink from "@/views/Bestiary/CreatureLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

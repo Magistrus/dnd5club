@@ -206,7 +206,7 @@
                     :key="item.url"
                     :is-active="selected.index === key"
                     :magic-item="item"
-                    :to="{path: item.url}"
+                    :to="{ path: item.url }"
                     in-tools
                     @select-item="selectItem('magicItems', key)"
                 />
@@ -261,6 +261,13 @@
 </template>
 
 <script>
+    import { reactive } from "vue";
+    import sortedUniq from "lodash/sortedUniq";
+    import groupBy from "lodash/groupBy";
+    import max from "lodash/max";
+    import mean from "lodash/mean";
+    import throttle from "lodash/throttle";
+    import { mapState } from "pinia";
     import ContentLayout from "@/components/content/ContentLayout";
     import UiSelect from "@/components/form/UiSelect";
     import SectionHeader from "@/components/UI/SectionHeader";
@@ -270,14 +277,7 @@
     import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
     import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
     import errorHandler from "@/common/helpers/errorHandler";
-    import { reactive } from "vue";
-    import sortedUniq from "lodash/sortedUniq";
-    import groupBy from "lodash/groupBy";
-    import max from "lodash/max";
-    import mean from "lodash/mean";
-    import throttle from "lodash/throttle";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import UiButton from "@/components/form/UiButton";
 

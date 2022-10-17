@@ -28,10 +28,10 @@
 </template>
 
 <script>
-    import ContentLayout from "@/components/content/ContentLayout";
     import {
         mapActions, mapState
     } from "pinia";
+    import ContentLayout from "@/components/content/ContentLayout";
     import { useScreensStore } from "@/store/Screens/ScreensStore";
     import { useUIStore } from "@/store/UI/UIStore";
 

@@ -12,18 +12,18 @@
             :key="item.url"
             :in-tab="inTab"
             :item-item="item"
-            :to="{path: item.url}"
+            :to="{ path: item.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import ItemLink from "@/views/Inventory/Items/ItemLink";
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

@@ -98,7 +98,7 @@
                         :key="key"
                     >
                         <a
-                            v-tippy="{content: el.class}"
+                            v-tippy="{ content: el.class }"
                             :href="el.url"
                         >{{ el.name }}</a>
 

@@ -64,50 +64,6 @@ module.exports = {
                 ignorePropertyModificationsFor: ['state']
             }
         ],
-        'vue/match-component-file-name': [
-            'error',
-            {
-                extensions: [
-                    'jsx',
-                    'js',
-                    'tsx',
-                    'ts',
-                    'vue'
-                ],
-                shouldMatchCase: true
-            }
-        ],
-        'vue/component-options-name-casing': ['error', 'PascalCase'],
-        'vue/component-name-in-template-casing': [
-            'error',
-            'kebab-case',
-            {
-                registeredComponentsOnly: true,
-                ignores: []
-            }
-        ],
-        'vue/component-api-style': [
-            'error',
-            [
-                'script-setup',
-                'composition',
-                'options'
-            ]
-        ],
-        'vue/block-lang': [
-            'error',
-            {
-                script: {
-                    allowNoLang: true
-                }
-            }
-        ],
-        'vuejs-accessibility/anchor-has-content': 'off',
-        'vuejs-accessibility/click-events-have-key-events': 'off',
-        'vuejs-accessibility/mouse-events-have-key-events': 'off',
-        'vuejs-accessibility/label-has-for': 'off',
-        'vuejs-accessibility/no-autofocus': 'off',
-        'vue/require-explicit-emits': 'off',
         'dot-notation': ['error'],
         'require-await': ['error'],
         'spaced-comment': ['error', 'always'],
@@ -372,7 +328,54 @@ module.exports = {
         ],
         'template-curly-spacing': ['error', 'always'],
         'wrap-regex': 'error',
-        'no-extra-semi': 'error'
+        'no-extra-semi': 'error',
+
+        // Vue rules
+        'vue/max-len': [1, 120],
+        'vue/match-component-file-name': [
+            'error',
+            {
+                extensions: [
+                    'jsx',
+                    'js',
+                    'tsx',
+                    'ts',
+                    'vue'
+                ],
+                shouldMatchCase: true
+            }
+        ],
+        'vue/component-options-name-casing': ['error', 'PascalCase'],
+        'vue/component-name-in-template-casing': [
+            'error',
+            'kebab-case',
+            {
+                registeredComponentsOnly: true,
+                ignores: []
+            }
+        ],
+        'vue/component-api-style': [
+            'error',
+            [
+                'script-setup',
+                'composition',
+                'options'
+            ]
+        ],
+        'vue/block-lang': [
+            'error',
+            {
+                script: {
+                    allowNoLang: true
+                }
+            }
+        ],
+        'vuejs-accessibility/anchor-has-content': 'off',
+        'vuejs-accessibility/click-events-have-key-events': 'off',
+        'vuejs-accessibility/mouse-events-have-key-events': 'off',
+        'vuejs-accessibility/label-has-for': 'off',
+        'vuejs-accessibility/no-autofocus': 'off',
+        'vue/require-explicit-emits': 'off'
     },
     overrides: [
         {

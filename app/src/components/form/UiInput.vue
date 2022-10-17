@@ -46,8 +46,8 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/icons/SvgIcon";
     import { defineComponent } from "vue";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
 
     export default defineComponent({
         components: {
@@ -238,7 +238,7 @@
             color: var(--text-btn-color);
             font-size: calc(var(--main-font-size) - 2px);
             z-index: 1;
-            padding: 0px 6px;
+            padding: 0 6px;
             display: block;
             position: absolute;
             background-color: var(--error);

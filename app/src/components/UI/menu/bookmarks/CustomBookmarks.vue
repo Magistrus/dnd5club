@@ -89,11 +89,11 @@
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/icons/SvgIcon";
-    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import {
         computed, defineComponent, onBeforeMount, ref
     } from "vue";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import CustomBookmarkGroup from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkGroup";
     import UiInput from "@/components/form/UiInput";
     import UiButton from "@/components/form/UiButton";

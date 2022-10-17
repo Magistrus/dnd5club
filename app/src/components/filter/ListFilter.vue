@@ -98,13 +98,13 @@
 </template>
 
 <script>
+    import cloneDeep from "lodash/cloneDeep";
+    import debounce from "lodash/debounce";
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import FilterItemSources from '@/components/filter/FilterItem/FilterItemSources';
     import FilterItemCheckboxes from '@/components/filter/FilterItem/FilterItemCheckboxes';
     import FilterService from "@/common/services/FilterService";
     import errorHandler from "@/common/helpers/errorHandler";
-    import cloneDeep from "lodash/cloneDeep";
-    import debounce from "lodash/debounce";
     import BaseModal from "@/components/UI/modals/BaseModal";
 
     export default {

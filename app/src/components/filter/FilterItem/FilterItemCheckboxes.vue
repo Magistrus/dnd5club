@@ -54,9 +54,9 @@
 </template>
 
 <script>
+    import cloneDeep from 'lodash/cloneDeep';
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import UiCheckbox from '@/components/form/UiCheckbox';
-    import cloneDeep from 'lodash/cloneDeep';
 
     export default {
         name: 'FilterItemCheckboxes',

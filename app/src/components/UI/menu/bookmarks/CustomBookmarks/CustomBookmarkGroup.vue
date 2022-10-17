@@ -102,11 +102,11 @@
     import {
         computed, defineComponent, onBeforeMount, ref
     } from "vue";
+    import draggableComponent from 'vuedraggable';
     import UiInput from "@/components/form/UiInput";
     import UiButton from "@/components/form/UiButton";
     import CustomBookmarkCategory from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkCategory";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import draggableComponent from 'vuedraggable';
     import { useUIStore } from "@/store/UI/UIStore";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
 

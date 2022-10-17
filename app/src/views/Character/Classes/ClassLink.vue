@@ -1,6 +1,6 @@
 <template>
     <router-link
-        v-slot="{href, navigate, isActive}"
+        v-slot="{ href, navigate, isActive }"
         :to="{ path: classItem.url }"
         custom
         v-bind="$props"

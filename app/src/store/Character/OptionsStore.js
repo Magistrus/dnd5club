@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
+import isArray from 'lodash/isArray';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import isArray from 'lodash/isArray';
 
 const DB_NAME = 'options';
 

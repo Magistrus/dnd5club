@@ -10,7 +10,7 @@
             @search-change="onSearch"
             @update:model-value="onUpdate"
         >
-            <template #option="{option, search}">
+            <template #option="{ option, search }">
                 <slot
                     :option="option"
                     :search="search"
@@ -84,8 +84,8 @@
 
 <script>
     import Multiselect from 'vue-multiselect';
-    import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { defineComponent } from "vue";
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
 
     export default defineComponent({
         components: {
