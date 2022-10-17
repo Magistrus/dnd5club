@@ -187,7 +187,7 @@
                     >
                         <span>{{ skill.label }}&nbsp;</span><dice-roller
                             :formula="skill.formula"
-                            label="Проверка навыка"
+                            :label="`Проверка навыка ${ skill.label }`"
                         >
                             {{ skill.value }}
                         </dice-roller><span v-if="key < skills.length - 1">, </span>
@@ -538,7 +538,7 @@
                     skills.push({
                         formula: `к20${ sign }${ Math.abs(skill.value) }`,
                         label: skill.name,
-                        value: `${ sign }${ skill.value }`
+                        value: `${ sign }${ Math.abs(skill.value) }`
                     });
                 }
 
