@@ -113,7 +113,7 @@
 
                     let labelPrefix = '';
 
-                    if (type) {
+                    if (type && roll.dice?.[0].die.value === 20 || roll.die?.value === 20) {
                         labelPrefix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
                     }
 
