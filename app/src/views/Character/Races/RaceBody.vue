@@ -71,7 +71,7 @@
             <details
                 v-for="(skill, key) in skills"
                 :key="key"
-                :class="{ 'archetype_feet': skill.subrace }"
+                :class="{ archetype_feet: skill.subrace }"
                 :open="skill.opened"
             >
                 <summary class="h4 header_separator">
@@ -154,8 +154,8 @@
 </template>
 
 <script>
-    import RawContent from "@/components/content/RawContent";
     import sortBy from "lodash/sortBy";
+    import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
 
     export default {

@@ -66,9 +66,9 @@
 </template>
 
 <script>
+    import upperFirst from "lodash/upperFirst";
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
-    import upperFirst from "lodash/upperFirst";
 
     export default {
         name: "MagicItemBody",

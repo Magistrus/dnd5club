@@ -14,9 +14,9 @@
 
 <script>
     import { DiceRoller } from 'dice-roller-parser';
-    import { getRendered } from "@/common/utils/DiceRollRenderer";
     import { POSITION, useToast } from "vue-toastification";
     import { computed, ref } from "vue";
+    import { getRendered } from "@/common/utils/DiceRollRenderer";
     import { useIsDev } from "@/common/helpers/isDev";
 
     export default {
@@ -82,23 +82,21 @@
              * @return { string }
              */
             const getComputedFormula = (type = undefined) => {
+                const formula = props.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/−/gim, '-');
+
                 if (props.isAdvantage || type === 'advantage') {
-                    return props.formula
-                        .replace(/к/gim, 'd')
-                        .replace(/1?d20/gim, '2d20kh1')
-                        .replace(/–/gim, '-');
+                    return formula
+                        .replace(/1?d20/gim, '2d20kh1');
                 }
 
                 if (props.isDisadvantage || type === 'disadvantage') {
-                    return props.formula
-                        .replace(/к/gim, 'd')
-                        .replace(/1?d20/gim, '2d20kl1')
-                        .replace(/–/gim, '-');
+                    return formula
+                        .replace(/1?d20/gim, '2d20kl1');
                 }
 
-                return props.formula
-                    .replace(/к/gim, 'd')
-                    .replace(/–/gim, '-');
+                return formula;
             };
 
             /**
@@ -116,7 +114,7 @@
                     let labelPrefix = '';
 
                     if (type) {
-                        labelPrefix = type === 'disadvantage' ? ' (помеха)' : ' (преимущество)';
+                        labelPrefix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
                     }
 
                     toast(getRendered({

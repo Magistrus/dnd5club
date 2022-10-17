@@ -77,10 +77,17 @@
 </template>
 
 <script>
+    import useVuelidate from "@vuelidate/core";
+    import {
+        helpers, or, sameAs
+    } from "@vuelidate/validators";
+    import {
+        computed, defineComponent, reactive, ref
+    } from "vue";
+    import { useToast } from "vue-toastification";
     import UiButton from "@/components/form/UiButton";
     import UiInput from "@/components/form/UiInput";
     import { useUserStore } from "@/store/UI/UserStore";
-    import useVuelidate from "@vuelidate/core";
     import {
         validateEmailFormat,
         validateMinLength,
@@ -90,13 +97,6 @@
         validatePwdUpperCase,
         validateRequired, validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
-    import {
-        helpers, or, sameAs
-    } from "@vuelidate/validators";
-    import {
-        computed, defineComponent, reactive, ref
-    } from "vue";
-    import { useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {

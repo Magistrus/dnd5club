@@ -60,7 +60,7 @@
                 </div>
 
                 <div
-                    v-tippy="{content: item.source.name}"
+                    v-tippy="{ content: item.source.name }"
                     class="wild-magic-item__src"
                 >
                     {{ item.source.shortName }}
@@ -71,14 +71,14 @@
 </template>
 
 <script>
+    import { reactive } from "vue";
+    import throttle from "lodash/throttle";
     import ContentLayout from "@/components/content/ContentLayout";
     import UiCheckbox from "@/components/form/UiCheckbox";
     import RawContent from "@/components/content/RawContent";
     import errorHandler from "@/common/helpers/errorHandler";
     import UiInput from "@/components/form/UiInput";
     import UiButton from "@/components/form/UiButton";
-    import { reactive } from "vue";
-    import throttle from "lodash/throttle";
 
     export default {
         name: "WildMagicView",

@@ -15,15 +15,15 @@
 </template>
 
 <script>
-    import UiButton from "@/components/form/UiButton";
-    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useRoute } from "vue-router";
     import {
         computed, defineComponent, ref
     } from "vue";
+    import { useToast } from "vue-toastification";
+    import UiButton from "@/components/form/UiButton";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useUserStore } from "@/store/UI/UserStore";
-    import { useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {

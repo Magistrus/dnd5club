@@ -26,6 +26,12 @@
 </template>
 
 <script>
+    import {
+        computed,
+        onBeforeMount,
+        ref, watch
+    } from "vue";
+    import { storeToRefs } from "pinia";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
     import NavPopover from "@/components/UI/menu/NavPopover";
     import DefaultBookmarks from "@/components/UI/menu/bookmarks/DefaultBookmarks";
@@ -33,12 +39,6 @@
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
-    import {
-        computed,
-        onBeforeMount,
-        ref, watch
-    } from "vue";
-    import { storeToRefs } from "pinia";
 
     export default {
         name: "NavBookmarks",

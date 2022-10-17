@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
+import cloneDeep from 'lodash/cloneDeep';
 import FilterService from '@/common/services/FilterService';
 import errorHandler from '@/common/helpers/errorHandler';
-import cloneDeep from 'lodash/cloneDeep';
 
 const DB_NAME = 'rules';
 

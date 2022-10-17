@@ -2,7 +2,7 @@
     <div
         v-if="type === 'crumb'"
         v-tippy="tooltip"
-        :class="{'is-active': value}"
+        :class="{ 'is-active': value }"
         class="ui-checkbox ui-checkbox--crumb"
         @click.left.exact.prevent="value = !value"
     >
@@ -13,7 +13,7 @@
 
     <div
         v-else-if="type === 'toggle'"
-        :class="{'is-active': value}"
+        :class="{ 'is-active': value }"
         class="ui-checkbox ui-checkbox--toggle"
         @click.left.exact.prevent="value = !value"
     >

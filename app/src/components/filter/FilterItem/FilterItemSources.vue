@@ -52,9 +52,11 @@
                     </div>
 
                     <ui-checkbox
-                        v-tippy="{ content: `${
-                            isGroupActive(groupKey) ? 'Выключить' : 'Включить'
-                        } «` + group.name + '»' }"
+                        v-tippy="{
+                            content: `${
+                                isGroupActive(groupKey) ? 'Выключить' : 'Включить'
+                            } «` + group.name + '»',
+                        }"
                         :model-value="isGroupActive(groupKey)"
                         type="toggle"
                         @update:model-value="setGroupStatus($event, groupKey)"
@@ -78,9 +80,9 @@
 </template>
 
 <script>
+    import cloneDeep from 'lodash/cloneDeep';
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import UiCheckbox from '@/components/form/UiCheckbox';
-    import cloneDeep from 'lodash/cloneDeep';
 
     export default {
         name: 'FilterItemSources',

@@ -100,11 +100,11 @@
 </template>
 
 <script>
+    import throttle from 'lodash/throttle';
+    import { reactive } from "vue";
     import ContentLayout from "@/components/content/ContentLayout";
     import errorHandler from "@/common/helpers/errorHandler";
     import RawContent from "@/components/content/RawContent";
-    import throttle from 'lodash/throttle';
-    import { reactive } from "vue";
     import UiSelect from "@/components/form/UiSelect";
     import UiButton from "@/components/form/UiButton";
     import BaseModal from "@/components/UI/modals/BaseModal";

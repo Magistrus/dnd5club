@@ -123,6 +123,10 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
+    import isArray from "lodash/isArray";
+    import sortBy from "lodash/sortBy";
+    import groupBy from "lodash/groupBy";
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useClassesStore } from '@/store/Character/ClassesStore';
@@ -132,11 +136,7 @@
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
-    import isArray from "lodash/isArray";
-    import sortBy from "lodash/sortBy";
-    import groupBy from "lodash/groupBy";
 
     export default {
         name: 'ClassDetail',

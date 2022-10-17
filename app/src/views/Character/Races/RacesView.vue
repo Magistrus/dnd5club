@@ -14,19 +14,19 @@
                 v-for="race in getRaces"
                 :key="race.url"
                 :race-item="race"
-                :to="{path: race.url}"
+                :to="{ path: race.url }"
             />
         </div>
     </content-layout>
 </template>
 
 <script>
-    import ContentLayout from '@/components/content/ContentLayout';
-    import { useRacesStore } from "@/store/Character/RacesStore";
-    import RaceLink from "@/views/Character/Races/RaceLink";
     import {
         mapActions, mapState
     } from "pinia";
+    import ContentLayout from '@/components/content/ContentLayout';
+    import { useRacesStore } from "@/store/Character/RacesStore";
+    import RaceLink from "@/views/Character/Races/RaceLink";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

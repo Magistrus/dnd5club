@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { useUserStore } from '@/store/UI/UserStore';
 import sortBy from 'lodash/sortBy';
 import cloneDeep from 'lodash/cloneDeep';
+import { useUserStore } from '@/store/UI/UserStore';
 
 const SESSION_OPENED_GROUPS_KEY = 'dnd5club_opened_bookmark_groups';
 

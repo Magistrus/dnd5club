@@ -81,6 +81,9 @@
 </template>
 
 <script>
+    import { mapActions } from "pinia";
+    import useVuelidate from "@vuelidate/core";
+    import { helpers, sameAs } from "@vuelidate/validators";
     import UiInput from "@/components/form/UiInput";
     import UiButton from "@/components/form/UiButton";
     import {
@@ -95,10 +98,7 @@
         validateUsernameExist,
         validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
-    import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
-    import useVuelidate from "@vuelidate/core";
-    import { helpers, sameAs } from "@vuelidate/validators";
 
     export default {
         name: 'RegistrationView',

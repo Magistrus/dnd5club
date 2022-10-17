@@ -11,18 +11,18 @@
             :key="background.url"
             :background-item="background"
             :in-tab="inTab"
-            :to="{path: background.url}"
+            :to="{ path: background.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
     import BackgroundLink from "@/views/Character/Backgrounds/BackgroundLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

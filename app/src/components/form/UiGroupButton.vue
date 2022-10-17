@@ -4,7 +4,7 @@
         :class="{
             'is-vertical': isVertical,
             'is-reverse': isReverse,
-            'is-full-width': useFullWidth
+            'is-full-width': useFullWidth,
         }"
     >
         <slot/>

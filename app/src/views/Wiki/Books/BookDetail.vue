@@ -22,12 +22,12 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from '@/components/UI/SectionHeader';
     import errorHandler from "@/common/helpers/errorHandler";
     import { useBooksStore } from "@/store/Wiki/BooksStore";
     import BookBody from "@/views/Wiki/Books/BookBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

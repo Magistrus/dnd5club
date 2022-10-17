@@ -1,7 +1,7 @@
 <template>
     <a
         v-if="icon && url"
-        v-tippy="{content: name}"
+        v-tippy="{ content: name }"
         :href="url"
         class="class-square"
     >

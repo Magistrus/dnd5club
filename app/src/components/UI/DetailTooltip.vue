@@ -20,10 +20,10 @@
 </template>
 
 <script>
+    import cloneDeep from "lodash/cloneDeep";
     import vTippyConfig from '@/common/utils/VueTippyConfig';
     import SpellBody from "@/views/Spells/SpellBody";
     import errorHandler from "@/common/helpers/errorHandler";
-    import cloneDeep from "lodash/cloneDeep";
     import ScreenBody from "@/views/Screens/ScreenBody";
     import ItemBody from "@/views/Inventory/Items/ItemBody";
     import ArmorBody from "@/views/Inventory/Armors/ArmorBody";

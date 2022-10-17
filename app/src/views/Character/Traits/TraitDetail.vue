@@ -23,12 +23,12 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useTraitsStore } from '@/store/Character/TraitsStore';
     import errorHandler from "@/common/helpers/errorHandler";
     import TraitBody from "@/views/Character/Traits/TraitBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

@@ -12,18 +12,18 @@
             :key="rule.url"
             :in-tab="inTab"
             :rule="rule"
-            :to="{path: rule.url}"
+            :to="{ path: rule.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useRulesStore } from "@/store/Wiki/RulesStore";
     import RuleLink from "@/views/Wiki/Rules/RuleLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

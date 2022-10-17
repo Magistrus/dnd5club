@@ -24,11 +24,11 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureBody from "@/views/Bestiary/CreatureBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {

@@ -68,10 +68,12 @@
 </template>
 
 <script>
+    import { mapActions } from "pinia";
+    import useVuelidate from "@vuelidate/core/dist/index.esm";
+    import { helpers, or } from "@vuelidate/validators";
     import UiInput from "@/components/form/UiInput";
     import UiCheckbox from "@/components/form/UiCheckbox";
     import UiButton from "@/components/form/UiButton";
-    import { mapActions } from "pinia";
     import { useUserStore } from "@/store/UI/UserStore";
     import {
         validateEmailFormat,
@@ -79,8 +81,6 @@
         validateRequired,
         validateUsernameSpecialChars
     } from "@/common/helpers/authChecks";
-    import useVuelidate from "@vuelidate/core/dist/index.esm";
-    import { helpers, or } from "@vuelidate/validators";
 
     export default {
         name: 'LoginView',

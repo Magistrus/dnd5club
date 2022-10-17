@@ -1,7 +1,7 @@
 <template>
     <div
         ref="container"
-        :class="{'is-showed-right-side': showRightSide}"
+        :class="{ 'is-showed-right-side': showRightSide }"
         class="content-layout"
     >
         <div
@@ -60,12 +60,12 @@
 </template>
 
 <script>
-    import { useUIStore } from '@/store/UI/UIStore';
     import { useInfiniteScroll, useResizeObserver } from "@vueuse/core";
-    import ListFilter from "@/components/filter/ListFilter";
-    import FilterService from "@/common/services/FilterService";
     import { mapState } from "pinia";
     import { ref } from "vue";
+    import { useUIStore } from '@/store/UI/UIStore';
+    import ListFilter from "@/components/filter/ListFilter";
+    import FilterService from "@/common/services/FilterService";
 
     export default {
         name: 'ContentLayout',

@@ -12,18 +12,18 @@
             :key="god.url"
             :god="god"
             :in-tab="inTab"
-            :to="{path: god.url}"
+            :to="{ path: god.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import GodLink from "@/views/Wiki/Gods/GodLink";
     import { useGodsStore } from "@/store/Wiki/GodsStore";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
