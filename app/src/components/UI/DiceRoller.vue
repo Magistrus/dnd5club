@@ -187,7 +187,7 @@
         &__result {
             font-size: var(--h1-font-size);
             line-height: var(--h1-font-size);
-            font-weight: bold;
+            font-weight: 600;
         }
 
         &__body {
@@ -197,11 +197,14 @@
         }
 
         &__label {
-            font-weight: bold;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: calc(var(--main-font-size) - 2px);
+            line-height: calc(var(--main-font-size) + 2px);
+            padding-top: 2px;
         }
 
         &__rendered {
-
         }
     }
 </style>
