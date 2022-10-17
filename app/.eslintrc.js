@@ -295,6 +295,16 @@ module.exports = {
                 next: 'block'
             },
             {
+                blankLine: 'always',
+                prev: '*',
+                next: [
+                    'multiline-const',
+                    'multiline-expression',
+                    'multiline-let',
+                    'multiline-var'
+                ]
+            },
+            {
                 blankLine: 'never',
                 prev: 'break',
                 next: 'case'
@@ -306,8 +316,18 @@ module.exports = {
             },
             {
                 blankLine: 'never',
-                prev: 'const',
-                next: 'const'
+                prev: 'singleline-const',
+                next: 'singleline-const'
+            },
+            {
+                blankLine: 'never',
+                prev: 'singleline-let',
+                next: 'singleline-let'
+            },
+            {
+                blankLine: 'never',
+                prev: 'singleline-var',
+                next: 'singleline-var'
             },
             {
                 blankLine: 'never',

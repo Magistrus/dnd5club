@@ -42,6 +42,7 @@
                     name: 'Стандартный набор'
                 }
             ]);
+
             const currentTab = ref(null);
 
             return {

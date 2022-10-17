@@ -47,6 +47,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
         isBookmarkSaved: state => url => state.bookmarks.findIndex(bookmark => bookmark.url === url) >= 0,
         getBookmarkByURL: state => url => {
             const defaultGroup = state.bookmarks.find(bookmark => bookmark.order === -1);
+
             const categoriesUUIDs = state.bookmarks
                 .filter(bookmark => bookmark.parentUUID === defaultGroup?.uuid)
                 .map(category => category.uuid);
@@ -63,6 +64,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                 await this.store.ready();
 
                 const oldFormat = await this.store.getItem('saved');
+
                 const restored = isArray(oldFormat) && oldFormat.length
                     ? await this.getConvertedBookmarks(oldFormat)
                     : await this.store.getItem('default');
@@ -127,6 +129,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
             }
 
             const deleteUUIDs = [];
+
             const addEmptyParents = bookmark => {
                 const parent = this.bookmarks.find(item => item.uuid === bookmark?.parentUUID);
 
@@ -146,6 +149,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
                     addEmptyParents(parent);
                 }
             };
+
             const bookmark = this.getBookmarkByURL(url);
 
             deleteUUIDs.push(bookmark.uuid);
@@ -172,16 +176,19 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
         async getConvertedBookmarks(oldFormat) {
             try {
                 const categories = await this.getCategories();
+
                 const parent = cloneDeep({
                     uuid: this.getNewUUID(),
                     order: -1,
                     name: 'Общие'
                 });
+
                 const list = [parent];
 
                 for (let i = 0; i < oldFormat.length; i++) {
                     const category = oldFormat[i];
                     const newCategory = categories.find(item => item.name === category.label);
+
                     const updatedCat = cloneDeep({
                         uuid: this.getNewUUID(),
                         order: newCategory.order,
@@ -262,6 +269,7 @@ export const useDefaultBookmarkStore = defineStore('DefaultBookmarkStore', {
 
         createCategory(category) {
             const parent = this.getDefaultGroup();
+
             const newCategory = cloneDeep({
                 uuid: this.getNewUUID(),
                 name: category.name,

@@ -52,6 +52,7 @@
 
                 return 'primary';
             });
+
             const classList = computed(() => {
                 const list = [`is-${ type.value }`];
 

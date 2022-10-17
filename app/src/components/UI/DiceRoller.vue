@@ -15,8 +15,9 @@
 <script>
     import { DiceRoller } from 'dice-roller-parser';
     import { getRendered } from "@/common/utils/DiceRollRenderer";
-    import SvgIcon from "@/components/UI/icons/SvgIcon";
-    import { h } from "vue";
+    import { POSITION, useToast } from "vue-toastification";
+    import { computed, ref } from "vue";
+    import { useIsDev } from "@/common/helpers/isDev";
 
     export default {
         name: "DiceRoller",
@@ -25,6 +26,10 @@
                 type: String,
                 default: '',
                 required: true
+            },
+            label: {
+                type: String,
+                default: 'Бросок'
             },
             isAdvantage: {
                 type: Boolean,
@@ -39,69 +44,36 @@
                 default: false
             }
         },
-        data: () => ({
-            error: false
-        }),
-        computed: {
-            classByType() {
-                if (this.isAdvantage) {
+        setup(props) {
+            const isDev = useIsDev();
+            const toast = useToast();
+            const error = ref(false);
+
+            const classByType = computed(() => {
+                if (props.isAdvantage) {
                     return 'is-advantage';
                 }
 
-                if (this.isDisadvantage) {
+                if (props.isDisadvantage) {
                     return 'is-disadvantage';
                 }
 
-                if (this.isSavingThrow) {
+                if (props.isSavingThrow) {
                     return 'is-saving-throw';
                 }
 
                 return 'is-dice';
-            },
+            });
 
-            classes() {
-                const classes = [this.classByType];
+            const classes = computed(() => {
+                const result = [classByType.value];
 
-                if (this.error) {
-                    classes.push('is-error');
+                if (error.value) {
+                    result.push('is-error');
                 }
 
-                return classes;
-            }
-        },
-        methods: {
-            /**
-             * Выполнение броска
-             *
-             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
-             */
-            tryRoll(type = undefined) {
-                try {
-                    this.error = false;
-
-                    const roller = new DiceRoller();
-                    const roll = roller.roll(this.getComputedFormula(type));
-
-                    this.$toast(getRendered({
-                        roll,
-                        advantage: type === 'advantage' || this.isAdvantage,
-                        disadvantage: type === 'disadvantage' || this.isDisadvantage
-                    }), {
-                        position: "bottom-right",
-                        timeout: 5000,
-                        icon: h(
-                            SvgIcon,
-                            {
-                                iconName: 'dice-d20'
-                            }
-                        )
-                    });
-                } catch (err) {
-                    this.error = true;
-
-                    this.$toast.error('Произошла ошибка, попробуйте еще раз...');
-                }
-            },
+                return result;
+            });
 
             /**
              * Получение формулы броска
@@ -109,25 +81,69 @@
              * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
              * @return { string }
              */
-            getComputedFormula(type = undefined) {
-                if (this.isAdvantage || type === 'advantage') {
-                    return this.formula
+            const getComputedFormula = (type = undefined) => {
+                if (props.isAdvantage || type === 'advantage') {
+                    return props.formula
                         .replace(/к/gim, 'd')
                         .replace(/1?d20/gim, '2d20kh1')
                         .replace(/–/gim, '-');
                 }
 
-                if (this.isDisadvantage || type === 'disadvantage') {
-                    return this.formula
+                if (props.isDisadvantage || type === 'disadvantage') {
+                    return props.formula
                         .replace(/к/gim, 'd')
                         .replace(/1?d20/gim, '2d20kl1')
                         .replace(/–/gim, '-');
                 }
 
-                return this.formula
+                return props.formula
                     .replace(/к/gim, 'd')
                     .replace(/–/gim, '-');
-            }
+            };
+
+            /**
+             * Выполнение броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             */
+            const tryRoll = (type = undefined) => {
+                try {
+                    error.value = false;
+
+                    const roller = new DiceRoller();
+                    const roll = roller.roll(getComputedFormula(type));
+
+                    let labelPrefix = '';
+
+                    if (type) {
+                        labelPrefix = type === 'disadvantage' ? ' (помеха)' : ' (преимущество)';
+                    }
+
+                    toast(getRendered({
+                        roll,
+                        label: `${ props.label }${ labelPrefix }`,
+                        advantage: type === 'advantage' || props.isAdvantage,
+                        disadvantage: type === 'disadvantage' || props.isDisadvantage
+                    }), {
+                        position: POSITION.BOTTOM_RIGHT,
+                        timeout: 5000,
+                        icon: false
+                    });
+                } catch (err) {
+                    error.value = true;
+
+                    if (isDev) {
+                        throw new Error(err);
+                    }
+
+                    toast.error('Произошла ошибка, попробуйте еще раз...');
+                }
+            };
+
+            return {
+                tryRoll,
+                classes
+            };
         }
     };
 </script>
@@ -160,6 +176,32 @@
 
         &.is-error {
             color: var(--error);
+        }
+    }
+</style>
+
+<style lang="scss">
+    .dice-roll {
+        display: flex;
+
+        &__result {
+            font-size: var(--h1-font-size);
+            line-height: var(--h1-font-size);
+            font-weight: bold;
+        }
+
+        &__body {
+            margin-left: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__label {
+            font-weight: bold;
+        }
+
+        &__rendered {
+
         }
     }
 </style>

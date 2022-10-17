@@ -81,6 +81,7 @@ export const useWeaponsStore = defineStore('WeaponsStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(
                     this.config.url,
                     apiOptions,

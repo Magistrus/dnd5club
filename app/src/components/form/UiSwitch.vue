@@ -60,6 +60,7 @@
         },
         setup(props, { emit }) {
             const uiStore = useUIStore();
+
             const selected = computed({
                 get: () => props.modelValue,
                 set: value => emit('update:model-value', value)

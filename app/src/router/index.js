@@ -220,6 +220,7 @@ const routes = [
         component: () => import('@/views/Tools/AbilityCalc/AbilityCalcView')
     }
 ];
+
 const router = createRouter({
     history: createWebHistory('/'),
     routes

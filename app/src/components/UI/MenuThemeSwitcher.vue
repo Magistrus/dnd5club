@@ -21,9 +21,11 @@
         components: { SvgIcon },
         setup() {
             const uiStore = useUIStore();
+
             const icon = computed(() => (uiStore.theme === 'dark'
                 ? 'light'
                 : 'dark'));
+
             const switchTheme = async () => {
                 await uiStore.setTheme(icon.value);
             };

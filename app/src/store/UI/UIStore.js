@@ -32,6 +32,7 @@ export const useUIStore = defineStore('UIStore', {
                 const storageTheme = await this.store.getItem(THEME_DB_KEY)
                     || localStorage.getItem('theme')
                     || 'dark';
+
                 const themeName = payload || storageTheme;
 
                 this.theme = themeName;

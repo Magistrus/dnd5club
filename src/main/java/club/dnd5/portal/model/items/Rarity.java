@@ -68,6 +68,8 @@ public enum Rarity {
 			return "OР";
 		case LEGENDARY:
 			return "Л";
+		case ARTIFACT:
+			return "А";
 		default:
 			return "~";
 		}

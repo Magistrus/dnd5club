@@ -69,6 +69,7 @@
         setup(props) {
             const uiStore = useUIStore();
             const dayjs = useDayjs();
+
             const dateTimeFormatted = computed(() => {
                 const datetime = dayjs(props.dateTime);
 

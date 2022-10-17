@@ -86,6 +86,7 @@ export const useRacesStore = defineStore('RacesStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(this.config.url, apiOptions, this.controllers.racesQuery.signal);
 
                 this.controllers.racesQuery = undefined;

@@ -65,14 +65,17 @@
             const toast = useToast();
             const bookmarksStore = useCustomBookmarkStore();
             const route = useRoute();
+
             const bookmarkUrl = computed(() => (
                 typeof props.url === "string" && props.url !== ''
                     ? props.url
                     : route.path
             ));
+
             const isOpen = ref(false);
             const bookmarks = ref([]);
             const groups = computed(() => bookmarksStore.getGroups.filter(group => group.order > -1));
+
             const savedGroups = computed(() => {
                 const url = route.path;
                 const saved = bookmarks.value.filter(item => item.url === url);
@@ -83,6 +86,7 @@
                     .map(item => bookmarks.value.find(bookmark => bookmark.uuid === item.parentUUID))
                     .filter(item => !!item);
             });
+
             const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(bookmarkUrl.value, uuid);
 
             async function openSubmenu() {

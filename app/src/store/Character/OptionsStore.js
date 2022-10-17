@@ -83,6 +83,7 @@ export const useOptionsStore = defineStore('OptionsStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(
                     this.config.url,
                     apiOptions,

@@ -46,11 +46,13 @@
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
             const inProgress = ref(false);
+
             const bookmarkUrl = computed(() => (
                 typeof props.url === "string" && props.url !== ''
                     ? props.url
                     : route.path
             ));
+
             const isSaved = computed(() => {
                 if (userStore.isAuthenticated) {
                     return customBookmarkStore.isBookmarkSavedInDefault(bookmarkUrl.value);

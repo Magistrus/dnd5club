@@ -54,6 +54,7 @@
             const { isAuthenticated } = storeToRefs(userStore);
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
+
             const bookmarkIcon = computed(() => {
                 const getIcon = value => (value ? 'bookmark-filled' : 'bookmark');
 
@@ -63,6 +64,7 @@
 
                 return getIcon(defaultBookmarkStore.getBookmarks.filter(item => item.url).length > 0);
             });
+
             const clickHandler = async () => {
                 if (!opened.value) {
                     await userStore.getUserStatus();
@@ -70,6 +72,7 @@
 
                 opened.value = !opened.value;
             };
+
             const restoreBookmarks = async () => {
                 if (isAuthenticated.value) {
                     await customBookmarkStore.queryGetBookmarks();
