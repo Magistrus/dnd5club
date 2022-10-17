@@ -114,7 +114,7 @@
                     let labelPrefix = '';
 
                     if (type) {
-                        labelPrefix = type === 'disadvantage' ? ' (помеха)' : ' (преимущество)';
+                        labelPrefix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
                     }
 
                     toast(getRendered({
