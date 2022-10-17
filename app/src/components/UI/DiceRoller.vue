@@ -179,9 +179,6 @@
 </style>
 
 <style lang="scss">
-    del {
-        text-decoration: red line-through;
-    }
     .dice-roll {
         display: flex;
 
@@ -206,6 +203,10 @@
         }
 
         &__rendered {
+        }
+
+        del {
+            text-decoration: red line-through;
         }
     }
 </style>
