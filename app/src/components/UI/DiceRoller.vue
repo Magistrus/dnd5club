@@ -179,6 +179,9 @@
 </style>
 
 <style lang="scss">
+    del {
+        text-decoration: red line-through;
+    }
     .dice-roll {
         display: flex;
 
