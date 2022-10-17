@@ -29,7 +29,7 @@
             },
             label: {
                 type: String,
-                default: ''
+                default: 'Бросок'
             },
             isAdvantage: {
                 type: Boolean,
@@ -82,23 +82,21 @@
              * @return { string }
              */
             const getComputedFormula = (type = undefined) => {
+                const formula = props.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/−/gim, '-');
+
                 if (props.isAdvantage || type === 'advantage') {
-                    return props.formula
-                        .replace(/к/gim, 'd')
-                        .replace(/1?d20/gim, '2d20kh1')
-                        .replace(/–/gim, '-');
+                    return formula
+                        .replace(/1?d20/gim, '2d20kh1');
                 }
 
                 if (props.isDisadvantage || type === 'disadvantage') {
-                    return props.formula
-                        .replace(/к/gim, 'd')
-                        .replace(/1?d20/gim, '2d20kl1')
-                        .replace(/–/gim, '-');
+                    return formula
+                        .replace(/1?d20/gim, '2d20kl1');
                 }
 
-                return props.formula
-                    .replace(/к/gim, 'd')
-                    .replace(/–/gim, '-');
+                return formula;
             };
 
             /**
@@ -113,9 +111,15 @@
                     const roller = new DiceRoller();
                     const roll = roller.roll(getComputedFormula(type));
 
+                    let labelPrefix = '';
+
+                    if (type) {
+                        labelPrefix = type === 'disadvantage' ? ' (помеха)' : ' (преимущество)';
+                    }
+
                     toast(getRendered({
                         roll,
-                        label: props.label,
+                        label: `${ props.label }${ labelPrefix }`,
                         advantage: type === 'advantage' || props.isAdvantage,
                         disadvantage: type === 'disadvantage' || props.isDisadvantage
                     }), {
@@ -181,7 +185,7 @@
         &__result {
             font-size: var(--h1-font-size);
             line-height: var(--h1-font-size);
-            font-weight: bold;
+            font-weight: 600;
         }
 
         &__body {
@@ -191,11 +195,14 @@
         }
 
         &__label {
-            font-weight: bold;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: calc(var(--main-font-size) - 2px);
+            line-height: calc(var(--main-font-size) + 2px);
+            padding-top: 4px;
         }
 
         &__rendered {
-
         }
     }
 </style>
