@@ -31,7 +31,7 @@
                     <div class="nav-menu__info">
                         <span class="nav-menu__info--desc">Онлайн справочник по D&D 5e</span>
 
-                        <span class="nav-menu__info--title">DnD5 Club</span>
+                        <span class="nav-menu__info--title">TTG Club</span>
                     </div>
                 </div>
 

@@ -8,7 +8,7 @@
                     <a
                         class="navbar__link"
                         href="/"
-                    >DnD5 Club</a>
+                    >TTG Club</a>
 
                     <div
                         v-if="section"

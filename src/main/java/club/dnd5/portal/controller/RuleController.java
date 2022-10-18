@@ -23,7 +23,7 @@ public class RuleController {
 
 	@GetMapping("/rules")
 	public String getRules(Model model) {
-		model.addAttribute("metaUrl", "https://dnd5.club/rules/");
+		model.addAttribute("metaUrl", "https://ttg.club/rules/");
 		model.addAttribute("metaTitle", "Правила и термины [Rules] D&D 5e");
 		model.addAttribute("metaDescription", "Правила и термины [Rules] D&D 5e");
 		model.addAttribute("menuTitle", "Правила и термины");
@@ -39,7 +39,7 @@ public class RuleController {
 		}
 		model.addAttribute("metaTitle", String.format("%s | %s | Правила и термины [Rules] D&D 5e", rule.getName(), rule.getType()));
 		model.addAttribute("metaDescription", String.format("%s (%s) Правила и термины по D&D 5 редакции", rule.getName(), rule.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/rules/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/rules/" + name);
 		model.addAttribute("selectedRule", new RuleDto(rule));
 		model.addAttribute("menuTitle", "Правила и термины");
 		return "rules";

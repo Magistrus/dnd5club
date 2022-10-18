@@ -64,7 +64,7 @@ public class FAction {
     				.replace("formula=\"", "{@damage ") + "}";
     		description = description.replace(group, formula);
     	}
-    	description = description.replace("href=\"", "href=\"https://dnd5.club/");
+    	description = description.replace("href=\"", "href=\"https://ttg.club/");
     	
     	matcher = DAMAGE_FORMULA_PATTERN.matcher(description);
     	while (matcher.find()) {

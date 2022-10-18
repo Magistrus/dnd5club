@@ -102,7 +102,7 @@ public class MetaApiController {
 	@GetMapping(value = "/api/v1/meta/*", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetaApi getNotMapping() {
 		MetaApi meta = new MetaApi();
-		meta.setDescription("DnD5.club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.");
+		meta.setDescription("TTG.Club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.");
 		return meta;
 	}
 	
@@ -262,7 +262,7 @@ public class MetaApiController {
 		meta.setTitle(String.format("%s (%s)", spell.getName(), spell.getEnglishName()) + " | Заклинания D&D 5e");
 		meta.setDescription(String.format("%s %s, %s", (spell.getLevel() == 0 ? "Заговор" : spell.getLevel() + " уровень"), spell.getName(), spell.getSchool().getName()));
 		meta.setMenu("Заклинания");
-		meta.setImage(String.format("https://image.dnd5.club:8089/magic/%s.png", StringUtils.capitalize(spell.getSchool().name().toLowerCase())));
+		meta.setImage(String.format("https://image.ttg.club:8089/magic/%s.png", StringUtils.capitalize(spell.getSchool().name().toLowerCase())));
 		meta.setKeywords(spell.getAltName() + " " + spell.getEnglishName());
 		return meta;	
 	}

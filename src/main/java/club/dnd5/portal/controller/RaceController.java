@@ -40,7 +40,7 @@ public class RaceController {
 	public String getRaces(Model model) {
 		model.addAttribute("metaTitle", "Расы (Races) D&D 5e");
 		model.addAttribute("menuTitle", "Расы");
-		model.addAttribute("metaUrl", "https://dnd5.club/races");
+		model.addAttribute("metaUrl", "https://ttg.club/races");
 		model.addAttribute("metaDescription", "Расы персонажей по D&D 5 редакции");
 		return "races";
 	}
@@ -53,7 +53,7 @@ public class RaceController {
 			return "forward: /error";
 		}
 		model.addAttribute("metaTitle", race.get().getName() + " | Расы D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/races/" + name);
 		model.addAttribute("metaDescription", String.format("%s - раса персонажа по D&D 5 редакции", race.get().getCapitalazeName()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());
 		if (!images.isEmpty()) {
@@ -71,7 +71,7 @@ public class RaceController {
 			return "forward: /error";
 		}
 		model.addAttribute("metaTitle", String.format("%s | Расы | Разновидности D&D 5e", race.get().getCapitalazeName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/races/" + name + "/" + subrace);
+		model.addAttribute("metaUrl", "https://ttg.club/races/" + name + "/" + subrace);
 		model.addAttribute("metaDescription", String.format("%s - разновидность расы персонажа по D&D 5 редакции", race.get().getName()));
 		model.addAttribute("menuTitle", "Расы");
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.RACE, race.get().getId());

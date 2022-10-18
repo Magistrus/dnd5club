@@ -27,7 +27,7 @@ public class WeaponController {
 	@GetMapping("/weapons")
 	public String getWeapons(Model model) {
 		model.addAttribute("metaTitle", "Оружие (Weapons) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/weapons");
+		model.addAttribute("metaUrl", "https://ttg.club/weapons");
 		model.addAttribute("metaDescription", "Оружие по D&D 5 редакции");
 		model.addAttribute("menuTitle", "Оружие");
 		return "weapons";
@@ -41,7 +41,7 @@ public class WeaponController {
 			return "forward: /error";
 		}
 		model.addAttribute("metaTitle", String.format("%s (%s) | Оружие D&D 5e", weapon.getName(), weapon.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/weapons/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/weapons/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s D&D 5 редакции", weapon.getName(), weapon.getEnglishName(), weapon.getType().getName()));
 		model.addAttribute("menuTitle", "Оружие");
 		return "weapons";
