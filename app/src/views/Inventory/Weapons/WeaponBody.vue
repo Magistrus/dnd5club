@@ -14,7 +14,7 @@
             <div class="block">
                 <p>Стоимость: </p>
 
-                <span>{{ weapon.price }}</span>
+                <span>{{ weapon.price ? weapon.price : '—' }}</span>
             </div>
 
             <div class="block">
