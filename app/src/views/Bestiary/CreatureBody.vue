@@ -222,7 +222,7 @@
                 <p>
                     <strong>Языки </strong>
 
-                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }}</span>
+                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '—' }}</span>
                 </p>
 
                 <p>
