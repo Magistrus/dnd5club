@@ -34,6 +34,10 @@
                 type: Boolean,
                 default: false
             },
+            isLarge: {
+                type: Boolean,
+                default: false
+            },
             useFullWidth: {
                 type: Boolean,
                 default: false
@@ -58,6 +62,10 @@
 
                 if (props.isSmall) {
                     list.push('is-small');
+                }
+
+                if (props.isLarge) {
+                    list.push('is-large');
                 }
 
                 if (props.useFullWidth) {
@@ -123,6 +131,7 @@
         ::v-deep(svg) {
             width: 24px;
             height: 24px;
+            margin-right: 12px;
         }
 
         &.is-link {
@@ -184,6 +193,21 @@
             ::v-deep(svg) {
                 width: 18px;
                 height: 18px;
+                margin-right: 8px;
+            }
+        }
+
+        &.is-large {
+            padding: 16px;
+
+            & + & {
+                margin-left: 16px;
+            }
+
+            ::v-deep(svg) {
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
             }
         }
     }

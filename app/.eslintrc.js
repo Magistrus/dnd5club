@@ -271,17 +271,17 @@ module.exports = {
                 next: 'default'
             },
             {
-                blankLine: 'never',
+                blankLine: 'any',
                 prev: 'singleline-const',
                 next: 'singleline-const'
             },
             {
-                blankLine: 'never',
+                blankLine: 'any',
                 prev: 'singleline-let',
                 next: 'singleline-let'
             },
             {
-                blankLine: 'never',
+                blankLine: 'any',
                 prev: 'singleline-var',
                 next: 'singleline-var'
             },
