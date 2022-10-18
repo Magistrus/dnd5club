@@ -54,6 +54,6 @@ public class RaceApi {
 			abilities = Collections.singletonList(
 					new NameValueApi("все", "к каждой", new Byte((byte) 1)));
 		}
-		image = String.format("https://image.ttg.club:8089/races/background/race-%s.webp", race.getEnglishName().replace(' ', '-').toLowerCase());
+		image = String.format("https://image.dnd5.club:8089/races/background/race-%s.webp", race.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }

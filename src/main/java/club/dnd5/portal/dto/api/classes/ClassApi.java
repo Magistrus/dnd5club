@@ -64,6 +64,6 @@ public class ClassApi {
 			archetypeName = heroClass.getArchetypeName();
 		}
 		sidekick = heroClass.isSidekick();
-		image = String.format("https://image.ttg.club:8089/classes/background/class-%s.webp", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
+		image = String.format("https://image.dnd5.club:8089/classes/background/class-%s.webp", heroClass.getEnglishName().replace(' ', '-').toLowerCase());
 	}
 }
