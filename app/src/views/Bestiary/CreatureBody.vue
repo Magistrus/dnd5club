@@ -172,7 +172,7 @@
                     >
                         <span>{{ savingThrow.label }}&nbsp;</span><dice-roller
                             :formula="savingThrow.formula"
-                            label="Спасбросок"
+                            :label="`Спасбросок ${ savingThrow.label }`"
                         >
                             {{ savingThrow.value }}
                         </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
@@ -222,7 +222,7 @@
                 <p>
                     <strong>Языки </strong>
 
-                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }}</span>
+                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '—' }}</span>
                 </p>
 
                 <p>
@@ -518,7 +518,7 @@
                     saves.push({
                         formula: `к20${ sign }${ Math.abs(save.value) }`,
                         label: save.name,
-                        value: `${ sign }${ save.value }`
+                        value: `${ sign }${ Math.abs(save.value) }`
                     });
                 }
 
