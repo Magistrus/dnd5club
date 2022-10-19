@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-    import { useElementBounding } from "@vueuse/core/index";
+    import { useElementBounding } from "@vueuse/core";
     import {
         reactive, ref, watch
     } from "vue";

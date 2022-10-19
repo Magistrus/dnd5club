@@ -92,7 +92,7 @@
     </div>
 </template>
 
-<script>
+<script lang="jsx">
     import { useClipboard } from "@vueuse/core";
     import { useUIStore } from '@/store/UI/UIStore';
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";

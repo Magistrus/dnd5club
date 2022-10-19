@@ -35,15 +35,21 @@
     </page-layout>
 </template>
 
-<script>
+<script lang="ts">
+    import type { Component } from "vue";
     import {
-        computed,
-        defineComponent, onMounted, ref
+        computed, defineComponent, onBeforeMount, ref
     } from "vue";
-    import UiSwitch from "@/components/form/UiSwitch";
-    import PageLayout from "@/components/content/PageLayout";
-    import AbilityRandom from "@/views/Tools/AbilityCalc/AbilityRandom";
-    import AbilityTable from "@/views/Tools/AbilityCalc/AbilityTable";
+    import PageLayout from "@/components/content/PageLayout.vue";
+    import UiSwitch from "@/components/form/UiSwitch.vue";
+    import AbilityTable from "@/views/Tools/AbilityCalc/AbilityTable.vue";
+    import AbilityRandom from "@/views/Tools/AbilityCalc/AbilityRandom.vue";
+
+    type TCalcTab = {
+        id: string
+        name: string
+        component: Component
+    }
 
     export default defineComponent({
         components: {
@@ -52,11 +58,15 @@
             UiSwitch
         },
         setup() {
-            const currentTab = ref(null);
+            const currentTab = ref<TCalcTab>({
+                id: 'random',
+                name: 'Случайный набор',
+                component: () => AbilityRandom
+            });
 
-            const component = computed(() => currentTab.value?.component());
+            const component = computed<Component>(() => currentTab.value?.component);
 
-            const tabs = computed(() => [
+            const tabs: TCalcTab[] = [
                 {
                     id: 'random',
                     name: 'Случайный набор',
@@ -64,13 +74,15 @@
                 },
                 {
                     id: 'point-buy',
-                    name: '«Покупка» значений'
+                    name: '«Покупка» значений',
+                    component: () => AbilityRandom
                 },
                 {
                     id: 'standard',
-                    name: 'Стандартный набор'
+                    name: 'Стандартный набор',
+                    component: () => AbilityRandom
                 }
-            ]);
+            ];
 
             const initialAbilities = {
                 str: {},
@@ -83,7 +95,7 @@
 
             const abilities = ref();
 
-            onMounted(() => {
+            onBeforeMount(() => {
                 abilities.value = initialAbilities;
             });
 

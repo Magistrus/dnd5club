@@ -1,16 +1,34 @@
 module.exports = {
     root: true,
+
     env: {
         node: true
     },
-    extends: ['plugin:vue/vue3-recommended', '@vue/airbnb'],
+
+    extends: [
+        'plugin:vue/vue3-recommended',
+        '@vue/airbnb',
+        '@vue/typescript'
+    ],
+
+    globals: {
+        Atomics: 'readonly',
+        SharedArrayBuffer: 'readonly',
+        $: 'readonly'
+    },
+
+    plugins: ['@typescript-eslint'],
+
     parserOptions: {
+        parser: '@typescript-eslint/parser',
         ecmaVersion: 2020,
         ecmaFeatures: {
             jsx: true
-        }
+        },
     },
+
     ignorePatterns: ['./public_html/*', './dist/*'],
+
     rules: {
         'no-console': process.env.NODE_ENV === 'production'
             ? [
@@ -363,31 +381,28 @@ module.exports = {
             ]
         ],
         'vue/block-lang': [
-            'error',
-            {
-                script: {
-                    allowNoLang: true
-                }
-            }
+            'off'
         ],
         'vuejs-accessibility/anchor-has-content': 'off',
         'vuejs-accessibility/click-events-have-key-events': 'off',
         'vuejs-accessibility/mouse-events-have-key-events': 'off',
         'vuejs-accessibility/label-has-for': 'off',
         'vuejs-accessibility/no-autofocus': 'off',
-        'vue/require-explicit-emits': 'off'
+        'vue/require-explicit-emits': 'off',
     },
+
     overrides: [
         {
             files: ['*.vue'],
             rules: {
                 'indent': 'off',
-                'vue/html-indent': ['error', 4],
                 'quotes': [
                     0,
                     'double',
                     'single'
                 ],
+                'vue/html-indent': ['error', 4],
+                'vue/valid-v-slot': 'off',
                 'vue/max-attributes-per-line': [
                     'error',
                     {
@@ -409,6 +424,21 @@ module.exports = {
                         selfClosingTag: 'never'
                     }
                 ]
+            }
+        },
+        {
+            files: ['**/*.ts', '**/*.tsx'],
+            extends: [
+                'eslint:recommended',
+                'plugin:@typescript-eslint/eslint-recommended',
+                'plugin:@typescript-eslint/recommended'
+            ],
+            rules: {
+                'no-shadow': 'off',
+                '@typescript-eslint/ban-ts-comment': 'off',
+                '@typescript-eslint/no-shadow': ['error'],
+                '@typescript-eslint/no-explicit-any': [0],
+                '@typescript-eslint/no-non-null-assertion': [0],
             }
         }
     ]
