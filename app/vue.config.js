@@ -26,7 +26,6 @@ module.exports = defineConfig({
         }
     },
     configureWebpack: {
-        entry: './src/main.ts',
         output: {
             filename: 'js/[name].js',
             chunkFilename: 'js/[name].[fullhash].js'
