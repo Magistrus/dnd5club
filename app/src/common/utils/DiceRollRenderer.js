@@ -196,9 +196,11 @@ function renderFateRoll(roll) {
 
 function isCritical(roll, type) {
     if (roll.dice?.[0] && roll.dice?.[0].die.value === 20) {
-        for (const diceRoll of roll.dice[0].rolls) {
-            if (diceRoll.critical === type && diceRoll.valid) {
-                return true;
+        if (roll.dice[0].rolls.length <= 3) {
+            for (const diceRoll of roll.dice[0].rolls) {
+                if (diceRoll.critical === type && diceRoll.valid) {
+                    return true;
+                }
             }
         }
     }
@@ -237,7 +239,7 @@ export const getRendered = ({
                 {
                     class: {
                         'dice-roll__result': true,
-                        'is-critical': isCritical(roll, 'success'),
+                        'is-success': isCritical(roll, 'success'),
                         'is-failure': isCritical(roll, 'failure')
                     }
                 },

@@ -219,7 +219,7 @@
             text-decoration: red line-through;
         }
 
-        .is-critical {
+        .is-success {
             color: var(--bg-advantage);
         }
 
