@@ -195,7 +195,7 @@ function renderFateRoll(roll) {
 }
 
 function isCritical(roll, type) {
-    if (roll.dice?.[0] && roll.dice?.[0].die.value === 20) {
+    if (roll.dice?.[0] && roll.dice?.[0]?.die?.value === 20) {
         if (roll.dice[0].rolls.length <= 3) {
             for (const diceRoll of roll.dice[0].rolls) {
                 if (diceRoll.critical === type && diceRoll.valid) {

@@ -92,7 +92,7 @@
                             .replace(/1?d20/gim, '2d20kh1');
                     }
 
-                    return `${ formula }+${ formula.match(/\d+d\d+/) }`;
+                    return `${ formula }+${ formula.match(/[0-9]*d\d+/g) }`;
                 }
 
                 if (props.isDisadvantage || type === 'disadvantage') {
@@ -119,17 +119,17 @@
                     const roller = new DiceRoller();
                     const roll = roller.roll(getComputedFormula(type));
 
-                    let labelPrefix = '';
+                    let labelSuffix = '';
 
-                    if (type && roll.dice?.[0].die.value === 20 || roll.die?.value === 20) {
-                        labelPrefix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
+                    if (type && (roll.dice?.[0]?.die?.value === 20 || roll.die?.value === 20)) {
+                        labelSuffix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
                     } else if (type) {
-                        labelPrefix = type === 'disadvantage' ? ' (сопротивление)' : ' (критический урон)';
+                        labelSuffix = type === 'disadvantage' ? ' (1/2)' : ' (удвоенный бросок)';
                     }
 
                     toast(getRendered({
                         roll,
-                        label: `${ props.label }${ labelPrefix }`,
+                        label: `${ props.label }${ labelSuffix }`,
                         advantage: type === 'advantage' || props.isAdvantage,
                         disadvantage: type === 'disadvantage' || props.isDisadvantage
                     }), {
