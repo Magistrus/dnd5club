@@ -220,6 +220,10 @@
         }
 
         .is-critical {
+            color: var(--bg-advantage);
+        }
+
+        .is-failure {
             color: red;
         }
     }
