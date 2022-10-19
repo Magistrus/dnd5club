@@ -36,10 +36,9 @@
 </template>
 
 <script>
-
     import {
         useInfiniteScroll, useResizeObserver
-    } from "@vueuse/core/index";
+    } from "@vueuse/core";
     import FilterService from "@/common/services/FilterService";
     import ListFilter from "@/components/filter/ListFilter";
 
