@@ -218,5 +218,9 @@
         del {
             text-decoration: red line-through;
         }
+
+        .is-critical {
+            color: red;
+        }
     }
 </style>
