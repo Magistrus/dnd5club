@@ -218,5 +218,13 @@
         del {
             text-decoration: red line-through;
         }
+
+        .is-success {
+            color: var(--bg-advantage);
+        }
+
+        .is-failure {
+            color: red;
+        }
     }
 </style>
