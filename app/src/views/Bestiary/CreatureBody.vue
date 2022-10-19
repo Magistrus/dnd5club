@@ -172,7 +172,7 @@
                     >
                         <span>{{ savingThrow.label }}&nbsp;</span><dice-roller
                             :formula="savingThrow.formula"
-                            label="Спасбросок"
+                            :label="`Спасбросок ${ savingThrow.label }`"
                         >
                             {{ savingThrow.value }}
                         </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
@@ -187,7 +187,7 @@
                     >
                         <span>{{ skill.label }}&nbsp;</span><dice-roller
                             :formula="skill.formula"
-                            label="Проверка навыка"
+                            :label="`Проверка навыка ${ skill.label }`"
                         >
                             {{ skill.value }}
                         </dice-roller><span v-if="key < skills.length - 1">, </span>
@@ -222,7 +222,7 @@
                 <p>
                     <strong>Языки </strong>
 
-                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }}</span>
+                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '—' }}</span>
                 </p>
 
                 <p>
@@ -530,7 +530,7 @@
                     saves.push({
                         formula: `к20${ sign }${ Math.abs(save.value) }`,
                         label: save.name,
-                        value: `${ sign }${ save.value }`
+                        value: `${ sign }${ Math.abs(save.value) }`
                     });
                 }
 
@@ -550,7 +550,7 @@
                     skills.push({
                         formula: `к20${ sign }${ Math.abs(skill.value) }`,
                         label: skill.name,
-                        value: `${ sign }${ skill.value }`
+                        value: `${ sign }${ Math.abs(skill.value) }`
                     });
                 }
 

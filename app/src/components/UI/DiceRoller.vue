@@ -87,13 +87,21 @@
                     .replace(/−/gim, '-');
 
                 if (props.isAdvantage || type === 'advantage') {
-                    return formula
-                        .replace(/1?d20/gim, '2d20kh1');
+                    if (formula.startsWith('d20') || formula.startsWith('1d20')) {
+                        return formula
+                            .replace(/1?d20/gim, '2d20kh1');
+                    }
+
+                    return `${ formula }+${ formula.match(/\d+d\d+/) }`;
                 }
 
                 if (props.isDisadvantage || type === 'disadvantage') {
-                    return formula
-                        .replace(/1?d20/gim, '2d20kl1');
+                    if (formula.startsWith('d20') || formula.startsWith('1d20')) {
+                        return formula
+                            .replace(/1?d20/gim, '2d20kl1');
+                    }
+
+                    return `(${ formula })/2`;
                 }
 
                 return formula;
@@ -113,8 +121,10 @@
 
                     let labelPrefix = '';
 
-                    if (type) {
+                    if (type && roll.dice?.[0].die.value === 20 || roll.die?.value === 20) {
                         labelPrefix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
+                    } else if (type) {
+                        labelPrefix = type === 'disadvantage' ? ' (сопротивление)' : ' (критический урон)';
                     }
 
                     toast(getRendered({
@@ -203,6 +213,10 @@
         }
 
         &__rendered {
+        }
+
+        del {
+            text-decoration: red line-through;
         }
     }
 </style>

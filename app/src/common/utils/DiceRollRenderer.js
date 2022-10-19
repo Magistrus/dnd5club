@@ -229,7 +229,7 @@ export const getRendered = ({
                         'is-failure': false
                     }
                 },
-                roll.value
+                Math.floor(roll.value)
             ),
             h(
                 'span',
