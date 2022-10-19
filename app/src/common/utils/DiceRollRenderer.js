@@ -193,6 +193,18 @@ function renderFateRoll(roll) {
         ]
     );
 }
+
+function isCritical(roll, type) {
+    if (roll.dice?.[0] && roll.dice?.[0].die.value === 20) {
+        for (const diceRoll of roll.dice[0].rolls) {
+            if (diceRoll.critical === type && diceRoll.valid) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 /* eslint-enable no-use-before-define */
 
 export const getRendered = ({
@@ -225,11 +237,11 @@ export const getRendered = ({
                 {
                     class: {
                         'dice-roll__result': true,
-                        'is-critical': false,
-                        'is-failure': false
+                        'is-critical': isCritical(roll, 'success'),
+                        'is-failure': isCritical(roll, 'failure')
                     }
                 },
-                Math.floor(roll.value)
+                Math.max(0, Math.floor(roll.value))
             ),
             h(
                 'span',
