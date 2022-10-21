@@ -26,6 +26,7 @@ public class SavingThrow {
 	@Enumerated(EnumType.STRING)
 	private AbilityType ability;
 	private byte bonus;
+	private String additionalBonus;
 
 	public SavingThrow(AbilityType ability, byte bonus){
 		this.ability = ability;

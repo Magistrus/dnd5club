@@ -135,6 +135,7 @@ public class Creature {
 	private Integer blindsightRadius;
 
 	private byte passivePerception;
+	private String passivePerceptionBonus;
 
 	// опыт
 	private int exp;

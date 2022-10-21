@@ -172,7 +172,7 @@
                     >
                         <span>{{ savingThrow.label }}&nbsp;</span><dice-roller
                             :formula="savingThrow.formula"
-                            :label="`Спасбросок ${ savingThrow.label }`"
+                            :label="`Спасбросок ${ savingThrow.name }`"
                         >
                             {{ savingThrow.value }}
                         </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
@@ -529,8 +529,9 @@
 
                     saves.push({
                         formula: `к20${ sign }${ Math.abs(save.value) }`,
-                        label: save.name,
-                        value: `${ sign }${ Math.abs(save.value) }`
+                        label: save.shortName,
+                        name: save.name,
+                        value: `${ sign }${ Math.abs(save.value) }${ save.additional ? save.additional : '' }`
                     });
                 }
 
@@ -550,7 +551,7 @@
                     skills.push({
                         formula: `к20${ sign }${ Math.abs(skill.value) }`,
                         label: skill.name,
-                        value: `${ sign }${ Math.abs(skill.value) }`
+                        value: `${ sign }${ Math.abs(skill.value) }${ skill.additional ? skill.additional : '' }`
                     });
                 }
 
