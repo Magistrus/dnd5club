@@ -18,5 +18,3 @@ dnd5.iml
 .project
 
 .settings/org.eclipse.jdt.core.prefs
-
-app/.env.dev.example
