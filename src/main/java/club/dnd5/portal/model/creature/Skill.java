@@ -28,8 +28,9 @@ public class Skill {
 	
 	@Enumerated(EnumType.STRING)
 	private SkillType type;
-	
+
 	private byte bonus;
+	private String additionalBonus;
 
 	public Skill(SkillType type, byte bonus) {
 		this.type = type;

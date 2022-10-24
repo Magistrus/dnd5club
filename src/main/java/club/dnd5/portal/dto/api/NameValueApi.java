@@ -9,7 +9,6 @@ import lombok.Setter;
 
 @JsonInclude(Include.NON_NULL)
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -29,5 +28,14 @@ public class NameValueApi {
 			this.value = value;
 		}
 		this.shortName = shortName;
+	}
+
+	public NameValueApi(String name, String shortName, Byte value, Object additional) {
+		this.name = name;
+		if (value != 0) {
+			this.value = value;
+		}
+		this.shortName = shortName;
+		this.additional = additional;
 	}
 }

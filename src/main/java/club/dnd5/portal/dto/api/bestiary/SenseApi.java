@@ -19,10 +19,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SenseApi {
-	private Byte passivePerception;
+	private String passivePerception;
 	private List<NameValueApi> senses;
 	public SenseApi(Creature beast) {
-		passivePerception = beast.getPassivePerception();
+		passivePerception = String.valueOf(beast.getPassivePerception());
+		if (beast.getPassivePerceptionBonus() != null) {
+			passivePerception += beast.getPassivePerceptionBonus();
+		}
 		if (beast.getDarkvision() != null) {
 			senses = new ArrayList<>(4);
 			senses.add(new NameValueApi("тёмное зрение", beast.getDarkvision()));
