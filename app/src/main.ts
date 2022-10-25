@@ -41,13 +41,13 @@ app.use(pinia)
     .use(Toast, {
         timeout: 1700,
         closeButton: IconToastClose,
-        showCloseButtonOnHover: true
+        showCloseButtonOnHover: true,
+        maxToasts: 6
     })
     .use(vfmPlugin, {
         key: '$vfm',
         componentName: 'VueFinalModal',
-        dynamicContainerName: 'ModalsContainer',
-        maxToasts: 6
+        dynamicContainerName: 'ModalsContainer'
     });
 
 registerComponents(app);
