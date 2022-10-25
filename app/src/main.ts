@@ -42,7 +42,8 @@ app.use(pinia)
         timeout: 1700,
         closeButton: IconToastClose,
         showCloseButtonOnHover: true,
-        maxToasts: 6
+        maxToasts: 6,
+        newestOnTop: true
     })
     .use(vfmPlugin, {
         key: '$vfm',
