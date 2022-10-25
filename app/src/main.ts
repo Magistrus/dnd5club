@@ -46,7 +46,8 @@ app.use(pinia)
     .use(vfmPlugin, {
         key: '$vfm',
         componentName: 'VueFinalModal',
-        dynamicContainerName: 'ModalsContainer'
+        dynamicContainerName: 'ModalsContainer',
+        maxToasts: 6
     });
 
 registerComponents(app);
