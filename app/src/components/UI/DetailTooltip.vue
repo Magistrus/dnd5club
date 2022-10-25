@@ -2,7 +2,7 @@
     <tippy
         v-bind="tippyConfig"
         ref="tooltip"
-        theme="dnd5club no-padding"
+        theme="ttgclub no-padding"
     >
         <template #default>
             <slot name="default"/>

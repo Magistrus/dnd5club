@@ -56,7 +56,7 @@ public class ClassController {
 	public String getClasses(Model model) {
 		model.addAttribute("metaTitle", "Классы (Classes) D&D 5e");
 		model.addAttribute("menuTitle", "Классы");
-		model.addAttribute("metaUrl", "https://dnd5.club/classes");
+		model.addAttribute("metaUrl", "https://ttg.club/classes");
 		return "classes";
 	}
 	
@@ -68,7 +68,7 @@ public class ClassController {
 			return "forward: /error";
 		}
 		model.addAttribute("metaTitle", String.format("%s (%s) | Классы D&D 5e", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/classes/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/classes/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - описание класса персонажа по D&D 5-редакции", heroClass.getCapitalazeName(), heroClass.getEnglishName()));
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.CLASS, heroClass.getId());
 		if (!images.isEmpty()) {
@@ -95,7 +95,7 @@ public class ClassController {
 		}
 		model.addAttribute("metaTitle", String.format("%s - %s (%s) | Классы | Подклассы D&D 5e",  
 				StringUtils.capitalize(selectedArchetype.get().getName().toLowerCase()), heroClass.getCapitalazeName(), heroClass.getEnglishName()));
-		model.addAttribute("metaUrl", String.format("https://dnd5.club/classes/%s/%s", name, archetype));
+		model.addAttribute("metaUrl", String.format("https://ttg.club/classes/%s/%s", name, archetype));
 		model.addAttribute("metaDescription", String.format("%s - описание %s класса %s из D&D 5 редакции", 
 				selectedArchetype.get().getName(), heroClass.getArchetypeName(), heroClass.getCapitalazeName()));
 		Collection<String> images = imageRepository.findAllByTypeAndRefId(ImageType.SUBCLASS, selectedArchetype.get().getId());

@@ -44,7 +44,7 @@
                     },
                     {
                         name: 'ВКонтакте',
-                        url: 'https://vk.com/dnd5club',
+                        url: 'https://vk.com/ttgclub',
                         icon: 'vk'
                     }
                 ]

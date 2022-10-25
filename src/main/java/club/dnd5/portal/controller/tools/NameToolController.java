@@ -27,7 +27,7 @@ public class NameToolController {
 	public String getTreasuryTool(Model model) {
 		model.addAttribute("raceNames", nameRepo.findAllRaces());
 		model.addAttribute("metaTitle", "Генератор имен");
-		model.addAttribute("metaUrl", "https://dnd5.club/tools/names");
+		model.addAttribute("metaUrl", "https://ttg.club/tools/names");
 		model.addAttribute("metaDescription", "Генерация имен, фамилий, прозвищ");
 		return "tools/names";
 	}

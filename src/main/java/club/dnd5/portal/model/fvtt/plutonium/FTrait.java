@@ -17,7 +17,7 @@ public class FTrait {
     	name = feat.getName().replace("(перезарядка 6)", "{@recharge 6}").replace("(перезарядка 5-6)", "{@recharge 5}").replace("(перезарядка 4–6)", "{@recharge 4}");
     	entries = Arrays.stream(feat.getDescription()
     				.replace("<p>", "")
-    				.replace("href=\"", "href=\"https://dnd5.club/")
+    				.replace("href=\"", "href=\"https://ttg.club/")
     				.replace(" class=\"tip_spell\"", "")
     				.split("</p>"))
     			.filter(t -> !t.isEmpty())

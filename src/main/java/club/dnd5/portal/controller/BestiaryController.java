@@ -31,7 +31,7 @@ public class BestiaryController {
 	@GetMapping("/bestiary")
 	public String getCreatures(Model model) {
 		model.addAttribute("metaTitle", "Бестиарий (Monster Manual) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/bestiary");
+		model.addAttribute("metaUrl", "https://ttg.club/bestiary");
 		model.addAttribute("metaDescription", "Бестиарий - существа для D&D 5 редакции");
 		model.addAttribute("menuTitle", "Бестиарий");
 		return "bestiary";
@@ -46,7 +46,7 @@ public class BestiaryController {
 		}
 		CreatureDto creature = new CreatureDto(beast);
 		model.addAttribute("metaTitle", String.format("%s (%s) | Бестиарий D&D 5e", creature.getName(), creature.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/bestiary/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/bestiary/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s с уровнем опасности %s", beast.getName(), beast.getEnglishName(), beast.getSizeName(), beast.getType().getCyrilicName(), beast.getAligment(), beast.getChallengeRating()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.CREATURE, creature.getId());
 		if (!images.isEmpty()) {

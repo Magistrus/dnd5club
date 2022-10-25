@@ -12,7 +12,7 @@ public class MadnessToolController {
 	@GetMapping("/tools/madness")
 	public String getTreasuryTool(Model model) {
 		model.addAttribute("metaTitle", "Генератор безумия");
-		model.addAttribute("metaUrl", "https://dnd5.club/tools/wildmagic");
+		model.addAttribute("metaUrl", "https://ttg.club/tools/wildmagic");
 		model.addAttribute("metaDescription", "Генерация кратковреммных, долговременных и бессрочных эффектов безумия");
 		model.addAttribute("menuTitle", "Генератор безумия");
 		return "tools/madness";

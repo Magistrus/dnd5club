@@ -12,7 +12,7 @@ public class ItemMagicBuyingController {
 	@GetMapping("/tools/items/magic")
 	public String getTreasuryTool(Model model) {
 		model.addAttribute("metaTitle", "Боги");
-		model.addAttribute("metaUrl", "https://dnd5.club/tools/items/magic");
+		model.addAttribute("metaUrl", "https://ttg.club/tools/items/magic");
 		model.addAttribute("metaDescription", "Генерация покупки магических предметов");
 		return "tools/buying_magic_items";
 	}

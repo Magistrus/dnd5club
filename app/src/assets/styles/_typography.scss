@@ -346,10 +346,10 @@ details[open].spoiler div > details {
 
 
 /********* Выделение в тексте *********/
-dnd5club-dice-text,
-dnd5club-saving-throw,
-dnd5club-advantage,
-dnd5club-disadvantage,
+ttgclub-dice-text,
+ttgclub-saving-throw,
+ttgclub-advantage,
+ttgclub-disadvantage,
 span.dice_text,
 span.homebrew_text,
 span.advantage,
@@ -359,7 +359,7 @@ span.saving_throw {
   font-weight: 500;
 }
 
-dnd5club-dice-text,
+ttgclub-dice-text,
 span.dice_text {
   color: var(--bg-dice) !important;
 }
@@ -369,17 +369,17 @@ span.homebrew_text {
   text-transform: none;
 }
 
-dnd5club-advantage,
+ttgclub-advantage,
 span.advantage {
   color: var(--bg-advantage);
 }
 
-dnd5club-disadvantage,
+ttgclub-disadvantage,
 span.disadvantage {
   color: var(--bg-disadvantage);
 }
 
-dnd5club-saving-throw,
+ttgclub-saving-throw,
 span.saving_throw {
   color: var(--bg-saving_throw);
 }

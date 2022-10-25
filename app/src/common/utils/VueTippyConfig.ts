@@ -9,7 +9,7 @@ const options: TippyPluginOptions = {
         hideOnClick: false,
         sticky: true,
         touch: false,
-        theme: 'dnd5club',
+        theme: 'ttgclub',
         strategy: 'fixed',
         maxWidth: 450,
 

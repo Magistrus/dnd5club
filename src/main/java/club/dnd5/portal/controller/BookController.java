@@ -21,7 +21,7 @@ public class BookController {
 	@GetMapping("/books")
 	public String getRules(Model model) {
 		model.addAttribute("metaTitle", "Источники (Books) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/books");
+		model.addAttribute("metaUrl", "https://ttg.club/books");
 		model.addAttribute("menuTitle", "Источники");
 		return "books";
 	}
@@ -30,7 +30,7 @@ public class BookController {
 	public String getRule(Model model, @PathVariable String name) {
 		Book book = repository.findByEnglishName(name.replace("_", " "));
 		model.addAttribute("metaTitle", String.format("%s (%s) | Источники (Books) D&D 5e", book.getName(), book.getEnglishName()));
-		model.addAttribute("metaUrl", String.format("https://dnd5.club/books/%s", name));
+		model.addAttribute("metaUrl", String.format("https://ttg.club/books/%s", name));
 		model.addAttribute("selectedBook", "name");
 		model.addAttribute("menuTitle", "Источники");
 		return "books";

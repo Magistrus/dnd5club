@@ -51,4 +51,4 @@ app.use(pinia)
 
 registerComponents(app);
 
-app.mount('#dnd5club');
+app.mount('#ttgclub');
