@@ -512,7 +512,7 @@
         }
 
         &__select {
-            ::v-deep(.dnd5club-select) {
+            ::v-deep(.ttgclub-select) {
                 .multiselect {
                     border-width: 0 0 1px 0;
                     border-radius: 0;

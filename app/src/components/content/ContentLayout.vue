@@ -93,7 +93,7 @@
             ...mapState(useUIStore, ['isMobile', 'fullscreen'])
         },
         mounted() {
-            const scrollEl = document.getElementById('dnd5club');
+            const scrollEl = document.getElementById('ttgclub');
 
             useInfiniteScroll(
                 ref(scrollEl),
@@ -108,7 +108,7 @@
             useResizeObserver(scrollEl, this.scrollHandler);
         },
         beforeUnmount() {
-            const scrollEl = document.getElementById('dnd5club');
+            const scrollEl = document.getElementById('ttgclub');
 
             scrollEl.removeEventListener('scroll', this.scrollHandler);
         },
@@ -161,7 +161,7 @@
                 }
 
                 this.$nextTick(() => {
-                    const scrollBody = document.getElementById('dnd5club');
+                    const scrollBody = document.getElementById('ttgclub');
                     const rect = link.getBoundingClientRect();
 
                     if (!rect?.top && rect?.top !== 0) {
@@ -180,7 +180,7 @@
             },
 
             toggleShadow() {
-                const scrollEl = document.getElementById('dnd5club');
+                const scrollEl = document.getElementById('ttgclub');
                 const container = document.getElementById('container');
 
                 this.shadow = scrollEl.scrollTop + scrollEl.offsetHeight < container.offsetHeight - 24;

@@ -30,7 +30,7 @@ public class OptionController {
 	@GetMapping("/options")
 	public String getOptions(Model model) {
 		model.addAttribute("metaTitle", "Особенности классов (Options) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/options");
+		model.addAttribute("metaUrl", "https://ttg.club/options");
 		model.addAttribute("metaDescription", "Список особенности классов и подкласов по D&D 5 редакции");
 		model.addAttribute("menuTitle", "Особенности классов");
 		return "options";
@@ -44,7 +44,7 @@ public class OptionController {
 			return "forward: /error";
 		}
 		model.addAttribute("metaTitle", String.format("%s (%s)", option.getName(), option.getEnglishName()) + " | Особенности классов D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/options/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/options/" + name);
 		model.addAttribute("metaDescription", 
 				String.format("Описание особенности %s - %s",
 						option.getOptionTypes().stream().map(OptionType::getDisplayName).collect(Collectors.joining()), 

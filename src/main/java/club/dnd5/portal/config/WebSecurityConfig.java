@@ -105,9 +105,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 			"http://localhost:8080",
 			"http://localhost:30000",
 			"http://localhost:8081",
-			"https://dev.dnd5.club/",
 			"https://dev.ttg.club/",
-			"https://dnd5.club/",
+			"https://dev.ttg.club/",
+			"https://ttg.club/",
 			"https://ttg.club/"
 			) .allowedMethods("*").allowCredentials(true);
 	}

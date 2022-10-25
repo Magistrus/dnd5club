@@ -48,7 +48,7 @@ public class FItemData {
 
 	FItemData(CreatureFeat feat) {
 		name = feat.getName();
-		description = new FDiscription(feat.getDescription().replace("/hero", "http://dnd5.club/hero"));
+		description = new FDiscription(feat.getDescription().replace("/hero", "http://ttg.club/hero"));
 		activation = new FActivation();
 		duration = new FDuration();
 		target = new FTarget();
@@ -73,7 +73,7 @@ public class FItemData {
 			recharge = new FCharge();
 			recharge.setValue(value);
 		}
-		description = new FDiscription(action.getDescription().replace("/hero", "http://dnd5.club/hero"));
+		description = new FDiscription(action.getDescription().replace("/hero", "http://ttg.club/hero"));
 		activation = new FActivation(action.getActionType().name().toLowerCase(), (byte) 1, "");
 		duration = new FDuration();
 		target = new FTarget();

@@ -108,11 +108,12 @@ export const useNavStore = defineStore('NavStore', {
                         {
                             label: 'Безумие',
                             url: '/tools/madness'
-                        },
-                        {
-                            label: 'Калькулятор характеристик',
-                            url: '/tools/ability-calc'
                         }
+
+                        // {
+                        //     label: 'Калькулятор характеристик',
+                        //     url: '/tools/ability-calc'
+                        // }
                     ]
                 },
                 {
@@ -162,7 +163,7 @@ export const useNavStore = defineStore('NavStore', {
                         },
                         {
                             label: 'Мы в ВКонтакте',
-                            url: 'https://vk.com/dnd5club',
+                            url: 'https://vk.com/ttgclub',
                             external: true
                         },
                         {
@@ -177,7 +178,7 @@ export const useNavStore = defineStore('NavStore', {
                         },
                         {
                             label: 'Наш бот для Telegram',
-                            url: 'https://t.me/dnd5club_bot',
+                            url: 'https://t.me/ttgclub_bot',
                             external: true
                         },
                         {
