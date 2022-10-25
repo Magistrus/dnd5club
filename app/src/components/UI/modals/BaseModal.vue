@@ -18,13 +18,13 @@
                 :url="bookmark?.url"
             />
 
-            <form-button
+            <ui-button
                 class="base-modal__close"
                 type-link
                 @click.left.exact.prevent="close"
             >
                 <svg-icon icon-name="close"/>
-            </form-button>
+            </ui-button>
         </div>
 
         <div class="base-modal__content">
@@ -49,63 +49,63 @@
             v-else-if="typeConfirm"
             class="base-modal__footer"
         >
-            <form-button @click.left.exact.prevent="$emit('confirm', close)">
+            <ui-button @click.left.exact.prevent="$emit('confirm', close)">
                 Применить
-            </form-button>
+            </ui-button>
 
-            <form-button
+            <ui-button
                 type-outline
                 @click.left.exact.prevent="close"
             >
                 Отменить
-            </form-button>
+            </ui-button>
         </div>
 
         <div
             v-else-if="typeRemove"
             class="base-modal__footer"
         >
-            <form-button @click.left.exact.prevent="$emit('confirm', close)">
+            <ui-button @click.left.exact.prevent="$emit('confirm', close)">
                 Удалить
-            </form-button>
+            </ui-button>
 
-            <form-button
+            <ui-button
                 type-outline
                 @click.left.exact.prevent="close"
             >
                 Отменить
-            </form-button>
+            </ui-button>
         </div>
 
         <div
             v-else-if="typeNotify"
             class="base-modal__footer"
         >
-            <form-button
+            <ui-button
                 type-outline
                 @click.left.exact.prevent="close"
             >
                 Закрыть
-            </form-button>
+            </ui-button>
         </div>
 
         <div
             v-else-if="typeError"
             class="base-modal__footer"
         >
-            <form-button
+            <ui-button
                 outline
                 @click.left.exact.prevent="close"
             >
                 Закрыть
-            </form-button>
+            </ui-button>
         </div>
     </vue-final-modal>
 </template>
 <script>
-    import SvgIcon from "@/components/UI/icons/SvgIcon";
-    import FormButton from "@/components/form/FormButton";
     import { mapActions, mapState } from "pinia";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import UiButton from "@/components/form/UiButton";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
 
@@ -113,7 +113,7 @@
         name: "BaseModal",
         components: {
             BookmarkSaveButton,
-            FormButton,
+            UiButton,
             SvgIcon
         },
         inheritAttrs: true,

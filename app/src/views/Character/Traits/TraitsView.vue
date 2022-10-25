@@ -10,19 +10,19 @@
             v-for="trait in traits"
             :key="trait.url"
             :in-tab="inTab"
-            :to="{path: trait.url}"
+            :to="{ path: trait.url }"
             :trait-item="trait"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useTraitsStore } from "@/store/Character/TraitsStore";
     import TraitLink from "@/views/Character/Traits/TraitLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -50,7 +50,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.traitsStore.getFilter || undefined;
@@ -74,7 +74,7 @@
             await this.traitsStore.initFilter(this.storeKey);
             await this.traitsStore.initTraits();
 
-            if (!this.getIsMobile && this.traits.length && this.$route.name === 'traits') {
+            if (!this.isMobile && this.traits.length && this.$route.name === 'traits') {
                 await this.$router.push({ path: this.traits[0].url });
             }
         },
@@ -89,7 +89,7 @@
             async onSearch() {
                 await this.traitsQuery();
 
-                if (this.traits.length === 1 && !this.getIsMobile) {
+                if (this.traits.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.traits[0].url });
                 }
             }

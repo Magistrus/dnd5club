@@ -8,7 +8,7 @@
         <div
             ref="classes"
             class="class-items"
-            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': fullscreen }"
         >
             <div
                 v-for="(group, groupKey) in classes"
@@ -37,17 +37,17 @@
 </template>
 
 <script>
-    import { useClassesStore } from '@/store/Character/ClassesStore';
-    import ContentLayout from '@/components/content/ContentLayout';
-    import ClassLink from "@/views/Character/Classes/ClassLink";
     import sortBy from "lodash/sortBy";
     import groupBy from "lodash/groupBy";
     import debounce from "lodash/debounce";
-    import { useUIStore } from "@/store/UI/UIStore";
     import {
         mapActions, mapState
     } from "pinia";
     import isArray from "lodash/isArray";
+    import { useUIStore } from "@/store/UI/UIStore";
+    import ClassLink from "@/views/Character/Classes/ClassLink";
+    import ContentLayout from '@/components/content/ContentLayout';
+    import { useClassesStore } from '@/store/Character/ClassesStore';
 
     export default {
         name: 'ClassesView',
@@ -67,7 +67,7 @@
             search: ''
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useUIStore, ['isMobile', 'fullscreen']),
             ...mapState(useClassesStore, ['getClasses', 'getFilter']),
 
             filter() {
@@ -91,6 +91,7 @@
                     })),
                     [o => o.group.order]
                 );
+
                 const sorted = [
                     {
                         list: sortBy(classes.filter(item => !('group' in item)), [o => o.name.rus])

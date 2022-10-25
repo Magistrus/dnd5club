@@ -12,18 +12,18 @@
             :key="spell.url"
             :in-tab="inTab"
             :spell="spell"
-            :to="{path: spell.url}"
+            :to="{ path: spell.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import { useSpellsStore } from '@/store/Spells/SpellsStore';
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import SpellLink from "@/views/Spells/SpellLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -59,7 +59,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.spellsStore.getFilter || undefined;
@@ -80,7 +80,7 @@
             },
 
             useAutoOpenFirst() {
-                return !this.getIsMobile && !!this.spells.length && this.$route.name === 'spells' && !this.inTab;
+                return !this.isMobile && !!this.spells.length && this.$route.name === 'spells' && !this.inTab;
             }
         },
         watch: {

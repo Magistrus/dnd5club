@@ -8,25 +8,25 @@
         <div
             ref="races"
             class="race-items"
-            :class="{ 'is-selected': showRightSide, 'is-fullscreen': getFullscreen }"
+            :class="{ 'is-selected': showRightSide, 'is-fullscreen': fullscreen }"
         >
             <race-link
                 v-for="race in getRaces"
                 :key="race.url"
                 :race-item="race"
-                :to="{path: race.url}"
+                :to="{ path: race.url }"
             />
         </div>
     </content-layout>
 </template>
 
 <script>
-    import ContentLayout from '@/components/content/ContentLayout';
-    import { useRacesStore } from "@/store/Character/RacesStore";
-    import RaceLink from "@/views/Character/Races/RaceLink";
     import {
         mapActions, mapState
     } from "pinia";
+    import ContentLayout from '@/components/content/ContentLayout';
+    import { useRacesStore } from "@/store/Character/RacesStore";
+    import RaceLink from "@/views/Character/Races/RaceLink";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -44,7 +44,7 @@
             next();
         },
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useUIStore, ['isMobile', 'fullscreen']),
             ...mapState(useRacesStore, ['getRaces', 'getFilter']),
 
             filter() {
@@ -72,7 +72,7 @@
             async onSearch() {
                 await this.racesQuery();
 
-                if (this.getRaces.length === 1 && !this.getIsMobile) {
+                if (this.getRaces.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.getRaces[0].url });
                 }
             }

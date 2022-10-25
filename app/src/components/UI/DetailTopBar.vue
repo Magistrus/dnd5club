@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="{ 'bg_grey': bgGrey }"
+        :class="{ bg_grey: bgGrey }"
         class="row_info"
     >
         <span
@@ -25,7 +25,7 @@
             >Homebrew</span>
 
             <span
-                v-tippy="{content: source.name}"
+                v-tippy="{ content: source.name }"
             >&nbsp;{{ source.shortName }}</span>
         </span>
 

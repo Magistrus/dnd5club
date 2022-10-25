@@ -40,7 +40,7 @@
 
                 <b>Стоимость по <span
                     v-tippy="'Руководство Зантара обо всем'"
-                >XGE</span>:</b> <span>{{ magicItem.cost.xge }}</span>
+                >XGE</span>:</b> <span><dice-roller :formula="magicItem.cost.xge"/></span> зм.
             </p>
 
             <raw-content
@@ -66,9 +66,9 @@
 </template>
 
 <script>
+    import upperFirst from "lodash/upperFirst";
     import RawContent from "@/components/content/RawContent";
     import DetailTopBar from "@/components/UI/DetailTopBar";
-    import upperFirst from "lodash/upperFirst";
 
     export default {
         name: "MagicItemBody",

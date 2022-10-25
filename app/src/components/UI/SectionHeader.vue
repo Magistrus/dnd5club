@@ -39,7 +39,7 @@
                     :url="url"
                 />
 
-                <form-button
+                <ui-button
                     v-if="print"
                     v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
@@ -47,9 +47,9 @@
                     @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
-                </form-button>
+                </ui-button>
 
-                <form-button
+                <ui-button
                     v-if="onExportFoundry"
                     v-tippy="{ content: 'Импорт в Foundry VTT. <a href=&quot;/fvtt_import&quot;>Инструкция</a>' }"
                     class="section-header__control--optional is-only-desktop"
@@ -57,7 +57,7 @@
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>
-                </form-button>
+                </ui-button>
             </div>
 
             <div
@@ -67,15 +67,15 @@
                 <button
                     v-if="fullscreen"
                     v-tippy="{
-                        content: uiStore.getFullscreen
+                        content: uiStore.fullscreen
                             ? 'Свернуть окно'
-                            : 'Развернуть окно'
+                            : 'Развернуть окно',
                     }"
                     class="section-header__control--main is-only-desktop"
                     type="button"
-                    @click.left.exact.prevent.stop="uiStore.setFullscreenState(!uiStore.getFullscreen)"
+                    @click.left.exact.prevent.stop="uiStore.setFullscreenState(!uiStore.fullscreen)"
                 >
-                    <svg-icon :icon-name="uiStore.getFullscreen ? 'exit-fullscreen' : 'fullscreen'"/>
+                    <svg-icon :icon-name="uiStore.fullscreen ? 'exit-fullscreen' : 'fullscreen'"/>
                 </button>
 
                 <button
@@ -92,16 +92,16 @@
     </div>
 </template>
 
-<script>
+<script lang="jsx">
+    import { useClipboard } from "@vueuse/core";
     import { useUIStore } from '@/store/UI/UIStore';
     import BookmarkSaveButton from "@/components/UI/menu/bookmarks/buttons/BookmarkSaveButton";
-    import FormButton from "@/components/form/FormButton";
-    import { useClipboard } from "@vueuse/core";
+    import UiButton from "@/components/form/UiButton";
 
     export default {
         name: 'SectionHeader',
         components: {
-            FormButton,
+            UiButton,
             BookmarkSaveButton
         },
         props: {
@@ -168,7 +168,7 @@
             },
 
             closeAvailable() {
-                if (!this.uiStore.getIsMobile) {
+                if (!this.uiStore.isMobile) {
                     return this.closeOnDesktop;
                 }
 
@@ -184,8 +184,16 @@
                 this.clipboard.copy(this.urlForCopy)
                     .then(() => this.$toast('Ссылка успешно скопирована'))
                     .catch(() => this.$toast.error((
-                        <span>Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем <a
-                            target="_blank" href="https://discord.gg/zqBnMJVf3z">Discord-канале</a></span>
+                      <span>
+                        Произошла какая-то ошибка... попробуйте еще раз или обратитесь за помощью на нашем
+                        <a
+                          target="_blank"
+                          href="https://discord.gg/zqBnMJVf3z"
+                          rel="noopener"
+                        >
+                          Discord-канале
+                        </a>
+                      </span>
                     )));
             },
 

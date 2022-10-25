@@ -11,18 +11,18 @@
             :key="background.url"
             :background-item="background"
             :in-tab="inTab"
-            :to="{path: background.url}"
+            :to="{ path: background.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useBackgroundsStore } from "@/store/Character/BackgroundsStore";
     import BackgroundLink from "@/views/Character/Backgrounds/BackgroundLink";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -50,7 +50,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.backgroundsStore.getFilter || undefined;
@@ -74,7 +74,7 @@
             await this.backgroundsStore.initFilter(this.storeKey);
             await this.backgroundsStore.initBackgrounds();
 
-            if (!this.getIsMobile && this.backgrounds.length && this.$route.name === 'backgrounds') {
+            if (!this.isMobile && this.backgrounds.length && this.$route.name === 'backgrounds') {
                 await this.$router.push({ path: this.backgrounds[0].url });
             }
         },
@@ -89,7 +89,7 @@
             async onSearch() {
                 this.backgroundsQuery();
 
-                if (this.backgrounds.length === 1 && !this.getIsMobile) {
+                if (this.backgrounds.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.backgrounds[0].url });
                 }
             }

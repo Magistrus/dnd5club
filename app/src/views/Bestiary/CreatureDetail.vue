@@ -2,9 +2,9 @@
     <content-detail class="creature-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="creature?.name?.eng || ''"
                 :title="creature?.name?.rus || ''"
                 bookmark
@@ -24,11 +24,11 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useBestiaryStore } from "@/store/Bestiary/BestiaryStore";
     import CreatureBody from "@/views/Bestiary/CreatureBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -50,7 +50,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewCreature(this.$route.path);

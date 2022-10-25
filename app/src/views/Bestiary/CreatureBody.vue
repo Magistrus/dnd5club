@@ -44,6 +44,7 @@
 
                     <span v-if="creature.hits?.formula">(<dice-roller
                         :formula="hitDiceFormula"
+                        label="Хиты"
                     >
                         {{
                             `${ creature.hits.formula }${
@@ -72,8 +73,11 @@
                         >СИЛ</strong>
                     </h4>
                     <p>
-                        <dice-roller :formula="abilityFormula(creature.ability.str)">
-                            {{ creature.ability.str }} ({{ abilityBonus(creature.ability.str) }})
+                        <dice-roller
+                            :formula="getAbilityFormula(creature.ability.str)"
+                            label="Проверка Силы"
+                        >
+                            {{ creature.ability.str }} ({{ getAbilityModifier(creature.ability.str) }})
                         </dice-roller>
                     </p>
                 </div>
@@ -85,8 +89,11 @@
                         >ЛОВ</strong>
                     </h4>
                     <p>
-                        <dice-roller :formula="abilityFormula(creature.ability.dex)">
-                            {{ creature.ability.dex }} ({{ abilityBonus(creature.ability.dex) }})
+                        <dice-roller
+                            :formula="getAbilityFormula(creature.ability.dex)"
+                            label="Проверка Ловкости"
+                        >
+                            {{ creature.ability.dex }} ({{ getAbilityModifier(creature.ability.dex) }})
                         </dice-roller>
                     </p>
                 </div>
@@ -98,8 +105,11 @@
                         >ТЕЛ</strong>
                     </h4>
                     <p>
-                        <dice-roller :formula="abilityFormula(creature.ability.con)">
-                            {{ creature.ability.con }} ({{ abilityBonus(creature.ability.con) }})
+                        <dice-roller
+                            :formula="getAbilityFormula(creature.ability.con)"
+                            label="Проверка Телосложения"
+                        >
+                            {{ creature.ability.con }} ({{ getAbilityModifier(creature.ability.con) }})
                         </dice-roller>
                     </p>
                 </div>
@@ -111,8 +121,11 @@
                         >ИНТ</strong>
                     </h4>
                     <p>
-                        <dice-roller :formula="abilityFormula(creature.ability.int)">
-                            {{ creature.ability.int }} ({{ abilityBonus(creature.ability.int) }})
+                        <dice-roller
+                            :formula="getAbilityFormula(creature.ability.int)"
+                            label="Проверка Интеллекта"
+                        >
+                            {{ creature.ability.int }} ({{ getAbilityModifier(creature.ability.int) }})
                         </dice-roller>
                     </p>
                 </div>
@@ -124,8 +137,11 @@
                         >МДР</strong>
                     </h4>
                     <p>
-                        <dice-roller :formula="abilityFormula(creature.ability.wiz)">
-                            {{ creature.ability.wiz }} ({{ abilityBonus(creature.ability.wiz) }})
+                        <dice-roller
+                            :formula="getAbilityFormula(creature.ability.wiz)"
+                            label="Проверка Мудрости"
+                        >
+                            {{ creature.ability.wiz }} ({{ getAbilityModifier(creature.ability.wiz) }})
                         </dice-roller>
                     </p>
                 </div>
@@ -137,8 +153,11 @@
                         >ХАР</strong>
                     </h4>
                     <p>
-                        <dice-roller :formula="abilityFormula(creature.ability.cha)">
-                            {{ creature.ability.cha }} ({{ abilityBonus(creature.ability.cha) }})
+                        <dice-roller
+                            :formula="getAbilityFormula(creature.ability.cha)"
+                            label="Проверка Харизмы"
+                        >
+                            {{ creature.ability.cha }} ({{ getAbilityModifier(creature.ability.cha) }})
                         </dice-roller>
                     </p>
                 </div>
@@ -151,7 +170,10 @@
                         v-for="(savingThrow, key) in savingThrows"
                         :key="key"
                     >
-                        <span>{{ savingThrow.label }}&nbsp;</span><dice-roller :formula="savingThrow.formula">
+                        <span>{{ savingThrow.label }}&nbsp;</span><dice-roller
+                            :formula="savingThrow.formula"
+                            :label="`Спасбросок ${ savingThrow.name }`"
+                        >
                             {{ savingThrow.value }}
                         </dice-roller><span v-if="key < savingThrows.length - 1">, </span>
                     </span>
@@ -163,7 +185,10 @@
                         v-for="(skill, key) in skills"
                         :key="key"
                     >
-                        <span>{{ skill.label }}&nbsp;</span><dice-roller :formula="skill.formula">
+                        <span>{{ skill.label }}&nbsp;</span><dice-roller
+                            :formula="skill.formula"
+                            :label="`Проверка навыка ${ skill.label }`"
+                        >
                             {{ skill.value }}
                         </dice-roller><span v-if="key < skills.length - 1">, </span>
                     </span>
@@ -197,7 +222,7 @@
                 <p>
                     <strong>Языки </strong>
 
-                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '-' }}</span>
+                    <span> {{ creature.languages?.length ? creature.languages.join(', ') : '—' }}</span>
                 </p>
 
                 <p>
@@ -415,6 +440,7 @@
     import DetailTopBar from "@/components/UI/DetailTopBar";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
     import DiceRoller from "@/components/UI/DiceRoller";
+    import { useAbilityTransforms } from "@/common/composition/useAbilityTransforms";
 
     export default {
         name: "CreatureBody",
@@ -434,6 +460,17 @@
                 type: Boolean,
                 default: false
             }
+        },
+        setup() {
+            const {
+                getFormattedModifier: getAbilityModifier,
+                getFormula: getAbilityFormula
+            } = useAbilityTransforms();
+
+            return {
+                getAbilityModifier,
+                getAbilityFormula
+            };
         },
         data: () => ({
             gallery: {
@@ -492,8 +529,9 @@
 
                     saves.push({
                         formula: `к20${ sign }${ Math.abs(save.value) }`,
-                        label: save.name,
-                        value: `${ sign }${ save.value }`
+                        label: save.shortName,
+                        name: save.name,
+                        value: `${ sign }${ Math.abs(save.value) }${ save.additional ? save.additional : '' }`
                     });
                 }
 
@@ -513,7 +551,7 @@
                     skills.push({
                         formula: `к20${ sign }${ Math.abs(skill.value) }`,
                         label: skill.name,
-                        value: `${ sign }${ skill.value }`
+                        value: `${ sign }${ Math.abs(skill.value) }${ skill.additional ? skill.additional : '' }`
                     });
                 }
 
@@ -582,20 +620,6 @@
                 }
 
                 modal.classList.remove(className);
-            },
-
-            abilityBonus(ability) {
-                const bonus = Math.floor((ability - 10) / 2);
-
-                return (Math.sign(bonus) > -1 ? '+' : '−') + Math.abs(bonus);
-            },
-
-            abilityFormula(ability) {
-                const bonus = Math.floor((ability - 10) / 2);
-                const sign = Math.sign(bonus) > -1 ? '+' : '-';
-                const absBonus = Math.abs(bonus);
-
-                return `к20${ sign }${ absBonus }`;
             },
 
             getIterableStr(strings) {

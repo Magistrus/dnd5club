@@ -9,10 +9,10 @@
 
 <script>
     import { defineComponent } from "vue";
+    import { storeToRefs } from "pinia";
     import DefaultBookmarkButton from "@/components/UI/menu/bookmarks/buttons/DefaultBookmarkButton";
     import CustomBookmarkButton from "@/components/UI/menu/bookmarks/buttons/CustomBookmarkButton";
     import { useUserStore } from "@/store/UI/UserStore";
-    import { storeToRefs } from "pinia";
 
     export default defineComponent({
         components: {

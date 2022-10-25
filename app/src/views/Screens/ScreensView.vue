@@ -28,10 +28,10 @@
 </template>
 
 <script>
-    import ContentLayout from "@/components/content/ContentLayout";
     import {
         mapActions, mapState
     } from "pinia";
+    import ContentLayout from "@/components/content/ContentLayout";
     import { useScreensStore } from "@/store/Screens/ScreensStore";
     import { useUIStore } from "@/store/UI/UIStore";
 
@@ -39,7 +39,7 @@
         name: "ScreensView",
         components: { ContentLayout },
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen']),
+            ...mapState(useUIStore, ['isMobile', 'fullscreen']),
             ...mapState(useScreensStore, ['getScreens', 'getFilter']),
 
             showRightSide() {
@@ -68,7 +68,7 @@
             async onSearch() {
                 await this.screensQuery();
 
-                if (this.getScreens.length === 1 && !this.getIsMobile) {
+                if (this.getScreens.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.getScreens[0].url });
                 }
             }

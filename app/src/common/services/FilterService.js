@@ -1,7 +1,7 @@
 import localforage from 'localforage';
+import cloneDeep from 'lodash/cloneDeep';
 import HTTPService from '@/common/services/HTTPService';
 import errorHandler from '@/common/helpers/errorHandler';
-import cloneDeep from 'lodash/cloneDeep';
 
 export default class FilterService {
     constructor() {
@@ -26,6 +26,7 @@ export default class FilterService {
         }
 
         const isValueCustomized = value => value.default !== value.value;
+
         const isValuesCustomized = values => {
             let customized = false;
 
@@ -35,6 +36,7 @@ export default class FilterService {
 
             return customized;
         };
+
         const isBlockCustomized = block => {
             if ('value' in block) {
                 return isValueCustomized(block.value);
@@ -64,6 +66,7 @@ export default class FilterService {
 
     get getQueryParams() {
         const params = {};
+
         const setBlockToParams = block => {
             for (const group of block) {
                 if (group.value) {
@@ -136,6 +139,7 @@ export default class FilterService {
 
         try {
             this.storeKey = opts.storeKey;
+
             this.store = localforage.createInstance({
                 name: opts.dbName,
                 storeName: opts.storeName
@@ -152,6 +156,7 @@ export default class FilterService {
 
                 await this.store.setItem(this.storeKey, restored);
             };
+
             const resp = await this.http.post(opts.url);
 
             if (!resp.data || resp.status !== 200) {
@@ -172,8 +177,10 @@ export default class FilterService {
 
         const copy = cloneDeep(filter);
         const saved = await this.store.getItem(this.storeKey);
+
         const copyIsNewType = (Array.isArray(copy) && !Array.isArray(saved))
             || (!Array.isArray(copy) && Array.isArray(saved));
+
         const getRestoredValue = (value, key) => {
             if (!saved || copyIsNewType) {
                 return value.default;
@@ -206,6 +213,7 @@ export default class FilterService {
 
             return savedValue.value;
         };
+
         const getRestoredValues = (values, key) => {
             const restored = [];
 
@@ -218,6 +226,7 @@ export default class FilterService {
 
             return restored;
         };
+
         const getRestoredBlock = block => {
             if ('value' in block) {
                 return {

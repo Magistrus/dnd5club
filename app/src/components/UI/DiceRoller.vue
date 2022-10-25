@@ -1,20 +1,23 @@
 <template>
     <span
-        v-tippy="{
-            content: result || `Нажмите для броска: <b>${formula}</b>`,
-            hideOnClick: false,
-        }"
+        v-tippy="{ content: `Нажмите для броска: <b>${formula}</b>` }"
         :class="classes"
         class="dice-roller"
-        @click.left.exact.prevent="tryRoll"
+        @click.left.exact.prevent="tryRoll()"
+        @click.left.shift.exact.prevent="tryRoll('advantage')"
+        @click.left.ctrl.exact.prevent="tryRoll('disadvantage')"
+        @click.left.meta.exact.prevent="tryRoll('disadvantage')"
     >
         <slot>{{ formula }}</slot>
     </span>
 </template>
 
 <script>
-    import errorHandler from "@/common/helpers/errorHandler";
-    import debounce from "lodash/debounce";
+    import { DiceRoller } from 'dice-roller-parser';
+    import { POSITION, useToast } from "vue-toastification";
+    import { computed, ref } from "vue";
+    import { getRendered } from "@/common/utils/DiceRollRenderer";
+    import { useIsDev } from "@/common/helpers/isDev";
 
     export default {
         name: "DiceRoller",
@@ -23,6 +26,10 @@
                 type: String,
                 default: '',
                 required: true
+            },
+            label: {
+                type: String,
+                default: 'Бросок'
             },
             isAdvantage: {
                 type: Boolean,
@@ -37,73 +44,114 @@
                 default: false
             }
         },
-        data: () => ({
-            roll: undefined,
-            error: false,
-            rpgDiceRoller: undefined
-        }),
-        computed: {
-            result() {
-                return this.roll ? `Результат: <b>${ this.roll }</b>` : '';
-            },
+        setup(props) {
+            const isDev = useIsDev();
+            const toast = useToast();
+            const error = ref(false);
 
-            classByType() {
-                if (this.isAdvantage) {
+            const classByType = computed(() => {
+                if (props.isAdvantage) {
                     return 'is-advantage';
                 }
 
-                if (this.isDisadvantage) {
+                if (props.isDisadvantage) {
                     return 'is-disadvantage';
                 }
 
-                if (this.isSavingThrow) {
+                if (props.isSavingThrow) {
                     return 'is-saving-throw';
                 }
 
                 return 'is-dice';
-            },
+            });
 
-            classes() {
-                const classes = [this.classByType];
+            const classes = computed(() => {
+                const result = [classByType.value];
 
-                if (this.error) {
-                    classes.push('is-error');
+                if (error.value) {
+                    result.push('is-error');
                 }
 
-                return classes;
-            },
+                return result;
+            });
 
-            computedFormula() {
-                return this.formula.replace(/к/gim, 'd').replace(/–/gim, '-');
-            }
-        },
-        async beforeMount() {
-            this.rpgDiceRoller = await import('@dice-roller/rpg-dice-roller');
-        },
-        methods: {
-            // eslint-disable-next-line func-names
-            tryRoll() {
+            /**
+             * Получение формулы броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             * @return { string }
+             */
+            const getComputedFormula = (type = undefined) => {
+                const formula = props.formula
+                    .replace(/к/gim, 'd')
+                    .replace(/−/gim, '-');
+
+                if (props.isAdvantage || type === 'advantage') {
+                    if (formula.startsWith('d20') || formula.startsWith('1d20')) {
+                        return formula
+                            .replace(/1?d20/gim, '2d20kh1');
+                    }
+
+                    return `${ formula }+${ formula.match(/[0-9]*d\d+/g) }`;
+                }
+
+                if (props.isDisadvantage || type === 'disadvantage') {
+                    if (formula.startsWith('d20') || formula.startsWith('1d20')) {
+                        return formula
+                            .replace(/1?d20/gim, '2d20kl1');
+                    }
+
+                    return `(${ formula })/2`;
+                }
+
+                return formula;
+            };
+
+            /**
+             * Выполнение броска
+             *
+             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
+             */
+            const tryRoll = (type = undefined) => {
                 try {
-                    this.error = false;
+                    error.value = false;
 
-                    const { DiceRoll } = this.rpgDiceRoller;
-                    const roller = new DiceRoll(this.computedFormula);
-                    const result = roller.toJSON();
+                    const roller = new DiceRoller();
+                    const roll = roller.roll(getComputedFormula(type));
 
-                    this.roll = result.total;
+                    let labelSuffix = '';
 
-                    this.clearRoll();
+                    if (type && (roll.dice?.[0]?.die?.value === 20 || roll.die?.value === 20)) {
+                        labelSuffix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
+                    } else if (type) {
+                        labelSuffix = type === 'disadvantage' ? ' (1/2)' : ' (удвоенный бросок)';
+                    }
+
+                    toast(getRendered({
+                        roll,
+                        label: `${ props.label }${ labelSuffix }`,
+                        advantage: type === 'advantage' || props.isAdvantage,
+                        disadvantage: type === 'disadvantage' || props.isDisadvantage
+                    }), {
+                        position: POSITION.BOTTOM_RIGHT,
+                        timeout: 5000,
+                        icon: false
+                    });
                 } catch (err) {
-                    this.error = true;
+                    error.value = true;
 
-                    errorHandler(err);
+                    if (isDev) {
+                        throw new Error(err);
+                    }
+
+                    toast.error('Произошла ошибка, попробуйте еще раз...');
                 }
-            },
+            };
 
-            // eslint-disable-next-line func-names
-            clearRoll: debounce(function() {
-                this.roll = undefined;
-            }, 5000)
+            return {
+                tryRoll,
+                classes
+            };
         }
     };
 </script>
@@ -136,6 +184,47 @@
 
         &.is-error {
             color: var(--error);
+        }
+    }
+</style>
+
+<style lang="scss">
+    .dice-roll {
+        display: flex;
+
+        &__result {
+            font-size: var(--h1-font-size);
+            line-height: var(--h1-font-size);
+            font-weight: 600;
+        }
+
+        &__body {
+            margin-left: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: calc(var(--main-font-size) - 2px);
+            line-height: calc(var(--main-font-size) + 2px);
+            padding-top: 4px;
+        }
+
+        &__rendered {
+        }
+
+        del {
+            text-decoration: red line-through;
+        }
+
+        .is-success {
+            color: var(--bg-advantage);
+        }
+
+        .is-failure {
+            color: red;
         }
     }
 </style>

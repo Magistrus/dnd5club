@@ -81,11 +81,11 @@
 </template>
 
 <script>
+    import { computed, ref } from "vue";
     import AuthModal from "@/components/UI/modals/AuthModal";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
     import { useUserStore } from "@/store/UI/UserStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
-    import { computed, ref } from "vue";
     import LoginView from "@/components/account/LoginView";
     import RegistrationView from "@/components/account/RegistrationView";
     import ChangePasswordView from "@/components/account/ChangePasswordView";
@@ -101,6 +101,7 @@
             const userStore = useUserStore();
             const popover = ref(false);
             const modal = ref('');
+
             const modals = computed(() => ([
                 {
                     rus: 'Авторизация',
@@ -118,8 +119,10 @@
                     component: () => ChangePasswordView
                 }
             ]));
+
             const modalInfo = computed(() => modals.value.find(item => item.eng === modal.value));
             const modalComponent = computed(() => modalInfo.value?.component());
+
             const isModalOpened = computed({
                 get: () => !!modal.value,
                 set: e => {
@@ -128,6 +131,7 @@
                         : false;
                 }
             });
+
             const greeting = computed(() => {
                 const hours = new Date().getHours();
 

@@ -2,9 +2,9 @@
     <content-detail class="item-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="item?.name?.eng || ''"
                 :title="item?.name?.rus || ''"
                 bookmark
@@ -23,12 +23,12 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from '@/components/UI/SectionHeader';
     import errorHandler from "@/common/helpers/errorHandler";
     import { useItemsStore } from "@/store/Inventory/ItemsStore";
     import ItemBody from "@/views/Inventory/Items/ItemBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -50,7 +50,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewItem(this.$route.path);

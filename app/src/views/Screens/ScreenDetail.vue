@@ -5,7 +5,7 @@
                 :title="screen?.name?.rus || ''"
                 :subtitle="screen?.name?.eng || ''"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 bookmark
                 close-on-desktop
                 @close="close"
@@ -27,10 +27,10 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from "@/components/UI/SectionHeader";
     import { useScreensStore } from "@/store/Screens/ScreensStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
     import ScreenBody from "@/views/Screens/ScreenBody";
     import ScreensGroup from "@/views/Screens/ScreensGroup";
@@ -55,7 +55,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewScreen(this.$route.path);

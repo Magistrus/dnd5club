@@ -10,7 +10,7 @@
                         <div class="row">
                             <span class="label">Средний уровень Группы</span>
 
-                            <field-select
+                            <ui-select
                                 v-model="level"
                                 :options="levels"
                                 :searchable="false"
@@ -20,13 +20,13 @@
                                 <template #placeholder>
                                     Уровень
                                 </template>
-                            </field-select>
+                            </ui-select>
                         </div>
 
                         <div class="row">
                             <span class="label">Окружение</span>
 
-                            <field-select
+                            <ui-select
                                 v-model="env"
                                 :options="environments"
                                 :searchable="false"
@@ -36,26 +36,26 @@
                                 <template #placeholder>
                                     Окружение
                                 </template>
-                            </field-select>
+                            </ui-select>
                         </div>
                     </div>
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <form-button @click.left.exact.prevent="sendForm">
+                    <ui-button @click.left.exact.prevent="sendForm">
                         Сгенерировать
-                    </form-button>
+                    </ui-button>
 
-                    <form-button @click.left.exact.prevent="results = []">
+                    <ui-button @click.left.exact.prevent="results = []">
                         Очистить
-                    </form-button>
+                    </ui-button>
 
-                    <form-button
+                    <ui-button
                         v-if="isTableDisabled"
                         @click.left.exact.prevent="getTable"
                     >
                         Показать таблицу
-                    </form-button>
+                    </ui-button>
                 </div>
             </form>
         </template>
@@ -100,13 +100,13 @@
 </template>
 
 <script>
+    import throttle from 'lodash/throttle';
+    import { reactive } from "vue";
     import ContentLayout from "@/components/content/ContentLayout";
     import errorHandler from "@/common/helpers/errorHandler";
     import RawContent from "@/components/content/RawContent";
-    import throttle from 'lodash/throttle';
-    import { reactive } from "vue";
-    import FieldSelect from "@/components/form/FieldType/FieldSelect";
-    import FormButton from "@/components/form/FormButton";
+    import UiSelect from "@/components/form/UiSelect";
+    import UiButton from "@/components/form/UiButton";
     import BaseModal from "@/components/UI/modals/BaseModal";
     import RollTable from "@/components/UI/RollTable";
 
@@ -115,8 +115,8 @@
         components: {
             RollTable,
             BaseModal,
-            FormButton,
-            FieldSelect,
+            UiButton,
+            UiSelect,
             RawContent,
             ContentLayout
         },

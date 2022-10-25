@@ -67,7 +67,7 @@
                             class="link-item__price"
                         >
                             <span>
-                                {{ weapon.price }}
+                                {{ weapon.price ? weapon.price : '—' }}
                             </span>
                         </div>
                     </div>

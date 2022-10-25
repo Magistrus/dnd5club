@@ -105,10 +105,16 @@ public class BeastDetailApi extends BeastApi {
 		ability = new AbilityApi(beast);
 		
 		if (!beast.getSavingThrows().isEmpty()) {
-			savingThrows = beast.getSavingThrows().stream().map(st -> new NameValueApi(st.getAbility().getShortName(), st.getBonus())).collect(Collectors.toList());
+			savingThrows = beast.getSavingThrows()
+					.stream()
+					.map(st -> new NameValueApi(st.getAbility().getCyrilicName(), st.getAbility().getShortName(), st.getBonus(), st.getAdditionalBonus()))
+					.collect(Collectors.toList());
 		}
 		if (!beast.getSkills().isEmpty()) {
-			skills = beast.getSkills().stream().map(skill -> new NameValueApi(skill.getType().getCyrilicName(), skill.getBonus())).collect(Collectors.toList());
+			skills = beast.getSkills()
+					.stream()
+					.map(skill -> new NameValueApi(skill.getType().getCyrilicName(), null, skill.getBonus(), skill.getAdditionalBonus()))
+					.collect(Collectors.toList());
 		}
 		if (!beast.getResistanceDamages().isEmpty()) {
 			damageResistances = beast.getResistanceDamages().stream().map(DamageType::getCyrilicName).collect(Collectors.toList());

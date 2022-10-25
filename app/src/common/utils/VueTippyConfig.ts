@@ -1,22 +1,27 @@
+import type { TippyPluginOptions } from 'vue-tippy';
 import HTTPService from '@/common/services/HTTPService';
 import errorHandler from '@/common/helpers/errorHandler';
 
-export default {
+const options: TippyPluginOptions = {
     defaultProps: {
         allowHTML: true,
         interactive: true,
         hideOnClick: false,
         sticky: true,
         touch: false,
-        theme: 'dnd5club',
+        theme: 'ttgclub',
         strategy: 'fixed',
         maxWidth: 450,
+
+        // @ts-ignore
         delay: [450, null],
         interactiveBorder: 7,
         appendTo: () => document.body,
         onClickOutside() {
             return false;
         },
+
+        // @ts-ignore
         onShow(instance) {
             const ref = instance.reference;
 
@@ -60,3 +65,5 @@ export default {
         }
     }
 };
+
+export default options;

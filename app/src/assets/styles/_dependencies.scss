@@ -14,7 +14,7 @@
   cursor: auto;
 
   .tippy-box {
-    &[data-theme~=dnd5club] {
+    &[data-theme~=ttgclub] {
       background-color: var(--bg-main);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -344,6 +344,17 @@
 }
 
 .Vue-Toastification {
+  &__bounce {
+    &-leave-active,
+    &-enter-active {
+      animation-duration: 450ms;
+    }
+
+    &-move {
+      animation-duration: 250ms;
+    }
+  }
+
   &__icon {
     margin: 2px 16px 0 0;
     width: 20px;

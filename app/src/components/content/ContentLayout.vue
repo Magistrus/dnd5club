@@ -1,16 +1,16 @@
 <template>
     <div
         ref="container"
-        :class="{'is-showed-right-side': showRightSide}"
+        :class="{ 'is-showed-right-side': showRightSide }"
         class="content-layout"
     >
         <div
-            :class="{ 'is-fullscreen': getFullscreen }"
+            :class="{ 'is-fullscreen': fullscreen }"
             class="content-layout__body"
         >
             <div
-                :class="{ 'is-fullscreen': getFullscreen, 'is-showed-right-side': showRightSide }"
-                class="content-layout__list"
+                :class="{ 'is-fullscreen': fullscreen, 'is-showed-right-side': showRightSide }"
+                class="content-layout__side--left"
             >
                 <div
                     v-if="filterInstance"
@@ -27,15 +27,15 @@
 
                 <div
                     v-if="$slots.fixed"
-                    class="content-layout__fixed"
+                    class="content-layout__side--left_fixed"
                 >
                     <slot name="fixed"/>
                 </div>
 
                 <div
                     ref="items"
-                    :class="{ 'is-shadow': shadow || (showRightSide && getFullscreen) }"
-                    class="content-layout__items"
+                    :class="{ 'is-shadow': shadow || (showRightSide && fullscreen) }"
+                    class="content-layout__side--left_body"
                 >
                     <slot name="default"/>
                 </div>
@@ -44,8 +44,8 @@
             <div
                 v-if="showRightSide"
                 ref="detail"
-                :class="{ 'is-fullscreen': getFullscreen }"
-                class="content-layout__selected"
+                :class="{ 'is-fullscreen': fullscreen }"
+                class="content-layout__side--right"
             >
                 <router-view
                     v-if="!$slots['right-side']"
@@ -60,12 +60,12 @@
 </template>
 
 <script>
-    import { useUIStore } from '@/store/UI/UIStore';
-    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core/index";
-    import ListFilter from "@/components/filter/ListFilter";
-    import FilterService from "@/common/services/FilterService";
+    import { useInfiniteScroll, useResizeObserver } from "@vueuse/core";
     import { mapState } from "pinia";
     import { ref } from "vue";
+    import { useUIStore } from '@/store/UI/UIStore';
+    import ListFilter from "@/components/filter/ListFilter";
+    import FilterService from "@/common/services/FilterService";
 
     export default {
         name: 'ContentLayout',
@@ -90,10 +90,10 @@
             shadow: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile', 'getFullscreen'])
+            ...mapState(useUIStore, ['isMobile', 'fullscreen'])
         },
         mounted() {
-            const scrollEl = document.getElementById('dnd5club');
+            const scrollEl = document.getElementById('ttgclub');
 
             useInfiniteScroll(
                 ref(scrollEl),
@@ -108,13 +108,13 @@
             useResizeObserver(scrollEl, this.scrollHandler);
         },
         beforeUnmount() {
-            const scrollEl = document.getElementById('dnd5club');
+            const scrollEl = document.getElementById('ttgclub');
 
             scrollEl.removeEventListener('scroll', this.scrollHandler);
         },
         methods: {
             scrollToLastActive(url) {
-                if (this.getIsMobile) {
+                if (this.isMobile) {
                     return;
                 }
 
@@ -138,7 +138,7 @@
             },
 
             scrollToActive(oldLink) {
-                if (this.getIsMobile) {
+                if (this.isMobile) {
                     return;
                 }
 
@@ -161,7 +161,7 @@
                 }
 
                 this.$nextTick(() => {
-                    const scrollBody = document.getElementById('dnd5club');
+                    const scrollBody = document.getElementById('ttgclub');
                     const rect = link.getBoundingClientRect();
 
                     if (!rect?.top && rect?.top !== 0) {
@@ -180,7 +180,7 @@
             },
 
             toggleShadow() {
-                const scrollEl = document.getElementById('dnd5club');
+                const scrollEl = document.getElementById('ttgclub');
                 const container = document.getElementById('container');
 
                 this.shadow = scrollEl.scrollTop + scrollEl.offsetHeight < container.offsetHeight - 24;
@@ -204,30 +204,101 @@
             }
         }
 
-        &__list {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            width: 100%;
-            flex-shrink: 0;
+        &__side {
+            &--left {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                width: 100%;
+                flex-shrink: 0;
 
-            ::-webkit-scrollbar-track {
-                background-color: transparent;
-
-                &:hover {
+                ::-webkit-scrollbar-track {
                     background-color: transparent;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+
+                &.is-fullscreen {
+                    border-radius: 12px;
+                }
+
+                &.is-showed-right-side {
+                    width: 100%;
+
+                    @include media-min($sm) {
+                        width: 40%;
+                    }
+                }
+
+                &_body {
+                    margin-bottom: -24px;
+
+                    &:after {
+                        content: '';
+                        display: block;
+                        pointer-events: none;
+                        width: calc(100% + 16px);
+                        height: 24px;
+                        box-shadow: 0 0 32px 32px var(--bg-main);
+                        position: sticky;
+                        bottom: 0;
+                        margin: 0 -16px;
+                        //z-index: 16;
+                        opacity: 0;
+                        background-color: var(--bg-main);
+                        transition: opacity 0.2s;
+                        border: {
+                            top-left-radius: 20%;
+                            top-right-radius: 20%;
+                        };
+                    }
+
+                    &.is-shadow {
+                        &:after {
+                            opacity: 1;
+                        }
+                    }
                 }
             }
 
-            &.is-fullscreen {
+            &--right {
+                display: block;
+                top: 56px;
+                right: 0;
+                width: calc(60% - 24px);
+                height: calc(var(--max-vh) - 56px - 24px);
+                overflow: hidden;
                 border-radius: 12px;
-            }
+                background-color: var(--bg-secondary);
+                position: sticky;
+                margin-left: auto;
+                z-index: 12;
 
-            &.is-showed-right-side {
-                width: 100%;
+                @media (max-width: 1200px) {
+                    width: 100%;
+                    height: calc(var(--max-vh) - 56px);
+                    position: fixed;
+                    top: 56px;
+                    left: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
 
-                @include media-min($sm) {
-                    width: 40%;
+                &.is-fullscreen {
+                    width: var(--max-content);
+                    max-width: var(--max-content);
+                    height: calc(var(--max-vh) - 56px - 24px);
+                    margin-left: -40%;
+                    z-index: 16;
+
+                    @media (max-width: 1200px) {
+                        width: 100%;
+                        max-width: 100%;
+                        margin-left: initial;
+                        height: calc(var(--max-vh) - 56px);
+                    }
                 }
             }
         }
@@ -271,76 +342,7 @@
             }
         }
 
-        &__items {
-            margin-bottom: -24px;
-
-            &:after {
-                content: '';
-                display: block;
-                pointer-events: none;
-                width: calc(100% + 16px);
-                height: 24px;
-                box-shadow: 0 0 32px 32px var(--bg-main);
-                position: sticky;
-                bottom: 0;
-                margin: 0 -16px;
-                //z-index: 16;
-                opacity: 0;
-                background-color: var(--bg-main);
-                transition: opacity 0.2s;
-                border: {
-                    top-left-radius: 20%;
-                    top-right-radius: 20%;
-                };
-            }
-
-            &.is-shadow {
-                &:after {
-                    opacity: 1;
-                }
-            }
-        }
-
-        &__selected {
-            display: block;
-            top: 56px;
-            right: 0;
-            width: calc(60% - 24px);
-            height: calc(var(--max-vh) - 56px - 24px);
-            overflow: hidden;
-            border-radius: 12px;
-            background-color: var(--bg-secondary);
-            position: sticky;
-            margin-left: auto;
-            z-index: 12;
-
-            @media (max-width: 1200px) {
-                width: 100%;
-                height: calc(var(--max-vh) - 56px);
-                position: fixed;
-                top: 56px;
-                left: 0;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
-
-            &.is-fullscreen {
-                width: var(--max-content);
-                max-width: var(--max-content);
-                height: calc(var(--max-vh) - 56px - 24px);
-                margin-left: -40%;
-                z-index: 16;
-
-                @media (max-width: 1200px) {
-                    width: 100%;
-                    max-width: 100%;
-                    margin-left: initial;
-                    height: calc(var(--max-vh) - 56px);
-                }
-            }
-        }
-
-        &__fixed {
+        &__side--left_fixed {
             position: sticky;
             top: 56px;
             z-index: 3;

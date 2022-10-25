@@ -69,7 +69,7 @@ public class TavernToolController {
 	@GetMapping("/tools/tavern")
 	public String getForm(Model model) {
 		model.addAttribute("metaTitle", "Генератор таверны");
-		model.addAttribute("metaUrl", "https://dnd5.club/tools/tavern");
+		model.addAttribute("metaUrl", "https://ttg.club/tools/tavern");
 		model.addAttribute("metaDescription", "Генерация таверны - название, атмосфера, список блюд и выпивки");
 		return "tools/tavern";
 	}

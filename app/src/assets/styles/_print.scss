@@ -13,7 +13,8 @@
     }
   }
 
-  .bg-img-main {
+  .bg-img-main,
+  .content-layout__side--left {
     display: none !important;
   }
 
@@ -22,14 +23,15 @@
   }
 
   body,
-  .dnd5club,
+  .ttgclub,
   .container,
   .content-padding,
   .creature_wrapper,
   .content-layout__body,
   .content-layout__selected,
   .content-detail,
-  .content-detail__body {
+  .content-detail__body,
+  .content-layout__side--right {
     max-width: none !important;
     width: 100% !important;
     margin: 0 !important;

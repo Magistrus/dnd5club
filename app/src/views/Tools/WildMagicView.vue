@@ -10,7 +10,7 @@
                         <div class="row">
                             <span class="label">Количество:</span>
 
-                            <field-input
+                            <ui-input
                                 v-model="count"
                                 class="form-control select"
                                 placeholder="Количеств"
@@ -22,7 +22,7 @@
                         <div class="row">
                             <span class="label">Источники:</span>
                             <div class="checkbox-group">
-                                <field-checkbox
+                                <ui-checkbox
                                     v-for="(source, key) in tables"
                                     :key="key"
                                     v-tippy="{ content: source.name }"
@@ -31,20 +31,20 @@
                                     @update:model-value="source.value = $event"
                                 >
                                     {{ source.shortName }}
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <form-button @click.left.exact.prevent="sendForm">
+                    <ui-button @click.left.exact.prevent="sendForm">
                         Сгенерировать
-                    </form-button>
+                    </ui-button>
 
-                    <form-button @click.left.exact.prevent="results = []">
+                    <ui-button @click.left.exact.prevent="results = []">
                         Очистить
-                    </form-button>
+                    </ui-button>
                 </div>
             </form>
         </template>
@@ -60,7 +60,7 @@
                 </div>
 
                 <div
-                    v-tippy="{content: item.source.name}"
+                    v-tippy="{ content: item.source.name }"
                     class="wild-magic-item__src"
                 >
                     {{ item.source.shortName }}
@@ -71,23 +71,23 @@
 </template>
 
 <script>
-    import ContentLayout from "@/components/content/ContentLayout";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import RawContent from "@/components/content/RawContent";
-    import errorHandler from "@/common/helpers/errorHandler";
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FormButton from "@/components/form/FormButton";
     import { reactive } from "vue";
     import throttle from "lodash/throttle";
+    import ContentLayout from "@/components/content/ContentLayout";
+    import UiCheckbox from "@/components/form/UiCheckbox";
+    import RawContent from "@/components/content/RawContent";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import UiInput from "@/components/form/UiInput";
+    import UiButton from "@/components/form/UiButton";
 
     export default {
         name: "WildMagicView",
         components: {
             RawContent,
-            FieldCheckbox,
+            UiCheckbox,
             ContentLayout,
-            FieldInput,
-            FormButton
+            UiInput,
+            UiButton
         },
         data: () => ({
             count: 1,
@@ -133,6 +133,7 @@
                             .filter(source => source.value)
                             .map(source => source.shortName)
                     };
+
                     const resp = await this.$http.post('/tools/wildmagic', options, this.controller.signal);
 
                     if (resp.status !== 200) {

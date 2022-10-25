@@ -2,26 +2,26 @@
     <div
         v-if="type === 'crumb'"
         v-tippy="tooltip"
-        :class="{'is-active': value}"
-        class="field-checkbox field-checkbox--crumb"
+        :class="{ 'is-active': value }"
+        class="ui-checkbox ui-checkbox--crumb"
         @click.left.exact.prevent="value = !value"
     >
-        <div class="field-checkbox__label">
+        <div class="ui-checkbox__label">
             <slot/>
         </div>
     </div>
 
     <div
         v-else-if="type === 'toggle'"
-        :class="{'is-active': value}"
-        class="field-checkbox field-checkbox--toggle"
+        :class="{ 'is-active': value }"
+        class="ui-checkbox ui-checkbox--toggle"
         @click.left.exact.prevent="value = !value"
     >
-        <div class="field-checkbox__faker"/>
+        <div class="ui-checkbox__faker"/>
 
         <div
             v-if="$slots.default"
-            class="field-checkbox__label"
+            class="ui-checkbox__label"
         >
             <slot/>
         </div>
@@ -29,8 +29,9 @@
 </template>
 
 <script>
-    export default {
-        name: 'FieldCheckbox',
+    import { defineComponent } from "vue";
+
+    export default defineComponent({
         props: {
             modelValue: {
                 type: Boolean,
@@ -57,18 +58,18 @@
                 }
             }
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>
-    .field-checkbox {
+    .ui-checkbox {
         cursor: pointer;
 
         &--crumb {
             display: inline-block;
             width: fit-content;
 
-            .field-checkbox {
+            .ui-checkbox {
                 &__label {
                     @include css_anim();
 
@@ -81,7 +82,7 @@
             }
 
             &.is-active {
-                .field-checkbox {
+                .ui-checkbox {
                     &__label {
                         @include css_anim();
 
@@ -93,7 +94,7 @@
 
             @include media-min($md) {
                 &:not(.is-active) {
-                    .field-checkbox__label {
+                    .ui-checkbox__label {
                         &:hover {
                             background-color: var(--primary-hover);
                             color: var(--text-btn-color);
@@ -107,7 +108,7 @@
             display: inline-flex;
             align-items: center;
 
-            .field-checkbox {
+            .ui-checkbox {
                 &__faker {
                     @include css_anim();
 
@@ -140,7 +141,7 @@
             }
 
             &.is-active {
-                .field-checkbox {
+                .ui-checkbox {
                     &__faker {
                         background-color: var(--primary);
 
@@ -153,7 +154,7 @@
 
             @include media-min($md) {
                 &:hover {
-                    .field-checkbox {
+                    .ui-checkbox {
                         &__faker {
                             border-color: #aef;
                         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="dnd5club-select">
+    <div class="ttgclub-select">
         <multiselect
             v-bind="$props"
             @close="onClose"
@@ -10,7 +10,7 @@
             @search-change="onSearch"
             @update:model-value="onUpdate"
         >
-            <template #option="{option, search}">
+            <template #option="{ option, search }">
                 <slot
                     :option="option"
                     :search="search"
@@ -84,10 +84,10 @@
 
 <script>
     import Multiselect from 'vue-multiselect';
+    import { defineComponent } from "vue";
     import SvgIcon from '@/components/UI/icons/SvgIcon';
 
-    export default {
-        name: 'FieldSelect',
+    export default defineComponent({
         components: {
             Multiselect,
             SvgIcon
@@ -245,5 +245,5 @@
                 this.$emit('close', event);
             }
         }
-    };
+    });
 </script>

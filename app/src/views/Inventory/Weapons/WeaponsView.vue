@@ -29,12 +29,12 @@
 
 <script>
     import { shallowRef } from "vue";
+    import sortBy from "lodash/sortBy";
+    import { mapState } from "pinia";
     import TabLayout from "@/components/content/TabLayout";
     import ContentLayout from "@/components/content/ContentLayout";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import WeaponLink from "@/views/Inventory/Weapons/WeaponLink";
-    import sortBy from "lodash/sortBy";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -62,7 +62,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.weaponsStore.getFilter || undefined;
@@ -120,7 +120,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.weapons[0]?.list?.length && this.$route.name === 'weapons') {
+            if (!this.isMobile && this.weapons[0]?.list?.length && this.$route.name === 'weapons') {
                 await this.$router.push({ path: this.weapons[0].list[0].url });
             }
         },

@@ -6,6 +6,8 @@ import NavBar from '@/components/UI/menu/NavBar';
 import RawContent from '@/components/content/RawContent';
 import DetailTooltip from '@/components/UI/DetailTooltip';
 import ChangePasswordView from '@/components/account/ChangePasswordView';
+import PageLayout from '@/components/content/PageLayout';
+import SocialLinks from '@/components/content/SocialLinks';
 
 /* eslint-disable vue/match-component-file-name */
 export default function registerComponents(app) {
@@ -18,5 +20,7 @@ export default function registerComponents(app) {
     app.component('RawContent', RawContent);
     app.component('DetailTooltip', DetailTooltip);
     app.component('ChangePasswordView', ChangePasswordView);
+    app.component('PageLayout', PageLayout);
+    app.component('SocialLinks', SocialLinks);
 }
 /* eslint-enable vue/match-component-file-name */

@@ -2,7 +2,7 @@
     <button
         :class="classList"
         :disabled="disabled"
-        class="form-button"
+        class="ui-button"
         type="button"
     >
         <slot/>
@@ -10,8 +10,9 @@
 </template>
 
 <script>
-    export default {
-        name: "FormButton",
+    import { computed, defineComponent } from "vue";
+
+    export default defineComponent({
         props: {
             typeLink: {
                 type: Boolean,
@@ -32,36 +33,58 @@
             isSmall: {
                 type: Boolean,
                 default: false
+            },
+            isLarge: {
+                type: Boolean,
+                default: false
+            },
+            useFullWidth: {
+                type: Boolean,
+                default: false
             }
         },
-        computed: {
-            type() {
-                if (this.typeLink) {
+
+        setup(props) {
+            const type = computed(() => {
+                if (props.typeLink) {
                     return 'link';
                 }
 
-                if (this.typeLinkFilled) {
+                if (props.typeLinkFilled) {
                     return 'link-filled';
                 }
 
                 return 'primary';
-            },
+            });
 
-            classList() {
-                const list = [`is-${ this.type }`];
+            const classList = computed(() => {
+                const list = [`is-${ type.value }`];
 
-                if (this.isSmall) {
+                if (props.isSmall) {
                     list.push('is-small');
                 }
 
+                if (props.isLarge) {
+                    list.push('is-large');
+                }
+
+                if (props.useFullWidth) {
+                    list.push('is-full-width');
+                }
+
                 return list;
-            }
+            });
+
+            return {
+                type,
+                classList
+            };
         }
-    };
+    });
 </script>
 
 <style lang="scss" scoped>
-    .form-button {
+    .ui-button {
         @include css_anim();
 
         background-color: var(--primary);
@@ -75,6 +98,11 @@
         margin: 0;
         line-height: 16px;
 
+        &.is-full-width {
+            display: flex;
+            width: 100%;
+        }
+
         & + & {
             margin-left: 16px;
         }
@@ -86,7 +114,8 @@
                 background-color: var(--primary-hover);
             }
 
-            &:active {
+            &:active,
+            &.is-active {
                 @include css_anim();
 
                 background-color: var(--primary-active);
@@ -102,6 +131,7 @@
         ::v-deep(svg) {
             width: 24px;
             height: 24px;
+            margin-right: 12px;
         }
 
         &.is-link {
@@ -114,7 +144,8 @@
                     color: var(--primary-hover);
                 }
 
-                &:active {
+                &:active,
+                &.is-active {
                     background-color: var(--bg-main);
                 }
             }
@@ -137,7 +168,8 @@
                     color: var(--text-btn-color);
                 }
 
-                &:active {
+                &:active,
+                &.is-active {
                     background-color: var(--primary-active);
                     color: var(--text-btn-color);
                 }
@@ -161,6 +193,21 @@
             ::v-deep(svg) {
                 width: 18px;
                 height: 18px;
+                margin-right: 8px;
+            }
+        }
+
+        &.is-large {
+            padding: 16px;
+
+            & + & {
+                margin-left: 16px;
+            }
+
+            ::v-deep(svg) {
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
             }
         }
     }

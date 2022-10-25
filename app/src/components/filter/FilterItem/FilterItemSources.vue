@@ -51,10 +51,12 @@
                         {{ group.name }}
                     </div>
 
-                    <field-checkbox
-                        v-tippy="{ content: `${
-                            isGroupActive(groupKey) ? 'Выключить' : 'Включить'
-                        } «` + group.name + '»' }"
+                    <ui-checkbox
+                        v-tippy="{
+                            content: `${
+                                isGroupActive(groupKey) ? 'Выключить' : 'Включить'
+                            } «` + group.name + '»',
+                        }"
                         :model-value="isGroupActive(groupKey)"
                         type="toggle"
                         @update:model-value="setGroupStatus($event, groupKey)"
@@ -62,7 +64,7 @@
                 </div>
 
                 <div class="filter-item__source-group_body">
-                    <field-checkbox
+                    <ui-checkbox
                         v-for="(checkbox, checkboxKey) in group.values"
                         :key="checkboxKey"
                         :model-value="checkbox.value"
@@ -70,7 +72,7 @@
                         @update:model-value="setSourceValue($event, groupKey, checkboxKey)"
                     >
                         {{ checkbox.label }}
-                    </field-checkbox>
+                    </ui-checkbox>
                 </div>
             </div>
         </div>
@@ -78,14 +80,14 @@
 </template>
 
 <script>
-    import SvgIcon from '@/components/UI/icons/SvgIcon';
-    import FieldCheckbox from '@/components/form/FieldType/FieldCheckbox';
     import cloneDeep from 'lodash/cloneDeep';
+    import SvgIcon from '@/components/UI/icons/SvgIcon';
+    import UiCheckbox from '@/components/form/UiCheckbox';
 
     export default {
         name: 'FilterItemSources',
         components: {
-            FieldCheckbox,
+            UiCheckbox,
             SvgIcon
         },
         props: {

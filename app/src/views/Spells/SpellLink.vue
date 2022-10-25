@@ -110,11 +110,11 @@
 
 <script>
     import { RouterLink } from 'vue-router';
+    import { mapActions, mapState } from "pinia";
     import { CapitalizeFirst } from '@/common/directives/CapitalizeFirst';
     import { useSpellsStore } from "@/store/Spells/SpellsStore";
     import SpellBody from "@/views/Spells/SpellBody";
     import BaseModal from "@/components/UI/modals/BaseModal";
-    import { mapActions, mapState } from "pinia";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
 
     export default {

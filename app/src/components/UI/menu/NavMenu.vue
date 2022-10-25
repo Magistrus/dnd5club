@@ -31,7 +31,7 @@
                     <div class="nav-menu__info">
                         <span class="nav-menu__info--desc">Онлайн справочник по D&D 5e</span>
 
-                        <span class="nav-menu__info--title">DnD5 Club</span>
+                        <span class="nav-menu__info--title">TTG Club</span>
                     </div>
                 </div>
 
@@ -62,8 +62,8 @@
                             >
                                 <div
                                     class="nav-menu__link_icon only-hover"
-                                    :class="{'is-active': isSaved(link.url)}"
-                                    @click.left.exact.stop.prevent="updateBookmark(link.url, link.label )"
+                                    :class="{ 'is-active': isSaved(link.url) }"
+                                    @click.left.exact.stop.prevent="updateBookmark(link.url, link.label)"
                                     @dblclick.prevent.stop
                                 >
                                     <svg-icon
@@ -91,12 +91,12 @@
 </template>
 
 <script>
+    import { defineComponent, ref } from "vue";
     import { useNavStore } from "@/store/UI/NavStore";
     import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import NavPopover from "@/components/UI/menu/NavPopover";
     import SvgIcon from "@/components/UI/icons/SvgIcon";
     import SiteLogo from "@/components/UI/icons/SiteLogo";
-    import { defineComponent, ref } from "vue";
     import { useUserStore } from "@/store/UI/UserStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
 
@@ -165,7 +165,7 @@
         padding: 16px 16px 8px 16px;
 
         @media (max-width: 550px) {
-            padding: 16px 8px 0px 40px;
+            padding: 16px 8px 0 40px;
         }
 
         &__header {

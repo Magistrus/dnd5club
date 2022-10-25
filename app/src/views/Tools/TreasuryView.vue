@@ -8,7 +8,7 @@
                 <div class="tools_settings__row">
                     <span class="label">Показатель опасности монстров:</span>
 
-                    <field-select
+                    <ui-select
                         v-model="crValue"
                         :options="crList"
                         :searchable="false"
@@ -18,7 +18,7 @@
                         <template #placeholder>
                             Показатель опасности
                         </template>
-                    </field-select>
+                    </ui-select>
                 </div>
 
                 <div class="tools_settings__row">
@@ -28,42 +28,42 @@
                     <div class="tools_settings__colum">
                         <div class="row">
                             <div>
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.coins"
                                     type="toggle"
                                     @update:model-value="form.coins = $event"
                                 >
                                     Монеты
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                             <div class="tools_settings__row">
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.magicItem"
                                     type="toggle"
                                     @update:model-value="form.magicItem = $event"
                                 >
                                     Магические предметы
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                         </div>
                         <div class="row">
                             <div>
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.scroll"
                                     type="toggle"
                                     @update:model-value="form.scroll = $event"
                                 >
                                     Свитки
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                             <div class="tools_settings__row">
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.trinket"
                                     type="toggle"
                                     @update:model-value="form.trinket = $event"
                                 >
                                     Безделушки
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                         </div>
                     </div>
@@ -76,62 +76,62 @@
                     <div class="tools_settings__colum">
                         <div class="row">
                             <div>
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.art"
                                     type="toggle"
                                     @update:model-value="form.art = $event"
                                 >
                                     Предметы искусства
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                             <div class="tools_settings__row">
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.gem"
                                     type="toggle"
                                     @update:model-value="form.gem = $event"
                                 >
                                     Драгоценные камни
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                             <div class="tools_settings__row">
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="form.unique"
                                     type="toggle"
                                     @update:model-value="form.unique = $event"
                                 >
                                     Только уникальные
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                         </div>
                         <div class="row">
                             <div>
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="
                                         settings.grouping"
                                     type="toggle"
                                     @update:model-value="settings.grouping = $event"
                                 >
                                     Группировать одинаковые
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                             <div
                                 class="tools_settings__row"
                             >
-                                <field-checkbox
+                                <ui-checkbox
                                     :model-value="settings.max"
                                     type="toggle"
                                     @update:model-value="settings.max = $event"
                                 >
                                     {{ `Отображать ${ settings.max ? 'максимальную' : 'среднюю' } цену` }}
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="tools_settings__row btn-wrapper">
-                    <form-button @click.left.exact.prevent="sendForm">
+                    <ui-button @click.left.exact.prevent="sendForm">
                         Создать сокровищницу
-                    </form-button>
+                    </ui-button>
                 </div>
             </form>
         </template>
@@ -140,8 +140,8 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        :close-on-desktop="getFullscreen"
-                        :fullscreen="!getIsMobile"
+                        :close-on-desktop="fullscreen"
+                        :fullscreen="!isMobile"
                         :subtitle="selected.item?.name.eng || 'In treasury'"
                         :title="selected.item?.name.rus || 'В сокровищнице'"
                         @close="close"
@@ -206,7 +206,7 @@
                     :key="item.url"
                     :is-active="selected.index === key"
                     :magic-item="item"
-                    :to="{path: item.url}"
+                    :to="{ path: item.url }"
                     in-tools
                     @select-item="selectItem('magicItems', key)"
                 />
@@ -261,25 +261,25 @@
 </template>
 
 <script>
-    import ContentLayout from "@/components/content/ContentLayout";
-    import FieldSelect from "@/components/form/FieldType/FieldSelect";
-    import SectionHeader from "@/components/UI/SectionHeader";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
-    import SpellBody from "@/views/Spells/SpellBody";
-    import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
-    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
-    import errorHandler from "@/common/helpers/errorHandler";
     import { reactive } from "vue";
     import sortedUniq from "lodash/sortedUniq";
     import groupBy from "lodash/groupBy";
     import max from "lodash/max";
     import mean from "lodash/mean";
     import throttle from "lodash/throttle";
-    import ContentDetail from "@/components/content/ContentDetail";
     import { mapState } from "pinia";
+    import ContentLayout from "@/components/content/ContentLayout";
+    import UiSelect from "@/components/form/UiSelect";
+    import SectionHeader from "@/components/UI/SectionHeader";
+    import UiCheckbox from "@/components/form/UiCheckbox";
+    import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
+    import SpellBody from "@/views/Spells/SpellBody";
+    import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
+    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import ContentDetail from "@/components/content/ContentDetail";
     import { useUIStore } from "@/store/UI/UIStore";
-    import FormButton from "@/components/form/FormButton";
+    import UiButton from "@/components/form/UiButton";
 
     export default {
         name: "TreasuryView",
@@ -289,11 +289,11 @@
             TreasureItem,
             SpellBody,
             MagicItemBody,
-            FieldCheckbox,
+            UiCheckbox,
             SectionHeader,
-            FieldSelect,
+            UiSelect,
             ContentLayout,
-            FormButton
+            UiButton
         },
         data: () => ({
             crList: [
@@ -346,7 +346,7 @@
             showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['fullscreen', 'isMobile']),
 
             crValue: {
                 get() {
@@ -402,7 +402,7 @@
             }
         },
         mounted() {
-            this.showRightSide = !this.getIsMobile;
+            this.showRightSide = !this.isMobile;
         },
         methods: {
             // eslint-disable-next-line func-names
@@ -499,6 +499,7 @@
                 } catch (err) {
                     this.error = true;
                     this.loading = false;
+
                     this.detailCard = {
                         item: undefined,
                         spell: undefined

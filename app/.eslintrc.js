@@ -1,16 +1,34 @@
 module.exports = {
     root: true,
+
     env: {
         node: true
     },
-    extends: ['plugin:vue/vue3-recommended', '@vue/airbnb'],
+
+    extends: [
+        'plugin:vue/vue3-recommended',
+        '@vue/airbnb',
+        '@vue/typescript'
+    ],
+
+    globals: {
+        Atomics: 'readonly',
+        SharedArrayBuffer: 'readonly',
+        $: 'readonly'
+    },
+
+    plugins: ['@typescript-eslint'],
+
     parserOptions: {
+        parser: '@typescript-eslint/parser',
         ecmaVersion: 2020,
         ecmaFeatures: {
             jsx: true
-        }
+        },
     },
+
     ignorePatterns: ['./public_html/*', './dist/*'],
+
     rules: {
         'no-console': process.env.NODE_ENV === 'production'
             ? [
@@ -64,50 +82,6 @@ module.exports = {
                 ignorePropertyModificationsFor: ['state']
             }
         ],
-        'vue/match-component-file-name': [
-            'error',
-            {
-                extensions: [
-                    'jsx',
-                    'js',
-                    'tsx',
-                    'ts',
-                    'vue'
-                ],
-                shouldMatchCase: true
-            }
-        ],
-        'vue/component-options-name-casing': ['error', 'PascalCase'],
-        'vue/component-name-in-template-casing': [
-            'error',
-            'kebab-case',
-            {
-                registeredComponentsOnly: true,
-                ignores: []
-            }
-        ],
-        'vue/component-api-style': [
-            'error',
-            [
-                'script-setup',
-                'composition',
-                'options'
-            ]
-        ],
-        'vue/block-lang': [
-            'error',
-            {
-                script: {
-                    allowNoLang: true
-                }
-            }
-        ],
-        'vuejs-accessibility/anchor-has-content': 'off',
-        'vuejs-accessibility/click-events-have-key-events': 'off',
-        'vuejs-accessibility/mouse-events-have-key-events': 'off',
-        'vuejs-accessibility/label-has-for': 'off',
-        'vuejs-accessibility/no-autofocus': 'off',
-        'vue/require-explicit-emits': 'off',
         'dot-notation': ['error'],
         'require-await': ['error'],
         'spaced-comment': ['error', 'always'],
@@ -295,6 +269,16 @@ module.exports = {
                 next: 'block'
             },
             {
+                blankLine: 'always',
+                prev: '*',
+                next: [
+                    'multiline-const',
+                    'multiline-expression',
+                    'multiline-let',
+                    'multiline-var'
+                ]
+            },
+            {
                 blankLine: 'never',
                 prev: 'break',
                 next: 'case'
@@ -305,9 +289,19 @@ module.exports = {
                 next: 'default'
             },
             {
-                blankLine: 'never',
-                prev: 'const',
-                next: 'const'
+                blankLine: 'any',
+                prev: 'singleline-const',
+                next: 'singleline-const'
+            },
+            {
+                blankLine: 'any',
+                prev: 'singleline-let',
+                next: 'singleline-let'
+            },
+            {
+                blankLine: 'any',
+                prev: 'singleline-var',
+                next: 'singleline-var'
             },
             {
                 blankLine: 'never',
@@ -352,19 +346,63 @@ module.exports = {
         ],
         'template-curly-spacing': ['error', 'always'],
         'wrap-regex': 'error',
-        'no-extra-semi': 'error'
+        'no-extra-semi': 'error',
+
+        // Vue rules
+        'vue/max-len': [1, 120],
+        'vue/match-component-file-name': [
+            'error',
+            {
+                extensions: [
+                    'jsx',
+                    'js',
+                    'tsx',
+                    'ts',
+                    'vue'
+                ],
+                shouldMatchCase: true
+            }
+        ],
+        'vue/component-options-name-casing': ['error', 'PascalCase'],
+        'vue/component-name-in-template-casing': [
+            'error',
+            'kebab-case',
+            {
+                registeredComponentsOnly: true,
+                ignores: []
+            }
+        ],
+        'vue/component-api-style': [
+            'error',
+            [
+                'script-setup',
+                'composition',
+                'options'
+            ]
+        ],
+        'vue/block-lang': [
+            'off'
+        ],
+        'vuejs-accessibility/anchor-has-content': 'off',
+        'vuejs-accessibility/click-events-have-key-events': 'off',
+        'vuejs-accessibility/mouse-events-have-key-events': 'off',
+        'vuejs-accessibility/label-has-for': 'off',
+        'vuejs-accessibility/no-autofocus': 'off',
+        'vue/require-explicit-emits': 'off',
     },
+
     overrides: [
         {
             files: ['*.vue'],
             rules: {
                 'indent': 'off',
-                'vue/html-indent': ['error', 4],
                 'quotes': [
                     0,
                     'double',
                     'single'
                 ],
+                'vue/html-indent': ['error', 4],
+                'vue/valid-v-slot': 'off',
                 'vue/max-attributes-per-line': [
                     'error',
                     {
@@ -386,6 +424,21 @@ module.exports = {
                         selfClosingTag: 'never'
                     }
                 ]
+            }
+        },
+        {
+            files: ['**/*.ts', '**/*.tsx'],
+            extends: [
+                'eslint:recommended',
+                'plugin:@typescript-eslint/eslint-recommended',
+                'plugin:@typescript-eslint/recommended'
+            ],
+            rules: {
+                'no-shadow': 'off',
+                '@typescript-eslint/ban-ts-comment': 'off',
+                '@typescript-eslint/no-shadow': ['error'],
+                '@typescript-eslint/no-explicit-any': [0],
+                '@typescript-eslint/no-non-null-assertion': [0],
             }
         }
     ]

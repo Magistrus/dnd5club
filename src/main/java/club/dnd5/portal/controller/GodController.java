@@ -30,7 +30,7 @@ public class GodController {
 	@GetMapping("/gods")
 	public String getGods(Model model) {
 		model.addAttribute("metaTitle", "Боги (Gods) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/gods");
+		model.addAttribute("metaUrl", "https://ttg.club/gods");
 		model.addAttribute("metaDescription", "Боги, полубоги и философии D&D 5 редакции");
 		model.addAttribute("menuTitle", "Боги");
 		return "gods";
@@ -45,7 +45,7 @@ public class GodController {
 		}
 
 		model.addAttribute("metaTitle", String.format("%s (%s) | Боги D&D 5e", god.getName(), god.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/gods/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/gods/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s, %s", god.getName(), god.getEnglishName(), god.getAligment().getCyrilicName(), god.getSex().getCyrilicName(), god.getCommitment()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.GOD, god.getId());
 		if (!images.isEmpty()) {

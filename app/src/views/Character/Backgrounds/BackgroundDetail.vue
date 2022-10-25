@@ -2,9 +2,9 @@
     <content-detail class="background-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="background?.name?.eng || ''"
                 :title="background?.name?.rus || ''"
                 bookmark
@@ -23,12 +23,12 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useBackgroundsStore } from '@/store/Character/BackgroundsStore';
     import errorHandler from "@/common/helpers/errorHandler";
     import BackgroundBody from "@/views/Character/Backgrounds/BackgroundBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -50,7 +50,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewBackground(this.$route.path);

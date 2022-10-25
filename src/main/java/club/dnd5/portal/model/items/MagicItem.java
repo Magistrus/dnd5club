@@ -142,15 +142,15 @@ public class MagicItem {
 	public String getRangeCostXGE() {
 		switch (rarity) {
 		case COMMON:
-			return "(1к6 + 1) * 10 зм.";
+			return "(1к6 + 1) * 10";
 		case UNCOMMON:
-			return "(1к6 + 1) * 100 зм.";
+			return "(1к6 + 1) * 100";
 		case RARE:
-			return "2к10 * 1000 зм.";
+			return "2к10 * 1000";
 		case VERY_RARE:
-			return "(1к4 + 1) * 10000 зм.";
+			return "(1к4 + 1) * 10000";
 		case LEGENDARY:
-			return "2к6 * 25000 зм.";
+			return "2к6 * 25000";
 		case ARTIFACT:
 			return "невозможно купить";
 		default:

@@ -16,9 +16,9 @@
 </template>
 
 <script>
+    import { shallowRef } from "vue";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import { useTreasuresStore } from "@/store/Treasures/TreasuresStore";
     import TreasureItem from "@/views/Treasures/Treasures/TreasureItem";
 

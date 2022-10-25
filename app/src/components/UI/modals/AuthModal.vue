@@ -13,13 +13,13 @@
         >
 
         <div class="auth-reg-modal__content">
-            <form-button
+            <ui-button
                 class="auth-reg-modal__close"
                 type-link
                 @click.left.exact.prevent="$emit('close')"
             >
                 <svg-icon icon-name="close"/>
-            </form-button>
+            </ui-button>
 
             <div class="auth-reg-modal__body">
                 <h4>{{ title }}</h4>
@@ -37,10 +37,10 @@
 
 <script>
     import { defineComponent } from "vue";
-    import FormButton from "@/components/form/FormButton";
+    import UiButton from "@/components/form/UiButton";
 
     export default defineComponent({
-        components: { FormButton },
+        components: { UiButton },
         props: {
             title: {
                 type: String,

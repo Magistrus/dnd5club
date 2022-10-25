@@ -1,6 +1,6 @@
 <script>
-    import RawContent from "@/components/content/RawContent";
     import { h } from 'vue';
+    import RawContent from "@/components/content/RawContent";
 
     export default {
         name: "RollTable",

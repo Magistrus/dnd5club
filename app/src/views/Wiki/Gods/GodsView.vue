@@ -12,18 +12,18 @@
             :key="god.url"
             :god="god"
             :in-tab="inTab"
-            :to="{path: god.url}"
+            :to="{ path: god.url }"
         />
     </component>
 </template>
 
 <script>
+    import { shallowRef } from "vue";
+    import { mapState } from "pinia";
     import ContentLayout from '@/components/content/ContentLayout';
     import TabLayout from "@/components/content/TabLayout";
-    import { shallowRef } from "vue";
     import GodLink from "@/views/Wiki/Gods/GodLink";
     import { useGodsStore } from "@/store/Wiki/GodsStore";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -55,7 +55,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             filter() {
                 return this.godsStore.getFilter || undefined;
@@ -91,7 +91,7 @@
         async mounted() {
             await this.init();
 
-            if (!this.getIsMobile && this.gods.length && this.$route.name === 'gods') {
+            if (!this.isMobile && this.gods.length && this.$route.name === 'gods') {
                 await this.$router.push({ path: this.gods[0].url });
             }
         },
@@ -115,7 +115,7 @@
             async onSearch() {
                 await this.godsQuery();
 
-                if (this.gods.length === 1 && !this.getIsMobile) {
+                if (this.gods.length === 1 && !this.isMobile) {
                     await this.$router.push({ path: this.gods[0].url });
                 }
             }

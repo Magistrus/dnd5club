@@ -10,7 +10,7 @@
                         <div class="row">
                             <span class="label">Количеств:</span>
 
-                            <field-input
+                            <ui-input
                                 v-model="count"
                                 class="form-control select"
                                 min="1"
@@ -22,7 +22,7 @@
                         <div class="row">
                             <span class="label">Виды безумия:</span>
                             <div>
-                                <field-checkbox
+                                <ui-checkbox
                                     v-for="(type, key) in types"
                                     :key="key"
                                     :model-value="type.toggled"
@@ -30,20 +30,20 @@
                                     @update:model-value="toggleType($event, type)"
                                 >
                                     {{ type.name }}
-                                </field-checkbox>
+                                </ui-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <form-button @click.left.exact.prevent="sendForm">
+                    <ui-button @click.left.exact.prevent="sendForm">
                         Сгенерировать
-                    </form-button>
+                    </ui-button>
 
-                    <form-button @click.left.exact.prevent="results = []">
+                    <ui-button @click.left.exact.prevent="results = []">
                         Очистить
-                    </form-button>
+                    </ui-button>
                 </div>
             </form>
         </template>
@@ -73,23 +73,23 @@
 </template>
 
 <script>
+    import throttle from 'lodash/throttle';
+    import { reactive } from "vue";
     import ContentLayout from "@/components/content/ContentLayout";
     import errorHandler from "@/common/helpers/errorHandler";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
+    import UiCheckbox from "@/components/form/UiCheckbox";
     import RawContent from "@/components/content/RawContent";
-    import throttle from 'lodash/throttle';
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FormButton from "@/components/form/FormButton";
-    import { reactive } from "vue";
+    import UiInput from "@/components/form/UiInput";
+    import UiButton from "@/components/form/UiButton";
 
     export default {
         name: "MadnessView",
         components: {
             RawContent,
-            FieldCheckbox,
+            UiCheckbox,
             ContentLayout,
-            FormButton,
-            FieldInput
+            UiButton,
+            UiInput
         },
         data: () => ({
             count: 1,
@@ -132,6 +132,7 @@
                     const options = {
                         count: this.count || 1
                     };
+
                     const type = this.types.find(el => el.toggled);
 
                     if (type) {

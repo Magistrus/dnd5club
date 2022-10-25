@@ -1,5 +1,5 @@
 <template>
-    <form-button
+    <ui-button
         v-tippy="{ content: 'Добавить в закладки' }"
         class="default-bookmark-button"
         type-link-filled
@@ -11,23 +11,23 @@
             :stroke-enable="false"
             fill-enable
         />
-    </form-button>
+    </ui-button>
 </template>
 
 <script>
-    import FormButton from "@/components/form/FormButton";
-    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useRoute } from "vue-router";
     import {
         computed, defineComponent, ref
     } from "vue";
+    import { useToast } from "vue-toastification";
+    import UiButton from "@/components/form/UiButton";
+    import { useDefaultBookmarkStore } from "@/store/UI/bookmarks/DefaultBookmarkStore";
     import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import { useUserStore } from "@/store/UI/UserStore";
-    import { useToast } from "vue-toastification";
 
     export default defineComponent({
         components: {
-            FormButton
+            UiButton
         },
         props: {
             name: {
@@ -46,11 +46,13 @@
             const defaultBookmarkStore = useDefaultBookmarkStore();
             const customBookmarkStore = useCustomBookmarkStore();
             const inProgress = ref(false);
+
             const bookmarkUrl = computed(() => (
                 typeof props.url === "string" && props.url !== ''
                     ? props.url
                     : route.path
             ));
+
             const isSaved = computed(() => {
                 if (userStore.isAuthenticated) {
                     return customBookmarkStore.isBookmarkSavedInDefault(bookmarkUrl.value);

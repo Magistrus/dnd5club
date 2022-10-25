@@ -1,6 +1,6 @@
 <template>
     <div class="custom-bookmark-button__wrapper">
-        <form-button
+        <ui-button
             v-tippy="{ content: 'Добавить в закладки' }"
             class="custom-bookmark-button"
             type-link-filled
@@ -11,7 +11,7 @@
                 :stroke-enable="false"
                 fill-enable
             />
-        </form-button>
+        </ui-button>
 
         <on-click-outside @trigger="isOpen = false">
             <div
@@ -34,20 +34,20 @@
 </template>
 
 <script>
-    import FormButton from "@/components/form/FormButton";
     import {
         computed,
         defineComponent, ref, toRefs
     } from "vue";
-    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
-    import errorHandler from "@/common/helpers/errorHandler";
     import { useRoute } from "vue-router";
     import { OnClickOutside } from "@vueuse/components";
     import { useToast } from "vue-toastification";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
+    import UiButton from "@/components/form/UiButton";
 
     export default defineComponent({
         components: {
-            FormButton,
+            UiButton,
             OnClickOutside
         },
         props: {
@@ -65,14 +65,17 @@
             const toast = useToast();
             const bookmarksStore = useCustomBookmarkStore();
             const route = useRoute();
+
             const bookmarkUrl = computed(() => (
                 typeof props.url === "string" && props.url !== ''
                     ? props.url
                     : route.path
             ));
+
             const isOpen = ref(false);
             const bookmarks = ref([]);
             const groups = computed(() => bookmarksStore.getGroups.filter(group => group.order > -1));
+
             const savedGroups = computed(() => {
                 const url = route.path;
                 const saved = bookmarks.value.filter(item => item.url === url);
@@ -83,6 +86,7 @@
                     .map(item => bookmarks.value.find(bookmark => bookmark.uuid === item.parentUUID))
                     .filter(item => !!item);
             });
+
             const isSaved = uuid => bookmarksStore.isBookmarkSavedInGroup(bookmarkUrl.value, uuid);
 
             async function openSubmenu() {

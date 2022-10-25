@@ -2,8 +2,8 @@
     <content-detail>
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
-                :fullscreen="!getIsMobile"
+                :close-on-desktop="fullscreen"
+                :fullscreen="!isMobile"
                 :subtitle="weapon?.name?.eng"
                 :title="weapon?.name?.rus"
                 bookmark
@@ -23,11 +23,11 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from "@/components/UI/SectionHeader";
     import WeaponBody from "@/views/Inventory/Weapons/WeaponBody";
     import { useWeaponsStore } from "@/store/Inventory/WeaponsStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -49,7 +49,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewWeapon(this.$route.path);

@@ -2,9 +2,9 @@
     <content-detail class="magic-item-detail">
         <template #fixed>
             <section-header
-                :close-on-desktop="getFullscreen"
+                :close-on-desktop="fullscreen"
                 :copy="!error && !loading"
-                :fullscreen="!getIsMobile"
+                :fullscreen="!isMobile"
                 :subtitle="magicItem?.name?.eng || ''"
                 :title="magicItem?.name?.rus || ''"
                 bookmark
@@ -22,11 +22,11 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from "@/components/UI/SectionHeader";
     import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
     import { useMagicItemsStore } from "@/store/Treasures/MagicItemsStore";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -48,7 +48,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile'])
+            ...mapState(useUIStore, ['fullscreen', 'isMobile'])
         },
         async mounted() {
             await this.loadNewMagicItem(this.$route.path);

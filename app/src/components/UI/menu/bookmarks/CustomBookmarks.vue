@@ -8,7 +8,7 @@
                 </span>
             </div>
 
-            <form-button
+            <ui-button
                 v-if="isMobile"
                 v-tippy="{ content: 'Перейти в режим редактирования' }"
                 is-small
@@ -16,7 +16,7 @@
                 @click.left.exact.prevent="isEdit = !isEdit"
             >
                 <svg-icon icon-name="edit"/>
-            </form-button>
+            </ui-button>
 
             <label
                 v-if="false"
@@ -44,31 +44,31 @@
                     v-if="isGroupCreating"
                     class="bookmarks__input"
                 >
-                    <field-input
+                    <ui-input
                         v-model="newGroupName"
                         placeholder="Название группы"
                         autofocus
                         @keyup.enter.exact.prevent="createGroup"
                     />
 
-                    <form-button
+                    <ui-button
                         type-link-filled
                         is-small
                         @click.left.exact.prevent="createGroup"
                     >
                         <svg-icon icon-name="check"/>
-                    </form-button>
+                    </ui-button>
 
-                    <form-button
+                    <ui-button
                         type-link-filled
                         is-small
                         @click.left.exact.prevent="disableGroupCreating"
                     >
                         <svg-icon icon-name="close"/>
-                    </form-button>
+                    </ui-button>
                 </div>
 
-                <form-button
+                <ui-button
                     v-else
                     class="bookmarks__new"
                     type-link-filled
@@ -82,28 +82,28 @@
                     />
 
                     <span>Добавить группу</span>
-                </form-button>
+                </ui-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import SvgIcon from "@/components/UI/icons/SvgIcon";
-    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import {
         computed, defineComponent, onBeforeMount, ref
     } from "vue";
+    import SvgIcon from "@/components/UI/icons/SvgIcon";
+    import { useCustomBookmarkStore } from "@/store/UI/bookmarks/CustomBookmarksStore";
     import CustomBookmarkGroup from "@/components/UI/menu/bookmarks/CustomBookmarks/CustomBookmarkGroup";
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FormButton from "@/components/form/FormButton";
+    import UiInput from "@/components/form/UiInput";
+    import UiButton from "@/components/form/UiButton";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default defineComponent({
         name: "CustomBookmarks",
         components: {
-            FormButton,
-            FieldInput,
+            UiButton,
+            UiInput,
             CustomBookmarkGroup,
             SvgIcon
         },
@@ -146,7 +146,7 @@
                 enableGroupCreating,
                 disableGroupCreating,
                 createGroup,
-                isMobile: computed(() => uiStore.getIsMobile)
+                isMobile: computed(() => uiStore.isMobile)
             };
         }
     });

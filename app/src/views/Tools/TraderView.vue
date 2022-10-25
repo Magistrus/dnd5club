@@ -10,7 +10,7 @@
                         <div class="row">
                             <span class="label">Количество магии в мире:</span>
 
-                            <field-select
+                            <ui-select
                                 v-model="magicLevelsValue"
                                 :options="magicLevels"
                                 :searchable="false"
@@ -20,13 +20,13 @@
                                 <template #placeholder>
                                     Количество
                                 </template>
-                            </field-select>
+                            </ui-select>
                         </div>
 
                         <div class="row">
                             <span class="label">Результат проверки Харизмы (Убеждение):</span>
 
-                            <field-input
+                            <ui-input
                                 v-model="form.persuasion"
                                 class="form-control select"
                                 placeholder="Харизма (Убеждение)"
@@ -37,45 +37,45 @@
                 </div>
 
                 <div class="tools_settings__row">
-                    <field-checkbox
+                    <ui-checkbox
                         :model-value="form.unique"
                         type="toggle"
                         @update:model-value="form.unique = $event"
                     >
                         Только уникальные
-                    </field-checkbox>
+                    </ui-checkbox>
                 </div>
 
                 <div
                     v-if="!form.unique"
                     class="tools_settings__row"
                 >
-                    <field-checkbox
+                    <ui-checkbox
                         :model-value="settings.grouping"
                         type="toggle"
                         @update:model-value="settings.grouping = $event"
                     >
                         Группировать одинаковые
-                    </field-checkbox>
+                    </ui-checkbox>
                 </div>
 
                 <div
                     v-if="!form.unique && settings.grouping"
                     class="tools_settings__row"
                 >
-                    <field-checkbox
+                    <ui-checkbox
                         :model-value="settings.max"
                         type="toggle"
                         @update:model-value="settings.max = $event"
                     >
                         {{ `Отображать ${ settings.max ? 'максимальную' : 'среднюю' } цену` }}
-                    </field-checkbox>
+                    </ui-checkbox>
                 </div>
 
                 <div class="tools_settings__row btn-wrapper">
-                    <form-button @click.left.exact.prevent="sendForm">
+                    <ui-button @click.left.exact.prevent="sendForm">
                         Найти торговца
-                    </form-button>
+                    </ui-button>
                 </div>
             </form>
         </template>
@@ -84,8 +84,8 @@
             <content-detail>
                 <template #fixed>
                     <section-header
-                        :close-on-desktop="getFullscreen"
-                        :fullscreen="!getIsMobile"
+                        :close-on-desktop="fullscreen"
+                        :fullscreen="!isMobile"
                         :subtitle="selected.item?.name.eng || 'On sale'"
                         :title="selected.item?.name.rus || 'В продаже'"
                         @close="close"
@@ -121,7 +121,7 @@
                 :key="item.url + key"
                 :is-active="selected.index === key"
                 :magic-item="item"
-                :to="{path: item.url}"
+                :to="{ path: item.url }"
                 in-tools
                 @select-item="selectItem(key)"
             />
@@ -130,38 +130,38 @@
 </template>
 
 <script>
-    import ContentLayout from "@/components/content/ContentLayout";
-    import FieldSelect from "@/components/form/FieldType/FieldSelect";
-    import SectionHeader from "@/components/UI/SectionHeader";
-    import FieldCheckbox from "@/components/form/FieldType/FieldCheckbox";
-    import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
-    import SpellBody from "@/views/Spells/SpellBody";
-    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
-    import errorHandler from "@/common/helpers/errorHandler";
     import { reactive } from "vue";
     import max from 'lodash/max';
     import mean from 'lodash/mean';
     import sortedUniq from 'lodash/sortedUniq';
     import throttle from 'lodash/throttle';
     import groupBy from "lodash/groupBy";
-    import ContentDetail from "@/components/content/ContentDetail";
     import { mapState } from "pinia";
+    import ContentLayout from "@/components/content/ContentLayout";
+    import UiSelect from "@/components/form/UiSelect";
+    import SectionHeader from "@/components/UI/SectionHeader";
+    import UiCheckbox from "@/components/form/UiCheckbox";
+    import MagicItemBody from "@/views/Treasures/MagicItems/MagicItemBody";
+    import SpellBody from "@/views/Spells/SpellBody";
+    import MagicItemLink from "@/views/Treasures/MagicItems/MagicItemLink";
+    import errorHandler from "@/common/helpers/errorHandler";
+    import ContentDetail from "@/components/content/ContentDetail";
     import { useUIStore } from "@/store/UI/UIStore";
-    import FieldInput from "@/components/form/FieldType/FieldInput";
-    import FormButton from "@/components/form/FormButton";
+    import UiInput from "@/components/form/UiInput";
+    import UiButton from "@/components/form/UiButton";
 
     export default {
         name: "TraderView",
         components: {
-            FormButton,
-            FieldInput,
+            UiButton,
+            UiInput,
             ContentDetail,
             MagicItemLink,
             SpellBody,
             MagicItemBody,
-            FieldCheckbox,
+            UiCheckbox,
             SectionHeader,
-            FieldSelect,
+            UiSelect,
             ContentLayout
         },
         data: () => ({
@@ -193,7 +193,7 @@
             showRightSide: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getFullscreen', 'getIsMobile']),
+            ...mapState(useUIStore, ['fullscreen', 'isMobile']),
 
             magicLevelsValue: {
                 get() {
@@ -240,7 +240,7 @@
             await this.getLevels();
         },
         mounted() {
-            this.showRightSide = !this.getIsMobile;
+            this.showRightSide = !this.isMobile;
         },
         methods: {
             async getLevels() {
@@ -355,6 +355,7 @@
                 } catch (err) {
                     this.error = true;
                     this.loading = false;
+
                     this.detailCard = {
                         item: undefined,
                         spell: undefined

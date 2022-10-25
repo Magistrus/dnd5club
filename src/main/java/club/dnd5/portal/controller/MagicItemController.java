@@ -29,7 +29,7 @@ public class MagicItemController {
 	@GetMapping("/items/magic")
 	public String getMagicItems(Model model) {
 		model.addAttribute("metaTitle", "Магические предметы (Magic items) D&D 5e");
-		model.addAttribute("metaUrl", "https://dnd5.club/items/magic");
+		model.addAttribute("metaUrl", "https://ttg.club/items/magic");
 		model.addAttribute("metaDescription", "Магические предметы и артефакты по D&D 5 редакции");
 		model.addAttribute("menuTitle", "Магические предметы");
 		return "items_magic";
@@ -43,7 +43,7 @@ public class MagicItemController {
 			return "forward: /error";
 		}
 		model.addAttribute("metaTitle", String.format("%s (%s) | Магические предметы D&D 5e", item.getName(), item.getEnglishName()));
-		model.addAttribute("metaUrl", "https://dnd5.club/items/magic/" + name);
+		model.addAttribute("metaUrl", "https://ttg.club/items/magic/" + name);
 		model.addAttribute("metaDescription", String.format("%s (%s) - %s %s", item.getName(), item.getEnglishName(), item.getRarity().getCyrilicName(), item.getType().getCyrilicName()));
 		Collection<String> images = imageRepo.findAllByTypeAndRefId(ImageType.MAGIC_ITEM, item.getId());
 		if (!images.isEmpty()) {

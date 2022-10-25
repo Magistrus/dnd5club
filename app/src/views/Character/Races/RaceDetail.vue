@@ -23,12 +23,12 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
     import SectionHeader from '@/components/UI/SectionHeader';
     import { useRacesStore } from '@/store/Character/RacesStore';
     import errorHandler from "@/common/helpers/errorHandler";
     import RaceBody from "@/views/Character/Races/RaceBody";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
 
     export default {
@@ -57,7 +57,7 @@
             error: false
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile'])
+            ...mapState(useUIStore, ['isMobile'])
         },
         async mounted() {
             await this.loadNewRace(this.$route.path);

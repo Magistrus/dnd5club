@@ -37,10 +37,10 @@
             </div>
 
             <div
-                v-if="getIsMobile && currentTab?.type === 'traits' && currentArchetypes.length"
+                v-if="isMobile && currentTab?.type === 'traits' && currentArchetypes.length"
                 class="class-detail__select"
             >
-                <field-select
+                <ui-select
                     :group-select="false"
                     :model-value="currentSelectArchetype"
                     :options="currentArchetypes"
@@ -62,7 +62,7 @@
                             @click.left.exact.prevent="goToArchetype(option.url)"
                         >{{ option.name }}</span>
                     </template>
-                </field-select>
+                </ui-select>
             </div>
         </template>
 
@@ -123,20 +123,20 @@
 </template>
 
 <script>
+    import { mapState } from "pinia";
+    import isArray from "lodash/isArray";
+    import sortBy from "lodash/sortBy";
+    import groupBy from "lodash/groupBy";
     import SectionHeader from '@/components/UI/SectionHeader';
     import SvgIcon from '@/components/UI/icons/SvgIcon';
     import { useClassesStore } from '@/store/Character/ClassesStore';
-    import FieldSelect from '@/components/form/FieldType/FieldSelect';
+    import UiSelect from '@/components/form/UiSelect';
     import SpellsView from "@/views/Spells/SpellsView";
     import errorHandler from "@/common/helpers/errorHandler";
     import OptionsView from "@/views/Character/Options/OptionsView";
     import RawContent from "@/components/content/RawContent";
     import ContentDetail from "@/components/content/ContentDetail";
-    import { mapState } from "pinia";
     import { useUIStore } from "@/store/UI/UIStore";
-    import isArray from "lodash/isArray";
-    import sortBy from "lodash/sortBy";
-    import groupBy from "lodash/groupBy";
 
     export default {
         name: 'ClassDetail',
@@ -145,7 +145,7 @@
             RawContent,
             OptionsView,
             SpellsView,
-            FieldSelect,
+            UiSelect,
             SvgIcon,
             SectionHeader
         },
@@ -176,7 +176,7 @@
             }
         }),
         computed: {
-            ...mapState(useUIStore, ['getIsMobile']),
+            ...mapState(useUIStore, ['isMobile']),
 
             classes() {
                 return this.classesStore.getClasses || [];
@@ -239,6 +239,7 @@
                     this.loading = true;
                     this.currentTab = undefined;
                     this.tabs = [];
+
                     this.images = {
                         show: false,
                         index: 0
@@ -511,7 +512,7 @@
         }
 
         &__select {
-            ::v-deep(.dnd5club-select) {
+            ::v-deep(.ttgclub-select) {
                 .multiselect {
                     border-width: 0 0 1px 0;
                     border-radius: 0;

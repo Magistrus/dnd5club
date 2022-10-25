@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import FilterService from '@/common/services/FilterService';
-import errorHandler from '@/common/helpers/errorHandler';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
 import isArray from 'lodash/isArray';
+import errorHandler from '@/common/helpers/errorHandler';
+import FilterService from '@/common/services/FilterService';
 
 const DB_NAME = 'classes';
 
@@ -84,6 +84,7 @@ export const useClassesStore = defineStore('ClassesStore', {
                     ],
                     ...options
                 };
+
                 const { data } = await this.$http.post(
                     this.config.url,
                     apiOptions,
