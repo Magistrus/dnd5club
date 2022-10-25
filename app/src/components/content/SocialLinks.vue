@@ -44,7 +44,7 @@
                     },
                     {
                         name: 'ВКонтакте',
-                        url: 'https://vk.com/ttgclub',
+                        url: 'https://vk.com/ttg.club',
                         icon: 'vk'
                     }
                 ]
