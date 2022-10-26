@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="${themeName}">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="'theme-' + ${themeName}">
 	<head>
 	 	<th:block th:fragment="mainLayout" >
             <meta charset="UTF-8">
@@ -48,6 +48,8 @@
             <link rel="stylesheet preload" as="style" th:href="@{|/css/app.css?v=${version}|}" />
             <!-- End Core CSS -->
 
+            <link rel="preload" as="image" th:href="'/img/' + ${themeName} + '/bg-main.webp'" />
+
             <th:block th:if="${profile eq 'prod'}">
                 <meta name="yandex-verification" content="fcb3cea757dfffdd" />
                 <!-- Google Tag Manager -->
@@ -85,7 +87,7 @@
             <div layout:fragment="content"></div>
         </div>
 
-        <img v-if="uiStore.theme && !uiStore.isMobile" :src="`/img/${uiStore.theme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.theme && !uiStore.isMobile" th::src="'`/img/${ uiStore.theme || \'' + ${themeName} + '\' }/bg-main.webp`'" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 

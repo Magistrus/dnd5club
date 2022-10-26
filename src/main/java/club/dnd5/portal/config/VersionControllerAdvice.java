@@ -21,13 +21,13 @@ public class VersionControllerAdvice {
 		model.addAttribute("version", version);
 		model.addAttribute("profile", profile);
 
-		String themeName = "theme-dark";
+		String themeName = "dark";
 		Cookie[] cookies = request.getCookies();
 
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("theme_name")) {
-					themeName = "theme-" + cookie.getValue();
+					themeName = cookie.getValue();
 				}
 			}
 		}
