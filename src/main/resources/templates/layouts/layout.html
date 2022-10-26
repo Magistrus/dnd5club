@@ -39,18 +39,13 @@
             <link rel="apple-touch-icon" sizes="512x512" href="/style/icons/512.png">
 
             <!-- Vue App -->
-            <link rel="preload" as="script" th:src="@{|/js/chunk-vendors.js?v=${version}|}">
-            <link rel="preload" as="script" th:src="@{|/js/app.js?v=${version}|}">
             <script defer="defer" th:src="@{|/js/chunk-vendors.js?v=${version}|}"></script>
             <script defer="defer" th:src="@{|/js/app.js?v=${version}|}"></script>
             <!-- End Vue App -->
 
-            <th:block th:if="${profile eq 'prod'}">
-                <!-- Core CSS -->
-                <link rel="preload" as="style" th:href="@{|/css/app.css?v=${version}|}" />
-                <link rel="stylesheet" th:href="@{|/css/app.css?v=${version}|}" />
-                <!-- End Core CSS -->
-            </th:block>
+            <!-- Core CSS -->
+            <link rel="stylesheet preload" as="style" th:href="@{|/css/app.css?v=${version}|}" />
+            <!-- End Core CSS -->
 
             <th:block th:if="${profile eq 'prod'}">
                 <meta name="yandex-verification" content="fcb3cea757dfffdd" />
