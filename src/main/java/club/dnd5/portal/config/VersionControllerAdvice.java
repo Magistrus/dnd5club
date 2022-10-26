@@ -20,19 +20,18 @@ public class VersionControllerAdvice {
 	public void handleRequest(HttpServletRequest request, Model model) {
 		model.addAttribute("version", version);
 		model.addAttribute("profile", profile);
-		model.addAttribute("themeName", "theme-dark");
 
+		String themeName = "theme-dark";
 		Cookie[] cookies = request.getCookies();
 
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("theme_name")) {
-					model.addAttribute(
-						"themeName",
-						new StringBuilder().append("theme-").append(cookie.getValue())
-					);
+					themeName = "theme-" + cookie.getValue();
 				}
 			}
 		}
+
+		model.addAttribute("themeName", themeName);
 	}
 }

@@ -8,6 +8,9 @@
 
             <meta name="robots" th:content="${profile eq 'prod' ? 'all' : 'noindex'}" />
 
+            <link rel="preconnect" href="https://image.ttg.club:8089/" crossorigin />
+            <link rel="dns-prefetch" href="https://image.ttg.club:8089/" crossorigin />
+
             <title th:text="${metaTitle eq null ? 'TTG Club Oнлайн-справочник' : metaTitle}">TTG.Club Oнлайн-справочник</title>
 
             <meta name="description" th:content="${metaDescription eq null ? 'TTG.Club - сайт, посвященный DnD 5-й редакции. Тут можно найти: расы, классы, заклинания, бестиарий, снаряжение, магические предметы и инструменты для облегчения игры как игрокам, так и мастерам - все в одном месте.' : metaDescription}"/>
@@ -41,9 +44,8 @@
             <!-- End Vue App -->
 
             <!-- Core CSS -->
-            <link rel="stylesheet" th:href="@{|/css/chunk-vendors.css?v=${version}|}" />
-            <link rel="stylesheet" th:href="@{|/css/app.css?v=${version}|}" />
-                <!-- End Core CSS -->
+            <link rel="stylesheet preload" as="style" th:href="@{|/css/app.css?v=${version}|}" />
+            <!-- End Core CSS -->
 
             <th:block th:if="${profile eq 'prod'}">
                 <meta name="yandex-verification" content="fcb3cea757dfffdd" />
@@ -82,7 +84,7 @@
             <div layout:fragment="content"></div>
         </div>
 
-        <img v-if="uiStore.theme" :src="`/img/${uiStore.theme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.theme && !uiStore.isMobile" :src="`/img/${uiStore.theme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 

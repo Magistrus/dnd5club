@@ -75,7 +75,7 @@ module.exports = defineConfig({
               .end();
     },
     css: {
-        extract: process.env.NODE_ENV === 'production'
+        extract: process.env.VUE_SERVE !== 'true'
             ? {
                 filename: 'css/[name].css',
                 chunkFilename: 'css/[name].[fullhash].css'

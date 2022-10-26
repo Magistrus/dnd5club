@@ -51,18 +51,19 @@ export const useUIStore = defineStore('UIStore', {
             }
         },
 
-        setTheme(payload = '') {
-            const themeName = payload || Cookies.get(THEME_DB_KEY) || 'dark';
+        getCookieTheme() {
+            return Cookies.get(THEME_DB_KEY) && ['light', 'dark'].includes(Cookies.get(THEME_DB_KEY))
+                ? Cookies.get(THEME_DB_KEY)
+                : 'dark';
+        },
+
+        setTheme({
+            name = '',
+            avoidHtmlUpdate = false
+        }) {
+            const themeName = name || 'dark';
 
             this.theme = themeName;
-
-            const html = document.querySelector('html');
-
-            if (!html) {
-                return;
-            }
-
-            html.dataset.theme = `theme-${ themeName }`;
 
             Cookies.set(
                 THEME_DB_KEY,
@@ -71,6 +72,16 @@ export const useUIStore = defineStore('UIStore', {
                     expires: 365
                 }
             );
+
+            if (!avoidHtmlUpdate) {
+                const html = document.querySelector('html');
+
+                if (!html) {
+                    return;
+                }
+
+                html.dataset.theme = `theme-${ themeName }`;
+            }
         },
 
         async setFullscreenState(payload) {
