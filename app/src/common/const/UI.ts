@@ -1,4 +1,4 @@
-export const DB_NAME = 'ttgclub';
+export const DB_NAME = 'dnd5club';
 
 export const THEME_DB_KEY = 'theme_name';
 

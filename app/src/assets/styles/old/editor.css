@@ -181,29 +181,29 @@
     height: 3px;
 }
 
-.editor_text ttgclub-saving-throw,
-.editor_text ttgclub-dice-text,
-.editor_text ttgclub-advantage,
-.editor_text ttgclub-disadvantage {
+.editor_text dnd5club-saving-throw,
+.editor_text dnd5club-dice-text,
+.editor_text dnd5club-advantage,
+.editor_text dnd5club-disadvantage {
     padding: 0 3px;
     border-radius: 4px;
     color: var(--text-btn-color);
 }
 
-.editor_text ttgclub-dice-text {
+.editor_text dnd5club-dice-text {
     background-color: var(--bg-dice);
     color: var(--text-btn-color)
 }
 
-.editor_text ttgclub-saving-throw {
+.editor_text dnd5club-saving-throw {
     background-color: var(--bg-advantage);
 }
 
-.editor_text ttgclub-advantage {
+.editor_text dnd5club-advantage {
     background-color: var(--bg-disadvantage);
 }
 
-.editor_text ttgclub-disadvantage {
+.editor_text dnd5club-disadvantage {
     background-color: var(--bg-saving_throw);
 }
 
@@ -383,28 +383,28 @@
     height: 3px;
 }
 
-.editor_readonly ttgclub-saving-throw,
-.editor_readonly ttgclub-dice-text,
-.editor_readonly ttgclub-advantage,
-.editor_readonly ttgclub-disadvantage {
+.editor_readonly dnd5club-saving-throw,
+.editor_readonly dnd5club-dice-text,
+.editor_readonly dnd5club-advantage,
+.editor_readonly dnd5club-disadvantage {
     padding: 0 3px;
     border-radius: 4px;
     color: var(--text-btn-color);
 }
 
-.editor_readonly ttgclub-dice-text {
+.editor_readonly dnd5club-dice-text {
     background-color: var(--bg-dice);
     color: var(--text-btn-color)
 }
 
-.editor_readonly ttgclub-saving-throw {
+.editor_readonly dnd5club-saving-throw {
     background-color: var(--bg-advantage);
 }
 
-.editor_readonly ttgclub-advantage {
+.editor_readonly dnd5club-advantage {
     background-color: var(--bg-disadvantage);
 }
 
-.editor_readonly ttgclub-disadvantage {
+.editor_readonly dnd5club-disadvantage {
     background-color: var(--bg-saving_throw);
 }

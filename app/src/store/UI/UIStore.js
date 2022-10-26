@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import localforage from 'localforage';
+import Cookies from 'js-cookie';
 import {
     DB_NAME, FULLSCREEN_DB_KEY, THEME_DB_KEY
 } from '@/common/const/UI';
@@ -25,34 +26,51 @@ export const useUIStore = defineStore('UIStore', {
     },
 
     actions: {
-        async setTheme(payload = '') {
+        async removeOldTheme() {
             try {
                 await this.store.ready();
 
                 const storageTheme = await this.store.getItem(THEME_DB_KEY)
-                    || localStorage.getItem('theme')
-                    || 'dark';
+                    || localStorage.getItem('theme');
 
-                const themeName = payload || storageTheme;
+                if (!storageTheme) {
+                    return Promise.resolve();
+                }
 
-                this.theme = themeName;
-
-                await this.store.setItem(THEME_DB_KEY, themeName);
+                if (await this.store.getItem(THEME_DB_KEY)) {
+                    await this.store.removeItem(THEME_DB_KEY);
+                }
 
                 if (localStorage.getItem(THEME_DB_KEY)) {
                     localStorage.removeItem(THEME_DB_KEY);
                 }
 
-                const html = document.querySelector('html');
-
-                if (!html) {
-                    return;
-                }
-
-                html.dataset.theme = `theme-${ themeName }`;
+                return Promise.resolve();
             } catch (err) {
-                errorHandler(err);
+                return Promise.reject(err);
             }
+        },
+
+        setTheme(payload = '') {
+            const themeName = payload || Cookies.get(THEME_DB_KEY) || 'dark';
+
+            this.theme = themeName;
+
+            const html = document.querySelector('html');
+
+            if (!html) {
+                return;
+            }
+
+            html.dataset.theme = `theme-${ themeName }`;
+
+            Cookies.set(
+                THEME_DB_KEY,
+                themeName,
+                {
+                    expires: 365
+                }
+            );
         },
 
         async setFullscreenState(payload) {

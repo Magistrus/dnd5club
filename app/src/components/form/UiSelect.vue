@@ -1,5 +1,5 @@
 <template>
-    <div class="ttgclub-select">
+    <div class="dnd5club-select">
         <multiselect
             v-bind="$props"
             @close="onClose"

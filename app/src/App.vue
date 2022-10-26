@@ -21,8 +21,15 @@
             // UI
             this.uiStore.watchWindowSize();
 
-            await this.uiStore.setTheme();
             await this.uiStore.setFullscreenState(false);
+
+            const html = document.querySelector('html');
+
+            if (!html?.dataset?.theme || !(/theme-[dark|light]/).test(html.dataset.theme)) {
+                this.uiStore.setTheme();
+            }
+
+            await this.uiStore.removeOldTheme();
         }
     };
 </script>

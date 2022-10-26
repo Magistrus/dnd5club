@@ -24,12 +24,8 @@
             >
                 <component
                     :is="component"
-                    v-model="abilities"
+                    v-if="component"
                 />
-            </div>
-
-            <div class="ability-calc__row">
-                <ability-table v-model="abilities"/>
             </div>
         </template>
     </page-layout>
@@ -38,7 +34,7 @@
 <script lang="ts">
     import type { Component } from "vue";
     import {
-        computed, defineComponent, onBeforeMount, ref
+        computed, defineComponent, ref, shallowRef
     } from "vue";
     import PageLayout from "@/components/content/PageLayout.vue";
     import UiSwitch from "@/components/form/UiSwitch.vue";
@@ -58,52 +54,36 @@
             UiSwitch
         },
         setup() {
-            const currentTab = ref<TCalcTab>({
-                id: 'random',
-                name: 'Случайный набор',
-                component: () => AbilityRandom
-            });
-
-            const component = computed<Component>(() => currentTab.value?.component);
-
             const tabs: TCalcTab[] = [
                 {
                     id: 'random',
                     name: 'Случайный набор',
-                    component: () => AbilityRandom
+                    component: shallowRef(AbilityRandom)
                 },
                 {
                     id: 'point-buy',
                     name: '«Покупка» значений',
-                    component: () => AbilityRandom
+                    component: shallowRef(AbilityRandom)
                 },
                 {
                     id: 'standard',
                     name: 'Стандартный набор',
-                    component: () => AbilityRandom
+                    component: shallowRef(AbilityRandom)
                 }
             ];
 
-            const initialAbilities = {
-                str: {},
-                dex: {},
-                con: {},
-                int: {},
-                wis: {},
-                cha: {}
-            };
-
-            const abilities = ref();
-
-            onBeforeMount(() => {
-                abilities.value = initialAbilities;
+            const currentTab = ref({
+                id: 'random',
+                name: 'Случайный набор',
+                component: shallowRef(AbilityRandom)
             });
+
+            const component = computed(() => currentTab.value?.component || null);
 
             return {
                 tabs,
                 currentTab,
-                component,
-                abilities
+                component
             };
         }
     });

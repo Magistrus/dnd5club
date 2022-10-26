@@ -12,12 +12,11 @@
     </span>
 </template>
 
-<script>
-    import { DiceRoller } from 'dice-roller-parser';
-    import { POSITION, useToast } from "vue-toastification";
+<script lang="ts">
+    import { useToast } from "vue-toastification";
     import { computed, ref } from "vue";
-    import { getRendered } from "@/common/utils/DiceRollRenderer";
     import { useIsDev } from "@/common/helpers/isDev";
+    import { useDiceRoller } from "@/common/composition/useDiceRoller";
 
     export default {
         name: "DiceRoller",
@@ -44,9 +43,13 @@
                 default: false
             }
         },
+
+        // TODO: Решить проблему с props в Typescript
+        // @ts-ignore
         setup(props) {
             const isDev = useIsDev();
             const toast = useToast();
+            const { doRoll, notifyResult } = useDiceRoller();
             const error = ref(false);
 
             const classByType = computed(() => {
@@ -75,73 +78,19 @@
                 return result;
             });
 
-            /**
-             * Получение формулы броска
-             *
-             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
-             * @return { string }
-             */
-            const getComputedFormula = (type = undefined) => {
-                const formula = props.formula
-                    .replace(/к/gim, 'd')
-                    .replace(/−/gim, '-');
-
-                if (props.isAdvantage || type === 'advantage') {
-                    if (formula.startsWith('d20') || formula.startsWith('1d20')) {
-                        return formula
-                            .replace(/1?d20/gim, '2d20kh1');
-                    }
-
-                    return `${ formula }+${ formula.match(/[0-9]*d\d+/g) }`;
-                }
-
-                if (props.isDisadvantage || type === 'disadvantage') {
-                    if (formula.startsWith('d20') || formula.startsWith('1d20')) {
-                        return formula
-                            .replace(/1?d20/gim, '2d20kl1');
-                    }
-
-                    return `(${ formula })/2`;
-                }
-
-                return formula;
-            };
-
-            /**
-             * Выполнение броска
-             *
-             * @param { 'advantage' | 'disadvantage' | undefined } type - Бросок с преимуществом или помехой
-             */
-            const tryRoll = (type = undefined) => {
+            const tryRoll = (type?: 'advantage' | 'disadvantage') => {
                 try {
-                    error.value = false;
-
-                    const roller = new DiceRoller();
-                    const roll = roller.roll(getComputedFormula(type));
-
-                    let labelSuffix = '';
-
-                    if (type && (roll.dice?.[0]?.die?.value === 20 || roll.die?.value === 20)) {
-                        labelSuffix = type === 'disadvantage' || props.isDisadvantage ? ' (помеха)' : ' (преимущество)';
-                    } else if (type) {
-                        labelSuffix = type === 'disadvantage' ? ' (1/2)' : ' (удвоенный бросок)';
-                    }
-
-                    toast(getRendered({
-                        roll,
-                        label: `${ props.label }${ labelSuffix }`,
-                        advantage: type === 'advantage' || props.isAdvantage,
-                        disadvantage: type === 'disadvantage' || props.isDisadvantage
-                    }), {
-                        position: POSITION.BOTTOM_RIGHT,
-                        timeout: 5000,
-                        icon: false
+                    notifyResult({
+                        label: props.label,
+                        roll: doRoll({
+                            formula: props.formula,
+                            type
+                        }),
+                        type
                     });
                 } catch (err) {
-                    error.value = true;
-
                     if (isDev) {
-                        throw new Error(err);
+                        console.error(err);
                     }
 
                     toast.error('Произошла ошибка, попробуйте еще раз...');

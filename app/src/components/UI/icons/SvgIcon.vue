@@ -32,7 +32,7 @@
         },
         computed: {
             svg() {
-                return `#ttgclub-icon-${ this.iconName }`;
+                return `#dnd5club-icon-${ this.iconName }`;
             },
 
             classList() {
