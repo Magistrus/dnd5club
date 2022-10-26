@@ -17,6 +17,7 @@ public class NameValueApi {
 	private String shortName;
 	private Object value;
 	private Object additional;
+
 	public NameValueApi(String name, Object value) {
 		this.name = name;
 		this.value = value;
@@ -24,17 +25,13 @@ public class NameValueApi {
 	
 	public NameValueApi(String name, String shortName, Byte value) {
 		this.name = name;
-		if (value != 0) {
-			this.value = value;
-		}
+		this.value = value;
 		this.shortName = shortName;
 	}
 
 	public NameValueApi(String name, String shortName, Byte value, Object additional) {
 		this.name = name;
-		if (value != 0) {
-			this.value = value;
-		}
+		this.value = value;
 		this.shortName = shortName;
 		this.additional = additional;
 	}
