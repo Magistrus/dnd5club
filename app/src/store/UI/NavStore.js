@@ -163,7 +163,7 @@ export const useNavStore = defineStore('NavStore', {
                         },
                         {
                             label: 'Мы в ВКонтакте',
-                            url: 'https://vk.com/ttgclub',
+                            url: 'https://vk.com/ttg.club',
                             external: true
                         },
                         {
