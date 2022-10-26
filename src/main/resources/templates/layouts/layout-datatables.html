@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="${themeName}">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="'theme-' + ${themeName}">
 	<head>
 		<th:block th:replace="layouts/layout :: mainLayout"/>
 	</head>
@@ -18,7 +18,7 @@
             <router-view></router-view>
         </div>
 
-        <img v-if="uiStore.theme && !uiStore.isMobile" :src="`/img/${uiStore.theme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.theme && !uiStore.isMobile" th::src="'`/img/${ uiStore.theme || \'' + ${themeName} + '\' }/bg-main.webp`'" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 	<th:block th:replace="layouts/layout :: mainJS"/>
