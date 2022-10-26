@@ -9,7 +9,7 @@
         <img
             :alt="title"
             class="auth-reg-modal__bg"
-            src="/img/bg_login.png"
+            src="/img/bg_login.webp"
         >
 
         <div class="auth-reg-modal__content">
