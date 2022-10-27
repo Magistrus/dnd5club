@@ -87,7 +87,7 @@
                     </template>
 
                     <template #default>
-                        <span>Добавить группу</span>
+                        Добавить группу
                     </template>
                 </ui-button>
             </div>
