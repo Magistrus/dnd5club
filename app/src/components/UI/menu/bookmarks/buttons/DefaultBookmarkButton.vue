@@ -3,6 +3,7 @@
         v-tippy="{ content: 'Добавить в закладки' }"
         class="default-bookmark-button"
         type-link-filled
+        is-icon
         @click.left.exact.prevent.stop="updateBookmark"
         @dblclick.prevent.stop
     >

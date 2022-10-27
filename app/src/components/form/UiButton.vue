@@ -5,7 +5,33 @@
         class="ui-button"
         type="button"
     >
-        <slot/>
+        <span
+            v-if="$slots['icon-left']"
+            class="ui-button__icon is-left"
+        >
+            <slot name="icon-left"/>
+        </span>
+
+        <span
+            v-if="isIcon"
+            class="ui-button__icon"
+        >
+            <slot name="default"/>
+        </span>
+
+        <span
+            v-else
+            class="ui-button__text"
+        >
+            <slot name="default"/>
+        </span>
+
+        <span
+            v-if="$slots['icon-right']"
+            class="ui-button__icon is-right"
+        >
+            <slot name="icon-right"/>
+        </span>
     </button>
 </template>
 
@@ -27,6 +53,10 @@
                 default: true
             },
             disabled: {
+                type: Boolean,
+                default: false
+            },
+            isIcon: {
                 type: Boolean,
                 default: false
             },
@@ -96,12 +126,9 @@
         align-items: center;
         justify-content: center;
         margin: 0;
-        line-height: 16px;
-
-        &.is-full-width {
-            display: flex;
-            width: 100%;
-        }
+        flex-shrink: 0;
+        font-size: var(--main-font-size);
+        line-height: var(--main-font-size);
 
         & + & {
             margin-left: 16px;
@@ -128,10 +155,84 @@
             cursor: not-allowed;
         }
 
-        ::v-deep(svg) {
+        &__text {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 24px;
             height: 24px;
-            margin-right: 12px;
+            flex-shrink: 0;
+
+            &.is-left {
+                .ui-button__text {
+                    margin-left: 12px;
+                }
+            }
+
+            &.is-right {
+                .ui-button__text {
+                    margin-right: 12px;
+                }
+            }
+        }
+
+        &.is-full-width {
+            display: flex;
+            width: 100%;
+        }
+
+        &.is-small {
+            padding: 8px;
+
+            & + & {
+                margin-left: 8px;
+            }
+
+            .ui-button__icon {
+                width: 18px;
+                height: 18px;
+
+                &.is-left {
+                    .ui-button__text {
+                        margin-left: 8px;
+                    }
+                }
+
+                &.is-right {
+                    .ui-button__text {
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+
+        &.is-large {
+            padding: 16px;
+
+            & + & {
+                margin-left: 16px;
+            }
+
+            .ui-button__icon {
+                &.is-left {
+                    .ui-button__text {
+                        margin-left: 16px;
+                    }
+                }
+
+                &.is-right {
+                    .ui-button__text {
+                        margin-right: 16px;
+                    }
+                }
+            }
         }
 
         &.is-link {
@@ -180,34 +281,6 @@
                 background-color: transparent;
                 color: var(--primary);
                 cursor: not-allowed;
-            }
-        }
-
-        &.is-small {
-            padding: 8px;
-
-            & + & {
-                margin-left: 8px;
-            }
-
-            ::v-deep(svg) {
-                width: 18px;
-                height: 18px;
-                margin-right: 8px;
-            }
-        }
-
-        &.is-large {
-            padding: 16px;
-
-            & + & {
-                margin-left: 16px;
-            }
-
-            ::v-deep(svg) {
-                width: 24px;
-                height: 24px;
-                margin-right: 12px;
             }
         }
     }
