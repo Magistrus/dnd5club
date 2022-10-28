@@ -4,6 +4,7 @@
             v-tippy="{ content: 'Добавить в закладки' }"
             class="custom-bookmark-button"
             type-link-filled
+            is-icon
             @click.left.exact.prevent.stop="toggleSubmenu"
         >
             <svg-icon

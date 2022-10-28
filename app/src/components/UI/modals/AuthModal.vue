@@ -16,6 +16,7 @@
             <ui-button
                 class="auth-reg-modal__close"
                 type-link
+                is-icon
                 @click.left.exact.prevent="$emit('close')"
             >
                 <svg-icon icon-name="close"/>

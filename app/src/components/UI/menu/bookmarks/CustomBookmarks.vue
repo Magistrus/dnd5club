@@ -12,6 +12,7 @@
                 v-if="isMobile"
                 v-tippy="{ content: 'Перейти в режим редактирования' }"
                 is-small
+                is-icon
                 :type-link-filled="!isEdit"
                 @click.left.exact.prevent="isEdit = !isEdit"
             >
@@ -54,6 +55,7 @@
                     <ui-button
                         type-link-filled
                         is-small
+                        is-icon
                         @click.left.exact.prevent="createGroup"
                     >
                         <svg-icon icon-name="check"/>
@@ -62,6 +64,7 @@
                     <ui-button
                         type-link-filled
                         is-small
+                        is-icon
                         @click.left.exact.prevent="disableGroupCreating"
                     >
                         <svg-icon icon-name="close"/>
@@ -75,13 +78,17 @@
                     is-small
                     @click.left.exact.prevent="enableGroupCreating"
                 >
-                    <svg-icon
-                        icon-name="plus"
-                        :stroke-enable="false"
-                        fill-enable
-                    />
+                    <template #icon-left>
+                        <svg-icon
+                            icon-name="plus"
+                            :stroke-enable="false"
+                            fill-enable
+                        />
+                    </template>
 
-                    <span>Добавить группу</span>
+                    <template #default>
+                        Добавить группу
+                    </template>
                 </ui-button>
             </div>
         </div>

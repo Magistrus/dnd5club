@@ -81,6 +81,7 @@
                 <ui-button
                     type-link-filled
                     is-small
+                    is-icon
                     @click.left.exact.prevent="createCategory"
                 >
                     <svg-icon icon-name="check"/>
@@ -89,6 +90,7 @@
                 <ui-button
                     type-link-filled
                     is-small
+                    is-icon
                     @click.left.exact.prevent="disableCategoryCreating"
                 >
                     <svg-icon icon-name="close"/>
