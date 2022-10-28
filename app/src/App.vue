@@ -8,21 +8,39 @@
             userStore: useUserStore()
         }),
         async beforeMount() {
-            try {
-                // User
-                if (await this.userStore.getUserStatus()) {
-                    await this.userStore.getUserInfo();
-                }
-            } catch (err) {
-                this.userStore.clearUser();
-            }
+            await this.initUser();
         },
         async mounted() {
-            // UI
-            this.uiStore.watchWindowSize();
+            await this.initWindowSize();
+            await this.initTheme();
+        },
+        methods: {
+            async initTheme() {
+                await this.uiStore.removeOldTheme();
 
-            await this.uiStore.setTheme();
-            await this.uiStore.setFullscreenState(false);
+                const html = document.querySelector('html');
+
+                this.uiStore.setTheme({
+                    name: this.uiStore.getCookieTheme(),
+                    avoidHtmlUpdate: ['theme-light', 'theme-dark'].includes(html?.dataset?.theme)
+                });
+            },
+
+            async initWindowSize() {
+                this.uiStore.watchWindowSize();
+
+                await this.uiStore.setFullscreenState(false);
+            },
+
+            async initUser() {
+                try {
+                    if (await this.userStore.getUserStatus()) {
+                        await this.userStore.getUserInfo();
+                    }
+                } catch (err) {
+                    this.userStore.clearUser();
+                }
+            }
         }
     };
 </script>

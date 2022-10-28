@@ -27,7 +27,7 @@
                 : 'dark'));
 
             const switchTheme = async () => {
-                await uiStore.setTheme(icon.value);
+                await uiStore.setTheme({ name: icon.value });
             };
 
             return {

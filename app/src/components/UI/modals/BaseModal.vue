@@ -21,6 +21,7 @@
             <ui-button
                 class="base-modal__close"
                 type-link
+                is-icon
                 @click.left.exact.prevent="close"
             >
                 <svg-icon icon-name="close"/>

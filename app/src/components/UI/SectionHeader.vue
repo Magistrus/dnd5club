@@ -44,6 +44,7 @@
                     v-tippy="{ content: 'Открыть окно печати' }"
                     class="section-header__control--optional is-only-desktop"
                     type-link-filled
+                    is-icon
                     @click.left.exact.prevent.stop="openPrintWindow"
                 >
                     <svg-icon icon-name="print"/>
@@ -54,6 +55,7 @@
                     v-tippy="{ content: 'Импорт в Foundry VTT. <a href=&quot;/fvtt_import&quot;>Инструкция</a>' }"
                     class="section-header__control--optional is-only-desktop"
                     type-link-filled
+                    is-icon
                     @click.left.exact.prevent.stop="$emit('exportFoundry')"
                 >
                     <svg-icon icon-name="export-foundry"/>

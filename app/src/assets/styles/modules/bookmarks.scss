@@ -44,15 +44,10 @@
       padding: 6px !important;
       justify-content: flex-start !important;
 
-      svg {
-        flex-shrink: 0;
-        width: 24px !important;
-        height: 24px !important;
-        cursor: pointer;
+      .ui-button__icon {
         background: var(--bg-sub-menu);
-        border-radius: 4px;
         color: var(--text-color-title);
-        padding: 2px;
+        border-radius: 4px;
       }
 
       @include media-min($md) {
@@ -86,10 +81,6 @@
   &__new {
     justify-content: left;
     width: 100%;
-
-    span {
-      margin-left: 8px;
-    }
   }
 
   &__drop {
@@ -434,14 +425,11 @@
 
     .ui-input {
       width: initial;
-      flex: 1 1 100%;
+      flex: 1 1 auto;
       margin-right: 8px;
     }
 
     .ui-button {
-      display: block;
-      width: initial;
-      flex: 1 1 auto;
       margin-left: 0 !important;
     }
   }

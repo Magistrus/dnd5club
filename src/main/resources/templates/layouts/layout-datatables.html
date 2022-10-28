@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="${session.theme eq null ? 'theme-dark': session.theme}">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" th:data-theme="'theme-' + ${themeName}">
 	<head>
 		<th:block th:replace="layouts/layout :: mainLayout"/>
 	</head>
@@ -11,14 +11,14 @@
         <!-- End Google Tag Manager (noscript) -->
     </th:block>
 
-    <div id="ttgclub" class="ttgclub">
+    <div id="dnd5club" class="dnd5club">
 		<nav-bar th:section="${menuTitle}"></nav-bar>
 
         <div id="container" class="container">
             <router-view></router-view>
         </div>
 
-        <img v-if="uiStore.theme" :src="`/img/${uiStore.theme}/bg-main.webp`" alt="img-bg" class="bg-img-main">
+        <img v-if="uiStore.theme && !uiStore.isMobile" th::src="'`/img/${ uiStore.theme || \'' + ${themeName} + '\' }/bg-main.webp`'" alt="img-bg" class="bg-img-main">
     </div>
 	</body>
 	<th:block th:replace="layouts/layout :: mainJS"/>

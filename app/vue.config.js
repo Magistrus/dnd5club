@@ -52,7 +52,7 @@ module.exports = defineConfig({
               .end()
               .use('svg-sprite-loader')
               .loader('svg-sprite-loader')
-              .options({ symbolId: 'ttgclub-icon-[name]' })
+              .options({ symbolId: 'dnd5club-icon-[name]' })
               .end()
               .use('svgo-loader')
               .loader('svgo-loader')
@@ -75,7 +75,7 @@ module.exports = defineConfig({
               .end();
     },
     css: {
-        extract: process.env.NODE_ENV === 'production'
+        extract: process.env.VUE_SERVE !== 'true'
             ? {
                 filename: 'css/[name].css',
                 chunkFilename: 'css/[name].[fullhash].css'
