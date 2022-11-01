@@ -11,7 +11,6 @@
                     <ui-select
                         v-model="crValue"
                         :options="crList"
-                        :searchable="false"
                         label="name"
                         track-by="value"
                     >

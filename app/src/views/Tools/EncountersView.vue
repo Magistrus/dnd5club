@@ -13,7 +13,6 @@
                             <ui-select
                                 v-model="level"
                                 :options="levels"
-                                :searchable="false"
                                 label="name"
                                 track-by="value"
                             >
@@ -29,7 +28,6 @@
                             <ui-select
                                 v-model="env"
                                 :options="environments"
-                                :searchable="false"
                                 label="name"
                                 track-by="value"
                             >

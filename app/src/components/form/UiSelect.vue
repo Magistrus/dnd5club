@@ -1,5 +1,12 @@
 <template>
     <div class="dnd5club-select">
+        <div
+            v-if="$slots['left-slot']"
+            class="dnd5club-select__slot is-left"
+        >
+            <slot name="left-slot"/>
+        </div>
+
         <multiselect
             v-bind="$props"
             @close="onClose"
@@ -132,7 +139,7 @@
             },
             searchable: {
                 type: Boolean,
-                default: true
+                default: false
             },
             taggable: {
                 type: Boolean,
@@ -247,3 +254,28 @@
         }
     });
 </script>
+
+<style lang="scss">
+    .dnd5club-select {
+        display: flex;
+
+        &__slot {
+            padding: 8px;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: var(--main-font-size);
+            line-height: var(--main-line-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            flex-shrink: 0;
+            font-weight: 600;
+
+            &.is-left {
+                margin-right: 8px;
+            }
+        }
+    }
+</style>
