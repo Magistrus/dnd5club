@@ -13,7 +13,6 @@
                             <ui-select
                                 v-model="magicLevelsValue"
                                 :options="magicLevels"
-                                :searchable="false"
                                 label="name"
                                 track-by="value"
                             >

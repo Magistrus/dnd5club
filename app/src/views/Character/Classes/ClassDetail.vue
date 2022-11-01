@@ -44,7 +44,6 @@
                     :group-select="false"
                     :model-value="currentSelectArchetype"
                     :options="currentArchetypes"
-                    :searchable="false"
                     group-label="group"
                     group-values="list"
                     label="name"
